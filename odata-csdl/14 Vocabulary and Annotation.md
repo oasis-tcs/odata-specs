@@ -36,7 +36,9 @@ vocabularies such as the OData Core vocabulary
 
 A [term](#Term) can be used to:
 - Extend model elements and type instances
-with additional information.
+with additional information. Type instances are instances of a [primitive type](#PrimitiveTypes),
+including [type definitions](#TypeDefinition) and [enumeration types](#EnumerationType),
+of an [entity type](#EntityType), or of a [complex type](#ComplexType).
 - Map instances of annotated structured
 types to an interface defined by the term type; i.e. annotations allow
 viewing instances of a structured type as instances of a differently
@@ -84,9 +86,14 @@ type specified by the term `SearchResult`
       "$Apply": [
         "Products(",
         {
-          "$Path": "ID"
-        },
-        ")"
+          "$Apply": [
+            {
+              "$Path": "ID"
+            },
+            ")"
+          ],
+          "$Function": "odata.concat"
+        }
       ],
       "$Function": "odata.concat"
     }
@@ -109,7 +116,7 @@ type specified by the term `SearchResult`
   <Property Name="ID" Nullable="false" Type="Edm.Int32" />
   <Property Name="Name" Type="Edm.String" />
   <Property Name="Description" Type="Edm.String" />
-  ...
+  …
   <Annotation Term="UI.DisplayName" Path="Name" />
   <Annotation Term="SearchVocabulary.SearchResult">
     <Record>
@@ -118,8 +125,10 @@ type specified by the term `SearchResult`
       <PropertyValue Property="Url">
         <Apply Function="odata.concat">
           <String>Products(</String>
-          <Path>ID</Path>
-          <String>)</String>
+          <Apply Function="odata.concat">
+            <Path>ID</Path>
+            <String>)</String>
+          </Apply>
         </Apply>
       </PropertyValue>
     </Record>
@@ -316,14 +325,14 @@ Symbolic Value|Model Element
 `Null`                    |Null annotation expression
 `OnDelete`                |On-Delete Action of a navigation property
 `Parameter`               |Action of Function Parameter
-`Property`                |Property of a structured type
+`Property`                |Structural Property
 `PropertyValue`           |Property value of a Record annotation expression
 `Record`                  |Record annotation expression
 `Reference`               |Reference to another CSDL document
 `ReferentialConstraint`   |Referential Constraint of a navigation property
 `ReturnType`              |Return Type of an Action or Function
 `Schema`                  |Schema
-`Singleton`               |Singleton
+`Singleton`               |Singleton or single-valued Property or Navigation Property
 `Term`                    |Term
 `TypeDefinition`          |Type Definition
 `UrlRef`                  |UrlRef annotation expression
@@ -346,10 +355,10 @@ are defined in [OData-VocCore](#ODataVocCore))
   "$Type": "Core.Tag",
   "$DefaultValue": true,
   "$AppliesTo": [
-    "Property"
+    "Property",
+    "Term"
   ],
-  "@Core.Description": "Properties and terms annotated with this term
-MUST contain a valid URL",
+  "@Core.Description": "Properties and terms annotated with this term MUST contain a valid URL",
   "@Core.RequiresType": "Edm.String"
 }
 ```
@@ -1210,20 +1219,19 @@ term.
 
 Path expressions allow assigning a value to an applied term or term
 component. There are two kinds of path expressions:
-- A *model path* is used within
+- A *model path* is evaluated on the entity model of a service and resolves to a model element.
+Model paths are used within
 [Annotation Path](#AnnotationPath), [Model Element Path](#ModelElementPath),
-[Navigation Property Path](#NavigationPropertyPath), and [Property
-Path](#PropertyPath) expressions to traverse the model of a service and
-resolves to the model element identified by the path. It allows
-assigning values to terms or term properties of the [built-in
-types](#BuiltInTypesfordefiningVocabularyTerms) `Edm.AnnotationPath`,
-`Edm.NavigationPropertyPath`, `Edm.PropertyPath`, and their base types
-`Edm.AnyPropertyPath` and `Edm.ModelElementPath`.
-- An *instance path* is used within a
-[Value Path](#ValuePath) expression to traverse a graph of type
-instances and resolves to the value identified by the path. It allows
-assigning values to terms or term properties of built-in types other
-than the `Edm.*Path` types, or of any model-defined type.
+[Navigation Property Path](#NavigationPropertyPath), and [Property Path](#PropertyPath) expressions.
+They allow assigning values to terms or term properties of the 
+[built-in types](#BuiltInTypesfordefiningVocabularyTerms) `Edm.AnnotationPath`,
+`Edm.ModelElementPath`, `Edm.NavigationPropertyPath`, `Edm.PropertyPath`, and
+`Edm.AnyPropertyPath`.
+- An *instance path* is evaluated on a type instance and its nested or related type instances
+and resolves to the instance or collection of instances identified by the path.
+Instance paths are used within [Value Path](#ValuePath) expressions.
+They allow assigning values to terms or term properties of model-defined types or of built-in types other
+than the `Edm.*Path` types.
 
 #### ##subsubsubsec Path Syntax
 
@@ -1265,7 +1273,7 @@ the null value.
 ::: example
 Example ##ex: type-cast segment
 ```
-.../self.Manager/...
+…/self.Manager/…
 ```
 :::
 
@@ -1290,7 +1298,7 @@ properties:
 ::: example
 Example ##ex: term-cast segments
 ```
-.../@Capabilities.SortRestrictions/...
+…/@Capabilities.SortRestrictions/…
 ```
 :::
 
@@ -1310,7 +1318,7 @@ expression is the model element reached via this path.
 ::: example
 Example ##ex: property segments in model path
 ```
-.../Orders/Items/Product/...
+…/Orders/Items/Product/…
 ```
 :::
 
@@ -1330,11 +1338,11 @@ number of items in the collection identified by the preceding segment.
 ::: example
 Example ##ex: property segments in instance path
 ```
-.../Addresses/Street
+…/Addresses/Street
 ```
 
 ```
-.../Addresses/$count
+…/Addresses/$count
 ```
 :::
 
@@ -1351,9 +1359,14 @@ type specified by the navigation property are addressed via a [term-cast
 segment](#TermCast).
 
 ::: example
-Example ##ex: model path addressing an annotation on a navigation property
+Example ##ex: model path segment addressing an annotation on a navigation property
+vs. term cast addressing an annotation on the resource addressed by the navigation property
 ```
-.../Items@Capabilities.InsertRestrictions/Insertable
+…/Items@Core.Description
+```
+
+```
+…/Items/@Core.Description
 ```
 :::
 
@@ -1482,7 +1495,7 @@ enclosing type `self.A` of the hosting property `A2`.
       "@Core.Description@Core.IsLanguageDependent": {
         "$Path": "A1"
       },
-      "@Core.Description": "..."
+      "@Core.Description": "…"
     }
   },
   "B": {
@@ -1500,7 +1513,7 @@ enclosing type `self.A` of the hosting property `A2`.
   <EntityType Name="A">
     <Property Name="A1" Type="Edm.Boolean" Nullable="false" />
     <Property Name="A2" Type="self.B" Nullable="false">
-      <Annotation Term="Core.Description" String="...">
+      <Annotation Term="Core.Description" String="…">
         <Annotation Term="Core.IsLanguageDependent" Path="A1" />
       </Annotation>
     </Property>
@@ -1524,12 +1537,12 @@ type `self.B` of the hosting property `A2`.
   },
   "$Annotations": {
     "self.Container/SetA/A2": {
-      "@Core.Description#viaset@Core.IsLanguageDependent": {
+      "@Core.Description#viaSet@Core.IsLanguageDependent": {
         "$Path": "B1"
       },
-      "@Core.Description#viaset": "..."
+      "@Core.Description#viaSet": "…"
     },
-    "self.Container/SetA/A2/@Core.Description#viaset": {
+    "self.Container/SetA/A2/@Core.Description#viaSet": {
       "@Core.IsLanguageDependent": {
         "$Path": "B1"
       }
@@ -1543,11 +1556,11 @@ type `self.B` of the hosting property `A2`.
     <EntitySet Name="SetA" EntityType="self.A" />
   </EntityContainer>
   <Annotations Target="self.Container/SetA/A2">
-    <Annotation Term="Core.Description" Qualifier="viaset" String="...">
+    <Annotation Term="Core.Description" Qualifier="viaSet" String="…">
       <Annotation Term="Core.IsLanguageDependent" Path="B1" />
     </Annotation>
   </Annotations>
-  <Annotations Target="self.Container/SetA/A2/@Core.Description#viaset">
+  <Annotations Target="self.Container/SetA/A2/@Core.Description#viaSet">
     <Annotation Term="Core.IsLanguageDependent" Path="B1" />
   </Annotations>
 ```
@@ -1561,7 +1574,7 @@ type `self.A` named in the target path.
       "@Core.Description#external@Core.IsLanguageDependent": {
         "$Path": "A1"
       },
-      "@Core.Description#external": "..."
+      "@Core.Description#external": "…"
     },
     "self.A/A2/@Core.Description": {
       "@Core.IsLanguageDependent": {
@@ -1576,7 +1589,7 @@ type `self.A` named in the target path.
 :::: varxml
 ```xml
   <Annotations Target="self.A/A2">
-    <Annotation Term="Core.Description" Qualifier="external" String="...">
+    <Annotation Term="Core.Description" Qualifier="external" String="…">
       <Annotation Term="Core.IsLanguageDependent" Path="A1" />
     </Annotation>
   </Annotations>
@@ -1596,16 +1609,15 @@ properties that specify the [built-in
 types](#BuiltInTypesfordefiningVocabularyTerms)
 `Edm.AnnotationPath` or `Edm.ModelElementPath`. Its argument is a [model
 path](#PathExpressions) with the following restriction:
-- A non-null path MUST resolve to an annotation.
+- A non-null path MUST resolve to an [annotation](#Annotation).
+
+The value of the annotation path expression is the _path_ to the annotation, not its instance value.
+This is useful for terms that reuse or refer to other terms.
 
 A term or term property of type `Edm.AnnotationPath` can be annotated
-with term `Validation.AllowedTerms` (see
+with the term `Validation.AllowedTerms` (see
 [OData-VocValidation](#ODataVocValidation)) if its intended value is an
 annotation path that ends in a term cast with one of the listed terms.
-
-The value of the annotation path expression is the path itself, not the
-value of the annotation identified by the path. This is useful for terms
-that reuse or refer to other terms.
 
 ::: {.varjson .rep}
 Annotation path expressions are represented as a string containing a
@@ -1649,7 +1661,7 @@ Example ##ex:
 
 The model element path expression provides a value for terms or term
 properties that specify the [built-in
-type](#BuiltInTypesfordefiningVocabularyTerms)` Edm.ModelElementPath`. Its
+type](#BuiltInTypesfordefiningVocabularyTerms) `Edm.ModelElementPath`. Its
 argument is a [model path](#PathExpressions).
 
 The value of the model element path expression is the path itself, not
@@ -1691,7 +1703,7 @@ Example ##ex:
 The navigation property path expression provides a value for terms or
 term properties that specify the [built-in
 types](#BuiltInTypesfordefiningVocabularyTerms)
-`Edm.NavigationPropertyPath, Edm.AnyPropertyPath, or Edm.ModelElementPath`.
+`Edm.NavigationPropertyPath`, `Edm.AnyPropertyPath`, or `Edm.ModelElementPath`.
 Its argument is a [model path](#PathExpressions) with the following
 restriction:
 - A non-null path MUST resolve to a model
@@ -1699,7 +1711,7 @@ element whose type is an entity type, or a collection of entity types,
 e.g. a navigation property.
 
 The value of the navigation property path expression is the path itself,
-not the entitiy or collection of entities identified by the path.
+not the entity or collection of entities identified by the path.
 
 ::: {.varjson .rep}
 Navigation property path expressions are represented as a string
@@ -1710,7 +1722,6 @@ containing a path.
 Example ##ex:
 ```json
 "@UI.HyperLink": "Supplier",
-
 "@Capabilities.UpdateRestrictions": {
   "NonUpdatableNavigationProperties": [
     "Supplier",
@@ -1750,7 +1761,7 @@ Example ##ex:
 The property path expression provides a value for terms or term
 properties that specify one of the [built-in
 types](#BuiltInTypesfordefiningVocabularyTerms)
-`Edm.PropertyPath, Edm.AnyPropertyPath, or Edm.ModelElementPath`. Its
+`Edm.PropertyPath`, `Edm.AnyPropertyPath`, or `Edm.ModelElementPath`. Its
 argument is a [model path](#PathExpressions) with the following
 restriction:
 - A non-null path MUST resolve to a model
@@ -1758,7 +1769,7 @@ element whose type is a primitive or complex type, an enumeration type,
 a type definition, or a collection of one of these types.
 
 The value of the property path expression is the path itself, not the
-value of the structural property or the value of the term cast
+value of the structural property or annotation
 identified by the path.
 
 ::: {.varjson .rep}
@@ -1769,7 +1780,6 @@ Property path expressions are represented as a string containing a path.
 Example ##ex:
 ```json
 "@UI.RefreshOnChangeOf": "ChangedAt",
-
 "@Capabilities.UpdateRestrictions": {
   "NonUpdatableProperties": [
     "CreatedAt",
@@ -1828,7 +1838,6 @@ Example ##ex:
 "@UI.DisplayName": {
   "$Path": "FirstName"
 },
-
 "@UI.DisplayName#second": {
   "$Path": "@vCard.Address#work/FullName"
 }
@@ -2012,7 +2021,7 @@ Example ##ex:
       "S"
     ]
   ]
-} 
+}
 ```
 :::
 
@@ -2278,7 +2287,8 @@ The operand expressions are used as parameters to the client-side
 function.
 
 ::: {.varjson .rep}
-### ##subisec `$Apply`
+### ##subisec `$Apply` 
+and ##subisec `$Function`
 
 Apply expressions are represented as an object with a member `$Apply`
 whose value is an array of annotation expressions, and a member
@@ -2314,7 +2324,7 @@ client-side functions, qualified with the namespace `odata`. The
 semantics of these client-side functions is identical to their
 counterpart function defined in [OData-URL](#ODataURL).
 
-For example, the `odata.concat` client-side function takes two or more
+For example, the `odata.concat` client-side function takes two
 expressions as arguments. Each argument MUST evaluate to a primitive or
 enumeration type. It returns a value of type `Edm.String` that is the
 concatenation of the literal representations of the results of the
@@ -2330,17 +2340,42 @@ Example ##ex:
   "$Apply": [
     "Product: ",
     {
-      "$Path": "ProductName"
-    },
-    " (",
-    {
-      "$Path": "Available/Quantity"
-    },
-    " ",
-    {
-      "$Path": "Available/Unit"
-    },
-    " available)"
+      "$Apply": [
+        {
+          "$Path": "ProductName"
+        },
+        {
+          "$Apply": [
+            " (",
+            {
+              "$Apply": [
+                {
+                  "$Path": "Available/Quantity"
+                },
+                {
+                  "$Apply": [
+                    " ",
+                    {
+                      "$Apply": [
+                        {
+                          "$Path": "Available/Unit"
+                        },
+                        " available)"
+                      ],
+                      "$Function": "odata.concat"
+                    }
+                  ],
+                  "$Function": "odata.concat"
+                }
+              ],
+              "$Function": "odata.concat"
+            }
+          ],
+          "$Function": "odata.concat"
+        }
+      ],
+      "$Function": "odata.concat"
+    }
   ],
   "$Function": "odata.concat"
 }
@@ -2353,12 +2388,22 @@ Example ##ex:
 <Annotation Term="org.example.display.DisplayName">
   <Apply Function="odata.concat">
     <String>Product: </String>
-    <Path>ProductName</Path>
-    <String> (</String>
-    <Path>Available/Quantity</Path>
-    <String> </String>
-    <Path>Available/Unit</Path>
-    <String> available)</String>
+    <Apply Function="odata.concat">
+      <Path>ProductName</Path>
+      <Apply Function="odata.concat">
+        <String> (</String>
+        <Apply Function="odata.concat">
+          <Path>Available/Quantity</Path>
+          <Apply Function="odata.concat">
+            <String> </String>
+            <Apply Function="odata.concat">
+              <Path>Available/Unit</Path>
+              <String> available)</String>
+            </Apply>
+          </Apply>
+        </Apply>
+      </Apply>
+    </Apply>
   </Apply>
 </Annotation>
 ```
@@ -2469,12 +2514,12 @@ Example ##ex: all non-empty `FirstName` values not containing the letters
 
 #### ##subsubsubsec Function `odata.uriEncode`
 
-The `odata.uriEncode `client-side function takes one argument of
+The `odata.uriEncode` client-side function takes one argument of
 primitive type and returns the URL-encoded OData literal that can be
 used as a key value in OData URLs or in the query part of OData URLs.
 
 Note: string literals are surrounded by single quotes as required by the
-paren-style key syntax.
+parentheses-style key syntax.
 
 ::: {.varjson .example}
 Example ##ex:
@@ -2972,31 +3017,35 @@ a structured type with two structural properties `GivenName` and
 annotated entity type, the fourth adds a calculated navigation property
 that is pointing to a different service
 ```json
-"@person.Employee": {
-  "@type": "https://example.org/vocabs/person#org.example.person.Manager",
-  "@Core.Description": "Annotation on record",
-  "GivenName": {
-    "$Path": "FirstName"
-  },
-  "GivenName@Core.Description": "Annotation on record member",
-  "Surname": {
-    "$Path": "LastName"
-  },
-  "DirectSupervisor": {
-    "$Path": "Manager"
-  },
-  "CostCenter": {
-    "$UrlRef": {
-      "$Apply": [
-        "http://host/anotherservice/CostCenters('{ccid}')",
-        {
-          "$LabeledElement": {
-            "$Path": "CostCenterID"
-          },
-          "$Name": "ccid"
+"$Annotations": {
+  "org.example.Person": {
+    "@org.example.hcm.Employee": {
+      "@type": "https://example.org/vocabs/person#org.example.person.Manager",
+      "@Core.Description": "Annotation on record",
+      "GivenName": {
+        "$Path": "FirstName"
+      },
+      "GivenName@Core.Description": "Annotation on record member",
+      "Surname": {
+        "$Path": "LastName"
+      },
+      "DirectSupervisor": {
+        "$Path": "Manager"
+      },
+      "CostCenter": {
+        "$UrlRef": {
+          "$Apply": [
+            "http://host/anotherservice/CostCenters('{ccid}')",
+            {
+              "$LabeledElement": {
+                "$Path": "CostCenterID"
+              },
+              "$Name": "ccid"
+            }
+          ],
+          "$Function": "odata.fillUriTemplate"
         }
-      ],
-      "$Function": "odata.fillUriTemplate"
+      }
     }
   }
 }
@@ -3037,25 +3086,27 @@ a structured type with two structural properties `GivenName` and
 annotated entity type, the fourth adds a calculated navigation property
 that is pointing to a different service
 ```xml
-<Annotation Term="org.example.person.Employee">
-  <Record>
-    <Annotation Term="Core.Description" String="Annotation on record" />
-    <PropertyValue Property="GivenName" Path="FirstName">
-      <Annotation Term="Core.Description"
-                  String="Annotation on record member" />
-    </PropertyValue>
-    <PropertyValue Property="Surname" Path="LastName" />
-    <PropertyValue Property="DirectSupervisor" Path="Manager" />
-    <PropertyValue Property="CostCenter">
-      <UrlRef>
-        <Apply Function="odata.fillUriTemplate">
-          <String>http://host/anotherservice/CostCenters('{ccid}')</String>
-          <LabeledElement Name="ccid" Path="CostCenterID" />
-        </Apply>
-      </UrlRef>
-    </PropertyValue>
-  </Record>
-</Annotation>
+<Annotations Target="org.example.Person">
+  <Annotation Term="org.example.hcm.Employee">
+    <Record Type="org.example.hcm.Manager">
+      <Annotation Term="Core.Description" String="Annotation on record" />
+      <PropertyValue Property="GivenName" Path="FirstName">
+        <Annotation Term="Core.Description"
+                    String="Annotation on record member" />
+      </PropertyValue>
+      <PropertyValue Property="Surname" Path="LastName" />
+      <PropertyValue Property="DirectSupervisor" Path="Manager" />
+      <PropertyValue Property="CostCenter">
+        <UrlRef>
+          <Apply Function="odata.fillUriTemplate">
+            <String>http://host/anotherservice/CostCenters('{ccid}')</String>
+            <LabeledElement Name="ccid" Path="CostCenterID" />
+          </Apply>
+        </UrlRef>
+      </PropertyValue>
+    </Record>
+  </Annotation>
+</Annotations>
 ```
 :::
 
@@ -3106,7 +3157,7 @@ Example ##ex:
     "$Function": "odata.fillUriTemplate"
   }
 },
- 
+
 "@Core.LongDescription#element": {
   "$UrlRef": "http://host/wiki/HowToUse"
 }

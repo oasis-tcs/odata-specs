@@ -26,7 +26,7 @@ Example ##ex: an entity container with default support for everything defined in
 ```xml
 <EntityContainer Name="SalesData">
   <Annotation Term="Aggregation.ApplySupportedDefaults" />
-  ...
+  …
 </EntityContainer>
 ```
 :::
@@ -36,7 +36,7 @@ Example ##ex_containerrooted: Define aggregation support only for the products o
 ```xml
 <Annotations Target="SalesModel.SalesData/Categories/Products">
   <Annotation Term="Aggregation.ApplySupported">
-    ...
+    …
   </Annotation>
 </Annotations>
 ```
@@ -218,6 +218,7 @@ The hierarchy terms can be applied to the [Example Data Model](#ExampleDataModel
 ::: example
 ⚠ Example ##ex: leveled hierarchies for products and time, and a recursive hierarchy for the sales organizations:
 ```xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.0">
   <edmx:Reference Uri="https://docs.oasis-open.org/odata/odata-data-
@@ -286,9 +287,9 @@ results in
     { "ID": "Sales Netherlands", "Name": "Sales Netherlands" },
     { "ID": "Sales Germany",     "Name": "Sales Germany" },
     { "ID": "EMEA South",        "Name": "EMEA South" },
-    ...
+    …
     { "ID": "EMEA North",        "Name": "EMEA North" },
-    ...
+    …
   ]
 }
 ```
@@ -312,7 +313,7 @@ results in
     { "ID": "EMEA Central", "Name": "EMEA Central" },
     { "ID": "EMEA South",   "Name": "EMEA South" },
     { "ID": "EMEA North",   "Name": "EMEA North" },
-    ...
+    …
   ]
 }
 ```
@@ -333,7 +334,7 @@ results in
   "value": [
     { "ID": "Sales Office London",   "Name": "Sales Office London" },
     { "ID": "Sales Office New York", "Name": "Sales Office New York" },
-    ...
+    …
   ]
 }
 ```
@@ -357,7 +358,7 @@ results in
       "Superordinate": { "ID": "EMEA United Kingdom" } },
     { "ID": "Sales Office New York", "Name": "Sales Office New York",
       "Superordinate": { "ID": "US East" } },
-    ...
+    …
   ]
 }
 ```

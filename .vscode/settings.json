@@ -2,15 +2,29 @@
   "cSpell.words": [
     "ABNF",
     "asec",
+    "ccid",
+    "concat",
     "CSDL",
+    "CSDLXML",
+    "Datetimestamp",
+    "EDMX",
+    "entitytype",
     "ETag",
+    "isec",
+    "isomorphy",
+    "matchespattern",
     "odata",
     "pandoc",
+    "parameterless",
+    "SRID",
     "subasec",
+    "subisec",
     "subsec",
     "subsubsec",
     "subsubsubsec",
     "subsubsubsubsec",
-    "upsert"
+    "upsert",
+    "varjson",
+    "varxml"
   ]
 }

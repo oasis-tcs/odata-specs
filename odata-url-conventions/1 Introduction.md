@@ -61,7 +61,7 @@ All other text is normative unless otherwise labeled.
 Here is a customized command line which will generate HTML from this markdown file (named `$$$filename$$$.md`). Line breaks are added for readability only:
 
 ```
-pandoc -f gfm+tex_math_dollars+fenced_divs
+pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        -t html
        -o $$$filename$$$.html
        -c styles/markdown-styles-v1.7.3b.css
@@ -118,13 +118,18 @@ and path
 
 After applying these steps defined by RFC3986 the following steps MUST
 be performed:
-- Split undecoded query at "`&`" into
-query options, and each query option at the first "`=`" into query
+- Split undecoded query at "`&`" (octet `0x26`) into
+query options, and each query option at the first "`=`" (octet `0x3D`) into query
 option name and query option value
 - Percent-decode path segments, query
 option names, and query option values exactly once
 - Interpret path segments, query option
 names, and query option values according to OData rules
+
+Note: neither [RFC3986](#rfc3986) nor this specification assign special meaning to "`+`" (octet `0x2B`).
+Some implementations decode "`+`" (octet `0x2B`) as space (octet `0x20`), others take it literally.
+
+Clients SHOULD percent-encode space (octet `0x20`) as `%20` and "`+`" (octet `0x2B`) as `%2B` and avoid the ambiguous "`+`" (octet `0x2B`) in URLs.
 
 ## ##subsec URL Syntax
 
@@ -138,7 +143,7 @@ that the rules in [OData-ABNF](#ODataABNF) assume that URLs and URL
 parts have been percent-encoding normalized as described in
 [section 6.2.2.2](https://datatracker.ietf.org/doc/html/rfc3986#section-6.2.2.2)
 of [RFC3986](#rfc3986) before applying the grammar to them, i.e.
-all characters in the unreserved set (see rule `unreserved` in 
+all characters in the unreserved set (see rule `unreserved` in
 [OData-ABNF](#ODataABNF)) are plain literals and not percent-encoded.
 For characters outside of the unreserved set that are significant to
 OData the ABNF rules explicitly state whether the percent-encoded
@@ -153,11 +158,17 @@ literals are represented as two consecutive single quotes.
 Example ##ex: valid OData URLs:
 ```
 http://host/service/People('O''Neil')
+```
 
+```
 http://host/service/People(%27O%27%27Neil%27)
+```
 
+```
 http://host/service/People%28%27O%27%27Neil%27%29
+```
 
+```
 http://host/service/Categories('Smartphone%2FTablet')
 ```
 :::
@@ -166,9 +177,13 @@ http://host/service/Categories('Smartphone%2FTablet')
 Example ##ex: invalid OData URLs:
 ```
 http://host/service/People('O'Neil')
+```
 
+```
 http://host/service/People('O%27Neil')
+```
 
+```
 http://host/service/Categories('Smartphone/Tablet')
 ```
 :::

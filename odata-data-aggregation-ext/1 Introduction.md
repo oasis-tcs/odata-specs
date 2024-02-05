@@ -57,7 +57,7 @@ All other text is normative unless otherwise labeled.
 Here is a customized command line which will generate HTML from this markdown file (named `$$$filename$$$.md`). Line breaks are added for readability only:
 
 ```
-pandoc -f gfm+tex_math_dollars+fenced_divs
+pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        -t html
        -o $$$filename$$$.html
        -c styles/markdown-styles-v1.7.3b.css
@@ -686,7 +686,7 @@ Date|Month|Quarter|Year
 2022-01-01|2022-01|2022-1|2022
 2022-04-01|2022-04|2022-2|2022
 2022-04-10|2022-04|2022-2|2022
-...|||
+…|||
 :::::
 
 ::::: {style=top:150px;left:360px}

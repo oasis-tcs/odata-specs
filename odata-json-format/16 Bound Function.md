@@ -59,7 +59,7 @@ title as a string.
 If [`metadata=minimal`](#metadataminimalodatametadataminimal)
 is requested, the `target` name/value pair MUST be included
 if its value differs from the canonical function or action URL.
- 
+
 ::: example
 Example ##ex: minimal representation of a function where all overloads are
 applicable
@@ -67,11 +67,11 @@ applicable
 {
   "@context": "http://host/service/$metadata#Employees/$entity",
   "#Model.RemainingVacation": {},
-  ...
+  …
 }
 ```
 :::
- 
+
 ::: example
 Example ##ex: full representation of a specific overload with parameter
 alias for the `Year` parameter
@@ -82,11 +82,11 @@ alias for the `Year` parameter
     "title": "Remaining vacation from year.",
     "target": "Employees(2)/RemainingVacation(Year=@Year)"
   },
-  ...
+  …
 }
 ```
 :::
- 
+
 ::: example
 Example ##ex: full representation in a collection
 ```json
@@ -96,7 +96,7 @@ Example ##ex: full representation in a collection
     "title": "Remaining Vacation",
     "target": "Managers(22)/Employees/RemainingVacation"
   },
-  "value": [ ... ]
+  "value": [ … ]
 }
 ```
 :::
@@ -108,7 +108,7 @@ Example ##ex: full representation in a nested collection
   "@context": "http://host/service/$metadata#Employees/$entity",
   "@type": "Model.Manager",
   "ID":22,
-  ...
+  …
   "Employees#RemainingVacation": {
     "title": "RemainingVacation",
     "target": "Managers(22)/Employees/RemainingVacation"
@@ -163,18 +163,18 @@ title as a string.
 If [`metadata=minimal`](#metadataminimalodatametadataminimal)
 is requested, the `target` name/value pair MUST be included
 if its value differs from the canonical function or action URL.
- 
+
 ::: example
 Example ##ex: minimal representation in an entity
 ```json
 {
   "@context": "http://host/service/$metadata#LeaveRequests/$entity",
   "#Model.Approve": {},
-  ...
+  …
 }
 ```
 :::
- 
+
 ::: example
 Example ##ex: full representation in an entity:
 ```json
@@ -184,11 +184,11 @@ Example ##ex: full representation in an entity:
     "title": "Approve Leave Request",
     "target": "LeaveRequests(2)/Approve"
   },
-  ...
+  …
 }
 ```
 :::
- 
+
 ::: example
 Example ##ex: full representation in a collection
 ```json
@@ -198,7 +198,7 @@ Example ##ex: full representation in a collection
     "title": "Approve All Leave Requests",
     "target": "Employees(22)/Model.Manager/LeaveRequests/Approve"
   },
-  "value": [ ... ]
+  "value": [ … ]
 }
 ```
 :::
@@ -210,7 +210,7 @@ Example ##ex: full representation in a nested collection
   "@context": "http://host/service/$metadata#Employees/$entity",
   "@type": "Model.Manager",
   "ID": 22,
-  ...
+  …
   "LeaveRequests#Model.Approve": {
     "title": "Approve All Leave Requests",
     "target": "Employees(22)/Model.Manager/LeaveRequests/Approve"
@@ -232,6 +232,7 @@ value is the parameter value in the JSON representation appropriate for
 its type. Entity typed parameter values MAY include a subset of the
 properties, or just the [entity reference](#EntityReference), as
 appropriate to the action.
+Stream typed parameter values are represented following the same rules as inlined [stream properties](#StreamProperty).
 
 Non-binding parameters that are nullable or annotated with the term
 [`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter) defined in

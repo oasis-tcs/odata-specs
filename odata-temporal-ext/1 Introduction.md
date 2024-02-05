@@ -61,7 +61,7 @@ that the object's values are not known to the service.
 
 ##### ##subsubsubsubsec Closed-Open Semantics
 
-Time slices typically use closed-open semantics, following **[[SQL:2011]](#SQL)**.
+Time slices typically use closed-open semantics, following [SQL:2011](#_SQL).
 This means the start is part of the period, the end is not part of the
 period, and for directly adjacent time slices the end of the earlier
 time slice is identical to the start of the next time slice. The period
@@ -147,7 +147,7 @@ All other text is normative unless otherwise labeled.
 Here is a customized command line which will generate HTML from this markdown file (named `$$$filename$$$.md`). Line breaks are added for readability only:
 
 ```
-pandoc -f gfm+tex_math_dollars+fenced_divs
+pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        -t html
        -o $$$filename$$$.html
        -c styles/markdown-styles-v1.7.3b.css

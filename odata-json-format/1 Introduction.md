@@ -19,8 +19,11 @@ An OData JSON payload may represent:
 
 ## ##subsec Changes from Earlier Versions
 
-<!-- TODO -->
-<!-- Describe significant changes from previous differently-numbered Versions, not changes between stages of the current Version -->
+Section | Feature / Change | Issue
+--------|------------------|------
+[Section ##ControlInformationmediaodatamedia]| 
+ `mediaContentType` can be `null`| 
+[ODATA-1470](https://issues.oasis-open.org/browse/ODATA-1470)
 
 ## ##subsec Glossary
 
@@ -51,7 +54,7 @@ All other text is normative unless otherwise labeled.
 Here is a customized command line which will generate HTML from this markdown file (named `$$$filename$$$.md`). Line breaks are added for readability only:
 
 ```
-pandoc -f gfm+tex_math_dollars+fenced_divs
+pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        -t html
        -o $$$filename$$$.html
        -c styles/markdown-styles-v1.7.3b.css

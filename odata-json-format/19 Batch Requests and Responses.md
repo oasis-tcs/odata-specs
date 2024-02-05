@@ -120,7 +120,10 @@ the body content can be compressed or chunked if this is correctly
 reflected in the `Transfer-Encoding` header.
 
 A `body` MUST NOT be specified if the `method` is `get` or `delete`.
- 
+
+The request object and the `headers` object MUST NOT contain name/value pairs with duplicate names.
+This is in conformance with [RFC7493](#rfc7493).
+
 ::: example
 Example ##ex_batchRequest: a batch request that contains
 the following individual requests in the order listed
@@ -183,7 +186,7 @@ The entity returned by a preceding request can be referenced in the
 request URL of subsequent requests. If the `Location` header in the response
 contains a relative URL, clients MUST be able to resolve it relative to the
 request's URL even if that contains such a reference.
- 
+
 ::: example
 Example ##ex: a batch request that contains the following operations in
 the order listed:
@@ -225,6 +228,7 @@ the order listed:
 
 - Get an Employee (with `id` = 1)
 - Update the salary only if the employee has not changed
+
 ```json
 POST /service/$batch HTTP/1.1
 Host: host
@@ -252,6 +256,46 @@ Content-Length: ###
       },
       "body": {
         "Salary": 75000
+      }
+    }
+  ]
+}
+```
+:::
+
+## ##subsec Referencing Response Body Values
+
+::: example
+Example ##ex: a batch request that contains the following operations in
+the order listed:
+
+- Get an employee (with `Content-ID = 1`)
+- Get all employees residing in the same building
+
+```json
+POST /service/$batch HTTP/1.1
+Host: host
+OData-Version: 4.01
+Content-Type: application/json
+Content-Length: ###
+
+{
+  "requests": [
+    {
+      "id": "1",
+      "method": "get",
+      "url": "/service/Employees/0?$select=Building",
+      "headers": {
+        "accept": "application/json"
+      }
+    },
+    {
+      "id": "2",
+      "dependsOn": [ "1" ],
+      "method": "get",
+      "url": "/service/Employees?$filter=Building eq $1/Building",
+      "headers": {
+        "accept": "application/json"
       }
     }
   ]
@@ -325,7 +369,7 @@ same value.
 
 If any response within an atomicity group returns a failure code, all
 requests within that atomicity group are considered failed, regardless
-of their individual returned status code. The service MAY return 
+of their individual returned status code. The service MAY return
 `424 Failed Dependency` for statements
 within an atomicity group that fail or are not attempted due to other
 failures within the same atomicity group.
@@ -351,12 +395,17 @@ Relative URLs in a response object follow the rules for [relative
 URLs](#RelativeURLs) based on the request URL of the corresponding
 request. Especially: URLs in responses MUST NOT contain
 `$`-prefixed request identifiers.
- 
+
 ::: example
 Example ##ex: referencing the batch request [example ##batchRequest] above, assume all
 the requests except the final query request succeed. In this case the
 response would be
 ```json
+HTTP/1.1 200 OK
+OData-Version: 4.01
+Content-Length: ####
+Content-Type: application/json
+
 {
   "responses": [
     {
@@ -404,7 +453,7 @@ control information in the JSON batch response, thus signaling that the
 response is only a partial result. A subsequent `GET` request
 to the next link MAY result in a `202 Accepted` response with a
 `location` header pointing to a new status monitor resource.
- 
+
 ::: example
 Example ##ex: referencing the example 47 above again, assume that the
 request is sent with the `respond-async` preference. This
@@ -439,7 +488,7 @@ Content-Type: application/json
       "body": <JSON representation of the Customer entity with key ALFKI>
     }
   ],
-  "@nextLink": "...?$skiptoken=YmF0Y2gx"
+  "@nextLink": "…?$skiptoken=YmF0Y2gx"
 }
 ```
 
@@ -494,7 +543,7 @@ the service responds with a JSON batch response. In this case the
 asynchronously executed individual request with a `status` of
 `202`, a `location` header pointing to an
 individual status monitor resource, and optionally a `retry-after` header.
- 
+
 ::: example
 Example ##ex: the first individual request is processed asynchronously,
 the second synchronously, the batch itself is processed synchronously
@@ -520,4 +569,4 @@ Content-Type: application/json
   ]
 }
 ```
-::: 
+:::

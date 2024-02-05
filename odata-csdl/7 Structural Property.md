@@ -98,6 +98,12 @@ The property's type MUST be a [primitive type](#PrimitiveTypes),
 [complex type](#ComplexType), or [enumeration type](#EnumerationType) in
 scope, or a collection of one of these types.
 
+If the property is part of a chain of [structural properties](#StructuralProperty) and
+[containment navigation properties](#ContainmentNavigationProperty)
+leading back to the property's declaring type, the finiteness condition for
+[structured types](#StructuredTypes) demands that at least one property
+in this chain MUST be nullable or collection-valued.
+
 A collection-valued property MAY be annotated with the
 [`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered)
 term, defined in
@@ -279,7 +285,7 @@ Example ##ex: the `Product` entity type has a navigation property to a
 ```json
 "Product": {
   "$Kind": "EntityType",
-  ...
+  …
   "Category": {
     "$Kind": "NavigationProperty",
     "$Type": "self.Category",
@@ -295,7 +301,7 @@ Example ##ex: the `Product` entity type has a navigation property to a
 },
 "Category": {
   "$Kind": "EntityType",
-  ...
+  …
   "Products": {
     "$Kind": "NavigationProperty",
     "$Collection": true,
@@ -333,14 +339,14 @@ Example ##ex: the Product entity type has a navigation property to a
 Category, which has a navigation link back to one or more products
 ```xml
 <EntityType Name="Product">
-  ...
+  …
   <NavigationProperty Name="Category" Type="self.Category" Nullable="false"
                       Partner="Products" />
   <NavigationProperty Name="Supplier" Type="self.Supplier" />
 </EntityType>
 
 <EntityType Name="Category">
-  ...
+  …
   <NavigationProperty Name="Products" Type="Collection(self.Product)"
                       Partner="Category" />
 </EntityType>
@@ -352,6 +358,12 @@ Category, which has a navigation link back to one or more products
 The navigation property's type MUST be an [entity type](#EntityType) in
 scope, the [abstract type](#BuiltInAbstractTypes) `Edm.EntityType`, or a
 collection of one of these types.
+
+If the property is part of a chain of [structural properties](#StructuralProperty) and
+[containment navigation properties](#ContainmentNavigationProperty)
+leading back to the property's declaring type, the finiteness condition for
+[structured types](#StructuredTypes) demands that at least one property
+in this chain MUST be nullable or collection-valued.
 
 If the type is a collection, an arbitrary number of entities can be
 related. Otherwise there is at most one related entity.
@@ -460,7 +472,7 @@ navigation property.
 ::: {.varxml .rep}
 ### ##subisec Attribute `Partner`
 
-The value of `Partner` is the path to the of the partner navigation
+The value of `Partner` is the path to the partner navigation
 property.
 :::
 
@@ -593,7 +605,7 @@ the `Kind` property of the category.
 ```json
 "Product": {
   "$Kind": "EntityType",
-  ...
+  …
   "CategoryID": {},
   "CategoryKind": {},
   "Category": {
@@ -616,7 +628,7 @@ the `Kind` property of the category.
   "Kind": {
     "$Nullable": true
   },
-  ...
+  …
 }
 ```
 :::
@@ -657,7 +669,7 @@ category, and the `CategoryKind` property of the product is identical to
 the `Kind` property of the category.
 ```xml
 <EntityType Name="Product">
-  ...
+  …
   <Property Name="CategoryID" Type="Edm.String" Nullable="false"/>
   <Property Name="CategoryKind" Type="Edm.String" Nullable="true" />
   <NavigationProperty Name="Category" Type="self.Category" Nullable="false">
@@ -675,7 +687,7 @@ the `Kind` property of the category.
   </Key>
   <Property Name="ID" Type="Edm.String" Nullable="false" />
   <Property Name="Kind" Type="Edm.String" Nullable="true" />
-  ...
+  …
 </EntityType>
 ```
 :::
@@ -720,7 +732,7 @@ products in that category
 ```json
 "Category": {
   "$Kind": "EntityType",
-  ...
+  …
   "Products": {
     "$Kind": "NavigationProperty",
     "$Collection": true,
@@ -751,7 +763,7 @@ Example ##ex: deletion of a category implies deletion of the related
 products in that category
 ```xml
 <EntityType Name="Category">
-  ...
+  …
   <NavigationProperty Name="Products" Type="Collection(self.Product)">
     <OnDelete Action="Cascade">
       <Annotation Term="Core.Description"

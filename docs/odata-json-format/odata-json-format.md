@@ -58,7 +58,7 @@ The Open Data Protocol (OData) for representing and interacting with structured 
 #### Status:
 This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the "Latest stage" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical.
 
-TC members should send comments on this specification to the TC's email list. Others should send comments to the TC's public comment list, after subscribing to it by following the instructions at the "[Send A Comment](https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=odata)" button on the TC's web page at https://www.oasis-open.org/committees/odata/.
+TC members should send comments on this specification to the TC's email list. Others should send comments to the TC's public comment list, after subscribing to it by following the instructions at the "<a href="https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=odata">Send A Comment</a>" button on the TC's web page at https://www.oasis-open.org/committees/odata/.
 
 This specification is provided under the [RF on RAND Terms Mode](https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode) of the [OASIS IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/), the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC's web page (https://www.oasis-open.org/committees/odata/ipr.php).
 
@@ -159,9 +159,10 @@ For complete copyright information please see the full Notices section in an App
   - [19.1 Batch Request](#BatchRequest)
   - [19.2 Referencing New Entities](#ReferencingNewEntities)
   - [19.3 Referencing an ETag](#ReferencinganETag)
-  - [19.4 Processing a Batch Request](#ProcessingaBatchRequest)
-  - [19.5 Batch Response](#BatchResponse)
-  - [19.6 Asynchronous Batch Requests](#AsynchronousBatchRequests)
+  - [19.4 Referencing Response Body Values](#ReferencingResponseBodyValues)
+  - [19.5 Processing a Batch Request](#ProcessingaBatchRequest)
+  - [19.6 Batch Response](#BatchResponse)
+  - [19.7 Asynchronous Batch Requests](#AsynchronousBatchRequests)
 - [20 Instance Annotations](#InstanceAnnotations)
   - [20.1 Annotate a JSON Object](#AnnotateaJSONObject)
   - [20.2 Annotate a JSON Array or Primitive](#AnnotateaJSONArrayorPrimitive)
@@ -207,8 +208,9 @@ An OData JSON payload may represent:
 
 ## <a name="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a>
 
-<!-- TODO -->
-<!-- Describe significant changes from previous differently-numbered Versions, not changes between stages of the current Version -->
+Section | Feature / Change | Issue
+--------|------------------|------
+[Section 4.5.12](#ControlInformationmediaodatamedia)|  `mediaContentType` can be `null`| [ODATA-1470](https://issues.oasis-open.org/browse/ODATA-1470)
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -239,7 +241,7 @@ All other text is normative unless otherwise labeled.
 Here is a customized command line which will generate HTML from this markdown file (named `odata-json-format-v4.02-csd01.md`). Line breaks are added for readability only:
 
 ```
-pandoc -f gfm+tex_math_dollars+fenced_divs
+pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        -t html
        -o odata-json-format-v4.02-csd01.html
        -c styles/markdown-styles-v1.7.3b.css
@@ -492,7 +494,7 @@ If not specified, or specified as `IEEE754Compatible=false`,
 all numbers MUST be serialized as JSON numbers.
 
 This enables support for JavaScript numbers that are defined to be
-64-bit binary format IEEE 754 values (see **[[ECMAScript](#ECMAScript), [section 4.3.1.9](http://www.ecma-international.org/ecma-262/5.1/#sec-4.3.19)]**)
+64-bit binary format IEEE 754 values (see [ECMAScript](#_ECMAScript), [section 4.3.1.9](http://www.ecma-international.org/ecma-262/5.1/#sec-4.3.19))
 resulting in integers losing precision past 15 digits, and decimals
 losing precision due to the conversion from base 10 to base 2.
 
@@ -565,7 +567,8 @@ parameter if `Edm.Int64` and `Edm.Decimal` numbers
 are represented as strings.
 
 Requests and responses MAY add the `streaming` parameter with
-a value of `true` or `false`, see section "[Payload Ordering Constraints](#PayloadOrderingConstraints)".
+a value of `true` or `false`, see section
+"[Payload Ordering Constraints](#PayloadOrderingConstraints)".
 
 ## <a name="MessageBody" href="#MessageBody">4.2 Message Body</a>
 
@@ -636,11 +639,11 @@ Example 2:
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
-  ...
+  …
   "@editLink": "Customers('ALFKI')",
-  ...
+  …
   "Orders@navigationLink": "Customers('ALFKI')/Orders",
-  ...
+  …
 }
 ```
 :::
@@ -688,7 +691,7 @@ cannot be assumed to support streaming.
 
 JSON producers are encouraged to follow the payload ordering constraints
 whenever possible (and include the `streaming=true`
-content-type parameter) to support the maximum set of client scenarios.
+media type parameter) to support the maximum set of client scenarios.
 
 To support streaming scenarios the following payload ordering
 constraints have to be met:
@@ -746,7 +749,7 @@ payload. This URL can be absolute or [relative](#RelativeURLs).
 
 The `context` control information is not returned if
 [`metadata=none`](#metadatanoneodatametadatanone) is requested. Otherwise it MUST be the
-first property of any JSON response.
+first property of any JSON response that allows this control information (this excludes for example [error responses](#ErrorResponse)).
 
 The `context` control information
 MUST also be included in requests and responses for entities whose
@@ -765,7 +768,7 @@ Example 4:
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
   "@metadataEtag": "W/\"A1FF3E230954908F\"",
-  ...
+  …
 }
 ```
 :::
@@ -842,7 +845,7 @@ information:
   [`type`](#ControlInformationtypeodatatype)
   control information unless their type is `Double`.
 - The special floating-point values `-INF`, `INF`, and
-  `NaN `are serialized as strings and MUST have a
+  `NaN` are serialized as strings and MUST have a
   [`type`](#ControlInformationtypeodatatype)
   control information to specify the numeric type of the property.
 - String  values do have a first class representation in JSON, but there is an
@@ -853,6 +856,9 @@ information:
   format parameter etc. If a property appears in JSON string format, it
   should be treated as a string value unless the property is known (from
   the metadata document) to have a different type.
+
+The `type` control information can be absent in properties nested in an instance of type `Edm.Untyped`.
+In particular, individual primitive values within a collection cannot have `type` control information.
 
 For more information on namespace- and alias-qualified names, see
 [OData-CSDLJSON](#ODataCSDL) or
@@ -870,7 +876,7 @@ metadata document of the same service with a dynamic property of type
   "ID": 2,
   "DynamicValue@type": "Date",
   "DynamicValue": "2016-09-22",
-  ...
+  …
 }
 ```
 :::
@@ -883,7 +889,7 @@ metadata  document of a different service
   "@context": "http://host/service/$metadata#Customers/$entity",
   "@type": "http://host/alternate/$metadata#Model.VipCustomer",
   "ID": 2,
-  ...
+  …
 }
 ```
 :::
@@ -930,11 +936,11 @@ The `id` control information contains the entity-id, see
 identical to the canonical URL of the entity, as defined in
 [OData-URL](#ODataURL).
 
-The `id `control information MUST appear in responses if
+The `id` control information MUST appear in responses if
 [`metadata=full`](#metadatafullodatametadatafull)
 is requested, or if
 [`metadata=minimal`](#metadataminimalodatametadataminimal)
-is requested and any of a non-transient entity\'s key fields are omitted
+is requested and any of a non-transient entity's key fields are omitted
 from the response _or_ the entity-id is not identical to the canonical
 URL of the entity after
 
@@ -1084,11 +1090,12 @@ doesn't follow standard URL conventions relative to the read link of the
 entity and the associated
 `mediaEditLink` is not present.
 
-The `mediaContentType `control information MAY be included;
+The `mediaContentType` control information MAY be included;
 its value SHOULD match the media type of the binary stream represented
 by the `mediaReadLink` URL. This is only a hint; the actual
 media type will be included in the `Content-Type` header when
 the resource is requested.
+The presence of `mediaContentType` with value `null` MAY be used to indicate the absence of a binary stream.
 
 The `mediaEtag` control information MAY be included; its value
 is the ETag of the binary stream represented by this media entity or
@@ -1121,7 +1128,7 @@ Example 7:
   "@mediaReadLink": "Employees(1)/$value",
   "@mediaContentType": "image/jpeg",
   "ID": 1,
-  ...
+  …
 }
 ```
 :::
@@ -1152,11 +1159,11 @@ Example 8: Annotating primitive values within a collection
   "EmailAddresses@collectionAnnotations": [
     {
       "index": 0,
-      "@emailType": "Personal"
+      "@OfficeCommunication.emailType": "Personal"
     },
     {
       "index": 2,
-      "@emailType": "Work"
+      "@OfficeCommunication.emailType": "Work"
     }
   ],
   "EmailAddresses": [
@@ -1164,7 +1171,7 @@ Example 8: Annotating primitive values within a collection
     "JulieSwa@live.com",
     "Julie.Swansworth@work.com"
   ],
-  ...
+  …
 }
 ```
 :::
@@ -1221,7 +1228,7 @@ Service documents MAY contain [annotations](#InstanceAnnotations) in
 any of its JSON objects. Services MUST NOT produce name/value pairs
 other than the ones explicitly defined in this section, and clients MUST
 ignore unknown name/value pairs.
- 
+
 ::: example
 Example 9:
 ```json
@@ -1283,7 +1290,7 @@ An entity representation can be (modified and) round-tripped to the
 service directly. The [context
 URL](#ControlInformationcontextodatacontext) is used in requests only
 as a base for [relative URLs](#RelativeURLs).
- 
+
 ::: example
 Example 10: entity with `metadata=minimal`
 ```json
@@ -1338,7 +1345,8 @@ Example 11: entity with `metadata=full`
 
 A property within an entity or complex type instance is represented as a
 name/value pair. The name MUST be the name of the property; a non-null value is
-represented depending on its type as a [primitive value](#PrimitiveValue), a [complex value](#ComplexValue), a
+represented depending on its type as a [primitive value](#PrimitiveValue),
+a [complex value](#ComplexValue), a
 [collection of primitive values](#CollectionofPrimitiveValues), or
 a [collection of complex values](#CollectionofComplexValues).
 
@@ -1363,7 +1371,8 @@ Values of type `Edm.String` are represented as JSON strings,
 using the JSON string escaping rules.
 
 Values of type `Edm.Binary`, `Edm.Date`,
-`Edm.DateTimeOffset`, `Edm.Duration`, `Edm.Guid`, and `Edm.TimeOfDay` are represented as
+`Edm.DateTimeOffset`, `Edm.Duration`,
+`Edm.Guid`, and `Edm.TimeOfDay` are represented as
 JSON strings whose content satisfies the rules `binaryValue`,
 `dateValue`, `dateTimeOffsetValue`,
 `durationValue`, `guidValue`, and
@@ -1385,22 +1394,14 @@ combination of named enumeration members) is
 available, the `enumMemberValue` representation may be used.
 
 Geography and geometry values are represented as geometry types as
-defined in [RFC7946](#rfc7946), with the following
-modifications:
-
-- Keys SHOULD be ordered with type first, then coordinates, then any other keys
-- If the optional [CRS
-  object](http://geojson.org/geojson-spec.html#named-crs) is present, it
-  MUST be of type `name`, where the value of the
-  `name` member of the contained `properties` object
-  is an EPSG SRID legacy identifier, see [[GeoJSON-2008](#GeoJSON-2008)].
+defined in [RFC7946](#rfc7946).
 
 Geography and geometry types have the same representation in a JSON
 payload. Whether the value represents a geography type or geometry type
 is inferred from its usage or specified using the
 [`type`](#ControlInformationtypeodatatype)
 control information.
- 
+
 ::: example
 Example 12:
 ```json
@@ -1433,13 +1434,13 @@ name/value pair for each property that makes up the complex type. Each
 property value is formatted as appropriate for the type of the property.
 
 It MAY have name/value pairs for [instance annotations](#InstanceAnnotations) and control information.
- 
+
 ::: example
 Example 13:
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
-  ...
+  …
   "Address": {
     "Street": "Obere Str. 57",
     "City": "Berlin",
@@ -1461,28 +1462,32 @@ element in the array is the representation of a [primitive
 value](#PrimitiveValue). A JSON literal `null` represents
 a null value within the collection. An empty collection is represented
 as an empty array.
- 
+
 ::: example
 Example 14: partial collection of strings with next link
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
-  ...
+  …
   "EmailAddresses": [
     "Julie@Swansworth.com",
     "Julie.Swansworth@work.com"
   ],
-  "EmailAddresses@nextLink": "..."
+  "EmailAddresses@nextLink": "…"
 }
 ```
 :::
+
+A collection of primitive values that occurs in a property of type `Edm.Untyped`
+is interpreted as a collection of `Edm.Boolean`, `Edm.String`, and `Edm.Decimal` values,
+depending on the JavaScript type.
 
 ## <a name="CollectionofComplexValues" href="#CollectionofComplexValues">7.4 Collection of Complex Values</a>
 
 A collection of complex values is represented as a JSON array; each
 element in the array is the representation of a [complex value](#ComplexValue). A JSON literal `null` represents a
 null value within the collection. An empty collection is represented as an empty array.
- 
+
 ::: example
 Example 15: partial collection of complex values with next link
 ```json
@@ -1499,7 +1504,7 @@ Example 15: partial collection of complex values with next link
       "Carrier": "Sprint"
     }
   ],
-  "PhoneNumbers@nextLink": "..."
+  "PhoneNumbers@nextLink": "…"
 }
 ```
 :::
@@ -1550,15 +1555,15 @@ client requests `metadata=full` or the navigation link cannot
 be computed, e.g. if it is within a collection of complex type
 instances. If it is represented it MUST immediately precede the expanded
 navigation property if the latter is represented.
- 
+
 ::: example
 Example 16:
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
-  ...
+  …
   "Orders@navigationLink": "Customers('ALFKI')/Orders",
-  ...
+  …
 }
 ```
 :::
@@ -1577,15 +1582,15 @@ cannot be computed by appending `/$ref` to the navigation
 link. If it is represented, it MUST immediately precede the navigation
 link if the latter is represented, otherwise it MUST immediately precede
 the expanded navigation property if it is represented.
- 
+
 ::: example
 Example 17:
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
-  ...
+  …
   "Orders@associationLink": "Customers('ALFKI')/Orders/$ref",
-  ...
+  …
 }
 ```
 :::
@@ -1611,16 +1616,16 @@ represented as an empty JSON array. The navigation property MAY include
 [`nextLink`](#ControlInformationnextLinkodatanextLink) control information. If a navigation property is
 expanded with the suffix `/$count`, only the
 [`count`](#ControlInformationcountodatacount) control information is represented.
- 
+
 ::: example
 Example 18:
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
   "Orders@count": 42,
-  "Orders": [ ... ],
-  "Orders@nextLink": "...",
-  ...
+  "Orders": [ … ],
+  "Orders@nextLink": "…",
+  …
 }
 ```
 :::
@@ -1633,7 +1638,7 @@ new entities MAY be specified using the same representation as for an
 
 Deep inserts are not allowed in update operations using `PUT`
 or `PATCH` requests.
- 
+
 ::: example
 Example 19: inserting a new order for a new customer with order items
 related to existing products:
@@ -1641,21 +1646,21 @@ related to existing products:
 {
   "ID": 11643,
   "Amount": 100,
-  ...,
+  …,
   "Customer": {
     "ID": "ANEWONE",
-    ...
+    …
   },
   "Items": [
     {
       "Product": { "@id": "Products(28)" },
       "Quantity": 1,
-      ...
+      …
     },
     {
       "Product": { "@id": "Products(39)" },
       "Quantity": 5,
-      ...
+      …
     }
   ]
 }
@@ -1674,7 +1679,7 @@ the navigation property it belongs to and has a single value for
 single-valued navigation properties or an array of values for collection
 navigation properties. For nullable single-valued navigation properties
 the value `null` may be used to remove the relationship.
- 
+
 ::: example
 Example 20: assign an existing product to an existing category with a
 partial update request against the product
@@ -1695,7 +1700,7 @@ For requests containing an `OData-Version` header with a value
 of `4.01`, a relationship is bound to an existing entity
 using the same representation as for an [expanded entity
 reference](#EntityReference).
- 
+
 ::: example
 Example 21: assign an existing product to an existing category with a
 partial update request against the product
@@ -1708,13 +1713,13 @@ Content-Type: application/json
 }
 ```
 :::
- 
+
 ::: example
 Example 22: submit a partial update request to:
 - modify the name of an existing category
 - assign an existing product with the id 42 to the category
 - assign an existing product 57 to the category and update its name
-- create a new product named "Wedges" and assign it to the category
+- create a new product named `Wedges` and assign it to the category
 
 At the end of the request, the updated category contains exactly the
 three specified products.
@@ -1743,7 +1748,8 @@ Content-Type: application/json
 OData 4.01 services MUST support both the OData 4.0 representation, for
 requests containing an `OData-Version` header with a value of
 `4.0`, and the OData 4.01 representation, for requests
-containing an `OData-Version` header with a value of `4.01`. Clients MUST NOT use `@odata.bind` in requests with an
+containing an `OData-Version` header with a value of `4.01`.
+Clients MUST NOT use `@odata.bind` in requests with an
 `OData-Version` header with a value of `4.01`.
 
 For insert operations collection navigation property bind operations and
@@ -1764,7 +1770,7 @@ that can be used in a subsequent request to determine if the collection
 has changed.
 
 Services MAY include this control information as appropriate.
- 
+
 ::: example
 Example 23: ETag for a collection of related entities
 ```json
@@ -1774,7 +1780,7 @@ Example 23: ETag for a collection of related entities
   "@etag": "W/\"MjAxMy0wNS0yN1QxMTo1OFo=\"",
   "ID": 1234,
   "Items@etag": "W/\"MjAxOS0wMy0xMlQxMDoyMlo=\""
-  ...
+  …
 }
 ```
 :::
@@ -1817,19 +1823,19 @@ If the included stream property has no value, the non-existing stream
 data is represented as `null` and the control information
 [`mediaContentType`](#ControlInformationmediaodatamedia)
 is not necessary.
- 
+
 ::: example
 Example 24:
 ```json
 {
   "@context": "http://host/service/$metadata#Products/$entity",
-  ...
+  …
   "Thumbnail@mediaReadLink": "http://server/Thumbnail546.jpg",
   "Thumbnail@mediaEditLink": "http://server/uploads/Thumbnail546.jpg",
   "Thumbnail@mediaContentType": "image/jpeg",
   "Thumbnail@mediaEtag": "W/\"####\"",
-  "Thumbnail": "...base64url encoded value...",
-  ...
+  "Thumbnail": "…base64url encoded value…",
+  …
 }
 ```
 :::
@@ -1841,11 +1847,12 @@ Example 24:
 
 Media entities are entities that describe a media resource, for example
 a photo. They are represented as entities that contain additional
-[`media*`](#ControlInformationmediaodatamedia) control information. 
+[`media*`](#ControlInformationmediaodatamedia) control information.
+
 If the actual stream data for the media entity is included, it is
 represented as property named `$value` whose
 string value is the base64url-encoded value of the media stream, see [RFC4648](rfc4648).
- 
+
 ::: example
 Example 25:
 ```json
@@ -1853,9 +1860,9 @@ Example 25:
   "@context": "http://host/service/$metadata#Employees/$entity",
   "@mediaReadLink": "Employees(1)/$value",
   "@mediaContentType": "image/jpeg",
-  "$value": "...base64url encoded value...",
+  "$value": "…base64url encoded value…",
   "ID": 1,
-  ...
+  …
 }
 ```
 :::
@@ -1884,7 +1891,7 @@ represented as an object with a single name/value pair whose name is
 `value`. Its value is the JSON representation of a
 [collection of complex type values](#CollectionofComplexValues) or
 [collection of primitive values](#CollectionofPrimitiveValues).
- 
+
 ::: example
 Example 26:  primitive value
 ```json
@@ -1894,7 +1901,7 @@ Example 26:  primitive value
 }
 ```
 :::
- 
+
 ::: example
 Example 27:  collection of primitive values
 ```json
@@ -1904,7 +1911,7 @@ Example 27:  collection of primitive values
 }
 ```
 :::
- 
+
 ::: example
 Example 28:  empty collection of primitive values
 ```json
@@ -1914,7 +1921,7 @@ Example 28:  empty collection of primitive values
 }
 ```
 :::
- 
+
 ::: example
 Example 29: complex value
 ```json
@@ -1928,12 +1935,12 @@ Example 29: complex value
 }
 ```
 :::
- 
+
 ::: example
 Example 30: empty collection of complex values
 ```json
 {
-  "@context":"http://host/service/$metadata#Collection(Model.Address)",
+  "@context": "http://host/service/$metadata#Collection(Model.Address)",
   "value": []
 }
 ```
@@ -1988,7 +1995,7 @@ first name/value pair in the response.
 
 The `count` name/value pair represents the number of entities
 in the collection. If present and the [`streaming=true`](#PayloadOrderingConstraints)
-content-type parameter is set, it MUST come before the
+media type parameter is set, it MUST come before the
 `value` name/value pair. If the response represents a partial
 result, the `count` name/value pair MUST appear in the first
 partial response, and it MAY appear in subsequent partial responses (in
@@ -2013,14 +2020,14 @@ partial result.
 Example 28:
 ```json
 {
-  "@context": "...",
+  "@context": "…",
   "@count": 37,
   "value": [
-    { ... },
-    { ... },
-    { ... }
+    { … },
+    { … },
+    { … }
   ],
-  "@nextLink": "...?$skiptoken=342r89"
+  "@nextLink": "…?$skiptoken=342r89"
 }
 ```
 :::
@@ -2036,7 +2043,8 @@ entity and MAY contain the [`type`](#ControlInformationtypeodatatype)
 control information and [instance annotations](#InstanceAnnotations), but no additional properties or
 control information.
 
-A collection of entity references is represented as a [collection of entities](#CollectionofEntities), with entity reference representations instead of entity representations as items in the array value of the `value` name/value pair.
+A collection of entity references is represented as a [collection of entities](#CollectionofEntities),
+with entity reference representations instead of entity representations as items in the array value of the `value` name/value pair.
 
 The outermost JSON object in a response MUST contain a
 [`context`](#ControlInformationcontextodatacontext)
@@ -2044,7 +2052,7 @@ control information and MAY contain
 [`count`](#ControlInformationcountodatacount),
 [`nextLink`](#ControlInformationnextLinkodatanextLink), or
 [`deltaLink`](#ControlInformationdeltaLinkodatadeltaLink) control information.
- 
+
 ::: example
 Example 31: entity reference to order 10643
 ```json
@@ -2054,7 +2062,7 @@ Example 31: entity reference to order 10643
 }
 ```
 :::
- 
+
 ::: example
 Example 32: collection of entity references
 ```json
@@ -2120,11 +2128,11 @@ or deleted links.
 Example 33: a 4.01 delta response with five changes, in order of
 occurrence
 
-  1. `ContactName` for customer 'BOTTM' was changed to "Susan Halvenstern"
-  2. Order 10643 was removed from customer 'ALFKI'
-  3. Order 10645 was added to customer 'BOTTM'
+  1. `ContactName` for customer `BOTTM` was changed to `Susan Halvenstern`
+  2. Order 10643 was removed from customer `ALFKI`
+  3. Order 10645 was added to customer `BOTTM`
   4. The shipping information for order 10643 was updated
-  5. Customer 'ANTON' was deleted
+  5. Customer `ANTON` was deleted
 
 ```json
 {
@@ -2150,7 +2158,7 @@ occurrence
     {
       "@context": "#Orders/$entity",
       "@id": "Orders(10643)",
-      "ShippingAddress":{
+      "ShippingAddress": {
         "Street": "23 Tsawassen Blvd.",
         "City": "Tsawassen",
         "Region": "BC",
@@ -2232,12 +2240,12 @@ links](#DeletedLink).
 Example 34: 4.01 delta response customers with expanded orders
 represented inline as a delta
 
-  1. Customer 'BOTTM':
-     1. `ContactName` was changed to "Susan Halvenstern"
+  1. Customer `BOTTM`:
+     1. `ContactName` was changed to `Susan Halvenstern`
      2. Order 10645 was added
-  2. Customer 'ALFKI':
+  2. Customer `ALFKI`:
      1. Order 10643 was removed
-  3. Customer 'ANTON' was deleted
+  3. Customer `ANTON` was deleted
 
 ```json
 {
@@ -2325,10 +2333,10 @@ In OData 4.0 payloads the deleted-entity object MUST include the
 following properties, regardless of the specified
 [`metadata`](#ControllingtheAmountofControlInformationinResponses) value:
 
-- Control information [`context`](#ControlInformationcontextodatacontext) - The context URL fragment MUST be
+- Control information [`context`](#ControlInformationcontextodatacontext) --- The context URL fragment MUST be
   `#{entity-set}/$deletedEntity`, where
   `{entity-set}` is the entity set of the deleted entity
-- `id` - The [id](#ControlInformationidodataid) of the deleted entity
+- `id` --- The [id](#ControlInformationidodataid) of the deleted entity
   (same as the [id](#ControlInformationidodataid)
   returned or computed when calling GET on resource), which may be
   absolute or [relative](#RelativeURLs)
@@ -2338,18 +2346,18 @@ following optional property, regardless of the specified
 [`metadata`](#ControllingtheAmountofControlInformationinResponses) value, and MAY include
 [annotations](#InstanceAnnotations):
 
-- `reason` - either `deleted`, if the entity was deleted (destroyed),
+- `reason` --- either `deleted`, if the entity was deleted (destroyed),
   or `changed` if the entity was removed from membership in the
   result (i.e., due to a data change).
 
 ::: example
-Example 36: deleted entity in OData 4.0 response - note that `id` is
+Example 36: deleted entity in OData 4.0 response --- note that `id` is
 a property, not control information
 ```json
 {
-  "@context":"#Customers/$deletedEntity",
-  "reason":"deleted",
-  "id":"Customers('ANTON')"
+  "@context": "#Customers/$deletedEntity",
+  "reason": "deleted",
+  "id": "Customers('ANTON')"
 }
 ```
 :::
@@ -2404,12 +2412,12 @@ Example 37: deleted entity in OData 4.01 response with `id`
 control information (prefixed with an `@`)
 ```json
 {
-  "@context":"#Customers/$deletedEntity",
-  "@removed":{
-    "reason":"deleted",
-    "@myannoation.deletedBy":"Mario"
+  "@context": "#Customers/$deletedEntity",
+  "@removed": {
+    "reason": "deleted",
+    "@myannoation.deletedBy": "Mario"
   },
-  "@id":"Customers('ANTON')"
+  "@id": "Customers('ANTON')"
 }
 ```
 :::
@@ -2420,8 +2428,8 @@ control information and instead all key fields (`ID` is the
 single key field of `Customer`)
 ```json
 {
-  "@removed":{},
-  "ID":"ANTON"
+  "@removed": {},
+  "ID": "ANTON"
 }
 ```
 :::
@@ -2438,13 +2446,13 @@ The link object MUST include the following properties, regardless of the specifi
   the context URL fragment MUST be `#{entity-set}/$link`,
   where `{entity-set}` is the entity set containing the source
   entity
-- `source` - The [id](#ControlInformationidodataid) of the entity from which
+- `source` --- The [id](#ControlInformationidodataid) of the entity from which
   the relationship is defined, which may be absolute or
   [relative](#RelativeURLs)
-- `relationship` - The path from the source object to the navigation property which MAY
+- `relationship` --- The path from the source object to the navigation property which MAY
   traverse one or more complex properties, type cast segments, or members
   of ordered collections
-- `target` - The [id](#ControlInformationidodataid) of the related entity,
+- `target` --- The [id](#ControlInformationidodataid) of the related entity,
   which may be absolute or [relative](#RelativeURLs)
 
 ## <a name="DeletedLink" href="#DeletedLink">15.5 Deleted Link</a>
@@ -2462,16 +2470,16 @@ path in the initial request, unless either of the following is true:
   `source` and `relationship`.
 
 The deleted-link object MUST include the following properties, regardless of the specified [`metadata`](#ControllingtheAmountofControlInformationinResponses) value, and MAY include [annotations](#InstanceAnnotations):
-- [`context`](#ControlInformationcontextodatacontext) - the context URL fragment MUST be
+- [`context`](#ControlInformationcontextodatacontext) --- the context URL fragment MUST be
   `#{entity-set}/$deletedLink`, where
   `{entity-set}` is the entity set containing the source entity
-- `source` - The [id](#ControlInformationidodataid) of the entity from which
+- `source` --- The [id](#ControlInformationidodataid) of the entity from which
   the relationship is defined, which may be absolute or
   [relative](#RelativeURLs)
-- `relationship` - The path from the source object to the navigation property which MAY
+- `relationship` --- The path from the source object to the navigation property which MAY
   traverse one or more complex properties, type cast segments, or members
   of ordered collections
-- `target` - The [id](#ControlInformationidodataid) of the related entity for
+- `target` --- The [id](#ControlInformationidodataid) of the related entity for
 multi-valued navigation properties, which may be absolute or
 [relative](#RelativeURLs). For delta payloads
 that do not specify an `OData-Version` header value of `4.0`,
@@ -2479,7 +2487,7 @@ the target MAY be omitted for single-valued navigation.
 
 ## <a name="UpdateaCollectionofEntities" href="#UpdateaCollectionofEntities">15.6 Update a Collection of Entities</a>
 
-The body of a PATCH request to a URL identifying a collection of
+The body of a `PATCH` request to a URL identifying a collection of
 entities is a JSON object. It MUST contain the
 [`context`](#ControlInformationcontextodatacontext)
 control information with a string value of `#$delta`, and it
@@ -2490,40 +2498,51 @@ entities, as well as [added](#AddedLink) or
 [deleted](#DeletedLink) links between entities.
 
 ::: example
-Example 39: 4.01 delta response customers with expanded orders represented
+Example 39: 4.01 collection-update request for customers with expanded orders represented
 inline as a delta
-  1. Add customer 'EASTC'
-  2. Change `ContactName` of customer 'AROUT'
-  3. Delete customer 'ANTON'
-  4. Change customer 'ALFKI':
+  1. Add customer `EASTC`
+  2. Change `ContactName` of customer `AROUT`
+  3. Delete customer `ANTON`
+  4. Change customer `ALFKI`:
      1. Create order 11011
      2. Add link to existing order 10692
-     3. Change `ShippedDate` of related order 10835
+     3. Change `RequiredDate` of related order 10835
      4. Delete link to order 10643
-  5. Add link between customer 'ANATR' and order 10643
-  6. Delete link between customer 'DUMON' and order 10311
+  5. Add link between customer `ANATR` and order 10643
+  6. Delete link between customer `DUMON` and order 10311
 ```json
+PATCH /service/Customers HTTP/1.1
+Host: host
+Content-Type: application/json
+Content-Length: ###
+Prefer: return=minimal, continue-on-error
+
 {
   "@context": "#$delta",
   "value": [
     {
+      "@Org.OData.Core.V1.ContentID": "1",
       "CustomerID": "EASTC",
       "CompanyName": "Eastern Connection",
       "ContactName": "Ann Devon",
       "ContactTitle": "Sales Agent"
     },
     {
+      "@Org.OData.Core.V1.ContentID": "2",
       "CustomerID": "AROUT",
       "ContactName": "Thomas Hardy",
     },
     {
+      "@Org.OData.Core.V1.ContentID": "3",
       "@removed": {},
-      "CustomerID":"ANTON"
+      "CustomerID": "ANTON"
     },
     {
+      "@Org.OData.Core.V1.ContentID": "4",
       "CustomerID": "ALFKI",
       "Orders@delta": [
         {
+          "@Org.OData.Core.V1.ContentID": "4.1",
           "OrderID": 11011,
           "CustomerID": "ALFKI",
           "EmployeeID": 3,
@@ -2532,13 +2551,16 @@ inline as a delta
           "ShippedDate": "1998-04-13T00:00:00Z"
         },
         {
+          "@Org.OData.Core.V1.ContentID": "4.2",
           "@id": "Orders(10692)"
         },
         {
+          "@Org.OData.Core.V1.ContentID": "4.3",
           "@id": "Orders(10835)",
-          "ShippedDate": "1998-01-23T00:00:00Z",
+          "RequiredDate": "1998-01-23T00:00:00Z",
         },
         {
+          "@Org.OData.Core.V1.ContentID": "4.4",
           "@removed": {
             "reason": "changed"
           },
@@ -2548,17 +2570,151 @@ inline as a delta
     },
     {
       "@context": "#Customers/$link",
+      "@Org.OData.Core.V1.ContentID": "5",
       "source": "Customers('ANATR')",
-      "relationship":" Orders",
+      "relationship": "Orders",
       "target": "Orders(10643)"
     },
     {
       "@context": "#Customers/$deletedLink",
+      "@Org.OData.Core.V1.ContentID": "6",
       "source": "Customers('DUMON')",
       "relationship": "Orders",
       "target": "Orders(10311)"
     }
   ]
+}
+```
+
+Assuming all changes can be applied without errors, the response would be
+```
+HTTP/1.1 204 No Content
+Preference-Applied: return=minimal, continue-on-error
+
+
+```
+
+Assuming some or all changes cannot be applied, the overall request is still deemed successful due to the `continue-on-error` preference, and the response details what went wrong
+  1. Add customer 'EASTC' - failed
+  2. Change `ContactName` of customer 'AROUT' - failed
+  3. Delete customer 'ANTON' - failed
+  4. Change customer 'ALFKI':
+     1. Create order 11011 - succeeded, not mentioned in response
+     2. Add link to existing order 10692 - succeeded, not mentioned in response
+     3. Change `RequiredDate` of related order 10835 - failed
+     4. Delete link to order 10643 - succeeded, not mentioned in response
+  5. Add link between customer 'ANATR' and order 10643 - failed without further info
+  6. Delete link between customer 'DUMON' and order 10311 - failed without further info
+```json
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: ###
+Preference-Applied: return=minimal, continue-on-error
+
+{
+  "@context": "#$delta",
+  "value": [
+    {
+      "@Org.OData.Core.V1.ContentID": "1",
+      "CustomerID": "EASTC",
+      "@removed": {},
+      "@Org.OData.Core.V1.DataModificationException": {
+        "failedOperation": "insert",
+        "responseCode": 400,
+        "info": {
+          "code": "incmplt",
+          "message": "Required field(s) not provided",
+          "target": "Address",
+          "@OtherVocab.additionalTargets": [ "Industry", "VATRegistration" ],
+          "severity": "error"
+        }
+      }
+    },
+    {
+      "@Org.OData.Core.V1.ContentID": "2",
+      "CustomerID": "AROUT",
+      "@Org.OData.Core.V1.DataModificationException": {
+        "failedOperation": "update",
+        "responseCode": 400,
+        "info": {
+          "code": "r-o",
+          "message": "Customer is archived and cannot be changed",
+          "severity": "error"
+        }
+      }
+    },
+    {
+      "@Org.OData.Core.V1.ContentID": "3",
+      "CustomerID": "ANTON",
+      "@Org.OData.Core.V1.DataModificationException": {
+        "failedOperation": "delete",
+        "responseCode": 400,
+        "info": {
+          "code": "ufo",
+          "message": "Customer has unfinished orders and cannot be deleted",
+          "severity": "error"
+        }
+      }
+    },
+    {
+      "@Org.OData.Core.V1.ContentID": "4",
+      "CustomerID": "ALFKI",
+      "Orders@delta": [
+        {
+          "@Org.OData.Core.V1.ContentID": "4.3",
+          "@id": "Orders(10835)",
+          "@Org.OData.Core.V1.DataModificationException": {
+            "failedOperation": "update",
+            "responseCode": 400,
+            "info": {
+              "code": "b/s",
+              "message": "RequiredDate cannot be changed because Order is already being shipped",
+              "severity": "error"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@context": "#Customers/$deletedLink",
+      "@Org.OData.Core.V1.ContentID": "5",
+      "source": "Customers('ANATR')",
+      "relationship": "Orders",
+      "target": "Orders(10643)",
+      "@Org.OData.Core.V1.DataModificationException": {
+        "failedOperation": "link",
+        "responseCode": 404,
+        "info": null
+      }
+    },
+    {
+      "@context": "#Customers/$link",
+      "@Org.OData.Core.V1.ContentID": "6",
+      "source": "Customers('DUMON')",
+      "relationship": "Orders",
+      "target": "Orders(10311)",
+      "@Org.OData.Core.V1.DataModificationException": {
+        "failedOperation": "unlink",
+        "responseCode": 400
+      }
+    }
+  ]
+}
+```
+
+Without the `continue-on-error` preference processing would stop on the first error, and the response would be a standard OData error response
+```json
+HTTP/1.1 400 Bad Request
+Content-Type: application/json
+Content-Length: ###
+
+{
+  "error": {
+    "code": "incmplt",
+    "message": "Required field(s) not provided",
+    "target": "Customers('EASTC')/Address",
+    "@OtherVocab.additionalTargets": [ "Customers('EASTC')/Industry", "Customers('EASTC')/VATRegistration" ]
+  }
 }
 ```
 :::
@@ -2624,7 +2780,7 @@ title as a string.
 If [`metadata=minimal`](#metadataminimalodatametadataminimal)
 is requested, the `target` name/value pair MUST be included
 if its value differs from the canonical function or action URL.
- 
+
 ::: example
 Example 40: minimal representation of a function where all overloads are
 applicable
@@ -2632,11 +2788,11 @@ applicable
 {
   "@context": "http://host/service/$metadata#Employees/$entity",
   "#Model.RemainingVacation": {},
-  ...
+  …
 }
 ```
 :::
- 
+
 ::: example
 Example 41: full representation of a specific overload with parameter
 alias for the `Year` parameter
@@ -2647,11 +2803,11 @@ alias for the `Year` parameter
     "title": "Remaining vacation from year.",
     "target": "Employees(2)/RemainingVacation(Year=@Year)"
   },
-  ...
+  …
 }
 ```
 :::
- 
+
 ::: example
 Example 42: full representation in a collection
 ```json
@@ -2661,7 +2817,7 @@ Example 42: full representation in a collection
     "title": "Remaining Vacation",
     "target": "Managers(22)/Employees/RemainingVacation"
   },
-  "value": [ ... ]
+  "value": [ … ]
 }
 ```
 :::
@@ -2673,7 +2829,7 @@ Example 43: full representation in a nested collection
   "@context": "http://host/service/$metadata#Employees/$entity",
   "@type": "Model.Manager",
   "ID":22,
-  ...
+  …
   "Employees#RemainingVacation": {
     "title": "RemainingVacation",
     "target": "Managers(22)/Employees/RemainingVacation"
@@ -2728,18 +2884,18 @@ title as a string.
 If [`metadata=minimal`](#metadataminimalodatametadataminimal)
 is requested, the `target` name/value pair MUST be included
 if its value differs from the canonical function or action URL.
- 
+
 ::: example
 Example 44: minimal representation in an entity
 ```json
 {
   "@context": "http://host/service/$metadata#LeaveRequests/$entity",
   "#Model.Approve": {},
-  ...
+  …
 }
 ```
 :::
- 
+
 ::: example
 Example 45: full representation in an entity:
 ```json
@@ -2749,11 +2905,11 @@ Example 45: full representation in an entity:
     "title": "Approve Leave Request",
     "target": "LeaveRequests(2)/Approve"
   },
-  ...
+  …
 }
 ```
 :::
- 
+
 ::: example
 Example 46: full representation in a collection
 ```json
@@ -2763,7 +2919,7 @@ Example 46: full representation in a collection
     "title": "Approve All Leave Requests",
     "target": "Employees(22)/Model.Manager/LeaveRequests/Approve"
   },
-  "value": [ ... ]
+  "value": [ … ]
 }
 ```
 :::
@@ -2775,7 +2931,7 @@ Example 47: full representation in a nested collection
   "@context": "http://host/service/$metadata#Employees/$entity",
   "@type": "Model.Manager",
   "ID": 22,
-  ...
+  …
   "LeaveRequests#Model.Approve": {
     "title": "Approve All Leave Requests",
     "target": "Employees(22)/Model.Manager/LeaveRequests/Approve"
@@ -2797,6 +2953,7 @@ value is the parameter value in the JSON representation appropriate for
 its type. Entity typed parameter values MAY include a subset of the
 properties, or just the [entity reference](#EntityReference), as
 appropriate to the action.
+Stream typed parameter values are represented following the same rules as inlined [stream properties](#StreamProperty).
 
 Non-binding parameters that are nullable or annotated with the term
 [`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter) defined in
@@ -2952,7 +3109,10 @@ the body content can be compressed or chunked if this is correctly
 reflected in the `Transfer-Encoding` header.
 
 A `body` MUST NOT be specified if the `method` is `get` or `delete`.
- 
+
+The request object and the `headers` object MUST NOT contain name/value pairs with duplicate names.
+This is in conformance with [RFC7493](#rfc7493).
+
 ::: example
 Example <a name="batchRequest" href="#batchRequest">48</a>: a batch request that contains
 the following individual requests in the order listed
@@ -3015,7 +3175,7 @@ The entity returned by a preceding request can be referenced in the
 request URL of subsequent requests. If the `Location` header in the response
 contains a relative URL, clients MUST be able to resolve it relative to the
 request's URL even if that contains such a reference.
- 
+
 ::: example
 Example 49: a batch request that contains the following operations in
 the order listed:
@@ -3057,6 +3217,7 @@ the order listed:
 
 - Get an Employee (with `id` = 1)
 - Update the salary only if the employee has not changed
+
 ```json
 POST /service/$batch HTTP/1.1
 Host: host
@@ -3091,7 +3252,47 @@ Content-Length: ###
 ```
 :::
 
-## <a name="ProcessingaBatchRequest" href="#ProcessingaBatchRequest">19.4 Processing a Batch Request</a>
+## <a name="ReferencingResponseBodyValues" href="#ReferencingResponseBodyValues">19.4 Referencing Response Body Values</a>
+
+::: example
+Example 51: a batch request that contains the following operations in
+the order listed:
+
+- Get an employee (with `Content-ID = 1`)
+- Get all employees residing in the same building
+
+```json
+POST /service/$batch HTTP/1.1
+Host: host
+OData-Version: 4.01
+Content-Type: application/json
+Content-Length: ###
+
+{
+  "requests": [
+    {
+      "id": "1",
+      "method": "get",
+      "url": "/service/Employees/0?$select=Building",
+      "headers": {
+        "accept": "application/json"
+      }
+    },
+    {
+      "id": "2",
+      "dependsOn": [ "1" ],
+      "method": "get",
+      "url": "/service/Employees?$filter=Building eq $1/Building",
+      "headers": {
+        "accept": "application/json"
+      }
+    }
+  ]
+}
+```
+:::
+
+## <a name="ProcessingaBatchRequest" href="#ProcessingaBatchRequest">19.5 Processing a Batch Request</a>
 
 All requests in an atomicity group represent a single change unit. A
 service MUST successfully process and apply all the requests in the
@@ -3118,7 +3319,7 @@ response object with the value of the request identifier that the client
 specified in the corresponding request, so clients can correlate
 requests and responses.
 
-## <a name="BatchResponse" href="#BatchResponse">19.5 Batch Response</a>
+## <a name="BatchResponse" href="#BatchResponse">19.6 Batch Response</a>
 
 A JSON batch response body consists of a single JSON object that MUST
 contain the name/value pair `responses` and MAY contain
@@ -3157,7 +3358,8 @@ same value.
 
 If any response within an atomicity group returns a failure code, all
 requests within that atomicity group are considered failed, regardless
-of their individual returned status code. The service MAY return `424 Failed Dependency` for statements
+of their individual returned status code. The service MAY return
+`424 Failed Dependency` for statements
 within an atomicity group that fail or are not attempted due to other
 failures within the same atomicity group.
 
@@ -3182,12 +3384,17 @@ Relative URLs in a response object follow the rules for [relative
 URLs](#RelativeURLs) based on the request URL of the corresponding
 request. Especially: URLs in responses MUST NOT contain
 `$`-prefixed request identifiers.
- 
+
 ::: example
-Example 51: referencing the batch request [example 48](#batchRequest) above, assume all
+Example 52: referencing the batch request [example 48](#batchRequest) above, assume all
 the requests except the final query request succeed. In this case the
 response would be
 ```json
+HTTP/1.1 200 OK
+OData-Version: 4.01
+Content-Length: ####
+Content-Type: application/json
+
 {
   "responses": [
     {
@@ -3217,7 +3424,7 @@ response would be
 ```
 :::
 
-## <a name="AsynchronousBatchRequests" href="#AsynchronousBatchRequests">19.6 Asynchronous Batch Requests</a>
+## <a name="AsynchronousBatchRequests" href="#AsynchronousBatchRequests">19.7 Asynchronous Batch Requests</a>
 
 A batch request that specifies the `respond-async` preference MAY be executed asynchronously. This means that the "outer" batch request is executed asynchronously; this
 preference does not automatically cascade down to the individual
@@ -3235,9 +3442,9 @@ control information in the JSON batch response, thus signaling that the
 response is only a partial result. A subsequent `GET` request
 to the next link MAY result in a `202 Accepted` response with a
 `location` header pointing to a new status monitor resource.
- 
+
 ::: example
-Example 52: referencing the example 47 above again, assume that the
+Example 53: referencing the example 47 above again, assume that the
 request is sent with the `respond-async` preference. This
 results in a `202` response pointing to a status monitor resource:
 ```json
@@ -3270,7 +3477,7 @@ Content-Type: application/json
       "body": <JSON representation of the Customer entity with key ALFKI>
     }
   ],
-  "@nextLink": "...?$skiptoken=YmF0Y2gx"
+  "@nextLink": "…?$skiptoken=YmF0Y2gx"
 }
 ```
 
@@ -3325,9 +3532,9 @@ the service responds with a JSON batch response. In this case the
 asynchronously executed individual request with a `status` of
 `202`, a `location` header pointing to an
 individual status monitor resource, and optionally a `retry-after` header.
- 
+
 ::: example
-Example 53: the first individual request is processed asynchronously,
+Example 54: the first individual request is processed asynchronously,
 the second synchronously, the batch itself is processed synchronously
 ```json
 HTTP/1.1 200 OK
@@ -3351,7 +3558,8 @@ Content-Type: application/json
   ]
 }
 ```
-::: 
+:::
+
 
 -------
 
@@ -3380,14 +3588,16 @@ should never error due to an unexpected annotation in a JSON payload.
 Annotations are always expressed as name/value pairs. For entity data
 model constructs represented as JSON objects the annotation name/value
 pairs are placed within the object; for constructs represented as JSON
-arrays or primitives they are placed next to the annotated model
-construct. When annotating a payload that represents a
+arrays or primitives, including null, they are placed next to the annotated model
+construct and have the name of the annotated property before the `@`.
+An annotation in the latter format can also take the place of an absent property.
+When annotating a payload that represents a
 [single primitive or collection value](#IndividualPropertyorOperationResponse),
 the annotations for the value appear next to the `value`
 property and are not prefixed with a property name.
 
 ::: example
-Example 54:
+Example 55:
 ```json
 {
   "@context": "http://host/service/$metadata#Customers",
@@ -3495,9 +3705,9 @@ concerns around information disclosure.
 
 Error responses MAY contain [annotations](#InstanceAnnotations) in
 any of its JSON objects.
- 
+
 ::: example
-Example 55:
+Example 56:
 ```json
 {
   "error": {
@@ -3512,8 +3722,8 @@ Example 55:
       }
     ],
     "innererror": {
-      "trace": [...],
-      "context": {...}
+      "trace": […],
+      "context": {…}
     }
   }
 }
@@ -3544,9 +3754,9 @@ header-appropriate way:
   Unicode characters beyond `00FF` within JSON strings are
   encoded as `\uXXXX` or `\uXXXX\uXXXX` (see
   [RFC8259](#rfc8259), section 7)
- 
+
 ::: example
-Example 56: note that this is one HTTP header line without any line
+Example 57: note that this is one HTTP header line without any line
 breaks or optional whitespace
 ```json
 OData-error: {"code":"err123","message":"Unsupported
@@ -3595,7 +3805,7 @@ the client has specified the
 `continue-on-error` preference. In
 this case, the service MUST include a
 [`nextLink`](#ControlInformationnextLinkodatanextLink).
-The [`nextLink`](#ControlInformationnextLinkodatanextLink) can be used to attempt retrieving the remaining members of the collection and could return an error indicating that the remaining
+The `nextLink` can be used to attempt retrieving the remaining members of the collection and could return an error indicating that the remaining
 members are not available.
 
 -------
@@ -3620,7 +3830,7 @@ this version of the OData JSON Specification.
 Conforming clients MUST be prepared to consume a service that uses any or all of the constructs defined in this specification. The exception to this are the constructs defined in Delta Response, which are only required for clients that request changes.
 
 <!--TODO: V4.02 conformance -->
- 
+
 In order to be a conforming consumer of the OData JSON format, a client or service:
 
 1. MUST either:
@@ -3734,48 +3944,46 @@ _OData Vocabularies Version 4.0: Core Vocabulary._
 See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### <a name="rfc2119">[RFC2119]</a>
-_Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_  
+_Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_.
 https://www.rfc-editor.org/info/rfc2119.
 
 ###### <a name="rfc3986">[RFC3986]</a>
-_Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform Resource Identifier (URI): Generic Syntax", IETF RFC3986, January 2005_
-https://tools.ietf.org/html/rfc3986.
+_Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform Resource Identifier (URI): Generic Syntax", STD 66, RFC 3986, DOI 10.17487/RFC3986, January 2005_.
+https://www.rfc-editor.org/info/rfc3986.
 
 ###### <a name="rfc3987">[RFC3987]</a>
-_Duerst, M. and, M. Suignard, "Internationalized Resource Identifiers (IRIs)", RFC 3987, January 2005_
-https://tools.ietf.org/html/rfc3987.
+_Duerst, M. and M. Suignard, "Internationalized Resource Identifiers (IRIs)", RFC 3987, DOI 10.17487/RFC3987, January 2005_.
+https://www.rfc-editor.org/info/rfc3987.
 
 ###### <a name="rfc4648">[RFC4648]</a>
-_Josefsson, S,, "The Base16, Base32, and Base64 Data Encodings", RFC 4648, October 2006_
-https://tools.ietf.org/html/rfc4648.
+_Josefsson, S., "The Base16, Base32, and Base64 Data Encodings", RFC 4648, DOI 10.17487/RFC4648, October 2006_.
+https://www.rfc-editor.org/info/rfc4648.
 
 ###### <a name="rfc5646">[RFC5646]</a>
-_Phillips, A., Ed., and M. Davis, Ed., "Tags for Identifying Languages", BCP 47, RFC 5646, September 2009_
-http://tools.ietf.org/html/rfc5646.
+_Phillips, A., Ed., and M. Davis, Ed., "Tags for Identifying Languages", BCP 47, RFC 5646, DOI 10.17487/RFC5646, September 2009_.
+https://www.rfc-editor.org/info/rfc5646.
 
 ###### <a name="rfc7493">[RFC7493]</a>
-_Bray, T., Ed., "The I-JSON Message Format", RFC7493, March 2015_
-https://tools.ietf.org/html/rfc7493.
+_Bray, T., Ed., "The I-JSON Message Format", RFC 7493, DOI 10.17487/RFC7493, March 2015_.
+https://www.rfc-editor.org/info/rfc7493.
 
 ###### <a name="rfc7946">[RFC7946]</a>
-_Howard Butler, Martin Daly, Alan Doyle, Sean Gillies, Stefan Hagen and Tim Schaub, "The GeoJSON Format", RFC 7946, August 2016._
-http://tools.ietf.org/html/rfc7946.
+_Butler, H., Daly, M., Doyle, A., Gillies, S., Hagen, S., and T. Schaub, "The GeoJSON Format", RFC 7946, DOI 10.17487/RFC7946, August 2016_.
+https://www.rfc-editor.org/info/rfc7946.
 
 ###### <a name="rfc8174">[RFC8174]</a>
-_Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_  
+_Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_.
 https://www.rfc-editor.org/info/rfc8174.
 
 ###### <a name="rfc8259">[RFC8259]</a>
-_Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 8259, December 2017_
-http://tools.ietf.org/html/rfc8259.
+_Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", STD 90, RFC 8259, DOI 10.17487/RFC8259, December 2017_.
+https://www.rfc-editor.org/info/rfc8259.
 
-## <a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a> 
-###### <a name="ECMAScript">[ECMAScript]</a>
-_ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262. https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
+## <a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a>
 
-###### <a name="GeoJSON-2008">[GeoJSON-2008]</a>
-_Butler, H., Daly, M., Doyle, A., Gillies, S., Schaub, T., and C. Schmidt, "The GeoJSON Format Specification", June 2008_
-http://geojson.org/geojson-spec.html.
+###### <a name="_ECMAScript">[ECMAScript]</a>
+_ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262.
+https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
 
 -------
 

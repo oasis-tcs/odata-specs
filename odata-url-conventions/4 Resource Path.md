@@ -78,17 +78,17 @@ Below is a (non-normative) snippet from [OData-ABNF](#ODataABNF):
 
 ```
 resourcePath = entitySetName                  [collectionNavigation]
-             / singleton                      [singleNavigation]
+             / singletonEntity                [singleNavigation]
              / actionImportCall
              / entityColFunctionImportCall    [ collectionNavigation ]
              / entityFunctionImportCall       [ singleNavigation ]
              / complexColFunctionImportCall   [ collectionPath ]
              / complexFunctionImportCall      [ complexPath ]
              / primitiveColFunctionImportCall [ collectionPath ]
-             / primitiveFunctionImportCall    [ singlePath ]
-             / functionImportCallNoParens
-             / crossjoin
-             / '$all'                         [ "/" qualifiedEntityTypeName ]
+             / primitiveFunctionImportCall    [ primitivePath ]
+             / functionImportCallNoParens     [ querySegment ]
+             / crossjoin                      [ querySegment ]
+             / %s"$all"                       [ "/" optionallyQualifiedEntityTypeName ]
 ```
 
 Since OData has a uniform composable URL syntax and associated rules
@@ -105,8 +105,8 @@ http://host/service/Products
 
 - By navigating a collection-valued
 navigation property (see rule: `entityColNavigationProperty`)
-- By invoking a function that returns a
-collection of entities (see rule: `entityColFunctionCall`)
+- By invoking a function import that returns a
+collection of entities (see rule: `entityColFunctionImportCall`)
 
 ::: example
 Example ##ex: function with parameters in resource path
@@ -122,16 +122,16 @@ http://host/service/ProductsByColor(color=@color)?@color='red'
 ```
 :::
 
-- By invoking an action that returns a
-collection of entities (see rule: `actionCall`)
+- By invoking an action import that returns a
+collection of entities (see rule: `actionImportCall`)
 
 Likewise there are many ways to address a single entity.
 
 Sometimes a single entity can be accessed directly, for example by:
-- Invoking a function that returns a
-single entity (see rule: `entityFunctionCall`)
-- Invoking an action that returns a single
-entity (see rule: `actionCall`)
+- Invoking a function import that returns a
+single entity (see rule: `entityFunctionImportCall`)
+- Invoking an action import that returns a single
+entity (see rule: `actionImportCall`)
 - Addressing a singleton
 
 ::: example
@@ -244,7 +244,7 @@ section, the canonical form of an absolute URL identifying a
 non-contained entity is formed by adding a single path segment to the
 service root URL. The path segment is made up of the name of the entity
 set associated with the entity followed by the key predicate identifying
-the entity within the collection. No type-cast segment is added to the
+the entity within the collection. No [type-cast segment](#AddressingDerivedTypes) is added to the
 canonical URL, even if the entity is an instance of a type derived from
 the declared entity type of its entity set.
 
@@ -273,7 +273,7 @@ For contained entities (i.e. related via a containment navigation
 property, see [OData-CSDLJSON](#ODataCSDL) or
 [OData-CSDLXML](#ODataCSDL)) the canonical URL is the canonical URL of
 the containing entity followed by:
-- A type-cast segment if the navigation
+- A [type-cast segment](#AddressingDerivedTypes) if the navigation
 property is defined on a type derived from the entity type declared for
 the entity set,
 - A path segment for the containment
@@ -354,9 +354,13 @@ specified key property name, and the canonical short form without key
 property name
 ```
 http://host/service/Employees(SSN='123-45-6789')
+```
 
+```
 http://host/service/Employees(ID='A1245')
+```
 
+```
 http://host/service/Employees('A1245')
 ```
 :::
@@ -364,7 +368,7 @@ http://host/service/Employees('A1245')
 ### ##subsubsec Key-as-Segment Convention
 
 Services MAY support an alternate convention for addressing entities by
-appending a segment containing the unquoted key value to the URL of the
+appending a segment containing the unprefixed and unquoted key value to the URL of the
 collection containing the entity. Forward-slashes in key value segments
 MUST be percent-encoded; single quotes within key value segments are
 treated as part of the key value and do not need to be doubled or
@@ -374,12 +378,26 @@ percent encoded.
 Example ##ex: valid OData URLs:
 ```
 http://host/service/Employees/A1245
+```
 
+```
 http://host/service/People/O'Neil
+```
 
+```
 http://host/service/People/O%27Neil
+```
 
+```
 http://host/service/Categories/Smartphone%2FTablet
+```
+
+```
+http://host/service/ThingyWithDurationKey/P12DT23H59M59.999999999999S
+```
+
+```
+http://host/service/ThingyWithEnumerationKey/Yellow
 ```
 :::
 
@@ -392,7 +410,9 @@ Example ##ex: multi-part key predicate, parentheses-style and
 key-as-segment
 ```
 https://host/service/OrderItems(OrderID=1,ItemNo=2)
+```
 
+```
 https://host/service/OrderItems/1/2
 ```
 :::
@@ -403,7 +423,7 @@ key properties of the related entity that take part in the referential
 constraint MUST be omitted from URLs using key-as-segment convention.
 
 ::: example
-Example ##ex: key predicate of related entity - no key segments for key
+Example ##ex: key predicate of related entity --- no key segments for key
 properties of related entity with a referential constraint to preceding
 key segments
 ```
@@ -475,9 +495,13 @@ Example ##ex: three ways of unrelating `Categories(1)` and
 `Products(0)`; the second option is supported only in OData 4.01
 ```
 DELETE http://host/service/Categories(1)/Products/$ref?$id=../../Products(0)
+```
 
+```
 DELETE http://host/service/Categories(1)/Products(0)/$ref
+```
 
+```
 DELETE http://host/service/Products(0)/Category/$ref
 ```
 :::
@@ -513,8 +537,8 @@ appended to a `resourcePath`.
 
 ### ##subsubsec Addressing Functions
 
-The grammar for addressing and invoking functions is defined by a number
-syntax grammar rules in [OData-ABNF](#ODataABNF), in particular:
+The grammar for addressing and invoking functions is defined by
+syntax rules in [OData-ABNF](#ODataABNF), in particular:
 - The function import call syntax rules
 `complexFunctionImportCall`, `complexColFunctionImportCall`,
 `entityFunctionImportCall`, `entityColFunctionImportCall`,
@@ -541,6 +565,12 @@ and order resources identified by the `resourcePath` of the URL.
 the grammar for providing function parameter values using Parameter
 Alias Syntax, see [OData-Protocol](#ODataProtocol).
 
+Note: there is no literal representation for `Edm.Stream` values in URLs,
+so it is not possible to pass `Edm.Stream` values to parameters of function imports or
+to non-binding parameters of bound functions used in the resource path.
+Function expressions within query options can use [path expressions](#PathExpressions)
+of type `Edm.Stream` as values of non-binding function parameters.
+
 ## ##subsec Addressing a Property
 
 To address an entity property clients append a path segment containing
@@ -548,12 +578,12 @@ the property name to the URL of the entity. If the property has a
 complex type value, properties of that value can be addressed by further
 property name composition.
 
-## ##subsec Addressing a Property Value
+## ##subsec Addressing a Raw Value
 
-To address the raw value of a primitive property, clients append the
-path segment `/$value` to the property URL.
+To address the raw value of a primitive property or operation result, clients append the
+path segment `/$value` to the property or operation URL.
 
-Properties of type `Edm.Stream` already return the raw value of the
+Properties and operation results of type `Edm.Stream` already return the raw value of the
 media stream and do not support appending the `/$value` segment.
 
 ## ##subsec Addressing the Count of a Collection
@@ -562,7 +592,7 @@ To address the raw value of the number of items in a collection, clients
 append `/$count` to the resource path of the URL identifying the entity
 set or collection.
 
-The `/$count `path suffix identifies the integer count of records in the
+The `/$count` path suffix identifies the integer count of records in the
 collection and SHOULD NOT be combined with the system query options
 [`$top`](#SystemQueryOptionstopandskip),
 [`$skip`](#SystemQueryOptionstopandskip),
@@ -573,7 +603,7 @@ by `$top`, `$skip`, `$orderby`, or `$expand`.
 
 The count is calculated after applying any
 [`/$filter`](#AddressingaSubsetofaCollection) path segments, or
-[`$filter`](#SystemQueryOptionfilter) or 
+[`$filter`](#SystemQueryOptionfilter) or
 [`$search`](#SystemQueryOptionsearch) system query options to the collection.
 
 ::: example
@@ -621,20 +651,21 @@ Collections of entities are modeled as entity sets, collection-valued
 navigation properties, or operation results.
 
 For entity sets, results of operations associated with an entity set
-through an `EntitySet `or `EntitySetPath` declaration, or
+through an `EntitySet` or `EntitySetPath` declaration, or
 collection-valued navigation properties with a
-`NavigationPropertyBinding `or `ContainsTarget=true `specification,
+`NavigationPropertyBinding` or `ContainsTarget=true` specification,
 members of the collection can be addressed by convention by appending
 the parenthesized key to the URL specifying the collection of entities,
 or by using the [key-as-segment convention](#KeyasSegmentConvention) if
 supported by the service.
 
 For collection-valued navigation properties with navigation property
-bindings that end in a type-cast segment, a type-cast segment MUST be
+bindings that end in a [type-cast segment](#AddressingDerivedTypes),
+a type-cast segment MUST be
 appended to the collection URL before appending the key segment.
 
 Note: entity sets or collection-valued navigation properties annotated
-with term
+with the term
 [`Capabilities.IndexableByKey`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#IndexableByKey)
 defined in [OData-VocCap](#ODataVocCap) and a value of `false` do not
 support addressing their members by key.
@@ -664,18 +695,18 @@ http://host/service/MainSupplier/Addresses/0
 ## ##subsec Addressing Derived Types
 
 Any resource path or path expression identifying a collection of
-entities or complex type instances can be appended with a path segment
-containing the qualified name of a type derived from the declared type
+entities or complex type instances can be appended with a  _type-cast segment_, that is a path segment
+containing the qualified name of a type derived from the declared item type
 of the collection. The result will be restricted to instances of the
 derived type and may be empty.
 
 Any resource path or path expression identifying a single entity or
-complex type instance can be appended with a path segment containing the
+complex type instance can be appended with a type-cast segment containing the
 qualified name of a type derived from the declared type of the
 identified resource. If used in a resource path and the identified
 resource is not an instance of the derived type, the request will result
-in a `404 Not Found` response. If used in a path expression that is part
-of a Boolean expression, the type cast will evaluate to `null`.
+in a `404 Not Found` response. If used in a path expression,
+the type cast will evaluate to `null`.
 
 Services MAY additionally support the use of the unqualified name of a
 derived type in a URL by defining one or more default namespaces through
@@ -704,9 +735,11 @@ http://host/service/Customers/Model.VipCustomer
 Example ##ex: entity restricted to a `VipCustomer` instance, resulting in
 `404 Not Found` if the customer with key `1` is not a `VipCustomer`
 ```
-http://host/service/`Customers/Model.VipCustomer(1)
+http://host/service/Customers/Model.VipCustomer(1)
+```
 
-http://host/service/`Customers(1)/Model.VipCustomer
+```
+http://host/service/Customers(1)/Model.VipCustomer
 ```
 :::
 
@@ -745,8 +778,8 @@ filter expression following the `filter` syntax rule in
 [OData-ABNF](#ODataABNF). If the parentheses contain a parameter alias,
 a filter expression MUST be assigned to the parameter alias in the query
 part of the request URL. If the filter path segment appears in the
-resource path and the parentheses contain a filter expression, that
-expression MUST NOT use forward slashes.
+resource path, the filter expression in parentheses MUST NOT use forward slashes,
+it must be specified with a parameter alias instead.
 
 The collection will be restricted to instances matching the filter
 expression assigned to the parameter alias and may be empty.
@@ -756,7 +789,7 @@ combined with the [`$filter`](#SystemQueryOptionfilter) system query
 option.
 
 ::: example
-Example ##ex: red products that cost less than 10  -- combining path
+Example ##ex: red products that cost less than 10  --- combining path
 segment and system query option
 ```
 GET Products/$filter(@foo)?@foo=Price lt 10&$filter=Color eq 'red'
@@ -764,7 +797,7 @@ GET Products/$filter(@foo)?@foo=Price lt 10&$filter=Color eq 'red'
 :::
 
 ::: example
-Example ##ex: red products that cost less than 10 -- combine two path
+Example ##ex: red products that cost less than 10 --- combine two path
 segments
 ```
 GET Products/$filter(@p)/$filter(@c)?@p=Price lt 10&@c=Color eq 'red'
@@ -807,7 +840,7 @@ a collection.
 
 To apply a [bound action](#AddressingActions) or function to each member
 of a collection, clients append the path segment `/$each` followed by a
-path segment identifying the [bound action](#AddressingActions) or
+path segment identifying the bound action or
 function. The response is a collection of instances of the result type
 of the bound operation. If the bound operation returns a collection, the
 response is a collection of collections. System query options applied to
@@ -816,7 +849,7 @@ collection, followed by [`/any`](#any), [`/all`](#all), or
 [`/$count`](#AddressingtheCountofaCollection).
 
 The resource path of the collection preceding `/$each` MAY contain
-[type-cast](#AddressingDerivedTypes) or [filter path
+[type-cast segments](#AddressingDerivedTypes) or [filter path
 segments](#AddressingaSubsetofaCollection) to subset the collection.
 
 ## ##subsec Addressing the Media Stream of a Media Entity
@@ -828,7 +861,7 @@ stream.
 
 ::: example
 Example ##ex: request the media stream for the picture with the key value
-`Sunset4321299432:`
+`Sunset4321299432`:
 ```
 http://host/service/Pictures('Sunset4321299432')/$value
 ```
@@ -871,25 +904,25 @@ Example ##ex: if `Sales` had a structural property `ProductID` instead of
 a navigation property `Product`, a "cross join" between `Sales` and
 `Products` could be addressed
 ```
-http://host/service/$crossjoin(Products,Sales)?$filter=Products/ID eq Sales/ProductID                
+http://host/service/$crossjoin(Products,Sales)?$filter=Products/ID eq Sales/ProductID
 ```
 and would result in
 ```json
 {
-  "@odata.context":"http://host/service/$metadata#Collection(Edm.ComplexType)",
-  "value":[
+  "@odata.context": "http://host/service/$metadata#Collection(Edm.ComplexType)",
+  "value": [
     {
-      "Products@odata.navigationLink":"Products(0)",
-      "Sales@odata.navigationLink":"Sales(42)",
+      "Products@odata.navigationLink": "Products(0)",
+      "Sales@odata.navigationLink": "Sales(42)",
     },
     {
-      "Products@odata.navigationLink":"Products(0)",
-      "Sales@odata.navigationLink":"Sales(57)",
+      "Products@odata.navigationLink": "Products(0)",
+      "Sales@odata.navigationLink": "Sales(57)",
     },
-    ...
+    …
     {
-      "Products@odata.navigationLink":"Products(99)",
-      "Sales@odata.navigationLink":"Sales(21)",
+      "Products@odata.navigationLink": "Products(99)",
+      "Sales@odata.navigationLink": "Sales(21)",
     }
   ]
 }
@@ -946,7 +979,7 @@ Requests to paths ending in `/$query` MUST use the `POST` verb. Query
 options specified in the request body and query options specified in the
 request URL are processed together.
 
-The request body MUST use the content-type `text/plain`. It contains the
+The request body MUST use `Content-Type: text/plain`. It contains the
 query portion of the URL and MUST use the same percent-encoding as in
 URLs (especially: no spaces, tabs, or line breaks allowed) and MUST
 follow the syntax rules described in chapter Query Options.

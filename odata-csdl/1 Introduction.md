@@ -18,8 +18,8 @@ modifications made necessary to fully cover OData CSDL Version 4.01.
 OData services are described in terms of an [Entity
 Model](#EntityModel). The Common Schema Definition Language (CSDL)
 defines a representation of the entity model exposed by an OData
-service using the Extensible Markup Language (XML) 1.1 (Second Edition)
-[XML-1.1](#XML-11) with further building blocks from the W3C XML
+service using the Extensible Markup Language (XML) 1.0 (Fifth Edition)
+[XML-1.0](#XML-10) with further building blocks from the W3C XML
 Schema Definition Language (XSD) 1.1 as described in
 [XML-Schema-1](#XML-Schema1) and
 [XML-Schema-2](#XML-Schema2).
@@ -29,9 +29,17 @@ Schema Definition Language (XSD) 1.1 as described in
 
 Section | Feature / Change | Issue
 --------|------------------|------
+: varxml
+[Section ##EntityContainer]| 
+All children of `edm:EntityContainer` are optional| 
+[ODATA-1571](https://issues.oasis-open.org/browse/ODATA-1571)
+:
 [Section ##PathEvaluation]| 
 New path evaluation rules for annotations targeting annotations and external targeting via container| 
 [ODATA-1420](https://issues.oasis-open.org/browse/ODATA-1420)
+[Section ##PrimitiveTypes]| 
+Allow stream-valued non-binding parameters| 
+[ODATA-1481](https://issues.oasis-open.org/browse/ODATA-1481)
 
 ## ##subsec Glossary
 
@@ -70,7 +78,7 @@ All other text is normative unless otherwise labeled.
 Here is a customized command line which will generate HTML from this markdown file (named `$$$filename$$$.md`). Line breaks are added for readability only:
 
 ```
-pandoc -f gfm+tex_math_dollars+fenced_divs
+pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        -t html
        -o $$$filename$$$.html
        -c styles/markdown-styles-v1.7.3b.css
@@ -258,8 +266,8 @@ this specification document take precedence.
 # ##sec XML Representation
 
 OData CSDL XML is a full representation of the OData Common Schema
-Definition Language in the Extensible Markup Language (XML) 1.1 (Second
-Edition) [XML-1.1](#XML-11) with further building blocks from the
+Definition Language in the Extensible Markup Language (XML) 1.0 (Fifth
+Edition) [XML-1.0](#XML-10) with further building blocks from the
 W3C XML Schema Definition Language (XSD) 1.1 as described in
 [XML-Schema-1](#XML-Schema1) and
 [XML-Schema-2](#XML-Schema2).
@@ -418,9 +426,25 @@ are common in entity models as the means of representing entities and
 structured properties in an OData service. [Entity types](#EntityType)
 and [complex types](#ComplexType) are both structured types.
 
-Structured Types are composed of zero or more [structural
+Structured types are composed of zero or more [structural
 properties](#StructuralProperty) and [navigation
-properties](#NavigationProperty).
+properties](#NavigationProperty). These properties can themselves be of
+a structured type.
+
+An instance of a structured type must have a finite representation that
+includes all its properties. These properties are either integral parts of the
+instance or references to instances. In the first case the integral parts must be
+represented as part of the overall representation. These integral parts are modeled
+as [structural properties](#StructuralProperty) and
+[containment navigation properties](#ContainmentNavigationProperty).
+If an instance of a structured type contains a chain of these, this chain
+MUST be finite for the overall representation to be finite, even if the chain
+of types leads back to the structured type of the instance. Note that in this
+circular case finiteness is only possible if the chain of instances ends with
+a null value or an empty collection. In the second case the references are modeled
+as [non-containment navigation properties](#NavigationProperty).
+Chains of these can be infinite, for example, if an entity contains a
+self-reference.
 
 [Open entity types](#OpenEntityType) and [open complex
 types](#OpenComplexType) allow properties to be added dynamically to
@@ -439,17 +463,17 @@ Type|Meaning
 `Edm.Date`                       |Date without a time-zone offset
 `Edm.DateTimeOffset`             |Date and time with a time-zone offset, no leap seconds
 `Edm.Decimal`                    |Numeric values with decimal representation
-`Edm.Double`                     |IEEE 754 binary64 floating-point number (15-17 decimal digits)
+`Edm.Double`                     |IEEE 754 binary64 floating-point number (15--17 decimal digits)
 `Edm.Duration`                   |Signed duration in days, hours, minutes, and (sub)seconds
 `Edm.Guid`                       |16-byte (128-bit) unique identifier
 `Edm.Int16`                      |Signed 16-bit integer
 `Edm.Int32`                      |Signed 32-bit integer
 `Edm.Int64`                      |Signed 64-bit integer
 `Edm.SByte`                      |Signed 8-bit integer
-`Edm.Single`                     |IEEE 754 binary32 floating-point number (6-9 decimal digits)
+`Edm.Single`                     |IEEE 754 binary32 floating-point number (6--9 decimal digits)
 `Edm.Stream`                     |Binary data stream
 `Edm.String`                     |Sequence of characters
-`Edm.TimeOfDay`                  |Clock time 00:00-23:59:59.999999999999
+`Edm.TimeOfDay`                  |Clock time 00:00--23:59:59.999999999999
 `Edm.Geography`                  |Abstract base type for all Geography types
 `Edm.GeographyPoint`             |A point in a round-earth coordinate system
 `Edm.GeographyLineString`        |Line string in a round-earth coordinate system
@@ -480,13 +504,13 @@ persistency layer, e.g. SQL only supports years `0001` to `9999`.
 
 `Edm.Stream` is a primitive type that can be used as a property of an
 [entity type](#EntityType) or [complex type](#ComplexType), the
-underlying type for a [type definition](#TypeDefinition), or the binding
+underlying type for a [type definition](#TypeDefinition), or a binding or non-binding
 parameter or return type of an [action](#Action) or
-[function](#Function). `Edm.Stream`, or a type definition whose
-underlying type is `Edm.Stream`, cannot be used in collections or for
-non-binding parameters to functions or actions.
+[function](#Function).
+`Edm.Stream`, or a type definition whose
+underlying type is `Edm.Stream`, cannot be used in collections.
 
-Some of these types allow [facets](#TypeFacets), defined in section
+Some of these types allow facets, defined in section
 "[Type Facets](#TypeFacets)".
 
 See rule `primitiveLiteral` in [OData-ABNF](#ODataABNF) for the
@@ -498,8 +522,8 @@ responses.
 
 The facets in the following subsections modify or constrain the acceptable values of primitive typed model elements,
 for example a [structural property](#StructuralProperty),
-action or function [parameter](#Parameter), 
-action or function [return type](#ReturnType), or 
+action or function [parameter](#Parameter),
+action or function [return type](#ReturnType), or
 [term](#Term).
 
 For single-valued model elements the facets apply to the value of the
@@ -562,7 +586,7 @@ via `PATCH` and exclusively specifying modified values will reduce
 the risk for unintended data loss.
 
 Note: model elements with duration values and a granularity less than seconds
-(e.g. minutes, hours, days) can be annotated with term
+(e.g. minutes, hours, days) can be annotated with the term
 [`Measures.DurationGranularity`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Measures.V1.md#DurationGranularity),
 see [OData-VocMeasures](#ODataVocMeasures).
 
@@ -571,7 +595,7 @@ see [OData-VocMeasures](#ODataVocMeasures).
 
 The value of `$Precision` is a number.
 
-Absence of `$Precision` means arbitrary precision.
+Absence of `$Precision` means unspecified precision both for decimal and temporal values.
 :::
 
 ::: {.varjson .example}
@@ -591,7 +615,7 @@ Example ##ex: `Precision` facet applied to the `DateTimeOffset` type
 The value of `Precision` is a number.
 
 If not specified for a decimal value, the decimal value has
-arbitrary precision.
+unspecified precision.
 
 If not specified for a temporal value, the temporal value has a
 precision of zero.
@@ -831,9 +855,7 @@ be used anywhere a corresponding concrete type can be used, except:
   -   cannot be used as the underlying type of a type definition or
         enumeration type.
 - `Collection(Edm.PrimitiveType)`
-  -   cannot be used as the type of a property or term.
-  -   cannot be used as the type of a parameter or the return type of
-        an action or function.
+  -   cannot be used.
 - `Collection(Edm.Untyped)`
   -   cannot be returned in a payload with an `OData-Version` header
         of `4.0`. Services should treat untyped properties as dynamic

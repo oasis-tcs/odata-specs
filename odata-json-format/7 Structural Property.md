@@ -5,7 +5,7 @@
 
 A property within an entity or complex type instance is represented as a
 name/value pair. The name MUST be the name of the property; a non-null value is
-represented depending on its type as a [primitive value](#PrimitiveValue), 
+represented depending on its type as a [primitive value](#PrimitiveValue),
 a [complex value](#ComplexValue), a
 [collection of primitive values](#CollectionofPrimitiveValues), or
 a [collection of complex values](#CollectionofComplexValues).
@@ -31,7 +31,7 @@ Values of type `Edm.String` are represented as JSON strings,
 using the JSON string escaping rules.
 
 Values of type `Edm.Binary`, `Edm.Date`,
-`Edm.DateTimeOffset`, `Edm.Duration`, 
+`Edm.DateTimeOffset`, `Edm.Duration`,
 `Edm.Guid`, and `Edm.TimeOfDay` are represented as
 JSON strings whose content satisfies the rules `binaryValue`,
 `dateValue`, `dateTimeOffsetValue`,
@@ -54,22 +54,14 @@ combination of named enumeration members) is
 available, the `enumMemberValue` representation may be used.
 
 Geography and geometry values are represented as geometry types as
-defined in [RFC7946](#rfc7946), with the following
-modifications:
-
-- Keys SHOULD be ordered with type first, then coordinates, then any other keys
-- If the optional [CRS
-  object](http://geojson.org/geojson-spec.html#named-crs) is present, it
-  MUST be of type `name`, where the value of the
-  `name` member of the contained `properties` object
-  is an EPSG SRID legacy identifier, see [[GeoJSON-2008](#GeoJSON-2008)].
+defined in [RFC7946](#rfc7946).
 
 Geography and geometry types have the same representation in a JSON
 payload. Whether the value represents a geography type or geometry type
 is inferred from its usage or specified using the
 [`type`](#ControlInformationtypeodatatype)
 control information.
- 
+
 ::: example
 Example ##ex:
 ```json
@@ -102,13 +94,13 @@ name/value pair for each property that makes up the complex type. Each
 property value is formatted as appropriate for the type of the property.
 
 It MAY have name/value pairs for [instance annotations](#InstanceAnnotations) and control information.
- 
+
 ::: example
 Example ##ex:
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
-  ...
+  …
   "Address": {
     "Street": "Obere Str. 57",
     "City": "Berlin",
@@ -130,28 +122,32 @@ element in the array is the representation of a [primitive
 value](#PrimitiveValue). A JSON literal `null` represents
 a null value within the collection. An empty collection is represented
 as an empty array.
- 
+
 ::: example
 Example ##ex: partial collection of strings with next link
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
-  ...
+  …
   "EmailAddresses": [
     "Julie@Swansworth.com",
     "Julie.Swansworth@work.com"
   ],
-  "EmailAddresses@nextLink": "..."
+  "EmailAddresses@nextLink": "…"
 }
 ```
 :::
+
+A collection of primitive values that occurs in a property of type `Edm.Untyped`
+is interpreted as a collection of `Edm.Boolean`, `Edm.String`, and `Edm.Decimal` values,
+depending on the JavaScript type.
 
 ## ##subsec Collection of Complex Values
 
 A collection of complex values is represented as a JSON array; each
 element in the array is the representation of a [complex value](#ComplexValue). A JSON literal `null` represents a
 null value within the collection. An empty collection is represented as an empty array.
- 
+
 ::: example
 Example ##ex: partial collection of complex values with next link
 ```json
@@ -168,7 +164,7 @@ Example ##ex: partial collection of complex values with next link
       "Carrier": "Sprint"
     }
   ],
-  "PhoneNumbers@nextLink": "..."
+  "PhoneNumbers@nextLink": "…"
 }
 ```
 :::
@@ -219,15 +215,15 @@ client requests `metadata=full` or the navigation link cannot
 be computed, e.g. if it is within a collection of complex type
 instances. If it is represented it MUST immediately precede the expanded
 navigation property if the latter is represented.
- 
+
 ::: example
 Example ##ex:
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
-  ...
+  …
   "Orders@navigationLink": "Customers('ALFKI')/Orders",
-  ...
+  …
 }
 ```
 :::
@@ -246,15 +242,15 @@ cannot be computed by appending `/$ref` to the navigation
 link. If it is represented, it MUST immediately precede the navigation
 link if the latter is represented, otherwise it MUST immediately precede
 the expanded navigation property if it is represented.
- 
+
 ::: example
 Example ##ex:
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
-  ...
+  …
   "Orders@associationLink": "Customers('ALFKI')/Orders/$ref",
-  ...
+  …
 }
 ```
 :::
@@ -280,16 +276,16 @@ represented as an empty JSON array. The navigation property MAY include
 [`nextLink`](#ControlInformationnextLinkodatanextLink) control information. If a navigation property is
 expanded with the suffix `/$count`, only the
 [`count`](#ControlInformationcountodatacount) control information is represented.
- 
+
 ::: example
 Example ##ex:
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$entity",
   "Orders@count": 42,
-  "Orders": [ ... ],
-  "Orders@nextLink": "...",
-  ...
+  "Orders": [ … ],
+  "Orders@nextLink": "…",
+  …
 }
 ```
 :::
@@ -302,7 +298,7 @@ new entities MAY be specified using the same representation as for an
 
 Deep inserts are not allowed in update operations using `PUT`
 or `PATCH` requests.
- 
+
 ::: example
 Example ##ex: inserting a new order for a new customer with order items
 related to existing products:
@@ -310,21 +306,21 @@ related to existing products:
 {
   "ID": 11643,
   "Amount": 100,
-  ...,
+  …,
   "Customer": {
     "ID": "ANEWONE",
-    ...
+    …
   },
   "Items": [
     {
       "Product": { "@id": "Products(28)" },
       "Quantity": 1,
-      ...
+      …
     },
     {
       "Product": { "@id": "Products(39)" },
       "Quantity": 5,
-      ...
+      …
     }
   ]
 }
@@ -343,7 +339,7 @@ the navigation property it belongs to and has a single value for
 single-valued navigation properties or an array of values for collection
 navigation properties. For nullable single-valued navigation properties
 the value `null` may be used to remove the relationship.
- 
+
 ::: example
 Example ##ex: assign an existing product to an existing category with a
 partial update request against the product
@@ -364,7 +360,7 @@ For requests containing an `OData-Version` header with a value
 of `4.01`, a relationship is bound to an existing entity
 using the same representation as for an [expanded entity
 reference](#EntityReference).
- 
+
 ::: example
 Example ##ex: assign an existing product to an existing category with a
 partial update request against the product
@@ -377,13 +373,13 @@ Content-Type: application/json
 }
 ```
 :::
- 
+
 ::: example
 Example ##ex: submit a partial update request to:
 - modify the name of an existing category
 - assign an existing product with the id 42 to the category
 - assign an existing product 57 to the category and update its name
-- create a new product named "Wedges" and assign it to the category
+- create a new product named `Wedges` and assign it to the category
 
 At the end of the request, the updated category contains exactly the
 three specified products.
@@ -412,7 +408,7 @@ Content-Type: application/json
 OData 4.01 services MUST support both the OData 4.0 representation, for
 requests containing an `OData-Version` header with a value of
 `4.0`, and the OData 4.01 representation, for requests
-containing an `OData-Version` header with a value of `4.01`. 
+containing an `OData-Version` header with a value of `4.01`.
 Clients MUST NOT use `@odata.bind` in requests with an
 `OData-Version` header with a value of `4.01`.
 
@@ -434,7 +430,7 @@ that can be used in a subsequent request to determine if the collection
 has changed.
 
 Services MAY include this control information as appropriate.
- 
+
 ::: example
 Example ##ex: ETag for a collection of related entities
 ```json
@@ -444,7 +440,7 @@ Example ##ex: ETag for a collection of related entities
   "@etag": "W/\"MjAxMy0wNS0yN1QxMTo1OFo=\"",
   "ID": 1234,
   "Items@etag": "W/\"MjAxOS0wMy0xMlQxMDoyMlo=\""
-  ...
+  …
 }
 ```
 :::
@@ -487,19 +483,19 @@ If the included stream property has no value, the non-existing stream
 data is represented as `null` and the control information
 [`mediaContentType`](#ControlInformationmediaodatamedia)
 is not necessary.
- 
+
 ::: example
 Example ##ex:
 ```json
 {
   "@context": "http://host/service/$metadata#Products/$entity",
-  ...
+  …
   "Thumbnail@mediaReadLink": "http://server/Thumbnail546.jpg",
   "Thumbnail@mediaEditLink": "http://server/uploads/Thumbnail546.jpg",
   "Thumbnail@mediaContentType": "image/jpeg",
   "Thumbnail@mediaEtag": "W/\"####\"",
-  "Thumbnail": "...base64url encoded value...",
-  ...
+  "Thumbnail": "…base64url encoded value…",
+  …
 }
 ```
 :::
