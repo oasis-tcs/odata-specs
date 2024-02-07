@@ -2328,7 +2328,7 @@ to a string matching that regular expression, using syntax and semantics
 of [ECMAScript](#_ECMAScript) regular expressions, otherwise it
 returns false.
 If the optional third parameter is provided, it MUST evaluate to a string
-consisting of regular expression flags to modify the match.
+consisting of ECMAScript regular expression flags to modify the match.
 
 ::: example
 Example 81: all customers with a `CompanyName` that match the
