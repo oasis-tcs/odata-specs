@@ -27,7 +27,7 @@ ecosystem of reusable client components and libraries.
 Section | Feature / Change | Issue
 --------|------------------|------
 [Section ##matchespattern]| 
-New overload for `matchespattern` for flags| 
+New overload for function `matchespattern` with flags| 
 [ODATA-1618](https://issues.oasis-open.org/browse/ODATA-1618)
 
 ## ##subsec Glossary
