@@ -873,23 +873,34 @@ hassubsequence([1,2],[1,1,2])
 
 ##### ##subsubsubsubsec `matchespattern`
 
-The `matchespattern` function has the following signature:
+The `matchespattern` function has the following signatures:
 
 ```
 Edm.Boolean matchespattern(Edm.String,Edm.String)
+Edm.Boolean matchespattern(Edm.String,Edm.String,Edm.String)
 ```
 
 The second parameter MUST evaluate to a string containing an
+[ECMAScript](#_ECMAScript) (JavaScript) regular expression. The 
 `matchespattern` function returns true if the first parameter evaluates
 to a string matching that regular expression, using syntax and semantics
-of [ECMAScript](#_ECMAScript) regular expressions, otherwise it
+of ECMAScript regular expressions, otherwise it
 returns false.
+If the optional third parameter is provided, it MUST evaluate to a string
+consisting of ECMAScript regular expression flags to modify the match.
 
 ::: example
 Example ##ex: all customers with a `CompanyName` that match the
 (percent-encoded) regular expression `^A.*e$`
 ```
 http://host/service/Customers?$filter=matchespattern(CompanyName,'%5EA.*e$')
+```
+:::
+
+::: example
+Example ##ex: all customers with a `FormattedAddress` that contains a line ending with `berg` or ends with `berg`
+```
+http://host/service/Customers?$filter=matchespattern(FormattedAddress,'berg$','m')
 ```
 :::
 

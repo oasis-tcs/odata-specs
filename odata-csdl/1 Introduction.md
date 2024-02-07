@@ -91,7 +91,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        $$$filename$$$.md
 ```
 
-This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
+This uses pandoc 3.1.11.1 from https://github.com/jgm/pandoc/releases/tag/3.1.11.1.
 :::
 
 <!-- These source files can be used to produce the JSON variant or the XML variant,
