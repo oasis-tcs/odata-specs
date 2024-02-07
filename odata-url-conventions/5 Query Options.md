@@ -884,7 +884,7 @@ The second parameter MUST evaluate to a string containing an
 [ECMAScript](#_ECMAScript) (JavaScript) regular expression. The 
 `matchespattern` function returns true if the first parameter evaluates
 to a string matching that regular expression, using syntax and semantics
-of [ECMAScript](#_ECMAScript) regular expressions, otherwise it
+of ECMAScript regular expressions, otherwise it
 returns false.
 If the optional third parameter is provided, it MUST evaluate to a string
 consisting of ECMAScript regular expression flags to modify the match.

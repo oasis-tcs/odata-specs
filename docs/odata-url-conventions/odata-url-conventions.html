@@ -1189,7 +1189,7 @@ OrderedCollection substring(OrderedCollection,Edm.Int32,Edm.Int32)</code></pre>
 <p>The <code>matchespattern</code> function has the following signatures:</p>
 <pre><code>Edm.Boolean matchespattern(Edm.String,Edm.String)
 Edm.Boolean matchespattern(Edm.String,Edm.String,Edm.String)</code></pre>
-<p>The second parameter MUST evaluate to a string containing an <a href="#_ECMAScript">ECMAScript</a> (JavaScript) regular expression. The <code>matchespattern</code> function returns true if the first parameter evaluates to a string matching that regular expression, using syntax and semantics of <a href="#_ECMAScript">ECMAScript</a> regular expressions, otherwise it returns false. If the optional third parameter is provided, it MUST evaluate to a string consisting of ECMAScript regular expression flags to modify the match.</p>
+<p>The second parameter MUST evaluate to a string containing an <a href="#_ECMAScript">ECMAScript</a> (JavaScript) regular expression. The <code>matchespattern</code> function returns true if the first parameter evaluates to a string matching that regular expression, using syntax and semantics of ECMAScript regular expressions, otherwise it returns false. If the optional third parameter is provided, it MUST evaluate to a string consisting of ECMAScript regular expression flags to modify the match.</p>
 <div class="example">
 <p>Example 81: all customers with a <code>CompanyName</code> that match the (percent-encoded) regular expression <code>^A.*e$</code></p>
 <pre><code>http://host/service/Customers?$filter=matchespattern(CompanyName,&#39;%5EA.*e$&#39;)</code></pre>
