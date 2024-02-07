@@ -989,8 +989,8 @@ appended to a `resourcePath`.
 
 ### <a name="AddressingFunctions" href="#AddressingFunctions">4.5.2 Addressing Functions</a>
 
-The grammar for addressing and invoking functions is defined by a number
-syntax grammar rules in [OData-ABNF](#ODataABNF), in particular:
+The grammar for addressing and invoking functions is defined by
+syntax rules in [OData-ABNF](#ODataABNF), in particular:
 - The function import call syntax rules
 `complexFunctionImportCall`, `complexColFunctionImportCall`,
 `entityFunctionImportCall`, `entityColFunctionImportCall`,
@@ -1016,6 +1016,12 @@ and order resources identified by the `resourcePath` of the URL.
 - The `aliasAndValue` syntax rule defines
 the grammar for providing function parameter values using Parameter
 Alias Syntax, see [OData-Protocol](#ODataProtocol).
+
+Note: there is no literal representation for `Edm.Stream` values in URLs,
+so it is not possible to pass `Edm.Stream` values to parameters of function imports or
+to non-binding parameters of bound functions used in the resource path.
+Function expressions within query options can use [path expressions](#PathExpressions)
+of type `Edm.Stream` as values of non-binding function parameters.
 
 ## <a name="AddressingaProperty" href="#AddressingaProperty">4.6 Addressing a Property</a>
 

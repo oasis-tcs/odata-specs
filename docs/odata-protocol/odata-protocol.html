@@ -405,7 +405,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><a href="#Operations">11.5 Operations</a>
 <ul>
 <li><a href="#BindinganOperationtoaResource">11.5.1 Binding an Operation to a Resource</a></li>
-<li><a href="#ApplyinganActiontoMembersofaCollection">11.5.2 Applying an Action to Members of a Collection</a></li>
+<li><a href="#ApplyinganOperationtoMembersofaCollection">11.5.2 Applying an Operation to Members of a Collection</a></li>
 <li><a href="#AdvertisingAvailableOperationswithinaPayload">11.5.3 Advertising Available Operations within a Payload</a></li>
 <li><a href="#Functions">11.5.4 Functions</a>
 <ul>
@@ -435,9 +435,10 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><a href="#MultipartBatchRequestBody">11.7.7.1 Multipart Batch Request Body</a></li>
 <li><a href="#ReferencingNewEntities">11.7.7.2 Referencing New Entities</a></li>
 <li><a href="#ReferencinganETag">11.7.7.3 Referencing an ETag</a></li>
-<li><a href="#ProcessingaMultipartBatchRequest">11.7.7.4 Processing a Multipart Batch Request</a></li>
-<li><a href="#MultipartBatchResponse">11.7.7.5 Multipart Batch Response</a></li>
-<li><a href="#AsynchronousBatchRequests">11.7.7.6 Asynchronous Batch Requests</a></li>
+<li><a href="#ReferencingResponseBodyValues">11.7.7.4 Referencing Response Body Values</a></li>
+<li><a href="#ProcessingaMultipartBatchRequest">11.7.7.5 Processing a Multipart Batch Request</a></li>
+<li><a href="#MultipartBatchResponse">11.7.7.6 Multipart Batch Response</a></li>
+<li><a href="#AsynchronousBatchRequests">11.7.7.7 Asynchronous Batch Requests</a></li>
 </ul></li>
 </ul></li>
 </ul></li>
@@ -498,6 +499,11 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td><a href="https://issues.oasis-open.org/browse/ODATA-1609">ODATA-1609</a></td>
 </tr>
 <tr class="even">
+<td><a href="#UpsertanEntity">Section 11.4.4</a></td>
+<td>Upserts to single-valued non-containment navigation properties</td>
+<td><a href="https://issues.oasis-open.org/browse/ODATA-1588">ODATA-1588</a></td>
+</tr>
+<tr class="odd">
 <td><a href="#UpdateaComplexProperty">Section 11.4.9.3</a></td>
 <td>Setting a complex property to a different type</td>
 <td><a href="https://issues.oasis-open.org/browse/ODATA-1472">ODATA-1472</a></td>
@@ -595,7 +601,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The edit URL of a property is the edit URL of the entity with appended segment(s) containing the path to the property.</p>
 <p>Services are strongly encouraged to use the canonical URL for an entity as defined in <strong>OData-URL</strong> for both the read URL and the edit URL of an entity, with a cast segment to the type of the entity appended to the canonical URL if the type of the entity is derived from the declared type of the entity set. However, clients cannot assume this convention and must use the links specified in the payload according to the appropriate format as the two URLs may be different from one another, or one or both of them may differ from convention.</p>
 <h2 id="43-transient-entities"><a name="TransientEntities" href="#TransientEntities">4.3 Transient Entities</a></h2>
-<p>Transient entities are instances of an entity type that are “calculated on the fly” and only exist within a single payload. They cannot be reread or updated and consequently possess neither a stable entity-id nor a read URL or an update URL.</p>
+<p>Transient entities are instances of an entity type that are dynamically generated on request and only exist within a response payload. They do not possess an entity-id or an update URL and consequently cannot be updated. A transient entity may have a read URL, which generates a new transient entity using the same algorithm.</p>
 <h2 id="44-default-namespaces"><a name="DefaultNamespaces" href="#DefaultNamespaces">4.4 Default Namespaces</a></h2>
 <p>References to actions, functions, and types within a URL typically requires prefixing the name of the action, function, or type with the namespace or alias in which it is defined. This namespace qualification enables differentiating between similarly named elements across schema, or between properties and bound functions, actions, or types with the same name.</p>
 <p>Services MAY define one or more default namespaces through the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a> term defined in <a href="#ODataVocCore">OData-VocCore</a>. Functions, actions and types in a default namespace can be referenced in URLs with or without namespace or alias qualification.</p>
@@ -1896,7 +1902,13 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>On failure, the service MUST NOT apply any of the changes specified in the request.</p>
 <h3 id="1144-upsert-an-entity"><a name="UpsertanEntity" href="#UpsertanEntity">11.4.4 Upsert an Entity</a></h3>
 <p>An upsert occurs when the client sends an <a href="#UpdateanEntity">update request</a> to a valid URL that identifies a single entity that does not yet exist. In this case the service MUST handle the request as a <a href="#CreateanEntity">create entity request</a> or fail the request altogether.</p>
-<p>Upserts are not supported against <a href="#RequestingtheMediaStreamofaMediaEntityusingvalue">media entities</a>, single-valued non-containment navigation properties, or entities whose keys values are generated by the service. Services MUST fail an update request to a URL that would identify such an entity and the entity does not yet exist.</p>
+<p>Upserts to single-valued navigation properties are possible for</p>
+<ul>
+<li>containment navigation properties,</li>
+<li>non-containment navigation properties with a navigation property binding, or</li>
+<li>payloads including a context URL specifying the entity set or contained collection of entities in which the new entity is to be created.</li>
+</ul>
+<p>Upserts are not supported against <a href="#RequestingtheMediaStreamofaMediaEntityusingvalue">media entities</a> or entities whose keys values are generated by the service. Services MUST fail an update request to a URL that would identify such an entity and the entity does not yet exist.</p>
 <p>Singleton entities can be upserted if they are nullable. Services supporting this SHOULD advertise it by annotating the singleton with the term <code>Capabilities.UpdateRestrictions</code> (nested property <code>Upsertable</code> with value <code>true</code>) defined in <a href="#ODataVocCap">OData-VocCap</a>.</p>
 <p>Key and other non-updatable properties, as well as dependent properties that are not tied to key properties of the principal entity, MUST be ignored by the service in processing the Upsert request.</p>
 <p>To ensure that an update request is not treated as an insert, the client MAY specify an <a href="#HeaderIfMatch"><code>If-Match</code></a> header in the update request. The service MUST NOT treat an update request containing an <code>If-Match</code> header as an insert.</p>
@@ -2099,7 +2111,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Example 89: invoke the <code>Comparison</code> function on the set of red products</p>
 <pre><code>GET http://host/service/Products/$filter(Color eq &#39;Red&#39;)/Diff.Comparison()</code></pre>
 </div>
-<h3 id="1152-applying-an-action-to-members-of-a-collection"><a name="ApplyinganActiontoMembersofaCollection" href="#ApplyinganActiontoMembersofaCollection">11.5.2 Applying an Action to Members of a Collection</a></h3>
+<h3 id="1152-applying-an-operation-to-members-of-a-collection"><a name="ApplyinganOperationtoMembersofaCollection" href="#ApplyinganOperationtoMembersofaCollection">11.5.2 Applying an Operation to Members of a Collection</a></h3>
 <p>A bound operation with a single-valued binding parameter can be applied to each member of a collection by appending the path segment <code>/$each</code> to the resource path of the collection, followed by a forward slash and the namespace- or alias-qualified name of the bound operation. In this case the type of the collection members MUST match or be derived from the type of the binding parameter.</p>
 <p>The resource path of the collection MAY contain type-cast or filter segments to subset the collection.</p>
 <p>The response is a collection with members that are instances of the result type of the bound operation. If the bound operation returns a collection, the response is a collection of collections.</p>
@@ -2429,7 +2441,7 @@ Content-Length: ###
 <div class="example">
 <p>Example 106: a batch request that contains the following operations in the order listed:</p>
 <ul>
-<li>Get an Employee (with <code>Content-ID = 1</code>)</li>
+<li>Get an employee (with <code>Content-ID = 1</code>)</li>
 <li>Update the salary only if the employee has not changed</li>
 </ul>
 <div class="sourceCode" id="cb128"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/service/$batch</span> <span class="er">HTTP/1.1</span></span>
@@ -2462,10 +2474,43 @@ Content-Length: ###
 <span id="cb128-28"><a href="#cb128-28" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span>
 <span id="cb128-29"><a href="#cb128-29" aria-hidden="true" tabindex="-1"></a><span class="er">--batch_36522ad7-fc75-4b56-8c71-56071383e77b--</span></span></code></pre></div>
 </div>
-<h4 id="11774-processing-a-multipart-batch-request"><a name="ProcessingaMultipartBatchRequest" href="#ProcessingaMultipartBatchRequest">11.7.7.4 Processing a Multipart Batch Request</a></h4>
+<h4 id="11774-referencing-response-body-values"><a name="ReferencingResponseBodyValues" href="#ReferencingResponseBodyValues">11.7.7.4 Referencing Response Body Values</a></h4>
+<div class="example">
+<p>Example 107: a batch request that contains the following operations in the order listed:</p>
+<ul>
+<li>Get an employee (with <code>Content-ID = 1</code>)</li>
+<li>Get all employees residing in the same building</li>
+</ul>
+<pre><code>POST /service/$batch HTTP/1.1
+Host: host
+OData-Version: 4.01
+Content-Type: multipart/mixed; boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b
+Content-Length: ###
+
+--batch_36522ad7-fc75-4b56-8c71-56071383e77b
+Content-Type: application/http
+Content-ID: 1
+
+GET /service/Employees/0?$select=Building HTTP/1.1
+Host: host
+Accept: application/json
+
+
+--batch_36522ad7-fc75-4b56-8c71-56071383e77b
+Content-Type: application/http
+Content-ID: 2
+
+GET /service/Employees?$filter=Building eq $1/Building HTTP/1.1
+Host: host
+Accept: application/json
+
+
+--batch_36522ad7-fc75-4b56-8c71-56071383e77b--</code></pre>
+</div>
+<h4 id="11775-processing-a-multipart-batch-request"><a name="ProcessingaMultipartBatchRequest" href="#ProcessingaMultipartBatchRequest">11.7.7.5 Processing a Multipart Batch Request</a></h4>
 <p>The service MUST process the individual requests and change sets within a multipart batch request in the order received. Processing stops on the first error unless the <a href="#Preferencecontinueonerrorodatacontinueonerror"><code>continue-on-error</code></a> preference is specified with an explicit or implicit value of <code>true</code>.</p>
 <p>All requests in a change set represent a single change unit so a service MUST successfully process and apply all the requests in the change set or else apply none of them. It is up to the service implementation to define rollback semantics to undo any requests within a change set that may have been applied before another request in that same change set failed and thereby apply this all-or-nothing requirement. The service MAY execute the requests within a change set in any order and MAY return the responses to the individual requests in any order. If a request specifies a request identifier, the service MUST include the <code>Content-ID</code> header with the request identifier in the corresponding response so clients can correlate requests and responses.</p>
-<h4 id="11775-multipart-batch-response"><a name="MultipartBatchResponse" href="#MultipartBatchResponse">11.7.7.5 Multipart Batch Response</a></h4>
+<h4 id="11776-multipart-batch-response"><a name="MultipartBatchResponse" href="#MultipartBatchResponse">11.7.7.6 Multipart Batch Response</a></h4>
 <p>A multipart response to a batch request MUST contain a <code>Content-Type</code> header with value <code>multipart/mixed</code>.</p>
 <p>The body of a multipart response to a multipart batch request MUST structurally match one-to-one with the multipart batch request body, such that the same multipart message structure defined for requests is used for responses. There are three exceptions to this rule:</p>
 <ul>
@@ -2476,7 +2521,7 @@ Content-Length: ###
 <p>The body of a multipart response to a JSON batch request contains one body part for each processed or accepted request. The order of the body parts is insignificant as each body part MUST contain the <code>Content-ID</code> header with the value of the <code>id</code> name/value pair of the corresponding request object.</p>
 <p>A response to an operation in a batch MUST be formatted exactly as it would have appeared outside of a batch as described in the corresponding subsections of chapter <a href="#DataServiceRequests">Data Service Requests</a>. Relative URLs in each individual response are relative to the request URL of the corresponding individual request. URLs in responses MUST NOT contain <code>$</code>-prefixed request identifiers.</p>
 <div class="example">
-<p>Example 107: referencing the batch request example 101 above, assume all the requests except the final query request succeed. In this case the response would be</p>
+<p>Example 108: referencing the batch request example 101 above, assume all the requests except the final query request succeed. In this case the response would be</p>
 <pre><code>HTTP/1.1 200 OK
 OData-Version: 4.0
 Content-Length: ####
@@ -2508,7 +2553,6 @@ Content-Type: application/http
 Content-ID: 2
 
 HTTP/1.1 204 No Content
-Host: host
 
 
 --cs_12u7hdkin252452345eknd_383673037--
@@ -2522,13 +2566,13 @@ Content-Length: ###
 &lt;Error message&gt;
 --b_243234_25424_ef_892u748---</code></pre>
 </div>
-<h4 id="11776-asynchronous-batch-requests"><a name="AsynchronousBatchRequests" href="#AsynchronousBatchRequests">11.7.7.6 Asynchronous Batch Requests</a></h4>
+<h4 id="11777-asynchronous-batch-requests"><a name="AsynchronousBatchRequests" href="#AsynchronousBatchRequests">11.7.7.7 Asynchronous Batch Requests</a></h4>
 <p>Batch requests MAY be executed asynchronously by including the <a href="#Preferencerespondasync"><code>respond-async</code></a> preference in the <a href="#HeaderPrefer"><code>Prefer</code></a> header. If the service responds with a multipart batch response, it MUST ignore the <code>respond-async</code> preference for individual requests within a batch.</p>
 <p>After successful execution of the batch request the response to the batch request is returned in the body of a response to an interrogation request against the <em>status monitor resource</em> URL (see <a href="#AsynchronousRequests">Asynchronous Requests</a>).</p>
 <p>A service MAY return interim results to an asynchronously executing batch. It does this by responding with <a href="#ResponseCode200OK"><code>200 OK</code></a> to a <code>GET</code> request to the monitor resource and including a <a href="#ResponseCode202Accepted"><code>202 Accepted</code></a> response as the last part of the multipart response. The client can use the monitor URL returned in this <code>202 Accepted</code> response to continue processing the batch response.</p>
 <p>Since a change set is executed atomically, <code>202 Accepted</code> MUST NOT be returned within a change set.</p>
 <div class="example">
-<p>Example 108: referencing the example 101 above again, assume that</p>
+<p>Example 109: referencing the example 101 above again, assume that</p>
 <pre><code>HTTP/1.1 202 Accepted
 Location: http://service-root/async-monitor-0
 Retry-After: ###
@@ -2585,7 +2629,6 @@ Content-Type: application/http
 Content-ID: 2
 
 HTTP/1.1 204 No Content
-Host: host
 
 
 --cs_12u7hdkin252452345eknd_383673037--

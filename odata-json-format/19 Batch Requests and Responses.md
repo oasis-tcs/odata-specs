@@ -228,6 +228,7 @@ the order listed:
 
 - Get an Employee (with `id` = 1)
 - Update the salary only if the employee has not changed
+
 ```json
 POST /service/$batch HTTP/1.1
 Host: host
@@ -255,6 +256,46 @@ Content-Length: ###
       },
       "body": {
         "Salary": 75000
+      }
+    }
+  ]
+}
+```
+:::
+
+## ##subsec Referencing Response Body Values
+
+::: example
+Example ##ex: a batch request that contains the following operations in
+the order listed:
+
+- Get an employee (with `Content-ID = 1`)
+- Get all employees residing in the same building
+
+```json
+POST /service/$batch HTTP/1.1
+Host: host
+OData-Version: 4.01
+Content-Type: application/json
+Content-Length: ###
+
+{
+  "requests": [
+    {
+      "id": "1",
+      "method": "get",
+      "url": "/service/Employees/0?$select=Building",
+      "headers": {
+        "accept": "application/json"
+      }
+    },
+    {
+      "id": "2",
+      "dependsOn": [ "1" ],
+      "method": "get",
+      "url": "/service/Employees?$filter=Building eq $1/Building",
+      "headers": {
+        "accept": "application/json"
       }
     }
   ]
