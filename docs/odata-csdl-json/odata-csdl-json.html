@@ -12,15 +12,18 @@
     div.columns{display: flex; gap: min(4vw, 1.5em);}
     div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
     ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
       width: 0.8em;
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span { line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -87,9 +90,6 @@
   <link rel="stylesheet" href="styles/odata.css" />
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <p><img src="https://docs.oasis-open.org/templates/OASISLogo-v3.0.png" alt="OASIS Logo" /></p>
@@ -255,15 +255,21 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </ul></li>
 <li><a href="#ActionandFunction">12 Action and Function</a>
 <ul>
-<li><a href="#Action">12.1 Action</a></li>
-<li><a href="#ActionOverloads">12.2 Action Overloads</a></li>
-<li><a href="#Function">12.3 Function</a></li>
-<li><a href="#FunctionOverloads">12.4 Function Overloads</a></li>
-<li><a href="#BoundorUnboundActionorFunctionOverloads">12.5 Bound or Unbound Action or Function Overloads</a></li>
-<li><a href="#EntitySetPath">12.6 Entity Set Path</a></li>
-<li><a href="#ComposableFunction">12.7 Composable Function</a></li>
-<li><a href="#ReturnType">12.8 Return Type</a></li>
-<li><a href="#Parameter">12.9 Parameter</a></li>
+<li><a href="#Action">12.1 Action</a>
+<ul>
+<li><a href="#ActionOverloads">12.1.1 Action Overloads</a></li>
+</ul></li>
+<li><a href="#Function">12.2 Function</a>
+<ul>
+<li><a href="#FunctionOverloads">12.2.1 Function Overloads</a></li>
+<li><a href="#ComposableFunction">12.2.2 Composable Function</a></li>
+</ul></li>
+<li><a href="#BoundorUnboundActionsorFunctions">12.3 Bound or Unbound Actions or Functions</a>
+<ul>
+<li><a href="#EntitySetPath">12.3.1 Entity Set Path</a></li>
+</ul></li>
+<li><a href="#ReturnType">12.4 Return Type</a></li>
+<li><a href="#Parameter">12.5 Parameter</a></li>
 </ul></li>
 <li><a href="#EntityContainer">13 Entity Container</a>
 <ul>
@@ -1619,34 +1625,40 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h1 id="12-action-and-function"><a name="ActionandFunction" href="#ActionandFunction">12 Action and Function</a></h1>
 <h2 id="121-action"><a name="Action" href="#Action">12.1 Action</a></h2>
 <p>Actions are service-defined operations that MAY have observable side effects and MAY return a single instance or a collection of instances of any type.</p>
-<p>The action’s name is a <a href="#SimpleIdentifier">simple identifier</a> that MUST be unique within its schema.</p>
+<p>The action’s name is a <a href="#SimpleIdentifier">simple identifier</a>. The name of the action, excepting any <a href="#ActionOverloads">overloads</a>, MUST be unique within its schema.</p>
 <p>Actions cannot be composed with additional path segments.</p>
 <p>An action MAY specify a <a href="#ReturnType">return type</a> that MUST be a primitive, entity or complex type, or a collection of primitive, entity or complex types in scope.</p>
 <p>An action MAY define <a href="#Parameter">parameters</a> used during the execution of the action.</p>
-<h2 id="122-action-overloads"><a name="ActionOverloads" href="#ActionOverloads">12.2 Action Overloads</a></h2>
-<p><a href="#BoundorUnboundActionorFunctionOverloads">Bound</a> actions support overloading (multiple actions having the same name within the same schema) by binding parameter type. The combination of action name and the binding parameter type MUST be unique within a schema.</p>
-<p><a href="#BoundorUnboundActionorFunctionOverloads">Unbound</a> actions do not support overloads. The names of all unbound actions MUST be unique within a schema.</p>
-<p>An unbound action MAY have the same name as a bound action.</p>
-<section id="action-overload-object" class="varjson rep">
-<h3><a name="ActionOverloadObject.12" href="#ActionOverloadObject.12">Action Overload Object</a></h3>
+<section id="action-object" class="varjson rep">
+<h3><a name="ActionObject.12" href="#ActionObject.12">Action Object</a></h3>
 <p>An action is represented as a member of the schema object whose name is the unqualified name of the action and whose value is an array. The array contains one object per action overload.</p>
-<p>The action overload object MUST contain the member <code>$Kind</code> with a string value of <code>Action</code>.</p>
-<p>It MAY contain the members <a href="#BoundorUnboundActionorFunctionOverloads"><code>$IsBound</code></a>, <a href="#EntitySetPath"><code>$EntitySetPath</code></a>, <a href="#Parameter"><code>$Parameter</code></a>, and <a href="#ReturnType"><code>$ReturnType</code></a>, and it MAY contain <a href="#Annotation">annotations</a>.</p>
+<p>The action object MUST contain the member <code>$Kind</code> with a string value of <code>Action</code>.</p>
+<p>It MAY contain the members <a href="#BoundorUnboundActionsorFunctions"><code>$IsBound</code></a>, <a href="#EntitySetPath"><code>$EntitySetPath</code></a>, <a href="#Parameter"><code>$Parameter</code></a>, and <a href="#ReturnType"><code>$ReturnType</code></a>, and it MAY contain <a href="#Annotation">annotations</a>.</p>
 </section>
-<h2 id="123-function"><a name="Function" href="#Function">12.3 Function</a></h2>
+<h3 id="1211-action-overloads"><a name="ActionOverloads" href="#ActionOverloads">12.1.1 Action Overloads</a></h3>
+<p><a href="#BoundorUnboundActionsorFunctions">Bound</a> actions support overloading (multiple actions having the same name within the same schema) by binding parameter type. The combination of action name and the binding parameter type MUST be unique within a schema.</p>
+<p><a href="#BoundorUnboundActionsorFunctions">Unbound</a> actions do not support overloads. The names of all unbound actions MUST be unique within a schema.</p>
+<p>An unbound action MAY have the same name as a bound action.</p>
+<h2 id="122-function"><a name="Function" href="#Function">12.2 Function</a></h2>
 <p>Functions are service-defined operations that MUST NOT have observable side effects and MUST return a single instance or a collection of instances of any type.</p>
-<p>The function’s name is a <a href="#SimpleIdentifier">simple identifier</a> that MUST be unique within its schema.</p>
+<p>The function’s name is a <a href="#SimpleIdentifier">simple identifier</a>. The name of the function, excepting any <a href="#FunctionOverloads">overloads</a>, MUST be unique within its schema.</p>
 <p>Functions MAY be <a href="#ComposableFunction">composable</a>.</p>
 <p>The function MUST specify a <a href="#ReturnType">return type</a> which MUST be a primitive, entity or complex type, or a collection of primitive, entity or complex types in scope.</p>
 <p>A function MAY define <a href="#Parameter">parameters</a> used during the execution of the function.</p>
-<h2 id="124-function-overloads"><a name="FunctionOverloads" href="#FunctionOverloads">12.4 Function Overloads</a></h2>
-<p><a href="#BoundorUnboundActionorFunctionOverloads">Bound</a> functions support overloading (multiple functions having the same name within the same schema) subject to the following rules:</p>
+<section id="function-object" class="varjson rep">
+<h3><a name="FunctionObject.13" href="#FunctionObject.13">Function Object</a></h3>
+<p>A function is represented as a member of the schema object whose name is the unqualified name of the function and whose value is an array. The array contains one object per function overload.</p>
+<p>The function object MUST contain the member <code>$Kind</code> with a string value of <code>Function</code>.</p>
+<p>It MUST contain the member <a href="#ReturnType"><code>$ReturnType</code></a>, and it MAY contain the members <a href="#BoundorUnboundActionsorFunctions"><code>$IsBound</code></a>, <a href="#EntitySetPath"><code>$EntitySetPath</code></a>, and <a href="#Parameter"><code>$Parameter</code></a>, and it MAY contain <a href="#Annotation">annotations</a>.</p>
+</section>
+<h3 id="1221-function-overloads"><a name="FunctionOverloads" href="#FunctionOverloads">12.2.1 Function Overloads</a></h3>
+<p><a href="#BoundorUnboundActionsorFunctions">Bound</a> functions support overloading (multiple functions having the same name within the same schema) subject to the following rules:</p>
 <ul>
 <li>The combination of function name, binding parameter type, and unordered set of non-binding parameter names MUST be unique within a schema.</li>
 <li>The combination of function name, binding parameter type, and ordered set of parameter types MUST be unique within a schema.</li>
 <li>All bound functions with the same function name and binding parameter type within a schema MUST specify the same return type.</li>
 </ul>
-<p><a href="#BoundorUnboundActionorFunctionOverloads">Unbound</a> functions support overloading subject to the following rules:</p>
+<p><a href="#BoundorUnboundActionsorFunctions">Unbound</a> functions support overloading subject to the following rules:</p>
 <ul>
 <li>The combination of function name and unordered set of parameter names MUST be unique within a schema.</li>
 <li>The combination of function name and ordered set of parameter types MUST be unique within a schema.</li>
@@ -1654,39 +1666,32 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </ul>
 <p>An unbound function MAY have the same name as a bound function.</p>
 <p>Note that <a href="#TypeDefinition">type definitions</a> can be used to disambiguate overloads for both bound and unbound functions, even if they specify the same underlying type.</p>
-<section id="function-overload-object" class="varjson rep">
-<h3><a name="FunctionOverloadObject.13" href="#FunctionOverloadObject.13">Function Overload Object</a></h3>
-<p>A function is represented as a member of the schema object whose name is the unqualified name of the function and whose value is an array. The array contains one object per function overload.</p>
-<p>The function overload object MUST contain the member <code>$Kind</code> with a string value of <code>Function</code>.</p>
-<p>It MUST contain the member <a href="#ReturnType"><code>$ReturnType</code></a>, and it MAY contain the members <a href="#BoundorUnboundActionorFunctionOverloads"><code>$IsBound</code></a>, <a href="#EntitySetPath"><code>$EntitySetPath</code></a>, and <a href="#Parameter"><code>$Parameter</code></a>, and it MAY contain <a href="#Annotation">annotations</a>.</p>
+<h3 id="1222-composable-function"><a name="ComposableFunction" href="#ComposableFunction">12.2.2 Composable Function</a></h3>
+<p>A function MAY indicate that it is composable. If not explicitly indicated, it is not composable.</p>
+<p>A composable function can be invoked with additional path segments or key predicates appended to the resource path that identifies the composable function, and with system query options as appropriate for the type returned by the composable function.</p>
+<section id="iscomposable" class="varjson rep">
+<h3><a name="IsComposable.13.1" href="#IsComposable.13.1"><code>$IsComposable</code></a></h3>
+<p>The value of <code>$IsComposable</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the member means <code>false</code>.</p>
 </section>
-<h2 id="125-bound-or-unbound-action-or-function-overloads"><a name="BoundorUnboundActionorFunctionOverloads" href="#BoundorUnboundActionorFunctionOverloads">12.5 Bound or Unbound Action or Function Overloads</a></h2>
-<p>An action or function overload MAY indicate that it is bound. If not explicitly indicated, it is unbound.</p>
+<h2 id="123-bound-or-unbound-actions-or-functions"><a name="BoundorUnboundActionsorFunctions" href="#BoundorUnboundActionsorFunctions">12.3 Bound or Unbound Actions or Functions</a></h2>
+<p>An action or function MAY indicate that it is bound. If not explicitly indicated, it is unbound.</p>
 <p>Bound actions or functions are invoked on resources matching the type of the binding parameter. The binding parameter can be of any type, and it MAY be nullable.</p>
 <p>Unbound actions are invoked from the entity container through an <a href="#ActionImport">action import</a>.</p>
 <p>Unbound functions are invoked as static functions within a common expression (see <a href="#ODataURL">OData-URL</a>, section 5.1.1), or from the entity container through a <a href="#FunctionImport">function import</a>.</p>
 <section id="isbound" class="varjson rep">
-<h3><a name="IsBound.13.1" href="#IsBound.13.1"><code>$IsBound</code></a></h3>
+<h3><a name="IsBound.13.2" href="#IsBound.13.2"><code>$IsBound</code></a></h3>
 <p>The value of <code>$IsBound</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the member means <code>false</code>.</p>
 </section>
-<h2 id="126-entity-set-path"><a name="EntitySetPath" href="#EntitySetPath">12.6 Entity Set Path</a></h2>
+<h3 id="1231-entity-set-path"><a name="EntitySetPath" href="#EntitySetPath">12.3.1 Entity Set Path</a></h3>
 <p>Bound actions and functions that return an entity or a collection of entities MAY specify an entity set path if the entity set of the returned entities depends on the entity set of the binding parameter value.</p>
 <p>The entity set path consists of a series of segments joined together with forward slashes.</p>
-<p>The first segment of the entity set path MUST be the name of the binding parameter. The remaining segments of the entity set path MUST represent navigation segments or type casts.</p>
-<p>A navigation segment names the <a href="#SimpleIdentifier">simple identifier</a> of the <a href="#NavigationProperty">navigation property</a> to be traversed. A type-cast segment names the <a href="#QualifiedName">qualified name</a> of the entity type that should be returned from the type cast.</p>
+<p>The first segment of the entity set path MUST be the name of the binding parameter. The remaining segments of the entity set path MUST represent complex typed properties, navigation properties, or type casts.</p>
 <section id="entitysetpath" class="varjson rep">
-<h3><a name="EntitySetPath.13.2" href="#EntitySetPath.13.2"><code>$EntitySetPath</code></a></h3>
+<h3><a name="EntitySetPath.13.3" href="#EntitySetPath.13.3"><code>$EntitySetPath</code></a></h3>
 <p>The value of <code>$EntitySetPath</code> is a string containing the entity set path.</p>
 </section>
-<h2 id="127-composable-function"><a name="ComposableFunction" href="#ComposableFunction">12.7 Composable Function</a></h2>
-<p>A function MAY indicate that it is composable. If not explicitly indicated, it is not composable.</p>
-<p>A composable function can be invoked with additional path segments or key predicates appended to the resource path that identifies the composable function, and with system query options as appropriate for the type returned by the composable function.</p>
-<section id="iscomposable" class="varjson rep">
-<h3><a name="IsComposable.13.3" href="#IsComposable.13.3"><code>$IsComposable</code></a></h3>
-<p>The value of <code>$IsComposable</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the member means <code>false</code>.</p>
-</section>
-<h2 id="128-return-type"><a name="ReturnType" href="#ReturnType">12.8 Return Type</a></h2>
-<p>The return type of an action or function overload MAY be any type in scope, or a collection of any type in scope.</p>
+<h2 id="124-return-type"><a name="ReturnType" href="#ReturnType">12.4 Return Type</a></h2>
+<p>The return type of an action or function may be any type in scope, or a collection of any type in scope.</p>
 <p>The facets <a href="#MaxLength"><code>MaxLength</code></a>, <a href="#Precision"><code>Precision</code></a>, <a href="#Scale"><code>Scale</code></a>, and <a href="#SRID"><code>SRID</code></a> can be used as appropriate to specify value restrictions of the return type, as well as the <a href="#Unicode"><code>Unicode</code></a> facet for 4.01 and greater payloads.</p>
 <p>For a single-valued return type the facets apply to the returned value. For a collection-valued return type the facets apply to the items in the returned collection.</p>
 <div class="varjson rep">
@@ -1703,10 +1708,10 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>For other collection-valued return types the result will always be a collection that MAY be empty. In this case <code>$Nullable</code> applies to items of the collection and specifies whether the collection MAY contain <code>null</code> values.</p>
 <p>For single-valued return types the value <code>true</code> means that the action or function MAY return a single <code>null</code> value. The value <code>false</code> means that the action or function will never return a <code>null</code> value and instead will fail with an error response if it cannot compute a result.</p>
 </div>
-<h2 id="129-parameter"><a name="Parameter" href="#Parameter">12.9 Parameter</a></h2>
-<p>An action or function overload MAY specify parameters.</p>
-<p>A bound action or function overload MUST specify at least one parameter; the first parameter is its binding parameter. The order of parameters MUST NOT change unless the schema version changes.</p>
-<p>Each parameter MUST have a name that is a <a href="#SimpleIdentifier">simple identifier</a>. The parameter name MUST be unique within the action or function overload.</p>
+<h2 id="125-parameter"><a name="Parameter" href="#Parameter">12.5 Parameter</a></h2>
+<p>An action or function MAY specify parameters.</p>
+<p>A bound action or function MUST specify at least one parameter; the first parameter is its binding parameter. The order of parameters MUST NOT change unless the schema version changes.</p>
+<p>Each parameter MUST have a name that is a <a href="#SimpleIdentifier">simple identifier</a>. The parameter name MUST be unique within the action or function declaration.</p>
 <p>The parameter MUST specify a type. It MAY be any type in scope, or a collection of any type in scope.</p>
 <p>The facets <a href="#MaxLength"><code>MaxLength</code></a>, <a href="#Precision"><code>Precision</code></a>, <a href="#Scale"><code>Scale</code></a>, or <a href="#SRID"><code>SRID</code></a> can be used as appropriate to specify value restrictions of the parameter, as well as the <a href="#Unicode"><code>Unicode</code></a> facet for 4.01 and greater payloads.</p>
 <p>For single-valued parameters the facets apply to the parameter value. If the parameter value is a collection, the facets apply to the items in the collection.</p>
@@ -1956,7 +1961,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h2 id="136-function-import"><a name="FunctionImport" href="#FunctionImport">13.6 Function Import</a></h2>
 <p>Function imports sets are top-level resources.</p>
 <p>A function import is identified by its name, a <a href="#SimpleIdentifier">simple identifier</a> that MUST be unique within its entity container.</p>
-<p>A function import MUST specify the name of an unbound function in scope. All <a href="#BoundorUnboundActionorFunctionOverloads">unbound overloads</a> of the imported function can be invoked from the entity container.</p>
+<p>A function import MUST specify the name of an unbound function in scope. All <a href="#BoundorUnboundActionsorFunctions">unbound overloads</a> of the imported function can be invoked from the entity container.</p>
 <p>If the imported function returns an entity or a collection of entities, a <a href="#SimpleIdentifier">simple identifier</a> or <a href="#TargetPath">target path</a> value MAY be specified to identify the entity set that contains the returned entities. If a <a href="#SimpleIdentifier">simple identifier</a> is specified, it MUST resolve to an entity set defined in the same entity container. If a <a href="#TargetPath">target path</a> is specified, it MUST resolve to an entity set in scope.</p>
 <p>A function import for a parameterless function MAY indicate whether it is included in the service document. If not explicitly indicated, it is not included.</p>
 <div class="varjson rep">
@@ -3766,12 +3771,12 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <ul>
 <li><a href="#UnderlyingType.11.1"><code>$UnderlyingType</code></a></li>
 </ul></li>
-<li><a href="#ActionOverloadObject.12">Action Overload Object</a></li>
-<li><a href="#FunctionOverloadObject.13">Function Overload Object</a>
+<li><a href="#ActionObject.12">Action Object</a></li>
+<li><a href="#FunctionObject.13">Function Object</a>
 <ul>
-<li><a href="#IsBound.13.1"><code>$IsBound</code></a></li>
-<li><a href="#EntitySetPath.13.2"><code>$EntitySetPath</code></a></li>
-<li><a href="#IsComposable.13.3"><code>$IsComposable</code></a></li>
+<li><a href="#IsComposable.13.1"><code>$IsComposable</code></a></li>
+<li><a href="#IsBound.13.2"><code>$IsBound</code></a></li>
+<li><a href="#EntitySetPath.13.3"><code>$EntitySetPath</code></a></li>
 <li><a href="#ReturnType.13.4"><code>$ReturnType</code></a></li>
 <li><a href="#Type.13.5"><code>$Type</code></a></li>
 <li><a href="#Collection.13.6"><code>$Collection</code></a></li>

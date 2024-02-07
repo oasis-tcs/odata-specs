@@ -158,14 +158,14 @@ For complete copyright information please see the full Notices section in an App
   - [11.1 Underlying Primitive Type](#UnderlyingPrimitiveType)
 - [12 Action and Function](#ActionandFunction)
   - [12.1 Action](#Action)
-  - [12.2 Action Overloads](#ActionOverloads)
-  - [12.3 Function](#Function)
-  - [12.4 Function Overloads](#FunctionOverloads)
-  - [12.5 Bound or Unbound Action or Function Overloads](#BoundorUnboundActionorFunctionOverloads)
-  - [12.6 Entity Set Path](#EntitySetPath)
-  - [12.7 Composable Function](#ComposableFunction)
-  - [12.8 Return Type](#ReturnType)
-  - [12.9 Parameter](#Parameter)
+    - [12.1.1 Action Overloads](#ActionOverloads)
+  - [12.2 Function](#Function)
+    - [12.2.1 Function Overloads](#FunctionOverloads)
+    - [12.2.2 Composable Function](#ComposableFunction)
+  - [12.3 Bound or Unbound Actions or Functions](#BoundorUnboundActionsorFunctions)
+    - [12.3.1 Entity Set Path](#EntitySetPath)
+  - [12.4 Return Type](#ReturnType)
+  - [12.5 Parameter](#Parameter)
 - [13 Entity Container](#EntityContainer)
   - [13.1 Extending an Entity Container](#ExtendinganEntityContainer)
   - [13.2 Entity Set](#EntitySet)
@@ -2662,8 +2662,7 @@ Actions are service-defined operations that MAY have observable side
 effects and MAY return a single instance or a collection of instances of
 any type.
 
-The action's name is a [simple identifier](#SimpleIdentifier) that MUST
-be unique within its schema.
+The action's name is a [simple identifier](#SimpleIdentifier). The name of the action, excepting any [overloads](#ActionOverloads), MUST be unique within its schema.
 
 Actions cannot be composed with additional path segments.
 
@@ -2674,44 +2673,44 @@ or complex types in scope.
 An action MAY define [parameters](#Parameter) used during the execution
 of the action.
 
-## <a name="ActionOverloads" href="#ActionOverloads">12.2 Action Overloads</a>
-
-[Bound](#BoundorUnboundActionorFunctionOverloads) actions support
-overloading (multiple actions having the same name within the same
-schema) by binding parameter type. The combination of action name and
-the binding parameter type MUST be unique within a schema.
-
-[Unbound](#BoundorUnboundActionorFunctionOverloads) actions do not support
-overloads. The names of all unbound actions MUST be unique within a
-schema.
-
-An unbound action MAY have the same name as a bound action.
-
 ::: {.varjson .rep}
-### <a name="ActionOverloadObject.12" href="#ActionOverloadObject.12">Action Overload Object</a>
+### <a name="ActionObject.12" href="#ActionObject.12">Action Object</a>
 
 An action is represented as a member of the schema object whose name is
 the unqualified name of the action and whose value is an array. The
 array contains one object per action overload.
 
-The action overload object MUST contain the member `$Kind` with a string
+The action object MUST contain the member `$Kind` with a string
 value of `Action`.
 
 It MAY contain the members
-[`$IsBound`](#BoundorUnboundActionorFunctionOverloads),
+[`$IsBound`](#BoundorUnboundActionsorFunctions),
 [`$EntitySetPath`](#EntitySetPath), [`$Parameter`](#Parameter), and
 [`$ReturnType`](#ReturnType), and it MAY contain
 [annotations](#Annotation).
 :::
 
 
-## <a name="Function" href="#Function">12.3 Function</a>
+### <a name="ActionOverloads" href="#ActionOverloads">12.1.1 Action Overloads</a>
+
+[Bound](#BoundorUnboundActionsorFunctions) actions support
+overloading (multiple actions having the same name within the same
+schema) by binding parameter type. The combination of action name and
+the binding parameter type MUST be unique within a schema.
+
+[Unbound](#BoundorUnboundActionsorFunctions) actions do not support
+overloads. The names of all unbound actions MUST be unique within a
+schema.
+
+An unbound action MAY have the same name as a bound action.
+
+## <a name="Function" href="#Function">12.2 Function</a>
 
 Functions are service-defined operations that MUST NOT have observable
 side effects and MUST return a single instance or a collection of
 instances of any type.
 
-The function's name is a [simple identifier](#SimpleIdentifier) that
+The function's name is a [simple identifier](#SimpleIdentifier). The name of the function, excepting any [overloads](#FunctionOverloads),
 MUST be unique within its schema.
 
 Functions MAY be [composable](#ComposableFunction).
@@ -2723,9 +2722,26 @@ or complex types in scope.
 A function MAY define [parameters](#Parameter) used during the execution
 of the function.
 
-## <a name="FunctionOverloads" href="#FunctionOverloads">12.4 Function Overloads</a>
+::: {.varjson .rep}
+### <a name="FunctionObject.13" href="#FunctionObject.13">Function Object</a>
 
-[Bound](#BoundorUnboundActionorFunctionOverloads) functions support
+A function is represented as a member of the schema object whose name is
+the unqualified name of the function and whose value is an array. The
+array contains one object per function overload.
+
+The function object MUST contain the member `$Kind` with a
+string value of `Function`.
+
+It MUST contain the member [`$ReturnType`](#ReturnType), and it MAY
+contain the members [`$IsBound`](#BoundorUnboundActionsorFunctions),
+[`$EntitySetPath`](#EntitySetPath), and [`$Parameter`](#Parameter),
+and it MAY contain [annotations](#Annotation).
+:::
+
+
+### <a name="FunctionOverloads" href="#FunctionOverloads">12.2.1 Function Overloads</a>
+
+[Bound](#BoundorUnboundActionsorFunctions) functions support
 overloading (multiple functions having the same name within the same
 schema) subject to the following rules:
 - The combination of function name,
@@ -2738,7 +2754,7 @@ unique within a schema.
 function name and binding parameter type within a schema MUST specify
 the same return type.
 
-[Unbound](#BoundorUnboundActionorFunctionOverloads) functions support
+[Unbound](#BoundorUnboundActionsorFunctions) functions support
 overloading subject to the following rules:
 - The combination of function name and
 unordered set of parameter names MUST be unique within a schema.
@@ -2753,26 +2769,27 @@ Note that [type definitions](#TypeDefinition) can be used to
 disambiguate overloads for both bound and unbound functions, even if
 they specify the same underlying type.
 
+### <a name="ComposableFunction" href="#ComposableFunction">12.2.2 Composable Function</a>
+
+A function MAY indicate that it is composable. If not explicitly
+indicated, it is not composable.
+
+A composable function can be invoked with additional path segments or
+key predicates appended to the resource path that identifies the
+composable function, and with system query options as appropriate for
+the type returned by the composable function.
+
 ::: {.varjson .rep}
-### <a name="FunctionOverloadObject.13" href="#FunctionOverloadObject.13">Function Overload Object</a>
+### <a name="IsComposable.13.1" href="#IsComposable.13.1">`$IsComposable`</a>
 
-A function is represented as a member of the schema object whose name is
-the unqualified name of the function and whose value is an array. The
-array contains one object per function overload.
-
-The function overload object MUST contain the member `$Kind` with a
-string value of `Function`.
-
-It MUST contain the member [`$ReturnType`](#ReturnType), and it MAY
-contain the members [`$IsBound`](#BoundorUnboundActionorFunctionOverloads),
-[`$EntitySetPath`](#EntitySetPath), and [`$Parameter`](#Parameter),
-and it MAY contain [annotations](#Annotation).
+The value of `$IsComposable` is one of the Boolean literals `true` or
+`false`. Absence of the member means `false`.
 :::
 
 
-## <a name="BoundorUnboundActionorFunctionOverloads" href="#BoundorUnboundActionorFunctionOverloads">12.5 Bound or Unbound Action or Function Overloads</a>
+## <a name="BoundorUnboundActionsorFunctions" href="#BoundorUnboundActionsorFunctions">12.3 Bound or Unbound Actions or Functions</a>
 
-An action or function overload MAY indicate that it is bound. If not
+An action or function MAY indicate that it is bound. If not
 explicitly indicated, it is unbound.
 
 Bound actions or functions are invoked on resources matching the type of
@@ -2787,14 +2804,14 @@ Unbound functions are invoked as static functions within a common expression
 or from the entity container through a [function import](#FunctionImport).
 
 ::: {.varjson .rep}
-### <a name="IsBound.13.1" href="#IsBound.13.1">`$IsBound`</a>
+### <a name="IsBound.13.2" href="#IsBound.13.2">`$IsBound`</a>
 
 The value of `$IsBound` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
 :::
 
 
-## <a name="EntitySetPath" href="#EntitySetPath">12.6 Entity Set Path</a>
+### <a name="EntitySetPath" href="#EntitySetPath">12.3.1 Entity Set Path</a>
 
 Bound actions and functions that return an entity or a collection of
 entities MAY specify an entity set path if the entity set of the
@@ -2806,42 +2823,19 @@ with forward slashes.
 
 The first segment of the entity set path MUST be the name of the binding
 parameter. The remaining segments of the entity set path MUST represent
-navigation segments or type casts.
-
-A navigation segment names the [simple identifier](#SimpleIdentifier) of
-the [navigation property](#NavigationProperty) to be traversed. A
-type-cast segment names the [qualified name](#QualifiedName) of the
-entity type that should be returned from the type cast.
+complex typed properties, navigation properties, or type casts.
 
 ::: {.varjson .rep}
-### <a name="EntitySetPath.13.2" href="#EntitySetPath.13.2">`$EntitySetPath`</a>
+### <a name="EntitySetPath.13.3" href="#EntitySetPath.13.3">`$EntitySetPath`</a>
 
 The value of `$EntitySetPath` is a string containing the entity set
 path.
 :::
 
 
-## <a name="ComposableFunction" href="#ComposableFunction">12.7 Composable Function</a>
+## <a name="ReturnType" href="#ReturnType">12.4 Return Type</a>
 
-A function MAY indicate that it is composable. If not explicitly
-indicated, it is not composable.
-
-A composable function can be invoked with additional path segments or
-key predicates appended to the resource path that identifies the
-composable function, and with system query options as appropriate for
-the type returned by the composable function.
-
-::: {.varjson .rep}
-### <a name="IsComposable.13.3" href="#IsComposable.13.3">`$IsComposable`</a>
-
-The value of `$IsComposable` is one of the Boolean literals `true` or
-`false`. Absence of the member means `false`.
-:::
-
-
-## <a name="ReturnType" href="#ReturnType">12.8 Return Type</a>
-
-The return type of an action or function overload MAY be any type in
+The return type of an action or function may be any type in
 scope, or a collection of any type in scope.
 
 The facets [`MaxLength`](#MaxLength),
@@ -2894,17 +2888,17 @@ fail with an error response if it cannot compute a result.
 :::
 
 
-## <a name="Parameter" href="#Parameter">12.9 Parameter</a>
+## <a name="Parameter" href="#Parameter">12.5 Parameter</a>
 
-An action or function overload MAY specify parameters.
+An action or function MAY specify parameters.
 
-A bound action or function overload MUST specify at least one parameter;
-the first parameter is its binding parameter. The order of parameters
-MUST NOT change unless the schema version changes.
+A bound action or function MUST specify at least one parameter;
+the first parameter is its binding parameter. 
+The order of parameters MUST NOT change unless the schema version changes.
 
 Each parameter MUST have a name that is a [simple
 identifier](#SimpleIdentifier). The parameter name MUST be unique within
-the action or function overload.
+the action or function declaration.
 
 The parameter MUST specify a type. It MAY be any type in scope, or a
 collection of any type in scope.
@@ -3439,7 +3433,7 @@ identifier](#SimpleIdentifier) that MUST be unique within its entity
 container.
 
 A function import MUST specify the name of an unbound function in scope.
-All [unbound overloads](#BoundorUnboundActionorFunctionOverloads) of the
+All [unbound overloads](#BoundorUnboundActionsorFunctions) of the
 imported function can be invoked from the entity container.
 
 If the imported function returns an entity or a collection of entities,
@@ -6092,11 +6086,11 @@ https://openui5.hana.ondemand.com/1.40.10/#docs/guide/87aac894a40640f89920d7b2a4
 - [Enumeration Member Object](#EnumerationMemberObject.10)
 - [Type Definition Object](#TypeDefinitionObject.11)
   - [`$UnderlyingType`](#UnderlyingType.11.1)
-- [Action Overload Object](#ActionOverloadObject.12)
-- [Function Overload Object](#FunctionOverloadObject.13)
-  - [`$IsBound`](#IsBound.13.1)
-  - [`$EntitySetPath`](#EntitySetPath.13.2)
-  - [`$IsComposable`](#IsComposable.13.3)
+- [Action Object](#ActionObject.12)
+- [Function Object](#FunctionObject.13)
+  - [`$IsComposable`](#IsComposable.13.1)
+  - [`$IsBound`](#IsBound.13.2)
+  - [`$EntitySetPath`](#EntitySetPath.13.3)
   - [`$ReturnType`](#ReturnType.13.4)
   - [`$Type`](#Type.13.5)
   - [`$Collection`](#Collection.13.6)

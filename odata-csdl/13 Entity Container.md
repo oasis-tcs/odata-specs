@@ -638,7 +638,7 @@ identifier](#SimpleIdentifier) that MUST be unique within its entity
 container.
 
 A function import MUST specify the name of an unbound function in scope.
-All [unbound overloads](#BoundorUnboundActionorFunctionOverloads) of the
+All [unbound overloads](#BoundorUnboundActionsorFunctions) of the
 imported function can be invoked from the entity container.
 
 If the imported function returns an entity or a collection of entities,
