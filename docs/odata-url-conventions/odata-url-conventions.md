@@ -2323,7 +2323,7 @@ Edm.Boolean matchespattern(Edm.String,Edm.String,Edm.String)
 ```
 
 The second parameter MUST evaluate to a string containing an
-`matchespattern` function returns true if the first parameter evaluates
+[ECMAScript](#_ECMAScript) (JavaScript) regular expression. The `matchespattern` function returns true if the first parameter evaluates
 to a string matching that regular expression, using syntax and semantics
 of [ECMAScript](#_ECMAScript) regular expressions, otherwise it
 returns false.
