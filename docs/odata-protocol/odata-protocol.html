@@ -508,9 +508,9 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td>Setting a complex property to a different type</td>
 <td><a href="https://issues.oasis-open.org/browse/ODATA-1472">ODATA-1472</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#Conformance">Section 12</a></td>
-<td>Allow <code>400 Bad Request</code> for unrecognized (“future”) functionality in addition to <code>501 Not Implemented</code> for unsupported functionality</td>
+<td>Allow <code>400 Bad Request</code> in addition to <code>501 Not Implemented</code> for unsupported functionality</td>
 <td><a href="https://issues.oasis-open.org/browse/ODATA-1624">ODATA-1624</a></td>
 </tr>
 </tbody>
@@ -2650,7 +2650,6 @@ Content-Length: ###
 <h1 id="12-conformance"><a name="Conformance" href="#Conformance">12 Conformance</a></h1>
 <p>OData is designed as a set of conventions that can be layered on top of existing standards to provide common representations for common functionality. Not all services will support all of the conventions defined in the protocol; services choose those conventions defined in OData as the representation to expose that functionality appropriate for their scenarios.</p>
 <p>To aid in client/server interoperability, this specification defines multiple levels of conformance for an OData Service, as well as the <a href="#InteroperableODataClients">minimal requirements</a> for an OData Client to be interoperable across OData services.</p>
-<p>As OData itself evolves over time, the conformance clauses distinguish between <em>unsupported</em> and <em>unrecognized</em> features: unsupported features are known to the implementation (for example because they were part of OData at the time of implementation) and consciously not (yet) implemented, whereas unrecognized features are not known to the implementation (for example new query options or request patterns that were added to OData later).</p>
 <h2 id="121-odata-40-service-conformance-levels"><a name="OData40ServiceConformanceLevels" href="#OData40ServiceConformanceLevels">12.1 OData 4.0 Service Conformance Levels</a></h2>
 <p>OData 4.0 defines three levels of conformance for an OData Service.</p>
 <p>Note: The conformance levels are design to correspond to different service scenarios. For example, a service that publishes data compliant with one or more of the OData defined formats may comply with the <a href="#OData40MinimalConformanceLevel">OData 4.0 Minimal Conformance Level</a> without supporting any additional functionality. A service that offers more control over the data that the client retrieves may comply with the <a href="#OData40IntermediateConformanceLevel">OData 4.0 Intermediate Conformance Level</a>. Services that conform to the <a href="#OData40AdvancedConformanceLevel">OData 4.0 Advanced Conformance Level</a> can expect to interoperate with the most functionality against the broadest range of generic clients.</p>
@@ -2669,7 +2668,7 @@ Content-Length: ###
 <li><code>OData-MaxVersion</code> (<a href="#HeaderODataMaxVersion">section 8.2.7</a>)</li>
 </ol></li>
 <li>MUST follow OData guidelines for extensibility (<a href="#Extensibility">section 6</a> and all subsections)</li>
-<li>MUST successfully parse the request according to <a href="#ODataABNF">OData-ABNF</a> for any supported system query options and either follow the specification or fail the request, in which case it SHOULD return <code>501 Not Implemented</code> for any recognized unsupported functionality (<a href="#ResponseCode501NotImplemented">section 9.3.1</a>)</li>
+<li>MUST successfully parse the request according to <a href="#ODataABNF">OData-ABNF</a> for any supported system query options and either follow the specification or fail the request</li>
 <li>MUST expose only data types defined in <a href="#ODataCSDL">OData-CSDLXML</a></li>
 <li>MUST NOT require clients to understand any metadata or instance annotations (<a href="#VocabularyExtensibility">section 6.4</a>), custom headers (<a href="#HeaderFieldExtensibility">section 6.5</a>), or custom content (<a href="#PayloadExtensibility">section 6.2</a>) in the payload in order to correctly consume the service</li>
 <li>MUST NOT violate any OData update semantics (<a href="#DataModification">section 11.4</a> and all subsections)</li>
@@ -2707,7 +2706,7 @@ Content-Length: ###
 <p>In order to conform to the OData Intermediate Conformance Level, a service:</p>
 <ol type="1">
 <li>MUST conform to the <a href="#OData40MinimalConformanceLevel">OData 4.0 Minimal Conformance Level</a></li>
-<li>MUST successfully parse the request according to <a href="#ODataABNF">OData-ABNF</a> and either follow the specification or fail the request, in which case it SHOULD return <code>501 Not Implemented</code> for any recognized unsupported functionality (<a href="#ResponseCode501NotImplemented">section 9.3.1</a>)</li>
+<li>MUST successfully parse the request according to <a href="#ODataABNF">OData-ABNF</a> and either follow the specification or fail the request</li>
 <li>MUST support <code>$select</code> (<a href="#SystemQueryOptionselect">section 11.2.5.1</a>)</li>
 <li>MUST support casting to a derived type according to <a href="#ODataURL">OData-URL</a> if derived types are present in the model</li>
 <li>MUST support <code>$top</code> (<a href="#SystemQueryOptiontop">section 11.2.6.3</a>)</li>
@@ -2716,8 +2715,8 @@ Content-Length: ###
 <ol type="1">
 <li>MUST support <code>eq</code>, <code>ne</code> filter operations on properties of entities in the requested entity set (<a href="#BuiltinFilterOperations">section 11.2.6.1.1</a>)</li>
 <li>MUST support aliases in <code>$filter</code> expressions (<a href="#ParameterAliases">section 11.2.6.1.3</a>)</li>
-<li>SHOULD support additional filter operations (<a href="#BuiltinFilterOperations">section 11.2.6.1.1</a>) and MUST return <code>501 Not Implemented</code> for any unsupported or <code>400 Bad Request</code> for any unrecognized filter operations (<a href="#ResponseCode501NotImplemented">section 9.3.1</a>)</li>
-<li>SHOULD support the canonical functions (<a href="#BuiltinQueryFunctions">section 11.2.6.1.2</a>) and MUST return <code>501 Not Implemented</code> for any unsupported or <code>400 Bad Request</code> for any unrecognized functions (<a href="#ResponseCode501NotImplemented">section 9.3.1</a>)</li>
+<li>SHOULD support additional filter operations (<a href="#BuiltinFilterOperations">section 11.2.6.1.1</a>) and MUST fail the request for any unrecognized filter operations</li>
+<li>SHOULD support the canonical functions (<a href="#BuiltinQueryFunctions">section 11.2.6.1.2</a>) and MUST fail the request for any unrecognized functions</li>
 <li>SHOULD support <code>$filter</code> on expanded entities (<a href="#ExpandOptions">section 11.2.5.2.1</a>)</li>
 </ol></li>
 <li>SHOULD publish metadata at <code>$metadata</code> according to <a href="#ODataCSDL">OData-CSDLXML</a> (<a href="#MetadataDocumentRequest">section 11.1.2</a>)</li>
@@ -2879,7 +2878,7 @@ Content-Length: ###
 <li>MUST specify identifiers in payloads and URLs in the case they are specified in <code>$metadata</code></li>
 <li>MUST be prepared to receive any valid 4.01 CSDL</li>
 <li>MUST be prepared to receive any valid 4.01 response according to the requested format</li>
-<li>SHOULD use capabilities (see <a href="#ODataVocCap">OData-VocCap</a>) to determine if a 4.01 feature is supported but MAY attempt syntax and be prepared to handle either <a href="#ResponseCode501NotImplemented"><code>501 Not Implemented</code></a> or <code>400 Bad Request</code></li>
+<li>SHOULD use capabilities (see <a href="#ODataVocCap">OData-VocCap</a>) to determine if a 4.01 feature is supported but MAY attempt syntax and be prepared to handle either <code>400 Bad Request</code> or <a href="#ResponseCode501NotImplemented"><code>501 Not Implemented</code></a></li>
 </ol>
 <hr />
 <h1 id="appendix-a-references"><a name="References" href="#References">Appendix A. References</a></h1>
