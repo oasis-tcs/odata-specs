@@ -2715,8 +2715,8 @@ Content-Length: ###
 <ol type="1">
 <li>MUST support <code>eq</code>, <code>ne</code> filter operations on properties of entities in the requested entity set (<a href="#BuiltinFilterOperations">section 11.2.6.1.1</a>)</li>
 <li>MUST support aliases in <code>$filter</code> expressions (<a href="#ParameterAliases">section 11.2.6.1.3</a>)</li>
-<li>SHOULD support additional filter operations (<a href="#BuiltinFilterOperations">section 11.2.6.1.1</a>) and MUST fail the request for any unrecognized filter operations</li>
-<li>SHOULD support the canonical functions (<a href="#BuiltinQueryFunctions">section 11.2.6.1.2</a>) and MUST fail the request for any unrecognized functions</li>
+<li>SHOULD support additional filter operations (<a href="#BuiltinFilterOperations">section 11.2.6.1.1</a>) and MUST fail the request for any unsupported filter operations</li>
+<li>SHOULD support the canonical functions (<a href="#BuiltinQueryFunctions">section 11.2.6.1.2</a>) and MUST fail the request for any unsupported canonical functions</li>
 <li>SHOULD support <code>$filter</code> on expanded entities (<a href="#ExpandOptions">section 11.2.5.2.1</a>)</li>
 </ol></li>
 <li>SHOULD publish metadata at <code>$metadata</code> according to <a href="#ODataCSDL">OData-CSDLXML</a> (<a href="#MetadataDocumentRequest">section 11.1.2</a>)</li>

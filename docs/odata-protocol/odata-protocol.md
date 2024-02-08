@@ -6484,11 +6484,10 @@ follow the specification or fail the request
 in the requested entity set ([section 11.2.6.1.1](#BuiltinFilterOperations))
    2. MUST support aliases in `$filter` expressions ([section 11.2.6.1.3](#ParameterAliases))
    3. SHOULD support additional filter operations ([section 11.2.6.1.1](#BuiltinFilterOperations))
-and MUST fail the request for any unrecognized filter
+and MUST fail the request for any unsupported filter
 operations
    4. SHOULD support the canonical functions ([section 11.2.6.1.2](#BuiltinQueryFunctions)) and
-MUST fail the request for any unrecognized
-functions
+MUST fail the request for any unsupported canonical functions
    5. SHOULD support `$filter` on expanded entities ([section 11.2.5.2.1](#ExpandOptions))
 8. SHOULD publish metadata at `$metadata` according to
 [OData-CSDLXML](#ODataCSDL) ([section 11.1.2](#MetadataDocumentRequest))

@@ -137,11 +137,10 @@ follow the specification or fail the request
 in the requested entity set ([section ##BuiltinFilterOperations])
    2. MUST support aliases in `$filter` expressions ([section ##ParameterAliases])
    3. SHOULD support additional filter operations ([section ##BuiltinFilterOperations])
-and MUST fail the request for any unrecognized filter
+and MUST fail the request for any unsupported filter
 operations
    4. SHOULD support the canonical functions ([section ##BuiltinQueryFunctions]) and
-MUST fail the request for any unrecognized
-functions
+MUST fail the request for any unsupported canonical functions
    5. SHOULD support `$filter` on expanded entities ([section ##ExpandOptions])
 8. SHOULD publish metadata at `$metadata` according to
 [OData-CSDLXML](#ODataCSDL) ([section ##MetadataDocumentRequest])
