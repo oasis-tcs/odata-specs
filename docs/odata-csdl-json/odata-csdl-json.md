@@ -1257,7 +1257,7 @@ the schema namespace. Its value is an object that MAY contain the
 members [`$Alias`](#Alias) and
 [`$Annotations`](#AnnotationswithExternalTargeting).
 
-The schema object MAY contain members representing [entity
+The schema object MAY contain members representing its direct children: [entity
 types](#EntityType), [complex types](#ComplexType), [enumeration
 types](#EnumerationType), [type definitions](#TypeDefinition),
 [actions](#Action), [functions](#Function), [terms](#Term), and an
@@ -1353,7 +1353,7 @@ type is the template for an entity: any uniquely identifiable record
 such as a customer or order.
 
 The entity type's name is a [simple identifier](#SimpleIdentifier) that
-MUST be unique within its schema.
+MUST be unique among all direct children of its [schema](#Schema).
 
 An entity type can define two types of properties. A [structural
 property](#StructuralProperty) is a named reference to a primitive,
@@ -2259,7 +2259,7 @@ independently of an entity type. Complex types allow entity models to
 group properties into common structures.
 
 The complex type's name is a [simple identifier](#SimpleIdentifier) that
-MUST be unique within its schema.
+MUST be unique among all direct children of its [schema](#Schema).
 
 A complex type can define two types of properties. A [structural
 property](#StructuralProperty) is a named reference to a primitive,
@@ -2396,7 +2396,7 @@ non-empty series of related values. Enumeration types expose these
 related values as members of the enumeration.
 
 The enumeration type's name is a [simple identifier](#SimpleIdentifier)
-that MUST be unique within its schema.
+that MUST be unique among all direct children of its [schema](#Schema).
 
 Although enumeration types have an underlying numeric value, the
 preferred representation for an enumeration value is the member name.
@@ -2564,7 +2564,7 @@ types](#PrimitiveTypes) or of the built-in abstract type
 [`Edm.PrimitiveType`](#BuiltInAbstractTypes).
 
 The type definition's name is a [simple identifier](#SimpleIdentifier)
-that MUST be unique within its schema.
+that MUST be unique among all direct children of its [schema](#Schema).
 
 Type definitions can be used wherever a primitive type is used (other
 than as the underlying type in a new type definition) and are
@@ -2662,7 +2662,10 @@ Actions are service-defined operations that MAY have observable side
 effects and MAY return a single instance or a collection of instances of
 any type.
 
-The action's name is a [simple identifier](#SimpleIdentifier). The name of the action, excepting any [overloads](#ActionOverloads), MUST be unique within its schema.
+The action's name is a [simple identifier](#SimpleIdentifier). If two or more
+actions within one [schema](#Schema) have the same name, they are called [overloads](#ActionOverloads) of the same action. The name of an action MUST NOT
+be used by any other direct children of its schema. (An action with a unique name
+can also be viewed as an action with a single overload.)
 
 Actions cannot be composed with additional path segments.
 
@@ -2676,9 +2679,10 @@ of the action.
 ::: {.varjson .rep}
 ### <a name="ActionObject.12" href="#ActionObject.12">Action Object</a>
 
-An action is represented as a member of the schema object whose name is
-the unqualified name of the action and whose value is an array. The
-array contains one object per action overload.
+An action or action overloads with a common name are represented as a
+member of the schema object whose name is the unqualified name of the action
+and whose value is an array. The array contains one object per action
+overload.
 
 The action object MUST contain the member `$Kind` with a string
 value of `Action`.
@@ -2694,13 +2698,12 @@ It MAY contain the members
 ### <a name="ActionOverloads" href="#ActionOverloads">12.1.1 Action Overloads</a>
 
 [Bound](#BoundorUnboundActionsorFunctions) actions support
-overloading (multiple actions having the same name within the same
-schema) by binding parameter type. The combination of action name and
+overloading by binding parameter type. The combination of action name and
 the binding parameter type MUST be unique within a schema.
 
 [Unbound](#BoundorUnboundActionsorFunctions) actions do not support
-overloads. The names of all unbound actions MUST be unique within a
-schema.
+overloading by parameter types. The names of all unbound actions MUST be unique
+among all direct children of its schema.
 
 An unbound action MAY have the same name as a bound action.
 
@@ -2710,8 +2713,10 @@ Functions are service-defined operations that MUST NOT have observable
 side effects and MUST return a single instance or a collection of
 instances of any type.
 
-The function's name is a [simple identifier](#SimpleIdentifier). The name of the function, excepting any [overloads](#FunctionOverloads),
-MUST be unique within its schema.
+The function's name is a [simple identifier](#SimpleIdentifier). If two or more
+functions within one [schema](#Schema) have the same name, they are called [overloads](#FunctionOverloads) of the same function. The name of a function
+MUST NOT be used by any other direct children of its schema. (A function with a
+unique name can also be viewed as a function with a single overload.)
 
 Functions MAY be [composable](#ComposableFunction).
 
@@ -2725,9 +2730,10 @@ of the function.
 ::: {.varjson .rep}
 ### <a name="FunctionObject.13" href="#FunctionObject.13">Function Object</a>
 
-A function is represented as a member of the schema object whose name is
-the unqualified name of the function and whose value is an array. The
-array contains one object per function overload.
+A function or function overloads with a common name are represented as a
+member of the schema object whose name is the unqualified name of the function
+and whose value is an array. The array contains one object per function
+overload.
 
 The function object MUST contain the member `$Kind` with a
 string value of `Function`.
@@ -2742,8 +2748,7 @@ and it MAY contain [annotations](#Annotation).
 ### <a name="FunctionOverloads" href="#FunctionOverloads">12.2.1 Function Overloads</a>
 
 [Bound](#BoundorUnboundActionsorFunctions) functions support
-overloading (multiple functions having the same name within the same
-schema) subject to the following rules:
+overloading subject to the following rules:
 - The combination of function name,
 binding parameter type, and unordered set of non-binding parameter names
 MUST be unique within a schema.
@@ -2993,7 +2998,7 @@ Each metadata document used to describe an OData service MUST define
 exactly one entity container.
 
 The entity container's name is a [simple identifier](#SimpleIdentifier)
-that MUST be unique within its schema.
+that MUST be unique among all direct children of its [schema](#Schema).
 
 Entity containers define the entity sets, singletons, function and
 action imports exposed by the service.
@@ -3590,7 +3595,7 @@ A term allows annotating a model element or OData resource
 representation with additional data.
 
 The term's name is a [simple identifier](#SimpleIdentifier) that MUST be
-unique within its schema.
+unique among all direct children of its [schema](#Schema).
 
 The term's type MUST be a type in scope, or a collection of a type in
 scope.

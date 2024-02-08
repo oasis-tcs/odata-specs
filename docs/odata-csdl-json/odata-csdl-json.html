@@ -970,7 +970,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <section id="schema-object" class="varjson rep">
 <h3><a name="SchemaObject.4" href="#SchemaObject.4">Schema Object</a></h3>
 <p>A schema is represented as a member of the document object whose name is the schema namespace. Its value is an object that MAY contain the members <a href="#Alias"><code>$Alias</code></a> and <a href="#AnnotationswithExternalTargeting"><code>$Annotations</code></a>.</p>
-<p>The schema object MAY contain members representing <a href="#EntityType">entity types</a>, <a href="#ComplexType">complex types</a>, <a href="#EnumerationType">enumeration types</a>, <a href="#TypeDefinition">type definitions</a>, <a href="#Action">actions</a>, <a href="#Function">functions</a>, <a href="#Term">terms</a>, and an <a href="#EntityContainer">entity container</a>.</p>
+<p>The schema object MAY contain members representing its direct children: <a href="#EntityType">entity types</a>, <a href="#ComplexType">complex types</a>, <a href="#EnumerationType">enumeration types</a>, <a href="#TypeDefinition">type definitions</a>, <a href="#Action">actions</a>, <a href="#Function">functions</a>, <a href="#Term">terms</a>, and an <a href="#EntityContainer">entity container</a>.</p>
 <p>The schema object MAY also contain <a href="#Annotation">annotations</a> that apply to the schema itself.</p>
 </section>
 <h2 id="51-alias"><a name="Alias" href="#Alias">5.1 Alias</a></h2>
@@ -1014,7 +1014,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <hr />
 <h1 id="6-entity-type"><a name="EntityType" href="#EntityType">6 Entity Type</a></h1>
 <p>Entity types are <a href="#NominalTypes">nominal</a> <a href="#StructuredTypes">structured types</a> with a key that consists of one or more references to <a href="#StructuralProperty">structural properties</a>. An entity type is the template for an entity: any uniquely identifiable record such as a customer or order.</p>
-<p>The entity type’s name is a <a href="#SimpleIdentifier">simple identifier</a> that MUST be unique within its schema.</p>
+<p>The entity type’s name is a <a href="#SimpleIdentifier">simple identifier</a> that MUST be unique among all direct children of its <a href="#Schema">schema</a>.</p>
 <p>An entity type can define two types of properties. A <a href="#StructuralProperty">structural property</a> is a named reference to a primitive, complex, or enumeration type, or a collection of primitive, complex, or enumeration types. A <a href="#NavigationProperty">navigation property</a> is a named reference to another entity type or collection of entity types.</p>
 <p>All properties MUST have a unique name within an entity type. Properties MUST NOT have the same name as the declaring entity type. They MAY have the same name as one of the direct or indirect base types or derived types.</p>
 <section id="entity-type-object" class="varjson rep">
@@ -1423,7 +1423,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <hr />
 <h1 id="9-complex-type"><a name="ComplexType" href="#ComplexType">9 Complex Type</a></h1>
 <p>Complex types are keyless <a href="#NominalTypes">nominal</a> <a href="#StructuredTypes">structured types</a>. The lack of a key means that instances of complex types cannot be referenced, created, updated or deleted independently of an entity type. Complex types allow entity models to group properties into common structures.</p>
-<p>The complex type’s name is a <a href="#SimpleIdentifier">simple identifier</a> that MUST be unique within its schema.</p>
+<p>The complex type’s name is a <a href="#SimpleIdentifier">simple identifier</a> that MUST be unique among all direct children of its <a href="#Schema">schema</a>.</p>
 <p>A complex type can define two types of properties. A <a href="#StructuralProperty">structural property</a> is a named reference to a primitive, complex, or enumeration type, or a collection of primitive, complex, or enumeration types. A <a href="#NavigationProperty">navigation property</a> is a named reference to an entity type or a collection of entity types.</p>
 <p>All properties MUST have a unique name within a complex type. Properties MUST NOT have the same name as the declaring complex type. They MAY have the same name as one of the direct or indirect base types or derived types.</p>
 <section id="complex-type-object" class="varjson rep">
@@ -1493,7 +1493,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <hr />
 <h1 id="10-enumeration-type"><a name="EnumerationType" href="#EnumerationType">10 Enumeration Type</a></h1>
 <p>Enumeration types are <a href="#NominalTypes">nominal</a> types that represent a non-empty series of related values. Enumeration types expose these related values as members of the enumeration.</p>
-<p>The enumeration type’s name is a <a href="#SimpleIdentifier">simple identifier</a> that MUST be unique within its schema.</p>
+<p>The enumeration type’s name is a <a href="#SimpleIdentifier">simple identifier</a> that MUST be unique among all direct children of its <a href="#Schema">schema</a>.</p>
 <p>Although enumeration types have an underlying numeric value, the preferred representation for an enumeration value is the member name. Discrete sets of numeric values should be represented as numeric values annotated with the <code>AllowedValues</code> annotation defined in <a href="#ODataVocCore">OData-VocCore</a>.</p>
 <p>Enumeration types marked as flags allow values that consist of more than one enumeration member at a time.</p>
 <section id="enumeration-type-object" class="varjson rep">
@@ -1579,7 +1579,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <hr />
 <h1 id="11-type-definition"><a name="TypeDefinition" href="#TypeDefinition">11 Type Definition</a></h1>
 <p>A type definition defines a specialization of one of the <a href="#PrimitiveTypes">primitive types</a> or of the built-in abstract type <a href="#BuiltInAbstractTypes"><code>Edm.PrimitiveType</code></a>.</p>
-<p>The type definition’s name is a <a href="#SimpleIdentifier">simple identifier</a> that MUST be unique within its schema.</p>
+<p>The type definition’s name is a <a href="#SimpleIdentifier">simple identifier</a> that MUST be unique among all direct children of its <a href="#Schema">schema</a>.</p>
 <p>Type definitions can be used wherever a primitive type is used (other than as the underlying type in a new type definition) and are type-comparable with their underlying types and any type definitions defined using the same underlying type.</p>
 <p>It is up to the definition of a term to specify whether and how annotations with this term propagate to places where the annotated type definition is used, and whether they can be overridden.</p>
 <section id="type-definition-object" class="varjson rep">
@@ -1625,34 +1625,34 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h1 id="12-action-and-function"><a name="ActionandFunction" href="#ActionandFunction">12 Action and Function</a></h1>
 <h2 id="121-action"><a name="Action" href="#Action">12.1 Action</a></h2>
 <p>Actions are service-defined operations that MAY have observable side effects and MAY return a single instance or a collection of instances of any type.</p>
-<p>The action’s name is a <a href="#SimpleIdentifier">simple identifier</a>. The name of the action, excepting any <a href="#ActionOverloads">overloads</a>, MUST be unique within its schema.</p>
+<p>The action’s name is a <a href="#SimpleIdentifier">simple identifier</a>. If two or more actions within one <a href="#Schema">schema</a> have the same name, they are called <a href="#ActionOverloads">overloads</a> of the same action. The name of an action MUST NOT be used by any other direct children of its schema. (An action with a unique name can also be viewed as an action with a single overload.)</p>
 <p>Actions cannot be composed with additional path segments.</p>
 <p>An action MAY specify a <a href="#ReturnType">return type</a> that MUST be a primitive, entity or complex type, or a collection of primitive, entity or complex types in scope.</p>
 <p>An action MAY define <a href="#Parameter">parameters</a> used during the execution of the action.</p>
 <section id="action-object" class="varjson rep">
 <h3><a name="ActionObject.12" href="#ActionObject.12">Action Object</a></h3>
-<p>An action is represented as a member of the schema object whose name is the unqualified name of the action and whose value is an array. The array contains one object per action overload.</p>
+<p>An action or action overloads with a common name are represented as a member of the schema object whose name is the unqualified name of the action and whose value is an array. The array contains one object per action overload.</p>
 <p>The action object MUST contain the member <code>$Kind</code> with a string value of <code>Action</code>.</p>
 <p>It MAY contain the members <a href="#BoundorUnboundActionsorFunctions"><code>$IsBound</code></a>, <a href="#EntitySetPath"><code>$EntitySetPath</code></a>, <a href="#Parameter"><code>$Parameter</code></a>, and <a href="#ReturnType"><code>$ReturnType</code></a>, and it MAY contain <a href="#Annotation">annotations</a>.</p>
 </section>
 <h3 id="1211-action-overloads"><a name="ActionOverloads" href="#ActionOverloads">12.1.1 Action Overloads</a></h3>
-<p><a href="#BoundorUnboundActionsorFunctions">Bound</a> actions support overloading (multiple actions having the same name within the same schema) by binding parameter type. The combination of action name and the binding parameter type MUST be unique within a schema.</p>
-<p><a href="#BoundorUnboundActionsorFunctions">Unbound</a> actions do not support overloads. The names of all unbound actions MUST be unique within a schema.</p>
+<p><a href="#BoundorUnboundActionsorFunctions">Bound</a> actions support overloading by binding parameter type. The combination of action name and the binding parameter type MUST be unique within a schema.</p>
+<p><a href="#BoundorUnboundActionsorFunctions">Unbound</a> actions do not support overloading by parameter types. The names of all unbound actions MUST be unique among all direct children of its schema.</p>
 <p>An unbound action MAY have the same name as a bound action.</p>
 <h2 id="122-function"><a name="Function" href="#Function">12.2 Function</a></h2>
 <p>Functions are service-defined operations that MUST NOT have observable side effects and MUST return a single instance or a collection of instances of any type.</p>
-<p>The function’s name is a <a href="#SimpleIdentifier">simple identifier</a>. The name of the function, excepting any <a href="#FunctionOverloads">overloads</a>, MUST be unique within its schema.</p>
+<p>The function’s name is a <a href="#SimpleIdentifier">simple identifier</a>. If two or more functions within one <a href="#Schema">schema</a> have the same name, they are called <a href="#FunctionOverloads">overloads</a> of the same function. The name of a function MUST NOT be used by any other direct children of its schema. (A function with a unique name can also be viewed as a function with a single overload.)</p>
 <p>Functions MAY be <a href="#ComposableFunction">composable</a>.</p>
 <p>The function MUST specify a <a href="#ReturnType">return type</a> which MUST be a primitive, entity or complex type, or a collection of primitive, entity or complex types in scope.</p>
 <p>A function MAY define <a href="#Parameter">parameters</a> used during the execution of the function.</p>
 <section id="function-object" class="varjson rep">
 <h3><a name="FunctionObject.13" href="#FunctionObject.13">Function Object</a></h3>
-<p>A function is represented as a member of the schema object whose name is the unqualified name of the function and whose value is an array. The array contains one object per function overload.</p>
+<p>A function or function overloads with a common name are represented as a member of the schema object whose name is the unqualified name of the function and whose value is an array. The array contains one object per function overload.</p>
 <p>The function object MUST contain the member <code>$Kind</code> with a string value of <code>Function</code>.</p>
 <p>It MUST contain the member <a href="#ReturnType"><code>$ReturnType</code></a>, and it MAY contain the members <a href="#BoundorUnboundActionsorFunctions"><code>$IsBound</code></a>, <a href="#EntitySetPath"><code>$EntitySetPath</code></a>, and <a href="#Parameter"><code>$Parameter</code></a>, and it MAY contain <a href="#Annotation">annotations</a>.</p>
 </section>
 <h3 id="1221-function-overloads"><a name="FunctionOverloads" href="#FunctionOverloads">12.2.1 Function Overloads</a></h3>
-<p><a href="#BoundorUnboundActionsorFunctions">Bound</a> functions support overloading (multiple functions having the same name within the same schema) subject to the following rules:</p>
+<p><a href="#BoundorUnboundActionsorFunctions">Bound</a> functions support overloading subject to the following rules:</p>
 <ul>
 <li>The combination of function name, binding parameter type, and unordered set of non-binding parameter names MUST be unique within a schema.</li>
 <li>The combination of function name, binding parameter type, and ordered set of parameter types MUST be unique within a schema.</li>
@@ -1756,7 +1756,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <hr />
 <h1 id="13-entity-container"><a name="EntityContainer" href="#EntityContainer">13 Entity Container</a></h1>
 <p>Each metadata document used to describe an OData service MUST define exactly one entity container.</p>
-<p>The entity container’s name is a <a href="#SimpleIdentifier">simple identifier</a> that MUST be unique within its schema.</p>
+<p>The entity container’s name is a <a href="#SimpleIdentifier">simple identifier</a> that MUST be unique among all direct children of its <a href="#Schema">schema</a>.</p>
 <p>Entity containers define the entity sets, singletons, function and action imports exposed by the service.</p>
 <p>Entity set, singleton, action import, and function import names MUST be unique within an entity container.</p>
 <p>An <a href="#EntitySet"><em>entity set</em></a> allows access to entity type instances. Simple entity models frequently have one entity set per entity type.</p>
@@ -2035,7 +2035,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </div>
 <h2 id="141-term"><a name="Term" href="#Term">14.1 Term</a></h2>
 <p>A term allows annotating a model element or OData resource representation with additional data.</p>
-<p>The term’s name is a <a href="#SimpleIdentifier">simple identifier</a> that MUST be unique within its schema.</p>
+<p>The term’s name is a <a href="#SimpleIdentifier">simple identifier</a> that MUST be unique among all direct children of its <a href="#Schema">schema</a>.</p>
 <p>The term’s type MUST be a type in scope, or a collection of a type in scope.</p>
 <div class="varjson rep">
 <h3 id="term-object"><a name="TermObject.20" href="#TermObject.20">Term Object</a></h3>

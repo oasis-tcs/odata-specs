@@ -9,9 +9,11 @@ Actions are service-defined operations that MAY have observable side
 effects and MAY return a single instance or a collection of instances of
 any type.
 
-The action's name is a [simple identifier](#SimpleIdentifier). 
-The name of the action, excepting any [overloads](#ActionOverloads), 
-MUST be unique within its schema.
+The action's name is a [simple identifier](#SimpleIdentifier). If two or more
+actions within one [schema](#Schema) have the same name, they are called 
+[overloads](#ActionOverloads) of the same action. The name of an action MUST NOT
+be used by any other direct children of its schema. (An action with a unique name
+can also be viewed as an action with a single overload.)
 
 Actions cannot be composed with additional path segments.
 
@@ -25,9 +27,10 @@ of the action.
 ::: {.varjson .rep}
 ### ##isec Action Object
 
-An action is represented as a member of the schema object whose name is
-the unqualified name of the action and whose value is an array. The
-array contains one object per action overload.
+An action or action overloads with a common name are represented as a
+member of the schema object whose name is the unqualified name of the action
+and whose value is an array. The array contains one object per action
+overload.
 
 The action object MUST contain the member `$Kind` with a string
 value of `Action`.
@@ -42,7 +45,8 @@ It MAY contain the members
 ::: {.varxml .rep}
 ### ##isec Element `edm:Action`
 
-The `edm:Action` element MUST contain the `Name` attribute and it MAY
+The `edm:Action` element represents an action with unique name or one overload of
+an action. It MUST contain the `Name` attribute and it MAY
 contain the [`IsBound`](#BoundorUnboundActionsorFunctions) and
 [`EntitySetPath`](#EntitySetPath) attributes.
 
@@ -59,13 +63,12 @@ The value of `Name` is the action's name.
 ### ##subsubsec Action Overloads
 
 [Bound](#BoundorUnboundActionsorFunctions) actions support
-overloading (multiple actions having the same name within the same
-schema) by binding parameter type. The combination of action name and
+overloading by binding parameter type. The combination of action name and
 the binding parameter type MUST be unique within a schema.
 
 [Unbound](#BoundorUnboundActionsorFunctions) actions do not support
-overloads. The names of all unbound actions MUST be unique within a
-schema.
+overloading by parameter types. The names of all unbound actions MUST be unique
+among all direct children of its schema.
 
 An unbound action MAY have the same name as a bound action.
 
@@ -75,9 +78,11 @@ Functions are service-defined operations that MUST NOT have observable
 side effects and MUST return a single instance or a collection of
 instances of any type.
 
-The function's name is a [simple identifier](#SimpleIdentifier). 
-The name of the function, excepting any [overloads](#FunctionOverloads),
-MUST be unique within its schema.
+The function's name is a [simple identifier](#SimpleIdentifier). If two or more
+functions within one [schema](#Schema) have the same name, they are called 
+[overloads](#FunctionOverloads) of the same function. The name of a function
+MUST NOT be used by any other direct children of its schema. (A function with a
+unique name can also be viewed as a function with a single overload.)
 
 Functions MAY be [composable](#ComposableFunction).
 
@@ -91,9 +96,10 @@ of the function.
 ::: {.varjson .rep}
 ### ##isec Function Object
 
-A function is represented as a member of the schema object whose name is
-the unqualified name of the function and whose value is an array. The
-array contains one object per function overload.
+A function or function overloads with a common name are represented as a
+member of the schema object whose name is the unqualified name of the function
+and whose value is an array. The array contains one object per function
+overload.
 
 The function object MUST contain the member `$Kind` with a
 string value of `Function`.
@@ -107,7 +113,8 @@ and it MAY contain [annotations](#Annotation).
 ::: {.varxml .rep}
 ### ##isec Element `edm:Function`
 
-The `edm:Function` element MUST contain the `Name` attribute and it MAY
+The `edm:Function` element represents a function with unique name or one overload of
+a function. It MUST contain the `Name` attribute and it MAY
 contain the [`IsBound`](#BoundorUnboundActionsorFunctions) and
 [`EntitySetPath`](#EntitySetPath) attributes.
 
@@ -124,8 +131,7 @@ The value of `Name` is the action's name.
 ### ##subsubsec Function Overloads
 
 [Bound](#BoundorUnboundActionsorFunctions) functions support
-overloading (multiple functions having the same name within the same
-schema) subject to the following rules:
+overloading subject to the following rules:
 - The combination of function name,
 binding parameter type, and unordered set of non-binding parameter names
 MUST be unique within a schema.

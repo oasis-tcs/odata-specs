@@ -7,7 +7,7 @@ Each metadata document used to describe an OData service MUST define
 exactly one entity container.
 
 The entity container's name is a [simple identifier](#SimpleIdentifier)
-that MUST be unique within its schema.
+that MUST be unique among all direct children of its [schema](#Schema).
 
 Entity containers define the entity sets, singletons, function and
 action imports exposed by the service.
