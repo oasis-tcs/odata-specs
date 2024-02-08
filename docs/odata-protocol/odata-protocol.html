@@ -2668,7 +2668,7 @@ Content-Length: ###
 <li><code>OData-MaxVersion</code> (<a href="#HeaderODataMaxVersion">section 8.2.7</a>)</li>
 </ol></li>
 <li>MUST follow OData guidelines for extensibility (<a href="#Extensibility">section 6</a> and all subsections)</li>
-<li>MUST successfully parse the request according to <a href="#ODataABNF">OData-ABNF</a> for any supported system query options and either follow the specification or fail the request</li>
+<li>MUST successfully parse the request according to <a href="#ODataABNF">OData-ABNF</a> for any supported system query options and follow the specification or fail the request</li>
 <li>MUST expose only data types defined in <a href="#ODataCSDL">OData-CSDLXML</a></li>
 <li>MUST NOT require clients to understand any metadata or instance annotations (<a href="#VocabularyExtensibility">section 6.4</a>), custom headers (<a href="#HeaderFieldExtensibility">section 6.5</a>), or custom content (<a href="#PayloadExtensibility">section 6.2</a>) in the payload in order to correctly consume the service</li>
 <li>MUST NOT violate any OData update semantics (<a href="#DataModification">section 11.4</a> and all subsections)</li>
@@ -2706,7 +2706,7 @@ Content-Length: ###
 <p>In order to conform to the OData Intermediate Conformance Level, a service:</p>
 <ol type="1">
 <li>MUST conform to the <a href="#OData40MinimalConformanceLevel">OData 4.0 Minimal Conformance Level</a></li>
-<li>MUST successfully parse the request according to <a href="#ODataABNF">OData-ABNF</a> and either follow the specification or fail the request</li>
+<li>MUST successfully parse the request according to <a href="#ODataABNF">OData-ABNF</a> and follow the specification or fail the request</li>
 <li>MUST support <code>$select</code> (<a href="#SystemQueryOptionselect">section 11.2.5.1</a>)</li>
 <li>MUST support casting to a derived type according to <a href="#ODataURL">OData-URL</a> if derived types are present in the model</li>
 <li>MUST support <code>$top</code> (<a href="#SystemQueryOptiontop">section 11.2.6.3</a>)</li>
@@ -2878,7 +2878,7 @@ Content-Length: ###
 <li>MUST specify identifiers in payloads and URLs in the case they are specified in <code>$metadata</code></li>
 <li>MUST be prepared to receive any valid 4.01 CSDL</li>
 <li>MUST be prepared to receive any valid 4.01 response according to the requested format</li>
-<li>SHOULD use capabilities (see <a href="#ODataVocCap">OData-VocCap</a>) to determine if a 4.01 feature is supported but MAY attempt syntax and be prepared to handle either <code>400 Bad Request</code> or <a href="#ResponseCode501NotImplemented"><code>501 Not Implemented</code></a></li>
+<li>SHOULD use capabilities (see <a href="#ODataVocCap">OData-VocCap</a>) to determine if a 4.01 feature is supported but MAY attempt syntax and be prepared to handle <code>400 Bad Request</code> or <a href="#ResponseCode501NotImplemented"><code>501 Not Implemented</code></a></li>
 </ol>
 <hr />
 <h1 id="appendix-a-references"><a name="References" href="#References">Appendix A. References</a></h1>

@@ -6406,7 +6406,7 @@ request
 ([section 6](#Extensibility) and all subsections)
 7. MUST successfully parse the request according to
 [OData-ABNF](#ODataABNF) for any supported system query options and
-either follow the specification or fail the request
+follow the specification or fail the request
 8. MUST expose only data types defined in [OData-CSDLXML](#ODataCSDL)
 9. MUST NOT require clients to understand any metadata or instance
 annotations ([section 6.4](#VocabularyExtensibility)), custom headers ([section 6.5](#HeaderFieldExtensibility)), or custom
@@ -6472,7 +6472,7 @@ service:
 
 1. MUST conform to the [OData 4.0 Minimal Conformance
 Level](#OData40MinimalConformanceLevel)
-2. MUST successfully parse the request according to [OData-ABNF](#ODataABNF) and either
+2. MUST successfully parse the request according to [OData-ABNF](#ODataABNF) and
 follow the specification or fail the request
 3. MUST support `$select` ([section 11.2.5.1](#SystemQueryOptionselect))
 4. MUST support casting to a derived type according to
@@ -6753,7 +6753,7 @@ specified in `$metadata`
 the requested format
 20. SHOULD use capabilities (see [OData-VocCap](#ODataVocCap)) to
 determine if a 4.01 feature is supported but MAY attempt syntax and be
-prepared to handle either `400 Bad Request` or [`501 Not Implemented`](#ResponseCode501NotImplemented)
+prepared to handle `400 Bad Request` or [`501 Not Implemented`](#ResponseCode501NotImplemented)
 
 
 -------
