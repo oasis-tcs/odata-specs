@@ -33,7 +33,7 @@ Response code `204 No Content` after successful data modification if requested r
 Setting a complex property to a different type| 
 [ODATA-1472](https://issues.oasis-open.org/browse/ODATA-1472)
 [Section ##Conformance]| 
-Allow `400 Bad Request` for unrecognized ("future") functionality in addition to `501 Not Implemented` for unsupported functionality| 
+Allow `400 Bad Request` in addition to `501 Not Implemented` for unsupported functionality| 
 [ODATA-1624](https://issues.oasis-open.org/browse/ODATA-1624)
 
 ## ##subsec Glossary
