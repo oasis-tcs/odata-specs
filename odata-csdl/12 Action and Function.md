@@ -255,7 +255,11 @@ returned collection.
 ::: {.varjson .rep}
 ### ##subisec `$ReturnType`
 
-The value of `$ReturnType` is an object. It MAY contain the members
+The value of `$ReturnType` is an object.
+
+### ##isec Return Type Object
+
+The return type object MAY contain the members
 `$Type`, `$Collection`, `$Nullable`, [`$MaxLength`](#MaxLength),
 [`$Unicode`](#Unicode), [`$Precision`](#Precision), [`$Scale`](#Scale),
 and [`$SRID`](#SRID).
@@ -357,6 +361,7 @@ the parameter value is a collection, the facets apply to the items in
 the collection.
 
 ::: {.varjson .rep}
+### ##isec Parameters in Action and Function Object
 ### ##subisec `$Parameter`
 
 The value of `$Parameter` is an array. The array contains one object per
