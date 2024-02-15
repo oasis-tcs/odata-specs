@@ -12,15 +12,18 @@
     div.columns{display: flex; gap: min(4vw, 1.5em);}
     div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
     ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
       width: 0.8em;
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span { line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -87,9 +90,6 @@
   <link rel="stylesheet" href="styles/odata.css" />
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <p><img src="https://docs.oasis-open.org/templates/OASISLogo-v3.0.png" alt="OASIS Logo" /></p>
@@ -2436,7 +2436,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <div class="sourceCode" id="cb58"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;Location&quot;</span><span class="ot"> String=</span><span class="st">&quot;geography&#39;SRID=0;Point(142.1 64.1)&#39;&quot;</span> /&gt;</span></code></pre></div>
 </div>
 <h3 id="14314-stream-values"><a name="StreamValues" href="#StreamValues">14.3.14 Stream Values</a></h3>
-<p>CSDL documents with a version of <code>4.02</code> or greater MAY use constant values of type <code>Edm.Stream</code> in annotations.</p>
+<p>CSDL documents MAY use constant values of type <code>Edm.Stream</code> in annotations.</p>
 <div class="varxml rep">
 <p>Constant values of type <code>Edm.Stream</code> with media type <code>application/json</code> or one of its subtypes, optionally with format parameters, are represented as <a href="#String">string expressions</a> containing the stringified JSON.</p>
 <p>Constant values of type <code>Edm.Stream</code> with top-level type <code>text</code>, for example <code>text/plain</code>, are represented as <a href="#String">string expressions</a> containing the raw text.</p>

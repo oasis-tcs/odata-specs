@@ -1243,7 +1243,7 @@ Example ##ex:
 
 ### ##subsubsec Stream Values
 
-CSDL documents with a version of `4.02` or greater MAY use constant values of type `Edm.Stream` in annotations.
+CSDL documents MAY use constant values of type `Edm.Stream` in annotations.
 
 ::: {.varjson .rep}
 Constant values of type `Edm.Stream` are represented according to [OData-JSON](#ODataJSON) and MUST be accompanied by 

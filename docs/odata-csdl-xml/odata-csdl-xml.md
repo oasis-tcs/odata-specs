@@ -4109,7 +4109,7 @@ Example 58:
 
 ### <a name="StreamValues" href="#StreamValues">14.3.14 Stream Values</a>
 
-CSDL documents with a version of `4.02` or greater MAY use constant values of type `Edm.Stream` in annotations.
+CSDL documents MAY use constant values of type `Edm.Stream` in annotations.
 
 
 ::: {.varxml .rep}
