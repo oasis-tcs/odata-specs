@@ -138,10 +138,10 @@ schema
 ::: {.varjson .rep}
 ### ##subisec `$Annotations`
 
-The value of `$Annotations` is an object with one member per [annotation
-target](#Target). The member name is a path identifying the [annotation
-target](#Target), the member value is an object containing
-[annotations](#Annotation) for that target.
+The value of `$Annotations` is an object with one member per [annotation target](#Target).
+The member name is an expression identifying the [annotation target](#Target).
+It MUST resolve to a model element in scope.
+The member value is an object containing [annotations](#Annotation) for that target.
 :::
 
 ::: {.varjson .example}
@@ -171,7 +171,7 @@ It MUST contain at least one [`edm:Annotation`](#Annotation) element.
 
 ### ##subisec Attribute `Target`
 
-The value of `Target` is a path expression identifying the [annotation
+The value of `Target` is an expression identifying the [annotation
 target](#Target). It MUST resolve to a model element in scope.
 
 ### ##subisec Attribute `Qualifier`

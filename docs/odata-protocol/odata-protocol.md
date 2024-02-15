@@ -393,7 +393,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        odata-v4.02-csd01-part1-protocol.md
 ```
 
-This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
+This uses pandoc 3.1.11.1 from https://github.com/jgm/pandoc/releases/tag/3.1.11.1.
 :::
 
 -------
@@ -608,10 +608,10 @@ one or both of them may differ from convention.
 
 ## <a name="TransientEntities" href="#TransientEntities">4.3 Transient Entities</a>
 
-Transient entities are instances of an entity type that are "calculated
-on the fly" and only exist within a single payload. They cannot be
-reread or updated and consequently possess neither a stable entity-id
-nor a read URL or an update URL.
+Transient entities are instances of an entity type that are
+dynamically generated on request and only exist within a response payload.
+They do not possess an entity-id or an update URL and consequently cannot be updated.
+A transient entity may have a read URL, which generates a new transient entity using the same algorithm.
 
 ## <a name="DefaultNamespaces" href="#DefaultNamespaces">4.4 Default Namespaces</a>
 
