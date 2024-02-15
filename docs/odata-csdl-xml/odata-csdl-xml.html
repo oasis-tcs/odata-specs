@@ -2427,7 +2427,6 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Annotation</span>&gt;</span></code></pre></div>
 </div>
 <h3 id="14313-geo-values"><a name="GeoValues" href="#GeoValues">14.3.13 Geo Values</a></h3>
-<p>CSDL documents with a version of <code>4.02</code> or greater MAY use constant values of type <code>Edm.Geography</code>, <code>Edm.Geometry</code>, or one of their subtypes in annotations.</p>
 <div class="varxml rep">
 <p>Values are represented as <a href="#String">string expressions</a> using the WKT (well-known text) format for <code>Geo</code> types, see rules <code>fullCollectionLiteral</code>, <code>fullLineStringLiteral</code>, <code>fullMultiPointLiteral</code>, <code>fullMultiLineStringLiteral</code>, <code>fullMultiPolygonLiteral</code>, <code>fullPointLiteral</code>, and <code>fullPolygonLiteral</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
 </div>
@@ -2436,7 +2435,6 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <div class="sourceCode" id="cb58"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;Location&quot;</span><span class="ot"> String=</span><span class="st">&quot;geography&#39;SRID=0;Point(142.1 64.1)&#39;&quot;</span> /&gt;</span></code></pre></div>
 </div>
 <h3 id="14314-stream-values"><a name="StreamValues" href="#StreamValues">14.3.14 Stream Values</a></h3>
-<p>CSDL documents MAY use constant values of type <code>Edm.Stream</code> in annotations.</p>
 <div class="varxml rep">
 <p>Constant values of type <code>Edm.Stream</code> with media type <code>application/json</code> or one of its subtypes, optionally with format parameters, are represented as <a href="#String">string expressions</a> containing the stringified JSON.</p>
 <p>Constant values of type <code>Edm.Stream</code> with top-level type <code>text</code>, for example <code>text/plain</code>, are represented as <a href="#String">string expressions</a> containing the raw text.</p>

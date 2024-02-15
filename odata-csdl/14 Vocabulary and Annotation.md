@@ -1212,8 +1212,6 @@ Example ##ex:
 
 ### ##subsubsec Geo Values
 
-CSDL documents with a version of `4.02` or greater MAY use constant values of type `Edm.Geography`, `Edm.Geometry`, or one of their subtypes in annotations.
-
 ::: {.varjson .rep}
 Values are represented as GeoJSON, see [OData-JSON](#ODataJSON).
 :::
@@ -1242,8 +1240,6 @@ Example ##ex:
 :::
 
 ### ##subsubsec Stream Values
-
-CSDL documents MAY use constant values of type `Edm.Stream` in annotations.
 
 ::: {.varjson .rep}
 Constant values of type `Edm.Stream` are represented according to [OData-JSON](#ODataJSON) and MUST be accompanied by 

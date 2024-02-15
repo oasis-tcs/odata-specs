@@ -4087,8 +4087,6 @@ Example 57:
 
 ### <a name="GeoValues" href="#GeoValues">14.3.13 Geo Values</a>
 
-CSDL documents with a version of `4.02` or greater MAY use constant values of type `Edm.Geography`, `Edm.Geometry`, or one of their subtypes in annotations.
-
 
 
 ::: {.varxml .rep}
@@ -4108,8 +4106,6 @@ Example 58:
 :::
 
 ### <a name="StreamValues" href="#StreamValues">14.3.14 Stream Values</a>
-
-CSDL documents MAY use constant values of type `Edm.Stream` in annotations.
 
 
 ::: {.varxml .rep}
