@@ -445,7 +445,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
        --wrap=none
        --metadata pagetitle=&quot;OData Common Schema Definition Language (CSDL) XML Representation Version 4.02&quot;
        odata-csdl-xml-v4.02-csd01.md</code></pre>
-<p>This uses pandoc 3.1.2 from <a href="https://github.com/jgm/pandoc/releases/tag/3.1.2">https://github.com/jgm/pandoc/releases/tag/3.1.2</a>.</p>
+<p>This uses pandoc 3.1.11.1 from <a href="https://github.com/jgm/pandoc/releases/tag/3.1.11.1">https://github.com/jgm/pandoc/releases/tag/3.1.11.1</a>.</p>
 </div>
 <!-- These source files can be used to produce the JSON variant or the XML variant,
      by using either new Number("...", "json") or new Number("...", "xml").
@@ -975,7 +975,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>The <code>edm:Annotations</code> element is used to apply a group of annotations to a single model element. It MUST contain the <code>Target</code> attribute and it MAY contain the <code>Qualifier</code> attribute.</p>
 <p>It MUST contain at least one <a href="#Annotation"><code>edm:Annotation</code></a> element.</p>
 <h3 id="attribute-target"><a name="AttributeTarget.8.1" href="#AttributeTarget.8.1">Attribute <code>Target</code></a></h3>
-<p>The value of <code>Target</code> is a path expression identifying the <a href="#Target">annotation target</a>. It MUST resolve to a model element in scope.</p>
+<p>The value of <code>Target</code> is an expression identifying the <a href="#Target">annotation target</a>. It MUST resolve to a model element in scope.</p>
 <h3 id="attribute-qualifier-1"><a name="AttributeQualifier.8.2" href="#AttributeQualifier.8.2">Attribute <code>Qualifier</code></a></h3>
 <p>The value of <code>Qualifier</code> is a <a href="#SimpleIdentifier">simple identifier</a>.</p>
 </div>
@@ -2110,7 +2110,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <thead>
 <tr class="header">
 <th>Model element</th>
-<th>Can be targeted with path expression (see also <a href="#PathSyntax">section 14.4.1.1</a>)</th>
+<th>External targeting syntax</th>
 <th><div class="example"><p>Example 42: Target expressions</p></div></th>
 </tr>
 </thead>
@@ -2237,7 +2237,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </tr>
 </tbody>
 </table>
-<p>All <a href="#QualifiedName">qualified names</a> used in a target path MUST be in scope.</p>
+<p>All <a href="#QualifiedName">qualified names</a> used in a target expression MUST be in scope.</p>
 <p>External targeting is possible for properties and navigation properties of singletons or entities in a particular entity set. These annotations override annotations on the properties or navigation properties targeted via the declaring structured type.</p>
 <h2 id="143-constant-expression"><a name="ConstantExpression" href="#ConstantExpression">14.3 Constant Expression</a></h2>
 <p>Constant expressions allow assigning a constant value to an applied term.</p>
@@ -2539,8 +2539,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>For annotations hosted by a structural or navigation property, the path evaluation rules additionally depend upon how the annotation target is specified, as follows:</p>
 <ol type="1">
 <li><p>If the annotation is directly or indirectly embedded within the hosting property, the path is evaluated starting at the directly enclosing type of the hosting property. This allows e.g. specifying the value of an annotation on one property to be calculated from values of other properties of the same enclosing type. An empty path resolves to the enclosing type, and non-empty paths MUST follow the rules for annotations targeting the directly enclosing type.</p></li>
-<li><p>If the annotation uses targeting and the target path starts with an entity container, or the annotation is directly or indirectly embedded within such an annotation, the path is evaluated starting at the declared type of the hosting property. An empty path resolves to the declared type of the property, and non-empty paths MUST follow the rules for annotations targeting the declared type of the property. If the type is primitive, the first segment of a non-empty path MUST be a <a href="#TypeCast">type cast</a> or a <a href="#TermCast">term cast</a>.</p></li>
-<li><p>If the annotation uses targeting and the target path does not start with an entity container, or the annotation is directly or indirectly embedded within such an annotation, the path is evaluated starting at the <em>outermost</em> entity type or complex type named in the target path. This allows e.g. specifying the value of an annotation on one property to be calculated from values of other properties of the outermost type. An empty path resolves to the outermost type, and the first segment of a non-empty path MUST be a structural or navigation property of the outermost type, a <a href="#TypeCast">type cast</a>, or a <a href="#TermCast">term cast</a>.</p></li>
+<li><p>If the annotation uses targeting and the target expression starts with an entity container, or the annotation is directly or indirectly embedded within such an annotation, the path is evaluated starting at the declared type of the hosting property. An empty path resolves to the declared type of the property, and non-empty paths MUST follow the rules for annotations targeting the declared type of the property. If the type is primitive, the first segment of a non-empty path MUST be a <a href="#TypeCast">type cast</a> or a <a href="#TermCast">term cast</a>.</p></li>
+<li><p>If the annotation uses targeting and the target expression does not start with an entity container, or the annotation is directly or indirectly embedded within such an annotation, the path is evaluated starting at the <em>outermost</em> entity type or complex type named in the target expression. This allows e.g. specifying the value of an annotation on one property to be calculated from values of other properties of the outermost type. An empty path resolves to the outermost type, and the first segment of a non-empty path MUST be a structural or navigation property of the outermost type, a <a href="#TypeCast">type cast</a>, or a <a href="#TermCast">term cast</a>.</p></li>
 </ol>
 <div class="example">
 <p>Example 69: Annotations hosted by property <code>A2</code> in various modes</p>
@@ -2573,7 +2573,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <span id="cb74-10"><a href="#cb74-10" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.IsLanguageDependent&quot;</span><span class="ot"> Path=</span><span class="st">&quot;B1&quot;</span> /&gt;</span>
 <span id="cb74-11"><a href="#cb74-11" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">Annotations</span>&gt;</span></code></pre></div>
 </div>
-<p>Path evaluation for the annotations in the final block starts at the outermost type <code>self.A</code> named in the target path.</p>
+<p>Path evaluation for the annotations in the final block starts at the outermost type <code>self.A</code> named in the target expression.</p>
 <div class="varxml">
 <div class="sourceCode" id="cb75"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Annotations</span><span class="ot"> Target=</span><span class="st">&quot;self.A/A2&quot;</span>&gt;</span>
 <span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.Description&quot;</span><span class="ot"> Qualifier=</span><span class="st">&quot;external&quot;</span><span class="ot"> String=</span><span class="st">&quot;…&quot;</span>&gt;</span>
@@ -3147,7 +3147,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <li>The target path of a container child followed by a forward slash and one or more forward-slash separated property, navigation property, or type-cast segments</li>
 </ul>
 <div class="example">
-<p>Example 91: Target expressions</p>
+<p>Example 91: Target paths</p>
 <pre><code>MySchema.MyEntityContainer/MyEntitySet</code></pre>
 <pre><code>MySchema.MyEntityContainer/MySingleton</code></pre>
 <pre><code>MySchema.MyEntityContainer/MySingleton/MyContainmentNavigationProperty</code></pre>

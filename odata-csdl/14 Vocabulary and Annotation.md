@@ -578,7 +578,7 @@ except actions and functions whose overloads to not possess a natural
 identifier), and all direct children of an entity container.
 
 Model element| 
-Can be targeted with path expression (see also [section ##PathSyntax])| 
+External targeting syntax| 
 <div class="example"><p>Example ##ex: Target expressions</p></div>
 -----|-----|-----
 [Action](#Action) overload| 
@@ -676,7 +676,7 @@ qualified name of term|
 qualified name of type definition| 
 <pre>`MySchema.MyTypeDefinition`</pre>
 
-All [qualified names](#QualifiedName) used in a target path MUST be in scope.
+All [qualified names](#QualifiedName) used in a target expression MUST be in scope.
 
 External targeting is possible for properties and navigation
 properties of singletons or entities in a particular entity set. These
@@ -1546,7 +1546,7 @@ specified, as follows:
    and non-empty paths MUST follow the rules for annotations targeting the
    directly enclosing type.
 
-2. If the annotation uses targeting and the target path starts with an entity
+2. If the annotation uses targeting and the target expression starts with an entity
    container, or the annotation is directly or indirectly embedded within such an
    annotation, the path is evaluated starting at the declared type of the
    hosting property. An empty path resolves to the declared type of the
@@ -1555,10 +1555,10 @@ specified, as follows:
    first segment of a non-empty path MUST be a [type cast](#TypeCast) or a
    [term cast](#TermCast).
 
-3. If the annotation uses targeting and the target path does not start with
+3. If the annotation uses targeting and the target expression does not start with
    an entity container, or the annotation is directly or indirectly embedded
    within such an annotation, the path is evaluated starting at the *outermost*
-   entity type or complex type named in the target path. This allows e.g.
+   entity type or complex type named in the target expression. This allows e.g.
    specifying the value of an annotation on one property to be calculated from
    values of other properties of the outermost type. An empty path resolves to
    the outermost type, and the first segment of a non-empty path MUST be a
@@ -1655,7 +1655,7 @@ type `self.B` of the hosting property `A2`.
 ::::
 
 Path evaluation for the annotations in the final block starts at the outermost
-type `self.A` named in the target path.
+type `self.A` named in the target expression.
 :::: varjson
 ```json
     "self.A/A2": {

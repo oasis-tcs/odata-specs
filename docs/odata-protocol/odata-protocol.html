@@ -12,15 +12,18 @@
     div.columns{display: flex; gap: min(4vw, 1.5em);}
     div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
     ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
       width: 0.8em;
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span { line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -87,9 +90,6 @@
   <link rel="stylesheet" href="styles/odata.css" />
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <p><img src="https://docs.oasis-open.org/templates/OASISLogo-v3.0.png" alt="OASIS Logo" /></p>
@@ -537,7 +537,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
        --wrap=none
        --metadata pagetitle=&quot;OData Version 4.02. Part 1: Protocol&quot;
        odata-v4.02-csd01-part1-protocol.md</code></pre>
-<p>This uses pandoc 3.1.2 from <a href="https://github.com/jgm/pandoc/releases/tag/3.1.2">https://github.com/jgm/pandoc/releases/tag/3.1.2</a>.</p>
+<p>This uses pandoc 3.1.11.1 from <a href="https://github.com/jgm/pandoc/releases/tag/3.1.11.1">https://github.com/jgm/pandoc/releases/tag/3.1.11.1</a>.</p>
 </div>
 <hr />
 <h1 id="2-overview"><a name="Overview" href="#Overview">2 Overview</a></h1>
@@ -601,7 +601,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The edit URL of a property is the edit URL of the entity with appended segment(s) containing the path to the property.</p>
 <p>Services are strongly encouraged to use the canonical URL for an entity as defined in <strong>OData-URL</strong> for both the read URL and the edit URL of an entity, with a cast segment to the type of the entity appended to the canonical URL if the type of the entity is derived from the declared type of the entity set. However, clients cannot assume this convention and must use the links specified in the payload according to the appropriate format as the two URLs may be different from one another, or one or both of them may differ from convention.</p>
 <h2 id="43-transient-entities"><a name="TransientEntities" href="#TransientEntities">4.3 Transient Entities</a></h2>
-<p>Transient entities are instances of an entity type that are “calculated on the fly” and only exist within a single payload. They cannot be reread or updated and consequently possess neither a stable entity-id nor a read URL or an update URL.</p>
+<p>Transient entities are instances of an entity type that are dynamically generated on request and only exist within a response payload. They do not possess an entity-id or an update URL and consequently cannot be updated. A transient entity may have a read URL, which generates a new transient entity using the same algorithm.</p>
 <h2 id="44-default-namespaces"><a name="DefaultNamespaces" href="#DefaultNamespaces">4.4 Default Namespaces</a></h2>
 <p>References to actions, functions, and types within a URL typically requires prefixing the name of the action, function, or type with the namespace or alias in which it is defined. This namespace qualification enables differentiating between similarly named elements across schema, or between properties and bound functions, actions, or types with the same name.</p>
 <p>Services MAY define one or more default namespaces through the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a> term defined in <a href="#ODataVocCore">OData-VocCore</a>. Functions, actions and types in a default namespace can be referenced in URLs with or without namespace or alias qualification.</p>

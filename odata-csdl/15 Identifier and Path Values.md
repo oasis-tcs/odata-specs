@@ -52,7 +52,7 @@ forward-slash separated property, navigation property, or type-cast
 segments
 
 ::: example
-Example ##ex: Target expressions
+Example ##ex: Target paths
 ```
 MySchema.MyEntityContainer/MyEntitySet
 ```

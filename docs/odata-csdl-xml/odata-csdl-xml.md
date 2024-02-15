@@ -317,7 +317,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        odata-csdl-xml-v4.02-csd01.md
 ```
 
-This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
+This uses pandoc 3.1.11.1 from https://github.com/jgm/pandoc/releases/tag/3.1.11.1.
 :::
 
 <!-- These source files can be used to produce the JSON variant or the XML variant,
@@ -1263,7 +1263,7 @@ It MUST contain at least one [`edm:Annotation`](#Annotation) element.
 
 ### <a name="AttributeTarget.8.1" href="#AttributeTarget.8.1">Attribute `Target`</a>
 
-The value of `Target` is a path expression identifying the [annotation
+The value of `Target` is an expression identifying the [annotation
 target](#Target). It MUST resolve to a model element in scope.
 
 ### <a name="AttributeQualifier.8.2" href="#AttributeQualifier.8.2">Attribute `Qualifier`</a>
@@ -3690,7 +3690,7 @@ These are the direct children of a schema with a unique name (i.e.
 except actions and functions whose overloads to not possess a natural
 identifier), and all direct children of an entity container.
 
-Model element| Can be targeted with path expression (see also [section 14.4.1.1](#PathSyntax))| <div class="example"><p>Example 42: Target expressions</p></div>
+Model element| External targeting syntax| <div class="example"><p>Example 42: Target expressions</p></div>
 -----|-----|-----
 [Action](#Action) overload| qualified name of action followed by parentheses containing the binding parameter type of a bound action overload to identify that bound overload, or by empty parentheses to identify the unbound overload| <pre>`MySchema.MyAction(MySchema.MyBindingType)` <br>`MySchema.MyAction(Collection(MySchema.BindingType))` <br>`MySchema.MyAction()`</pre>
 all overloads of an [Action](#Action)| qualified name of action| <pre>`MySchema.MyAction`</pre>
@@ -3717,7 +3717,7 @@ all overloads of a [Function](#Function)| qualified name of function| <pre>`MySc
 [Term](#Term)| qualified name of term| <pre>`MySchema.MyTerm`</pre>
 [Type Definition](#TypeDefinition)| qualified name of type definition| <pre>`MySchema.MyTypeDefinition`</pre>
 
-All [qualified names](#QualifiedName) used in a target path MUST be in scope.
+All [qualified names](#QualifiedName) used in a target expression MUST be in scope.
 
 External targeting is possible for properties and navigation
 properties of singletons or entities in a particular entity set. These
@@ -4394,7 +4394,7 @@ specified, as follows:
    and non-empty paths MUST follow the rules for annotations targeting the
    directly enclosing type.
 
-2. If the annotation uses targeting and the target path starts with an entity
+2. If the annotation uses targeting and the target expression starts with an entity
    container, or the annotation is directly or indirectly embedded within such an
    annotation, the path is evaluated starting at the declared type of the
    hosting property. An empty path resolves to the declared type of the
@@ -4403,10 +4403,10 @@ specified, as follows:
    first segment of a non-empty path MUST be a [type cast](#TypeCast) or a
    [term cast](#TermCast).
 
-3. If the annotation uses targeting and the target path does not start with
+3. If the annotation uses targeting and the target expression does not start with
    an entity container, or the annotation is directly or indirectly embedded
    within such an annotation, the path is evaluated starting at the *outermost*
-   entity type or complex type named in the target path. This allows e.g.
+   entity type or complex type named in the target expression. This allows e.g.
    specifying the value of an annotation on one property to be calculated from
    values of other properties of the outermost type. An empty path resolves to
    the outermost type, and the first segment of a non-empty path MUST be a
@@ -4456,7 +4456,7 @@ type `self.B` of the hosting property `A2`.
 ::::
 
 Path evaluation for the annotations in the final block starts at the outermost
-type `self.A` named in the target path.
+type `self.A` named in the target expression.
 
 :::: varxml
 ```xml
@@ -5463,7 +5463,7 @@ forward-slash separated property, navigation property, or type-cast
 segments
 
 ::: example
-Example 91: Target expressions
+Example 91: Target paths
 ```
 MySchema.MyEntityContainer/MyEntitySet
 ```
