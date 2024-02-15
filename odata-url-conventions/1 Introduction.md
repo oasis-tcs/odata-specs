@@ -24,8 +24,11 @@ ecosystem of reusable client components and libraries.
 
 ## ##subsec Changes from Earlier Versions
 
-<!-- TODO -->
-<!-- Describe significant changes from previous differently-numbered Versions, not changes between stages of the current Version -->
+Section | Feature / Change | Issue
+--------|------------------|------
+[Section ##matchespattern]| 
+New overload for function `matchespattern` with flags| 
+[ODATA-1618](https://issues.oasis-open.org/browse/ODATA-1618)
 
 ## ##subsec Glossary
 
@@ -74,7 +77,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        $$$filename$$$.md
 ```
 
-This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
+This uses pandoc $$$pandoc-version$$$ from https://github.com/jgm/pandoc/releases/tag/$$$pandoc-version$$$.
 :::
 
 -------

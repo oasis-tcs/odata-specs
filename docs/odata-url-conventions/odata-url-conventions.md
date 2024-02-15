@@ -266,8 +266,9 @@ ecosystem of reusable client components and libraries.
 
 ## <a name="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a>
 
-<!-- TODO -->
-<!-- Describe significant changes from previous differently-numbered Versions, not changes between stages of the current Version -->
+Section | Feature / Change | Issue
+--------|------------------|------
+[Section 5.1.1.7.1](#matchespattern)| New overload for function `matchespattern` with flags| [ODATA-1618](https://issues.oasis-open.org/browse/ODATA-1618)
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -316,7 +317,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        odata-v4.02-csd01-part2-url-conventions.md
 ```
 
-This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
+This uses pandoc 3.1.11.1 from https://github.com/jgm/pandoc/releases/tag/3.1.11.1.
 :::
 
 -------
@@ -2320,23 +2321,33 @@ hassubsequence([1,2],[1,1,2])
 
 ##### <a name="matchespattern" href="#matchespattern">5.1.1.7.1 `matchespattern`</a>
 
-The `matchespattern` function has the following signature:
+The `matchespattern` function has the following signatures:
 
 ```
 Edm.Boolean matchespattern(Edm.String,Edm.String)
+Edm.Boolean matchespattern(Edm.String,Edm.String,Edm.String)
 ```
 
 The second parameter MUST evaluate to a string containing an
-`matchespattern` function returns true if the first parameter evaluates
+[ECMAScript](#_ECMAScript) (JavaScript) regular expression. The `matchespattern` function returns true if the first parameter evaluates
 to a string matching that regular expression, using syntax and semantics
-of [ECMAScript](#_ECMAScript) regular expressions, otherwise it
+of ECMAScript regular expressions, otherwise it
 returns false.
+If the optional third parameter is provided, it MUST evaluate to a string
+consisting of ECMAScript regular expression flags to modify the match.
 
 ::: example
 Example 81: all customers with a `CompanyName` that match the
 (percent-encoded) regular expression `^A.*e$`
 ```
 http://host/service/Customers?$filter=matchespattern(CompanyName,'%5EA.*e$')
+```
+:::
+
+::: example
+Example 82: all customers with a `FormattedAddress` that contains a line ending with `berg` or ends with `berg`
+```
+http://host/service/Customers?$filter=matchespattern(FormattedAddress,'berg$','m')
 ```
 :::
 
@@ -2354,7 +2365,7 @@ The `toLowerMethodCallExpr` syntax rule defines how the `tolower`
 function is invoked.
 
 ::: example
-Example 82: all customers with a `CompanyName` that equals
+Example 83: all customers with a `CompanyName` that equals
 `alfreds futterkiste` once any uppercase characters have been
 converted to lowercase
 ```
@@ -2376,7 +2387,7 @@ The `toUpperMethodCallExpr` syntax rule defines how the `toupper`
 function is invoked.
 
 ::: example
-Example 83: all customers with a `CompanyName` that equals
+Example 84: all customers with a `CompanyName` that equals
 `ALFREDS FUTTERKISTE` once any lowercase characters have been
 converted to uppercase
 ```
@@ -2398,7 +2409,7 @@ removed. The `trimMethodCallExpr` syntax rule defines how the `trim`
 function is invoked.
 
 ::: example
-Example 84: all customers with a `CompanyName` without leading or
+Example 85: all customers with a `CompanyName` without leading or
 trailing whitespace characters
 ```
 http://host/service/Customers?$filter=trim(CompanyName) eq CompanyName
@@ -2440,7 +2451,7 @@ UTC) MUST fail evaluation of the `day` function for literal
 normalized values.
 
 ::: example
-Example 85: all employees born on the 8th day of a month
+Example 86: all employees born on the 8th day of a month
 ```
 http://host/service/Employees?$filter=day(BirthDate) eq 8
 ```
@@ -2462,7 +2473,7 @@ non-negative decimal value less than 1. The
 `fractionalseconds` function is invoked.
 
 ::: example
-Example 86: all employees born less than 100 milliseconds after a full
+Example 87: all employees born less than 100 milliseconds after a full
 second of any minute of any hour on any day
 ```
 http://host/service/Employees?$filter=[fractionalseconds(BirthDate) lt 0.1
@@ -2490,7 +2501,7 @@ UTC) MUST fail evaluation of the `hour` function for literal
 normalized values.
 
 ::: example
-Example 87: all employees born in hour 4, between 04:00 (inclusive) and
+Example 88: all employees born in hour 4, between 04:00 (inclusive) and
 05:00 (exclusive)
 ```
 http://host/service/Employees?$filter=hour(BirthDate) eq 4
@@ -2534,7 +2545,7 @@ zone of the `DateTimeOffset` parameter value. The `minuteMethodCallExpr`
 syntax rule defines how the `minute` function is invoked.
 
 ::: example
-Example 88: all employees born in minute 40 of any hour on any day
+Example 89: all employees born in minute 40 of any hour on any day
 ```
 http://host/service/Employees?$filter=minute(BirthDate) eq 40
 ```
@@ -2561,7 +2572,7 @@ UTC) MUST fail evaluation of the `month` function for literal
 normalized values.
 
 ::: example
-Example 89: all employees born in May
+Example 90: all employees born in May
 ```
 http://host/service/Employees?$filter=month(BirthDate) eq 5
 ```
@@ -2600,7 +2611,7 @@ of the `DateTimeOffset` or `TimeOfDay` parameter value. The
 invoked.
 
 ::: example
-Example 90: all employees born in second 40 of any minute of any hour on
+Example 91: all employees born in second 40 of any minute of any hour on
 any day
 ```
 http://host/service/Employees?$filter=second(BirthDate) eq 40
@@ -2669,7 +2680,7 @@ UTC) MUST fail evaluation of the `year` function for literal
 normalized values.
 
 ::: example
-Example 91: all employees born in 1971
+Example 92: all employees born in 1971
 ```
 http://host/service/Employees?$filter=year(BirthDate) eq 1971
 ```
@@ -2692,7 +2703,7 @@ nearest numeric value with no decimal component. The
 is invoked.
 
 ::: example
-Example 92: all orders with freight costs that round up to 32
+Example 93: all orders with freight costs that round up to 32
 ```
 http://host/service/Orders?$filter=ceiling(Freight) eq 32
 ```
@@ -2713,7 +2724,7 @@ nearest numeric value with no decimal component. The
 invoked.
 
 ::: example
-Example 93: all orders with freight costs that round down to 32
+Example 94: all orders with freight costs that round down to 32
 ```
 http://host/service/Orders?$filter=floor(Freight) eq 32
 ```
@@ -2735,7 +2746,7 @@ rounded to -1. The `roundMethodCallExpr` syntax rule defines how the
 `round` function is invoked.
 
 ::: example
-Example 94: all orders with freight costs that round to 32
+Example 95: all orders with freight costs that round to 32
 ```
 http://host/service/Orders?$filter=round(Freight) eq 32
 ```
@@ -2804,7 +2815,7 @@ same rules, otherwise it returns false.
 The `isofExpr` syntax rule defines how the `isof` function is invoked.
 
 ::: example
-Example 95: orders that are also `BigOrders`
+Example 96: orders that are also `BigOrders`
 ```
 http://host/service/Orders?$filter=isof(NorthwindModel.BigOrder)
 ```
@@ -2815,7 +2826,7 @@ http://host/service/Orders?$filter=isof($it,NorthwindModel.BigOrder)
 :::
 
 ::: example
-Example 96: orders of a customer that is a `VIPCustomer`
+Example 97: orders of a customer that is a `VIPCustomer`
 ```
 http://host/service/Orders?$filter=isof(Customer,NorthwindModel.VIPCustomer)
 ```
@@ -2899,7 +2910,7 @@ incompatible types, in which case the case expression is treated as
 selected by the case statement.
 
 ::: example
-Example 97: compute signum(X)
+Example 98: compute signum(X)
 ```
 $compute=case(X gt 0:1,X lt 0:-1,true:0) as SignumX
 ```
@@ -2941,7 +2952,7 @@ The `any` operator can be used without an argument expression. This
 short form returns false if and only if the collection is empty.
 
 ::: example
-Example 98: all `Orders` that have any `Items` with a `Quantity` greater
+Example 99: all `Orders` that have any `Items` with a `Quantity` greater
 than `100`
 ```
 http://host/service/Orders?$filter=Items/any(d:d/Quantity gt 100)
@@ -2949,7 +2960,7 @@ http://host/service/Orders?$filter=Items/any(d:d/Quantity gt 100)
 :::
 
 ::: example
-Example 99: all customers having an order with a deviating shipping
+Example 100: all customers having an order with a deviating shipping
 address. The `Address` in the argument expression is evaluated in the
 scope of the `Customers` collection.
 ```
@@ -2958,7 +2969,7 @@ http://host/service/Customers?$filter=Orders/any(o:o/ShippingAddress ne Address)
 :::
 
 ::: example
-Example 100: all categories along with their products used in some order
+Example 101: all categories along with their products used in some order
 with a deviating unit price. The unprefixed `UnitPrice` in the argument
 expression is evaluated in the scope of the expanded `Products`.
 ```
@@ -2976,7 +2987,7 @@ operator always returns true for an empty collection.
 The `all` operator cannot be used without an argument expression.
 
 ::: example
-Example 101: all `Orders` that have only `Items` with a `Quantity`
+Example 102: all `Orders` that have only `Items` with a `Quantity`
 greater than `100`
 ```
 http://host/service/Orders?$filter=Items/all(d:d/Quantity gt 100)
@@ -2993,7 +3004,7 @@ values, and in the query part, for example, as operands in
 according to the `primitiveLiteral` rule in [OData-ABNF](#ODataABNF).
 
 ::: example
-Example 102: expressions using primitive literals
+Example 103: expressions using primitive literals
 ```
 NullValue eq null
 ```
@@ -3098,14 +3109,14 @@ percent-encoded in URLs although some browsers will accept and pass them
 on unencoded.
 
 ::: example
-Example 103: collection of string literals
+Example 104: collection of string literals
 ```
 http://host/service/ProductsByColors(colors=@c)?@c=["red","green"]
 ```
 :::
 
 ::: example
-Example 104: check whether a pair of properties has one of several
+Example 105: check whether a pair of properties has one of several
 possible pair values
 ```
 $filter=[FirstName,LastName] in [["John","Doe"],["Jane","Smith"]]
@@ -3151,7 +3162,7 @@ function overload on the current instance within an expression. Function
 names without a path prefix refer to an unbound function overload.
 
 ::: example
-Example 105: email addresses ending with `.com` assuming
+Example 106: email addresses ending with `.com` assuming
 `EmailAddresses` is a collection of strings
 ```
 http://host/service/Customers(1)/EmailAddresses?$filter=endswith($it,'.com')
@@ -3159,7 +3170,7 @@ http://host/service/Customers(1)/EmailAddresses?$filter=endswith($it,'.com')
 :::
 
 ::: example
-Example 106: customers along with their orders that shipped to the same
+Example 107: customers along with their orders that shipped to the same
 city as the customer's address. The nested filter expression is
 evaluated in the context of Orders; `$it` allows referring to values in
 the outer context of Customers.
@@ -3170,7 +3181,7 @@ http://host/service/Customers?$expand=Orders($filter=$it/Address/City eq ShipTo/
 :::
 
 ::: example
-Example 107: products with at least 10 positive reviews.
+Example 108: products with at least 10 positive reviews.
 `Model.PositiveReviews` is a function bound to `Model.Product` returning
 a collection of reviews.
 ```
@@ -3184,14 +3195,14 @@ The `$root` literal can be used in expressions to refer to resources of
 the same service.
 
 ::: example
-Example 108: all employees with the same last name as employee `A1235`
+Example 109: all employees with the same last name as employee `A1235`
 ```
 http://host/service/Employees?$filter=LastName eq $root/Employees('A1245')/LastName
 ```
 :::
 
 ::: example
-Example 109: products ordered by a set of customers, where the set of
+Example 110: products ordered by a set of customers, where the set of
 customers is passed as a JSON array containing the resource paths from
 `$root` to each customer
 ```
@@ -3200,7 +3211,7 @@ http://host/service/ProductsOrderedBy(Customers=@c)?@c=[$root/Customers('ALFKI')
 :::
 
 ::: example
-Example 110: function call returning the average rating of a given employee by their peers (employees in department D1)
+Example 111: function call returning the average rating of a given employee by their peers (employees in department D1)
 ```
 http://host/service/Employees('A1245')/self.AvgRating(RatedBy=@peers)?@peers=$root/Employees/$filter(Department eq 'D1')
 ```
@@ -3216,7 +3227,7 @@ and navigation properties. It refers to the current instance of the
 collection.
 
 ::: example
-Example 111: select only email addresses ending with `.com`
+Example 112: select only email addresses ending with `.com`
 ```
 http://host/service/Customers?$select=EmailAddresses($filter=endswith($this,'.com'))
 ```
@@ -3243,7 +3254,7 @@ target cardinality 0..1), its value, and the values of its components,
 are treated as `null`.
 
 ::: example
-Example 112: similar behavior whether `HeadquarterAddress` is a nullable
+Example 113: similar behavior whether `HeadquarterAddress` is a nullable
 complex type or a nullable navigation property
 ```
 Companies(1)/HeadquarterAddress/Street
@@ -3284,14 +3295,14 @@ If an annotation is not applied to the resource or property, then its
 value, and the values of its components, are treated as `null`.
 
 ::: example
-Example 113: Return Products that have prices in Euro
+Example 114: Return Products that have prices in Euro
 ```
 http://host/service/Products?$filter=Price/@Measures.Currency eq 'EUR'
 ```
 :::
 
 ::: example
-Example 114: Return Employees that have any error messages in the
+Example 115: Return Employees that have any error messages in the
 [`Core.Messages`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Messages)
 annotation
 ```
@@ -3426,14 +3437,14 @@ segment does not specify a declared property, then the expanded property
 appears only for those instances on which it has a value.
 
 ::: example
-Example 115: expand a navigation property of an entity type
+Example 116: expand a navigation property of an entity type
 ```
 http://host/service/Products?$expand=Category
 ```
 :::
 
 ::: example
-Example 116: expand a navigation property of a complex type
+Example 117: expand a navigation property of a complex type
 ```
 http://host/service/Customers?$expand=Addresses/Country
 ```
@@ -3457,7 +3468,7 @@ Allowed system query options are
 for collection-valued navigation properties.
 
 ::: example
-Example 117: all categories and for each category all related products
+Example 118: all categories and for each category all related products
 with a discontinued date equal to `null`
 ```
 http://host/service/Categories?$expand=Products($filter=DiscontinuedDate eq null)
@@ -3471,7 +3482,7 @@ property name to return just the count of the related entities. The
 number of related entities included in the count.
 
 ::: example
-Example 118: all categories and for each category the number of all
+Example 119: all categories and for each category the number of all
 related products
 ```
 http://host/service/Categories?$expand=Products/$count
@@ -3479,7 +3490,7 @@ http://host/service/Categories?$expand=Products/$count
 :::
 
 ::: example
-Example 119: all categories and for each category the number of all
+Example 120: all categories and for each category the number of all
 related blue products
 ```
 http://host/service/Categories?$expand=Products/$count($search=blue)
@@ -3496,7 +3507,7 @@ The system query options [`$filter`](#SystemQueryOptionfilter),
 expanded entity references.
 
 ::: example
-Example 120: all categories and for each category the references of all
+Example 121: all categories and for each category the references of all
 related products
 ```
 http://host/service/Categories?$expand=Products/$ref
@@ -3504,7 +3515,7 @@ http://host/service/Categories?$expand=Products/$ref
 :::
 
 ::: example
-Example 121: all categories and for each category the references of all
+Example 122: all categories and for each category the references of all
 related products of the derived type `Sales.PremierProduct`
 ```
 http://host/service/Categories?$expand=Products/Sales.PremierProduct/$ref
@@ -3512,7 +3523,7 @@ http://host/service/Categories?$expand=Products/Sales.PremierProduct/$ref
 :::
 
 ::: example
-Example 122: all categories and for each category the references of all
+Example 123: all categories and for each category the references of all
 related premier products with a current promotion equal to `null`
 ```
 http://host/service/Categories?$expand=Products/Sales.PremierProduct/$ref($filter=CurrentPromotion eq null)
@@ -3528,7 +3539,7 @@ A `$levels` option with a value of 1 specifies a single expand with no
 recursion.</a>
 
 ::: example
-Example 123: all employees with their manager, manager's manager, and
+Example 124: all employees with their manager, manager's manager, and
 manager's manager's manager
 ```
 http://host/service/Employees?$expand=ReportsTo($levels=3)
@@ -3545,7 +3556,7 @@ which take precedence over the star operator.
 The star operator does not implicitly include stream properties.
 
 ::: example
-Example 124: expand `Supplier` and include references for all other
+Example 125: expand `Supplier` and include references for all other
 related entities
 ```
 http://host/service/Categories?$expand=*/$ref,Supplier
@@ -3553,7 +3564,7 @@ http://host/service/Categories?$expand=*/$ref,Supplier
 :::
 
 ::: example
-Example 125: expand all related entities and their related entities
+Example 126: expand all related entities and their related entities
 ```
 http://host/service/Categories?$expand=*($levels=2)
 ```
@@ -3563,7 +3574,7 @@ Specifying a stream property includes the media stream inline according
 to the specified format.
 
 ::: example
-Example 126: include Employee's `Photo` stream property along with other
+Example 127: include Employee's `Photo` stream property along with other
 properties of the customer
 ```
 http://host/service/Employees?$expand=Photo
@@ -3574,7 +3585,7 @@ Specifying `$value` for a media entity includes the media entity's
 stream value inline according to the specified format.
 
 ::: example
-Example 127: Include the Product's media stream along with other
+Example 128: Include the Product's media stream along with other
 properties of the product
 ```
 http://host/service/Products?$expand=$value
@@ -3633,7 +3644,7 @@ The simplest form of a select item explicitly requests a property defined on the
 type of the resources identified by the resource path section of the URL.
 
 ::: example
-Example 128: rating and release date of all products
+Example 129: rating and release date of all products
 ```
 http://host/service/Products?$select=Rating,ReleaseDate
 ```
@@ -3643,7 +3654,7 @@ It is also possible to request all declared and dynamic structural
 properties using a star (`*`).
 
 ::: example
-Example 129: all structural properties of all products
+Example 130: all structural properties of all products
 ```
 http://host/service/Products?$select=*
 ```
@@ -3671,7 +3682,7 @@ inline content can itself be restricted with a nested `$select` query
 option, see [section 5.1.2](#SystemQueryOptionfilter).
 
 ::: example
-Example 130: name and description of all products, plus name of expanded
+Example 131: name and description of all products, plus name of expanded
 category
 ```
 http://host/service/Products?$select=Name,Description&$expand=Category($select=Name)
@@ -3687,7 +3698,7 @@ be followed by a forward slash, an optional [type-cast segment](#AddressingDeriv
 complex type (and so on for nested complex types).
 
 ::: example
-Example 131: the `AccountRepresentative` property of any supplier that
+Example 132: the `AccountRepresentative` property of any supplier that
 is of the derived type `Namespace.PreferredSupplier`, together with the
 `Street` property of the complex property
 `Address`, and the Location property of the derived complex type `Namespace.AddressWithLocation`
@@ -3707,7 +3718,7 @@ select options specified in more than one place in a request and MUST
 NOT be specified in more than one expand.
 
 ::: example
-Example 132: select up to five addresses whose `City` starts with an
+Example 133: select up to five addresses whose `City` starts with an
 `H`, sorted, and with the `Country` expanded
 ```
 http://host/service/Customers?$select=Addresses($filter=startswith(City,'H');$top=5;$orderby=Country/Name,City,Street)&$expand=Addresses/Country
@@ -3741,7 +3752,7 @@ qualified name and that operation cannot be bound to the entities
 requested, the service MUST ignore the select item.
 
 ::: example
-Example 133: the `ID` property, the `ActionName` action defined in
+Example 134: the `ID` property, the `ActionName` action defined in
 `Model` and all actions and functions defined in the `Model2` for each
 product if those actions and functions can be bound to that product
 ```
@@ -3807,7 +3818,7 @@ The [OData-ABNF](#ODataABNF) `search` syntax rule defines the formal
 grammar of the `$search` query option.
 
 ::: example
-Example 134: all products that are blue or green. It is up to the
+Example 135: all products that are blue or green. It is up to the
 service to decide what makes a product blue or green.
 ```
 http://host/service/Products?$search=blue OR green
@@ -3896,7 +3907,7 @@ result and MUST be included if `$select` is specified with the computed
 property name, or star (`*`).
 
 ::: example
-Example 135: compute total price for order items
+Example 136: compute total price for order items
 ```
 http://host/service/Orders(10)/Items
   ?$select=Product/Description,Total
@@ -3940,7 +3951,7 @@ custom query option is any query option of the form shown by the rule
 Custom query options MUST NOT begin with a `$` or `@` character.
 
 ::: example
-Example 136: service-specific custom query option `debug-mode`
+Example 137: service-specific custom query option `debug-mode`
 ```
 http://host/service/Products?debug-mode=true
 ```
@@ -3962,21 +3973,21 @@ The semantics of parameter aliases are covered in
 values as query options.
 
 ::: example
-Example 137:
+Example 138:
 ```
 http://host/service/Movies?$filter=contains(@word,Title)&@word='Black'
 ```
 :::
 
 ::: example
-Example 138:
+Example 139:
 ```
 http://host/service/Movies?$filter=Title eq @title&@title='Wizard of Oz'
 ```
 :::
 
 ::: example
-Example 139: JSON array of strings as parameter alias value --- note that
+Example 140: JSON array of strings as parameter alias value --- note that
 `[`, `]`, and `"` need to be percent-encoded in real URLs, the
 clear-text representation used here is just for readability
 ```
