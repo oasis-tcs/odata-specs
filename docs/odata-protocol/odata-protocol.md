@@ -5558,7 +5558,8 @@ Actions that create and return a single entity follow the rules for
 [`Location`](#HeaderLocation) header that contains the edit URL or read URL of the
 created entity. They MAY be annotated with the term
 [`Core.Constructor`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Constructor)
-defined in [OData-VocCore](#ODataVocCore) 
+defined in [OData-VocCore](#ODataVocCore).
+
 If the action returns a value of type `Edm.Stream`, the response to the `POST` request
 follows the rules for [requesting stream properties](#RequestingStreamProperties).
 
