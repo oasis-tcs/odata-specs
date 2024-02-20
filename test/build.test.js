@@ -45,9 +45,7 @@ describe("OASIS doc build", function () {
   it("Puppeteer", async function () {
     var browser = await puppeteer.launch({ headless: "new" });
     var page = await browser.newPage();
-    const htmlUrl = url.pathToFileURL(
-      `${__dirname}/test-data/test.html`,
-    ).href;
+    const htmlUrl = url.pathToFileURL(`${__dirname}/test-data/test.html`).href;
     await page.goto(htmlUrl, {
       waitUntil: "networkidle2",
     });
