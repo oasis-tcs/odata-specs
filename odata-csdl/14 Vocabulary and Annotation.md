@@ -2477,7 +2477,7 @@ primitive type and returns the URL-encoded OData literal that can be
 used as a key value in OData URLs or in the query part of OData URLs.
 
 Note: string literals are surrounded by single quotes as required by the
-paren-style key syntax.
+parentheses-style key syntax.
 
 ::: {.varjson .example}
 Example ##ex:
