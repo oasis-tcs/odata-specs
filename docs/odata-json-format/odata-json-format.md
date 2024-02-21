@@ -159,9 +159,10 @@ For complete copyright information please see the full Notices section in an App
   - [19.1 Batch Request](#BatchRequest)
   - [19.2 Referencing New Entities](#ReferencingNewEntities)
   - [19.3 Referencing an ETag](#ReferencinganETag)
-  - [19.4 Processing a Batch Request](#ProcessingaBatchRequest)
-  - [19.5 Batch Response](#BatchResponse)
-  - [19.6 Asynchronous Batch Requests](#AsynchronousBatchRequests)
+  - [19.4 Referencing Response Body Values](#ReferencingResponseBodyValues)
+  - [19.5 Processing a Batch Request](#ProcessingaBatchRequest)
+  - [19.6 Batch Response](#BatchResponse)
+  - [19.7 Asynchronous Batch Requests](#AsynchronousBatchRequests)
 - [20 Instance Annotations](#InstanceAnnotations)
   - [20.1 Annotate a JSON Object](#AnnotateaJSONObject)
   - [20.2 Annotate a JSON Array or Primitive](#AnnotateaJSONArrayorPrimitive)
@@ -253,7 +254,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        odata-json-format-v4.02-csd01.md
 ```
 
-This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
+This uses pandoc 3.1.11.1 from https://github.com/jgm/pandoc/releases/tag/3.1.11.1.
 :::
 
 -------
@@ -2953,6 +2954,7 @@ value is the parameter value in the JSON representation appropriate for
 its type. Entity typed parameter values MAY include a subset of the
 properties, or just the [entity reference](#EntityReference), as
 appropriate to the action.
+Stream typed parameter values are represented following the same rules as inlined [stream properties](#StreamProperty).
 
 Non-binding parameters that are nullable or annotated with the term
 [`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter) defined in
@@ -3216,6 +3218,7 @@ the order listed:
 
 - Get an Employee (with `id` = 1)
 - Update the salary only if the employee has not changed
+
 ```json
 POST /service/$batch HTTP/1.1
 Host: host
@@ -3250,7 +3253,47 @@ Content-Length: ###
 ```
 :::
 
-## <a name="ProcessingaBatchRequest" href="#ProcessingaBatchRequest">19.4 Processing a Batch Request</a>
+## <a name="ReferencingResponseBodyValues" href="#ReferencingResponseBodyValues">19.4 Referencing Response Body Values</a>
+
+::: example
+Example 51: a batch request that contains the following operations in
+the order listed:
+
+- Get an employee (with `Content-ID = 1`)
+- Get all employees residing in the same building
+
+```json
+POST /service/$batch HTTP/1.1
+Host: host
+OData-Version: 4.01
+Content-Type: application/json
+Content-Length: ###
+
+{
+  "requests": [
+    {
+      "id": "1",
+      "method": "get",
+      "url": "/service/Employees/0?$select=Building",
+      "headers": {
+        "accept": "application/json"
+      }
+    },
+    {
+      "id": "2",
+      "dependsOn": [ "1" ],
+      "method": "get",
+      "url": "/service/Employees?$filter=Building eq $1/Building",
+      "headers": {
+        "accept": "application/json"
+      }
+    }
+  ]
+}
+```
+:::
+
+## <a name="ProcessingaBatchRequest" href="#ProcessingaBatchRequest">19.5 Processing a Batch Request</a>
 
 All requests in an atomicity group represent a single change unit. A
 service MUST successfully process and apply all the requests in the
@@ -3277,7 +3320,7 @@ response object with the value of the request identifier that the client
 specified in the corresponding request, so clients can correlate
 requests and responses.
 
-## <a name="BatchResponse" href="#BatchResponse">19.5 Batch Response</a>
+## <a name="BatchResponse" href="#BatchResponse">19.6 Batch Response</a>
 
 A JSON batch response body consists of a single JSON object that MUST
 contain the name/value pair `responses` and MAY contain
@@ -3344,7 +3387,7 @@ request. Especially: URLs in responses MUST NOT contain
 `$`-prefixed request identifiers.
 
 ::: example
-Example 51: referencing the batch request [example 48](#batchRequest) above, assume all
+Example 52: referencing the batch request [example 48](#batchRequest) above, assume all
 the requests except the final query request succeed. In this case the
 response would be
 ```json
@@ -3382,7 +3425,7 @@ Content-Type: application/json
 ```
 :::
 
-## <a name="AsynchronousBatchRequests" href="#AsynchronousBatchRequests">19.6 Asynchronous Batch Requests</a>
+## <a name="AsynchronousBatchRequests" href="#AsynchronousBatchRequests">19.7 Asynchronous Batch Requests</a>
 
 A batch request that specifies the `respond-async` preference MAY be executed asynchronously. This means that the "outer" batch request is executed asynchronously; this
 preference does not automatically cascade down to the individual
@@ -3402,7 +3445,7 @@ to the next link MAY result in a `202 Accepted` response with a
 `location` header pointing to a new status monitor resource.
 
 ::: example
-Example 52: referencing the example 47 above again, assume that the
+Example 53: referencing the example 47 above again, assume that the
 request is sent with the `respond-async` preference. This
 results in a `202` response pointing to a status monitor resource:
 ```json
@@ -3492,7 +3535,7 @@ asynchronously executed individual request with a `status` of
 individual status monitor resource, and optionally a `retry-after` header.
 
 ::: example
-Example 53: the first individual request is processed asynchronously,
+Example 54: the first individual request is processed asynchronously,
 the second synchronously, the batch itself is processed synchronously
 ```json
 HTTP/1.1 200 OK
@@ -3555,7 +3598,7 @@ the annotations for the value appear next to the `value`
 property and are not prefixed with a property name.
 
 ::: example
-Example 54:
+Example 55:
 ```json
 {
   "@context": "http://host/service/$metadata#Customers",
@@ -3665,7 +3708,7 @@ Error responses MAY contain [annotations](#InstanceAnnotations) in
 any of its JSON objects.
 
 ::: example
-Example 55:
+Example 56:
 ```json
 {
   "error": {
@@ -3714,7 +3757,7 @@ header-appropriate way:
   [RFC8259](#rfc8259), section 7)
 
 ::: example
-Example 56: note that this is one HTTP header line without any line
+Example 57: note that this is one HTTP header line without any line
 breaks or optional whitespace
 ```json
 OData-error: {"code":"err123","message":"Unsupported

@@ -269,7 +269,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        odata-data-aggregation-ext-v4.0-cs03.md
 ```
 
-This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
+This uses pandoc 3.1.11.1 from https://github.com/jgm/pandoc/releases/tag/3.1.11.1.
 :::
 
 -------
@@ -2276,7 +2276,7 @@ The following terms are defined in the vocabulary for data aggregation [OData-Vo
 
 ## <a name="AggregationCapabilities" href="#AggregationCapabilities">5.1 Aggregation Capabilities</a>
 
-The term `ApplySupported` can be applied to an entity set, an entity type, or a collection if the target path of the annotation starts with an entity container (see [example 50](#containerrooted)). It describes the aggregation capabilities of the annotated target. If present, it implies that instances of the annotated target can contain dynamic properties as an effect of `$apply` even if they do not specify the `OpenType` attribute, see [OData-CSDL](#ODataCSDL). The term has a complex type with the following properties:
+The term `ApplySupported` can be applied to an entity set, an entity type, or a collection if the target expression of the annotation starts with an entity container (see [example 50](#containerrooted)). It describes the aggregation capabilities of the annotated target. If present, it implies that instances of the annotated target can contain dynamic properties as an effect of `$apply` even if they do not specify the `OpenType` attribute, see [OData-CSDL](#ODataCSDL). The term has a complex type with the following properties:
 - The `Transformations` collection lists all supported set transformations. Allowed values are the names of the standard transformations introduced in sections 3 and 6, and namespace-qualified names identifying a service-defined bindable function. If `Transformations` is omitted the server supports all transformations defined by this specification.
 - The `CustomAggregationMethods` collection lists supported custom aggregation methods. Allowed values are namespace-qualified names identifying service-specific aggregation methods. If omitted, no custom aggregation methods are supported.
 - `Rollup` specifies whether the service supports no rollup, only a single rollup hierarchy, or multiple rollup hierarchies in a [`groupby`](#Transformationgroupby) transformation. If omitted, multiple rollup hierarchies are supported.
@@ -2315,7 +2315,7 @@ Example <a name="containerrooted" href="#containerrooted">50</a>: Define aggrega
 
 The term `CustomAggregate` allows defining dynamic properties that can be used in [`aggregate`](#Transformationaggregate). No assumptions can be made on how the values of these custom aggregates are calculated, whether they are null, and which input values are used.
 
-When applied to an entity set, an entity type, or a collection if the target path of the annotation starts with an entity container, the annotation specifies custom aggregates that are available for its instances and for aggregated instances resulting from these instances. When applied to an entity container, the annotation specifies custom aggregates whose input set may span multiple entity sets within the container.
+When applied to an entity set, an entity type, or a collection if the target expression of the annotation starts with an entity container, the annotation specifies custom aggregates that are available for its instances and for aggregated instances resulting from these instances. When applied to an entity container, the annotation specifies custom aggregates whose input set may span multiple entity sets within the container.
 
 A custom aggregate is identified by the value of the `Qualifier` attribute when applying the term. The value of the `Qualifier` attribute is the name of the dynamic property. The name MUST NOT collide with the names of other custom aggregates of the same model element.
 
@@ -2487,6 +2487,7 @@ The hierarchy terms can be applied to the [Example Data Model](#ExampleDataModel
 ::: example
 ⚠ Example 53: leveled hierarchies for products and time, and a recursive hierarchy for the sales organizations:
 ```xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.0">
   <edmx:Reference Uri="https://docs.oasis-open.org/odata/odata-data-
