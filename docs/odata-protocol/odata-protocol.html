@@ -508,6 +508,11 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td>Setting a complex property to a different type</td>
 <td><a href="https://issues.oasis-open.org/browse/ODATA-1472">ODATA-1472</a></td>
 </tr>
+<tr class="even">
+<td><a href="#InteroperableODataClients">Section 12.3</a></td>
+<td>Encoding of plus character in URLs</td>
+<td><a href="https://issues.oasis-open.org/browse/ODATA-1540">ODATA-1540</a></td>
+</tr>
 </tbody>
 </table>
 <h2 id="12-glossary"><a name="Glossary" href="#Glossary">1.2 Glossary</a></h2>
@@ -2860,6 +2865,7 @@ Content-Length: ###
 <li>MUST generate <code>PATCH</code> requests for updates, if the client supports updates (<a href="#UpdateanEntity">section 11.4.3</a>)</li>
 <li>MUST include the <code>$</code> prefix when specifying OData-defined system query options</li>
 <li>MUST use case-sensitive query options, operators, and canonical functions</li>
+<li>MUST encode the plus character (octet <code>0x2B</code>) as <code>%2B</code> in URLs to avoid servers mis-interpreting the plus character as an encoded space</li>
 <li>SHOULD support basic authentication as defined in <a href="#rfc7617">RFC7617</a> over HTTPS</li>
 <li>MAY request entity references in place of entities previously returned in the response (<a href="#RequestingEntityReferences">section 11.2.8</a>)</li>
 <li>MAY support deleted entities, link entities, deleted link entities in a delta response (<a href="#RequestingChanges">section 11.3</a>)</li>
@@ -2868,7 +2874,7 @@ Content-Length: ###
 <li>MAY support <code>streaming</code> in a JSON response (see <a href="#ODataJSON">OData-JSON</a>)</li>
 </ol>
 <p>In addition, interoperable OData 4.01 clients</p>
-<ol start="16" type="1">
+<ol start="17" type="1">
 <li>MUST send OData 4.0-compliant payloads to services that don’t advertise support for 4.01 or greater through the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ODataVersions"><code>Core.ODataVersions</code></a> metadata annotation (see <a href="#ODataVocCore">OData-VocCore</a>)</li>
 <li>MUST specify identifiers in payloads and URLs in the case they are specified in <code>$metadata</code></li>
 <li>MUST be prepared to receive any valid 4.01 CSDL</li>
