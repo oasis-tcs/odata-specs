@@ -5783,7 +5783,7 @@ the rules for which individual requests require an identifier.
 
 ### <a name="ReferencingReturnedEntities" href="#ReferencingReturnedEntities">11.7.4 Referencing Returned Entities</a>
 
-Entities created by an [insert](#CreateanEntity) request can be
+Entities created by an [insert](#CreateanEntity) request or an [action](#InvokinganAction) can be
 referenced in the request URL of subsequent requests by using the
 request identifier prefixed with a `$` character as the first segment of
 the request URL. If the [`Location`](#HeaderLocation) header in the response contains a relative URL,
@@ -5993,7 +5993,7 @@ Host: host
 
 #### <a name="ReferencingNewEntities" href="#ReferencingNewEntities">11.7.7.2 Referencing New Entities</a>
 
-Entities created by an [Insert](#CreateanEntity) request can be
+Entities created by an [insert](#CreateanEntity) request or an [action](#InvokinganAction) can be
 referenced in the request URL of subsequent requests within the same
 change set. Services MAY also support referencing across change sets, in
 which case they SHOULD advertise this support by specifying the
