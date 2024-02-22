@@ -3,6 +3,7 @@ const Number = require("../lib/number");
 const pandoc = require("../lib/pandoc");
 const { compareSectionNumbers } = require("../lib/utilities");
 const puppeteer = require("puppeteer");
+const url = require("url");
 const assert = require("assert");
 const { PassThrough } = require("stream");
 
@@ -44,7 +45,8 @@ describe("OASIS doc build", function () {
   it("Puppeteer", async function () {
     var browser = await puppeteer.launch({ headless: "new" });
     var page = await browser.newPage();
-    await page.goto(__dirname + "/test-data/test.html", {
+    const htmlUrl = url.pathToFileURL(`${__dirname}/test-data/test.html`).href;
+    await page.goto(htmlUrl, {
       waitUntil: "networkidle2",
     });
     var box = await (await page.$("mjx-c.mjx-c1D6FC.TEX-I")).boxModel();

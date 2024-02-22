@@ -381,29 +381,30 @@ updates ([section ##UpdateanEntity])
 query options
 9. MUST use case-sensitive query options, operators, and canonical
 functions
-10. SHOULD support basic authentication as defined in
+10. MUST encode the plus character (octet `0x2B`) as `%2B` in URLs to avoid servers mis-interpreting the plus character as an encoded space
+11. SHOULD support basic authentication as defined in
 [RFC7617](#rfc7617) over HTTPS
-11. MAY request entity references in place of entities previously
+12. MAY request entity references in place of entities previously
 returned in the response ([section ##RequestingEntityReferences])
-12. MAY support deleted entities, link entities, deleted link entities
+13. MAY support deleted entities, link entities, deleted link entities
 in a delta response ([section ##RequestingChanges])
-13. MAY support asynchronous responses ([section ##AsynchronousRequests])
-14. MAY support `metadata=minimal` in a JSON response (see
+14. MAY support asynchronous responses ([section ##AsynchronousRequests])
+15. MAY support `metadata=minimal` in a JSON response (see
 [OData-JSON](#ODataJSON))
-15. MAY support `streaming` in a JSON response (see
+16. MAY support `streaming` in a JSON response (see
 [OData-JSON](#ODataJSON))
 
 In addition, interoperable OData 4.01 clients
 
-16. MUST send OData 4.0-compliant payloads to services that don't
+17. MUST send OData 4.0-compliant payloads to services that don't
 advertise support for 4.01 or greater through the
 [`Core.ODataVersions`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ODataVersions)
 metadata annotation (see [OData-VocCore](#ODataVocCore))
-17. MUST specify identifiers in payloads and URLs in the case they are
+18. MUST specify identifiers in payloads and URLs in the case they are
 specified in `$metadata`
-18. MUST be prepared to receive any valid 4.01 CSDL
-19. MUST be prepared to receive any valid 4.01 response according to
+19. MUST be prepared to receive any valid 4.01 CSDL
+20. MUST be prepared to receive any valid 4.01 response according to
 the requested format
-20. SHOULD use capabilities (see [OData-VocCap](#ODataVocCap)) to
+21. SHOULD use capabilities (see [OData-VocCap](#ODataVocCap)) to
 determine if a 4.01 feature is supported but MAY attempt syntax and be
 prepared to handle `400 Bad Request` or [`501 Not Implemented`](#ResponseCode501NotImplemented)
