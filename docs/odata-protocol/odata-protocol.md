@@ -4540,9 +4540,7 @@ supporting this SHOULD advertise it by annotating the singleton with the
 term `Capabilities.UpdateRestrictions` (nested property `Upsertable`
 with value `true`) defined in [OData-VocCap](#ODataVocCap).
 
-Key and other non-updatable properties, as well as dependent properties
-that are not tied to key properties of the principal entity, MUST be
-ignored by the service in processing the Upsert request.
+Key property values in the request URL take precedence over values in the request body.
 
 To ensure that an update request is not treated as an insert, the client
 MAY specify an [`If-Match`](#HeaderIfMatch) header in the update
