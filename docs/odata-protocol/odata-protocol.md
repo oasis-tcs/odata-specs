@@ -350,6 +350,7 @@ Section | Feature / Change | Issue
 [Section 11.4](#DataModification)| Response code `204 No Content` after successful data modification if requested response could not be constructed| [ODATA-1609](https://issues.oasis-open.org/browse/ODATA-1609)
 [Section 11.4.4](#UpsertanEntity)|  Upserts to single-valued non-containment navigation properties| [ODATA-1588](https://issues.oasis-open.org/browse/ODATA-1588)
 [Section 11.4.9.3](#UpdateaComplexProperty)| Setting a complex property to a different type| [ODATA-1472](https://issues.oasis-open.org/browse/ODATA-1472)
+[Section 12.3](#InteroperableODataClients) | Encoding of plus character in URLs | [ODATA-1540](https://issues.oasis-open.org/browse/ODATA-1540)
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -5782,7 +5783,7 @@ the rules for which individual requests require an identifier.
 
 ### <a name="ReferencingReturnedEntities" href="#ReferencingReturnedEntities">11.7.4 Referencing Returned Entities</a>
 
-Entities created by an [insert](#CreateanEntity) request can be
+Entities created by an [insert](#CreateanEntity) request or an [action](#InvokinganAction) can be
 referenced in the request URL of subsequent requests by using the
 request identifier prefixed with a `$` character as the first segment of
 the request URL. If the [`Location`](#HeaderLocation) header in the response contains a relative URL,
@@ -5992,7 +5993,7 @@ Host: host
 
 #### <a name="ReferencingNewEntities" href="#ReferencingNewEntities">11.7.7.2 Referencing New Entities</a>
 
-Entities created by an [Insert](#CreateanEntity) request can be
+Entities created by an [insert](#CreateanEntity) request or an [action](#InvokinganAction) can be
 referenced in the request URL of subsequent requests within the same
 change set. Services MAY also support referencing across change sets, in
 which case they SHOULD advertise this support by specifying the
@@ -6731,30 +6732,31 @@ updates ([section 11.4.3](#UpdateanEntity))
 query options
 9. MUST use case-sensitive query options, operators, and canonical
 functions
-10. SHOULD support basic authentication as defined in
+10. MUST encode the plus character (octet `0x2B`) as `%2B` in URLs to avoid servers mis-interpreting the plus character as an encoded space
+11. SHOULD support basic authentication as defined in
 [RFC7617](#rfc7617) over HTTPS
-11. MAY request entity references in place of entities previously
+12. MAY request entity references in place of entities previously
 returned in the response ([section 11.2.8](#RequestingEntityReferences))
-12. MAY support deleted entities, link entities, deleted link entities
+13. MAY support deleted entities, link entities, deleted link entities
 in a delta response ([section 11.3](#RequestingChanges))
-13. MAY support asynchronous responses ([section 11.6](#AsynchronousRequests))
-14. MAY support `metadata=minimal` in a JSON response (see
+14. MAY support asynchronous responses ([section 11.6](#AsynchronousRequests))
+15. MAY support `metadata=minimal` in a JSON response (see
 [OData-JSON](#ODataJSON))
-15. MAY support `streaming` in a JSON response (see
+16. MAY support `streaming` in a JSON response (see
 [OData-JSON](#ODataJSON))
 
 In addition, interoperable OData 4.01 clients
 
-16. MUST send OData 4.0-compliant payloads to services that don't
+17. MUST send OData 4.0-compliant payloads to services that don't
 advertise support for 4.01 or greater through the
 [`Core.ODataVersions`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ODataVersions)
 metadata annotation (see [OData-VocCore](#ODataVocCore))
-17. MUST specify identifiers in payloads and URLs in the case they are
+18. MUST specify identifiers in payloads and URLs in the case they are
 specified in `$metadata`
-18. MUST be prepared to receive any valid 4.01 CSDL
-19. MUST be prepared to receive any valid 4.01 response according to
+19. MUST be prepared to receive any valid 4.01 CSDL
+20. MUST be prepared to receive any valid 4.01 response according to
 the requested format
-20. SHOULD use capabilities (see [OData-VocCap](#ODataVocCap)) to
+21. SHOULD use capabilities (see [OData-VocCap](#ODataVocCap)) to
 determine if a 4.01 feature is supported but MAY attempt syntax and be
 prepared to handle either
 [`501 Not Implemented`](#ResponseCode501NotImplemented) or
