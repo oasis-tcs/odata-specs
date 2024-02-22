@@ -23,6 +23,7 @@ jobs:
           pandoc-version: 3.1.11.1
       - name: Build docs
         run: |
+          export PUPPETEER_SKIP_DOWNLOAD='true'
           npm ci
           npm run build
           git diff --exit-code docs
