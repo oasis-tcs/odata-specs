@@ -7,7 +7,7 @@
 
 ## Committee Specification Draft 01
 
-## 14 July 2023
+## 28 February 2024
 
 $\hbox{}$
 
@@ -5946,7 +5946,7 @@ acknowledged.
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
-Committee Specification Draft 01|2023-07-14|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| 
+Committee Specification Draft 01|2024-02-28|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| 
 <!--
 Working Draft 01                |2016-11-16|Ralf Handl|Initial version
 Committee Specification Draft 01|2017-06-08|Michael Pizzo<br>Ralf Handl| Integrated 4.01 features
@@ -5961,7 +5961,7 @@ Candidate OASIS Standard 02     |2020-04-09|Michael Pizzo<br>Ralf Handl| Non-mat
 
 # <a name="Notices" href="#Notices">Appendix E. Notices</a>
 
-Copyright © OASIS Open 2023. All Rights Reserved.
+Copyright © OASIS Open 2024. All Rights Reserved.
 
 All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the "OASIS IPR Policy"). The full [Policy](https://www.oasis-open.org/policies-guidelines/ipr/) may be found at the OASIS website.
 
