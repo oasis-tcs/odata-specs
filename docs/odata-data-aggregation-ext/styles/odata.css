@@ -54,6 +54,7 @@ table {
 	padding: 2pt 6pt;
 	white-space: nowrap;
 }
+
 .example td em {
 	font-weight: bold;
 	color: blue;
@@ -123,11 +124,13 @@ table {
 .key-1 th:first-of-type {
 	background-color: olive;
 }
+
 .obj-1 th:first-of-type,
 .obj-2 th:nth-of-type(2),
 .obj-3 th:nth-of-type(3) {
 	background-color: green;
 }
+
 .temp-2 th:nth-of-type(2),
 .temp-4 th:nth-of-type(4) {
 	background-color: mediumseagreen;
@@ -226,4 +229,11 @@ td {
 
 h2[id="22-example-data"] {
 	page-break-before: always;
+}
+
+@media print {
+	pre>code.sourceCode>span {
+		text-indent: 0 !important;
+		padding-left: 0 !important;
+	}
 }
