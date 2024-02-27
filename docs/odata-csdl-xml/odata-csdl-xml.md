@@ -81,7 +81,7 @@ https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd01/odata-csdl-xml-v4.
 Latest stage: https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html.
 
 #### Notices
-Copyright &copy; OASIS Open 2023. All Rights Reserved.
+Copyright © OASIS Open 2024. All Rights Reserved.
 
 Distributed under the terms of the OASIS [IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/).
 
@@ -257,9 +257,9 @@ Schema Definition Language (XSD) 1.1 as described in
 
 Section | Feature / Change | Issue
 --------|------------------|------
+[Section 3.3](#PrimitiveTypes)| Allow stream-valued non-binding parameters| [ODATA-1481](https://issues.oasis-open.org/browse/ODATA-1481)
 [Section 13](#EntityContainer)| All children of `edm:EntityContainer` are optional| [ODATA-1571](https://issues.oasis-open.org/browse/ODATA-1571)
 [Section 14.4.1.2](#PathEvaluation)| New path evaluation rules for annotations targeting annotations and external targeting via container| [ODATA-1420](https://issues.oasis-open.org/browse/ODATA-1420)
-[Section 3.3](#PrimitiveTypes)| Allow stream-valued non-binding parameters| [ODATA-1481](https://issues.oasis-open.org/browse/ODATA-1481)
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 

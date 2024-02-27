@@ -96,7 +96,7 @@ https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/$$$stage$$$/$$$filename$
 Latest stage: https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html.
 
 #### Notices
-Copyright &copy; OASIS Open 2023. All Rights Reserved.
+Copyright $$$copyright$$$. All Rights Reserved.
 
 Distributed under the terms of the OASIS [IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/).
 
