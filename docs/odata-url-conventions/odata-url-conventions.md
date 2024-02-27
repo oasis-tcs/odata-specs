@@ -12,9 +12,9 @@
 $\hbox{}$
 
 #### This stage:
-https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part2-url-conventions.md (Authoritative) \
-https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part2-url-conventions.html \
-https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part2-url-conventions.pdf
+https://docs.oasis-open.org/odata/odata/v4.02/csd02/odata-v4.02-csd02-part2-url-conventions.md (Authoritative) \
+https://docs.oasis-open.org/odata/odata/v4.02/csd02/odata-v4.02-csd02-part2-url-conventions.html \
+https://docs.oasis-open.org/odata/odata/v4.02/csd02/odata-v4.02-csd02-part2-url-conventions.pdf
 
 #### Previous stage:
 N/A
@@ -40,8 +40,8 @@ Heiko Theißen (heiko.theissen@sap.com), [SAP SE](http://www.sap.com/)
 
 #### Additional artifacts:
 This prose specification is one component of a Work Product that also includes:
-* _OData Version 4.02 Part 1: Protocol_. https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part1-protocol.html
-* _OData Version 4.02 Part 2: URL Conventions_ (this document). https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part2-url-conventions.html
+* _OData Version 4.02 Part 1: Protocol_. https://docs.oasis-open.org/odata/odata/v4.02/csd02/odata-v4.02-csd02-part1-protocol.html
+* _OData Version 4.02 Part 2: URL Conventions_ (this document). https://docs.oasis-open.org/odata/odata/v4.02/csd02/odata-v4.02-csd02-part2-url-conventions.html
 
 #### <a name="RelatedWork">Related work:</a>
 This specification replaces or supersedes:
@@ -78,7 +78,7 @@ When referencing this specification the following citation format should be used
 
 _OData Version 4.02. Part 2: URL Conventions_.
 Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. 28 February 2024. OASIS Committee Specification Draft 01.
-https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part2-url-conventions.html.
+https://docs.oasis-open.org/odata/odata/v4.02/csd02/odata-v4.02-csd02-part2-url-conventions.html.
 Latest stage: https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html.
 
 #### Notices
@@ -301,12 +301,12 @@ All examples in this document are non-normative and informative only.
 All other text is normative unless otherwise labeled.
 
 ::: example
-Here is a customized command line which will generate HTML from this markdown file (named `odata-v4.02-csd01-part2-url-conventions.md`). Line breaks are added for readability only:
+Here is a customized command line which will generate HTML from this markdown file (named `odata-v4.02-csd02-part2-url-conventions.md`). Line breaks are added for readability only:
 
 ```
 pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        -t html
-       -o odata-v4.02-csd01-part2-url-conventions.html
+       -o odata-v4.02-csd02-part2-url-conventions.html
        -c styles/markdown-styles-v1.7.3b.css
        -c styles/odata.css
        -s
@@ -314,7 +314,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        --eol=lf
        --wrap=none
        --metadata pagetitle="OData Version 4.02. Part 2: URL Conventions"
-       odata-v4.02-csd01-part2-url-conventions.md
+       odata-v4.02-csd02-part2-url-conventions.md
 ```
 
 This uses pandoc 3.1.11.1 from https://github.com/jgm/pandoc/releases/tag/3.1.11.1.
