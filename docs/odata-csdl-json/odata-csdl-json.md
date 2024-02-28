@@ -7,7 +7,7 @@
 
 ## Committee Specification Draft 01
 
-## 14 July 2023
+## 28 February 2024
 
 $\hbox{}$
 
@@ -76,12 +76,12 @@ When referencing this specification the following citation format should be used
 **[OData-CSDL-JSON-v4.02]**
 
 _OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02_.
-Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. 14 July 2023. OASIS Committee Specification Draft 01.
+Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. 28 February 2024. OASIS Committee Specification Draft 01.
 https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd01/odata-csdl-json-v4.02-csd01.html.
 Latest stage: https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html.
 
 #### Notices
-Copyright &copy; OASIS Open 2023. All Rights Reserved.
+Copyright © OASIS Open 2024. All Rights Reserved.
 
 Distributed under the terms of the OASIS [IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/).
 
@@ -259,8 +259,8 @@ modifications made necessary to fully cover OData CSDL Version 4.01.
 
 Section | Feature / Change | Issue
 --------|------------------|------
-[Section 14.4.1.2](#PathEvaluation)| New path evaluation rules for annotations targeting annotations and external targeting via container| [ODATA-1420](https://issues.oasis-open.org/browse/ODATA-1420)
 [Section 3.3](#PrimitiveTypes)| Allow stream-valued non-binding parameters| [ODATA-1481](https://issues.oasis-open.org/browse/ODATA-1481)
+[Section 14.4.1.2](#PathEvaluation)| New path evaluation rules for annotations targeting annotations and external targeting via container| [ODATA-1420](https://issues.oasis-open.org/browse/ODATA-1420)
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -6204,7 +6204,7 @@ acknowledged.
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
-Committee Specification Draft 01|2023-07-14|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| 
+Committee Specification Draft 01|2024-02-28|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| 
 <!--
 Working Draft 01                |2016-11-16|Ralf Handl|Initial version
 Committee Specification Draft 01|2017-06-08|Michael Pizzo<br>Ralf Handl| Integrated 4.01 features
@@ -6219,7 +6219,7 @@ Candidate OASIS Standard 02     |2020-04-09|Michael Pizzo<br>Ralf Handl| Non-mat
 
 # <a name="Notices" href="#Notices">Appendix E. Notices</a>
 
-Copyright © OASIS Open 2023. All Rights Reserved.
+Copyright © OASIS Open 2024. All Rights Reserved.
 
 All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the "OASIS IPR Policy"). The full [Policy](https://www.oasis-open.org/policies-guidelines/ipr/) may be found at the OASIS website.
 

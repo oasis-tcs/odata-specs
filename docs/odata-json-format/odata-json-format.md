@@ -7,7 +7,7 @@
 
 ## Committee Specification Draft 01
 
-## 14 July 2023
+## 28 February 2024
 
 $\hbox{}$
 
@@ -73,12 +73,12 @@ When referencing this specification the following citation format should be used
 **[OData-JSON-Format-v4.02]**
 
 _OData JSON Format Version 4.02_.
-Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. 14 July 2023. OASIS Committee Specification Draft 01.
+Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. 28 February 2024. OASIS Committee Specification Draft 01.
 https://docs.oasis-open.org/odata/odata-json-format/v4.02/csd01/odata-json-format-v4.02-csd01.html.
 Latest stage: https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html.
 
 #### Notices
-Copyright © OASIS Open 2023. All Rights Reserved.
+Copyright © OASIS Open 2024. All Rights Reserved.
 
 Distributed under the terms of the OASIS [IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/).
 
@@ -4035,7 +4035,7 @@ The contributions of the OASIS OData Technical Committee members, enumerated in 
 
 <!-- Required section. Do not modify. -->
 
-Copyright &copy; OASIS Open 2023. All Rights Reserved.
+Copyright © OASIS Open 2024. All Rights Reserved.
 
 All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the "OASIS IPR Policy"). The full [Policy](https://www.oasis-open.org/policies-guidelines/ipr/) may be found at the OASIS website.
 
