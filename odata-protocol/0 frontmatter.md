@@ -17,7 +17,9 @@ https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/$$$filename$$$.html \
 https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/$$$filename$$$.pdf
 
 #### Previous stage:
-N/A
+https://docs.oasis-open.org/odata/odata/v4.02/$$$previousStage$$$/odata-v4.02-$$$previousStage$$$-part1-protocol.md (Authoritative) \
+https://docs.oasis-open.org/odata/odata/v4.02/$$$previousStage$$$/odata-v4.02-$$$previousStage$$$-part1-protocol.html \
+https://docs.oasis-open.org/odata/odata/v4.02/$$$previousStage$$$/odata-v4.02-$$$previousStage$$$-part1-protocol.pdf
 
 #### Latest stage:
 https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.md (Authoritative) \
