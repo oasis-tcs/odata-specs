@@ -124,6 +124,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <ul>
 <li><em>OData Version 4.02 Part 1: Protocol</em> (this document). <a href="https://docs.oasis-open.org/odata/odata/v4.02/csd02/odata-v4.02-csd02-part1-protocol.html">https://docs.oasis-open.org/odata/odata/v4.02/csd02/odata-v4.02-csd02-part1-protocol.html</a></li>
 <li><em>OData Version 4.02 Part 2: URL Conventions</em>. <a href="https://docs.oasis-open.org/odata/odata/v4.02/csd02/odata-v4.02-csd02-part2-url-conventions.html">https://docs.oasis-open.org/odata/odata/v4.02/csd02/odata-v4.02-csd02-part2-url-conventions.html</a></li>
+<li>ABNF components: <em>OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases Version 4.02</em>. <a href="https://docs.oasis-open.org/odata/odata/v4.02/csd02/abnf/">https://docs.oasis-open.org/odata/odata/v4.02/csd02/abnf/</a>.</li>
 </ul>
 <h4 id="related-work"><a name="RelatedWork">Related work:</a></h4>
 <p>This specification replaces or supersedes:</p>
@@ -2220,7 +2221,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>4.01 services MUST support invoking actions with no non-binding parameters and parameterless action imports both without a request body and with a request body representing no parameters, according to the particular format. Interoperable clients SHOULD always include a request body, even when invoking actions with no non-binding parameters and parameterless action imports.</p>
 <p>If the action returns results, the client SHOULD use content type negotiation to request the results in the desired format, otherwise the default content type will be used.</p>
 <p>The client can request whether any results from the action be returned using the <a href="#Preferencereturnrepresentationandreturnminimal"><code>return</code></a> preference.</p>
-<p>Actions that create and return a single entity follow the rules for <a href="#CreateanEntity">entity creation</a> and return a <a href="#HeaderLocation"><code>Location</code></a> header that contains the edit URL or read URL of the created entity.</p>
+<p>Actions that create and return a single entity follow the rules for <a href="#CreateanEntity">entity creation</a> and return a <a href="#HeaderLocation"><code>Location</code></a> header that contains the edit URL or read URL of the created entity. They MAY be annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Constructor"><code>Core.Constructor</code></a> defined in <a href="#ODataVocCore">OData-VocCore</a>.</p>
 <p>If the action returns a value of type <code>Edm.Stream</code>, the response to the <code>POST</code> request follows the rules for <a href="#RequestingStreamProperties">requesting stream properties</a>.</p>
 <p>Actions without a return type respond with <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> on success.</p>
 <p>To request processing of the action only if the binding parameter value, an entity or collection of entities, is unmodified, the client includes the <a href="#HeaderIfMatch"><code>If-Match</code></a> header with the latest known ETag value for the entity or collection of entities. The ETag value for a collection as a whole is transported in the <a href="#HeaderETag"><code>ETag</code></a> header of a collection response.</p>

@@ -44,6 +44,8 @@ Heiko Theißen (heiko.theissen@sap.com), [SAP SE](http://www.sap.com/)
 This prose specification is one component of a Work Product that also includes:
 * _OData Version 4.02 Part 1: Protocol_ (this document). https://docs.oasis-open.org/odata/odata/v4.02/csd02/odata-v4.02-csd02-part1-protocol.html
 * _OData Version 4.02 Part 2: URL Conventions_. https://docs.oasis-open.org/odata/odata/v4.02/csd02/odata-v4.02-csd02-part2-url-conventions.html
+* ABNF components: _OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases Version 4.02_. https://docs.oasis-open.org/odata/odata/v4.02/csd02/abnf/.
+
 
 #### <a name="RelatedWork">Related work:</a>
 This specification replaces or supersedes:
@@ -5559,7 +5561,9 @@ using the [`return`](#Preferencereturnrepresentationandreturnminimal) preference
 Actions that create and return a single entity follow the rules for
 [entity creation](#CreateanEntity) and return a
 [`Location`](#HeaderLocation) header that contains the edit URL or read URL of the
-created entity.
+created entity. They MAY be annotated with the term
+[`Core.Constructor`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Constructor)
+defined in [OData-VocCore](#ODataVocCore).
 
 If the action returns a value of type `Edm.Stream`, the response to the `POST` request
 follows the rules for [requesting stream properties](#RequestingStreamProperties).
