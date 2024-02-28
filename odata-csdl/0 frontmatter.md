@@ -96,7 +96,6 @@ When referencing this specification the following citation format should be used
 :
 
 _$$$pagetitle$$$_.
-
 Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. $$$pubdate$$$. OASIS Committee Specification Draft 01.
 https://docs.oasis-open.org/odata/$$$dirname$$$/v4.02/$$$stage$$$/$$$filename$$$.html.
 Latest stage: https://docs.oasis-open.org/odata/$$$dirname$$$/v4.02/$$$dirname$$$-v4.02.html.
