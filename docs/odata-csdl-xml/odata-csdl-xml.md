@@ -12,17 +12,17 @@
 $\hbox{}$
 
 #### This stage:
-https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd01/odata-csdl-xml-v4.02-csd01.md (Authoritative) \
-https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd01/odata-csdl-xml-v4.02-csd01.html \
-https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd01/odata-csdl-xml-v4.02-csd01.pdf
+https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/csd01/odata-csdl-xml-v4.02-csd01.md (Authoritative) \
+https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/csd01/odata-csdl-xml-v4.02-csd01.html \
+https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/csd01/odata-csdl-xml-v4.02-csd01.pdf
 
 #### Previous stage:
 N/A
 
 #### Latest stage:
-https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-xml-v4.02.md (Authoritative) \
-https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-xml-v4.02.html \
-https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-xml-v4.02.pdf
+https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/odata-csdl-xml-v4.02.md (Authoritative) \
+https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/odata-csdl-xml-v4.02.html \
+https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/odata-csdl-xml-v4.02.pdf
 
 #### Technical Committee:
 [OASIS Open Data Protocol (OData) TC](https://www.oasis-open.org/committees/odata/)
@@ -73,12 +73,12 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 #### Citation format:
 When referencing this specification the following citation format should be used:
 
-**[OData-CSDL-JSON-v4.02]**
+**[OData-CSDL-XML-v4.02]**
+__OData Common Schema Definition Language (CSDL) XML Representation Version 4.02_.
 
-_OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02_.
-Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. 14 July 2023. OASIS Committee Specification Draft 01.
-https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd01/odata-csdl-xml-v4.02-csd01.html.
-Latest stage: https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html.
+Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. 28 February 2024. OASIS Committee Specification Draft 01.
+https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/csd01/odata-csdl-xml-v4.02-csd01.html.
+Latest stage: https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/odata-csdl-xml-v4.02.html.
 
 #### Notices
 Copyright © OASIS Open 2024. All Rights Reserved.
