@@ -74,7 +74,8 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 When referencing this specification the following citation format should be used:
 
 **[OData-CSDL-JSON-v4.02]**
-__OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02_.
+
+_OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02_.
 
 Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. 28 February 2024. OASIS Committee Specification Draft 01.
 https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd01/odata-csdl-json-v4.02-csd01.html.

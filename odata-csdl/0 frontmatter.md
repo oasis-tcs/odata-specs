@@ -94,7 +94,8 @@ When referencing this specification the following citation format should be used
 : varjson
 **[OData-CSDL-JSON-v4.02]**
 :
-__$$$pagetitle$$$_.
+
+_$$$pagetitle$$$_.
 
 Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. $$$pubdate$$$. OASIS Committee Specification Draft 01.
 https://docs.oasis-open.org/odata/$$$dirname$$$/v4.02/$$$stage$$$/$$$filename$$$.html.
