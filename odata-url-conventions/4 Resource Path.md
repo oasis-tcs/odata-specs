@@ -979,10 +979,12 @@ Requests to paths ending in `/$query` MUST use the `POST` verb. Query
 options specified in the request body and query options specified in the
 request URL are processed together.
 
-The request body MUST use `Content-Type: text/plain`. It contains the
-query portion of the URL and MUST use the same percent-encoding as in
-URLs (especially: no spaces, tabs, or line breaks allowed) and MUST
-follow the syntax rules described in chapter Query Options.
+The request body MUST use `Content-Type: text/plain` or `Content-Type: application/x-www-form-urlencoded`.
+It contains the query portion of the URL.
+
+For `Content-Type: text/plain`, the individual query options MUST be separated by `&` or newlines
+and MUST use the same percent-encoding as in URLs (especially: no spaces, tabs, or line breaks allowed)
+and MUST follow the syntax rules described in [chapter ##QueryOptions].
 
 ::: example
 Example ##ex: passing a filter condition in the request body
@@ -991,5 +993,40 @@ POST http://host/service/People/$query
 Content-Type: text/plain
 
 $filter=[FirstName,LastName]%20in%20[["John","Doe"],["Jane","Smith"]]
+```
+This POST request would result from submitting the HTML form
+```html
+<form method="post" action="http://host/service/People/$query"
+      enctype="text/plain">
+  <input name="$filter"
+    value='[FirstName,LastName]%20in%20[["John","Doe"],["Jane","Smith"]]'>
+</form>
+```
+:::
+
+For content-type `application/x-www-form-urlencoded`, the individual query options MUST be separated by `&`
+and their names and values MAY be percent-encoded even for characters other than `%26` (ampersand) and
+`%3D` (equals).
+
+::: example
+Example ##ex: passing multiple system query options in the request body
+```
+POST http://host/service/People/$query
+Content-Type: application/x-www-form-urlencoded
+
+%24filter=LastName+eq+%27P%26G%27&%24select=FirstName,LastName
+```
+This POST request would result from submitting the HTML form
+```html
+<form method="post" action="http://host/service/People/$query"
+      enctype="application/x-www-form-urlencoded">
+  <input name="$filter" value="LastName eq 'P&G'">
+  <input name="$select" value="FirstName,LastName">
+</form>
+```
+and the server must treat it like
+```
+GET http://host/service/People?
+  $filter=LastName%20eq%20'P%26G'&$select=FirstName,LastName
 ```
 :::

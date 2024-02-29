@@ -846,13 +846,37 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The query options part of an OData URL can be quite long, potentially exceeding the maximum length of URLs supported by components involved in transmitting or processing the request. One way to avoid this is wrapping the request in a batch request, which has the penalty of needing to construct a well-formed batch request body.</p>
 <p>An easier alternative for <code>GET</code> requests is to append <code>/$query</code> to the resource path of the URL, use the <code>POST</code> verb instead of <code>GET</code>, and pass the query options part of the URL in the request body.</p>
 <p>Requests to paths ending in <code>/$query</code> MUST use the <code>POST</code> verb. Query options specified in the request body and query options specified in the request URL are processed together.</p>
-<p>The request body MUST use <code>Content-Type: text/plain</code>. It contains the query portion of the URL and MUST use the same percent-encoding as in URLs (especially: no spaces, tabs, or line breaks allowed) and MUST follow the syntax rules described in chapter Query Options.</p>
+<p>The request body MUST use <code>Content-Type: text/plain</code> or <code>Content-Type: application/x-www-form-urlencoded</code>. It contains the query portion of the URL.</p>
+<p>For <code>Content-Type: text/plain</code>, the individual query options MUST be separated by <code>&amp;</code> or newlines and MUST use the same percent-encoding as in URLs (especially: no spaces, tabs, or line breaks allowed) and MUST follow the syntax rules described in <a href="#QueryOptions">chapter 5</a>.</p>
 <div class="example">
 <p>Example 49: passing a filter condition in the request body</p>
 <pre><code>POST http://host/service/People/$query
 Content-Type: text/plain
 
 $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;Jane&quot;,&quot;Smith&quot;]]</code></pre>
+<p>This POST request would result from submitting the HTML form</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;form</span> <span class="er">method</span><span class="ot">=</span><span class="st">&quot;post&quot;</span> <span class="er">action</span><span class="ot">=</span><span class="st">&quot;http://host/service/People/$query&quot;</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="ot">      enctype=</span><span class="st">&quot;text/plain&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;input</span> <span class="er">name</span><span class="ot">=</span><span class="st">&quot;$filter&quot;</span></span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a><span class="ot">    value=</span><span class="st">&#39;[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;Jane&quot;,&quot;Smith&quot;]]&#39;</span><span class="kw">&gt;</span></span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/form&gt;</span></span></code></pre></div>
+</div>
+<p>For content-type <code>application/x-www-form-urlencoded</code>, the individual query options MUST be separated by <code>&amp;</code> and their names and values MAY be percent-encoded even for characters other than <code>%26</code> (ampersand) and <code>%3D</code> (equals).</p>
+<div class="example">
+<p>Example 50: passing multiple system query options in the request body</p>
+<pre><code>POST http://host/service/People/$query
+Content-Type: application/x-www-form-urlencoded
+
+%24filter=LastName+eq+%27P%26G%27&amp;%24select=FirstName,LastName</code></pre>
+<p>This POST request would result from submitting the HTML form</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;form</span> <span class="er">method</span><span class="ot">=</span><span class="st">&quot;post&quot;</span> <span class="er">action</span><span class="ot">=</span><span class="st">&quot;http://host/service/People/$query&quot;</span></span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="ot">      enctype=</span><span class="st">&quot;application/x-www-form-urlencoded&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;input</span> <span class="er">name</span><span class="ot">=</span><span class="st">&quot;$filter&quot;</span> <span class="er">value</span><span class="ot">=</span><span class="st">&quot;LastName eq &#39;P</span><span class="er">&amp;</span><span class="st">G&#39;&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;input</span> <span class="er">name</span><span class="ot">=</span><span class="st">&quot;$select&quot;</span> <span class="er">value</span><span class="ot">=</span><span class="st">&quot;FirstName,LastName&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/form&gt;</span></span></code></pre></div>
+<p>and the server must treat it like</p>
+<pre><code>GET http://host/service/People?
+  $filter=LastName%20eq%20&#39;P%26G&#39;&amp;$select=FirstName,LastName</code></pre>
 </div>
 <hr />
 <h1 id="5-query-options"><a name="QueryOptions" href="#QueryOptions">5 Query Options</a></h1>
@@ -935,47 +959,47 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <h5 id="511112-logical-operator-examples"><a name="LogicalOperatorExamples" href="#LogicalOperatorExamples">5.1.1.1.12 Logical Operator Examples</a></h5>
 <p>The following examples illustrate the use and semantics of each of the logical operators.</p>
 <div class="example">
-<p>Example 50: all products with a <code>Name</code> equal to <code>Milk</code></p>
+<p>Example 51: all products with a <code>Name</code> equal to <code>Milk</code></p>
 <pre><code>http://host/service/Products?$filter=Name eq &#39;Milk&#39;</code></pre>
 </div>
 <div class="example">
-<p>Example 51: all products with a <code>Name</code> not equal to <code>Milk</code></p>
+<p>Example 52: all products with a <code>Name</code> not equal to <code>Milk</code></p>
 <pre><code>http://host/service/Products?$filter=Name ne &#39;Milk&#39;</code></pre>
 </div>
 <div class="example">
-<p>Example 52: all products with a <code>Name</code> greater than <code>Milk</code>:</p>
+<p>Example 53: all products with a <code>Name</code> greater than <code>Milk</code>:</p>
 <pre><code>http://host/service/Products?$filter=Name gt &#39;Milk&#39;</code></pre>
 </div>
 <div class="example">
-<p>Example 53: all products with a <code>Name</code> greater than or equal to <code>Milk</code>:</p>
+<p>Example 54: all products with a <code>Name</code> greater than or equal to <code>Milk</code>:</p>
 <pre><code>http://host/service/Products?$filter=Name ge &#39;Milk&#39;</code></pre>
 </div>
 <div class="example">
-<p>Example 54: all products with a <code>Name</code> less than <code>Milk</code>:</p>
+<p>Example 55: all products with a <code>Name</code> less than <code>Milk</code>:</p>
 <pre><code>http://host/service/Products?$filter=Name lt &#39;Milk&#39;</code></pre>
 </div>
 <div class="example">
-<p>Example 55: all products with a <code>Name</code> less than or equal to <code>Milk</code>:</p>
+<p>Example 56: all products with a <code>Name</code> less than or equal to <code>Milk</code>:</p>
 <pre><code>http://host/service/Products?$filter=Name le &#39;Milk&#39;</code></pre>
 </div>
 <div class="example">
-<p>Example 56: all products with a <code>Name</code> equal to <code>Milk</code> that also have a <code>Price</code> less than 2.55:</p>
+<p>Example 57: all products with a <code>Name</code> equal to <code>Milk</code> that also have a <code>Price</code> less than 2.55:</p>
 <pre><code>http://host/service/Products?$filter=Name eq &#39;Milk&#39; and Price lt 2.55</code></pre>
 </div>
 <div class="example">
-<p>Example 57: all products that either have a <code>Name</code> equal to <code>Milk</code> or have a <code>Price</code> less than 2.55:</p>
+<p>Example 58: all products that either have a <code>Name</code> equal to <code>Milk</code> or have a <code>Price</code> less than 2.55:</p>
 <pre><code>http://host/service/Products?$filter=Name eq &#39;Milk&#39; or Price lt 2.55</code></pre>
 </div>
 <div class="example">
-<p>Example 58: all products that do not have a <code>Name</code> that ends with <code>ilk</code>:</p>
+<p>Example 59: all products that do not have a <code>Name</code> that ends with <code>ilk</code>:</p>
 <pre><code>http://host/service/Products?$filter=not endswith(Name,&#39;ilk&#39;)</code></pre>
 </div>
 <div class="example">
-<p>Example 59: all products whose <code>style</code> value includes <code>Yellow</code>:</p>
+<p>Example 60: all products whose <code>style</code> value includes <code>Yellow</code>:</p>
 <pre><code>http://host/service/Products?$filter=style has Sales.Pattern&#39;Yellow&#39;</code></pre>
 </div>
 <div class="example">
-<p>Example 60: all products whose <code>Name</code> is <code>Milk</code> or <code>Cheese</code>:</p>
+<p>Example 61: all products whose <code>Name</code> is <code>Milk</code> or <code>Cheese</code>:</p>
 <pre><code>http://host/service/Products?$filter=Name in (&#39;Milk&#39;, &#39;Cheese&#39;)</code></pre>
 </div>
 <h4 id="5112-arithmetic-operators"><a name="ArithmeticOperators" href="#ArithmeticOperators">5.1.1.2 Arithmetic Operators</a></h4>
@@ -1026,37 +1050,37 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <h5 id="51127-arithmetic-operator-examples"><a name="ArithmeticOperatorExamples" href="#ArithmeticOperatorExamples">5.1.1.2.7 Arithmetic Operator Examples</a></h5>
 <p>The following examples illustrate the use and semantics of each of the Arithmetic operators.</p>
 <div class="example">
-<p>Example 61: all products with a Price of 2.55:</p>
+<p>Example 62: all products with a Price of 2.55:</p>
 <pre><code>http://host/service/Products?$filter=Price add 2.45 eq 5.00</code></pre>
 </div>
 <div class="example">
-<p>Example 62: all products with a Price of 2.55:</p>
+<p>Example 63: all products with a Price of 2.55:</p>
 <pre><code>http://host/service/Products?$filter=Price sub 0.55 eq 2.00</code></pre>
 </div>
 <div class="example">
-<p>Example 63: all products with a Price of 2.55:</p>
+<p>Example 64: all products with a Price of 2.55:</p>
 <pre><code>http://host/service/Products?$filter=Price mul 2.0 eq 5.10</code></pre>
 </div>
 <div class="example">
-<p>Example 64: all products with a Price of 2.55:</p>
+<p>Example 65: all products with a Price of 2.55:</p>
 <pre><code>http://host/service/Products?$filter=Price div 2.55 eq 1</code></pre>
 </div>
 <div class="example">
-<p>Example 65: all products with an integer Rating value of 4 or 5:</p>
+<p>Example 66: all products with an integer Rating value of 4 or 5:</p>
 <pre><code>http://host/service/Products?$filter=Rating div 2 eq 2</code></pre>
 </div>
 <div class="example">
-<p>Example 66: all products with an integer Rating value of 5:</p>
+<p>Example 67: all products with an integer Rating value of 5:</p>
 <pre><code>http://host/service/Products?$filter=Rating divby 2 eq 2.5</code></pre>
 </div>
 <div class="example">
-<p>Example 67: all products with a Rating exactly divisible by 5:</p>
+<p>Example 68: all products with a Rating exactly divisible by 5:</p>
 <pre><code>http://host/service/Products?$filter=Rating mod 5 eq 0</code></pre>
 </div>
 <h4 id="5113-grouping"><a name="Grouping" href="#Grouping">5.1.1.3 Grouping</a></h4>
 <p>The Grouping operator (open and close parenthesis “<code>( )</code>”) controls the evaluation order of an expression. The Grouping operator returns the expression grouped inside the parenthesis.</p>
 <div class="example">
-<p>Example 68: all products because 9 mod 3 is 0</p>
+<p>Example 69: all products because 9 mod 3 is 0</p>
 <pre><code>http://host/service/Products?$filter=(4 add 5) mod (4 sub 1) eq 0</code></pre>
 </div>
 <h4 id="5114-canonical-functions"><a name="CanonicalFunctions" href="#CanonicalFunctions">5.1.1.4 Canonical Functions</a></h4>
@@ -1074,7 +1098,7 @@ OrderedCollection concat(OrderedCollection,OrderedCollection)</code></pre>
 <p>The concat function with collection parameter values returns a collection that appends all items of the second collection to the first. If both collections are ordered, the result is also ordered.</p>
 <p>The <code>concatMethodCallExpr</code> syntax rule defines how the <code>concat</code> function is invoked.</p>
 <div class="example">
-<p>Example 69: all customers from Berlin, Germany</p>
+<p>Example 70: all customers from Berlin, Germany</p>
 <pre><code>http://host/service/Customers?$filter=concat(concat(City,&#39;, &#39;),Country) eq &#39;Berlin, Germany&#39;</code></pre>
 </div>
 <h5 id="51152-contains"><a name="contains" href="#contains">5.1.1.5.2 <code>contains</code></a></h5>
@@ -1085,7 +1109,7 @@ Edm.Boolean contains(OrderedCollection,OrderedCollection)</code></pre>
 <p>The <code>contains</code> function with ordered collection parameter values returns true if the first collection can be transformed into the second collection by removing zero or more items from the beginning or the end of the first collection.</p>
 <p>The <code>containsMethodCallExpr</code> syntax rule defines how the <code>contains</code> function is invoked.</p>
 <div class="example">
-<p>Example 70: all customers with a <code>CompanyName</code> that contains <code>Alfreds</code></p>
+<p>Example 71: all customers with a <code>CompanyName</code> that contains <code>Alfreds</code></p>
 <pre><code>http://host/service/Customers?$filter=contains(CompanyName,&#39;Alfreds&#39;)</code></pre>
 </div>
 <h5 id="51153-endswith"><a name="endswith" href="#endswith">5.1.1.5.3 <code>endswith</code></a></h5>
@@ -1096,7 +1120,7 @@ Edm.Boolean endswith(OrderedCollection,OrderedCollection)</code></pre>
 <p>The <code>endswith</code> function with ordered collection parameter values returns true if the first collection can be transformed into the second collection by removing zero or more items from the beginning of the first collection.</p>
 <p>The <code>endsWithMethodCallExpr</code> syntax rule defines how the <code>endswith</code> function is invoked.</p>
 <div class="example">
-<p>Example 71: all customers with a <code>CompanyName</code> that ends with <code>Futterkiste</code></p>
+<p>Example 72: all customers with a <code>CompanyName</code> that ends with <code>Futterkiste</code></p>
 <pre><code>http://host/service/Customers?$filter=endswith(CompanyName,&#39;Futterkiste&#39;)</code></pre>
 </div>
 <h5 id="51154-indexof"><a name="indexof" href="#indexof">5.1.1.5.4 <code>indexof</code></a></h5>
@@ -1107,7 +1131,7 @@ Edm.Int32 indexof(OrderedCollection,OrderedCollection)</code></pre>
 <p>The <code>indexof</code> function with ordered collection parameter values returns the zero-based index of the first occurrence of the second collection in the first collection, or -1 if the first collection does not contain the second collection.</p>
 <p>The <code>indexOfMethodCallExpr</code> syntax rule defines how the <code>indexof</code> function is invoked.</p>
 <div class="example">
-<p>Example 72: all customers with a <code>CompanyName</code> containing <code>lfreds</code> starting at the second character</p>
+<p>Example 73: all customers with a <code>CompanyName</code> containing <code>lfreds</code> starting at the second character</p>
 <pre><code>http://host/service/Customers?$filter=indexof(CompanyName,&#39;lfreds&#39;) eq 1</code></pre>
 </div>
 <h5 id="51155-length"><a name="length" href="#length">5.1.1.5.5 <code>length</code></a></h5>
@@ -1118,7 +1142,7 @@ Edm.Int32 length(Collection)</code></pre>
 <p>The <code>length</code> function with a collection parameter value returns the number of itens in the collection.</p>
 <p>The <code>lengthMethodCallExpr</code> syntax rule defines how the <code>length</code> function is invoked.</p>
 <div class="example">
-<p>Example 73: all customers with a <code>CompanyName</code> that is 19 characters long</p>
+<p>Example 74: all customers with a <code>CompanyName</code> that is 19 characters long</p>
 <pre><code>http://host/service/Customers?$filter=length(CompanyName) eq 19</code></pre>
 </div>
 <h5 id="51156-startswith"><a name="startswith" href="#startswith">5.1.1.5.6 <code>startswith</code></a></h5>
@@ -1129,7 +1153,7 @@ Edm.Boolean startswith(Collection,Collection)</code></pre>
 <p>The <code>startswith</code> function with ordered collection parameter values returns true if the first collection can be transformed into the second collection by removing zero or more items from the end of the first collection.</p>
 <p>The <code>startsWithMethodCallExpr</code> syntax rule defines how the <code>startswith</code> function is invoked.</p>
 <div class="example">
-<p>Example 74: all customers with a <code>CompanyName</code> that starts with <code>Alfr</code></p>
+<p>Example 75: all customers with a <code>CompanyName</code> that starts with <code>Alfr</code></p>
 <pre><code>http://host/service/Customers?$filter=startswith(CompanyName,&#39;Alfr&#39;)</code></pre>
 </div>
 <h5 id="51157-substring"><a name="substring" href="#substring">5.1.1.5.7 <code>substring</code></a></h5>
@@ -1147,11 +1171,11 @@ OrderedCollection substring(OrderedCollection,Edm.Int32,Edm.Int32)</code></pre>
 <p>A negative start index N, if supported, returns a string/collection starting N characters/items before the end of the string/collection.</p>
 <p>The <code>substringMethodCallExpr</code> syntax rule defines how the <code>substring</code> function is invoked.</p>
 <div class="example">
-<p>Example 75: all customers with a <code>CompanyName</code> of <code>lfreds Futterkiste</code> once the first character has been removed</p>
+<p>Example 76: all customers with a <code>CompanyName</code> of <code>lfreds Futterkiste</code> once the first character has been removed</p>
 <pre><code>http://host/service/Customers?$filter=substring(CompanyName,1) eq &#39;lfreds Futterkiste&#39;</code></pre>
 </div>
 <div class="example">
-<p>Example 76: all customers with a <code>CompanyName</code> that has <code>lf</code> as the second and third characters, e.g, <code>Alfreds Futterkiste</code></p>
+<p>Example 77: all customers with a <code>CompanyName</code> that has <code>lf</code> as the second and third characters, e.g, <code>Alfreds Futterkiste</code></p>
 <pre><code>http://host/service/Customers?$filter=substring(CompanyName,1,2) eq &#39;lf&#39;</code></pre>
 </div>
 <h4 id="5116-collection-functions"><a name="CollectionFunctions" href="#CollectionFunctions">5.1.1.6 Collection Functions</a></h4>
@@ -1160,7 +1184,7 @@ OrderedCollection substring(OrderedCollection,Edm.Int32,Edm.Int32)</code></pre>
 <pre><code>Edm.Boolean hassubset(Collection, Collection)</code></pre>
 <p>The <code>hassubset</code> function returns true if the first collection can be transformed into the second collection by reordering and/or removing zero or more items. The <code>hasSubsetMethodCallExpr</code> syntax rule defines how the <code>hassubset</code> function is invoked.</p>
 <div class="example">
-<p>Example 77: <code>hassubset</code> expressions that return true</p>
+<p>Example 78: <code>hassubset</code> expressions that return true</p>
 <pre><code>hassubset([4,1,3],[4,1,3])</code></pre>
 <pre><code>hassubset([4,1,3],[1,3,4])</code></pre>
 <pre><code>hassubset([4,1,3],[3,1])</code></pre>
@@ -1168,7 +1192,7 @@ OrderedCollection substring(OrderedCollection,Edm.Int32,Edm.Int32)</code></pre>
 <pre><code>hassubset([4,1,3,1],[1,1])</code></pre>
 </div>
 <div class="example">
-<p>Example 78: <code>hassubset</code> expression that returns false: 1 appears only once in the left operand</p>
+<p>Example 79: <code>hassubset</code> expression that returns false: 1 appears only once in the left operand</p>
 <pre><code>hassubset([1,2],[1,1,2])</code></pre>
 </div>
 <h5 id="51162-hassubsequence"><a name="hassubsequence" href="#hassubsequence">5.1.1.6.2 <code>hassubsequence</code></a></h5>
@@ -1176,14 +1200,14 @@ OrderedCollection substring(OrderedCollection,Edm.Int32,Edm.Int32)</code></pre>
 <pre><code>Edm.Boolean hassubsequence(OrderedCollection,OrderedCollection)</code></pre>
 <p>The <code>hassubsequence</code> function returns true if the first collection can be transformed into the second collection by removing zero or more items. The <code>hasSubsequenceMethodCallExpr</code> syntax rule defines how the <code>hassubsequence</code> function is invoked.</p>
 <div class="example">
-<p>Example 79: <code>hassubsequence</code> expressions that return true</p>
+<p>Example 80: <code>hassubsequence</code> expressions that return true</p>
 <pre><code>hassubsequence([4,1,3],[4,1,3])</code></pre>
 <pre><code>hassubsequence([4,1,3],[4,1])</code></pre>
 <pre><code>hassubsequence([4,1,3],[4,3])</code></pre>
 <pre><code>hassubsequence([4,1,3,1],[1,1])</code></pre>
 </div>
 <div class="example">
-<p>Example 80: <code>hassubsequence</code> expressions that return false</p>
+<p>Example 81: <code>hassubsequence</code> expressions that return false</p>
 <pre><code>hassubsequence([4,1,3],[1,3,4])</code></pre>
 <pre><code>hassubsequence([4,1,3],[3,1])</code></pre>
 <pre><code>hassubsequence([1,2],[1,1,2])</code></pre>
@@ -1195,7 +1219,7 @@ OrderedCollection substring(OrderedCollection,Edm.Int32,Edm.Int32)</code></pre>
 Edm.Boolean matchespattern(Edm.String,Edm.String,Edm.String)</code></pre>
 <p>The second parameter MUST evaluate to a string containing an <a href="#_ECMAScript">ECMAScript</a> (JavaScript) regular expression. The <code>matchespattern</code> function returns true if the first parameter evaluates to a string matching that regular expression, using syntax and semantics of ECMAScript regular expressions, otherwise it returns false. If the optional third parameter is provided, it MUST evaluate to a string consisting of ECMAScript regular expression flags to modify the match.</p>
 <div class="example">
-<p>Example 81: all customers with a <code>CompanyName</code> that match the (percent-encoded) regular expression <code>^A.*e$</code></p>
+<p>Example 82: all customers with a <code>CompanyName</code> that match the (percent-encoded) regular expression <code>^A.*e$</code></p>
 <pre><code>http://host/service/Customers?$filter=matchespattern(CompanyName,&#39;%5EA.*e$&#39;)</code></pre>
 </div>
 <div class="example">

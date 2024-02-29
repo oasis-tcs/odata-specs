@@ -1434,10 +1434,12 @@ Requests to paths ending in `/$query` MUST use the `POST` verb. Query
 options specified in the request body and query options specified in the
 request URL are processed together.
 
-The request body MUST use `Content-Type: text/plain`. It contains the
-query portion of the URL and MUST use the same percent-encoding as in
-URLs (especially: no spaces, tabs, or line breaks allowed) and MUST
-follow the syntax rules described in chapter Query Options.
+The request body MUST use `Content-Type: text/plain` or `Content-Type: application/x-www-form-urlencoded`.
+It contains the query portion of the URL.
+
+For `Content-Type: text/plain`, the individual query options MUST be separated by `&` or newlines
+and MUST use the same percent-encoding as in URLs (especially: no spaces, tabs, or line breaks allowed)
+and MUST follow the syntax rules described in [chapter 5](#QueryOptions).
 
 ::: example
 Example 49: passing a filter condition in the request body
@@ -1446,6 +1448,41 @@ POST http://host/service/People/$query
 Content-Type: text/plain
 
 $filter=[FirstName,LastName]%20in%20[["John","Doe"],["Jane","Smith"]]
+```
+This POST request would result from submitting the HTML form
+```html
+<form method="post" action="http://host/service/People/$query"
+      enctype="text/plain">
+  <input name="$filter"
+    value='[FirstName,LastName]%20in%20[["John","Doe"],["Jane","Smith"]]'>
+</form>
+```
+:::
+
+For content-type `application/x-www-form-urlencoded`, the individual query options MUST be separated by `&`
+and their names and values MAY be percent-encoded even for characters other than `%26` (ampersand) and
+`%3D` (equals).
+
+::: example
+Example 50: passing multiple system query options in the request body
+```
+POST http://host/service/People/$query
+Content-Type: application/x-www-form-urlencoded
+
+%24filter=LastName+eq+%27P%26G%27&%24select=FirstName,LastName
+```
+This POST request would result from submitting the HTML form
+```html
+<form method="post" action="http://host/service/People/$query"
+      enctype="application/x-www-form-urlencoded">
+  <input name="$filter" value="LastName eq 'P&G'">
+  <input name="$select" value="FirstName,LastName">
+</form>
+```
+and the server must treat it like
+```
+GET http://host/service/People?
+  $filter=LastName%20eq%20'P%26G'&$select=FirstName,LastName
 ```
 :::
 
@@ -1698,49 +1735,49 @@ The following examples illustrate the use and semantics of each of the
 logical operators.
 
 ::: example
-Example 50: all products with a `Name` equal to `Milk`
+Example 51: all products with a `Name` equal to `Milk`
 ```
 http://host/service/Products?$filter=Name eq 'Milk'
 ```
 :::
 
 ::: example
-Example 51: all products with a `Name` not equal to `Milk`
+Example 52: all products with a `Name` not equal to `Milk`
 ```
 http://host/service/Products?$filter=Name ne 'Milk'
 ```
 :::
 
 ::: example
-Example 52: all products with a `Name` greater than `Milk`:
+Example 53: all products with a `Name` greater than `Milk`:
 ```
 http://host/service/Products?$filter=Name gt 'Milk'
 ```
 :::
 
 ::: example
-Example 53: all products with a `Name` greater than or equal to `Milk`:
+Example 54: all products with a `Name` greater than or equal to `Milk`:
 ```
 http://host/service/Products?$filter=Name ge 'Milk'
 ```
 :::
 
 ::: example
-Example 54: all products with a `Name` less than `Milk`:
+Example 55: all products with a `Name` less than `Milk`:
 ```
 http://host/service/Products?$filter=Name lt 'Milk'
 ```
 :::
 
 ::: example
-Example 55: all products with a `Name` less than or equal to `Milk`:
+Example 56: all products with a `Name` less than or equal to `Milk`:
 ```
 http://host/service/Products?$filter=Name le 'Milk'
 ```
 :::
 
 ::: example
-Example 56: all products with a `Name` equal to `Milk` that also have a `Price`
+Example 57: all products with a `Name` equal to `Milk` that also have a `Price`
 less than 2.55:
 ```
 http://host/service/Products?$filter=Name eq 'Milk' and Price lt 2.55
@@ -1748,7 +1785,7 @@ http://host/service/Products?$filter=Name eq 'Milk' and Price lt 2.55
 :::
 
 ::: example
-Example 57: all products that either have a `Name` equal to `Milk` or have a
+Example 58: all products that either have a `Name` equal to `Milk` or have a
 `Price` less than 2.55:
 ```
 http://host/service/Products?$filter=Name eq 'Milk' or Price lt 2.55
@@ -1756,21 +1793,21 @@ http://host/service/Products?$filter=Name eq 'Milk' or Price lt 2.55
 :::
 
 ::: example
-Example 58: all products that do not have a `Name` that ends with `ilk`:
+Example 59: all products that do not have a `Name` that ends with `ilk`:
 ```
 http://host/service/Products?$filter=not endswith(Name,'ilk')
 ```
 :::
 
 ::: example
-Example 59: all products whose `style` value includes `Yellow`:
+Example 60: all products whose `style` value includes `Yellow`:
 ```
 http://host/service/Products?$filter=style has Sales.Pattern'Yellow'
 ```
 :::
 
 ::: example
-Example 60: all products whose `Name` is `Milk` or `Cheese`:
+Example 61: all products whose `Name` is `Milk` or `Cheese`:
 ```
 http://host/service/Products?$filter=Name in ('Milk', 'Cheese')
 ```
@@ -1901,49 +1938,49 @@ The following examples illustrate the use and semantics of each of the
 Arithmetic operators.
 
 ::: example
-Example 61: all products with a Price of 2.55:
+Example 62: all products with a Price of 2.55:
 ```
 http://host/service/Products?$filter=Price add 2.45 eq 5.00
 ```
 :::
 
 ::: example
-Example 62: all products with a Price of 2.55:
+Example 63: all products with a Price of 2.55:
 ```
 http://host/service/Products?$filter=Price sub 0.55 eq 2.00
 ```
 :::
 
 ::: example
-Example 63: all products with a Price of 2.55:
+Example 64: all products with a Price of 2.55:
 ```
 http://host/service/Products?$filter=Price mul 2.0 eq 5.10
 ```
 :::
 
 ::: example
-Example 64: all products with a Price of 2.55:
+Example 65: all products with a Price of 2.55:
 ```
 http://host/service/Products?$filter=Price div 2.55 eq 1
 ```
 :::
 
 ::: example
-Example 65: all products with an integer Rating value of 4 or 5:
+Example 66: all products with an integer Rating value of 4 or 5:
 ```
 http://host/service/Products?$filter=Rating div 2 eq 2
 ```
 :::
 
 ::: example
-Example 66: all products with an integer Rating value of 5:
+Example 67: all products with an integer Rating value of 5:
 ```
 http://host/service/Products?$filter=Rating divby 2 eq 2.5
 ```
 :::
 
 ::: example
-Example 67: all products with a Rating exactly divisible by 5:
+Example 68: all products with a Rating exactly divisible by 5:
 ```
 http://host/service/Products?$filter=Rating mod 5 eq 0
 ```
@@ -1956,7 +1993,7 @@ evaluation order of an expression. The Grouping operator returns the
 expression grouped inside the parenthesis.
 
 ::: example
-Example 68: all products because 9 mod 3 is 0
+Example 69: all products because 9 mod 3 is 0
 ```
 http://host/service/Products?$filter=(4 add 5) mod (4 sub 1) eq 0
 ```
@@ -2006,7 +2043,7 @@ The `concatMethodCallExpr` syntax rule defines how the `concat` function
 is invoked.
 
 ::: example
-Example 69: all customers from Berlin, Germany
+Example 70: all customers from Berlin, Germany
 ```
 http://host/service/Customers?$filter=concat(concat(City,', '),Country) eq 'Berlin, Germany'
 ```
@@ -2037,7 +2074,7 @@ The `containsMethodCallExpr` syntax rule defines how the `contains`
 function is invoked.
 
 ::: example
-Example 70: all customers with a `CompanyName` that contains `Alfreds`
+Example 71: all customers with a `CompanyName` that contains `Alfreds`
 ```
 http://host/service/Customers?$filter=contains(CompanyName,'Alfreds')
 ```
@@ -2068,7 +2105,7 @@ The `endsWithMethodCallExpr` syntax rule defines how the `endswith`
 function is invoked.
 
 ::: example
-Example 71: all customers with a `CompanyName` that ends with
+Example 72: all customers with a `CompanyName` that ends with
 `Futterkiste`
 ```
 http://host/service/Customers?$filter=endswith(CompanyName,'Futterkiste')
@@ -2100,7 +2137,7 @@ The `indexOfMethodCallExpr` syntax rule defines how the `indexof`
 function is invoked.
 
 ::: example
-Example 72: all customers with a `CompanyName` containing `lfreds`
+Example 73: all customers with a `CompanyName` containing `lfreds`
 starting at the second character
 ```
 http://host/service/Customers?$filter=indexof(CompanyName,'lfreds') eq 1
@@ -2126,7 +2163,7 @@ The `lengthMethodCallExpr` syntax rule defines how the `length` function
 is invoked.
 
 ::: example
-Example 73: all customers with a `CompanyName` that is 19 characters
+Example 74: all customers with a `CompanyName` that is 19 characters
 long
 ```
 http://host/service/Customers?$filter=length(CompanyName) eq 19
@@ -2158,7 +2195,7 @@ The `startsWithMethodCallExpr` syntax rule defines how the `startswith`
 function is invoked.
 
 ::: example
-Example 74: all customers with a `CompanyName` that starts with `Alfr`
+Example 75: all customers with a `CompanyName` that starts with `Alfr`
 ```
 http://host/service/Customers?$filter=startswith(CompanyName,'Alfr')
 ```
@@ -2212,7 +2249,7 @@ The `substringMethodCallExpr` syntax rule defines how the `substring`
 function is invoked.
 
 ::: example
-Example 75: all customers with a `CompanyName` of `lfreds Futterkiste`
+Example 76: all customers with a `CompanyName` of `lfreds Futterkiste`
 once the first character has been removed
 ```
 http://host/service/Customers?$filter=substring(CompanyName,1) eq 'lfreds Futterkiste'
@@ -2220,7 +2257,7 @@ http://host/service/Customers?$filter=substring(CompanyName,1) eq 'lfreds Futter
 :::
 
 ::: example
-Example 76: all customers with a `CompanyName` that has `lf` as the
+Example 77: all customers with a `CompanyName` that has `lf` as the
 second and third characters, e.g, `Alfreds Futterkiste`
 ```
 http://host/service/Customers?$filter=substring(CompanyName,1,2) eq 'lf'
@@ -2243,7 +2280,7 @@ zero or more items. The `hasSubsetMethodCallExpr` syntax rule defines
 how the `hassubset` function is invoked.
 
 ::: example
-Example 77: `hassubset` expressions that return true
+Example 78: `hassubset` expressions that return true
 ```
 hassubset([4,1,3],[4,1,3])
 ```
@@ -2266,7 +2303,7 @@ hassubset([4,1,3,1],[1,1])
 :::
 
 ::: example
-Example 78: `hassubset` expression that returns false: 1 appears only
+Example 79: `hassubset` expression that returns false: 1 appears only
 once in the left operand
 ```
 hassubset([1,2],[1,1,2])
@@ -2287,7 +2324,7 @@ items. The `hasSubsequenceMethodCallExpr` syntax rule defines how the
 `hassubsequence` function is invoked.
 
 ::: example
-Example 79: `hassubsequence` expressions that return true
+Example 80: `hassubsequence` expressions that return true
 ```
 hassubsequence([4,1,3],[4,1,3])
 ```
@@ -2306,7 +2343,7 @@ hassubsequence([4,1,3,1],[1,1])
 :::
 
 ::: example
-Example 80: `hassubsequence` expressions that return false
+Example 81: `hassubsequence` expressions that return false
 ```
 hassubsequence([4,1,3],[1,3,4])
 ```
@@ -2340,7 +2377,7 @@ If the optional third parameter is provided, it MUST evaluate to a string
 consisting of ECMAScript regular expression flags to modify the match.
 
 ::: example
-Example 81: all customers with a `CompanyName` that match the
+Example 82: all customers with a `CompanyName` that match the
 (percent-encoded) regular expression `^A.*e$`
 ```
 http://host/service/Customers?$filter=matchespattern(CompanyName,'%5EA.*e$')
