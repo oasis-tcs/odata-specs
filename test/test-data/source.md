@@ -5,6 +5,10 @@ $$$pagetitle$$$
 
 Example ##ex_ref: [Section ##Firstsubsection] contains [example ##ref].
 
+```js
+"Source code"
+```
+
 ### ##isec Matrix
 
 $$\matrix{ 
