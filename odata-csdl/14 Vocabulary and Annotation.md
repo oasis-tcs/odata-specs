@@ -143,7 +143,7 @@ A term allows annotating a model element or OData resource
 representation with additional data.
 
 The term's name is a [simple identifier](#SimpleIdentifier) that MUST be
-unique within its schema.
+unique among all direct children of its [schema](#Schema).
 
 The term's type MUST be a type in scope, or a collection of a type in
 scope.

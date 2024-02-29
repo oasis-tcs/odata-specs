@@ -10,7 +10,7 @@ independently of an entity type. Complex types allow entity models to
 group properties into common structures.
 
 The complex type's name is a [simple identifier](#SimpleIdentifier) that
-MUST be unique within its schema.
+MUST be unique among all direct children of its [schema](#Schema).
 
 A complex type can define two types of properties. A [structural
 property](#StructuralProperty) is a named reference to a primitive,
@@ -203,7 +203,7 @@ non-empty series of related values. Enumeration types expose these
 related values as members of the enumeration.
 
 The enumeration type's name is a [simple identifier](#SimpleIdentifier)
-that MUST be unique within its schema.
+that MUST be unique among all direct children of its [schema](#Schema).
 
 Although enumeration types have an underlying numeric value, the
 preferred representation for an enumeration value is the member name.
@@ -477,7 +477,7 @@ types](#PrimitiveTypes) or of the built-in abstract type
 [`Edm.PrimitiveType`](#BuiltInAbstractTypes).
 
 The type definition's name is a [simple identifier](#SimpleIdentifier)
-that MUST be unique within its schema.
+that MUST be unique among all direct children of its [schema](#Schema).
 
 Type definitions can be used wherever a primitive type is used (other
 than as the underlying type in a new type definition) and are

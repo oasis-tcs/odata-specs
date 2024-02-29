@@ -33,7 +33,7 @@ the schema namespace. Its value is an object that MAY contain the
 members [`$Alias`](#Alias) and
 [`$Annotations`](#AnnotationswithExternalTargeting).
 
-The schema object MAY contain members representing [entity
+The schema object MAY contain members representing its direct children: [entity
 types](#EntityType), [complex types](#ComplexType), [enumeration
 types](#EnumerationType), [type definitions](#TypeDefinition),
 [actions](#Action), [functions](#Function), [terms](#Term), and an
@@ -50,7 +50,7 @@ The `edm:Schema` element defines a
 schema. It MUST contain the `Namespace` attribute and it MAY
 contain the `Alias` attribute.
 
-It MAY contain elements [`edm:Action`](#Action),
+It MAY contain elements representing its direct children: [`edm:Action`](#Action),
 [`edm:Annotations`](#AnnotationswithExternalTargeting),
 [`edm:Annotation`](#Annotation), [`edm:ComplexType`](#ComplexType),
 [`edm:EntityContainer`](#EntityContainer),
@@ -200,7 +200,7 @@ type is the template for an entity: any uniquely identifiable record
 such as a customer or order.
 
 The entity type's name is a [simple identifier](#SimpleIdentifier) that
-MUST be unique within its schema.
+MUST be unique among all direct children of its [schema](#Schema).
 
 An entity type can define two types of properties. A [structural
 property](#StructuralProperty) is a named reference to a primitive,
