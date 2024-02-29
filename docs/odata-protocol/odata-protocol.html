@@ -12,15 +12,18 @@
     div.columns{display: flex; gap: min(4vw, 1.5em);}
     div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
     ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
       width: 0.8em;
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span { line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -87,23 +90,22 @@
   <link rel="stylesheet" href="styles/odata.css" />
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <p><img src="https://docs.oasis-open.org/templates/OASISLogo-v3.0.png" alt="OASIS Logo" /></p>
 <hr />
 <h1 id="odata-version-402-part-1-protocol">OData Version 4.02. Part 1: Protocol</h1>
 <h2 id="committee-specification-draft-01">Committee Specification Draft 01</h2>
-<h2 id="14-july-2023">14 July 2023</h2>
+<h2 id="28-february-2024">28 February 2024</h2>
 <p><span class="math inline">\(\hbox{}\)</span></p>
 <h4 id="this-stage">This stage:</h4>
+<p><a href="https://docs.oasis-open.org/odata/odata/v4.02/csd02/odata-v4.02-csd02-part1-protocol.md">https://docs.oasis-open.org/odata/odata/v4.02/csd02/odata-v4.02-csd02-part1-protocol.md</a> (Authoritative)<br />
+<a href="https://docs.oasis-open.org/odata/odata/v4.02/csd02/odata-v4.02-csd02-part1-protocol.html">https://docs.oasis-open.org/odata/odata/v4.02/csd02/odata-v4.02-csd02-part1-protocol.html</a><br />
+<a href="https://docs.oasis-open.org/odata/odata/v4.02/csd02/odata-v4.02-csd02-part1-protocol.pdf">https://docs.oasis-open.org/odata/odata/v4.02/csd02/odata-v4.02-csd02-part1-protocol.pdf</a></p>
+<h4 id="previous-stage">Previous stage:</h4>
 <p><a href="https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part1-protocol.md">https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part1-protocol.md</a> (Authoritative)<br />
 <a href="https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part1-protocol.html">https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part1-protocol.html</a><br />
 <a href="https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part1-protocol.pdf">https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part1-protocol.pdf</a></p>
-<h4 id="previous-stage">Previous stage:</h4>
-<p>N/A</p>
 <h4 id="latest-stage">Latest stage:</h4>
 <p><a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.md">https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.md</a> (Authoritative)<br />
 <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html">https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html</a><br />
@@ -120,8 +122,9 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <h4 id="additional-artifacts">Additional artifacts:</h4>
 <p>This prose specification is one component of a Work Product that also includes:</p>
 <ul>
-<li><em>OData Version 4.02 Part 1: Protocol</em> (this document). <a href="https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part1-protocol.html">https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part1-protocol.html</a></li>
-<li><em>OData Version 4.02 Part 2: URL Conventions</em>. <a href="https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part2-url-conventions.html">https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part2-url-conventions.html</a></li>
+<li><em>OData Version 4.02 Part 1: Protocol</em> (this document). <a href="https://docs.oasis-open.org/odata/odata/v4.02/csd02/odata-v4.02-csd02-part1-protocol.html">https://docs.oasis-open.org/odata/odata/v4.02/csd02/odata-v4.02-csd02-part1-protocol.html</a></li>
+<li><em>OData Version 4.02 Part 2: URL Conventions</em>. <a href="https://docs.oasis-open.org/odata/odata/v4.02/csd02/odata-v4.02-csd02-part2-url-conventions.html">https://docs.oasis-open.org/odata/odata/v4.02/csd02/odata-v4.02-csd02-part2-url-conventions.html</a></li>
+<li>ABNF components: <em>OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases Version 4.02</em>. <a href="https://docs.oasis-open.org/odata/odata/v4.02/csd02/abnf/">https://docs.oasis-open.org/odata/odata/v4.02/csd02/abnf/</a>.</li>
 </ul>
 <h4 id="related-work"><a name="RelatedWork">Related work:</a></h4>
 <p>This specification replaces or supersedes:</p>
@@ -150,9 +153,9 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <h4 id="citation-format">Citation format:</h4>
 <p>When referencing this specification the following citation format should be used:</p>
 <p><strong>[OData-v4.02-Part1]</strong></p>
-<p><em>OData Version 4.02. Part 1: Protocol</em>. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. 14 July 2023. OASIS Committee Specification Draft 01. <a href="https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part1-protocol.html">https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part1-protocol.html</a>. Latest stage: <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html">https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html</a>.</p>
+<p><em>OData Version 4.02. Part 1: Protocol</em>. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. 28 February 2024. OASIS Committee Specification Draft 01. <a href="https://docs.oasis-open.org/odata/odata/v4.02/csd02/odata-v4.02-csd02-part1-protocol.html">https://docs.oasis-open.org/odata/odata/v4.02/csd02/odata-v4.02-csd02-part1-protocol.html</a>. Latest stage: <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html">https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html</a>.</p>
 <h4 id="notices">Notices</h4>
-<p>Copyright © OASIS Open 2023. All Rights Reserved.</p>
+<p>Copyright © OASIS Open 2024. All Rights Reserved.</p>
 <p>Distributed under the terms of the OASIS <a href="https://www.oasis-open.org/policies-guidelines/ipr/">IPR Policy</a>.</p>
 <p>The name “OASIS” is a trademark of <a href="https://www.oasis-open.org/">OASIS</a>, the owner and developer of this specification, and should be used only to refer to the organization and its official outputs.</p>
 <p>For complete copyright information please see the full Notices section in an Appendix below.</p>
@@ -508,6 +511,11 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td>Setting a complex property to a different type</td>
 <td><a href="https://issues.oasis-open.org/browse/ODATA-1472">ODATA-1472</a></td>
 </tr>
+<tr class="even">
+<td><a href="#InteroperableODataClients">Section 12.3</a></td>
+<td>Encoding of plus character in URLs</td>
+<td><a href="https://issues.oasis-open.org/browse/ODATA-1540">ODATA-1540</a></td>
+</tr>
 </tbody>
 </table>
 <h2 id="12-glossary"><a name="Glossary" href="#Glossary">1.2 Glossary</a></h2>
@@ -525,10 +533,10 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>All examples in this document are non-normative and informative only.</p>
 <p>All other text is normative unless otherwise labeled.</p>
 <div class="example">
-<p>Here is a customized command line which will generate HTML from this markdown file (named <code>odata-v4.02-csd01-part1-protocol.md</code>). Line breaks are added for readability only:</p>
+<p>Here is a customized command line which will generate HTML from this markdown file (named <code>odata-v4.02-csd02-part1-protocol.md</code>). Line breaks are added for readability only:</p>
 <pre><code>pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        -t html
-       -o odata-v4.02-csd01-part1-protocol.html
+       -o odata-v4.02-csd02-part1-protocol.html
        -c styles/markdown-styles-v1.7.3b.css
        -c styles/odata.css
        -s
@@ -536,8 +544,8 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
        --eol=lf
        --wrap=none
        --metadata pagetitle=&quot;OData Version 4.02. Part 1: Protocol&quot;
-       odata-v4.02-csd01-part1-protocol.md</code></pre>
-<p>This uses pandoc 3.1.2 from <a href="https://github.com/jgm/pandoc/releases/tag/3.1.2">https://github.com/jgm/pandoc/releases/tag/3.1.2</a>.</p>
+       odata-v4.02-csd02-part1-protocol.md</code></pre>
+<p>This uses pandoc 3.1.11.1 from <a href="https://github.com/jgm/pandoc/releases/tag/3.1.11.1">https://github.com/jgm/pandoc/releases/tag/3.1.11.1</a>.</p>
 </div>
 <hr />
 <h1 id="2-overview"><a name="Overview" href="#Overview">2 Overview</a></h1>
@@ -601,7 +609,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The edit URL of a property is the edit URL of the entity with appended segment(s) containing the path to the property.</p>
 <p>Services are strongly encouraged to use the canonical URL for an entity as defined in <strong>OData-URL</strong> for both the read URL and the edit URL of an entity, with a cast segment to the type of the entity appended to the canonical URL if the type of the entity is derived from the declared type of the entity set. However, clients cannot assume this convention and must use the links specified in the payload according to the appropriate format as the two URLs may be different from one another, or one or both of them may differ from convention.</p>
 <h2 id="43-transient-entities"><a name="TransientEntities" href="#TransientEntities">4.3 Transient Entities</a></h2>
-<p>Transient entities are instances of an entity type that are “calculated on the fly” and only exist within a single payload. They cannot be reread or updated and consequently possess neither a stable entity-id nor a read URL or an update URL.</p>
+<p>Transient entities are instances of an entity type that are dynamically generated on request and only exist within a response payload. They do not possess an entity-id or an update URL and consequently cannot be updated. A transient entity may have a read URL, which generates a new transient entity using the same algorithm.</p>
 <h2 id="44-default-namespaces"><a name="DefaultNamespaces" href="#DefaultNamespaces">4.4 Default Namespaces</a></h2>
 <p>References to actions, functions, and types within a URL typically requires prefixing the name of the action, function, or type with the namespace or alias in which it is defined. This namespace qualification enables differentiating between similarly named elements across schema, or between properties and bound functions, actions, or types with the same name.</p>
 <p>Services MAY define one or more default namespaces through the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a> term defined in <a href="#ODataVocCore">OData-VocCore</a>. Functions, actions and types in a default namespace can be referenced in URLs with or without namespace or alias qualification.</p>
@@ -2213,7 +2221,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>4.01 services MUST support invoking actions with no non-binding parameters and parameterless action imports both without a request body and with a request body representing no parameters, according to the particular format. Interoperable clients SHOULD always include a request body, even when invoking actions with no non-binding parameters and parameterless action imports.</p>
 <p>If the action returns results, the client SHOULD use content type negotiation to request the results in the desired format, otherwise the default content type will be used.</p>
 <p>The client can request whether any results from the action be returned using the <a href="#Preferencereturnrepresentationandreturnminimal"><code>return</code></a> preference.</p>
-<p>Actions that create and return a single entity follow the rules for <a href="#CreateanEntity">entity creation</a> and return a <a href="#HeaderLocation"><code>Location</code></a> header that contains the edit URL or read URL of the created entity.</p>
+<p>Actions that create and return a single entity follow the rules for <a href="#CreateanEntity">entity creation</a> and return a <a href="#HeaderLocation"><code>Location</code></a> header that contains the edit URL or read URL of the created entity. They MAY be annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Constructor"><code>Core.Constructor</code></a> defined in <a href="#ODataVocCore">OData-VocCore</a>.</p>
 <p>If the action returns a value of type <code>Edm.Stream</code>, the response to the <code>POST</code> request follows the rules for <a href="#RequestingStreamProperties">requesting stream properties</a>.</p>
 <p>Actions without a return type respond with <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> on success.</p>
 <p>To request processing of the action only if the binding parameter value, an entity or collection of entities, is unmodified, the client includes the <a href="#HeaderIfMatch"><code>If-Match</code></a> header with the latest known ETag value for the entity or collection of entities. The ETag value for a collection as a whole is transported in the <a href="#HeaderETag"><code>ETag</code></a> header of a collection response.</p>
@@ -2284,7 +2292,7 @@ Content-Type: application/json
 <p>Each individual request within a batch request MAY have a request identifier assigned. The request identifier is case-sensitive, MUST be unique within the batch request, and MUST satisfy the rule <code>request-id</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>The representation of the request identifier is format-specific, as are the rules for which individual requests require an identifier.</p>
 <h3 id="1174-referencing-returned-entities"><a name="ReferencingReturnedEntities" href="#ReferencingReturnedEntities">11.7.4 Referencing Returned Entities</a></h3>
-<p>Entities created by an <a href="#CreateanEntity">insert</a> request can be referenced in the request URL of subsequent requests by using the request identifier prefixed with a <code>$</code> character as the first segment of the request URL. If the <a href="#HeaderLocation"><code>Location</code></a> header in the response contains a relative URL, clients MUST be able to resolve it relative to the request’s URL even if that contains such a reference.</p>
+<p>Entities created by an <a href="#CreateanEntity">insert</a> request or an <a href="#InvokinganAction">action</a> can be referenced in the request URL of subsequent requests by using the request identifier prefixed with a <code>$</code> character as the first segment of the request URL. If the <a href="#HeaderLocation"><code>Location</code></a> header in the response contains a relative URL, clients MUST be able to resolve it relative to the request’s URL even if that contains such a reference.</p>
 <p>If the <code>$</code>-prefixed request identifier is identical to the name of a top-level system resource (<code>$batch</code>, <code>$crossjoin</code>, <code>$all</code>, <code>$entity</code>, <code>$root</code>, <code>$id</code>, <code>$metadata</code>, or other system resources defined according to the <a href="#HeaderODataVersion"><code>OData-Version</code></a> of the protocol specified in the request), then the reference to the top-level system resource is used. This collision can be avoided by e.g. using only numeric request identifiers.</p>
 <p>Services MAY also support referencing within request bodies, in which case they SHOULD advertise this support by specifying the <code>ReferencesInRequestBodiesSupported</code> property in the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#BatchSupport"><code>Capabilities.BatchSupport</code></a> term applied to the entity container, see <a href="#ODataVocCap">OData-VocCap</a>.</p>
 <h3 id="1175-referencing-the-etag-of-an-entity"><a name="ReferencingtheETagofanEntity" href="#ReferencingtheETagofanEntity">11.7.5 Referencing the ETag of an Entity</a></h3>
@@ -2397,7 +2405,7 @@ Host: host
 --batch_36522ad7-fc75-4b56-8c71-56071383e77b--</code></pre>
 </div>
 <h4 id="11772-referencing-new-entities"><a name="ReferencingNewEntities" href="#ReferencingNewEntities">11.7.7.2 Referencing New Entities</a></h4>
-<p>Entities created by an <a href="#CreateanEntity">Insert</a> request can be referenced in the request URL of subsequent requests within the same change set. Services MAY also support referencing across change sets, in which case they SHOULD advertise this support by specifying the <code>ReferencesAcrossChangeSetsSupported</code> property in the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#BatchSupport"><code>Capabilities.BatchSupport</code></a> term applied to the entity container, see <a href="#ODataVocCap">OData-VocCap</a>.</p>
+<p>Entities created by an <a href="#CreateanEntity">insert</a> request or an <a href="#InvokinganAction">action</a> can be referenced in the request URL of subsequent requests within the same change set. Services MAY also support referencing across change sets, in which case they SHOULD advertise this support by specifying the <code>ReferencesAcrossChangeSetsSupported</code> property in the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#BatchSupport"><code>Capabilities.BatchSupport</code></a> term applied to the entity container, see <a href="#ODataVocCap">OData-VocCap</a>.</p>
 <div class="example">
 <p>Example 105: a batch request that contains the following operations in the order listed:</p>
 <p>A change set that contains the following requests:</p>
@@ -2860,6 +2868,7 @@ Content-Length: ###
 <li>MUST generate <code>PATCH</code> requests for updates, if the client supports updates (<a href="#UpdateanEntity">section 11.4.3</a>)</li>
 <li>MUST include the <code>$</code> prefix when specifying OData-defined system query options</li>
 <li>MUST use case-sensitive query options, operators, and canonical functions</li>
+<li>MUST encode the plus character (octet <code>0x2B</code>) as <code>%2B</code> in URLs to avoid servers mis-interpreting the plus character as an encoded space</li>
 <li>SHOULD support basic authentication as defined in <a href="#rfc7617">RFC7617</a> over HTTPS</li>
 <li>MAY request entity references in place of entities previously returned in the response (<a href="#RequestingEntityReferences">section 11.2.8</a>)</li>
 <li>MAY support deleted entities, link entities, deleted link entities in a delta response (<a href="#RequestingChanges">section 11.3</a>)</li>
@@ -2868,7 +2877,7 @@ Content-Length: ###
 <li>MAY support <code>streaming</code> in a JSON response (see <a href="#ODataJSON">OData-JSON</a>)</li>
 </ol>
 <p>In addition, interoperable OData 4.01 clients</p>
-<ol start="16" type="1">
+<ol start="17" type="1">
 <li>MUST send OData 4.0-compliant payloads to services that don’t advertise support for 4.01 or greater through the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ODataVersions"><code>Core.ODataVersions</code></a> metadata annotation (see <a href="#ODataVocCore">OData-VocCore</a>)</li>
 <li>MUST specify identifiers in payloads and URLs in the case they are specified in <code>$metadata</code></li>
 <li>MUST be prepared to receive any valid 4.01 CSDL</li>
@@ -3085,7 +3094,7 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <h1 id="appendix-e-notices"><a name="Notices" href="#Notices">Appendix E. Notices</a></h1>
 <!-- Required section. Do not modify. -->
 
-<p>Copyright © OASIS Open 2023. All Rights Reserved.</p>
+<p>Copyright © OASIS Open 2024. All Rights Reserved.</p>
 <p>All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the “OASIS IPR Policy”). The full <a href="https://www.oasis-open.org/policies-guidelines/ipr/">Policy</a> may be found at the OASIS website.</p>
 <p>This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published, and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this section are included on all such copies and derivative works. However, this document itself may not be modified in any way, including by removing the copyright notice or references to OASIS, except as needed for the purpose of developing any document or deliverable produced by an OASIS Technical Committee (in which case the rules applicable to copyrights, as set forth in the OASIS IPR Policy, must be followed) or as required to translate it into languages other than English.</p>
 <p>The limited permissions granted above are perpetual and will not be revoked by OASIS or its successors or assigns.</p>

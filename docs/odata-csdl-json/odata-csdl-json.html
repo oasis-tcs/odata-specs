@@ -12,15 +12,18 @@
     div.columns{display: flex; gap: min(4vw, 1.5em);}
     div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
     ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
       width: 0.8em;
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span { line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -87,23 +90,22 @@
   <link rel="stylesheet" href="styles/odata.css" />
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <p><img src="https://docs.oasis-open.org/templates/OASISLogo-v3.0.png" alt="OASIS Logo" /></p>
 <hr />
 <h1 id="odata-common-schema-definition-language-csdl-json-representation-version-402">OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02</h1>
 <h2 id="committee-specification-draft-01">Committee Specification Draft 01</h2>
-<h2 id="14-july-2023">14 July 2023</h2>
+<h2 id="28-february-2024">28 February 2024</h2>
 <p><span class="math inline">\(\hbox{}\)</span></p>
 <h4 id="this-stage">This stage:</h4>
+<p><a href="https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd02/odata-csdl-json-v4.02-csd02.md">https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd02/odata-csdl-json-v4.02-csd02.md</a> (Authoritative)<br />
+<a href="https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd02/odata-csdl-json-v4.02-csd02.html">https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd02/odata-csdl-json-v4.02-csd02.html</a><br />
+<a href="https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd02/odata-csdl-json-v4.02-csd02.pdf">https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd02/odata-csdl-json-v4.02-csd02.pdf</a></p>
+<h4 id="previous-stage">Previous stage:</h4>
 <p><a href="https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd01/odata-csdl-json-v4.02-csd01.md">https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd01/odata-csdl-json-v4.02-csd01.md</a> (Authoritative)<br />
 <a href="https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd01/odata-csdl-json-v4.02-csd01.html">https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd01/odata-csdl-json-v4.02-csd01.html</a><br />
 <a href="https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd01/odata-csdl-json-v4.02-csd01.pdf">https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd01/odata-csdl-json-v4.02-csd01.pdf</a></p>
-<h4 id="previous-stage">Previous stage:</h4>
-<p>N/A</p>
 <h4 id="latest-stage">Latest stage:</h4>
 <p><a href="https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.md">https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.md</a> (Authoritative)<br />
 <a href="https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html">https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html</a><br />
@@ -120,7 +122,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <h4 id="additional-artifacts"><a name="AdditionalArtifacts">Additional artifacts:</a></h4>
 <p>This prose specification is one component of a Work Product that also includes:</p>
 <ul>
-<li>JSON schemas: <em>OData CSDL JSON schema</em>. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd01/schemas/">https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd01/schemas/</a>.</li>
+<li>JSON schemas: <em>OData CSDL JSON schema</em>. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd02/schemas/">https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd02/schemas/</a>.</li>
 </ul>
 <h4 id="related-work"><a name="RelatedWork">Related work:</a></h4>
 <p>This specification replaces or supersedes:</p>
@@ -133,7 +135,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <ul>
 <li><em>OData Version 4.02 Part 1: Protocol</em>. Latest stage: <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html">https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html</a></li>
 <li><em>OData Version 4.02 Part 2: URL Conventions</em>. Latest stage: <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html">https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html</a></li>
-<li><em>ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases</em>. <a href="https://docs.oasis-open.org/odata/odata/v4.02/csd01/abnf/">https://docs.oasis-open.org/odata/odata/v4.02/csd01/abnf/</a></li>
+<li><em>ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases</em>. <a href="https://docs.oasis-open.org/odata/odata/v4.02/csd02/abnf/">https://docs.oasis-open.org/odata/odata/v4.02/csd02/abnf/</a></li>
 </ul></li>
 <li><em>OData Vocabularies Version 4.0</em>. Edited by Michael Pizzo, Ralf Handl, and Ram Jeyaraman. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/odata-vocabularies-v4.0.html">https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/odata-vocabularies-v4.0.html</a></li>
 <li><em>OData Common Schema Definition Language (CSDL) XML Representation Version 4.02</em>. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/odata-csdl-xml-v4.02.html">https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/odata-csdl-xml-v4.02.html</a></li>
@@ -151,9 +153,9 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <h4 id="citation-format">Citation format:</h4>
 <p>When referencing this specification the following citation format should be used:</p>
 <p><strong>[OData-CSDL-JSON-v4.02]</strong></p>
-<p><em>OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02</em>. Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. 14 July 2023. OASIS Committee Specification Draft 01. <a href="https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd01/odata-csdl-json-v4.02-csd01.html">https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd01/odata-csdl-json-v4.02-csd01.html</a>. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html">https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html</a>.</p>
+<p><em>OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02</em>. Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. 28 February 2024. OASIS Committee Specification Draft 01. <a href="https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd02/odata-csdl-json-v4.02-csd02.html">https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd02/odata-csdl-json-v4.02-csd02.html</a>. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html">https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html</a>.</p>
 <h4 id="notices">Notices</h4>
-<p>Copyright © OASIS Open 2023. All Rights Reserved.</p>
+<p>Copyright © OASIS Open 2024. All Rights Reserved.</p>
 <p>Distributed under the terms of the OASIS <a href="https://www.oasis-open.org/policies-guidelines/ipr/">IPR Policy</a>.</p>
 <p>The name “OASIS” is a trademark of <a href="https://www.oasis-open.org/">OASIS</a>, the owner and developer of this specification, and should be used only to refer to the organization and its official outputs.</p>
 <p>For complete copyright information please see the full Notices section in an Appendix below.</p>
@@ -380,14 +382,14 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="#PathEvaluation">Section 14.4.1.2</a></td>
-<td>New path evaluation rules for annotations targeting annotations and external targeting via container</td>
-<td><a href="https://issues.oasis-open.org/browse/ODATA-1420">ODATA-1420</a></td>
-</tr>
-<tr class="even">
 <td><a href="#PrimitiveTypes">Section 3.3</a></td>
 <td>Allow stream-valued non-binding parameters</td>
 <td><a href="https://issues.oasis-open.org/browse/ODATA-1481">ODATA-1481</a></td>
+</tr>
+<tr class="even">
+<td><a href="#PathEvaluation">Section 14.4.1.2</a></td>
+<td>New path evaluation rules for annotations targeting annotations and external targeting via container</td>
+<td><a href="https://issues.oasis-open.org/browse/ODATA-1420">ODATA-1420</a></td>
 </tr>
 </tbody>
 </table>
@@ -411,10 +413,10 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </section>
 <p>All other text is normative unless otherwise labeled.</p>
 <div class="example">
-<p>Here is a customized command line which will generate HTML from this markdown file (named <code>odata-csdl-json-v4.02-csd01.md</code>). Line breaks are added for readability only:</p>
+<p>Here is a customized command line which will generate HTML from this markdown file (named <code>odata-csdl-json-v4.02-csd02.md</code>). Line breaks are added for readability only:</p>
 <pre><code>pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        -t html
-       -o odata-csdl-json-v4.02-csd01.html
+       -o odata-csdl-json-v4.02-csd02.html
        -c styles/markdown-styles-v1.7.3b.css
        -c styles/odata.css
        -s
@@ -422,8 +424,8 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
        --eol=lf
        --wrap=none
        --metadata pagetitle=&quot;OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02&quot;
-       odata-csdl-json-v4.02-csd01.md</code></pre>
-<p>This uses pandoc 3.1.2 from <a href="https://github.com/jgm/pandoc/releases/tag/3.1.2">https://github.com/jgm/pandoc/releases/tag/3.1.2</a>.</p>
+       odata-csdl-json-v4.02-csd02.md</code></pre>
+<p>This uses pandoc 3.1.11.1 from <a href="https://github.com/jgm/pandoc/releases/tag/3.1.11.1">https://github.com/jgm/pandoc/releases/tag/3.1.11.1</a>.</p>
 </div>
 <!-- These source files can be used to produce the JSON variant or the XML variant,
      by using either new Number("...", "json") or new Number("...", "xml").
@@ -991,7 +993,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h2 id="52-annotations-with-external-targeting"><a name="AnnotationswithExternalTargeting" href="#AnnotationswithExternalTargeting">5.2 Annotations with External Targeting</a></h2>
 <section id="annotations" class="varjson rep">
 <h3><a name="Annotations.4.2" href="#Annotations.4.2"><code>$Annotations</code></a></h3>
-<p>The value of <code>$Annotations</code> is an object with one member per <a href="#Target">annotation target</a>. The member name is a path identifying the <a href="#Target">annotation target</a>, the member value is an object containing <a href="#Annotation">annotations</a> for that target.</p>
+<p>The value of <code>$Annotations</code> is an object with one member per <a href="#Target">annotation target</a>. The member name is an expression identifying the <a href="#Target">annotation target</a>. It MUST resolve to a model element in scope. The member value is an object containing <a href="#Annotation">annotations</a> for that target.</p>
 </section>
 <div class="varjson example">
 <p>Example 12: annotations targeting the <code>Person</code> type with qualifier <code>Tablet</code></p>
@@ -2273,7 +2275,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <thead>
 <tr class="header">
 <th>Model element</th>
-<th>Can be targeted with path expression (see also <a href="#PathSyntax">section 14.4.1.1</a>)</th>
+<th>External targeting syntax</th>
 <th><div class="example"><p>Example 42: Target expressions</p></div></th>
 </tr>
 </thead>
@@ -2400,7 +2402,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </tr>
 </tbody>
 </table>
-<p>All <a href="#QualifiedName">qualified names</a> used in a target path MUST be in scope.</p>
+<p>All <a href="#QualifiedName">qualified names</a> used in a target expression MUST be in scope.</p>
 <p>External targeting is possible for properties and navigation properties of singletons or entities in a particular entity set. These annotations override annotations on the properties or navigation properties targeted via the declaring structured type.</p>
 <h2 id="143-constant-expression"><a name="ConstantExpression" href="#ConstantExpression">14.3 Constant Expression</a></h2>
 <p>Constant expressions allow assigning a constant value to an applied term.</p>
@@ -2594,8 +2596,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>For annotations hosted by a structural or navigation property, the path evaluation rules additionally depend upon how the annotation target is specified, as follows:</p>
 <ol type="1">
 <li><p>If the annotation is directly or indirectly embedded within the hosting property, the path is evaluated starting at the directly enclosing type of the hosting property. This allows e.g. specifying the value of an annotation on one property to be calculated from values of other properties of the same enclosing type. An empty path resolves to the enclosing type, and non-empty paths MUST follow the rules for annotations targeting the directly enclosing type.</p></li>
-<li><p>If the annotation uses targeting and the target path starts with an entity container, or the annotation is directly or indirectly embedded within such an annotation, the path is evaluated starting at the declared type of the hosting property. An empty path resolves to the declared type of the property, and non-empty paths MUST follow the rules for annotations targeting the declared type of the property. If the type is primitive, the first segment of a non-empty path MUST be a <a href="#TypeCast">type cast</a> or a <a href="#TermCast">term cast</a>.</p></li>
-<li><p>If the annotation uses targeting and the target path does not start with an entity container, or the annotation is directly or indirectly embedded within such an annotation, the path is evaluated starting at the <em>outermost</em> entity type or complex type named in the target path. This allows e.g. specifying the value of an annotation on one property to be calculated from values of other properties of the outermost type. An empty path resolves to the outermost type, and the first segment of a non-empty path MUST be a structural or navigation property of the outermost type, a <a href="#TypeCast">type cast</a>, or a <a href="#TermCast">term cast</a>.</p></li>
+<li><p>If the annotation uses targeting and the target expression starts with an entity container, or the annotation is directly or indirectly embedded within such an annotation, the path is evaluated starting at the declared type of the hosting property. An empty path resolves to the declared type of the property, and non-empty paths MUST follow the rules for annotations targeting the declared type of the property. If the type is primitive, the first segment of a non-empty path MUST be a <a href="#TypeCast">type cast</a> or a <a href="#TermCast">term cast</a>.</p></li>
+<li><p>If the annotation uses targeting and the target expression does not start with an entity container, or the annotation is directly or indirectly embedded within such an annotation, the path is evaluated starting at the <em>outermost</em> entity type or complex type named in the target expression. This allows e.g. specifying the value of an annotation on one property to be calculated from values of other properties of the outermost type. An empty path resolves to the outermost type, and the first segment of a non-empty path MUST be a structural or navigation property of the outermost type, a <a href="#TypeCast">type cast</a>, or a <a href="#TermCast">term cast</a>.</p></li>
 </ol>
 <div class="example">
 <p>Example 67: Annotations hosted by property <code>A2</code> in various modes</p>
@@ -2644,7 +2646,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <span id="cb75-18"><a href="#cb75-18" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
 <span id="cb75-19"><a href="#cb75-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span></code></pre></div>
 </div>
-<p>Path evaluation for the annotations in the final block starts at the outermost type <code>self.A</code> named in the target path.</p>
+<p>Path evaluation for the annotations in the final block starts at the outermost type <code>self.A</code> named in the target expression.</p>
 <div class="varjson">
 <div class="sourceCode" id="cb76"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>    <span class="er">&quot;self.A/A2&quot;:</span> <span class="fu">{</span></span>
 <span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@Core.Description#external@Core.IsLanguageDependent&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
@@ -3327,7 +3329,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <li>The target path of a container child followed by a forward slash and one or more forward-slash separated property, navigation property, or type-cast segments</li>
 </ul>
 <div class="example">
-<p>Example 89: Target expressions</p>
+<p>Example 89: Target paths</p>
 <pre><code>MySchema.MyEntityContainer/MyEntitySet</code></pre>
 <pre><code>MySchema.MyEntityContainer/MySingleton</code></pre>
 <pre><code>MySchema.MyEntityContainer/MySingleton/MyContainmentNavigationProperty</code></pre>
@@ -3943,7 +3945,7 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Committee Specification Draft 01</td>
-<td style="text-align: left;">2023-07-14</td>
+<td style="text-align: left;">2024-02-28</td>
 <td style="text-align: left;">Michael Pizzo<br>Ralf Handl<br>Heiko Theißen</td>
 <td style="text-align: left;"></td>
 </tr>
@@ -3962,7 +3964,7 @@ Candidate OASIS Standard 02     |2020-04-09|Michael Pizzo<br>Ralf Handl| Non-mat
 -->
 
 <h1 id="appendix-e-notices"><a name="Notices" href="#Notices">Appendix E. Notices</a></h1>
-<p>Copyright © OASIS Open 2023. All Rights Reserved.</p>
+<p>Copyright © OASIS Open 2024. All Rights Reserved.</p>
 <p>All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the “OASIS IPR Policy”). The full <a href="https://www.oasis-open.org/policies-guidelines/ipr/">Policy</a> may be found at the OASIS website.</p>
 <p>This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published, and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this section are included on all such copies and derivative works. However, this document itself may not be modified in any way, including by removing the copyright notice or references to OASIS, except as needed for the purpose of developing any document or deliverable produced by an OASIS Technical Committee (in which case the rules applicable to copyrights, as set forth in the OASIS IPR Policy, must be followed) or as required to translate it into languages other than English.</p>
 <p>The limited permissions granted above are perpetual and will not be revoked by OASIS or its successors or assigns.</p>

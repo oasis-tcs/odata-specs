@@ -29,6 +29,9 @@ Schema Definition Language (XSD) 1.1 as described in
 
 Section | Feature / Change | Issue
 --------|------------------|------
+[Section ##PrimitiveTypes]| 
+Allow stream-valued non-binding parameters| 
+[ODATA-1481](https://issues.oasis-open.org/browse/ODATA-1481)
 : varxml
 [Section ##EntityContainer]| 
 All children of `edm:EntityContainer` are optional| 
@@ -37,9 +40,6 @@ All children of `edm:EntityContainer` are optional|
 [Section ##PathEvaluation]| 
 New path evaluation rules for annotations targeting annotations and external targeting via container| 
 [ODATA-1420](https://issues.oasis-open.org/browse/ODATA-1420)
-[Section ##PrimitiveTypes]| 
-Allow stream-valued non-binding parameters| 
-[ODATA-1481](https://issues.oasis-open.org/browse/ODATA-1481)
 
 ## ##subsec Glossary
 
@@ -91,7 +91,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        $$$filename$$$.md
 ```
 
-This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
+This uses pandoc $$$pandoc-version$$$ from https://github.com/jgm/pandoc/releases/tag/$$$pandoc-version$$$.
 :::
 
 <!-- These source files can be used to produce the JSON variant or the XML variant,
