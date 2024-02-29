@@ -303,7 +303,7 @@ All examples in this document are non-normative and informative only.
 
 All other text is normative unless otherwise labeled.
 
-<!-->
+<!--
 Here is a customized command line which will generate HTML from the markdown file (named `odata-v4.02-csd02-part2-url-conventions.md`). Line breaks are added for readability only:
 
 ```
