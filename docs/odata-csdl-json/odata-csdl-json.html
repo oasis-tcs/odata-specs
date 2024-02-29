@@ -2550,7 +2550,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </div>
 <h3 id="14314-stream-values"><a name="StreamValues" href="#StreamValues">14.3.14 Stream Values</a></h3>
 <div class="varjson rep">
-<p>Constant values of type <code>Edm.Stream</code> are represented according to <a href="#ODataJSON">OData-JSON</a> and MUST be accompanied by the control information <code>mediaContentType</code> to indicate how the stream value is to be interpreted.</p>
+<p>Constant values of type <code>Edm.Stream</code> are represented according to <a href="#ODataJSON">OData-JSON</a> and MUST be accompanied by the <code>mediaContentType</code> control information to indicate how the stream value is to be interpreted.</p>
 </div>
 <p>The annotation (property) being assigned a stream value MUST be annotated with term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#MediaType"><code>Core.MediaType</code></a> and the media type of the stream as its value.</p>
 <div class="varjson example">

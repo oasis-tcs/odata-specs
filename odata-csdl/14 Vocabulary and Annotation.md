@@ -1243,7 +1243,7 @@ Example ##ex:
 
 ::: {.varjson .rep}
 Constant values of type `Edm.Stream` are represented according to [OData-JSON](#ODataJSON) and MUST be accompanied by 
-the control information `mediaContentType` to indicate how the stream value is to be interpreted.
+the `mediaContentType` control information to indicate how the stream value is to be interpreted.
 :::
 
 ::: {.varxml .rep}

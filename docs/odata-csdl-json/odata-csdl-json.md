@@ -4186,7 +4186,7 @@ Example 58:
 ### <a name="StreamValues" href="#StreamValues">14.3.14 Stream Values</a>
 
 ::: {.varjson .rep}
-Constant values of type `Edm.Stream` are represented according to [OData-JSON](#ODataJSON) and MUST be accompanied by the control information `mediaContentType` to indicate how the stream value is to be interpreted.
+Constant values of type `Edm.Stream` are represented according to [OData-JSON](#ODataJSON) and MUST be accompanied by the `mediaContentType` control information to indicate how the stream value is to be interpreted.
 :::
 
 
