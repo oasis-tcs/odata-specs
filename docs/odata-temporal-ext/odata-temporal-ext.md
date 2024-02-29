@@ -292,7 +292,7 @@ All examples in this document are non-normative and informative only.
 
 All other text is normative unless otherwise labeled.
 
-::: example
+<!--
 Here is a customized command line which will generate HTML from the markdown file (named `odata-temporal-ext-v4.0-csd04.md`). Line breaks are added for readability only:
 
 ```
@@ -310,7 +310,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
 ```
 
 This uses pandoc 3.1.11.1 from https://github.com/jgm/pandoc/releases/tag/3.1.11.1.
-:::
+-->
 
 
 -------

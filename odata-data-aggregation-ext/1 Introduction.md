@@ -53,7 +53,7 @@ All examples in this document are non-normative and informative only. Examples l
 
 All other text is normative unless otherwise labeled.
 
-::: example
+<!--
 Here is a customized command line which will generate HTML from the markdown file (named `$$$filename$$$.md`). Line breaks are added for readability only:
 
 ```
@@ -71,7 +71,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
 ```
 
 This uses pandoc $$$pandoc-version$$$ from https://github.com/jgm/pandoc/releases/tag/$$$pandoc-version$$$.
-:::
+-->
 
 -------
 

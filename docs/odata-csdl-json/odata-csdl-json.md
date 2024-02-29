@@ -297,7 +297,7 @@ Normative representation-specific text
 
 All other text is normative unless otherwise labeled.
 
-::: example
+<!--
 Here is a customized command line which will generate HTML from the markdown file (named `odata-csdl-json-v4.02-csd02.md`). Line breaks are added for readability only:
 
 ```
@@ -315,7 +315,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
 ```
 
 This uses pandoc 3.1.11.1 from https://github.com/jgm/pandoc/releases/tag/3.1.11.1.
-:::
+-->
 
 <!-- These source files can be used to produce the JSON variant or the XML variant,
      by using either new Number("...", "json") or new Number("...", "xml").
