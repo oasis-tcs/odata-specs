@@ -96,6 +96,7 @@ The following scripts can be executed manually or as part of a GitHub Action:
   - a copy of the common [`styles`](../styles) folder
   - a copy of the document-specific `*/images` folder, if this exists.
 - [`npm run pdf`](build-pdf.mjs) runs the PDF conversion and writes the PDF document into the [`docs/*`](../docs) folder.
+- [`npm run zip <publication date>`](zip.js) creates ZIP files for OASIS public review of document with the given publication date. The ZIP files are written into the [`zip`](../zip) folder.
 - [`npm run select <CSS selector> [<XPath expression>]`](selector.mjs) selects parts of the generated HTML documents by executing a CSS selector and optionally an XPath expression relative to each match. For example, syntax errors in JSON code snippets can be detected with
   ```sh
   npm run select ".json .er" "self::*[.!='…']/text()"
