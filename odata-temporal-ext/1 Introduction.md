@@ -160,5 +160,5 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        $$$filename$$$.md
 ```
 
-This uses pandoc 3.1.11.1 from https://github.com/jgm/pandoc/releases/tag/3.1.11.1.
+This uses pandoc $$$pandoc-version$$$ from https://github.com/jgm/pandoc/releases/tag/$$$pandoc-version$$$.
 :::
