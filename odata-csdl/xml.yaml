@@ -1,9 +1,9 @@
 pagetitle: OData Common Schema Definition Language (CSDL) XML Representation Version 4.02
 subtitle: Committee Specification Draft 01
 dirname: odata-csdl-xml
-filename: odata-csdl-xml-v4.02-csd01
-stage: csd01
-previousStage: n/a
+filename: odata-csdl-xml-v4.02-csd02
+stage: csd02
+previousStage: csd01
 pubdate: 28 February 2024
 pubdateISO: '2024-02-28'
 copyright: © OASIS Open 2024
