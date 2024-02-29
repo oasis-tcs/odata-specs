@@ -29,6 +29,9 @@ Schema Definition Language (XSD) 1.1 as described in
 
 Section | Feature / Change | Issue
 --------|------------------|------
+[Section ##PrimitiveTypes]| 
+Allow stream-valued non-binding parameters| 
+[ODATA-1481](https://issues.oasis-open.org/browse/ODATA-1481)
 : varxml
 [Section ##EntityContainer]| 
 All children of `edm:EntityContainer` are optional| 
@@ -40,9 +43,6 @@ External targeting of bound action/function overloads via container or structure
 [Section ##PathEvaluation]| 
 New path evaluation rules for annotations targeting annotations and external targeting via container| 
 [ODATA-1420](https://issues.oasis-open.org/browse/ODATA-1420)
-[Section ##PrimitiveTypes]| 
-Allow stream-valued non-binding parameters| 
-[ODATA-1481](https://issues.oasis-open.org/browse/ODATA-1481)
 
 ## ##subsec Glossary
 

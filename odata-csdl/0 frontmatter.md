@@ -12,17 +12,19 @@
 $\hbox{}$
 
 #### This stage:
-https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/$$$stage$$$/$$$filename$$$.md (Authoritative) \
-https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/$$$stage$$$/$$$filename$$$.html \
-https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/$$$stage$$$/$$$filename$$$.pdf
+https://docs.oasis-open.org/odata/$$$dirname$$$/v4.02/$$$stage$$$/$$$filename$$$.md (Authoritative) \
+https://docs.oasis-open.org/odata/$$$dirname$$$/v4.02/$$$stage$$$/$$$filename$$$.html \
+https://docs.oasis-open.org/odata/$$$dirname$$$/v4.02/$$$stage$$$/$$$filename$$$.pdf
 
 #### Previous stage:
-N/A
+https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/$$$previousStage$$$/$$$dirname$$$-v4.02-$$$previousStage$$$.md (Authoritative) \
+https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/$$$previousStage$$$/$$$dirname$$$-v4.02-$$$previousStage$$$.html \
+https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/$$$previousStage$$$/$$$dirname$$$-v4.02-$$$previousStage$$$.pdf
 
 #### Latest stage:
-https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.md (Authoritative) \
-https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html \
-https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.pdf
+https://docs.oasis-open.org/odata/$$$dirname$$$/v4.02/$$$dirname$$$-v4.02.md (Authoritative) \
+https://docs.oasis-open.org/odata/$$$dirname$$$/v4.02/$$$dirname$$$-v4.02.html \
+https://docs.oasis-open.org/odata/$$$dirname$$$/v4.02/$$$dirname$$$-v4.02.pdf
 
 #### Technical Committee:
 [OASIS Open Data Protocol (OData) TC](https://www.oasis-open.org/committees/odata/)
@@ -88,15 +90,20 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 #### Citation format:
 When referencing this specification the following citation format should be used:
 
+: varxml
+**[OData-CSDL-XML-v4.02]**
+:
+: varjson
 **[OData-CSDL-JSON-v4.02]**
+:
 
-_OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02_.
-Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. 14 July 2023. OASIS Committee Specification Draft 01.
-https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/$$$stage$$$/$$$filename$$$.html.
-Latest stage: https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html.
+_$$$pagetitle$$$_.
+Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. $$$pubdate$$$. OASIS Committee Specification Draft 01.
+https://docs.oasis-open.org/odata/$$$dirname$$$/v4.02/$$$stage$$$/$$$filename$$$.html.
+Latest stage: https://docs.oasis-open.org/odata/$$$dirname$$$/v4.02/$$$dirname$$$-v4.02.html.
 
 #### Notices
-Copyright &copy; OASIS Open 2023. All Rights Reserved.
+Copyright $$$copyright$$$. All Rights Reserved.
 
 Distributed under the terms of the OASIS [IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/).
 
