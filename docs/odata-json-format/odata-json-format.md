@@ -7,17 +7,19 @@
 
 ## Committee Specification Draft 01
 
-## 14 July 2023
+## 28 February 2024
 
 $\hbox{}$
 
 #### This stage:
+https://docs.oasis-open.org/odata/odata-json-format/v4.02/csd02/odata-json-format-v4.02-csd02.md (Authoritative) \
+https://docs.oasis-open.org/odata/odata-json-format/v4.02/csd02/odata-json-format-v4.02-csd02.html \
+https://docs.oasis-open.org/odata/odata-json-format/v4.02/csd02/odata-json-format-v4.02-csd02.pdf
+
+#### Previous stage:
 https://docs.oasis-open.org/odata/odata-json-format/v4.02/csd01/odata-json-format-v4.02-csd01.md (Authoritative) \
 https://docs.oasis-open.org/odata/odata-json-format/v4.02/csd01/odata-json-format-v4.02-csd01.html \
 https://docs.oasis-open.org/odata/odata-json-format/v4.02/csd01/odata-json-format-v4.02-csd01.pdf
-
-#### Previous stage:
-N/A
 
 #### Latest stage:
 https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.md (Authoritative) \
@@ -47,7 +49,7 @@ This specification is related to:
 * _OData Version 4.02_. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. A multi-part Work Product that includes:
   * _OData Version 4.02 Part 1: Protocol_. Latest stage. https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html
   * _OData Version 4.02 Part 2: URL Conventions_. Latest stage. https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html
-  * _ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases_. https://docs.oasis-open.org/odata/odata/v4.02/csd01/abnf/
+  * _ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases_. https://docs.oasis-open.org/odata/odata/v4.02/csd02/abnf/
 * _OData Vocabularies Version 4.0_. Edited by Michael Pizzo, Ralf Handl, and Ram Jeyaraman. Latest stage: https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/odata-vocabularies-v4.0.html
 * _OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02_. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. Latest stage: https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html
 * _OData Common Schema Definition Language (CSDL) XML Representation Version 4.02_. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. Latest stage: https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/odata-csdl-xml-v4.02.html
@@ -73,12 +75,12 @@ When referencing this specification the following citation format should be used
 **[OData-JSON-Format-v4.02]**
 
 _OData JSON Format Version 4.02_.
-Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. 14 July 2023. OASIS Committee Specification Draft 01.
-https://docs.oasis-open.org/odata/odata-json-format/v4.02/csd01/odata-json-format-v4.02-csd01.html.
+Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. 28 February 2024. OASIS Committee Specification Draft 01.
+https://docs.oasis-open.org/odata/odata-json-format/v4.02/csd02/odata-json-format-v4.02-csd02.html.
 Latest stage: https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html.
 
 #### Notices
-Copyright © OASIS Open 2023. All Rights Reserved.
+Copyright © OASIS Open 2024. All Rights Reserved.
 
 Distributed under the terms of the OASIS [IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/).
 
@@ -238,12 +240,12 @@ All examples in this document are non-normative and informative only.
 All other text is normative unless otherwise labeled.
 
 ::: example
-Here is a customized command line which will generate HTML from this markdown file (named `odata-json-format-v4.02-csd01.md`). Line breaks are added for readability only:
+Here is a customized command line which will generate HTML from this markdown file (named `odata-json-format-v4.02-csd02.md`). Line breaks are added for readability only:
 
 ```
 pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        -t html
-       -o odata-json-format-v4.02-csd01.html
+       -o odata-json-format-v4.02-csd02.html
        -c styles/markdown-styles-v1.7.3b.css
        -c styles/odata.css
        -s
@@ -251,7 +253,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        --eol=lf
        --wrap=none
        --metadata pagetitle="OData JSON Format Version 4.02"
-       odata-json-format-v4.02-csd01.md
+       odata-json-format-v4.02-csd02.md
 ```
 
 This uses pandoc 3.1.11.1 from https://github.com/jgm/pandoc/releases/tag/3.1.11.1.
@@ -4035,7 +4037,7 @@ The contributions of the OASIS OData Technical Committee members, enumerated in 
 
 <!-- Required section. Do not modify. -->
 
-Copyright &copy; OASIS Open 2023. All Rights Reserved.
+Copyright © OASIS Open 2024. All Rights Reserved.
 
 All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the "OASIS IPR Policy"). The full [Policy](https://www.oasis-open.org/policies-guidelines/ipr/) may be found at the OASIS website.
 
