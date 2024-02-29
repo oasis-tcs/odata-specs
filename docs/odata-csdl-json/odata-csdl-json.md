@@ -403,7 +403,7 @@ The `metadata=minimal` format parameter indicates that the service
 SHOULD remove computable control information from the payload wherever
 possible.
 
-This means that the `@type` control information is only included if the
+This means that the `type` control information is only included if the
 type of the containing object or targeted property cannot be
 heuristically determined, e.g. for
 - Terms or term properties with an abstract declared type,
@@ -418,7 +418,7 @@ See [OData-JSON](#ODataJSON) for the exact rules.
 The `metadata=full` format parameter indicates that the service MUST
 include all control information explicitly in the payload.
 
-This means that the `@type` control information is included in
+This means that the `type` control information is included in
 annotation values except for primitive values whose type can be
 heuristically determined from the representation of the value, see
 [OData-JSON](#ODataJSON) for the exact rules.
@@ -4186,7 +4186,7 @@ Example 58:
 ### <a name="StreamValues" href="#StreamValues">14.3.14 Stream Values</a>
 
 ::: {.varjson .rep}
-Constant values of type `Edm.Stream` are represented according to [OData-JSON](#ODataJSON) and MUST be accompanied by the control information `@mediaContentType` to indicate how the stream value is to be interpreted.
+Constant values of type `Edm.Stream` are represented according to [OData-JSON](#ODataJSON) and MUST be accompanied by the control information `mediaContentType` to indicate how the stream value is to be interpreted.
 :::
 
 
@@ -5480,7 +5480,7 @@ Record expressions are represented as objects with one member per
 property value expression. The member name is the property name, and the
 member value is the property value expression.
 
-The type of a record expression is represented as the `@type` control
+The type of a record expression is represented as the `type` control
 information, see  [OData-JSON](#ODataJSON).
 
 It MAY contain [annotations](#Annotation) for itself and its members.

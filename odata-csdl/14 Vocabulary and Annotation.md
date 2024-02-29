@@ -1243,7 +1243,7 @@ Example ##ex:
 
 ::: {.varjson .rep}
 Constant values of type `Edm.Stream` are represented according to [OData-JSON](#ODataJSON) and MUST be accompanied by 
-the control information `@mediaContentType` to indicate how the stream value is to be interpreted.
+the control information `mediaContentType` to indicate how the stream value is to be interpreted.
 :::
 
 ::: {.varxml .rep}
@@ -3086,7 +3086,7 @@ Record expressions are represented as objects with one member per
 property value expression. The member name is the property name, and the
 member value is the property value expression.
 
-The type of a record expression is represented as the `@type` control
+The type of a record expression is represented as the `type` control
 information, see  [OData-JSON](#ODataJSON).
 
 It MAY contain [annotations](#Annotation) for itself and its members.

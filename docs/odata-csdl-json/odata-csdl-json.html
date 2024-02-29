@@ -478,7 +478,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>Other <code>Accept</code> header parameters are orthogonal to the <code>metadata</code> parameter and are therefore not mentioned in this section.</p>
 <h4 id="2121-metadataminimal"><a name="metadataminimal" href="#metadataminimal">2.1.2.1 <code>metadata=minimal</code></a></h4>
 <p>The <code>metadata=minimal</code> format parameter indicates that the service SHOULD remove computable control information from the payload wherever possible.</p>
-<p>This means that the <code>@type</code> control information is only included if the type of the containing object or targeted property cannot be heuristically determined, e.g. for</p>
+<p>This means that the <code>type</code> control information is only included if the type of the containing object or targeted property cannot be heuristically determined, e.g. for</p>
 <ul>
 <li>Terms or term properties with an abstract declared type,</li>
 <li>Terms or term properties with a declared type that has derived types, or</li>
@@ -487,7 +487,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>See <a href="#ODataJSON">OData-JSON</a> for the exact rules.</p>
 <h4 id="2122-metadatafull"><a name="metadatafull" href="#metadatafull">2.1.2.2 <code>metadata=full</code></a></h4>
 <p>The <code>metadata=full</code> format parameter indicates that the service MUST include all control information explicitly in the payload.</p>
-<p>This means that the <code>@type</code> control information is included in annotation values except for primitive values whose type can be heuristically determined from the representation of the value, see <a href="#ODataJSON">OData-JSON</a> for the exact rules.</p>
+<p>This means that the <code>type</code> control information is included in annotation values except for primitive values whose type can be heuristically determined from the representation of the value, see <a href="#ODataJSON">OData-JSON</a> for the exact rules.</p>
 <h4 id="2123-metadatanone"><a name="metadatanone" href="#metadatanone">2.1.2.3 <code>metadata=none</code></a></h4>
 <p>The <code>metadata=none</code> format parameter indicates that the service SHOULD omit all control information.</p>
 <h2 id="22-design-considerations"><a name="DesignConsiderations" href="#DesignConsiderations">2.2 Design Considerations</a></h2>
@@ -2550,7 +2550,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </div>
 <h3 id="14314-stream-values"><a name="StreamValues" href="#StreamValues">14.3.14 Stream Values</a></h3>
 <div class="varjson rep">
-<p>Constant values of type <code>Edm.Stream</code> are represented according to <a href="#ODataJSON">OData-JSON</a> and MUST be accompanied by the control information <code>@mediaContentType</code> to indicate how the stream value is to be interpreted.</p>
+<p>Constant values of type <code>Edm.Stream</code> are represented according to <a href="#ODataJSON">OData-JSON</a> and MUST be accompanied by the control information <code>mediaContentType</code> to indicate how the stream value is to be interpreted.</p>
 </div>
 <p>The annotation (property) being assigned a stream value MUST be annotated with term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#MediaType"><code>Core.MediaType</code></a> and the media type of the stream as its value.</p>
 <div class="varjson example">
@@ -3280,7 +3280,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>For collection-valued properties the absence of a property value expression is equivalent to specifying an empty collection as its value.</p>
 <div class="varjson rep">
 <p>Record expressions are represented as objects with one member per property value expression. The member name is the property name, and the member value is the property value expression.</p>
-<p>The type of a record expression is represented as the <code>@type</code> control information, see <a href="#ODataJSON">OData-JSON</a>.</p>
+<p>The type of a record expression is represented as the <code>type</code> control information, see <a href="#ODataJSON">OData-JSON</a>.</p>
 <p>It MAY contain <a href="#Annotation">annotations</a> for itself and its members. Annotations for record members are prefixed with the member name.</p>
 </div>
 <div class="varjson example">
