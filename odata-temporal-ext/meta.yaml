@@ -6,5 +6,10 @@ previousStage: cs01
 pubdate: 25 January 2022
 pubdateISO: '2022-01-25'
 copyright: © OASIS Open 2022
+additionalArtifacts:
+  - repo: odata-vocabularies
+    path: vocabularies/Org.OData.Temporal.V1.json
+  - repo: odata-vocabularies
+    path: vocabularies/Org.OData.Temporal.V1.xml
 description:
   This specification defines how to represent and interact with time-dependent data using the Open Data Protocol (OData).

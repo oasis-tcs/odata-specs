@@ -7,6 +7,9 @@ previousStage: csd01
 pubdate: 28 February 2024
 pubdateISO: '2024-02-28'
 copyright: © OASIS Open 2024
+additionalArtifacts:
+  - repo: odata-csdl-schemas
+    path: schemas/csdl.schema.json
 description:
   OData services are described by an Entity Model (EDM).
   The Common Schema Definition Language (CSDL) defines specific representations
