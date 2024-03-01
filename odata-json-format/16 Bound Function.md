@@ -247,7 +247,7 @@ parameter is equivalent to being annotated as optional with a default
 value of `null`.
 
 ::: example
-Example 46:
+Example ##ex:
 ```json
 {
   "param1": 42,

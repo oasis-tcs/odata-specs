@@ -5929,7 +5929,7 @@ processor may choose to disallow chunked encoding to be used by such
 HTTP requests.
 
 ::: example
-Example 104: a batch request that contains the following individual
+Example <a name="batchRequest" href="#batchRequest">104</a>: a batch request that contains the following individual
 requests in the order listed
 
   1. A query request
@@ -6191,7 +6191,7 @@ URL of the corresponding individual request. URLs in responses MUST NOT
 contain `$`-prefixed request identifiers.
 
 ::: example
-Example 108: referencing the batch request example 101 above, assume all
+Example 108: referencing the batch request [example 104](#batchRequest) above, assume all
 the requests except the final query request succeed. In this case the
 response would be
 ```
@@ -6267,7 +6267,7 @@ Since a change set is executed atomically,
 a change set.
 
 ::: example
-Example 109: referencing the example 101 above again, assume that
+Example 109: referencing the [example 104](#batchRequest) above again, assume that
 ```
 HTTP/1.1 202 Accepted
 Location: http://service-root/async-monitor-0

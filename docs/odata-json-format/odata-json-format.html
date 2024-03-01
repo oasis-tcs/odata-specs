@@ -1079,7 +1079,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>Functions or actions that are bound to this collection of entities are advertised in the “wrapper object” in the same way as <a href="#BoundFunction">functions</a> or <a href="#BoundAction">actions</a> are advertised in the object representing a single entity.</p>
 <p>The <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a> control information MUST be included in a response that represents a partial result.</p>
 <div class="example">
-<p>Example 28:</p>
+<p>Example 31:</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;…&quot;</span><span class="fu">,</span></span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@count&quot;</span><span class="fu">:</span> <span class="dv">37</span><span class="fu">,</span></span>
@@ -1097,14 +1097,14 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>A collection of entity references is represented as a <a href="#CollectionofEntities">collection of entities</a>, with entity reference representations instead of entity representations as items in the array value of the <code>value</code> name/value pair.</p>
 <p>The outermost JSON object in a response MUST contain a <a href="#ControlInformationcontextodatacontext"><code>context</code></a> control information and MAY contain <a href="#ControlInformationcountodatacount"><code>count</code></a>, <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a>, or <a href="#ControlInformationdeltaLinkodatadeltaLink"><code>deltaLink</code></a> control information.</p>
 <div class="example">
-<p>Example 31: entity reference to order 10643</p>
+<p>Example 32: entity reference to order 10643</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#$ref&quot;</span><span class="fu">,</span></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Orders(10643)&quot;</span></span>
 <span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
-<p>Example 32: collection of entity references</p>
+<p>Example 33: collection of entity references</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Collection($ref)&quot;</span><span class="fu">,</span></span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
@@ -1125,7 +1125,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>If an OData 4.01 delta response includes an expanded collection-valued navigation property inline (see <a href="#AddedChangedEntity">next section</a>), the expanded collection can be a partial list, in which case the expanded navigation property MUST have the <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a> control information applied to it. Following this chain of next links does not result in a delta link on the last page of the expanded collection.</p>
 <p>If the response from the delta link contains a <code>count</code> control information, the returned number MUST include all added, changed, or deleted entities to be returned, as well as added or deleted links.</p>
 <div class="example">
-<p>Example 33: a 4.01 delta response with five changes, in order of occurrence</p>
+<p>Example 34: a 4.01 delta response with five changes, in order of occurrence</p>
 <ol type="1">
 <li><code>ContactName</code> for customer <code>BOTTM</code> was changed to <code>Susan Halvenstern</code></li>
 <li>Order 10643 was removed from customer <code>ALFKI</code></li>
@@ -1185,7 +1185,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>OData 4.01 delta payloads MAY include expanded navigation properties inline. Related single entities are represented as either an <a href="#AddedChangedEntity">added/changed</a> entity, an <a href="#EntityReference">entity reference</a>, a <a href="#DeletedEntity">deleted entity</a>, or a null value (if no entity is related as the outcome of the change). Collection-valued navigation properties are represented either as a delta representation or as a full representation of the collection.</p>
 <p>If the expanded navigation property represents a delta, it MUST be represented as an array-valued control information <a href="#ControlInformationdeltaodatadelta"><code>delta</code></a> on the navigation property. <a href="#AddedChangedEntity">Added/changed</a> entities or <a href="#EntityReference">entity references</a> are added to the collection. <a href="#DeletedEntity">Deleted entities</a> MAY be specified in a nested delta representation to represent entities no longer part of the collection. If the deleted entity specifies a <code>reason</code> as <code>deleted</code>, then the entity is both removed from the collection and deleted, otherwise it is removed from the collection and only deleted if the navigation property is a containment navigation property. The array MUST NOT contain <a href="#AddedLink">added</a> or <a href="#DeletedLink">deleted links</a>.</p>
 <div class="example">
-<p>Example 34: 4.01 delta response customers with expanded orders represented inline as a delta</p>
+<p>Example 35: 4.01 delta response customers with expanded orders represented inline as a delta</p>
 <ol type="1">
 <li>Customer <code>BOTTM</code>:
 <ol type="1">
@@ -1236,7 +1236,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </div>
 <p>If the expanded navigation property is a full representation of the collection, it MUST be represented as an expanded navigation property, and its array value represents the full set of entities related according to that relationship and satisfying any specified expand options. Members of the array MUST be represented as <a href="#AddedChangedEntity">added/changed</a> entities or <a href="#EntityReference">entity references</a> and MUST NOT include added links, deleted links, or deleted entities. Any entity not represented in the collection has either been removed, deleted, or changed such that it no longer satisfies the expand options in the defining query. In any case, clients SHOULD NOT receive additional notifications for such removed entities.</p>
 <div class="example">
-<p>Example 35: 4.01 delta response for a single entity with an expanded navigation property containing only a partial list of related entities (as indicated with a <a href="#ControlInformationnextLinkodatanextLink">next link</a>)</p>
+<p>Example 36: 4.01 delta response for a single entity with an expanded navigation property containing only a partial list of related entities (as indicated with a <a href="#ControlInformationnextLinkodatanextLink">next link</a>)</p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Customers/$entity/$delta&quot;</span><span class="fu">,</span></span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
@@ -1260,7 +1260,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><code>reason</code> — either <code>deleted</code>, if the entity was deleted (destroyed), or <code>changed</code> if the entity was removed from membership in the result (i.e., due to a data change).</li>
 </ul>
 <div class="example">
-<p>Example 36: deleted entity in OData 4.0 response — note that <code>id</code> is a property, not control information</p>
+<p>Example 37: deleted entity in OData 4.0 response — note that <code>id</code> is a property, not control information</p>
 <div class="sourceCode" id="cb39"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Customers/$deletedEntity&quot;</span><span class="fu">,</span></span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;reason&quot;</span><span class="fu">:</span> <span class="st">&quot;deleted&quot;</span><span class="fu">,</span></span>
@@ -1275,7 +1275,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>For full metadata the <a href="#ControlInformationcontextodatacontext"><code>context</code></a> control information MUST be included. It also MUST be included if the entity set of the deleted entity cannot be determined from the surrounding context.</p>
 <p>The deleted-entity object MAY include additional properties of the entity, as well as <a href="#InstanceAnnotations">annotations</a>, and MAY include related entities, related deleted entities, or a delta or full representation of a related collection of entities, to represent related entities that have been modified or deleted.</p>
 <div class="example">
-<p>Example 37: deleted entity in OData 4.01 response with <code>id</code> control information (prefixed with an <code>@</code>)</p>
+<p>Example 38: deleted entity in OData 4.01 response with <code>id</code> control information (prefixed with an <code>@</code>)</p>
 <div class="sourceCode" id="cb40"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Customers/$deletedEntity&quot;</span><span class="fu">,</span></span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@removed&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
@@ -1286,7 +1286,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
-<p>Example 38: entity removed OData 4.01 response without <code>id</code> control information and instead all key fields (<code>ID</code> is the single key field of <code>Customer</code>)</p>
+<p>Example 39: entity removed OData 4.01 response without <code>id</code> control information and instead all key fields (<code>ID</code> is the single key field of <code>Customer</code>)</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@removed&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;ANTON&quot;</span></span>
@@ -1319,7 +1319,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <h2 id="156-update-a-collection-of-entities"><a name="UpdateaCollectionofEntities" href="#UpdateaCollectionofEntities">15.6 Update a Collection of Entities</a></h2>
 <p>The body of a <code>PATCH</code> request to a URL identifying a collection of entities is a JSON object. It MUST contain the <a href="#ControlInformationcontextodatacontext"><code>context</code></a> control information with a string value of <code>#$delta</code>, and it MUST contain an array-valued property named <code>value</code> containing all <a href="#AddedLink">added</a>, <a href="#AddedChangedEntity">changed</a>, or <a href="#DeletedEntity">deleted</a> entities, as well as <a href="#AddedLink">added</a> or <a href="#DeletedLink">deleted</a> links between entities.</p>
 <div class="example">
-<p>Example 39: 4.01 collection-update request for customers with expanded orders represented inline as a delta</p>
+<p>Example 40: 4.01 collection-update request for customers with expanded orders represented inline as a delta</p>
 <ol type="1">
 <li>Add customer <code>EASTC</code></li>
 <li>Change <code>ContactName</code> of customer <code>AROUT</code></li>
@@ -1546,7 +1546,7 @@ Preference-Applied: return=minimal, continue-on-error
 <p>The <code>title</code> name/value pair contains the function or action title as a string.</p>
 <p>If <a href="#metadataminimalodatametadataminimal"><code>metadata=minimal</code></a> is requested, the <code>target</code> name/value pair MUST be included if its value differs from the canonical function or action URL.</p>
 <div class="example">
-<p>Example 40: minimal representation of a function where all overloads are applicable</p>
+<p>Example 41: minimal representation of a function where all overloads are applicable</p>
 <div class="sourceCode" id="cb46"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Employees/$entity&quot;</span><span class="fu">,</span></span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;#Model.RemainingVacation&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
@@ -1554,7 +1554,7 @@ Preference-Applied: return=minimal, continue-on-error
 <span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
-<p>Example 41: full representation of a specific overload with parameter alias for the <code>Year</code> parameter</p>
+<p>Example 42: full representation of a specific overload with parameter alias for the <code>Year</code> parameter</p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Employees/$entity&quot;</span><span class="fu">,</span></span>
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;#Model.RemainingVacation(Year)&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
@@ -1565,7 +1565,7 @@ Preference-Applied: return=minimal, continue-on-error
 <span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
-<p>Example 42: full representation in a collection</p>
+<p>Example 43: full representation in a collection</p>
 <div class="sourceCode" id="cb48"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Employees&quot;</span><span class="fu">,</span></span>
 <span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;#Model.RemainingVacation&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
@@ -1576,7 +1576,7 @@ Preference-Applied: return=minimal, continue-on-error
 <span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
-<p>Example 43: full representation in a nested collection</p>
+<p>Example 44: full representation in a nested collection</p>
 <div class="sourceCode" id="cb49"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Employees/$entity&quot;</span><span class="fu">,</span></span>
 <span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Model.Manager&quot;</span><span class="fu">,</span></span>
@@ -1599,7 +1599,7 @@ Preference-Applied: return=minimal, continue-on-error
 <p>The <code>title</code> name/value pair contains the function or action title as a string.</p>
 <p>If <a href="#metadataminimalodatametadataminimal"><code>metadata=minimal</code></a> is requested, the <code>target</code> name/value pair MUST be included if its value differs from the canonical function or action URL.</p>
 <div class="example">
-<p>Example 44: minimal representation in an entity</p>
+<p>Example 45: minimal representation in an entity</p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#LeaveRequests/$entity&quot;</span><span class="fu">,</span></span>
 <span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;#Model.Approve&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
@@ -1607,7 +1607,7 @@ Preference-Applied: return=minimal, continue-on-error
 <span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
-<p>Example 45: full representation in an entity:</p>
+<p>Example 46: full representation in an entity:</p>
 <div class="sourceCode" id="cb51"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#LeaveRequests/$entity&quot;</span><span class="fu">,</span></span>
 <span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;#Model.Approve&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
@@ -1618,7 +1618,7 @@ Preference-Applied: return=minimal, continue-on-error
 <span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
-<p>Example 46: full representation in a collection</p>
+<p>Example 47: full representation in a collection</p>
 <div class="sourceCode" id="cb52"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#LeaveRequests&quot;</span><span class="fu">,</span></span>
 <span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;#Model.Approve&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
@@ -1629,7 +1629,7 @@ Preference-Applied: return=minimal, continue-on-error
 <span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
-<p>Example 47: full representation in a nested collection</p>
+<p>Example 48: full representation in a nested collection</p>
 <div class="sourceCode" id="cb53"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Employees/$entity&quot;</span><span class="fu">,</span></span>
 <span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Model.Manager&quot;</span><span class="fu">,</span></span>
@@ -1647,7 +1647,7 @@ Preference-Applied: return=minimal, continue-on-error
 <p>Each non-binding parameter value is encoded as a separate name/value pair in this JSON object. The name is the name of the parameter. The value is the parameter value in the JSON representation appropriate for its type. Entity typed parameter values MAY include a subset of the properties, or just the <a href="#EntityReference">entity reference</a>, as appropriate to the action. Stream typed parameter values are represented following the same rules as inlined <a href="#StreamProperty">stream properties</a>.</p>
 <p>Non-binding parameters that are nullable or annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter"><code>Core.OptionalParameter</code></a> defined in <a href="#ODataVocCore">OData-VocCore</a> MAY be omitted from the request body. If an omitted parameter is not annotated (and thus nullable), it MUST be interpreted as having the <code>null</code> value. If it is annotated and the annotation specifies a <code>DefaultValue</code>, the omitted parameter is interpreted as having that default value. If omitted and the annotation does not specify a default value, the service is free on how to interpret the omitted parameter. Note: a nullable non-binding parameter is equivalent to being annotated as optional with a default value of <code>null</code>.</p>
 <div class="example">
-<p>Example 46:</p>
+<p>Example 49:</p>
 <div class="sourceCode" id="cb54"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;param1&quot;</span><span class="fu">:</span> <span class="dv">42</span><span class="fu">,</span></span>
 <span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;param2&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
@@ -1689,7 +1689,7 @@ Preference-Applied: return=minimal, continue-on-error
 <p>A <code>body</code> MUST NOT be specified if the <code>method</code> is <code>get</code> or <code>delete</code>.</p>
 <p>The request object and the <code>headers</code> object MUST NOT contain name/value pairs with duplicate names. This is in conformance with <a href="#rfc7493">RFC7493</a>.</p>
 <div class="example">
-<p>Example <a name="batchRequest" href="#batchRequest">48</a>: a batch request that contains the following individual requests in the order listed</p>
+<p>Example <a name="batchRequest" href="#batchRequest">50</a>: a batch request that contains the following individual requests in the order listed</p>
 <ol type="1">
 <li>A query request</li>
 <li>An atomicity group that contains the following requests:
@@ -1743,7 +1743,7 @@ Preference-Applied: return=minimal, continue-on-error
 <h2 id="192-referencing-new-entities"><a name="ReferencingNewEntities" href="#ReferencingNewEntities">19.2 Referencing New Entities</a></h2>
 <p>The entity returned by a preceding request can be referenced in the request URL of subsequent requests. If the <code>Location</code> header in the response contains a relative URL, clients MUST be able to resolve it relative to the request’s URL even if that contains such a reference.</p>
 <div class="example">
-<p>Example 49: a batch request that contains the following operations in the order listed:</p>
+<p>Example 51: a batch request that contains the following operations in the order listed:</p>
 <ul>
 <li>Insert a new entity (with <code>id = 1</code>)</li>
 <li>Insert a second new entity (references request with <code>id = 1</code>)</li>
@@ -1774,7 +1774,7 @@ Preference-Applied: return=minimal, continue-on-error
 </div>
 <h2 id="193-referencing-an-etag"><a name="ReferencinganETag" href="#ReferencinganETag">19.3 Referencing an ETag</a></h2>
 <div class="example">
-<p>Example 50: a batch request that contains the following operations in the order listed:</p>
+<p>Example 52: a batch request that contains the following operations in the order listed:</p>
 <ul>
 <li>Get an Employee (with <code>id</code> = 1)</li>
 <li>Update the salary only if the employee has not changed</li>
@@ -1812,7 +1812,7 @@ Preference-Applied: return=minimal, continue-on-error
 </div>
 <h2 id="194-referencing-response-body-values"><a name="ReferencingResponseBodyValues" href="#ReferencingResponseBodyValues">19.4 Referencing Response Body Values</a></h2>
 <div class="example">
-<p>Example 51: a batch request that contains the following operations in the order listed:</p>
+<p>Example 53: a batch request that contains the following operations in the order listed:</p>
 <ul>
 <li>Get an employee (with <code>Content-ID = 1</code>)</li>
 <li>Get all employees residing in the same building</li>
@@ -1862,7 +1862,7 @@ Preference-Applied: return=minimal, continue-on-error
 <p>If the media type is not exactly equal to <code>application/json</code> (i.e. it is a subtype or has format parameters), the <code>headers</code> object MUST contain a name/value pair with the name <code>content-type</code> whose value is the media type.</p>
 <p>Relative URLs in a response object follow the rules for <a href="#RelativeURLs">relative URLs</a> based on the request URL of the corresponding request. Especially: URLs in responses MUST NOT contain <code>$</code>-prefixed request identifiers.</p>
 <div class="example">
-<p>Example 52: referencing the batch request <a href="#batchRequest">example 48</a> above, assume all the requests except the final query request succeed. In this case the response would be</p>
+<p>Example 54: referencing the batch request <a href="#batchRequest">example 50</a> above, assume all the requests except the final query request succeed. In this case the response would be</p>
 <div class="sourceCode" id="cb59"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="er">HTTP/1.1</span> <span class="er">200</span> <span class="er">OK</span></span>
 <span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="er">4.01</span></span>
 <span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Length:</span> <span class="er">####</span></span>
@@ -1899,7 +1899,7 @@ Preference-Applied: return=minimal, continue-on-error
 <p>A batch request that specifies the <code>respond-async</code> preference MAY be executed asynchronously. This means that the “outer” batch request is executed asynchronously; this preference does not automatically cascade down to the individual requests within the batch. After successful execution of the batch request the response to the batch request is returned in the body of a response to an interrogation request against the status monitor resource URL, see section “Asynchronous Requests” in <a href="#ODataProtocol">OData-Protocol</a>.</p>
 <p>A service MAY return interim results to an asynchronously executing batch. It does this by responding with <code>200 OK</code> to a <code>GET</code> request to the monitor resource and including a <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a> control information in the JSON batch response, thus signaling that the response is only a partial result. A subsequent <code>GET</code> request to the next link MAY result in a <code>202 Accepted</code> response with a <code>location</code> header pointing to a new status monitor resource.</p>
 <div class="example">
-<p>Example 53: referencing the example 47 above again, assume that the request is sent with the <code>respond-async</code> preference. This results in a <code>202</code> response pointing to a status monitor resource:</p>
+<p>Example 55: referencing the <a href="#batchRequest">example 50</a> above again, assume that the request is sent with the <code>respond-async</code> preference. This results in a <code>202</code> response pointing to a status monitor resource:</p>
 <div class="sourceCode" id="cb60"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="er">HTTP/1.1</span> <span class="er">202</span> <span class="er">Accepted</span></span>
 <span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="er">Location:</span> <span class="er">http://service-root/async-monitor-0</span></span>
 <span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="er">Retry-After:</span> <span class="er">###</span></span></code></pre></div>
@@ -1955,7 +1955,7 @@ Preference-Applied: return=minimal, continue-on-error
 </div>
 <p>In addition to the above interaction pattern individual requests within a batch with no other requests depending on it and not part of an atomicity group MAY be executed asynchronously if they specify the <code>respond-async</code> preference and if the service responds with a JSON batch response. In this case the <code>response</code> array contains a response object for each asynchronously executed individual request with a <code>status</code> of <code>202</code>, a <code>location</code> header pointing to an individual status monitor resource, and optionally a <code>retry-after</code> header.</p>
 <div class="example">
-<p>Example 54: the first individual request is processed asynchronously, the second synchronously, the batch itself is processed synchronously</p>
+<p>Example 56: the first individual request is processed asynchronously, the second synchronously, the batch itself is processed synchronously</p>
 <div class="sourceCode" id="cb64"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="er">HTTP/1.1</span> <span class="er">200</span> <span class="er">OK</span></span>
 <span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="er">4.01</span></span>
 <span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Length:</span> <span class="er">###</span></span>
@@ -1985,7 +1985,7 @@ Preference-Applied: return=minimal, continue-on-error
 <p>Annotations can be applied to any name/value pair in a JSON payload that represents a value of any type from the entity data model. Clients should never error due to an unexpected annotation in a JSON payload.</p>
 <p>Annotations are always expressed as name/value pairs. For entity data model constructs represented as JSON objects the annotation name/value pairs are placed within the object; for constructs represented as JSON arrays or primitives, including null, they are placed next to the annotated model construct and have the name of the annotated property before the <code>@</code>. An annotation in the latter format can also take the place of an absent property. When annotating a payload that represents a <a href="#IndividualPropertyorOperationResponse">single primitive or collection value</a>, the annotations for the value appear next to the <code>value</code> property and are not prefixed with a property name.</p>
 <div class="example">
-<p>Example 55:</p>
+<p>Example 57:</p>
 <div class="sourceCode" id="cb65"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Customers&quot;</span><span class="fu">,</span></span>
 <span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@com.example.customer.setkind&quot;</span><span class="fu">:</span> <span class="st">&quot;VIPs&quot;</span><span class="fu">,</span></span>
@@ -2025,7 +2025,7 @@ Preference-Applied: return=minimal, continue-on-error
 <p>Service implementations SHOULD carefully consider which information to include in production environments to guard against potential security concerns around information disclosure.</p>
 <p>Error responses MAY contain <a href="#InstanceAnnotations">annotations</a> in any of its JSON objects.</p>
 <div class="example">
-<p>Example 56:</p>
+<p>Example 58:</p>
 <div class="sourceCode" id="cb66"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;error&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;code&quot;</span><span class="fu">:</span> <span class="st">&quot;err123&quot;</span><span class="fu">,</span></span>
@@ -2054,7 +2054,7 @@ Preference-Applied: return=minimal, continue-on-error
 <li><p>Control characters (<code>00</code> to <code>1F</code> and <code>7F</code>) and Unicode characters beyond <code>00FF</code> within JSON strings are encoded as <code>\uXXXX</code> or <code>\uXXXX\uXXXX</code> (see <a href="#rfc8259">RFC8259</a>, section 7)</p></li>
 </ul>
 <div class="example">
-<p>Example 57: note that this is one HTTP header line without any line breaks or optional whitespace</p>
+<p>Example 59: note that this is one HTTP header line without any line breaks or optional whitespace</p>
 <div class="sourceCode" id="cb67"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="er">OData-error:</span> <span class="fu">{</span><span class="dt">&quot;code&quot;</span><span class="fu">:</span><span class="st">&quot;err123&quot;</span><span class="fu">,</span><span class="dt">&quot;message&quot;</span><span class="fu">:</span><span class="st">&quot;Unsupported</span></span>
 <span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="st">functionality&quot;</span><span class="fu">,</span><span class="dt">&quot;target&quot;</span><span class="fu">:</span><span class="st">&quot;query&quot;</span><span class="fu">,</span><span class="dt">&quot;details&quot;</span><span class="fu">:</span><span class="ot">[</span><span class="fu">{</span><span class="dt">&quot;code&quot;</span><span class="fu">:</span><span class="st">&quot;forty-two&quot;</span><span class="fu">,</span><span class="dt">&quot;target&quot;</span><span class="fu">:</span><span class="st">&quot;$search&quot;</span><span class="fu">,</span><span class="dt">&quot;message&quot;</span><span class="fu">:</span><span class="st">&quot;$search</span></span>
 <span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a><span class="st">query option not supported&quot;</span><span class="fu">}</span><span class="ot">]</span><span class="fu">}</span></span></code></pre></div>

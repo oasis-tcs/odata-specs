@@ -2349,7 +2349,7 @@ Content-Type: application/json
 </ul>
 <p>Processors of batch requests MAY choose to disallow additional HTTP constructs in HTTP requests serialized within body parts. For example, a processor may choose to disallow chunked encoding to be used by such HTTP requests.</p>
 <div class="example">
-<p>Example 104: a batch request that contains the following individual requests in the order listed</p>
+<p>Example <a name="batchRequest" href="#batchRequest">104</a>: a batch request that contains the following individual requests in the order listed</p>
 <ol type="1">
 <li>A query request</li>
 <li>A change set that contains the following requests:
@@ -2534,7 +2534,7 @@ Accept: application/json
 <p>The body of a multipart response to a JSON batch request contains one body part for each processed or accepted request. The order of the body parts is insignificant as each body part MUST contain the <code>Content-ID</code> header with the value of the <code>id</code> name/value pair of the corresponding request object.</p>
 <p>A response to an operation in a batch MUST be formatted exactly as it would have appeared outside of a batch as described in the corresponding subsections of chapter <a href="#DataServiceRequests">Data Service Requests</a>. Relative URLs in each individual response are relative to the request URL of the corresponding individual request. URLs in responses MUST NOT contain <code>$</code>-prefixed request identifiers.</p>
 <div class="example">
-<p>Example 108: referencing the batch request example 101 above, assume all the requests except the final query request succeed. In this case the response would be</p>
+<p>Example 108: referencing the batch request <a href="#batchRequest">example 104</a> above, assume all the requests except the final query request succeed. In this case the response would be</p>
 <pre><code>HTTP/1.1 200 OK
 OData-Version: 4.0
 Content-Length: ####
@@ -2585,7 +2585,7 @@ Content-Length: ###
 <p>A service MAY return interim results to an asynchronously executing batch. It does this by responding with <a href="#ResponseCode200OK"><code>200 OK</code></a> to a <code>GET</code> request to the monitor resource and including a <a href="#ResponseCode202Accepted"><code>202 Accepted</code></a> response as the last part of the multipart response. The client can use the monitor URL returned in this <code>202 Accepted</code> response to continue processing the batch response.</p>
 <p>Since a change set is executed atomically, <code>202 Accepted</code> MUST NOT be returned within a change set.</p>
 <div class="example">
-<p>Example 109: referencing the example 101 above again, assume that</p>
+<p>Example 109: referencing the <a href="#batchRequest">example 104</a> above again, assume that</p>
 <pre><code>HTTP/1.1 202 Accepted
 Location: http://service-root/async-monitor-0
 Retry-After: ###
