@@ -10,8 +10,10 @@ copyright: © OASIS Open 2024
 additionalArtifacts:
   - repo: odata-csdl-schemas
     path: schemas/edm.xsd
+    branch: v4.02-release-candidate
   - repo: odata-csdl-schemas
     path: schemas/edmx.xsd
+    branch: v4.02-release-candidate
 description:
   OData services are described by an Entity Model (EDM).
   The Common Schema Definition Language (CSDL) defines specific representations
