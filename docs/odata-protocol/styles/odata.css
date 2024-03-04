@@ -230,9 +230,3 @@ td {
 h2[id="22-example-data"] {
 	page-break-before: always;
 }
-
-@media print {
-	pre>code.sourceCode>span {
-		display: inline-block;
-	}
-}
