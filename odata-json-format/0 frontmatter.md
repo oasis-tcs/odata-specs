@@ -17,9 +17,7 @@ https://docs.oasis-open.org/odata/odata-json-format/v4.02/$$$stage$$$/$$$filenam
 https://docs.oasis-open.org/odata/odata-json-format/v4.02/$$$stage$$$/$$$filename$$$.pdf
 
 #### Previous stage:
-https://docs.oasis-open.org/odata/odata-json-format/v4.02/$$$previousStage$$$/odata-json-format-v4.02-$$$previousStage$$$.md (Authoritative) \
-https://docs.oasis-open.org/odata/odata-json-format/v4.02/$$$previousStage$$$/odata-json-format-v4.02-$$$previousStage$$$.html \
-https://docs.oasis-open.org/odata/odata-json-format/v4.02/$$$previousStage$$$/odata-json-format-v4.02-$$$previousStage$$$.pdf
+N/A
 
 #### Latest stage:
 https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.md (Authoritative) \
