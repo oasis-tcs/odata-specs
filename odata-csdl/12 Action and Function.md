@@ -9,8 +9,9 @@ Actions are service-defined operations that MAY have observable side
 effects and MAY return a single instance or a collection of instances of
 any type.
 
-The action's name is a [simple identifier](#SimpleIdentifier) that MUST
-be unique within its schema.
+The action's name is a [simple identifier](#SimpleIdentifier). 
+The name of the action, excepting any [overloads](#ActionOverloads), 
+MUST be unique within its schema.
 
 Actions cannot be composed with additional path segments.
 
@@ -21,31 +22,18 @@ or complex types in scope.
 An action MAY define [parameters](#Parameter) used during the execution
 of the action.
 
-## ##subsec Action Overloads
-
-[Bound](#BoundorUnboundActionorFunctionOverloads) actions support
-overloading (multiple actions having the same name within the same
-schema) by binding parameter type. The combination of action name and
-the binding parameter type MUST be unique within a schema.
-
-[Unbound](#BoundorUnboundActionorFunctionOverloads) actions do not support
-overloads. The names of all unbound actions MUST be unique within a
-schema.
-
-An unbound action MAY have the same name as a bound action.
-
 ::: {.varjson .rep}
-### ##isec Action Overload Object
+### ##isec Action Object
 
 An action is represented as a member of the schema object whose name is
 the unqualified name of the action and whose value is an array. The
 array contains one object per action overload.
 
-The action overload object MUST contain the member `$Kind` with a string
+The action object MUST contain the member `$Kind` with a string
 value of `Action`.
 
 It MAY contain the members
-[`$IsBound`](#BoundorUnboundActionorFunctionOverloads),
+[`$IsBound`](#BoundorUnboundActionsorFunctions),
 [`$EntitySetPath`](#EntitySetPath), [`$Parameter`](#Parameter), and
 [`$ReturnType`](#ReturnType), and it MAY contain
 [annotations](#Annotation).
@@ -55,7 +43,7 @@ It MAY contain the members
 ### ##isec Element `edm:Action`
 
 The `edm:Action` element MUST contain the `Name` attribute and it MAY
-contain the [`IsBound`](#BoundorUnboundActionorFunctionOverloads) and
+contain the [`IsBound`](#BoundorUnboundActionsorFunctions) and
 [`EntitySetPath`](#EntitySetPath) attributes.
 
 It MAY contain at most one [`edm:ReturnType`](#ReturnType) element and
@@ -68,13 +56,27 @@ It MAY contain [`edm:Annotation`](#Annotation) elements.
 The value of `Name` is the action's name.
 :::
 
+### ##subsubsec Action Overloads
+
+[Bound](#BoundorUnboundActionsorFunctions) actions support
+overloading (multiple actions having the same name within the same
+schema) by binding parameter type. The combination of action name and
+the binding parameter type MUST be unique within a schema.
+
+[Unbound](#BoundorUnboundActionsorFunctions) actions do not support
+overloads. The names of all unbound actions MUST be unique within a
+schema.
+
+An unbound action MAY have the same name as a bound action.
+
 ## ##subsec Function
 
 Functions are service-defined operations that MUST NOT have observable
 side effects and MUST return a single instance or a collection of
 instances of any type.
 
-The function's name is a [simple identifier](#SimpleIdentifier) that
+The function's name is a [simple identifier](#SimpleIdentifier). 
+The name of the function, excepting any [overloads](#FunctionOverloads),
 MUST be unique within its schema.
 
 Functions MAY be [composable](#ComposableFunction).
@@ -86,9 +88,42 @@ or complex types in scope.
 A function MAY define [parameters](#Parameter) used during the execution
 of the function.
 
-## ##subsec Function Overloads
+::: {.varjson .rep}
+### ##isec Function Object
 
-[Bound](#BoundorUnboundActionorFunctionOverloads) functions support
+A function is represented as a member of the schema object whose name is
+the unqualified name of the function and whose value is an array. The
+array contains one object per function overload.
+
+The function object MUST contain the member `$Kind` with a
+string value of `Function`.
+
+It MUST contain the member [`$ReturnType`](#ReturnType), and it MAY
+contain the members [`$IsBound`](#BoundorUnboundActionsorFunctions),
+[`$EntitySetPath`](#EntitySetPath), and [`$Parameter`](#Parameter),
+and it MAY contain [annotations](#Annotation).
+:::
+
+::: {.varxml .rep}
+### ##isec Element `edm:Function`
+
+The `edm:Function` element MUST contain the `Name` attribute and it MAY
+contain the [`IsBound`](#BoundorUnboundActionsorFunctions) and
+[`EntitySetPath`](#EntitySetPath) attributes.
+
+It MUST contain one [`edm:ReturnType`](#ReturnType) element, and it MAY
+contain [`edm:Parameter`](#Parameter) elements.
+
+It MAY contain [`edm:Annotation`](#Annotation) elements.
+
+### ##subisec Attribute `Name`
+
+The value of `Name` is the action's name.
+:::
+
+### ##subsubsec Function Overloads
+
+[Bound](#BoundorUnboundActionsorFunctions) functions support
 overloading (multiple functions having the same name within the same
 schema) subject to the following rules:
 - The combination of function name,
@@ -101,7 +136,7 @@ unique within a schema.
 function name and binding parameter type within a schema MUST specify
 the same return type.
 
-[Unbound](#BoundorUnboundActionorFunctionOverloads) functions support
+[Unbound](#BoundorUnboundActionsorFunctions) functions support
 overloading subject to the following rules:
 - The combination of function name and
 unordered set of parameter names MUST be unique within a schema.
@@ -116,42 +151,33 @@ Note that [type definitions](#TypeDefinition) can be used to
 disambiguate overloads for both bound and unbound functions, even if
 they specify the same underlying type.
 
+### ##subsubsec Composable Function
+
+A function MAY indicate that it is composable. If not explicitly
+indicated, it is not composable.
+
+A composable function can be invoked with additional path segments or
+key predicates appended to the resource path that identifies the
+composable function, and with system query options as appropriate for
+the type returned by the composable function.
+
 ::: {.varjson .rep}
-### ##isec Function Overload Object
+### ##subisec `$IsComposable`
 
-A function is represented as a member of the schema object whose name is
-the unqualified name of the function and whose value is an array. The
-array contains one object per function overload.
-
-The function overload object MUST contain the member `$Kind` with a
-string value of `Function`.
-
-It MUST contain the member [`$ReturnType`](#ReturnType), and it MAY
-contain the members [`$IsBound`](#BoundorUnboundActionorFunctionOverloads),
-[`$EntitySetPath`](#EntitySetPath), and [`$Parameter`](#Parameter),
-and it MAY contain [annotations](#Annotation).
+The value of `$IsComposable` is one of the Boolean literals `true` or
+`false`. Absence of the member means `false`.
 :::
 
 ::: {.varxml .rep}
-### ##isec Element `edm:Function`
+### ##subisec Attribute `IsComposable`
 
-The `edm:Function` element MUST contain the `Name` attribute and it MAY
-contain the [`IsBound`](#BoundorUnboundActionorFunctionOverloads) and
-[`EntitySetPath`](#EntitySetPath) attributes.
-
-It MUST contain one [`edm:ReturnType`](#ReturnType) element, and it MAY
-contain [`edm:Parameter`](#Parameter) elements.
-
-It MAY contain [`edm:Annotation`](#Annotation) elements.
-
-### ##subisec Attribute `Name`
-
-The value of `Name` is the action's name.
+The value of `IsComposable` is one of the Boolean literals `true` or
+`false`. Absence of the attribute means `false`.
 :::
 
-## ##subsec Bound or Unbound Action or Function Overloads
+## ##subsec Bound or Unbound Actions or Functions
 
-An action or function overload MAY indicate that it is bound. If not
+An action or function MAY indicate that it is bound. If not
 explicitly indicated, it is unbound.
 
 Bound actions or functions are invoked on resources matching the type of
@@ -179,7 +205,7 @@ The value of `IsBound` is one of the Boolean literals `true` or `false`.
 Absence of the attribute means `false`.
 :::
 
-## ##subsec Entity Set Path
+### ##subsubsec Entity Set Path
 
 Bound actions and functions that return an entity or a collection of
 entities MAY specify an entity set path if the entity set of the
@@ -191,12 +217,7 @@ with forward slashes.
 
 The first segment of the entity set path MUST be the name of the binding
 parameter. The remaining segments of the entity set path MUST represent
-navigation segments or type casts.
-
-A navigation segment names the [simple identifier](#SimpleIdentifier) of
-the [navigation property](#NavigationProperty) to be traversed. A
-type-cast segment names the [qualified name](#QualifiedName) of the
-entity type that should be returned from the type cast.
+complex typed properties, navigation properties, or type casts.
 
 ::: {.varjson .rep}
 ### ##subisec `$EntitySetPath`
@@ -211,33 +232,9 @@ path.
 The value of `EntitySetPath` is the entity set path.
 :::
 
-## ##subsec Composable Function
-
-A function MAY indicate that it is composable. If not explicitly
-indicated, it is not composable.
-
-A composable function can be invoked with additional path segments or
-key predicates appended to the resource path that identifies the
-composable function, and with system query options as appropriate for
-the type returned by the composable function.
-
-::: {.varjson .rep}
-### ##subisec `$IsComposable`
-
-The value of `$IsComposable` is one of the Boolean literals `true` or
-`false`. Absence of the member means `false`.
-:::
-
-::: {.varxml .rep}
-### ##subisec Attribute `IsComposable`
-
-The value of `IsComposable` is one of the Boolean literals `true` or
-`false`. Absence of the attribute means `false`.
-:::
-
 ## ##subsec Return Type
 
-The return type of an action or function overload MAY be any type in
+The return type of an action or function may be any type in
 scope, or a collection of any type in scope.
 
 The facets [`MaxLength`](#MaxLength),
@@ -330,15 +327,16 @@ fail with an error response if it cannot compute a result.
 
 ## ##subsec Parameter
 
-An action or function overload MAY specify parameters.
+An action or function MAY specify parameters.
 
-A bound action or function overload MUST specify at least one parameter;
-the first parameter is its binding parameter. The order of parameters
-MUST NOT change unless the schema version changes.
+A bound action or function MUST specify at least one parameter;
+the first parameter is its binding parameter. 
+
+The order of parameters MUST NOT change unless the schema version changes.
 
 Each parameter MUST have a name that is a [simple
 identifier](#SimpleIdentifier). The parameter name MUST be unique within
-the action or function overload.
+the action or function declaration.
 
 The parameter MUST specify a type. It MAY be any type in scope, or a
 collection of any type in scope.
