@@ -6,6 +6,15 @@ previousStage: csd01
 pubdate: 28 February 2024
 pubdateISO: '2024-02-28'
 copyright: © OASIS Open 2024
+archivename: odata-v4.02-csd02
+partname: part1-protocol
+additionalArtifacts:
+  - repo: odata-abnf
+    path: abnf/odata-abnf-construction-rules.txt
+    branch: v4.02-release-candidate
+  - repo: odata-abnf
+    path: abnf/odata-abnf-testcases.yaml
+    branch: v4.02-release-candidate
 description:
   The Open Data Protocol (OData) enables the creation of REST-based data services,
   which allow resources, identified using Uniform Resource Locators (URLs) and
