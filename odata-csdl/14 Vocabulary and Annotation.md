@@ -162,7 +162,7 @@ It MAY contain the members `$Type`, `$Collection`, `$Nullable`, `$DefaultValue`,
 [`$AppliesTo`](#Applicability),
 [`$MaxLength`](#MaxLength), [`$Precision`](#Precision),
 [`$Scale`](#Scale), and [`$SRID`](#SRID), as well as
-[`$Unicode`](#Unicode) for 4.01 and greater payloads.
+[`$Unicode`](#Unicode) for 4.01 or greater payloads.
 
 It MAY contain [annotations](#Annotation).
 
@@ -211,7 +211,7 @@ MAY contain the attributes `Nullable`, `DefaultValue`, [`BaseTerm`](#Specialized
 The facets [`MaxLength`](#MaxLength),
 [`Precision`](#Precision), [`Scale`](#Scale), and [`SRID`](#SRID) can be
 used as appropriate, as well as the [`Unicode`](#Unicode) facet attribute for
-4.01 and greater payloads.
+4.01 or greater payloads.
 
 A `edm:Term` element whose `Type` attribute specifies a primitive or
 enumeration type MAY define a value for the `DefaultValue` attribute.
@@ -1207,6 +1207,90 @@ Example ##ex:
 <Annotation Term="org.example.display.EndTime">
   <TimeOfDay>21:45:00</TimeOfDay>
 </Annotation>
+```
+:::
+
+### ##subsubsec Geo Values
+
+::: {.varjson .rep}
+Values are represented as GeoJSON, see [OData-JSON](#ODataJSON).
+:::
+
+::: {.varjson .example}
+Example ##ex:
+```json
+"Location": {"type": "Point", "coordinates": [142.1,64.1]}
+```
+:::
+
+::: {.varxml .rep}
+Values are represented as [string expressions](#String) using the WKT (well-known text) format for `Geo` types, see rules
+`fullCollectionLiteral`, `fullLineStringLiteral`,
+`fullMultiPointLiteral`, `fullMultiLineStringLiteral`,
+`fullMultiPolygonLiteral`, `fullPointLiteral`, and
+`fullPolygonLiteral` in
+[OData-ABNF](#ODataABNF).
+:::
+
+::: {.varxml .example}
+Example ##ex:
+```xml
+<PropertyValue Property="Location" String="geography'SRID=0;Point(142.1 64.1)'" />
+```
+:::
+
+### ##subsubsec Stream Values
+
+::: {.varjson .rep}
+Constant values of type `Edm.Stream` are represented according to [OData-JSON](#ODataJSON) and MUST be accompanied by 
+the `mediaContentType` control information to indicate how the stream value is to be interpreted.
+:::
+
+::: {.varxml .rep}
+Constant values of type `Edm.Stream` with media type `application/json` or one of its subtypes,
+optionally with format parameters, are represented as [string expressions](#String) containing the stringified JSON.
+
+Constant values of type `Edm.Stream` with top-level type `text`, for example `text/plain`,
+are represented as [string expressions](#String) containing the raw text.
+
+Constant values of type `Edm.Stream` with other media types are represented as [binary expressions](#Binary) containing the base64url-encoded binary value.
+:::
+
+The annotation (property) being assigned a stream value MUST be annotated with term
+[`Core.MediaType`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#MediaType)
+and the media type of the stream as its value.
+
+::: {.varjson .example}
+Example ##ex:
+```json
+"JsonStream": {"foo":true,"bar":42},
+"JsonStream@Core.MediaType": "application/json",
+
+"TextStream": "Hello World!",
+"TextStream@Core.MediaType": "text/plain",
+
+"OtherStream": "T0RhdGE",
+"OtherStream@Core.MediaType": "application/octet-stream"
+```
+:::
+
+::: {.varxml .example}
+Example ##ex:
+```xml
+<PropertyValue Property="JsonStream">
+  <String>{"foo":true,"bar":42}</String>
+  <Annotation Term="Core.MediaType" String="application/json" />
+</PropertyValue>
+
+<PropertyValue Property="TextStream">
+  <String>Hello World!</String>
+  <Annotation Term="Core.MediaType" String="text/plain" />
+</PropertyValue>
+
+<PropertyValue Property="OtherStream">
+  <Binary>T0RhdGE</Binary>
+  <Annotation Term="Core.MediaType" String="application/octet-stream" />
+</PropertyValue>
 ```
 :::
 
@@ -3002,7 +3086,7 @@ Record expressions are represented as objects with one member per
 property value expression. The member name is the property name, and the
 member value is the property value expression.
 
-The type of a record expression is represented as the `@type` control
+The type of a record expression is represented as the `type` control
 information, see  [OData-JSON](#ODataJSON).
 
 It MAY contain [annotations](#Annotation) for itself and its members.

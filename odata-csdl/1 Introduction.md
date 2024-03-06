@@ -32,14 +32,23 @@ Section | Feature / Change | Issue
 [Section ##PrimitiveTypes]| 
 Allow stream-valued non-binding parameters| 
 [ODATA-1481](https://issues.oasis-open.org/browse/ODATA-1481)
+: varjson
+[Section ##CSDLJSONDocument] | Additional `$Version` value `4.02` |
+:
+: varxml
+[Section ##CSDLXMLDocument] | Additional `Version` value `4.02` |
+:
 : varxml
 [Section ##EntityContainer]| 
 All children of `edm:EntityContainer` are optional| 
 [ODATA-1571](https://issues.oasis-open.org/browse/ODATA-1571)
 :
+[Section ##GeoValues] | Constant Geo values in annotations | [ODATA-1323](https://issues.oasis-open.org/browse/ODATA-1323)
+[Section ##StreamValues] | Constant Stream values in annotations | [ODATA-1323](https://issues.oasis-open.org/browse/ODATA-1323)
 [Section ##PathEvaluation]| 
 New path evaluation rules for annotations targeting annotations and external targeting via container| 
 [ODATA-1420](https://issues.oasis-open.org/browse/ODATA-1420)
+[Section ##Conformance] | Additional conformance clauses for version 4.02 |
 
 ## ##subsec Glossary
 
@@ -175,7 +184,7 @@ The `metadata=minimal` format parameter indicates that the service
 SHOULD remove computable control information from the payload wherever
 possible.
 
-This means that the `@type` control information is only included if the
+This means that the `type` control information is only included if the
 type of the containing object or targeted property cannot be
 heuristically determined, e.g. for
 - Terms or term properties with an abstract declared type,
@@ -190,7 +199,7 @@ See [OData-JSON](#ODataJSON) for the exact rules.
 The `metadata=full` format parameter indicates that the service MUST
 include all control information explicitly in the payload.
 
-This means that the `@type` control information is included in
+This means that the `type` control information is included in
 annotation values except for primitive values whose type can be
 heuristically determined from the representation of the value, see
 [OData-JSON](#ODataJSON) for the exact rules.
@@ -563,7 +572,7 @@ the service.
 
 Note: the symbolic value `max` is only allowed in OData 4.0 responses;
 it is deprecated in OData 4.01. While clients MUST be prepared for this
-symbolic value, OData 4.01 and greater services MUST NOT return the
+symbolic value, OData 4.01 or greater services MUST NOT return the
 symbolic value `max` and MAY instead specify the concrete maximum length
 supported for the type by the service or omit the attribute entirely.
 :::
