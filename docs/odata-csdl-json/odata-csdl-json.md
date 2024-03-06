@@ -6206,7 +6206,8 @@ acknowledged.
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
-Committee Specification Draft 01|2024-02-28|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| 
+|Committee Specification Draft 01|2024-02-28|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| Import material from OData Common Schema Definition Language (CSDL) JSON Representation Version 4.01 <br>Changes listed in [section 1.1](#ChangesfromEarlierVersions)|
+
 <!--
 Working Draft 01                |2016-11-16|Ralf Handl|Initial version
 Committee Specification Draft 01|2017-06-08|Michael Pizzo<br>Ralf Handl| Integrated 4.01 features
@@ -6218,6 +6219,8 @@ Committee Specification Draft 05|2019-09-26|Michael Pizzo<br>Ralf Handl| Redefin
 Committee Specification 02      |2019-11-05|Michael Pizzo<br>Ralf Handl| Non-material Changes
 Candidate OASIS Standard 02     |2020-04-09|Michael Pizzo<br>Ralf Handl| Non-material Changes
 -->
+
+-------
 
 # <a name="Notices" href="#Notices">Appendix E. Notices</a>
 

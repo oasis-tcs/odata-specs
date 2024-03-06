@@ -4099,7 +4099,7 @@ https://www.ecma-international.org/publications-and-standards/standards/ecma-262
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
-| Working Draft 01 | 2023-07-20 | Heiko Theißen | Import material from OData Version 4.01 Part 2: URL Conventions |
+|Committee Specification Draft 01|2024-02-28|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| Import material from OData Version 4.01 Part 2: URL Conventions <br>Changes listed in [section 1.1](#ChangesfromEarlierVersions)|
 
 -------
 
