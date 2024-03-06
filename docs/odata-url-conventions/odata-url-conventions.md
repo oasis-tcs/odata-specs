@@ -5,7 +5,7 @@
 
 # OData Version 4.02. Part 2: URL Conventions
 
-## Committee Specification Draft 01
+## Committee Specification Draft 02
 
 ## 28 February 2024
 

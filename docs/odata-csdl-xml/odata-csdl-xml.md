@@ -5,7 +5,7 @@
 
 # OData Common Schema Definition Language (CSDL) XML Representation Version 4.02
 
-## Committee Specification Draft 01
+## Committee Specification Draft 02
 
 ## 28 February 2024
 
