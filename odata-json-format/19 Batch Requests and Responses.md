@@ -455,7 +455,7 @@ to the next link MAY result in a `202 Accepted` response with a
 `location` header pointing to a new status monitor resource.
 
 ::: example
-Example ##ex: referencing the example 47 above again, assume that the
+Example ##ex: referencing the [example ##batchRequest] above again, assume that the
 request is sent with the `respond-async` preference. This
 results in a `202` response pointing to a status monitor resource:
 ```json
