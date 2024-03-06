@@ -183,7 +183,14 @@ acknowledged.
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
-$$$subtitle$$$|$$$pubdateISO$$$|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| 
+|$$$subtitle$$$|$$$pubdateISO$$$|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| 
+: varjson
+Import material from OData Common Schema Definition Language (CSDL) JSON Representation Version 4.01 
+:
+: varxml
+Import material from OData Common Schema Definition Language (CSDL) XML Representation Version 4.01 
+:
+<br>Changes listed in [section ##ChangesfromEarlierVersions]|
 
 <!--
 Working Draft 01                |2016-11-16|Ralf Handl|Initial version
@@ -209,6 +216,8 @@ Non-material Changes
 Candidate OASIS Standard 02     |2020-04-09|Michael Pizzo<br>Ralf Handl| 
 Non-material Changes
 -->
+
+-------
 
 # Appendix ##asec Notices
 
