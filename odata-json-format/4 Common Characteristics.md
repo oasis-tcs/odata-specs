@@ -208,6 +208,7 @@ stop processing and MUST NOT signal an error.
 The `context` control information
 returns the context URL (see [OData-Protocol](#ODataProtocol)) for the
 payload. This URL can be absolute or [relative](#RelativeURLs).
+The fragment portion of the context URL MUST NOT be percent-encoded.
 
 The `context` control information is not returned if
 [`metadata=none`](#metadatanoneodatametadatanone) is requested. Otherwise it MUST be the
