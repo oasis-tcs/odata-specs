@@ -5,19 +5,21 @@
 
 # OData Version 4.02. Part 1: Protocol
 
-## Committee Specification Draft 01
+## Committee Specification Draft 02
 
-## 14 July 2023
+## 28 February 2024
 
 $\hbox{}$
 
 #### This stage:
+https://docs.oasis-open.org/odata/odata/v4.02/csd02/odata-v4.02-csd02-part1-protocol.md (Authoritative) \
+https://docs.oasis-open.org/odata/odata/v4.02/csd02/odata-v4.02-csd02-part1-protocol.html \
+https://docs.oasis-open.org/odata/odata/v4.02/csd02/odata-v4.02-csd02-part1-protocol.pdf
+
+#### Previous stage:
 https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part1-protocol.md (Authoritative) \
 https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part1-protocol.html \
 https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part1-protocol.pdf
-
-#### Previous stage:
-N/A
 
 #### Latest stage:
 https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.md (Authoritative) \
@@ -40,8 +42,10 @@ Heiko Theißen (heiko.theissen@sap.com), [SAP SE](http://www.sap.com/)
 
 #### Additional artifacts:
 This prose specification is one component of a Work Product that also includes:
-* _OData Version 4.02 Part 1: Protocol_ (this document). https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part1-protocol.html
-* _OData Version 4.02 Part 2: URL Conventions_. https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part2-url-conventions.html
+* _OData Version 4.02 Part 1: Protocol_ (this document). https://docs.oasis-open.org/odata/odata/v4.02/csd02/odata-v4.02-csd02-part1-protocol.html
+* _OData Version 4.02 Part 2: URL Conventions_. https://docs.oasis-open.org/odata/odata/v4.02/csd02/odata-v4.02-csd02-part2-url-conventions.html
+* ABNF components: _OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases Version 4.02_. https://docs.oasis-open.org/odata/odata/v4.02/csd02/abnf/.
+
 
 #### <a name="RelatedWork">Related work:</a>
 This specification replaces or supersedes:
@@ -77,12 +81,12 @@ When referencing this specification the following citation format should be used
 **[OData-v4.02-Part1]**
 
 _OData Version 4.02. Part 1: Protocol_.
-Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. 14 July 2023. OASIS Committee Specification Draft 01.
-https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part1-protocol.html.
+Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. 28 February 2024. OASIS Committee Specification Draft 01.
+https://docs.oasis-open.org/odata/odata/v4.02/csd02/odata-v4.02-csd02-part1-protocol.html.
 Latest stage: https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html.
 
 #### Notices
-Copyright © OASIS Open 2023. All Rights Reserved.
+Copyright © OASIS Open 2024. All Rights Reserved.
 
 Distributed under the terms of the OASIS [IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/).
 
@@ -272,7 +276,7 @@ For complete copyright information please see the full Notices section in an App
     - [11.4.14 Delete Members of a Collection](#DeleteMembersofaCollection)
   - [11.5 Operations](#Operations)
     - [11.5.1 Binding an Operation to a Resource](#BindinganOperationtoaResource)
-    - [11.5.2 Applying an Action to Members of a Collection](#ApplyinganActiontoMembersofaCollection)
+    - [11.5.2 Applying an Operation to Members of a Collection](#ApplyinganOperationtoMembersofaCollection)
     - [11.5.3 Advertising Available Operations within a Payload](#AdvertisingAvailableOperationswithinaPayload)
     - [11.5.4 Functions](#Functions)
       - [11.5.4.1 Invoking a Function](#InvokingaFunction)
@@ -293,9 +297,10 @@ For complete copyright information please see the full Notices section in an App
       - [11.7.7.1 Multipart Batch Request Body](#MultipartBatchRequestBody)
       - [11.7.7.2 Referencing New Entities](#ReferencingNewEntities)
       - [11.7.7.3 Referencing an ETag](#ReferencinganETag)
-      - [11.7.7.4 Processing a Multipart Batch Request](#ProcessingaMultipartBatchRequest)
-      - [11.7.7.5 Multipart Batch Response](#MultipartBatchResponse)
-      - [11.7.7.6 Asynchronous Batch Requests](#AsynchronousBatchRequests)
+      - [11.7.7.4 Referencing Response Body Values](#ReferencingResponseBodyValues)
+      - [11.7.7.5 Processing a Multipart Batch Request](#ProcessingaMultipartBatchRequest)
+      - [11.7.7.6 Multipart Batch Response](#MultipartBatchResponse)
+      - [11.7.7.7 Asynchronous Batch Requests](#AsynchronousBatchRequests)
 - [12 Conformance](#Conformance)
   - [12.1 OData 4.0 Service Conformance Levels](#OData40ServiceConformanceLevels)
     - [12.1.1 OData 4.0 Minimal Conformance Level](#OData40MinimalConformanceLevel)
@@ -347,7 +352,9 @@ resource representations that are exchanged using OData.
 Section | Feature / Change | Issue
 --------|------------------|------
 [Section 11.4](#DataModification)| Response code `204 No Content` after successful data modification if requested response could not be constructed| [ODATA-1609](https://issues.oasis-open.org/browse/ODATA-1609)
+[Section 11.4.4](#UpsertanEntity)|  Upserts to single-valued non-containment navigation properties| [ODATA-1588](https://issues.oasis-open.org/browse/ODATA-1588)
 [Section 11.4.9.3](#UpdateaComplexProperty)| Setting a complex property to a different type| [ODATA-1472](https://issues.oasis-open.org/browse/ODATA-1472)
+[Section 12.3](#InteroperableODataClients) | Encoding of plus character in URLs | [ODATA-1540](https://issues.oasis-open.org/browse/ODATA-1540)
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -374,13 +381,13 @@ All examples in this document are non-normative and informative only.
 
 All other text is normative unless otherwise labeled.
 
-::: example
-Here is a customized command line which will generate HTML from this markdown file (named `odata-v4.02-csd01-part1-protocol.md`). Line breaks are added for readability only:
+<!--
+Here is a customized command line which will generate HTML from the markdown file (named `odata-v4.02-csd02-part1-protocol.md`). Line breaks are added for readability only:
 
 ```
 pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        -t html
-       -o odata-v4.02-csd01-part1-protocol.html
+       -o odata-v4.02-csd02-part1-protocol.html
        -c styles/markdown-styles-v1.7.3b.css
        -c styles/odata.css
        -s
@@ -388,11 +395,11 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        --eol=lf
        --wrap=none
        --metadata pagetitle="OData Version 4.02. Part 1: Protocol"
-       odata-v4.02-csd01-part1-protocol.md
+       odata-v4.02-csd02-part1-protocol.md
 ```
 
-This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
-:::
+This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12.2.
+-->
 
 -------
 
@@ -606,10 +613,10 @@ one or both of them may differ from convention.
 
 ## <a name="TransientEntities" href="#TransientEntities">4.3 Transient Entities</a>
 
-Transient entities are instances of an entity type that are "calculated
-on the fly" and only exist within a single payload. They cannot be
-reread or updated and consequently possess neither a stable entity-id
-nor a read URL or an update URL.
+Transient entities are instances of an entity type that are
+dynamically generated on request and only exist within a response payload.
+They do not possess an entity-id or an update URL and consequently cannot be updated.
+A transient entity may have a read URL, which generates a new transient entity using the same algorithm.
 
 ## <a name="DefaultNamespaces" href="#DefaultNamespaces">4.4 Default Namespaces</a>
 
@@ -4521,11 +4528,16 @@ that does not yet exist. In this case the service MUST handle the
 request as a [create entity request](#CreateanEntity) or fail the
 request altogether.
 
+Upserts to single-valued navigation properties are possible for
+- containment navigation properties,
+- non-containment navigation properties with a navigation property binding, or
+- payloads including a context URL specifying the entity set or
+  contained collection of entities in which the new entity is to be created.
+
 Upserts are not supported against [media
-entities](#RequestingtheMediaStreamofaMediaEntityusingvalue), single-valued
-non-containment navigation properties, or entities whose keys values are
-generated by the service. Services MUST fail an update request to a URL
-that would identify such an entity and the entity does not yet exist.
+entities](#RequestingtheMediaStreamofaMediaEntityusingvalue)
+or entities whose keys values are
+generated by the service. Services MUST fail an update request to a URL that would identify such an entity and the entity does not yet exist.
 
 Singleton entities can be upserted if they are nullable. Services
 supporting this SHOULD advertise it by annotating the singleton with the
@@ -5192,7 +5204,7 @@ GET http://host/service/Products/$filter(Color eq 'Red')/Diff.Comparison()
 ```
 :::
 
-### <a name="ApplyinganActiontoMembersofaCollection" href="#ApplyinganActiontoMembersofaCollection">11.5.2 Applying an Action to Members of a Collection</a>
+### <a name="ApplyinganOperationtoMembersofaCollection" href="#ApplyinganOperationtoMembersofaCollection">11.5.2 Applying an Operation to Members of a Collection</a>
 
 A bound operation with a single-valued binding parameter can be applied
 to each member of a collection by appending the path segment `/$each` to
@@ -5549,7 +5561,9 @@ using the [`return`](#Preferencereturnrepresentationandreturnminimal) preference
 Actions that create and return a single entity follow the rules for
 [entity creation](#CreateanEntity) and return a
 [`Location`](#HeaderLocation) header that contains the edit URL or read URL of the
-created entity.
+created entity. They MAY be annotated with the term
+[`Core.Constructor`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Constructor)
+defined in [OData-VocCore](#ODataVocCore).
 
 If the action returns a value of type `Edm.Stream`, the response to the `POST` request
 follows the rules for [requesting stream properties](#RequestingStreamProperties).
@@ -5627,7 +5641,7 @@ and MAY include a [`Retry-After`](#HeaderRetryAfter) header to be used for a sub
 contain the same values as returned by the previous request.
 
 A `GET` request to the status monitor resource returns [`200 OK`](#ResponseCode200OK) once the
-asynchronous processing has completed. For OData 4.01 and greater
+asynchronous processing has completed. For OData 4.01 or greater
 responses, or OData 4.0 requests that include an `Accept` header that
 does not specify `application/http`, the response MUST include the
 [`AsyncResult`](#HeaderAsyncResult) response header. Any other headers,
@@ -5780,7 +5794,7 @@ the rules for which individual requests require an identifier.
 
 ### <a name="ReferencingReturnedEntities" href="#ReferencingReturnedEntities">11.7.4 Referencing Returned Entities</a>
 
-Entities created by an [insert](#CreateanEntity) request can be
+Entities created by an [insert](#CreateanEntity) request or an [action](#InvokinganAction) can be
 referenced in the request URL of subsequent requests by using the
 request identifier prefixed with a `$` character as the first segment of
 the request URL. If the [`Location`](#HeaderLocation) header in the response contains a relative URL,
@@ -5920,7 +5934,7 @@ processor may choose to disallow chunked encoding to be used by such
 HTTP requests.
 
 ::: example
-Example 104: a batch request that contains the following individual
+Example <a name="batchRequest" href="#batchRequest">104</a>: a batch request that contains the following individual
 requests in the order listed
 
   1. A query request
@@ -5990,7 +6004,7 @@ Host: host
 
 #### <a name="ReferencingNewEntities" href="#ReferencingNewEntities">11.7.7.2 Referencing New Entities</a>
 
-Entities created by an [Insert](#CreateanEntity) request can be
+Entities created by an [insert](#CreateanEntity) request or an [action](#InvokinganAction) can be
 referenced in the request URL of subsequent requests within the same
 change set. Services MAY also support referencing across change sets, in
 which case they SHOULD advertise this support by specifying the
@@ -6005,6 +6019,7 @@ the order listed:
 A change set that contains the following requests:
 - Insert a new entity (with `Content-ID = 1`)
 - Insert a second new entity (references request with `Content-ID = 1`)
+
 ```
 POST /service/$batch HTTP/1.1
 Host: host
@@ -6045,7 +6060,8 @@ Content-Length: ###
 ::: example
 Example 106: a batch request that contains the following operations in
 the order listed:
-- Get an Employee (with `Content-ID = 1`)
+
+- Get an employee (with `Content-ID = 1`)
 - Update the salary only if the employee has not changed
 ```json
 POST /service/$batch HTTP/1.1
@@ -6080,7 +6096,45 @@ If-Match: $1
 ```
 :::
 
-#### <a name="ProcessingaMultipartBatchRequest" href="#ProcessingaMultipartBatchRequest">11.7.7.4 Processing a Multipart Batch Request</a>
+#### <a name="ReferencingResponseBodyValues" href="#ReferencingResponseBodyValues">11.7.7.4 Referencing Response Body Values</a>
+
+::: example
+Example 107: a batch request that contains the following operations in
+the order listed:
+
+- Get an employee (with `Content-ID = 1`)
+- Get all employees residing in the same building
+
+```
+POST /service/$batch HTTP/1.1
+Host: host
+OData-Version: 4.01
+Content-Type: multipart/mixed; boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b
+Content-Length: ###
+
+--batch_36522ad7-fc75-4b56-8c71-56071383e77b
+Content-Type: application/http
+Content-ID: 1
+
+GET /service/Employees/0?$select=Building HTTP/1.1
+Host: host
+Accept: application/json
+
+
+--batch_36522ad7-fc75-4b56-8c71-56071383e77b
+Content-Type: application/http
+Content-ID: 2
+
+GET /service/Employees?$filter=Building eq $1/Building HTTP/1.1
+Host: host
+Accept: application/json
+
+
+--batch_36522ad7-fc75-4b56-8c71-56071383e77b--
+```
+:::
+
+#### <a name="ProcessingaMultipartBatchRequest" href="#ProcessingaMultipartBatchRequest">11.7.7.5 Processing a Multipart Batch Request</a>
 
 The service MUST process the individual requests and change sets within
 a multipart batch request in the order received. Processing stops on the
@@ -6100,7 +6154,7 @@ specifies a request identifier, the service MUST include the
 `Content-ID` header with the request identifier in the corresponding
 response so clients can correlate requests and responses.
 
-#### <a name="MultipartBatchResponse" href="#MultipartBatchResponse">11.7.7.5 Multipart Batch Response</a>
+#### <a name="MultipartBatchResponse" href="#MultipartBatchResponse">11.7.7.6 Multipart Batch Response</a>
 
 A multipart response to a batch request MUST contain a `Content-Type`
 header with value `multipart/mixed`.
@@ -6142,7 +6196,7 @@ URL of the corresponding individual request. URLs in responses MUST NOT
 contain `$`-prefixed request identifiers.
 
 ::: example
-Example 107: referencing the batch request example 101 above, assume all
+Example 108: referencing the batch request [example 104](#batchRequest) above, assume all
 the requests except the final query request succeed. In this case the
 response would be
 ```
@@ -6177,7 +6231,6 @@ Content-Type: application/http
 Content-ID: 2
 
 HTTP/1.1 204 No Content
-Host: host
 
 
 --cs_12u7hdkin252452345eknd_383673037--
@@ -6193,7 +6246,7 @@ Content-Length: ###
 ```
 :::
 
-#### <a name="AsynchronousBatchRequests" href="#AsynchronousBatchRequests">11.7.7.6 Asynchronous Batch Requests</a>
+#### <a name="AsynchronousBatchRequests" href="#AsynchronousBatchRequests">11.7.7.7 Asynchronous Batch Requests</a>
 
 Batch requests MAY be executed asynchronously by including the
 [`respond-async`](#Preferencerespondasync) preference in the
@@ -6219,7 +6272,7 @@ Since a change set is executed atomically,
 a change set.
 
 ::: example
-Example 108: referencing the example 101 above again, assume that
+Example 109: referencing the [example 104](#batchRequest) above again, assume that
 ```
 HTTP/1.1 202 Accepted
 Location: http://service-root/async-monitor-0
@@ -6289,7 +6342,6 @@ Content-Type: application/http
 Content-ID: 2
 
 HTTP/1.1 204 No Content
-Host: host
 
 
 --cs_12u7hdkin252452345eknd_383673037--
@@ -6691,30 +6743,31 @@ updates ([section 11.4.3](#UpdateanEntity))
 query options
 9. MUST use case-sensitive query options, operators, and canonical
 functions
-10. SHOULD support basic authentication as defined in
+10. MUST encode the plus character (octet `0x2B`) as `%2B` in URLs to avoid servers mis-interpreting the plus character as an encoded space
+11. SHOULD support basic authentication as defined in
 [RFC7617](#rfc7617) over HTTPS
-11. MAY request entity references in place of entities previously
+12. MAY request entity references in place of entities previously
 returned in the response ([section 11.2.8](#RequestingEntityReferences))
-12. MAY support deleted entities, link entities, deleted link entities
+13. MAY support deleted entities, link entities, deleted link entities
 in a delta response ([section 11.3](#RequestingChanges))
-13. MAY support asynchronous responses ([section 11.6](#AsynchronousRequests))
-14. MAY support `metadata=minimal` in a JSON response (see
+14. MAY support asynchronous responses ([section 11.6](#AsynchronousRequests))
+15. MAY support `metadata=minimal` in a JSON response (see
 [OData-JSON](#ODataJSON))
-15. MAY support `streaming` in a JSON response (see
+16. MAY support `streaming` in a JSON response (see
 [OData-JSON](#ODataJSON))
 
 In addition, interoperable OData 4.01 clients
 
-16. MUST send OData 4.0-compliant payloads to services that don't
+17. MUST send OData 4.0-compliant payloads to services that don't
 advertise support for 4.01 or greater through the
 [`Core.ODataVersions`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ODataVersions)
 metadata annotation (see [OData-VocCore](#ODataVocCore))
-17. MUST specify identifiers in payloads and URLs in the case they are
+18. MUST specify identifiers in payloads and URLs in the case they are
 specified in `$metadata`
-18. MUST be prepared to receive any valid 4.01 CSDL
-19. MUST be prepared to receive any valid 4.01 response according to
+19. MUST be prepared to receive any valid 4.01 CSDL
+20. MUST be prepared to receive any valid 4.01 response according to
 the requested format
-20. SHOULD use capabilities (see [OData-VocCap](#ODataVocCap)) to
+21. SHOULD use capabilities (see [OData-VocCap](#ODataVocCap)) to
 determine if a 4.01 feature is supported but MAY attempt syntax and be
 prepared to handle either
 [`501 Not Implemented`](#ResponseCode501NotImplemented) or
@@ -6924,7 +6977,7 @@ The following individuals were members of the OASIS OData Technical Committee du
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
-| Working Draft 01 | 2023-07-20 | Ralf Handl | Import material from OData Version 4.01 Part 1: Protocol |
+|Committee Specification Draft 01|2024-02-28|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| Import material from OData Version 4.01 Part 1: Protocol <br>Changes listed in [section 1.1](#ChangesfromEarlierVersions)|
 
 -------
 
@@ -6932,7 +6985,7 @@ The following individuals were members of the OASIS OData Technical Committee du
 
 <!-- Required section. Do not modify. -->
 
-Copyright © OASIS Open 2023. All Rights Reserved.
+Copyright © OASIS Open 2024. All Rights Reserved.
 
 All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the "OASIS IPR Policy"). The full [Policy](https://www.oasis-open.org/policies-guidelines/ipr/) may be found at the OASIS website.
 

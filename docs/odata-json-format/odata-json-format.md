@@ -5,19 +5,21 @@
 
 # OData JSON Format Version 4.02
 
-## Committee Specification Draft 01
+## Committee Specification Draft 02
 
-## 14 July 2023
+## 28 February 2024
 
 $\hbox{}$
 
 #### This stage:
+https://docs.oasis-open.org/odata/odata-json-format/v4.02/csd02/odata-json-format-v4.02-csd02.md (Authoritative) \
+https://docs.oasis-open.org/odata/odata-json-format/v4.02/csd02/odata-json-format-v4.02-csd02.html \
+https://docs.oasis-open.org/odata/odata-json-format/v4.02/csd02/odata-json-format-v4.02-csd02.pdf
+
+#### Previous stage:
 https://docs.oasis-open.org/odata/odata-json-format/v4.02/csd01/odata-json-format-v4.02-csd01.md (Authoritative) \
 https://docs.oasis-open.org/odata/odata-json-format/v4.02/csd01/odata-json-format-v4.02-csd01.html \
 https://docs.oasis-open.org/odata/odata-json-format/v4.02/csd01/odata-json-format-v4.02-csd01.pdf
-
-#### Previous stage:
-N/A
 
 #### Latest stage:
 https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.md (Authoritative) \
@@ -47,7 +49,7 @@ This specification is related to:
 * _OData Version 4.02_. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. A multi-part Work Product that includes:
   * _OData Version 4.02 Part 1: Protocol_. Latest stage. https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html
   * _OData Version 4.02 Part 2: URL Conventions_. Latest stage. https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html
-  * _ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases_. https://docs.oasis-open.org/odata/odata/v4.02/csd01/abnf/
+  * _ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases_. https://docs.oasis-open.org/odata/odata/v4.02/csd02/abnf/
 * _OData Vocabularies Version 4.0_. Edited by Michael Pizzo, Ralf Handl, and Ram Jeyaraman. Latest stage: https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/odata-vocabularies-v4.0.html
 * _OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02_. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. Latest stage: https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html
 * _OData Common Schema Definition Language (CSDL) XML Representation Version 4.02_. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. Latest stage: https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/odata-csdl-xml-v4.02.html
@@ -73,12 +75,12 @@ When referencing this specification the following citation format should be used
 **[OData-JSON-Format-v4.02]**
 
 _OData JSON Format Version 4.02_.
-Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. 14 July 2023. OASIS Committee Specification Draft 01.
-https://docs.oasis-open.org/odata/odata-json-format/v4.02/csd01/odata-json-format-v4.02-csd01.html.
+Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. 28 February 2024. OASIS Committee Specification Draft 02.
+https://docs.oasis-open.org/odata/odata-json-format/v4.02/csd02/odata-json-format-v4.02-csd02.html.
 Latest stage: https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html.
 
 #### Notices
-Copyright © OASIS Open 2023. All Rights Reserved.
+Copyright © OASIS Open 2024. All Rights Reserved.
 
 Distributed under the terms of the OASIS [IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/).
 
@@ -159,9 +161,10 @@ For complete copyright information please see the full Notices section in an App
   - [19.1 Batch Request](#BatchRequest)
   - [19.2 Referencing New Entities](#ReferencingNewEntities)
   - [19.3 Referencing an ETag](#ReferencinganETag)
-  - [19.4 Processing a Batch Request](#ProcessingaBatchRequest)
-  - [19.5 Batch Response](#BatchResponse)
-  - [19.6 Asynchronous Batch Requests](#AsynchronousBatchRequests)
+  - [19.4 Referencing Response Body Values](#ReferencingResponseBodyValues)
+  - [19.5 Processing a Batch Request](#ProcessingaBatchRequest)
+  - [19.6 Batch Response](#BatchResponse)
+  - [19.7 Asynchronous Batch Requests](#AsynchronousBatchRequests)
 - [20 Instance Annotations](#InstanceAnnotations)
   - [20.1 Annotate a JSON Object](#AnnotateaJSONObject)
   - [20.2 Annotate a JSON Array or Primitive](#AnnotateaJSONArrayorPrimitive)
@@ -236,13 +239,13 @@ All examples in this document are non-normative and informative only.
 
 All other text is normative unless otherwise labeled.
 
-::: example
-Here is a customized command line which will generate HTML from this markdown file (named `odata-json-format-v4.02-csd01.md`). Line breaks are added for readability only:
+<!--
+Here is a customized command line which will generate HTML from the markdown file (named `odata-json-format-v4.02-csd02.md`). Line breaks are added for readability only:
 
 ```
 pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        -t html
-       -o odata-json-format-v4.02-csd01.html
+       -o odata-json-format-v4.02-csd02.html
        -c styles/markdown-styles-v1.7.3b.css
        -c styles/odata.css
        -s
@@ -250,11 +253,11 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        --eol=lf
        --wrap=none
        --metadata pagetitle="OData JSON Format Version 4.02"
-       odata-json-format-v4.02-csd01.md
+       odata-json-format-v4.02-csd02.md
 ```
 
-This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
-:::
+This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12.2.
+-->
 
 -------
 
@@ -2016,7 +2019,7 @@ control information MUST be included in a response that represents a
 partial result.
 
 ::: example
-Example 28:
+Example 31:
 ```json
 {
   "@context": "…",
@@ -2053,7 +2056,7 @@ control information and MAY contain
 [`deltaLink`](#ControlInformationdeltaLinkodatadeltaLink) control information.
 
 ::: example
-Example 31: entity reference to order 10643
+Example 32: entity reference to order 10643
 ```json
 {
   "@context": "http://host/service/$metadata#$ref",
@@ -2063,7 +2066,7 @@ Example 31: entity reference to order 10643
 :::
 
 ::: example
-Example 32: collection of entity references
+Example 33: collection of entity references
 ```json
 {
   "@context": "http://host/service/$metadata#Collection($ref)",
@@ -2124,7 +2127,7 @@ all added, changed, or deleted entities to be returned, as well as added
 or deleted links.
 
 ::: example
-Example 33: a 4.01 delta response with five changes, in order of
+Example 34: a 4.01 delta response with five changes, in order of
 occurrence
 
   1. `ContactName` for customer `BOTTM` was changed to `Susan Halvenstern`
@@ -2236,7 +2239,7 @@ property. The array MUST NOT contain [added](#AddedLink) or [deleted
 links](#DeletedLink).
 
 ::: example
-Example 34: 4.01 delta response customers with expanded orders
+Example 35: 4.01 delta response customers with expanded orders
 represented inline as a delta
 
   1. Customer `BOTTM`:
@@ -2299,7 +2302,7 @@ clients SHOULD NOT receive additional notifications for such removed
 entities.
 
 ::: example
-Example 35: 4.01 delta response for a single entity with an expanded navigation
+Example 36: 4.01 delta response for a single entity with an expanded navigation
 property containing only a partial list of related entities (as
 indicated with a [next link](#ControlInformationnextLinkodatanextLink))
 ```json
@@ -2350,7 +2353,7 @@ following optional property, regardless of the specified
   result (i.e., due to a data change).
 
 ::: example
-Example 36: deleted entity in OData 4.0 response --- note that `id` is
+Example 37: deleted entity in OData 4.0 response --- note that `id` is
 a property, not control information
 ```json
 {
@@ -2407,7 +2410,7 @@ representation of a related collection of entities, to represent related
 entities that have been modified or deleted.
 
 ::: example
-Example 37: deleted entity in OData 4.01 response with `id`
+Example 38: deleted entity in OData 4.01 response with `id`
 control information (prefixed with an `@`)
 ```json
 {
@@ -2422,7 +2425,7 @@ control information (prefixed with an `@`)
 :::
 
 ::: example
-Example 38: entity removed OData 4.01 response without `id`
+Example 39: entity removed OData 4.01 response without `id`
 control information and instead all key fields (`ID` is the
 single key field of `Customer`)
 ```json
@@ -2497,7 +2500,7 @@ entities, as well as [added](#AddedLink) or
 [deleted](#DeletedLink) links between entities.
 
 ::: example
-Example 39: 4.01 collection-update request for customers with expanded orders represented
+Example 40: 4.01 collection-update request for customers with expanded orders represented
 inline as a delta
   1. Add customer `EASTC`
   2. Change `ContactName` of customer `AROUT`
@@ -2781,7 +2784,7 @@ is requested, the `target` name/value pair MUST be included
 if its value differs from the canonical function or action URL.
 
 ::: example
-Example 40: minimal representation of a function where all overloads are
+Example 41: minimal representation of a function where all overloads are
 applicable
 ```json
 {
@@ -2793,7 +2796,7 @@ applicable
 :::
 
 ::: example
-Example 41: full representation of a specific overload with parameter
+Example 42: full representation of a specific overload with parameter
 alias for the `Year` parameter
 ```json
 {
@@ -2808,7 +2811,7 @@ alias for the `Year` parameter
 :::
 
 ::: example
-Example 42: full representation in a collection
+Example 43: full representation in a collection
 ```json
 {
   "@context": "http://host/service/$metadata#Employees",
@@ -2822,7 +2825,7 @@ Example 42: full representation in a collection
 :::
 
 ::: example
-Example 43: full representation in a nested collection
+Example 44: full representation in a nested collection
 ```json
 {
   "@context": "http://host/service/$metadata#Employees/$entity",
@@ -2885,7 +2888,7 @@ is requested, the `target` name/value pair MUST be included
 if its value differs from the canonical function or action URL.
 
 ::: example
-Example 44: minimal representation in an entity
+Example 45: minimal representation in an entity
 ```json
 {
   "@context": "http://host/service/$metadata#LeaveRequests/$entity",
@@ -2896,7 +2899,7 @@ Example 44: minimal representation in an entity
 :::
 
 ::: example
-Example 45: full representation in an entity:
+Example 46: full representation in an entity:
 ```json
 {
   "@context": "http://host/service/$metadata#LeaveRequests/$entity",
@@ -2910,7 +2913,7 @@ Example 45: full representation in an entity:
 :::
 
 ::: example
-Example 46: full representation in a collection
+Example 47: full representation in a collection
 ```json
 {
   "@context": "http://host/service/$metadata#LeaveRequests",
@@ -2924,7 +2927,7 @@ Example 46: full representation in a collection
 :::
 
 ::: example
-Example 47: full representation in a nested collection
+Example 48: full representation in a nested collection
 ```json
 {
   "@context": "http://host/service/$metadata#Employees/$entity",
@@ -2952,6 +2955,7 @@ value is the parameter value in the JSON representation appropriate for
 its type. Entity typed parameter values MAY include a subset of the
 properties, or just the [entity reference](#EntityReference), as
 appropriate to the action.
+Stream typed parameter values are represented following the same rules as inlined [stream properties](#StreamProperty).
 
 Non-binding parameters that are nullable or annotated with the term
 [`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter) defined in
@@ -2966,7 +2970,7 @@ parameter is equivalent to being annotated as optional with a default
 value of `null`.
 
 ::: example
-Example 46:
+Example 49:
 ```json
 {
   "param1": 42,
@@ -3112,7 +3116,7 @@ The request object and the `headers` object MUST NOT contain name/value pairs wi
 This is in conformance with [RFC7493](#rfc7493).
 
 ::: example
-Example <a name="batchRequest" href="#batchRequest">48</a>: a batch request that contains
+Example <a name="batchRequest" href="#batchRequest">50</a>: a batch request that contains
 the following individual requests in the order listed
 
   1. A query request
@@ -3175,7 +3179,7 @@ contains a relative URL, clients MUST be able to resolve it relative to the
 request's URL even if that contains such a reference.
 
 ::: example
-Example 49: a batch request that contains the following operations in
+Example 51: a batch request that contains the following operations in
 the order listed:
 
 - Insert a new entity (with `id = 1`)
@@ -3210,11 +3214,12 @@ Content-Length: ###
 ## <a name="ReferencinganETag" href="#ReferencinganETag">19.3 Referencing an ETag</a>
 
 ::: example
-Example 50: a batch request that contains the following operations in
+Example 52: a batch request that contains the following operations in
 the order listed:
 
 - Get an Employee (with `id` = 1)
 - Update the salary only if the employee has not changed
+
 ```json
 POST /service/$batch HTTP/1.1
 Host: host
@@ -3249,7 +3254,47 @@ Content-Length: ###
 ```
 :::
 
-## <a name="ProcessingaBatchRequest" href="#ProcessingaBatchRequest">19.4 Processing a Batch Request</a>
+## <a name="ReferencingResponseBodyValues" href="#ReferencingResponseBodyValues">19.4 Referencing Response Body Values</a>
+
+::: example
+Example 53: a batch request that contains the following operations in
+the order listed:
+
+- Get an employee (with `Content-ID = 1`)
+- Get all employees residing in the same building
+
+```json
+POST /service/$batch HTTP/1.1
+Host: host
+OData-Version: 4.01
+Content-Type: application/json
+Content-Length: ###
+
+{
+  "requests": [
+    {
+      "id": "1",
+      "method": "get",
+      "url": "/service/Employees/0?$select=Building",
+      "headers": {
+        "accept": "application/json"
+      }
+    },
+    {
+      "id": "2",
+      "dependsOn": [ "1" ],
+      "method": "get",
+      "url": "/service/Employees?$filter=Building eq $1/Building",
+      "headers": {
+        "accept": "application/json"
+      }
+    }
+  ]
+}
+```
+:::
+
+## <a name="ProcessingaBatchRequest" href="#ProcessingaBatchRequest">19.5 Processing a Batch Request</a>
 
 All requests in an atomicity group represent a single change unit. A
 service MUST successfully process and apply all the requests in the
@@ -3276,7 +3321,7 @@ response object with the value of the request identifier that the client
 specified in the corresponding request, so clients can correlate
 requests and responses.
 
-## <a name="BatchResponse" href="#BatchResponse">19.5 Batch Response</a>
+## <a name="BatchResponse" href="#BatchResponse">19.6 Batch Response</a>
 
 A JSON batch response body consists of a single JSON object that MUST
 contain the name/value pair `responses` and MAY contain
@@ -3343,7 +3388,7 @@ request. Especially: URLs in responses MUST NOT contain
 `$`-prefixed request identifiers.
 
 ::: example
-Example 51: referencing the batch request [example 48](#batchRequest) above, assume all
+Example 54: referencing the batch request [example 50](#batchRequest) above, assume all
 the requests except the final query request succeed. In this case the
 response would be
 ```json
@@ -3381,7 +3426,7 @@ Content-Type: application/json
 ```
 :::
 
-## <a name="AsynchronousBatchRequests" href="#AsynchronousBatchRequests">19.6 Asynchronous Batch Requests</a>
+## <a name="AsynchronousBatchRequests" href="#AsynchronousBatchRequests">19.7 Asynchronous Batch Requests</a>
 
 A batch request that specifies the `respond-async` preference MAY be executed asynchronously. This means that the "outer" batch request is executed asynchronously; this
 preference does not automatically cascade down to the individual
@@ -3401,7 +3446,7 @@ to the next link MAY result in a `202 Accepted` response with a
 `location` header pointing to a new status monitor resource.
 
 ::: example
-Example 52: referencing the example 47 above again, assume that the
+Example 55: referencing the [example 50](#batchRequest) above again, assume that the
 request is sent with the `respond-async` preference. This
 results in a `202` response pointing to a status monitor resource:
 ```json
@@ -3491,7 +3536,7 @@ asynchronously executed individual request with a `status` of
 individual status monitor resource, and optionally a `retry-after` header.
 
 ::: example
-Example 53: the first individual request is processed asynchronously,
+Example 56: the first individual request is processed asynchronously,
 the second synchronously, the batch itself is processed synchronously
 ```json
 HTTP/1.1 200 OK
@@ -3554,7 +3599,7 @@ the annotations for the value appear next to the `value`
 property and are not prefixed with a property name.
 
 ::: example
-Example 54:
+Example 57:
 ```json
 {
   "@context": "http://host/service/$metadata#Customers",
@@ -3664,7 +3709,7 @@ Error responses MAY contain [annotations](#InstanceAnnotations) in
 any of its JSON objects.
 
 ::: example
-Example 55:
+Example 58:
 ```json
 {
   "error": {
@@ -3713,7 +3758,7 @@ header-appropriate way:
   [RFC8259](#rfc8259), section 7)
 
 ::: example
-Example 56: note that this is one HTTP header line without any line
+Example 59: note that this is one HTTP header line without any line
 breaks or optional whitespace
 ```json
 OData-error: {"code":"err123","message":"Unsupported
@@ -3984,7 +4029,7 @@ The contributions of the OASIS OData Technical Committee members, enumerated in 
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
-| Working Draft 01 | 2023-07-20 | Ralf Handl | Import material from OData JSON Format Version 4.01 |
+|Committee Specification Draft 01|2024-02-28|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| Import material from OData JSON Format Version 4.01 <br>Changes listed in [section 1.1](#ChangesfromEarlierVersions)|
 
 -------
 
@@ -3992,7 +4037,7 @@ The contributions of the OASIS OData Technical Committee members, enumerated in 
 
 <!-- Required section. Do not modify. -->
 
-Copyright &copy; OASIS Open 2023. All Rights Reserved.
+Copyright © OASIS Open 2024. All Rights Reserved.
 
 All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the "OASIS IPR Policy"). The full [Policy](https://www.oasis-open.org/policies-guidelines/ipr/) may be found at the OASIS website.
 

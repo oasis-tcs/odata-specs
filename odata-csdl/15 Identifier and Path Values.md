@@ -52,7 +52,7 @@ forward-slash separated property, navigation property, or type-cast
 segments
 
 ::: example
-Example ##ex: Target expressions
+Example ##ex: Target paths
 ```
 MySchema.MyEntityContainer/MyEntitySet
 ```
@@ -310,6 +310,7 @@ Example ##ex:
 ::: {.varxml .example}
 Example ##ex:
 ```xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            xmlns="http://docs.oasis-open.org/odata/ns/edm" Version="4.0">
   <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
@@ -460,9 +461,14 @@ Example ##ex:
             {
               "$Path": "Name"
             },
-            " in ",
             {
-              "$Path": "Address/CountryName"
+              "$Apply": [
+                " in ",
+                {
+                  "$Path": "Address/CountryName"
+                }
+              ],
+              "$Function": "odata.concat"
             }
           ],
           "$Function": "odata.concat"
@@ -482,6 +488,7 @@ Example ##ex:
 ::: {.varxml .example}
 Example ##ex:
 ```xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.01">
   <edmx:Reference Uri="http://host/service/$metadata">
@@ -501,10 +508,12 @@ Example ##ex:
         <Annotation Term="Vocabulary1.Title" String="Supplier Info" />
         <Annotation Term="Vocabulary1.DisplayName">
         <Apply Function="odata.concat">
-            <Path>Name</Path>
+          <Path>Name</Path>
+          <Apply Function="odata.concat">
             <String> in </String>
             <Path>Address/CountryName</Path>
           </Apply>
+        </Apply>
         </Annotation>
       </Annotations>
       <Annotations Target="ODataDemo.Product">
@@ -528,8 +537,8 @@ Conforming services MUST follow all rules of this specification document
 for the types, sets, functions, actions, containers and annotations they
 expose.
 
-In addition, conforming services MUST NOT return 4.01 CSDL constructs
-for requests made with `OData-MaxVersion:4.0`.
+In addition, conforming services MUST NOT return CSDL constructs defined in OData 4.01 or greater 
+for requests made with `OData-MaxVersion: 4.0`.
 
 Specifically, they
 1. MUST NOT include properties in derived types that overwrite a
@@ -556,12 +565,18 @@ types
 11. SHOULD NOT include new/unknown values for the
 [`AppliesTo`](#Applicability) attribute
 :
-12. MAY include new CSDL annotations
+12. SHOULD NOT include constant [Geo](#GeoValues) or [Stream values](#StreamValues) in annotations
+13. MAY include new CSDL annotations
 
-In addition, OData 4.01 services:
-13. SHOULD NOT have identifiers within a uniqueness scope (e.g. a
+In addition, OData 4.01 or greater services:
+
+14. SHOULD NOT have identifiers within a uniqueness scope (e.g. a
 schema, a structural type, or an entity container) that differ only by
 case
+
+In addition, OData 4.01 services:
+
+15. SHOULD NOT include constant [Geo](#GeoValues) or [Stream values](#StreamValues) in annotations
 
 Conforming clients MUST be prepared to consume a model that uses any or
 all constructs defined in this specification, including custom

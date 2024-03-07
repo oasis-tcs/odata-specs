@@ -6,6 +6,11 @@ previousStage: csd04
 pubdate: 19 September 2023
 pubdateISO: '2023-09-19'
 copyright: © OASIS Open 2023
+additionalArtifacts:
+  - repo: odata-vocabularies
+    path: vocabularies/Org.OData.Aggregation.V1.json
+  - repo: odata-vocabularies
+    path: vocabularies/Org.OData.Aggregation.V1.xml
 description:
   This specification adds basic grouping and aggregation functionality (e.g. sum, min, and max)
   to the Open Data Protocol (OData) without changing any of the base principles of OData.
