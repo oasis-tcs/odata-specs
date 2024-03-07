@@ -664,7 +664,7 @@ allows clients to request that the service process the request
 asynchronously.
 
 If the client has specified` respond-async` in the request, the service
-MAY process the request asynchronously and return a
+MAY process the request [asynchronously](#AsynchronousRequests) and return a
 [`202 Accepted`](#ResponseCode202Accepted) response.
 
 The `respond-async` preference MAY be used for batch requests, in which
