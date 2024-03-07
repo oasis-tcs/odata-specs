@@ -59,9 +59,7 @@ request
 ([section ##Extensibility] and all subsections)
 7. MUST successfully parse the request according to
 [OData-ABNF](#ODataABNF) for any supported system query options and
-either follow the specification or return
-`501 Not Implemented` for any
-unsupported functionality ([section ##ResponseCode501NotImplemented])
+follow the specification or fail the request
 8. MUST expose only data types defined in [OData-CSDLXML](#ODataCSDL)
 9. MUST NOT require clients to understand any metadata or instance
 annotations ([section ##VocabularyExtensibility]), custom headers ([section ##HeaderFieldExtensibility]), or custom
@@ -127,9 +125,8 @@ service:
 
 1. MUST conform to the [OData 4.0 Minimal Conformance
 Level](#OData40MinimalConformanceLevel)
-2. MUST successfully parse the [OData-ABNF](#ODataABNF) and either
-follow the specification or return `501 Not Implemented` for any
-unsupported functionality ([section ##ResponseCode501NotImplemented])
+2. MUST successfully parse the request according to [OData-ABNF](#ODataABNF) and
+follow the specification or fail the request
 3. MUST support `$select` ([section ##SystemQueryOptionselect])
 4. MUST support casting to a derived type according to
 [OData-URL](#ODataURL) if derived types are present in the model
@@ -140,11 +137,10 @@ unsupported functionality ([section ##ResponseCode501NotImplemented])
 in the requested entity set ([section ##BuiltinFilterOperations])
    2. MUST support aliases in `$filter` expressions ([section ##ParameterAliases])
    3. SHOULD support additional filter operations ([section ##BuiltinFilterOperations])
-and MUST return `501 Not Implemented` for any unsupported filter
-operations ([section ##ResponseCode501NotImplemented])
+and MUST fail the request for any unsupported filter
+operations
    4. SHOULD support the canonical functions ([section ##BuiltinQueryFunctions]) and
-MUST return `501 Not Implemented` for any unsupported canonical
-functions ([section ##ResponseCode501NotImplemented])
+MUST fail the request for any unsupported canonical functions
    5. SHOULD support `$filter` on expanded entities ([section ##ExpandOptions])
 8. SHOULD publish metadata at `$metadata` according to
 [OData-CSDLXML](#ODataCSDL) ([section ##MetadataDocumentRequest])
@@ -411,6 +407,4 @@ specified in `$metadata`
 the requested format
 21. SHOULD use capabilities (see [OData-VocCap](#ODataVocCap)) to
 determine if a 4.01 feature is supported but MAY attempt syntax and be
-prepared to handle either
-[`501 Not Implemented`](#ResponseCode501NotImplemented) or
-`400 Bad Request`
+prepared to handle `400 Bad Request` or [`501 Not Implemented`](#ResponseCode501NotImplemented)

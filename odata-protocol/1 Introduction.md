@@ -35,6 +35,9 @@ Response code `204 No Content` after successful data modification if requested r
 [Section ##UpdateaComplexProperty]| 
 Setting a complex property to a different type| 
 [ODATA-1472](https://issues.oasis-open.org/browse/ODATA-1472)
+[Section ##Conformance]| 
+Allow `400 Bad Request` in addition to `501 Not Implemented` for unsupported functionality| 
+[ODATA-1624](https://issues.oasis-open.org/browse/ODATA-1624)
 [Section ##InteroperableODataClients] | Encoding of plus character in URLs | [ODATA-1540](https://issues.oasis-open.org/browse/ODATA-1540)
 
 ## ##subsec Glossary
