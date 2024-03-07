@@ -192,31 +192,6 @@ Import material from OData Common Schema Definition Language (CSDL) XML Represen
 :
 <br>Changes listed in [section ##ChangesfromEarlierVersions]|
 
-<!--
-Working Draft 01                |2016-11-16|Ralf Handl|Initial version
-Committee Specification Draft 01|2017-06-08|Michael Pizzo<br>Ralf Handl| 
-Integrated 4.01 features
-Committee Specification Draft 02|2017-09-22|Michael Pizzo<br>Ralf Handl| 
-Incorporated review feedback<br> 
-Changed defaults of `$Nullable`, `$Scale`, and `$Precision`
-Committee Specification Draft 03|2017-11-10|Michael Pizzo<br>Ralf Handl| 
-Incorporated review feedback<br> 
-Stable order of action and function parameters
-Committee Specification 01      |2017-12-19|Michael Pizzo<br>Ralf Handl| 
-Non-material Changes
-Committee Specification Draft 04|2019-06-21|Michael Pizzo<br>Ralf Handl| 
-External targeting for annotations on action/function overloads, parameters, and return types<br> 
-Key and index segments for path expressions in annotations<br> 
-Nullable singletons<br> 
-Simplified syntax of entity container children and constant annotation expressions
-Committee Specification Draft 05|2019-09-26|Michael Pizzo<br>Ralf Handl| 
-Redefining entity sets and singletons when extending entity containers
-Committee Specification 02      |2019-11-05|Michael Pizzo<br>Ralf Handl| 
-Non-material Changes
-Candidate OASIS Standard 02     |2020-04-09|Michael Pizzo<br>Ralf Handl| 
-Non-material Changes
--->
-
 -------
 
 # Appendix ##asec Notices
