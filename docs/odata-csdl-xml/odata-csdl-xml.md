@@ -78,7 +78,7 @@ When referencing this specification the following citation format should be used
 **[OData-CSDL-XML-v4.02]**
 
 _OData Common Schema Definition Language (CSDL) XML Representation Version 4.02_.
-Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. 28 February 2024. OASIS Committee Specification Draft 01.
+Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. 28 February 2024. OASIS Committee Specification Draft 02.
 https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/csd02/odata-csdl-xml-v4.02-csd02.html.
 Latest stage: https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/odata-csdl-xml-v4.02.html.
 
