@@ -5,7 +5,7 @@
 
 # OData JSON Format Version 4.02
 
-## Committee Specification Draft 01
+## Committee Specification Draft 02
 
 ## 28 February 2024
 
@@ -75,7 +75,7 @@ When referencing this specification the following citation format should be used
 **[OData-JSON-Format-v4.02]**
 
 _OData JSON Format Version 4.02_.
-Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. 28 February 2024. OASIS Committee Specification Draft 01.
+Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. 28 February 2024. OASIS Committee Specification Draft 02.
 https://docs.oasis-open.org/odata/odata-json-format/v4.02/csd02/odata-json-format-v4.02-csd02.html.
 Latest stage: https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html.
 
@@ -4029,7 +4029,7 @@ The contributions of the OASIS OData Technical Committee members, enumerated in 
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
-| Working Draft 01 | 2023-07-20 | Ralf Handl | Import material from OData JSON Format Version 4.01 |
+|Committee Specification Draft 01|2024-02-28|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| Import material from OData JSON Format Version 4.01 <br>Changes listed in [section 1.1](#ChangesfromEarlierVersions)|
 
 -------
 
