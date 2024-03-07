@@ -13,7 +13,7 @@
     "isec",
     "isomorphy",
     "matchespattern",
-    "odata",
+    "OData",
     "pandoc",
     "parameterless",
     "SRID",
@@ -24,6 +24,9 @@
     "subsubsubsec",
     "subsubsubsubsec",
     "upsert",
+    "upsertable",
+    "upserted",
+    "upserts",
     "varjson",
     "varxml"
   ]
