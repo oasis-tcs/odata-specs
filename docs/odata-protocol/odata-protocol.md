@@ -5,7 +5,7 @@
 
 # OData Version 4.02. Part 1: Protocol
 
-## Committee Specification Draft 01
+## Committee Specification Draft 02
 
 ## 28 February 2024
 
@@ -381,8 +381,8 @@ All examples in this document are non-normative and informative only.
 
 All other text is normative unless otherwise labeled.
 
-::: example
-Here is a customized command line which will generate HTML from this markdown file (named `odata-v4.02-csd02-part1-protocol.md`). Line breaks are added for readability only:
+<!--
+Here is a customized command line which will generate HTML from the markdown file (named `odata-v4.02-csd02-part1-protocol.md`). Line breaks are added for readability only:
 
 ```
 pandoc -f gfm+tex_math_dollars+fenced_divs+smart
@@ -398,8 +398,8 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        odata-v4.02-csd02-part1-protocol.md
 ```
 
-This uses pandoc 3.1.11.1 from https://github.com/jgm/pandoc/releases/tag/3.1.11.1.
-:::
+This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12.2.
+-->
 
 -------
 
@@ -5639,7 +5639,7 @@ and MAY include a [`Retry-After`](#HeaderRetryAfter) header to be used for a sub
 contain the same values as returned by the previous request.
 
 A `GET` request to the status monitor resource returns [`200 OK`](#ResponseCode200OK) once the
-asynchronous processing has completed. For OData 4.01 and greater
+asynchronous processing has completed. For OData 4.01 or greater
 responses, or OData 4.0 requests that include an `Accept` header that
 does not specify `application/http`, the response MUST include the
 [`AsyncResult`](#HeaderAsyncResult) response header. Any other headers,
@@ -5927,7 +5927,7 @@ processor may choose to disallow chunked encoding to be used by such
 HTTP requests.
 
 ::: example
-Example 104: a batch request that contains the following individual
+Example <a name="batchRequest" href="#batchRequest">104</a>: a batch request that contains the following individual
 requests in the order listed
 
   1. A query request
@@ -6189,7 +6189,7 @@ URL of the corresponding individual request. URLs in responses MUST NOT
 contain `$`-prefixed request identifiers.
 
 ::: example
-Example 108: referencing the batch request example 101 above, assume all
+Example 108: referencing the batch request [example 104](#batchRequest) above, assume all
 the requests except the final query request succeed. In this case the
 response would be
 ```
@@ -6265,7 +6265,7 @@ Since a change set is executed atomically,
 a change set.
 
 ::: example
-Example 109: referencing the example 101 above again, assume that
+Example 109: referencing the [example 104](#batchRequest) above again, assume that
 ```
 HTTP/1.1 202 Accepted
 Location: http://service-root/async-monitor-0
@@ -6970,7 +6970,7 @@ The following individuals were members of the OASIS OData Technical Committee du
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
-| Working Draft 01 | 2023-07-20 | Ralf Handl | Import material from OData Version 4.01 Part 1: Protocol |
+|Committee Specification Draft 01|2024-02-28|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| Import material from OData Version 4.01 Part 1: Protocol <br>Changes listed in [section 1.1](#ChangesfromEarlierVersions)|
 
 -------
 

@@ -5,7 +5,7 @@
 
 # OData Version 4.02. Part 2: URL Conventions
 
-## Committee Specification Draft 01
+## Committee Specification Draft 02
 
 ## 28 February 2024
 
@@ -303,8 +303,8 @@ All examples in this document are non-normative and informative only.
 
 All other text is normative unless otherwise labeled.
 
-::: example
-Here is a customized command line which will generate HTML from this markdown file (named `odata-v4.02-csd02-part2-url-conventions.md`). Line breaks are added for readability only:
+<!--
+Here is a customized command line which will generate HTML from the markdown file (named `odata-v4.02-csd02-part2-url-conventions.md`). Line breaks are added for readability only:
 
 ```
 pandoc -f gfm+tex_math_dollars+fenced_divs+smart
@@ -320,8 +320,8 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        odata-v4.02-csd02-part2-url-conventions.md
 ```
 
-This uses pandoc 3.1.11.1 from https://github.com/jgm/pandoc/releases/tag/3.1.11.1.
-:::
+This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12.2.
+-->
 
 -------
 
@@ -4099,7 +4099,7 @@ https://www.ecma-international.org/publications-and-standards/standards/ecma-262
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
-| Working Draft 01 | 2023-07-20 | Heiko Theißen | Import material from OData Version 4.01 Part 2: URL Conventions |
+|Committee Specification Draft 01|2024-02-28|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| Import material from OData Version 4.01 Part 2: URL Conventions <br>Changes listed in [section 1.1](#ChangesfromEarlierVersions)|
 
 -------
 
