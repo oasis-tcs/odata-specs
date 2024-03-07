@@ -175,7 +175,7 @@ control information MUST be included in a response that represents a
 partial result.
 
 ::: example
-Example 28:
+Example ##ex:
 ```json
 {
   "@context": "…",

@@ -22,7 +22,11 @@ If the CSDL JSON document is the metadata document of an OData service, the docu
 
 ### ##subisec `$Version`
 
-The value of `$Version` is a string containing either `4.0` or `4.01`.
+The value of `$Version` is a string specifying the OData protocol version of the
+document, either `4.0`, `4.01`, or `4.02`.
+
+Services MUST return an OData 4.0 response if the request was
+made with an `OData-MaxVersion` header with a value of `4.0`.
 
 ### ##subisec `$EntityContainer`
 
@@ -54,9 +58,9 @@ other CSDL documents.
 ### ##subisec Attribute `Version`
 
 The `Version` attribute specifies the OData protocol version of the
-service. For OData 4.0 responses the value of this attribute MUST be
-`4.0`. For OData 4.01 responses the value of this attribute MUST be
-`4.01`. Services MUST return an OData 4.0 response if the request was
+document, either `4.0`, `4.01`, or `4.02`.
+
+Services MUST return an OData 4.0 response if the request was
 made with an `OData-MaxVersion` header with a value of `4.0`.
 
 ### ##isec Element `edmx:DataServices`

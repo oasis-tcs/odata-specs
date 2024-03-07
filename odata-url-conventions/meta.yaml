@@ -1,11 +1,13 @@
 pagetitle: 'OData Version 4.02. Part 2: URL Conventions'
-subtitle: Committee Specification Draft 01
+subtitle: Committee Specification Draft 02
 filename: odata-v4.02-csd02-part2-url-conventions
 stage: csd02
 previousStage: csd01
 pubdate: 28 February 2024
 pubdateISO: '2024-02-28'
 copyright: © OASIS Open 2024
+archivename: odata-v4.02-csd02
+partname: part2-url-conventions
 description:
   The Open Data Protocol (OData) enables the creation of REST-based data services,
   which allow resources, identified using Uniform Resource Locators (URLs) and
