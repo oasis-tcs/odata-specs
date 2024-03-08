@@ -12,9 +12,9 @@
 $\hbox{}$
 
 #### This stage:
-https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/$$$filename$$$.md (Authoritative) \
-https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/$$$filename$$$.html \
-https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/$$$filename$$$.pdf
+https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/part2-url-conventions/$$$filename$$$.md (Authoritative) \
+https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/part2-url-conventions/$$$filename$$$.html \
+https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/part2-url-conventions/$$$filename$$$.pdf
 
 #### Previous stage:
 N/A
@@ -40,8 +40,8 @@ Heiko Theißen (heiko.theissen@sap.com), [SAP SE](http://www.sap.com/)
 
 #### Additional artifacts:
 This prose specification is one component of a Work Product that also includes:
-* _OData Version 4.02 Part 1: Protocol_. https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/odata-v4.02-csd01-part1-protocol.html
-* _OData Version 4.02 Part 2: URL Conventions_ (this document). https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/$$$filename$$$.html
+* _OData Version 4.02 Part 1: Protocol_. https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/part1-protocol/odata-v4.02-csd01-part1-protocol.html
+* _OData Version 4.02 Part 2: URL Conventions_ (this document). https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/part2-url-conventions/$$$filename$$$.html
 * ABNF components: _OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases Version 4.02_. https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/abnf/.
 
 #### <a name="RelatedWork">Related work:</a>
@@ -79,7 +79,7 @@ When referencing this specification the following citation format should be used
 
 _$$$pagetitle$$$_.
 Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. $$$pubdate$$$. OASIS Committee Specification Draft 01.
-https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/$$$filename$$$.html.
+https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/part2-url-conventions/$$$filename$$$.html.
 Latest stage: https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html.
 
 #### Notices
