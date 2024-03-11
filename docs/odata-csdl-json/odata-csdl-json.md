@@ -42,7 +42,7 @@ Heiko Theißen (heiko.theissen@sap.com), [SAP SE](http://www.sap.com/)
 
 #### <a name="AdditionalArtifacts">Additional artifacts:</a>
 This prose specification is one component of a Work Product that also includes:
-* JSON schemas: _OData CSDL JSON schema_. Latest stage: https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd02/schemas/.
+* JSON schemas: _OData CSDL JSON schema_. https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd02/schemas/.
 
 #### <a name="RelatedWork">Related work:</a>
 This specification replaces or supersedes:
