@@ -72,9 +72,11 @@ This specification is related to:
 :
 * _OData JSON Format Version 4.02_. Edited by Ralf Handl, Mike Pizzo, and Heiko Theißen. Latest stage: https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html
 
+:varxml
 #### Declared XML namespaces:
 * http://docs.oasis-open.org/odata/ns/edmx
 * http://docs.oasis-open.org/odata/ns/edm
+:
 
 #### Abstract:
 $$$description$$$
