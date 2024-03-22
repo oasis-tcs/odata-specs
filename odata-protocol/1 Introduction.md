@@ -28,14 +28,14 @@ Section | Feature / Change | Issue
 --------|------------------|------
 [Section ##DataModification]| 
 Response code `204 No Content` after successful data modification if requested response could not be constructed| 
-[ODATA-1609](https://issues.oasis-open.org/browse/ODATA-1609)
+[443](https://github.com/oasis-tcs/odata-specs/issues/443)
 [Section ##UpsertanEntity]| 
  Upserts to single-valued non-containment navigation properties| 
-[ODATA-1588](https://issues.oasis-open.org/browse/ODATA-1588)
+[455](https://github.com/oasis-tcs/odata-specs/issues/455)
 [Section ##UpdateaComplexProperty]| 
 Setting a complex property to a different type| 
-[ODATA-1472](https://issues.oasis-open.org/browse/ODATA-1472)
-[Section ##InteroperableODataClients] | Encoding of plus character in URLs | [ODATA-1540](https://issues.oasis-open.org/browse/ODATA-1540)
+[534](https://github.com/oasis-tcs/odata-specs/issues/534)
+[Section ##InteroperableODataClients] | Encoding of plus character in URLs | [485](https://github.com/oasis-tcs/odata-specs/issues/485)
 
 ## ##subsec Glossary
 

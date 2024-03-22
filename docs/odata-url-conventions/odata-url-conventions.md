@@ -271,7 +271,7 @@ ecosystem of reusable client components and libraries.
 
 Section | Feature / Change | Issue
 --------|------------------|------
-[Section 5.1.1.7.1](#matchespattern)| New overload for function `matchespattern` with flags| [ODATA-1618](https://issues.oasis-open.org/browse/ODATA-1618)
+[Section 5.1.1.7.1](#matchespattern)| New overload for function `matchespattern` with flags| [441](https://github.com/oasis-tcs/odata-specs/issues/441)
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
