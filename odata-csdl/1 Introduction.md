@@ -31,7 +31,7 @@ Section | Feature / Change | Issue
 --------|------------------|------
 [Section ##PrimitiveTypes]| 
 Allow stream-valued non-binding parameters| 
-[ODATA-1481](https://issues.oasis-open.org/browse/ODATA-1481)
+[525](https://github.com/oasis-tcs/odata-specs/issues/525)
 : varjson
 [Section ##CSDLJSONDocument] | Additional `$Version` value `4.02` |
 :
@@ -41,13 +41,13 @@ Allow stream-valued non-binding parameters|
 : varxml
 [Section ##EntityContainer]| 
 All children of `edm:EntityContainer` are optional| 
-[ODATA-1571](https://issues.oasis-open.org/browse/ODATA-1571)
+[464](https://github.com/oasis-tcs/odata-specs/issues/464)
 :
-[Section ##GeoValues] | Constant Geo values in annotations | [ODATA-1323](https://issues.oasis-open.org/browse/ODATA-1323)
-[Section ##StreamValues] | Constant Stream values in annotations | [ODATA-1323](https://issues.oasis-open.org/browse/ODATA-1323)
+[Section ##GeoValues] | Constant Geo values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
+[Section ##StreamValues] | Constant Stream values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
 [Section ##PathEvaluation]| 
 New path evaluation rules for annotations targeting annotations and external targeting via container| 
-[ODATA-1420](https://issues.oasis-open.org/browse/ODATA-1420)
+[575](https://github.com/oasis-tcs/odata-specs/issues/575)
 [Section ##Conformance] | Additional conformance clauses for version 4.02 |
 
 ## ##subsec Glossary

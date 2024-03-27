@@ -23,7 +23,7 @@ Section | Feature / Change | Issue
 --------|------------------|------
 [Section ##ControlInformationmediaodatamedia]| 
  `mediaContentType` can be `null`| 
-[ODATA-1470](https://issues.oasis-open.org/browse/ODATA-1470)
+[536](https://github.com/oasis-tcs/odata-specs/issues/536)
 
 ## ##subsec Glossary
 
