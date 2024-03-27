@@ -2812,25 +2812,41 @@ the value of the `$If` expression (or so it was long ago)
 :::
 
 ::: {.varjson .example}
-Example ##ex: The collection-if-then-else expression adds "margin-left" or "margin-right" to the collection for left-to-right and right-to-left scripts, respectively, but adds nothing, e.g., for top-to-bottom scripts.
+Example ##ex: Pronouns used by a person based on their specification and their `IsFemale` and `IsMale` attributes.
 ```json
-[
+"@org.example.person.Pronouns": [
   {
     "$If": [
       {
-        "$Path": "IsLTR"
+        "$Eq": [
+          {
+            "$Path": "Pronouns/0"
+          },
+          null
+        ]
       },
-      "margin-left",
+      {
+        "$Path": "Pronouns/0"
+      }
+    ]
+  },
+  {
+    "$If": [
+      {
+        "$Path": "IsFemale"
+      },
+      "she",
       {
         "$If": [
           {
-            "$Path": "IsRTL"
+            "$Path": "IsMale"
           },
-          "margin-right"
+          "he"
         ]
       }
     ]
-  }
+  },
+  /* similar for object pronouns (Pronouns/1, him, her) */
 ]
 ```
 :::
@@ -2860,18 +2876,28 @@ the value of the `edm:If` expression (or so it was long ago)
 :::
 
 ::: {.varxml .example}
-Example ##ex: The collection-if-then-else expression adds "margin-left" or "margin-right" to the collection for left-to-right and right-to-left scripts, respectively, but adds nothing, e.g., for top-to-bottom scripts.
+Example ##ex: Pronouns used by a person based on their specification and their `IsFemale` and `IsMale` attributes.
 ```xml
-<Collection>
- <If>
-  <Path>IsLTR</Path>
-  <String>margin-left</String>
-  <If>
-   <Path>IsRTL</Path>
-   <String>margin-right</String>
-  </If>
- </If>
-</Collection>
+<Annotation Term="org.example.person.Pronouns">
+  <Collection>
+    <If>
+      <Eq>
+        <Path>Pronouns/0</Path>
+        <Null/>
+      </Eq>
+      <Path>Pronouns/0</Path>
+    </If>
+    <If>
+      <Path>IsFemale</Path>
+      <String>she</String>
+      <If>
+        <Path>IsMale</Path>
+        <String>he</String>
+      </If>
+    </If>
+  </Collection>
+  <!-- similar for object pronouns (Pronouns/1, him, her) -->
+</Annotation>
 ```
 :::
 

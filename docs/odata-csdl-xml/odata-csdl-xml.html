@@ -2996,17 +2996,27 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <span id="cb88-7"><a href="#cb88-7" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Annotation</span>&gt;</span></code></pre></div>
 </div>
 <div class="varxml example">
-<p>Example 84: The collection-if-then-else expression adds “margin-left” or “margin-right” to the collection for left-to-right and right-to-left scripts, respectively, but adds nothing, e.g., for top-to-bottom scripts.</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Collection</span>&gt;</span>
-<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a> &lt;<span class="kw">If</span>&gt;</span>
-<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Path</span>&gt;IsLTR&lt;/<span class="kw">Path</span>&gt;</span>
-<span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">String</span>&gt;margin-left&lt;/<span class="kw">String</span>&gt;</span>
-<span id="cb89-5"><a href="#cb89-5" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">If</span>&gt;</span>
-<span id="cb89-6"><a href="#cb89-6" aria-hidden="true" tabindex="-1"></a>   &lt;<span class="kw">Path</span>&gt;IsRTL&lt;/<span class="kw">Path</span>&gt;</span>
-<span id="cb89-7"><a href="#cb89-7" aria-hidden="true" tabindex="-1"></a>   &lt;<span class="kw">String</span>&gt;margin-right&lt;/<span class="kw">String</span>&gt;</span>
-<span id="cb89-8"><a href="#cb89-8" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">If</span>&gt;</span>
-<span id="cb89-9"><a href="#cb89-9" aria-hidden="true" tabindex="-1"></a> &lt;/<span class="kw">If</span>&gt;</span>
-<span id="cb89-10"><a href="#cb89-10" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Collection</span>&gt;</span></code></pre></div>
+<p>Example 84: Pronouns used by a person based on their specification and their <code>IsFemale</code> and <code>IsMale</code> attributes.</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;org.example.person.Pronouns&quot;</span>&gt;</span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Collection</span>&gt;</span>
+<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">If</span>&gt;</span>
+<span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Eq</span>&gt;</span>
+<span id="cb89-5"><a href="#cb89-5" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Path</span>&gt;Pronouns/0&lt;/<span class="kw">Path</span>&gt;</span>
+<span id="cb89-6"><a href="#cb89-6" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Null</span>/&gt;</span>
+<span id="cb89-7"><a href="#cb89-7" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">Eq</span>&gt;</span>
+<span id="cb89-8"><a href="#cb89-8" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Path</span>&gt;Pronouns/0&lt;/<span class="kw">Path</span>&gt;</span>
+<span id="cb89-9"><a href="#cb89-9" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">If</span>&gt;</span>
+<span id="cb89-10"><a href="#cb89-10" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">If</span>&gt;</span>
+<span id="cb89-11"><a href="#cb89-11" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Path</span>&gt;IsFemale&lt;/<span class="kw">Path</span>&gt;</span>
+<span id="cb89-12"><a href="#cb89-12" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">String</span>&gt;she&lt;/<span class="kw">String</span>&gt;</span>
+<span id="cb89-13"><a href="#cb89-13" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">If</span>&gt;</span>
+<span id="cb89-14"><a href="#cb89-14" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Path</span>&gt;IsMale&lt;/<span class="kw">Path</span>&gt;</span>
+<span id="cb89-15"><a href="#cb89-15" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">String</span>&gt;he&lt;/<span class="kw">String</span>&gt;</span>
+<span id="cb89-16"><a href="#cb89-16" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">If</span>&gt;</span>
+<span id="cb89-17"><a href="#cb89-17" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">If</span>&gt;</span>
+<span id="cb89-18"><a href="#cb89-18" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">Collection</span>&gt;</span>
+<span id="cb89-19"><a href="#cb89-19" aria-hidden="true" tabindex="-1"></a>  <span class="co">&lt;!-- similar for object pronouns (Pronouns/1, him, her) --&gt;</span></span>
+<span id="cb89-20"><a href="#cb89-20" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Annotation</span>&gt;</span></code></pre></div>
 </div>
 <h3 id="1448-is-of"><a name="IsOf" href="#IsOf">14.4.8 Is-Of</a></h3>
 <p>The <code>is-of</code> expression checks whether the value obtained from its single child expression is compatible with the specified type. It returns <code>true</code> if the child expression returns a type that is compatible with the specified type, and <code>false</code> otherwise.</p>
