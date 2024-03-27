@@ -6274,7 +6274,6 @@ Location: http://service-root/async-monitor-0
 Retry-After: ###
 
 ```
-:::
 
 When interrogating the monitor URL only the first request in the batch
 has finished processing and all the remaining requests are still being
@@ -6350,6 +6349,7 @@ Content-Length: ###
 <Error message>
 --b_243234_25424_ef_892u748--
 ```
+:::
 
 
 -------

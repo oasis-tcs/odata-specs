@@ -2590,7 +2590,6 @@ Content-Length: ###
 Location: http://service-root/async-monitor-0
 Retry-After: ###
 </code></pre>
-</div>
 <p>When interrogating the monitor URL only the first request in the batch has finished processing and all the remaining requests are still being processed. Note that the actual multipart batch response itself is contained in an <code>application/http</code> wrapper as it is a response to a status monitor resource:</p>
 <pre><code>HTTP/1.1 200 OK
 Content-Type: application/http
@@ -2654,6 +2653,7 @@ Content-Length: ###
 
 &lt;Error message&gt;
 --b_243234_25424_ef_892u748--</code></pre>
+</div>
 <hr />
 <h1 id="12-conformance"><a name="Conformance" href="#Conformance">12 Conformance</a></h1>
 <p>OData is designed as a set of conventions that can be layered on top of existing standards to provide common representations for common functionality. Not all services will support all of the conventions defined in the protocol; services choose those conventions defined in OData as the representation to expose that functionality appropriate for their scenarios.</p>
