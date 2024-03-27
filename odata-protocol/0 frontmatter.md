@@ -12,12 +12,14 @@
 $\hbox{}$
 
 #### This stage:
-https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/$$$filename$$$.md (Authoritative) \
-https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/$$$filename$$$.html \
-https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/$$$filename$$$.pdf
+https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/$$$partname$$$/$$$filename$$$.md (Authoritative) \
+https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/$$$partname$$$/$$$filename$$$.html \
+https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/$$$partname$$$/$$$filename$$$.pdf
 
 #### Previous stage:
-N/A
+https://docs.oasis-open.org/odata/odata/v4.02/$$$previousStage$$$/$$$partname$$$/odata-v4.02-$$$previousStage$$$-part1-protocol.md (Authoritative) \
+https://docs.oasis-open.org/odata/odata/v4.02/$$$previousStage$$$/$$$partname$$$/odata-v4.02-$$$previousStage$$$-part1-protocol.html \
+https://docs.oasis-open.org/odata/odata/v4.02/$$$previousStage$$$/$$$partname$$$/odata-v4.02-$$$previousStage$$$-part1-protocol.pdf
 
 #### Latest stage:
 https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.md (Authoritative) \
@@ -40,8 +42,10 @@ Heiko Theißen (heiko.theissen@sap.com), [SAP SE](http://www.sap.com/)
 
 #### Additional artifacts:
 This prose specification is one component of a Work Product that also includes:
-* _OData Version 4.02 Part 1: Protocol_ (this document). https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/$$$filename$$$.html
-* _OData Version 4.02 Part 2: URL Conventions_. https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/odata-v4.02-csd01-part2-url-conventions.html
+* _OData Version 4.02 Part 1: Protocol_ (this document). https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/$$$partname$$$/$$$filename$$$.html
+* _OData Version 4.02 Part 2: URL Conventions_. https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/part2-url-conventions/odata-v4.02-$$$stage$$$-part2-url-conventions.html
+* ABNF components: _OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases Version 4.02_. https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/abnf/.
+
 
 #### <a name="RelatedWork">Related work:</a>
 This specification replaces or supersedes:
@@ -77,7 +81,7 @@ When referencing this specification the following citation format should be used
 **[OData-v4.02-Part1]**
 
 _$$$pagetitle$$$_.
-Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. $$$pubdate$$$. OASIS Committee Specification Draft 01.
+Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. $$$pubdate$$$. OASIS $$$subtitle$$$.
 https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/$$$filename$$$.html.
 Latest stage: https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html.
 
