@@ -5317,24 +5317,9 @@ the value of the `$If` expression (or so it was long ago)
 :::
 
 ::: {.varjson .example}
-Example 84: Pronouns used by a person based on their specification and their `IsFemale` and `IsMale` attributes.
+Example 84: Pronouns based on a person's `IsFemale` and `IsMale` attributes.
 ```json
 "@org.example.person.Pronouns": [
-  {
-    "$If": [
-      {
-        "$Eq": [
-          {
-            "$Path": "Pronouns/0"
-          },
-          null
-        ]
-      },
-      {
-        "$Path": "Pronouns/0"
-      }
-    ]
-  },
   {
     "$If": [
       {
@@ -5351,7 +5336,22 @@ Example 84: Pronouns used by a person based on their specification and their `Is
       }
     ]
   },
-  /* similar for object pronouns (Pronouns/1, her, him) */
+  {
+    "$If": [
+      {
+        "$Path": "IsFemale"
+      },
+      "her",
+      {
+        "$If": [
+          {
+            "$Path": "IsMale"
+          },
+          "him"
+        ]
+      }
+    ]
+  }
 ]
 ```
 :::

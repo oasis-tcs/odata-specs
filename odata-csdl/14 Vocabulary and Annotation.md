@@ -2812,24 +2812,9 @@ the value of the `$If` expression (or so it was long ago)
 :::
 
 ::: {.varjson .example}
-Example ##ex: Pronouns used by a person based on their specification and their `IsFemale` and `IsMale` attributes.
+Example ##ex: Pronouns based on a person's `IsFemale` and `IsMale` attributes.
 ```json
 "@org.example.person.Pronouns": [
-  {
-    "$If": [
-      {
-        "$Eq": [
-          {
-            "$Path": "Pronouns/0"
-          },
-          null
-        ]
-      },
-      {
-        "$Path": "Pronouns/0"
-      }
-    ]
-  },
   {
     "$If": [
       {
@@ -2846,7 +2831,22 @@ Example ##ex: Pronouns used by a person based on their specification and their `
       }
     ]
   },
-  /* similar for object pronouns (Pronouns/1, her, him) */
+  {
+    "$If": [
+      {
+        "$Path": "IsFemale"
+      },
+      "her",
+      {
+        "$If": [
+          {
+            "$Path": "IsMale"
+          },
+          "him"
+        ]
+      }
+    ]
+  }
 ]
 ```
 :::
@@ -2876,17 +2876,10 @@ the value of the `edm:If` expression (or so it was long ago)
 :::
 
 ::: {.varxml .example}
-Example ##ex: Pronouns used by a person based on their specification and their `IsFemale` and `IsMale` attributes.
+Example ##ex: Pronouns based on a person's `IsFemale` and `IsMale` attributes.
 ```xml
 <Annotation Term="org.example.person.Pronouns">
   <Collection>
-    <If>
-      <Eq>
-        <Path>Pronouns/0</Path>
-        <Null/>
-      </Eq>
-      <Path>Pronouns/0</Path>
-    </If>
     <If>
       <Path>IsFemale</Path>
       <String>she</String>
@@ -2895,8 +2888,15 @@ Example ##ex: Pronouns used by a person based on their specification and their `
         <String>he</String>
       </If>
     </If>
+    <If>
+      <Path>IsFemale</Path>
+      <String>her</String>
+      <If>
+        <Path>IsMale</Path>
+        <String>him</String>
+      </If>
+    </If>
   </Collection>
-  <!-- similar for object pronouns (Pronouns/1, her, him) -->
 </Annotation>
 ```
 :::

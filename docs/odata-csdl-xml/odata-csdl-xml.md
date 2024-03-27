@@ -5140,17 +5140,10 @@ the value of the `edm:If` expression (or so it was long ago)
 :::
 
 ::: {.varxml .example}
-Example 84: Pronouns used by a person based on their specification and their `IsFemale` and `IsMale` attributes.
+Example 84: Pronouns based on a person's `IsFemale` and `IsMale` attributes.
 ```xml
 <Annotation Term="org.example.person.Pronouns">
   <Collection>
-    <If>
-      <Eq>
-        <Path>Pronouns/0</Path>
-        <Null/>
-      </Eq>
-      <Path>Pronouns/0</Path>
-    </If>
     <If>
       <Path>IsFemale</Path>
       <String>she</String>
@@ -5159,8 +5152,15 @@ Example 84: Pronouns used by a person based on their specification and their `Is
         <String>he</String>
       </If>
     </If>
+    <If>
+      <Path>IsFemale</Path>
+      <String>her</String>
+      <If>
+        <Path>IsMale</Path>
+        <String>him</String>
+      </If>
+    </If>
   </Collection>
-  <!-- similar for object pronouns (Pronouns/1, her, him) -->
 </Annotation>
 ```
 :::
