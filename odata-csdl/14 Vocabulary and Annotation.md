@@ -2846,7 +2846,7 @@ Example ##ex: Pronouns used by a person based on their specification and their `
       }
     ]
   },
-  /* similar for object pronouns (Pronouns/1, him, her) */
+  /* similar for object pronouns (Pronouns/1, her, him) */
 ]
 ```
 :::
@@ -2896,7 +2896,7 @@ Example ##ex: Pronouns used by a person based on their specification and their `
       </If>
     </If>
   </Collection>
-  <!-- similar for object pronouns (Pronouns/1, him, her) -->
+  <!-- similar for object pronouns (Pronouns/1, her, him) -->
 </Annotation>
 ```
 :::

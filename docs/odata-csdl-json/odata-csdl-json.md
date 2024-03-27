@@ -5351,7 +5351,7 @@ Example 84: Pronouns used by a person based on their specification and their `Is
       }
     ]
   },
-  /* similar for object pronouns (Pronouns/1, him, her) */
+  /* similar for object pronouns (Pronouns/1, her, him) */
 ]
 ```
 :::
