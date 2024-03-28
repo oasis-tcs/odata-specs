@@ -236,11 +236,10 @@ For complete copyright information please see the full Notices section in an App
 - [A References](#References)
   - [A.1 Normative References](#NormativeReferences)
   - [A.2 Informative References](#InformativeReferences)
-- [B Safety, Security and Privacy Considerations](#SafetySecurityandPrivacyConsiderations)
-- [C Acknowledgments](#Acknowledgments)
-  - [C.1 Participants](#Participants)
-- [D Revision History](#RevisionHistory)
-- [E Notices](#Notices)
+- [B Acknowledgments](#Acknowledgments)
+  - [B.1 Participants](#Participants)
+- [C Revision History](#RevisionHistory)
+- [D Notices](#Notices)
 :::
 
 
@@ -4069,15 +4068,9 @@ https://www.ecma-international.org/publications-and-standards/standards/ecma-262
 
 -------
 
-# <a name="SafetySecurityandPrivacyConsiderations" href="#SafetySecurityandPrivacyConsiderations">Appendix B. Safety, Security and Privacy Considerations</a>
+# <a name="Acknowledgments" href="#Acknowledgments">Appendix B. Acknowledgments</a>
 
-<!-- TODO: do we have considerations specific to URLs, for example length, encoding, privacy (use $batch if in doubt), ...? -->
-
--------
-
-# <a name="Acknowledgments" href="#Acknowledgments">Appendix C. Acknowledgments</a>
-
-## <a name="Participants" href="#Participants">C.1 Participants</a>
+## <a name="Participants" href="#Participants">B.1 Participants</a>
 
 **OData TC Members:**
 
@@ -4095,7 +4088,7 @@ https://www.ecma-international.org/publications-and-standards/standards/ecma-262
 
 -------
 
-# <a name="RevisionHistory" href="#RevisionHistory">Appendix D. Revision History</a>
+# <a name="RevisionHistory" href="#RevisionHistory">Appendix C. Revision History</a>
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
@@ -4103,7 +4096,7 @@ https://www.ecma-international.org/publications-and-standards/standards/ecma-262
 
 -------
 
-# <a name="Notices" href="#Notices">Appendix E. Notices</a>
+# <a name="Notices" href="#Notices">Appendix D. Notices</a>
 
 <!-- Required section. Do not modify. -->
 

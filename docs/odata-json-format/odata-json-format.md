@@ -1853,7 +1853,7 @@ a photo. They are represented as entities that contain additional
 
 If the actual stream data for the media entity is included, it is
 represented as property named `$value` whose
-string value is the base64url-encoded value of the media stream, see [RFC4648](rfc4648).
+string value is the base64url-encoded value of the media stream, see [RFC4648](#rfc4648).
 
 ::: example
 Example 25:
