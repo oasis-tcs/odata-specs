@@ -2812,7 +2812,7 @@ the value of the `$If` expression
 :::
 
 ::: {.varjson .example}
-Example ##ex: Pronouns based on a person's `IsFemale` and `IsMale` attributes.
+Example ##ex: pronouns based on a person's `IsFemale` and `IsMale` attributes
 ```json
 "@org.example.person.Pronouns": [
   {
@@ -2876,7 +2876,7 @@ the value of the `edm:If` expression
 :::
 
 ::: {.varxml .example}
-Example ##ex: Pronouns based on a person's `IsFemale` and `IsMale` attributes.
+Example ##ex: pronouns based on a person's `IsFemale` and `IsMale` attributes
 ```xml
 <Annotation Term="org.example.person.Pronouns">
   <Collection>
