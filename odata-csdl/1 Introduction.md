@@ -48,6 +48,9 @@ All children of `edm:EntityContainer` are optional|
 [Section ##PathEvaluation]| 
 New path evaluation rules for annotations targeting annotations and external targeting via container| 
 [575](https://github.com/oasis-tcs/odata-specs/issues/575)
+[Section ##IfThenElse]| 
+Nested `If` without else part in collections| 
+[326](https://github.com/oasis-tcs/odata-specs/issues/326)
 [Section ##Conformance] | Additional conformance clauses for version 4.02 |
 
 ## ##subsec Glossary
