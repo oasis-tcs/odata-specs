@@ -2986,7 +2986,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>It MAY contain <a href="#Annotation"><code>edm:Annotation</code></a> elements.</p>
 </section>
 <div class="varxml example">
-<p>Example 83: the condition is a <a href="#ValuePath">value path expression</a> referencing the Boolean property <code>IsFemale</code>, whose value then determines the value of the <code>edm:If</code> expression (or so it was long ago)</p>
+<p>Example 83: the condition is a <a href="#ValuePath">value path expression</a> referencing the Boolean property <code>IsFemale</code>, whose value then determines the value of the <code>edm:If</code> expression</p>
 <div class="sourceCode" id="cb88"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;org.example.person.Gender&quot;</span>&gt;</span>
 <span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">If</span>&gt;</span>
 <span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Path</span>&gt;IsFemale&lt;/<span class="kw">Path</span>&gt;</span>

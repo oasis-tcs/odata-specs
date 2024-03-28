@@ -5302,9 +5302,9 @@ It MAY contain [annotations](#Annotation).
 ::: {.varjson .example}
 Example 83: the condition is a [value path expression](#ValuePath)
 referencing the Boolean property `IsFemale`, whose value then determines
-the value of the `$If` expression (or so it was long ago)
+the value of the `$If` expression
 ```json
-"@person.Gender": {
+"@org.example.person.Gender": {
   "$If": [
     {
       "$Path": "IsFemale"

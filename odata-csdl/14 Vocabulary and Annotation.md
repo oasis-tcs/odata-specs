@@ -2797,9 +2797,9 @@ It MAY contain [annotations](#Annotation).
 ::: {.varjson .example}
 Example ##ex: the condition is a [value path expression](#ValuePath)
 referencing the Boolean property `IsFemale`, whose value then determines
-the value of the `$If` expression (or so it was long ago)
+the value of the `$If` expression
 ```json
-"@person.Gender": {
+"@org.example.person.Gender": {
   "$If": [
     {
       "$Path": "IsFemale"
@@ -2863,7 +2863,7 @@ It MAY contain [`edm:Annotation`](#Annotation) elements.
 ::: {.varxml .example}
 Example ##ex: the condition is a [value path expression](#ValuePath)
 referencing the Boolean property `IsFemale`, whose value then determines
-the value of the `edm:If` expression (or so it was long ago)
+the value of the `edm:If` expression
 ```xml
 <Annotation Term="org.example.person.Gender">
   <If>

@@ -3205,8 +3205,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>It MAY contain <a href="#Annotation">annotations</a>.</p>
 </section>
 <div class="varjson example">
-<p>Example 83: the condition is a <a href="#ValuePath">value path expression</a> referencing the Boolean property <code>IsFemale</code>, whose value then determines the value of the <code>$If</code> expression (or so it was long ago)</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;@person.Gender&quot;:</span> <span class="fu">{</span></span>
+<p>Example 83: the condition is a <a href="#ValuePath">value path expression</a> referencing the Boolean property <code>IsFemale</code>, whose value then determines the value of the <code>$If</code> expression</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;@org.example.person.Gender&quot;:</span> <span class="fu">{</span></span>
 <span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$If&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
 <span id="cb91-3"><a href="#cb91-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
 <span id="cb91-4"><a href="#cb91-4" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;IsFemale&quot;</span></span>

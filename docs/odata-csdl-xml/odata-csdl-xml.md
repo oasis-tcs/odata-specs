@@ -5127,7 +5127,7 @@ It MAY contain [`edm:Annotation`](#Annotation) elements.
 ::: {.varxml .example}
 Example 83: the condition is a [value path expression](#ValuePath)
 referencing the Boolean property `IsFemale`, whose value then determines
-the value of the `edm:If` expression (or so it was long ago)
+the value of the `edm:If` expression
 ```xml
 <Annotation Term="org.example.person.Gender">
   <If>
