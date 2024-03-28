@@ -6023,7 +6023,7 @@ The following documents are referenced in such a way that some or all of their c
 _ECMAScript 2016 Language Specification, 7th Edition_. June 2016. Standard ECMA-262. http://www.ecma-international.org/publications/standards/Ecma-262.htm.
 
 ###### <a name="_EPSG">[EPSG]</a>
-_European Petroleum Survey Group (EPSG)_. http://www.epsg.org/.
+_European Petroleum Survey Group (EPSG)_. https://wiki.gis.com/wiki/index.php/European_Petroleum_Survey_Group.
 
 ###### <a name="ODataABNF">[OData-ABNF]</a>
 _OData ABNF Construction Rules Version 4.02_.  
