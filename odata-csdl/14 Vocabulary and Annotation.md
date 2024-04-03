@@ -2818,13 +2818,13 @@ Example ##ex: pronouns based on a person's `IsFemale` and `IsMale` attributes
   {
     "$If": [
       {
-        "$Path": "IsFemale"
+        "$Path": "IdentifiesAsFemale"
       },
       "she",
       {
         "$If": [
           {
-            "$Path": "IsMale"
+            "$Path": "IdentifiesAsMale"
           },
           "he"
         ]
@@ -2834,13 +2834,13 @@ Example ##ex: pronouns based on a person's `IsFemale` and `IsMale` attributes
   {
     "$If": [
       {
-        "$Path": "IsFemale"
+        "$Path": "IdentifiesAsFemale"
       },
       "her",
       {
         "$If": [
           {
-            "$Path": "IsMale"
+            "$Path": "IdentifiesAsMale"
           },
           "him"
         ]
@@ -2881,18 +2881,18 @@ Example ##ex: pronouns based on a person's `IsFemale` and `IsMale` attributes
 <Annotation Term="org.example.person.Pronouns">
   <Collection>
     <If>
-      <Path>IsFemale</Path>
+      <Path>IdentifiesAsFemale</Path>
       <String>she</String>
       <If>
-        <Path>IsMale</Path>
+        <Path>IdentifiesAsMale</Path>
         <String>he</String>
       </If>
     </If>
     <If>
-      <Path>IsFemale</Path>
+      <Path>IdentifiesAsFemale</Path>
       <String>her</String>
       <If>
-        <Path>IsMale</Path>
+        <Path>IdentifiesAsMale</Path>
         <String>him</String>
       </If>
     </If>

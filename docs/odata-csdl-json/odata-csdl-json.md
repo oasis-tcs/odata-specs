@@ -5324,13 +5324,13 @@ Example 84: pronouns based on a person's `IsFemale` and `IsMale` attributes
   {
     "$If": [
       {
-        "$Path": "IsFemale"
+        "$Path": "IdentifiesAsFemale"
       },
       "she",
       {
         "$If": [
           {
-            "$Path": "IsMale"
+            "$Path": "IdentifiesAsMale"
           },
           "he"
         ]
@@ -5340,13 +5340,13 @@ Example 84: pronouns based on a person's `IsFemale` and `IsMale` attributes
   {
     "$If": [
       {
-        "$Path": "IsFemale"
+        "$Path": "IdentifiesAsFemale"
       },
       "her",
       {
         "$If": [
           {
-            "$Path": "IsMale"
+            "$Path": "IdentifiesAsMale"
           },
           "him"
         ]
