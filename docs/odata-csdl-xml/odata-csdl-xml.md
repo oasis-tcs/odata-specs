@@ -5141,7 +5141,7 @@ the value of the `edm:If` expression
 :::
 
 ::: {.varxml .example}
-Example 84: pronouns based on a person's `IsFemale` and `IsMale` attributes
+Example 84: pronouns based on a person's `IdentifiesAsFemale` and `IdentifiesAsMale` attributes
 ```xml
 <Annotation Term="org.example.person.Pronouns">
   <Collection>

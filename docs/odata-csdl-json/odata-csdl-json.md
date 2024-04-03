@@ -5318,7 +5318,7 @@ the value of the `$If` expression
 :::
 
 ::: {.varjson .example}
-Example 84: pronouns based on a person's `IsFemale` and `IsMale` attributes
+Example 84: pronouns based on a person's `IdentifiesAsFemale` and `IdentifiesAsMale` attributes
 ```json
 "@org.example.person.Pronouns": [
   {
