@@ -271,6 +271,7 @@ Section | Feature / Change | Issue
 [Section 14.3.13](#GeoValues) | Constant Geo values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
 [Section 14.3.14](#StreamValues) | Constant Stream values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
 [Section 14.4.1.2](#PathEvaluation)| New path evaluation rules for annotations targeting annotations and external targeting via container| [575](https://github.com/oasis-tcs/odata-specs/issues/575)
+[Section 14.4.7](#IfThenElse)| Nested `If` without else part in collections| [326](https://github.com/oasis-tcs/odata-specs/issues/326)
 [Section 17](#Conformance) | Additional conformance clauses for version 4.02 |
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
@@ -5085,9 +5086,14 @@ Example 82:
 ### <a name="IfThenElse" href="#IfThenElse">14.4.7 If-Then-Else</a>
 
 The if-then-else expression enables a value to be obtained by evaluating
-a *condition expression*. It MUST contain exactly three child
+a *condition expression*.
+The if-then-else expression is called a collection-if-then-else expression if
+- it is a direct child of a collection expression or
+- it is the second or third child of a collection-if-then-else expression.
+
+An if-then-else expression MUST contain exactly three child
 expressions. There is one exception to this rule: if and only if the
-if-then-else expression is an item of a collection expression, the third
+if-then-else expression is a collection-if-then-else expression, the third
 child expression MAY be omitted, reducing it to an if-then expression.
 This can be used to conditionally add an element to a collection.
 
@@ -5109,6 +5115,7 @@ collection.
 
 
 
+
 ::: {.varxml .rep}
 ### <a name="ExpressionedmIf.57" href="#ExpressionedmIf.57">Expression `edm:If`</a>
 
@@ -5121,7 +5128,7 @@ It MAY contain [`edm:Annotation`](#Annotation) elements.
 ::: {.varxml .example}
 Example 83: the condition is a [value path expression](#ValuePath)
 referencing the Boolean property `IsFemale`, whose value then determines
-the value of the `edm:If` expression (or so it was long ago)
+the value of the `edm:If` expression
 ```xml
 <Annotation Term="org.example.person.Gender">
   <If>
@@ -5129,6 +5136,32 @@ the value of the `edm:If` expression (or so it was long ago)
     <String>Female</String>
     <String>Male</String>
   </If>
+</Annotation>
+```
+:::
+
+::: {.varxml .example}
+Example 84: pronouns based on a person's `IdentifiesAsFemale` and `IdentifiesAsMale` attributes
+```xml
+<Annotation Term="org.example.person.Pronouns">
+  <Collection>
+    <If>
+      <Path>IdentifiesAsFemale</Path>
+      <String>she</String>
+      <If>
+        <Path>IdentifiesAsMale</Path>
+        <String>he</String>
+      </If>
+    </If>
+    <If>
+      <Path>IdentifiesAsFemale</Path>
+      <String>her</String>
+      <If>
+        <Path>IdentifiesAsMale</Path>
+        <String>him</String>
+      </If>
+    </If>
+  </Collection>
 </Annotation>
 ```
 :::
@@ -5156,7 +5189,7 @@ elements.
 :::
 
 ::: {.varxml .example}
-Example 84:
+Example 85:
 ```xml
 <Annotation Term="self.IsPreferredCustomer">
   <IsOf Type="self.PreferredCustomer">
@@ -5199,7 +5232,7 @@ The value of `Name` is the labeled element's name.
 :::
 
 ::: {.varxml .example}
-Example 85:
+Example 86:
 ```xml
 <Annotation Term="org.example.display.DisplayName">
   <LabeledElement Name="CustomerFirstName" Path="FirstName" />
@@ -5230,7 +5263,7 @@ of a labeled element expression in its body.
 :::
 
 ::: {.varxml .example}
-Example 86:
+Example 87:
 ```xml
 <Annotation Term="org.example.display.DisplayName">
   <LabeledElementReference>Model.CustomerFirstName</LabeledElementReference>
@@ -5255,7 +5288,7 @@ elements.
 :::
 
 ::: {.varxml .example}
-Example 87:
+Example 88:
 ```xml
 <Annotation Term="org.example.display.DisplayName">
   <Null/>
@@ -5264,7 +5297,7 @@ Example 87:
 :::
 
 ::: {.varxml .example}
-Example 88:
+Example 89:
 ```xml
 <Annotation Term="@UI.Address">
   <Null>
@@ -5325,7 +5358,7 @@ enclosing `edm:Record` expression.
 :::
 
 ::: {.varxml .example}
-Example 89: this annotation "morphs" the entity type from [example 13](#entitytype) into
+Example 90: this annotation "morphs" the entity type from [example 13](#entitytype) into
 a structured type with two structural properties `GivenName` and
 `Surname` and two navigation properties `DirectSupervisor` and
 `CostCenter`. The first three properties simply rename properties of the
@@ -5388,7 +5421,7 @@ elements.
 :::
 
 ::: {.varxml .example}
-Example 90:
+Example 91:
 ```xml
 <Annotation Term="org.example.person.Supplier">
   <UrlRef>
@@ -5465,7 +5498,7 @@ forward-slash separated property, navigation property, or type-cast
 segments
 
 ::: example
-Example 91: Target paths
+Example 92: Target paths
 ```
 MySchema.MyEntityContainer/MyEntitySet
 ```
@@ -5499,7 +5532,7 @@ CSDL. These examples demonstrate many of the topics covered above.
 
 
 ::: {.varxml .example}
-Example 92:
+Example 93:
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
@@ -5618,7 +5651,7 @@ Example 92:
 
 
 ::: {.varxml .example}
-Example 93:
+Example 94:
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"

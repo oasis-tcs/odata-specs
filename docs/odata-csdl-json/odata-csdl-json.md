@@ -269,6 +269,7 @@ Section | Feature / Change | Issue
 [Section 14.3.13](#GeoValues) | Constant Geo values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
 [Section 14.3.14](#StreamValues) | Constant Stream values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
 [Section 14.4.1.2](#PathEvaluation)| New path evaluation rules for annotations targeting annotations and external targeting via container| [575](https://github.com/oasis-tcs/odata-specs/issues/575)
+[Section 14.4.7](#IfThenElse)| Nested `If` without else part in collections| [326](https://github.com/oasis-tcs/odata-specs/issues/326)
 [Section 17](#Conformance) | Additional conformance clauses for version 4.02 |
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
@@ -5263,9 +5264,14 @@ Example 82:
 ### <a name="IfThenElse" href="#IfThenElse">14.4.7 If-Then-Else</a>
 
 The if-then-else expression enables a value to be obtained by evaluating
-a *condition expression*. It MUST contain exactly three child
+a *condition expression*.
+The if-then-else expression is called a collection-if-then-else expression if
+- it is a direct child of a collection expression or
+- it is the second or third child of a collection-if-then-else expression.
+
+An if-then-else expression MUST contain exactly three child
 expressions. There is one exception to this rule: if and only if the
-if-then-else expression is an item of a collection expression, the third
+if-then-else expression is a collection-if-then-else expression, the third
 child expression MAY be omitted, reducing it to an if-then expression.
 This can be used to conditionally add an element to a collection.
 
@@ -5297,9 +5303,9 @@ It MAY contain [annotations](#Annotation).
 ::: {.varjson .example}
 Example 83: the condition is a [value path expression](#ValuePath)
 referencing the Boolean property `IsFemale`, whose value then determines
-the value of the `$If` expression (or so it was long ago)
+the value of the `$If` expression
 ```json
-"@person.Gender": {
+"@org.example.person.Gender": {
   "$If": [
     {
       "$Path": "IsFemale"
@@ -5310,6 +5316,47 @@ the value of the `$If` expression (or so it was long ago)
 }
 ```
 :::
+
+::: {.varjson .example}
+Example 84: pronouns based on a person's `IdentifiesAsFemale` and `IdentifiesAsMale` attributes
+```json
+"@org.example.person.Pronouns": [
+  {
+    "$If": [
+      {
+        "$Path": "IdentifiesAsFemale"
+      },
+      "she",
+      {
+        "$If": [
+          {
+            "$Path": "IdentifiesAsMale"
+          },
+          "he"
+        ]
+      }
+    ]
+  },
+  {
+    "$If": [
+      {
+        "$Path": "IdentifiesAsFemale"
+      },
+      "her",
+      {
+        "$If": [
+          {
+            "$Path": "IdentifiesAsMale"
+          },
+          "him"
+        ]
+      }
+    ]
+  }
+]
+```
+:::
+
 
 
 
@@ -5339,7 +5386,7 @@ considered unspecified.
 :::
 
 ::: {.varjson .example}
-Example 84:
+Example 85:
 ```json
 "@Self.IsPreferredCustomer": {
   "$IsOf": {
@@ -5378,7 +5425,7 @@ It MAY contain [annotations](#Annotation).
 :::
 
 ::: {.varjson .example}
-Example 85:
+Example 86:
 ```json
 "@UI.DisplayName": {
   "$LabeledElement": {
@@ -5407,7 +5454,7 @@ an qualified name.
 :::
 
 ::: {.varjson .example}
-Example 86:
+Example 87:
 ```json
 "@UI.DisplayName": {
   "$LabeledElementReference": "self.CustomerFirstName"
@@ -5428,7 +5475,7 @@ literal `null`.
 :::
 
 ::: {.varjson .example}
-Example 87:
+Example 88:
 ```json
 "@UI.DisplayName": null,
 ```
@@ -5442,7 +5489,7 @@ as an object with a member `$Null` whose value is the literal `null`.
 :::
 
 ::: {.varjson .example}
-Example 88:
+Example 89:
 ```json
 "@UI.Address": {
   "$Null": null,
@@ -5489,7 +5536,7 @@ Annotations for record members are prefixed with the member name.
 :::
 
 ::: {.varjson .example}
-Example 89: this annotation "morphs" the entity type from [example 13](#entitytype) into
+Example 90: this annotation "morphs" the entity type from [example 13](#entitytype) into
 a structured type with two structural properties `GivenName` and
 `Surname` and two navigation properties `DirectSupervisor` and
 `CostCenter`. The first three properties simply rename properties of the
@@ -5559,7 +5606,7 @@ It MAY contain [annotations](#Annotation).
 :::
 
 ::: {.varjson .example}
-Example 90:
+Example 91:
 ```json
 "@org.example.person.Supplier": {
   "$UrlRef": {
@@ -5643,7 +5690,7 @@ forward-slash separated property, navigation property, or type-cast
 segments
 
 ::: example
-Example 91: Target paths
+Example 92: Target paths
 ```
 MySchema.MyEntityContainer/MyEntitySet
 ```
@@ -5676,7 +5723,7 @@ CSDL JSON. These examples demonstrate many of the topics covered above.
 ## <a name="ProductsandCategoriesExample" href="#ProductsandCategoriesExample">16.1 Products and Categories Example</a>
 
 ::: {.varjson .example}
-Example 92:
+Example 93:
 ```json
 {
   "$Version": "4.0",
@@ -5897,7 +5944,7 @@ Example 92:
 ## <a name="AnnotationsforProductsandCategoriesExample" href="#AnnotationsforProductsandCategoriesExample">16.2 Annotations for Products and Categories Example</a>
 
 ::: {.varjson .example}
-Example 93:
+Example 94:
 ```json
 {
   "$Version": "4.01",
