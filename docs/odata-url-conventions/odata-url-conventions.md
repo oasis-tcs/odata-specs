@@ -236,10 +236,11 @@ For complete copyright information please see the full Notices section in an App
 - [A References](#References)
   - [A.1 Normative References](#NormativeReferences)
   - [A.2 Informative References](#InformativeReferences)
-- [B Acknowledgments](#Acknowledgments)
-  - [B.1 Participants](#Participants)
-- [C Revision History](#RevisionHistory)
-- [D Notices](#Notices)
+- [B Safety, Security and Privacy Considerations](#SafetySecurityandPrivacyConsiderations)
+- [C Acknowledgments](#Acknowledgments)
+  - [C.1 Participants](#Participants)
+- [D Revision History](#RevisionHistory)
+- [E Notices](#Notices)
 :::
 
 
@@ -4066,11 +4067,19 @@ http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/. Latest version available 
 _ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262.
 https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
 
+<!-- TODO:
 -------
 
-# <a name="Acknowledgments" href="#Acknowledgments">Appendix B. Acknowledgments</a>
+# <a name="SafetySecurityandPrivacyConsiderations" href="#SafetySecurityandPrivacyConsiderations">Appendix B. Safety, Security and Privacy Considerations</a>
 
-## <a name="Participants" href="#Participants">B.1 Participants</a>
+do we have considerations specific to URLs, for example length, encoding, privacy (use $batch if in doubt), ...?
+-->
+
+-------
+
+# <a name="Acknowledgments" href="#Acknowledgments">Appendix C. Acknowledgments</a>
+
+## <a name="Participants" href="#Participants">C.1 Participants</a>
 
 **OData TC Members:**
 
@@ -4088,7 +4097,7 @@ https://www.ecma-international.org/publications-and-standards/standards/ecma-262
 
 -------
 
-# <a name="RevisionHistory" href="#RevisionHistory">Appendix C. Revision History</a>
+# <a name="RevisionHistory" href="#RevisionHistory">Appendix D. Revision History</a>
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
@@ -4096,7 +4105,7 @@ https://www.ecma-international.org/publications-and-standards/standards/ecma-262
 
 -------
 
-# <a name="Notices" href="#Notices">Appendix D. Notices</a>
+# <a name="Notices" href="#Notices">Appendix E. Notices</a>
 
 <!-- Required section. Do not modify. -->
 
