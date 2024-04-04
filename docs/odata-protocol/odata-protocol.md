@@ -5792,7 +5792,9 @@ the rules for which individual requests require an identifier.
 Entities created by an [insert](#CreateanEntity) request or an [action](#InvokinganAction) can be
 referenced in the request URL of subsequent requests by using the
 request identifier prefixed with a `$` character as the first segment of
-the request URL. If the [`Location`](#HeaderLocation) header in the response contains a relative URL,
+the request URL. Services MUST treat this segment like the edit URL or read URL in the
+[`Location`](#HeaderLocation) header of the response to the request identified by the segment.
+If the `Location` header in the response to the subsequent request contains a relative URL,
 clients MUST be able to resolve it relative to the request's URL even if
 that contains such a reference.
 
@@ -5827,11 +5829,14 @@ identifier prefixed with a `$` character as the unquoted value of the
 
 ### <a name="ReferencingValuesfromResponseBodies" href="#ReferencingValuesfromResponseBodies">11.7.6 Referencing Values from Response Bodies</a>
 
-Services MAY support using values from a response body in the query part
-of the URL or in the request body of subsequent requests. Value
-references consist of a `$` character, followed by the request
-identifier of the preceding request, and optionally followed by a valid
-OData path.
+Services MAY support using values from a response body in the query part of
+the URL or in the request body of subsequent requests. Value references
+consist of a `$` character, followed by the request identifier of the preceding
+request. They evaluate to the referenced value, that is the value represented
+by the response body of that preceding request. If that value is a collection
+or has an entity or complex type, the value reference MAY be followed by a
+forward slash and a path expression that is evaluated relative to the
+referenced value.
 
 If the `$`-prefixed request identifier is identical to the name of a
 predefined literal for query expressions (`$it`, `$root`, or other
