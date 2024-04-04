@@ -2379,6 +2379,10 @@ http://host/service/Products?$search=blue OR green
 ```
 :::
 
+Services MAY implement search based on an alternative syntax provided they advertise
+this with the annotation `SearchRestrictions/AlternativeSearchSyntax` defined in
+[OData-VocCap](#ODataVocCap).
+
 #### ##subsubsubsec Search Expressions
 
 Search expressions are used within the
