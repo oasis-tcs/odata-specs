@@ -5305,7 +5305,13 @@ resource whose type is the same as, or derived from, the type of the
 binding parameter of the function. The value for the binding parameter
 is the value of the resource identified by the URL prior to appending
 the function name, and additional parameter values are specified using
-[inline parameter syntax](#InlineParameterSyntax). If the function URL
+[inline parameter syntax](#InlineParameterSyntax).
+In parameters with complex or entity type, properties with a defined default
+value, nullable properties, and collection-valued properties that are omitted
+from the request are set to the default value, null, or an empty collection,
+respectively.
+
+If the function URL
 is [obtained](#AdvertisingAvailableOperationswithinaPayload) from a previously
 returned entity representation, [parameter aliases](#ParameterAliases)
 that are identical to the parameter name preceded by an at (`@`) sign
@@ -5518,6 +5524,10 @@ binding parameter of the action. The value for the binding parameter is
 the resource identified by the URL preceding the action name, and only
 the non-binding parameter values are passed in the request body
 according to the particular format.
+In parameters with complex or entity type, properties with a defined default
+value, nullable properties, and collection-valued properties that are omitted
+from the request are set to the default value, null, or an empty collection,
+respectively.
 
 Services MAY additionally support invoking actions using the unqualified
 action name by defining one or more [default
