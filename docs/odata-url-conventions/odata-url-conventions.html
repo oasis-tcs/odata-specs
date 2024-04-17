@@ -768,7 +768,8 @@ This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12
 </div>
 <div class="example">
 <p>Example 39: filter expression with type cast; will evaluate to <code>null</code> for all non-<code>VipCustomer</code> instances and thus return only instances of <code>VipCustomer</code></p>
-<pre><code>http://host/service/Customers?$filter=Model.VipCustomer/PercentageOfVipPromotionProductsOrdered gt 80</code></pre>
+<pre><code>http://host/service/Customers
+?$filter=Model.VipCustomer/PercentageOfVipPromotionProductsOrdered gt 80</code></pre>
 </div>
 <div class="example">
 <p>Example 40: expand the single related <code>Customer</code> only if it is an instance of <code>Model.VipCustomer</code>. For to-many relationships only <code>Model.VipCustomer</code> instances would be inlined,</p>
@@ -1443,7 +1444,8 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 </div>
 <div class="example">
 <p>Example 101: all categories along with their products used in some order with a deviating unit price. The unprefixed <code>UnitPrice</code> in the argument expression is evaluated in the scope of the expanded <code>Products</code>.</p>
-<pre><code>http://host/service/Categories?$expand=Products($filter=OrderItems/any(oi:oi/UnitPrice ne UnitPrice))</code></pre>
+<pre><code>http://host/service/Categories?$expand=Products(
+  $filter=OrderItems/any(oi:oi/UnitPrice ne UnitPrice))</code></pre>
 </div>
 <h5 id="511132-all"><a name="all" href="#all">5.1.1.13.2 <code>all</code></a></h5>
 <p>The <code>all</code> operator applies a Boolean expression to each member of a collection and returns true if the expression is true for all members of the collection, otherwise it returns false. This implies that the <code>all</code> operator always returns true for an empty collection.</p>
@@ -1519,11 +1521,13 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 </div>
 <div class="example">
 <p>Example 110: products ordered by a set of customers, where the set of customers is passed as a JSON array containing the resource paths from <code>$root</code> to each customer</p>
-<pre><code>http://host/service/ProductsOrderedBy(Customers=@c)?@c=[$root/Customers(&#39;ALFKI&#39;),$root/Customers(&#39;BLAUS&#39;)]</code></pre>
+<pre><code>http://host/service/ProductsOrderedBy(Customers=@c)
+?@c=[$root/Customers(&#39;ALFKI&#39;),$root/Customers(&#39;BLAUS&#39;)]</code></pre>
 </div>
 <div class="example">
 <p>Example 111: function call returning the average rating of a given employee by their peers (employees in department D1)</p>
-<pre><code>http://host/service/Employees(&#39;A1245&#39;)/self.AvgRating(RatedBy=@peers)?@peers=$root/Employees/$filter(Department eq &#39;D1&#39;)</code></pre>
+<pre><code>http://host/service/Employees(&#39;A1245&#39;)/self.AvgRating(RatedBy=@peers)
+?@peers=$root/Employees/$filter(Department eq &#39;D1&#39;)</code></pre>
 </div>
 <h5 id="511146-this"><a name="this" href="#this">5.1.1.14.6 <code>$this</code></a></h5>
 <p>The <code>$this</code> literal can be used in <a href="#SystemQueryOptionfilter"><code>$filter</code></a> and <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> expressions nested within <a href="#SystemQueryOptionexpand"><code>$expand</code></a> and <a href="#SystemQueryOptionselect"><code>$select</code></a> for collection-valued properties and navigation properties. It refers to the current instance of the collection.</p>

@@ -1526,7 +1526,8 @@ Example ##ex: all categories along with their products used in some order
 with a deviating unit price. The unprefixed `UnitPrice` in the argument
 expression is evaluated in the scope of the expanded `Products`.
 ```
-http://host/service/Categories?$expand=Products($filter=OrderItems/any(oi:oi/UnitPrice ne UnitPrice))
+http://host/service/Categories?$expand=Products(
+  $filter=OrderItems/any(oi:oi/UnitPrice ne UnitPrice))
 ```
 :::
 
@@ -1759,14 +1760,16 @@ Example ##ex: products ordered by a set of customers, where the set of
 customers is passed as a JSON array containing the resource paths from
 `$root` to each customer
 ```
-http://host/service/ProductsOrderedBy(Customers=@c)?@c=[$root/Customers('ALFKI'),$root/Customers('BLAUS')]
+http://host/service/ProductsOrderedBy(Customers=@c)
+?@c=[$root/Customers('ALFKI'),$root/Customers('BLAUS')]
 ```
 :::
 
 ::: example
 Example ##ex: function call returning the average rating of a given employee by their peers (employees in department D1)
 ```
-http://host/service/Employees('A1245')/self.AvgRating(RatedBy=@peers)?@peers=$root/Employees/$filter(Department eq 'D1')
+http://host/service/Employees('A1245')/self.AvgRating(RatedBy=@peers)
+?@peers=$root/Employees/$filter(Department eq 'D1')
 ```
 :::
 
