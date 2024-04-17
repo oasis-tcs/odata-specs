@@ -2079,7 +2079,8 @@ http://host/service/Categories?$expand=Products/Sales.PremierProduct/$ref
 Example ##ex: all categories and for each category the references of all
 related premier products with a current promotion equal to `null`
 ```
-http://host/service/Categories?$expand=Products/Sales.PremierProduct/$ref($filter=CurrentPromotion eq null)
+http://host/service/Categories
+?$expand=Products/Sales.PremierProduct/$ref($filter=CurrentPromotion eq null)
 ```
 :::
 
@@ -2239,7 +2240,8 @@ option, see [section ##SystemQueryOptionfilter].
 Example ##ex: name and description of all products, plus name of expanded
 category
 ```
-http://host/service/Products?$select=Name,Description&$expand=Category($select=Name)
+http://host/service/Products?$select=Name,Description
+&$expand=Category($select=Name)
 ```
 :::
 
@@ -2257,7 +2259,9 @@ is of the derived type `Namespace.PreferredSupplier`, together with the
 `Street` property of the complex property
 `Address`, and the Location property of the derived complex type `Namespace.AddressWithLocation`
 ```
-http://host/service/Suppliers?$select=Namespace.PreferredSupplier/AccountRepresentative,Address/Street,Address/Namespace.AddressWithLocation/Location
+http://host/service/Suppliers
+?$select=Namespace.PreferredSupplier/AccountRepresentative,
+Address/Street,Address/Namespace.AddressWithLocation/Location
 ```
 :::
 
@@ -2275,7 +2279,9 @@ NOT be specified in more than one expand.
 Example ##ex: select up to five addresses whose `City` starts with an
 `H`, sorted, and with the `Country` expanded
 ```
-http://host/service/Customers?$select=Addresses($filter=startswith(City,'H');$top=5;$orderby=Country/Name,City,Street)&$expand=Addresses/Country
+http://host/service/Customers?$select=Addresses(
+  $filter=startswith(City,'H');$top=5;$orderby=Country/Name,City,Street)
+&$expand=Addresses/Country
 ```
 :::
 
@@ -2545,7 +2551,8 @@ Example ##ex: JSON array of strings as parameter alias value --- note that
 `[`, `]`, and `"` need to be percent-encoded in real URLs, the
 clear-text representation used here is just for readability
 ```
-http://host/service/Products/Model.WithIngredients(Ingredients=@i)?@i=["Carrots","Ginger","Oranges"]
+http://host/service/Products/Model.WithIngredients(Ingredients=@i)
+?@i=["Carrots","Ginger","Oranges"]
 ```
 :::
 
