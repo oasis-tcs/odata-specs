@@ -5309,7 +5309,7 @@ the function name, and additional parameter values are specified using
 In parameters containing complex instances or transient entities,
 properties with a defined default
 value, nullable properties, and collection-valued properties that are omitted
-from the request are set to the default value, null, or an empty collection,
+from the request are interpreted as the default value, null, or an empty collection,
 respectively.
 
 If the function URL
@@ -5528,7 +5528,7 @@ according to the particular format.
 In parameters containing complex instances or transient entities,
 properties with a defined default
 value, nullable properties, and collection-valued properties that are omitted
-from the request are set to the default value, null, or an empty collection,
+from the request are interpreted as the default value, null, or an empty collection,
 respectively.
 
 Services MAY additionally support invoking actions using the unqualified
