@@ -4200,8 +4200,8 @@ annotation to the `Manager` and `DirectReports` navigation properties
   "ID": 1,
   "FirstName": "Pat",
   "LastName": "Griswold",
-  "Manager@bind": "http://host/service/Employees(0)",
-  "DirectReports@bind": [
+  "Manager@odata.bind": "http://host/service/Employees(0)",
+  "DirectReports@odata.bind": [
     "http://host/service/Employees(5)",
     "http://host/service/Employees(6)"
   ]
