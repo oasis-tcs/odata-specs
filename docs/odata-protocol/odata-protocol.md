@@ -4221,8 +4221,8 @@ within the `Manager` and `DirectReports` navigation properties
   "LastName": "Griswold",
   "Manager": { "@id": "Employees(0)" },
   "DirectReports": [
-    {"@id": "Employees(5)"},
-    {"@id": "Employees(6)"}
+    { "@id": "Employees(5)" },
+    { "@id": "Employees(6)" }
   ]
 }
 ```
@@ -5897,7 +5897,7 @@ PATCH /path/service/People(1) HTTP/1.1
 Host: myserver.mydomain.org:1234
 Content-Type: application/json
 
-{"Name": "Peter"}
+{ "Name": "Peter" }
 ```
 :::
 

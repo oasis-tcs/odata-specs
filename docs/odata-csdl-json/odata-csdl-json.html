@@ -2556,7 +2556,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </div>
 <div class="varjson example">
 <p>Example 58:</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;Location&quot;:</span> <span class="fu">{</span><span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;Point&quot;</span><span class="fu">,</span> <span class="dt">&quot;coordinates&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="fl">142.1</span><span class="ot">,</span><span class="fl">64.1</span><span class="ot">]</span><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;Location&quot;:</span> <span class="fu">{</span> <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;Point&quot;</span><span class="fu">,</span> <span class="dt">&quot;coordinates&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="fl">142.1</span><span class="ot">,</span><span class="fl">64.1</span><span class="ot">]</span> <span class="fu">}</span></span></code></pre></div>
 </div>
 <h3 id="14314-stream-values"><a name="StreamValues" href="#StreamValues">14.3.14 Stream Values</a></h3>
 <div class="varjson rep">
@@ -2565,7 +2565,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>The annotation (property) being assigned a stream value MUST be annotated with term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#MediaType"><code>Core.MediaType</code></a> and the media type of the stream as its value.</p>
 <div class="varjson example">
 <p>Example 59:</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;JsonStream&quot;:</span> <span class="fu">{</span><span class="dt">&quot;foo&quot;</span><span class="fu">:</span><span class="kw">true</span><span class="fu">,</span><span class="dt">&quot;bar&quot;</span><span class="fu">:</span><span class="dv">42</span><span class="fu">}</span><span class="er">,</span></span>
+<div class="sourceCode" id="cb61"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;JsonStream&quot;:</span> <span class="fu">{</span> <span class="dt">&quot;foo&quot;</span><span class="fu">:</span><span class="kw">true</span><span class="fu">,</span><span class="dt">&quot;bar&quot;</span><span class="fu">:</span><span class="dv">42</span> <span class="fu">}</span><span class="er">,</span></span>
 <span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;JsonStream@Core.MediaType&quot;:</span> <span class="er">&quot;application/json&quot;,</span></span>
 <span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;TextStream&quot;:</span> <span class="er">&quot;Hello</span> <span class="er">World!&quot;,</span></span>
