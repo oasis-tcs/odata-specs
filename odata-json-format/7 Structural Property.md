@@ -348,7 +348,7 @@ PATCH http://host/service/Products(42) HTTP/1.1
 Content-Type: application/json
 
 {
-  "Category@bind": "Categories(6)"
+  "Category@odata.bind": "Categories(6)"
 }
 ```
 :::
@@ -409,7 +409,7 @@ OData 4.01 services MUST support both the OData 4.0 representation, for
 requests containing an `OData-Version` header with a value of
 `4.0`, and the OData 4.01 representation, for requests
 containing an `OData-Version` header with a value of `4.01`.
-Clients MUST NOT use `@bind` in requests with an
+Clients MUST NOT use `@odata.bind` in requests with an
 `OData-Version` header with a value of `4.01`.
 
 For insert operations collection navigation property bind operations and
