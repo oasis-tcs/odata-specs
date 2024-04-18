@@ -3828,9 +3828,10 @@ http://host/service/Products?$search=blue OR green
 ```
 :::
 
-Services MAY implement search based on an alternative syntax provided they advertise
-this with the annotation `SearchRestrictions/AlternativeSearchSyntax` defined in
-[OData-VocCap](#ODataVocCap).
+Services MAY implement search based on a different syntax provided they advertise
+this with the annotation `SearchRestrictions/SearchSyntax` defined in
+[OData-VocCap](#ODataVocCap). Clients are advised to evalute this annotation,
+because it governs what result they can expect for a given search request.
 
 #### <a name="SearchExpressions" href="#SearchExpressions">5.1.8.1 Search Expressions</a>
 
