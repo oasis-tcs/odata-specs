@@ -4544,7 +4544,9 @@ supporting this SHOULD advertise it by annotating the singleton with the
 term `Capabilities.UpdateRestrictions` (nested property `Upsertable`
 with value `true`) defined in [OData-VocCap](#ODataVocCap).
 
-Key and other non-updatable properties, as well as dependent properties
+For key properties whose value is provided in the request URL any values provided in the request body must be ignored.
+
+Values for other non-updatable properties, as well as dependent properties
 that are not tied to key properties of the principal entity, MUST be
 ignored by the service in processing the Upsert request.
 
