@@ -17,7 +17,7 @@ The following documents are referenced in such a way that some or all of their c
 _ECMAScript 2016 Language Specification, 7th Edition_. June 2016. Standard ECMA-262. http://www.ecma-international.org/publications/standards/Ecma-262.htm.
 
 ###### <a name="_EPSG">[EPSG]</a>
-_European Petroleum Survey Group (EPSG)_. http://www.epsg.org/.
+_European Petroleum Survey Group (EPSG)_. https://spatialreference.org/ref/epsg/.
 
 ###### <a name="ODataABNF">[OData-ABNF]</a>
 _OData ABNF Construction Rules Version 4.02_.  
@@ -122,11 +122,13 @@ http://www.w3.org/TR/2012/REC-xmlschema11-1-20120405/. Latest version available 
 _W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes_. D. Peterson, S. Gao, C. M. Sperberg-McQueen, H. S. Thompson, P. V. Biron, A. Malhotra, Editors, W3C Recommendation, 5 April 2012.  
 http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/. Latest version available at http://www.w3.org/TR/xmlschema11-2/.
 
+: varjson
 ## ##subasec Informative References
 
 ###### <a name="_OpenUI5">[OpenUI5]</a>
-_OpenUI5 Version 1.40.10 --- OData V4 Metadata JSON Format_.  
-https://openui5.hana.ondemand.com/1.40.10/#docs/guide/87aac894a40640f89920d7b2a414499b.html.
+_OpenUI5 --- OData V4 Metadata JSON Format_.  
+https://openui5.hana.ondemand.com/topic/87aac894a40640f89920d7b2a414499b.
+:
 
 -------
 
@@ -147,12 +149,14 @@ $$$isec$$$
 
 ## ##subasec Special Thanks
 
+: varjson
 The work of the OpenUI5 team on the OData V4 Metadata JSON Format, see
 [OpenUI5](#_OpenUI5), is gratefully acknowledged,
 especially the contributions of
 - Thomas Chadzelek (SAP SE)
 - Jens Ittel (SAP SE)
 - Patric Ksinsik (SAP SE)
+:
 
 The contributions of the OASIS OData Technical Committee members,
 enumerated in [ODataProtocol](#ODataProtocol), are gratefully
@@ -183,32 +187,16 @@ acknowledged.
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
-$$$subtitle$$$|$$$pubdateISO$$$|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| 
+|Committee Specification Draft 01|2024-02-28|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| 
+: varjson
+Import material from OData Common Schema Definition Language (CSDL) JSON Representation Version 4.01 
+:
+: varxml
+Import material from OData Common Schema Definition Language (CSDL) XML Representation Version 4.01 
+:
+<br>Changes listed in [section ##ChangesfromEarlierVersions]|
 
-<!--
-Working Draft 01                |2016-11-16|Ralf Handl|Initial version
-Committee Specification Draft 01|2017-06-08|Michael Pizzo<br>Ralf Handl| 
-Integrated 4.01 features
-Committee Specification Draft 02|2017-09-22|Michael Pizzo<br>Ralf Handl| 
-Incorporated review feedback<br> 
-Changed defaults of `$Nullable`, `$Scale`, and `$Precision`
-Committee Specification Draft 03|2017-11-10|Michael Pizzo<br>Ralf Handl| 
-Incorporated review feedback<br> 
-Stable order of action and function parameters
-Committee Specification 01      |2017-12-19|Michael Pizzo<br>Ralf Handl| 
-Non-material Changes
-Committee Specification Draft 04|2019-06-21|Michael Pizzo<br>Ralf Handl| 
-External targeting for annotations on action/function overloads, parameters, and return types<br> 
-Key and index segments for path expressions in annotations<br> 
-Nullable singletons<br> 
-Simplified syntax of entity container children and constant annotation expressions
-Committee Specification Draft 05|2019-09-26|Michael Pizzo<br>Ralf Handl| 
-Redefining entity sets and singletons when extending entity containers
-Committee Specification 02      |2019-11-05|Michael Pizzo<br>Ralf Handl| 
-Non-material Changes
-Candidate OASIS Standard 02     |2020-04-09|Michael Pizzo<br>Ralf Handl| 
-Non-material Changes
--->
+-------
 
 # Appendix ##asec Notices
 

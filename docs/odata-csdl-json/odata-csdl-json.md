@@ -5,19 +5,21 @@
 
 # OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02
 
-## Committee Specification Draft 01
+## Committee Specification Draft 02
 
-## 14 July 2023
+## 28 February 2024
 
 $\hbox{}$
 
 #### This stage:
+https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd02/odata-csdl-json-v4.02-csd02.md (Authoritative) \
+https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd02/odata-csdl-json-v4.02-csd02.html \
+https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd02/odata-csdl-json-v4.02-csd02.pdf
+
+#### Previous stage:
 https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd01/odata-csdl-json-v4.02-csd01.md (Authoritative) \
 https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd01/odata-csdl-json-v4.02-csd01.html \
 https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd01/odata-csdl-json-v4.02-csd01.pdf
-
-#### Previous stage:
-N/A
 
 #### Latest stage:
 https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.md (Authoritative) \
@@ -40,7 +42,7 @@ Heiko Theißen (heiko.theissen@sap.com), [SAP SE](http://www.sap.com/)
 
 #### <a name="AdditionalArtifacts">Additional artifacts:</a>
 This prose specification is one component of a Work Product that also includes:
-* JSON schemas: _OData CSDL JSON schema_. Latest stage: https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd01/schemas/.
+* JSON schemas: _OData CSDL JSON schema_. https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd02/schemas/.
 
 #### <a name="RelatedWork">Related work:</a>
 This specification replaces or supersedes:
@@ -50,10 +52,11 @@ This specification is related to:
 * _OData Version 4.02_. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. A multi-part Work Product that includes:
   * _OData Version 4.02 Part 1: Protocol_. Latest stage: https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html
   * _OData Version 4.02 Part 2: URL Conventions_. Latest stage: https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html
-  * _ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases_. https://docs.oasis-open.org/odata/odata/v4.02/csd01/abnf/
+  * _ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases_. https://docs.oasis-open.org/odata/odata/v4.02/csd02/abnf/
 * _OData Vocabularies Version 4.0_. Edited by Michael Pizzo, Ralf Handl, and Ram Jeyaraman. Latest stage: https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/odata-vocabularies-v4.0.html
 * _OData Common Schema Definition Language (CSDL) XML Representation Version 4.02_. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. Latest stage: https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/odata-csdl-xml-v4.02.html
 * _OData JSON Format Version 4.02_. Edited by Ralf Handl, Mike Pizzo, and Heiko Theißen. Latest stage: https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html
+
 
 #### Abstract:
 OData services are described by an Entity Model (EDM). The Common Schema Definition Language (CSDL) defines specific representations of the entity data model exposed by an OData service, using XML, JSON, and other formats. This document (OData CSDL JSON Representation) specifically defines the JSON representation of CSDL.
@@ -76,12 +79,12 @@ When referencing this specification the following citation format should be used
 **[OData-CSDL-JSON-v4.02]**
 
 _OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02_.
-Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. 14 July 2023. OASIS Committee Specification Draft 01.
-https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd01/odata-csdl-json-v4.02-csd01.html.
+Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. 28 February 2024. OASIS Committee Specification Draft 02.
+https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd02/odata-csdl-json-v4.02-csd02.html.
 Latest stage: https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html.
 
 #### Notices
-Copyright &copy; OASIS Open 2023. All Rights Reserved.
+Copyright © OASIS Open 2024. All Rights Reserved.
 
 Distributed under the terms of the OASIS [IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/).
 
@@ -195,6 +198,8 @@ For complete copyright information please see the full Notices section in an App
     - [14.3.10 Integer](#Integer)
     - [14.3.11 String](#String)
     - [14.3.12 Time of Day](#TimeofDay)
+    - [14.3.13 Geo Values](#GeoValues)
+    - [14.3.14 Stream Values](#StreamValues)
   - [14.4 Dynamic Expression](#DynamicExpression)
     - [14.4.1 Path Expressions](#PathExpressions)
       - [14.4.1.1 Path Syntax](#PathSyntax)
@@ -259,8 +264,13 @@ modifications made necessary to fully cover OData CSDL Version 4.01.
 
 Section | Feature / Change | Issue
 --------|------------------|------
-[Section 14.4.1.2](#PathEvaluation)| New path evaluation rules for annotations targeting annotations and external targeting via container| [ODATA-1420](https://issues.oasis-open.org/browse/ODATA-1420)
-[Section 3.3](#PrimitiveTypes)| Allow stream-valued non-binding parameters| [ODATA-1481](https://issues.oasis-open.org/browse/ODATA-1481)
+[Section 3.3](#PrimitiveTypes)| Allow stream-valued non-binding parameters| [525](https://github.com/oasis-tcs/odata-specs/issues/525)
+[Section 4](#CSDLJSONDocument) | Additional `$Version` value `4.02` |
+[Section 14.3.13](#GeoValues) | Constant Geo values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
+[Section 14.3.14](#StreamValues) | Constant Stream values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
+[Section 14.4.1.2](#PathEvaluation)| New path evaluation rules for annotations targeting annotations and external targeting via container| [575](https://github.com/oasis-tcs/odata-specs/issues/575)
+[Section 14.4.7](#IfThenElse)| Nested `If` without else part in collections| [326](https://github.com/oasis-tcs/odata-specs/issues/326)
+[Section 17](#Conformance) | Additional conformance clauses for version 4.02 |
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -295,13 +305,13 @@ Normative representation-specific text
 
 All other text is normative unless otherwise labeled.
 
-::: example
-Here is a customized command line which will generate HTML from this markdown file (named `odata-csdl-json-v4.02-csd01.md`). Line breaks are added for readability only:
+<!--
+Here is a customized command line which will generate HTML from the markdown file (named `odata-csdl-json-v4.02-csd02.md`). Line breaks are added for readability only:
 
 ```
 pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        -t html
-       -o odata-csdl-json-v4.02-csd01.html
+       -o odata-csdl-json-v4.02-csd02.html
        -c styles/markdown-styles-v1.7.3b.css
        -c styles/odata.css
        -s
@@ -309,11 +319,11 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        --eol=lf
        --wrap=none
        --metadata pagetitle="OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02"
-       odata-csdl-json-v4.02-csd01.md
+       odata-csdl-json-v4.02-csd02.md
 ```
 
-This uses pandoc 3.1.11.1 from https://github.com/jgm/pandoc/releases/tag/3.1.11.1.
-:::
+This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12.2.
+-->
 
 <!-- These source files can be used to produce the JSON variant or the XML variant,
      by using either new Number("...", "json") or new Number("...", "xml").
@@ -395,7 +405,7 @@ The `metadata=minimal` format parameter indicates that the service
 SHOULD remove computable control information from the payload wherever
 possible.
 
-This means that the `@type` control information is only included if the
+This means that the `type` control information is only included if the
 type of the containing object or targeted property cannot be
 heuristically determined, e.g. for
 - Terms or term properties with an abstract declared type,
@@ -410,7 +420,7 @@ See [OData-JSON](#ODataJSON) for the exact rules.
 The `metadata=full` format parameter indicates that the service MUST
 include all control information explicitly in the payload.
 
-This means that the `@type` control information is included in
+This means that the `type` control information is included in
 annotation values except for primitive values whose type can be
 heuristically determined from the representation of the value, see
 [OData-JSON](#ODataJSON) for the exact rules.
@@ -936,7 +946,11 @@ If the CSDL JSON document is the metadata document of an OData service, the docu
 
 ### <a name="Version.2.1" href="#Version.2.1">`$Version`</a>
 
-The value of `$Version` is a string containing either `4.0` or `4.01`.
+The value of `$Version` is a string specifying the OData protocol version of the
+document, either `4.0`, `4.01`, or `4.02`.
+
+Services MUST return an OData 4.0 response if the request was
+made with an `OData-MaxVersion` header with a value of `4.0`.
 
 ### <a name="EntityContainer.2.2" href="#EntityContainer.2.2">`$EntityContainer`</a>
 
@@ -2847,7 +2861,7 @@ scope, or a collection of any type in scope.
 The facets [`MaxLength`](#MaxLength),
 [`Precision`](#Precision), [`Scale`](#Scale), and [`SRID`](#SRID) can be
 used as appropriate to specify value restrictions of the return type, as
-well as the [`Unicode`](#Unicode) facet for 4.01 and greater payloads.
+well as the [`Unicode`](#Unicode) facet for 4.01 or greater payloads.
 
 For a single-valued return type the facets apply to the returned value.
 For a collection-valued return type the facets apply to the items in the
@@ -2912,7 +2926,7 @@ collection of any type in scope.
 The facets [`MaxLength`](#MaxLength), [`Precision`](#Precision),
 [`Scale`](#Scale), or [`SRID`](#SRID) can be used as appropriate to
 specify value restrictions of the parameter, as well as the
-[`Unicode`](#Unicode) facet for 4.01 and greater payloads.
+[`Unicode`](#Unicode) facet for 4.01 or greater payloads.
 
 For single-valued parameters the facets apply to the parameter value. If
 the parameter value is a collection, the facets apply to the items in
@@ -3615,7 +3629,7 @@ It MAY contain the members `$Type`, `$Collection`, `$Nullable`, `$DefaultValue`,
 [`$AppliesTo`](#Applicability),
 [`$MaxLength`](#MaxLength), [`$Precision`](#Precision),
 [`$Scale`](#Scale), and [`$SRID`](#SRID), as well as
-[`$Unicode`](#Unicode) for 4.01 and greater payloads.
+[`$Unicode`](#Unicode) for 4.01 or greater payloads.
 
 It MAY contain [annotations](#Annotation).
 
@@ -4156,6 +4170,47 @@ Example 57:
 
 
 
+### <a name="GeoValues" href="#GeoValues">14.3.13 Geo Values</a>
+
+::: {.varjson .rep}
+Values are represented as GeoJSON, see [OData-JSON](#ODataJSON).
+:::
+
+::: {.varjson .example}
+Example 58:
+```json
+"Location": {"type": "Point", "coordinates": [142.1,64.1]}
+```
+:::
+
+
+
+### <a name="StreamValues" href="#StreamValues">14.3.14 Stream Values</a>
+
+::: {.varjson .rep}
+Constant values of type `Edm.Stream` are represented according to [OData-JSON](#ODataJSON) and MUST be accompanied by the `mediaContentType` control information to indicate how the stream value is to be interpreted.
+:::
+
+
+The annotation (property) being assigned a stream value MUST be annotated with term
+[`Core.MediaType`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#MediaType)
+and the media type of the stream as its value.
+
+::: {.varjson .example}
+Example 59:
+```json
+"JsonStream": {"foo":true,"bar":42},
+"JsonStream@Core.MediaType": "application/json",
+
+"TextStream": "Hello World!",
+"TextStream@Core.MediaType": "text/plain",
+
+"OtherStream": "T0RhdGE",
+"OtherStream@Core.MediaType": "application/octet-stream"
+```
+:::
+
+
 ## <a name="DynamicExpression" href="#DynamicExpression">14.4 Dynamic Expression</a>
 
 Dynamic expressions allow assigning a calculated value to an applied
@@ -4192,7 +4247,7 @@ an entity container. The remaining path after the second forward slash
 is interpreted relative to that model element.
 
 ::: example
-Example 58: absolute path to an entity set
+Example 60: absolute path to an entity set
 ```
 /My.Schema.MyEntityContainer/MyEntitySet
 ```
@@ -4203,7 +4258,7 @@ annotation target, following the rules specified in section "[Path
 Evaluation](#PathEvaluation)".
 
 ::: example
-Example 59: relative path to a property
+Example 61: relative path to a property
 ```
 Address/City
 ```
@@ -4216,7 +4271,7 @@ cannot be cast to the specified type, the path expression evaluates to
 the null value.
 
 ::: example
-Example 60: type-cast segment
+Example 62: type-cast segment
 ```
 …/self.Manager/…
 ```
@@ -4241,7 +4296,7 @@ properties:
 -   `odata.mediaEtag`
 
 ::: example
-Example 61: term-cast segments
+Example 63: term-cast segments
 ```
 …/@Capabilities.SortRestrictions/…
 ```
@@ -4261,7 +4316,7 @@ collection-valued structural or navigation properties. The result of the
 expression is the model element reached via this path.
 
 ::: example
-Example 62: property segments in model path
+Example 64: property segments in model path
 ```
 …/Orders/Items/Product/…
 ```
@@ -4281,7 +4336,7 @@ segment is collection-valued, in which case the path evaluates to the
 number of items in the collection identified by the preceding segment.
 
 ::: example
-Example 63: property segments in instance path
+Example 65: property segments in instance path
 ```
 …/Addresses/Street
 ```
@@ -4304,7 +4359,7 @@ type specified by the navigation property are addressed via a [term-cast
 segment](#TermCast).
 
 ::: example
-Example 64: model path segment addressing an annotation on a navigation property
+Example 66: model path segment addressing an annotation on a navigation property
 vs. term cast addressing an annotation on the resource addressed by the navigation property
 ```
 …/Items@Core.Description
@@ -4325,7 +4380,7 @@ part of, *not* relative to the instance identified by the preceding path
 part.
 
 ::: example
-Example 65: instance path with entity set and key predicate
+Example 67: instance path with entity set and key predicate
 ```
 /self.container/SettingsCollection('FeatureXxx')/IsAvailable
 ```
@@ -4343,7 +4398,7 @@ representing the last item in the collection. Remaining path segments
 are evaluated relative to the identified item of the collection.
 
 ::: example
-Example 66: instance path with collection-valued structural property and
+Example 68: instance path with collection-valued structural property and
 index segment
 ```
 Addresses/1
@@ -4423,7 +4478,7 @@ specified, as follows:
    or a [term cast](#TermCast).
 
 ::: example
-Example 67: Annotations hosted by property `A2` in various modes
+Example 69: Annotations hosted by property `A2` in various modes
 
 Path evaluation for the annotations in the first block starts at the directly
 enclosing type `self.A` of the hosting property `A2`.
@@ -4526,7 +4581,7 @@ path.
 :::
 
 ::: {.varjson .example}
-Example 68:
+Example 70:
 ```json
 "@UI.ReferenceFacet": "Product/Supplier/@UI.LineItem",
 "@UI.CollectionFacet#Contacts": [
@@ -4554,7 +4609,7 @@ path.
 :::
 
 ::: {.varjson .example}
-Example 69:
+Example 71:
 ```json
 "@org.example.MyFavoriteModelElement": "/self.someAction"
 ```
@@ -4570,9 +4625,9 @@ types](#BuiltInTypesfordefiningVocabularyTerms)
 `Edm.NavigationPropertyPath`, `Edm.AnyPropertyPath`, or `Edm.ModelElementPath`.
 Its argument is a [model path](#PathExpressions) with the following
 restriction:
-- A non-null path MUST resolve to a model
-element whose type is an entity type, or a collection of entity types,
-e.g. a navigation property.
+- A non-null path MUST end with a [navigation property](#NavigationProperty)
+or a term cast to a term whose type is an entity type or a collection of entity types.
+
 
 The value of the navigation property path expression is the path itself,
 not the entity or collection of entities identified by the path.
@@ -4583,7 +4638,7 @@ containing a path.
 :::
 
 ::: {.varjson .example}
-Example 70:
+Example 72:
 ```json
 "@UI.HyperLink": "Supplier",
 "@Capabilities.UpdateRestrictions": {
@@ -4605,8 +4660,8 @@ types](#BuiltInTypesfordefiningVocabularyTerms)
 `Edm.PropertyPath`, `Edm.AnyPropertyPath`, or `Edm.ModelElementPath`. Its
 argument is a [model path](#PathExpressions) with the following
 restriction:
-- A non-null path MUST resolve to a model
-element whose type is a primitive or complex type, an enumeration type,
+- A non-null path MUST end with a [structural property](#StructuralProperty)
+or a term cast to a term whose type is a primitive or complex type, an enumeration type,
 a type definition, or a collection of one of these types.
 
 The value of the property path expression is the path itself, not the
@@ -4618,7 +4673,7 @@ Property path expressions are represented as a string containing a path.
 :::
 
 ::: {.varjson .example}
-Example 71:
+Example 73:
 ```json
 "@UI.RefreshOnChangeOf": "ChangedAt",
 "@Capabilities.UpdateRestrictions": {
@@ -4651,7 +4706,7 @@ Path expressions are represented as an object with a single member
 :::
 
 ::: {.varjson .example}
-Example 72:
+Example 74:
 ```json
 "@UI.DisplayName": {
   "$Path": "FirstName"
@@ -4722,7 +4777,7 @@ They MAY contain [annotations](#Annotation).
 :::
 
 ::: {.varjson .example}
-Example 73:
+Example 75:
 ```json
 {
   "$And": [
@@ -4863,7 +4918,7 @@ They MAY contain [annotations](#Annotation).
 :::
 
 ::: {.varjson .example}
-Example 74:
+Example 76:
 ```json
 {
   "$Add": [
@@ -4976,7 +5031,7 @@ are represented according to the appropriate alternative in the
 `binaryValue`, `Edm.Boolean` as `booleanValue` etc.
 
 ::: {.varjson .example}
-Example 75:
+Example 77:
 ```json
 "@UI.DisplayName": {
   "$Apply": [
@@ -5060,7 +5115,7 @@ types with two properties that are used in lexicographic order. The
 first property is used as key, the second property as value.
 
 ::: {.varjson .example}
-Example 76: assuming there are no special characters in values of the
+Example 78: assuming there are no special characters in values of the
 Name property of the Actor entity
 ```json
 {
@@ -5092,7 +5147,7 @@ expression, using syntax and semantics of
 [ECMAScript](#_ECMAScript) regular expressions.
 
 ::: {.varjson .example}
-Example 77: all non-empty `FirstName` values not containing the letters
+Example 79: all non-empty `FirstName` values not containing the letters
 `b`, `c`, or `d` evaluate to `true`
 ```json
 {
@@ -5118,7 +5173,7 @@ Note: string literals are surrounded by single quotes as required by the
 parentheses-style key syntax.
 
 ::: {.varjson .example}
-Example 78:
+Example 80:
 ```json
 {
   "$Apply": [
@@ -5167,7 +5222,7 @@ considered unspecified.
 :::
 
 ::: {.varjson .example}
-Example 79:
+Example 81:
 ```json
 "@UI.Threshold": {
   "$Cast": {
@@ -5194,7 +5249,7 @@ item expression within the collection expression.
 :::
 
 ::: {.varjson .example}
-Example 80:
+Example 82:
 ```json
 "@seo.SeoTerms": [
   "Product",
@@ -5209,9 +5264,14 @@ Example 80:
 ### <a name="IfThenElse" href="#IfThenElse">14.4.7 If-Then-Else</a>
 
 The if-then-else expression enables a value to be obtained by evaluating
-a *condition expression*. It MUST contain exactly three child
+a *condition expression*.
+The if-then-else expression is called a collection-if-then-else expression if
+- it is a direct child of a collection expression or
+- it is the second or third child of a collection-if-then-else expression.
+
+An if-then-else expression MUST contain exactly three child
 expressions. There is one exception to this rule: if and only if the
-if-then-else expression is an item of a collection expression, the third
+if-then-else expression is a collection-if-then-else expression, the third
 child expression MAY be omitted, reducing it to an if-then expression.
 This can be used to conditionally add an element to a collection.
 
@@ -5241,11 +5301,11 @@ It MAY contain [annotations](#Annotation).
 :::
 
 ::: {.varjson .example}
-Example 81: the condition is a [value path expression](#ValuePath)
+Example 83: the condition is a [value path expression](#ValuePath)
 referencing the Boolean property `IsFemale`, whose value then determines
-the value of the `$If` expression (or so it was long ago)
+the value of the `$If` expression
 ```json
-"@person.Gender": {
+"@org.example.person.Gender": {
   "$If": [
     {
       "$Path": "IsFemale"
@@ -5256,6 +5316,47 @@ the value of the `$If` expression (or so it was long ago)
 }
 ```
 :::
+
+::: {.varjson .example}
+Example 84: pronouns based on a person's `IdentifiesAsFemale` and `IdentifiesAsMale` attributes
+```json
+"@org.example.person.Pronouns": [
+  {
+    "$If": [
+      {
+        "$Path": "IdentifiesAsFemale"
+      },
+      "she",
+      {
+        "$If": [
+          {
+            "$Path": "IdentifiesAsMale"
+          },
+          "he"
+        ]
+      }
+    ]
+  },
+  {
+    "$If": [
+      {
+        "$Path": "IdentifiesAsFemale"
+      },
+      "her",
+      {
+        "$If": [
+          {
+            "$Path": "IdentifiesAsMale"
+          },
+          "him"
+        ]
+      }
+    ]
+  }
+]
+```
+:::
+
 
 
 
@@ -5285,7 +5386,7 @@ considered unspecified.
 :::
 
 ::: {.varjson .example}
-Example 82:
+Example 85:
 ```json
 "@Self.IsPreferredCustomer": {
   "$IsOf": {
@@ -5324,7 +5425,7 @@ It MAY contain [annotations](#Annotation).
 :::
 
 ::: {.varjson .example}
-Example 83:
+Example 86:
 ```json
 "@UI.DisplayName": {
   "$LabeledElement": {
@@ -5353,7 +5454,7 @@ an qualified name.
 :::
 
 ::: {.varjson .example}
-Example 84:
+Example 87:
 ```json
 "@UI.DisplayName": {
   "$LabeledElementReference": "self.CustomerFirstName"
@@ -5374,7 +5475,7 @@ literal `null`.
 :::
 
 ::: {.varjson .example}
-Example 85:
+Example 88:
 ```json
 "@UI.DisplayName": null,
 ```
@@ -5388,7 +5489,7 @@ as an object with a member `$Null` whose value is the literal `null`.
 :::
 
 ::: {.varjson .example}
-Example 86:
+Example 89:
 ```json
 "@UI.Address": {
   "$Null": null,
@@ -5427,7 +5528,7 @@ Record expressions are represented as objects with one member per
 property value expression. The member name is the property name, and the
 member value is the property value expression.
 
-The type of a record expression is represented as the `@type` control
+The type of a record expression is represented as the `type` control
 information, see  [OData-JSON](#ODataJSON).
 
 It MAY contain [annotations](#Annotation) for itself and its members.
@@ -5435,7 +5536,7 @@ Annotations for record members are prefixed with the member name.
 :::
 
 ::: {.varjson .example}
-Example 87: this annotation "morphs" the entity type from [example 13](#entitytype) into
+Example 90: this annotation "morphs" the entity type from [example 13](#entitytype) into
 a structured type with two structural properties `GivenName` and
 `Surname` and two navigation properties `DirectSupervisor` and
 `CostCenter`. The first three properties simply rename properties of the
@@ -5505,7 +5606,7 @@ It MAY contain [annotations](#Annotation).
 :::
 
 ::: {.varjson .example}
-Example 88:
+Example 91:
 ```json
 "@org.example.person.Supplier": {
   "$UrlRef": {
@@ -5589,7 +5690,7 @@ forward-slash separated property, navigation property, or type-cast
 segments
 
 ::: example
-Example 89: Target paths
+Example 92: Target paths
 ```
 MySchema.MyEntityContainer/MyEntitySet
 ```
@@ -5622,7 +5723,7 @@ CSDL JSON. These examples demonstrate many of the topics covered above.
 ## <a name="ProductsandCategoriesExample" href="#ProductsandCategoriesExample">16.1 Products and Categories Example</a>
 
 ::: {.varjson .example}
-Example 90:
+Example 93:
 ```json
 {
   "$Version": "4.0",
@@ -5843,7 +5944,7 @@ Example 90:
 ## <a name="AnnotationsforProductsandCategoriesExample" href="#AnnotationsforProductsandCategoriesExample">16.2 Annotations for Products and Categories Example</a>
 
 ::: {.varjson .example}
-Example 91:
+Example 94:
 ```json
 {
   "$Version": "4.01",
@@ -5911,8 +6012,7 @@ Conforming services MUST follow all rules of this specification document
 for the types, sets, functions, actions, containers and annotations they
 expose.
 
-In addition, conforming services MUST NOT return 4.01 CSDL constructs
-for requests made with `OData-MaxVersion:4.0`.
+In addition, conforming services MUST NOT return CSDL constructs defined in OData 4.01 or greater for requests made with `OData-MaxVersion: 4.0`.
 
 Specifically, they
 1. MUST NOT include properties in derived types that overwrite a
@@ -5933,12 +6033,18 @@ types
 10. MUST NOT specify a key as a property of a related entity
 11. SHOULD NOT include new/unknown values for
 [`$AppliesTo`](#Applicability)
-12. MAY include new CSDL annotations
+12. SHOULD NOT include constant [Geo](#GeoValues) or [Stream values](#StreamValues) in annotations
+13. MAY include new CSDL annotations
 
-In addition, OData 4.01 services:
-13. SHOULD NOT have identifiers within a uniqueness scope (e.g. a
+In addition, OData 4.01 or greater services:
+
+14. SHOULD NOT have identifiers within a uniqueness scope (e.g. a
 schema, a structural type, or an entity container) that differ only by
 case
+
+In addition, OData 4.01 services:
+
+15. SHOULD NOT include constant [Geo](#GeoValues) or [Stream values](#StreamValues) in annotations
 
 Conforming clients MUST be prepared to consume a model that uses any or
 all constructs defined in this specification, including custom
@@ -5964,7 +6070,7 @@ The following documents are referenced in such a way that some or all of their c
 _ECMAScript 2016 Language Specification, 7th Edition_. June 2016. Standard ECMA-262. http://www.ecma-international.org/publications/standards/Ecma-262.htm.
 
 ###### <a name="_EPSG">[EPSG]</a>
-_European Petroleum Survey Group (EPSG)_. http://www.epsg.org/.
+_European Petroleum Survey Group (EPSG)_. https://spatialreference.org/ref/epsg/.
 
 ###### <a name="ODataABNF">[OData-ABNF]</a>
 _OData ABNF Construction Rules Version 4.02_.  
@@ -6034,8 +6140,8 @@ http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/. Latest version available 
 ## <a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a>
 
 ###### <a name="_OpenUI5">[OpenUI5]</a>
-_OpenUI5 Version 1.40.10 --- OData V4 Metadata JSON Format_.  
-https://openui5.hana.ondemand.com/1.40.10/#docs/guide/87aac894a40640f89920d7b2a414499b.html.
+_OpenUI5 --- OData V4 Metadata JSON Format_.  
+https://openui5.hana.ondemand.com/topic/87aac894a40640f89920d7b2a414499b.
 
 -------
 
@@ -6204,22 +6310,13 @@ acknowledged.
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
-Committee Specification Draft 01|2023-07-14|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| 
-<!--
-Working Draft 01                |2016-11-16|Ralf Handl|Initial version
-Committee Specification Draft 01|2017-06-08|Michael Pizzo<br>Ralf Handl| Integrated 4.01 features
-Committee Specification Draft 02|2017-09-22|Michael Pizzo<br>Ralf Handl| Incorporated review feedback<br> Changed defaults of `$Nullable`, `$Scale`, and `$Precision`
-Committee Specification Draft 03|2017-11-10|Michael Pizzo<br>Ralf Handl| Incorporated review feedback<br> Stable order of action and function parameters
-Committee Specification 01      |2017-12-19|Michael Pizzo<br>Ralf Handl| Non-material Changes
-Committee Specification Draft 04|2019-06-21|Michael Pizzo<br>Ralf Handl| External targeting for annotations on action/function overloads, parameters, and return types<br> Key and index segments for path expressions in annotations<br> Nullable singletons<br> Simplified syntax of entity container children and constant annotation expressions
-Committee Specification Draft 05|2019-09-26|Michael Pizzo<br>Ralf Handl| Redefining entity sets and singletons when extending entity containers
-Committee Specification 02      |2019-11-05|Michael Pizzo<br>Ralf Handl| Non-material Changes
-Candidate OASIS Standard 02     |2020-04-09|Michael Pizzo<br>Ralf Handl| Non-material Changes
--->
+|Committee Specification Draft 01|2024-02-28|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| Import material from OData Common Schema Definition Language (CSDL) JSON Representation Version 4.01 <br>Changes listed in [section 1.1](#ChangesfromEarlierVersions)|
+
+-------
 
 # <a name="Notices" href="#Notices">Appendix E. Notices</a>
 
-Copyright © OASIS Open 2023. All Rights Reserved.
+Copyright © OASIS Open 2024. All Rights Reserved.
 
 All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the "OASIS IPR Policy"). The full [Policy](https://www.oasis-open.org/policies-guidelines/ipr/) may be found at the OASIS website.
 

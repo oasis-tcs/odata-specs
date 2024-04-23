@@ -28,7 +28,7 @@ Section | Feature / Change | Issue
 --------|------------------|------
 [Section ##matchespattern]| 
 New overload for function `matchespattern` with flags| 
-[ODATA-1618](https://issues.oasis-open.org/browse/ODATA-1618)
+[441](https://github.com/oasis-tcs/odata-specs/issues/441)
 
 ## ##subsec Glossary
 
@@ -60,8 +60,8 @@ All examples in this document are non-normative and informative only.
 
 All other text is normative unless otherwise labeled.
 
-::: example
-Here is a customized command line which will generate HTML from this markdown file (named `$$$filename$$$.md`). Line breaks are added for readability only:
+<!--
+Here is a customized command line which will generate HTML from the markdown file (named `$$$filename$$$.md`). Line breaks are added for readability only:
 
 ```
 pandoc -f gfm+tex_math_dollars+fenced_divs+smart
@@ -78,7 +78,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
 ```
 
 This uses pandoc $$$pandoc-version$$$ from https://github.com/jgm/pandoc/releases/tag/$$$pandoc-version$$$.
-:::
+-->
 
 -------
 

@@ -5,19 +5,21 @@
 
 # OData Version 4.02. Part 1: Protocol
 
-## Committee Specification Draft 01
+## Committee Specification Draft 02
 
-## 14 July 2023
+## 28 February 2024
 
 $\hbox{}$
 
 #### This stage:
-https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part1-protocol.md (Authoritative) \
-https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part1-protocol.html \
-https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part1-protocol.pdf
+https://docs.oasis-open.org/odata/odata/v4.02/csd02/part1-protocol/odata-v4.02-csd02-part1-protocol.md (Authoritative) \
+https://docs.oasis-open.org/odata/odata/v4.02/csd02/part1-protocol/odata-v4.02-csd02-part1-protocol.html \
+https://docs.oasis-open.org/odata/odata/v4.02/csd02/part1-protocol/odata-v4.02-csd02-part1-protocol.pdf
 
 #### Previous stage:
-N/A
+https://docs.oasis-open.org/odata/odata/v4.02/csd01/part1-protocol/odata-v4.02-csd01-part1-protocol.md (Authoritative) \
+https://docs.oasis-open.org/odata/odata/v4.02/csd01/part1-protocol/odata-v4.02-csd01-part1-protocol.html \
+https://docs.oasis-open.org/odata/odata/v4.02/csd01/part1-protocol/odata-v4.02-csd01-part1-protocol.pdf
 
 #### Latest stage:
 https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.md (Authoritative) \
@@ -40,8 +42,10 @@ Heiko Theißen (heiko.theissen@sap.com), [SAP SE](http://www.sap.com/)
 
 #### Additional artifacts:
 This prose specification is one component of a Work Product that also includes:
-* _OData Version 4.02 Part 1: Protocol_ (this document). https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part1-protocol.html
-* _OData Version 4.02 Part 2: URL Conventions_. https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part2-url-conventions.html
+* _OData Version 4.02 Part 1: Protocol_ (this document). https://docs.oasis-open.org/odata/odata/v4.02/csd02/part1-protocol/odata-v4.02-csd02-part1-protocol.html
+* _OData Version 4.02 Part 2: URL Conventions_. https://docs.oasis-open.org/odata/odata/v4.02/csd02/part2-url-conventions/odata-v4.02-csd02-part2-url-conventions.html
+* ABNF components: _OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases Version 4.02_. https://docs.oasis-open.org/odata/odata/v4.02/csd02/abnf/.
+
 
 #### <a name="RelatedWork">Related work:</a>
 This specification replaces or supersedes:
@@ -77,12 +81,12 @@ When referencing this specification the following citation format should be used
 **[OData-v4.02-Part1]**
 
 _OData Version 4.02. Part 1: Protocol_.
-Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. 14 July 2023. OASIS Committee Specification Draft 01.
-https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part1-protocol.html.
+Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. 28 February 2024. OASIS Committee Specification Draft 02.
+https://docs.oasis-open.org/odata/odata/v4.02/csd02/odata-v4.02-csd02-part1-protocol.html.
 Latest stage: https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html.
 
 #### Notices
-Copyright © OASIS Open 2023. All Rights Reserved.
+Copyright © OASIS Open 2024. All Rights Reserved.
 
 Distributed under the terms of the OASIS [IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/).
 
@@ -347,11 +351,11 @@ resource representations that are exchanged using OData.
 
 Section | Feature / Change | Issue
 --------|------------------|------
-[Section 11.4](#DataModification)| Response code `204 No Content` after successful data modification if requested response could not be constructed| [ODATA-1609](https://issues.oasis-open.org/browse/ODATA-1609)
-[Section 11.4.4](#UpsertanEntity)|  Upserts to single-valued non-containment navigation properties| [ODATA-1588](https://issues.oasis-open.org/browse/ODATA-1588)
-[Section 11.4.9.3](#UpdateaComplexProperty)| Setting a complex property to a different type| [ODATA-1472](https://issues.oasis-open.org/browse/ODATA-1472)
-[Section 12](#Conformance)| Allow `400 Bad Request` in addition to `501 Not Implemented` for unsupported functionality| [ODATA-1624](https://issues.oasis-open.org/browse/ODATA-1624)
-[Section 12.3](#InteroperableODataClients) | Encoding of plus character in URLs | [ODATA-1540](https://issues.oasis-open.org/browse/ODATA-1540)
+[Section 11.4](#DataModification)| Response code `204 No Content` after successful data modification if requested response could not be constructed| [443](https://github.com/oasis-tcs/odata-specs/issues/443)
+[Section 11.4.4](#UpsertanEntity)|  Upserts to single-valued non-containment navigation properties| [455](https://github.com/oasis-tcs/odata-specs/issues/455)
+[Section 11.4.9.3](#UpdateaComplexProperty)| Setting a complex property to a different type| [534](https://github.com/oasis-tcs/odata-specs/issues/534)
+[Section 12](#Conformance) | Allow `400 Bad Request` in addition to `501 Not Implemented` for unsupported functionality| [391](https://github.com/oasis-tcs/odata-specs/issues/391)
+[Section 12.3](#InteroperableODataClients) | Encoding of plus character in URLs | [485](https://github.com/oasis-tcs/odata-specs/issues/485)
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -378,13 +382,13 @@ All examples in this document are non-normative and informative only.
 
 All other text is normative unless otherwise labeled.
 
-::: example
-Here is a customized command line which will generate HTML from this markdown file (named `odata-v4.02-csd01-part1-protocol.md`). Line breaks are added for readability only:
+<!--
+Here is a customized command line which will generate HTML from the markdown file (named `odata-v4.02-csd02-part1-protocol.md`). Line breaks are added for readability only:
 
 ```
 pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        -t html
-       -o odata-v4.02-csd01-part1-protocol.html
+       -o odata-v4.02-csd02-part1-protocol.html
        -c styles/markdown-styles-v1.7.3b.css
        -c styles/odata.css
        -s
@@ -392,11 +396,11 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        --eol=lf
        --wrap=none
        --metadata pagetitle="OData Version 4.02. Part 1: Protocol"
-       odata-v4.02-csd01-part1-protocol.md
+       odata-v4.02-csd02-part1-protocol.md
 ```
 
-This uses pandoc 3.1.11.1 from https://github.com/jgm/pandoc/releases/tag/3.1.11.1.
-:::
+This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12.2.
+-->
 
 -------
 
@@ -5302,7 +5306,14 @@ resource whose type is the same as, or derived from, the type of the
 binding parameter of the function. The value for the binding parameter
 is the value of the resource identified by the URL prior to appending
 the function name, and additional parameter values are specified using
-[inline parameter syntax](#InlineParameterSyntax). If the function URL
+[inline parameter syntax](#InlineParameterSyntax).
+In parameters containing complex instances or transient entities,
+properties with a defined default
+value, nullable properties, and collection-valued properties that are omitted
+from the request are interpreted as the default value, null, or an empty collection,
+respectively.
+
+If the function URL
 is [obtained](#AdvertisingAvailableOperationswithinaPayload) from a previously
 returned entity representation, [parameter aliases](#ParameterAliases)
 that are identical to the parameter name preceded by an at (`@`) sign
@@ -5515,6 +5526,11 @@ binding parameter of the action. The value for the binding parameter is
 the resource identified by the URL preceding the action name, and only
 the non-binding parameter values are passed in the request body
 according to the particular format.
+In parameters containing complex instances or transient entities,
+properties with a defined default
+value, nullable properties, and collection-valued properties that are omitted
+from the request are interpreted as the default value, null, or an empty collection,
+respectively.
 
 Services MAY additionally support invoking actions using the unqualified
 action name by defining one or more [default
@@ -5558,7 +5574,9 @@ using the [`return`](#Preferencereturnrepresentationandreturnminimal) preference
 Actions that create and return a single entity follow the rules for
 [entity creation](#CreateanEntity) and return a
 [`Location`](#HeaderLocation) header that contains the edit URL or read URL of the
-created entity.
+created entity. They MAY be annotated with the term
+[`Core.Constructor`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Constructor)
+defined in [OData-VocCore](#ODataVocCore).
 
 If the action returns a value of type `Edm.Stream`, the response to the `POST` request
 follows the rules for [requesting stream properties](#RequestingStreamProperties).
@@ -5636,7 +5654,7 @@ and MAY include a [`Retry-After`](#HeaderRetryAfter) header to be used for a sub
 contain the same values as returned by the previous request.
 
 A `GET` request to the status monitor resource returns [`200 OK`](#ResponseCode200OK) once the
-asynchronous processing has completed. For OData 4.01 and greater
+asynchronous processing has completed. For OData 4.01 or greater
 responses, or OData 4.0 requests that include an `Accept` header that
 does not specify `application/http`, the response MUST include the
 [`AsyncResult`](#HeaderAsyncResult) response header. Any other headers,
@@ -5924,7 +5942,7 @@ processor may choose to disallow chunked encoding to be used by such
 HTTP requests.
 
 ::: example
-Example 104: a batch request that contains the following individual
+Example <a name="batchRequest" href="#batchRequest">104</a>: a batch request that contains the following individual
 requests in the order listed
 
   1. A query request
@@ -6186,7 +6204,7 @@ URL of the corresponding individual request. URLs in responses MUST NOT
 contain `$`-prefixed request identifiers.
 
 ::: example
-Example 108: referencing the batch request example 101 above, assume all
+Example 108: referencing the batch request [example 104](#batchRequest) above, assume all
 the requests except the final query request succeed. In this case the
 response would be
 ```
@@ -6262,14 +6280,13 @@ Since a change set is executed atomically,
 a change set.
 
 ::: example
-Example 109: referencing the example 101 above again, assume that
+Example 109: referencing the [example 104](#batchRequest) above again, assume that
 ```
 HTTP/1.1 202 Accepted
 Location: http://service-root/async-monitor-0
 Retry-After: ###
 
 ```
-:::
 
 When interrogating the monitor URL only the first request in the batch
 has finished processing and all the remaining requests are still being
@@ -6345,6 +6362,7 @@ Content-Length: ###
 <Error message>
 --b_243234_25424_ef_892u748--
 ```
+:::
 
 
 -------
@@ -6961,7 +6979,7 @@ The following individuals were members of the OASIS OData Technical Committee du
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
-| Working Draft 01 | 2023-07-20 | Ralf Handl | Import material from OData Version 4.01 Part 1: Protocol |
+|Committee Specification Draft 01|2024-02-28|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| Import material from OData Version 4.01 Part 1: Protocol <br>Changes listed in [section 1.1](#ChangesfromEarlierVersions)|
 
 -------
 
@@ -6969,7 +6987,7 @@ The following individuals were members of the OASIS OData Technical Committee du
 
 <!-- Required section. Do not modify. -->
 
-Copyright © OASIS Open 2023. All Rights Reserved.
+Copyright © OASIS Open 2024. All Rights Reserved.
 
 All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the "OASIS IPR Policy"). The full [Policy](https://www.oasis-open.org/policies-guidelines/ipr/) may be found at the OASIS website.
 

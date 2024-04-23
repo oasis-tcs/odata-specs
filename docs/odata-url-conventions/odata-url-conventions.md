@@ -5,19 +5,21 @@
 
 # OData Version 4.02. Part 2: URL Conventions
 
-## Committee Specification Draft 01
+## Committee Specification Draft 02
 
-## 14 July 2023
+## 28 February 2024
 
 $\hbox{}$
 
 #### This stage:
-https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part2-url-conventions.md (Authoritative) \
-https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part2-url-conventions.html \
-https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part2-url-conventions.pdf
+https://docs.oasis-open.org/odata/odata/v4.02/csd02/part2-url-conventions/odata-v4.02-csd02-part2-url-conventions.md (Authoritative) \
+https://docs.oasis-open.org/odata/odata/v4.02/csd02/part2-url-conventions/odata-v4.02-csd02-part2-url-conventions.html \
+https://docs.oasis-open.org/odata/odata/v4.02/csd02/part2-url-conventions/odata-v4.02-csd02-part2-url-conventions.pdf
 
 #### Previous stage:
-N/A
+https://docs.oasis-open.org/odata/odata/v4.02/csd01/part2-url-conventions/odata-v4.02-csd01-part2-url-conventions.md (Authoritative) \
+https://docs.oasis-open.org/odata/odata/v4.02/csd01/part2-url-conventions/odata-v4.02-csd01-part2-url-conventions.html \
+https://docs.oasis-open.org/odata/odata/v4.02/csd01/part2-url-conventions/odata-v4.02-csd01-part2-url-conventions.pdf
 
 #### Latest stage:
 https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.md (Authoritative) \
@@ -40,8 +42,9 @@ Heiko Theißen (heiko.theissen@sap.com), [SAP SE](http://www.sap.com/)
 
 #### Additional artifacts:
 This prose specification is one component of a Work Product that also includes:
-* _OData Version 4.02 Part 1: Protocol_. https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part1-protocol.html
-* _OData Version 4.02 Part 2: URL Conventions_ (this document). https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part2-url-conventions.html
+* _OData Version 4.02 Part 1: Protocol_. https://docs.oasis-open.org/odata/odata/v4.02/csd02/part1-protocol/odata-v4.02-csd02-part1-protocol.html
+* _OData Version 4.02 Part 2: URL Conventions_ (this document). https://docs.oasis-open.org/odata/odata/v4.02/csd02/part2-url-conventions/odata-v4.02-csd02-part2-url-conventions.html
+* ABNF components: _OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases Version 4.02_. https://docs.oasis-open.org/odata/odata/v4.02/csd02/abnf/.
 
 #### <a name="RelatedWork">Related work:</a>
 This specification replaces or supersedes:
@@ -77,12 +80,12 @@ When referencing this specification the following citation format should be used
 **[OData-v4.02-Part2]**
 
 _OData Version 4.02. Part 2: URL Conventions_.
-Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. 14 July 2023. OASIS Committee Specification Draft 01.
-https://docs.oasis-open.org/odata/odata/v4.02/csd01/odata-v4.02-csd01-part2-url-conventions.html.
+Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. 28 February 2024. OASIS Committee Specification Draft 02.
+https://docs.oasis-open.org/odata/odata/v4.02/csd02/odata-v4.02-csd02-part2-url-conventions.html.
 Latest stage: https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html.
 
 #### Notices
-Copyright © OASIS Open 2023. All Rights Reserved.
+Copyright © OASIS Open 2024. All Rights Reserved.
 
 Distributed under the terms of the OASIS [IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/).
 
@@ -268,7 +271,7 @@ ecosystem of reusable client components and libraries.
 
 Section | Feature / Change | Issue
 --------|------------------|------
-[Section 5.1.1.7.1](#matchespattern)| New overload for function `matchespattern` with flags| [ODATA-1618](https://issues.oasis-open.org/browse/ODATA-1618)
+[Section 5.1.1.7.1](#matchespattern)| New overload for function `matchespattern` with flags| [441](https://github.com/oasis-tcs/odata-specs/issues/441)
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -300,13 +303,13 @@ All examples in this document are non-normative and informative only.
 
 All other text is normative unless otherwise labeled.
 
-::: example
-Here is a customized command line which will generate HTML from this markdown file (named `odata-v4.02-csd01-part2-url-conventions.md`). Line breaks are added for readability only:
+<!--
+Here is a customized command line which will generate HTML from the markdown file (named `odata-v4.02-csd02-part2-url-conventions.md`). Line breaks are added for readability only:
 
 ```
 pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        -t html
-       -o odata-v4.02-csd01-part2-url-conventions.html
+       -o odata-v4.02-csd02-part2-url-conventions.html
        -c styles/markdown-styles-v1.7.3b.css
        -c styles/odata.css
        -s
@@ -314,11 +317,11 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        --eol=lf
        --wrap=none
        --metadata pagetitle="OData Version 4.02. Part 2: URL Conventions"
-       odata-v4.02-csd01-part2-url-conventions.md
+       odata-v4.02-csd02-part2-url-conventions.md
 ```
 
-This uses pandoc 3.1.11.1 from https://github.com/jgm/pandoc/releases/tag/3.1.11.1.
-:::
+This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12.2.
+-->
 
 -------
 
@@ -4064,11 +4067,13 @@ http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/. Latest version available 
 _ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262.
 https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
 
+<!-- TODO:
 -------
 
 # <a name="SafetySecurityandPrivacyConsiderations" href="#SafetySecurityandPrivacyConsiderations">Appendix B. Safety, Security and Privacy Considerations</a>
 
-<!-- TODO: do we have considerations specific to URLs, for example length, encoding, privacy (use $batch if in doubt), ...? -->
+do we have considerations specific to URLs, for example length, encoding, privacy (use $batch if in doubt), ...?
+-->
 
 -------
 
@@ -4096,7 +4101,7 @@ https://www.ecma-international.org/publications-and-standards/standards/ecma-262
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
-| Working Draft 01 | 2023-07-20 | Heiko Theißen | Import material from OData Version 4.01 Part 2: URL Conventions |
+|Committee Specification Draft 01|2024-02-28|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| Import material from OData Version 4.01 Part 2: URL Conventions <br>Changes listed in [section 1.1](#ChangesfromEarlierVersions)|
 
 -------
 
@@ -4104,7 +4109,7 @@ https://www.ecma-international.org/publications-and-standards/standards/ecma-262
 
 <!-- Required section. Do not modify. -->
 
-Copyright © OASIS Open 2023. All Rights Reserved.
+Copyright © OASIS Open 2024. All Rights Reserved.
 
 All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the "OASIS IPR Policy"). The full [Policy](https://www.oasis-open.org/policies-guidelines/ipr/) may be found at the OASIS website.
 

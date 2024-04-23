@@ -122,7 +122,9 @@ The contributions of the OASIS OData Technical Committee members, enumerated in 
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
-| Working Draft 01 | 2023-07-20 | Ralf Handl | Import material from OData JSON Format Version 4.01 |
+|Committee Specification Draft 01|2024-02-28|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| 
+Import material from OData JSON Format Version 4.01 
+<br>Changes listed in [section ##ChangesfromEarlierVersions]|
 
 -------
 
@@ -130,7 +132,7 @@ The contributions of the OASIS OData Technical Committee members, enumerated in 
 
 <!-- Required section. Do not modify. -->
 
-Copyright &copy; OASIS Open 2023. All Rights Reserved.
+Copyright $$$copyright$$$. All Rights Reserved.
 
 All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the "OASIS IPR Policy"). The full [Policy](https://www.oasis-open.org/policies-guidelines/ipr/) may be found at the OASIS website.
 
