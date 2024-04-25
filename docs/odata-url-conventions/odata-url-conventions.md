@@ -209,7 +209,7 @@ For complete copyright information please see the full Notices section in an App
         - [5.1.1.13.2 `all`](#all)
       - [5.1.1.14 Literals](#Literals)
         - [5.1.1.14.1 Primitive Literals](#PrimitiveLiterals)
-        - [5.1.1.14.2 Complex and Collection Literals](#ComplexandCollectionLiterals)
+        - [5.1.1.14.2 Structured and Collection Literals](#StructuredandCollectionLiterals)
         - [5.1.1.14.3 `null`](#null)
         - [5.1.1.14.4 `$it`](#it)
         - [5.1.1.14.5 `$root`](#root)
@@ -3094,7 +3094,7 @@ with or without the type prefix. OData clients that want to operate
 across OData 4.0 and OData 4.01 services should always include the
 prefix for duration and enumeration types.
 
-##### <a name="ComplexandCollectionLiterals" href="#ComplexandCollectionLiterals">5.1.1.14.2 Complex and Collection Literals</a>
+##### <a name="StructuredandCollectionLiterals" href="#StructuredandCollectionLiterals">5.1.1.14.2 Structured and Collection Literals</a>
 
 Complex literals and collection literals in URLs are represented as JSON
 objects and arrays according to the `arrayOrObject` rule in

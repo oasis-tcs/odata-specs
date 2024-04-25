@@ -312,7 +312,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><a href="#Literals">5.1.1.14 Literals</a>
 <ul>
 <li><a href="#PrimitiveLiterals">5.1.1.14.1 Primitive Literals</a></li>
-<li><a href="#ComplexandCollectionLiterals">5.1.1.14.2 Complex and Collection Literals</a></li>
+<li><a href="#StructuredandCollectionLiterals">5.1.1.14.2 Structured and Collection Literals</a></li>
 <li><a href="#null">5.1.1.14.3 <code>null</code></a></li>
 <li><a href="#it">5.1.1.14.4 <code>$it</code></a></li>
 <li><a href="#root">5.1.1.14.5 <code>$root</code></a></li>
@@ -1479,7 +1479,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 </div>
 <p>Duration literals in OData 4.0 required prefixing with “<code>duration</code>”. Enumeration literals in OData 4.0 required prefixing with the qualified type name of the enumeration.</p>
 <p>In OData 4.01, services MUST support duration and enumeration literals with or without the type prefix. OData clients that want to operate across OData 4.0 and OData 4.01 services should always include the prefix for duration and enumeration types.</p>
-<h5 id="511142-complex-and-collection-literals"><a name="ComplexandCollectionLiterals" href="#ComplexandCollectionLiterals">5.1.1.14.2 Complex and Collection Literals</a></h5>
+<h5 id="511142-structured-and-collection-literals"><a name="StructuredandCollectionLiterals" href="#StructuredandCollectionLiterals">5.1.1.14.2 Structured and Collection Literals</a></h5>
 <p>Complex literals and collection literals in URLs are represented as JSON objects and arrays according to the <code>arrayOrObject</code> rule in <a href="#ODataABNF">OData-ABNF</a>. Such literals MUST NOT appear in the path portion of the URL but can be passed to bound <a href="#AddressingFunctions">functions</a> and function imports in path segments by using <a href="#ParameterAliases">parameter aliases</a>.</p>
 <p>Object member values and array items can be expressions, including other objects and arrays, arithmetic expressions, property names, and of course primitive values.</p>
 <p>Note that the special characters <code>{</code>, <code>}</code>, <code>[</code>, <code>]</code>, and <code>"</code> MUST be percent-encoded in URLs although some browsers will accept and pass them on unencoded.</p>

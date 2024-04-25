@@ -1644,7 +1644,7 @@ with or without the type prefix. OData clients that want to operate
 across OData 4.0 and OData 4.01 services should always include the
 prefix for duration and enumeration types.
 
-##### ##subsubsubsubsec Complex and Collection Literals
+##### ##subsubsubsubsec Structured and Collection Literals
 
 Complex literals and collection literals in URLs are represented as JSON
 objects and arrays according to the `arrayOrObject` rule in
