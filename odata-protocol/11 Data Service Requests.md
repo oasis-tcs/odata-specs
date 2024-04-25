@@ -169,8 +169,8 @@ is due to permissions, the
 annotation, defined in [OData-VocCore](#ODataVocCore) MUST be returned
 for the property with a value of `None`.
 If the [`omit-values`](#Preferenceomitvalues) preference is
-applied, an explanatory annotation MUST be returned for every unavailable
-property.
+applied, `Core.Permissions` or another specific annotation that explains the
+reason MUST be returned for every unavailable property.
 
 If no entity exists with the specified request URL, the service responds
 with [`404 Not Found`](#ResponseCode404NotFound).
