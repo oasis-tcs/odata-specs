@@ -1491,6 +1491,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>Example 105: check whether a pair of properties has one of several possible pair values</p>
 <pre><code>$filter=[FirstName,LastName] in [[&quot;John&quot;,&quot;Doe&quot;],[&quot;Jane&quot;,&quot;Smith&quot;]]</code></pre>
 </div>
+<p>Transient entities are represented as complex literals with their entity set specified by <code>@context</code> control information (<a href="#ODataJSON">OData-JSON, section 4.5.1</a>). (By contrast, non-transient entities are represented through their <a href="#ResourcePath">resource path</a>.)</p>
 <h5 id="511143-null"><a name="null" href="#null">5.1.1.14.3 <code>null</code></a></h5>
 <p>The <code>null</code> literal can be used to compare a value to null, or to pass a null value to a function.</p>
 <h5 id="511144-it"><a name="it" href="#it">5.1.1.14.4 <code>$it</code></a></h5>

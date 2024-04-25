@@ -234,6 +234,10 @@ properties, or just the [entity reference](#EntityReference), as
 appropriate to the action.
 Stream typed parameter values are represented following the same rules as inlined [stream properties](#StreamProperty).
 
+Transient entities as parameter values are represented as explained in [section ##Entity].
+(By contrast, the resource path to a non-transient cannot be part of an action
+invocation payload.)
+
 Non-binding parameters that are nullable or annotated with the term
 [`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter) defined in
 [OData-VocCore](#ODataVocCore) MAY be omitted from the request body.

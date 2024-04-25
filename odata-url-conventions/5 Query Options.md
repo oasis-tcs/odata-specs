@@ -1676,6 +1676,10 @@ $filter=[FirstName,LastName] in [["John","Doe"],["Jane","Smith"]]
 ```
 :::
 
+Transient entities are represented as complex literals with their entity set
+specified by `@context` control information ([OData-JSON, section 4.5.1](#ODataJSON)).
+(By contrast, non-transient entities are represented through their [resource path](#ResourcePath).)
+
 ##### ##subsubsubsubsec `null`
 
 The `null` literal can be used to compare a value to null, or to pass a
