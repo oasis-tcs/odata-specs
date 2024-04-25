@@ -1680,6 +1680,13 @@ Transient entities are represented as complex literals with their entity set
 specified by `@context` control information ([OData-JSON, section 4.5.1](#ODataJSON)).
 (By contrast, non-transient entities are represented through their [resource path](#ResourcePath).)
 
+::: example
+Example ##ex: determine the price of an adhoc-defined product
+```
+http://host/service/Price(Product=@p)?@p={"@context":"#Products","Color":"red"}
+```
+:::
+
 ##### ##subsubsubsubsec `null`
 
 The `null` literal can be used to compare a value to null, or to pass a

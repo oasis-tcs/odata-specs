@@ -238,6 +238,23 @@ Transient entities as parameter values are represented as explained in [section 
 (By contrast, the resource path to a non-transient cannot be part of an action
 invocation payload.)
 
+::: example
+Example ##ex: create a quote for a product that does not yet exist
+```json
+POST http://host/service/CreateQuote
+Content-Type: application/json
+
+{
+  "Product": {
+    "@context": "#Products",
+    "Name": "Our best ever",
+    "Price": 1
+  },
+  "CustomerID": "ALFKI"
+}
+```
+:::
+
 Non-binding parameters that are nullable or annotated with the term
 [`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter) defined in
 [OData-VocCore](#ODataVocCore) MAY be omitted from the request body.
