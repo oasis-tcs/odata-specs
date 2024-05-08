@@ -4128,7 +4128,7 @@ of these query options and instead MUST return [`204 No Content`](#ResponseCode2
 
 To create an entity in a collection, the client sends a `POST` request
 to that collection's URL. The `POST` body MUST contain a single valid
-representation of the declared target entity type, or one of its derived types.
+representation of an entity of the declared target entity type, or one of its derived types.
 
 The entity representation MAY include [references to existing
 entities](#LinktoRelatedEntitiesWhenCreatinganEntity) as well as content for
@@ -4350,7 +4350,7 @@ The service MAY return success in this case if the specified value
 matches the value of the property. Clients SHOULD use `PATCH` and
 specify only those properties intended to be changed.
 
-The Entity-id cannot be changed when updating an entity.
+The entity-id cannot be changed when updating an entity.
 However, format-specific rules might in some cases require providing
 the entity-id in the payload when requesting the update.
 
