@@ -2711,11 +2711,14 @@ Clients MUST be prepared to receive additional properties in an entity
 or complex type instance that are not advertised in metadata, even for
 types not marked as open.
 
-Properties that are not available, for example due to permissions, are
-not returned. In this case, the
+Properties that are not available are not returned. If their unavailability
+is due to permissions, the
 [`Core.Permissions`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Permissions)
 annotation, defined in [OData-VocCore](#ODataVocCore) MUST be returned
 for the property with a value of `None`.
+If the [`omit-values`](#Preferenceomitvalues) preference is
+applied, `Core.Permissions` or another specific annotation that explains the
+reason MUST be returned for every unavailable property.
 
 If no entity exists with the specified request URL, the service responds
 with [`404 Not Found`](#ResponseCode404NotFound).
