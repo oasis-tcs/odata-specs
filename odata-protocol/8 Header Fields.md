@@ -1032,7 +1032,7 @@ indicate service errors.
 ### ##subsubsec Response Code `501 Not Implemented`
 
 If the client requests functionality not implemented by the OData
-Service, the service responds with `501 Not Implemented` and SHOULD
+Service, the service SHOULD respond with `501 Not Implemented` and
 include a response body describing the functionality not implemented.
 
 ## ##subsec Error Response Body

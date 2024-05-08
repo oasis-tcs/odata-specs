@@ -1920,7 +1920,7 @@ indicate service errors.
 ### <a name="ResponseCode501NotImplemented" href="#ResponseCode501NotImplemented">9.3.1 Response Code `501 Not Implemented`</a>
 
 If the client requests functionality not implemented by the OData
-Service, the service responds with `501 Not Implemented` and SHOULD
+Service, the service SHOULD respond with `501 Not Implemented` and
 include a response body describing the functionality not implemented.
 
 ## <a name="ErrorResponseBody" href="#ErrorResponseBody">9.4 Error Response Body</a>
