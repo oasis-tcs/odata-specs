@@ -817,20 +817,20 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <pre><code>http://host/service/$crossjoin(Products,Sales)?$filter=Products/ID eq Sales/ProductID</code></pre>
 <p>and would result in</p>
 <div class="sourceCode" id="cb65"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Collection(Edm.ComplexType)&quot;</span><span class="fu">,</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Collection(Edm.ComplexType)&quot;</span><span class="fu">,</span></span>
 <span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
 <span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products@odata.navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Products(0)&quot;</span><span class="fu">,</span></span>
-<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales@odata.navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Sales(42)&quot;</span><span class="fu">,</span></span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products@navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Products(0)&quot;</span><span class="fu">,</span></span>
+<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales@navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Sales(42)&quot;</span><span class="fu">,</span></span>
 <span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb65-8"><a href="#cb65-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb65-9"><a href="#cb65-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products@odata.navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Products(0)&quot;</span><span class="fu">,</span></span>
-<span id="cb65-10"><a href="#cb65-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales@odata.navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Sales(57)&quot;</span><span class="fu">,</span></span>
+<span id="cb65-9"><a href="#cb65-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products@navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Products(0)&quot;</span><span class="fu">,</span></span>
+<span id="cb65-10"><a href="#cb65-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales@navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Sales(57)&quot;</span><span class="fu">,</span></span>
 <span id="cb65-11"><a href="#cb65-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb65-12"><a href="#cb65-12" aria-hidden="true" tabindex="-1"></a>    <span class="er">…</span></span>
 <span id="cb65-13"><a href="#cb65-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb65-14"><a href="#cb65-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products@odata.navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Products(99)&quot;</span><span class="fu">,</span></span>
-<span id="cb65-15"><a href="#cb65-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales@odata.navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Sales(21)&quot;</span><span class="fu">,</span></span>
+<span id="cb65-14"><a href="#cb65-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products@navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Products(99)&quot;</span><span class="fu">,</span></span>
+<span id="cb65-15"><a href="#cb65-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales@navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Sales(21)&quot;</span><span class="fu">,</span></span>
 <span id="cb65-16"><a href="#cb65-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
 <span id="cb65-17"><a href="#cb65-17" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb65-18"><a href="#cb65-18" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
@@ -1974,6 +1974,8 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <h2 id="a2-informative-references"><a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a></h2>
 <h6 id="ecmascript"><a name="_ECMAScript">[ECMAScript]</a></h6>
 <p><em>ECMAScript 2023 Language Specification, 14th Edition</em>, June 2023. Standard ECMA-262. <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">https://www.ecma-international.org/publications-and-standards/standards/ecma-262/</a>.</p>
+<h6 id="well-known-text"><a name="_WKT">[Well-Known Text]</a></h6>
+<p><em>OpenGIS Implementation Specification for Geographic information – Simple feature access – Part 1: Common architecture</em>, May 2011. Open Geospatial Consortium. <a href="https://www.ogc.org/standard/sfa/">https://www.ogc.org/standard/sfa/</a>.</p>
 <!-- TODO:
 -------
 

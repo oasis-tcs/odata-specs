@@ -51,10 +51,10 @@ annotated with temporal terms
   "$Type": "OrgModel.Employee",
   "@Temporal.ApplicationTimeSupport": {
     "Timeline": {
-      "@odata.type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.TimelineSnapshot"
+      "@type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.TimelineSnapshot"
     },
     "UnitOfTime": {
-      "@odata.type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.UnitOfTimeDate"
+      "@type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.UnitOfTimeDate"
     }
   }
 },
@@ -69,7 +69,7 @@ Example ##ex: `history` navigation property in entity set `Employees` from
   "OrgModel.Default/Employees/history": {
     "@Temporal.ApplicationTimeSupport": {
       "Timeline": {
-        "@odata.type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.TimelineVisible",
+        "@type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.TimelineVisible",
         "TimeSliceStart": "From",
         "TimeSliceEnd": "To",
         "SupportedActions": [
@@ -79,7 +79,7 @@ Example ##ex: `history` navigation property in entity set `Employees` from
         ]
       },
       "UnitOfTime": {
-        "@odata.type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.UnitOfTimeDate"
+        "@type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.UnitOfTimeDate"
       }
     }
   }
@@ -113,11 +113,11 @@ temporal objects, the temporal objects identified by combination of
   "this.Default/CostCenters": {
     "@Temporal.ApplicationTimeSupport": {
       "UnitOfTime": {
-        "@odata.type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.xml#Temporal.UnitOfTimeDate",
+        "@type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.xml#Temporal.UnitOfTimeDate",
         "ClosedClosedPeriods": true
       },
       "Timeline": {
-        "@odata.type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.xml#Temporal.TimelineVisible",
+        "@type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.xml#Temporal.TimelineVisible",
         "PeriodStart": "ValidFrom",
         "PeriodEnd": "ValidTo",
         "ObjectKey": ["AreaID", "CostCenterID"]
