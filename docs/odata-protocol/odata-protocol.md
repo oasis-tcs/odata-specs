@@ -4128,7 +4128,7 @@ of these query options and instead MUST return [`204 No Content`](#ResponseCode2
 
 To create an entity in a collection, the client sends a `POST` request
 to that collection's URL. The `POST` body MUST contain a single valid
-entity representation.
+representation of an entity of the declared target entity type, or one of its derived types.
 
 The entity representation MAY include [references to existing
 entities](#LinktoRelatedEntitiesWhenCreatinganEntity) as well as content for
@@ -4290,6 +4290,9 @@ request to a URL that identifies the entity. Services MAY restrict
 updates only to requests addressing the [edit URL](#ReadURLsandEditURLs)
 of the entity.
 
+The body of the request MUST be a valid representation of the
+declared target entity type, or one of its derived types.
+
 Services SHOULD support `PATCH` as the preferred means of updating an
 entity. `PATCH` provides more resiliency between clients and services by
 directly modifying only those values specified by the client.
@@ -4305,6 +4308,9 @@ see also [section 11.4.9.3](#UpdateaComplexProperty).
 Missing properties of the containing entity or complex property, including
 dynamic properties, MUST NOT be directly altered unless as a side effect
 of changes resulting from the provided properties.
+
+If the type of the entity in a `PATCH` request differs from the type
+of the entity being updated (i.e., a different derived type of the declared target type), then properties shared through inheritance, as well as dynamic properties, are retained (unless overwritten by new values in the payload). Other properties of the original type are discarded.
 
 Services MAY additionally support `PUT` but should be aware of the
 potential for data-loss in round-tripping properties that the client may
@@ -4344,10 +4350,9 @@ The service MAY return success in this case if the specified value
 matches the value of the property. Clients SHOULD use `PATCH` and
 specify only those properties intended to be changed.
 
-Entity-id and entity type cannot be changed when updating an entity.
+The entity-id cannot be changed when updating an entity.
 However, format-specific rules might in some cases require providing
-entity-id and entity type values in the payload when applying the
-update.
+the entity-id in the payload when requesting the update.
 
 For requests with an `OData-Version` header with a value of `4.01` or
 greater, if the entity representation in the request body includes an
