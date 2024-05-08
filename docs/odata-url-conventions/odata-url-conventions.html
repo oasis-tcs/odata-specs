@@ -817,20 +817,20 @@ This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12
 <pre><code>http://host/service/$crossjoin(Products,Sales)?$filter=Products/ID eq Sales/ProductID</code></pre>
 <p>and would result in</p>
 <div class="sourceCode" id="cb65"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Collection(Edm.ComplexType)&quot;</span><span class="fu">,</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Collection(Edm.ComplexType)&quot;</span><span class="fu">,</span></span>
 <span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
 <span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products@odata.navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Products(0)&quot;</span><span class="fu">,</span></span>
-<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales@odata.navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Sales(42)&quot;</span><span class="fu">,</span></span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products@navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Products(0)&quot;</span><span class="fu">,</span></span>
+<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales@navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Sales(42)&quot;</span><span class="fu">,</span></span>
 <span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb65-8"><a href="#cb65-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb65-9"><a href="#cb65-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products@odata.navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Products(0)&quot;</span><span class="fu">,</span></span>
-<span id="cb65-10"><a href="#cb65-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales@odata.navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Sales(57)&quot;</span><span class="fu">,</span></span>
+<span id="cb65-9"><a href="#cb65-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products@navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Products(0)&quot;</span><span class="fu">,</span></span>
+<span id="cb65-10"><a href="#cb65-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales@navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Sales(57)&quot;</span><span class="fu">,</span></span>
 <span id="cb65-11"><a href="#cb65-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb65-12"><a href="#cb65-12" aria-hidden="true" tabindex="-1"></a>    <span class="er">…</span></span>
 <span id="cb65-13"><a href="#cb65-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb65-14"><a href="#cb65-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products@odata.navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Products(99)&quot;</span><span class="fu">,</span></span>
-<span id="cb65-15"><a href="#cb65-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales@odata.navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Sales(21)&quot;</span><span class="fu">,</span></span>
+<span id="cb65-14"><a href="#cb65-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products@navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Products(99)&quot;</span><span class="fu">,</span></span>
+<span id="cb65-15"><a href="#cb65-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales@navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Sales(21)&quot;</span><span class="fu">,</span></span>
 <span id="cb65-16"><a href="#cb65-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
 <span id="cb65-17"><a href="#cb65-17" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb65-18"><a href="#cb65-18" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
