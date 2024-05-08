@@ -512,6 +512,11 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/534">534</a></td>
 </tr>
 <tr class="even">
+<td><a href="#Conformance">Section 12</a></td>
+<td>Allow <code>400 Bad Request</code> in addition to <code>501 Not Implemented</code> for unsupported functionality</td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/391">391</a></td>
+</tr>
+<tr class="odd">
 <td><a href="#InteroperableODataClients">Section 12.3</a></td>
 <td>Encoding of plus character in URLs</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/485">485</a></td>
@@ -947,7 +952,7 @@ This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12
 <h2 id="93-server-error-responses"><a name="ServerErrorResponses" href="#ServerErrorResponses">9.3 Server Error Responses</a></h2>
 <p>As defined in <a href="#rfc9110">RFC9110</a>, error codes in the <code>5xx</code> range indicate service errors.</p>
 <h3 id="931-response-code-501-not-implemented"><a name="ResponseCode501NotImplemented" href="#ResponseCode501NotImplemented">9.3.1 Response Code <code>501 Not Implemented</code></a></h3>
-<p>If the client requests functionality not implemented by the OData Service, the service responds with <code>501 Not Implemented</code> and SHOULD include a response body describing the functionality not implemented.</p>
+<p>If the client requests functionality not implemented by the OData Service, the service MAY respond with <code>501 Not Implemented</code> and include a response body describing the functionality not implemented.</p>
 <h2 id="94-error-response-body"><a name="ErrorResponseBody" href="#ErrorResponseBody">9.4 Error Response Body</a></h2>
 <p>An error response body can be the result of a failure of OData processing or of the underlying infrastructure. An OData-specific error response (which can be recognized by the presence of the <a href="#HeaderODataVersion"><code>OData-Version</code></a> header) is format-specific and consists at least of the following information:</p>
 <ul>
@@ -2682,7 +2687,7 @@ Content-Length: ###
 <li><code>OData-MaxVersion</code> (<a href="#HeaderODataMaxVersion">section 8.2.7</a>)</li>
 </ol></li>
 <li>MUST follow OData guidelines for extensibility (<a href="#Extensibility">section 6</a> and all subsections)</li>
-<li>MUST successfully parse the request according to <a href="#ODataABNF">OData-ABNF</a> for any supported system query options and either follow the specification or return <code>501 Not Implemented</code> for any unsupported functionality (<a href="#ResponseCode501NotImplemented">section 9.3.1</a>)</li>
+<li>MUST successfully parse the request according to <a href="#ODataABNF">OData-ABNF</a> for any supported system query options and follow the specification or fail the request</li>
 <li>MUST expose only data types defined in <a href="#ODataCSDL">OData-CSDLXML</a></li>
 <li>MUST NOT require clients to understand any metadata or instance annotations (<a href="#VocabularyExtensibility">section 6.4</a>), custom headers (<a href="#HeaderFieldExtensibility">section 6.5</a>), or custom content (<a href="#PayloadExtensibility">section 6.2</a>) in the payload in order to correctly consume the service</li>
 <li>MUST NOT violate any OData update semantics (<a href="#DataModification">section 11.4</a> and all subsections)</li>
@@ -2720,7 +2725,7 @@ Content-Length: ###
 <p>In order to conform to the OData Intermediate Conformance Level, a service:</p>
 <ol type="1">
 <li>MUST conform to the <a href="#OData40MinimalConformanceLevel">OData 4.0 Minimal Conformance Level</a></li>
-<li>MUST successfully parse the <a href="#ODataABNF">OData-ABNF</a> and either follow the specification or return <code>501 Not Implemented</code> for any unsupported functionality (<a href="#ResponseCode501NotImplemented">section 9.3.1</a>)</li>
+<li>MUST successfully parse the request according to <a href="#ODataABNF">OData-ABNF</a> and follow the specification or fail the request</li>
 <li>MUST support <code>$select</code> (<a href="#SystemQueryOptionselect">section 11.2.5.1</a>)</li>
 <li>MUST support casting to a derived type according to <a href="#ODataURL">OData-URL</a> if derived types are present in the model</li>
 <li>MUST support <code>$top</code> (<a href="#SystemQueryOptiontop">section 11.2.6.3</a>)</li>
@@ -2729,8 +2734,8 @@ Content-Length: ###
 <ol type="1">
 <li>MUST support <code>eq</code>, <code>ne</code> filter operations on properties of entities in the requested entity set (<a href="#BuiltinFilterOperations">section 11.2.6.1.1</a>)</li>
 <li>MUST support aliases in <code>$filter</code> expressions (<a href="#ParameterAliases">section 11.2.6.1.3</a>)</li>
-<li>SHOULD support additional filter operations (<a href="#BuiltinFilterOperations">section 11.2.6.1.1</a>) and MUST return <code>501 Not Implemented</code> for any unsupported filter operations (<a href="#ResponseCode501NotImplemented">section 9.3.1</a>)</li>
-<li>SHOULD support the canonical functions (<a href="#BuiltinQueryFunctions">section 11.2.6.1.2</a>) and MUST return <code>501 Not Implemented</code> for any unsupported canonical functions (<a href="#ResponseCode501NotImplemented">section 9.3.1</a>)</li>
+<li>SHOULD support additional filter operations (<a href="#BuiltinFilterOperations">section 11.2.6.1.1</a>) and MUST fail the request for any unsupported filter operations</li>
+<li>SHOULD support the canonical functions (<a href="#BuiltinQueryFunctions">section 11.2.6.1.2</a>) and MUST fail the request for any unsupported canonical functions</li>
 <li>SHOULD support <code>$filter</code> on expanded entities (<a href="#ExpandOptions">section 11.2.5.2.1</a>)</li>
 </ol></li>
 <li>SHOULD publish metadata at <code>$metadata</code> according to <a href="#ODataCSDL">OData-CSDLXML</a> (<a href="#MetadataDocumentRequest">section 11.1.2</a>)</li>
@@ -2893,7 +2898,7 @@ Content-Length: ###
 <li>MUST specify identifiers in payloads and URLs in the case they are specified in <code>$metadata</code></li>
 <li>MUST be prepared to receive any valid 4.01 CSDL</li>
 <li>MUST be prepared to receive any valid 4.01 response according to the requested format</li>
-<li>SHOULD use capabilities (see <a href="#ODataVocCap">OData-VocCap</a>) to determine if a 4.01 feature is supported but MAY attempt syntax and be prepared to handle either <a href="#ResponseCode501NotImplemented"><code>501 Not Implemented</code></a> or <code>400 Bad Request</code></li>
+<li>SHOULD use capabilities (see <a href="#ODataVocCap">OData-VocCap</a>) to determine if a 4.01 feature is supported but MAY attempt syntax and be prepared to handle <code>400 Bad Request</code> or <a href="#ResponseCode501NotImplemented"><code>501 Not Implemented</code></a></li>
 </ol>
 <hr />
 <h1 id="appendix-a-references"><a name="References" href="#References">Appendix A. References</a></h1>
