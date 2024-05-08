@@ -1364,20 +1364,20 @@ http://host/service/$crossjoin(Products,Sales)?$filter=Products/ID eq Sales/Prod
 and would result in
 ```json
 {
-  "@odata.context": "http://host/service/$metadata#Collection(Edm.ComplexType)",
+  "@context": "http://host/service/$metadata#Collection(Edm.ComplexType)",
   "value": [
     {
-      "Products@odata.navigationLink": "Products(0)",
-      "Sales@odata.navigationLink": "Sales(42)",
+      "Products@navigationLink": "Products(0)",
+      "Sales@navigationLink": "Sales(42)",
     },
     {
-      "Products@odata.navigationLink": "Products(0)",
-      "Sales@odata.navigationLink": "Sales(57)",
+      "Products@navigationLink": "Products(0)",
+      "Sales@navigationLink": "Sales(57)",
     },
     …
     {
-      "Products@odata.navigationLink": "Products(99)",
-      "Sales@odata.navigationLink": "Sales(21)",
+      "Products@navigationLink": "Products(99)",
+      "Sales@navigationLink": "Sales(21)",
     }
   ]
 }
@@ -4066,6 +4066,10 @@ http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/. Latest version available 
 ###### <a name="_ECMAScript">[ECMAScript]</a>
 _ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262.
 https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
+
+###### <a name="_WKT">[Well-Known Text]</a>
+_OpenGIS Implementation Specification for Geographic information – Simple feature access – Part 1: Common architecture_, May 2011. Open Geospatial Consortium.
+https://www.ogc.org/standard/sfa/.
 
 <!-- TODO:
 -------
