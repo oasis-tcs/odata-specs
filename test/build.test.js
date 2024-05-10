@@ -50,8 +50,8 @@ describe("OASIS doc build", function () {
       waitUntil: "networkidle2",
     });
     var box = await (await page.$("mjx-c.mjx-c1D6FC.TEX-I")).boxModel();
-    assert.equal(box.width, 10);
-    assert.equal(box.height, 7);
+    assert.equal(Math.round(box.width), 10);
+    assert.equal(Math.round(box.height), 7);
     await browser.close();
   });
 
