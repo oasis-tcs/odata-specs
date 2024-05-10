@@ -41,13 +41,13 @@ import * as Number from './lib/number.js';
 new Number("odata-data-aggregation-ext", "XXX").build(«writable stream»);
 ```
 
-The [`pandoc.js`](pandoc.js) module converts this single Markdown document to HTML with [MathJax](https://www.mathjax.org/). It expects [pandoc 3.1.2](https://github.com/jgm/pandoc/releases/tag/3.1.2) to be set up, for example in a GitHub Action with the step
+The [`pandoc.js`](pandoc.js) module converts this single Markdown document to HTML with [MathJax](https://www.mathjax.org/). It expects a certain [pandoc release](https://github.com/jgm/pandoc/releases) to be set up, according to the GitHub Action [`nodejs.yml`](../.github/workflows/nodejs.yml) with the step
 
 ```yaml
 - name: Setup pandoc
   uses: nikeee/setup-pandoc@v1
   with:
-    pandoc-version: 3.1.2
+    pandoc-version: 3.1.x
 ```
 
 and effectively executes
