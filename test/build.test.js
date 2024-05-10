@@ -21,7 +21,7 @@ describe("OASIS doc build", function () {
         .readFileSync(__dirname + "/test-data/test.md.txt")
         .toString()
         .split(/\r\n|\r|\n/),
-      "Markdown"
+      "Markdown",
     );
   });
 
@@ -38,7 +38,7 @@ describe("OASIS doc build", function () {
         .readFileSync(__dirname + "/test-data/test.html")
         .toString()
         .split(/\r\n|\r|\n/),
-      "HTML"
+      "HTML",
     );
   });
 
@@ -50,9 +50,9 @@ describe("OASIS doc build", function () {
       waitUntil: "networkidle2",
     });
     var box = await (await page.$("mjx-c.mjx-c1D6FC.TEX-I")).boxModel();
+    await browser.close();
     assert.equal(box.width, 10);
     assert.equal(box.height, 7);
-    await browser.close();
   });
 
   it("Compare section numbers", function () {
