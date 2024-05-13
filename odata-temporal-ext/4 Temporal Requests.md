@@ -536,7 +536,7 @@ Change tracking for timeline entity sets works identical to non-temporal
 entity sets. If the entity set supports change-tracking combined with
 filtering on application-time period boundaries, the corresponding
 declared properties SHOULD be listed as
-[`FilterableProperties`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#ChangeTrackingType),
+[`FilterableProperties`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#ChangeTrackingType),
 see [OData-VocCap](#ODataVocCap).
 Clients can then use these properties in `$filter` or use the
 convenience shortcuts [`$at`](#QueryOptionat)

@@ -260,7 +260,7 @@ of an IRI in the [`EntityId`](#HeaderODataEntityId) header.
 Services are strongly encouraged to use the canonical URL for an entity
 as defined in **OData-URL** as its entity-id, but clients cannot assume
 the entity-id can be used to locate the entity unless the
-[`Core.DereferenceableIDs`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DereferenceableIDs)
+[`Core.DereferenceableIDs`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DereferenceableIDs)
 term is applied to the entity container, nor can the client assume any
 semantics from the structure of the entity-id. The canonical resource
 `$entity` provides a general mechanism for
@@ -268,7 +268,7 @@ semantics from the structure of the entity-id. The canonical resource
 
 Services that use the standard URL conventions for entity-ids annotate
 their entity container with the term
-[`Core.ConventionalIDs`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ConventionalIDs),
+[`Core.ConventionalIDs`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ConventionalIDs),
 see [OData-VocCore](#ODataVocCore).
 
 *Entity references* refer to an entity using the entity's entity-id.
@@ -310,7 +310,7 @@ or between properties and bound functions, actions, or types with the
 same name.
 
 Services MAY define one or more default namespaces through the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) term
+[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) term
 defined in [OData-VocCore](#ODataVocCore). Functions, actions and types
 in a default namespace can be referenced in URLs with or without
 namespace or alias qualification.
@@ -360,7 +360,7 @@ of the `OData-Version` and `OData-MaxVersion` header fields is defined
 in [OData-ABNF](#ODataABNF).
 
 Services SHOULD advertise supported versions of OData through the
-[`Core.ODataVersions`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ODataVersions)
+[`Core.ODataVersions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ODataVersions)
 term, defined in [OData-VocCore](#ODataVocCore).
 
 This version of the specification defines OData version values `4.0` and
@@ -377,7 +377,7 @@ type of existing properties, adding or removing key properties, or
 reordering action or function parameters, require that a new service
 version is provided at a different service root URL for the new model,
 or that the service version its metadata using the
-[`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
+[`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
 annotation, defined in [OData-VocCore](#ODataVocCore).
 
 Services that version their metadata MUST support version-specific
@@ -403,7 +403,7 @@ import, or function import
 nullable after existing parameters
 - Adding an action or function parameter
 that is annotated with
-[`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter)
+[`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter)
 after existing parameters
 - Adding a type definition or enumeration
 - Adding a new term
@@ -548,7 +548,7 @@ If the service does not support the requested format, it replies with a
 
 Services SHOULD advertise their supported formats in the metadata
 document by annotating their entity container with the term
-[`Capabilities.SupportedFormats`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#SupportedFormats),
+[`Capabilities.SupportedFormats`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#SupportedFormats),
 as defined in [OData-VocCap](#ODataVocCap), listing all available
 formats and combinations of supported format parameters.
 
