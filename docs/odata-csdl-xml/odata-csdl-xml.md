@@ -4556,9 +4556,9 @@ types](#BuiltInTypesfordefiningVocabularyTerms)
 `Edm.NavigationPropertyPath`, `Edm.AnyPropertyPath`, or `Edm.ModelElementPath`.
 Its argument is a [model path](#PathExpressions) with the following
 restriction:
-- A non-null path MUST resolve to a model
-element whose type is an entity type, or a collection of entity types,
-e.g. a navigation property.
+- A non-null path MUST end with a [navigation property](#NavigationProperty)
+or a term cast to a term whose type is an entity type or a collection of entity types.
+
 
 The value of the navigation property path expression is the path itself,
 not the entity or collection of entities identified by the path.
@@ -4598,8 +4598,8 @@ types](#BuiltInTypesfordefiningVocabularyTerms)
 `Edm.PropertyPath`, `Edm.AnyPropertyPath`, or `Edm.ModelElementPath`. Its
 argument is a [model path](#PathExpressions) with the following
 restriction:
-- A non-null path MUST resolve to a model
-element whose type is a primitive or complex type, an enumeration type,
+- A non-null path MUST end with a [structural property](#StructuralProperty)
+or a term cast to a term whose type is a primitive or complex type, an enumeration type,
 a type definition, or a collection of one of these types.
 
 The value of the property path expression is the path itself, not the
@@ -5835,6 +5835,9 @@ http://www.w3.org/TR/2012/REC-xmlschema11-1-20120405/. Latest version available 
 _W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes_. D. Peterson, S. Gao, C. M. Sperberg-McQueen, H. S. Thompson, P. V. Biron, A. Malhotra, Editors, W3C Recommendation, 5 April 2012.  
 http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/. Latest version available at http://www.w3.org/TR/xmlschema11-2/.
 
+###### <a name="_WKT">[Well-Known Text]</a>
+_OpenGIS Implementation Specification for Geographic information – Simple feature access – Part 1: Common architecture_, May 2011. Open Geospatial Consortium.
+https://www.ogc.org/standard/sfa/.
 
 -------
 
