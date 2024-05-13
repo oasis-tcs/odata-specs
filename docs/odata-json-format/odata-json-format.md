@@ -256,7 +256,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        odata-json-format-v4.02-csd02.md
 ```
 
-This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12.2.
+This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 -->
 
 -------
@@ -3854,7 +3854,7 @@ In order to be a conforming consumer of the OData JSON format, a client or servi
    6. MUST support property annotations that appear immediately before or after the property they annotate
 8. MAY be a conforming consumer of the OData 4.01 JSON format, for payloads with an `OData-Version` header value of `4.01`.
    1. MUST be prepared to interpret control information with or without the `odata.` prefix
-   2. MUST be prepared for `@odata.type` primitive values with or without the `#` prefix
+   2. MUST be prepared for `@type` primitive values with or without the `#` prefix
    3. MUST be prepared to handle binding through inclusion of an entity reference within a collection-valued navigation property in the body of a `PATCH`, `PUT`, or `POST` request
    4. MUST be prepared for `TargetId` to be included or omitted in a deleted link for a relationship with a maximum cardinality of one
    5. MUST accept the string values `-INF`, `INF`, and `NaN` for decimal values with floating scale
