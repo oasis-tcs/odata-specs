@@ -129,6 +129,11 @@ http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/. Latest version available 
 _OpenUI5 --- OData V4 Metadata JSON Format_.  
 https://openui5.hana.ondemand.com/topic/87aac894a40640f89920d7b2a414499b.
 :
+: varxml
+###### <a name="_WKT">[Well-Known Text]</a>
+_OpenGIS Implementation Specification for Geographic information – Simple feature access – Part 1: Common architecture_, May 2011. Open Geospatial Consortium.
+https://www.ogc.org/standard/sfa/.
+:
 
 -------
 

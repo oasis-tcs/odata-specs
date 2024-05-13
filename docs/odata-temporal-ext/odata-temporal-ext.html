@@ -88,7 +88,7 @@
   </style>
   <link rel="stylesheet" href="styles/markdown-styles-v1.7.3b.css" />
   <link rel="stylesheet" href="styles/odata.css" />
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 </head>
 <body>
@@ -304,7 +304,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        odata-temporal-ext-v4.0-csd04.md
 ```
 
-This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12.2.
+This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 -->
 
 <hr />
@@ -1333,10 +1333,10 @@ This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;OrgModel.Employee&quot;</span><span class="fu">,</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@Temporal.ApplicationTimeSupport&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;Timeline&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@odata.type&quot;</span><span class="fu">:</span> <span class="st">&quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.TimelineSnapshot&quot;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@type&quot;</span><span class="fu">:</span> <span class="st">&quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.TimelineSnapshot&quot;</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;UnitOfTime&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@odata.type&quot;</span><span class="fu">:</span> <span class="st">&quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.UnitOfTimeDate&quot;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@type&quot;</span><span class="fu">:</span> <span class="st">&quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.UnitOfTimeDate&quot;</span></span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span><span class="er">,</span></span></code></pre></div>
@@ -1347,7 +1347,7 @@ This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;OrgModel.Default/Employees/history&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;@Temporal.ApplicationTimeSupport&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Timeline&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@odata.type&quot;</span><span class="fu">:</span> <span class="st">&quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.TimelineVisible&quot;</span><span class="fu">,</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@type&quot;</span><span class="fu">:</span> <span class="st">&quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.TimelineVisible&quot;</span><span class="fu">,</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;TimeSliceStart&quot;</span><span class="fu">:</span> <span class="st">&quot;From&quot;</span><span class="fu">,</span></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;TimeSliceEnd&quot;</span><span class="fu">:</span> <span class="st">&quot;To&quot;</span><span class="fu">,</span></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;SupportedActions&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
@@ -1357,7 +1357,7 @@ This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        <span class="ot">]</span></span>
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;UnitOfTime&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@odata.type&quot;</span><span class="fu">:</span> <span class="st">&quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.UnitOfTimeDate&quot;</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@type&quot;</span><span class="fu">:</span> <span class="st">&quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.UnitOfTimeDate&quot;</span></span>
 <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
 <span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
 <span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
@@ -1386,11 +1386,11 @@ This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12
 <span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;this.Default/CostCenters&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;@Temporal.ApplicationTimeSupport&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;UnitOfTime&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@odata.type&quot;</span><span class="fu">:</span> <span class="st">&quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.xml#Temporal.UnitOfTimeDate&quot;</span><span class="fu">,</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@type&quot;</span><span class="fu">:</span> <span class="st">&quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.xml#Temporal.UnitOfTimeDate&quot;</span><span class="fu">,</span></span>
 <span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;ClosedClosedPeriods&quot;</span><span class="fu">:</span> <span class="kw">true</span></span>
 <span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
 <span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Timeline&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@odata.type&quot;</span><span class="fu">:</span> <span class="st">&quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.xml#Temporal.TimelineVisible&quot;</span><span class="fu">,</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@type&quot;</span><span class="fu">:</span> <span class="st">&quot;https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.xml#Temporal.TimelineVisible&quot;</span><span class="fu">,</span></span>
 <span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;PeriodStart&quot;</span><span class="fu">:</span> <span class="st">&quot;ValidFrom&quot;</span><span class="fu">,</span></span>
 <span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;PeriodEnd&quot;</span><span class="fu">:</span> <span class="st">&quot;ValidTo&quot;</span><span class="fu">,</span></span>
 <span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;ObjectKey&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;AreaID&quot;</span><span class="ot">,</span> <span class="st">&quot;CostCenterID&quot;</span><span class="ot">]</span></span>
@@ -1455,7 +1455,7 @@ This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12
 <pre><code>GET /api-1/Employees(&#39;E314&#39;)</code></pre>
 <p>results in</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Employees/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Employees/$entity&quot;</span><span class="fu">,</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E314&quot;</span><span class="fu">,</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;McDevitt&quot;</span><span class="fu">,</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Senior&quot;</span></span>
@@ -1466,7 +1466,7 @@ This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12
 <pre><code>GET /api-1/Employees(&#39;E314&#39;)?$at=2012-01-01</code></pre>
 <p>results in</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Employees/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Employees/$entity&quot;</span><span class="fu">,</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E314&quot;</span><span class="fu">,</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;McDevitt&quot;</span><span class="fu">,</span></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Junior&quot;</span></span>
@@ -1477,7 +1477,7 @@ This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12
 <pre><code>GET /api-1/Employees?$filter=contains(Name,&#39;i&#39;)&amp;$at=2012-01-01</code></pre>
 <p>results in one time slice for each employee matching the filter at the specified point in time — note that E401 back then does not satisfy this condition</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Employees&quot;</span><span class="fu">,</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Employees&quot;</span><span class="fu">,</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E314&quot;</span><span class="fu">,</span></span>
@@ -1493,7 +1493,7 @@ This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12
 <pre><code>GET /api-1/Employees(&#39;E314&#39;)?$at=2012-01-01&amp;$expand=Department($at=2021-11-23)</code></pre>
 <p>results in</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Employees/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Employees/$entity&quot;</span><span class="fu">,</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E314&quot;</span><span class="fu">,</span></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;McDevitt&quot;</span><span class="fu">,</span></span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Junior&quot;</span><span class="fu">,</span></span>
@@ -1508,7 +1508,7 @@ This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12
 <pre><code>GET /api-1/Departments(&#39;D15&#39;)?$at=2015-01-01&amp;$expand=Employees</code></pre>
 <p>results in</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Departments/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Departments/$entity&quot;</span><span class="fu">,</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;D15&quot;</span><span class="fu">,</span></span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Services&quot;</span><span class="fu">,</span></span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Employees&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
@@ -1562,7 +1562,7 @@ This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12
                     &amp;$from=2012-03-01&amp;$to=2025-01-01</code></pre>
 <p>results in one entity for each employee with time slices that overlap the specified application-time period:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Employees&quot;</span><span class="fu">,</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Employees&quot;</span><span class="fu">,</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E314&quot;</span><span class="fu">,</span></span>
@@ -1614,7 +1614,7 @@ This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12
     )</code></pre>
 <p>has the following result with department names and budgets as of the beginning of each employee time slice:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Employees&quot;</span><span class="fu">,</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Employees&quot;</span><span class="fu">,</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E314&quot;</span><span class="fu">,</span></span>
@@ -1711,7 +1711,7 @@ This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12
                      )</code></pre>
 <p>results in one entity for each employee with time slices that overlap the specified application-time period and satisfy the filter condition (one less than in <a href="#employeeHistory">example 14</a>):</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Employees&quot;</span><span class="fu">,</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Employees&quot;</span><span class="fu">,</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
 <span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E314&quot;</span><span class="fu">,</span></span>
@@ -1752,7 +1752,7 @@ This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12
                     &amp;$filter=history/any(h:startswith(h/Name,&#39;N&#39;))</code></pre>
 <p>results in one employee whose name matches in the past, and the matching time slice is not in the requested time period</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Employees&quot;</span><span class="fu">,</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Employees&quot;</span><span class="fu">,</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
 <span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E401&quot;</span><span class="fu">,</span></span>
@@ -1902,11 +1902,11 @@ This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12
 </div>
 <p>It returns the resulting created or updated time slices</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;../../$metadata#Collection(Temporal.TimesliceWithPeriod)&quot;</span><span class="fu">,</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;../../$metadata#Collection(Temporal.TimesliceWithPeriod)&quot;</span><span class="fu">,</span></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
 <span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Departments(&#39;D08&#39;)/history/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Departments(&#39;D08&#39;)/history/$entity&quot;</span><span class="fu">,</span></span>
 <span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-01-01&quot;</span><span class="fu">,</span></span>
 <span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-04-01&quot;</span><span class="fu">,</span></span>
 <span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Support&quot;</span><span class="fu">,</span></span>
@@ -1915,7 +1915,7 @@ This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12
 <span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
 <span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Departments(&#39;D08&#39;)/history/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Departments(&#39;D08&#39;)/history/$entity&quot;</span><span class="fu">,</span></span>
 <span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-04-01&quot;</span><span class="fu">,</span></span>
 <span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-06-01&quot;</span><span class="fu">,</span></span>
 <span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Support&quot;</span><span class="fu">,</span></span>
@@ -1924,7 +1924,7 @@ This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12
 <span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
 <span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Departments(&#39;D08&#39;)/history/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Departments(&#39;D08&#39;)/history/$entity&quot;</span><span class="fu">,</span></span>
 <span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-06-01&quot;</span><span class="fu">,</span></span>
 <span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;2014-01-01&quot;</span><span class="fu">,</span></span>
 <span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;1st Level Support&quot;</span><span class="fu">,</span></span>
@@ -1933,7 +1933,7 @@ This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12
 <span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
 <span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Departments(&#39;D08&#39;)/history/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Departments(&#39;D08&#39;)/history/$entity&quot;</span><span class="fu">,</span></span>
 <span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2014-01-01&quot;</span><span class="fu">,</span></span>
 <span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;2014-07-01&quot;</span><span class="fu">,</span></span>
 <span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;1st Level Support&quot;</span><span class="fu">,</span></span>
@@ -1942,7 +1942,7 @@ This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12
 <span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
 <span id="cb24-41"><a href="#cb24-41" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb24-42"><a href="#cb24-42" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Departments(&#39;D08&#39;)/history/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb24-42"><a href="#cb24-42" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Departments(&#39;D08&#39;)/history/$entity&quot;</span><span class="fu">,</span></span>
 <span id="cb24-43"><a href="#cb24-43" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;From&quot;</span><span class="fu">:</span> <span class="st">&quot;2014-07-01&quot;</span><span class="fu">,</span></span>
 <span id="cb24-44"><a href="#cb24-44" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;To&quot;</span><span class="fu">:</span> <span class="st">&quot;9999-12-31&quot;</span><span class="fu">,</span></span>
 <span id="cb24-45"><a href="#cb24-45" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;1st Level Support&quot;</span><span class="fu">,</span></span>
@@ -2037,13 +2037,13 @@ This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12
 </div>
 <p>It returns the resulting created or updated time slices</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;../$metadata#Collection(Temporal.TimesliceWithPeriod)&quot;</span><span class="fu">,</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;../$metadata#Collection(Temporal.TimesliceWithPeriod)&quot;</span><span class="fu">,</span></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
 <span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;PeriodStart&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-03-01&quot;</span><span class="fu">,</span></span>
 <span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;PeriodEnd&quot;</span><span class="fu">:</span> <span class="st">&quot;2021-10-01&quot;</span><span class="fu">,</span></span>
 <span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Employees/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Employees/$entity&quot;</span><span class="fu">,</span></span>
 <span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E401&quot;</span><span class="fu">,</span></span>
 <span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Gibson&quot;</span><span class="fu">,</span></span>
 <span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Expert&quot;</span></span>
@@ -2053,7 +2053,7 @@ This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12
 <span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;PeriodStart&quot;</span><span class="fu">:</span> <span class="st">&quot;2021-10-01&quot;</span><span class="fu">,</span></span>
 <span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;PeriodEnd&quot;</span><span class="fu">:</span> <span class="st">&quot;9999-12-31&quot;</span><span class="fu">,</span></span>
 <span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Employees/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Employees/$entity&quot;</span><span class="fu">,</span></span>
 <span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;E401&quot;</span><span class="fu">,</span></span>
 <span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Gibson&quot;</span><span class="fu">,</span></span>
 <span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;Jobtitle&quot;</span><span class="fu">:</span> <span class="st">&quot;Ultimate Expert&quot;</span></span>
@@ -2187,11 +2187,11 @@ This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12
 </div>
 <p>It returns the resulting created or updated time slices per affected temporal object</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;../$metadata#Collection(Temporal.TimesliceWithPeriod)&quot;</span><span class="fu">,</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;../$metadata#Collection(Temporal.TimesliceWithPeriod)&quot;</span><span class="fu">,</span></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
 <span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#CostCenters/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#CostCenters/$entity&quot;</span><span class="fu">,</span></span>
 <span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;tsid&quot;</span><span class="fu">:</span> <span class="st">&quot;n&quot;</span><span class="fu">,</span></span>
 <span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;AreaID&quot;</span><span class="fu">:</span> <span class="st">&quot;51&quot;</span><span class="fu">,</span></span>
 <span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;CostCenterID&quot;</span><span class="fu">:</span> <span class="st">&quot;C1&quot;</span><span class="fu">,</span></span>
@@ -2203,7 +2203,7 @@ This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12
 <span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
 <span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#CostCenters/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#CostCenters/$entity&quot;</span><span class="fu">,</span></span>
 <span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;tsid&quot;</span><span class="fu">:</span> <span class="st">&quot;o&quot;</span><span class="fu">,</span></span>
 <span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;AreaID&quot;</span><span class="fu">:</span> <span class="st">&quot;51&quot;</span><span class="fu">,</span></span>
 <span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;CostCenterID&quot;</span><span class="fu">:</span> <span class="st">&quot;C1&quot;</span><span class="fu">,</span></span>
@@ -2215,7 +2215,7 @@ This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12
 <span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
 <span id="cb28-29"><a href="#cb28-29" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb28-30"><a href="#cb28-30" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#CostCenters/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb28-30"><a href="#cb28-30" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#CostCenters/$entity&quot;</span><span class="fu">,</span></span>
 <span id="cb28-31"><a href="#cb28-31" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;tsid&quot;</span><span class="fu">:</span> <span class="st">&quot;p&quot;</span><span class="fu">,</span></span>
 <span id="cb28-32"><a href="#cb28-32" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;AreaID&quot;</span><span class="fu">:</span> <span class="st">&quot;51&quot;</span><span class="fu">,</span></span>
 <span id="cb28-33"><a href="#cb28-33" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;CostCenterID&quot;</span><span class="fu">:</span> <span class="st">&quot;C1&quot;</span><span class="fu">,</span></span>
@@ -2227,7 +2227,7 @@ This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12
 <span id="cb28-39"><a href="#cb28-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb28-40"><a href="#cb28-40" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
 <span id="cb28-41"><a href="#cb28-41" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Timeslice&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb28-42"><a href="#cb28-42" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#CostCenters/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb28-42"><a href="#cb28-42" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#CostCenters/$entity&quot;</span><span class="fu">,</span></span>
 <span id="cb28-43"><a href="#cb28-43" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;tsid&quot;</span><span class="fu">:</span> <span class="st">&quot;q&quot;</span><span class="fu">,</span></span>
 <span id="cb28-44"><a href="#cb28-44" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;AreaID&quot;</span><span class="fu">:</span> <span class="st">&quot;51&quot;</span><span class="fu">,</span></span>
 <span id="cb28-45"><a href="#cb28-45" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;CostCenterID&quot;</span><span class="fu">:</span> <span class="st">&quot;C2&quot;</span><span class="fu">,</span></span>

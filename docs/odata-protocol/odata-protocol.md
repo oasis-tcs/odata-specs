@@ -354,6 +354,7 @@ Section | Feature / Change | Issue
 [Section 11.4](#DataModification)| Response code `204 No Content` after successful data modification if requested response could not be constructed| [443](https://github.com/oasis-tcs/odata-specs/issues/443)
 [Section 11.4.4](#UpsertanEntity)|  Upserts to single-valued non-containment navigation properties| [455](https://github.com/oasis-tcs/odata-specs/issues/455)
 [Section 11.4.9.3](#UpdateaComplexProperty)| Setting a complex property to a different type| [534](https://github.com/oasis-tcs/odata-specs/issues/534)
+[Section 12](#Conformance) | Allow `400 Bad Request` in addition to `501 Not Implemented` for unsupported functionality| [391](https://github.com/oasis-tcs/odata-specs/issues/391)
 [Section 12.3](#InteroperableODataClients) | Encoding of plus character in URLs | [485](https://github.com/oasis-tcs/odata-specs/issues/485)
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
@@ -398,7 +399,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        odata-v4.02-csd02-part1-protocol.md
 ```
 
-This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12.2.
+This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 -->
 
 -------
@@ -1919,7 +1920,7 @@ indicate service errors.
 ### <a name="ResponseCode501NotImplemented" href="#ResponseCode501NotImplemented">9.3.1 Response Code `501 Not Implemented`</a>
 
 If the client requests functionality not implemented by the OData
-Service, the service responds with `501 Not Implemented` and SHOULD
+Service, the service MAY respond with `501 Not Implemented` and
 include a response body describing the functionality not implemented.
 
 ## <a name="ErrorResponseBody" href="#ErrorResponseBody">9.4 Error Response Body</a>
@@ -2711,11 +2712,14 @@ Clients MUST be prepared to receive additional properties in an entity
 or complex type instance that are not advertised in metadata, even for
 types not marked as open.
 
-Properties that are not available, for example due to permissions, are
-not returned. In this case, the
+Properties that are not available are not returned. If their unavailability
+is due to permissions, the
 [`Core.Permissions`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Permissions)
 annotation, defined in [OData-VocCore](#ODataVocCore) MUST be returned
 for the property with a value of `None`.
+If the [`omit-values`](#Preferenceomitvalues) preference is
+applied, `Core.Permissions` or another specific annotation that explains the
+reason MUST be returned for every unavailable property.
 
 If no entity exists with the specified request URL, the service responds
 with [`404 Not Found`](#ResponseCode404NotFound).
@@ -4128,7 +4132,7 @@ of these query options and instead MUST return [`204 No Content`](#ResponseCode2
 
 To create an entity in a collection, the client sends a `POST` request
 to that collection's URL. The `POST` body MUST contain a single valid
-entity representation.
+representation of an entity of the declared target entity type, or one of its derived types.
 
 The entity representation MAY include [references to existing
 entities](#LinktoRelatedEntitiesWhenCreatinganEntity) as well as content for
@@ -4196,7 +4200,7 @@ entity with links to an existing manager (of managers) and to two existing emplo
 annotation to the `Manager` and `DirectReports` navigation properties
 ```json
 {
-  "@odata.type": "#Northwind.Manager",
+  "@type": "#Northwind.Manager",
   "ID": 1,
   "FirstName": "Pat",
   "LastName": "Griswold",
@@ -4290,6 +4294,9 @@ request to a URL that identifies the entity. Services MAY restrict
 updates only to requests addressing the [edit URL](#ReadURLsandEditURLs)
 of the entity.
 
+The body of the request MUST be a valid representation of the
+declared target entity type, or one of its derived types.
+
 Services SHOULD support `PATCH` as the preferred means of updating an
 entity. `PATCH` provides more resiliency between clients and services by
 directly modifying only those values specified by the client.
@@ -4305,6 +4312,9 @@ see also [section 11.4.9.3](#UpdateaComplexProperty).
 Missing properties of the containing entity or complex property, including
 dynamic properties, MUST NOT be directly altered unless as a side effect
 of changes resulting from the provided properties.
+
+If the type of the entity in a `PATCH` request differs from the type
+of the entity being updated (i.e., a different derived type of the declared target type), then properties shared through inheritance, as well as dynamic properties, are retained (unless overwritten by new values in the payload). Other properties of the original type are discarded.
 
 Services MAY additionally support `PUT` but should be aware of the
 potential for data-loss in round-tripping properties that the client may
@@ -4344,10 +4354,9 @@ The service MAY return success in this case if the specified value
 matches the value of the property. Clients SHOULD use `PATCH` and
 specify only those properties intended to be changed.
 
-Entity-id and entity type cannot be changed when updating an entity.
+The entity-id cannot be changed when updating an entity.
 However, format-specific rules might in some cases require providing
-entity-id and entity type values in the payload when applying the
-update.
+the entity-id in the payload when requesting the update.
 
 For requests with an `OData-Version` header with a value of `4.01` or
 greater, if the entity representation in the request body includes an
@@ -4534,10 +4543,10 @@ Upserts to single-valued navigation properties are possible for
 - payloads including a context URL specifying the entity set or
   contained collection of entities in which the new entity is to be created.
 
-Upserts are not supported against [media
-entities](#RequestingtheMediaStreamofaMediaEntityusingvalue)
-or entities whose keys values are
+Upserts are not supported against entities whose keys' values are
 generated by the service. Services MUST fail an update request to a URL that would identify such an entity and the entity does not yet exist.
+
+Similarly, services MUST fail an update request to the URL of a [media entity](#RequestingtheMediaStreamofaMediaEntityusingvalue) that does not yet exist. However, a `PUT` request to the *media edit URL* of a media entity does have Upsert semantics, in that the media entity is [created](#CreateaMediaEntity) with the specified media stream if it does not already exist, otherwise the media stream of the existing media entity is [updated](#UpdateaMediaEntityStream).
 
 Singleton entities can be upserted if they are nullable. Services
 supporting this SHOULD advertise it by annotating the singleton with the
@@ -4670,13 +4679,13 @@ properties special handling is required.
 
 #### <a name="CreateaMediaEntity" href="#CreateaMediaEntity">11.4.7.1 Create a Media Entity</a>
 
-A `POST` request to a media entity's entity set creates a new media
+A `PUT` request to the media edit URL of a null-valued singleton media entity (by convention, the resource path of the media entity URL appended with `/$value`), or a `POST` request to a media entity's entity set, create a new media
 entity. The request body MUST contain the media value (for example, the
 photograph) whose media type MUST be specified in a
 [`Content-Type`](#HeaderContentType) header. The request body is always
 interpreted as the media value, even if it has the media type of an
-OData format supported by the service. It is not possible to set the
-structural properties of the media entity when creating the media
+OData format supported by the service. The service may set other structural
+properties of the media entity upon creation, but it is not possible for clients to specify structural properties when creating the media
 entity.
 
 Upon successful completion, the response MUST contain
@@ -4690,8 +4699,10 @@ Upon successful completion the service responds with either
 
 #### <a name="UpdateaMediaEntityStream" href="#UpdateaMediaEntityStream">11.4.7.2 Update a Media Entity Stream</a>
 
-A successful `PUT` request to the media edit URL of a media entity
+A successful `PUT` request to the media edit URL of an existing media entity
 changes the media stream of the entity.
+
+If the media entity did not previously exist, then the request is interpreted as a creation request according to [Create a Media Entity](#CreateaMediaEntity)
 
 If the entity includes an ETag value for the media stream, the client
 MUST include an [`If-Match`](#HeaderIfMatch) header with the ETag value.
@@ -4699,6 +4710,9 @@ MUST include an [`If-Match`](#HeaderIfMatch) header with the ETag value.
 The request body MUST contain the new media value for the entity whose
 media type MUST be specified in a [`Content-Type`](#HeaderContentType)
 header.
+
+The service may set other structural properties of the media entity when updating
+the media entity stream, but it is not possible for clients to specify structural properties when updating the media entity stream.
 
 On success, the service MUST respond with either
 [`204 No Content`](#ResponseCode204NoContent) and an empty body, or
@@ -6424,9 +6438,7 @@ request
 ([section 6](#Extensibility) and all subsections)
 7. MUST successfully parse the request according to
 [OData-ABNF](#ODataABNF) for any supported system query options and
-either follow the specification or return
-`501 Not Implemented` for any
-unsupported functionality ([section 9.3.1](#ResponseCode501NotImplemented))
+follow the specification or fail the request
 8. MUST expose only data types defined in [OData-CSDLXML](#ODataCSDL)
 9. MUST NOT require clients to understand any metadata or instance
 annotations ([section 6.4](#VocabularyExtensibility)), custom headers ([section 6.5](#HeaderFieldExtensibility)), or custom
@@ -6492,9 +6504,8 @@ service:
 
 1. MUST conform to the [OData 4.0 Minimal Conformance
 Level](#OData40MinimalConformanceLevel)
-2. MUST successfully parse the [OData-ABNF](#ODataABNF) and either
-follow the specification or return `501 Not Implemented` for any
-unsupported functionality ([section 9.3.1](#ResponseCode501NotImplemented))
+2. MUST successfully parse the request according to [OData-ABNF](#ODataABNF) and
+follow the specification or fail the request
 3. MUST support `$select` ([section 11.2.5.1](#SystemQueryOptionselect))
 4. MUST support casting to a derived type according to
 [OData-URL](#ODataURL) if derived types are present in the model
@@ -6505,11 +6516,10 @@ unsupported functionality ([section 9.3.1](#ResponseCode501NotImplemented))
 in the requested entity set ([section 11.2.6.1.1](#BuiltinFilterOperations))
    2. MUST support aliases in `$filter` expressions ([section 11.2.6.1.3](#ParameterAliases))
    3. SHOULD support additional filter operations ([section 11.2.6.1.1](#BuiltinFilterOperations))
-and MUST return `501 Not Implemented` for any unsupported filter
-operations ([section 9.3.1](#ResponseCode501NotImplemented))
+and MUST fail the request for any unsupported filter
+operations
    4. SHOULD support the canonical functions ([section 11.2.6.1.2](#BuiltinQueryFunctions)) and
-MUST return `501 Not Implemented` for any unsupported canonical
-functions ([section 9.3.1](#ResponseCode501NotImplemented))
+MUST fail the request for any unsupported canonical functions
    5. SHOULD support `$filter` on expanded entities ([section 11.2.5.2.1](#ExpandOptions))
 8. SHOULD publish metadata at `$metadata` according to
 [OData-CSDLXML](#ODataCSDL) ([section 11.1.2](#MetadataDocumentRequest))
@@ -6776,9 +6786,7 @@ specified in `$metadata`
 the requested format
 21. SHOULD use capabilities (see [OData-VocCap](#ODataVocCap)) to
 determine if a 4.01 feature is supported but MAY attempt syntax and be
-prepared to handle either
-[`501 Not Implemented`](#ResponseCode501NotImplemented) or
-`400 Bad Request`
+prepared to handle `400 Bad Request` or [`501 Not Implemented`](#ResponseCode501NotImplemented)
 
 
 -------
@@ -6865,6 +6873,10 @@ https://www.rfc-editor.org/info/rfc9110.
 ###### <a name="_ECMAScript">[ECMAScript]</a>
 _ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262.
 https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
+
+###### <a name="_WKT">[Well-Known Text]</a>
+_OpenGIS Implementation Specification for Geographic information – Simple feature access – Part 1: Common architecture_, May 2011. Open Geospatial Consortium.
+https://www.ogc.org/standard/sfa/.
 
 -------
 
