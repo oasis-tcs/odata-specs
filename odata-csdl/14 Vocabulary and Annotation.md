@@ -1257,7 +1257,7 @@ Constant values of type `Edm.Stream` with other media types are represented as [
 :::
 
 The annotation (property) being assigned a stream value MUST be annotated with term
-[`Core.MediaType`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#MediaType)
+[`Core.MediaType`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#MediaType)
 and the media type of the stream as its value.
 
 ::: {.varjson .example}
@@ -1790,9 +1790,9 @@ types](#BuiltInTypesfordefiningVocabularyTerms)
 `Edm.NavigationPropertyPath`, `Edm.AnyPropertyPath`, or `Edm.ModelElementPath`.
 Its argument is a [model path](#PathExpressions) with the following
 restriction:
-- A non-null path MUST resolve to a model
-element whose type is an entity type, or a collection of entity types,
-e.g. a navigation property.
+- A non-null path MUST end with a [navigation property](#NavigationProperty)
+or a term cast to a term whose type is an entity type or a collection of entity types.
+
 
 The value of the navigation property path expression is the path itself,
 not the entity or collection of entities identified by the path.
@@ -1848,8 +1848,8 @@ types](#BuiltInTypesfordefiningVocabularyTerms)
 `Edm.PropertyPath`, `Edm.AnyPropertyPath`, or `Edm.ModelElementPath`. Its
 argument is a [model path](#PathExpressions) with the following
 restriction:
-- A non-null path MUST resolve to a model
-element whose type is a primitive or complex type, an enumeration type,
+- A non-null path MUST end with a [structural property](#StructuralProperty)
+or a term cast to a term whose type is a primitive or complex type, an enumeration type,
 a type definition, or a collection of one of these types.
 
 The value of the property path expression is the path itself, not the
@@ -2758,9 +2758,14 @@ Example ##ex:
 ### ##subsubsec If-Then-Else
 
 The if-then-else expression enables a value to be obtained by evaluating
-a *condition expression*. It MUST contain exactly three child
+a *condition expression*.
+The if-then-else expression is called a collection-if-then-else expression if
+- it is a direct child of a collection expression or
+- it is the second or third child of a collection-if-then-else expression.
+
+An if-then-else expression MUST contain exactly three child
 expressions. There is one exception to this rule: if and only if the
-if-then-else expression is an item of a collection expression, the third
+if-then-else expression is a collection-if-then-else expression, the third
 child expression MAY be omitted, reducing it to an if-then expression.
 This can be used to conditionally add an element to a collection.
 
@@ -2792,9 +2797,9 @@ It MAY contain [annotations](#Annotation).
 ::: {.varjson .example}
 Example ##ex: the condition is a [value path expression](#ValuePath)
 referencing the Boolean property `IsFemale`, whose value then determines
-the value of the `$If` expression (or so it was long ago)
+the value of the `$If` expression
 ```json
-"@person.Gender": {
+"@org.example.person.Gender": {
   "$If": [
     {
       "$Path": "IsFemale"
@@ -2803,6 +2808,46 @@ the value of the `$If` expression (or so it was long ago)
     "Male"
   ]
 }
+```
+:::
+
+::: {.varjson .example}
+Example ##ex: pronouns based on a person's `IdentifiesAsFemale` and `IdentifiesAsMale` attributes
+```json
+"@org.example.person.Pronouns": [
+  {
+    "$If": [
+      {
+        "$Path": "IdentifiesAsFemale"
+      },
+      "she",
+      {
+        "$If": [
+          {
+            "$Path": "IdentifiesAsMale"
+          },
+          "he"
+        ]
+      }
+    ]
+  },
+  {
+    "$If": [
+      {
+        "$Path": "IdentifiesAsFemale"
+      },
+      "her",
+      {
+        "$If": [
+          {
+            "$Path": "IdentifiesAsMale"
+          },
+          "him"
+        ]
+      }
+    ]
+  }
+]
 ```
 :::
 
@@ -2818,7 +2863,7 @@ It MAY contain [`edm:Annotation`](#Annotation) elements.
 ::: {.varxml .example}
 Example ##ex: the condition is a [value path expression](#ValuePath)
 referencing the Boolean property `IsFemale`, whose value then determines
-the value of the `edm:If` expression (or so it was long ago)
+the value of the `edm:If` expression
 ```xml
 <Annotation Term="org.example.person.Gender">
   <If>
@@ -2826,6 +2871,32 @@ the value of the `edm:If` expression (or so it was long ago)
     <String>Female</String>
     <String>Male</String>
   </If>
+</Annotation>
+```
+:::
+
+::: {.varxml .example}
+Example ##ex: pronouns based on a person's `IdentifiesAsFemale` and `IdentifiesAsMale` attributes
+```xml
+<Annotation Term="org.example.person.Pronouns">
+  <Collection>
+    <If>
+      <Path>IdentifiesAsFemale</Path>
+      <String>she</String>
+      <If>
+        <Path>IdentifiesAsMale</Path>
+        <String>he</String>
+      </If>
+    </If>
+    <If>
+      <Path>IdentifiesAsFemale</Path>
+      <String>her</String>
+      <If>
+        <Path>IdentifiesAsMale</Path>
+        <String>him</String>
+      </If>
+    </If>
+  </Collection>
 </Annotation>
 ```
 :::

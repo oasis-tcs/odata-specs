@@ -31,7 +31,7 @@ Section | Feature / Change | Issue
 --------|------------------|------
 [Section ##PrimitiveTypes]| 
 Allow stream-valued non-binding parameters| 
-[ODATA-1481](https://issues.oasis-open.org/browse/ODATA-1481)
+[525](https://github.com/oasis-tcs/odata-specs/issues/525)
 : varjson
 [Section ##CSDLJSONDocument] | Additional `$Version` value `4.02` |
 :
@@ -41,13 +41,16 @@ Allow stream-valued non-binding parameters|
 : varxml
 [Section ##EntityContainer]| 
 All children of `edm:EntityContainer` are optional| 
-[ODATA-1571](https://issues.oasis-open.org/browse/ODATA-1571)
+[464](https://github.com/oasis-tcs/odata-specs/issues/464)
 :
-[Section ##GeoValues] | Constant Geo values in annotations | [ODATA-1323](https://issues.oasis-open.org/browse/ODATA-1323)
-[Section ##StreamValues] | Constant Stream values in annotations | [ODATA-1323](https://issues.oasis-open.org/browse/ODATA-1323)
+[Section ##GeoValues] | Constant Geo values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
+[Section ##StreamValues] | Constant Stream values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
 [Section ##PathEvaluation]| 
 New path evaluation rules for annotations targeting annotations and external targeting via container| 
-[ODATA-1420](https://issues.oasis-open.org/browse/ODATA-1420)
+[575](https://github.com/oasis-tcs/odata-specs/issues/575)
+[Section ##IfThenElse]| 
+Nested `If` without else part in collections| 
+[326](https://github.com/oasis-tcs/odata-specs/issues/326)
 [Section ##Conformance] | Additional conformance clauses for version 4.02 |
 
 ## ##subsec Glossary
@@ -596,7 +599,7 @@ the risk for unintended data loss.
 
 Note: model elements with duration values and a granularity less than seconds
 (e.g. minutes, hours, days) can be annotated with the term
-[`Measures.DurationGranularity`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Measures.V1.md#DurationGranularity),
+[`Measures.DurationGranularity`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Measures.V1.md#DurationGranularity),
 see [OData-VocMeasures](#ODataVocMeasures).
 
 ::: {.varjson .rep}

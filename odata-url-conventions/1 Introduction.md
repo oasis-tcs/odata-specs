@@ -28,7 +28,7 @@ Section | Feature / Change | Issue
 --------|------------------|------
 [Section ##matchespattern]| 
 New overload for function `matchespattern` with flags| 
-[ODATA-1618](https://issues.oasis-open.org/browse/ODATA-1618)
+[441](https://github.com/oasis-tcs/odata-specs/issues/441)
 
 ## ##subsec Glossary
 
