@@ -2,7 +2,12 @@
   "name": "odata-specs",
   "version": "1.0.0",
   "description": "",
-  "main": "lib/server.js",
+  "exports": {
+    ".": "./lib/server.js",
+    "./build": "./lib/build.js",
+    "./pdf": "./lib/build-pdf.js",
+    "./zip": "./lib/zip.js"
+  },
   "scripts": {
     "build": "node lib/build.js",
     "pdf": "node lib/build-pdf.js",
