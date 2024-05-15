@@ -5861,7 +5861,7 @@ consist of a `$` character, followed by the identifier of the preceding
 request. They evaluate to the referenced value, that is the value
 represented by the response body of that preceding request.
 If that value is a collection, the value reference MAY be followed by a
-`collectionNavigationExpr` in the sense of [OData-ABNF](#ODataABNF)
+`collectionNavigationExpr`, as defined in [OData-ABNF](#ODataABNF),
 that is evaluated relative to the referenced value.
 Otherwise the value reference MAY be followed by a forward slash and a
 `memberExpr` that is evaluated relative to the referenced value.
