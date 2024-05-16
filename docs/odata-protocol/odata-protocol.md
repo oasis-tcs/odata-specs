@@ -4175,6 +4175,8 @@ Properties with a defined default value, nullable properties, and
 collection-valued properties omitted from the request are set to the
 default value, null, or an empty collection, respectively.
 
+Services MAY add dynamic properties to the created entity as long as their names do not conflict with the names of declared properties and client-specified dynamic properties.
+
 Upon successful creation of the entity, the service MUST respond with either
 [`201 Created`](#ResponseCode201Created) and a representation of the
 created entity, or [`204 No Content`](#ResponseCode204NoContent) if the
@@ -4325,8 +4327,8 @@ request body. Missing non-key, updatable structural properties not
 defined as dependent properties within a referential constraint MUST be
 set to their default values. Omitting a non-nullable property with no
 service-generated or default value from a `PUT` request results in a
-`400 Bad Request` error. Missing dynamic structural properties MUST be
-removed or set to `null`.
+`400 Bad Request` error. Missing dynamic properties MUST be
+removed, set to `null`, or set to a service-generated value.
 
 For requests with an `OData-Version` header with a value of `4.01` or
 greater, the media stream of a media entity can be updated by specifying
