@@ -5822,7 +5822,7 @@ the request URL. Services MUST treat this segment like the URL in the
 [`Location`](#HeaderLocation) header of the response to the request identified by the segment.
 If the `Location` header in the response to the subsequent request contains a relative URL,
 clients MUST be able to resolve it relative to the request's URL even if
-that contains such a reference.
+that contains such a reference. See [example 105](#batchcontentid).
 
 If the `$`-prefixed request identifier is identical to the name of a
 top-level system resource (`$batch`, `$crossjoin`, `$all`, `$entity`,
@@ -6041,7 +6041,7 @@ which case they SHOULD advertise this support by specifying the
 term applied to the entity container, see [OData-VocCap](#ODataVocCap).
 
 ::: example
-Example 105: a batch request that contains the following operations in
+Example <a name="batchcontentid" href="#batchcontentid">105</a>: a batch request that contains the following operations in
 the order listed:
 
 A change set that contains the following requests:
@@ -6081,6 +6081,37 @@ Content-Length: ###
 --changeset_77162fcd-b8da-41ac-a9f8-9357efbbd--
 --batch_36522ad7-fc75-4b56-8c71-56071383e77b--
 ```
+
+Assume that in the response the `Location` header for the first request is absolute and
+the `Location` header for the second request is relative.
+```
+HTTP/1.1 200 OK
+OData-Version: 4.0
+Content-Length: ####
+Content-Type: multipart/mixed; boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77a
+
+--batch_36522ad7-fc75-4b56-8c71-56071383e77a
+Content-Type: multipart/mixed; boundary=changeset_77162fcd-b8da-41ac-a9f8-9357efbbe
+
+--changeset_77162fcd-b8da-41ac-a9f8-9357efbbe
+Content-Type: application/http
+
+HTTP/1.1 201 OK
+Location: http://host/service/Customers('XXX')
+...
+--changeset_77162fcd-b8da-41ac-a9f8-9357efbbe
+Content-Type: application/http
+
+HTTP/1.1 201 OK
+Location: Orders(1)
+...
+--changeset_77162fcd-b8da-41ac-a9f8-9357efbbe--
+--batch_36522ad7-fc75-4b56-8c71-56071383e77a--
+```
+Then the second `Location` URL `Orders(1)` is relative to the second
+request URL `$1/Orders` and evaluates to `$1/Orders(1)`. The client must effectively
+replace the `$1` with the first `Location` URL, which leads to the absolute
+URL `http://host/service/Customers('XXX')/Orders(1)`.
 :::
 
 #### <a name="ReferencinganETag" href="#ReferencinganETag">11.7.7.3 Referencing an ETag</a>
