@@ -213,6 +213,7 @@ An OData JSON payload may represent:
 Section | Feature / Change | Issue
 --------|------------------|------
 [Section 4.5.12](#ControlInformationmediaodatamedia)|  `mediaContentType` can be `null`| [536](https://github.com/oasis-tcs/odata-specs/issues/536)
+[Section 7](#StructuralProperty), [Section A.2](#InformativeReferences)| Removed reference to obsolete version of GeoJSON| [456](https://github.com/oasis-tcs/odata-specs/issues/456)
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -1403,6 +1404,8 @@ payload. Whether the value represents a geography type or geometry type
 is inferred from its usage or specified using the
 [`type`](#ControlInformationtypeodatatype)
 control information.
+[RFC7946](#rfc7946) does not define means for expressing instance-specific
+[Coordinate Reference Systems](https://datatracker.ietf.org/doc/html/rfc7946#section-4).
 
 ::: example
 Example 12:

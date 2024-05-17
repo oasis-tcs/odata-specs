@@ -32,6 +32,9 @@ Section | Feature / Change | Issue
 [Section ##PrimitiveTypes]| 
 Allow stream-valued non-binding parameters| 
 [525](https://github.com/oasis-tcs/odata-specs/issues/525)
+[Section ##SRID]| 
+SRID value `variable` is deprecated| 
+[ 1935](https://github.com/oasis-tcs/odata-specs/issues/1935)
 : varjson
 [Section ##CSDLJSONDocument] | Additional `$Version` value `4.02` |
 :
@@ -812,6 +815,8 @@ spatial reference system is applied to its values.
 The value of the `SRID` facet MUST be a non-negative integer or the
 special value `variable`. If no value is specified, the facet defaults
 to `0` for `Geometry` types or `4326` for `Geography` types.
+Services SHOULD NOT use the special value `variable` as [OData-JSON](#ODataJSON)
+defines no representation for instance-specific spatial reference systems.
 
 The valid values of the `SRID` facet and their meanings are as defined
 by the European Petroleum Survey Group [EPSG](#_EPSG).
