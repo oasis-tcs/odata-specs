@@ -265,7 +265,7 @@ Schema Definition Language (XSD) 1.1 as described in
 Section | Feature / Change | Issue
 --------|------------------|------
 [Section 3.3](#PrimitiveTypes)| Allow stream-valued non-binding parameters| [525](https://github.com/oasis-tcs/odata-specs/issues/525)
-[Section 3.4.5](#SRID)| SRID value `variable` is deprecated| [ 1935](https://github.com/oasis-tcs/odata-specs/issues/1935)
+[Section 3.4.5](#SRID)| SRID value `variable` is deprecated| [1935](https://github.com/oasis-tcs/odata-specs/issues/1935)
 [Section 4](#CSDLXMLDocument) | Additional `Version` value `4.02` |
 [Section 13](#EntityContainer)| All children of `edm:EntityContainer` are optional| [464](https://github.com/oasis-tcs/odata-specs/issues/464)
 [Section 14.3.13](#GeoValues) | Constant Geo values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)

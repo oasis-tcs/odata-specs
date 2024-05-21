@@ -34,7 +34,7 @@ Allow stream-valued non-binding parameters|
 [525](https://github.com/oasis-tcs/odata-specs/issues/525)
 [Section ##SRID]| 
 SRID value `variable` is deprecated| 
-[ 1935](https://github.com/oasis-tcs/odata-specs/issues/1935)
+[1935](https://github.com/oasis-tcs/odata-specs/issues/1935)
 : varjson
 [Section ##CSDLJSONDocument] | Additional `$Version` value `4.02` |
 :
