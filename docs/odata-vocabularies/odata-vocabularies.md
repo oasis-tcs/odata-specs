@@ -92,15 +92,18 @@ For complete copyright information please see the full Notices section in an App
 # Table of Contents
 
 ::: toc
-- [1 Core Vocabulary](#CoreVocabulary)
-- [2 Capabilities Vocabulary](#CapabilitiesVocabulary)
-- [3 Measures Vocabulary](#MeasuresVocabulary)
-- [4 Validation Vocabulary](#ValidationVocabulary)
-- [5 Aggregation Vocabulary](#AggregationVocabulary)
-- [6 Authorization Vocabulary](#AuthorizationVocabulary)
-- [7 Temporal Vocabulary](#TemporalVocabulary)
+- [1 Introduction](#Introduction)
+  - [1.1 Changes from Earlier Versions](#ChangesfromEarlierVersions)
+- [2 Core Vocabulary](#CoreVocabulary)
+- [3 Capabilities Vocabulary](#CapabilitiesVocabulary)
+- [4 Measures Vocabulary](#MeasuresVocabulary)
+- [5 Validation Vocabulary](#ValidationVocabulary)
+- [6 Aggregation Vocabulary](#AggregationVocabulary)
+- [7 Authorization Vocabulary](#AuthorizationVocabulary)
+- [8 Temporal Vocabulary](#TemporalVocabulary)
 - [A References](#References)
   - [A.1 Normative References](#NormativeReferences)
+  - [A.2 Non-Normative References](#NonNormativeReferences)
 - [B Safety, Security and Privacy Considerations](#SafetySecurityandPrivacyConsiderations)
 - [C Acknowledgments](#Acknowledgments)
 - [D Revision History](#RevisionHistory)
@@ -110,7 +113,23 @@ For complete copyright information please see the full Notices section in an App
 
 -------
 
-# <a name="CoreVocabulary" href="#CoreVocabulary">1 Core Vocabulary</a>
+# <a name="Introduction" href="#Introduction">1 Introduction</a>
+
+OData provides the ability to decorate model elements of a schema and instances of data with descriptive elements called annotations. Annotations can be used to specify additional facts about an element, such as whether it is read-only, or to define a common concept, such as a person or a movie. Annotations consist of a term (the namespace-qualified name of the annotation being applied), a target (the element to which the term is applied), and a value. A set of related annotation terms with a common namespace comprises a Vocabulary. Shared vocabularies provide a powerful extensibility point for OData. Refer to the [OData-Protocol](#ODataProtocol) and [OData-CSDL](#ODataCSDL) specifications for more information on the use of vocabularies.
+
+This prose specification describes a set of OData vocabularies maintained by the OASIS OData Technical Committee. It is one component of a Work Product that also includes the various vocabulary components. These vocabulary components are continuously evolved, the latest work-in-progress revisions are available at [OData-Vocabs](#ODataVocabs).
+
+Other OData vocabularies may be created, shared, and maintained outside of this work product.
+
+## <a name="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a>
+
+Section | Feature / Change | Issue
+--------|------------------|------
+
+
+-------
+
+# <a name="CoreVocabulary" href="#CoreVocabulary">2 Core Vocabulary</a>
 
 **Namespace: [Org.OData.Core.V1](Org.OData.Core.V1.xml)**
 
@@ -440,7 +459,7 @@ Property|Type|Description
 
 -------
 
-# <a name="CapabilitiesVocabulary" href="#CapabilitiesVocabulary">2 Capabilities Vocabulary</a>
+# <a name="CapabilitiesVocabulary" href="#CapabilitiesVocabulary">3 Capabilities Vocabulary</a>
 
 **Namespace: [Org.OData.Capabilities.V1](Org.OData.Capabilities.V1.xml)**
 
@@ -1154,7 +1173,7 @@ Property|Type|Description
 
 -------
 
-# <a name="MeasuresVocabulary" href="#MeasuresVocabulary">3 Measures Vocabulary</a>
+# <a name="MeasuresVocabulary" href="#MeasuresVocabulary">4 Measures Vocabulary</a>
 
 **Namespace: [Org.OData.Measures.V1](Org.OData.Measures.V1.xml)**
 
@@ -1185,7 +1204,7 @@ Allowed Value|Description
 
 -------
 
-# <a name="ValidationVocabulary" href="#ValidationVocabulary">4 Validation Vocabulary</a>
+# <a name="ValidationVocabulary" href="#ValidationVocabulary">5 Validation Vocabulary</a>
 
 **Namespace: [Org.OData.Validation.V1](Org.OData.Validation.V1.xml)**
 
@@ -1249,7 +1268,7 @@ The qualified name of a type in scope, optionally wrapped in `Collection()` to d
 
 -------
 
-# <a name="AggregationVocabulary" href="#AggregationVocabulary">5 Aggregation Vocabulary</a>
+# <a name="AggregationVocabulary" href="#AggregationVocabulary">6 Aggregation Vocabulary</a>
 
 **Namespace: [Org.OData.Aggregation.V1](Org.OData.Aggregation.V1.xml)**
 
@@ -1532,7 +1551,7 @@ Deprecated since [`NavigationPropertyAggregationCapabilities`](#NavigationProper
 
 -------
 
-# <a name="AuthorizationVocabulary" href="#AuthorizationVocabulary">6 Authorization Vocabulary</a>
+# <a name="AuthorizationVocabulary" href="#AuthorizationVocabulary">7 Authorization Vocabulary</a>
 
 **Namespace: [Org.OData.Authorization.V1](Org.OData.Authorization.V1.xml)**
 
@@ -1700,7 +1719,7 @@ The name of the authorization scheme.
 
 -------
 
-# <a name="TemporalVocabulary" href="#TemporalVocabulary">7 Temporal Vocabulary</a>
+# <a name="TemporalVocabulary" href="#TemporalVocabulary">8 Temporal Vocabulary</a>
 
 **Namespace: [Org.OData.Temporal.V1](Org.OData.Temporal.V1.xml)**
 
@@ -1865,6 +1884,13 @@ The following documents are referenced in such a way that some or all of their c
 _OData Version 4.02. Part 1: Protocol._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
+###### <a name="ODataCSDL">[OData-CSDL]</a>
+_OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02._  
+See link in "[Related work](#RelatedWork)" section on cover page.
+
+_OData Common Schema Definition Language (CSDL) XML Representation Version 4.02._  
+See link in "[Related work](#RelatedWork)" section on cover page.
+
 ###### <a name="rfc2119">[RFC2119]</a>
 _Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_.
 https://www.rfc-editor.org/info/rfc2119.
@@ -1872,6 +1898,12 @@ https://www.rfc-editor.org/info/rfc2119.
 ###### <a name="rfc8174">[RFC8174]</a>
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_.
 https://www.rfc-editor.org/info/rfc8174.
+
+## <a name="NonNormativeReferences" href="#NonNormativeReferences">A.2 Non-Normative References</a>
+
+###### <a name="ODataVocabs">[OData-Vocabs]</a>
+_odata-vocabularies OASIS TC GitHub repository_.
+https://github.com/oasis-tcs/odata-vocabularies.
 
 <!-- TODO:
 -------

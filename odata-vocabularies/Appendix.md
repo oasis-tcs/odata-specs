@@ -15,6 +15,13 @@ The following documents are referenced in such a way that some or all of their c
 _OData Version 4.02. Part 1: Protocol._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
+###### <a name="ODataCSDL">[OData-CSDL]</a>
+_OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02._  
+See link in "[Related work](#RelatedWork)" section on cover page.
+
+_OData Common Schema Definition Language (CSDL) XML Representation Version 4.02._  
+See link in "[Related work](#RelatedWork)" section on cover page.
+
 ###### <a name="rfc2119">[RFC2119]</a>
 _Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_.
 https://www.rfc-editor.org/info/rfc2119.
@@ -22,6 +29,12 @@ https://www.rfc-editor.org/info/rfc2119.
 ###### <a name="rfc8174">[RFC8174]</a>
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_.
 https://www.rfc-editor.org/info/rfc8174.
+
+## ##subasec Non-Normative References
+
+###### <a name="ODataVocabs">[OData-Vocabs]</a>
+_odata-vocabularies OASIS TC GitHub repository_.
+https://github.com/oasis-tcs/odata-vocabularies.
 
 <!-- TODO:
 -------
