@@ -26,4 +26,4 @@ jobs:
           export PUPPETEER_SKIP_DOWNLOAD='true'
           npm ci
           npm run build
-          git diff --exit-code docs :!docs/odata-vocabularies
+          git diff --exit-code docs

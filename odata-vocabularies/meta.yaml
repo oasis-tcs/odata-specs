@@ -12,5 +12,6 @@ description: >
   These vocabulary components are continuously evolved.
   The latest work-in-progress revisions are available at the odata-vocabularies
   OASIS TC GitHub repository: https://github.com/oasis-tcs/odata-vocabularies.
+repo: odata-vocabularies
 pandocOptions:
   -F: lib/vocab2html.js
