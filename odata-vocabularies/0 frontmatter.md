@@ -85,6 +85,6 @@ Distributed under the terms of the OASIS [IPR Policy](https://www.oasis-open.org
 
 The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the owner and developer of this specification, and should be used only to refer to the organization and its official outputs.
 
-For complete copyright information please see the full Notices section in an Appendix [below](#Notices).
+For complete copyright information please see the full Notices section in an Appendix below.
 
 -------

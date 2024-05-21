@@ -85,7 +85,7 @@ Distributed under the terms of the OASIS [IPR Policy](https://www.oasis-open.org
 
 The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the owner and developer of this specification, and should be used only to refer to the organization and its official outputs.
 
-For complete copyright information please see the full Notices section in an Appendix [below](#Notices).
+For complete copyright information please see the full Notices section in an Appendix below.
 
 -------
 
@@ -99,6 +99,12 @@ For complete copyright information please see the full Notices section in an App
 - [5 Aggregation Vocabulary](#AggregationVocabulary)
 - [6 Authorization Vocabulary](#AuthorizationVocabulary)
 - [7 Temporal Vocabulary](#TemporalVocabulary)
+- [A References](#References)
+  - [A.1 Normative References](#NormativeReferences)
+- [B Safety, Security and Privacy Considerations](#SafetySecurityandPrivacyConsiderations)
+- [C Acknowledgments](#Acknowledgments)
+- [D Revision History](#RevisionHistory)
+- [E Notices](#Notices)
 :::
 
 
@@ -1841,4 +1847,76 @@ Property|Type|Description
 [PeriodStart](./Org.OData.Temporal.V1.xml#L155:~:text=<ComplexType%20Name="-,TimesliceWithPeriod,-")|PrimitiveType?|Lower boundary of the time slice
 [PeriodEnd](./Org.OData.Temporal.V1.xml#L158:~:text=<ComplexType%20Name="-,TimesliceWithPeriod,-")|PrimitiveType?|Upper boundary of the time slice
 [Timeslice](./Org.OData.Temporal.V1.xml#L161:~:text=<NavigationProperty%20Name="-,Timeslice,-")|EntityType|A time slice with the same entity type as the binding parameter of the action<br>When it appears in the return type of an action in this vocabulary, the time slice has the same entity set as the binding parameter value.
+
+
+-------
+
+# <a name="References" href="#References">Appendix A. References</a>
+
+This appendix contains the normative and informative references that are used in this document.
+
+While any hyperlinks included in this appendix were valid at the time of publication, OASIS cannot guarantee their long-term validity.
+
+## <a name="NormativeReferences" href="#NormativeReferences">A.1 Normative References</a>
+
+The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.
+
+###### <a name="ODataProtocol">[OData-Protocol]</a>
+_OData Version 4.02. Part 1: Protocol._  
+See link in "[Related work](#RelatedWork)" section on cover page.
+
+###### <a name="rfc2119">[RFC2119]</a>
+_Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_.
+https://www.rfc-editor.org/info/rfc2119.
+
+###### <a name="rfc8174">[RFC8174]</a>
+_Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_.
+https://www.rfc-editor.org/info/rfc8174.
+
+<!-- TODO:
+-------
+
+# <a name="SafetySecurityandPrivacyConsiderations" href="#SafetySecurityandPrivacyConsiderations">Appendix B. Safety, Security and Privacy Considerations</a>
+
+do we have considerations specific to URLs, for example length, encoding, privacy (use $batch if in doubt), ...?
+-->
+
+-------
+
+# <a name="Acknowledgments" href="#Acknowledgments">Appendix C. Acknowledgments</a>
+
+The contributions of the OASIS OData Technical Committee members, enumerated in [OData-Protocol](#ODataProtocol), are gratefully acknowledged.
+
+-------
+
+# <a name="RevisionHistory" href="#RevisionHistory">Appendix D. Revision History</a>
+
+| Revision | Date | Editor | Changes Made |
+| :--- | :--- | :--- | :--- |
+
+-------
+
+# <a name="Notices" href="#Notices">Appendix E. Notices</a>
+
+<!-- Required section. Do not modify. -->
+
+Copyright © OASIS Open 2024. All Rights Reserved.
+
+All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the "OASIS IPR Policy"). The full [Policy](https://www.oasis-open.org/policies-guidelines/ipr/) may be found at the OASIS website.
+
+This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published, and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this section are included on all such copies and derivative works. However, this document itself may not be modified in any way, including by removing the copyright notice or references to OASIS, except as needed for the purpose of developing any document or deliverable produced by an OASIS Technical Committee (in which case the rules applicable to copyrights, as set forth in the OASIS IPR Policy, must be followed) or as required to translate it into languages other than English.
+
+The limited permissions granted above are perpetual and will not be revoked by OASIS or its successors or assigns.
+
+This document and the information contained herein is provided on an "AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY OWNERSHIP RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+
+As stated in the OASIS IPR Policy, the following three paragraphs in brackets apply to OASIS Standards Final Deliverable documents (Committee Specification, Candidate OASIS Standard, OASIS Standard, or Approved Errata).
+
+\[OASIS requests that any OASIS Party or any other party that believes it has patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable, to notify OASIS TC Administrator and provide an indication of its willingness to grant patent licenses to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this deliverable.\]
+
+\[OASIS invites any party to contact the OASIS TC Administrator if it is aware of a claim of ownership of any patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable by a patent holder that is not willing to provide a license to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this OASIS Standards Final Deliverable. OASIS may include such claims on its website, but disclaims any obligation to do so.\]
+
+\[OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this OASIS Standards Final Deliverable or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS' procedures with respect to rights in any document or deliverable produced by an OASIS Technical Committee can be found on the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this OASIS Standards Final Deliverable, can be obtained from the OASIS TC Administrator. OASIS makes no representation that any information or list of intellectual property rights will at any time be complete, or that any claims in such list are, in fact, Essential Claims.\]
+
+The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the owner and developer of this specification, and should be used only to refer to the organization and its official outputs. OASIS welcomes reference to, and implementation and use of, specifications, while reserving the right to enforce its marks against misleading uses. Please see https://www.oasis-open.org/policies-guidelines/trademark/ for above guidance.
 
