@@ -1,7 +1,6 @@
 node_modules
 coverage
 .DS_Store
-/odata-vocabularies
 /zip/*
 !/zip/*.docx
 !/zip/*.zip
