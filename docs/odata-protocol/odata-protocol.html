@@ -497,26 +497,31 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </thead>
 <tbody>
 <tr class="odd">
+<td><a href="#CollectionofEntities">Section 10.2</a></td>
+<td>Context URLs use parentheses-style keys without percent-encoding</td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/368">368</a></td>
+</tr>
+<tr class="even">
 <td><a href="#DataModification">Section 11.4</a></td>
 <td>Response code <code>204 No Content</code> after successful data modification if requested response could not be constructed</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/443">443</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#UpsertanEntity">Section 11.4.4</a></td>
 <td>Upserts to single-valued non-containment navigation properties</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/455">455</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#UpdateaComplexProperty">Section 11.4.9.3</a></td>
 <td>Setting a complex property to a different type</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/534">534</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#Conformance">Section 12</a></td>
 <td>Allow <code>400 Bad Request</code> in addition to <code>501 Not Implemented</code> for unsupported functionality</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/391">391</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#InteroperableODataClients">Section 12.3</a></td>
 <td>Encoding of plus character in URLs</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/485">485</a></td>
@@ -1002,7 +1007,7 @@ http://host/service/$metadata</code></pre>
 <pre><code>http://host/service/Customers
 http://host/service/$metadata#Customers</code></pre>
 </div>
-<p>If the entities are contained, then <code>entity-set</code> is the top-level entity set or singleton followed by the path to the containment navigation property of the containing entity.</p>
+<p>If the entities are contained, then <code>entity-set</code> is the top-level entity set or singleton followed by the canonical path to the containment navigation property of the containing entity. Key values in that path are represented in canonical form (parentheses-style) without percent-encoding.</p>
 <div class="example">
 <p>Example 12: resource URL and corresponding context URL for contained entities</p>
 <pre><code>http://host/service/Orders(4711)/Items
