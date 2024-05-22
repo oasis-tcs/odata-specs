@@ -311,6 +311,11 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </thead>
 <tbody>
 <tr class="odd">
+<td><a href="#ControlInformationcontextodatacontext">Section 4.5.1</a></td>
+<td>Fragment portion of Context URL is not percent-encoded</td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/368">368</a></td>
+</tr>
+<tr class="even">
 <td><a href="#ControlInformationmediaodatamedia">Section 4.5.12</a></td>
 <td><code>mediaContentType</code> can be <code>null</code></td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/536">536</a></td>
@@ -504,7 +509,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>In some cases, control information is required in request payloads; this is called out in the following subsections.</p>
 <p>Receivers that encounter unknown annotations in any namespace or unknown control information MUST NOT stop processing and MUST NOT signal an error.</p>
 <h3 id="451-control-information-context-odatacontext"><a name="ControlInformationcontextodatacontext" href="#ControlInformationcontextodatacontext">4.5.1 Control Information: <code>context</code> (<code>odata.context</code>)</a></h3>
-<p>The <code>context</code> control information returns the context URL (see <a href="#ODataProtocol">OData-Protocol</a>) for the payload. This URL can be absolute or <a href="#RelativeURLs">relative</a>.</p>
+<p>The <code>context</code> control information returns the context URL (see <a href="#ODataProtocol">OData-Protocol</a>) for the payload. This URL can be absolute or <a href="#RelativeURLs">relative</a>. The fragment portion of the context URL MUST NOT be percent-encoded.</p>
 <p>The <code>context</code> control information is not returned if <a href="#metadatanoneodatametadatanone"><code>metadata=none</code></a> is requested. Otherwise it MUST be the first property of any JSON response that allows this control information (this excludes for example <a href="#ErrorResponse">error responses</a>).</p>
 <p>The <code>context</code> control information MUST also be included in requests and responses for entities whose entity set cannot be determined from the context URL of the collection.</p>
 <p>For more information on the format of the context URL, see <a href="#ODataProtocol">OData-Protocol</a>.</p>
