@@ -109,8 +109,8 @@ entity's primary key fields. The `id` control information MUST appear if any of 
 entity's primary key fields are omitted from the response _or_ the entity-id is not 
 identical to the canonical URL of the entity.
 
-When using a delta payload in an [update request](#UpdateaCollectionofEntities), 
-[alternate keys](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AlternateKeys) (see _Alternate Keys_ in [OData-URL](#ODataURL))
+When using a delta payload in an [update request](#UpdateaCollectionofEntities), an 
+[alternate key](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AlternateKeys) (see _Alternate Keys_ in [OData-URL](#ODataURL))
 MAY be used in place of the entity's primary key. 
 A delta response from an update request using alternate keys SHOULD include
 all fields of the alternate key used in the request, in which case it
@@ -323,15 +323,13 @@ following properties, regardless of the specified
 
 - Control information
   [`id`](#ControlInformationidodataid)
-  or all of the entity's key fields. The `id` control
-  information MUST appear if any of the entity's key fields are omitted
+  or all of the entity's primary key fields. The `id` control
+  information MUST appear if any of the entity's primary key fields are omitted
   from the response _or_ the entity-id is not identical to the canonical
   URL of the entity. When using a delta payload in an 
-  [update request](#UpdateaCollectionofEntities), [alternate keys](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AlternateKeys) 
-  MAY be used in place of the entity's primary key fields. A delta response 
-  from an update request using alternate keys SHOULD include the same 
-  alternate keys fields as the request and MAY omit the `id` control information 
-  and other primary key fields. For [ordered
+  [update request](#UpdateaCollectionofEntities), an [alternate key](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AlternateKeys) (see _Alternate Keys_ in [OData-URL](#ODataURL))
+  MAY be used in place of the entity's primary key. A delta response from an update request using alternate keys SHOULD include all fields of the alternate key used in the request, in which case it
+  MAY omit the `id` control information and other primary key fields. For [ordered
   payloads](#PayloadOrderingConstraints), the control information
   `id`, if present, MUST immediately follow the control
   information
