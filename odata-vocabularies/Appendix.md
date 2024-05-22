@@ -48,8 +48,26 @@ do we have considerations specific to URLs, for example length, encoding, privac
 
 # Appendix ##asec Acknowledgments
 
+## ##subasec Special Thanks
+
 The contributions of the OASIS OData Technical Committee members, enumerated in [OData-Protocol](#ODataProtocol), are gratefully acknowledged.
 
+## ##subasec Participants
+
+**OData TC Members:**
+
+| First Name | Last Name | Company |
+| :--- | :--- | :--- |
+| George | Ericson | Dell |
+| Hubert | Heijkers | IBM |
+| Ling | Jin | IBM |
+| Stefan | Hagen | Individual |
+| Michael | Pizzo | Microsoft |
+| Christof | Sprenger | Microsoft |
+| Ralf | Handl | SAP SE |
+| Gerald | Krause | SAP SE |
+| Heiko | Theißen | SAP SE |
+| Martin | Zurmuehl | SAP SE |
 -------
 
 # Appendix ##asec Revision History
