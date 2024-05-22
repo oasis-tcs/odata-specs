@@ -126,8 +126,12 @@ Other OData vocabularies may be created, shared, and maintained outside of this 
 
 ## <a name="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a>
 
-Section | Feature / Change | Issue
---------|------------------|------
+Section | Feature / Change
+--------|-----------------
+[Section 2](#CoreVocabulary) - [Section 7](#AuthorizationVocabulary)|Updated snapshots
+[Section 8](#JSONVocabulary)|New JSON vocabulary
+[Section 9](#RepeatabilityVocabulary)|New Repeatability vocabulary
+[Section 10](#TemporalVocabulary)|New Temporal vocabulary
 
 
 -------
