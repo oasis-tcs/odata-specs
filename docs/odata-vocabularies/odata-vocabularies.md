@@ -92,7 +92,6 @@ For complete copyright information please see the full Notices section in an App
 
 ::: toc
 - [1 Introduction](#Introduction)
-  - [1.1 Changes from Earlier Versions](#ChangesfromEarlierVersions)
 - [2 Core Vocabulary](#CoreVocabulary)
 - [3 Capabilities Vocabulary](#CapabilitiesVocabulary)
 - [4 Measures Vocabulary](#MeasuresVocabulary)
@@ -105,12 +104,11 @@ For complete copyright information please see the full Notices section in an App
 - [A References](#References)
   - [A.1 Normative References](#NormativeReferences)
   - [A.2 Non-Normative References](#NonNormativeReferences)
-- [B Safety, Security and Privacy Considerations](#SafetySecurityandPrivacyConsiderations)
-- [C Acknowledgments](#Acknowledgments)
-  - [C.1 Special Thanks](#SpecialThanks)
-  - [C.2 Participants](#Participants)
-- [D Revision History](#RevisionHistory)
-- [E Notices](#Notices)
+- [B Acknowledgments](#Acknowledgments)
+  - [B.1 Special Thanks](#SpecialThanks)
+  - [B.2 Participants](#Participants)
+- [C Revision History](#RevisionHistory)
+- [D Notices](#Notices)
 :::
 
 
@@ -124,14 +122,14 @@ This prose specification describes a set of OData vocabularies maintained by the
 
 Other OData vocabularies may be created, shared, and maintained outside of this work product.
 
-## <a name="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a>
+<!-- No earlier versions published
 
-Section | Feature / Change
---------|-----------------
-[Section 2](#CoreVocabulary) - [Section 7](#AuthorizationVocabulary)|Updated snapshots
-[Section 8](#JSONVocabulary)|New JSON vocabulary
-[Section 9](#RepeatabilityVocabulary)|New Repeatability vocabulary
-[Section 10](#TemporalVocabulary)|New Temporal vocabulary
+--## ##--subsec Changes from Earlier Versions
+
+Section | Feature / Change | Issue
+--------|------------------|------
+
+-->
 
 
 -------
@@ -1953,20 +1951,20 @@ https://github.com/oasis-tcs/odata-vocabularies.
 <!-- TODO:
 -------
 
-# <a name="SafetySecurityandPrivacyConsiderations" href="#SafetySecurityandPrivacyConsiderations">Appendix B. Safety, Security and Privacy Considerations</a>
+# Appendix ##--asec Safety, Security and Privacy Considerations
 
 do we have considerations specific to URLs, for example length, encoding, privacy (use $batch if in doubt), ...?
 -->
 
 -------
 
-# <a name="Acknowledgments" href="#Acknowledgments">Appendix C. Acknowledgments</a>
+# <a name="Acknowledgments" href="#Acknowledgments">Appendix B. Acknowledgments</a>
 
-## <a name="SpecialThanks" href="#SpecialThanks">C.1 Special Thanks</a>
+## <a name="SpecialThanks" href="#SpecialThanks">B.1 Special Thanks</a>
 
 The contributions of the OASIS OData Technical Committee members, enumerated in [OData-Protocol](#ODataProtocol), are gratefully acknowledged.
 
-## <a name="Participants" href="#Participants">C.2 Participants</a>
+## <a name="Participants" href="#Participants">B.2 Participants</a>
 
 **OData TC Members:**
 
@@ -1985,7 +1983,7 @@ The contributions of the OASIS OData Technical Committee members, enumerated in 
 
 -------
 
-# <a name="RevisionHistory" href="#RevisionHistory">Appendix D. Revision History</a>
+# <a name="RevisionHistory" href="#RevisionHistory">Appendix C. Revision History</a>
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
@@ -1993,7 +1991,7 @@ The contributions of the OASIS OData Technical Committee members, enumerated in 
 
 -------
 
-# <a name="Notices" href="#Notices">Appendix E. Notices</a>
+# <a name="Notices" href="#Notices">Appendix D. Notices</a>
 
 <!-- Required section. Do not modify. -->
 

@@ -92,10 +92,7 @@ Heiko Theißen (<a href="https://oasis-tcs.github.io/odata-vocabularies/vocabula
 <h1 id="table-of-contents">Table of Contents</h1>
 <div class="toc">
 <ul>
-<li><a href="#Introduction">1 Introduction</a>
-<ul>
-<li><a href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a></li>
-</ul></li>
+<li><a href="#Introduction">1 Introduction</a></li>
 <li><a href="#CoreVocabulary">2 Core Vocabulary</a></li>
 <li><a href="#CapabilitiesVocabulary">3 Capabilities Vocabulary</a></li>
 <li><a href="#MeasuresVocabulary">4 Measures Vocabulary</a></li>
@@ -110,14 +107,13 @@ Heiko Theißen (<a href="https://oasis-tcs.github.io/odata-vocabularies/vocabula
 <li><a href="#NormativeReferences">A.1 Normative References</a></li>
 <li><a href="#NonNormativeReferences">A.2 Non-Normative References</a></li>
 </ul></li>
-<li><a href="#SafetySecurityandPrivacyConsiderations">B Safety, Security and Privacy Considerations</a></li>
-<li><a href="#Acknowledgments">C Acknowledgments</a>
+<li><a href="#Acknowledgments">B Acknowledgments</a>
 <ul>
-<li><a href="#SpecialThanks">C.1 Special Thanks</a></li>
-<li><a href="#Participants">C.2 Participants</a></li>
+<li><a href="#SpecialThanks">B.1 Special Thanks</a></li>
+<li><a href="#Participants">B.2 Participants</a></li>
 </ul></li>
-<li><a href="#RevisionHistory">D Revision History</a></li>
-<li><a href="#Notices">E Notices</a></li>
+<li><a href="#RevisionHistory">C Revision History</a></li>
+<li><a href="#Notices">D Notices</a></li>
 </ul>
 </div>
 <hr />
@@ -125,33 +121,15 @@ Heiko Theißen (<a href="https://oasis-tcs.github.io/odata-vocabularies/vocabula
 <p>OData provides the ability to decorate model elements of a schema and instances of data with descriptive elements called annotations. Annotations can be used to specify additional facts about an element, such as whether it is read-only, or to define a common concept, such as a person or a movie. Annotations consist of a term (the namespace-qualified name of the annotation being applied), a target (the element to which the term is applied), and a value. A set of related annotation terms with a common namespace comprises a Vocabulary. Shared vocabularies provide a powerful extensibility point for OData. Refer to the <a href="#ODataProtocol">OData-Protocol</a> and <a href="#ODataCSDL">OData-CSDL</a> specifications for more information on the use of vocabularies.</p>
 <p>This prose specification describes a set of OData vocabularies maintained by the OASIS OData Technical Committee. It is one component of a Work Product that also includes the various vocabulary components. These vocabulary components are continuously evolved, the latest work-in-progress revisions are available at <a href="#ODataVocabs">OData-Vocabs</a>.</p>
 <p>Other OData vocabularies may be created, shared, and maintained outside of this work product.</p>
-<h2 id="11-changes-from-earlier-versions"><a name="undefined-ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a></h2>
-<table>
-<thead>
-<tr class="header">
-<th>Section</th>
-<th>Feature / Change</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="#CoreVocabulary">Section 2</a> - <a href="#AuthorizationVocabulary">Section 7</a></td>
-<td>Updated snapshots</td>
-</tr>
-<tr class="even">
-<td><a href="#JSONVocabulary">Section 8</a></td>
-<td>New JSON vocabulary</td>
-</tr>
-<tr class="odd">
-<td><a href="#RepeatabilityVocabulary">Section 9</a></td>
-<td>New Repeatability vocabulary</td>
-</tr>
-<tr class="even">
-<td><a href="#TemporalVocabulary">Section 10</a></td>
-<td>New Temporal vocabulary</td>
-</tr>
-</tbody>
-</table>
+<!-- No earlier versions published
+
+--## ##--subsec Changes from Earlier Versions
+
+Section | Feature / Change | Issue
+--------|------------------|------
+
+-->
+
 <hr />
 <h1 id="2-core-vocabulary"><a name="CoreVocabulary" href="#CoreVocabulary">2 Core Vocabulary</a></h1>
 <p><strong>Namespace: <a href="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">Org.OData.Core.V1</a></strong></p>
@@ -4794,16 +4772,16 @@ See link in “<a href="#Temporal-RelatedWork">Related work</a>” section on co
 <!-- TODO:
 -------
 
-# <a name="SafetySecurityandPrivacyConsiderations" href="#SafetySecurityandPrivacyConsiderations">Appendix B. Safety, Security and Privacy Considerations</a>
+# Appendix ##--asec Safety, Security and Privacy Considerations
 
 do we have considerations specific to URLs, for example length, encoding, privacy (use $batch if in doubt), ...?
 -->
 
 <hr />
-<h1 id="appendix-c-acknowledgments"><a name="Temporal-Acknowledgments" href="#Acknowledgments">Appendix C. Acknowledgments</a></h1>
-<h2 id="c1-special-thanks"><a name="Temporal-SpecialThanks" href="#SpecialThanks">C.1 Special Thanks</a></h2>
+<h1 id="appendix-b-acknowledgments"><a name="Temporal-Acknowledgments" href="#Acknowledgments">Appendix B. Acknowledgments</a></h1>
+<h2 id="b1-special-thanks"><a name="Temporal-SpecialThanks" href="#SpecialThanks">B.1 Special Thanks</a></h2>
 <p>The contributions of the OASIS OData Technical Committee members, enumerated in <a href="#Temporal-ODataProtocol">OData-Protocol</a>, are gratefully acknowledged.</p>
-<h2 id="c2-participants"><a name="Temporal-Participants" href="#Participants">C.2 Participants</a></h2>
+<h2 id="b2-participants"><a name="Temporal-Participants" href="#Participants">B.2 Participants</a></h2>
 <p><strong>OData TC Members:</strong></p>
 <table>
 <thead>
@@ -4867,7 +4845,7 @@ do we have considerations specific to URLs, for example length, encoding, privac
 </tbody>
 </table>
 <hr />
-<h1 id="appendix-d-revision-history"><a name="Temporal-RevisionHistory" href="#RevisionHistory">Appendix D. Revision History</a></h1>
+<h1 id="appendix-c-revision-history"><a name="Temporal-RevisionHistory" href="#RevisionHistory">Appendix C. Revision History</a></h1>
 <table>
 <thead>
 <tr class="header">
@@ -4887,7 +4865,7 @@ do we have considerations specific to URLs, for example length, encoding, privac
 </tbody>
 </table>
 <hr />
-<h1 id="appendix-e-notices"><a name="Temporal-Notices" href="#Notices">Appendix E. Notices</a></h1>
+<h1 id="appendix-d-notices"><a name="Temporal-Notices" href="#Notices">Appendix D. Notices</a></h1>
 <!-- Required section. Do not modify. -->
 
 <p>Copyright © OASIS Open 2024. All Rights Reserved.</p>

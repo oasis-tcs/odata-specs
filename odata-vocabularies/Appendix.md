@@ -39,7 +39,7 @@ https://github.com/oasis-tcs/odata-vocabularies.
 <!-- TODO:
 -------
 
-# Appendix ##asec Safety, Security and Privacy Considerations
+# Appendix ##--asec Safety, Security and Privacy Considerations
 
 do we have considerations specific to URLs, for example length, encoding, privacy (use $batch if in doubt), ...?
 -->
