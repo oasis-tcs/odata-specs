@@ -79,8 +79,9 @@ http://host/service/$metadata#Customers
 :::
 
 If the entities are contained, then `entity-set` is the top-level entity
-set or singleton followed by the path to the containment navigation
+set or singleton followed by the canonical path to the containment navigation
 property of the containing entity.
+Key values in that path are represented in canonical form (parentheses-style) without percent-encoding.
 
 ::: example
 Example ##ex: resource URL and corresponding context URL for contained

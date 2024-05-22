@@ -320,7 +320,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        odata-v4.02-csd02-part2-url-conventions.md
 ```
 
-This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12.2.
+This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 -->
 
 -------
@@ -467,7 +467,7 @@ libraries.
 Services that do not follow the resource path conventions for entity
 container children are strongly encouraged to document their resource
 paths by annotating entity container children with the term
-[`Core.ResourcePath`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ResourcePath)
+[`Core.ResourcePath`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ResourcePath)
 defined in [OData-VocCore](#ODataVocCore). The annotation value is the
 URL of the annotated resource and may be relative to `xml:base` (if
 present), otherwise the request URL.
@@ -795,8 +795,13 @@ document.
 
 In addition to the canonical (primary) key an entity set or entity type
 can specify one or more alternate keys with the
-[`Core.AlternateKeys`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#AlternateKeys)
-term (see [OData-VocCore](#ODataVocCore)). Entities can be addressed via
+[`Core.AlternateKeys`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AlternateKeys)
+term (see [OData-VocCore](#ODataVocCore)). 
+Alternate keys can be used by the client to address entities anywhere the canonical key
+can be used; for example, within entity sets, collection-valued navigation properties,
+collection-valued composable functions, and within delta payloads.
+
+Entities are addressed via
 an alternate key using the same parentheses-style convention as for the
 canonical key, with one difference: single-part alternate keys MUST
 specify the key property name to unambiguously determine the alternate
@@ -969,7 +974,7 @@ defined in the [OData-Protocol](#ODataProtocol) document.
 Services MAY additionally support the use of the unqualified name of an
 action or function in a URL by defining one or more default namespaces
 through the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) term
+[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) term
 defined in [OData-VocCore](#ODataVocCore). For more information on
 default namespaces, see Default Namespaces in [OData-Protocol](#ODataProtocol).
 
@@ -1121,14 +1126,14 @@ appended to the collection URL before appending the key segment.
 
 Note: entity sets or collection-valued navigation properties annotated
 with the term
-[`Capabilities.IndexableByKey`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#IndexableByKey)
+[`Capabilities.IndexableByKey`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#IndexableByKey)
 defined in [OData-VocCap](#ODataVocCap) and a value of `false` do not
 support addressing their members by key.
 
 ## <a name="AddressingaMemberofanOrderedCollection" href="#AddressingaMemberofanOrderedCollection">4.10 Addressing a Member of an Ordered Collection</a>
 
 Collections can be annotated as ordered using the
-[`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered)
+[`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered)
 term (see [OData-VocCore](#ODataVocCore)). Individual items within an
 ordered collection of primitive or complex types can be addressed by
 appending a segment containing the zero-based ordinal to the URL of the
@@ -1166,7 +1171,7 @@ the type cast will evaluate to `null`.
 Services MAY additionally support the use of the unqualified name of a
 derived type in a URL by defining one or more default namespaces through
 the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace)
+[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace)
 term defined in [OData-VocCore](#ODataVocCore). For more information on
 default namespaces, see Default Namespaces in [OData-Protocol](#ODataProtocol).
 
@@ -1176,7 +1181,7 @@ derived type. In this case, the set and values of properties of the
 addressed type may be different than the properties of the source type.
 The set of such possible target types outside of the type hierarchy
 SHOULD be called out using the
-[`Core.MayImplement`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#MayImplement)
+[`Core.MayImplement`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#MayImplement)
 annotation term, defined in [OData-VocCore](#ODataVocCore).
 
 ::: example
@@ -1364,20 +1369,20 @@ http://host/service/$crossjoin(Products,Sales)?$filter=Products/ID eq Sales/Prod
 and would result in
 ```json
 {
-  "@odata.context": "http://host/service/$metadata#Collection(Edm.ComplexType)",
+  "@context": "http://host/service/$metadata#Collection(Edm.ComplexType)",
   "value": [
     {
-      "Products@odata.navigationLink": "Products(0)",
-      "Sales@odata.navigationLink": "Sales(42)",
+      "Products@navigationLink": "Products(0)",
+      "Sales@navigationLink": "Sales(42)",
     },
     {
-      "Products@odata.navigationLink": "Products(0)",
-      "Sales@odata.navigationLink": "Sales(57)",
+      "Products@navigationLink": "Products(0)",
+      "Sales@navigationLink": "Sales(57)",
     },
     …
     {
-      "Products@odata.navigationLink": "Products(99)",
-      "Sales@odata.navigationLink": "Sales(21)",
+      "Products@navigationLink": "Products(99)",
+      "Sales@navigationLink": "Sales(21)",
     }
   ]
 }
@@ -1615,7 +1620,7 @@ The Boolean value `true` is greater than `false`.
 Services SHOULD order language-dependent strings according to the
 `Content-Language` of the response, and SHOULD annotate string properties
 with language-dependent order with the term
-[`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
+[`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
 see [OData-VocCore](#ODataVocCore).
 
 If any operand is `null`, the operator returns false.
@@ -1640,7 +1645,7 @@ The Boolean value `false` is less than `true`.
 Services SHOULD order language-dependent strings according to the
 `Content-Language` of the response, and SHOULD annotate string properties
 with language-dependent order with the term
-[`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
+[`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
 see [OData-VocCore](#ODataVocCore).
 
 If any operand is `null`, the operator returns false.
@@ -3284,7 +3289,7 @@ navigation properties, then the request may be considered malformed.
 Services MAY support the use of annotation values as operands or
 function parameters, and they MAY advertise this by annotating the
 entity container with term
-[`Capabilities.AnnotationValuesInQuerySupported`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#AnnotationValuesInQuerySupported),
+[`Capabilities.AnnotationValuesInQuerySupported`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#AnnotationValuesInQuerySupported),
 see [OData-VocCap](#ODataVocCap).
 
 Annotation values are referenced by the annotation name which consists
@@ -3306,7 +3311,7 @@ http://host/service/Products?$filter=Price/@Measures.Currency eq 'EUR'
 
 ::: example
 Example 115: Return Employees that have any error messages in the
-[`Core.Messages`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Messages)
+[`Core.Messages`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Messages)
 annotation
 ```
 http://host/service/Employees?$filter=@Core.Messages/any(m:m/severity eq 'error')
@@ -3315,7 +3320,7 @@ http://host/service/Employees?$filter=@Core.Messages/any(m:m/severity eq 'error'
 
 Services MAY additionally support the use of the unqualified term name
 by defining one or more default namespaces through the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) annotation
+[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) annotation
 term defined in [OData-VocCore](#ODataVocCore). For more information on
 default namespaces, see Default Namespaces in [OData-Protocol](#ODataProtocol).
 This short notation however uses the same name pattern as parameter
@@ -3924,7 +3929,7 @@ http://host/service/Orders(10)/Items
 
 The `$index` system query option allows clients to do a positional
 insert into a collection annotated with the
-[`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
+[`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
 term (see [OData-VocCore](#ODataVocCore)). The value of the `$index`
 system query option is the zero-based ordinal position where the item is
 to be inserted. The ordinal of items within the collection greater than
@@ -4066,6 +4071,10 @@ http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/. Latest version available 
 ###### <a name="_ECMAScript">[ECMAScript]</a>
 _ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262.
 https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
+
+###### <a name="_WKT">[Well-Known Text]</a>
+_OpenGIS Implementation Specification for Geographic information – Simple feature access – Part 1: Common architecture_, May 2011. Open Geospatial Consortium.
+https://www.ogc.org/standard/sfa/.
 
 <!-- TODO:
 -------

@@ -599,7 +599,7 @@ the risk for unintended data loss.
 
 Note: model elements with duration values and a granularity less than seconds
 (e.g. minutes, hours, days) can be annotated with the term
-[`Measures.DurationGranularity`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Measures.V1.md#DurationGranularity),
+[`Measures.DurationGranularity`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Measures.V1.md#DurationGranularity),
 see [OData-VocMeasures](#ODataVocMeasures).
 
 ::: {.varjson .rep}
