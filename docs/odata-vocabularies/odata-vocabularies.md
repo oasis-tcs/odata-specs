@@ -92,7 +92,6 @@ For complete copyright information please see the full Notices section in an App
 
 ::: toc
 - [1 Introduction](#Introduction)
-  - [1.1 Changes from Earlier Versions](#ChangesfromEarlierVersions)
 - [2 Core Vocabulary](#CoreVocabulary)
 - [3 Capabilities Vocabulary](#CapabilitiesVocabulary)
 - [4 Measures Vocabulary](#MeasuresVocabulary)
@@ -123,14 +122,14 @@ This prose specification describes a set of OData vocabularies maintained by the
 
 Other OData vocabularies may be created, shared, and maintained outside of this work product.
 
-## <a name="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a>
+<!-- No earlier versions published
 
-Section | Feature / Change
---------|-----------------
-[Section 2](#CoreVocabulary) - [Section 7](#AuthorizationVocabulary)|Updated snapshots
-[Section 8](#JSONVocabulary)|New JSON vocabulary
-[Section 9](#RepeatabilityVocabulary)|New Repeatability vocabulary
-[Section 10](#TemporalVocabulary)|New Temporal vocabulary
+--## ##--subsec Changes from Earlier Versions
+
+Section | Feature / Change | Issue
+--------|------------------|------
+
+-->
 
 
 -------

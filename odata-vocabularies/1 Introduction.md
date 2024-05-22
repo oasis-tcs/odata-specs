@@ -9,11 +9,11 @@ This prose specification describes a set of OData vocabularies maintained by the
 
 Other OData vocabularies may be created, shared, and maintained outside of this work product.
 
-## ##subsec Changes from Earlier Versions
+<!-- No earlier versions published
 
-Section | Feature / Change
---------|-----------------
-[Section ##CoreVocabulary] - [Section ##AuthorizationVocabulary]|Updated snapshots
-[Section ##JSONVocabulary]|New JSON vocabulary
-[Section ##RepeatabilityVocabulary]|New Repeatability vocabulary
-[Section ##TemporalVocabulary]|New Temporal vocabulary
+--## ##--subsec Changes from Earlier Versions
+
+Section | Feature / Change | Issue
+--------|------------------|------
+
+-->
