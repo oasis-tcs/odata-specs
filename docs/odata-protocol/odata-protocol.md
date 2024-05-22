@@ -351,8 +351,9 @@ resource representations that are exchanged using OData.
 
 Section | Feature / Change | Issue
 --------|------------------|------
+[Section 10.2](#CollectionofEntities)| Context URLs use parentheses-style keys without percent-encoding| [368](https://github.com/oasis-tcs/odata-specs/issues/368)
 [Section 11.4](#DataModification)| Response code `204 No Content` after successful data modification if requested response could not be constructed| [443](https://github.com/oasis-tcs/odata-specs/issues/443)
-[Section 11.4.4](#UpsertanEntity)|  Upserts to single-valued non-containment navigation properties| [455](https://github.com/oasis-tcs/odata-specs/issues/455)
+[Section 11.4.4](#UpsertanEntity)| Upserts to single-valued non-containment navigation properties| [455](https://github.com/oasis-tcs/odata-specs/issues/455)
 [Section 11.4.9.3](#UpdateaComplexProperty)| Setting a complex property to a different type| [534](https://github.com/oasis-tcs/odata-specs/issues/534)
 [Section 12](#Conformance) | Allow `400 Bad Request` in addition to `501 Not Implemented` for unsupported functionality| [391](https://github.com/oasis-tcs/odata-specs/issues/391)
 [Section 12.3](#InteroperableODataClients) | Encoding of plus character in URLs | [485](https://github.com/oasis-tcs/odata-specs/issues/485)
@@ -2044,8 +2045,9 @@ http://host/service/$metadata#Customers
 :::
 
 If the entities are contained, then `entity-set` is the top-level entity
-set or singleton followed by the path to the containment navigation
+set or singleton followed by the canonical path to the containment navigation
 property of the containing entity.
+Key values in that path are represented in canonical form (parentheses-style) without percent-encoding.
 
 ::: example
 Example 12: resource URL and corresponding context URL for contained
@@ -4175,6 +4177,8 @@ Properties with a defined default value, nullable properties, and
 collection-valued properties omitted from the request are set to the
 default value, null, or an empty collection, respectively.
 
+Services MAY add dynamic properties to the created entity as long as their names do not conflict with the names of declared properties and client-specified dynamic properties.
+
 Upon successful creation of the entity, the service MUST respond with either
 [`201 Created`](#ResponseCode201Created) and a representation of the
 created entity, or [`204 No Content`](#ResponseCode204NoContent) if the
@@ -4309,7 +4313,7 @@ payload corresponding to updatable properties MUST replace the value of
 the corresponding property in the entity or complex type.
 Complex properties are updated by applying `PATCH` semantics recursively,
 see also [section 11.4.9.3](#UpdateaComplexProperty).
-Missing properties of the containing entity or complex property, including
+Omitted properties of the containing entity or complex property, including
 dynamic properties, MUST NOT be directly altered unless as a side effect
 of changes resulting from the provided properties.
 
@@ -4321,12 +4325,12 @@ potential for data-loss in round-tripping properties that the client may
 not know about in advance, such as open or added properties, or
 properties not specified in metadata. Services that support `PUT` MUST
 replace all values of structural properties with those specified in the
-request body. Missing non-key, updatable structural properties not
+request body. Omitted non-key, updatable structural properties not
 defined as dependent properties within a referential constraint MUST be
 set to their default values. Omitting a non-nullable property with no
 service-generated or default value from a `PUT` request results in a
-`400 Bad Request` error. Missing dynamic structural properties MUST be
-removed or set to `null`.
+`400 Bad Request` error. Omitted dynamic properties MUST be
+removed, set to `null`, or set to a service-generated value.
 
 For requests with an `OData-Version` header with a value of `4.01` or
 greater, the media stream of a media entity can be updated by specifying

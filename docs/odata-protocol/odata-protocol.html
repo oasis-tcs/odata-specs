@@ -497,26 +497,31 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </thead>
 <tbody>
 <tr class="odd">
+<td><a href="#CollectionofEntities">Section 10.2</a></td>
+<td>Context URLs use parentheses-style keys without percent-encoding</td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/368">368</a></td>
+</tr>
+<tr class="even">
 <td><a href="#DataModification">Section 11.4</a></td>
 <td>Response code <code>204 No Content</code> after successful data modification if requested response could not be constructed</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/443">443</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#UpsertanEntity">Section 11.4.4</a></td>
 <td>Upserts to single-valued non-containment navigation properties</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/455">455</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#UpdateaComplexProperty">Section 11.4.9.3</a></td>
 <td>Setting a complex property to a different type</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/534">534</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#Conformance">Section 12</a></td>
 <td>Allow <code>400 Bad Request</code> in addition to <code>501 Not Implemented</code> for unsupported functionality</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/391">391</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#InteroperableODataClients">Section 12.3</a></td>
 <td>Encoding of plus character in URLs</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/485">485</a></td>
@@ -1002,7 +1007,7 @@ http://host/service/$metadata</code></pre>
 <pre><code>http://host/service/Customers
 http://host/service/$metadata#Customers</code></pre>
 </div>
-<p>If the entities are contained, then <code>entity-set</code> is the top-level entity set or singleton followed by the path to the containment navigation property of the containing entity.</p>
+<p>If the entities are contained, then <code>entity-set</code> is the top-level entity set or singleton followed by the canonical path to the containment navigation property of the containing entity. Key values in that path are represented in canonical form (parentheses-style) without percent-encoding.</p>
 <div class="example">
 <p>Example 12: resource URL and corresponding context URL for contained entities</p>
 <pre><code>http://host/service/Orders(4711)/Items
@@ -1793,6 +1798,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>If the entity being created is not an open entity, additional property values beyond those specified in the metadata SHOULD NOT be sent in the request body. The service MUST fail if unable to persist all property values specified in the request.</p>
 <p>Properties computed by the service (annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Computed"><code>Core.Computed</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>) and properties that are tied to properties of the principal entity by a referential constraint, can be omitted and MUST be ignored if included in the request.</p>
 <p>Properties with a defined default value, nullable properties, and collection-valued properties omitted from the request are set to the default value, null, or an empty collection, respectively.</p>
+<p>Services MAY add dynamic properties to the created entity as long as their names do not conflict with the names of declared properties and client-specified dynamic properties.</p>
 <p>Upon successful creation of the entity, the service MUST respond with either <a href="#ResponseCode201Created"><code>201 Created</code></a> and a representation of the created entity, or <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> if the request included a <a href="#Preferencereturnrepresentationandreturnminimal"><code>return=minimal</code></a> preference and did not include the system query options <a href="#SystemQueryOptionselect"><code>$select</code></a> and <a href="#SystemQueryOptionexpand"><code>$expand</code></a>, or if a representation of the created entity could not be constructed. In either case, if the service is able to construct the edit URL or read URL of the created entity, the response MUST contain that URL in a <a href="#HeaderLocation"><code>Location</code></a> header.</p>
 <h4 id="11421-link-to-related-entities-when-creating-an-entity"><a name="LinktoRelatedEntitiesWhenCreatinganEntity" href="#LinktoRelatedEntitiesWhenCreatinganEntity">11.4.2.1 Link to Related Entities When Creating an Entity</a></h4>
 <p>To create a new entity with links to existing entities in a single request, the client includes references to the related entities in the request body.</p>
@@ -1840,9 +1846,9 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>To update an individual entity, the client makes a <code>PATCH</code> or <code>PUT</code> request to a URL that identifies the entity. Services MAY restrict updates only to requests addressing the <a href="#ReadURLsandEditURLs">edit URL</a> of the entity.</p>
 <p>The body of the request MUST be a valid representation of the declared target entity type, or one of its derived types.</p>
 <p>Services SHOULD support <code>PATCH</code> as the preferred means of updating an entity. <code>PATCH</code> provides more resiliency between clients and services by directly modifying only those values specified by the client.</p>
-<p>The semantics of <code>PATCH</code>, as defined in <a href="#rfc5789">RFC5789</a>, is to merge the content in the request payload with the entity’s current state, applying the update only to those components specified in the request body. Collection properties and primitive properties provided in the payload corresponding to updatable properties MUST replace the value of the corresponding property in the entity or complex type. Complex properties are updated by applying <code>PATCH</code> semantics recursively, see also <a href="#UpdateaComplexProperty">section 11.4.9.3</a>. Missing properties of the containing entity or complex property, including dynamic properties, MUST NOT be directly altered unless as a side effect of changes resulting from the provided properties.</p>
+<p>The semantics of <code>PATCH</code>, as defined in <a href="#rfc5789">RFC5789</a>, is to merge the content in the request payload with the entity’s current state, applying the update only to those components specified in the request body. Collection properties and primitive properties provided in the payload corresponding to updatable properties MUST replace the value of the corresponding property in the entity or complex type. Complex properties are updated by applying <code>PATCH</code> semantics recursively, see also <a href="#UpdateaComplexProperty">section 11.4.9.3</a>. Omitted properties of the containing entity or complex property, including dynamic properties, MUST NOT be directly altered unless as a side effect of changes resulting from the provided properties.</p>
 <p>If the type of the entity in a <code>PATCH</code> request differs from the type of the entity being updated (i.e., a different derived type of the declared target type), then properties shared through inheritance, as well as dynamic properties, are retained (unless overwritten by new values in the payload). Other properties of the original type are discarded.</p>
-<p>Services MAY additionally support <code>PUT</code> but should be aware of the potential for data-loss in round-tripping properties that the client may not know about in advance, such as open or added properties, or properties not specified in metadata. Services that support <code>PUT</code> MUST replace all values of structural properties with those specified in the request body. Missing non-key, updatable structural properties not defined as dependent properties within a referential constraint MUST be set to their default values. Omitting a non-nullable property with no service-generated or default value from a <code>PUT</code> request results in a <code>400 Bad Request</code> error. Missing dynamic structural properties MUST be removed or set to <code>null</code>.</p>
+<p>Services MAY additionally support <code>PUT</code> but should be aware of the potential for data-loss in round-tripping properties that the client may not know about in advance, such as open or added properties, or properties not specified in metadata. Services that support <code>PUT</code> MUST replace all values of structural properties with those specified in the request body. Omitted non-key, updatable structural properties not defined as dependent properties within a referential constraint MUST be set to their default values. Omitting a non-nullable property with no service-generated or default value from a <code>PUT</code> request results in a <code>400 Bad Request</code> error. Omitted dynamic properties MUST be removed, set to <code>null</code>, or set to a service-generated value.</p>
 <p>For requests with an <code>OData-Version</code> header with a value of <code>4.01</code> or greater, the media stream of a media entity can be updated by specifying the format-specific representation of the media stream as a virtual property <code>$value</code>.</p>
 <p>Updating a dependent property that is tied to a key property of the principal entity through a referential constraint updates the relationship to point to the entity with the specified key value. If there is no such entity, the update fails.</p>
 <p>Updating a principal property that is tied to a dependent entity through a referential constraint on the dependent entity updates the dependent property.</p>
