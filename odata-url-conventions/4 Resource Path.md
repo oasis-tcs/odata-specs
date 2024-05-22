@@ -343,7 +343,7 @@ can specify one or more alternate keys with the
 [`Core.AlternateKeys`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AlternateKeys)
 term (see [OData-VocCore](#ODataVocCore)). 
 
-Alternate keys can be used to address entities anywhere the canonical key
+Alternate keys can be used by the client to address entities anywhere the canonical key
 can be used; for example, within entity sets, collection-valued navigation properties,
 collection-valued composable functions, and within delta payloads.
 
