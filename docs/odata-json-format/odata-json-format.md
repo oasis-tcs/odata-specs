@@ -2182,8 +2182,15 @@ occurrence
 
 ## <a name="AddedChangedEntity" href="#AddedChangedEntity">15.2 Added/Changed Entity</a>
 
-Added or changed entities within a delta response are represented as
-[entities](#Entity).
+Added or changed entities within a delta payload are represented as
+[entities](#Entity). All entities within a delta response payload MUST include
+the control information [`id`](#ControlInformationidodataid) or all of the
+entity's key fields. The `id` control information MUST appear if any of the entity's key fields are omitted from the response _or_ the entity-id is not identical to the canonical URL of the entity. 
+When using a delta payload in an [update request] (#UpdateaCollectionofEntities), [alternate keys](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AlternateKeys) MAY be used in place of the entity's primary key fields. A delta responses from an update request using alternate keys SHOULD include the same alternate keys fields used in the request and MAY omit the `id` control information and other primary key fields.
+
+Any entity in an update request that has neither the `id` control information,
+nor the primary or alternate key values of an existing entity, are treated as
+an added entity.
 
 Added entities MUST include all available selected properties and MAY
 include additional, unselected properties. Collection-valued properties
@@ -2391,7 +2398,8 @@ following properties, regardless of the specified
   or all of the entity's key fields. The `id` control
   information MUST appear if any of the entity's key fields are omitted
   from the response _or_ the entity-id is not identical to the canonical
-  URL of the entity. For [ordered
+  URL of the entity. When using a delta payload in an   [update request](#UpdateaCollectionofEntities), [alternate keys]
+  (https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AlternateKeys)   MAY be used in place of the entity's primary key fields. A delta response   from an update request using alternate keys SHOULD include the same   alternate keys fields as the request and MAY omit the `id` control information   and other primary key fields. For [ordered
   payloads](#PayloadOrderingConstraints), the control information
   `id`, if present, MUST immediately follow the control
   information
