@@ -105,12 +105,11 @@ For complete copyright information please see the full Notices section in an App
 - [A References](#References)
   - [A.1 Normative References](#NormativeReferences)
   - [A.2 Non-Normative References](#NonNormativeReferences)
-- [B Safety, Security and Privacy Considerations](#SafetySecurityandPrivacyConsiderations)
-- [C Acknowledgments](#Acknowledgments)
-  - [C.1 Special Thanks](#SpecialThanks)
-  - [C.2 Participants](#Participants)
-- [D Revision History](#RevisionHistory)
-- [E Notices](#Notices)
+- [B Acknowledgments](#Acknowledgments)
+  - [B.1 Special Thanks](#SpecialThanks)
+  - [B.2 Participants](#Participants)
+- [C Revision History](#RevisionHistory)
+- [D Notices](#Notices)
 :::
 
 
@@ -1953,20 +1952,20 @@ https://github.com/oasis-tcs/odata-vocabularies.
 <!-- TODO:
 -------
 
-# <a name="SafetySecurityandPrivacyConsiderations" href="#SafetySecurityandPrivacyConsiderations">Appendix B. Safety, Security and Privacy Considerations</a>
+# Appendix Safety, Security and Privacy Considerations
 
 do we have considerations specific to URLs, for example length, encoding, privacy (use $batch if in doubt), ...?
 -->
 
 -------
 
-# <a name="Acknowledgments" href="#Acknowledgments">Appendix C. Acknowledgments</a>
+# <a name="Acknowledgments" href="#Acknowledgments">Appendix B. Acknowledgments</a>
 
-## <a name="SpecialThanks" href="#SpecialThanks">C.1 Special Thanks</a>
+## <a name="SpecialThanks" href="#SpecialThanks">B.1 Special Thanks</a>
 
 The contributions of the OASIS OData Technical Committee members, enumerated in [OData-Protocol](#ODataProtocol), are gratefully acknowledged.
 
-## <a name="Participants" href="#Participants">C.2 Participants</a>
+## <a name="Participants" href="#Participants">B.2 Participants</a>
 
 **OData TC Members:**
 
@@ -1985,7 +1984,7 @@ The contributions of the OASIS OData Technical Committee members, enumerated in 
 
 -------
 
-# <a name="RevisionHistory" href="#RevisionHistory">Appendix D. Revision History</a>
+# <a name="RevisionHistory" href="#RevisionHistory">Appendix C. Revision History</a>
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
@@ -1993,7 +1992,7 @@ The contributions of the OASIS OData Technical Committee members, enumerated in 
 
 -------
 
-# <a name="Notices" href="#Notices">Appendix E. Notices</a>
+# <a name="Notices" href="#Notices">Appendix D. Notices</a>
 
 <!-- Required section. Do not modify. -->
 
