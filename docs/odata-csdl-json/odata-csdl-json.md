@@ -6316,6 +6316,8 @@ acknowledged.
 
 # <a name="Notices" href="#Notices">Appendix E. Notices</a>
 
+<!-- Required section. Do not modify. -->
+
 Copyright © OASIS Open 2024. All Rights Reserved.
 
 All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the "OASIS IPR Policy"). The full [Policy](https://www.oasis-open.org/policies-guidelines/ipr/) may be found at the OASIS website.

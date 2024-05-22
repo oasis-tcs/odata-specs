@@ -5,16 +5,16 @@
 
 # OData Vocabularies Version 4.0
 
-## Committee Specification Draft 02 / Public Review Draft 02
+## Committee Specification Draft 02
 
 ## 28 February 2024
 
 $\hbox{}$
 
 #### This stage:
-https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/csprd02/odata-vocabularies-v4.0-csprd02.md (Authoritative) \
-https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/csprd02/odata-vocabularies-v4.0-csprd02.html \
-https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/csprd02/odata-vocabularies-v4.0-csprd02.pdf
+https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/csd02/odata-vocabularies-v4.0-csd02.md (Authoritative) \
+https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/csd02/odata-vocabularies-v4.0-csd02.html \
+https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/csd02/odata-vocabularies-v4.0-csd02.pdf
 
 #### Previous stage:
 https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/csprd01/odata-vocabularies-v4.0-csprd01.docx (Authoritative) \
@@ -41,17 +41,16 @@ Michael Pizzo (mikep@microsoft.com), [Microsoft](http://www.microsoft.com/) \
 Heiko Theißen (heiko.theissen@sap.com), [SAP SE](http://www.sap.com/)
 
 #### <a name="RelatedWork">Related work:</a>
-This specification replaces or supersedes:
-OData Vocabularies Version 4.0. Edited by Ralf Handl, Michael Pizzo, and Ram Jeyaraman. 08 December 2016. OASIS Committee Specification Draft 01 / Public Review Draft 01. http://docs.oasis-open.org/odata/odata-vocabularies/v4.0/csprd01/odata-vocabularies-v4.0-csprd01.html. Latest version: http://docs.oasis-open.org/odata/odata-vocabularies/v4.0/odata-vocabularies-v4.0.html.
-
 This specification is related to:
 * _OData Version 4.02_. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. A multi-part Work Product that includes:
   * _OData Version 4.02 Part 1: Protocol_. Latest stage. https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html
   * _OData Version 4.02 Part 2: URL Conventions_. Latest stage. https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html
-  * _ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases_. https://docs.oasis-open.org/odata/odata/v4.02/csprd02/abnf/
-* _OData Vocabularies Version 4.0_. Edited by Michael Pizzo, Ralf Handl, and Ram Jeyaraman. Latest stage: https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/odata-vocabularies-v4.0.html
+  * _ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases_. https://docs.oasis-open.org/odata/odata/v4.02/csd02/abnf/
 * _OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02_. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. Latest stage: https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html
 * _OData Common Schema Definition Language (CSDL) XML Representation Version 4.02_. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. Latest stage: https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/odata-csdl-xml-v4.02.html
+* _OData JSON Format Version 4.02_. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. Latest stage: https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html
+* _OData Data Aggregation Extension Version 4.0_. Edited by Ralf Handl, Hubert Heijkers, Gerald Krause, Michael Pizzo, Heiko Theißen, and Martin Zurmuehl. Latest stage: https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.html
+* _OData Extension for Temporal Data Version 4.0_. Edited by Ralf Handl, Hubert Heijkers, Gerald Krause, Michael Pizzo, Heiko Theißen, and Martin Zurmuehl. Latest stage: https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/odata-temporal-ext-v4.0.html
 
 #### Abstract:
 This prose specification describes a set of OData vocabularies maintained by the OASIS OData Technical Committee. These vocabulary components are continuously evolved. The latest work-in-progress revisions are available at the odata-vocabularies OASIS TC GitHub repository: https://github.com/oasis-tcs/odata-vocabularies.
@@ -74,8 +73,8 @@ When referencing this specification the following citation format should be used
 **[OData-Vocabularies-v4.0]**
 
 _OData Vocabularies Version 4.0_.
-Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. 28 February 2024. OASIS Committee Specification Draft 02 / Public Review Draft 02.
-https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/csprd02/odata-vocabularies-v4.0-csprd02.html.
+Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. 28 February 2024. OASIS Committee Specification Draft 02.
+https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/csd02/odata-vocabularies-v4.0-csd02.html.
 Latest stage: https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/odata-vocabularies-v4.0.html.
 
 #### Notices
@@ -100,12 +99,16 @@ For complete copyright information please see the full Notices section in an App
 - [5 Validation Vocabulary](#ValidationVocabulary)
 - [6 Aggregation Vocabulary](#AggregationVocabulary)
 - [7 Authorization Vocabulary](#AuthorizationVocabulary)
-- [8 Temporal Vocabulary](#TemporalVocabulary)
+- [8 JSON Vocabulary](#JSONVocabulary)
+- [9 Repeatability Vocabulary](#RepeatabilityVocabulary)
+- [10 Temporal Vocabulary](#TemporalVocabulary)
 - [A References](#References)
   - [A.1 Normative References](#NormativeReferences)
   - [A.2 Non-Normative References](#NonNormativeReferences)
 - [B Safety, Security and Privacy Considerations](#SafetySecurityandPrivacyConsiderations)
 - [C Acknowledgments](#Acknowledgments)
+  - [C.1 Special Thanks](#SpecialThanks)
+  - [C.2 Participants](#Participants)
 - [D Revision History](#RevisionHistory)
 - [E Notices](#Notices)
 :::
@@ -1719,7 +1722,45 @@ The name of the authorization scheme.
 
 -------
 
-# <a name="TemporalVocabulary" href="#TemporalVocabulary">8 Temporal Vocabulary</a>
+# <a name="JSONVocabulary" href="#JSONVocabulary">8 JSON Vocabulary</a>
+
+**Namespace: [Org.OData.JSON.V1](Org.OData.JSON.V1.xml)**
+
+Terms for JSON properties
+
+
+## Terms
+
+Term|Type|Description
+:---|:---|:----------
+[Schema](./Org.OData.JSON.V1.xml#L67:~:text=<Term%20Name="-,Schema,-")|[JSON](#JSON)|<a name="Schema"></a>The JSON Schema for JSON values of the annotated media entity type, property, parameter, return type, term, or type definition<br>The schema can be a schema reference, i.e. `{"$ref":"url/of/schemafile#/path/to/schema/within/schemafile"}`
+
+<a name="JSON"></a>
+## [JSON](./Org.OData.JSON.V1.xml#L75:~:text=<TypeDefinition%20Name="-,JSON,-")
+**Type:** Stream
+
+Textual data of media type `application/json`
+
+-------
+
+# <a name="RepeatabilityVocabulary" href="#RepeatabilityVocabulary">9 Repeatability Vocabulary</a>
+
+**Namespace: [Org.OData.Repeatability.V1](Org.OData.Repeatability.V1.xml)**
+
+Terms describing repeatable requests
+
+
+## Terms
+
+Term|Type|Description
+:---|:---|:----------
+[Supported](./Org.OData.Repeatability.V1.xml#L69:~:text=<Term%20Name="-,Supported,-")|[Tag](Org.OData.Core.V1.md#Tag)|<a name="Supported"></a>Repeatable requests are supported for the annotated service, entity set, or action<br>Annotations on entity set or action import level override an annotation on entity container level, and an annotation on action level override an annotation on action import level.
+[DeleteWithClientIDSupported](./Org.OData.Repeatability.V1.xml#L74:~:text=<Term%20Name="-,DeleteWithClientIDSupported,-")|[Tag](Org.OData.Core.V1.md#Tag)|<a name="DeleteWithClientIDSupported"></a>Deletion of remembered requests by client ID is supported<br>Clients that specify a `RepeatabilityClientID` header can delete all remembered requests for that client ID by sending a<br/>`DELETE $RepeatableRequestsWithClientID/{Repeatability-Client-ID}`<br/>request to the service root.
+[DeleteWithRequestIDSupported](./Org.OData.Repeatability.V1.xml#L85:~:text=<Term%20Name="-,DeleteWithRequestIDSupported,-")|[Tag](Org.OData.Core.V1.md#Tag)|<a name="DeleteWithRequestIDSupported"></a>Deletion of remembered requests by request ID is supported<br>Clients can delete a single remembered request by sending a<br/>`DELETE $RepeatableRequestWithRequestID/{Repeatability-Request-ID}`<br/>request to the service root.
+
+-------
+
+# <a name="TemporalVocabulary" href="#TemporalVocabulary">10 Temporal Vocabulary</a>
 
 **Namespace: [Org.OData.Temporal.V1](Org.OData.Temporal.V1.xml)**
 
@@ -1917,7 +1958,26 @@ do we have considerations specific to URLs, for example length, encoding, privac
 
 # <a name="Acknowledgments" href="#Acknowledgments">Appendix C. Acknowledgments</a>
 
+## <a name="SpecialThanks" href="#SpecialThanks">C.1 Special Thanks</a>
+
 The contributions of the OASIS OData Technical Committee members, enumerated in [OData-Protocol](#ODataProtocol), are gratefully acknowledged.
+
+## <a name="Participants" href="#Participants">C.2 Participants</a>
+
+**OData TC Members:**
+
+| First Name | Last Name | Company |
+| :--- | :--- | :--- |
+| George | Ericson | Dell |
+| Hubert | Heijkers | IBM |
+| Ling | Jin | IBM |
+| Stefan | Hagen | Individual |
+| Michael | Pizzo | Microsoft |
+| Christof | Sprenger | Microsoft |
+| Ralf | Handl | SAP SE |
+| Gerald | Krause | SAP SE |
+| Heiko | Theißen | SAP SE |
+| Martin | Zurmuehl | SAP SE |
 
 -------
 
@@ -1925,6 +1985,7 @@ The contributions of the OASIS OData Technical Committee members, enumerated in 
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
+|Committee Specification Draft 01|2016-12-08|Michael Pizzo<br>Ralf Handl<br>Ram Jeyaraman| Documentation automatically extracted from XML source files|
 
 -------
 

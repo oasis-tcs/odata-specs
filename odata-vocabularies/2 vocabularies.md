@@ -37,6 +37,18 @@ $$$include-repo vocabularies/Org.OData.Authorization.V1.md$$$
 
 -------
 
+# ##sec JSON Vocabulary
+
+$$$include-repo vocabularies/Org.OData.JSON.V1.md$$$
+
+-------
+
+# ##sec Repeatability Vocabulary
+
+$$$include-repo vocabularies/Org.OData.Repeatability.V1.md$$$
+
+-------
+
 # ##sec Temporal Vocabulary
 
 $$$include-repo vocabularies/Org.OData.Temporal.V1.md$$$
