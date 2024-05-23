@@ -6111,13 +6111,14 @@ Location: Orders(1)
 --batch_36522ad7-fc75-4b56-8c71-56071383e77a--
 ```
 Then second `Location` URL `Orders(1)` is relative with its base URI being the second
-request URL `$1/Orders`, thus it evaluates to `$1/Orders(1)`. The client must
-replace the `$1` with the first `Location` URL `Customers('XXX')` and resolve the
-resulting URL `Customers('XXX')/Orders(1)` relative to its base URI, which is the
-first request URL `/service/Customers` together with the `Host: host` header
-(as in [example 102](#batchhost)). This gives the effective first request URL
-`http://host/service/Customers` and the effective second `Location` URL
-`http://host/service/Customers('XXX')/Orders(1)`.
+request URL `$1/Orders`. To get an absolute base URI, the client must replace the
+`$1` with the first `Location` URL `Customers('XXX')` and resolve the
+resulting URL `Customers('XXX')/Orders(1)` relative to its base URI, which is
+`http://host/service/Customers` (determined from the
+first request URL `/service/Customers` and the `Host: host` header
+as in [example 102](#batchhost)). This gives the effective second request URL
+`http://host/service/Customers('XXX')/Orders` as base URI for the second `Location`
+URL, which therefore resolves to `http://host/service/Customers('XXX')/Orders(1)`.
 :::
 
 #### <a name="ReferencinganETag" href="#ReferencinganETag">11.7.7.3 Referencing an ETag</a>
