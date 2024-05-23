@@ -212,6 +212,7 @@ An OData JSON payload may represent:
 
 Section | Feature / Change | Issue
 --------|------------------|------
+[Section 4.5.1](#ControlInformationcontextodatacontext)| Fragment portion of Context URL is not percent-encoded| [368](https://github.com/oasis-tcs/odata-specs/issues/368)
 [Section 4.5.12](#ControlInformationmediaodatamedia)|  `mediaContentType` can be `null`| [536](https://github.com/oasis-tcs/odata-specs/issues/536)
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
@@ -330,7 +331,7 @@ The names and values of these format parameters are case-insensitive.
 
 Services SHOULD advertise the supported media types by annotating the
 entity container with the term
-[`Capabilities.SupportedFormats`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#SupportedFormats)
+[`Capabilities.SupportedFormats`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#SupportedFormats)
 defined in [OData-VocCap](#ODataVocCap), listing all
 available formats and combinations of supported format parameters.
 
@@ -748,6 +749,7 @@ stop processing and MUST NOT signal an error.
 The `context` control information
 returns the context URL (see [OData-Protocol](#ODataProtocol)) for the
 payload. This URL can be absolute or [relative](#RelativeURLs).
+The fragment portion of the context URL MUST NOT be percent-encoded.
 
 The `context` control information is not returned if
 [`metadata=none`](#metadatanoneodatametadatanone) is requested. Otherwise it MUST be the
@@ -2182,8 +2184,19 @@ occurrence
 
 ## <a name="AddedChangedEntity" href="#AddedChangedEntity">15.2 Added/Changed Entity</a>
 
-Added or changed entities within a delta response are represented as
-[entities](#Entity).
+Added or changed entities within a delta payload are represented as
+[entities](#Entity). All entities within a delta response payload MUST include
+the control information [`id`](#ControlInformationidodataid) or all of the
+entity's primary key fields. The `id` control information MUST appear if any of the entity's primary key fields are omitted from the response _or_ the entity-id is not identical to the canonical URL of the entity.
+
+When using a delta payload in an [update request](#UpdateaCollectionofEntities), an [alternate key](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AlternateKeys) (see _Alternate Keys_ in [OData-URL](#ODataURL))
+MAY be used in place of the entity's primary key. A delta response from an update request using alternate keys SHOULD include
+all fields of the alternate key used in the request, in which case it
+MAY omit the `id` control information and other primary key fields.
+
+Any entity in an update request that has neither the `id` control information,
+nor the primary or alternate key values of an existing entity, are treated as
+an added entity.
 
 Added entities MUST include all available selected properties and MAY
 include additional, unselected properties. Collection-valued properties
@@ -2388,10 +2401,12 @@ following properties, regardless of the specified
 
 - Control information
   [`id`](#ControlInformationidodataid)
-  or all of the entity's key fields. The `id` control
-  information MUST appear if any of the entity's key fields are omitted
+  or all of the entity's primary key fields. The `id` control
+  information MUST appear if any of the entity's primary key fields are omitted
   from the response _or_ the entity-id is not identical to the canonical
-  URL of the entity. For [ordered
+  URL of the entity. When using a delta payload in an   [update request](#UpdateaCollectionofEntities), an [alternate key](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AlternateKeys) (see _Alternate Keys_ in [OData-URL](#ODataURL))
+  MAY be used in place of the entity's primary key. A delta response from an update request using alternate keys SHOULD include all fields of the alternate key used in the request, in which case it
+  MAY omit the `id` control information and other primary key fields. For [ordered
   payloads](#PayloadOrderingConstraints), the control information
   `id`, if present, MUST immediately follow the control
   information
@@ -2958,7 +2973,7 @@ appropriate to the action.
 Stream typed parameter values are represented following the same rules as inlined [stream properties](#StreamProperty).
 
 Non-binding parameters that are nullable or annotated with the term
-[`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter) defined in
+[`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter) defined in
 [OData-VocCore](#ODataVocCore) MAY be omitted from the request body.
 If an omitted parameter is not annotated (and thus nullable), it MUST be
 interpreted as having the `null` value. If it is annotated
@@ -3081,7 +3096,7 @@ The URL expression syntax is extended and additionally allows
 Services SHOULD advertise support of the `if` member by
 specifying the property
 `RequestDependencyConditionsSupported` in the
-[`Capabilities.BatchSupport`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#BatchSupport)
+[`Capabilities.BatchSupport`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#BatchSupport)
 term applied to the entity container, see
 [OData-VocCap](#ODataVocCap). If a service does not
 support request dependencies, the dependent request MUST fail with
