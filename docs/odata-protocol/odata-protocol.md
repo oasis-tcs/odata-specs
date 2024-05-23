@@ -1524,7 +1524,7 @@ in a `GET` or `DELETE` request does not have any effect.
 A preference of `return=representation` or `return=minimal` is allowed
 on an individual [Data Modification Request](#DataModification) or
 [Action Request](#Actions) within a batch, subject to the same
-restrictions, but SHOULD return a `4xx Client Error` if specified on the
+restrictions, but SHOULD return a `4xx` client error if specified on the
 batch request itself.
 
 A preference of `return=minimal` requests that the service invoke the
@@ -5747,7 +5747,7 @@ body of the batch request may be processed as soon as they are received,
 this enables clients to stream batch requests, and batch implementations to stream the results.
 
 If the service receives a batch request with an invalid set of headers
-it MUST return a [`4xx response code`](#ClientErrorResponses) and
+it MUST return a [`4xx` response code](#ClientErrorResponses) and
 perform no further processing of the batch request.
 
 ### <a name="BatchRequestHeaders" href="#BatchRequestHeaders">11.7.1 Batch Request Headers</a>
