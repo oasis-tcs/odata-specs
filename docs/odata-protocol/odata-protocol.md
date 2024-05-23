@@ -6104,13 +6104,13 @@ Content-Type: application/http
 
 HTTP/1.1 201 OK
 Location: Customers('XXX')
-...
+…
 --changeset_77162fcd-b8da-41ac-a9f8-9357efbbe
 Content-Type: application/http
 
 HTTP/1.1 201 OK
 Location: Orders(1)
-...
+…
 --changeset_77162fcd-b8da-41ac-a9f8-9357efbbe--
 --batch_36522ad7-fc75-4b56-8c71-56071383e77a--
 ```
