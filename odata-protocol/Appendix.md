@@ -50,6 +50,10 @@ https://www.rfc-editor.org/info/rfc2046.
 _Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_.
 https://www.rfc-editor.org/info/rfc2119.
 
+###### <a name="rfc3986">[RFC3986]</a>
+_Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform Resource Identifier (URI): Generic Syntax", STD 66, RFC 3986, DOI 10.17487/RFC3986, January 2005_.
+https://www.rfc-editor.org/info/rfc3986.
+
 ###### <a name="rfc3987">[RFC3987]</a>
 _Duerst, M. and M. Suignard, "Internationalized Resource Identifiers (IRIs)", RFC 3987, DOI 10.17487/RFC3987, January 2005_.
 https://www.rfc-editor.org/info/rfc3987.

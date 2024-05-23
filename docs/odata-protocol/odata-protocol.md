@@ -5726,7 +5726,10 @@ service root.
 
 Individual requests within a batch request are evaluated according to
 the same semantics used when the request appears outside the context of
-a batch request.
+a batch request. The base URI of the response to one of the individual requests is
+determined according to [RFC3986, section 5.1.3](#rfc3986) with the
+"URI used to retrieve the representation" being the URL of the individual request
+(see [example 105](#batchcontentid)).
 
 A batch request is represented using either the [multipart batch
 format](#MultipartBatchFormat) defined in this document or the JSON
@@ -5924,7 +5927,7 @@ GET https://host:1234/path/service/People(1) HTTP/1.1
 - Absolute resource path and separate `Host` header
 
 ::: example
-Example 102:
+Example <a name="batchhost" href="#batchhost">102</a>:
 ```json
 PATCH /path/service/People(1) HTTP/1.1
 Host: myserver.mydomain.org:1234
@@ -6082,8 +6085,7 @@ Content-Length: ###
 --batch_36522ad7-fc75-4b56-8c71-56071383e77b--
 ```
 
-Assume that in the response the `Location` header for the first request is absolute and
-the `Location` header for the second request is relative.
+The response contains relative `Location` headers.
 ```
 HTTP/1.1 200 OK
 OData-Version: 4.0
@@ -6097,7 +6099,7 @@ Content-Type: multipart/mixed; boundary=changeset_77162fcd-b8da-41ac-a9f8-9357ef
 Content-Type: application/http
 
 HTTP/1.1 201 OK
-Location: http://host/service/Customers('XXX')
+Location: Customers('XXX')
 ...
 --changeset_77162fcd-b8da-41ac-a9f8-9357efbbe
 Content-Type: application/http
@@ -6108,10 +6110,14 @@ Location: Orders(1)
 --changeset_77162fcd-b8da-41ac-a9f8-9357efbbe--
 --batch_36522ad7-fc75-4b56-8c71-56071383e77a--
 ```
-Then the second `Location` URL `Orders(1)` is relative to the second
-request URL `$1/Orders` and evaluates to `$1/Orders(1)`. The client must effectively
-replace the `$1` with the first `Location` URL, which leads to the absolute
-URL `http://host/service/Customers('XXX')/Orders(1)`.
+Then second `Location` URL `Orders(1)` is relative with its base URI being the second
+request URL `$1/Orders`, thus it evaluates to `$1/Orders(1)`. The client must
+replace the `$1` with the first `Location` URL `Customers('XXX')` and resolve the
+resulting URL `Customers('XXX')/Orders(1)` relative to its base URI, which is the
+first request URL `/service/Customers` together with the `Host: host` header
+(as in [example 102](#batchhost)). This gives the effective first request URL
+`http://host/service/Customers` and the effective second `Location` URL
+`http://host/service/Customers('XXX')/Orders(1)`.
 :::
 
 #### <a name="ReferencinganETag" href="#ReferencinganETag">11.7.7.3 Referencing an ETag</a>
@@ -6877,6 +6883,10 @@ https://www.rfc-editor.org/info/rfc2046.
 ###### <a name="rfc2119">[RFC2119]</a>
 _Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_.
 https://www.rfc-editor.org/info/rfc2119.
+
+###### <a name="rfc3986">[RFC3986]</a>
+_Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform Resource Identifier (URI): Generic Syntax", STD 66, RFC 3986, DOI 10.17487/RFC3986, January 2005_.
+https://www.rfc-editor.org/info/rfc3986.
 
 ###### <a name="rfc3987">[RFC3987]</a>
 _Duerst, M. and M. Suignard, "Internationalized Resource Identifiers (IRIs)", RFC 3987, DOI 10.17487/RFC3987, January 2005_.
