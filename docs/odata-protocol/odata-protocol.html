@@ -1796,9 +1796,10 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>If the target URL terminates in a type cast segment, then the segment MUST specify the type of, or a type derived from, the type of the collection, and the entity MUST be created as that specified type.</p>
 <p>To create an <em>open entity</em> (an instance of an open type), additional property values beyond those specified in the metadata MAY be sent in the request body. The service MUST treat these as dynamic properties and add them to the created instance.</p>
 <p>If the entity being created is not an open entity, additional property values beyond those specified in the metadata SHOULD NOT be sent in the request body. The service MUST fail if unable to persist all property values specified in the request.</p>
-<p>Non-insertable properties, as well as dependent properties that are tied to non-key properties of the principal entity, SHOULD be omitted from the request body. If provided, services MUST either ignore the value in the request body or fail the request.</p>
+<p>Non-insertable properties SHOULD be omitted from the request body. If they are provided, services MUST either ignore the value in the request body or fail the request.</p>
 <p>Non-insertable properties include (and are not limited to)</p>
 <ul>
+<li>dependent properties that are tied to non-key properties of the principal entity through a referential constraint,</li>
 <li>properties annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Computed"><code>Core.Computed</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>,</li>
 <li>properties listed as <code>NonInsertableProperties</code> of term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#InsertRestrictions"><code>Capabilities.InsertRestrictions</code></a>, see <a href="#ODataVocCap">OData-VocCap</a>,</li>
 <li>properties annotated with term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Permissions"><code>Core.Permissions</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>, where the annotation value does not have the <code>Write</code> flag.</li>
@@ -1838,6 +1839,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <span id="cb96-10"><a href="#cb96-10" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb96-11"><a href="#cb96-11" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
+<p>If a single-valued navigation property defines referential constraints for all key properties of the related entity, then a link can be established by providing values for the dependent properties that identify an existing principal entity. If there is no such entity, the insert fails.</p>
 <p>Upon successful completion of the operation, the service creates the requested entity and relates it to the requested existing entities.</p>
 <p>If the target URL for the collection the entity is created in and binding information provided in the <code>POST</code> body contradicts the implicit binding information provided by the request URL, the request MUST fail, and the service responds with <code>400 Bad Request</code>.</p>
 <p>Upon failure of the operation, the service MUST NOT create the new entity. In particular, the service MUST never create an entity in a partially valid state (with the navigation property unset).</p>
@@ -1859,10 +1861,11 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>For requests with an <code>OData-Version</code> header with a value of <code>4.01</code> or greater, the media stream of a media entity can be updated by specifying the format-specific representation of the media stream as a virtual property <code>$value</code>.</p>
 <p>Updating a dependent property that is tied to a key property of the principal entity through a referential constraint updates the relationship to point to the entity with the specified key value. If there is no such entity, the update fails.</p>
 <p>Updating a principal property that is tied to a dependent entity through a referential constraint on the dependent entity updates the dependent property.</p>
-<p>Non-updatable properties, as well as dependent properties that are tied to non-key properties of the principal entity, SHOULD be omitted from the request body. If provided, services MUST either ignore the value in the request body or fail the request.</p>
+<p>Non-updatable properties SHOULD be omitted from the request body. If they are provided, services MUST either ignore the value in the request body or fail the request.</p>
 <p>Non-updatable properties include (and are not limited to)</p>
 <ul>
 <li>key properties,</li>
+<li>dependent properties that are tied to non-key properties of the principal entity through a referential constraint,</li>
 <li>properties annotated with the terms <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Computed"><code>Core.Computed</code></a> or <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Immutable"><code>Core.Immutable</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>,</li>
 <li>properties listed as <code>NonUpdatableProperties</code> of term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#UpdateRestrictions"><code>Capabilities.UpdateRestrictions</code></a>, see <a href="#ODataVocCap">OData-VocCap</a>,</li>
 <li>properties annotated with term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Permissions"><code>Core.Permissions</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>, where the annotation value does not have the <code>Write</code> flag.</li>
