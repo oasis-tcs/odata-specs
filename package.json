@@ -6,6 +6,7 @@
   "scripts": {
     "build": "node lib/build.js",
     "pdf": "node lib/build-pdf.js",
+    "zip": "node lib/zip.js",
     "start": "node lib/server",
     "select": "node lib/selector.mjs",
     "test": "c8 -r html -r text mocha",
@@ -14,11 +15,12 @@
   "author": "",
   "license": "SEE LICENSE IN LICENSE.md",
   "dependencies": {
+    "archiver": "^7.0.0",
     "c8": "^8.0.0",
     "express": "^4",
     "js-yaml": "^4.1.0",
     "mocha": "^10.2.0",
-    "puppeteer": "^21.0.3"
+    "puppeteer": "^21.11.0"
   },
   "devDependencies": {
     "connect-livereload": "^0.6.1",

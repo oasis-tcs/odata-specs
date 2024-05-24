@@ -29,14 +29,29 @@ Schema Definition Language (XSD) 1.1 as described in
 
 Section | Feature / Change | Issue
 --------|------------------|------
+[Section ##PrimitiveTypes]| 
+Allow stream-valued non-binding parameters| 
+[525](https://github.com/oasis-tcs/odata-specs/issues/525)
+: varjson
+[Section ##CSDLJSONDocument] | Additional `$Version` value `4.02` |
+:
+: varxml
+[Section ##CSDLXMLDocument] | Additional `Version` value `4.02` |
+:
 : varxml
 [Section ##EntityContainer]| 
 All children of `edm:EntityContainer` are optional| 
-[ODATA-1571](https://issues.oasis-open.org/browse/ODATA-1571)
+[464](https://github.com/oasis-tcs/odata-specs/issues/464)
 :
+[Section ##GeoValues] | Constant Geo values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
+[Section ##StreamValues] | Constant Stream values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
 [Section ##PathEvaluation]| 
 New path evaluation rules for annotations targeting annotations and external targeting via container| 
-[ODATA-1420](https://issues.oasis-open.org/browse/ODATA-1420)
+[575](https://github.com/oasis-tcs/odata-specs/issues/575)
+[Section ##IfThenElse]| 
+Nested `If` without else part in collections| 
+[326](https://github.com/oasis-tcs/odata-specs/issues/326)
+[Section ##Conformance] | Additional conformance clauses for version 4.02 |
 
 ## ##subsec Glossary
 
@@ -71,8 +86,8 @@ Normative representation-specific text
 
 All other text is normative unless otherwise labeled.
 
-::: example
-Here is a customized command line which will generate HTML from this markdown file (named `$$$filename$$$.md`). Line breaks are added for readability only:
+<!--
+Here is a customized command line which will generate HTML from the markdown file (named `$$$filename$$$.md`). Line breaks are added for readability only:
 
 ```
 pandoc -f gfm+tex_math_dollars+fenced_divs+smart
@@ -88,8 +103,8 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        $$$filename$$$.md
 ```
 
-This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
-:::
+This uses pandoc $$$pandoc-version$$$ from https://github.com/jgm/pandoc/releases/tag/$$$pandoc-version$$$.
+-->
 
 <!-- These source files can be used to produce the JSON variant or the XML variant,
      by using either new Number("...", "json") or new Number("...", "xml").
@@ -172,7 +187,7 @@ The `metadata=minimal` format parameter indicates that the service
 SHOULD remove computable control information from the payload wherever
 possible.
 
-This means that the `@type` control information is only included if the
+This means that the `type` control information is only included if the
 type of the containing object or targeted property cannot be
 heuristically determined, e.g. for
 - Terms or term properties with an abstract declared type,
@@ -187,7 +202,7 @@ See [OData-JSON](#ODataJSON) for the exact rules.
 The `metadata=full` format parameter indicates that the service MUST
 include all control information explicitly in the payload.
 
-This means that the `@type` control information is included in
+This means that the `type` control information is included in
 annotation values except for primitive values whose type can be
 heuristically determined from the representation of the value, see
 [OData-JSON](#ODataJSON) for the exact rules.
@@ -423,9 +438,25 @@ are common in entity models as the means of representing entities and
 structured properties in an OData service. [Entity types](#EntityType)
 and [complex types](#ComplexType) are both structured types.
 
-Structured Types are composed of zero or more [structural
+Structured types are composed of zero or more [structural
 properties](#StructuralProperty) and [navigation
-properties](#NavigationProperty).
+properties](#NavigationProperty). These properties can themselves be of
+a structured type.
+
+An instance of a structured type must have a finite representation that
+includes all its properties. These properties are either integral parts of the
+instance or references to instances. In the first case the integral parts must be
+represented as part of the overall representation. These integral parts are modeled
+as [structural properties](#StructuralProperty) and
+[containment navigation properties](#ContainmentNavigationProperty).
+If an instance of a structured type contains a chain of these, this chain
+MUST be finite for the overall representation to be finite, even if the chain
+of types leads back to the structured type of the instance. Note that in this
+circular case finiteness is only possible if the chain of instances ends with
+a null value or an empty collection. In the second case the references are modeled
+as [non-containment navigation properties](#NavigationProperty).
+Chains of these can be infinite, for example, if an entity contains a
+self-reference.
 
 [Open entity types](#OpenEntityType) and [open complex
 types](#OpenComplexType) allow properties to be added dynamically to
@@ -485,11 +516,11 @@ persistency layer, e.g. SQL only supports years `0001` to `9999`.
 
 `Edm.Stream` is a primitive type that can be used as a property of an
 [entity type](#EntityType) or [complex type](#ComplexType), the
-underlying type for a [type definition](#TypeDefinition), or the binding
+underlying type for a [type definition](#TypeDefinition), or a binding or non-binding
 parameter or return type of an [action](#Action) or
-[function](#Function). `Edm.Stream`, or a type definition whose
-underlying type is `Edm.Stream`, cannot be used in collections or for
-non-binding parameters to functions or actions.
+[function](#Function).
+`Edm.Stream`, or a type definition whose
+underlying type is `Edm.Stream`, cannot be used in collections.
 
 Some of these types allow facets, defined in section
 "[Type Facets](#TypeFacets)".
@@ -544,7 +575,7 @@ the service.
 
 Note: the symbolic value `max` is only allowed in OData 4.0 responses;
 it is deprecated in OData 4.01. While clients MUST be prepared for this
-symbolic value, OData 4.01 and greater services MUST NOT return the
+symbolic value, OData 4.01 or greater services MUST NOT return the
 symbolic value `max` and MAY instead specify the concrete maximum length
 supported for the type by the service or omit the attribute entirely.
 :::
@@ -568,7 +599,7 @@ the risk for unintended data loss.
 
 Note: model elements with duration values and a granularity less than seconds
 (e.g. minutes, hours, days) can be annotated with the term
-[`Measures.DurationGranularity`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Measures.V1.md#DurationGranularity),
+[`Measures.DurationGranularity`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Measures.V1.md#DurationGranularity),
 see [OData-VocMeasures](#ODataVocMeasures).
 
 ::: {.varjson .rep}

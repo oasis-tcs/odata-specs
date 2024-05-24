@@ -32,7 +32,7 @@ the most functionality against the broadest range of generic clients.
 
 Services can advertise their level of conformance by annotating their
 entity container with the term
-[`Capabilities.ConformanceLevel`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#ConformanceLevel)
+[`Capabilities.ConformanceLevel`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#ConformanceLevel)
 defined in [OData-VocCap](#ODataVocCap).
 
 Note: Services are encouraged to support as much additional
@@ -59,9 +59,7 @@ request
 ([section ##Extensibility] and all subsections)
 7. MUST successfully parse the request according to
 [OData-ABNF](#ODataABNF) for any supported system query options and
-either follow the specification or return
-`501 Not Implemented` for any
-unsupported functionality ([section ##ResponseCode501NotImplemented])
+follow the specification or fail the request
 8. MUST expose only data types defined in [OData-CSDLXML](#ODataCSDL)
 9. MUST NOT require clients to understand any metadata or instance
 annotations ([section ##VocabularyExtensibility]), custom headers ([section ##HeaderFieldExtensibility]), or custom
@@ -127,9 +125,8 @@ service:
 
 1. MUST conform to the [OData 4.0 Minimal Conformance
 Level](#OData40MinimalConformanceLevel)
-2. MUST successfully parse the [OData-ABNF](#ODataABNF) and either
-follow the specification or return `501 Not Implemented` for any
-unsupported functionality ([section ##ResponseCode501NotImplemented])
+2. MUST successfully parse the request according to [OData-ABNF](#ODataABNF) and
+follow the specification or fail the request
 3. MUST support `$select` ([section ##SystemQueryOptionselect])
 4. MUST support casting to a derived type according to
 [OData-URL](#ODataURL) if derived types are present in the model
@@ -140,11 +137,10 @@ unsupported functionality ([section ##ResponseCode501NotImplemented])
 in the requested entity set ([section ##BuiltinFilterOperations])
    2. MUST support aliases in `$filter` expressions ([section ##ParameterAliases])
    3. SHOULD support additional filter operations ([section ##BuiltinFilterOperations])
-and MUST return `501 Not Implemented` for any unsupported filter
-operations ([section ##ResponseCode501NotImplemented])
+and MUST fail the request for any unsupported filter
+operations
    4. SHOULD support the canonical functions ([section ##BuiltinQueryFunctions]) and
-MUST return `501 Not Implemented` for any unsupported canonical
-functions ([section ##ResponseCode501NotImplemented])
+MUST fail the request for any unsupported canonical functions
    5. SHOULD support `$filter` on expanded entities ([section ##ExpandOptions])
 8. SHOULD publish metadata at `$metadata` according to
 [OData-CSDLXML](#ODataCSDL) ([section ##MetadataDocumentRequest])
@@ -210,7 +206,7 @@ according to the JSON Batch format defined in [OData-JSON](#ODataJSON)
 
 OData services can report conformance to the OData 4.01 specification by
 including `4.01` in the list of supported protocol versions in the
-[`Core.ODataVersions`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ODataVersions)
+[`Core.ODataVersions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ODataVersions)
 annotation, as defined in [OData-VocCore](#ODataVocCore). As all OData
 4.01 compliant services must also be fully OData 4.0 compliant, OData
 4.01 services do not need to separately list `4.0` as a supported
@@ -233,7 +229,7 @@ headers and preference values
 5. MUST reject a request with an incompatible
 [`$schemaversion`](#SystemQueryOptionschemaversion) system query option
 if a
-[`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
+[`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
 annotation is returned in `$metadata`
 6. MUST support specifying supported system query options with or
 without the `$` prefix
@@ -274,7 +270,7 @@ expression
 schema, a structural type, or an entity container) that differ only by
 case
 12. SHOULD return the
-[`Core.ODataVersions`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ODataVersions)
+[`Core.ODataVersions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ODataVersions)
 annotation
 13. SHOULD report capabilities through the Capabilities vocabulary
 14. MAY support filtering on annotation values
@@ -385,31 +381,30 @@ updates ([section ##UpdateanEntity])
 query options
 9. MUST use case-sensitive query options, operators, and canonical
 functions
-10. SHOULD support basic authentication as defined in
+10. MUST encode the plus character (octet `0x2B`) as `%2B` in URLs to avoid servers mis-interpreting the plus character as an encoded space
+11. SHOULD support basic authentication as defined in
 [RFC7617](#rfc7617) over HTTPS
-11. MAY request entity references in place of entities previously
+12. MAY request entity references in place of entities previously
 returned in the response ([section ##RequestingEntityReferences])
-12. MAY support deleted entities, link entities, deleted link entities
+13. MAY support deleted entities, link entities, deleted link entities
 in a delta response ([section ##RequestingChanges])
-13. MAY support asynchronous responses ([section ##AsynchronousRequests])
-14. MAY support `metadata=minimal` in a JSON response (see
+14. MAY support asynchronous responses ([section ##AsynchronousRequests])
+15. MAY support `metadata=minimal` in a JSON response (see
 [OData-JSON](#ODataJSON))
-15. MAY support `streaming` in a JSON response (see
+16. MAY support `streaming` in a JSON response (see
 [OData-JSON](#ODataJSON))
 
 In addition, interoperable OData 4.01 clients
 
-16. MUST send OData 4.0-compliant payloads to services that don't
+17. MUST send OData 4.0-compliant payloads to services that don't
 advertise support for 4.01 or greater through the
-[`Core.ODataVersions`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ODataVersions)
+[`Core.ODataVersions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ODataVersions)
 metadata annotation (see [OData-VocCore](#ODataVocCore))
-17. MUST specify identifiers in payloads and URLs in the case they are
+18. MUST specify identifiers in payloads and URLs in the case they are
 specified in `$metadata`
-18. MUST be prepared to receive any valid 4.01 CSDL
-19. MUST be prepared to receive any valid 4.01 response according to
+19. MUST be prepared to receive any valid 4.01 CSDL
+20. MUST be prepared to receive any valid 4.01 response according to
 the requested format
-20. SHOULD use capabilities (see [OData-VocCap](#ODataVocCap)) to
+21. SHOULD use capabilities (see [OData-VocCap](#ODataVocCap)) to
 determine if a 4.01 feature is supported but MAY attempt syntax and be
-prepared to handle either
-[`501 Not Implemented`](#ResponseCode501NotImplemented) or
-`400 Bad Request`
+prepared to handle `400 Bad Request` or [`501 Not Implemented`](#ResponseCode501NotImplemented)

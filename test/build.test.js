@@ -3,6 +3,7 @@ const Number = require("../lib/number");
 const pandoc = require("../lib/pandoc");
 const { compareSectionNumbers } = require("../lib/utilities");
 const puppeteer = require("puppeteer");
+const url = require("url");
 const assert = require("assert");
 const { PassThrough } = require("stream");
 
@@ -20,7 +21,7 @@ describe("OASIS doc build", function () {
         .readFileSync(__dirname + "/test-data/test.md.txt")
         .toString()
         .split(/\r\n|\r|\n/),
-      "Markdown"
+      "Markdown",
     );
   });
 
@@ -37,20 +38,21 @@ describe("OASIS doc build", function () {
         .readFileSync(__dirname + "/test-data/test.html")
         .toString()
         .split(/\r\n|\r|\n/),
-      "HTML"
+      "HTML",
     );
   });
 
   it("Puppeteer", async function () {
     var browser = await puppeteer.launch({ headless: "new" });
     var page = await browser.newPage();
-    await page.goto(__dirname + "/test-data/test.html", {
+    const htmlUrl = url.pathToFileURL(`${__dirname}/test-data/test.html`).href;
+    await page.goto(htmlUrl, {
       waitUntil: "networkidle2",
     });
     var box = await (await page.$("mjx-c.mjx-c1D6FC.TEX-I")).boxModel();
-    assert.equal(box.width, 10);
-    assert.equal(box.height, 7);
     await browser.close();
+    assert.equal(Math.round(box.width), 10);
+    assert.equal(Math.round(box.height), 7);
   });
 
   it("Compare section numbers", function () {

@@ -138,10 +138,10 @@ schema
 ::: {.varjson .rep}
 ### ##subisec `$Annotations`
 
-The value of `$Annotations` is an object with one member per [annotation
-target](#Target). The member name is a path identifying the [annotation
-target](#Target), the member value is an object containing
-[annotations](#Annotation) for that target.
+The value of `$Annotations` is an object with one member per [annotation target](#Target).
+The member name is an expression identifying the [annotation target](#Target).
+It MUST resolve to a model element in scope.
+The member value is an object containing [annotations](#Annotation) for that target.
 :::
 
 ::: {.varjson .example}
@@ -171,7 +171,7 @@ It MUST contain at least one [`edm:Annotation`](#Annotation) element.
 
 ### ##subisec Attribute `Target`
 
-The value of `Target` is a path expression identifying the [annotation
+The value of `Target` is an expression identifying the [annotation
 target](#Target). It MUST resolve to a model element in scope.
 
 ### ##subisec Attribute `Qualifier`
@@ -420,7 +420,7 @@ also a media entity type.
 
 Media entity types MAY specify a list of acceptable media types using an
 annotation with term
-[`Core.AcceptableMediaTypes`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#AcceptableMediaTypes),
+[`Core.AcceptableMediaTypes`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AcceptableMediaTypes),
 see [OData-VocCore](#ODataVocCore).
 
 ::: {.varjson .rep}
