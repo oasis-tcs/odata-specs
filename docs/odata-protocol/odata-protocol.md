@@ -4363,7 +4363,7 @@ If they are provided, services MUST either ignore the value in the request body 
 
 Non-updatable properties include (and are not limited to)
 - key properties,
-- dependent properties that are tied to non-key properties of the principal entity through a referential constraint (informally: "denormalized" properties),
+- dependent properties that are tied to non-key properties of the principal entity through a referential constraint [OData-CSDL, section 8.5](#ODataCSDL) (informally: "denormalized" properties),
 - properties annotated with the terms
 [`Core.Computed`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Computed) or [`Core.Immutable`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Immutable), see [OData-VocCore](#ODataVocCore),
 - properties listed as `NonUpdatableProperties` of term [`Capabilities.UpdateRestrictions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#UpdateRestrictions), see [OData-VocCap](#ODataVocCap),
