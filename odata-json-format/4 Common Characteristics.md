@@ -417,7 +417,7 @@ if it does not match convention for the localized key values. If the
 `id` is represented, it MAY be a [relative
 URL](#RelativeURLs).
 
-If the entity is transient (i.e. cannot be read or updated), the
+If the entity is transient (see see [OData-Protocol](#ODataProtocol)), the
 `id` control information MUST appear in OData 4.0 payloads
 and have the `null` value. In 4.01 payloads transient
 entities need not have the `id` control information, and 4.01
