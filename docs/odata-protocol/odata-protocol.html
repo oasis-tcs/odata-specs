@@ -2479,7 +2479,7 @@ Content-Type: multipart/mixed; boundary=changeset_77162fcd-b8da-41ac-a9f8-9357ef
 Content-Type: application/http
 
 HTTP/1.1 201 OK
-Location: Customers(&#39;XXX&#39;)
+Location: Customers(&#39;ALFKI&#39;)
 …
 --changeset_77162fcd-b8da-41ac-a9f8-9357efbbe
 Content-Type: application/http
@@ -2489,7 +2489,7 @@ Location: Orders(1)
 …
 --changeset_77162fcd-b8da-41ac-a9f8-9357efbbe--
 --batch_36522ad7-fc75-4b56-8c71-56071383e77a--</code></pre>
-<p>The second <code>Location</code> URL <code>Orders(1)</code> is relative with its base URI being the second request URL <code>$1/Orders</code>. To get an absolute base URI, the client must replace the <code>$1</code> with the first <code>Location</code> URL <code>Customers('XXX')</code> and resolve the resulting URL <code>Customers('XXX')/Orders(1)</code> relative to its base URI, which is <code>http://host/service/Customers</code> (determined from the first request URL <code>/service/Customers</code> and the <code>Host: host</code> header as in <a href="#batchhost">example 102</a>). This gives the effective second request URL <code>http://host/service/Customers('XXX')/Orders</code> as base URI for the second <code>Location</code> URL, which therefore resolves to <code>http://host/service/Customers('XXX')/Orders(1)</code>.</p>
+<p>The second <code>Location</code> URL <code>Orders(1)</code> is relative with its base URI being the second request URL <code>$1/Orders</code>. To get an absolute base URI, the client must replace the <code>$1</code> with the first <code>Location</code> URL <code>Customers('ALFKI')</code> and resolve the resulting URL <code>Customers('ALFKI')/Orders(1)</code> relative to its base URI, which is <code>http://host/service/Customers</code> (determined from the first request URL <code>/service/Customers</code> and the <code>Host: host</code> header as in <a href="#batchhost">example 102</a>). This gives the effective second request URL <code>http://host/service/Customers('ALFKI')/Orders</code> as base URI for the second <code>Location</code> URL, which therefore resolves to <code>http://host/service/Customers('ALFKI')/Orders(1)</code>.</p>
 </div>
 <h4 id="11773-referencing-an-etag"><a name="ReferencinganETag" href="#ReferencinganETag">11.7.7.3 Referencing an ETag</a></h4>
 <div class="example">
