@@ -4359,7 +4359,8 @@ a referential constraint on the dependent entity updates the dependent
 property.
 
 Non-updatable properties SHOULD be omitted from the request body.
-If they are provided, services MUST either ignore the value in the request body or fail the request.
+If they are provided, services MAY ignore the value in the request body or fail the request,
+for example if the value provided in the request body differs from the actual value known by the service.
 
 Non-updatable properties include (and are not limited to)
 - key properties,
@@ -4578,7 +4579,7 @@ with value `true`) defined in [OData-VocCap](#ODataVocCap).
 
 A key property whose value is provided in the request URL SHOULD be omitted from the request body.
 If key property values are provided in the request URL and the request body with different values,
-services MUST either ignore the value in the request body or fail the request.
+services MUST either fail the request or ignore the value in the request body.
 
 To ensure that an update request is not treated as an insert, the client
 MAY specify an [`If-Match`](#HeaderIfMatch) header in the update
