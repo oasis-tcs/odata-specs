@@ -967,8 +967,8 @@ information nor a full set of key properties as transient entities.
 Services MAY use a string value following the pattern `odata:transient:{some-generated-identifier-unique-within-the-response}` instead of `null`, for example if they  need to solve circular dependencies between transient entities by injecting an entity reference.
 
 Entities with `id` equal to `null` cannot be
-compared to other entities, reread, or updated. If
-[`metadata=minimal`](#metadataminimalodatametadataminimal)
+updated or compared to other entities.
+If [`metadata=minimal`](#metadataminimalodatametadataminimal)
 is specified and the `id` is not present in the entity, then
 the canonical URL MUST be used as the entity-id.
 
