@@ -1880,7 +1880,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>Example 135: all products that are blue or green. It is up to the service to decide what makes a product blue or green.</p>
 <pre><code>http://host/service/Products?$search=blue OR green</code></pre>
 </div>
-<p>Clients should be aware that services MAY implement search based on a different syntax provided they advertise this with the annotation <code>SearchRestrictions/SearchSyntax</code> defined in <a href="#ODataVocCap">OData-VocCap</a>. Services MAY treat keywords listed in <code>SearchRestrictions/UnsupportedExpressions</code> as terms to be matched.</p>
+<p>Clients should be aware that services MAY implement search based on a different syntax provided they advertise this with the annotation <code>SearchRestrictions/SearchSyntax</code> defined in <a href="#ODataVocCap">OData-VocCap</a>. Services MAY treat keywords defined in the standard <a href="#ODataABNF">OData-ABNF</a> <code>$search</code> syntax as terms to be matched if they are listed in <code>SearchRestrictions/UnsupportedExpressions</code>.</p>
 <h4 id="5181-search-expressions"><a name="SearchExpressions" href="#SearchExpressions">5.1.8.1 Search Expressions</a></h4>
 <p>Search expressions are used within the <a href="#SystemQueryOptionsearch"><code>$search</code></a> system query option to request entities matching the specified expression. Leading and trailing spaces are not considered part of the search expression.</p>
 <p><em>Terms</em> can be any single word to be matched within the expression.</p>

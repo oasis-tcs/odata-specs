@@ -2381,8 +2381,9 @@ http://host/service/Products?$search=blue OR green
 
 Clients should be aware that services MAY implement search based on a different
 syntax provided they advertise this with the annotation `SearchRestrictions/SearchSyntax` defined in
-[OData-VocCap](#ODataVocCap). Services MAY treat keywords listed in `SearchRestrictions/UnsupportedExpressions`
-as terms to be matched.
+[OData-VocCap](#ODataVocCap). Services MAY treat keywords defined in the standard
+[OData-ABNF](#ODataABNF) `$search` syntax as terms to be matched if they are
+listed in `SearchRestrictions/UnsupportedExpressions`.
 
 #### ##subsubsubsec Search Expressions
 
