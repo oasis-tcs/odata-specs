@@ -460,7 +460,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        odata-csdl-xml-v4.02-csd02.md
 ```
 
-This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12.2.
+This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 -->
 
 <!-- These source files can be used to produce the JSON variant or the XML variant,
@@ -695,7 +695,7 @@ This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12
 <p>For a decimal value: the maximum number of significant decimal digits of the model element’s value; it MUST be a positive integer.</p>
 <p>For a temporal value (datetime-with-timezone-offset, duration, or time-of-day): the number of decimal places allowed in the seconds portion of the value; it MUST be a non-negative integer between zero and twelve.</p>
 <p>Note: service authors SHOULD be aware that some clients are unable to support a precision greater than 28 for decimal values and 7 for temporal values. Client developers MUST be aware of the potential for data loss when round-tripping values of greater precision. Updating via <code>PATCH</code> and exclusively specifying modified values will reduce the risk for unintended data loss.</p>
-<p>Note: model elements with duration values and a granularity less than seconds (e.g. minutes, hours, days) can be annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Measures.V1.md#DurationGranularity"><code>Measures.DurationGranularity</code></a>, see <a href="#ODataVocMeasures">OData-VocMeasures</a>.</p>
+<p>Note: model elements with duration values and a granularity less than seconds (e.g. minutes, hours, days) can be annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Measures.V1.md#DurationGranularity"><code>Measures.DurationGranularity</code></a>, see <a href="#ODataVocMeasures">OData-VocMeasures</a>.</p>
 <section id="attribute-precision" class="varxml rep">
 <h3><a name="AttributePrecision.1.2" href="#AttributePrecision.1.2">Attribute <code>Precision</code></a></h3>
 <p>The value of <code>Precision</code> is a number.</p>
@@ -841,7 +841,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>A reference to an external CSDL document allows to bring part of the referenced document’s content into the scope of the referencing document.</p>
 <p>A reference MUST specify a URI that uniquely identifies the referenced document, so two references MUST NOT specify the same URI. The URI SHOULD be a URL that locates the referenced document. If the URI is not dereferencable it SHOULD identify a well-known schema. The URI MAY be absolute or relative URI; relative URLs are relative to the URL of the document containing the reference, or relative to a base URL specified in a format-specific way.</p>
 <p>A reference MAY be annotated.</p>
-<p>The <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#SchemaVersion"><code>Core.SchemaVersion</code></a> annotation, defined in <a href="#ODataVocCore">OData-VocCore</a>, MAY be used to indicate a particular version of the referenced document. If the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#SchemaVersion"><code>Core.SchemaVersion</code></a> annotation is present, the <code>$schemaversion</code> system query option, defined <a href="#ODataProtocol">OData-Protocol</a>, SHOULD be used when retrieving the referenced schema document.</p>
+<p>The <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#SchemaVersion"><code>Core.SchemaVersion</code></a> annotation, defined in <a href="#ODataVocCore">OData-VocCore</a>, MAY be used to indicate a particular version of the referenced document. If the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#SchemaVersion"><code>Core.SchemaVersion</code></a> annotation is present, the <code>$schemaversion</code> system query option, defined <a href="#ODataProtocol">OData-Protocol</a>, SHOULD be used when retrieving the referenced schema document.</p>
 <div class="varxml rep">
 <h3 id="element-edmxreference"><a name="ElementedmxReference.4" href="#ElementedmxReference.4">Element <code>edmx:Reference</code></a></h3>
 <p>The <code>edmx:Reference</code> element specifies external CSDL documents referenced by the referencing document. The child elements <a href="#IncludedSchema"><code>edmx:Include</code></a> and <a href="#IncludedAnnotations"><code>edmx:IncludeAnnotations</code></a> specify which parts of the referenced document are available for use in the referencing document.</p>
@@ -1066,7 +1066,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h2 id="64-media-entity-type"><a name="MediaEntityType" href="#MediaEntityType">6.4 Media Entity Type</a></h2>
 <p>An entity type that does not specify a base type MAY indicate that it is a media entity type. <em>Media entities</em> are entities that represent a media stream, such as a photo. Use a media entity if the out-of-band stream is the main topic of interest and the media entity is just additional structured information attached to the stream. Use a normal entity with one or more properties of type <code>Edm.Stream</code> if the structured data of the entity is the main topic of interest and the stream data is just additional information attached to the structured data. For more information on media entities see <a href="#ODataProtocol">OData-Protocol</a>.</p>
 <p>An entity type derived from a media entity type MUST indicate that it is also a media entity type.</p>
-<p>Media entity types MAY specify a list of acceptable media types using an annotation with term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#AcceptableMediaTypes"><code>Core.AcceptableMediaTypes</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>.</p>
+<p>Media entity types MAY specify a list of acceptable media types using an annotation with term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AcceptableMediaTypes"><code>Core.AcceptableMediaTypes</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>.</p>
 <section id="attribute-hasstream" class="varxml rep">
 <h3><a name="AttributeHasStream.9.5" href="#AttributeHasStream.9.5">Attribute <code>HasStream</code></a></h3>
 <p>The value of <code>HasStream</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the attribute means <code>false</code>.</p>
@@ -1183,8 +1183,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h2 id="71-type"><a name="Type" href="#Type">7.1 Type</a></h2>
 <p>The property’s type MUST be a <a href="#PrimitiveTypes">primitive type</a>, <a href="#ComplexType">complex type</a>, or <a href="#EnumerationType">enumeration type</a> in scope, or a collection of one of these types.</p>
 <p>If the property is part of a chain of <a href="#StructuralProperty">structural properties</a> and <a href="#ContainmentNavigationProperty">containment navigation properties</a> leading back to the property’s declaring type, the finiteness condition for <a href="#StructuredTypes">structured types</a> demands that at least one property in this chain MUST be nullable or collection-valued.</p>
-<p>A collection-valued property MAY be annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered"><code>Core.Ordered</code></a> term, defined in <a href="#ODataVocCore">OData-VocCore</a>, to specify that it supports a stable ordering.</p>
-<p>A collection-valued property MAY be annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert"><code>Core.PositionalInsert</code></a> term, defined in <a href="#ODataVocCore">OData-VocCore</a>, to specify that it supports inserting items into a specific ordinal position.</p>
+<p>A collection-valued property MAY be annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered"><code>Core.Ordered</code></a> term, defined in <a href="#ODataVocCore">OData-VocCore</a>, to specify that it supports a stable ordering.</p>
+<p>A collection-valued property MAY be annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#PositionalInsert"><code>Core.PositionalInsert</code></a> term, defined in <a href="#ODataVocCore">OData-VocCore</a>, to specify that it supports inserting items into a specific ordinal position.</p>
 <section id="attribute-type" class="varxml rep">
 <h3><a name="AttributeType.12.2" href="#AttributeType.12.2">Attribute <code>Type</code></a></h3>
 <p>For single-valued properties the value of <code>Type</code> is the qualified name of the property’s type.</p>
@@ -1246,8 +1246,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>If the type is a collection, an arbitrary number of entities can be related. Otherwise there is at most one related entity.</p>
 <p>The related entities MUST be of the specified entity type or one of its subtypes.</p>
 <p>For a collection-valued containment navigation property the specified entity type MUST have a <a href="#Key">key</a> defined.</p>
-<p>A collection-valued navigation property MAY be annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered"><code>Core.Ordered</code></a> term, defined in <a href="#ODataVocCore">OData-VocCore</a>, to specify that it supports a stable ordering.</p>
-<p>A collection-valued navigation property MAY be annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert"><code>Core.PositionalInsert</code></a> term, defined in <a href="#ODataVocCore">OData-VocCore</a>, to specify that it supports inserting items into a specific ordinal position.</p>
+<p>A collection-valued navigation property MAY be annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered"><code>Core.Ordered</code></a> term, defined in <a href="#ODataVocCore">OData-VocCore</a>, to specify that it supports a stable ordering.</p>
+<p>A collection-valued navigation property MAY be annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#PositionalInsert"><code>Core.PositionalInsert</code></a> term, defined in <a href="#ODataVocCore">OData-VocCore</a>, to specify that it supports inserting items into a specific ordinal position.</p>
 <section id="attribute-type-1" class="varxml rep">
 <h3><a name="AttributeType.13.2" href="#AttributeType.13.2">Attribute <code>Type</code></a></h3>
 <p>For single-valued navigation properties the value of <code>Type</code> is the qualified name of the navigation property’s type.</p>
@@ -1275,7 +1275,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>Containment navigation properties define an implicit entity set for each instance of its declaring structured type. This implicit entity set is identified by the read URL of the navigation property for that structured type instance.</p>
 <p>Instances of the structured type that declares the navigation property, either directly or indirectly via a property of complex type, contain the entities referenced by the containment navigation property. The canonical URL for contained entities is the canonical URL of the containing instance, followed by the path segment of the navigation property and the key of the contained entity, see <a href="#ODataURL">OData-URL</a>.</p>
 <p>Entity types used in collection-valued containment navigation properties MUST have a <a href="#Key">key</a> defined.</p>
-<p>For items of an ordered collection of complex types (those annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered"><code>Core.Ordered</code></a> term defined in <a href="#ODataVocCore">OData-VocCore</a> the canonical URL of the item is the canonical URL of the collection appended with a segment containing the zero-based ordinal of the item. Items within in an unordered collection of complex types do not have a canonical URL. Services that support unordered collections of complex types declaring a containment navigation property, either directly or indirectly via a property of complex type, MUST specify the URL for the navigation link within a payload representing that item, according to format-specific rules.</p>
+<p>For items of an ordered collection of complex types (those annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered"><code>Core.Ordered</code></a> term defined in <a href="#ODataVocCore">OData-VocCore</a> the canonical URL of the item is the canonical URL of the collection appended with a segment containing the zero-based ordinal of the item. Items within in an unordered collection of complex types do not have a canonical URL. Services that support unordered collections of complex types declaring a containment navigation property, either directly or indirectly via a property of complex type, MUST specify the URL for the navigation link within a payload representing that item, according to format-specific rules.</p>
 <p>OData 4.0 responses MUST NOT specify a complex type declaring a containment navigation property as the type of a collection-valued property.</p>
 <p>An entity cannot be referenced by more than one containment relationship, and cannot both belong to an entity set declared within the entity container and be referenced by a containment relationship.</p>
 <p>Containment navigation properties MUST NOT be specified as the last path segment in the path of a <a href="#NavigationPropertyBinding">navigation property binding</a>.</p>
@@ -2456,7 +2456,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>Constant values of type <code>Edm.Stream</code> with top-level type <code>text</code>, for example <code>text/plain</code>, are represented as <a href="#String">string expressions</a> containing the raw text.</p>
 <p>Constant values of type <code>Edm.Stream</code> with other media types are represented as <a href="#Binary">binary expressions</a> containing the base64url-encoded binary value.</p>
 </div>
-<p>The annotation (property) being assigned a stream value MUST be annotated with term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#MediaType"><code>Core.MediaType</code></a> and the media type of the stream as its value.</p>
+<p>The annotation (property) being assigned a stream value MUST be annotated with term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#MediaType"><code>Core.MediaType</code></a> and the media type of the stream as its value.</p>
 <div class="varxml example">
 <p>Example 59:</p>
 <div class="sourceCode" id="cb58"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;JsonStream&quot;</span>&gt;</span>
@@ -3366,7 +3366,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <li>MUST NOT use <code>Edm.ModelElementPath</code> and <code>Edm.AnyPropertyPath</code></li>
 <li>MUST NOT specify <a href="#ReferentialConstraint">referential constraints</a> to complex types and navigation properties</li>
 <li>MUST NOT include a non-abstract entity type with no inherited or defined <a href="#Key">entity key</a></li>
-<li>MUST NOT include the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a> annotation on <a href="#IncludedSchema">included schemas</a></li>
+<li>MUST NOT include the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a> annotation on <a href="#IncludedSchema">included schemas</a></li>
 <li>MUST NOT return the Unicode facet for terms, parameters, and return types</li>
 <li>MUST NOT include collections of <code>Edm.ComplexType</code> or <code>Edm.Untyped</code></li>
 <li>MUST NOT specify a key as a property of a related entity</li>
@@ -3446,6 +3446,8 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <h6 id="xml-schema-2"><a name="XML-Schema2">[XML-Schema-2]</a></h6>
 <p><em>W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes</em>. D. Peterson, S. Gao, C. M. Sperberg-McQueen, H. S. Thompson, P. V. Biron, A. Malhotra, Editors, W3C Recommendation, 5 April 2012.<br />
 <a href="http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/">http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/</a>. Latest version available at <a href="http://www.w3.org/TR/xmlschema11-2/">http://www.w3.org/TR/xmlschema11-2/</a>.</p>
+<h6 id="well-known-text"><a name="_WKT">[Well-Known Text]</a></h6>
+<p><em>OpenGIS Implementation Specification for Geographic information – Simple feature access – Part 1: Common architecture</em>, May 2011. Open Geospatial Consortium. <a href="https://www.ogc.org/standard/sfa/">https://www.ogc.org/standard/sfa/</a>.</p>
 <hr />
 <h1 id="appendix-b-table-of-xml-elements-and-attributes"><a name="TableofXMLElementsandAttributes" href="#TableofXMLElementsandAttributes">Appendix B. Table of XML Elements and Attributes</a></h1>
 <div class="toc">
