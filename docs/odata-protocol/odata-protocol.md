@@ -5730,10 +5730,7 @@ service root.
 
 Individual requests within a batch request are evaluated according to
 the same semantics used when the request appears outside the context of
-a batch request. The base URI of the response to one of the individual requests is
-determined according to [RFC3986, section 5.1.3](#rfc3986) with the
-"URI used to retrieve the representation" being the URL of the individual request
-(see [example 105](#batchcontentid)).
+a batch request.
 
 A batch request is represented using either the [multipart batch
 format](#MultipartBatchFormat) defined in this document or the JSON
@@ -6262,8 +6259,8 @@ A response to an operation in a batch MUST be formatted exactly as it
 would have appeared outside of a batch as described in the corresponding
 subsections of chapter [Data Service Requests](#DataServiceRequests).
 Relative URLs in each individual response are relative to the request
-URL of the corresponding individual request. URLs in responses MUST NOT
-contain `$`-prefixed request identifiers.
+URL of the corresponding individual request (see [example 105](#batchcontentid)).
+URLs in responses MUST NOT contain `$`-prefixed request identifiers.
 
 ::: example
 Example 108: referencing the batch request [example 104](#batchRequest) above, assume all
@@ -6888,10 +6885,6 @@ https://www.rfc-editor.org/info/rfc2046.
 ###### <a name="rfc2119">[RFC2119]</a>
 _Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_.
 https://www.rfc-editor.org/info/rfc2119.
-
-###### <a name="rfc3986">[RFC3986]</a>
-_Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform Resource Identifier (URI): Generic Syntax", STD 66, RFC 3986, DOI 10.17487/RFC3986, January 2005_.
-https://www.rfc-editor.org/info/rfc3986.
 
 ###### <a name="rfc3987">[RFC3987]</a>
 _Duerst, M. and M. Suignard, "Internationalized Resource Identifiers (IRIs)", RFC 3987, DOI 10.17487/RFC3987, January 2005_.
