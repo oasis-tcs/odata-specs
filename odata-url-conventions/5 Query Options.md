@@ -2383,8 +2383,7 @@ Services MAY implement search based on a different syntax provided they advertis
 this with the annotation `SearchRestrictions/SearchSyntax` defined in
 [OData-VocCap](#ODataVocCap). Clients are advised to evalute this annotation,
 because it governs what result they can expect for a given search request.
-Especially if `SearchRestrictions/Searchable` is false, the service may treat
-keywords that appear in the [OData-ABNF](#ODataABNF) `search` syntax
+Services MAY treat keywords listed in `SearchRestrictions/UnsupportedExpressions`
 as terms to be matched.
 
 #### ##subsubsubsec Search Expressions

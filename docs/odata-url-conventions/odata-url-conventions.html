@@ -88,7 +88,7 @@
   </style>
   <link rel="stylesheet" href="styles/markdown-styles-v1.7.3b.css" />
   <link rel="stylesheet" href="styles/odata.css" />
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 </head>
 <body>
@@ -375,6 +375,11 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td><a href="#matchespattern">Section 5.1.1.7.1</a></td>
 <td>New overload for function <code>matchespattern</code> with flags</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/441">441</a></td>
+</tr>
+<tr class="even">
+<td><a href="#SystemQueryOptionsearch">Section 5.1.8</a></td>
+<td>Allow alternative <code>$search</code> syntax</td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/293">293</a></td>
 </tr>
 </tbody>
 </table>
@@ -1874,7 +1879,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>Example 135: all products that are blue or green. It is up to the service to decide what makes a product blue or green.</p>
 <pre><code>http://host/service/Products?$search=blue OR green</code></pre>
 </div>
-<p>Services MAY implement search based on a different syntax provided they advertise this with the annotation <code>SearchRestrictions/SearchSyntax</code> defined in <a href="#ODataVocCap">OData-VocCap</a>. Clients are advised to evalute this annotation, because it governs what result they can expect for a given search request. Especially if <code>SearchRestrictions/Searchable</code> is false, the service may treat keywords that appear in the <a href="#ODataABNF">OData-ABNF</a> <code>search</code> syntax as terms to be matched.</p>
+<p>Services MAY implement search based on a different syntax provided they advertise this with the annotation <code>SearchRestrictions/SearchSyntax</code> defined in <a href="#ODataVocCap">OData-VocCap</a>. Clients are advised to evalute this annotation, because it governs what result they can expect for a given search request. Services MAY treat keywords listed in <code>SearchRestrictions/UnsupportedExpressions</code> as terms to be matched.</p>
 <h4 id="5181-search-expressions"><a name="SearchExpressions" href="#SearchExpressions">5.1.8.1 Search Expressions</a></h4>
 <p>Search expressions are used within the <a href="#SystemQueryOptionsearch"><code>$search</code></a> system query option to request entities matching the specified expression. Leading and trailing spaces are not considered part of the search expression.</p>
 <p><em>Terms</em> can be any single word to be matched within the expression.</p>
