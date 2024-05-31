@@ -238,7 +238,8 @@ Alternatively, values of non-binding parameters MAY be specified as common expre
 [OData-URL, section 5.1.1](#ODataURL) that the service evaluates relative to the
 action. They are then encoded as a name/value
 pair where the name is the name of the parameter followed by `@expressionUrl` and
-the value is the common expression.
+the value is the common expression. As the following example demonstrates, even
+non-transient entities can be passed as non-binding action parameters in this way.
 
 ::: example
 Example ##ex: An employee requests leave from their manager for the next two weeks.
