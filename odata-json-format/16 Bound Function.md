@@ -234,6 +234,27 @@ properties, or just the [entity reference](#EntityReference), as
 appropriate to the action.
 Stream typed parameter values are represented following the same rules as inlined [stream properties](#StreamProperty).
 
+Alternatively, values of non-binding parameters MAY be specified as common expressions
+[OData-URL, section 5.1.1](#ODataURL) that the service evaluates relative to the
+action. They are then encoded as a name/value
+pair where the name is the name of the parameter followed by `@expressionUrl` and
+the value is the common expression.
+
+::: example
+Example ##ex: An employee requests leave from their manager for the next two weeks.
+```json
+POST /service/Employees(23)/RequestLeave
+Host: host
+Content-Type: application/json
+
+{
+  "StartDate@expressionUrl": "now()",
+  "EndDate@expressionUrl": "now() add duration'P14D'",
+  "Approver@expressionUrl": "$root/Employees(23)/Manager"
+}
+```
+:::
+
 Non-binding parameters that are nullable or annotated with the term
 [`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter) defined in
 [OData-VocCore](#ODataVocCore) MAY be omitted from the request body.
