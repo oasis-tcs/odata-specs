@@ -272,6 +272,7 @@ ecosystem of reusable client components and libraries.
 Section | Feature / Change | Issue
 --------|------------------|------
 [Section 5.1.1.7.1](#matchespattern)| New overload for function `matchespattern` with flags| [441](https://github.com/oasis-tcs/odata-specs/issues/441)
+[Section 5.1.8](#SystemQueryOptionsearch)| Allow alternative `$search` syntax| [293](https://github.com/oasis-tcs/odata-specs/issues/293)
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -3832,6 +3833,12 @@ service to decide what makes a product blue or green.
 http://host/service/Products?$search=blue OR green
 ```
 :::
+
+Clients should be aware that services MAY implement search based on a different
+syntax provided they advertise this with the annotation `SearchRestrictions/SearchSyntax` defined in
+[OData-VocCap](#ODataVocCap). Services MAY treat keywords defined in the standard
+[OData-ABNF](#ODataABNF) `$search` syntax as terms to be matched if they are
+listed in `SearchRestrictions/UnsupportedExpressions`.
 
 #### <a name="SearchExpressions" href="#SearchExpressions">5.1.8.1 Search Expressions</a>
 

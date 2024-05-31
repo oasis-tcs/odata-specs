@@ -854,7 +854,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <h4 id="8287-preference-returnrepresentation-and-returnminimal"><a name="Preferencereturnrepresentationandreturnminimal" href="#Preferencereturnrepresentationandreturnminimal">8.2.8.7 Preference <code>return=representation</code> and <code>return=minimal</code></a></h4>
 <p>The <code>return=representation</code> and <code>return=minimal</code> preferences are defined in <a href="#rfc7240">RFC7240</a>.</p>
 <p>In OData, <code>return=representation</code> or <code>return=minimal</code> is defined for use with a <code>POST</code>, <code>PUT</code>, or <code>PATCH</code> <a href="#DataModification">Data Modification Request</a>, or with an <a href="#Actions">Action Request</a>. Specifying a preference of <code>return=representation</code> or <code>return=minimal</code> in a <code>GET</code> or <code>DELETE</code> request does not have any effect.</p>
-<p>A preference of <code>return=representation</code> or <code>return=minimal</code> is allowed on an individual <a href="#DataModification">Data Modification Request</a> or <a href="#Actions">Action Request</a> within a batch, subject to the same restrictions, but SHOULD return a <code>4xx Client Error</code> if specified on the batch request itself.</p>
+<p>A preference of <code>return=representation</code> or <code>return=minimal</code> is allowed on an individual <a href="#DataModification">Data Modification Request</a> or <a href="#Actions">Action Request</a> within a batch, subject to the same restrictions, but SHOULD return a <code>4xx</code> client error if specified on the batch request itself.</p>
 <p>A preference of <code>return=minimal</code> requests that the service invoke the request but does not return content in the response. The service MAY apply this preference by returning <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> in which case it MAY include a <a href="#HeaderPreferenceApplied"><code>Preference-Applied</code></a> response header containing the <code>return=minimal</code> preference.</p>
 <p>A preference of <code>return=representation</code> requests that the service invokes the request and returns the modified resource. The service MAY apply this preference by returning the representation of the successfully modified resource in the body of the response, formatted according to the rules specified for the requested <a href="#Formats">format</a>. In this case the service MAY include a <a href="#HeaderPreferenceApplied"><code>Preference-Applied</code></a> response header containing the <code>return=representation</code> preference.</p>
 <p>The <code>return</code> preference SHOULD NOT be applied to a batch request, but MAY be applied to individual requests within a batch.</p>
@@ -2301,7 +2301,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Individual requests within a batch request are evaluated according to the same semantics used when the request appears outside the context of a batch request.</p>
 <p>A batch request is represented using either the <a href="#MultipartBatchFormat">multipart batch format</a> defined in this document or the JSON batch format defined in <a href="#ODataJSON">OData-JSON</a>.</p>
 <p>If the set of request headers of a batch request are valid the service MUST return a <a href="#ResponseCode200OK"><code>200 OK</code></a> HTTP response code to indicate that the batch request was accepted for processing, even if the processing is yet to be completed. The individual requests within the body of the batch request may be processed as soon as they are received, this enables clients to stream batch requests, and batch implementations to stream the results.</p>
-<p>If the service receives a batch request with an invalid set of headers it MUST return a <a href="#ClientErrorResponses"><code>4xx response code</code></a> and perform no further processing of the batch request.</p>
+<p>If the service receives a batch request with an invalid set of headers it MUST return a <a href="#ClientErrorResponses"><code>4xx</code> response code</a> and perform no further processing of the batch request.</p>
 <h3 id="1171-batch-request-headers"><a name="BatchRequestHeaders" href="#BatchRequestHeaders">11.7.1 Batch Request Headers</a></h3>
 <p>A batch request using the <a href="#MultipartBatchFormat">multipart batch format</a> MUST contain a <a href="#HeaderContentType"><code>Content-Type</code></a> header specifying a content type of <code>multipart/mixed</code> and a <code>boundary</code> parameter as defined in <a href="#rfc2046">RFC2046</a>.</p>
 <div class="example">
@@ -2333,14 +2333,14 @@ Content-Type: application/json
 <p>Each individual request within a batch request MAY have a request identifier assigned. The request identifier is case-sensitive, MUST be unique within the batch request, and MUST satisfy the rule <code>request-id</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>The representation of the request identifier is format-specific, as are the rules for which individual requests require an identifier.</p>
 <h3 id="1174-referencing-returned-entities"><a name="ReferencingReturnedEntities" href="#ReferencingReturnedEntities">11.7.4 Referencing Returned Entities</a></h3>
-<p>Entities created by an <a href="#CreateanEntity">insert</a> request or an <a href="#InvokinganAction">action</a> can be referenced in the request URL of subsequent requests by using the request identifier prefixed with a <code>$</code> character as the first segment of the request URL. If the <a href="#HeaderLocation"><code>Location</code></a> header in the response contains a relative URL, clients MUST be able to resolve it relative to the request’s URL even if that contains such a reference.</p>
+<p>Entities created by an <a href="#CreateanEntity">insert</a> request or an <a href="#InvokinganAction">action</a> can be referenced in the request URL of subsequent requests by using the request identifier prefixed with a <code>$</code> character as the first segment of the request URL. Services MUST treat this segment like the URL in the <a href="#HeaderLocation"><code>Location</code></a> header of the response to the request identified by the segment. If the <code>Location</code> header in the response to the subsequent request contains a relative URL, clients MUST be able to resolve it relative to the request’s URL even if that contains such a reference. See <a href="#batchcontentid">example 105</a>.</p>
 <p>If the <code>$</code>-prefixed request identifier is identical to the name of a top-level system resource (<code>$batch</code>, <code>$crossjoin</code>, <code>$all</code>, <code>$entity</code>, <code>$root</code>, <code>$id</code>, <code>$metadata</code>, or other system resources defined according to the <a href="#HeaderODataVersion"><code>OData-Version</code></a> of the protocol specified in the request), then the reference to the top-level system resource is used. This collision can be avoided by e.g. using only numeric request identifiers.</p>
 <p>Services MAY also support referencing within request bodies, in which case they SHOULD advertise this support by specifying the <code>ReferencesInRequestBodiesSupported</code> property in the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#BatchSupport"><code>Capabilities.BatchSupport</code></a> term applied to the entity container, see <a href="#ODataVocCap">OData-VocCap</a>.</p>
 <h3 id="1175-referencing-the-etag-of-an-entity"><a name="ReferencingtheETagofanEntity" href="#ReferencingtheETagofanEntity">11.7.5 Referencing the ETag of an Entity</a></h3>
 <p>Services MAY support the use of an ETag returned from a previous operation in an <a href="#HeaderIfMatch"><code>If-Match</code></a> or <a href="#HeaderIfNoneMatch"><code>If-None-Match</code></a> header of a subsequent statement. Services SHOULD advertise this support by specifying the <code>EtagReferencesSupported</code> property in the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#BatchSupport"><code>Capabilities.BatchSupport</code></a> annotation term applied to the entity container, see <a href="#ODataVocCap">OData-VocCap</a>.</p>
 <p>The ETag for a previous operation can be referenced by using the request identifier prefixed with a <code>$</code> character as the unquoted value of the <code>If-Match</code> or <code>If-None-Match</code> header.</p>
 <h3 id="1176-referencing-values-from-response-bodies"><a name="ReferencingValuesfromResponseBodies" href="#ReferencingValuesfromResponseBodies">11.7.6 Referencing Values from Response Bodies</a></h3>
-<p>Services MAY support using values from a response body in the query part of the URL or in the request body of subsequent requests. Value references consist of a <code>$</code> character, followed by the request identifier of the preceding request, and optionally followed by a valid OData path.</p>
+<p>Services MAY support using values from a response body in the query part of the URL or in the request body of subsequent requests. Value references consist of a <code>$</code> character, followed by the identifier of the preceding request. They evaluate to the referenced value, that is the value represented by the response body of that preceding request. If that value is a collection, the value reference MAY be followed by a <code>collectionNavigationExpr</code>, as defined in <a href="#ODataABNF">OData-ABNF</a>, that is evaluated relative to the referenced value. Otherwise the value reference MAY be followed by a forward slash and a <code>memberExpr</code> that is evaluated relative to the referenced value.</p>
 <p>If the <code>$</code>-prefixed request identifier is identical to the name of a predefined literal for query expressions (<code>$it</code>, <code>$root</code>, or other literals defined according to the <a href="#HeaderODataVersion"><code>OData-Version</code></a> of the protocol specified in the request), then the predefined literal is used. This collision can be avoided by e.g. using only numeric request identifiers.</p>
 <h3 id="1177-multipart-batch-format"><a name="MultipartBatchFormat" href="#MultipartBatchFormat">11.7.7 Multipart Batch Format</a></h3>
 <p>The multipart batch format is represented as a Multipart Media Type message <a href="#rfc2046">RFC2046</a>, a standard format allowing the representation of multiple parts, each of which may have a different content type.</p>
@@ -2362,7 +2362,7 @@ Content-Type: application/json
 <li>Absolute resource path and separate <code>Host</code> header</li>
 </ul>
 <div class="example">
-<p>Example 102:</p>
+<p>Example <a name="batchhost" href="#batchhost">102</a>:</p>
 <div class="sourceCode" id="cb123"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb123-1"><a href="#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="er">PATCH</span> <span class="er">/path/service/People(1) HTTP/1.1</span></span>
 <span id="cb123-2"><a href="#cb123-2" aria-hidden="true" tabindex="-1"></a><span class="er">Host:</span> <span class="er">myserver.mydomain.org:1234</span></span>
 <span id="cb123-3"><a href="#cb123-3" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
@@ -2448,7 +2448,7 @@ Host: host
 <h4 id="11772-referencing-new-entities"><a name="ReferencingNewEntities" href="#ReferencingNewEntities">11.7.7.2 Referencing New Entities</a></h4>
 <p>Entities created by an <a href="#CreateanEntity">insert</a> request or an <a href="#InvokinganAction">action</a> can be referenced in the request URL of subsequent requests within the same change set. Services MAY also support referencing across change sets, in which case they SHOULD advertise this support by specifying the <code>ReferencesAcrossChangeSetsSupported</code> property in the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#BatchSupport"><code>Capabilities.BatchSupport</code></a> term applied to the entity container, see <a href="#ODataVocCap">OData-VocCap</a>.</p>
 <div class="example">
-<p>Example 105: a batch request that contains the following operations in the order listed:</p>
+<p>Example <a name="batchcontentid" href="#batchcontentid">105</a>: a batch request that contains the following operations in the order listed:</p>
 <p>A change set that contains the following requests:</p>
 <ul>
 <li>Insert a new entity (with <code>Content-ID = 1</code>)</li>
@@ -2485,6 +2485,30 @@ Content-Length: ###
 &lt;JSON representation of a new Order&gt;
 --changeset_77162fcd-b8da-41ac-a9f8-9357efbbd--
 --batch_36522ad7-fc75-4b56-8c71-56071383e77b--</code></pre>
+<p>The response contains relative <code>Location</code> headers.</p>
+<pre><code>HTTP/1.1 200 OK
+OData-Version: 4.0
+Content-Length: ####
+Content-Type: multipart/mixed; boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77a
+
+--batch_36522ad7-fc75-4b56-8c71-56071383e77a
+Content-Type: multipart/mixed; boundary=changeset_77162fcd-b8da-41ac-a9f8-9357efbbe
+
+--changeset_77162fcd-b8da-41ac-a9f8-9357efbbe
+Content-Type: application/http
+
+HTTP/1.1 201 OK
+Location: Customers(&#39;ALFKI&#39;)
+…
+--changeset_77162fcd-b8da-41ac-a9f8-9357efbbe
+Content-Type: application/http
+
+HTTP/1.1 201 OK
+Location: Orders(1)
+…
+--changeset_77162fcd-b8da-41ac-a9f8-9357efbbe--
+--batch_36522ad7-fc75-4b56-8c71-56071383e77a--</code></pre>
+<p>The second <code>Location</code> URL <code>Orders(1)</code> is relative with its base URI being the second request URL <code>$1/Orders</code>. To get an absolute base URI, the client must replace the <code>$1</code> with the first <code>Location</code> URL <code>Customers('ALFKI')</code> and resolve the resulting URL <code>Customers('ALFKI')/Orders(1)</code> relative to its base URI, which is <code>http://host/service/Customers</code> (determined from the first request URL <code>/service/Customers</code> and the <code>Host: host</code> header as in <a href="#batchhost">example 102</a>). This gives the effective second request URL <code>http://host/service/Customers('ALFKI')/Orders</code> as base URI for the second <code>Location</code> URL, which therefore resolves to <code>http://host/service/Customers('ALFKI')/Orders(1)</code>.</p>
 </div>
 <h4 id="11773-referencing-an-etag"><a name="ReferencinganETag" href="#ReferencinganETag">11.7.7.3 Referencing an ETag</a></h4>
 <div class="example">
@@ -2493,35 +2517,35 @@ Content-Length: ###
 <li>Get an employee (with <code>Content-ID = 1</code>)</li>
 <li>Update the salary only if the employee has not changed</li>
 </ul>
-<div class="sourceCode" id="cb127"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb127-1"><a href="#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/service/$batch</span> <span class="er">HTTP/1.1</span></span>
-<span id="cb127-2"><a href="#cb127-2" aria-hidden="true" tabindex="-1"></a><span class="er">Host:</span> <span class="er">host</span></span>
-<span id="cb127-3"><a href="#cb127-3" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="er">4.0</span></span>
-<span id="cb127-4"><a href="#cb127-4" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">multipart/mixed;</span> <span class="er">boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b</span></span>
-<span id="cb127-5"><a href="#cb127-5" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Length:</span> <span class="er">###</span></span>
-<span id="cb127-6"><a href="#cb127-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb127-7"><a href="#cb127-7" aria-hidden="true" tabindex="-1"></a><span class="er">--batch_36522ad7-fc75-4b56-8c71-56071383e77b</span></span>
-<span id="cb127-8"><a href="#cb127-8" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/http</span></span>
-<span id="cb127-9"><a href="#cb127-9" aria-hidden="true" tabindex="-1"></a><span class="er">Content-ID:</span> <span class="er">1</span></span>
-<span id="cb127-10"><a href="#cb127-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb127-11"><a href="#cb127-11" aria-hidden="true" tabindex="-1"></a><span class="er">GET</span> <span class="er">/service/Employees(0)</span> <span class="er">HTTP/1.1</span></span>
-<span id="cb127-12"><a href="#cb127-12" aria-hidden="true" tabindex="-1"></a><span class="er">Host:</span> <span class="er">host</span></span>
-<span id="cb127-13"><a href="#cb127-13" aria-hidden="true" tabindex="-1"></a><span class="er">Accept:</span> <span class="er">application/json</span></span>
-<span id="cb127-14"><a href="#cb127-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb127-15"><a href="#cb127-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb127-16"><a href="#cb127-16" aria-hidden="true" tabindex="-1"></a><span class="er">--batch_36522ad7-fc75-4b56-8c71-56071383e77b</span></span>
-<span id="cb127-17"><a href="#cb127-17" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/http</span></span>
-<span id="cb127-18"><a href="#cb127-18" aria-hidden="true" tabindex="-1"></a><span class="er">Content-ID:</span> <span class="er">2</span></span>
-<span id="cb127-19"><a href="#cb127-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb127-20"><a href="#cb127-20" aria-hidden="true" tabindex="-1"></a><span class="er">PATCH</span> <span class="er">/service/Employees(0)</span> <span class="er">HTTP/1.1</span></span>
-<span id="cb127-21"><a href="#cb127-21" aria-hidden="true" tabindex="-1"></a><span class="er">Host:</span> <span class="er">host</span></span>
-<span id="cb127-22"><a href="#cb127-22" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
-<span id="cb127-23"><a href="#cb127-23" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Length:</span> <span class="er">###</span></span>
-<span id="cb127-24"><a href="#cb127-24" aria-hidden="true" tabindex="-1"></a><span class="er">If-Match:</span> <span class="er">$1</span></span>
-<span id="cb127-25"><a href="#cb127-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb127-26"><a href="#cb127-26" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb127-27"><a href="#cb127-27" aria-hidden="true" tabindex="-1"></a>   <span class="dt">&quot;Salary&quot;</span><span class="fu">:</span> <span class="dv">75000</span></span>
-<span id="cb127-28"><a href="#cb127-28" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span>
-<span id="cb127-29"><a href="#cb127-29" aria-hidden="true" tabindex="-1"></a><span class="er">--batch_36522ad7-fc75-4b56-8c71-56071383e77b--</span></span></code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/service/$batch</span> <span class="er">HTTP/1.1</span></span>
+<span id="cb128-2"><a href="#cb128-2" aria-hidden="true" tabindex="-1"></a><span class="er">Host:</span> <span class="er">host</span></span>
+<span id="cb128-3"><a href="#cb128-3" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="er">4.0</span></span>
+<span id="cb128-4"><a href="#cb128-4" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">multipart/mixed;</span> <span class="er">boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b</span></span>
+<span id="cb128-5"><a href="#cb128-5" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Length:</span> <span class="er">###</span></span>
+<span id="cb128-6"><a href="#cb128-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb128-7"><a href="#cb128-7" aria-hidden="true" tabindex="-1"></a><span class="er">--batch_36522ad7-fc75-4b56-8c71-56071383e77b</span></span>
+<span id="cb128-8"><a href="#cb128-8" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/http</span></span>
+<span id="cb128-9"><a href="#cb128-9" aria-hidden="true" tabindex="-1"></a><span class="er">Content-ID:</span> <span class="er">1</span></span>
+<span id="cb128-10"><a href="#cb128-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb128-11"><a href="#cb128-11" aria-hidden="true" tabindex="-1"></a><span class="er">GET</span> <span class="er">/service/Employees(0)</span> <span class="er">HTTP/1.1</span></span>
+<span id="cb128-12"><a href="#cb128-12" aria-hidden="true" tabindex="-1"></a><span class="er">Host:</span> <span class="er">host</span></span>
+<span id="cb128-13"><a href="#cb128-13" aria-hidden="true" tabindex="-1"></a><span class="er">Accept:</span> <span class="er">application/json</span></span>
+<span id="cb128-14"><a href="#cb128-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb128-15"><a href="#cb128-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb128-16"><a href="#cb128-16" aria-hidden="true" tabindex="-1"></a><span class="er">--batch_36522ad7-fc75-4b56-8c71-56071383e77b</span></span>
+<span id="cb128-17"><a href="#cb128-17" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/http</span></span>
+<span id="cb128-18"><a href="#cb128-18" aria-hidden="true" tabindex="-1"></a><span class="er">Content-ID:</span> <span class="er">2</span></span>
+<span id="cb128-19"><a href="#cb128-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb128-20"><a href="#cb128-20" aria-hidden="true" tabindex="-1"></a><span class="er">PATCH</span> <span class="er">/service/Employees(0)</span> <span class="er">HTTP/1.1</span></span>
+<span id="cb128-21"><a href="#cb128-21" aria-hidden="true" tabindex="-1"></a><span class="er">Host:</span> <span class="er">host</span></span>
+<span id="cb128-22"><a href="#cb128-22" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
+<span id="cb128-23"><a href="#cb128-23" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Length:</span> <span class="er">###</span></span>
+<span id="cb128-24"><a href="#cb128-24" aria-hidden="true" tabindex="-1"></a><span class="er">If-Match:</span> <span class="er">$1</span></span>
+<span id="cb128-25"><a href="#cb128-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb128-26"><a href="#cb128-26" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb128-27"><a href="#cb128-27" aria-hidden="true" tabindex="-1"></a>   <span class="dt">&quot;Salary&quot;</span><span class="fu">:</span> <span class="dv">75000</span></span>
+<span id="cb128-28"><a href="#cb128-28" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span>
+<span id="cb128-29"><a href="#cb128-29" aria-hidden="true" tabindex="-1"></a><span class="er">--batch_36522ad7-fc75-4b56-8c71-56071383e77b--</span></span></code></pre></div>
 </div>
 <h4 id="11774-referencing-response-body-values"><a name="ReferencingResponseBodyValues" href="#ReferencingResponseBodyValues">11.7.7.4 Referencing Response Body Values</a></h4>
 <div class="example">
@@ -2568,7 +2592,7 @@ Accept: application/json
 <li><a href="#AsynchronousBatchRequests">Asynchronously processed batch requests</a> can return interim results and end with a <code>202 Accepted</code> as the last part of the multipart response. Therefore, the <a href="#Preferencerespondasync"><code>respond-async</code></a> preference MUST NOT be applied to individual requests within a batch if the batch response is a multipart response.</li>
 </ul>
 <p>The body of a multipart response to a JSON batch request contains one body part for each processed or accepted request. The order of the body parts is insignificant as each body part MUST contain the <code>Content-ID</code> header with the value of the <code>id</code> name/value pair of the corresponding request object.</p>
-<p>A response to an operation in a batch MUST be formatted exactly as it would have appeared outside of a batch as described in the corresponding subsections of chapter <a href="#DataServiceRequests">Data Service Requests</a>. Relative URLs in each individual response are relative to the request URL of the corresponding individual request. URLs in responses MUST NOT contain <code>$</code>-prefixed request identifiers.</p>
+<p>A response to an operation in a batch MUST be formatted exactly as it would have appeared outside of a batch as described in the corresponding subsections of chapter <a href="#DataServiceRequests">Data Service Requests</a>. Relative URLs in each individual response are relative to the request URL of the corresponding individual request (see <a href="#batchcontentid">example 105</a>). URLs in responses MUST NOT contain <code>$</code>-prefixed request identifiers.</p>
 <div class="example">
 <p>Example 108: referencing the batch request <a href="#batchRequest">example 104</a> above, assume all the requests except the final query request succeed. In this case the response would be</p>
 <pre><code>HTTP/1.1 200 OK
