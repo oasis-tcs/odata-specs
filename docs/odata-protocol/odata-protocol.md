@@ -5875,12 +5875,12 @@ that is evaluated relative to the referenced value.
 Otherwise the value reference MAY be followed by a forward slash and a
 `memberExpr` that is evaluated relative to the referenced value.
 
-If the `$`-prefixed request identifier is identical to the name of a
+If the `$`-prefixed identifier is identical to the name of a
 predefined literal for query expressions (`$it`, `$root`, or other
 literals defined according to the [`OData-Version`](#HeaderODataVersion)
 of the protocol specified in the request), then the predefined literal
 is used. This collision can be avoided by e.g. using only numeric
-request identifiers.
+identifiers.
 
 ### <a name="MultipartBatchFormat" href="#MultipartBatchFormat">11.7.7 Multipart Batch Format</a>
 
