@@ -213,7 +213,8 @@ An OData JSON payload may represent:
 Section | Feature / Change | Issue
 --------|------------------|------
 [Section 4.5.1](#ControlInformationcontextodatacontext)| Fragment portion of Context URL is not percent-encoded| [368](https://github.com/oasis-tcs/odata-specs/issues/368)
-[Section 4.5.12](#ControlInformationmediaodatamedia)|  `mediaContentType` can be `null`| [536](https://github.com/oasis-tcs/odata-specs/issues/536)
+[Section 4.5.12](#ControlInformationmediaodatamedia)| `mediaContentType` can be `null`| [536](https://github.com/oasis-tcs/odata-specs/issues/536)
+[Section 18](#ActionInvocation)| Allow common expressions in action payload| [1943](https://github.com/oasis-tcs/odata-specs/issues/1943)
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -2992,6 +2993,9 @@ Content-Type: application/json
 }
 ```
 :::
+
+Inside a batch request the common expressions can also be value references
+starting with `$`, as introduced in [OData-Protocol, section 11.7.6](#ODataProtocol).
 
 Non-binding parameters that are nullable or annotated with the term
 [`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter) defined in

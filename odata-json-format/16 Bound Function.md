@@ -255,6 +255,9 @@ Content-Type: application/json
 ```
 :::
 
+Inside a batch request the common expressions can also be value references
+starting with `$`, as introduced in [OData-Protocol, section 11.7.6](#ODataProtocol).
+
 Non-binding parameters that are nullable or annotated with the term
 [`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter) defined in
 [OData-VocCore](#ODataVocCore) MAY be omitted from the request body.

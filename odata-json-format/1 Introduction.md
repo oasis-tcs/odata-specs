@@ -25,8 +25,11 @@ Section | Feature / Change | Issue
 Fragment portion of Context URL is not percent-encoded| 
 [368](https://github.com/oasis-tcs/odata-specs/issues/368)
 [Section ##ControlInformationmediaodatamedia]| 
- `mediaContentType` can be `null`| 
+`mediaContentType` can be `null`| 
 [536](https://github.com/oasis-tcs/odata-specs/issues/536)
+[Section ##ActionInvocation]| 
+Allow common expressions in action payload| 
+[1943](https://github.com/oasis-tcs/odata-specs/issues/1943)
 
 ## ##subsec Glossary
 
