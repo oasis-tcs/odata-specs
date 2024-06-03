@@ -2974,23 +2974,39 @@ appropriate to the action.
 Stream typed parameter values are represented following the same rules as inlined [stream properties](#StreamProperty).
 
 Alternatively, values of non-binding parameters MAY be specified as common expressions
-[OData-URL, section 5.1.1](#ODataURL) that the service evaluates relative to the
-action. They are then encoded as a name/value
+[OData-URL, section 5.1.1](#ODataURL) that the service evaluates on the
+binding parameter in the case of a bound action and which MUST start with `$root`
+in the case of an unbound action. They are then encoded as a name/value
 pair where the name is the name of the parameter followed by `@expressionUrl` and
 the value is the common expression. As the following example demonstrates, even
 non-transient entities can be passed as non-binding action parameters in this way.
 
 ::: example
-Example 49: An employee requests leave from their manager for the next two weeks.
+Example 49: An employee requests leave from their manager for the next two weeks:
 ```json
-POST /service/Employees(23)/RequestLeave
+POST /service/Employees(23)/self.RequestLeave
 Host: host
 Content-Type: application/json
 
 {
   "StartDate@expressionUrl": "now()",
   "EndDate@expressionUrl": "now() add duration'P14D'",
-  "Approver@expressionUrl": "$root/Employees(23)/Manager"
+  "Approver@expressionUrl": "Manager"
+}
+```
+The expression `Manager` is evaluated on the binding parameter `Employees(23)`.
+
+When invoking an unbound action, the expressions must start with `$root`:
+```json
+POST /service/RequestLeaveUnbound
+Host: host
+Content-Type: application/json
+
+{
+  "Requester@expressionUrl": "$root/services/Employee(23)",
+  "StartDate@expressionUrl": "now()",
+  "EndDate@expressionUrl": "now() add duration'P14D'",
+  "Approver@expressionUrl": "$root/services/Employee(23)/Manager"
 }
 ```
 :::

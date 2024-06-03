@@ -569,7 +569,33 @@ syntax rule define the grammar for invoking functions, for example to help filte
 and order resources identified by the `resourcePath` of the URL.
 - The `aliasAndValue` syntax rule defines
 the grammar for providing function parameter values using Parameter
-Alias Syntax, see [OData-Protocol](#ODataProtocol).
+Alias Syntax, see [OData-Protocol](#ODataProtocol). The aliases can contain [common
+expressions](#CommonExpressionSyntax), which the service evaluates on the
+binding parameter in the case of a bound function and which MUST start with `$root` in
+the case of an unbound function.
+
+::: example
+Example ##ex: An employee's leave requests pending their manager's approval
+for the next two weeks:
+```
+http://host/service/Employees(23)/self.PendingLeaveRequests(StartDate=@start,
+  EndDate=@end,Approver=@approver)
+  ?@start=now()
+  &@end=now() add duration'P14D'
+  &@approver=Manager
+```
+The expression `Manager` is evaluated on the binding parameter `Employees(23)`.
+
+When invoking an unbound function, the expressions must start with `$root`:
+```
+http://host/service/PendingLeaveRequestsUnbound(Requester=@requester,
+  StartDate=@start,EndDate=@end,Approver=@approver)
+  ?@requester=$root/services/Employee(23)
+  &@start=now()
+  &@end=now() add duration'P14D'
+  &@approver=$root/services/Employee(23)/Manager
+```
+:::
 
 Note: there is no literal representation for `Edm.Stream` values in URLs,
 so it is not possible to pass `Edm.Stream` values to parameters of function imports or
