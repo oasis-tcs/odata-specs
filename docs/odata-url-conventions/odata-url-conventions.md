@@ -1025,9 +1025,9 @@ and order resources identified by the `resourcePath` of the URL.
 - The `aliasAndValue` syntax rule defines
 the grammar for providing function parameter values using Parameter
 Alias Syntax, see [OData-Protocol](#ODataProtocol). The aliases can contain [common
-expressions](#CommonExpressionSyntax), which the service evaluates on the
-binding parameter in the case of a bound function and which MUST start with `$root` in
-the case of an unbound function.
+expressions](#CommonExpressionSyntax). In the case of a bound action
+these MAY contain [path expressions](#PathExpressions), which
+the service evaluates on the binding parameter.
 
 ::: example
 Example 30: An employee's leave requests pending their manager's approval
@@ -1041,7 +1041,7 @@ http://host/service/Employees(23)/self.PendingLeaveRequests(StartDate=@start,
 ```
 The expression `Manager` is evaluated on the binding parameter `Employees(23)`.
 
-When invoking an unbound function, the expressions must start with `$root`:
+When invoking an unbound function, expressions involving paths must start with `$root`:
 ```
 http://host/service/PendingLeaveRequestsUnbound(Requester=@requester,
   StartDate=@start,EndDate=@end,Approver=@approver)

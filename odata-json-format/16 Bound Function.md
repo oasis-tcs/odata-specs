@@ -235,9 +235,9 @@ appropriate to the action.
 Stream typed parameter values are represented following the same rules as inlined [stream properties](#StreamProperty).
 
 Alternatively, values of non-binding parameters MAY be specified as common expressions
-[OData-URL, section 5.1.1](#ODataURL) that the service evaluates on the
-binding parameter in the case of a bound action and which MUST start with `$root`
-in the case of an unbound action. They are then encoded as a name/value
+[OData-URL, section 5.1.1](#ODataURL). In the case of a bound action
+these MAY contain path expressions [OData-URL, section 5.1.1.15](#ODataURL), which
+the service evaluates on the binding parameter. Such parameters are then encoded as a name/value
 pair where the name is the name of the parameter followed by `@expressionUrl` and
 the value is the common expression. As the following example demonstrates, even
 non-transient entities can be passed as non-binding action parameters in this way.
@@ -257,7 +257,7 @@ Content-Type: application/json
 ```
 The expression `Manager` is evaluated on the binding parameter `Employees(23)`.
 
-When invoking an unbound action, the expressions must start with `$root`:
+When invoking an unbound action, expressions involving paths must start with `$root`:
 ```json
 POST /service/RequestLeaveUnbound
 Host: host

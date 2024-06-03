@@ -710,7 +710,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <li>The bound function call syntax rules <code>boundComplexFunctionCall</code>, <code>boundComplexColFunctionCall</code>, <code>boundEntityFunctionCall</code>, <code>boundEntityColFunctionCall</code>, <code>boundPrimitiveFunctionCall</code> and <code>boundPrimitiveColFunctionCall</code> define the grammar in the <code>resourcePath</code> for addressing and providing parameters for a function that is appended to a <code>resourcePath</code> that identifies some resources that can be used as the binding parameter value when invoking the function.</li>
 <li>The <code>boundOperation</code> syntax rule (which encompasses the bound function call syntax rules), when used by the <code>resourcePath</code> syntax rule, illustrates how a bound function call can be appended to a <code>resourcePath</code>.</li>
 <li>The <code>functionExpr</code> and <code>boundFunctionExpr</code> syntax rules as used by the <code>commonExpr</code> syntax rule define the grammar for invoking functions, for example to help filter and order resources identified by the <code>resourcePath</code> of the URL.</li>
-<li>The <code>aliasAndValue</code> syntax rule defines the grammar for providing function parameter values using Parameter Alias Syntax, see <a href="#ODataProtocol">OData-Protocol</a>. The aliases can contain <a href="#CommonExpressionSyntax">common expressions</a>, which the service evaluates on the binding parameter in the case of a bound function and which MUST start with <code>$root</code> in the case of an unbound function.</li>
+<li>The <code>aliasAndValue</code> syntax rule defines the grammar for providing function parameter values using Parameter Alias Syntax, see <a href="#ODataProtocol">OData-Protocol</a>. The aliases can contain <a href="#CommonExpressionSyntax">common expressions</a>. In the case of a bound action these MAY contain <a href="#PathExpressions">path expressions</a>, which the service evaluates on the binding parameter.</li>
 </ul>
 <div class="example">
 <p>Example 30: An employee’s leave requests pending their manager’s approval for the next two weeks:</p>
@@ -720,7 +720,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
   &amp;@end=now() add duration&#39;P14D&#39;
   &amp;@approver=Manager</code></pre>
 <p>The expression <code>Manager</code> is evaluated on the binding parameter <code>Employees(23)</code>.</p>
-<p>When invoking an unbound function, the expressions must start with <code>$root</code>:</p>
+<p>When invoking an unbound function, expressions involving paths must start with <code>$root</code>:</p>
 <pre><code>http://host/service/PendingLeaveRequestsUnbound(Requester=@requester,
   StartDate=@start,EndDate=@end,Approver=@approver)
   ?@requester=$root/services/Employee(23)
