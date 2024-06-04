@@ -942,7 +942,7 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <p>The <code>has</code> operator returns true if the right operand is an enumeration value whose flag(s) are set on the left operand.</p>
 <p>The <code>null</code> value is treated as unknown, so if one operand evaluates to <code>null</code>, the <code>has</code> operator returns <code>null</code>.</p>
 <h5 id="511111-in"><a name="In" href="#In">5.1.1.1.11 In</a></h5>
-<p>The <code>in</code> operator returns true if the left operand is a member of the right operand. The right operand MUST be either a comma-separated list of primitive values, enclosed in parentheses, or a single expression that resolves to a collection.</p>
+<p>The <code>in</code> operator returns true if the left operand is a member of the right operand. The right operand MUST be either a comma-separated list of zero or more primitive values, enclosed in parentheses, or a single expression that resolves to a collection. If the right operand is an empty list of values, the expression returns false.</p>
 <h5 id="511112-logical-operator-examples"><a name="LogicalOperatorExamples" href="#LogicalOperatorExamples">5.1.1.1.12 Logical Operator Examples</a></h5>
 <p>The following examples illustrate the use and semantics of each of the logical operators.</p>
 <div class="example">

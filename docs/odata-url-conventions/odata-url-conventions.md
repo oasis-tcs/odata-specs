@@ -1695,8 +1695,9 @@ The `null` value is treated as unknown, so if one operand evaluates to
 
 The `in` operator returns true if the left operand is a member of the
 right operand. The right operand MUST be either a comma-separated list
-of primitive values, enclosed in parentheses, or a single expression
-that resolves to a collection.
+of zero or more primitive values, enclosed in parentheses, or a single expression
+that resolves to a collection. If the right operand is an empty list
+of values, the expression returns false.
 
 ##### <a name="LogicalOperatorExamples" href="#LogicalOperatorExamples">5.1.1.1.12 Logical Operator Examples</a>
 
