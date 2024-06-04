@@ -1027,7 +1027,7 @@ the grammar for providing function parameter values using Parameter
 Alias Syntax, see [OData-Protocol](#ODataProtocol). The aliases can contain [common
 expressions](#CommonExpressionSyntax). In the case of a bound function
 these MAY contain [path expressions](#PathExpressions), which
-the service evaluates on the binding parameter.
+the service evaluates on the binding parameter value.
 
 ::: example
 Example 30: An employee's leave requests pending their manager's approval
@@ -1039,7 +1039,7 @@ http://host/service/Employees(23)/self.PendingLeaveRequests(StartDate=@start,
   &@end=now() add duration'P14D'
   &@approver=Manager
 ```
-The expression `Manager` is evaluated on the binding parameter `Employees(23)`.
+The expression `Manager` is evaluated on the binding parameter value `Employees(23)`.
 
 When invoking an unbound function through a function import, expressions involving
 paths must start with `$root`:
