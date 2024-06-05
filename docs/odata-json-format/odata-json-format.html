@@ -1166,7 +1166,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ContactName&quot;</span><span class="fu">:</span> <span class="st">&quot;Blake Smithe&quot;</span></span>
 <span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
 <span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@deltaLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers?$expand=Orders&amp;$deltatoken=8015&quot;</span></span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@deltaLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers?$deltatoken=8015&quot;</span></span>
 <span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
@@ -1177,23 +1177,23 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <li><code>ContactName</code> for customer <code>ALFKI</code> was changed to <code>Blake Smithe</code></li>
 </ol>
 <div class="sourceCode" id="cb36"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Customers/$delta&quot;</span><span class="fu">,</span></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@count&quot;</span><span class="fu">:</span> <span class="dv">3</span><span class="fu">,</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Customers/$delta&quot;</span><span class="fu">,</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.count&quot;</span><span class="fu">:</span> <span class="dv">3</span><span class="fu">,</span></span>
 <span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
 <span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;BOTTM&#39;)&quot;</span><span class="fu">,</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@odata.id&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;BOTTM&#39;)&quot;</span><span class="fu">,</span></span>
 <span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ContactName&quot;</span><span class="fu">:</span> <span class="st">&quot;Susan Halvenstern&quot;</span><span class="fu">,</span></span>
 <span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Customers/$deletedEntity&quot;</span><span class="fu">,</span></span>
-<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ANTON&#39;)&quot;</span></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Customers/$deletedEntity&quot;</span><span class="fu">,</span></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@odata.id&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ANTON&#39;)&quot;</span></span>
 <span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ALFKI&#39;)&quot;</span><span class="fu">,</span></span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@odata.id&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ALFKI&#39;)&quot;</span><span class="fu">,</span></span>
 <span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ContactName&quot;</span><span class="fu">:</span> <span class="st">&quot;Blake Smithe&quot;</span></span>
 <span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
 <span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@deltaLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers?$expand=Orders&amp;$deltatoken=8015&quot;</span></span>
+<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.deltaLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers?$deltatoken=8015&quot;</span></span>
 <span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <h2 id="152-addedchanged-entity"><a name="AddedChangedEntity" href="#AddedChangedEntity">15.2 Added/Changed Entity</a></h2>
@@ -1331,24 +1331,24 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <li><code>ContactName</code> for customer <code>ALFKI</code> was subsequently changed to <code>Blake Smithe</code></li>
 </ol>
 <div class="sourceCode" id="cb42"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Customers/$delta&quot;</span><span class="fu">,</span></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@count&quot;</span><span class="fu">:</span> <span class="dv">5</span><span class="fu">,</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Customers/$delta&quot;</span><span class="fu">,</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.count&quot;</span><span class="fu">:</span> <span class="dv">5</span><span class="fu">,</span></span>
 <span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
 <span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Customers/$deletedLink&quot;</span><span class="fu">,</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Customers/$deletedLink&quot;</span><span class="fu">,</span></span>
 <span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;source&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ALFKI&#39;)&quot;</span><span class="fu">,</span></span>
 <span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;relationship&quot;</span><span class="fu">:</span> <span class="st">&quot;Orders&quot;</span><span class="fu">,</span></span>
 <span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;target&quot;</span><span class="fu">:</span> <span class="st">&quot;Orders(10643)&quot;</span></span>
 <span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Customers/$link&quot;</span><span class="fu">,</span></span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Customers/$link&quot;</span><span class="fu">,</span></span>
 <span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;source&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;BOTTM&#39;)&quot;</span><span class="fu">,</span></span>
 <span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;relationship&quot;</span><span class="fu">:</span> <span class="st">&quot;Orders&quot;</span><span class="fu">,</span></span>
 <span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;target&quot;</span><span class="fu">:</span> <span class="st">&quot;Orders(10645)&quot;</span></span>
 <span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Orders/$entity&quot;</span><span class="fu">,</span></span>
-<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Orders(10645)&quot;</span><span class="fu">,</span></span>
+<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Orders/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@odata.id&quot;</span><span class="fu">:</span> <span class="st">&quot;Orders(10645)&quot;</span><span class="fu">,</span></span>
 <span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ShippingAddress&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;Street&quot;</span><span class="fu">:</span> <span class="st">&quot;23 Tsawassen Blvd.&quot;</span><span class="fu">,</span></span>
 <span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;City&quot;</span><span class="fu">:</span> <span class="st">&quot;Tsawassen&quot;</span><span class="fu">,</span></span>
@@ -1357,15 +1357,15 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <span id="cb42-25"><a href="#cb42-25" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
 <span id="cb42-26"><a href="#cb42-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb42-27"><a href="#cb42-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb42-28"><a href="#cb42-28" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Customers/$deletedEntity&quot;</span><span class="fu">,</span></span>
-<span id="cb42-29"><a href="#cb42-29" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ANTON&#39;)&quot;</span></span>
+<span id="cb42-28"><a href="#cb42-28" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Customers/$deletedEntity&quot;</span><span class="fu">,</span></span>
+<span id="cb42-29"><a href="#cb42-29" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@odata.id&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ANTON&#39;)&quot;</span></span>
 <span id="cb42-30"><a href="#cb42-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb42-31"><a href="#cb42-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb42-32"><a href="#cb42-32" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ALFKI&#39;)&quot;</span><span class="fu">,</span></span>
+<span id="cb42-32"><a href="#cb42-32" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@odata.id&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ALFKI&#39;)&quot;</span><span class="fu">,</span></span>
 <span id="cb42-33"><a href="#cb42-33" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;ContactName&quot;</span><span class="fu">:</span> <span class="st">&quot;Blake Smithe&quot;</span></span>
 <span id="cb42-34"><a href="#cb42-34" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
 <span id="cb42-35"><a href="#cb42-35" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb42-36"><a href="#cb42-36" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@deltaLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers?$expand=Orders&amp;$deltatoken=8015&quot;</span></span>
+<span id="cb42-36"><a href="#cb42-36" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.deltaLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers?$expand=Orders&amp;$deltatoken=8016&quot;</span></span>
 <span id="cb42-37"><a href="#cb42-37" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <p>If a property of an entity is dependent upon the property of another entity within the expanded set of entities being tracked, then both the change to the dependent property as well as the change to the principal property or <a href="#AddedLink">added</a>/<a href="#DeletedLink">deleted link</a> corresponding to the change to the dependent property are returned in the delta response.</p>
@@ -1486,12 +1486,13 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <span id="cb43-73"><a href="#cb43-73" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Orders@delta&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
 <span id="cb43-74"><a href="#cb43-74" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
 <span id="cb43-75"><a href="#cb43-75" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;@Org.OData.Core.V1.ContentID&quot;</span><span class="fu">:</span> <span class="st">&quot;6.1&quot;</span><span class="fu">,</span></span>
-<span id="cb43-76"><a href="#cb43-76" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;OrderID&quot;</span><span class="fu">:</span> <span class="dv">10311</span></span>
-<span id="cb43-77"><a href="#cb43-77" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
-<span id="cb43-78"><a href="#cb43-78" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span></span>
-<span id="cb43-79"><a href="#cb43-79" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="cb43-80"><a href="#cb43-80" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
-<span id="cb43-81"><a href="#cb43-81" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<span id="cb43-76"><a href="#cb43-76" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;@removed&quot;</span> <span class="er">{</span><span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb43-77"><a href="#cb43-77" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;OrderID&quot;</span><span class="er">:</span> <span class="dv">10311</span></span>
+<span id="cb43-78"><a href="#cb43-78" aria-hidden="true" tabindex="-1"></a>        <span class="er">}</span></span>
+<span id="cb43-79"><a href="#cb43-79" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span></span>
+<span id="cb43-80"><a href="#cb43-80" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb43-81"><a href="#cb43-81" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb43-82"><a href="#cb43-82" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <p>Assuming all changes can be applied without errors, the response would be</p>
 <pre><code>HTTP/1.1 204 No Content
 Preference-Applied: return=minimal, continue-on-error

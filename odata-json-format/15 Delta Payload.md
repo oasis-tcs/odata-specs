@@ -63,7 +63,7 @@ occurrence
       "ContactName": "Blake Smithe"
     }
   ],
-  "@deltaLink": "Customers?$expand=Orders&$deltatoken=8015"
+  "@deltaLink": "Customers?$deltatoken=8015"
 }
 ```
 :::
@@ -78,23 +78,23 @@ occurrence
 
 ```json
 {
-  "@context": "http://host/service/$metadata#Customers/$delta",
-  "@count": 3,
+  "@odata.context": "http://host/service/$metadata#Customers/$delta",
+  "@odata.count": 3,
   "value": [
     {
-      "@id": "Customers('BOTTM')",
+      "@odata.id": "Customers('BOTTM')",
       "ContactName": "Susan Halvenstern",
     },
     {
-      "@context": "#Customers/$deletedEntity",
-      "@id": "Customers('ANTON')"
+      "@odata.context": "#Customers/$deletedEntity",
+      "@odata.id": "Customers('ANTON')"
     },
     {
-      "@id": "Customers('ALFKI')",
+      "@odata.id": "Customers('ALFKI')",
       "ContactName": "Blake Smithe"
     }
   ],
-  "@deltaLink": "Customers?$expand=Orders&$deltatoken=8015"
+  "@odata.deltaLink": "Customers?$deltatoken=8015"
 }
 ```
 :::
@@ -394,24 +394,24 @@ Example ##ex: changes to related orders represented as a 4.0 flattened delta pay
 
 ```json
 {
-  "@context": "http://host/service/$metadata#Customers/$delta",
-  "@count": 5,
+  "@odata.context": "http://host/service/$metadata#Customers/$delta",
+  "@odata.count": 5,
   "value": [
     {
-      "@context": "#Customers/$deletedLink",
+      "@odata.context": "#Customers/$deletedLink",
       "source": "Customers('ALFKI')",
       "relationship": "Orders",
       "target": "Orders(10643)"
     },
     {
-      "@context": "#Customers/$link",
+      "@odata.context": "#Customers/$link",
       "source": "Customers('BOTTM')",
       "relationship": "Orders",
       "target": "Orders(10645)"
     },
     {
-      "@context": "#Orders/$entity",
-      "@id": "Orders(10645)",
+      "@odata.context": "#Orders/$entity",
+      "@odata.id": "Orders(10645)",
       "ShippingAddress": {
         "Street": "23 Tsawassen Blvd.",
         "City": "Tsawassen",
@@ -420,15 +420,15 @@ Example ##ex: changes to related orders represented as a 4.0 flattened delta pay
       }
     },
     {
-      "@context": "#Customers/$deletedEntity",
-      "@id": "Customers('ANTON')"
+      "@odata.context": "#Customers/$deletedEntity",
+      "@odata.id": "Customers('ANTON')"
     },
     {
-      "@id": "Customers('ALFKI')",
+      "@odata.id": "Customers('ALFKI')",
       "ContactName": "Blake Smithe"
     }
   ],
-  "@deltaLink": "Customers?$expand=Orders&$deltatoken=8015"
+  "@odata.deltaLink": "Customers?$expand=Orders&$deltatoken=8016"
 }
 ```
 :::
@@ -591,6 +591,7 @@ Prefer: return=minimal, continue-on-error
       "Orders@delta": [
         {
           "@Org.OData.Core.V1.ContentID": "6.1",
+          "@removed" {},
           "OrderID": 10311
         }
       ]
