@@ -375,6 +375,11 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td>New overload for function <code>matchespattern</code> with flags</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/441">441</a></td>
 </tr>
+<tr class="even">
+<td><a href="#SystemQueryOptionsearch">Section 5.1.8</a></td>
+<td>Allow alternative <code>$search</code> syntax</td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/293">293</a></td>
+</tr>
 </tbody>
 </table>
 <h2 id="12-glossary"><a name="Glossary" href="#Glossary">1.2 Glossary</a></h2>
@@ -936,7 +941,7 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <p>The <code>has</code> operator returns true if the right operand is an enumeration value whose flag(s) are set on the left operand.</p>
 <p>The <code>null</code> value is treated as unknown, so if one operand evaluates to <code>null</code>, the <code>has</code> operator returns <code>null</code>.</p>
 <h5 id="511111-in"><a name="In" href="#In">5.1.1.1.11 In</a></h5>
-<p>The <code>in</code> operator returns true if the left operand is a member of the right operand. The right operand MUST be either a comma-separated list of primitive values, enclosed in parentheses, or a single expression that resolves to a collection.</p>
+<p>The <code>in</code> operator returns true if the left operand is a member of the right operand. The right operand MUST be either a comma-separated list of zero or more primitive values, enclosed in parentheses, or a single expression that resolves to a collection. If the right operand is an empty collection or list of values, the expression returns false.</p>
 <h5 id="511112-logical-operator-examples"><a name="LogicalOperatorExamples" href="#LogicalOperatorExamples">5.1.1.1.12 Logical Operator Examples</a></h5>
 <p>The following examples illustrate the use and semantics of each of the logical operators.</p>
 <div class="example">
@@ -1874,6 +1879,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>Example 135: all products that are blue or green. It is up to the service to decide what makes a product blue or green.</p>
 <pre><code>http://host/service/Products?$search=blue OR green</code></pre>
 </div>
+<p>Clients should be aware that services MAY implement search based on a different syntax provided they advertise this with the annotation <code>SearchRestrictions/SearchSyntax</code> defined in <a href="#ODataVocCap">OData-VocCap</a>. Services MAY treat keywords defined in the standard <a href="#ODataABNF">OData-ABNF</a> <code>$search</code> syntax as terms to be matched if they are listed in <code>SearchRestrictions/UnsupportedExpressions</code>.</p>
 <h4 id="5181-search-expressions"><a name="SearchExpressions" href="#SearchExpressions">5.1.8.1 Search Expressions</a></h4>
 <p>Search expressions are used within the <a href="#SystemQueryOptionsearch"><code>$search</code></a> system query option to request entities matching the specified expression. Leading and trailing spaces are not considered part of the search expression.</p>
 <p><em>Terms</em> can be any single word to be matched within the expression.</p>

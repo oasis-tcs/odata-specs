@@ -238,8 +238,9 @@ The `null` value is treated as unknown, so if one operand evaluates to
 
 The `in` operator returns true if the left operand is a member of the
 right operand. The right operand MUST be either a comma-separated list
-of primitive values, enclosed in parentheses, or a single expression
-that resolves to a collection.
+of zero or more primitive values, enclosed in parentheses, or a single expression
+that resolves to a collection. If the right operand is an empty collection
+or list of values, the expression returns false.
 
 ##### ##subsubsubsubsec Logical Operator Examples
 
@@ -2378,6 +2379,12 @@ service to decide what makes a product blue or green.
 http://host/service/Products?$search=blue OR green
 ```
 :::
+
+Clients should be aware that services MAY implement search based on a different
+syntax provided they advertise this with the annotation `SearchRestrictions/SearchSyntax` defined in
+[OData-VocCap](#ODataVocCap). Services MAY treat keywords defined in the standard
+[OData-ABNF](#ODataABNF) `$search` syntax as terms to be matched if they are
+listed in `SearchRestrictions/UnsupportedExpressions`.
 
 #### ##subsubsubsec Search Expressions
 
