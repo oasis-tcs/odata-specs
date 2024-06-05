@@ -347,13 +347,12 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><a href="#NormativeReferences">A.1 Normative References</a></li>
 <li><a href="#InformativeReferences">A.2 Informative References</a></li>
 </ul></li>
-<li><a href="#SafetySecurityandPrivacyConsiderations">B Safety, Security and Privacy Considerations</a></li>
-<li><a href="#Acknowledgments">C Acknowledgments</a>
+<li><a href="#Acknowledgments">B Acknowledgments</a>
 <ul>
-<li><a href="#Participants">C.1 Participants</a></li>
+<li><a href="#Participants">B.1 Participants</a></li>
 </ul></li>
-<li><a href="#RevisionHistory">D Revision History</a></li>
-<li><a href="#Notices">E Notices</a></li>
+<li><a href="#RevisionHistory">C Revision History</a></li>
+<li><a href="#Notices">D Notices</a></li>
 </ul>
 </div>
 <hr />
@@ -942,7 +941,7 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <p>The <code>has</code> operator returns true if the right operand is an enumeration value whose flag(s) are set on the left operand.</p>
 <p>The <code>null</code> value is treated as unknown, so if one operand evaluates to <code>null</code>, the <code>has</code> operator returns <code>null</code>.</p>
 <h5 id="511111-in"><a name="In" href="#In">5.1.1.1.11 In</a></h5>
-<p>The <code>in</code> operator returns true if the left operand is a member of the right operand. The right operand MUST be either a comma-separated list of primitive values, enclosed in parentheses, or a single expression that resolves to a collection.</p>
+<p>The <code>in</code> operator returns true if the left operand is a member of the right operand. The right operand MUST be either a comma-separated list of zero or more primitive values, enclosed in parentheses, or a single expression that resolves to a collection. If the right operand is an empty collection or list of values, the expression returns false.</p>
 <h5 id="511112-logical-operator-examples"><a name="LogicalOperatorExamples" href="#LogicalOperatorExamples">5.1.1.1.12 Logical Operator Examples</a></h5>
 <p>The following examples illustrate the use and semantics of each of the logical operators.</p>
 <div class="example">
@@ -1986,14 +1985,14 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <!-- TODO:
 -------
 
-# <a name="SafetySecurityandPrivacyConsiderations" href="#SafetySecurityandPrivacyConsiderations">Appendix B. Safety, Security and Privacy Considerations</a>
+# Appendix Safety, Security and Privacy Considerations
 
 do we have considerations specific to URLs, for example length, encoding, privacy (use $batch if in doubt), ...?
 -->
 
 <hr />
-<h1 id="appendix-c-acknowledgments"><a name="Acknowledgments" href="#Acknowledgments">Appendix C. Acknowledgments</a></h1>
-<h2 id="c1-participants"><a name="Participants" href="#Participants">C.1 Participants</a></h2>
+<h1 id="appendix-b-acknowledgments"><a name="Acknowledgments" href="#Acknowledgments">Appendix B. Acknowledgments</a></h1>
+<h2 id="b1-participants"><a name="Participants" href="#Participants">B.1 Participants</a></h2>
 <p><strong>OData TC Members:</strong></p>
 <table>
 <thead>
@@ -2052,7 +2051,7 @@ do we have considerations specific to URLs, for example length, encoding, privac
 </tbody>
 </table>
 <hr />
-<h1 id="appendix-d-revision-history"><a name="RevisionHistory" href="#RevisionHistory">Appendix D. Revision History</a></h1>
+<h1 id="appendix-c-revision-history"><a name="RevisionHistory" href="#RevisionHistory">Appendix C. Revision History</a></h1>
 <table>
 <thead>
 <tr class="header">
@@ -2072,7 +2071,7 @@ do we have considerations specific to URLs, for example length, encoding, privac
 </tbody>
 </table>
 <hr />
-<h1 id="appendix-e-notices"><a name="Notices" href="#Notices">Appendix E. Notices</a></h1>
+<h1 id="appendix-d-notices"><a name="Notices" href="#Notices">Appendix D. Notices</a></h1>
 <!-- Required section. Do not modify. -->
 
 <p>Copyright © OASIS Open 2024. All Rights Reserved.</p>
