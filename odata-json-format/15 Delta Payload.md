@@ -17,82 +17,81 @@ The JSON object for a delta response to a single entity is either an
 The JSON object for a delta response to a collection of entities MUST
 contain an array-valued property named `value` containing all
 [added](#AddedChangedEntity), [changed](#AddedChangedEntity), or
-[deleted entities](#DeletedEntity), as well as [added
-links](#AddedLink) or [deleted links](#DeletedLink) between
-entities, and MAY contain additional, unchanged entities.
+[deleted entities](#DeletedEntity), and MAY contain additional, 
+unchanged entities. A [flattened OData 4.0 delta response](#OData40FlattenedDeltaPayload)
+may also include [added](#AddedLink) or [deleted links](#DeletedLink), 
+while these are generally represented as [nested delta payloads](#OData401ExpandedNavigationProperties) in OData 4.01 and greater.
+
+If the response from the delta link contains `count` control information,
+the returned number MUST include the count of all top-level added, 
+changed, or deleted entities to be returned, as well as added or deleted links
+in an OData 4.0 delta response.
 
 If the delta response contains a partial list of changes, it MUST
 include a [next link](#ControlInformationnextLinkodatanextLink) for the
 client to retrieve the next set of changes.
 
-The last page of a delta response SHOULD contain a [delta
-link](#ControlInformationdeltaLinkodatadeltaLink) in place of the [next
-link](#ControlInformationnextLinkodatanextLink) for retrieving
+The last page of a delta response SHOULD contain a [delta link](#ControlInformationdeltaLinkodatadeltaLink) in place of the [next link](#ControlInformationnextLinkodatanextLink) for retrieving
 subsequent changes once the current set of changes has been applied to
 the initial set.
 
-If an OData 4.01 delta response includes an expanded collection-valued
-navigation property inline (see [next
-section](#AddedChangedEntity)), the expanded collection can be a
-partial list, in which case the expanded navigation property MUST have
-the
-[`nextLink`](#ControlInformationnextLinkodatanextLink)
-control information applied to it. Following this chain of next links
-does not result in a delta link on the last page of the expanded
-collection.
-
-If the response from the delta link contains a `count` control information,
-the returned number MUST include
-all added, changed, or deleted entities to be returned, as well as added
-or deleted links.
-
 ::: example
-Example ##ex: a 4.01 delta response with five changes, in order of
+Example ##ex: a 4.01 delta response with three changes, in order of
 occurrence
 
   1. `ContactName` for customer `BOTTM` was changed to `Susan Halvenstern`
-  2. Order 10643 was removed from customer `ALFKI`
-  3. Order 10645 was added to customer `BOTTM`
-  4. The shipping information for order 10643 was updated
-  5. Customer `ANTON` was deleted
+  2. Customer `ANTON` was deleted
+  3. `ContactName` for customer `ALFKI` was changed to `Blake Smithe`
 
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$delta",
-  "@count":5,
+  "@count":3,
   "value": [
     {
       "@id": "Customers('BOTTM')",
       "ContactName": "Susan Halvenstern"
     },
     {
-      "@context": "#Customers/$deletedLink",
-      "source": "Customers('ALFKI')",
-      "relationship": "Orders",
-      "target": "Orders(10643)"
-    },
-    {
-      "@context": "#Customers/$link",
-      "source": "Customers('BOTTM')",
-      "relationship": "Orders",
-      "target": "Orders(10645)"
-    },
-    {
-      "@context": "#Orders/$entity",
-      "@id": "Orders(10643)",
-      "ShippingAddress": {
-        "Street": "23 Tsawassen Blvd.",
-        "City": "Tsawassen",
-        "Region": "BC",
-        "PostalCode": "T2F 8M4"
-      },
-    },
-    {
-      "@context": "#Customers/$deletedEntity",
       "@removed": {
         "reason": "deleted"
       },
       "@id": "Customers('ANTON')"
+    },
+    {
+      "@id": "Customers('ALFKI')",
+      "ContactName": "Blake Smithe"
+    }
+  ],
+  "@deltaLink": "Customers?$expand=Orders&$deltatoken=8015"
+}
+```
+:::
+
+::: example
+Example ##ex: a 4.0 delta response with three changes, in order of
+occurrence
+
+  1. `ContactName` for customer `BOTTM` was changed to `Susan Halvenstern`
+  2. Customer `ANTON` was deleted
+  3. `ContactName` for customer `ALFKI` was changed to `Blake Smithe`
+
+```json
+{
+  "@context": "http://host/service/$metadata#Customers/$delta",
+  "@count": 3,
+  "value": [
+    {
+      "@id": "Customers('BOTTM')",
+      "ContactName": "Susan Halvenstern",
+    },
+    {
+      "@context": "#Customers/$deletedEntity",
+      "@id": "Customers('ANTON')"
+    },
+    {
+      "@id": "Customers('ALFKI')",
+      "ContactName": "Blake Smithe"
     }
   ],
   "@deltaLink": "Customers?$expand=Orders&$deltatoken=8015"
@@ -129,129 +128,8 @@ collection.
 Changed entities MUST include all available selected properties that
 have changed, and MAY include additional properties.
 
-If a property of an entity is dependent upon the property of another
-entity within the expanded set of entities being tracked, then both the
-change to the dependent property as well as the change to the principal
-property or [added](#AddedLink)/[deleted link](#DeletedLink)
-corresponding to the change to the dependent property are returned in
-the delta response.
-
-Entities that are not part of the entity set specified by the context
-URL MUST include the
-[`context`](#ControlInformationcontextodatacontext)
-control information to specify the entity set of the entity, regardless
-of the specified
-[`metadata`](#ControllingtheAmountofControlInformationinResponses) value.
-
 Entities include control information for selected navigation links based
 on [`metadata`](#ControllingtheAmountofControlInformationinResponses).
-
-OData 4.0 payloads MUST NOT include expanded navigation properties
-inline; all changes MUST be represented as a flat array of added,
-deleted, or changed entities, along with added or deleted links.
-
-OData 4.01 delta payloads MAY include expanded navigation properties
-inline. Related single entities are represented as either an
-[added/changed](#AddedChangedEntity) entity, an [entity
-reference](#EntityReference), a [deleted
-entity](#DeletedEntity), or a null value (if no entity is related as
-the outcome of the change). Collection-valued navigation properties are
-represented either as a delta representation or as a full representation
-of the collection.
-
-If the expanded navigation property represents a delta, it MUST be
-represented as an array-valued control information
-[`delta`](#ControlInformationdeltaodatadelta)
-on the navigation property.  [Added/changed](#AddedChangedEntity)
-entities or [entity references](#EntityReference)
-are added to the collection. [Deleted entities](#DeletedEntity) MAY be specified in a nested delta
-representation to represent entities no longer part of the collection.
-If the deleted entity specifies a `reason` as
-`deleted`, then the entity is both removed from the
-collection and deleted, otherwise it is removed from the collection and
-only deleted if the navigation property is a containment navigation
-property. The array MUST NOT contain [added](#AddedLink) or [deleted
-links](#DeletedLink).
-
-::: example
-Example ##ex: 4.01 delta response customers with expanded orders
-represented inline as a delta
-
-  1. Customer `BOTTM`:
-     1. `ContactName` was changed to `Susan Halvenstern`
-     2. Order 10645 was added
-  2. Customer `ALFKI`:
-     1. Order 10643 was removed
-  3. Customer `ANTON` was deleted
-
-```json
-{
-  "@context": "http://host/service/$metadata#Customers/$delta",
-  "@count": 3,
-  "value": [
-    {
-      "@id": "Customers('BOTTM')",
-      "ContactName": "Susan Halvenstern",
-      "Orders@delta": [
-        {
-          "@id": "Orders(10645)"
-        }
-      ]
-    },
-    {
-      "@id": "Customers('ALFKI')",
-      "Orders@delta": [
-        {
-          "@context": "#Orders/$deletedEntity",
-          "@removed": {
-             "reason": "changed"
-          },
-          "@id": "Orders(10643)"
-        }
-      ]
-    },
-    {
-      "@context": "#Customers/$deletedEntity",
-      "@removed": {
-         "reason": "deleted"
-      },
-      "@id": "Customers('ANTON')"
-    }
-  ],
-  "@deltaLink": "Customers?$expand=Orders&$deltatoken=8015"
-}
-```
-:::
-
-If the expanded navigation property is a full representation of the
-collection, it MUST be represented as an expanded navigation property,
-and its array value represents the full set of entities related
-according to that relationship and satisfying any specified expand
-options. Members of the array MUST be represented as
-[added/changed](#AddedChangedEntity) entities or [entity
-references](#EntityReference) and MUST NOT include added links,
-deleted links, or deleted entities. Any entity not represented in the
-collection has either been removed, deleted, or changed such that it no
-longer satisfies the expand options in the defining query. In any case,
-clients SHOULD NOT receive additional notifications for such removed
-entities.
-
-::: example
-Example ##ex: 4.01 delta response for a single entity with an expanded navigation
-property containing only a partial list of related entities (as
-indicated with a [next link](#ControlInformationnextLinkodatanextLink))
-```json
-{
-  "@context": "http://host/service/$metadata#Customers/$entity/$delta",
-  …
-  "Orders@count": 42,
-  "Orders": [ … ],
-  "Orders@nextLink": "…",
-  …
-  "@deltaLink": "Customers('ALFKI')?$expand=Orders&$deltatoken=9711"
-}
-```
-:::
 
 ## ##subsec Deleted Entity
 
@@ -373,10 +251,198 @@ single key field of `Customer`)
 }
 ```
 :::
+## ##subsec Related Entities
+Changes to related entities are represented differently in OData 4.0 and OData 4.01.
 
-## ##subsec Added Link
+In OData 4.01, changes to relationships and related entities are generally represented as
+[expanded navigation properties](#OData401ExpandedNavigationProperties).
 
-Links within a delta response are represented as link objects.
+In OData 4.0, changes to relationships and related entities are represented as a 
+[flat array](#OData40FlattenedDeltaPayload) of added, deleted, or changed entities, 
+along with added or deleted links.
+
+### ##subsubsec OData 4.01 Expanded Navigation Properties
+OData 4.01 delta payloads represent changes to relationships and related
+entities as expanded navigation properties. 
+
+Related single entities are represented as either an [added/changed](#AddedChangedEntity)
+entity, an [entity reference](#EntityReference), a [deleted entity](#DeletedEntity), or 
+a null value (if no entity is related as the outcome of the change). 
+
+Collection-valued navigation properties are represented either as a delta representation or as a full representation of the collection.
+
+If the expanded navigation property represents a delta, it MUST be
+represented as an array-valued control information
+[`delta`](#ControlInformationdeltaodatadelta)
+on the navigation property.  [Added/changed](#AddedChangedEntity)
+entities or [entity references](#EntityReference)
+are added to the collection. [Deleted entities](#DeletedEntity) in a nested delta
+representation represent entities no longer part of the collection.
+If the deleted entity specifies a `reason` as
+`deleted`, then the entity is both removed from the
+collection and deleted, otherwise it is removed from the collection and
+only deleted if the navigation property is a containment navigation
+property. The array MUST NOT contain [added](#AddedLink) or 
+[deleted links](#DeletedLink).
+
+::: example
+Example ##ex: changes to related orders represented as a 4.01 nested delta representation
+
+  1. For Customer `ALFKI`:
+      1. Order 10643 was removed
+      2. Order 10645 was added, and 
+      3. The shipping information for related order 10645 was updated
+  2. Customer `ANTON` was deleted
+  3. `ContactName` for customer `ALFKI` was subsequently changed to `Blake Smithe`
+
+Note that the `count` is the count of top level change records in the response, regardless of how many related changes are applied in each change record.
+
+```json
+{
+  "@context": "http://host/service/$metadata#Customers/$delta",
+  "@count":3,
+  "value": [
+    {
+      "@id": "Customers('ALFKI')",
+      "Orders@delta": [
+        {
+          "@removed": {
+            "reason": "changed"
+          },
+          "@id": "Orders(10643)"
+        },
+        {
+          "@id": "Orders(10645)",
+          "ShippingAddress": {
+            "Street": "23 Tsawassen Blvd.",
+            "City": "Tsawassen",
+            "Region": "BC",
+            "PostalCode": "T2F 8M4"
+          }
+        }
+      ]
+    },
+    {
+      "@removed": {
+        "reason": "deleted"
+      },
+      "@id": "Customers('ANTON')"
+    },
+    {
+      "@id": "Customers('ALFKI')",
+      "ContactName": "Blake Smithe"
+    }
+  ],
+  "@deltaLink": "Customers?$expand=Orders&$deltatoken=8015"
+}
+```
+:::
+
+If the expanded navigation property is a full representation of the
+collection, it MUST be represented as an expanded navigation property,
+and its array value MUST represent the full set of entities related
+according to that relationship and satisfying any specified expand
+options, or a partial list containing a [`nextLink`](#ControlInformationnextLinkodatanextLink). Following this chain of 
+next links MUST eventually return the full set of entities related 
+according to that relationship and satisfying any specified expand 
+options; the final page does not include a delta link.
+
+Members of the expanded navigation property MUST be represented as
+[added/changed](#AddedChangedEntity) entities or 
+[entity references](#EntityReference) and MUST NOT include added links,
+deleted links, or deleted entities. Any entity not represented in the
+collection has either been removed, deleted, or changed such that it no
+longer satisfies the expand options in the defining query. In any case,
+clients SHOULD NOT receive additional notifications for such removed
+entities.
+
+::: example
+Example ##ex: 4.01 delta response for a single entity with an expanded navigation
+property containing only a partial list of related entities (as
+indicated with a [next link](#ControlInformationnextLinkodatanextLink))
+```json
+{
+  "@context": "http://host/service/$metadata#Customers/$entity/$delta",
+  …
+  "Orders@count": 42,
+  "Orders": [ … ],
+  "Orders@nextLink": "…",
+  …
+  "@deltaLink": "Customers('ALFKI')?$expand=Orders&$deltatoken=9711"
+}
+```
+:::
+
+### ##subsubsec OData 4.0 Flattened Delta Payload
+OData 4.0 payloads MUST NOT include expanded navigation properties
+inline. Changes to relationships are represented as [added](#AddedLink)
+or [deleted links](#DeletedLink). Changes to related entities are
+represented as top-level entities whose [`context`](#ControlInformationcontextodatacontext)
+control information specifies the entity set of the entity. This control
+information MUST be present for entities are not part of the entity set 
+specified by the context URL, regardless of the specified
+[`metadata`](#ControllingtheAmountofControlInformationinResponses) value.
+
+::: example
+Example ##ex: changes to related orders represented as a 4.0 flattened delta payload
+
+  1. Order 10643 was removed from customer `ALFKI`
+  2. Order 10645 was added to customer `ALFKI`
+  3. The shipping information for related order 10645 was updated
+  4. Customer `ANTON` was deleted
+  5. `ContactName` for customer `ALFKI` was subsequently changed to `Blake Smithe`
+
+```json
+{
+  "@context": "http://host/service/$metadata#Customers/$delta",
+  "@count": 5,
+  "value": [
+    {
+      "@context": "#Customers/$deletedLink",
+      "source": "Customers('ALFKI')",
+      "relationship": "Orders",
+      "target": "Orders(10643)"
+    },
+    {
+      "@context": "#Customers/$link",
+      "source": "Customers('BOTTM')",
+      "relationship": "Orders",
+      "target": "Orders(10645)"
+    },
+    {
+      "@context": "#Orders/$entity",
+      "@id": "Orders(10645)",
+      "ShippingAddress": {
+        "Street": "23 Tsawassen Blvd.",
+        "City": "Tsawassen",
+        "Region": "BC",
+        "PostalCode": "T2F 8M4"
+      }
+    },
+    {
+      "@context": "#Customers/$deletedEntity",
+      "@id": "Customers('ANTON')"
+    },
+    {
+      "@id": "Customers('ALFKI')",
+      "ContactName": "Blake Smithe"
+    }
+  ],
+  "@deltaLink": "Customers?$expand=Orders&$deltatoken=8015"
+}
+```
+:::
+
+If a property of an entity is dependent upon the property of another
+entity within the expanded set of entities being tracked, then both the
+change to the dependent property as well as the change to the principal
+property or [added](#AddedLink)/[deleted link](#DeletedLink)
+corresponding to the change to the dependent property are returned in
+the delta response.
+
+#### ##subsubsubsec Added Link
+
+Links within an OData 4.0 [flattened delta response](#OData40FlattenedDeltaPayload) are represented as link objects.
 
 Delta responses MUST contain a link object for each added link that
 corresponds to a `$expand` path in the initial request.
@@ -395,10 +461,9 @@ The link object MUST include the following properties, regardless of the specifi
 - `target` --- The [id](#ControlInformationidodataid) of the related entity,
   which may be absolute or [relative](#RelativeURLs)
 
-## ##subsec Deleted Link
+#### ##subsubsubsec Deleted Link
 
-Deleted links within a delta response are represented as deleted-link
-objects.
+Deleted links within an OData 4.0 [flattened delta response](#OData40FlattenedDeltaPayload) are represented as deleted-link objects.
 
 Delta responses MUST contain a deleted-link object for each deleted link
 that corresponds to a `$expand`
@@ -432,9 +497,8 @@ entities is a JSON object. It MUST contain the
 [`context`](#ControlInformationcontextodatacontext)
 control information with a string value of `#$delta`, and it
 MUST contain an array-valued property named `value`
-containing all [added](#AddedLink),
-[changed](#AddedChangedEntity), or [deleted](#DeletedEntity)
-entities, as well as [added](#AddedLink) or
+containing all [added, changed](#AddedChangedEntity), or [deleted](#DeletedEntity)
+entities. OData 4.0 delta payloads MAY additionally include [added](#AddedLink) or
 [deleted](#DeletedLink) links between entities.
 
 ::: example
@@ -445,11 +509,12 @@ inline as a delta
   3. Delete customer `ANTON`
   4. Change customer `ALFKI`:
      1. Create order 11011
-     2. Add link to existing order 10692
+     2. Add existing order 10692
      3. Change `RequiredDate` of related order 10835
-     4. Delete link to order 10643
-  5. Add link between customer `ANATR` and order 10643
-  6. Delete link between customer `DUMON` and order 10311
+     4. Remove order 10643
+  5. Add order 10643 to customer `ANATR`
+  6. Remove order 10311 from customer `DUMON`
+
 ```json
 PATCH /service/Customers HTTP/1.1
 Host: host
@@ -474,7 +539,9 @@ Prefer: return=minimal, continue-on-error
     },
     {
       "@Org.OData.Core.V1.ContentID": "3",
-      "@removed": {},
+      "@removed": {
+        "reason": "deleted"
+      },
       "CustomerID": "ANTON"
     },
     {
@@ -509,18 +576,24 @@ Prefer: return=minimal, continue-on-error
       ]
     },
     {
-      "@context": "#Customers/$link",
       "@Org.OData.Core.V1.ContentID": "5",
-      "source": "Customers('ANATR')",
-      "relationship": "Orders",
-      "target": "Orders(10643)"
+      "CustomerID": "ANATR",
+      "Orders@delta": [
+        {
+          "@Org.OData.Core.V1.ContentID": "5.1",
+          "OrderID": 10643
+        }
+      ],
     },
     {
-      "@context": "#Customers/$deletedLink",
       "@Org.OData.Core.V1.ContentID": "6",
-      "source": "Customers('DUMON')",
-      "relationship": "Orders",
-      "target": "Orders(10311)"
+      "CustomerID": "DUMON",
+      "Orders@delta": [
+        {
+          "@Org.OData.Core.V1.ContentID": "6.1",
+          "OrderID": 10311
+        }
+      ]
     }
   ]
 }
@@ -540,11 +613,11 @@ Assuming some or all changes cannot be applied, the overall request is still dee
   3. Delete customer 'ANTON' - failed
   4. Change customer 'ALFKI':
      1. Create order 11011 - succeeded, not mentioned in response
-     2. Add link to existing order 10692 - succeeded, not mentioned in response
+     2. Add existing order 10692 - succeeded, not mentioned in response
      3. Change `RequiredDate` of related order 10835 - failed
-     4. Delete link to order 10643 - succeeded, not mentioned in response
-  5. Add link between customer 'ANATR' and order 10643 - failed without further info
-  6. Delete link between customer 'DUMON' and order 10311 - failed without further info
+     4. Remove order 10643 - succeeded, not mentioned in response
+  5. Add order 10643 to customer 'ANATR' - failed without further info
+  6. Remove order 10311 from customer 'DUMON' - failed without further info
 ```json
 HTTP/1.1 200 OK
 Content-Type: application/json
@@ -616,27 +689,34 @@ Preference-Applied: return=minimal, continue-on-error
       ]
     },
     {
-      "@context": "#Customers/$deletedLink",
       "@Org.OData.Core.V1.ContentID": "5",
-      "source": "Customers('ANATR')",
-      "relationship": "Orders",
-      "target": "Orders(10643)",
-      "@Org.OData.Core.V1.DataModificationException": {
-        "failedOperation": "link",
-        "responseCode": 404,
-        "info": null
-      }
+      "CustomerID": "ANATR",
+      "Orders@delta": [
+        {
+          "@Org.OData.Core.V1.ContentID": "5.1",
+          "@removed": {},
+          "OrderID": 10643,
+          "@Org.OData.Core.V1.DataModificationException": {
+            "failedOperation": "link",
+            "responseCode": 404,
+            "info": null
+          }
+        }
+      ]
     },
     {
-      "@context": "#Customers/$link",
       "@Org.OData.Core.V1.ContentID": "6",
-      "source": "Customers('DUMON')",
-      "relationship": "Orders",
-      "target": "Orders(10311)",
-      "@Org.OData.Core.V1.DataModificationException": {
-        "failedOperation": "unlink",
-        "responseCode": 400
-      }
+      "CustomerID": "DUMON",
+      "Orders@delta": [
+        {
+          "@Org.OData.Core.V1.ContentID": "6.1",
+          "OrderID": 10311,
+          "@Org.OData.Core.V1.DataModificationException": {
+            "failedOperation": "unlink",
+            "responseCode": 404
+          }
+        }
+      ]
     }
   ]
 }
