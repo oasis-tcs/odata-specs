@@ -2656,7 +2656,9 @@ Prefer: return=minimal, continue-on-error
       "Orders@delta": [
         {
           "@Org.OData.Core.V1.ContentID": "6.1",
-          "@removed" {},
+          "@removed": {
+            "reason": "changed"
+          },
           "OrderID": 10311
         }
       ]
@@ -2696,7 +2698,9 @@ Preference-Applied: return=minimal, continue-on-error
     {
       "@Org.OData.Core.V1.ContentID": "1",
       "CustomerID": "EASTC",
-      "@removed": {},
+      "@removed": {
+        "reason": "changed"
+      },
       "@Org.OData.Core.V1.DataModificationException": {
         "failedOperation": "insert",
         "responseCode": 400,
@@ -2760,7 +2764,9 @@ Preference-Applied: return=minimal, continue-on-error
       "Orders@delta": [
         {
           "@Org.OData.Core.V1.ContentID": "5.1",
-          "@removed": {},
+          "@removed": {
+            "reason": "changed"
+          },
           "OrderID": 10643,
           "@Org.OData.Core.V1.DataModificationException": {
             "failedOperation": "link",
