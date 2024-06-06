@@ -5866,8 +5866,11 @@ request, then the referenced value is the value
 represented by the response body of that preceding request. Alternatively, a value
 reference can consist of a `$` character followed by the value of an instance annotation with term
 [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID)
-(see [OData-VocCore](#ODataVocCore)) that occurs in the response to the preceding request,
-then the referenced value is the value targeted by that annotation.
+(see [OData-VocCore](#ODataVocCore)) that occurs in the payload of the preceding request
+as described in [section 11.4.2.2](#CreateRelatedEntitiesWhenCreatinganEntity) and
+[section 11.4.3.1](#UpdateRelatedEntitiesWhenUpdatinganEntity),
+then the referenced value is the corresponding value in the response,
+which the service SHOULD annotate with the same `Core.ContentID` value.
 
 In both cases, if the referenced value is a collection, the value reference MAY be followed by a
 `collectionNavigationExpr`, as defined in [OData-ABNF](#ODataABNF),
