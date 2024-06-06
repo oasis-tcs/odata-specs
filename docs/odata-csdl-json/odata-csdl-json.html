@@ -1282,7 +1282,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>For collection-valued properties the value will always be a collection that MAY be empty. In this case <code>$Nullable</code> applies to items of the collection and specifies whether the collection MAY contain <code>null</code> values.</p>
 </section>
 <h2 id="73-default-value"><a name="DefaultValue" href="#DefaultValue">7.3 Default Value</a></h2>
-<p>A primitive- or enumeration-typed property MAY define a default value that is used if the property is not explicitly represented in an annotation or the body of a request or response.</p>
+<p>A primitive- or enumeration-typed property MAY define a default value that is used if the property is not explicitly represented in an annotation, the body of a request or response, or a complex literal in a request URL.</p>
 <p>If no value is specified, the client SHOULD NOT assume a default value.</p>
 <section id="defaultvalue" class="varjson rep">
 <h3><a name="DefaultValue.6.4" href="#DefaultValue.6.4"><code>$DefaultValue</code></a></h3>
@@ -4060,6 +4060,8 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 </table>
 <hr />
 <h1 id="appendix-e-notices"><a name="Notices" href="#Notices">Appendix E. Notices</a></h1>
+<!-- Required section. Do not modify. -->
+
 <p>Copyright © OASIS Open 2024. All Rights Reserved.</p>
 <p>All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the “OASIS IPR Policy”). The full <a href="https://www.oasis-open.org/policies-guidelines/ipr/">Policy</a> may be found at the OASIS website.</p>
 <p>This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published, and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this section are included on all such copies and derivative works. However, this document itself may not be modified in any way, including by removing the copyright notice or references to OASIS, except as needed for the purpose of developing any document or deliverable produced by an OASIS Technical Committee (in which case the rules applicable to copyrights, as set forth in the OASIS IPR Policy, must be followed) or as required to translate it into languages other than English.</p>

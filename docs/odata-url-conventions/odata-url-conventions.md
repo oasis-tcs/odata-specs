@@ -236,11 +236,10 @@ For complete copyright information please see the full Notices section in an App
 - [A References](#References)
   - [A.1 Normative References](#NormativeReferences)
   - [A.2 Informative References](#InformativeReferences)
-- [B Safety, Security and Privacy Considerations](#SafetySecurityandPrivacyConsiderations)
-- [C Acknowledgments](#Acknowledgments)
-  - [C.1 Participants](#Participants)
-- [D Revision History](#RevisionHistory)
-- [E Notices](#Notices)
+- [B Acknowledgments](#Acknowledgments)
+  - [B.1 Participants](#Participants)
+- [C Revision History](#RevisionHistory)
+- [D Notices](#Notices)
 :::
 
 
@@ -1695,8 +1694,9 @@ The `null` value is treated as unknown, so if one operand evaluates to
 
 The `in` operator returns true if the left operand is a member of the
 right operand. The right operand MUST be either a comma-separated list
-of primitive values, enclosed in parentheses, or a single expression
-that resolves to a collection.
+of zero or more primitive values, enclosed in parentheses, or a single expression
+that resolves to a collection. If the right operand is an empty collection
+or list of values, the expression returns false.
 
 ##### <a name="LogicalOperatorExamples" href="#LogicalOperatorExamples">5.1.1.1.12 Logical Operator Examples</a>
 
@@ -4086,16 +4086,16 @@ https://www.ogc.org/standard/sfa/.
 <!-- TODO:
 -------
 
-# <a name="SafetySecurityandPrivacyConsiderations" href="#SafetySecurityandPrivacyConsiderations">Appendix B. Safety, Security and Privacy Considerations</a>
+# Appendix Safety, Security and Privacy Considerations
 
 do we have considerations specific to URLs, for example length, encoding, privacy (use $batch if in doubt), ...?
 -->
 
 -------
 
-# <a name="Acknowledgments" href="#Acknowledgments">Appendix C. Acknowledgments</a>
+# <a name="Acknowledgments" href="#Acknowledgments">Appendix B. Acknowledgments</a>
 
-## <a name="Participants" href="#Participants">C.1 Participants</a>
+## <a name="Participants" href="#Participants">B.1 Participants</a>
 
 **OData TC Members:**
 
@@ -4113,7 +4113,7 @@ do we have considerations specific to URLs, for example length, encoding, privac
 
 -------
 
-# <a name="RevisionHistory" href="#RevisionHistory">Appendix D. Revision History</a>
+# <a name="RevisionHistory" href="#RevisionHistory">Appendix C. Revision History</a>
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
@@ -4121,7 +4121,7 @@ do we have considerations specific to URLs, for example length, encoding, privac
 
 -------
 
-# <a name="Notices" href="#Notices">Appendix E. Notices</a>
+# <a name="Notices" href="#Notices">Appendix D. Notices</a>
 
 <!-- Required section. Do not modify. -->
 
