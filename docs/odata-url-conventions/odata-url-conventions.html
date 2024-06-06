@@ -96,7 +96,9 @@
 <hr />
 <h1 id="odata-version-402-part-2-url-conventions">OData Version 4.02. Part 2: URL Conventions</h1>
 <h2 id="committee-specification-draft-02">Committee Specification Draft 02</h2>
+<details open><summary>
 <h2 id="28-february-2024">28 February 2024</h2>
+</summary>
 <p><span class="math inline">\(\hbox{}\)</span></p>
 <h4 id="this-stage">This stage:</h4>
 <p><a href="https://docs.oasis-open.org/odata/odata/v4.02/csd02/part2-url-conventions/odata-v4.02-csd02-part2-url-conventions.md">https://docs.oasis-open.org/odata/odata/v4.02/csd02/part2-url-conventions/odata-v4.02-csd02-part2-url-conventions.md</a> (Authoritative)<br />
@@ -356,11 +358,17 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </ul>
 </div>
 <hr />
+</details>
+</details>
+<details open><summary>
 <h1 id="1-introduction"><a name="Introduction" href="#Introduction">1 Introduction</a></h1>
+</summary>
 <p>The Open Data Protocol (OData) enables the creation of REST-based data services, which allow resources, identified using Uniform Resource Locators (URLs) and defined in a data model, to be published and edited by Web clients using simple HTTP messages. This specification defines a set of recommended (but not required) rules for constructing URLs to identify the data and metadata exposed by an OData service as well as a set of reserved URL query string operators, which if accepted by an OData service, MUST be implemented as required by this document.</p>
 <p>The <a href="#ODataJSON">OData-JSON</a> document specifies the format of the resource representations that are exchanged using OData and the <a href="#ODataProtocol">OData-Protocol</a> document describes the actions that can be performed on the URLs (optionally constructed following the conventions defined in this document) embedded in those representations.</p>
 <p>Services are encouraged to follow the URL construction conventions defined in this specification when possible as consistency promotes an ecosystem of reusable client components and libraries.</p>
+<details open><summary>
 <h2 id="11-changes-from-earlier-versions"><a name="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a></h2>
+</summary>
 <table>
 <thead>
 <tr class="header">
@@ -382,12 +390,23 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </tr>
 </tbody>
 </table>
+</details>
+<details open><summary>
 <h2 id="12-glossary"><a name="Glossary" href="#Glossary">1.2 Glossary</a></h2>
+</summary>
+<details open><summary>
 <h3 id="121-definitions-of-terms"><a name="DefinitionsofTerms" href="#DefinitionsofTerms">1.2.1 Definitions of Terms</a></h3>
+</summary>
+</details>
+<details open><summary>
 <h3 id="122-acronyms-and-abbreviations"><a name="AcronymsandAbbreviations" href="#AcronymsandAbbreviations">1.2.2 Acronyms and Abbreviations</a></h3>
+</summary>
 <!-- TODO -->
 
+</details>
+<details open><summary>
 <h3 id="123-document-conventions"><a name="DocumentConventions" href="#DocumentConventions">1.2.3 Document Conventions</a></h3>
+</summary>
 <p>Keywords defined by this specification use <code>this  monospaced  font</code>.</p>
 <p>Function signatures in this specification use the following paragraph style:</p>
 <pre><code>Type FunctionName(Type Param1, Type Param2)</code></pre>
@@ -419,7 +438,12 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 -->
 
 <hr />
+</details>
+</details>
+</details>
+<details open><summary>
 <h1 id="2-url-components"><a name="URLComponents" href="#URLComponents">2 URL Components</a></h1>
+</summary>
 <p>A URL used by an OData service has at most three significant parts: the <em>service root URL</em>, the <em>resource path</em>, and <em>query options</em>. Additional URL constructs (such as a fragment) can be present in a URL used by an OData service; however, this specification applies no further meaning to such additional constructs.</p>
 <div class="example">
 <p>Example 2: OData URL broken down into its component parts:</p>
@@ -429,7 +453,9 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
           service root URL                  resource path           query options</code></pre>
 </div>
 <p>Mandated and suggested content of these three significant URL components used by an OData service are covered in sequence in the three following chapters.</p>
+<details open><summary>
 <h2 id="21-url-parsing"><a name="URLParsing" href="#URLParsing">2.1 URL Parsing</a></h2>
+</summary>
 <p>OData follows the URI syntax rules defined in <a href="#rfc3986">RFC3986</a> and in addition assigns special meaning to several of the sub-delimiters defined by <a href="#rfc3986">RFC3986</a>, so special care has to be taken regarding parsing and percent-decoding.</p>
 <p><a href="#rfc3986">RFC3986</a> defines three steps for URL processing that MUST be performed before percent-decoding:</p>
 <ul>
@@ -445,7 +471,10 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </ul>
 <p>Note: neither <a href="#rfc3986">RFC3986</a> nor this specification assign special meaning to “<code>+</code>” (octet <code>0x2B</code>). Some implementations decode “<code>+</code>” (octet <code>0x2B</code>) as space (octet <code>0x20</code>), others take it literally.</p>
 <p>Clients SHOULD percent-encode space (octet <code>0x20</code>) as <code>%20</code> and “<code>+</code>” (octet <code>0x2B</code>) as <code>%2B</code> and avoid the ambiguous “<code>+</code>” (octet <code>0x2B</code>) in URLs.</p>
+</details>
+<details open><summary>
 <h2 id="22-url-syntax"><a name="URLSyntax" href="#URLSyntax">2.2 URL Syntax</a></h2>
+</summary>
 <p>The OData syntax rules for URLs are defined in this document and the <a href="#ODataABNF">OData-ABNF</a>. Note that the ABNF is not expressive enough to define what a correct OData URL is in every imaginable use case. This specification document defines additional rules that a correct OData URL MUST fulfill. In case of doubt on what makes an OData URL correct the rules defined in this specification document take precedence. Note also that the rules in <a href="#ODataABNF">OData-ABNF</a> assume that URLs and URL parts have been percent-encoding normalized as described in <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-6.2.2.2">section 6.2.2.2</a> of <a href="#rfc3986">RFC3986</a> before applying the grammar to them, i.e. all characters in the unreserved set (see rule <code>unreserved</code> in <a href="#ODataABNF">OData-ABNF</a>) are plain literals and not percent-encoded. For characters outside of the unreserved set that are significant to OData the ABNF rules explicitly state whether the percent-encoded representation is treated identical to the plain literal representation. This is done to make the input strings in the ABNF test cases more readable.</p>
 <p>For example, one of these rules is that single quotes within string literals are represented as two consecutive single quotes.</p>
 <div class="example">
@@ -463,18 +492,27 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </div>
 <p>The first and second examples are invalid because a single quote in a string literal must be represented as two consecutive single quotes. The third example is invalid because forward slashes are interpreted as path segment separators and <code>Categories('Smartphone</code> is not a valid OData path segment, nor is <code>Tablet')</code>.</p>
 <hr />
+</details>
+</details>
+<details open><summary>
 <h1 id="3-service-root-url"><a name="ServiceRootURL" href="#ServiceRootURL">3 Service Root URL</a></h1>
+</summary>
 <p>The service root URL identifies the root of an OData service. A <code>GET</code> request to this URL returns the format-specific service document, see <a href="#ODataJSON">OData-JSON</a>.</p>
 <p>The service root URL MUST terminate in a forward slash.</p>
 <p>The service document enables simple hypermedia-driven clients to enumerate and explore the resources published by the OData service.</p>
 <hr />
+</details>
+<details open><summary>
 <h1 id="4-resource-path"><a name="ResourcePath" href="#ResourcePath">4 Resource Path</a></h1>
+</summary>
 <p>The rules for resource path construction as defined in this section are optional. OData services SHOULD follow the subsequently described URL path construction rules and are indeed encouraged to do so; as such consistency promotes a rich ecosystem of reusable client components and libraries.</p>
 <p>Services that do not follow the resource path conventions for entity container children are strongly encouraged to document their resource paths by annotating entity container children with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ResourcePath"><code>Core.ResourcePath</code></a> defined in <a href="#ODataVocCore">OData-VocCore</a>. The annotation value is the URL of the annotated resource and may be relative to <code>xml:base</code> (if present), otherwise the request URL.</p>
 <p>Resources exposed by an OData service are addressable by corresponding resource path URL components to enable interaction of the client with that resource aspect.</p>
 <p>To illustrate the concept, some examples for resources might be: customers, a single customer, orders related to a single customer, and so forth. Examples of addressable aspects of these resources as exposed by the data model might be: collections of entities, a single entity, properties, links, operations, and so on.</p>
 <p>An OData service MAY respond with <code>301 Moved Permanently</code> or <code>307 Temporary Redirect</code> from the canonical URL to the actual URL.</p>
+<details open><summary>
 <h2 id="41-addressing-the-model-for-a-service"><a name="AddressingtheModelforaService" href="#AddressingtheModelforaService">4.1 Addressing the Model for a Service</a></h2>
+</summary>
 <p>OData services expose their entity model according to <a href="#ODataCSDL">OData-CSDLJSON</a> or <a href="#ODataCSDL">OData-CSDLXML</a> at the metadata URL, formed by appending <code>$metadata</code> to the <a href="#ServiceRootURL">service root URL</a>.</p>
 <div class="example">
 <p>Example 5: Metadata document URL</p>
@@ -485,13 +523,19 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>Example 6: Metadata document URL with specified format</p>
 <pre><code>http://host/service/$metadata?$format=json</code></pre>
 </div>
+</details>
+<details open><summary>
 <h2 id="42-addressing-the-batch-endpoint-for-a-service"><a name="AddressingtheBatchEndpointforaService" href="#AddressingtheBatchEndpointforaService">4.2 Addressing the Batch Endpoint for a Service</a></h2>
+</summary>
 <p>OData services that support batch requests expose a batch URL formed by appending <code>$batch</code> to the <a href="#ServiceRootURL">service root URL</a>.</p>
 <div class="example">
 <p>Example 7: batch URL</p>
 <pre><code>http://host/service/$batch</code></pre>
 </div>
+</details>
+<details open><summary>
 <h2 id="43-addressing-entities"><a name="AddressingEntities" href="#AddressingEntities">4.3 Addressing Entities</a></h2>
+</summary>
 <p>The basic rules for addressing a collection (of entities), a single entity within a collection, a singleton, as well as a property of an entity are covered in the <code>resourcePath</code> syntax rule in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>Below is a (non-normative) snippet from <a href="#ODataABNF">OData-ABNF</a>:</p>
 <pre><code>resourcePath = entitySetName                  [collectionNavigation]
@@ -598,7 +642,9 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <li>By invoking an action bound to a collection of entities that returns a collection of entities (see rule: <code>boundOperation</code>)</li>
 </ul>
 <p>Finally it is possible to compose path segments onto a resource path that identifies a primitive, complex instance, collection of primitives or collection of complex instances and bind an action or function that returns an entity or collections of entities.</p>
+<details open><summary>
 <h3 id="431-canonical-url"><a name="CanonicalURL" href="#CanonicalURL">4.3.1 Canonical URL</a></h3>
+</summary>
 <p>For OData services conformant with the addressing conventions in this section, the canonical form of an absolute URL identifying a non-contained entity is formed by adding a single path segment to the service root URL. The path segment is made up of the name of the entity set associated with the entity followed by the key predicate identifying the entity within the collection. No <a href="#AddressingDerivedTypes">type-cast segment</a> is added to the canonical URL, even if the entity is an instance of a type derived from the declared entity type of its entity set.</p>
 <p>The canonical key predicate for single-part keys consists only of the key property value without the key property name. For multi-part keys the key properties appear in the same order they appear in the key definition in the service metadata.</p>
 <div class="example">
@@ -609,7 +655,10 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>Example 20: Canonical URL for previous example:</p>
 <pre><code>http://host/service/Products(1)</code></pre>
 </div>
+</details>
+<details open><summary>
 <h3 id="432-canonical-url-for-contained-entities"><a name="CanonicalURLforContainedEntities" href="#CanonicalURLforContainedEntities">4.3.2 Canonical URL for Contained Entities</a></h3>
+</summary>
 <p>For contained entities (i.e. related via a containment navigation property, see <a href="#ODataCSDL">OData-CSDLJSON</a> or <a href="#ODataCSDL">OData-CSDLXML</a>) the canonical URL is the canonical URL of the containing entity followed by:</p>
 <ul>
 <li>A <a href="#AddressingDerivedTypes">type-cast segment</a> if the navigation property is defined on a type derived from the entity type declared for the entity set,</li>
@@ -617,7 +666,10 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <li>If the navigation property returns a collection, a key predicate that uniquely identifies the entity in that collection.</li>
 </ul>
 <p>If the containment navigation property is defined on a complex type used within an ordered collection, the canonical URL of the containing entity is the canonical URL for the collection of complex types followed by a segment containing the zero-based ordinal of the complex typed instance within the collection.</p>
+</details>
+<details open><summary>
 <h3 id="433-urls-for-related-entities-with-referential-constraints"><a name="URLsforRelatedEntitieswithReferentialConstraints" href="#URLsforRelatedEntitieswithReferentialConstraints">4.3.3 URLs for Related Entities with Referential Constraints</a></h3>
+</summary>
 <p>If a navigation property leading to a related entity type has a partner navigation property that specifies a referential constraint, then those key properties of the related entity that take part in the referential constraint MAY be omitted from URLs.</p>
 <div class="example">
 <p>Example 21: full key predicate of related entity</p>
@@ -629,14 +681,20 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>The two above examples are equivalent if the navigation property <code>Items</code> from <code>Order</code> to <code>OrderItem</code> has a partner navigation property from <code>OrderItem</code> to <code>Order</code> with a referential constraint tying the value of the <code>OrderID</code> key property of the <code>OrderItem</code> to the value of the <code>ID</code> key property of the <code>Order</code>.</p>
 </div>
 <p>The shorter form that does not specify the constrained key parts redundantly is preferred. If the value of the constrained key is redundantly specified, then it MUST match the principal key value.</p>
+</details>
+<details open><summary>
 <h3 id="434-resolving-an-entity-id"><a name="ResolvinganEntityId" href="#ResolvinganEntityId">4.3.4 Resolving an Entity-Id</a></h3>
+</summary>
 <p>To resolve an entity-id into a representation of the identified entity, the client issues a <code>GET</code> request to the <code>$entity</code> resource located at the URL <code>$entity</code> relative to the service root URL. The entity-id MUST be specified using the system query option <code>$id</code>. The entity-id may be expressed as an absolute IRI or relative to the request root URL.</p>
 <div class="example">
 <p>Example 23: request the entity representation for an entity-id</p>
 <pre><code>http://host/service/$entity?$id=Products(0)</code></pre>
 </div>
 <p>The semantics of <code>$entity</code> are covered in the <a href="#ODataProtocol">OData-Protocol</a> document.</p>
+</details>
+<details open><summary>
 <h3 id="435-alternate-keys"><a name="AlternateKeys" href="#AlternateKeys">4.3.5 Alternate Keys</a></h3>
+</summary>
 <p>In addition to the canonical (primary) key an entity set or entity type can specify one or more alternate keys with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AlternateKeys"><code>Core.AlternateKeys</code></a> term (see <a href="#ODataVocCore">OData-VocCore</a>). Alternate keys can be used by the client to address entities anywhere the canonical key can be used; for example, within entity sets, collection-valued navigation properties, collection-valued composable functions, and within delta payloads.</p>
 <p>Entities are addressed via an alternate key using the same parentheses-style convention as for the canonical key, with one difference: single-part alternate keys MUST specify the key property name to unambiguously determine the alternate key.</p>
 <div class="example">
@@ -645,7 +703,10 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <pre><code>http://host/service/Employees(ID=&#39;A1245&#39;)</code></pre>
 <pre><code>http://host/service/Employees(&#39;A1245&#39;)</code></pre>
 </div>
+</details>
+<details open><summary>
 <h3 id="436-key-as-segment-convention"><a name="KeyasSegmentConvention" href="#KeyasSegmentConvention">4.3.6 Key-as-Segment Convention</a></h3>
+</summary>
 <p>Services MAY support an alternate convention for addressing entities by appending a segment containing the unprefixed and unquoted key value to the URL of the collection containing the entity. Forward-slashes in key value segments MUST be percent-encoded; single quotes within key value segments are treated as part of the key value and do not need to be doubled or percent encoded.</p>
 <div class="example">
 <p>Example 25: valid OData URLs:</p>
@@ -678,7 +739,11 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </ol>
 <p>For maximum interoperability, services that support the key-as-segment convention SHOULD also support the canonical <a href="#CanonicalURL">parentheses-style convention</a> for addressing an entity within a collection, otherwise they MUST specify the URL for each returned entity in a response, as specified by the particular format.</p>
 <p>Note: the key-as-segment convention can only be used with the canonical (primary) key and cannot be used with alternate keys as the key property names are not present in the keys and an alternative key cannot be determined.</p>
+</details>
+</details>
+<details open><summary>
 <h2 id="44-addressing-references-between-entities"><a name="AddressingReferencesbetweenEntities" href="#AddressingReferencesbetweenEntities">4.4 Addressing References between Entities</a></h2>
+</summary>
 <p>OData services are based on a data model that supports relationships as first class constructs. For example, an OData service could expose a collection of Products entities each of which are related to a Category entity.</p>
 <p>References between entities are addressable in OData just like entities themselves are (as described above) by appending a navigation property name followed by <code>/$ref</code> to the entity URL.</p>
 <div class="example">
@@ -692,17 +757,25 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <pre><code>DELETE http://host/service/Categories(1)/Products(0)/$ref</code></pre>
 <pre><code>DELETE http://host/service/Products(0)/Category/$ref</code></pre>
 </div>
+</details>
+<details open><summary>
 <h2 id="45-addressing-operations"><a name="AddressingOperations" href="#AddressingOperations">4.5 Addressing Operations</a></h2>
+</summary>
 <p>The semantic rules for addressing and invoking actions and functions are defined in the <a href="#ODataProtocol">OData-Protocol</a> document.</p>
 <p>Services MAY additionally support the use of the unqualified name of an action or function in a URL by defining one or more default namespaces through the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a> term defined in <a href="#ODataVocCore">OData-VocCore</a>. For more information on default namespaces, see Default Namespaces in <a href="#ODataProtocol">OData-Protocol</a>.</p>
+<details open><summary>
 <h3 id="451-addressing-actions"><a name="AddressingActions" href="#AddressingActions">4.5.1 Addressing Actions</a></h3>
+</summary>
 <p>The grammar for addressing and invoking actions is defined by the following syntax grammar rules in <a href="#ODataABNF">OData-ABNF</a>:</p>
 <ul>
 <li>The <code>actionImportCall</code> syntax rule defines the grammar in the <code>resourcePath</code> for addressing and invoking an action import directly from the service root.</li>
 <li>The <code>boundActionCall</code> syntax rule defines the grammar in the <code>resourcePath</code> for addressing and invoking an action that is appended to a <code>resourcePath</code> that identifies some resources that can be used as the binding parameter value when invoking the action.</li>
 <li>The <code>boundOperation</code> syntax rule (which encompasses the <code>boundActionCall</code> syntax rule), when used by the <code>resourcePath</code> syntax rule, illustrates how a <code>boundActionCall</code> can be appended to a <code>resourcePath</code>.</li>
 </ul>
+</details>
+<details open><summary>
 <h3 id="452-addressing-functions"><a name="AddressingFunctions" href="#AddressingFunctions">4.5.2 Addressing Functions</a></h3>
+</summary>
 <p>The grammar for addressing and invoking functions is defined by syntax rules in <a href="#ODataABNF">OData-ABNF</a>, in particular:</p>
 <ul>
 <li>The function import call syntax rules <code>complexFunctionImportCall</code>, <code>complexColFunctionImportCall</code>, <code>entityFunctionImportCall</code>, <code>entityColFunctionImportCall</code>, <code>primitiveFunctionImportCall</code>, and <code>primitiveColFunctionImportCall</code> define the grammar in the <code>resourcePath</code> for addressing and providing parameters for a function import directly from the service root.</li>
@@ -712,12 +785,22 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <li>The <code>aliasAndValue</code> syntax rule defines the grammar for providing function parameter values using Parameter Alias Syntax, see <a href="#ODataProtocol">OData-Protocol</a>.</li>
 </ul>
 <p>Note: there is no literal representation for <code>Edm.Stream</code> values in URLs, so it is not possible to pass <code>Edm.Stream</code> values to parameters of function imports or to non-binding parameters of bound functions used in the resource path. Function expressions within query options can use <a href="#PathExpressions">path expressions</a> of type <code>Edm.Stream</code> as values of non-binding function parameters.</p>
+</details>
+</details>
+<details open><summary>
 <h2 id="46-addressing-a-property"><a name="AddressingaProperty" href="#AddressingaProperty">4.6 Addressing a Property</a></h2>
+</summary>
 <p>To address an entity property clients append a path segment containing the property name to the URL of the entity. If the property has a complex type value, properties of that value can be addressed by further property name composition.</p>
+</details>
+<details open><summary>
 <h2 id="47-addressing-a-raw-value"><a name="AddressingaRawValue" href="#AddressingaRawValue">4.7 Addressing a Raw Value</a></h2>
+</summary>
 <p>To address the raw value of a primitive property or operation result, clients append the path segment <code>/$value</code> to the property or operation URL.</p>
 <p>Properties and operation results of type <code>Edm.Stream</code> already return the raw value of the media stream and do not support appending the <code>/$value</code> segment.</p>
+</details>
+<details open><summary>
 <h2 id="48-addressing-the-count-of-a-collection"><a name="AddressingtheCountofaCollection" href="#AddressingtheCountofaCollection">4.8 Addressing the Count of a Collection</a></h2>
+</summary>
 <p>To address the raw value of the number of items in a collection, clients append <code>/$count</code> to the resource path of the URL identifying the entity set or collection.</p>
 <p>The <code>/$count</code> path suffix identifies the integer count of records in the collection and SHOULD NOT be combined with the system query options <a href="#SystemQueryOptionstopandskip"><code>$top</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$skip</code></a>, <a href="#SystemQueryOptionorderby"><code>$orderby</code></a>, <a href="#SystemQueryOptionexpand"><code>$expand</code></a>, and <a href="#SystemQueryOptionformat"><code>$format</code></a>. The count MUST NOT be affected by <code>$top</code>, <code>$skip</code>, <code>$orderby</code>, or <code>$expand</code>.</p>
 <p>The count is calculated after applying any <a href="#AddressingaSubsetofaCollection"><code>/$filter</code></a> path segments, or <a href="#SystemQueryOptionfilter"><code>$filter</code></a> or <a href="#SystemQueryOptionsearch"><code>$search</code></a> system query options to the collection.</p>
@@ -741,19 +824,28 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>Example 34: entity count in an <code>$orderby</code> expression</p>
 <pre><code>http://host/service/Categories?$orderby=Products/$count</code></pre>
 </div>
+</details>
+<details open><summary>
 <h2 id="49-addressing-a-member-within-an-entity-collection"><a name="AddressingaMemberwithinanEntityCollection" href="#AddressingaMemberwithinanEntityCollection">4.9 Addressing a Member within an Entity Collection</a></h2>
+</summary>
 <p>Collections of entities are modeled as entity sets, collection-valued navigation properties, or operation results.</p>
 <p>For entity sets, results of operations associated with an entity set through an <code>EntitySet</code> or <code>EntitySetPath</code> declaration, or collection-valued navigation properties with a <code>NavigationPropertyBinding</code> or <code>ContainsTarget=true</code> specification, members of the collection can be addressed by convention by appending the parenthesized key to the URL specifying the collection of entities, or by using the <a href="#KeyasSegmentConvention">key-as-segment convention</a> if supported by the service.</p>
 <p>For collection-valued navigation properties with navigation property bindings that end in a <a href="#AddressingDerivedTypes">type-cast segment</a>, a type-cast segment MUST be appended to the collection URL before appending the key segment.</p>
 <p>Note: entity sets or collection-valued navigation properties annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#IndexableByKey"><code>Capabilities.IndexableByKey</code></a> defined in <a href="#ODataVocCap">OData-VocCap</a> and a value of <code>false</code> do not support addressing their members by key.</p>
+</details>
+<details open><summary>
 <h2 id="410-addressing-a-member-of-an-ordered-collection"><a name="AddressingaMemberofanOrderedCollection" href="#AddressingaMemberofanOrderedCollection">4.10 Addressing a Member of an Ordered Collection</a></h2>
+</summary>
 <p>Collections can be annotated as ordered using the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered"><code>Core.Ordered</code></a> term (see <a href="#ODataVocCore">OData-VocCore</a>). Individual items within an ordered collection of primitive or complex types can be addressed by appending a segment containing the zero-based ordinal to the URL of the collection. A negative ordinal number indexes from the end of the collection, with <code>-1</code> representing the last item in the collection. Services MUST NOT specify a negative index when returning the address of a member of an ordered collection.</p>
 <p>Entity types are stably addressable using their canonical URL and SHOULD NOT be accessed or accessible using an index.</p>
 <div class="example">
 <p>Example 35: the first address in a list of addresses for <code>MainSupplier</code></p>
 <pre><code>http://host/service/MainSupplier/Addresses/0</code></pre>
 </div>
+</details>
+<details open><summary>
 <h2 id="411-addressing-derived-types"><a name="AddressingDerivedTypes" href="#AddressingDerivedTypes">4.11 Addressing Derived Types</a></h2>
+</summary>
 <p>Any resource path or path expression identifying a collection of entities or complex type instances can be appended with a <em>type-cast segment</em>, that is a path segment containing the qualified name of a type derived from the declared item type of the collection. The result will be restricted to instances of the derived type and may be empty.</p>
 <p>Any resource path or path expression identifying a single entity or complex type instance can be appended with a type-cast segment containing the qualified name of a type derived from the declared type of the identified resource. If used in a resource path and the identified resource is not an instance of the derived type, the request will result in a <code>404 Not Found</code> response. If used in a path expression, the type cast will evaluate to <code>null</code>.</p>
 <p>Services MAY additionally support the use of the unqualified name of a derived type in a URL by defining one or more default namespaces through the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a> term defined in <a href="#ODataVocCore">OData-VocCore</a>. For more information on default namespaces, see Default Namespaces in <a href="#ODataProtocol">OData-Protocol</a>.</p>
@@ -779,7 +871,10 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>Example 40: expand the single related <code>Customer</code> only if it is an instance of <code>Model.VipCustomer</code>. For to-many relationships only <code>Model.VipCustomer</code> instances would be inlined,</p>
 <pre><code>http://host/service/Orders?$expand=Customer/Model.VipCustomer</code></pre>
 </div>
+</details>
+<details open><summary>
 <h2 id="412-addressing-a-subset-of-a-collection"><a name="AddressingaSubsetofaCollection" href="#AddressingaSubsetofaCollection">4.12 Addressing a Subset of a Collection</a></h2>
+</summary>
 <p>Any resource path or path expression identifying a collection can be appended with a filter path segment consisting of <code>/$filter</code> followed by parentheses containing a <a href="#ParameterAliases">parameter alias</a> or a filter expression following the <code>filter</code> syntax rule in <a href="#ODataABNF">OData-ABNF</a>. If the parentheses contain a parameter alias, a filter expression MUST be assigned to the parameter alias in the query part of the request URL. If the filter path segment appears in the resource path, the filter expression in parentheses MUST NOT use forward slashes, it must be specified with a parameter alias instead.</p>
 <p>The collection will be restricted to instances matching the filter expression assigned to the parameter alias and may be empty.</p>
 <p>The <code>/$filter</code> path segment MAY occur multiple times and it MAY be combined with the <a href="#SystemQueryOptionfilter"><code>$filter</code></a> system query option.</p>
@@ -801,17 +896,26 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>Example 44: invoke the <code>Special.Cluster</code> action on all products older than 3</p>
 <pre><code>POST /service/Products/$filter(@foo)/Special.Cluster?@foo=Age gt 3</code></pre>
 </div>
+</details>
+<details open><summary>
 <h2 id="413-addressing-each-member-of-a-collection"><a name="AddressingEachMemberofaCollection" href="#AddressingEachMemberofaCollection">4.13 Addressing Each Member of a Collection</a></h2>
+</summary>
 <p>To apply a <code>PATCH</code> or <code>DELETE</code> request to each member of a collection, clients append the path segment <code>/$each</code> to a resource path identifying a collection.</p>
 <p>To apply a <a href="#AddressingActions">bound action</a> or function to each member of a collection, clients append the path segment <code>/$each</code> followed by a path segment identifying the bound action or function. The response is a collection of instances of the result type of the bound operation. If the bound operation returns a collection, the response is a collection of collections. System query options applied to the response can use <a href="#it"><code>$it</code></a> to reference an item in the outermost collection, followed by <a href="#any"><code>/any</code></a>, <a href="#all"><code>/all</code></a>, or <a href="#AddressingtheCountofaCollection"><code>/$count</code></a>.</p>
 <p>The resource path of the collection preceding <code>/$each</code> MAY contain <a href="#AddressingDerivedTypes">type-cast segments</a> or <a href="#AddressingaSubsetofaCollection">filter path segments</a> to subset the collection.</p>
+</details>
+<details open><summary>
 <h2 id="414-addressing-the-media-stream-of-a-media-entity"><a name="AddressingtheMediaStreamofaMediaEntity" href="#AddressingtheMediaStreamofaMediaEntity">4.14 Addressing the Media Stream of a Media Entity</a></h2>
+</summary>
 <p>To address the media stream represented by a media entity, clients append <code>/$value</code> to the resource path of the media entity URL. Services may redirect from this canonical URL to the source URL of the media stream.</p>
 <div class="example">
 <p>Example 45: request the media stream for the picture with the key value <code>Sunset4321299432</code>:</p>
 <pre><code>http://host/service/Pictures(&#39;Sunset4321299432&#39;)/$value</code></pre>
 </div>
+</details>
+<details open><summary>
 <h2 id="415-addressing-the-cross-join-of-entity-sets"><a name="AddressingtheCrossJoinofEntitySets" href="#AddressingtheCrossJoinofEntitySets">4.15 Addressing the Cross Join of Entity Sets</a></h2>
+</summary>
 <p>In addition to querying related entities through navigation properties defined in the entity model of a service, the cross join operator allows querying across unrelated entity sets.</p>
 <p>The cross join is addressed by appending the path segment <code>$crossjoin</code> to the <a href="#ServiceRootURL">service root URL</a>, followed by the parenthesized comma-separated list of joined entity sets. It returns the Cartesian product of all the specified entity sets, represented as a collection of instances of a virtual complex type. Each instance consists of one non-nullable, single-valued navigation property per joined entity set. Each such navigation property is named identical to the corresponding entity set, with a target type equal to the declared entity type of the corresponding entity set.</p>
 <p>The <a href="#SystemQueryOptionfilter"><code>$filter</code></a> and <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> query options can be specified using properties of the entities in the selected entity sets, prepended with the entity set as the navigation property name.</p>
@@ -840,7 +944,10 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <span id="cb65-17"><a href="#cb65-17" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb65-18"><a href="#cb65-18" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
+</details>
+<details open><summary>
 <h2 id="416-addressing-all-entities-in-a-service"><a name="AddressingAllEntitiesinaService" href="#AddressingAllEntitiesinaService">4.16 Addressing All Entities in a Service</a></h2>
+</summary>
 <p>The symbolic resource <code>$all</code>, located at the service root, identifies the collection of all entities in a service, i.e. the union of all entity sets plus all singletons.</p>
 <p>This symbolic resource is of type <code>Collection(Edm.EntityType)</code> and allows the <a href="#SystemQueryOptionsearch"><code>$search</code></a> system query option plus all other query options applicable to collections of entities.</p>
 <p>The <code>$all</code> resource can be appended with a path segment containing the qualified name of an entity type in order to restrict the collections to entities of that type. Query options such as <a href="#SystemQueryOptionselect"><code>$select</code></a>, <a href="#SystemQueryOptionfilter"><code>$filter</code></a>, <a href="#SystemQueryOptionexpand"><code>$expand</code></a>, and <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> can be applied to this restricted set according to the specified type.</p>
@@ -852,7 +959,10 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>Example 48: all <code>Customer</code> entities in a service whose name contains <code>red</code></p>
 <pre><code>http://host/service/$all/Model.Customer?$filter=contains(Name,&#39;red&#39;)</code></pre>
 </div>
+</details>
+<details open><summary>
 <h2 id="417-passing-query-options-in-the-request-body"><a name="PassingQueryOptionsintheRequestBody" href="#PassingQueryOptionsintheRequestBody">4.17 Passing Query Options in the Request Body</a></h2>
+</summary>
 <p>The query options part of an OData URL can be quite long, potentially exceeding the maximum length of URLs supported by components involved in transmitting or processing the request. One way to avoid this is wrapping the request in a batch request, which has the penalty of needing to construct a well-formed batch request body.</p>
 <p>An easier alternative for <code>GET</code> requests is to append <code>/$query</code> to the resource path of the URL, use the <code>POST</code> verb instead of <code>GET</code>, and pass the query options part of the URL in the request body.</p>
 <p>Requests to paths ending in <code>/$query</code> MUST use the <code>POST</code> verb. Query options specified in the request body and query options specified in the request URL are processed together.</p>
@@ -865,9 +975,15 @@ Content-Type: text/plain
 $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;Jane&quot;,&quot;Smith&quot;]]</code></pre>
 </div>
 <hr />
+</details>
+</details>
+<details open><summary>
 <h1 id="5-query-options"><a name="QueryOptions" href="#QueryOptions">5 Query Options</a></h1>
+</summary>
 <p>The query options part of an OData URL specifies three types of information: <a href="#SystemQueryOptions">system query options</a>, <a href="#CustomQueryOptions">custom query options</a>, and <a href="#ParameterAliases">parameter aliases</a>. All OData services MUST follow the query string parsing and construction rules defined in this section and its subsections.</p>
+<details open><summary>
 <h2 id="51-system-query-options"><a name="SystemQueryOptions" href="#SystemQueryOptions">5.1 System Query Options</a></h2>
+</summary>
 <p>System query options are query string parameters that control the amount and order of the data returned for the resource identified by the URL. The names of all system query options are optionally prefixed with a dollar (<code>$</code>) character. 4.01 Services MUST support case-insensitive system query option names specified with or without the <code>$</code> prefix. Clients that want to work with 4.0 services MUST use lower case names and specify the <code>$</code> prefix.</p>
 <p>For <code>GET</code>, <code>PATCH</code>, and <code>PUT</code> requests the following rules apply:</p>
 <ul>
@@ -884,16 +1000,22 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <p>The semantics of all system query options are defined in the <a href="#ODataProtocol">OData-Protocol</a> document.</p>
 <p>The grammar and syntax rules for system query options are defined in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>Dynamic properties can be used in the same way as declared properties. If they are not defined on an instance, they evaluate to <code>null</code>.</p>
+<details open><summary>
 <h3 id="511-common-expression-syntax"><a name="CommonExpressionSyntax" href="#CommonExpressionSyntax">5.1.1 Common Expression Syntax</a></h3>
+</summary>
 <p>The following operators, functions, and literals can be used in <code>$filter</code>, <code>$orderby</code>, and <code>$compute</code> expressions.</p>
 <p>The <a href="#ODataABNF">OData-ABNF</a> <code>commonExpr</code> syntax rule defines the formal grammar of common expressions.</p>
+<details open><summary>
 <h4 id="5111-logical-operators"><a name="LogicalOperators" href="#LogicalOperators">5.1.1.1 Logical Operators</a></h4>
+</summary>
 <p>OData defines a set of logical operators that evaluate to true or false (i.e. a <code>boolCommonExpr</code> as defined in <a href="#ODataABNF">OData-ABNF</a>). Logical operators are typically used to filter a collection of resources.</p>
 <p>The syntax rules for the logical operators are defined in <a href="#ODataABNF">OData-ABNF</a>. 4.01 Services MUST support case-insensitive operator names. Clients that want to work with 4.0 services MUST use lower case operator names.</p>
 <p>The six comparison operators can be used with all primitive values except <code>Edm.Binary</code>, <code>Edm.Stream</code>, and the <code>Edm.Geo</code> types. <code>Edm.Binary</code>, <code>Edm.Stream</code>, and the <code>Edm.Geo</code> types can only be compared to the <code>null</code> value using the <a href="#Equals"><code>eq</code></a> and <a href="#NotEquals"><code>ne</code></a> operators.</p>
 <p>When applied to operands of numeric types, <a href="#NumericPromotion">numeric promotion</a> rules are applied.</p>
 <p>The <code>eq</code>, <code>ne</code>, and <code>in</code> operators can be used with collection-valued operands, and the <code>eq</code> and <code>ne</code> operators can be used with operands of a structured type.</p>
+<details open><summary>
 <h5 id="51111-equals"><a name="Equals" href="#Equals">5.1.1.1.1 Equals</a></h5>
+</summary>
 <p>The <code>eq</code> operator returns true if the left operand is equal to the right operand, otherwise it returns false.</p>
 <p>When applied to operands of entity types, the <code>eq</code> operator returns true if both operands represent the same entity, or both operands represent null.</p>
 <p>When applied to operands of complex types, the <code>eq</code> operator returns true if both operands have the same structure and same values, or both operands represent null.</p>
@@ -901,7 +1023,10 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <p>For services that support comparing unordered collections, the <code>eq</code> operator returns true if both operands are equal after applying the same ordering on both collections.</p>
 <p>Each of the special values <code>null</code>, <code>-INF</code>, and <code>INF</code> is equal to itself, and only to itself.</p>
 <p>The special value <code>NaN</code> is not equal to anything, even to itself.</p>
+</details>
+<details open><summary>
 <h5 id="51112-not-equals"><a name="NotEquals" href="#NotEquals">5.1.1.1.2 Not Equals</a></h5>
+</summary>
 <p>The <code>ne</code> operator returns true if the left operand is not equal to the right operand, otherwise it returns false.</p>
 <p>When applied to operands of entity types, the <code>ne</code> operator returns true if the two operands do not represent the same entity.</p>
 <p>When applied to operands of complex types, the <code>ne</code> operator returns true if the operands do not have the same structure and same values.</p>
@@ -910,39 +1035,69 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <p>Each of the special values <code>null</code>, <code>-INF</code>, and <code>INF</code> is not equal to any value but itself.</p>
 <p>The special value <code>NaN</code> is not equal to anything, even to itself.</p>
 <p>The <code>null</code> value is not equal to any value but itself.</p>
+</details>
+<details open><summary>
 <h5 id="51113-greater-than"><a name="GreaterThan" href="#GreaterThan">5.1.1.1.3 Greater Than</a></h5>
+</summary>
 <p>The <code>gt</code> operator returns true if the left operand is greater than the right operand, otherwise it returns false.</p>
 <p>The special value <code>INF</code> is greater than any number, and any number is greater than <code>-INF</code>.</p>
 <p>The Boolean value <code>true</code> is greater than <code>false</code>.</p>
 <p>Services SHOULD order language-dependent strings according to the <code>Content-Language</code> of the response, and SHOULD annotate string properties with language-dependent order with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent"><code>Core.IsLanguageDependent</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>.</p>
 <p>If any operand is <code>null</code>, the operator returns false.</p>
+</details>
+<details open><summary>
 <h5 id="51114-greater-than-or-equal"><a name="GreaterThanorEqual" href="#GreaterThanorEqual">5.1.1.1.4 Greater Than or Equal</a></h5>
+</summary>
 <p>The <code>ge</code> operator returns true if the left operand is greater than or equal to the right operand, otherwise it returns false.</p>
 <p>See rules for <a href="#GreaterThan"><code>gt</code></a> and <a href="#Equals"><code>eq</code></a> for details.</p>
+</details>
+<details open><summary>
 <h5 id="51115-less-than"><a name="LessThan" href="#LessThan">5.1.1.1.5 Less Than</a></h5>
+</summary>
 <p>The <code>lt</code> operator returns true if the left operand is less than the right operand, otherwise it returns false.</p>
 <p>The special value <code>-INF</code> is less than any number, and any number is less than <code>INF</code>.</p>
 <p>The Boolean value <code>false</code> is less than <code>true</code>.</p>
 <p>Services SHOULD order language-dependent strings according to the <code>Content-Language</code> of the response, and SHOULD annotate string properties with language-dependent order with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent"><code>Core.IsLanguageDependent</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>.</p>
 <p>If any operand is <code>null</code>, the operator returns false.</p>
+</details>
+<details open><summary>
 <h5 id="51116-less-than-or-equal"><a name="LessThanorEqual" href="#LessThanorEqual">5.1.1.1.6 Less Than or Equal</a></h5>
+</summary>
 <p>The <code>le</code> operator returns true if the left operand is less than or equal to the right operand, otherwise it returns false.</p>
 <p>See rules for <a href="#LessThan"><code>lt</code></a> and <a href="#Equals"><code>eq</code></a> for details.</p>
+</details>
+<details open><summary>
 <h5 id="51117-and"><a name="And" href="#And">5.1.1.1.7 And</a></h5>
+</summary>
 <p>The <code>and</code> operator returns true if both the left and right operands evaluate to true, otherwise it returns false.</p>
 <p>The <code>null</code> value is treated as unknown, so if one operand evaluates to <code>null</code> and the other operand to false, the <code>and</code> operator returns false. All other combinations with <code>null</code> return <code>null</code>.</p>
+</details>
+<details open><summary>
 <h5 id="51118-or"><a name="Or" href="#Or">5.1.1.1.8 Or</a></h5>
+</summary>
 <p>The <code>or</code> operator returns false if both the left and right operands both evaluate to false, otherwise it returns true.</p>
 <p>The <code>null</code> value is treated as unknown, so if one operand evaluates to <code>null</code> and the other operand to true, the <code>or</code> operator returns true. All other combinations with <code>null</code> return <code>null</code>.</p>
+</details>
+<details open><summary>
 <h5 id="51119-not"><a name="Not" href="#Not">5.1.1.1.9 Not</a></h5>
+</summary>
 <p>The <code>not</code> operator returns true if the operand returns false, otherwise it returns false.</p>
 <p>The <code>null</code> value is treated as unknown, so <code>not null</code> returns <code>null</code>.</p>
+</details>
+<details open><summary>
 <h5 id="511110-has"><a name="Has" href="#Has">5.1.1.1.10 Has</a></h5>
+</summary>
 <p>The <code>has</code> operator returns true if the right operand is an enumeration value whose flag(s) are set on the left operand.</p>
 <p>The <code>null</code> value is treated as unknown, so if one operand evaluates to <code>null</code>, the <code>has</code> operator returns <code>null</code>.</p>
+</details>
+<details open><summary>
 <h5 id="511111-in"><a name="In" href="#In">5.1.1.1.11 In</a></h5>
+</summary>
 <p>The <code>in</code> operator returns true if the left operand is a member of the right operand. The right operand MUST be either a comma-separated list of zero or more primitive values, enclosed in parentheses, or a single expression that resolves to a collection. If the right operand is an empty collection or list of values, the expression returns false.</p>
+</details>
+<details open><summary>
 <h5 id="511112-logical-operator-examples"><a name="LogicalOperatorExamples" href="#LogicalOperatorExamples">5.1.1.1.12 Logical Operator Examples</a></h5>
+</summary>
 <p>The following examples illustrate the use and semantics of each of the logical operators.</p>
 <div class="example">
 <p>Example 50: all products with a <code>Name</code> equal to <code>Milk</code></p>
@@ -988,11 +1143,17 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <p>Example 60: all products whose <code>Name</code> is <code>Milk</code> or <code>Cheese</code>:</p>
 <pre><code>http://host/service/Products?$filter=Name in (&#39;Milk&#39;, &#39;Cheese&#39;)</code></pre>
 </div>
+</details>
+</details>
+<details open><summary>
 <h4 id="5112-arithmetic-operators"><a name="ArithmeticOperators" href="#ArithmeticOperators">5.1.1.2 Arithmetic Operators</a></h4>
+</summary>
 <p>OData defines a set of arithmetic operators that require operands that evaluate to numeric types. Arithmetic operators are typically used to filter a collection of resources. However, services MAY allow using arithmetic operators with the <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> system query option.</p>
 <p>If an operand of an arithmetic operator is null, the result is null.</p>
 <p>The syntax rules for the arithmetic operators are defined in <a href="#ODataABNF">OData-ABNF</a>. 4.01 Services MUST support case-insensitive operator names. Clients that want to work with 4.0 services MUST use lower case operator names.</p>
+<details open><summary>
 <h5 id="51121-addition"><a name="Addition" href="#Addition">5.1.1.2.1 Addition</a></h5>
+</summary>
 <p>The <code>add</code> operator adds the left and right numeric operands.</p>
 <p>For operands of type <code>Edm.Decimal</code> the scale of the result is <span class="math inline">\({\rm scaleof}(A {\ \tt add\ } B) = \max({\rm scaleof}(A), {\rm scaleof}(B))\)</span>, or <code>variable</code> if any operand has variable scale.</p>
 <p>The <code>add</code> operator is also valid for the following time-related operands:</p>
@@ -1008,7 +1169,10 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <li>Convert to date by removing the time and timezone components</li>
 </ul>
 <p>Thus, today plus a positive duration smaller than one day is today; today minus a positive duration smaller than one day is yesterday.</p>
+</details>
+<details open><summary>
 <h5 id="51122-subtraction"><a name="Subtraction" href="#Subtraction">5.1.1.2.2 Subtraction</a></h5>
+</summary>
 <p>The <code>sub</code> operator subtracts the right numeric operand from the left numeric operand.</p>
 <p>For operands of type <code>Edm.Decimal</code> the scale of the result is <span class="math inline">\({\rm scaleof}(A {\ \tt sub\ } B) = \max({\rm scaleof}(A), {\rm scaleof}(B))\)</span>, or <code>variable</code> if any operand has variable scale.</p>
 <p>The <code>sub</code> operator is also valid for the following time-related operands:</p>
@@ -1020,20 +1184,35 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <li><code>Date sub Date</code> results in a <code>Duration</code></li>
 </ul>
 <p>The rules for time-related operands are defined in <a href="#XML-Schema2">XML-Schema-2</a>, <a href="https://www.w3.org/TR/xmlschema11-2/#sec-dt-arith">section E.3.3</a>. Specifically for subtracting a duration from a date see the preceding <a href="#Addition">section</a>.</p>
+</details>
+<details open><summary>
 <h5 id="51123-negation"><a name="Negation" href="#Negation">5.1.1.2.3 Negation</a></h5>
+</summary>
 <p>The negation operator, represented by a minus (<code>-</code>) sign, changes the sign of its numeric or <code>Duration</code> operand.</p>
+</details>
+<details open><summary>
 <h5 id="51124-multiplication"><a name="Multiplication" href="#Multiplication">5.1.1.2.4 Multiplication</a></h5>
+</summary>
 <p>The <code>mul</code> operator multiplies the left and right numeric operands. The <code>mul</code> operator is also valid for multiplying a <code>Duration</code> value with a numeric value.</p>
 <p>For operands of type <code>Edm.Decimal</code> the scale of the result is <span class="math inline">\({\rm scaleof}(A {\ \tt mul\ } B) = {\rm scaleof}(A) + {\rm scaleof}(B)\)</span>, <code>floating</code> if any operand has floating scale, or else <code>variable</code> if any operand has variable scale.</p>
+</details>
+<details open><summary>
 <h5 id="51125-division"><a name="Division" href="#Division">5.1.1.2.5 Division</a></h5>
+</summary>
 <p>The <code>div</code> and<code> divby</code> operators divide the left numeric operand by the right numeric operand. They are also valid for dividing a <code>Duration</code> value by a numeric value.</p>
 <p>If the left operand is of type <code>Edm.Decimal</code> with floating scale, <code>Edm.Double</code>, or <code>Edm.Single</code>, then positive <code>div</code> zero returns <code>INF</code>, negative <code>div</code> zero returns <code>-INF</code>, and zero <code>div</code> zero returns <code>NaN</code>. For all other types the request fails.</p>
 <p>For operands of type <code>Edm.Decimal</code> the result is computed with maximal decimal scale. If any operand has floating scale, the result has floating scale, else if any operand has variable scale, the result has variable scale. Otherwise the resulting scale is service-specific, and clients can use <code>cast</code> to force the result to a specific scale.</p>
 <p>The <code>div</code> and<code> divby</code> operators differ in their handling of integers. If both operands to <code>div</code> are of an integer type, the result is an integer representing the whole number of times the right operator fits into the left operator. The <code>divby</code> operator, on the other hand, promotes both operands to decimal before computing the result, may yield a fractional result, and does not fail for <code>divby</code> zero, returning <code>-INF</code>, <code>INF</code>, or <code>NaN</code> depending on the sign of the left operand.</p>
+</details>
+<details open><summary>
 <h5 id="51126-modulo"><a name="Modulo" href="#Modulo">5.1.1.2.6 Modulo</a></h5>
+</summary>
 <p>The <code>mod</code> operator returns the remainder when the left numeric operand is divided by the right numeric operand. The sign of the result is the same as the sign of the left operand. If the right operand is zero, the request fails.</p>
 <p>For operands of type <code>Edm.Decimal</code> the scale of the result is <span class="math inline">\({\rm scaleof}(A {\ \tt mod\ } B) = \max({\rm scaleof}(A), {\rm scaleof}(B))\)</span>, or <code>variable</code> if any operand has variable scale.</p>
+</details>
+<details open><summary>
 <h5 id="51127-arithmetic-operator-examples"><a name="ArithmeticOperatorExamples" href="#ArithmeticOperatorExamples">5.1.1.2.7 Arithmetic Operator Examples</a></h5>
+</summary>
 <p>The following examples illustrate the use and semantics of each of the Arithmetic operators.</p>
 <div class="example">
 <p>Example 61: all products with a Price of 2.55:</p>
@@ -1063,19 +1242,31 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <p>Example 67: all products with a Rating exactly divisible by 5:</p>
 <pre><code>http://host/service/Products?$filter=Rating mod 5 eq 0</code></pre>
 </div>
+</details>
+</details>
+<details open><summary>
 <h4 id="5113-grouping"><a name="Grouping" href="#Grouping">5.1.1.3 Grouping</a></h4>
+</summary>
 <p>The Grouping operator (open and close parenthesis “<code>( )</code>”) controls the evaluation order of an expression. The Grouping operator returns the expression grouped inside the parenthesis.</p>
 <div class="example">
 <p>Example 68: all products because 9 mod 3 is 0</p>
 <pre><code>http://host/service/Products?$filter=(4 add 5) mod (4 sub 1) eq 0</code></pre>
 </div>
+</details>
+<details open><summary>
 <h4 id="5114-canonical-functions"><a name="CanonicalFunctions" href="#CanonicalFunctions">5.1.1.4 Canonical Functions</a></h4>
+</summary>
 <p>In addition to operators, a set of functions is also defined for use with the <a href="#SystemQueryOptioncompute"><code>$compute</code></a>, <code>$filter</code> or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> system query options, or in <a href="#ParameterAliases">parameter alias</a> values. The following sections describe the available functions.</p>
 <p>Note: ISNULL or COALESCE operators are not defined. Instead, OData defines a <a href="#null"><code>null</code></a> literal that can be used in comparisons.</p>
 <p>If a parameter of a canonical function is <code>null</code>, the function returns <code>null</code>.</p>
 <p>The syntax rules for all functions are defined in <a href="#ODataABNF">OData-ABNF</a>. 4.01 Services MUST support case-insensitive canonical function names. Clients that want to work with 4.0 services MUST use lower case canonical function names.</p>
+</details>
+<details open><summary>
 <h4 id="5115-string-and-collection-functions"><a name="StringandCollectionFunctions" href="#StringandCollectionFunctions">5.1.1.5 String and Collection Functions</a></h4>
+</summary>
+<details open><summary>
 <h5 id="51151-concat"><a name="concat" href="#concat">5.1.1.5.1 <code>concat</code></a></h5>
+</summary>
 <p>The <code>concat</code> function has three overloads, with the following signatures:</p>
 <pre><code>Edm.String concat(Edm.String,Edm.String)
 Collection concat(Collection,Collection)
@@ -1087,7 +1278,10 @@ OrderedCollection concat(OrderedCollection,OrderedCollection)</code></pre>
 <p>Example 69: all customers from Berlin, Germany</p>
 <pre><code>http://host/service/Customers?$filter=concat(concat(City,&#39;, &#39;),Country) eq &#39;Berlin, Germany&#39;</code></pre>
 </div>
+</details>
+<details open><summary>
 <h5 id="51152-contains"><a name="contains" href="#contains">5.1.1.5.2 <code>contains</code></a></h5>
+</summary>
 <p>The <code>contains</code> function has two overloads, with the following signatures:</p>
 <pre><code>Edm.Boolean contains(Edm.String,Edm.String)
 Edm.Boolean contains(OrderedCollection,OrderedCollection)</code></pre>
@@ -1098,7 +1292,10 @@ Edm.Boolean contains(OrderedCollection,OrderedCollection)</code></pre>
 <p>Example 70: all customers with a <code>CompanyName</code> that contains <code>Alfreds</code></p>
 <pre><code>http://host/service/Customers?$filter=contains(CompanyName,&#39;Alfreds&#39;)</code></pre>
 </div>
+</details>
+<details open><summary>
 <h5 id="51153-endswith"><a name="endswith" href="#endswith">5.1.1.5.3 <code>endswith</code></a></h5>
+</summary>
 <p>The <code>endswith</code> function has two overloads, with the following signatures:</p>
 <pre><code>Edm.Boolean endswith(Edm.String,Edm.String)
 Edm.Boolean endswith(OrderedCollection,OrderedCollection)</code></pre>
@@ -1109,7 +1306,10 @@ Edm.Boolean endswith(OrderedCollection,OrderedCollection)</code></pre>
 <p>Example 71: all customers with a <code>CompanyName</code> that ends with <code>Futterkiste</code></p>
 <pre><code>http://host/service/Customers?$filter=endswith(CompanyName,&#39;Futterkiste&#39;)</code></pre>
 </div>
+</details>
+<details open><summary>
 <h5 id="51154-indexof"><a name="indexof" href="#indexof">5.1.1.5.4 <code>indexof</code></a></h5>
+</summary>
 <p>The <code>indexof</code> function has two overloads, with the following signatures:</p>
 <pre><code>Edm.Int32 indexof(Edm.String,Edm.String)
 Edm.Int32 indexof(OrderedCollection,OrderedCollection)</code></pre>
@@ -1120,7 +1320,10 @@ Edm.Int32 indexof(OrderedCollection,OrderedCollection)</code></pre>
 <p>Example 72: all customers with a <code>CompanyName</code> containing <code>lfreds</code> starting at the second character</p>
 <pre><code>http://host/service/Customers?$filter=indexof(CompanyName,&#39;lfreds&#39;) eq 1</code></pre>
 </div>
+</details>
+<details open><summary>
 <h5 id="51155-length"><a name="length" href="#length">5.1.1.5.5 <code>length</code></a></h5>
+</summary>
 <p>The <code>length</code> function has two overloads, with the following signatures:</p>
 <pre><code>Edm.Int32 length(Edm.String)
 Edm.Int32 length(Collection)</code></pre>
@@ -1131,7 +1334,10 @@ Edm.Int32 length(Collection)</code></pre>
 <p>Example 73: all customers with a <code>CompanyName</code> that is 19 characters long</p>
 <pre><code>http://host/service/Customers?$filter=length(CompanyName) eq 19</code></pre>
 </div>
+</details>
+<details open><summary>
 <h5 id="51156-startswith"><a name="startswith" href="#startswith">5.1.1.5.6 <code>startswith</code></a></h5>
+</summary>
 <p>The <code>startswith</code> function has two overloads, with the following signatures:</p>
 <pre><code>Edm.Boolean startswith(Edm.String,Edm.String)
 Edm.Boolean startswith(Collection,Collection)</code></pre>
@@ -1142,7 +1348,10 @@ Edm.Boolean startswith(Collection,Collection)</code></pre>
 <p>Example 74: all customers with a <code>CompanyName</code> that starts with <code>Alfr</code></p>
 <pre><code>http://host/service/Customers?$filter=startswith(CompanyName,&#39;Alfr&#39;)</code></pre>
 </div>
+</details>
+<details open><summary>
 <h5 id="51157-substring"><a name="substring" href="#substring">5.1.1.5.7 <code>substring</code></a></h5>
+</summary>
 <p>The <code>substring</code> function has four overloads, with the following signatures:</p>
 <pre><code>Edm.String substring(Edm.String,Edm.Int32)
 Edm.String substring(Edm.String,Edm.Int32,Edm.Int32)
@@ -1164,8 +1373,14 @@ OrderedCollection substring(OrderedCollection,Edm.Int32,Edm.Int32)</code></pre>
 <p>Example 76: all customers with a <code>CompanyName</code> that has <code>lf</code> as the second and third characters, e.g, <code>Alfreds Futterkiste</code></p>
 <pre><code>http://host/service/Customers?$filter=substring(CompanyName,1,2) eq &#39;lf&#39;</code></pre>
 </div>
+</details>
+</details>
+<details open><summary>
 <h4 id="5116-collection-functions"><a name="CollectionFunctions" href="#CollectionFunctions">5.1.1.6 Collection Functions</a></h4>
+</summary>
+<details open><summary>
 <h5 id="51161-hassubset"><a name="hassubset" href="#hassubset">5.1.1.6.1 <code>hassubset</code></a></h5>
+</summary>
 <p>The <code>hassubset</code> function has the following signature:</p>
 <pre><code>Edm.Boolean hassubset(Collection, Collection)</code></pre>
 <p>The <code>hassubset</code> function returns true if the first collection can be transformed into the second collection by reordering and/or removing zero or more items. The <code>hasSubsetMethodCallExpr</code> syntax rule defines how the <code>hassubset</code> function is invoked.</p>
@@ -1181,7 +1396,10 @@ OrderedCollection substring(OrderedCollection,Edm.Int32,Edm.Int32)</code></pre>
 <p>Example 78: <code>hassubset</code> expression that returns false: 1 appears only once in the left operand</p>
 <pre><code>hassubset([1,2],[1,1,2])</code></pre>
 </div>
+</details>
+<details open><summary>
 <h5 id="51162-hassubsequence"><a name="hassubsequence" href="#hassubsequence">5.1.1.6.2 <code>hassubsequence</code></a></h5>
+</summary>
 <p>The <code>hassubsequence</code> function has the following signature:</p>
 <pre><code>Edm.Boolean hassubsequence(OrderedCollection,OrderedCollection)</code></pre>
 <p>The <code>hassubsequence</code> function returns true if the first collection can be transformed into the second collection by removing zero or more items. The <code>hasSubsequenceMethodCallExpr</code> syntax rule defines how the <code>hassubsequence</code> function is invoked.</p>
@@ -1198,8 +1416,14 @@ OrderedCollection substring(OrderedCollection,Edm.Int32,Edm.Int32)</code></pre>
 <pre><code>hassubsequence([4,1,3],[3,1])</code></pre>
 <pre><code>hassubsequence([1,2],[1,1,2])</code></pre>
 </div>
+</details>
+</details>
+<details open><summary>
 <h4 id="5117-string-functions"><a name="StringFunctions" href="#StringFunctions">5.1.1.7 String Functions</a></h4>
+</summary>
+<details open><summary>
 <h5 id="51171-matchespattern"><a name="matchespattern" href="#matchespattern">5.1.1.7.1 <code>matchespattern</code></a></h5>
+</summary>
 <p>The <code>matchespattern</code> function has the following signatures:</p>
 <pre><code>Edm.Boolean matchespattern(Edm.String,Edm.String)
 Edm.Boolean matchespattern(Edm.String,Edm.String,Edm.String)</code></pre>
@@ -1212,7 +1436,10 @@ Edm.Boolean matchespattern(Edm.String,Edm.String,Edm.String)</code></pre>
 <p>Example 82: all customers with a <code>FormattedAddress</code> that contains a line ending with <code>berg</code> or ends with <code>berg</code></p>
 <pre><code>http://host/service/Customers?$filter=matchespattern(FormattedAddress,&#39;berg$&#39;,&#39;m&#39;)</code></pre>
 </div>
+</details>
+<details open><summary>
 <h5 id="51172-tolower"><a name="tolower" href="#tolower">5.1.1.7.2 <code>tolower</code></a></h5>
+</summary>
 <p>The <code>tolower</code> function has the following signature:</p>
 <pre><code>Edm.String tolower(Edm.String)</code></pre>
 <p>The <code>tolower</code> function returns the input parameter string value with all uppercase characters converted to lowercase according to Unicode rules. The <code>toLowerMethodCallExpr</code> syntax rule defines how the <code>tolower</code> function is invoked.</p>
@@ -1220,7 +1447,10 @@ Edm.Boolean matchespattern(Edm.String,Edm.String,Edm.String)</code></pre>
 <p>Example 83: all customers with a <code>CompanyName</code> that equals <code>alfreds futterkiste</code> once any uppercase characters have been converted to lowercase</p>
 <pre><code>http://host/service/Customers?$filter=tolower(CompanyName) eq &#39;alfreds futterkiste&#39;</code></pre>
 </div>
+</details>
+<details open><summary>
 <h5 id="51173-toupper"><a name="toupper" href="#toupper">5.1.1.7.3 <code>toupper</code></a></h5>
+</summary>
 <p>The <code>toupper</code> function has the following signature:</p>
 <pre><code>Edm.String toupper(Edm.String)</code></pre>
 <p>The <code>toupper</code> function returns the input parameter string value with all lowercase characters converted to uppercase according to Unicode rules. The <code>toUpperMethodCallExpr</code> syntax rule defines how the <code>toupper</code> function is invoked.</p>
@@ -1228,7 +1458,10 @@ Edm.Boolean matchespattern(Edm.String,Edm.String,Edm.String)</code></pre>
 <p>Example 84: all customers with a <code>CompanyName</code> that equals <code>ALFREDS FUTTERKISTE</code> once any lowercase characters have been converted to uppercase</p>
 <pre><code>http://host/service/Customers?$filter=toupper(CompanyName) eq &#39;ALFREDS FUTTERKISTE&#39;</code></pre>
 </div>
+</details>
+<details open><summary>
 <h5 id="51174-trim"><a name="trim" href="#trim">5.1.1.7.4 <code>trim</code></a></h5>
+</summary>
 <p>The <code>trim</code> function has the following signature:</p>
 <pre><code>Edm.String trim(Edm.String)</code></pre>
 <p>The <code>trim</code> function returns the input parameter string value with all leading and trailing whitespace characters, according to Unicode rules, removed. The <code>trimMethodCallExpr</code> syntax rule defines how the <code>trim</code> function is invoked.</p>
@@ -1236,12 +1469,21 @@ Edm.Boolean matchespattern(Edm.String,Edm.String,Edm.String)</code></pre>
 <p>Example 85: all customers with a <code>CompanyName</code> without leading or trailing whitespace characters</p>
 <pre><code>http://host/service/Customers?$filter=trim(CompanyName) eq CompanyName</code></pre>
 </div>
+</details>
+</details>
+<details open><summary>
 <h4 id="5118-date-and-time-functions"><a name="DateandTimeFunctions" href="#DateandTimeFunctions">5.1.1.8 Date and Time Functions</a></h4>
+</summary>
+<details open><summary>
 <h5 id="51181-date"><a name="date" href="#date">5.1.1.8.1 <code>date</code></a></h5>
+</summary>
 <p>The <code>date</code> function has the following signature:</p>
 <pre><code>Edm.Date date(Edm.DateTimeOffset)</code></pre>
 <p>The <code>date</code> function returns the date part of the <code>DateTimeOffset</code> parameter value, evaluated in the time zone of the <code>DateTimeOffset</code> parameter value.</p>
+</details>
+<details open><summary>
 <h5 id="51182-day"><a name="day" href="#day">5.1.1.8.2 <code>day</code></a></h5>
+</summary>
 <p>The <code>day</code> function has the following signatures:</p>
 <pre><code>Edm.Int32 day(Edm.Date)
 Edm.Int32 day(Edm.DateTimeOffset)</code></pre>
@@ -1251,7 +1493,10 @@ Edm.Int32 day(Edm.DateTimeOffset)</code></pre>
 <p>Example 86: all employees born on the 8th day of a month</p>
 <pre><code>http://host/service/Employees?$filter=day(BirthDate) eq 8</code></pre>
 </div>
+</details>
+<details open><summary>
 <h5 id="51183-fractionalseconds"><a name="fractionalseconds" href="#fractionalseconds">5.1.1.8.3 <code>fractionalseconds</code></a></h5>
+</summary>
 <p>The <code>fractionalseconds</code> function has the following signatures:</p>
 <pre><code>Edm.Decimal fractionalseconds[(Edm.DateTimeOffset)
 Edm.Decimal fractionalseconds(Edm.TimeOfDay)</code></pre>
@@ -1260,7 +1505,10 @@ Edm.Decimal fractionalseconds(Edm.TimeOfDay)</code></pre>
 <p>Example 87: all employees born less than 100 milliseconds after a full second of any minute of any hour on any day</p>
 <pre><code>http://host/service/Employees?$filter=[fractionalseconds(BirthDate) lt 0.1</code></pre>
 </div>
+</details>
+<details open><summary>
 <h5 id="51184-hour"><a name="hour" href="#hour">5.1.1.8.4 <code>hour</code></a></h5>
+</summary>
 <p>The <code>hour</code> function has the following signatures:</p>
 <pre><code>Edm.Int32 hour(Edm.DateTimeOffset)
 Edm.Int32 hour(Edm.TimeOfDay)</code></pre>
@@ -1270,15 +1518,24 @@ Edm.Int32 hour(Edm.TimeOfDay)</code></pre>
 <p>Example 88: all employees born in hour 4, between 04:00 (inclusive) and 05:00 (exclusive)</p>
 <pre><code>http://host/service/Employees?$filter=hour(BirthDate) eq 4</code></pre>
 </div>
+</details>
+<details open><summary>
 <h5 id="51185-maxdatetime"><a name="maxdatetime" href="#maxdatetime">5.1.1.8.5 <code>maxdatetime</code></a></h5>
+</summary>
 <p>The <code>maxdatetime</code> function has the following signature:</p>
 <pre><code>Edm.DateTimeOffset maxdatetime()</code></pre>
 <p>The <code>maxdatetime</code> function returns the latest possible point in time as a <code>DateTimeOffset</code> value.</p>
+</details>
+<details open><summary>
 <h5 id="51186-mindatetime"><a name="mindatetime" href="#mindatetime">5.1.1.8.6 <code>mindatetime</code></a></h5>
+</summary>
 <p>The <code>mindatetime</code> function has the following signature:</p>
 <pre><code>Edm.DateTimeOffset mindatetime()</code></pre>
 <p>The <code>mindatetime</code> function returns the earliest possible point in time as a <code>DateTimeOffset</code> value.</p>
+</details>
+<details open><summary>
 <h5 id="51187-minute"><a name="minute" href="#minute">5.1.1.8.7 <code>minute</code></a></h5>
+</summary>
 <p>The <code>minute</code> function has the following signatures:</p>
 <pre><code>Edm.Int32 minute(Edm.DateTimeOffset)
 Edm.Int32 minute(Edm.TimeOfDay)</code></pre>
@@ -1287,7 +1544,10 @@ Edm.Int32 minute(Edm.TimeOfDay)</code></pre>
 <p>Example 89: all employees born in minute 40 of any hour on any day</p>
 <pre><code>http://host/service/Employees?$filter=minute(BirthDate) eq 40</code></pre>
 </div>
+</details>
+<details open><summary>
 <h5 id="51188-month"><a name="month" href="#month">5.1.1.8.8 <code>month</code></a></h5>
+</summary>
 <p>The <code>month</code> function has the following signatures:</p>
 <pre><code>Edm.Int32 month(Edm.Date)
 Edm.Int32 month(Edm.DateTimeOffset)</code></pre>
@@ -1297,12 +1557,18 @@ Edm.Int32 month(Edm.DateTimeOffset)</code></pre>
 <p>Example 90: all employees born in May</p>
 <pre><code>http://host/service/Employees?$filter=month(BirthDate) eq 5</code></pre>
 </div>
+</details>
+<details open><summary>
 <h5 id="51189-now"><a name="now" href="#now">5.1.1.8.9 <code>now</code></a></h5>
+</summary>
 <p>The <code>now</code> function has the following signature:</p>
 <pre><code>Edm.DateTimeOffset now()</code></pre>
 <p>The <code>now</code> function returns the current point in time (date and time with time zone) as a <code>DateTimeOffset</code> value.</p>
 <p>Services are free to choose the time zone for the current point, for example UTC. Services that are unable to preserve the offset of <code>Edm.DateTimeOffset</code> values and instead normalize the values to some common time zone SHOULD return a value in the normalized time zone (for example UTC).</p>
+</details>
+<details open><summary>
 <h5 id="511810-second"><a name="second" href="#second">5.1.1.8.10 <code>second</code></a></h5>
+</summary>
 <p>The <code>second</code> function has the following signatures:</p>
 <pre><code>Edm.Int32 second(Edm.DateTimeOffset)
 Edm.Int32 second(Edm.TimeOfDay)</code></pre>
@@ -1311,20 +1577,32 @@ Edm.Int32 second(Edm.TimeOfDay)</code></pre>
 <p>Example 91: all employees born in second 40 of any minute of any hour on any day</p>
 <pre><code>http://host/service/Employees?$filter=second(BirthDate) eq 40</code></pre>
 </div>
+</details>
+<details open><summary>
 <h5 id="511811-time"><a name="time" href="#time">5.1.1.8.11 <code>time</code></a></h5>
+</summary>
 <p>The <code>time</code> function has the following signature:</p>
 <pre><code>Edm.TimeOfDay time(Edm.DateTimeOffset)</code></pre>
 <p>The <code>time</code> function returns the time part of the <code>DateTimeOffset</code> parameter value, evaluated in the time zone of the <code>DateTimeOffset</code> parameter value.</p>
 <p>Services that are unable to preserve the offset of <code>Edm.DateTimeOffset</code> values and instead normalize the values to some common time zone (for example UTC) MUST fail evaluation of the <code>time</code> function for literal <code>Edm.DateTimeOffset</code> values that are not stated in the time zone of the normalized values.</p>
+</details>
+<details open><summary>
 <h5 id="511812-totaloffsetminutes"><a name="totaloffsetminutes" href="#totaloffsetminutes">5.1.1.8.12 <code>totaloffsetminutes</code></a></h5>
+</summary>
 <p>The <code>totaloffsetminutes</code> function has the following signature:</p>
 <pre><code>Edm.Int32 totaloffsetminutes(Edm.DateTimeOffset)</code></pre>
 <p>The <code>totaloffsetminutes</code> function returns the signed number of minutes in the time zone offset part of the <code>DateTimeOffset</code> parameter value, evaluated in the time zone of the <code>DateTimeOffset</code> parameter value.</p>
+</details>
+<details open><summary>
 <h5 id="511813-totalseconds"><a name="totalseconds" href="#totalseconds">5.1.1.8.13 <code>totalseconds</code></a></h5>
+</summary>
 <p>The <code>totalseconds</code> function has the following signature:</p>
 <pre><code>Edm.Decimal totalseconds(Edm.Duration)</code></pre>
 <p>The <code>totalseconds</code> function returns the duration of the value in total seconds, including fractional seconds.</p>
+</details>
+<details open><summary>
 <h5 id="511814-year"><a name="year" href="#year">5.1.1.8.14 <code>year</code></a></h5>
+</summary>
 <p>The <code>year</code> function has the following signatures:</p>
 <pre><code>Edm.Int32 year(Edm.Date)
 Edm.Int32 year(Edm.DateTimeOffset)</code></pre>
@@ -1334,8 +1612,14 @@ Edm.Int32 year(Edm.DateTimeOffset)</code></pre>
 <p>Example 92: all employees born in 1971</p>
 <pre><code>http://host/service/Employees?$filter=year(BirthDate) eq 1971</code></pre>
 </div>
+</details>
+</details>
+<details open><summary>
 <h4 id="5119-arithmetic-functions"><a name="ArithmeticFunctions" href="#ArithmeticFunctions">5.1.1.9 Arithmetic Functions</a></h4>
+</summary>
+<details open><summary>
 <h5 id="51191-ceiling"><a name="ceiling" href="#ceiling">5.1.1.9.1 <code>ceiling</code></a></h5>
+</summary>
 <p>The <code>ceiling</code> function has the following signatures</p>
 <pre><code>Edm.Double ceiling(Edm.Double)
 Edm.Decimal ceiling(Edm.Decimal)</code></pre>
@@ -1344,7 +1628,10 @@ Edm.Decimal ceiling(Edm.Decimal)</code></pre>
 <p>Example 93: all orders with freight costs that round up to 32</p>
 <pre><code>http://host/service/Orders?$filter=ceiling(Freight) eq 32</code></pre>
 </div>
+</details>
+<details open><summary>
 <h5 id="51192-floor"><a name="floor" href="#floor">5.1.1.9.2 <code>floor</code></a></h5>
+</summary>
 <p>The <code>floor</code> function has the following signatures</p>
 <pre><code>Edm.Double floor(Edm.Double)
 Edm.Decimal floor(Edm.Decimal)</code></pre>
@@ -1353,7 +1640,10 @@ Edm.Decimal floor(Edm.Decimal)</code></pre>
 <p>Example 94: all orders with freight costs that round down to 32</p>
 <pre><code>http://host/service/Orders?$filter=floor(Freight) eq 32</code></pre>
 </div>
+</details>
+<details open><summary>
 <h5 id="51193-round"><a name="round" href="#round">5.1.1.9.3 <code>round</code></a></h5>
+</summary>
 <p>The <code>round</code> function has the following signatures</p>
 <pre><code>Edm.Double round(Edm.Double)
 Edm.Decimal round(Edm.Decimal)</code></pre>
@@ -1362,8 +1652,14 @@ Edm.Decimal round(Edm.Decimal)</code></pre>
 <p>Example 95: all orders with freight costs that round to 32</p>
 <pre><code>http://host/service/Orders?$filter=round(Freight) eq 32</code></pre>
 </div>
+</details>
+</details>
+<details open><summary>
 <h4 id="51110-type-functions"><a name="TypeFunctions" href="#TypeFunctions">5.1.1.10 Type Functions</a></h4>
+</summary>
+<details open><summary>
 <h5 id="511101-cast"><a name="cast" href="#cast">5.1.1.10.1 <code>cast</code></a></h5>
+</summary>
 <p>The <code>cast</code> function has the following signatures:</p>
 <pre><code>type cast(type)
 type cast(expression,type)</code></pre>
@@ -1384,7 +1680,10 @@ type cast(expression,type)</code></pre>
 </ol>
 <p>The <code>cast</code> function is optional for primitive values (first five rules) and up-casts (seventh rule).</p>
 <p>If the cast fails, the <code>cast</code> function returns <code>null</code>.</p>
+</details>
+<details open><summary>
 <h5 id="511102-isof"><a name="isof" href="#isof">5.1.1.10.2 <code>isof</code></a></h5>
+</summary>
 <p>The <code>isof</code> function has the following signatures</p>
 <pre><code>Edm.Boolean isof(type)
 Edm.Boolean isof(expression,type)</code></pre>
@@ -1400,24 +1699,42 @@ Edm.Boolean isof(expression,type)</code></pre>
 <p>Example 97: orders of a customer that is a <code>VIPCustomer</code></p>
 <pre><code>http://host/service/Orders?$filter=isof(Customer,NorthwindModel.VIPCustomer)</code></pre>
 </div>
+</details>
+</details>
+<details open><summary>
 <h4 id="51111-geo-functions"><a name="GeoFunctions" href="#GeoFunctions">5.1.1.11 Geo Functions</a></h4>
+</summary>
+<details open><summary>
 <h5 id="511111-geodistance"><a name="geodistance" href="#geodistance">5.1.1.11.1 <code>geo.distance</code></a></h5>
+</summary>
 <p>The <code>geo.distance</code> function has the following signatures:</p>
 <pre><code>Edm.Double geo.distance(Edm.GeographyPoint,Edm.GeographyPoint)
 Edm.Double geo.distance(Edm.GeometryPoint,Edm.GeometryPoint)</code></pre>
 <p>The <code>geo.distance</code> function returns the shortest distance between the two points in the coordinate reference system signified by the two points’ SRIDs.</p>
+</details>
+<details open><summary>
 <h5 id="511112-geointersects"><a name="geointersects" href="#geointersects">5.1.1.11.2 <code>geo.intersects</code></a></h5>
+</summary>
 <p>The <code>geo.intersects</code> function has the following signatures:</p>
 <pre><code>Edm.Boolean geo.intersects(Edm.GeographyPoint,Edm.GeographyPolygon)
 Edm.Boolean geo.intersects(Edm.GeometryPoint,Edm.GeometryPolygon)</code></pre>
 <p>The <code>geo.intersects</code> function returns true if the specified point lies within the interior or on the boundary of the specified polygon, otherwise it returns false.</p>
+</details>
+<details open><summary>
 <h5 id="511113-geolength"><a name="geolength" href="#geolength">5.1.1.11.3 <code>geo.length</code></a></h5>
+</summary>
 <p>The <code>geo.length</code> function has the following signatures:</p>
 <pre><code>Edm.Double geo.length(Edm.GeographyLineString)
 Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>The <code>geo.length</code> function returns the total length of its line string parameter in the coordinate reference system signified by its SRID.</p>
+</details>
+</details>
+<details open><summary>
 <h4 id="51112-conditional-functions"><a name="ConditionalFunctions" href="#ConditionalFunctions">5.1.1.12 Conditional Functions</a></h4>
+</summary>
+<details open><summary>
 <h5 id="511121-case"><a name="case" href="#case">5.1.1.12.1 <code>case</code></a></h5>
+</summary>
 <p>The <code>case</code> function has the following signature:</p>
 <pre><code>expression case(Edm.Boolean:expression, …, Edm.Boolean:expression)</code></pre>
 <p>Each parameter is a pair of expressions separated by a colon (<code>:</code>), where the first expression — the condition — MUST be a Boolean expression, and the second expression — the result — may evaluate to any type.</p>
@@ -1429,13 +1746,19 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>Example 98: compute signum(X)</p>
 <pre><code>$compute=case(X gt 0:1,X lt 0:-1,true:0) as SignumX</code></pre>
 </div>
+</details>
+</details>
+<details open><summary>
 <h4 id="51113-lambda-operators"><a name="LambdaOperators" href="#LambdaOperators">5.1.1.13 Lambda Operators</a></h4>
+</summary>
 <p>OData defines two operators that evaluate a Boolean expression on a collection. Both must be prepended with a path expression that identifies a collection.</p>
 <p>4.01 Services MUST support case-insensitive lambda operator names. Clients that want to work with 4.0 services MUST use lower case lambda operator names.</p>
 <p>The argument of a lambda operator is a case-sensitive lambda variable name followed by a colon (<code>:</code>) and a Boolean expression that uses the lambda variable name to refer to properties of the instance or of members of the collection identified by the path expression.</p>
 <p>If the name chosen for the lambda variable matches a property name of the current resource referenced by the resource path, the lambda variable takes precedence. Clients can prefix properties of the current resource referenced by the resource path with <a href="#it"><code>$it</code></a>.</p>
 <p>Other path expressions in the Boolean expression neither prefixed with the lambda variable nor <code>$it</code> are evaluated in the scope of the instance or of members of the collection at the origin of the path expression prepended to the lambda operator.</p>
+<details open><summary>
 <h5 id="511131-any"><a name="any" href="#any">5.1.1.13.1 <code>any</code></a></h5>
+</summary>
 <p>The <code>any</code> operator applies a Boolean expression to each member of a collection and returns true if and only if the expression is true for any member of the collection, otherwise it returns false. This implies that the <code>any</code> operator always returns false for an empty collection.</p>
 <p>The <code>any</code> operator can be used without an argument expression. This short form returns false if and only if the collection is empty.</p>
 <div class="example">
@@ -1450,15 +1773,24 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>Example 101: all categories along with their products used in some order with a deviating unit price. The unprefixed <code>UnitPrice</code> in the argument expression is evaluated in the scope of the expanded <code>Products</code>.</p>
 <pre><code>http://host/service/Categories?$expand=Products($filter=OrderItems/any(oi:oi/UnitPrice ne UnitPrice))</code></pre>
 </div>
+</details>
+<details open><summary>
 <h5 id="511132-all"><a name="all" href="#all">5.1.1.13.2 <code>all</code></a></h5>
+</summary>
 <p>The <code>all</code> operator applies a Boolean expression to each member of a collection and returns true if the expression is true for all members of the collection, otherwise it returns false. This implies that the <code>all</code> operator always returns true for an empty collection.</p>
 <p>The <code>all</code> operator cannot be used without an argument expression.</p>
 <div class="example">
 <p>Example 102: all <code>Orders</code> that have only <code>Items</code> with a <code>Quantity</code> greater than <code>100</code></p>
 <pre><code>http://host/service/Orders?$filter=Items/all(d:d/Quantity gt 100)</code></pre>
 </div>
+</details>
+</details>
+<details open><summary>
 <h4 id="51114-literals"><a name="Literals" href="#Literals">5.1.1.14 Literals</a></h4>
+</summary>
+<details open><summary>
 <h5 id="511141-primitive-literals"><a name="PrimitiveLiterals" href="#PrimitiveLiterals">5.1.1.14.1 Primitive Literals</a></h5>
+</summary>
 <p>Primitive literals can appear in the resource path as key property values, and in the query part, for example, as operands in <a href="#SystemQueryOptionfilter"><code>$filter</code></a> expressions. They are represented according to the <code>primitiveLiteral</code> rule in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <div class="example">
 <p>Example 103: expressions using primitive literals</p>
@@ -1484,7 +1816,10 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 </div>
 <p>Duration literals in OData 4.0 required prefixing with “<code>duration</code>”. Enumeration literals in OData 4.0 required prefixing with the qualified type name of the enumeration.</p>
 <p>In OData 4.01, services MUST support duration and enumeration literals with or without the type prefix. OData clients that want to operate across OData 4.0 and OData 4.01 services should always include the prefix for duration and enumeration types.</p>
+</details>
+<details open><summary>
 <h5 id="511142-complex-and-collection-literals"><a name="ComplexandCollectionLiterals" href="#ComplexandCollectionLiterals">5.1.1.14.2 Complex and Collection Literals</a></h5>
+</summary>
 <p>Complex literals and collection literals in URLs are represented as JSON objects and arrays according to the <code>arrayOrObject</code> rule in <a href="#ODataABNF">OData-ABNF</a>. Such literals MUST NOT appear in the path portion of the URL but can be passed to bound <a href="#AddressingFunctions">functions</a> and function imports in path segments by using <a href="#ParameterAliases">parameter aliases</a>.</p>
 <p>Object member values and array items can be expressions, including other objects and arrays, arithmetic expressions, property names, and of course primitive values.</p>
 <p>Note that the special characters <code>{</code>, <code>}</code>, <code>[</code>, <code>]</code>, and <code>"</code> MUST be percent-encoded in URLs although some browsers will accept and pass them on unencoded.</p>
@@ -1496,9 +1831,15 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>Example 105: check whether a pair of properties has one of several possible pair values</p>
 <pre><code>$filter=[FirstName,LastName] in [[&quot;John&quot;,&quot;Doe&quot;],[&quot;Jane&quot;,&quot;Smith&quot;]]</code></pre>
 </div>
+</details>
+<details open><summary>
 <h5 id="511143-null"><a name="null" href="#null">5.1.1.14.3 <code>null</code></a></h5>
+</summary>
 <p>The <code>null</code> literal can be used to compare a value to null, or to pass a null value to a function.</p>
+</details>
+<details open><summary>
 <h5 id="511144-it"><a name="it" href="#it">5.1.1.14.4 <code>$it</code></a></h5>
+</summary>
 <p>The <code>$it</code> literal can be used in expressions to refer to the current instance of the resource identified by the resource path. For a collection-valued resource the current instance is the instance currently being evaluated by the system query option. For a single-valued resource it is the resource itself.</p>
 <p>It allows comparing properties of related entities to properties of the current instance in expressions within lambda operators or in <a href="#SystemQueryOptionfilter"><code>$filter</code></a> expressions nested within <a href="#SystemQueryOptionexpand"><code>$expand</code></a> or <a href="#SystemQueryOptionselect"><code>$select</code></a>.</p>
 <p>It also can be used in <a href="#SystemQueryOptionfilter"><code>$filter</code></a> and <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> expressions on collections of primitive types to refer to the current primitive instance, but using the <a href="#this"><code>$this</code></a> literal is preferred as <a href="#this"><code>$this</code></a> can also be used in <a href="#SystemQueryOptionfilter"><code>$filter</code></a> and <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> expressions nested within <a href="#SystemQueryOptionselect"><code>$select</code></a>.</p>
@@ -1516,7 +1857,10 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>Example 108: products with at least 10 positive reviews. <code>Model.PositiveReviews</code> is a function bound to <code>Model.Product</code> returning a collection of reviews.</p>
 <pre><code>http://host/service/Products?$filter=$it/Model.PositiveReviews()/$count ge 10</code></pre>
 </div>
+</details>
+<details open><summary>
 <h5 id="511145-root"><a name="root" href="#root">5.1.1.14.5 <code>$root</code></a></h5>
+</summary>
 <p>The <code>$root</code> literal can be used in expressions to refer to resources of the same service.</p>
 <div class="example">
 <p>Example 109: all employees with the same last name as employee <code>A1235</code></p>
@@ -1530,13 +1874,20 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>Example 111: function call returning the average rating of a given employee by their peers (employees in department D1)</p>
 <pre><code>http://host/service/Employees(&#39;A1245&#39;)/self.AvgRating(RatedBy=@peers)?@peers=$root/Employees/$filter(Department eq &#39;D1&#39;)</code></pre>
 </div>
+</details>
+<details open><summary>
 <h5 id="511146-this"><a name="this" href="#this">5.1.1.14.6 <code>$this</code></a></h5>
+</summary>
 <p>The <code>$this</code> literal can be used in <a href="#SystemQueryOptionfilter"><code>$filter</code></a> and <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> expressions nested within <a href="#SystemQueryOptionexpand"><code>$expand</code></a> and <a href="#SystemQueryOptionselect"><code>$select</code></a> for collection-valued properties and navigation properties. It refers to the current instance of the collection.</p>
 <div class="example">
 <p>Example 112: select only email addresses ending with <code>.com</code></p>
 <pre><code>http://host/service/Customers?$select=EmailAddresses($filter=endswith($this,&#39;.com&#39;))</code></pre>
 </div>
+</details>
+</details>
+<details open><summary>
 <h4 id="51115-path-expressions"><a name="PathExpressions" href="#PathExpressions">5.1.1.15 Path Expressions</a></h4>
+</summary>
 <p>Properties and navigation properties of the structured type on which a common expression is evaluated can be used as operands or function parameters, as shown in the preceding examples.</p>
 <p>Properties of complex properties can be used via the same syntax as in resource paths, i.e. by specifying the name of a complex property, followed by a forward slash (<code>/</code>) and the name of a property of the complex property, and so on,</p>
 <p>Properties and navigation properties of entities related with a target cardinality 0..1 or 1 can be used by specifying the navigation property, followed by a forward slash (<code>/</code>) and the name of a property of the related entity, and so on.</p>
@@ -1548,7 +1899,10 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>To access properties of derived types, the property name MUST be prefixed with the qualified name of the derived type on which the property is defined, followed by a forward slash (<code>/</code>), see <a href="#AddressingDerivedTypes">addressing derived types</a>. If the current instance is not of the specified derived type, the path expression returns <code>null</code>.</p>
 <p>If the property or navigation property is not defined for the type of the resource and that type supports dynamic properties or navigation properties, then the property or navigation property is treated as null for all instances on which it has no value.</p>
 <p>If the property or navigation property is not defined for the type of the resource and that type does not support dynamic properties or navigation properties, then the request may be considered malformed.</p>
+</details>
+<details open><summary>
 <h4 id="51116-annotation-values-in-expressions"><a name="AnnotationValuesinExpressions" href="#AnnotationValuesinExpressions">5.1.1.16 Annotation Values in Expressions</a></h4>
+</summary>
 <p>Services MAY support the use of annotation values as operands or function parameters, and they MAY advertise this by annotating the entity container with term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#AnnotationValuesInQuerySupported"><code>Capabilities.AnnotationValuesInQuerySupported</code></a>, see <a href="#ODataVocCap">OData-VocCap</a>.</p>
 <p>Annotation values are referenced by the annotation name which consists of an at sign (<code>@</code>) followed by the qualified term name, optionally followed by a percent-encoded hash (<code>%23</code>) and an annotation qualifier. The annotation name can be prefixed with a <a href="#PathExpressions">path expression</a> leading to the annotated resource or property.</p>
 <p>If an annotation is not applied to the resource or property, then its value, and the values of its components, are treated as <code>null</code>.</p>
@@ -1561,7 +1915,10 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <pre><code>http://host/service/Employees?$filter=@Core.Messages/any(m:m/severity eq &#39;error&#39;)</code></pre>
 </div>
 <p>Services MAY additionally support the use of the unqualified term name by defining one or more default namespaces through the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a> annotation term defined in <a href="#ODataVocCore">OData-VocCore</a>. For more information on default namespaces, see Default Namespaces in <a href="#ODataProtocol">OData-Protocol</a>. This short notation however uses the same name pattern as parameter aliases. If a query option is specified as a <a href="#ParameterAliases">parameter alias</a>, then any occurrence of the parameter alias name in an expression MUST evaluate to the parameter alias value and MUST NOT evaluate to the annotation value of an identical unqualified term name.</p>
+</details>
+<details open><summary>
 <h4 id="51117-operator-precedence"><a name="OperatorPrecedence" href="#OperatorPrecedence">5.1.1.17 Operator Precedence</a></h4>
+</summary>
 <p>OData services MUST use the following operator precedence for supported operators when evaluating <a href="#SystemQueryOptionfilter"><code>$filter</code></a> and <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> expressions. Operators are listed by category in order of precedence from highest to lowest. Operators in the same category have equal precedence:</p>
 <table>
 <thead>
@@ -1713,7 +2070,10 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 </tr>
 </tbody>
 </table>
+</details>
+<details open><summary>
 <h4 id="51118-numeric-promotion"><a name="NumericPromotion" href="#NumericPromotion">5.1.1.18 Numeric Promotion</a></h4>
+</summary>
 <p>Services SHOULD NOT require explicit cast operations between numeric types used in comparison expressions. Wherever possible, such comparisons should be performed using underlying types of sufficient size.</p>
 <p>Services MAY support numeric promotion for arithmetic operations or when comparing two operands of comparable types by applying the following rules, in order:</p>
 <ul>
@@ -1726,10 +2086,17 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 </ul>
 <p>Each of these promotions uses the same semantics as a <code>castExpression</code> to promote an operand to the target type.</p>
 <p>OData does not define an implicit conversion between string and numeric types.</p>
+</details>
+</details>
+<details open><summary>
 <h3 id="512-system-query-option-filter"><a name="SystemQueryOptionfilter" href="#SystemQueryOptionfilter">5.1.2 System Query Option <code>$filter</code></a></h3>
+</summary>
 <p>The <code>$filter</code> system query option allows clients to filter a collection of resources that are addressed by a request URL. The expression specified with <code>$filter</code> is evaluated for each resource in the collection, and only items where the expression evaluates to true are included in the response. Resources for which the expression evaluates to false or to null, or which reference properties that are unavailable due to permissions, are omitted from the response.</p>
 <p>The <a href="#ODataABNF">OData-ABNF</a> <code>filter</code> syntax rule defines the formal grammar of the <code>$filter</code> query option.</p>
+</details>
+<details open><summary>
 <h3 id="513-system-query-option-expand"><a name="SystemQueryOptionexpand" href="#SystemQueryOptionexpand">5.1.3 System Query Option <code>$expand</code></a></h3>
+</summary>
 <p>The <code>$expand</code> system query option specifies the related resources or media streams to be included in line with retrieved resources.</p>
 <p>The <a href="#ODataABNF">OData-ABNF</a> <code>expand</code> syntax rule defines the formal grammar of the <code>$expand</code> query option.</p>
 <p>The value of <code>$expand</code> is a comma-separated list of expand items. Each expand item is evaluated relative to the retrieved resource being expanded. An expand item is either a path or one of the symbols <code>*</code> or <code>$value</code>.</p>
@@ -1803,7 +2170,10 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>Example 128: Include the Product’s media stream along with other properties of the product</p>
 <pre><code>http://host/service/Products?$expand=$value</code></pre>
 </div>
+</details>
+<details open><summary>
 <h3 id="514-system-query-option-select"><a name="SystemQueryOptionselect" href="#SystemQueryOptionselect">5.1.4 System Query Option <code>$select</code></a></h3>
+</summary>
 <p>The <code>$select</code> system query option allows clients to request a specific set of properties for each entity or complex type.</p>
 <p>The <code>$select</code> query option is often used in conjunction with the <a href="#SystemQueryOptionexpand"><code>$expand</code></a> system query option, to define the extent of the resource graph to return (<code>$expand</code>) and then specify a subset of properties for each resource in the graph (<code>$select</code>). Expanded navigation properties MUST be returned, even if they are not specified in <code>$select</code>.</p>
 <p>The <a href="#ODataABNF">OData-ABNF</a> <code>select</code> syntax rule defines the formal grammar of the <code>$select</code> query option.</p>
@@ -1860,17 +2230,29 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <pre><code>http://host/service/Products?$select=ID,Model.ActionName,Model2.*</code></pre>
 </div>
 <p>When multiple select item exist in a <code>$select</code> clause, then the total set of properties, open properties, navigation properties, actions and functions to be returned is equal to the union of the set of those identified by each select item.</p>
+</details>
+<details open><summary>
 <h3 id="515-system-query-option-orderby"><a name="SystemQueryOptionorderby" href="#SystemQueryOptionorderby">5.1.5 System Query Option <code>$orderby</code></a></h3>
+</summary>
 <p>The <code>$orderby</code> system query option allows clients to request resources in a particular order.</p>
 <p>The semantics of <code>$orderby</code> are covered in the <a href="#ODataProtocol">OData-Protocol</a> document.</p>
 <p>The <a href="#ODataABNF">OData-ABNF</a> <code>orderby</code> syntax rule defines the formal grammar of the <code>$orderby</code> query option.</p>
+</details>
+<details open><summary>
 <h3 id="516-system-query-options-top-and-skip"><a name="SystemQueryOptionstopandskip" href="#SystemQueryOptionstopandskip">5.1.6 System Query Options <code>$top</code> and <code>$skip</code></a></h3>
+</summary>
 <p>The <code>$top</code> system query option requests the number of items in the queried collection to be included in the result. The <code>$skip</code> query option requests the number of items in the queried collection that are to be skipped and not included in the result. A client can request a particular page of items by combining <code>$top</code> and <code>$skip</code>.</p>
 <p>The semantics of <code>$top</code> and <code>$skip</code> are covered in the <a href="#ODataProtocol">OData-Protocol</a> document. The <a href="#ODataABNF">OData-ABNF</a> <code>top</code> and <code>skip</code> syntax rules define the formal grammar of the <code>$top</code> and <code>$skip</code> query options respectively.</p>
+</details>
+<details open><summary>
 <h3 id="517-system-query-option-count"><a name="SystemQueryOptioncount" href="#SystemQueryOptioncount">5.1.7 System Query Option <code>$count</code></a></h3>
+</summary>
 <p>The <code>$count</code> system query option allows clients to request a count of the matching resources included with the resources in the response. The <code>$count</code> query option has a Boolean value of <code>true</code> or <code>false</code>.</p>
 <p>The semantics of <code>$count</code> is covered in the <a href="#ODataProtocol">OData-Protocol</a> document.</p>
+</details>
+<details open><summary>
 <h3 id="518-system-query-option-search"><a name="SystemQueryOptionsearch" href="#SystemQueryOptionsearch">5.1.8 System Query Option <code>$search</code></a></h3>
+</summary>
 <p>The <code>$search</code> system query option allows clients to request items within a collection matching a free-text <a href="#SearchExpressions">search expression</a>.</p>
 <p>The <code>$search</code> query option can be applied to a URL representing a collection of entity, complex, or primitive typed instances, to return all matching items within the collection. Applying the <code>$search</code> query option to the <a href="#AddressingAllEntitiesinaService"><code>$all</code></a> resource requests all matching entities in the service.</p>
 <p>If both <code>$search</code> and <a href="#SystemQueryOptionfilter"><code>$filter</code></a> are applied to the same request, the results include only those items that match both criteria.</p>
@@ -1880,7 +2262,9 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <pre><code>http://host/service/Products?$search=blue OR green</code></pre>
 </div>
 <p>Clients should be aware that services MAY implement search based on a different syntax provided they advertise this with the annotation <code>SearchRestrictions/SearchSyntax</code> defined in <a href="#ODataVocCap">OData-VocCap</a>. Services MAY treat keywords defined in the standard <a href="#ODataABNF">OData-ABNF</a> <code>$search</code> syntax as terms to be matched if they are listed in <code>SearchRestrictions/UnsupportedExpressions</code>.</p>
+<details open><summary>
 <h4 id="5181-search-expressions"><a name="SearchExpressions" href="#SearchExpressions">5.1.8.1 Search Expressions</a></h4>
+</summary>
 <p>Search expressions are used within the <a href="#SystemQueryOptionsearch"><code>$search</code></a> system query option to request entities matching the specified expression. Leading and trailing spaces are not considered part of the search expression.</p>
 <p><em>Terms</em> can be any single word to be matched within the expression.</p>
 <p>Terms enclosed in double-quotes comprise a <em>phrase</em>.</p>
@@ -1892,11 +2276,18 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>Expressions separated by an <code>OR</code> evaluate to true if either of the expressions evaluate to true, otherwise false.</p>
 <p>To support type-ahead use cases, incomplete search expressions can be sent as OData string literals enclosed in single-quotes, and single-quotes within the search expression doubled. Such an expression can also be used to search for double quotes: <code>?$search='"'</code>.</p>
 <p>The <a href="#ODataABNF">OData-ABNF</a> <code>searchExpr</code> syntax rule defines the formal grammar of the search expression.</p>
+</details>
+</details>
+<details open><summary>
 <h3 id="519-system-query-option-format"><a name="SystemQueryOptionformat" href="#SystemQueryOptionformat">5.1.9 System Query Option <code>$format</code></a></h3>
+</summary>
 <p>The <code>$format</code> system query option allows clients to request a response in a particular format and is useful for clients without access to request headers for standard content-type negotiation. Where present <code>$format</code> takes precedence over standard content-type negotiation.</p>
 <p>The semantics of <code>$format</code> is covered in the <a href="#ODataProtocol">OData-Protocol</a> document.</p>
 <p>The <a href="#ODataABNF">OData-ABNF</a> <code>format</code> syntax rule defines the formal grammar of the <code>$format</code> query option.</p>
+</details>
+<details open><summary>
 <h3 id="5110-system-query-option-compute"><a name="SystemQueryOptioncompute" href="#SystemQueryOptioncompute">5.1.10 System Query Option <code>$compute</code></a></h3>
+</summary>
 <p>The <code>$compute</code> system query option allows clients to define computed properties that can be used in a <a href="#SystemQueryOptionselect"><code>$select</code></a> or within a <a href="#SystemQueryOptionfilter"><code>$filter</code></a> or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> expression.</p>
 <p>The <code>$compute</code> system query option is interpreted relative to the entity type or complex type of the resources identified by the resource path section of the URL.</p>
 <p>The value of <code>$compute</code> is a comma-separated list of compute instructions, each consisting of a <a href="#CommonExpressionSyntax">common expression</a> followed by the keyword <code>as</code>, followed by the name for the computed dynamic property. This name MUST differ from the names of declared or dynamic properties of the identified resources. Services MAY support compute instructions that address dynamic properties added by other compute instructions within the same <code>$compute</code> system query option, provided that the service can determine an evaluation sequence.</p>
@@ -1910,20 +2301,33 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
   &amp;$orderby=Total
   &amp;$compute=Product/Price mul Quantity as Total</code></pre>
 </div>
+</details>
+<details open><summary>
 <h3 id="5111-system-query-option-index"><a name="SystemQueryOptionindex" href="#SystemQueryOptionindex">5.1.11 System Query Option <code>$index</code></a></h3>
+</summary>
 <p>The <code>$index</code> system query option allows clients to do a positional insert into a collection annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#PositionalInsert"><code>Core.PositionalInsert</code></a> term (see <a href="#ODataVocCore">OData-VocCore</a>). The value of the <code>$index</code> system query option is the zero-based ordinal position where the item is to be inserted. The ordinal of items within the collection greater than or equal to the inserted position are increased by one. A negative ordinal indexes from the end of the collection, with -1 representing an insert at the end of the collection.</p>
 <p>The <a href="#ODataABNF">OData-ABNF</a> <code>index</code> syntax rule defines the formal grammar of the <code>$index</code> query option.</p>
+</details>
+<details open><summary>
 <h3 id="5112-system-query-option-schemaversion"><a name="SystemQueryOptionschemaversion" href="#SystemQueryOptionschemaversion">5.1.12 System Query Option <code>$schemaversion</code></a></h3>
+</summary>
 <p>The <code>$schemaversion</code> system query option allows clients to specify the version of the schema against which the request is made. The semantics of <code>$schemaversion</code> is covered in the <a href="#ODataProtocol">OData-Protocol</a> document.</p>
 <p>The <a href="#ODataABNF">OData-ABNF</a> <code>schemaversion</code> syntax rule defines the formal grammar of the <code>$schemaversion</code> query option</p>
+</details>
+</details>
+<details open><summary>
 <h2 id="52-custom-query-options"><a name="CustomQueryOptions" href="#CustomQueryOptions">5.2 Custom Query Options</a></h2>
+</summary>
 <p>Custom query options provide an extensible mechanism for service-specific information to be placed in a URL query string. A custom query option is any query option of the form shown by the rule <code>customQueryOption</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>Custom query options MUST NOT begin with a <code>$</code> or <code>@</code> character.</p>
 <div class="example">
 <p>Example 137: service-specific custom query option <code>debug-mode</code></p>
 <pre><code>http://host/service/Products?debug-mode=true</code></pre>
 </div>
+</details>
+<details open><summary>
 <h2 id="53-parameter-aliases"><a name="ParameterAliases" href="#ParameterAliases">5.3 Parameter Aliases</a></h2>
+</summary>
 <p>Parameter aliases can be used in place of literal values in entity keys, <a href="#AddressingFunctions">function</a> parameters, or within a <a href="#SystemQueryOptionfilter"><code>$filter</code></a> or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> expression.</p>
 <p>Parameter aliases MUST start with an <code>@</code> character, see rule <code>parameterAlias</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>The semantics of parameter aliases are covered in <a href="#ODataProtocol">OData-Protocol</a>. The <a href="#ODataABNF">OData-ABNF</a> rule <code>aliasAndValue</code> defines the formal grammar for passing parameter alias values as query options.</p>
@@ -1940,13 +2344,22 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <pre><code>http://host/service/Products/Model.WithIngredients(Ingredients=@i)?@i=[&quot;Carrots&quot;,&quot;Ginger&quot;,&quot;Oranges&quot;]</code></pre>
 </div>
 <hr />
+</details>
+</details>
+<details open><summary>
 <h1 id="6-conformance"><a name="Conformance" href="#Conformance">6 Conformance</a></h1>
+</summary>
 <p>The conformance requirements for OData clients and services are described in <a href="#ODataProtocol">OData-Protocol</a>.</p>
 <hr />
+</details>
+<details open><summary>
 <h1 id="appendix-a-references"><a name="References" href="#References">Appendix A. References</a></h1>
+</summary>
 <p>This appendix contains the normative and informative references that are used in this document.</p>
 <p>While any hyperlinks included in this appendix were valid at the time of publication, OASIS cannot guarantee their long-term validity.</p>
+<details open><summary>
 <h2 id="a1-normative-references"><a name="NormativeReferences" href="#NormativeReferences">A.1 Normative References</a></h2>
+</summary>
 <p>The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.</p>
 <h6 id="odata-abnf"><a name="ODataABNF">[OData-ABNF]</a></h6>
 <p><em>ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases.</em><br />
@@ -1977,7 +2390,10 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <h6 id="xml-schema-2"><a name="XML-Schema2">[XML-Schema-2]</a></h6>
 <p><em>W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes</em>. D. Peterson, S. Gao, C. M. Sperberg-McQueen, H. S. Thompson, P. V. Biron, A. Malhotra, Editors, W3C Recommendation, 5 April 2012.<br />
 <a href="http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/">http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/</a>. Latest version available at <a href="http://www.w3.org/TR/xmlschema11-2/">http://www.w3.org/TR/xmlschema11-2/</a>.</p>
+</details>
+<details open><summary>
 <h2 id="a2-informative-references"><a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a></h2>
+</summary>
 <h6 id="ecmascript"><a name="_ECMAScript">[ECMAScript]</a></h6>
 <p><em>ECMAScript 2023 Language Specification, 14th Edition</em>, June 2023. Standard ECMA-262. <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">https://www.ecma-international.org/publications-and-standards/standards/ecma-262/</a>.</p>
 <h6 id="well-known-text"><a name="_WKT">[Well-Known Text]</a></h6>
@@ -1991,8 +2407,14 @@ do we have considerations specific to URLs, for example length, encoding, privac
 -->
 
 <hr />
+</details>
+</details>
+<details open><summary>
 <h1 id="appendix-b-acknowledgments"><a name="Acknowledgments" href="#Acknowledgments">Appendix B. Acknowledgments</a></h1>
+</summary>
+<details open><summary>
 <h2 id="b1-participants"><a name="Participants" href="#Participants">B.1 Participants</a></h2>
+</summary>
 <p><strong>OData TC Members:</strong></p>
 <table>
 <thead>
@@ -2051,7 +2473,11 @@ do we have considerations specific to URLs, for example length, encoding, privac
 </tbody>
 </table>
 <hr />
+</details>
+</details>
+<details open><summary>
 <h1 id="appendix-c-revision-history"><a name="RevisionHistory" href="#RevisionHistory">Appendix C. Revision History</a></h1>
+</summary>
 <table>
 <thead>
 <tr class="header">
@@ -2071,7 +2497,10 @@ do we have considerations specific to URLs, for example length, encoding, privac
 </tbody>
 </table>
 <hr />
+</details>
+<details open><summary>
 <h1 id="appendix-d-notices"><a name="Notices" href="#Notices">Appendix D. Notices</a></h1>
+</summary>
 <!-- Required section. Do not modify. -->
 
 <p>Copyright © OASIS Open 2024. All Rights Reserved.</p>
