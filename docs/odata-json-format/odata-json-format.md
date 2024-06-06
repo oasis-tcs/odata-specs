@@ -2957,9 +2957,7 @@ properties, or just the [entity reference](#EntityReference), as
 appropriate to the action.
 Stream typed parameter values are represented following the same rules as inlined [stream properties](#StreamProperty).
 
-Transient entities as parameter values are represented as explained in [section 6](#Entity).
-(By contrast, the resource path to a non-transient cannot be part of an action
-invocation payload.)
+Entities as parameter values are represented as explained in [section 6](#Entity).
 
 ::: example
 Example 49: create a quote for a product that does not yet exist

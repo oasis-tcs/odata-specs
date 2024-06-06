@@ -1676,9 +1676,8 @@ $filter=[FirstName,LastName] in [["John","Doe"],["Jane","Smith"]]
 ```
 :::
 
-Transient entities are represented as complex literals with their entity set
-specified by `@context` control information ([OData-JSON, section 4.5.1](#ODataJSON)).
-(By contrast, non-transient entities are represented through their [resource path](#ResourcePath).)
+Entities are represented as structured literals as described in [OData-JSON, section 6](#ODataJSON).
+Non-transient entities can alternatively be represented through their [resource path](#ResourcePath).
 
 ::: example
 Example ##ex: determine the price of an adhoc-defined product

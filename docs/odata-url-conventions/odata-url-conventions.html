@@ -1491,7 +1491,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>Example 105: check whether a pair of properties has one of several possible pair values</p>
 <pre><code>$filter=[FirstName,LastName] in [[&quot;John&quot;,&quot;Doe&quot;],[&quot;Jane&quot;,&quot;Smith&quot;]]</code></pre>
 </div>
-<p>Transient entities are represented as complex literals with their entity set specified by <code>@context</code> control information (<a href="#ODataJSON">OData-JSON, section 4.5.1</a>). (By contrast, non-transient entities are represented through their <a href="#ResourcePath">resource path</a>.)</p>
+<p>Entities are represented as structured literals as described in <a href="#ODataJSON">OData-JSON, section 6</a>. Non-transient entities can alternatively be represented through their <a href="#ResourcePath">resource path</a>.</p>
 <div class="example">
 <p>Example 106: determine the price of an adhoc-defined product</p>
 <pre><code>http://host/service/Price(Product=@p)?@p={&quot;@context&quot;:&quot;#Products&quot;,&quot;Color&quot;:&quot;red&quot;}</code></pre>
