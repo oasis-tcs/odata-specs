@@ -214,16 +214,18 @@ hr:first-of-type {
   page-break-before: avoid;
 }
 
-details:not([open]) summary {
-  list-style: disclosure-closed;
-}
+@media screen {
+  details:not([open]) summary {
+    list-style: disclosure-closed;
+  }
 
-details[open] summary {
-  list-style: disclosure-open;
+  details[open] summary {
+    list-style: disclosure-open;
+  }
 }
 
 @media print {
-  details[open] summary {
+  details summary {
     list-style: none;
   }
 }
