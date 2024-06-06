@@ -4168,7 +4168,7 @@ request body. The service MUST fail if unable to persist all property
 values specified in the request.
 
 Non-insertable properties SHOULD be omitted from the request body.
-If they are provided, services MUST either ignore the value in the request body or fail the request.
+If they are provided, services MUST either ignore the value in the request body or fail the request if the provided values do not match the service-determined values.
 
 Non-insertable properties include (and are not limited to)
 - dependent properties that are tied to
