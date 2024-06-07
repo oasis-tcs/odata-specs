@@ -1,0 +1,19 @@
+document.addEventListener("DOMContentLoaded", function () {
+  var page = location.href.match(/:\/\/.*?(\/.*?)(#|$)/)[1];
+  var folding = JSON.parse(localStorage.getItem(page) || "{}");
+  for (var id in folding) {
+    var target = document.getElementById(id).parentElement.parentElement;
+    if (folding[id]) target.removeAttribute("open");
+    else target.setAttribute("open", "");
+  }
+  var observer = new MutationObserver(function (records) {
+    var folding = JSON.parse(localStorage.getItem(page) || "{}");
+    for (var { target } of records)
+      folding[target.querySelector(":scope>summary>*").getAttribute("id")] =
+        !target.getAttributeNode("open");
+    localStorage.setItem(page, JSON.stringify(folding));
+  });
+  document.querySelectorAll("details").forEach(function (detail) {
+    observer.observe(detail, { attributeFilter: ["open"] });
+  });
+});
