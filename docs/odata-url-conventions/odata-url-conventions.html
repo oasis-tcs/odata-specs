@@ -861,7 +861,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>The query options part of an OData URL can be quite long, potentially exceeding the maximum length of URLs supported by components involved in transmitting or processing the request. One way to avoid this is wrapping the request in a batch request, which has the penalty of needing to construct a well-formed batch request body.</p>
 <p>An easier alternative for <code>GET</code> requests is to append <code>/$query</code> to the resource path of the URL, use the <code>POST</code> verb instead of <code>GET</code>, and pass the query options part of the URL in the request body.</p>
 <p>Requests to paths ending in <code>/$query</code> MUST use the <code>POST</code> verb. Query options specified in the request body and query options specified in the request URL are processed together.</p>
-<p>The request body MUST use <code>Content-Type: text/plain</code> or <code>Content-Type: application/x-www-form-urlencoded</code>. It contains the query portion of the URL.</p>
+<p>The request body MUST use <code>Content-Type: text/plain</code> or <code>Content-Type: application/x-www-form-urlencoded</code>.</p>
 <p>For <code>Content-Type: text/plain</code>, the individual query options MUST be separated by <code>&amp;</code> or newlines and MUST use the same percent-encoding as in URLs (especially: no spaces, tabs, or line breaks allowed) and MUST follow the syntax rules described in <a href="#QueryOptions">chapter 5</a>.</p>
 <div class="example">
 <p>Example 49: passing a filter condition in the request body</p>

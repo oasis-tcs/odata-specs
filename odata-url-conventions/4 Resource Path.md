@@ -986,7 +986,6 @@ options specified in the request body and query options specified in the
 request URL are processed together.
 
 The request body MUST use `Content-Type: text/plain` or `Content-Type: application/x-www-form-urlencoded`.
-It contains the query portion of the URL.
 
 For `Content-Type: text/plain`, the individual query options MUST be separated by `&` or newlines
 and MUST use the same percent-encoding as in URLs (especially: no spaces, tabs, or line breaks allowed)
