@@ -9,3 +9,4 @@ This repository contains working drafts for OData specifications:
 * [OData JSON Format Version 4.02 - Committee Specification Draft 02](odata-json-format/odata-json-format.html)
 * [OData Version 4.02. Part 1: Protocol - Committee Specification Draft 02](odata-protocol/odata-protocol.html)
 * [OData Version 4.02. Part 2: URL Conventions - Committee Specification Draft 02](odata-url-conventions/odata-url-conventions.html)
+* [OData Vocabularies Version 4.0 - Committee Specification Draft 02](odata-vocabularies/odata-vocabularies.html)
