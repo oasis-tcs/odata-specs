@@ -1,3 +1,4 @@
+<script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function () {
   var page = location.href.match(/:\/\/.*?(\/.*?)(#|$)/)[1];
   var folding = JSON.parse(localStorage.getItem(page) || "{}");
@@ -17,3 +18,4 @@ document.addEventListener("DOMContentLoaded", function () {
     observer.observe(detail, { attributeFilter: ["open"] });
   });
 });
+</script>
