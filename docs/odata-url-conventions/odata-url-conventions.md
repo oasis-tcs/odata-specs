@@ -1464,9 +1464,11 @@ This POST request would result from submitting the HTML form
 ```
 :::
 
-For content-type `application/x-www-form-urlencoded`, the individual query options MUST be separated by `&`
-and their names and values MAY be percent-encoded even for characters other than `%26` (ampersand) and
-`%3D` (equals).
+For `Content-Type: application/x-www-form-urlencoded`, run the
+[`application/x-www-form-urlencoded` serializer](https://url.spec.whatwg.org/#concept-urlencoded-serializer)
+in the [URL](#_url) Living Standard, section 5.2, with _tuples_ being the list
+of name/value pairs of the individual query options. Then let the request body be
+the value of _output_.
 
 ::: example
 Example 50: passing multiple system query options in the request body
@@ -4098,6 +4100,10 @@ https://www.rfc-editor.org/info/rfc3986.
 ###### <a name="rfc8174">[RFC8174]</a>
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_.
 https://www.rfc-editor.org/info/rfc8174.
+
+###### <a name="_url">[URL]</a>
+_URL Living Standard._  
+https://url.spec.whatwg.org/.
 
 ###### <a name="XML-Schema2">[XML-Schema-2]</a>
 _W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes_. D. Peterson, S. Gao, C. M. Sperberg-McQueen, H. S. Thompson, P. V. Biron, A. Malhotra, Editors, W3C Recommendation, 5 April 2012.  
