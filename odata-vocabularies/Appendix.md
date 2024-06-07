@@ -11,8 +11,8 @@ While any hyperlinks included in this appendix were valid at the time of publica
 
 The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.
 
-###### <a name="ODataABNF">[OData-ABNF]</a>
-_ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases._  
+###### <a name="ODataProtocol">[OData-Protocol]</a>
+_OData Version 4.02. Part 1: Protocol._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### <a name="ODataCSDL">[OData-CSDL]</a>
@@ -22,51 +22,19 @@ See link in "[Related work](#RelatedWork)" section on cover page.
 _OData Common Schema Definition Language (CSDL) XML Representation Version 4.02._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataJSON">[OData-JSON]</a>
-_OData JSON Format Version 4.02._  
-See link in "[Related work](#RelatedWork)" section on cover page.
-
-###### <a name="ODataProtocol">[OData-Protocol]</a>
-_OData Version 4.02. Part 1: Protocol._  
-See link in "[Related work](#RelatedWork)" section on cover page.
-
-###### <a name="ODataVocCap">[OData-VocCap]</a>
-_OData Vocabularies Version 4.0: Capabilities Vocabulary._  
-See link in "[Related work](#RelatedWork)" section on cover page.
-
-###### <a name="ODataVocCore">[OData-VocCore]</a>
-_OData Vocabularies Version 4.0: Core Vocabulary._  
-See link in "[Related work](#RelatedWork)" section on cover page.
-
 ###### <a name="rfc2119">[RFC2119]</a>
 _Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_.
 https://www.rfc-editor.org/info/rfc2119.
-
-###### <a name="rfc3986">[RFC3986]</a>
-_Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform Resource Identifier (URI): Generic Syntax", STD 66, RFC 3986, DOI 10.17487/RFC3986, January 2005_.
-https://www.rfc-editor.org/info/rfc3986.
 
 ###### <a name="rfc8174">[RFC8174]</a>
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_.
 https://www.rfc-editor.org/info/rfc8174.
 
-###### <a name="_url">[URL]</a>
-_URL Living Standard._  
-https://url.spec.whatwg.org/.
+## ##subasec Non-Normative References
 
-###### <a name="XML-Schema2">[XML-Schema-2]</a>
-_W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes_. D. Peterson, S. Gao, C. M. Sperberg-McQueen, H. S. Thompson, P. V. Biron, A. Malhotra, Editors, W3C Recommendation, 5 April 2012.  
-http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/. Latest version available at http://www.w3.org/TR/xmlschema11-2/.
-
-## ##subasec Informative References
-
-###### <a name="_ECMAScript">[ECMAScript]</a>
-_ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262.
-https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
-
-###### <a name="_WKT">[Well-Known Text]</a>
-_OpenGIS Implementation Specification for Geographic information – Simple feature access – Part 1: Common architecture_, May 2011. Open Geospatial Consortium.
-https://www.ogc.org/standard/sfa/.
+###### <a name="ODataVocabs">[OData-Vocabs]</a>
+_odata-vocabularies OASIS TC GitHub repository_.
+https://github.com/oasis-tcs/odata-vocabularies.
 
 <!-- TODO:
 -------
@@ -79,6 +47,10 @@ do we have considerations specific to URLs, for example length, encoding, privac
 -------
 
 # Appendix ##asec Acknowledgments
+
+## ##subasec Special Thanks
+
+The contributions of the OASIS OData Technical Committee members, enumerated in [OData-Protocol](#ODataProtocol), are gratefully acknowledged.
 
 ## ##subasec Participants
 
@@ -95,6 +67,7 @@ do we have considerations specific to URLs, for example length, encoding, privac
 | Ralf | Handl | SAP SE |
 | Gerald | Krause | SAP SE |
 | Heiko | Theißen | SAP SE |
+| Martin | Zurmuehl | SAP SE |
 
 -------
 
@@ -102,9 +75,8 @@ do we have considerations specific to URLs, for example length, encoding, privac
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
-|Committee Specification Draft 01|2024-02-28|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| 
-Import material from OData Version 4.01 Part 2: URL Conventions 
-<br>Changes listed in [section ##ChangesfromEarlierVersions]|
+|Committee Specification Draft 01|2016-12-08|Michael Pizzo<br>Ralf Handl<br>Ram Jeyaraman| 
+Documentation automatically extracted from XML source files|
 
 -------
 
