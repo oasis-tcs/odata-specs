@@ -1010,11 +1010,11 @@ This POST request would result from submitting the HTML form
 ```
 :::
 
-For `Content-Type: application/x-www-form-urlencoded`, run the
+For `Content-Type: application/x-www-form-urlencoded`, the request body MUST be
+the value of _output_ after running the
 [`application/x-www-form-urlencoded` serializer](https://url.spec.whatwg.org/#concept-urlencoded-serializer)
 in the [URL](#_url) Living Standard, section 5.2, with _tuples_ being the list
-of name/value pairs of the individual query options. Then let the request body be
-the value of _output_.
+of name/value pairs for the individual query options.
 
 ::: example
 Example ##ex: passing multiple system query options in the request body

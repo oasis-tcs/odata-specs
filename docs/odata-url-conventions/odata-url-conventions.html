@@ -871,7 +871,7 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a><span class="ot">    value</span><span class="op">=</span><span class="st">&#39;[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;Jane&quot;,&quot;Smith&quot;]]&#39;</span><span class="dt">&gt;</span></span>
 <span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">form</span><span class="dt">&gt;</span></span></code></pre></div>
 </div>
-<p>For <code>Content-Type: application/x-www-form-urlencoded</code>, run the <a href="https://url.spec.whatwg.org/#concept-urlencoded-serializer"><code>application/x-www-form-urlencoded</code> serializer</a> in the <a href="#_url">URL</a> Living Standard, section 5.2, with <em>tuples</em> being the list of name/value pairs of the individual query options. Then let the request body be the value of <em>output</em>.</p>
+<p>For <code>Content-Type: application/x-www-form-urlencoded</code>, the request body MUST be the value of <em>output</em> after running the <a href="https://url.spec.whatwg.org/#concept-urlencoded-serializer"><code>application/x-www-form-urlencoded</code> serializer</a> in the <a href="#_url">URL</a> Living Standard, section 5.2, with <em>tuples</em> being the list of name/value pairs for the individual query options.</p>
 <div class="example">
 <p>Example 50: passing multiple system query options in the request body</p>
 <pre><code>POST http://host/service/People/$query
