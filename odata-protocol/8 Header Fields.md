@@ -635,7 +635,7 @@ in a `GET` or `DELETE` request does not have any effect.
 A preference of `return=representation` or `return=minimal` is allowed
 on an individual [Data Modification Request](#DataModification) or
 [Action Request](#Actions) within a batch, subject to the same
-restrictions, but SHOULD return a `4xx Client Error` if specified on the
+restrictions, but SHOULD return a `4xx` client error if specified on the
 batch request itself.
 
 A preference of `return=minimal` requests that the service invoke the
