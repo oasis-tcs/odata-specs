@@ -270,6 +270,7 @@ ecosystem of reusable client components and libraries.
 
 Section | Feature / Change | Issue
 --------|------------------|------
+[Section 4.17](#PassingQueryOptionsintheRequestBody)| `POST ~/$query` with `Content-Type: application/x-www-form-urlencoded`| [320](https://github.com/oasis-tcs/odata-specs/issues/320)
 [Section 5.1.1.7.1](#matchespattern)| New overload for function `matchespattern` with flags| [441](https://github.com/oasis-tcs/odata-specs/issues/441)
 [Section 5.1.8](#SystemQueryOptionsearch)| Allow alternative `$search` syntax| [293](https://github.com/oasis-tcs/odata-specs/issues/293)
 
@@ -1467,7 +1468,7 @@ This POST request would result from submitting the HTML form
 For `Content-Type: application/x-www-form-urlencoded`, the request body MUST be
 the value of _output_ after running the
 [`application/x-www-form-urlencoded` serializer](https://url.spec.whatwg.org/#concept-urlencoded-serializer)
-in the [URL](#_url) Living Standard, section 5.2, with _tuples_ being the list
+in the [URL Living Standard](#_url), section 5.2, with _tuples_ being the list
 of name/value pairs for the individual query options.
 
 ::: example

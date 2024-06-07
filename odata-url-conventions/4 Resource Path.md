@@ -1013,7 +1013,7 @@ This POST request would result from submitting the HTML form
 For `Content-Type: application/x-www-form-urlencoded`, the request body MUST be
 the value of _output_ after running the
 [`application/x-www-form-urlencoded` serializer](https://url.spec.whatwg.org/#concept-urlencoded-serializer)
-in the [URL](#_url) Living Standard, section 5.2, with _tuples_ being the list
+in the [URL Living Standard](#_url), section 5.2, with _tuples_ being the list
 of name/value pairs for the individual query options.
 
 ::: example
