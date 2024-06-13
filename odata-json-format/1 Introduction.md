@@ -21,9 +21,12 @@ An OData JSON payload may represent:
 
 Section | Feature / Change | Issue
 --------|------------------|------
+[Section ##ControlInformationcontextodatacontext]| 
+Fragment portion of Context URL is not percent-encoded| 
+[368](https://github.com/oasis-tcs/odata-specs/issues/368)
 [Section ##ControlInformationmediaodatamedia]| 
  `mediaContentType` can be `null`| 
-[ODATA-1470](https://issues.oasis-open.org/browse/ODATA-1470)
+[536](https://github.com/oasis-tcs/odata-specs/issues/536)
 
 ## ##subsec Glossary
 

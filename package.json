@@ -20,7 +20,8 @@
     "express": "^4",
     "js-yaml": "^4.1.0",
     "mocha": "^10.2.0",
-    "puppeteer": "^21.0.3"
+    "pandoc-filter": "^2.2.0",
+    "puppeteer": "^21.11.0"
   },
   "devDependencies": {
     "connect-livereload": "^0.6.1",

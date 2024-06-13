@@ -12,7 +12,7 @@ describe("OASIS doc build", function () {
 
   it("Markdown assembly", async function () {
     var md = new PassThrough();
-    new Number(__dirname + "/test-data").build(md);
+    new Number(`${__dirname}/test-data`).build(md);
     var markdown = "";
     for await (var chunk of md) markdown += chunk.toString();
     assert.deepStrictEqual(
@@ -21,7 +21,7 @@ describe("OASIS doc build", function () {
         .readFileSync(__dirname + "/test-data/test.md.txt")
         .toString()
         .split(/\r\n|\r|\n/),
-      "Markdown"
+      "Markdown",
     );
   });
 
@@ -38,7 +38,7 @@ describe("OASIS doc build", function () {
         .readFileSync(__dirname + "/test-data/test.html")
         .toString()
         .split(/\r\n|\r|\n/),
-      "HTML"
+      "HTML",
     );
   });
 
@@ -50,9 +50,9 @@ describe("OASIS doc build", function () {
       waitUntil: "networkidle2",
     });
     var box = await (await page.$("mjx-c.mjx-c1D6FC.TEX-I")).boxModel();
-    assert.equal(box.width, 10);
-    assert.equal(box.height, 7);
     await browser.close();
+    assert.equal(Math.round(box.width), 10);
+    assert.equal(Math.round(box.height), 7);
   });
 
   it("Compare section numbers", function () {

@@ -42,7 +42,7 @@ Heiko Theißen (heiko.theissen@sap.com), [SAP SE](http://www.sap.com/)
 
 #### <a name="AdditionalArtifacts">Additional artifacts:</a>
 This prose specification is one component of a Work Product that also includes:
-* XML schemas: _OData EDMX XML Schema and OData EDM XML Schema_. Latest stage: https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/csd02/schemas/.
+* XML schemas: _OData EDMX XML Schema and OData EDM XML Schema_. https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/csd02/schemas/.
 
 #### <a name="RelatedWork">Related work:</a>
 This specification replaces or supersedes:
@@ -56,6 +56,10 @@ This specification is related to:
 * _OData Vocabularies Version 4.0_. Edited by Michael Pizzo, Ralf Handl, and Ram Jeyaraman. Latest stage: https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/odata-vocabularies-v4.0.html
 * _OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02_. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. Latest stage: https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html
 * _OData JSON Format Version 4.02_. Edited by Ralf Handl, Mike Pizzo, and Heiko Theißen. Latest stage: https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html
+
+#### Declared XML namespaces:
+* http://docs.oasis-open.org/odata/ns/edmx
+* http://docs.oasis-open.org/odata/ns/edm
 
 #### Abstract:
 OData services are described by an Entity Model (EDM). The Common Schema Definition Language (CSDL) defines specific representations of the entity data model exposed by an OData service, using XML, JSON, and other formats. This document (OData CSDL XML Representation) specifically defines the XML representation of CSDL.
@@ -78,7 +82,7 @@ When referencing this specification the following citation format should be used
 **[OData-CSDL-XML-v4.02]**
 
 _OData Common Schema Definition Language (CSDL) XML Representation Version 4.02_.
-Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. 28 February 2024. OASIS Committee Specification Draft 01.
+Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. 28 February 2024. OASIS Committee Specification Draft 02.
 https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/csd02/odata-csdl-xml-v4.02-csd02.html.
 Latest stage: https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/odata-csdl-xml-v4.02.html.
 
@@ -233,7 +237,6 @@ For complete copyright information please see the full Notices section in an App
 - [17 Conformance](#Conformance)
 - [A References](#References)
   - [A.1 Normative References](#NormativeReferences)
-  - [A.2 Informative References](#InformativeReferences)
 - [B Table of XML Elements and Attributes](#TableofXMLElementsandAttributes)
 - [C Acknowledgments](#Acknowledgments)
   - [C.1 Special Thanks](#SpecialThanks)
@@ -261,12 +264,13 @@ Schema Definition Language (XSD) 1.1 as described in
 
 Section | Feature / Change | Issue
 --------|------------------|------
-[Section 3.3](#PrimitiveTypes)| Allow stream-valued non-binding parameters| [ODATA-1481](https://issues.oasis-open.org/browse/ODATA-1481)
+[Section 3.3](#PrimitiveTypes)| Allow stream-valued non-binding parameters| [525](https://github.com/oasis-tcs/odata-specs/issues/525)
 [Section 4](#CSDLXMLDocument) | Additional `Version` value `4.02` |
-[Section 13](#EntityContainer)| All children of `edm:EntityContainer` are optional| [ODATA-1571](https://issues.oasis-open.org/browse/ODATA-1571)
-[Section 14.3.13](#GeoValues) | Constant Geo values in annotations | [ODATA-1323](https://issues.oasis-open.org/browse/ODATA-1323)
-[Section 14.3.14](#StreamValues) | Constant Stream values in annotations | [ODATA-1323](https://issues.oasis-open.org/browse/ODATA-1323)
-[Section 14.4.1.2](#PathEvaluation)| New path evaluation rules for annotations targeting annotations and external targeting via container| [ODATA-1420](https://issues.oasis-open.org/browse/ODATA-1420)
+[Section 13](#EntityContainer)| All children of `edm:EntityContainer` are optional| [464](https://github.com/oasis-tcs/odata-specs/issues/464)
+[Section 14.3.13](#GeoValues) | Constant Geo values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
+[Section 14.3.14](#StreamValues) | Constant Stream values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
+[Section 14.4.1.2](#PathEvaluation)| New path evaluation rules for annotations targeting annotations and external targeting via container| [575](https://github.com/oasis-tcs/odata-specs/issues/575)
+[Section 14.4.7](#IfThenElse)| Nested `If` without else part in collections| [326](https://github.com/oasis-tcs/odata-specs/issues/326)
 [Section 17](#Conformance) | Additional conformance clauses for version 4.02 |
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
@@ -319,7 +323,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        odata-csdl-xml-v4.02-csd02.md
 ```
 
-This uses pandoc 3.1.12.2 from https://github.com/jgm/pandoc/releases/tag/3.1.12.2.
+This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 -->
 
 <!-- These source files can be used to produce the JSON variant or the XML variant,
@@ -641,7 +645,7 @@ the risk for unintended data loss.
 
 Note: model elements with duration values and a granularity less than seconds
 (e.g. minutes, hours, days) can be annotated with the term
-[`Measures.DurationGranularity`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Measures.V1.md#DurationGranularity),
+[`Measures.DurationGranularity`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Measures.V1.md#DurationGranularity),
 see [OData-VocMeasures](#ODataVocMeasures).
 
 
@@ -919,10 +923,10 @@ in a format-specific way.
 A reference MAY be annotated.
 
 The
-[`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
+[`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
 annotation, defined in [OData-VocCore](#ODataVocCore), MAY be used to
 indicate a particular version of the referenced document. If the
-[`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
+[`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
 annotation is present, the `$schemaversion` system query option, defined
 [OData-Protocol](#ODataProtocol), SHOULD be used when retrieving the
 referenced schema document.
@@ -1441,7 +1445,7 @@ also a media entity type.
 
 Media entity types MAY specify a list of acceptable media types using an
 annotation with term
-[`Core.AcceptableMediaTypes`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#AcceptableMediaTypes),
+[`Core.AcceptableMediaTypes`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AcceptableMediaTypes),
 see [OData-VocCore](#ODataVocCore).
 
 
@@ -1686,13 +1690,13 @@ leading back to the property's declaring type, the finiteness condition for
 in this chain MUST be nullable or collection-valued.
 
 A collection-valued property MAY be annotated with the
-[`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered)
+[`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered)
 term, defined in
 [OData-VocCore](#ODataVocCore), to specify that it supports a
 stable ordering.
 
 A collection-valued property MAY be annotated with the
-[`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
+[`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
 term, defined in [OData-VocCore](#ODataVocCore), to specify that it
 supports inserting items into a specific ordinal position.
 
@@ -1751,8 +1755,8 @@ situation even in OData 4.01 responses.
 ## <a name="DefaultValue" href="#DefaultValue">7.3 Default Value</a>
 
 A primitive- or enumeration-typed property MAY define a default value that is
-used if the property is not explicitly represented in an annotation or
-the body of a request or response.
+used if the property is not explicitly represented in an annotation,
+the body of a request or response, or a complex literal in a request URL.
 
 If no value is specified, the client SHOULD NOT assume a default value.
 
@@ -1855,12 +1859,12 @@ For a collection-valued containment navigation property the specified
 entity type MUST have a [key](#Key) defined.
 
 A collection-valued navigation property MAY be annotated with the
-[`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered)
+[`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered)
 term, defined in [OData-VocCore](#ODataVocCore), to specify that it
 supports a stable ordering.
 
 A collection-valued navigation property MAY be annotated with the
-[`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
+[`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
 term, defined in [OData-VocCore](#ODataVocCore), to specify that it
 supports inserting items into a specific ordinal position.
 
@@ -1958,7 +1962,7 @@ MUST have a [key](#Key) defined.
 
 For items of an ordered collection of complex types (those annotated
 with the
-[`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered)
+[`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered)
 term defined in [OData-VocCore](#ODataVocCore) the canonical URL
 of the item is the canonical URL of the collection appended with a
 segment containing the zero-based ordinal of the item. Items within in
@@ -4121,7 +4125,7 @@ Constant values of type `Edm.Stream` with other media types are represented as [
 :::
 
 The annotation (property) being assigned a stream value MUST be annotated with term
-[`Core.MediaType`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#MediaType)
+[`Core.MediaType`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#MediaType)
 and the media type of the stream as its value.
 
 
@@ -4552,9 +4556,9 @@ types](#BuiltInTypesfordefiningVocabularyTerms)
 `Edm.NavigationPropertyPath`, `Edm.AnyPropertyPath`, or `Edm.ModelElementPath`.
 Its argument is a [model path](#PathExpressions) with the following
 restriction:
-- A non-null path MUST resolve to a model
-element whose type is an entity type, or a collection of entity types,
-e.g. a navigation property.
+- A non-null path MUST end with a [navigation property](#NavigationProperty)
+or a term cast to a term whose type is an entity type or a collection of entity types.
+
 
 The value of the navigation property path expression is the path itself,
 not the entity or collection of entities identified by the path.
@@ -4594,8 +4598,8 @@ types](#BuiltInTypesfordefiningVocabularyTerms)
 `Edm.PropertyPath`, `Edm.AnyPropertyPath`, or `Edm.ModelElementPath`. Its
 argument is a [model path](#PathExpressions) with the following
 restriction:
-- A non-null path MUST resolve to a model
-element whose type is a primitive or complex type, an enumeration type,
+- A non-null path MUST end with a [structural property](#StructuralProperty)
+or a term cast to a term whose type is a primitive or complex type, an enumeration type,
 a type definition, or a collection of one of these types.
 
 The value of the property path expression is the path itself, not the
@@ -5081,9 +5085,14 @@ Example 82:
 ### <a name="IfThenElse" href="#IfThenElse">14.4.7 If-Then-Else</a>
 
 The if-then-else expression enables a value to be obtained by evaluating
-a *condition expression*. It MUST contain exactly three child
+a *condition expression*.
+The if-then-else expression is called a collection-if-then-else expression if
+- it is a direct child of a collection expression or
+- it is the second or third child of a collection-if-then-else expression.
+
+An if-then-else expression MUST contain exactly three child
 expressions. There is one exception to this rule: if and only if the
-if-then-else expression is an item of a collection expression, the third
+if-then-else expression is a collection-if-then-else expression, the third
 child expression MAY be omitted, reducing it to an if-then expression.
 This can be used to conditionally add an element to a collection.
 
@@ -5105,6 +5114,7 @@ collection.
 
 
 
+
 ::: {.varxml .rep}
 ### <a name="ExpressionedmIf.57" href="#ExpressionedmIf.57">Expression `edm:If`</a>
 
@@ -5117,7 +5127,7 @@ It MAY contain [`edm:Annotation`](#Annotation) elements.
 ::: {.varxml .example}
 Example 83: the condition is a [value path expression](#ValuePath)
 referencing the Boolean property `IsFemale`, whose value then determines
-the value of the `edm:If` expression (or so it was long ago)
+the value of the `edm:If` expression
 ```xml
 <Annotation Term="org.example.person.Gender">
   <If>
@@ -5125,6 +5135,32 @@ the value of the `edm:If` expression (or so it was long ago)
     <String>Female</String>
     <String>Male</String>
   </If>
+</Annotation>
+```
+:::
+
+::: {.varxml .example}
+Example 84: pronouns based on a person's `IdentifiesAsFemale` and `IdentifiesAsMale` attributes
+```xml
+<Annotation Term="org.example.person.Pronouns">
+  <Collection>
+    <If>
+      <Path>IdentifiesAsFemale</Path>
+      <String>she</String>
+      <If>
+        <Path>IdentifiesAsMale</Path>
+        <String>he</String>
+      </If>
+    </If>
+    <If>
+      <Path>IdentifiesAsFemale</Path>
+      <String>her</String>
+      <If>
+        <Path>IdentifiesAsMale</Path>
+        <String>him</String>
+      </If>
+    </If>
+  </Collection>
 </Annotation>
 ```
 :::
@@ -5152,7 +5188,7 @@ elements.
 :::
 
 ::: {.varxml .example}
-Example 84:
+Example 85:
 ```xml
 <Annotation Term="self.IsPreferredCustomer">
   <IsOf Type="self.PreferredCustomer">
@@ -5195,7 +5231,7 @@ The value of `Name` is the labeled element's name.
 :::
 
 ::: {.varxml .example}
-Example 85:
+Example 86:
 ```xml
 <Annotation Term="org.example.display.DisplayName">
   <LabeledElement Name="CustomerFirstName" Path="FirstName" />
@@ -5226,7 +5262,7 @@ of a labeled element expression in its body.
 :::
 
 ::: {.varxml .example}
-Example 86:
+Example 87:
 ```xml
 <Annotation Term="org.example.display.DisplayName">
   <LabeledElementReference>Model.CustomerFirstName</LabeledElementReference>
@@ -5251,7 +5287,7 @@ elements.
 :::
 
 ::: {.varxml .example}
-Example 87:
+Example 88:
 ```xml
 <Annotation Term="org.example.display.DisplayName">
   <Null/>
@@ -5260,7 +5296,7 @@ Example 87:
 :::
 
 ::: {.varxml .example}
-Example 88:
+Example 89:
 ```xml
 <Annotation Term="@UI.Address">
   <Null>
@@ -5321,7 +5357,7 @@ enclosing `edm:Record` expression.
 :::
 
 ::: {.varxml .example}
-Example 89: this annotation "morphs" the entity type from [example 13](#entitytype) into
+Example 90: this annotation "morphs" the entity type from [example 13](#entitytype) into
 a structured type with two structural properties `GivenName` and
 `Surname` and two navigation properties `DirectSupervisor` and
 `CostCenter`. The first three properties simply rename properties of the
@@ -5384,7 +5420,7 @@ elements.
 :::
 
 ::: {.varxml .example}
-Example 90:
+Example 91:
 ```xml
 <Annotation Term="org.example.person.Supplier">
   <UrlRef>
@@ -5461,7 +5497,7 @@ forward-slash separated property, navigation property, or type-cast
 segments
 
 ::: example
-Example 91: Target paths
+Example 92: Target paths
 ```
 MySchema.MyEntityContainer/MyEntitySet
 ```
@@ -5495,7 +5531,7 @@ CSDL. These examples demonstrate many of the topics covered above.
 
 
 ::: {.varxml .example}
-Example 92:
+Example 93:
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
@@ -5614,7 +5650,7 @@ Example 92:
 
 
 ::: {.varxml .example}
-Example 93:
+Example 94:
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
@@ -5678,7 +5714,7 @@ to complex types and navigation properties
 6. MUST NOT include a non-abstract entity type with no inherited or
 defined [entity key](#Key)
 7. MUST NOT include the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace)
+[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace)
 annotation on [included schemas](#IncludedSchema)
 8. MUST NOT return the Unicode facet for terms, parameters, and return
 types
@@ -5723,7 +5759,7 @@ The following documents are referenced in such a way that some or all of their c
 _ECMAScript 2016 Language Specification, 7th Edition_. June 2016. Standard ECMA-262. http://www.ecma-international.org/publications/standards/Ecma-262.htm.
 
 ###### <a name="_EPSG">[EPSG]</a>
-_European Petroleum Survey Group (EPSG)_. http://www.epsg.org/.
+_European Petroleum Survey Group (EPSG)_. https://spatialreference.org/ref/epsg/.
 
 ###### <a name="ODataABNF">[OData-ABNF]</a>
 _OData ABNF Construction Rules Version 4.02_.  
@@ -5799,11 +5835,9 @@ http://www.w3.org/TR/2012/REC-xmlschema11-1-20120405/. Latest version available 
 _W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes_. D. Peterson, S. Gao, C. M. Sperberg-McQueen, H. S. Thompson, P. V. Biron, A. Malhotra, Editors, W3C Recommendation, 5 April 2012.  
 http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/. Latest version available at http://www.w3.org/TR/xmlschema11-2/.
 
-## <a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a>
-
-###### <a name="_OpenUI5">[OpenUI5]</a>
-_OpenUI5 Version 1.40.10 --- OData V4 Metadata JSON Format_.  
-https://openui5.hana.ondemand.com/1.40.10/#docs/guide/87aac894a40640f89920d7b2a414499b.html.
+###### <a name="_WKT">[Well-Known Text]</a>
+_OpenGIS Implementation Specification for Geographic information – Simple feature access – Part 1: Common architecture_, May 2011. Open Geospatial Consortium.
+https://www.ogc.org/standard/sfa/.
 
 -------
 
@@ -5981,12 +6015,6 @@ https://openui5.hana.ondemand.com/1.40.10/#docs/guide/87aac894a40640f89920d7b2a4
 
 ## <a name="SpecialThanks" href="#SpecialThanks">C.1 Special Thanks</a>
 
-The work of the OpenUI5 team on the OData V4 Metadata JSON Format, see
-[OpenUI5](#_OpenUI5), is gratefully acknowledged,
-especially the contributions of
-- Thomas Chadzelek (SAP SE)
-- Jens Ittel (SAP SE)
-- Patric Ksinsik (SAP SE)
 
 The contributions of the OASIS OData Technical Committee members,
 enumerated in [ODataProtocol](#ODataProtocol), are gratefully
@@ -6022,6 +6050,8 @@ acknowledged.
 -------
 
 # <a name="Notices" href="#Notices">Appendix E. Notices</a>
+
+<!-- Required section. Do not modify. -->
 
 Copyright © OASIS Open 2024. All Rights Reserved.
 

@@ -43,10 +43,10 @@ Heiko Theißen (heiko.theissen@sap.com), [SAP SE](http://www.sap.com/)
 #### <a name="AdditionalArtifacts">Additional artifacts:</a>
 This prose specification is one component of a Work Product that also includes:
 : varjson
-* JSON schemas: _OData CSDL JSON schema_. Latest stage: https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/$$$stage$$$/schemas/.
+* JSON schemas: _OData CSDL JSON schema_. https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/$$$stage$$$/schemas/.
 :
 : varxml
-* XML schemas: _OData EDMX XML Schema and OData EDM XML Schema_. Latest stage: https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/$$$stage$$$/schemas/.
+* XML schemas: _OData EDMX XML Schema and OData EDM XML Schema_. https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/$$$stage$$$/schemas/.
 :
 
 #### <a name="RelatedWork">Related work:</a>
@@ -71,6 +71,12 @@ This specification is related to:
 * _OData Common Schema Definition Language (CSDL) XML Representation Version 4.02_. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. Latest stage: https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/odata-csdl-xml-v4.02.html
 :
 * _OData JSON Format Version 4.02_. Edited by Ralf Handl, Mike Pizzo, and Heiko Theißen. Latest stage: https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html
+
+: varxml
+#### Declared XML namespaces:
+* http://docs.oasis-open.org/odata/ns/edmx
+* http://docs.oasis-open.org/odata/ns/edm
+:
 
 #### Abstract:
 $$$description$$$
@@ -98,7 +104,7 @@ When referencing this specification the following citation format should be used
 :
 
 _$$$pagetitle$$$_.
-Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. $$$pubdate$$$. OASIS Committee Specification Draft 01.
+Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. $$$pubdate$$$. OASIS $$$subtitle$$$.
 https://docs.oasis-open.org/odata/$$$dirname$$$/v4.02/$$$stage$$$/$$$filename$$$.html.
 Latest stage: https://docs.oasis-open.org/odata/$$$dirname$$$/v4.02/$$$dirname$$$-v4.02.html.
 

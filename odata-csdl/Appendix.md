@@ -17,7 +17,7 @@ The following documents are referenced in such a way that some or all of their c
 _ECMAScript 2016 Language Specification, 7th Edition_. June 2016. Standard ECMA-262. http://www.ecma-international.org/publications/standards/Ecma-262.htm.
 
 ###### <a name="_EPSG">[EPSG]</a>
-_European Petroleum Survey Group (EPSG)_. http://www.epsg.org/.
+_European Petroleum Survey Group (EPSG)_. https://spatialreference.org/ref/epsg/.
 
 ###### <a name="ODataABNF">[OData-ABNF]</a>
 _OData ABNF Construction Rules Version 4.02_.  
@@ -122,11 +122,18 @@ http://www.w3.org/TR/2012/REC-xmlschema11-1-20120405/. Latest version available 
 _W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes_. D. Peterson, S. Gao, C. M. Sperberg-McQueen, H. S. Thompson, P. V. Biron, A. Malhotra, Editors, W3C Recommendation, 5 April 2012.  
 http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/. Latest version available at http://www.w3.org/TR/xmlschema11-2/.
 
+: varjson
 ## ##subasec Informative References
 
 ###### <a name="_OpenUI5">[OpenUI5]</a>
-_OpenUI5 Version 1.40.10 --- OData V4 Metadata JSON Format_.  
-https://openui5.hana.ondemand.com/1.40.10/#docs/guide/87aac894a40640f89920d7b2a414499b.html.
+_OpenUI5 --- OData V4 Metadata JSON Format_.  
+https://openui5.hana.ondemand.com/topic/87aac894a40640f89920d7b2a414499b.
+:
+: varxml
+###### <a name="_WKT">[Well-Known Text]</a>
+_OpenGIS Implementation Specification for Geographic information – Simple feature access – Part 1: Common architecture_, May 2011. Open Geospatial Consortium.
+https://www.ogc.org/standard/sfa/.
+:
 
 -------
 
@@ -147,12 +154,14 @@ $$$isec$$$
 
 ## ##subasec Special Thanks
 
+: varjson
 The work of the OpenUI5 team on the OData V4 Metadata JSON Format, see
 [OpenUI5](#_OpenUI5), is gratefully acknowledged,
 especially the contributions of
 - Thomas Chadzelek (SAP SE)
 - Jens Ittel (SAP SE)
 - Patric Ksinsik (SAP SE)
+:
 
 The contributions of the OASIS OData Technical Committee members,
 enumerated in [ODataProtocol](#ODataProtocol), are gratefully
@@ -195,6 +204,8 @@ Import material from OData Common Schema Definition Language (CSDL) XML Represen
 -------
 
 # Appendix ##asec Notices
+
+<!-- Required section. Do not modify. -->
 
 Copyright $$$copyright$$$. All Rights Reserved.
 

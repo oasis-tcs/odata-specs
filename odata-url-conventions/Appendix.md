@@ -60,11 +60,17 @@ http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/. Latest version available 
 _ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262.
 https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
 
+###### <a name="_WKT">[Well-Known Text]</a>
+_OpenGIS Implementation Specification for Geographic information – Simple feature access – Part 1: Common architecture_, May 2011. Open Geospatial Consortium.
+https://www.ogc.org/standard/sfa/.
+
+<!-- TODO:
 -------
 
-# Appendix ##asec Safety, Security and Privacy Considerations
+# Appendix Safety, Security and Privacy Considerations
 
-<!-- TODO: do we have considerations specific to URLs, for example length, encoding, privacy (use $batch if in doubt), ...? -->
+do we have considerations specific to URLs, for example length, encoding, privacy (use $batch if in doubt), ...?
+-->
 
 -------
 
