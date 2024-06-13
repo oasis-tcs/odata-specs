@@ -93,8 +93,7 @@ to the `null` value using the [`eq`](#Equals) and [`ne`](#NotEquals)
 operators.
 
 When applied to operands of numeric types, [numeric
-promotion](#NumericPromotion) rules are applied. Otherwise primitive
-operands of different types are always unequal.
+promotion](#NumericPromotion) rules are applied.
 
 The `eq`, `ne`, and `in` operators can be used with collection-valued
 operands, and the `eq` and `ne` operators can be used with operands of a
@@ -129,6 +128,9 @@ and only to itself.
 
 The special value `NaN` is not equal to anything, even to itself.
 
+If at least one operand is non-numeric and the operands have different types,
+the `eq` operator returns false.
+
 ##### ##subsubsubsubsec Not Equals
 
 The `ne` operator returns true if the left operand is not equal to the
@@ -155,6 +157,9 @@ The special value `NaN` is not equal to anything, even to itself.
 
 The `null` value is not equal to any value but itself.
 
+If at least one operand is non-numeric and the operands have different types,
+the `ne` operator returns true.
+
 ##### ##subsubsubsubsec Greater Than
 
 The `gt` operator returns true if the left operand is greater than the
@@ -173,12 +178,18 @@ see [OData-VocCore](#ODataVocCore).
 
 If any operand is `null`, the operator returns false.
 
+If at least one operand is non-numeric and the operands have different types,
+the expression involving the `gt` operator is invalid.
+
 ##### ##subsubsubsubsec Greater Than or Equal
 
 The `ge` operator returns true if the left operand is greater than or
 equal to the right operand, otherwise it returns false.
 
 See rules for [`gt`](#GreaterThan) and [`eq`](#Equals) for details.
+
+If at least one operand is non-numeric and the operands have different types,
+the expression involving the `ge` operator is invalid.
 
 ##### ##subsubsubsubsec Less Than
 
@@ -198,6 +209,9 @@ see [OData-VocCore](#ODataVocCore).
 
 If any operand is `null`, the operator returns false.
 
+If at least one operand is non-numeric and the operands have different types,
+the expression involving the `lt` operator is invalid.
+
 ##### ##subsubsubsubsec Less Than or Equal
 
 The `le` operator returns true if the left operand is less than or equal
@@ -205,7 +219,12 @@ to the right operand, otherwise it returns false.
 
 See rules for [`lt`](#LessThan) and [`eq`](#Equals) for details.
 
+If at least one operand is non-numeric and the operands have different types,
+the expression involving the `le` operator is invalid.
+
 ##### ##subsubsubsubsec And
+
+If an operand of the `and` operator is not Boolean, the expression is invalid.
 
 The `and` operator returns true if both the left and right operands
 evaluate to true, otherwise it returns false.
@@ -216,6 +235,8 @@ All other combinations with `null` return `null`.
 
 ##### ##subsubsubsubsec Or
 
+If an operand of the `and` operator is not Boolean, the expression is invalid.
+
 The `or` operator returns false if both the left and right operands both
 evaluate to false, otherwise it returns true.
 
@@ -224,6 +245,8 @@ The `null` value is treated as unknown, so if one operand evaluates to
 All other combinations with `null` return `null`.
 
 ##### ##subsubsubsubsec Not
+
+If the operand of the `not` operator is not Boolean, the expression is invalid.
 
 The `not` operator returns true if the operand returns false, otherwise
 it returns false.
@@ -245,6 +268,9 @@ right operand. The right operand MUST be either a comma-separated list
 of zero or more primitive values, enclosed in parentheses, or a single expression
 that resolves to a collection. If the right operand is an empty collection
 or list of values, the expression returns false.
+
+The left operand is not equal to a value in the right operand if one of them
+is non-numeric and they have different types.
 
 ##### ##subsubsubsubsec Logical Operator Examples
 

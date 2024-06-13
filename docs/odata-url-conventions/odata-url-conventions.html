@@ -1014,7 +1014,7 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <p>OData defines a set of logical operators that evaluate to true or false (i.e. a <code>boolCommonExpr</code> as defined in <a href="#ODataABNF">OData-ABNF</a>). Logical operators are typically used to filter a collection of resources.</p>
 <p>The syntax rules for the logical operators are defined in <a href="#ODataABNF">OData-ABNF</a>. 4.01 Services MUST support case-insensitive operator names. Clients that want to work with 4.0 services MUST use lower case operator names.</p>
 <p>The six comparison operators can be used with all primitive values except <code>Edm.Binary</code>, <code>Edm.Stream</code>, and the <code>Edm.Geo</code> types. <code>Edm.Binary</code>, <code>Edm.Stream</code>, and the <code>Edm.Geo</code> types can only be compared to the <code>null</code> value using the <a href="#Equals"><code>eq</code></a> and <a href="#NotEquals"><code>ne</code></a> operators.</p>
-<p>When applied to operands of numeric types, <a href="#NumericPromotion">numeric promotion</a> rules are applied. Otherwise primitive operands of different types are always unequal.</p>
+<p>When applied to operands of numeric types, <a href="#NumericPromotion">numeric promotion</a> rules are applied.</p>
 <p>The <code>eq</code>, <code>ne</code>, and <code>in</code> operators can be used with collection-valued operands, and the <code>eq</code> and <code>ne</code> operators can be used with operands of a structured type.</p>
 <p>The Boolean operators <code>and</code>, <code>or</code> and <code>not</code> MUST have Boolean operands, otherwise the expression is invalid.</p>
 <details open><summary>
@@ -1027,6 +1027,7 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <p>For services that support comparing unordered collections, the <code>eq</code> operator returns true if both operands are equal after applying the same ordering on both collections.</p>
 <p>Each of the special values <code>null</code>, <code>-INF</code>, and <code>INF</code> is equal to itself, and only to itself.</p>
 <p>The special value <code>NaN</code> is not equal to anything, even to itself.</p>
+<p>If at least one operand is non-numeric and the operands have different types, the <code>eq</code> operator returns false.</p>
 </details>
 <details open><summary>
 <h5 id="51112-not-equals"><a name="NotEquals" href="#NotEquals">5.1.1.1.2 Not Equals</a></h5>
@@ -1039,6 +1040,7 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <p>Each of the special values <code>null</code>, <code>-INF</code>, and <code>INF</code> is not equal to any value but itself.</p>
 <p>The special value <code>NaN</code> is not equal to anything, even to itself.</p>
 <p>The <code>null</code> value is not equal to any value but itself.</p>
+<p>If at least one operand is non-numeric and the operands have different types, the <code>ne</code> operator returns true.</p>
 </details>
 <details open><summary>
 <h5 id="51113-greater-than"><a name="GreaterThan" href="#GreaterThan">5.1.1.1.3 Greater Than</a></h5>
@@ -1048,12 +1050,14 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <p>The Boolean value <code>true</code> is greater than <code>false</code>.</p>
 <p>Services SHOULD order language-dependent strings according to the <code>Content-Language</code> of the response, and SHOULD annotate string properties with language-dependent order with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent"><code>Core.IsLanguageDependent</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>.</p>
 <p>If any operand is <code>null</code>, the operator returns false.</p>
+<p>If at least one operand is non-numeric and the operands have different types, the expression involving the <code>gt</code> operator is invalid.</p>
 </details>
 <details open><summary>
 <h5 id="51114-greater-than-or-equal"><a name="GreaterThanorEqual" href="#GreaterThanorEqual">5.1.1.1.4 Greater Than or Equal</a></h5>
 </summary>
 <p>The <code>ge</code> operator returns true if the left operand is greater than or equal to the right operand, otherwise it returns false.</p>
 <p>See rules for <a href="#GreaterThan"><code>gt</code></a> and <a href="#Equals"><code>eq</code></a> for details.</p>
+<p>If at least one operand is non-numeric and the operands have different types, the expression involving the <code>ge</code> operator is invalid.</p>
 </details>
 <details open><summary>
 <h5 id="51115-less-than"><a name="LessThan" href="#LessThan">5.1.1.1.5 Less Than</a></h5>
@@ -1063,28 +1067,33 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <p>The Boolean value <code>false</code> is less than <code>true</code>.</p>
 <p>Services SHOULD order language-dependent strings according to the <code>Content-Language</code> of the response, and SHOULD annotate string properties with language-dependent order with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent"><code>Core.IsLanguageDependent</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>.</p>
 <p>If any operand is <code>null</code>, the operator returns false.</p>
+<p>If at least one operand is non-numeric and the operands have different types, the expression involving the <code>lt</code> operator is invalid.</p>
 </details>
 <details open><summary>
 <h5 id="51116-less-than-or-equal"><a name="LessThanorEqual" href="#LessThanorEqual">5.1.1.1.6 Less Than or Equal</a></h5>
 </summary>
 <p>The <code>le</code> operator returns true if the left operand is less than or equal to the right operand, otherwise it returns false.</p>
 <p>See rules for <a href="#LessThan"><code>lt</code></a> and <a href="#Equals"><code>eq</code></a> for details.</p>
+<p>If at least one operand is non-numeric and the operands have different types, the expression involving the <code>le</code> operator is invalid.</p>
 </details>
 <details open><summary>
 <h5 id="51117-and"><a name="And" href="#And">5.1.1.1.7 And</a></h5>
 </summary>
+<p>If an operand of the <code>and</code> operator is not Boolean, the expression is invalid.</p>
 <p>The <code>and</code> operator returns true if both the left and right operands evaluate to true, otherwise it returns false.</p>
 <p>The <code>null</code> value is treated as unknown, so if one operand evaluates to <code>null</code> and the other operand to false, the <code>and</code> operator returns false. All other combinations with <code>null</code> return <code>null</code>.</p>
 </details>
 <details open><summary>
 <h5 id="51118-or"><a name="Or" href="#Or">5.1.1.1.8 Or</a></h5>
 </summary>
+<p>If an operand of the <code>and</code> operator is not Boolean, the expression is invalid.</p>
 <p>The <code>or</code> operator returns false if both the left and right operands both evaluate to false, otherwise it returns true.</p>
 <p>The <code>null</code> value is treated as unknown, so if one operand evaluates to <code>null</code> and the other operand to true, the <code>or</code> operator returns true. All other combinations with <code>null</code> return <code>null</code>.</p>
 </details>
 <details open><summary>
 <h5 id="51119-not"><a name="Not" href="#Not">5.1.1.1.9 Not</a></h5>
 </summary>
+<p>If the operand of the <code>not</code> operator is not Boolean, the expression is invalid.</p>
 <p>The <code>not</code> operator returns true if the operand returns false, otherwise it returns false.</p>
 <p>The <code>null</code> value is treated as unknown, so <code>not null</code> returns <code>null</code>.</p>
 </details>
@@ -1098,6 +1107,7 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <h5 id="511111-in"><a name="In" href="#In">5.1.1.1.11 In</a></h5>
 </summary>
 <p>The <code>in</code> operator returns true if the left operand is a member of the right operand. The right operand MUST be either a comma-separated list of zero or more primitive values, enclosed in parentheses, or a single expression that resolves to a collection. If the right operand is an empty collection or list of values, the expression returns false.</p>
+<p>The left operand is not equal to a value in the right operand if one of them is non-numeric and they have different types.</p>
 </details>
 <details open><summary>
 <h5 id="511112-logical-operator-examples"><a name="LogicalOperatorExamples" href="#LogicalOperatorExamples">5.1.1.1.12 Logical Operator Examples</a></h5>

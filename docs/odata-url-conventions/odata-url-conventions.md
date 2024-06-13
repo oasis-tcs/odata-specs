@@ -1549,8 +1549,7 @@ to the `null` value using the [`eq`](#Equals) and [`ne`](#NotEquals)
 operators.
 
 When applied to operands of numeric types, [numeric
-promotion](#NumericPromotion) rules are applied. Otherwise primitive
-operands of different types are always unequal.
+promotion](#NumericPromotion) rules are applied.
 
 The `eq`, `ne`, and `in` operators can be used with collection-valued
 operands, and the `eq` and `ne` operators can be used with operands of a
@@ -1585,6 +1584,9 @@ and only to itself.
 
 The special value `NaN` is not equal to anything, even to itself.
 
+If at least one operand is non-numeric and the operands have different types,
+the `eq` operator returns false.
+
 ##### <a name="NotEquals" href="#NotEquals">5.1.1.1.2 Not Equals</a>
 
 The `ne` operator returns true if the left operand is not equal to the
@@ -1611,6 +1613,9 @@ The special value `NaN` is not equal to anything, even to itself.
 
 The `null` value is not equal to any value but itself.
 
+If at least one operand is non-numeric and the operands have different types,
+the `ne` operator returns true.
+
 ##### <a name="GreaterThan" href="#GreaterThan">5.1.1.1.3 Greater Than</a>
 
 The `gt` operator returns true if the left operand is greater than the
@@ -1629,12 +1634,18 @@ see [OData-VocCore](#ODataVocCore).
 
 If any operand is `null`, the operator returns false.
 
+If at least one operand is non-numeric and the operands have different types,
+the expression involving the `gt` operator is invalid.
+
 ##### <a name="GreaterThanorEqual" href="#GreaterThanorEqual">5.1.1.1.4 Greater Than or Equal</a>
 
 The `ge` operator returns true if the left operand is greater than or
 equal to the right operand, otherwise it returns false.
 
 See rules for [`gt`](#GreaterThan) and [`eq`](#Equals) for details.
+
+If at least one operand is non-numeric and the operands have different types,
+the expression involving the `ge` operator is invalid.
 
 ##### <a name="LessThan" href="#LessThan">5.1.1.1.5 Less Than</a>
 
@@ -1654,6 +1665,9 @@ see [OData-VocCore](#ODataVocCore).
 
 If any operand is `null`, the operator returns false.
 
+If at least one operand is non-numeric and the operands have different types,
+the expression involving the `lt` operator is invalid.
+
 ##### <a name="LessThanorEqual" href="#LessThanorEqual">5.1.1.1.6 Less Than or Equal</a>
 
 The `le` operator returns true if the left operand is less than or equal
@@ -1661,7 +1675,12 @@ to the right operand, otherwise it returns false.
 
 See rules for [`lt`](#LessThan) and [`eq`](#Equals) for details.
 
+If at least one operand is non-numeric and the operands have different types,
+the expression involving the `le` operator is invalid.
+
 ##### <a name="And" href="#And">5.1.1.1.7 And</a>
+
+If an operand of the `and` operator is not Boolean, the expression is invalid.
 
 The `and` operator returns true if both the left and right operands
 evaluate to true, otherwise it returns false.
@@ -1672,6 +1691,8 @@ All other combinations with `null` return `null`.
 
 ##### <a name="Or" href="#Or">5.1.1.1.8 Or</a>
 
+If an operand of the `and` operator is not Boolean, the expression is invalid.
+
 The `or` operator returns false if both the left and right operands both
 evaluate to false, otherwise it returns true.
 
@@ -1680,6 +1701,8 @@ The `null` value is treated as unknown, so if one operand evaluates to
 All other combinations with `null` return `null`.
 
 ##### <a name="Not" href="#Not">5.1.1.1.9 Not</a>
+
+If the operand of the `not` operator is not Boolean, the expression is invalid.
 
 The `not` operator returns true if the operand returns false, otherwise
 it returns false.
@@ -1701,6 +1724,9 @@ right operand. The right operand MUST be either a comma-separated list
 of zero or more primitive values, enclosed in parentheses, or a single expression
 that resolves to a collection. If the right operand is an empty collection
 or list of values, the expression returns false.
+
+The left operand is not equal to a value in the right operand if one of them
+is non-numeric and they have different types.
 
 ##### <a name="LogicalOperatorExamples" href="#LogicalOperatorExamples">5.1.1.1.12 Logical Operator Examples</a>
 
