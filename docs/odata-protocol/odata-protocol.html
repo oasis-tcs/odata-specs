@@ -2286,7 +2286,6 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <span id="cb96-10"><a href="#cb96-10" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb96-11"><a href="#cb96-11" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
-<p>If a single-valued navigation property defines referential constraints for all key properties of the related entity, then a link can be established by providing values for the dependent properties that identify an existing principal entity. If there is no such entity, the insert fails.</p>
 <p>Upon successful completion of the operation, the service creates the requested entity and relates it to the requested existing entities.</p>
 <p>If the target URL for the collection the entity is created in and binding information provided in the <code>POST</code> body contradicts the implicit binding information provided by the request URL, the request MUST fail, and the service responds with <code>400 Bad Request</code>.</p>
 <p>Upon failure of the operation, the service MUST NOT create the new entity. In particular, the service MUST never create an entity in a partially valid state (with the navigation property unset).</p>

@@ -4246,8 +4246,6 @@ within the `Manager` and `DirectReports` navigation properties
 ```
 :::
 
-If a single-valued navigation property defines referential constraints for all key properties of the related entity, then a link can be established by providing values for the dependent properties that identify an existing principal entity. If there is no such entity, the insert fails.
-
 Upon successful completion of the operation, the service creates the
 requested entity and relates it to the requested existing entities.
 
