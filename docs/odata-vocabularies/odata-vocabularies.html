@@ -32,7 +32,9 @@
 <hr />
 <h1 id="odata-vocabularies-version-40">OData Vocabularies Version 4.0</h1>
 <h2 id="committee-specification-draft-02">Committee Specification Draft 02</h2>
+<details open><summary>
 <h2 id="12-june-2024">12 June 2024</h2>
+</summary>
 <p><span class="math inline">\(\hbox{}\)</span></p>
 <h4 id="this-stage">This stage:</h4>
 <p><a href="https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/csd02/odata-vocabularies-v4.0-csd02.md">https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/csd02/odata-vocabularies-v4.0-csd02.md</a> (Authoritative)<br />
@@ -89,7 +91,11 @@ Heiko Theißen (<a href="https://oasis-tcs.github.io/odata-vocabularies/vocabula
 <p>The name “OASIS” is a trademark of <a href="https://www.oasis-open.org/">OASIS</a>, the owner and developer of this specification, and should be used only to refer to the organization and its official outputs.</p>
 <p>For complete copyright information please see the full Notices section in an Appendix below.</p>
 <hr />
+</details>
+</details>
+<details open><summary>
 <h1 id="table-of-contents">Table of Contents</h1>
+</summary>
 <div class="toc">
 <ul>
 <li><a href="#Introduction">1 Introduction</a></li>
@@ -117,7 +123,10 @@ Heiko Theißen (<a href="https://oasis-tcs.github.io/odata-vocabularies/vocabula
 </ul>
 </div>
 <hr />
+</details>
+<details open><summary>
 <h1 id="1-introduction"><a name="Introduction" href="#Introduction">1 Introduction</a></h1>
+</summary>
 <p>OData provides the ability to decorate model elements of a schema and instances of data with descriptive elements called annotations. Annotations can be used to specify additional facts about an element, such as whether it is read-only, or to define a common concept, such as a person or a movie. Annotations consist of a term (the namespace-qualified name of the annotation being applied), a target (the element to which the term is applied), and a value. A set of related annotation terms with a common namespace comprises a Vocabulary. Shared vocabularies provide a powerful extensibility point for OData. Refer to the <a href="#ODataProtocol">OData-Protocol</a> and <a href="#ODataCSDL">OData-CSDL</a> specifications for more information on the use of vocabularies.</p>
 <p>This prose specification describes a set of OData vocabularies maintained by the OASIS OData Technical Committee. It is one component of a Work Product that also includes the various vocabulary components. These vocabulary components are continuously evolved, the latest work-in-progress revisions are available at <a href="#ODataVocabs">OData-Vocabs</a>.</p>
 <p>Other OData vocabularies may be created, shared, and maintained outside of this work product.</p>
@@ -131,7 +140,10 @@ Section | Feature / Change | Issue
 -->
 
 <hr />
+</details>
+<details open><summary>
 <h1 id="2-core-vocabulary"><a name="CoreVocabulary" href="#CoreVocabulary">2 Core Vocabulary</a></h1>
+</summary>
 <p><strong>Namespace: <a href="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">Org.OData.Core.V1</a></strong></p>
 <p>Core terms needed to write vocabularies</p>
 <h2 id="terms">Terms</h2>
@@ -972,7 +984,10 @@ Section | Feature / Change | Issue
 </tbody>
 </table>
 <hr />
+</details>
+<details open><summary>
 <h1 id="3-capabilities-vocabulary"><a name="CapabilitiesVocabulary" href="#CapabilitiesVocabulary">3 Capabilities Vocabulary</a></h1>
+</summary>
 <p><strong>Namespace: <a href="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">Org.OData.Capabilities.V1</a></strong></p>
 <p>Terms describing capabilities of a service</p>
 <p>There are some capabilities which are strongly recommended for services to support even though they are optional. Support for $top and $skip is a good example as supporting these query options helps with performance of a service and are essential. Such capabilities are assumed to be default capabilities of an OData service even in the case that a capabilities annotation doesn’t exist. Capabilities annotations are mainly expected to be used to explicitly specify that a service doesn’t support such capabilities. Capabilities annotations can as well be used to declaratively specify the support of such capabilities.</p>
@@ -3090,7 +3105,10 @@ Section | Feature / Change | Issue
 </tbody>
 </table>
 <hr />
+</details>
+<details open><summary>
 <h1 id="4-measures-vocabulary"><a name="MeasuresVocabulary" href="#MeasuresVocabulary">4 Measures Vocabulary</a></h1>
+</summary>
 <p><strong>Namespace: <a href="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Measures.V1.xml">Org.OData.Measures.V1</a></strong></p>
 <p>Terms describing monetary amounts and measured quantities</p>
 <h2 id="terms-2">Terms</h2>
@@ -3156,7 +3174,10 @@ Section | Feature / Change | Issue
 </tbody>
 </table>
 <hr />
+</details>
+<details open><summary>
 <h1 id="5-validation-vocabulary"><a name="ValidationVocabulary" href="#ValidationVocabulary">5 Validation Vocabulary</a></h1>
+</summary>
 <p><strong>Namespace: <a href="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Validation.V1.xml">Org.OData.Validation.V1</a></strong></p>
 <p>Terms describing validation rules</p>
 <h2 id="terms-3">Terms</h2>
@@ -3315,7 +3336,10 @@ Section | Feature / Change | Issue
 <p><strong>Type:</strong> String</p>
 <p>The qualified name of a type in scope, optionally wrapped in <code>Collection()</code> to denote a collection of instances of the type</p>
 <hr />
+</details>
+<details open><summary>
 <h1 id="6-aggregation-vocabulary"><a name="AggregationVocabulary" href="#AggregationVocabulary">6 Aggregation Vocabulary</a></h1>
+</summary>
 <p><strong>Namespace: <a href="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Aggregation.V1.xml">Org.OData.Aggregation.V1</a></strong></p>
 <p>Terms to describe which data in a given entity model can be aggregated, and how.</p>
 <p>Related to the specification document <a href="http://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.html">OData-Data-Agg-v4.0</a>.</p>
@@ -3996,7 +4020,10 @@ Section | Feature / Change | Issue
 <h2 id="customaggregatetype-deprecated"><a href="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/./Org.OData.Aggregation.V1.xml#L555:~:text=&lt;ComplexType%20Name=&quot;-,CustomAggregateType,-&quot;">CustomAggregateType</a> <em>(Deprecated)</em></h2>
 <p>Deprecated since <a href="#Aggregation-NavigationPropertyAggregationCapabilities"><code>NavigationPropertyAggregationCapabilities</code></a> is also deprecated</p>
 <hr />
+</details>
+<details open><summary>
 <h1 id="7-authorization-vocabulary"><a name="AuthorizationVocabulary" href="#AuthorizationVocabulary">7 Authorization Vocabulary</a></h1>
+</summary>
 <p><strong>Namespace: <a href="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Authorization.V1.xml">Org.OData.Authorization.V1</a></strong></p>
 <p>The Authorization Vocabulary provides terms for describing authorization requirements of the service</p>
 <h2 id="terms-5">Terms</h2>
@@ -4434,7 +4461,10 @@ Section | Feature / Change | Issue
 <p><strong>Type:</strong> String</p>
 <p>The name of the authorization scheme.</p>
 <hr />
+</details>
+<details open><summary>
 <h1 id="8-json-vocabulary"><a name="JSONVocabulary" href="#JSONVocabulary">8 JSON Vocabulary</a></h1>
+</summary>
 <p><strong>Namespace: <a href="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.JSON.V1.xml">Org.OData.JSON.V1</a></strong></p>
 <p>Terms for JSON properties</p>
 <h2 id="terms-6">Terms</h2>
@@ -4459,7 +4489,10 @@ Section | Feature / Change | Issue
 <p><strong>Type:</strong> Stream</p>
 <p>Textual data of media type <code>application/json</code></p>
 <hr />
+</details>
+<details open><summary>
 <h1 id="9-repeatability-vocabulary"><a name="RepeatabilityVocabulary" href="#RepeatabilityVocabulary">9 Repeatability Vocabulary</a></h1>
+</summary>
 <p><strong>Namespace: <a href="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Repeatability.V1.xml">Org.OData.Repeatability.V1</a></strong></p>
 <p>Terms describing repeatable requests</p>
 <h2 id="terms-7">Terms</h2>
@@ -4490,7 +4523,10 @@ Section | Feature / Change | Issue
 </tbody>
 </table>
 <hr />
+</details>
+<details open><summary>
 <h1 id="10-temporal-vocabulary"><a name="TemporalVocabulary" href="#TemporalVocabulary">10 Temporal Vocabulary</a></h1>
+</summary>
 <p><strong>Namespace: <a href="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.xml">Org.OData.Temporal.V1</a></strong></p>
 <p>Terms for describing time-dependent data</p>
 <h2 id="terms-8">Terms</h2>
@@ -4749,10 +4785,15 @@ Section | Feature / Change | Issue
 </tbody>
 </table>
 <hr />
+</details>
+<details open><summary>
 <h1 id="appendix-a-references"><a name="References" href="#References">Appendix A. References</a></h1>
+</summary>
 <p>This appendix contains the normative and informative references that are used in this document.</p>
 <p>While any hyperlinks included in this appendix were valid at the time of publication, OASIS cannot guarantee their long-term validity.</p>
+<details open><summary>
 <h2 id="a1-normative-references"><a name="NormativeReferences" href="#NormativeReferences">A.1 Normative References</a></h2>
+</summary>
 <p>The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.</p>
 <h6 id="odata-protocol"><a name="ODataProtocol">[OData-Protocol]</a></h6>
 <p><em>OData Version 4.02. Part 1: Protocol.</em><br />
@@ -4766,7 +4807,10 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <p><em>Bradner, S., “Key words for use in RFCs to Indicate Requirement Levels”, BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997</em>. <a href="https://www.rfc-editor.org/info/rfc2119">https://www.rfc-editor.org/info/rfc2119</a>.</p>
 <h6 id="rfc8174"><a name="rfc8174">[RFC8174]</a></h6>
 <p><em>Leiba, B., “Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words”, BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017</em>. <a href="https://www.rfc-editor.org/info/rfc8174">https://www.rfc-editor.org/info/rfc8174</a>.</p>
+</details>
+<details open><summary>
 <h2 id="a2-non-normative-references"><a name="NonNormativeReferences" href="#NonNormativeReferences">A.2 Non-Normative References</a></h2>
+</summary>
 <h6 id="odata-vocabs"><a name="ODataVocabs">[OData-Vocabs]</a></h6>
 <p><em>odata-vocabularies OASIS TC GitHub repository</em>. <a href="https://github.com/oasis-tcs/odata-vocabularies">https://github.com/oasis-tcs/odata-vocabularies</a>.</p>
 <!-- TODO:
@@ -4778,10 +4822,19 @@ do we have considerations specific to URLs, for example length, encoding, privac
 -->
 
 <hr />
+</details>
+</details>
+<details open><summary>
 <h1 id="appendix-b-acknowledgments"><a name="Acknowledgments" href="#Acknowledgments">Appendix B. Acknowledgments</a></h1>
+</summary>
+<details open><summary>
 <h2 id="b1-special-thanks"><a name="SpecialThanks" href="#SpecialThanks">B.1 Special Thanks</a></h2>
+</summary>
 <p>The contributions of the OASIS OData Technical Committee members, enumerated in <a href="#ODataProtocol">OData-Protocol</a>, are gratefully acknowledged.</p>
+</details>
+<details open><summary>
 <h2 id="b2-participants"><a name="Participants" href="#Participants">B.2 Participants</a></h2>
+</summary>
 <p><strong>OData TC Members:</strong></p>
 <table>
 <thead>
@@ -4845,7 +4898,11 @@ do we have considerations specific to URLs, for example length, encoding, privac
 </tbody>
 </table>
 <hr />
+</details>
+</details>
+<details open><summary>
 <h1 id="appendix-c-revision-history"><a name="RevisionHistory" href="#RevisionHistory">Appendix C. Revision History</a></h1>
+</summary>
 <table>
 <thead>
 <tr class="header">
@@ -4865,7 +4922,10 @@ do we have considerations specific to URLs, for example length, encoding, privac
 </tbody>
 </table>
 <hr />
+</details>
+<details open><summary>
 <h1 id="appendix-d-notices"><a name="Notices" href="#Notices">Appendix D. Notices</a></h1>
+</summary>
 <!-- Required section. Do not modify. -->
 
 <p>Copyright © OASIS Open 2024. All Rights Reserved.</p>
