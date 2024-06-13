@@ -351,8 +351,9 @@ resource representations that are exchanged using OData.
 
 Section | Feature / Change | Issue
 --------|------------------|------
+[Section 10.2](#CollectionofEntities)| Context URLs use parentheses-style keys without percent-encoding| [368](https://github.com/oasis-tcs/odata-specs/issues/368)
 [Section 11.4](#DataModification)| Response code `204 No Content` after successful data modification if requested response could not be constructed| [443](https://github.com/oasis-tcs/odata-specs/issues/443)
-[Section 11.4.4](#UpsertanEntity)|  Upserts to single-valued non-containment navigation properties| [455](https://github.com/oasis-tcs/odata-specs/issues/455)
+[Section 11.4.4](#UpsertanEntity)| Upserts to single-valued non-containment navigation properties| [455](https://github.com/oasis-tcs/odata-specs/issues/455)
 [Section 11.4.9.3](#UpdateaComplexProperty)| Setting a complex property to a different type| [534](https://github.com/oasis-tcs/odata-specs/issues/534)
 [Section 12](#Conformance) | Allow `400 Bad Request` in addition to `501 Not Implemented` for unsupported functionality| [391](https://github.com/oasis-tcs/odata-specs/issues/391)
 [Section 12.3](#InteroperableODataClients) | Encoding of plus character in URLs | [485](https://github.com/oasis-tcs/odata-specs/issues/485)
@@ -1523,7 +1524,7 @@ in a `GET` or `DELETE` request does not have any effect.
 A preference of `return=representation` or `return=minimal` is allowed
 on an individual [Data Modification Request](#DataModification) or
 [Action Request](#Actions) within a batch, subject to the same
-restrictions, but SHOULD return a `4xx Client Error` if specified on the
+restrictions, but SHOULD return a `4xx` client error if specified on the
 batch request itself.
 
 A preference of `return=minimal` requests that the service invoke the
@@ -2044,8 +2045,9 @@ http://host/service/$metadata#Customers
 :::
 
 If the entities are contained, then `entity-set` is the top-level entity
-set or singleton followed by the path to the containment navigation
+set or singleton followed by the canonical path to the containment navigation
 property of the containing entity.
+Key values in that path are represented in canonical form (parentheses-style) without percent-encoding.
 
 ::: example
 Example 12: resource URL and corresponding context URL for contained
@@ -4175,6 +4177,8 @@ Properties with a defined default value, nullable properties, and
 collection-valued properties omitted from the request are set to the
 default value, null, or an empty collection, respectively.
 
+Services MAY add dynamic properties to the created entity as long as their names do not conflict with the names of declared properties and client-specified dynamic properties.
+
 Upon successful creation of the entity, the service MUST respond with either
 [`201 Created`](#ResponseCode201Created) and a representation of the
 created entity, or [`204 No Content`](#ResponseCode204NoContent) if the
@@ -4309,7 +4313,7 @@ payload corresponding to updatable properties MUST replace the value of
 the corresponding property in the entity or complex type.
 Complex properties are updated by applying `PATCH` semantics recursively,
 see also [section 11.4.9.3](#UpdateaComplexProperty).
-Missing properties of the containing entity or complex property, including
+Omitted properties of the containing entity or complex property, including
 dynamic properties, MUST NOT be directly altered unless as a side effect
 of changes resulting from the provided properties.
 
@@ -4321,12 +4325,12 @@ potential for data-loss in round-tripping properties that the client may
 not know about in advance, such as open or added properties, or
 properties not specified in metadata. Services that support `PUT` MUST
 replace all values of structural properties with those specified in the
-request body. Missing non-key, updatable structural properties not
+request body. Omitted non-key, updatable structural properties not
 defined as dependent properties within a referential constraint MUST be
 set to their default values. Omitting a non-nullable property with no
 service-generated or default value from a `PUT` request results in a
-`400 Bad Request` error. Missing dynamic structural properties MUST be
-removed or set to `null`.
+`400 Bad Request` error. Omitted dynamic properties MUST be
+removed, set to `null`, or set to a service-generated value.
 
 For requests with an `OData-Version` header with a value of `4.01` or
 greater, the media stream of a media entity can be updated by specifying
@@ -5740,7 +5744,7 @@ body of the batch request may be processed as soon as they are received,
 this enables clients to stream batch requests, and batch implementations to stream the results.
 
 If the service receives a batch request with an invalid set of headers
-it MUST return a [`4xx response code`](#ClientErrorResponses) and
+it MUST return a [`4xx` response code](#ClientErrorResponses) and
 perform no further processing of the batch request.
 
 ### <a name="BatchRequestHeaders" href="#BatchRequestHeaders">11.7.1 Batch Request Headers</a>
@@ -5818,9 +5822,11 @@ the rules for which individual requests require an identifier.
 Entities created by an [insert](#CreateanEntity) request or an [action](#InvokinganAction) can be
 referenced in the request URL of subsequent requests by using the
 request identifier prefixed with a `$` character as the first segment of
-the request URL. If the [`Location`](#HeaderLocation) header in the response contains a relative URL,
+the request URL. Services MUST treat this segment like the URL in the
+[`Location`](#HeaderLocation) header of the response to the request identified by the segment.
+If the `Location` header in the response to the subsequent request contains a relative URL,
 clients MUST be able to resolve it relative to the request's URL even if
-that contains such a reference.
+that contains such a reference. See [example 105](#batchcontentid).
 
 If the `$`-prefixed request identifier is identical to the name of a
 top-level system resource (`$batch`, `$crossjoin`, `$all`, `$entity`,
@@ -5853,18 +5859,31 @@ identifier prefixed with a `$` character as the unquoted value of the
 
 ### <a name="ReferencingValuesfromResponseBodies" href="#ReferencingValuesfromResponseBodies">11.7.6 Referencing Values from Response Bodies</a>
 
-Services MAY support using values from a response body in the query part
-of the URL or in the request body of subsequent requests. Value
-references consist of a `$` character, followed by the request
-identifier of the preceding request, and optionally followed by a valid
-OData path.
+Services MAY support using values from a response body in the query part of
+the URL or in the request body of subsequent requests. A value reference can
+consist of a `$` character followed by the identifier of the preceding
+request, then the referenced value is the value
+represented by the response body of that preceding request. Alternatively, a value
+reference can consist of a `$` character followed by the value of an instance annotation with term
+[`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID)
+(see [OData-VocCore](#ODataVocCore)) that occurs in the payload of the preceding request
+as described in [section 11.4.2.2](#CreateRelatedEntitiesWhenCreatinganEntity) and
+[section 11.4.3.1](#UpdateRelatedEntitiesWhenUpdatinganEntity),
+then the referenced value is the corresponding value in the response,
+which the service SHOULD annotate with the same `Core.ContentID` value.
 
-If the `$`-prefixed request identifier is identical to the name of a
+In both cases, if the referenced value is a collection, the value reference MAY be followed by a
+`collectionNavigationExpr`, as defined in [OData-ABNF](#ODataABNF),
+that is evaluated relative to the referenced value.
+Otherwise the value reference MAY be followed by a forward slash and a
+`memberExpr` that is evaluated relative to the referenced value.
+
+If the `$`-prefixed identifier is identical to the name of a
 predefined literal for query expressions (`$it`, `$root`, or other
 literals defined according to the [`OData-Version`](#HeaderODataVersion)
 of the protocol specified in the request), then the predefined literal
 is used. This collision can be avoided by e.g. using only numeric
-request identifiers.
+identifiers.
 
 ### <a name="MultipartBatchFormat" href="#MultipartBatchFormat">11.7.7 Multipart Batch Format</a>
 
@@ -5917,7 +5936,7 @@ GET https://host:1234/path/service/People(1) HTTP/1.1
 - Absolute resource path and separate `Host` header
 
 ::: example
-Example 102:
+Example <a name="batchhost" href="#batchhost">102</a>:
 ```json
 PATCH /path/service/People(1) HTTP/1.1
 Host: myserver.mydomain.org:1234
@@ -6034,7 +6053,7 @@ which case they SHOULD advertise this support by specifying the
 term applied to the entity container, see [OData-VocCap](#ODataVocCap).
 
 ::: example
-Example 105: a batch request that contains the following operations in
+Example <a name="batchcontentid" href="#batchcontentid">105</a>: a batch request that contains the following operations in
 the order listed:
 
 A change set that contains the following requests:
@@ -6074,6 +6093,41 @@ Content-Length: ###
 --changeset_77162fcd-b8da-41ac-a9f8-9357efbbd--
 --batch_36522ad7-fc75-4b56-8c71-56071383e77b--
 ```
+
+The response contains relative `Location` headers.
+```
+HTTP/1.1 200 OK
+OData-Version: 4.0
+Content-Length: ####
+Content-Type: multipart/mixed; boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77a
+
+--batch_36522ad7-fc75-4b56-8c71-56071383e77a
+Content-Type: multipart/mixed; boundary=changeset_77162fcd-b8da-41ac-a9f8-9357efbbe
+
+--changeset_77162fcd-b8da-41ac-a9f8-9357efbbe
+Content-Type: application/http
+
+HTTP/1.1 201 OK
+Location: Customers('ALFKI')
+…
+--changeset_77162fcd-b8da-41ac-a9f8-9357efbbe
+Content-Type: application/http
+
+HTTP/1.1 201 OK
+Location: Orders(1)
+…
+--changeset_77162fcd-b8da-41ac-a9f8-9357efbbe--
+--batch_36522ad7-fc75-4b56-8c71-56071383e77a--
+```
+The second `Location` URL `Orders(1)` is relative with its base URI being the second
+request URL `$1/Orders`. To get an absolute base URI, the client must replace the
+`$1` with the first `Location` URL `Customers('ALFKI')` and resolve the
+resulting URL `Customers('ALFKI')/Orders(1)` relative to its base URI, which is
+`http://host/service/Customers` (determined from the
+first request URL `/service/Customers` and the `Host: host` header
+as in [example 102](#batchhost)). This gives the effective second request URL
+`http://host/service/Customers('ALFKI')/Orders` as base URI for the second `Location`
+URL, which therefore resolves to `http://host/service/Customers('ALFKI')/Orders(1)`.
 :::
 
 #### <a name="ReferencinganETag" href="#ReferencinganETag">11.7.7.3 Referencing an ETag</a>
@@ -6213,8 +6267,8 @@ A response to an operation in a batch MUST be formatted exactly as it
 would have appeared outside of a batch as described in the corresponding
 subsections of chapter [Data Service Requests](#DataServiceRequests).
 Relative URLs in each individual response are relative to the request
-URL of the corresponding individual request. URLs in responses MUST NOT
-contain `$`-prefixed request identifiers.
+URL of the corresponding individual request (see [example 105](#batchcontentid)).
+URLs in responses MUST NOT contain `$`-prefixed request identifiers.
 
 ::: example
 Example 108: referencing the batch request [example 104](#batchRequest) above, assume all

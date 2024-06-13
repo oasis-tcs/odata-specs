@@ -12,7 +12,7 @@ describe("OASIS doc build", function () {
 
   it("Markdown assembly", async function () {
     var md = new PassThrough();
-    new Number(__dirname + "/test-data").build(md);
+    new Number(`${__dirname}/test-data`).build(md);
     var markdown = "";
     for await (var chunk of md) markdown += chunk.toString();
     assert.deepStrictEqual(

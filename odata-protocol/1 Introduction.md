@@ -26,11 +26,14 @@ resource representations that are exchanged using OData.
 
 Section | Feature / Change | Issue
 --------|------------------|------
+[Section ##CollectionofEntities]| 
+Context URLs use parentheses-style keys without percent-encoding| 
+[368](https://github.com/oasis-tcs/odata-specs/issues/368)
 [Section ##DataModification]| 
 Response code `204 No Content` after successful data modification if requested response could not be constructed| 
 [443](https://github.com/oasis-tcs/odata-specs/issues/443)
 [Section ##UpsertanEntity]| 
- Upserts to single-valued non-containment navigation properties| 
+Upserts to single-valued non-containment navigation properties| 
 [455](https://github.com/oasis-tcs/odata-specs/issues/455)
 [Section ##UpdateaComplexProperty]| 
 Setting a complex property to a different type| 

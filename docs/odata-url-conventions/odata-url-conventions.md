@@ -236,11 +236,10 @@ For complete copyright information please see the full Notices section in an App
 - [A References](#References)
   - [A.1 Normative References](#NormativeReferences)
   - [A.2 Informative References](#InformativeReferences)
-- [B Safety, Security and Privacy Considerations](#SafetySecurityandPrivacyConsiderations)
-- [C Acknowledgments](#Acknowledgments)
-  - [C.1 Participants](#Participants)
-- [D Revision History](#RevisionHistory)
-- [E Notices](#Notices)
+- [B Acknowledgments](#Acknowledgments)
+  - [B.1 Participants](#Participants)
+- [C Revision History](#RevisionHistory)
+- [D Notices](#Notices)
 :::
 
 
@@ -272,6 +271,7 @@ ecosystem of reusable client components and libraries.
 Section | Feature / Change | Issue
 --------|------------------|------
 [Section 5.1.1.7.1](#matchespattern)| New overload for function `matchespattern` with flags| [441](https://github.com/oasis-tcs/odata-specs/issues/441)
+[Section 5.1.8](#SystemQueryOptionsearch)| Allow alternative `$search` syntax| [293](https://github.com/oasis-tcs/odata-specs/issues/293)
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -796,7 +796,12 @@ document.
 In addition to the canonical (primary) key an entity set or entity type
 can specify one or more alternate keys with the
 [`Core.AlternateKeys`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AlternateKeys)
-term (see [OData-VocCore](#ODataVocCore)). Entities can be addressed via
+term (see [OData-VocCore](#ODataVocCore)). 
+Alternate keys can be used by the client to address entities anywhere the canonical key
+can be used; for example, within entity sets, collection-valued navigation properties,
+collection-valued composable functions, and within delta payloads.
+
+Entities are addressed via
 an alternate key using the same parentheses-style convention as for the
 canonical key, with one difference: single-part alternate keys MUST
 specify the key property name to unambiguously determine the alternate
@@ -1689,8 +1694,9 @@ The `null` value is treated as unknown, so if one operand evaluates to
 
 The `in` operator returns true if the left operand is a member of the
 right operand. The right operand MUST be either a comma-separated list
-of primitive values, enclosed in parentheses, or a single expression
-that resolves to a collection.
+of zero or more primitive values, enclosed in parentheses, or a single expression
+that resolves to a collection. If the right operand is an empty collection
+or list of values, the expression returns false.
 
 ##### <a name="LogicalOperatorExamples" href="#LogicalOperatorExamples">5.1.1.1.12 Logical Operator Examples</a>
 
@@ -3828,6 +3834,12 @@ http://host/service/Products?$search=blue OR green
 ```
 :::
 
+Clients should be aware that services MAY implement search based on a different
+syntax provided they advertise this with the annotation `SearchRestrictions/SearchSyntax` defined in
+[OData-VocCap](#ODataVocCap). Services MAY treat keywords defined in the standard
+[OData-ABNF](#ODataABNF) `$search` syntax as terms to be matched if they are
+listed in `SearchRestrictions/UnsupportedExpressions`.
+
 #### <a name="SearchExpressions" href="#SearchExpressions">5.1.8.1 Search Expressions</a>
 
 Search expressions are used within the
@@ -4074,16 +4086,16 @@ https://www.ogc.org/standard/sfa/.
 <!-- TODO:
 -------
 
-# <a name="SafetySecurityandPrivacyConsiderations" href="#SafetySecurityandPrivacyConsiderations">Appendix B. Safety, Security and Privacy Considerations</a>
+# Appendix Safety, Security and Privacy Considerations
 
 do we have considerations specific to URLs, for example length, encoding, privacy (use $batch if in doubt), ...?
 -->
 
 -------
 
-# <a name="Acknowledgments" href="#Acknowledgments">Appendix C. Acknowledgments</a>
+# <a name="Acknowledgments" href="#Acknowledgments">Appendix B. Acknowledgments</a>
 
-## <a name="Participants" href="#Participants">C.1 Participants</a>
+## <a name="Participants" href="#Participants">B.1 Participants</a>
 
 **OData TC Members:**
 
@@ -4101,7 +4113,7 @@ do we have considerations specific to URLs, for example length, encoding, privac
 
 -------
 
-# <a name="RevisionHistory" href="#RevisionHistory">Appendix D. Revision History</a>
+# <a name="RevisionHistory" href="#RevisionHistory">Appendix C. Revision History</a>
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
@@ -4109,7 +4121,7 @@ do we have considerations specific to URLs, for example length, encoding, privac
 
 -------
 
-# <a name="Notices" href="#Notices">Appendix E. Notices</a>
+# <a name="Notices" href="#Notices">Appendix D. Notices</a>
 
 <!-- Required section. Do not modify. -->
 
