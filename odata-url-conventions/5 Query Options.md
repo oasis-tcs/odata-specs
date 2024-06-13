@@ -100,6 +100,9 @@ The `eq`, `ne`, and `in` operators can be used with collection-valued
 operands, and the `eq` and `ne` operators can be used with operands of a
 structured type.
 
+The Boolean operators `and`, `or` and `not` MUST have Boolean operands,
+otherwise the expression is invalid.
+
 ##### ##subsubsubsubsec Equals
 
 The `eq` operator returns true if the left operand is equal to the right
@@ -1344,10 +1347,12 @@ The `cast` function follows these assignment rules:
     [section 3.3.7 dateTime](https://www.w3.org/TR/xmlschema11-2/#dateTime), can be cast to `Edm.DateTimeOffset`.
     If the string value does not contain a time-zone offset, it is treated as UTC.
 
-The `cast` function is optional for primitive values (first five rules)
-and up-casts (seventh rule).
-
 If the cast fails, the `cast` function returns `null`.
+
+When a parameter of an action or function [OData-CSDL, section 12.9](#ODataCSDL)
+is given a value that can be cast to the parameter type with one of the first five rules
+(for primitive values) or the seventh rule (for structured values), this cast
+is silently carried out.
 
 ##### ##subsubsubsubsec `isof`
 

@@ -1016,6 +1016,7 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <p>The six comparison operators can be used with all primitive values except <code>Edm.Binary</code>, <code>Edm.Stream</code>, and the <code>Edm.Geo</code> types. <code>Edm.Binary</code>, <code>Edm.Stream</code>, and the <code>Edm.Geo</code> types can only be compared to the <code>null</code> value using the <a href="#Equals"><code>eq</code></a> and <a href="#NotEquals"><code>ne</code></a> operators.</p>
 <p>When applied to operands of numeric types, <a href="#NumericPromotion">numeric promotion</a> rules are applied. Otherwise primitive operands of different types are always unequal.</p>
 <p>The <code>eq</code>, <code>ne</code>, and <code>in</code> operators can be used with collection-valued operands, and the <code>eq</code> and <code>ne</code> operators can be used with operands of a structured type.</p>
+<p>The Boolean operators <code>and</code>, <code>or</code> and <code>not</code> MUST have Boolean operands, otherwise the expression is invalid.</p>
 <details open><summary>
 <h5 id="51111-equals"><a name="Equals" href="#Equals">5.1.1.1.1 Equals</a></h5>
 </summary>
@@ -1681,8 +1682,8 @@ type cast(expression,type)</code></pre>
 <li>Integer types are cast to enumeration types based on the numeric value of the enumeration members of the target type. For non-flag enumeration types the cast fails if there is no enumeration member with the same numeric value as the integer value. For flag enumeration types the cast fails if the integer value is not in the value range of the underlying integer type of the enumeration type.</li>
 <li>String values containing a representation of a date-time value according to <a href="#XML-Schema2">XML-Schema-2</a>, <a href="https://www.w3.org/TR/xmlschema11-2/#dateTime">section 3.3.7 dateTime</a>, can be cast to <code>Edm.DateTimeOffset</code>. If the string value does not contain a time-zone offset, it is treated as UTC.</li>
 </ol>
-<p>The <code>cast</code> function is optional for primitive values (first five rules) and up-casts (seventh rule).</p>
 <p>If the cast fails, the <code>cast</code> function returns <code>null</code>.</p>
+<p>When a parameter of an action or function <a href="#ODataCSDL">OData-CSDL, section 12.9</a> is given a value that can be cast to the parameter type with one of the first five rules (for primitive values) or the seventh rule (for structured values), this cast is silently carried out.</p>
 </details>
 <details open><summary>
 <h5 id="511102-isof"><a name="isof" href="#isof">5.1.1.10.2 <code>isof</code></a></h5>
