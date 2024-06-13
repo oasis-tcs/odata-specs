@@ -5880,22 +5880,30 @@ identifier prefixed with a `$` character as the unquoted value of the
 ### <a name="ReferencingValuesfromResponseBodies" href="#ReferencingValuesfromResponseBodies">11.7.6 Referencing Values from Response Bodies</a>
 
 Services MAY support using values from a response body in the query part of
-the URL or in the request body of subsequent requests. Value references
-consist of a `$` character, followed by the identifier of the preceding
-request. They evaluate to the referenced value, that is the value
-represented by the response body of that preceding request.
-If that value is a collection, the value reference MAY be followed by a
+the URL or in the request body of subsequent requests. A value reference can
+consist of a `$` character followed by the identifier of the preceding
+request, then the referenced value is the value
+represented by the response body of that preceding request. Alternatively, a value
+reference can consist of a `$` character followed by the value of an instance annotation with term
+[`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID)
+(see [OData-VocCore](#ODataVocCore)) that occurs in the payload of the preceding request
+as described in [section 11.4.2.2](#CreateRelatedEntitiesWhenCreatinganEntity) and
+[section 11.4.3.1](#UpdateRelatedEntitiesWhenUpdatinganEntity),
+then the referenced value is the corresponding value in the response,
+which the service SHOULD annotate with the same `Core.ContentID` value.
+
+In both cases, if the referenced value is a collection, the value reference MAY be followed by a
 `collectionNavigationExpr`, as defined in [OData-ABNF](#ODataABNF),
 that is evaluated relative to the referenced value.
 Otherwise the value reference MAY be followed by a forward slash and a
 `memberExpr` that is evaluated relative to the referenced value.
 
-If the `$`-prefixed request identifier is identical to the name of a
+If the `$`-prefixed identifier is identical to the name of a
 predefined literal for query expressions (`$it`, `$root`, or other
 literals defined according to the [`OData-Version`](#HeaderODataVersion)
 of the protocol specified in the request), then the predefined literal
 is used. This collision can be avoided by e.g. using only numeric
-request identifiers.
+identifiers.
 
 ### <a name="MultipartBatchFormat" href="#MultipartBatchFormat">11.7.7 Multipart Batch Format</a>
 
