@@ -238,7 +238,7 @@ Alternatively, values of non-binding parameters MAY be specified as common expre
 [OData-URL, section 5.1.1](#ODataURL). In the case of a bound action
 these MAY contain path expressions [OData-URL, section 5.1.1.15](#ODataURL), which
 the service evaluates on the binding parameter value. Such parameters are encoded as name/value
-pairs where the name is the name of the parameter followed by `@expressionUrl` and
+pairs where the name is the name of the parameter followed by `@expression` and
 the value is the common expression. As the following example demonstrates,
 non-transient entities can be passed as non-binding action parameters through a
 resource path in this way.
@@ -251,9 +251,9 @@ Host: host
 Content-Type: application/json
 
 {
-  "StartDate@expressionUrl": "now()",
-  "EndDate@expressionUrl": "now() add duration'P14D'",
-  "Approver@expressionUrl": "Manager"
+  "StartDate@expression": "now()",
+  "EndDate@expression": "now() add duration'P14D'",
+  "Approver@expression": "Manager"
 }
 ```
 The expression `Manager` is evaluated on the binding parameter value `Employees(23)`.
@@ -266,10 +266,10 @@ Host: host
 Content-Type: application/json
 
 {
-  "Requester@expressionUrl": "$root/services/Employee(23)",
-  "StartDate@expressionUrl": "now()",
-  "EndDate@expressionUrl": "now() add duration'P14D'",
-  "Approver@expressionUrl": "$root/services/Employee(23)/Manager"
+  "Requester@expression": "$root/services/Employee(23)",
+  "StartDate@expression": "now()",
+  "EndDate@expression": "now() add duration'P14D'",
+  "Approver@expression": "$root/services/Employee(23)/Manager"
 }
 ```
 :::
