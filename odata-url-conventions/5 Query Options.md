@@ -1683,7 +1683,7 @@ Non-transient entities can alternatively be represented through their [resource 
 ::: example
 Example ##ex: determine the price of an adhoc-defined product
 ```
-http://host/service/Price(Product=@p)?@p={"@context":"#Products","Color":"red"}
+http://host/service/Price(Product=@p)?@p={"Color":"red"}
 ```
 :::
 

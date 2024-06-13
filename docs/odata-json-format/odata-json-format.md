@@ -3050,7 +3050,39 @@ Stream typed parameter values are represented following the same rules as inline
 Entities as parameter values are represented as explained in [section 6](#Entity).
 
 ::: example
-Example 51: create a quote for a product that does not yet exist
+Example 51: Create a quote for a product that does not yet exist. The `Product`
+parameter takes a transient entity.
+```json
+POST http://host/service/CreateQuote
+Content-Type: application/json
+
+{
+  "Product": {
+    "Name": "Our best ever",
+    "Price": 1
+  },
+  "CustomerID": "ALFKI"
+}
+```
+:::
+
+::: example
+Example 52: Create a quote for an existing product. The `Product`
+parameter takes a non-transient entity which can be identified through its
+entity-id:
+```json
+POST http://host/service/CreateQuote
+Content-Type: application/json
+
+{
+  "Product": {
+    "@id": "Products(14)"
+  },
+  "CustomerID": "ALFKI"
+}
+```
+or, as in [section 15.2](#AddedChangedEntity), through its primary key fields plus,
+if necessary, its context:
 ```json
 POST http://host/service/CreateQuote
 Content-Type: application/json
@@ -3058,8 +3090,7 @@ Content-Type: application/json
 {
   "Product": {
     "@context": "#Products",
-    "Name": "Our best ever",
-    "Price": 1
+    "ProductID": 14
   },
   "CustomerID": "ALFKI"
 }
@@ -3079,7 +3110,7 @@ parameter is equivalent to being annotated as optional with a default
 value of `null`.
 
 ::: example
-Example 52:
+Example 53:
 ```json
 {
   "param1": 42,
@@ -3225,7 +3256,7 @@ The request object and the `headers` object MUST NOT contain name/value pairs wi
 This is in conformance with [RFC7493](#rfc7493).
 
 ::: example
-Example <a name="batchRequest" href="#batchRequest">53</a>: a batch request that contains
+Example <a name="batchRequest" href="#batchRequest">54</a>: a batch request that contains
 the following individual requests in the order listed
 
   1. A query request
@@ -3288,7 +3319,7 @@ contains a relative URL, clients MUST be able to resolve it relative to the
 request's URL even if that contains such a reference.
 
 ::: example
-Example 54: a batch request that contains the following operations in
+Example 55: a batch request that contains the following operations in
 the order listed:
 
 - Insert a new entity (with `id = 1`)
@@ -3323,7 +3354,7 @@ Content-Length: ###
 ## <a name="ReferencinganETag" href="#ReferencinganETag">19.3 Referencing an ETag</a>
 
 ::: example
-Example 55: a batch request that contains the following operations in
+Example 56: a batch request that contains the following operations in
 the order listed:
 
 - Get an Employee (with `id` = 1)
@@ -3366,7 +3397,7 @@ Content-Length: ###
 ## <a name="ReferencingResponseBodyValues" href="#ReferencingResponseBodyValues">19.4 Referencing Response Body Values</a>
 
 ::: example
-Example 56: a batch request that contains the following operations in
+Example 57: a batch request that contains the following operations in
 the order listed:
 
 - Get an employee (with `Content-ID = 1`)
@@ -3497,7 +3528,7 @@ request. Especially: URLs in responses MUST NOT contain
 `$`-prefixed request identifiers.
 
 ::: example
-Example 57: referencing the batch request [example 53](#batchRequest) above, assume all
+Example 58: referencing the batch request [example 54](#batchRequest) above, assume all
 the requests except the final query request succeed. In this case the
 response would be
 ```json
@@ -3555,7 +3586,7 @@ to the next link MAY result in a `202 Accepted` response with a
 `location` header pointing to a new status monitor resource.
 
 ::: example
-Example 58: referencing the [example 53](#batchRequest) above again, assume that the
+Example 59: referencing the [example 54](#batchRequest) above again, assume that the
 request is sent with the `respond-async` preference. This
 results in a `202` response pointing to a status monitor resource:
 ```json
@@ -3645,7 +3676,7 @@ asynchronously executed individual request with a `status` of
 individual status monitor resource, and optionally a `retry-after` header.
 
 ::: example
-Example 59: the first individual request is processed asynchronously,
+Example 60: the first individual request is processed asynchronously,
 the second synchronously, the batch itself is processed synchronously
 ```json
 HTTP/1.1 200 OK
@@ -3708,7 +3739,7 @@ the annotations for the value appear next to the `value`
 property and are not prefixed with a property name.
 
 ::: example
-Example 60:
+Example 61:
 ```json
 {
   "@context": "http://host/service/$metadata#Customers",
@@ -3818,7 +3849,7 @@ Error responses MAY contain [annotations](#InstanceAnnotations) in
 any of its JSON objects.
 
 ::: example
-Example 61:
+Example 62:
 ```json
 {
   "error": {
@@ -3867,7 +3898,7 @@ header-appropriate way:
   [RFC8259](#rfc8259), section 7)
 
 ::: example
-Example 62: note that this is one HTTP header line without any line
+Example 63: note that this is one HTTP header line without any line
 breaks or optional whitespace
 ```json
 OData-error: {"code":"err123","message":"Unsupported
