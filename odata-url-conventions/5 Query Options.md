@@ -93,10 +93,8 @@ to the `null` value using the [`eq`](#Equals) and [`ne`](#NotEquals)
 operators.
 
 When applied to operands of numeric types, [numeric
-promotion](#NumericPromotion) rules are applied. Otherwise, if the operands are
-primitive values of different types, the first five rules for the [`cast`](#cast)
-function are applied in the given order until the operands can be casted to a common
-type (see [example ##implicitcast]).
+promotion](#NumericPromotion) rules are applied. Otherwise primitive
+operands of different types are always unequal.
 
 The `eq`, `ne`, and `in` operators can be used with collection-valued
 operands, and the `eq` and `ne` operators can be used with operands of a
@@ -127,19 +125,6 @@ Each of the special values `null`, `-INF`, and `INF` is equal to itself,
 and only to itself.
 
 The special value `NaN` is not equal to anything, even to itself.
-
-::: example
-Example ##ex_implicitcast: Comparing values of different types
-```
-'4.0' eq 4
-```
-evalutes to false, because rule 2 for the [`cast`](#cast) function is used to cast
-both operands to strings, and
-```
-'4.0' eq '4'
-```
-is false.
-:::
 
 ##### ##subsubsubsubsec Not Equals
 
@@ -258,10 +243,6 @@ of zero or more primitive values, enclosed in parentheses, or a single expressio
 that resolves to a collection. If the right operand is an empty collection
 or list of values, the expression returns false.
 
-If the left operand and a member of the right operand are primitive values of
-different types, they are implicitly casted to a common type like for the [`eq`](#Equals)
-operator.
-
 ##### ##subsubsubsubsec Logical Operator Examples
 
 The following examples illustrate the use and semantics of each of the
@@ -349,8 +330,7 @@ http://host/service/Products?$filter=Name in ('Milk', 'Cheese')
 #### ##subsubsubsec Arithmetic Operators
 
 OData defines a set of arithmetic operators that require operands that
-evaluate to numeric types or can be casted to numeric types by rule 3 for the
-[`cast`](#cast) function. Arithmetic operators are typically used to
+evaluate to numeric types. Arithmetic operators are typically used to
 filter a collection of resources. However, services MAY allow using
 arithmetic operators with the [`$orderby`](#SystemQueryOptionorderby)
 system query option.
@@ -554,11 +534,6 @@ canonical function names. Clients that want to work with 4.0 services
 MUST use lower case canonical function names.
 
 #### ##subsubsubsec String and Collection Functions
-
-In the following subsections up to and including [section ##ConditionalFunctions]
-a `methodCallExpr` matches a signature if the `commonExpr`s in its parameter list have
-the type specified by the signature or can be implicitly casted to that type by the
-first five rules for the [`cast`](#cast) function.
 
 ##### ##subsubsubsubsec `concat`
 
