@@ -575,7 +575,34 @@ Note: there is no literal representation for `Edm.Stream` values in URLs,
 so it is not possible to pass `Edm.Stream` values to parameters of function imports or
 to non-binding parameters of bound functions used in the resource path.
 Function expressions within query options can use [path expressions](#PathExpressions)
-of type `Edm.Stream` as values of non-binding function parameters.
+of type `Edm.Stream` as values of non-binding function parameters. The aliases can contain [common
+expressions](#CommonExpressionSyntax). In the case of a bound function
+these MAY contain [path expressions](#PathExpressions), which
+the service evaluates on the binding parameter value.
+
+::: example
+Example ##ex: An employee's leave requests pending their manager's approval
+for the next two weeks:
+```
+http://host/service/Employees(23)/self.PendingLeaveRequests(StartDate=@start,
+  EndDate=@end,Approver=@approver)
+  ?@start=now()
+  &@end=now() add duration'P14D'
+  &@approver=Manager
+```
+The expression `Manager` is evaluated on the binding parameter value `Employees(23)`.
+
+When invoking an unbound function through a function import, expressions involving
+paths must start with `$root`:
+```
+http://host/service/PendingLeaveRequests(Requester=@requester,
+  StartDate=@start,EndDate=@end,Approver=@approver)
+  ?@requester=$root/services/Employee(23)
+  &@start=now()
+  &@end=now() add duration'P14D'
+  &@approver=$root/services/Employee(23)/Manager
+```
+:::
 
 ## ##subsec Addressing a Property
 
