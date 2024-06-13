@@ -224,8 +224,6 @@ the expression involving the `le` operator is invalid.
 
 ##### ##subsubsubsubsec And
 
-If an operand of the `and` operator is not Boolean, the expression is invalid.
-
 The `and` operator returns true if both the left and right operands
 evaluate to true, otherwise it returns false.
 
@@ -235,8 +233,6 @@ All other combinations with `null` return `null`.
 
 ##### ##subsubsubsubsec Or
 
-If an operand of the `and` operator is not Boolean, the expression is invalid.
-
 The `or` operator returns false if both the left and right operands both
 evaluate to false, otherwise it returns true.
 
@@ -245,8 +241,6 @@ The `null` value is treated as unknown, so if one operand evaluates to
 All other combinations with `null` return `null`.
 
 ##### ##subsubsubsubsec Not
-
-If the operand of the `not` operator is not Boolean, the expression is invalid.
 
 The `not` operator returns true if the operand returns false, otherwise
 it returns false.
