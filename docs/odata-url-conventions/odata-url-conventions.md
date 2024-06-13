@@ -1465,9 +1465,14 @@ This POST request would result from submitting the HTML form
 :::
 
 For `Content-Type: application/x-www-form-urlencoded`, the request body MUST be
-the value of _output_ after running the
+suitable _input_ for the [`application/x-www-form-urlencoded` parser](https://url.spec.whatwg.org/#urlencoded-parsing)
+in the [URL Living Standard](#_url), section 5.1 such that the _output_ of the parsing
+steps is the list of name/value pairs for the individual query options.
+
+To guarantee this, clients are advised to make the request body the value of
+_output_ after running the
 [`application/x-www-form-urlencoded` serializer](https://url.spec.whatwg.org/#concept-urlencoded-serializer)
-in the [URL Living Standard](#_url), section 5.2, with _tuples_ being the list
+in the [URL Living Standard](#_url), section 5.2 with _tuples_ being the list
 of name/value pairs for the individual query options.
 
 ::: example
@@ -1476,7 +1481,7 @@ Example 50: passing multiple system query options in the request body
 POST http://host/service/People/$query
 Content-Type: application/x-www-form-urlencoded
 
-%24filter=LastName+eq+%27P%26G%27&%24select=FirstName,LastName
+%24filter=LastName+eq+%27P%26G%27&%24select=FirstName%2CLastName
 ```
 This POST request would result from submitting the HTML form
 ```html
@@ -1486,7 +1491,8 @@ This POST request would result from submitting the HTML form
   <input name="$select" value="FirstName,LastName">
 </form>
 ```
-and the server must treat it like
+and encodes more characters than absolutely necessary.
+The server must treat it like
 ```
 GET http://host/service/People?
   $filter=LastName%20eq%20'P%26G'&$select=FirstName,LastName
