@@ -974,12 +974,6 @@ MAY have a string value following the pattern
 for example if services need to represent circular dependencies
 between transient entities using [entity references](#EntityReference).
 
-Transient entities cannot be
-updated or compared to other entities.
-If [`metadata=minimal`](#metadataminimalodatametadataminimal)
-is specified and the `id` is not present in the entity, then
-the canonical URL MUST be used as the entity-id.
-
 The `id` control information MUST NOT appear for a
 collection. Its meaning in this context is reserved for future versions
 of this specification.
