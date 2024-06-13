@@ -28,7 +28,7 @@ Fragment portion of Context URL is not percent-encoded|
 `mediaContentType` can be `null`| 
 [536](https://github.com/oasis-tcs/odata-specs/issues/536)
 [Section ##ActionInvocation]| 
-Allow common expressions in action payload| 
+Allow common expressions in action payloads| 
 [1943](https://github.com/oasis-tcs/odata-specs/issues/1943)
 
 ## ##subsec Glossary
