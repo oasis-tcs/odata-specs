@@ -1035,8 +1035,8 @@ these MAY contain [path expressions](#PathExpressions), which
 the service evaluates on the binding parameter value.
 
 ::: example
-Example 30: An employee's leave requests pending their manager's approval
-for the next two weeks:
+Example 30: An employee's leave requests for the next two weeks
+pending their manager's approval:
 ```
 http://host/service/Employees(23)/self.PendingLeaveRequests(StartDate=@start,
   EndDate=@end,Approver=@approver)

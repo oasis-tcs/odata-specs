@@ -789,7 +789,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </ul>
 <p>Note: there is no literal representation for <code>Edm.Stream</code> values in URLs, so it is not possible to pass <code>Edm.Stream</code> values to parameters of function imports or to non-binding parameters of bound functions used in the resource path. Function expressions within query options can use <a href="#PathExpressions">path expressions</a> of type <code>Edm.Stream</code> as values of non-binding function parameters. The aliases can contain <a href="#CommonExpressionSyntax">common expressions</a>. In the case of a bound function these MAY contain <a href="#PathExpressions">path expressions</a>, which the service evaluates on the binding parameter value.</p>
 <div class="example">
-<p>Example 30: An employee’s leave requests pending their manager’s approval for the next two weeks:</p>
+<p>Example 30: An employee’s leave requests for the next two weeks pending their manager’s approval:</p>
 <pre><code>http://host/service/Employees(23)/self.PendingLeaveRequests(StartDate=@start,
   EndDate=@end,Approver=@approver)
   ?@start=now()
