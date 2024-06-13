@@ -419,8 +419,8 @@ URL](#RelativeURLs).
 
 If the entity is transient (i.e. cannot be read or updated), the
 `id` control information MUST appear in OData 4.0 payloads
-and have the `null` value. In 4.01 payloads transient
-entities need not have the `id` control information, and 4.01
+and have the `null` value. In 4.01 or greater payloads transient
+entities need not have the `id` control information, and
 clients MUST treat entities with neither `id` control
 information nor a full set of key properties as transient entities.
 
