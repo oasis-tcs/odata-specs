@@ -421,7 +421,7 @@ If the entity is transient (see [OData-Protocol](#ODataProtocol)), the
 `id` control information MUST appear in OData 4.0 payloads
 and have the `null` value. In 4.01 or greater payloads transient
 entities need not have the `id` control information, and
-clients MUST treat entities with neither `id` control
+clients receiving such payloads MUST treat entities with neither `id` control
 information nor a full set of key properties as transient entities.
 In 4.02 payloads the `id` control information for transient entities
 MAY have a string value following the pattern
