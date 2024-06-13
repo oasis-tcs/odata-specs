@@ -968,12 +968,13 @@ and have the `null` value. In 4.01 payloads transient
 entities need not have the `id` control information, and 4.01
 clients MUST treat entities with neither `id` control
 information nor a full set of key properties as transient entities.
-Services MAY use a string value following the pattern
-`odata:transient:{some-generated-identifier-unique-within-the-response}`
-instead of `null`, for example if they need to solve circular dependencies
-between transient entities by injecting an entity reference.
+In 4.02 payloads the `id` control information for transient entities
+MAY have a string value following the pattern
+`odata:transient:{some-generated-identifier-unique-within-the-response}`,
+for example if services need to represent circular dependencies
+between transient entities using [entity references](#EntityReference).
 
-Entities with `id` equal to `null` cannot be
+Transient entities cannot be
 updated or compared to other entities.
 If [`metadata=minimal`](#metadataminimalodatametadataminimal)
 is specified and the `id` is not present in the entity, then
