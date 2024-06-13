@@ -207,8 +207,8 @@ situation even in OData 4.01 responses.
 ## ##subsec Default Value
 
 A primitive- or enumeration-typed property MAY define a default value that is
-used if the property is not explicitly represented in an annotation or
-the body of a request or response.
+used if the property is not explicitly represented in an annotation,
+the body of a request or response, or a complex literal in a request URL.
 
 If no value is specified, the client SHOULD NOT assume a default value.
 
