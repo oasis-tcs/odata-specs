@@ -1016,95 +1016,90 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <p>The six comparison operators can be used with all primitive values except <code>Edm.Binary</code>, <code>Edm.Stream</code>, and the <code>Edm.Geo</code> types. <code>Edm.Binary</code>, <code>Edm.Stream</code>, and the <code>Edm.Geo</code> types can only be compared to the <code>null</code> value using the <a href="#Equals"><code>eq</code></a> and <a href="#NotEquals"><code>ne</code></a> operators.</p>
 <p>When applied to operands of numeric types, <a href="#NumericPromotion">numeric promotion</a> rules are applied.</p>
 <p>The <code>eq</code>, <code>ne</code>, and <code>in</code> operators can be used with collection-valued operands, and the <code>eq</code> and <code>ne</code> operators can be used with operands of a structured type.</p>
-<p>The Boolean operators <code>and</code>, <code>or</code> and <code>not</code> MUST have Boolean operands, otherwise the expression is invalid.</p>
+<p>If at least one operand of an <code>eq</code>, <code>ne</code>, <code>lt</code>, <code>le</code>, <code>gt</code>, or <code>ge</code> operator is non-numeric and the operands have different types, the operator returns <code>null</code>.</p>
+<p>The rules for the Boolean operators <code>and</code>, <code>or</code>, and <code>not</code> assume Boolean operands. If an operand of a Boolean operator is not Boolean, the operator returns <code>null</code>.</p>
 <details open><summary>
 <h5 id="51111-equals"><a name="Equals" href="#Equals">5.1.1.1.1 Equals</a></h5>
 </summary>
-<p>The <code>eq</code> operator returns true if the left operand is equal to the right operand, otherwise it returns false.</p>
-<p>When applied to operands of entity types, the <code>eq</code> operator returns true if both operands represent the same entity, or both operands represent null.</p>
+<p>The <code>eq</code> operator returns <code>true</code> if the left operand is equal to the right operand, otherwise it returns <code>false</code>.</p>
+<p>When applied to operands of entity types, the <code>eq</code> operator returns <code>true</code> if both operands represent the same entity, or both operands represent null.</p>
 <p>When applied to operands of complex types, the <code>eq</code> operator returns true if both operands have the same structure and same values, or both operands represent null.</p>
-<p>When applied to ordered collections, the <code>eq</code> operator returns true if both operands have the same cardinality and each member of the left operand is equal to the corresponding member of the right operand.</p>
-<p>For services that support comparing unordered collections, the <code>eq</code> operator returns true if both operands are equal after applying the same ordering on both collections.</p>
+<p>When applied to ordered collections, the <code>eq</code> operator returns <code>true</code> if both operands have the same cardinality and each member of the left operand is equal to the corresponding member of the right operand.</p>
+<p>For services that support comparing unordered collections, the <code>eq</code> operator returns <code>true</code> if both operands are equal after applying the same ordering on both collections.</p>
 <p>Each of the special values <code>null</code>, <code>-INF</code>, and <code>INF</code> is equal to itself, and only to itself.</p>
 <p>The special value <code>NaN</code> is not equal to anything, even to itself.</p>
-<p>If at least one operand is non-numeric and the operands have different types, the <code>eq</code> operator returns false.</p>
 </details>
 <details open><summary>
 <h5 id="51112-not-equals"><a name="NotEquals" href="#NotEquals">5.1.1.1.2 Not Equals</a></h5>
 </summary>
-<p>The <code>ne</code> operator returns true if the left operand is not equal to the right operand, otherwise it returns false.</p>
-<p>When applied to operands of entity types, the <code>ne</code> operator returns true if the two operands do not represent the same entity.</p>
+<p>The <code>ne</code> operator returns <code>true</code> if the left operand is not equal to the right operand, otherwise it returns <code>false</code>.</p>
+<p>When applied to operands of entity types, the <code>ne</code> operator returns <code>true</code> if the two operands do not represent the same entity.</p>
 <p>When applied to operands of complex types, the <code>ne</code> operator returns true if the operands do not have the same structure and same values.</p>
-<p>When applied to ordered collections, the <code>ne</code> operator returns true if both operands do not have the same cardinality or any member of the left operand is not equal to the corresponding member of the right operand.</p>
-<p>For services that support comparing unordered collections, the <code>ne</code> operator returns true if both operands do not have the same cardinality or do not contain the same members, in any order.</p>
+<p>When applied to ordered collections, the <code>ne</code> operator returns <code>true</code> if both operands do not have the same cardinality or any member of the left operand is not equal to the corresponding member of the right operand.</p>
+<p>For services that support comparing unordered collections, the <code>ne</code> operator returns <code>true</code> if both operands do not have the same cardinality or do not contain the same members, in any order.</p>
 <p>Each of the special values <code>null</code>, <code>-INF</code>, and <code>INF</code> is not equal to any value but itself.</p>
 <p>The special value <code>NaN</code> is not equal to anything, even to itself.</p>
 <p>The <code>null</code> value is not equal to any value but itself.</p>
-<p>If at least one operand is non-numeric and the operands have different types, the <code>ne</code> operator returns true.</p>
 </details>
 <details open><summary>
 <h5 id="51113-greater-than"><a name="GreaterThan" href="#GreaterThan">5.1.1.1.3 Greater Than</a></h5>
 </summary>
-<p>The <code>gt</code> operator returns true if the left operand is greater than the right operand, otherwise it returns false.</p>
+<p>The <code>gt</code> operator returns <code>true</code> if the left operand is greater than the right operand, otherwise it returns <code>false</code>.</p>
 <p>The special value <code>INF</code> is greater than any number, and any number is greater than <code>-INF</code>.</p>
 <p>The Boolean value <code>true</code> is greater than <code>false</code>.</p>
 <p>Services SHOULD order language-dependent strings according to the <code>Content-Language</code> of the response, and SHOULD annotate string properties with language-dependent order with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent"><code>Core.IsLanguageDependent</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>.</p>
-<p>If any operand is <code>null</code>, the operator returns false.</p>
+<p>If any operand is <code>null</code>, the operator returns <code>false</code>.</p>
 <p>If at least one operand is non-numeric and the operands have different types, the expression involving the <code>gt</code> operator is invalid.</p>
 </details>
 <details open><summary>
 <h5 id="51114-greater-than-or-equal"><a name="GreaterThanorEqual" href="#GreaterThanorEqual">5.1.1.1.4 Greater Than or Equal</a></h5>
 </summary>
-<p>The <code>ge</code> operator returns true if the left operand is greater than or equal to the right operand, otherwise it returns false.</p>
+<p>The <code>ge</code> operator returns <code>true</code> if the left operand is greater than or equal to the right operand, otherwise it returns <code>false</code>.</p>
 <p>See rules for <a href="#GreaterThan"><code>gt</code></a> and <a href="#Equals"><code>eq</code></a> for details.</p>
-<p>If at least one operand is non-numeric and the operands have different types, the expression involving the <code>ge</code> operator is invalid.</p>
 </details>
 <details open><summary>
 <h5 id="51115-less-than"><a name="LessThan" href="#LessThan">5.1.1.1.5 Less Than</a></h5>
 </summary>
-<p>The <code>lt</code> operator returns true if the left operand is less than the right operand, otherwise it returns false.</p>
+<p>The <code>lt</code> operator returns <code>true</code> if the left operand is less than the right operand, otherwise it returns <code>false</code>.</p>
 <p>The special value <code>-INF</code> is less than any number, and any number is less than <code>INF</code>.</p>
 <p>The Boolean value <code>false</code> is less than <code>true</code>.</p>
 <p>Services SHOULD order language-dependent strings according to the <code>Content-Language</code> of the response, and SHOULD annotate string properties with language-dependent order with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent"><code>Core.IsLanguageDependent</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>.</p>
-<p>If any operand is <code>null</code>, the operator returns false.</p>
-<p>If at least one operand is non-numeric and the operands have different types, the expression involving the <code>lt</code> operator is invalid.</p>
+<p>If any operand is <code>null</code>, the operator returns <code>false</code>.</p>
 </details>
 <details open><summary>
 <h5 id="51116-less-than-or-equal"><a name="LessThanorEqual" href="#LessThanorEqual">5.1.1.1.6 Less Than or Equal</a></h5>
 </summary>
-<p>The <code>le</code> operator returns true if the left operand is less than or equal to the right operand, otherwise it returns false.</p>
+<p>The <code>le</code> operator returns <code>true</code> if the left operand is less than or equal to the right operand, otherwise it returns <code>false</code>.</p>
 <p>See rules for <a href="#LessThan"><code>lt</code></a> and <a href="#Equals"><code>eq</code></a> for details.</p>
-<p>If at least one operand is non-numeric and the operands have different types, the expression involving the <code>le</code> operator is invalid.</p>
 </details>
 <details open><summary>
 <h5 id="51117-and"><a name="And" href="#And">5.1.1.1.7 And</a></h5>
 </summary>
-<p>The <code>and</code> operator returns true if both the left and right operands evaluate to true, otherwise it returns false.</p>
-<p>The <code>null</code> value is treated as unknown, so if one operand evaluates to <code>null</code> and the other operand to false, the <code>and</code> operator returns false. All other combinations with <code>null</code> return <code>null</code>.</p>
+<p>The <code>and</code> operator returns <code>true</code> if both the left and right operands evaluate to true, otherwise it returns <code>false</code>.</p>
+<p>The <code>null</code> value is treated as unknown, so if one operand evaluates to <code>null</code> and the other operand to false, the <code>and</code> operator returns <code>false</code>. All other combinations with <code>null</code> return <code>null</code>.</p>
 </details>
 <details open><summary>
 <h5 id="51118-or"><a name="Or" href="#Or">5.1.1.1.8 Or</a></h5>
 </summary>
-<p>The <code>or</code> operator returns false if both the left and right operands both evaluate to false, otherwise it returns true.</p>
-<p>The <code>null</code> value is treated as unknown, so if one operand evaluates to <code>null</code> and the other operand to true, the <code>or</code> operator returns true. All other combinations with <code>null</code> return <code>null</code>.</p>
+<p>The <code>or</code> operator returns <code>false</code> if both the left and right operands both evaluate to false, otherwise it returns <code>true</code>.</p>
+<p>The <code>null</code> value is treated as unknown, so if one operand evaluates to <code>null</code> and the other operand to true, the <code>or</code> operator returns <code>true</code>. All other combinations with <code>null</code> return <code>null</code>.</p>
 </details>
 <details open><summary>
 <h5 id="51119-not"><a name="Not" href="#Not">5.1.1.1.9 Not</a></h5>
 </summary>
-<p>The <code>not</code> operator returns true if the operand returns false, otherwise it returns false.</p>
+<p>The <code>not</code> operator returns <code>true</code> if the operand returns <code>false</code>, otherwise it returns <code>false</code>.</p>
 <p>The <code>null</code> value is treated as unknown, so <code>not null</code> returns <code>null</code>.</p>
 </details>
 <details open><summary>
 <h5 id="511110-has"><a name="Has" href="#Has">5.1.1.1.10 Has</a></h5>
 </summary>
-<p>The <code>has</code> operator returns true if the right operand is an enumeration value whose flag(s) are set on the left operand.</p>
-<p>The <code>null</code> value is treated as unknown, so if one operand evaluates to <code>null</code>, the <code>has</code> operator returns <code>null</code>.</p>
+<p>The <code>has</code> operator returns <code>true</code> if the right operand is an enumeration value whose flag(s) are set on the left operand.</p>
+<p>The <code>null</code> value is treated as unknown, so if one operand evaluates to null, the <code>has</code> operator returns <code>null</code>.</p>
 </details>
 <details open><summary>
 <h5 id="511111-in"><a name="In" href="#In">5.1.1.1.11 In</a></h5>
 </summary>
-<p>The <code>in</code> operator returns true if the left operand is a member of the right operand. The right operand MUST be either a comma-separated list of zero or more primitive values, enclosed in parentheses, or a single expression that resolves to a collection. If the right operand is an empty collection or list of values, the expression returns false.</p>
-<p>The left operand is not equal to a value in the right operand if one of them is non-numeric and they have different types.</p>
+<p>The <code>in</code> operator returns <code>true</code> if the left operand <a href="#Equals">equals</a> a member of the right operand. The right operand MUST be either a comma-separated list of zero or more primitive values, enclosed in parentheses, or a single expression that resolves to a collection. If the right operand is an empty collection or list of values, the <code>in</code> operator returns <code>false</code>.</p>
 </details>
 <details open><summary>
 <h5 id="511112-logical-operator-examples"><a name="LogicalOperatorExamples" href="#LogicalOperatorExamples">5.1.1.1.12 Logical Operator Examples</a></h5>
@@ -1160,7 +1155,7 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <h4 id="5112-arithmetic-operators"><a name="ArithmeticOperators" href="#ArithmeticOperators">5.1.1.2 Arithmetic Operators</a></h4>
 </summary>
 <p>OData defines a set of arithmetic operators that require operands that evaluate to numeric types. Arithmetic operators are typically used to filter a collection of resources. However, services MAY allow using arithmetic operators with the <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> system query option.</p>
-<p>If an operand of an arithmetic operator is null, the result is null.</p>
+<p>If an operand of an arithmetic operator is null or has a non-allowed type, the result is <code>null</code>.</p>
 <p>The syntax rules for the arithmetic operators are defined in <a href="#ODataABNF">OData-ABNF</a>. 4.01 Services MUST support case-insensitive operator names. Clients that want to work with 4.0 services MUST use lower case operator names.</p>
 <details open><summary>
 <h5 id="51121-addition"><a name="Addition" href="#Addition">5.1.1.2.1 Addition</a></h5>
@@ -1269,7 +1264,7 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 </summary>
 <p>In addition to operators, a set of functions is also defined for use with the <a href="#SystemQueryOptioncompute"><code>$compute</code></a>, <code>$filter</code> or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> system query options, or in <a href="#ParameterAliases">parameter alias</a> values. The following sections describe the available functions.</p>
 <p>Note: ISNULL or COALESCE operators are not defined. Instead, OData defines a <a href="#null"><code>null</code></a> literal that can be used in comparisons.</p>
-<p>If a parameter of a canonical function is <code>null</code>, the function returns <code>null</code>.</p>
+<p>If a parameter of a canonical function is null, the function returns <code>null</code>. If the parameter types do not match the function signature, the function also returns <code>null</code>.</p>
 <p>The syntax rules for all functions are defined in <a href="#ODataABNF">OData-ABNF</a>. 4.01 Services MUST support case-insensitive canonical function names. Clients that want to work with 4.0 services MUST use lower case canonical function names.</p>
 </details>
 <details open><summary>
@@ -1296,7 +1291,7 @@ OrderedCollection concat(OrderedCollection,OrderedCollection)</code></pre>
 <p>The <code>contains</code> function has two overloads, with the following signatures:</p>
 <pre><code>Edm.Boolean contains(Edm.String,Edm.String)
 Edm.Boolean contains(OrderedCollection,OrderedCollection)</code></pre>
-<p>The <code>contains</code> function with string parameter values returns true if the second string is a substring of the first string, otherwise it returns false. String comparison is case-sensitive, case-insensitive comparison can be achieved in combination with <a href="#tolower"><code>tolower</code></a> or <a href="#toupper"><code>toupper</code></a>.</p>
+<p>The <code>contains</code> function with string parameter values returns <code>true</code> if the second string is a substring of the first string, otherwise it returns false. String comparison is case-sensitive, case-insensitive comparison can be achieved in combination with <a href="#tolower"><code>tolower</code></a> or <a href="#toupper"><code>toupper</code></a>.</p>
 <p>The <code>contains</code> function with ordered collection parameter values returns true if the first collection can be transformed into the second collection by removing zero or more items from the beginning or the end of the first collection.</p>
 <p>The <code>containsMethodCallExpr</code> syntax rule defines how the <code>contains</code> function is invoked.</p>
 <div class="example">
@@ -1310,7 +1305,7 @@ Edm.Boolean contains(OrderedCollection,OrderedCollection)</code></pre>
 <p>The <code>endswith</code> function has two overloads, with the following signatures:</p>
 <pre><code>Edm.Boolean endswith(Edm.String,Edm.String)
 Edm.Boolean endswith(OrderedCollection,OrderedCollection)</code></pre>
-<p>The <code>endswith</code> function with string parameter values returns true if the first string ends with the second string, otherwise it returns false. String comparison is case-sensitive, case-insensitive comparison can be achieved in combination with <a href="#tolower"><code>tolower</code></a> or <a href="#toupper"><code>toupper</code></a>.</p>
+<p>The <code>endswith</code> function with string parameter values returns <code>true</code> if the first string ends with the second string, otherwise it returns <code>false</code>. String comparison is case-sensitive, case-insensitive comparison can be achieved in combination with <a href="#tolower"><code>tolower</code></a> or <a href="#toupper"><code>toupper</code></a>.</p>
 <p>The <code>endswith</code> function with ordered collection parameter values returns true if the first collection can be transformed into the second collection by removing zero or more items from the beginning of the first collection.</p>
 <p>The <code>endsWithMethodCallExpr</code> syntax rule defines how the <code>endswith</code> function is invoked.</p>
 <div class="example">
@@ -1352,8 +1347,8 @@ Edm.Int32 length(Collection)</code></pre>
 <p>The <code>startswith</code> function has two overloads, with the following signatures:</p>
 <pre><code>Edm.Boolean startswith(Edm.String,Edm.String)
 Edm.Boolean startswith(Collection,Collection)</code></pre>
-<p>The <code>startswith</code> function with string parameter values returns true if the first string starts with the second string, otherwise it returns false. String comparison is case-sensitive, case-insensitive comparison can be achieved in combination with <a href="#tolower"><code>tolower</code></a> or <a href="#toupper"><code>toupper</code></a>.</p>
-<p>The <code>startswith</code> function with ordered collection parameter values returns true if the first collection can be transformed into the second collection by removing zero or more items from the end of the first collection.</p>
+<p>The <code>startswith</code> function with string parameter values returns <code>true</code> if the first string starts with the second string, otherwise it returns false. String comparison is case-sensitive, case-insensitive comparison can be achieved in combination with <a href="#tolower"><code>tolower</code></a> or <a href="#toupper"><code>toupper</code></a>.</p>
+<p>The <code>startswith</code> function with ordered collection parameter values returns <code>true</code> if the first collection can be transformed into the second collection by removing zero or more items from the end of the first collection.</p>
 <p>The <code>startsWithMethodCallExpr</code> syntax rule defines how the <code>startswith</code> function is invoked.</p>
 <div class="example">
 <p>Example 74: all customers with a <code>CompanyName</code> that starts with <code>Alfr</code></p>
@@ -1394,7 +1389,7 @@ OrderedCollection substring(OrderedCollection,Edm.Int32,Edm.Int32)</code></pre>
 </summary>
 <p>The <code>hassubset</code> function has the following signature:</p>
 <pre><code>Edm.Boolean hassubset(Collection, Collection)</code></pre>
-<p>The <code>hassubset</code> function returns true if the first collection can be transformed into the second collection by reordering and/or removing zero or more items. The <code>hasSubsetMethodCallExpr</code> syntax rule defines how the <code>hassubset</code> function is invoked.</p>
+<p>The <code>hassubset</code> function returns <code>true</code> if the first collection can be transformed into the second collection by reordering and/or removing zero or more items. The <code>hasSubsetMethodCallExpr</code> syntax rule defines how the <code>hassubset</code> function is invoked.</p>
 <div class="example">
 <p>Example 77: <code>hassubset</code> expressions that return true</p>
 <pre><code>hassubset([4,1,3],[4,1,3])</code></pre>
@@ -1404,7 +1399,7 @@ OrderedCollection substring(OrderedCollection,Edm.Int32,Edm.Int32)</code></pre>
 <pre><code>hassubset([4,1,3,1],[1,1])</code></pre>
 </div>
 <div class="example">
-<p>Example 78: <code>hassubset</code> expression that returns false: 1 appears only once in the left operand</p>
+<p>Example 78: <code>hassubset</code> expression that returns <code>false</code>: 1 appears only once in the left operand</p>
 <pre><code>hassubset([1,2],[1,1,2])</code></pre>
 </div>
 </details>
@@ -1413,7 +1408,7 @@ OrderedCollection substring(OrderedCollection,Edm.Int32,Edm.Int32)</code></pre>
 </summary>
 <p>The <code>hassubsequence</code> function has the following signature:</p>
 <pre><code>Edm.Boolean hassubsequence(OrderedCollection,OrderedCollection)</code></pre>
-<p>The <code>hassubsequence</code> function returns true if the first collection can be transformed into the second collection by removing zero or more items. The <code>hasSubsequenceMethodCallExpr</code> syntax rule defines how the <code>hassubsequence</code> function is invoked.</p>
+<p>The <code>hassubsequence</code> function returns <code>true</code> if the first collection can be transformed into the second collection by removing zero or more items. The <code>hasSubsequenceMethodCallExpr</code> syntax rule defines how the <code>hassubsequence</code> function is invoked.</p>
 <div class="example">
 <p>Example 79: <code>hassubsequence</code> expressions that return true</p>
 <pre><code>hassubsequence([4,1,3],[4,1,3])</code></pre>
@@ -1438,7 +1433,7 @@ OrderedCollection substring(OrderedCollection,Edm.Int32,Edm.Int32)</code></pre>
 <p>The <code>matchespattern</code> function has the following signatures:</p>
 <pre><code>Edm.Boolean matchespattern(Edm.String,Edm.String)
 Edm.Boolean matchespattern(Edm.String,Edm.String,Edm.String)</code></pre>
-<p>The second parameter MUST evaluate to a string containing an <a href="#_ECMAScript">ECMAScript</a> (JavaScript) regular expression. The <code>matchespattern</code> function returns true if the first parameter evaluates to a string matching that regular expression, using syntax and semantics of ECMAScript regular expressions, otherwise it returns false. If the optional third parameter is provided, it MUST evaluate to a string consisting of ECMAScript regular expression flags to modify the match.</p>
+<p>The second parameter MUST evaluate to a string containing an <a href="#_ECMAScript">ECMAScript</a> (JavaScript) regular expression, otherwise the function returns <code>null</code>. The <code>matchespattern</code> function returns <code>true</code> if the first parameter evaluates to a string matching that regular expression, using syntax and semantics of ECMAScript regular expressions, otherwise it returns <code>false</code>. If the optional third parameter is provided, it MUST evaluate to a string consisting of ECMAScript regular expression flags to modify the match, otherwise the function returns <code>null</code>.</p>
 <div class="example">
 <p>Example 81: all customers with a <code>CompanyName</code> that match the (percent-encoded) regular expression <code>^A.*e$</code></p>
 <pre><code>http://host/service/Customers?$filter=matchespattern(CompanyName,&#39;%5EA.*e$&#39;)</code></pre>
@@ -1690,7 +1685,7 @@ type cast(expression,type)</code></pre>
 <li>String values containing a representation of a date-time value according to <a href="#XML-Schema2">XML-Schema-2</a>, <a href="https://www.w3.org/TR/xmlschema11-2/#dateTime">section 3.3.7 dateTime</a>, can be cast to <code>Edm.DateTimeOffset</code>. If the string value does not contain a time-zone offset, it is treated as UTC.</li>
 </ol>
 <p>If the cast fails, the <code>cast</code> function returns <code>null</code>.</p>
-<p>When a parameter of an action or function <a href="#ODataCSDL">OData-CSDL, section 12.9</a> is given a value that can be cast to the parameter type with one of the first five rules (for primitive values) or the seventh rule (for structured values), this cast is silently carried out.</p>
+<p>When a parameter of a canonical function or a service-defined action or function <a href="#ODataCSDL">OData-CSDL, section 12.9</a> is given a value that can be cast to the parameter type with one of the first five rules (for primitive values) or the seventh rule (for structured values), this cast is silently carried out.</p>
 </details>
 <details open><summary>
 <h5 id="511102-isof"><a name="isof" href="#isof">5.1.1.10.2 <code>isof</code></a></h5>
@@ -1698,8 +1693,8 @@ type cast(expression,type)</code></pre>
 <p>The <code>isof</code> function has the following signatures</p>
 <pre><code>Edm.Boolean isof(type)
 Edm.Boolean isof(expression,type)</code></pre>
-<p>The single parameter <code>isof</code> function returns true if the current instance is assignable to the type specified, according to the assignment rules for the <a href="#cast"><code>cast</code></a> function, otherwise it returns <code>false</code>.</p>
-<p>The two parameter <code>isof</code> function returns true if the object referred to by the expression is assignable to the type specified, according to the same rules, otherwise it returns false.</p>
+<p>The single parameter <code>isof</code> function returns <code>true</code> if the current instance is assignable to the type specified, according to the assignment rules for the <a href="#cast"><code>cast</code></a> function, otherwise it returns <code>false</code>.</p>
+<p>The two parameter <code>isof</code> function returns <code>true</code> if the object referred to by the expression is assignable to the type specified, according to the same rules, otherwise it returns <code>false</code>.</p>
 <p>The <code>isofExpr</code> syntax rule defines how the <code>isof</code> function is invoked.</p>
 <div class="example">
 <p>Example 96: orders that are also <code>BigOrders</code></p>
@@ -1729,7 +1724,7 @@ Edm.Double geo.distance(Edm.GeometryPoint,Edm.GeometryPoint)</code></pre>
 <p>The <code>geo.intersects</code> function has the following signatures:</p>
 <pre><code>Edm.Boolean geo.intersects(Edm.GeographyPoint,Edm.GeographyPolygon)
 Edm.Boolean geo.intersects(Edm.GeometryPoint,Edm.GeometryPolygon)</code></pre>
-<p>The <code>geo.intersects</code> function returns true if the specified point lies within the interior or on the boundary of the specified polygon, otherwise it returns false.</p>
+<p>The <code>geo.intersects</code> function returns <code>true</code> if the specified point lies within the interior or on the boundary of the specified polygon, otherwise it returns <code>false</code>.</p>
 </details>
 <details open><summary>
 <h5 id="511113-geolength"><a name="geolength" href="#geolength">5.1.1.11.3 <code>geo.length</code></a></h5>
@@ -1770,8 +1765,8 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <details open><summary>
 <h5 id="511131-any"><a name="any" href="#any">5.1.1.13.1 <code>any</code></a></h5>
 </summary>
-<p>The <code>any</code> operator applies a Boolean expression to each member of a collection and returns true if and only if the expression is true for any member of the collection, otherwise it returns false. This implies that the <code>any</code> operator always returns false for an empty collection.</p>
-<p>The <code>any</code> operator can be used without an argument expression. This short form returns false if and only if the collection is empty.</p>
+<p>The <code>any</code> operator applies a Boolean expression to each member of a collection and returns <code>true</code> if and only if the expression is true for any member of the collection, otherwise it returns <code>false</code>. This implies that the <code>any</code> operator always returns <code>false</code> for an empty collection.</p>
+<p>The <code>any</code> operator can be used without an argument expression. This short form returns <code>false</code> if and only if the collection is empty.</p>
 <div class="example">
 <p>Example 99: all <code>Orders</code> that have any <code>Items</code> with a <code>Quantity</code> greater than <code>100</code></p>
 <pre><code>http://host/service/Orders?$filter=Items/any(d:d/Quantity gt 100)</code></pre>
@@ -1788,7 +1783,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <details open><summary>
 <h5 id="511132-all"><a name="all" href="#all">5.1.1.13.2 <code>all</code></a></h5>
 </summary>
-<p>The <code>all</code> operator applies a Boolean expression to each member of a collection and returns true if the expression is true for all members of the collection, otherwise it returns false. This implies that the <code>all</code> operator always returns true for an empty collection.</p>
+<p>The <code>all</code> operator applies a Boolean expression to each member of a collection and returns <code>true</code> if the expression is true for all members of the collection, otherwise it returns <code>false</code>. This implies that the <code>all</code> operator always returns <code>true</code> for an empty collection.</p>
 <p>The <code>all</code> operator cannot be used without an argument expression.</p>
 <div class="example">
 <p>Example 102: all <code>Orders</code> that have only <code>Items</code> with a <code>Quantity</code> greater than <code>100</code></p>
@@ -2279,7 +2274,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>Search expressions are used within the <a href="#SystemQueryOptionsearch"><code>$search</code></a> system query option to request entities matching the specified expression. Leading and trailing spaces are not considered part of the search expression.</p>
 <p><em>Terms</em> can be any single word to be matched within the expression.</p>
 <p>Terms enclosed in double-quotes comprise a <em>phrase</em>.</p>
-<p>Each individual term or phrase comprises a Boolean expression that returns true if the term or phrase is matched, otherwise false. The semantics of what is considered a match is dependent upon the service.</p>
+<p>Each individual term or phrase comprises a Boolean expression that returns <code>true</code> if the term or phrase is matched, otherwise false. The semantics of what is considered a match is dependent upon the service.</p>
 <p>Expressions enclosed in parenthesis comprise a <em>group expression</em>.</p>
 <p>The search expression can contain any number of terms, phrases, or group expressions, along with the case-sensitive keywords <code>NOT</code>, <code>AND</code>, and <code>OR</code>, evaluated in that order.</p>
 <p>Expressions prefaced with <code>NOT</code> evaluate to true if the expression is not matched, otherwise false.</p>
