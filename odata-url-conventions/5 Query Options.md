@@ -1761,7 +1761,7 @@ customers is passed as a JSON array containing the resource paths from
 `$root` to each customer
 ```
 http://host/service/ProductsOrderedBy(Customers=@c)
-?@c=[$root/Customers('ALFKI'),$root/Customers('BLAUS')]
+  ?@c=[$root/Customers('ALFKI'),$root/Customers('BLAUS')]
 ```
 :::
 
@@ -1769,7 +1769,7 @@ http://host/service/ProductsOrderedBy(Customers=@c)
 Example ##ex: function call returning the average rating of a given employee by their peers (employees in department D1)
 ```
 http://host/service/Employees('A1245')/self.AvgRating(RatedBy=@peers)
-?@peers=$root/Employees/$filter(Department eq 'D1')
+  ?@peers=$root/Employees/$filter(Department eq 'D1')
 ```
 :::
 
@@ -2083,7 +2083,7 @@ Example ##ex: all categories and for each category the references of all
 related premier products with a current promotion equal to `null`
 ```
 http://host/service/Categories
-?$expand=Products/Sales.PremierProduct/$ref($filter=CurrentPromotion eq null)
+  ?$expand=Products/Sales.PremierProduct/$ref($filter=CurrentPromotion eq null)
 ```
 :::
 
@@ -2244,7 +2244,7 @@ Example ##ex: name and description of all products, plus name of expanded
 category
 ```
 http://host/service/Products?$select=Name,Description
-&$expand=Category($select=Name)
+  &$expand=Category($select=Name)
 ```
 :::
 
@@ -2263,8 +2263,8 @@ is of the derived type `Namespace.PreferredSupplier`, together with the
 `Address`, and the Location property of the derived complex type `Namespace.AddressWithLocation`
 ```
 http://host/service/Suppliers
-?$select=Namespace.PreferredSupplier/AccountRepresentative,
-Address/Street,Address/Namespace.AddressWithLocation/Location
+  ?$select=Namespace.PreferredSupplier/AccountRepresentative,
+           Address/Street,Address/Namespace.AddressWithLocation/Location
 ```
 :::
 
@@ -2282,9 +2282,10 @@ NOT be specified in more than one expand.
 Example ##ex: select up to five addresses whose `City` starts with an
 `H`, sorted, and with the `Country` expanded
 ```
-http://host/service/Customers?$select=Addresses(
-  $filter=startswith(City,'H');$top=5;$orderby=Country/Name,City,Street)
-&$expand=Addresses/Country
+http://host/service/Customers
+  ?$select=Addresses($filter=startswith(City,'H');$top=5;
+                     $orderby=Country/Name,City,Street)
+  &$expand=Addresses/Country
 ```
 :::
 
@@ -2555,7 +2556,7 @@ Example ##ex: JSON array of strings as parameter alias value --- note that
 clear-text representation used here is just for readability
 ```
 http://host/service/Products/Model.WithIngredients(Ingredients=@i)
-?@i=["Carrots","Ginger","Oranges"]
+  ?@i=["Carrots","Ginger","Oranges"]
 ```
 :::
 

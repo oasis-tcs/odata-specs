@@ -769,7 +769,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <div class="example">
 <p>Example 39: filter expression with type cast; will evaluate to <code>null</code> for all non-<code>VipCustomer</code> instances and thus return only instances of <code>VipCustomer</code></p>
 <pre><code>http://host/service/Customers
-?$filter=Model.VipCustomer/PercentageOfVipPromotionProductsOrdered gt 80</code></pre>
+  ?$filter=Model.VipCustomer/PercentageOfVipPromotionProductsOrdered gt 80</code></pre>
 </div>
 <div class="example">
 <p>Example 40: expand the single related <code>Customer</code> only if it is an instance of <code>Model.VipCustomer</code>. For to-many relationships only <code>Model.VipCustomer</code> instances would be inlined,</p>
@@ -1522,12 +1522,12 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <div class="example">
 <p>Example 110: products ordered by a set of customers, where the set of customers is passed as a JSON array containing the resource paths from <code>$root</code> to each customer</p>
 <pre><code>http://host/service/ProductsOrderedBy(Customers=@c)
-?@c=[$root/Customers(&#39;ALFKI&#39;),$root/Customers(&#39;BLAUS&#39;)]</code></pre>
+  ?@c=[$root/Customers(&#39;ALFKI&#39;),$root/Customers(&#39;BLAUS&#39;)]</code></pre>
 </div>
 <div class="example">
 <p>Example 111: function call returning the average rating of a given employee by their peers (employees in department D1)</p>
 <pre><code>http://host/service/Employees(&#39;A1245&#39;)/self.AvgRating(RatedBy=@peers)
-?@peers=$root/Employees/$filter(Department eq &#39;D1&#39;)</code></pre>
+  ?@peers=$root/Employees/$filter(Department eq &#39;D1&#39;)</code></pre>
 </div>
 <h5 id="511146-this"><a name="this" href="#this">5.1.1.14.6 <code>$this</code></a></h5>
 <p>The <code>$this</code> literal can be used in <a href="#SystemQueryOptionfilter"><code>$filter</code></a> and <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> expressions nested within <a href="#SystemQueryOptionexpand"><code>$expand</code></a> and <a href="#SystemQueryOptionselect"><code>$select</code></a> for collection-valued properties and navigation properties. It refers to the current instance of the collection.</p>
@@ -1776,7 +1776,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <div class="example">
 <p>Example 123: all categories and for each category the references of all related premier products with a current promotion equal to <code>null</code></p>
 <pre><code>http://host/service/Categories
-?$expand=Products/Sales.PremierProduct/$ref($filter=CurrentPromotion eq null)</code></pre>
+  ?$expand=Products/Sales.PremierProduct/$ref($filter=CurrentPromotion eq null)</code></pre>
 </div>
 <p><a name="ExpandOptionlevels">Cyclic navigation properties (whose target type is identical or can be cast to its source type) can be recursively expanded using the special <code>$levels</code> option. The value of the <code>$levels</code> option is either a positive integer to specify the number of levels to expand, or the literal string <code>max</code> to specify the maximum expansion level supported by that service. A <code>$levels</code> option with a value of 1 specifies a single expand with no recursion.</a></p>
 <div class="example">
@@ -1838,22 +1838,23 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <div class="example">
 <p>Example 131: name and description of all products, plus name of expanded category</p>
 <pre><code>http://host/service/Products?$select=Name,Description
-&amp;$expand=Category($select=Name)</code></pre>
+  &amp;$expand=Category($select=Name)</code></pre>
 </div>
 <p>The select item MUST be prefixed with a qualified structured type name in order to select a property defined on a type derived from the type of the resource segment.</p>
 <p>A select item that is a complex type or collection of complex type can be followed by a forward slash, an optional <a href="#AddressingDerivedTypes">type-cast segment</a>, and the name of a property of the complex type (and so on for nested complex types).</p>
 <div class="example">
 <p>Example 132: the <code>AccountRepresentative</code> property of any supplier that is of the derived type <code>Namespace.PreferredSupplier</code>, together with the <code>Street</code> property of the complex property <code>Address</code>, and the Location property of the derived complex type <code>Namespace.AddressWithLocation</code></p>
 <pre><code>http://host/service/Suppliers
-?$select=Namespace.PreferredSupplier/AccountRepresentative,
-Address/Street,Address/Namespace.AddressWithLocation/Location</code></pre>
+  ?$select=Namespace.PreferredSupplier/AccountRepresentative,
+           Address/Street,Address/Namespace.AddressWithLocation/Location</code></pre>
 </div>
 <p>Query options can be applied to a select item that is a path to a single complex value or a collection of primitive or complex values by appending a semicolon-separated list of query options, enclosed in parentheses, to the select item. The allowed system query options depend on the type of the resource identified by the select item, see section <a href="#SystemQueryOptions">System Query Options</a>, with the exception of <a href="#SystemQueryOptionexpand"><code>$expand</code></a>. The same property MUST NOT have select options specified in more than one place in a request and MUST NOT be specified in more than one expand.</p>
 <div class="example">
 <p>Example 133: select up to five addresses whose <code>City</code> starts with an <code>H</code>, sorted, and with the <code>Country</code> expanded</p>
-<pre><code>http://host/service/Customers?$select=Addresses(
-  $filter=startswith(City,&#39;H&#39;);$top=5;$orderby=Country/Name,City,Street)
-&amp;$expand=Addresses/Country</code></pre>
+<pre><code>http://host/service/Customers
+  ?$select=Addresses($filter=startswith(City,&#39;H&#39;);$top=5;
+                     $orderby=Country/Name,City,Street)
+  &amp;$expand=Addresses/Country</code></pre>
 </div>
 <p>Any structural property, non-expanded navigation property, or operation not requested as a select item (explicitly or via a star) SHOULD be omitted from the response.</p>
 <p>Annotations requested in <code>$select</code> MUST be included in the response; <code>$select</code> overrules the <code>include-annotations</code> preference (see <a href="#ODataProtocol">OData-Protocol</a>) for the explicitly requested annotations. Additional annotations matching the preference can be included even if not requested via <code>$select</code>. The <code>Preference-Applied</code> response header only reflects the set of annotations included due to the <code>include-annotations</code> preference and not those only included due to <code>$select</code>.</p>
@@ -1942,7 +1943,7 @@ Address/Street,Address/Namespace.AddressWithLocation/Location</code></pre>
 <div class="example">
 <p>Example 140: JSON array of strings as parameter alias value — note that <code>[</code>, <code>]</code>, and <code>"</code> need to be percent-encoded in real URLs, the clear-text representation used here is just for readability</p>
 <pre><code>http://host/service/Products/Model.WithIngredients(Ingredients=@i)
-?@i=[&quot;Carrots&quot;,&quot;Ginger&quot;,&quot;Oranges&quot;]</code></pre>
+  ?@i=[&quot;Carrots&quot;,&quot;Ginger&quot;,&quot;Oranges&quot;]</code></pre>
 </div>
 <hr />
 <h1 id="6-conformance"><a name="Conformance" href="#Conformance">6 Conformance</a></h1>
