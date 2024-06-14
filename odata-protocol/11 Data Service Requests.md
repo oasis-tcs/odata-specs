@@ -165,7 +165,7 @@ types not marked as open.
 
 Properties that are not available are not returned. If their unavailability
 is due to permissions, the
-[`Core.Permissions`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Permissions)
+[`Core.Permissions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Permissions)
 annotation, defined in [OData-VocCore](#ODataVocCore) MUST be returned
 for the property with a value of `None`.
 If the [`omit-values`](#Preferenceomitvalues) preference is
@@ -250,7 +250,7 @@ header and the [`$format`](#SystemQueryOptionformat) system query
 option.
 
 The default format for `Edm.Binary` is the format specified by the
-[`Core.MediaType`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#MediaType)
+[`Core.MediaType`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#MediaType)
 annotation (see [OData-VocCore](#ODataVocCore)) if this
 annotation is present. If not annotated, the format cannot be predicted
 by the client.
@@ -768,7 +768,7 @@ The Boolean value false comes before the value true in ascending order.
 Services SHOULD order language-dependent strings according to the
 [`Content-Language`](#HeaderContentLanguage) of the response, and SHOULD
 annotate string properties with language-dependent order with the term
-[`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
+[`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
 see [OData-VocCore](#ODataVocCore).
 
 Values of type `Edm.Stream` or any of the `Geo` types cannot be sorted.
@@ -1262,7 +1262,7 @@ the schema against which the request is made. The syntax of the
 
 The value of the `$schemaversion` system query option MUST be a version
 of the schema as returned in the
-[`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
+[`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
 annotation, defined in [OData-VocCore](#ODataVocCore), of a previous
 request to the [metadata document](#MetadataDocumentRequest), or `*` in
 order to specify the current version of the metadata.
@@ -1274,7 +1274,7 @@ Clients can retrieve the current version of the metadata by making a
 [metadata document request](#MetadataDocumentRequest) with a
 `$schemaversion` system query option value of `*`, and SHOULD include
 the value from the returned
-[`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
+[`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
 annotation in the `$schemaversion` system query option of subsequent
 requests.
 
@@ -1300,7 +1300,7 @@ body SHOULD provide additional information.
 
 Services advertise their change-tracking capabilities by annotating
 entity sets with the
-[`Capabilities.ChangeTracking`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#ChangeTracking)
+[`Capabilities.ChangeTracking`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#ChangeTracking)
 term defined in [OData-VocCap](#ODataVocCap).
 
 Any `GET` request to retrieve one or more entities MAY allow
