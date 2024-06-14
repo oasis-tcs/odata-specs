@@ -96,7 +96,9 @@
 <hr />
 <h1 id="odata-extension-for-temporal-data-version-40">OData Extension for Temporal Data Version 4.0</h1>
 <h2 id="committee-specification-draft-04">Committee Specification Draft 04</h2>
+<details open><summary>
 <h2 id="25-january-2022">25 January 2022</h2>
+</summary>
 <p><span class="math inline">\(\hbox{}\)</span></p>
 <h4 id="this-stage">This stage:</h4>
 <p><a href="https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/csd04/odata-temporal-ext-v4.0-csd04.md">https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/csd04/odata-temporal-ext-v4.0-csd04.md</a> (Authoritative)<br />
@@ -166,7 +168,11 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <p>The name “OASIS” is a trademark of <a href="https://www.oasis-open.org/">OASIS</a>, the owner and developer of this specification, and should be used only to refer to the organization and its official outputs.</p>
 <p>For complete copyright information please see the full Notices section in an Appendix <a href="#Notices">below</a>.</p>
 <hr />
+</details>
+</details>
+<details open><summary>
 <h1 id="table-of-contents">Table of Contents</h1>
+</summary>
 <div class="toc">
 <ul>
 <li><a href="#Introduction">1 Introduction</a>
@@ -237,48 +243,85 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 </ul>
 </div>
 <hr />
+</details>
+<details open><summary>
 <h1 id="1-introduction"><a name="Introduction" href="#Introduction">1 Introduction</a></h1>
+</summary>
 <p>This specification adds the notion of time-dependency to the Open Data Protocol (OData) without changing any of the base principles of OData. It defines semantics and a representation for temporal data, especially:</p>
 <ul>
 <li>Semantics and operations for querying and modifying temporal data,</li>
 <li>Vocabulary terms to annotate which data depends on time, and how.</li>
 </ul>
+<details open><summary>
 <h2 id="11-changes-from-earlier-versions"><a name="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a></h2>
+</summary>
 <!-- TODO -->
 
 <!-- Describe significant changes from previous differently-numbered Versions, not changes between stages of the current Version -->
 
+</details>
+<details open><summary>
 <h2 id="12-glossary"><a name="Glossary" href="#Glossary">1.2 Glossary</a></h2>
+</summary>
+<details open><summary>
 <h3 id="121-definitions-of-terms"><a name="DefinitionsofTerms" href="#DefinitionsofTerms">1.2.1 Definitions of Terms</a></h3>
+</summary>
+<details open><summary>
 <h4 id="1211-application-time"><a name="ApplicationTime" href="#ApplicationTime">1.2.1.1 Application Time</a></h4>
+</summary>
 <p>Application time is used to describe data that is known to change over time, for example the budget of a department, or which department an employee works for. Application time may capture planned changes in the future, for example transferring an employee to a new department next month or capturing next year’s budget for a department. Both future and past data can be changed.</p>
+</details>
+<details open><summary>
 <h4 id="1212-system-time"><a name="SystemTime" href="#SystemTime">1.2.1.2 System Time</a></h4>
+</summary>
 <p>System time is used to record when data became known by the “system of record”. System time does not extend into the future, and record entries are only added and are never changed.</p>
 <p>System time is never manipulated directly, and typically not visible in APIs, except for “last changed at” time stamps, and the corresponding properties are read-only.</p>
 <p>As system time is typically not visible in APIs, we do not consider this in the remainder of this document.</p>
+</details>
+<details open><summary>
 <h4 id="1213-temporal-object"><a name="TemporalObject" href="#TemporalObject">1.2.1.3 Temporal Object</a></h4>
+</summary>
 <p>A temporal object is a set of data whose change over time is tracked by the service as a sequence of <a href="#TimeSlice">time slices</a>.</p>
+</details>
+<details open><summary>
 <h4 id="1214-time-slice"><a name="TimeSlice" href="#TimeSlice">1.2.1.4 Time Slice</a></h4>
+</summary>
 <p>A piece of temporal data with attached time period, documenting that the data did not change during this time period.</p>
 <p>Time slices for the same <a href="#TemporalObject">temporal object</a> are non-overlapping, so for any given point in time there is at most one slice whose time period contains that point in time.</p>
 <p>Time slices for a temporal object need not cover the complete timeline. There can be points in time for which no time slice exists, indicating that the object’s values are not known to the service.</p>
+<details open><summary>
 <h5 id="12141-closed-open-semantics"><a name="ClosedOpenSemantics" href="#ClosedOpenSemantics">1.2.1.4.1 Closed-Open Semantics</a></h5>
+</summary>
 <p>Time slices typically use closed-open semantics, following <a href="#_SQL">SQL:2011</a>. This means the start is part of the period, the end is not part of the period, and for directly adjacent time slices the end of the earlier time slice is identical to the start of the next time slice. The period start must be less than the period end.</p>
+</details>
+<details open><summary>
 <h5 id="12142-closed-closed-semantics"><a name="ClosedClosedSemantics" href="#ClosedClosedSemantics">1.2.1.4.2 Closed-Closed Semantics</a></h5>
+</summary>
 <p>Some software systems predating the availability of temporal databases and with data type <em>date</em> for the application-time period start and end use closed-closed semantics. Temporal services on top of these systems can either convert their period end boundaries on-the-fly by adding one day on the way out and subtracting one day on the way in, or alternatively express the used time slice semantics via <a href="#VocabularyforTemporalData">annotations</a>.</p>
+</details>
+</details>
+<details open><summary>
 <h4 id="1215-snapshot-entity-set"><a name="SnapshotEntitySet" href="#SnapshotEntitySet">1.2.1.5 Snapshot Entity Set</a></h4>
+</summary>
 <p>An entity in a snapshot entity set represents a <a href="#TemporalObject">temporal object</a> at a specified point in time. When the entity is addressed via a resource path (directly or via related resources), the point in time must be specified, see section “<a href="#PropagationofTemporalQueryOptions">Propagation of Temporal Query Options</a>” for details on how to determine this point in time.</p>
 <p>The entity’s id and its canonical URL are independent of this point in time. Hence, they are sufficient to <em>reference</em> the entity but not <em>address</em> it. In other words: the entity can be considered a function that maps each point in time to an instance of the entity type. That function can be <em>referenced</em> but only its values can be <em>addressed</em>.</p>
 <p>Without a point in time, statements about individual structural or navigation properties of the entity or even about its existence cannot be made, and <a href="#RequestingChangestoTemporalData">change tracking</a> is not possible.</p>
 <p>Snapshot entity sets MUST be <a href="#VocabularyforTemporalData">annotated</a> with a <code>Timeline</code> of type <code>TimelineSnapshot</code>.</p>
+</details>
+<details open><summary>
 <h4 id="1216-timeline-entity-set"><a name="TimelineEntitySet" href="#TimelineEntitySet">1.2.1.6 Timeline Entity Set</a></h4>
+</summary>
 <p>An entity in a timeline entity set represents one <a href="#TimeSlice">time slice</a> of a <a href="#TemporalObject">temporal object</a>, and all time slices of that temporal object are part of the entity set.</p>
 <p>The entity’s id and its canonical URL depend on the period of application time of the corresponding time slice. <em>Referencing</em> and <em>addressing</em> the entity are equivalent concepts, unlike in the snapshot case.</p>
 <p>The response to a time-range request need not reflect the time-slice cut of the underlying data model.</p>
 <p>Services MAY condense/defragment adjacent time slices that do not differ in represented properties other than the period boundaries. This reduces the payload size, and it also avoids potential information leakage if the service only publishes a projection of the underlying data model.</p>
 <p>Services MAY also split time slices to align their boundaries with nested expanded time slices to represent a “coarsest common slicing” across an expand tree.</p>
 <p>Timeline entity sets MUST be <a href="#VocabularyforTemporalData">annotated</a> with a <code>Timeline</code> of type <code>TimelineVisible</code>.</p>
+</details>
+</details>
+<details open><summary>
 <h3 id="122-document-conventions"><a name="DocumentConventions" href="#DocumentConventions">1.2.2 Document Conventions</a></h3>
+</summary>
 <p>Keywords defined by this specification use <code>this  monospaced  font</code>.</p>
 <p>Some sections of this specification are illustrated with non-normative examples.</p>
 <div class="example">
@@ -308,7 +351,12 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 -->
 
 <hr />
+</details>
+</details>
+</details>
+<details open><summary>
 <h1 id="2-overview"><a name="Overview" href="#Overview">2 Overview</a></h1>
+</summary>
 <p>When keeping track of time, the most important questions are:</p>
 <ul>
 <li>When did or will something happen?</li>
@@ -328,7 +376,9 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <li>Provide easy means for <a href="#QueryOptionsfromtoandtoInclusive">time-range queries</a> if time-dependency is visible, and</li>
 <li>Provide easy means for modifying time-dependent data.</li>
 </ul>
+<details open><summary>
 <h2 id="21-example-model"><a name="ExampleModel" href="#ExampleModel">2.1 Example Model</a></h2>
+</summary>
 <p>Assume a simple scenario: employees will work in different roles and in different departments during their career, and sometimes they even change their name. At each point in time the employee has exactly one name, one job title, and is assigned to one department.</p>
 <p>Employees are assigned an immutable ID when first entering the company, and all employee-related data will be recorded with an application-time period attached. This allows entering planned changes ahead of time, using a future application-time start date: if an employee will get a different job title or switch to a different department, this data can already be entered into the system and stored as a new record.</p>
 <p>In the sections below we will discuss two different API models that can be backed by the same storage model:</p>
@@ -882,7 +932,10 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
     </switch>
 </svg>
 
+</details>
+<details open><summary>
 <h2 id="22-example-data"><a name="ExampleData" href="#ExampleData">2.2 Example Data</a></h2>
+</summary>
 <p>Both API models in the previous section are views on the same underlying data. A possible storage model for this data is:</p>
 <div class="example">
 <p>Example 4: simple storage model: object key in dark green, temporal sub-key in light green, foreign keys in orange, non-key fields in blue</p>
@@ -1283,7 +1336,10 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </div>
 </div>
 </div>
+</details>
+<details open><summary>
 <h2 id="23-example-use-cases"><a name="ExampleUseCases" href="#ExampleUseCases">2.3 Example Use Cases</a></h2>
+</summary>
 <p>A client might wish to query the example APIs in several ways:</p>
 <ul>
 <li>Snapshot API
@@ -1301,7 +1357,11 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </ol></li>
 </ul>
 <hr />
+</details>
+</details>
+<details open><summary>
 <h1 id="3-vocabulary-for-temporal-data"><a name="VocabularyforTemporalData" href="#VocabularyforTemporalData">3 Vocabulary for Temporal Data</a></h1>
+</summary>
 <p>The vocabulary for temporal data <a href="#ODataVocTemporal">OData-VocTemporal</a> defines a structured term for describing temporal query and modification capabilities of temporal services.</p>
 <p>The term <code>ApplicationTimeSupport</code> describes the temporal capabilities of an entity set. It can be applied to an entity set, or to a containment navigation property to describe its implicit entity sets. It has a structured type with the following properties:</p>
 <ul>
@@ -1405,8 +1465,13 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <hr />
+</details>
+<details open><summary>
 <h1 id="4-temporal-requests"><a name="TemporalRequests" href="#TemporalRequests">4 Temporal Requests</a></h1>
+</summary>
+<details open><summary>
 <h2 id="41-temporal-expressions"><a name="TemporalExpressions" href="#TemporalExpressions">4.1 Temporal Expressions</a></h2>
+</summary>
 <p>A temporal expression is</p>
 <ul>
 <li>A date in the form <code>dateValue</code>, see <a href="#ODataABNF">OData-ABNF</a></li>
@@ -1417,7 +1482,10 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>The literals <code>min</code> and <code>max</code> are interpreted depending on the data type of the time period start and end. They represent the minimum and maximum values of the time period that the service will allow. Their values are service specific as they can depend on the capabilities of the underlying data model.</p>
 <p>Note that there is no literal for “today” as clients and services can be in different time zones and thus can have different notions of which date is “today”. Clients are advised to use concrete temporal values and should avoid using the URL function <code>now()</code> with period start and end of type <code>Edm.Date</code>.</p>
 <p>Note that services may allow service-defined functions for temporal expressions, for example to deal with fiscal years in a particular company.</p>
+</details>
+<details open><summary>
 <h2 id="42-querying-temporal-data"><a name="QueryingTemporalData" href="#QueryingTemporalData">4.2 Querying Temporal Data</a></h2>
+</summary>
 <p>Temporal query options allow point-in-time as well as time-range queries. They take a temporal expression as their argument whose result type MUST match the type of the corresponding time period start and end.</p>
 <p>Adding temporal query options to a request does not alter the response shape, it only affects the returned data.</p>
 <p>Temporal query options can be used with data modification operations, in which case they do not alter the modification semantics of the request, they only affect the response. That is, they only influence the “implicit <code>GET</code>” after successful data modification.</p>
@@ -1426,7 +1494,9 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <li>timeline entity sets return all time slices, and</li>
 <li>snapshot entity sets return the snapshot valid at the time of the request.</li>
 </ul>
+<details open><summary>
 <h3 id="421-propagation-of-temporal-query-options"><a name="PropagationofTemporalQueryOptions" href="#PropagationofTemporalQueryOptions">4.2.1 Propagation of Temporal Query Options</a></h3>
+</summary>
 <p>Temporal query options can be specified for the requested resource, and for expanded navigation properties. They are propagated along navigation paths and <code>$expand</code> until overridden on an expanded navigation property, and the overridden query option values are propagated from there to further expanded navigation properties.</p>
 <p>If any temporal query option is specified for an expanded navigation property, all temporal query options are overridden, and only the explicitly specified temporal query options take effect and are propagated further.</p>
 <p>Temporal query options can be specified even if the directly addressed resource does not track time. In this case the temporal query options do not have any effect other than being propagated along <code>$expand</code>.</p>
@@ -1443,7 +1513,10 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <li>by temporal query option values propagated along <code>$expand</code></li>
 <li>by temporal query options in the query option part of the request URL</li>
 </ol>
+</details>
+<details open><summary>
 <h3 id="422-query-option-at"><a name="QueryOptionat" href="#QueryOptionat">4.2.2 Query Option <code>$at</code></a></h3>
+</summary>
 <p>The <code>$at</code> query option takes a temporal expression as its argument. It retrieves the snapshot whose application time period contains the value of <code>$at</code>.</p>
 <p>For timeline entity sets and collection-valued navigation to timeline entity sets, <code>$at=&lt;point-in-time&gt;</code> is shorthand for</p>
 <div class="indent">
@@ -1525,7 +1598,10 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
+</details>
+<details open><summary>
 <h3 id="423-query-options-from-to-and-toinclusive"><a name="QueryOptionsfromtoandtoInclusive" href="#QueryOptionsfromtoandtoInclusive">4.2.3 Query Options <code>$from</code>, <code>$to</code>, and <code>$toInclusive</code></a></h3>
+</summary>
 <p>The query options <code>$from</code>, <code>$to</code>, and <code>$toInclusive</code> only have an effect on timeline entity sets and collection-valued navigation to timeline entity sets. They each take a temporal expression as their argument.</p>
 <p>Allowed combinations are:</p>
 <ul>
@@ -1699,7 +1775,10 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <span id="cb18-84"><a href="#cb18-84" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb18-85"><a href="#cb18-85" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
+</details>
+<details open><summary>
 <h3 id="424-interaction-with-standard-system-query-options"><a name="InteractionwithStandardSystemQueryOptions" href="#InteractionwithStandardSystemQueryOptions">4.2.4 Interaction with Standard System Query Options</a></h3>
+</summary>
 <p>For <a href="#SnapshotEntitySet">snapshot entity sets</a> the point in time for representing data is determined following the rules in section “<a href="#PropagationofTemporalQueryOptions">Propagation of Temporal Query Options</a>” and evaluated <em>first</em>, then all other system query options are evaluated on the data valid at that point in time, including the query option <code>$apply</code> defined in <a href="#ODataAggregation">OData-Aggregation</a>.</p>
 <p>For timeline entity sets the interval for filtering data is determined following the rules in section “<a href="#PropagationofTemporalQueryOptions">Propagation of Temporal Query Options</a>” and evaluated as an additional criterion for <code>$filter</code> in the evaluation sequence defined in <a href="#ODataProtocol">OData-Protocol, section “System Query Options”</a>, which is evaluated <em>after</em> the query option <code>$apply</code>.</p>
 <div class="example">
@@ -1768,10 +1847,17 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
+</details>
+<details open><summary>
 <h3 id="425-requesting-changes-to-temporal-data"><a name="RequestingChangestoTemporalData" href="#RequestingChangestoTemporalData">4.2.5 Requesting Changes to Temporal Data</a></h3>
-<p>Change tracking for timeline entity sets works identical to non-temporal entity sets. If the entity set supports change-tracking combined with filtering on application-time period boundaries, the corresponding declared properties SHOULD be listed as <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#ChangeTrackingType"><code>FilterableProperties</code></a>, see <a href="#ODataVocCap">OData-VocCap</a>. Clients can then use these properties in <code>$filter</code> or use the convenience shortcuts <a href="#QueryOptionat"><code>$at</code></a> or <a href="#QueryOptionsfromtoandtoInclusive"><code>$from</code> and <code>$to</code>/<code>$toInclusive</code></a>.</p>
+</summary>
+<p>Change tracking for timeline entity sets works identical to non-temporal entity sets. If the entity set supports change-tracking combined with filtering on application-time period boundaries, the corresponding declared properties SHOULD be listed as <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#ChangeTrackingType"><code>FilterableProperties</code></a>, see <a href="#ODataVocCap">OData-VocCap</a>. Clients can then use these properties in <code>$filter</code> or use the convenience shortcuts <a href="#QueryOptionat"><code>$at</code></a> or <a href="#QueryOptionsfromtoandtoInclusive"><code>$from</code> and <code>$to</code>/<code>$toInclusive</code></a>.</p>
 <p>Change tracking for snapshot entity sets only reports changes to time slices that contain the point in time specified via <a href="#QueryOptionat"><code>$at</code></a>, or the point in time at which the defining query was received if no <a href="#QueryOptionat"><code>$at</code></a> is specified. Mere passage of time does not lead to reported changes.</p>
+</details>
+</details>
+<details open><summary>
 <h2 id="43-modifying-temporal-data"><a name="ModifyingTemporalData" href="#ModifyingTemporalData">4.3 Modifying Temporal Data</a></h2>
+</summary>
 <p>This section and its subsections describe modifications in application time, both for</p>
 <ul>
 <li><em>snapshot entity sets</em> with hidden application time, where time slices exist in the data persistency but are not directly visible in the entity set, each OData entity corresponds to a temporal object and only represents data at one point in time, and for</li>
@@ -1782,11 +1868,16 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <li>Direct modification of time slices, and</li>
 <li>Changes to a temporal object over a period of application time that can affect multiple time slices without explicitly addressing each single affected time slice.</li>
 </ul>
+<details open><summary>
 <h3 id="431-direct-modification-of-time-slices"><a name="DirectModificationofTimeSlices" href="#DirectModificationofTimeSlices">4.3.1 Direct Modification of Time Slices</a></h3>
+</summary>
 <p>The temporal query options <a href="#QueryOptionat"><code>$at</code></a>, <a href="#QueryOptionsfromtoandtoInclusive"><code>$from</code> and <code>$to</code>/<code>$toInclusive</code></a> can be used with data modification operations, in which case they do not alter the modification semantics of the request, they only affect the response of the “implicit <code>GET</code>” after the data modification.</p>
 <p>Modification of time slices SHOULD be done with the temporal actions defined in the next section and its subsections.</p>
 <p>This specification does not define the behavior of standard insert, update, upsert, or delete requests on temporal entity sets, and potential side-effects of direct modification requests to period boundaries and adjacent time slices are beyond the scope of this specification as the underlying business logic will vary from service to service.</p>
+</details>
+<details open><summary>
 <h3 id="432-operations-on-temporal-objects"><a name="OperationsonTemporalObjects" href="#OperationsonTemporalObjects">4.3.2 Operations on Temporal Objects</a></h3>
+</summary>
 <p>Changes to a temporal object over a period of application time can affect multiple time slices. For timeline entity sets this can in principle be achieved by constructing batch requests with multiple operations on individual time slices. This puts burden on the client, and it also makes it harder for services to check whether the request represents a consistent change of the temporal data.</p>
 <p>Both can be avoided by providing convenience operations expressing the intent of the modification and leaving the actual time slice manipulation to the service. These operations can then also be used with snapshot entity sets that do not allow direct manipulation of time slices.</p>
 <p>These convenience operations are modeled as bound actions and defined in the vocabulary for temporal data <a href="#ODataVocTemporal">OData-VocTemporal</a>. Implementations SHOULD consider the preferences <code>return=representation</code> and <code>return=minimal</code> as specified inv<a href="#ODataProtocol">OData-Protocol</a>. The convenience operations are atomic (all or nothing): they either succeed and produce the result described below, or they fail and do not change the temporal objects.</p>
@@ -1799,7 +1890,9 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>Services MAY support any or all of these convenience actions. Services SHOULD advertise the supported actions with property <code>SupportedActions</code> of term <a href="#VocabularyforTemporalData"><code>ApplicationTimeSupport</code></a>.</p>
 <p>Services may define specialized convenience operations for use cases not covered by this specification.</p>
 <p>All actions return a collection of triples that consist of period start and end and a time slice, which has the same entity set as the binding parameter and advertises this through <code>odata.context</code> control information.</p>
+<details open><summary>
 <h4 id="4321-update-during-a-period"><a name="UpdateduringaPeriod" href="#UpdateduringaPeriod">4.3.2.1 Update during a Period</a></h4>
+</summary>
 <p>The <code>Update</code> action updates existing time slices with values from delta time slices whose temporal object keys match and whose periods overlap.</p>
 <p>Its non-binding parameter <code>deltaTimeslices</code> is a collection of a structure containing the period boundaries, the properties to update, and optionally temporal object key values. The period boundaries are interpreted according to the <a href="#VocabularyforTemporalData"><code>UnitOfTime</code></a> of the collection. In particular, <code>ClosedClosedPeriods</code> governs whether the period end of type <code>Edm.Date</code> is the last day in the period or the first day after the period. The upper period boundary for items in <code>deltaTimeslices</code> need not be supplied; if it has no declared default value, it defaults to <code>max</code>.</p>
 <p>This works identical to the SQL statement UPDATE FOR PORTION OF:</p>
@@ -2062,7 +2155,10 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
+</details>
+<details open><summary>
 <h4 id="4322-upsert-during-a-period"><a name="UpsertduringaPeriod" href="#UpsertduringaPeriod">4.3.2.2 Upsert during a Period</a></h4>
+</summary>
 <p>The <code>Upsert</code> action upserts existing time slices with values from delta time slices whose temporal object keys match and whose periods overlap, and in addition creates new time slices to close gaps in the matching time period.</p>
 <p>It has the same signature as <a href="#UpdateduringaPeriod"><code>Update</code></a>, and steps 1 to 4 work identical to <a href="#UpdateduringaPeriod"><code>Update</code></a>. Step 5 is</p>
 <ol start="5" type="1">
@@ -2240,7 +2336,10 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <span id="cb28-52"><a href="#cb28-52" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb28-53"><a href="#cb28-53" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
+</details>
+<details open><summary>
 <h4 id="4323-delete-during-a-period"><a name="DeleteduringaPeriod" href="#DeleteduringaPeriod">4.3.2.3 Delete during a Period</a></h4>
+</summary>
 <p>The <code>Delete</code> action deletes (sub-periods of) time slices.</p>
 <p>Its non-binding parameter <code>deltaTimeslices</code> is a collection of a structure containing the period boundaries and optionally temporal object key values. The period boundaries are interpreted according to the <a href="#VocabularyforTemporalData"><code>UnitOfTime</code></a> of the collection. In particular, <code>ClosedClosedPeriods</code> governs whether the period end of type <code>Edm.Date</code> is the last day in the period or the first day after the period.</p>
 <p>This works identical to the SQL statement DELETE FOR PORTION OF:</p>
@@ -2251,21 +2350,38 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <li>Then all fully included time slices (including ones created in the previous step) are deleted following the rules for deleting entities specified in <a href="#ODataProtocol">OData-Protocol</a>.</li>
 </ol>
 <p>On success it returns the deleted time slices.</p>
+</details>
+</details>
+<details open><summary>
 <h3 id="433-etags"><a name="ETags" href="#ETags">4.3.3 ETags</a></h3>
+</summary>
 <p>Timeline entity sets need no special consideration as each time slice is an OData entity.</p>
 <p>This specification does not define the behavior of standard insert, update, upsert, or delete requests for snapshot entity sets and consequently defines no rules for ETags of entities in snapshot entity sets. Services supporting these requests are advised to associate ETags with time slices rather than with temporal objects.</p>
+</details>
+<details open><summary>
 <h3 id="434-read-edit-navigation-and-association-urls"><a name="ReadEditNavigationandAssociationURLs" href="#ReadEditNavigationandAssociationURLs">4.3.4 Read, Edit, Navigation, and Association URLs</a></h3>
+</summary>
 <p>Timeline entity sets need no special consideration as each time slice is an OData entity.</p>
 <p>For snapshot entity sets read, edit, navigation, and association URLs are not specific to time slices, they are specific to the time-independent OData entity.</p>
 <hr />
+</details>
+</details>
+</details>
+<details open><summary>
 <h1 id="5-conformance"><a name="Conformance" href="#Conformance">5 Conformance</a></h1>
+</summary>
 <p>Conforming services MUST follow all rules of this specification for the temporal system query options they support.</p>
 <p>Conforming clients MUST be prepared to consume a model that uses any or all constructs defined in this specification.</p>
 <hr />
+</details>
+<details open><summary>
 <h1 id="appendix-a-references"><a name="References" href="#References">Appendix A. References</a></h1>
+</summary>
 <p>This appendix contains the normative and informative references that are used in this document.</p>
 <p>While any hyperlinks included in this appendix were valid at the time of publication, OASIS cannot guarantee their long-term validity.</p>
+<details open><summary>
 <h2 id="a1-normative-references"><a name="NormativeReferences" href="#NormativeReferences">A.1 Normative References</a></h2>
+</summary>
 <p>The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.</p>
 <h6 id="odata-abnf"><a name="ODataABNF">[OData-ABNF]</a></h6>
 <p><em>ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases.</em><br />
@@ -2299,7 +2415,10 @@ See link in “<a href="#AdditionalArtifacts">Additional artifacts</a>” sectio
 <h6 id="rfc8174"><a name="rfc8174">[RFC8174]</a></h6>
 <p><em>Leiba, B., “Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words”, BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017</em><br />
 <a href="https://www.rfc-editor.org/info/rfc8174">https://www.rfc-editor.org/info/rfc8174</a>.</p>
+</details>
+<details open><summary>
 <h2 id="a2-informative-references"><a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a></h2>
+</summary>
 <h6 id="fowler"><a name="_Fowler">[Fowler]</a></h6>
 <p><em>Martin Fowler, “Temporal Patterns”, 16 February 2005</em><br />
 <a href="http://martinfowler.com/eaaDev/timeNarrative.html">http://martinfowler.com/eaaDev/timeNarrative.html</a>.</p>
@@ -2312,11 +2431,20 @@ See link in “<a href="#AdditionalArtifacts">Additional artifacts</a>” sectio
 <h6 id="sql2011"><a name="_SQL">[SQL:2011]</a></h6>
 <p><em>ISO/IEC 9075-2:2011 Information technology - Database languages - SQL - Part 2: Foundation (SQL/Foundation)</em>.</p>
 <hr />
+</details>
+</details>
+<details open><summary>
 <h1 id="appendix-b-acknowledgments"><a name="Acknowledgments" href="#Acknowledgments">Appendix B. Acknowledgments</a></h1>
+</summary>
+<details open><summary>
 <h2 id="b1-special-thanks"><a name="SpecialThanks" href="#SpecialThanks">B.1 Special Thanks</a></h2>
+</summary>
 <p>The contributions of the OASIS OData Technical Committee members, enumerated in <a href="#ODataProtocol">OData-Protocol</a> are gratefully acknowledged.</p>
 <p>Special thanks to Andrew Eisenberg, whose contributions in the early stages of the OData TC were invaluable to getting this extension specification on track.</p>
+</details>
+<details open><summary>
 <h2 id="b2-participants"><a name="Participants" href="#Participants">B.2 Participants</a></h2>
+</summary>
 <p><strong>OData TC Members:</strong></p>
 <table>
 <thead>
@@ -2385,7 +2513,11 @@ See link in “<a href="#AdditionalArtifacts">Additional artifacts</a>” sectio
 </tbody>
 </table>
 <hr />
+</details>
+</details>
+<details open><summary>
 <h1 id="appendix-c-revision-history"><a name="RevisionHistory" href="#RevisionHistory">Appendix C. Revision History</a></h1>
+</summary>
 <table>
 <thead>
 <tr class="header">
@@ -2429,7 +2561,10 @@ See link in “<a href="#AdditionalArtifacts">Additional artifacts</a>” sectio
 </tbody>
 </table>
 <hr />
+</details>
+<details open><summary>
 <h1 id="appendix-d-notices"><a name="Notices" href="#Notices">Appendix D. Notices</a></h1>
+</summary>
 <!-- Required section. Do not modify. -->
 
 <p>Copyright © OASIS Open 2022. All Rights Reserved.</p>
