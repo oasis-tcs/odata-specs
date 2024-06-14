@@ -1429,7 +1429,7 @@ Example 12:
   "GuidValue": "01234567-89ab-cdef-0123-456789abcdef",
   "Int64Value": 0,
   "ColorEnumValue": "Yellow",
-  "GeographyPoint": {"type": "Point", "coordinates": [142.1,64.1]}
+  "GeographyPoint": { "type": "Point", "coordinates": [142.1,64.1] }
 }
 ```
 :::
@@ -1716,7 +1716,7 @@ PATCH http://host/service/Products(42) HTTP/1.1
 Content-Type: application/json
 
 {
-  "Category": {"@id": "Categories(6)"}
+  "Category": { "@id": "Categories(6)" }
 }
 ```
 :::
