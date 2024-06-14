@@ -1217,7 +1217,8 @@ Example 39: filter expression with type cast; will evaluate to `null`
 for all non-`VipCustomer` instances and thus return only instances of
 `VipCustomer`
 ```
-http://host/service/Customers?$filter=Model.VipCustomer/PercentageOfVipPromotionProductsOrdered gt 80
+http://host/service/Customers
+  ?$filter=Model.VipCustomer/PercentageOfVipPromotionProductsOrdered gt 80
 ```
 :::
 
@@ -3027,7 +3028,8 @@ Example 102: all categories along with their products used in some order
 with a deviating unit price. The unprefixed `UnitPrice` in the argument
 expression is evaluated in the scope of the expanded `Products`.
 ```
-http://host/service/Categories?$expand=Products($filter=OrderItems/any(oi:oi/UnitPrice ne UnitPrice))
+http://host/service/Categories?$expand=Products(
+  $filter=OrderItems/any(oi:oi/UnitPrice ne UnitPrice))
 ```
 :::
 
@@ -3260,14 +3262,16 @@ Example 111: products ordered by a set of customers, where the set of
 customers is passed as a JSON array containing the resource paths from
 `$root` to each customer
 ```
-http://host/service/ProductsOrderedBy(Customers=@c)?@c=[$root/Customers('ALFKI'),$root/Customers('BLAUS')]
+http://host/service/ProductsOrderedBy(Customers=@c)
+  ?@c=[$root/Customers('ALFKI'),$root/Customers('BLAUS')]
 ```
 :::
 
 ::: example
 Example 112: function call returning the average rating of a given employee by their peers (employees in department D1)
 ```
-http://host/service/Employees('A1245')/self.AvgRating(RatedBy=@peers)?@peers=$root/Employees/$filter(Department eq 'D1')
+http://host/service/Employees('A1245')/self.AvgRating(RatedBy=@peers)
+  ?@peers=$root/Employees/$filter(Department eq 'D1')
 ```
 :::
 
@@ -3580,7 +3584,8 @@ http://host/service/Categories?$expand=Products/Sales.PremierProduct/$ref
 Example 124: all categories and for each category the references of all
 related premier products with a current promotion equal to `null`
 ```
-http://host/service/Categories?$expand=Products/Sales.PremierProduct/$ref($filter=CurrentPromotion eq null)
+http://host/service/Categories
+  ?$expand=Products/Sales.PremierProduct/$ref($filter=CurrentPromotion eq null)
 ```
 :::
 
@@ -3739,7 +3744,8 @@ option, see [section 5.1.2](#SystemQueryOptionfilter).
 Example 132: name and description of all products, plus name of expanded
 category
 ```
-http://host/service/Products?$select=Name,Description&$expand=Category($select=Name)
+http://host/service/Products?$select=Name,Description
+  &$expand=Category($select=Name)
 ```
 :::
 
@@ -3757,7 +3763,9 @@ is of the derived type `Namespace.PreferredSupplier`, together with the
 `Street` property of the complex property
 `Address`, and the Location property of the derived complex type `Namespace.AddressWithLocation`
 ```
-http://host/service/Suppliers?$select=Namespace.PreferredSupplier/AccountRepresentative,Address/Street,Address/Namespace.AddressWithLocation/Location
+http://host/service/Suppliers
+  ?$select=Namespace.PreferredSupplier/AccountRepresentative,
+           Address/Street,Address/Namespace.AddressWithLocation/Location
 ```
 :::
 
@@ -3775,7 +3783,10 @@ NOT be specified in more than one expand.
 Example 134: select up to five addresses whose `City` starts with an
 `H`, sorted, and with the `Country` expanded
 ```
-http://host/service/Customers?$select=Addresses($filter=startswith(City,'H');$top=5;$orderby=Country/Name,City,Street)&$expand=Addresses/Country
+http://host/service/Customers
+  ?$select=Addresses($filter=startswith(City,'H');$top=5;
+                     $orderby=Country/Name,City,Street)
+  &$expand=Addresses/Country
 ```
 :::
 
@@ -4051,7 +4062,8 @@ Example 141: JSON array of strings as parameter alias value --- note that
 `[`, `]`, and `"` need to be percent-encoded in real URLs, the
 clear-text representation used here is just for readability
 ```
-http://host/service/Products/Model.WithIngredients(Ingredients=@i)?@i=["Carrots","Ginger","Oranges"]
+http://host/service/Products/Model.WithIngredients(Ingredients=@i)
+  ?@i=["Carrots","Ginger","Oranges"]
 ```
 :::
 
