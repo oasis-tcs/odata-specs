@@ -136,7 +136,7 @@ Section | Feature / Change | Issue
 
 # <a name="CoreVocabulary" href="#CoreVocabulary">2 Core Vocabulary</a>
 
-**Namespace: [Org.OData.Core.V1](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml)**
+**Namespace: [Org.OData.Core.V1](Org.OData.Core.V1.xml)**
 
 Core terms needed to write vocabularies
 
@@ -145,81 +145,81 @@ Core terms needed to write vocabularies
 
 Term|Type|Description
 :---|:---|:----------
-[ODataVersions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L69)|String|<a name="ODataVersions"></a>A space-separated list of supported versions of the OData Protocol. Note that 4.0 is implied by 4.01 and does not need to be separately listed.
-[SchemaVersion](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L73)|String|<a name="SchemaVersion"></a>Service-defined value representing the version of the schema. Services MAY use semantic versioning, but clients MUST NOT assume this is the case.
-[Revisions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L77)|\[[RevisionType](#RevisionType)\]|<a name="Revisions"></a>List of revisions of a model element
-[Description](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L105)|String?|<a name="Description"></a>A brief description of a model element
-[LongDescription](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L110)|String?|<a name="LongDescription"></a>A long description of a model element
-[Links](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L115)|\[[Link](#Link)\]|<a name="Links"></a>Link to related information
-[Example](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L129)|[ExampleValue](#ExampleValue)|<a name="Example"></a>Example for an instance of the annotated model element ([Example](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L131))
-[Messages](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L198)|\[[MessageType](#MessageType)\]|<a name="Messages"></a>Instance annotation for warning and info messages
-[ValueException](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L242)|[ValueExceptionType](#ValueExceptionType)|<a name="ValueException"></a>The annotated value is problematic
-[ResourceException](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L256)|[ResourceExceptionType](#ResourceExceptionType)|<a name="ResourceException"></a>The annotated instance within a success payload is problematic
-[DataModificationException](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L266)|[DataModificationExceptionType](#DataModificationExceptionType)|<a name="DataModificationException"></a>A modification operation failed on the annotated instance or collection within a success payload
-[IsLanguageDependent](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L306)|[Tag](#Tag)|<a name="IsLanguageDependent"></a>Properties and terms annotated with this term are language-dependent
-[RequiresType](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L317)|String|<a name="RequiresType"></a>Terms annotated with this term can only be applied to elements that have a type that is identical to or derived from the given type name
-[AppliesViaContainer](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L321)|[Tag](#Tag)|<a name="AppliesViaContainer"></a>The target path of an annotation with the tagged term MUST start with an entity container or the annotation MUST be embedded within an entity container, entity set or singleton<br>Services MAY additionally annotate a container-independent model element (entity type, property, navigation property) if allowed by the `AppliesTo` property of the term and the annotation applies to all uses of that model element.
-[ResourcePath](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L331)|URL|<a name="ResourcePath"></a>Resource path for entity container child, can be relative to xml:base and the request URL
-[DereferenceableIDs](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L336)|[Tag](#Tag)|<a name="DereferenceableIDs"></a>Entity-ids are URLs that locate the identified entity
-[ConventionalIDs](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L340)|[Tag](#Tag)|<a name="ConventionalIDs"></a>Entity-ids follow OData URL conventions
-[Permissions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L346)|[Permission](#Permission)|<a name="Permissions"></a>Permissions for accessing a resource
-[ContentID](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L369)|String|<a name="ContentID"></a>A unique identifier for nested entities within a request.
-[DefaultNamespace](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L375)|[Tag](#Tag)|<a name="DefaultNamespace"></a>Functions, actions and types in this namespace can be referenced in URLs with or without namespace- or alias- qualification.<br>Data Modelers should ensure uniqueness of schema children across all default namespaces, and should avoid naming bound functions, actions, or derived types with the same name as a structural or navigational property of the type.
-[Immutable](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L380)|[Tag](#Tag)|<a name="Immutable"></a>A value for this non-key property can be provided by the client on insert and remains unchanged on update
-[Computed](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L384)|[Tag](#Tag)|<a name="Computed"></a>A value for this property is generated on both insert and update
-[ComputedDefaultValue](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L388)|[Tag](#Tag)|<a name="ComputedDefaultValue"></a>A value for this property can be provided by the client on insert and update. If no value is provided on insert, a non-static default value is generated
-[IsURL](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L392)|[Tag](#Tag)|<a name="IsURL"></a>Properties and terms annotated with this term MUST contain a valid URL
-[AcceptableMediaTypes](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L397)|\[MediaType\]|<a name="AcceptableMediaTypes"></a>Lists the MIME types acceptable for the annotated entity type marked with HasStream="true" or the annotated binary, stream, or string property or term<br>The annotation of a TypeDefinition propagates to the model elements having this type
-[MediaType](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L403)|MediaType?|<a name="MediaType"></a>The media type of the media stream of the annotated entity type marked with HasStream="true" or the annotated binary, stream, or string property or term<br>The annotation of a TypeDefinition propagates to the model elements having this type
-[IsMediaType](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L409)|[Tag](#Tag)|<a name="IsMediaType"></a>Properties and terms annotated with this term MUST contain a valid MIME type
-[ContentDisposition](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L414)|[ContentDispositionType](#ContentDispositionType)|<a name="ContentDisposition"></a>The content disposition of the media stream of the annotated entity type marked with HasStream="true" or the annotated binary, stream, or string property or term
-[OptimisticConcurrency](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L427)|\[PropertyPath\]|<a name="OptimisticConcurrency"></a>Data modification requires the use of ETags. A non-empty collection contains the set of properties that are used to compute the ETag. An empty collection means that the service won't tell how it computes the ETag
-[AdditionalProperties](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L431)|[Tag](#Tag)|<a name="AdditionalProperties"></a>Instances of this type may contain properties in addition to those declared in $metadata<br>If specified as false clients can assume that instances will not contain dynamic properties, irrespective of the value of the OpenType attribute.
-[AutoExpand](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L436)|[Tag](#Tag)|<a name="AutoExpand"></a>The service will automatically expand this stream property, navigation property, or the media stream of this media entity type even if not requested with $expand
-[AutoExpandReferences](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L440)|[Tag](#Tag)|<a name="AutoExpandReferences"></a>The service will automatically expand this navigation property as entity references even if not requested with $expand=.../$ref
-[MayImplement](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L444)|\[[QualifiedTypeName](#QualifiedTypeName)\]|<a name="MayImplement"></a>A collection of qualified type names outside of the type hierarchy that instances of this type might be addressable as by using a type-cast segment.
-[Ordered](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L471)|[Tag](#Tag)|<a name="Ordered"></a>Collection has a stable order. Ordered collections of primitive or complex types can be indexed by ordinal.
-[PositionalInsert](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L475)|[Tag](#Tag)|<a name="PositionalInsert"></a>Items can be inserted at a given ordinal index.
-[AlternateKeys](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L479)|\[[AlternateKey](#AlternateKey)\]|<a name="AlternateKeys"></a>Communicates available alternate keys
-[OptionalParameter](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L507)|[OptionalParameterType](#OptionalParameterType)|<a name="OptionalParameter"></a>Supplying a value for the action or function parameter is optional.<br>All parameters marked as optional must come after any parameters not marked as optional. The binding parameter must not be marked as optional.
-[OperationAvailable](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L518)|Boolean?|<a name="OperationAvailable"></a>Action or function is available<br>The annotation value will usually be an expression, e.g. using properties of the binding parameter type for instance-dependent availability, or using properties of a singleton for global availability. The static value `null` means that availability cannot be determined upfront and is instead expressed as an operation advertisement.
-[RequiresExplicitBinding](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L523)|[Tag?](#Tag)|<a name="RequiresExplicitBinding"></a>This bound action or function is only available on model elements annotated with the ExplicitOperationBindings term.
-[ExplicitOperationBindings](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L527)|\[[QualifiedBoundOperationName](#QualifiedBoundOperationName)\]|<a name="ExplicitOperationBindings"></a>The qualified names of explicitly bound operations that are supported on the target model element. These operations are in addition to any operations not annotated with RequiresExplicitBinding that are bound to the type of the target model element.
-[SymbolicName](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L536)|[SimpleIdentifier](#SimpleIdentifier)|<a name="SymbolicName"></a>A symbolic name for a model element
-[GeometryFeature](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L545)|[GeometryFeatureType?](#GeometryFeatureType)|<a name="GeometryFeature"></a>A [Feature Object](https://datatracker.ietf.org/doc/html/rfc7946#section-3.2) represents a spatially bounded thing
-[AnyStructure](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L561)|[Tag](#Tag)|<a name="AnyStructure"></a>Instances of a type are annotated with this tag if they have no common structure in a given response payload<br>The select-list of a context URL MUST be `(@Core.AnyStructure)` if it would otherwise be empty, but this instance annotation SHOULD be omitted from the response value.
+[ODataVersions](Org.OData.Core.V1.xml#L69)|String|<a name="ODataVersions"></a>A space-separated list of supported versions of the OData Protocol. Note that 4.0 is implied by 4.01 and does not need to be separately listed.
+[SchemaVersion](Org.OData.Core.V1.xml#L73)|String|<a name="SchemaVersion"></a>Service-defined value representing the version of the schema. Services MAY use semantic versioning, but clients MUST NOT assume this is the case.
+[Revisions](Org.OData.Core.V1.xml#L77)|\[[RevisionType](#RevisionType)\]|<a name="Revisions"></a>List of revisions of a model element
+[Description](Org.OData.Core.V1.xml#L105)|String?|<a name="Description"></a>A brief description of a model element
+[LongDescription](Org.OData.Core.V1.xml#L110)|String?|<a name="LongDescription"></a>A long description of a model element
+[Links](Org.OData.Core.V1.xml#L115)|\[[Link](#Link)\]|<a name="Links"></a>Link to related information
+[Example](Org.OData.Core.V1.xml#L129)|[ExampleValue](#ExampleValue)|<a name="Example"></a>Example for an instance of the annotated model element ([Example](Org.OData.Core.V1.xml#L131))
+[Messages](Org.OData.Core.V1.xml#L198)|\[[MessageType](#MessageType)\]|<a name="Messages"></a>Instance annotation for warning and info messages
+[ValueException](Org.OData.Core.V1.xml#L242)|[ValueExceptionType](#ValueExceptionType)|<a name="ValueException"></a>The annotated value is problematic
+[ResourceException](Org.OData.Core.V1.xml#L256)|[ResourceExceptionType](#ResourceExceptionType)|<a name="ResourceException"></a>The annotated instance within a success payload is problematic
+[DataModificationException](Org.OData.Core.V1.xml#L266)|[DataModificationExceptionType](#DataModificationExceptionType)|<a name="DataModificationException"></a>A modification operation failed on the annotated instance or collection within a success payload
+[IsLanguageDependent](Org.OData.Core.V1.xml#L306)|[Tag](#Tag)|<a name="IsLanguageDependent"></a>Properties and terms annotated with this term are language-dependent
+[RequiresType](Org.OData.Core.V1.xml#L317)|String|<a name="RequiresType"></a>Terms annotated with this term can only be applied to elements that have a type that is identical to or derived from the given type name
+[AppliesViaContainer](Org.OData.Core.V1.xml#L321)|[Tag](#Tag)|<a name="AppliesViaContainer"></a>The target path of an annotation with the tagged term MUST start with an entity container or the annotation MUST be embedded within an entity container, entity set or singleton<br>Services MAY additionally annotate a container-independent model element (entity type, property, navigation property) if allowed by the `AppliesTo` property of the term and the annotation applies to all uses of that model element.
+[ResourcePath](Org.OData.Core.V1.xml#L331)|URL|<a name="ResourcePath"></a>Resource path for entity container child, can be relative to xml:base and the request URL
+[DereferenceableIDs](Org.OData.Core.V1.xml#L336)|[Tag](#Tag)|<a name="DereferenceableIDs"></a>Entity-ids are URLs that locate the identified entity
+[ConventionalIDs](Org.OData.Core.V1.xml#L340)|[Tag](#Tag)|<a name="ConventionalIDs"></a>Entity-ids follow OData URL conventions
+[Permissions](Org.OData.Core.V1.xml#L346)|[Permission](#Permission)|<a name="Permissions"></a>Permissions for accessing a resource
+[ContentID](Org.OData.Core.V1.xml#L369)|String|<a name="ContentID"></a>A unique identifier for nested entities within a request.
+[DefaultNamespace](Org.OData.Core.V1.xml#L375)|[Tag](#Tag)|<a name="DefaultNamespace"></a>Functions, actions and types in this namespace can be referenced in URLs with or without namespace- or alias- qualification.<br>Data Modelers should ensure uniqueness of schema children across all default namespaces, and should avoid naming bound functions, actions, or derived types with the same name as a structural or navigational property of the type.
+[Immutable](Org.OData.Core.V1.xml#L380)|[Tag](#Tag)|<a name="Immutable"></a>A value for this non-key property can be provided by the client on insert and remains unchanged on update
+[Computed](Org.OData.Core.V1.xml#L384)|[Tag](#Tag)|<a name="Computed"></a>A value for this property is generated on both insert and update
+[ComputedDefaultValue](Org.OData.Core.V1.xml#L388)|[Tag](#Tag)|<a name="ComputedDefaultValue"></a>A value for this property can be provided by the client on insert and update. If no value is provided on insert, a non-static default value is generated
+[IsURL](Org.OData.Core.V1.xml#L392)|[Tag](#Tag)|<a name="IsURL"></a>Properties and terms annotated with this term MUST contain a valid URL
+[AcceptableMediaTypes](Org.OData.Core.V1.xml#L397)|\[MediaType\]|<a name="AcceptableMediaTypes"></a>Lists the MIME types acceptable for the annotated entity type marked with HasStream="true" or the annotated binary, stream, or string property or term<br>The annotation of a TypeDefinition propagates to the model elements having this type
+[MediaType](Org.OData.Core.V1.xml#L403)|MediaType?|<a name="MediaType"></a>The media type of the media stream of the annotated entity type marked with HasStream="true" or the annotated binary, stream, or string property or term<br>The annotation of a TypeDefinition propagates to the model elements having this type
+[IsMediaType](Org.OData.Core.V1.xml#L409)|[Tag](#Tag)|<a name="IsMediaType"></a>Properties and terms annotated with this term MUST contain a valid MIME type
+[ContentDisposition](Org.OData.Core.V1.xml#L414)|[ContentDispositionType](#ContentDispositionType)|<a name="ContentDisposition"></a>The content disposition of the media stream of the annotated entity type marked with HasStream="true" or the annotated binary, stream, or string property or term
+[OptimisticConcurrency](Org.OData.Core.V1.xml#L427)|\[PropertyPath\]|<a name="OptimisticConcurrency"></a>Data modification requires the use of ETags. A non-empty collection contains the set of properties that are used to compute the ETag. An empty collection means that the service won't tell how it computes the ETag
+[AdditionalProperties](Org.OData.Core.V1.xml#L431)|[Tag](#Tag)|<a name="AdditionalProperties"></a>Instances of this type may contain properties in addition to those declared in $metadata<br>If specified as false clients can assume that instances will not contain dynamic properties, irrespective of the value of the OpenType attribute.
+[AutoExpand](Org.OData.Core.V1.xml#L436)|[Tag](#Tag)|<a name="AutoExpand"></a>The service will automatically expand this stream property, navigation property, or the media stream of this media entity type even if not requested with $expand
+[AutoExpandReferences](Org.OData.Core.V1.xml#L440)|[Tag](#Tag)|<a name="AutoExpandReferences"></a>The service will automatically expand this navigation property as entity references even if not requested with $expand=.../$ref
+[MayImplement](Org.OData.Core.V1.xml#L444)|\[[QualifiedTypeName](#QualifiedTypeName)\]|<a name="MayImplement"></a>A collection of qualified type names outside of the type hierarchy that instances of this type might be addressable as by using a type-cast segment.
+[Ordered](Org.OData.Core.V1.xml#L471)|[Tag](#Tag)|<a name="Ordered"></a>Collection has a stable order. Ordered collections of primitive or complex types can be indexed by ordinal.
+[PositionalInsert](Org.OData.Core.V1.xml#L475)|[Tag](#Tag)|<a name="PositionalInsert"></a>Items can be inserted at a given ordinal index.
+[AlternateKeys](Org.OData.Core.V1.xml#L479)|\[[AlternateKey](#AlternateKey)\]|<a name="AlternateKeys"></a>Communicates available alternate keys
+[OptionalParameter](Org.OData.Core.V1.xml#L507)|[OptionalParameterType](#OptionalParameterType)|<a name="OptionalParameter"></a>Supplying a value for the action or function parameter is optional.<br>All parameters marked as optional must come after any parameters not marked as optional. The binding parameter must not be marked as optional.
+[OperationAvailable](Org.OData.Core.V1.xml#L518)|Boolean?|<a name="OperationAvailable"></a>Action or function is available<br>The annotation value will usually be an expression, e.g. using properties of the binding parameter type for instance-dependent availability, or using properties of a singleton for global availability. The static value `null` means that availability cannot be determined upfront and is instead expressed as an operation advertisement.
+[RequiresExplicitBinding](Org.OData.Core.V1.xml#L523)|[Tag?](#Tag)|<a name="RequiresExplicitBinding"></a>This bound action or function is only available on model elements annotated with the ExplicitOperationBindings term.
+[ExplicitOperationBindings](Org.OData.Core.V1.xml#L527)|\[[QualifiedBoundOperationName](#QualifiedBoundOperationName)\]|<a name="ExplicitOperationBindings"></a>The qualified names of explicitly bound operations that are supported on the target model element. These operations are in addition to any operations not annotated with RequiresExplicitBinding that are bound to the type of the target model element.
+[SymbolicName](Org.OData.Core.V1.xml#L536)|[SimpleIdentifier](#SimpleIdentifier)|<a name="SymbolicName"></a>A symbolic name for a model element
+[GeometryFeature](Org.OData.Core.V1.xml#L545)|[GeometryFeatureType?](#GeometryFeatureType)|<a name="GeometryFeature"></a>A [Feature Object](https://datatracker.ietf.org/doc/html/rfc7946#section-3.2) represents a spatially bounded thing
+[AnyStructure](Org.OData.Core.V1.xml#L561)|[Tag](#Tag)|<a name="AnyStructure"></a>Instances of a type are annotated with this tag if they have no common structure in a given response payload<br>The select-list of a context URL MUST be `(@Core.AnyStructure)` if it would otherwise be empty, but this instance annotation SHOULD be omitted from the response value.
 
 <a name="RevisionType"></a>
-## [RevisionType](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L80)
+## [RevisionType](Org.OData.Core.V1.xml#L80)
 
 
 Property|Type|Description
 :-------|:---|:----------
-[Version](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L81)|String?|The schema version with which this revision was first published
-[Kind](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L84)|[RevisionKind](#RevisionKind)|The kind of revision
-[Description](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L87)|String|Text describing the reason for the revision
+[Version](Org.OData.Core.V1.xml#L81)|String?|The schema version with which this revision was first published
+[Kind](Org.OData.Core.V1.xml#L84)|[RevisionKind](#RevisionKind)|The kind of revision
+[Description](Org.OData.Core.V1.xml#L87)|String|Text describing the reason for the revision
 
 <a name="RevisionKind"></a>
-## [RevisionKind](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L91)
+## [RevisionKind](Org.OData.Core.V1.xml#L91)
 
 
 Member|Value|Description
 :-----|----:|:----------
-[Added](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L92)|0|Model element was added
-[Modified](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L95)|1|Model element was modified
-[Deprecated](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L98)|2|Model element was deprecated
+[Added](Org.OData.Core.V1.xml#L92)|0|Model element was added
+[Modified](Org.OData.Core.V1.xml#L95)|1|Model element was modified
+[Deprecated](Org.OData.Core.V1.xml#L98)|2|Model element was deprecated
 
 <a name="Link"></a>
-## [Link](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L118)
+## [Link](Org.OData.Core.V1.xml#L118)
 The Link term is inspired by the `atom:link` element, see [RFC4287](https://tools.ietf.org/html/rfc4287#section-4.2.7), and the `Link` HTTP header, see [RFC5988](https://tools.ietf.org/html/rfc5988)
 
 Property|Type|Description
 :-------|:---|:----------
-[rel](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L120)|String|Link relation type, see [IANA Link Relations](http://www.iana.org/assignments/link-relations/link-relations.xhtml)
-[href](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L123)|URL|URL of related information
+[rel](Org.OData.Core.V1.xml#L120)|String|Link relation type, see [IANA Link Relations](http://www.iana.org/assignments/link-relations/link-relations.xhtml)
+[href](Org.OData.Core.V1.xml#L123)|URL|URL of related information
 
 <a name="ExampleValue"></a>
-## [ExampleValue](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L169)
+## [ExampleValue](Org.OData.Core.V1.xml#L169)
 
 
 **Derived Types:**
@@ -230,7 +230,7 @@ Property|Type|Description
 
 Property|Type|Description
 :-------|:---|:----------
-[Description](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L170)|String?|Description of the example value
+[Description](Org.OData.Core.V1.xml#L170)|String?|Description of the example value
 
 <a name="PrimitiveExampleValue"></a>
 ## [PrimitiveExampleValue](Org.OData.Core.V1.xml#L174): [ExampleValue](#ExampleValue)
@@ -269,32 +269,32 @@ Property|Type|Description
 [ExternalValue](Org.OData.Core.V1.xml#L190)|URL|Url reference to the value in its literal format
 
 <a name="MessageType"></a>
-## [MessageType](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L201)
+## [MessageType](Org.OData.Core.V1.xml#L201)
 
 
 Property|Type|Description
 :-------|:---|:----------
-[code](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L202)|String|Machine-readable, language-independent message code
-[message](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L205)|String|Human-readable, language-dependent message text
-[severity](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L209)|[MessageSeverity](#MessageSeverity)|Severity of the message
-[target](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L212)|String?|A path to the target of the message detail, relative to the annotated instance
-[details](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L215)|\[[MessageType](#MessageType)\]|List of detail messages
+[code](Org.OData.Core.V1.xml#L202)|String|Machine-readable, language-independent message code
+[message](Org.OData.Core.V1.xml#L205)|String|Human-readable, language-dependent message text
+[severity](Org.OData.Core.V1.xml#L209)|[MessageSeverity](#MessageSeverity)|Severity of the message
+[target](Org.OData.Core.V1.xml#L212)|String?|A path to the target of the message detail, relative to the annotated instance
+[details](Org.OData.Core.V1.xml#L215)|\[[MessageType](#MessageType)\]|List of detail messages
 
 <a name="MessageSeverity"></a>
-## [MessageSeverity](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L219)
+## [MessageSeverity](Org.OData.Core.V1.xml#L219)
 **Type:** String
 
 
 
 Allowed Value|Description
 :------------|:----------
-[success](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L222)|Positive feedback - no action required
-[info](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L226)|Additional information - no action required
-[warning](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L230)|Warning - action may be required
-[error](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L234)|Error - action is required
+[success](Org.OData.Core.V1.xml#L222)|Positive feedback - no action required
+[info](Org.OData.Core.V1.xml#L226)|Additional information - no action required
+[warning](Org.OData.Core.V1.xml#L230)|Warning - action may be required
+[error](Org.OData.Core.V1.xml#L234)|Error - action is required
 
 <a name="ExceptionType"></a>
-## [*ExceptionType*](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L245)
+## [*ExceptionType*](Org.OData.Core.V1.xml#L245)
 
 
 **Derived Types:**
@@ -304,7 +304,7 @@ Allowed Value|Description
 
 Property|Type|Description
 :-------|:---|:----------
-[info](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L246)|[MessageType?](#MessageType)|Information about the exception
+[info](Org.OData.Core.V1.xml#L246)|[MessageType?](#MessageType)|Information about the exception
 
 <a name="ValueExceptionType"></a>
 ## [ValueExceptionType](Org.OData.Core.V1.xml#L250): [ExceptionType](#ExceptionType)
@@ -335,66 +335,66 @@ Property|Type|Description
 [responseCode](Org.OData.Core.V1.xml#L273)|Int16?|Response code of the failed operation, e.g. 424 for a failed dependency
 
 <a name="DataModificationOperationKind"></a>
-## [DataModificationOperationKind](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L279)
+## [DataModificationOperationKind](Org.OData.Core.V1.xml#L279)
 
 
 Member|Value|Description
 :-----|----:|:----------
-[insert](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L280)|0|Insert new instance
-[update](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L283)|1|Update existing instance
-[upsert](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L286)|2|Insert new instance or update it if it already exists
-[delete](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L289)|3|Delete existing instance
-[invoke](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L292)|4|Invoke action or function
-[link](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L295)|5|Add link between entities
-[unlink](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L298)|6|Remove link between entities
+[insert](Org.OData.Core.V1.xml#L280)|0|Insert new instance
+[update](Org.OData.Core.V1.xml#L283)|1|Update existing instance
+[upsert](Org.OData.Core.V1.xml#L286)|2|Insert new instance or update it if it already exists
+[delete](Org.OData.Core.V1.xml#L289)|3|Delete existing instance
+[invoke](Org.OData.Core.V1.xml#L292)|4|Invoke action or function
+[link](Org.OData.Core.V1.xml#L295)|5|Add link between entities
+[unlink](Org.OData.Core.V1.xml#L298)|6|Remove link between entities
 
 <a name="Tag"></a>
-## [Tag](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L311)
+## [Tag](Org.OData.Core.V1.xml#L311)
 **Type:** Boolean
 
 This is the type to use for all tagging terms
 
 <a name="Permission"></a>
-## [Permission](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L349)
+## [Permission](Org.OData.Core.V1.xml#L349)
 
 
 Flag Member|Value|Description
 :-----|----:|:----------
-[None](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L350)|0|No permissions
-[Read](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L353)|1|Read permission
-[Write](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L356)|2|Write permission
-[ReadWrite](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L359)|3|Read and write permission
-[Invoke](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L362)|4|Permission to invoke actions
+[None](Org.OData.Core.V1.xml#L350)|0|No permissions
+[Read](Org.OData.Core.V1.xml#L353)|1|Read permission
+[Write](Org.OData.Core.V1.xml#L356)|2|Write permission
+[ReadWrite](Org.OData.Core.V1.xml#L359)|3|Read and write permission
+[Invoke](Org.OData.Core.V1.xml#L362)|4|Permission to invoke actions
 
 <a name="ContentDispositionType"></a>
-## [ContentDispositionType](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L418)
+## [ContentDispositionType](Org.OData.Core.V1.xml#L418)
 
 
 Property|Type|Description
 :-------|:---|:----------
-[Type](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L419)|String|The disposition type of the binary or stream value, see [RFC 6266, Disposition Type](https://datatracker.ietf.org/doc/html/rfc6266#section-4.2)
-[Filename](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L422)|String?|The proposed filename for downloading the binary or stream value, see [RFC 6266, Disposition Parameter: 'Filename'](https://datatracker.ietf.org/doc/html/rfc6266#section-4.3)
+[Type](Org.OData.Core.V1.xml#L419)|String|The disposition type of the binary or stream value, see [RFC 6266, Disposition Type](https://datatracker.ietf.org/doc/html/rfc6266#section-4.2)
+[Filename](Org.OData.Core.V1.xml#L422)|String?|The proposed filename for downloading the binary or stream value, see [RFC 6266, Disposition Parameter: 'Filename'](https://datatracker.ietf.org/doc/html/rfc6266#section-4.3)
 
 <a name="QualifiedTermName"></a>
-## [QualifiedTermName](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L448)
+## [QualifiedTermName](Org.OData.Core.V1.xml#L448)
 **Type:** String
 
 The qualified name of a term in scope.
 
 <a name="QualifiedTypeName"></a>
-## [QualifiedTypeName](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L452)
+## [QualifiedTypeName](Org.OData.Core.V1.xml#L452)
 **Type:** String
 
 The qualified name of a type in scope.
 
 <a name="QualifiedActionName"></a>
-## [QualifiedActionName](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L456)
+## [QualifiedActionName](Org.OData.Core.V1.xml#L456)
 **Type:** String
 
 The qualified name of an action in scope.
 
 <a name="QualifiedBoundOperationName"></a>
-## [QualifiedBoundOperationName](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L460)
+## [QualifiedBoundOperationName](Org.OData.Core.V1.xml#L460)
 **Type:** String
 
 The qualified name of a bound action or function in scope.
@@ -406,24 +406,24 @@ Either
         
 
 <a name="AlternateKey"></a>
-## [AlternateKey](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L482)
+## [AlternateKey](Org.OData.Core.V1.xml#L482)
 
 
 Property|Type|Description
 :-------|:---|:----------
-[Key](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L483)|\[[PropertyRef](#PropertyRef)\]|The set of properties that make up this key
+[Key](Org.OData.Core.V1.xml#L483)|\[[PropertyRef](#PropertyRef)\]|The set of properties that make up this key
 
 <a name="PropertyRef"></a>
-## [PropertyRef](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L487)
+## [PropertyRef](Org.OData.Core.V1.xml#L487)
 
 
 Property|Type|Description
 :-------|:---|:----------
-[Name](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L488)|PropertyPath|A path expression resolving to a primitive property of the entity type itself or to a primitive property of a complex or navigation property (recursively) of the entity type. The names of the properties in the path are joined together by forward slashes.
-[Alias](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L491)|String|A SimpleIdentifier that MUST be unique within the set of aliases, structural and navigation properties of the containing entity type that MUST be used in the key predicate of URLs
+[Name](Org.OData.Core.V1.xml#L488)|PropertyPath|A path expression resolving to a primitive property of the entity type itself or to a primitive property of a complex or navigation property (recursively) of the entity type. The names of the properties in the path are joined together by forward slashes.
+[Alias](Org.OData.Core.V1.xml#L491)|String|A SimpleIdentifier that MUST be unique within the set of aliases, structural and navigation properties of the containing entity type that MUST be used in the key predicate of URLs
 
 <a name="Dictionary"></a>
-## [Dictionary](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L496)
+## [Dictionary](Org.OData.Core.V1.xml#L496)
 A dictionary of name-value pairs. Names must be valid property names, values may be restricted to a list of types via an annotation with term `Validation.OpenPropertyTypeConstraint`.
 
 
@@ -433,40 +433,40 @@ Any simple identifier | Any type listed in `Validation.OpenPropertyTypeConstrain
 
 
 <a name="OptionalParameterType"></a>
-## [OptionalParameterType](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L511)
+## [OptionalParameterType](Org.OData.Core.V1.xml#L511)
 
 
 Property|Type|Description
 :-------|:---|:----------
-[DefaultValue](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L512)|String?|Default value for an optional parameter of primitive or enumeration type, using the same rules as the `cast` function in URLs.<br>If no explicit DefaultValue is specified, the service is free on how to interpret omitting the parameter from the request. For example, a service might interpret an omitted optional parameter `KeyDate` as having the current date.
+[DefaultValue](Org.OData.Core.V1.xml#L512)|String?|Default value for an optional parameter of primitive or enumeration type, using the same rules as the `cast` function in URLs.<br>If no explicit DefaultValue is specified, the service is free on how to interpret omitting the parameter from the request. For example, a service might interpret an omitted optional parameter `KeyDate` as having the current date.
 
 <a name="LocalDateTime"></a>
-## [LocalDateTime](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L531)
+## [LocalDateTime](Org.OData.Core.V1.xml#L531)
 **Type:** String
 
 A string representing a Local Date-Time value with no offset.
 
 <a name="SimpleIdentifier"></a>
-## [SimpleIdentifier](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L540)
+## [SimpleIdentifier](Org.OData.Core.V1.xml#L540)
 **Type:** String
 
 A [simple identifier](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/odata-csdl-xml-v4.01.html#sec_SimpleIdentifier)
 
 <a name="GeometryFeatureType"></a>
-## [GeometryFeatureType](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L548)
+## [GeometryFeatureType](Org.OData.Core.V1.xml#L548)
 A [Feature Object](https://datatracker.ietf.org/doc/html/rfc7946#section-3.2) represents a spatially bounded thing
 
 Property|Type|Description
 :-------|:---|:----------
-[geometry](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L550)|Geometry?|Location of the Feature
-[properties](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L553)|[Dictionary?](#Dictionary)|Properties of the Feature
-[id](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L556)|String?|Commonly used identifer for a Feature
+[geometry](Org.OData.Core.V1.xml#L550)|Geometry?|Location of the Feature
+[properties](Org.OData.Core.V1.xml#L553)|[Dictionary?](#Dictionary)|Properties of the Feature
+[id](Org.OData.Core.V1.xml#L556)|String?|Commonly used identifer for a Feature
 
 -------
 
 # <a name="CapabilitiesVocabulary" href="#CapabilitiesVocabulary">3 Capabilities Vocabulary</a>
 
-**Namespace: [Org.OData.Capabilities.V1](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml)**
+**Namespace: [Org.OData.Capabilities.V1](Org.OData.Capabilities.V1.xml)**
 
 Terms describing capabilities of a service
 
@@ -514,85 +514,85 @@ supported:
 
 Term|Type|Description
 :---|:---|:----------
-[ConformanceLevel](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L115)|[ConformanceLevelType](#ConformanceLevelType)|<a name="ConformanceLevel"></a>The conformance level achieved by this service
-[SupportedFormats](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L132)|\[MediaType\]|<a name="SupportedFormats"></a>Media types of supported formats, including format parameters
-[SupportedMetadataFormats](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L137)|\[MediaType\]|<a name="SupportedMetadataFormats"></a>Media types of supported formats for $metadata, including format parameters
-[AcceptableEncodings](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L142)|\[String\]|<a name="AcceptableEncodings"></a>List of acceptable compression methods for ($batch) requests, e.g. gzip
-[AsynchronousRequestsSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L148)|[Tag](Org.OData.Core.V1.md#Tag)|<a name="AsynchronousRequestsSupported"></a>Service supports the asynchronous request preference
-[BatchContinueOnErrorSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L152)|[Tag](Org.OData.Core.V1.md#Tag)|<a name="BatchContinueOnErrorSupported"></a>Service supports the continue on error preference. Supports $batch requests. Services that apply the BatchContinueOnErrorSupported term should also specify the ContinueOnErrorSupported property from the BatchSupport term.
-[IsolationSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L156)|[IsolationLevel](#IsolationLevel)|<a name="IsolationSupported"></a>Supported odata.isolation levels
-[CrossJoinSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L165)|[Tag](Org.OData.Core.V1.md#Tag)|<a name="CrossJoinSupported"></a>Supports cross joins for the entity sets in this container
-[CallbackSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L169)|[CallbackType](#CallbackType)|<a name="CallbackSupported"></a>Supports callbacks for the specified protocols
-[ChangeTracking](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L191)|[ChangeTrackingType](#ChangeTrackingType)|<a name="ChangeTracking"></a>Change tracking capabilities of this service or entity set
-[CountRestrictions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L212)|[CountRestrictionsType](#CountRestrictionsType)|<a name="CountRestrictions"></a>Restrictions on /$count path suffix and $count=true system query option
-[NavigationRestrictions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L230)|[NavigationRestrictionsType](#NavigationRestrictionsType)|<a name="NavigationRestrictions"></a>Restrictions on navigating properties according to OData URL conventions<br>Restrictions specified on an entity set are valid whether the request is directly to the entity set or through a navigation property bound to that entity set. Services can specify a different set of restrictions specific to a path, in which case the more specific restrictions take precedence.
-[IndexableByKey](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L321)|[Tag](Org.OData.Core.V1.md#Tag)|<a name="IndexableByKey"></a>Supports key values according to OData URL conventions
-[TopSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L326)|[Tag](Org.OData.Core.V1.md#Tag)|<a name="TopSupported"></a>Supports $top
-[SkipSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L331)|[Tag](Org.OData.Core.V1.md#Tag)|<a name="SkipSupported"></a>Supports $skip
-[ComputeSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L336)|[Tag](Org.OData.Core.V1.md#Tag)|<a name="ComputeSupported"></a>Supports $compute
-[SelectSupport](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L341)|[SelectSupportType](#SelectSupportType)|<a name="SelectSupport"></a>Support for $select and nested query options within $select
-[BatchSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L378)|[Tag](Org.OData.Core.V1.md#Tag)|<a name="BatchSupported"></a>Supports $batch requests. Services that apply the BatchSupported term should also apply the more comprehensive BatchSupport term.
-[BatchSupport](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L382)|[BatchSupportType](#BatchSupportType)|<a name="BatchSupport"></a>Batch Support for the service
-[FilterFunctions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L428)|\[String\]|<a name="FilterFunctions"></a>List of functions and operators supported in filter expressions<br>If not specified, null, or empty, all functions and operators may be attempted.
-[FilterRestrictions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L434)|[FilterRestrictionsType](#FilterRestrictionsType)|<a name="FilterRestrictions"></a>Restrictions on filter expressions
-[SortRestrictions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L506)|[SortRestrictionsType](#SortRestrictionsType)|<a name="SortRestrictions"></a>Restrictions on orderby expressions
-[ExpandRestrictions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L532)|[ExpandRestrictionsType](#ExpandRestrictionsType)|<a name="ExpandRestrictions"></a>Restrictions on expand expressions
-[SearchRestrictions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L562)|[SearchRestrictionsType](#SearchRestrictionsType)|<a name="SearchRestrictions"></a>Restrictions on search expressions
-[KeyAsSegmentSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L600)|[Tag](Org.OData.Core.V1.md#Tag)|<a name="KeyAsSegmentSupported"></a>Supports [key-as-segment convention](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part2-url-conventions.html#sec_KeyasSegmentConvention) for addressing entities within a collection
-[QuerySegmentSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L604)|[Tag](Org.OData.Core.V1.md#Tag)|<a name="QuerySegmentSupported"></a>Supports [passing query options in the request body](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part2-url-conventions.html#sec_PassingQueryOptionsintheRequestBody)
-[InsertRestrictions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L610)|[InsertRestrictionsType](#InsertRestrictionsType)|<a name="InsertRestrictions"></a>Restrictions on insert operations
-[DeepInsertSupport](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L689)|[DeepInsertSupportType?](#DeepInsertSupportType)|<a name="DeepInsertSupport"></a>Deep Insert Support of the annotated resource (the whole service, an entity set, or a collection-valued resource)
-[UpdateRestrictions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L702)|[UpdateRestrictionsType](#UpdateRestrictionsType)|<a name="UpdateRestrictions"></a>Restrictions on update operations
-[DeepUpdateSupport](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L788)|[DeepUpdateSupportType](#DeepUpdateSupportType)|<a name="DeepUpdateSupport"></a>Deep Update Support of the annotated resource (the whole service, an entity set, or a collection-valued resource)
-[DeleteRestrictions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L801)|[DeleteRestrictionsType](#DeleteRestrictionsType)|<a name="DeleteRestrictions"></a>Restrictions on delete operations
-[CollectionPropertyRestrictions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L845)|\[[CollectionPropertyRestrictionsType](#CollectionPropertyRestrictionsType)\]|<a name="CollectionPropertyRestrictions"></a>Describes restrictions on operations applied to collection-valued structural properties
-[OperationRestrictions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L886)|[OperationRestrictionsType](#OperationRestrictionsType)|<a name="OperationRestrictions"></a>Restrictions for function or action operation
-[AnnotationValuesInQuerySupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L906)|[Tag](Org.OData.Core.V1.md#Tag)|<a name="AnnotationValuesInQuerySupported"></a>Supports annotation values within system query options
-[ModificationQueryOptions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L910)|[ModificationQueryOptionsType](#ModificationQueryOptionsType)|<a name="ModificationQueryOptions"></a>Support for query options with modification requests (insert, update, action invocation)
-[ReadRestrictions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L934)|[ReadRestrictionsType](#ReadRestrictionsType)|<a name="ReadRestrictions"></a>Restrictions for retrieving a collection of entities, retrieving a singleton instance.
-[CustomHeaders](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L976)|\[[CustomParameter](#CustomParameter)\]|<a name="CustomHeaders"></a>Custom headers that are supported/required for the annotated resource ([Example](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L978))
-[CustomQueryOptions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1002)|\[[CustomParameter](#CustomParameter)\]|<a name="CustomQueryOptions"></a>Custom query options that are supported/required for the annotated resource ([Example](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1005))<br>If the entity container is annotated, the query option is supported/required by all resources in that container.
-[MediaLocationUpdateSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1054)|[Tag](Org.OData.Core.V1.md#Tag)|<a name="MediaLocationUpdateSupported"></a>Stream property or media stream supports update of its media edit URL and/or media read URL
-[DefaultCapabilities](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1059)|[DefaultCapabilitiesType](#DefaultCapabilitiesType)|<a name="DefaultCapabilities"></a>Default capability settings for all collection-valued resources in the container<br><p>Annotating a specific capability term, which is included as property in <code>DefaultCapabilitiesType</code>, for a specific collection-valued resource overrides the default capability with the specified properties using PATCH semantics:</p> <ul> <li>Primitive or collection-valued properties specified in the specific capability term replace the corresponding properties specified in <code>DefaultCapabilities</code></li> <li>Complex-valued properties specified in the specific capability term override the corresponding properties specified in <code>DefaultCapabilities</code> using PATCH semantics recursively</li> <li>Properties specified neither in the specific term nor in <code>DefaultCapabilities</code> have their default value</li> </ul> 
+[ConformanceLevel](Org.OData.Capabilities.V1.xml#L115)|[ConformanceLevelType](#ConformanceLevelType)|<a name="ConformanceLevel"></a>The conformance level achieved by this service
+[SupportedFormats](Org.OData.Capabilities.V1.xml#L132)|\[MediaType\]|<a name="SupportedFormats"></a>Media types of supported formats, including format parameters
+[SupportedMetadataFormats](Org.OData.Capabilities.V1.xml#L137)|\[MediaType\]|<a name="SupportedMetadataFormats"></a>Media types of supported formats for $metadata, including format parameters
+[AcceptableEncodings](Org.OData.Capabilities.V1.xml#L142)|\[String\]|<a name="AcceptableEncodings"></a>List of acceptable compression methods for ($batch) requests, e.g. gzip
+[AsynchronousRequestsSupported](Org.OData.Capabilities.V1.xml#L148)|[Tag](Org.OData.Core.V1.md#Tag)|<a name="AsynchronousRequestsSupported"></a>Service supports the asynchronous request preference
+[BatchContinueOnErrorSupported](Org.OData.Capabilities.V1.xml#L152)|[Tag](Org.OData.Core.V1.md#Tag)|<a name="BatchContinueOnErrorSupported"></a>Service supports the continue on error preference. Supports $batch requests. Services that apply the BatchContinueOnErrorSupported term should also specify the ContinueOnErrorSupported property from the BatchSupport term.
+[IsolationSupported](Org.OData.Capabilities.V1.xml#L156)|[IsolationLevel](#IsolationLevel)|<a name="IsolationSupported"></a>Supported odata.isolation levels
+[CrossJoinSupported](Org.OData.Capabilities.V1.xml#L165)|[Tag](Org.OData.Core.V1.md#Tag)|<a name="CrossJoinSupported"></a>Supports cross joins for the entity sets in this container
+[CallbackSupported](Org.OData.Capabilities.V1.xml#L169)|[CallbackType](#CallbackType)|<a name="CallbackSupported"></a>Supports callbacks for the specified protocols
+[ChangeTracking](Org.OData.Capabilities.V1.xml#L191)|[ChangeTrackingType](#ChangeTrackingType)|<a name="ChangeTracking"></a>Change tracking capabilities of this service or entity set
+[CountRestrictions](Org.OData.Capabilities.V1.xml#L212)|[CountRestrictionsType](#CountRestrictionsType)|<a name="CountRestrictions"></a>Restrictions on /$count path suffix and $count=true system query option
+[NavigationRestrictions](Org.OData.Capabilities.V1.xml#L230)|[NavigationRestrictionsType](#NavigationRestrictionsType)|<a name="NavigationRestrictions"></a>Restrictions on navigating properties according to OData URL conventions<br>Restrictions specified on an entity set are valid whether the request is directly to the entity set or through a navigation property bound to that entity set. Services can specify a different set of restrictions specific to a path, in which case the more specific restrictions take precedence.
+[IndexableByKey](Org.OData.Capabilities.V1.xml#L321)|[Tag](Org.OData.Core.V1.md#Tag)|<a name="IndexableByKey"></a>Supports key values according to OData URL conventions
+[TopSupported](Org.OData.Capabilities.V1.xml#L326)|[Tag](Org.OData.Core.V1.md#Tag)|<a name="TopSupported"></a>Supports $top
+[SkipSupported](Org.OData.Capabilities.V1.xml#L331)|[Tag](Org.OData.Core.V1.md#Tag)|<a name="SkipSupported"></a>Supports $skip
+[ComputeSupported](Org.OData.Capabilities.V1.xml#L336)|[Tag](Org.OData.Core.V1.md#Tag)|<a name="ComputeSupported"></a>Supports $compute
+[SelectSupport](Org.OData.Capabilities.V1.xml#L341)|[SelectSupportType](#SelectSupportType)|<a name="SelectSupport"></a>Support for $select and nested query options within $select
+[BatchSupported](Org.OData.Capabilities.V1.xml#L378)|[Tag](Org.OData.Core.V1.md#Tag)|<a name="BatchSupported"></a>Supports $batch requests. Services that apply the BatchSupported term should also apply the more comprehensive BatchSupport term.
+[BatchSupport](Org.OData.Capabilities.V1.xml#L382)|[BatchSupportType](#BatchSupportType)|<a name="BatchSupport"></a>Batch Support for the service
+[FilterFunctions](Org.OData.Capabilities.V1.xml#L428)|\[String\]|<a name="FilterFunctions"></a>List of functions and operators supported in filter expressions<br>If not specified, null, or empty, all functions and operators may be attempted.
+[FilterRestrictions](Org.OData.Capabilities.V1.xml#L434)|[FilterRestrictionsType](#FilterRestrictionsType)|<a name="FilterRestrictions"></a>Restrictions on filter expressions
+[SortRestrictions](Org.OData.Capabilities.V1.xml#L506)|[SortRestrictionsType](#SortRestrictionsType)|<a name="SortRestrictions"></a>Restrictions on orderby expressions
+[ExpandRestrictions](Org.OData.Capabilities.V1.xml#L532)|[ExpandRestrictionsType](#ExpandRestrictionsType)|<a name="ExpandRestrictions"></a>Restrictions on expand expressions
+[SearchRestrictions](Org.OData.Capabilities.V1.xml#L562)|[SearchRestrictionsType](#SearchRestrictionsType)|<a name="SearchRestrictions"></a>Restrictions on search expressions
+[KeyAsSegmentSupported](Org.OData.Capabilities.V1.xml#L600)|[Tag](Org.OData.Core.V1.md#Tag)|<a name="KeyAsSegmentSupported"></a>Supports [key-as-segment convention](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part2-url-conventions.html#sec_KeyasSegmentConvention) for addressing entities within a collection
+[QuerySegmentSupported](Org.OData.Capabilities.V1.xml#L604)|[Tag](Org.OData.Core.V1.md#Tag)|<a name="QuerySegmentSupported"></a>Supports [passing query options in the request body](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part2-url-conventions.html#sec_PassingQueryOptionsintheRequestBody)
+[InsertRestrictions](Org.OData.Capabilities.V1.xml#L610)|[InsertRestrictionsType](#InsertRestrictionsType)|<a name="InsertRestrictions"></a>Restrictions on insert operations
+[DeepInsertSupport](Org.OData.Capabilities.V1.xml#L689)|[DeepInsertSupportType?](#DeepInsertSupportType)|<a name="DeepInsertSupport"></a>Deep Insert Support of the annotated resource (the whole service, an entity set, or a collection-valued resource)
+[UpdateRestrictions](Org.OData.Capabilities.V1.xml#L702)|[UpdateRestrictionsType](#UpdateRestrictionsType)|<a name="UpdateRestrictions"></a>Restrictions on update operations
+[DeepUpdateSupport](Org.OData.Capabilities.V1.xml#L788)|[DeepUpdateSupportType](#DeepUpdateSupportType)|<a name="DeepUpdateSupport"></a>Deep Update Support of the annotated resource (the whole service, an entity set, or a collection-valued resource)
+[DeleteRestrictions](Org.OData.Capabilities.V1.xml#L801)|[DeleteRestrictionsType](#DeleteRestrictionsType)|<a name="DeleteRestrictions"></a>Restrictions on delete operations
+[CollectionPropertyRestrictions](Org.OData.Capabilities.V1.xml#L845)|\[[CollectionPropertyRestrictionsType](#CollectionPropertyRestrictionsType)\]|<a name="CollectionPropertyRestrictions"></a>Describes restrictions on operations applied to collection-valued structural properties
+[OperationRestrictions](Org.OData.Capabilities.V1.xml#L886)|[OperationRestrictionsType](#OperationRestrictionsType)|<a name="OperationRestrictions"></a>Restrictions for function or action operation
+[AnnotationValuesInQuerySupported](Org.OData.Capabilities.V1.xml#L906)|[Tag](Org.OData.Core.V1.md#Tag)|<a name="AnnotationValuesInQuerySupported"></a>Supports annotation values within system query options
+[ModificationQueryOptions](Org.OData.Capabilities.V1.xml#L910)|[ModificationQueryOptionsType](#ModificationQueryOptionsType)|<a name="ModificationQueryOptions"></a>Support for query options with modification requests (insert, update, action invocation)
+[ReadRestrictions](Org.OData.Capabilities.V1.xml#L934)|[ReadRestrictionsType](#ReadRestrictionsType)|<a name="ReadRestrictions"></a>Restrictions for retrieving a collection of entities, retrieving a singleton instance.
+[CustomHeaders](Org.OData.Capabilities.V1.xml#L976)|\[[CustomParameter](#CustomParameter)\]|<a name="CustomHeaders"></a>Custom headers that are supported/required for the annotated resource ([Example](Org.OData.Capabilities.V1.xml#L978))
+[CustomQueryOptions](Org.OData.Capabilities.V1.xml#L1002)|\[[CustomParameter](#CustomParameter)\]|<a name="CustomQueryOptions"></a>Custom query options that are supported/required for the annotated resource ([Example](Org.OData.Capabilities.V1.xml#L1005))<br>If the entity container is annotated, the query option is supported/required by all resources in that container.
+[MediaLocationUpdateSupported](Org.OData.Capabilities.V1.xml#L1054)|[Tag](Org.OData.Core.V1.md#Tag)|<a name="MediaLocationUpdateSupported"></a>Stream property or media stream supports update of its media edit URL and/or media read URL
+[DefaultCapabilities](Org.OData.Capabilities.V1.xml#L1059)|[DefaultCapabilitiesType](#DefaultCapabilitiesType)|<a name="DefaultCapabilities"></a>Default capability settings for all collection-valued resources in the container<br><p>Annotating a specific capability term, which is included as property in <code>DefaultCapabilitiesType</code>, for a specific collection-valued resource overrides the default capability with the specified properties using PATCH semantics:</p> <ul> <li>Primitive or collection-valued properties specified in the specific capability term replace the corresponding properties specified in <code>DefaultCapabilities</code></li> <li>Complex-valued properties specified in the specific capability term override the corresponding properties specified in <code>DefaultCapabilities</code> using PATCH semantics recursively</li> <li>Properties specified neither in the specific term nor in <code>DefaultCapabilities</code> have their default value</li> </ul> 
 
 <a name="ConformanceLevelType"></a>
-## [ConformanceLevelType](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L118)
+## [ConformanceLevelType](Org.OData.Capabilities.V1.xml#L118)
 
 
 Member|Value|Description
 :-----|----:|:----------
-[Minimal](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L119)|0|Minimal conformance level
-[Intermediate](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L122)|1|Intermediate conformance level
-[Advanced](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L125)|2|Advanced conformance level
+[Minimal](Org.OData.Capabilities.V1.xml#L119)|0|Minimal conformance level
+[Intermediate](Org.OData.Capabilities.V1.xml#L122)|1|Intermediate conformance level
+[Advanced](Org.OData.Capabilities.V1.xml#L125)|2|Advanced conformance level
 
 <a name="IsolationLevel"></a>
-## [IsolationLevel](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L159)
+## [IsolationLevel](Org.OData.Capabilities.V1.xml#L159)
 
 
 Flag Member|Value|Description
 :-----|----:|:----------
-[Snapshot](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L160)|1|All data returned for a request, including multiple requests within a batch or results retrieved across multiple pages, will be consistent as of a single point in time
+[Snapshot](Org.OData.Capabilities.V1.xml#L160)|1|All data returned for a request, including multiple requests within a batch or results retrieved across multiple pages, will be consistent as of a single point in time
 
 <a name="CallbackType"></a>
-## [CallbackType](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L172)
+## [CallbackType](Org.OData.Capabilities.V1.xml#L172)
 A non-empty collection lists the full set of supported protocols. A empty collection means 'only HTTP is supported'
 
 Property|Type|Description
 :-------|:---|:----------
-[CallbackProtocols](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L173)|\[[CallbackProtocol](#CallbackProtocol)\]|List of supported callback protocols, e.g. `http` or `wss`
+[CallbackProtocols](Org.OData.Capabilities.V1.xml#L173)|\[[CallbackProtocol](#CallbackProtocol)\]|List of supported callback protocols, e.g. `http` or `wss`
 
 <a name="CallbackProtocol"></a>
-## [CallbackProtocol](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L178)
+## [CallbackProtocol](Org.OData.Capabilities.V1.xml#L178)
 
 
 Property|Type|Description
 :-------|:---|:----------
-[Id](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L179)|String?|Protocol Identifier
-[UrlTemplate](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L182)|String?|URL Template including parameters. Parameters are enclosed in curly braces {} as defined in RFC6570
-[DocumentationUrl](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L185)|URL?|Human readable description of the meaning of the URL Template parameters
+[Id](Org.OData.Capabilities.V1.xml#L179)|String?|Protocol Identifier
+[UrlTemplate](Org.OData.Capabilities.V1.xml#L182)|String?|URL Template including parameters. Parameters are enclosed in curly braces {} as defined in RFC6570
+[DocumentationUrl](Org.OData.Capabilities.V1.xml#L185)|URL?|Human readable description of the meaning of the URL Template parameters
 
 <a name="ChangeTrackingBase"></a>
-## [ChangeTrackingBase](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L194)
+## [ChangeTrackingBase](Org.OData.Capabilities.V1.xml#L194)
 
 
 **Derived Types:**
@@ -600,7 +600,7 @@ Property|Type|Description
 
 Property|Type|Description
 :-------|:---|:----------
-[Supported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L195)|Boolean|odata.track-changes preference is supported
+[Supported](Org.OData.Capabilities.V1.xml#L195)|Boolean|odata.track-changes preference is supported
 
 <a name="ChangeTrackingType"></a>
 ## [ChangeTrackingType](Org.OData.Capabilities.V1.xml#L199): [ChangeTrackingBase](#ChangeTrackingBase)
@@ -613,7 +613,7 @@ Property|Type|Description
 [ExpandableProperties](Org.OData.Capabilities.V1.xml#L204)|\[NavigationPropertyPath\]|Change tracking supports these properties expanded<br>If no properties are specified or ExpandableProperties is omitted, clients cannot assume support for expanding any properties in combination with change tracking.
 
 <a name="CountRestrictionsBase"></a>
-## [CountRestrictionsBase](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L216)
+## [CountRestrictionsBase](Org.OData.Capabilities.V1.xml#L216)
 
 
 **Derived Types:**
@@ -621,7 +621,7 @@ Property|Type|Description
 
 Property|Type|Description
 :-------|:---|:----------
-[Countable](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L217)|Boolean|Instances can be counted in requests targeting a collection
+[Countable](Org.OData.Capabilities.V1.xml#L217)|Boolean|Instances can be counted in requests targeting a collection
 
 <a name="CountRestrictionsType"></a>
 ## [CountRestrictionsType](Org.OData.Capabilities.V1.xml#L221): [CountRestrictionsBase](#CountRestrictionsBase)
@@ -634,16 +634,16 @@ Property|Type|Description
 [NonCountableNavigationProperties](Org.OData.Capabilities.V1.xml#L225)|\[NavigationPropertyPath\]|Members of these navigation properties cannot be counted
 
 <a name="NavigationRestrictionsType"></a>
-## [NavigationRestrictionsType](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L235)
+## [NavigationRestrictionsType](Org.OData.Capabilities.V1.xml#L235)
 
 
 Property|Type|Description
 :-------|:---|:----------
-[Navigability](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L236)|[NavigationType?](#NavigationType)|Default navigability for all navigation properties of the annotation target. Individual navigation properties can override this value via `RestrictedProperties/Navigability`.
-[RestrictedProperties](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L239)|\[[NavigationPropertyRestriction](#NavigationPropertyRestriction)\]|List of navigation properties with restrictions
+[Navigability](Org.OData.Capabilities.V1.xml#L236)|[NavigationType?](#NavigationType)|Default navigability for all navigation properties of the annotation target. Individual navigation properties can override this value via `RestrictedProperties/Navigability`.
+[RestrictedProperties](Org.OData.Capabilities.V1.xml#L239)|\[[NavigationPropertyRestriction](#NavigationPropertyRestriction)\]|List of navigation properties with restrictions
 
 <a name="NavigationPropertyRestriction"></a>
-## [NavigationPropertyRestriction](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L243)
+## [NavigationPropertyRestriction](Org.OData.Capabilities.V1.xml#L243)
 
 
 Using a property of `NavigationPropertyRestriction` in a [`NavigationRestrictions`](#NavigationRestrictions) annotation
@@ -653,64 +653,64 @@ Using a property of `NavigationPropertyRestriction` in a [`NavigationRestriction
 
 Property|Type|Description
 :-------|:---|:----------
-[NavigationProperty](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L250)|NavigationPropertyPath|Navigation properties can be navigated<br>The target path of a [`NavigationRestrictions`](#NavigationRestrictions) annotation followed by this navigation property path addresses the resource to which the other properties of `NavigationPropertyRestriction` apply. Instance paths that occur in dynamic expressions are evaluated starting at the boundary between both paths, which must therefore be chosen accordingly.
-[Navigability](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L259)|[NavigationType?](#NavigationType)|Supported navigability of this navigation property
-[FilterFunctions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L262)|\[String\]|List of functions and operators supported in filter expressions<br>If not specified, null, or empty, all functions and operators may be attempted.
-[FilterRestrictions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L266)|[FilterRestrictionsType?](#FilterRestrictionsType)|Restrictions on filter expressions
-[SearchRestrictions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L269)|[SearchRestrictionsType?](#SearchRestrictionsType)|Restrictions on search expressions
-[SortRestrictions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L272)|[SortRestrictionsType?](#SortRestrictionsType)|Restrictions on orderby expressions
-[TopSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L275)|Boolean|Supports $top
-[SkipSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L278)|Boolean|Supports $skip
-[SelectSupport](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L281)|[SelectSupportType?](#SelectSupportType)|Support for $select
-[IndexableByKey](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L284)|Boolean|Supports key values according to OData URL conventions
-[InsertRestrictions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L287)|[InsertRestrictionsType?](#InsertRestrictionsType)|Restrictions on insert operations
-[DeepInsertSupport](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L290)|[DeepInsertSupportType?](#DeepInsertSupportType)|Deep Insert Support of the annotated resource (the whole service, an entity set, or a collection-valued resource)
-[UpdateRestrictions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L293)|[UpdateRestrictionsType?](#UpdateRestrictionsType)|Restrictions on update operations
-[DeepUpdateSupport](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L296)|[DeepUpdateSupportType?](#DeepUpdateSupportType)|Deep Update Support of the annotated resource (the whole service, an entity set, or a collection-valued resource)
-[DeleteRestrictions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L299)|[DeleteRestrictionsType?](#DeleteRestrictionsType)|Restrictions on delete operations
-[OptimisticConcurrencyControl](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L302)|Boolean|Data modification (including insert) along this navigation property requires the use of ETags
-[ReadRestrictions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L305)|[ReadRestrictionsType?](#ReadRestrictionsType)|Restrictions for retrieving entities
+[NavigationProperty](Org.OData.Capabilities.V1.xml#L250)|NavigationPropertyPath|Navigation properties can be navigated<br>The target path of a [`NavigationRestrictions`](#NavigationRestrictions) annotation followed by this navigation property path addresses the resource to which the other properties of `NavigationPropertyRestriction` apply. Instance paths that occur in dynamic expressions are evaluated starting at the boundary between both paths, which must therefore be chosen accordingly.
+[Navigability](Org.OData.Capabilities.V1.xml#L259)|[NavigationType?](#NavigationType)|Supported navigability of this navigation property
+[FilterFunctions](Org.OData.Capabilities.V1.xml#L262)|\[String\]|List of functions and operators supported in filter expressions<br>If not specified, null, or empty, all functions and operators may be attempted.
+[FilterRestrictions](Org.OData.Capabilities.V1.xml#L266)|[FilterRestrictionsType?](#FilterRestrictionsType)|Restrictions on filter expressions
+[SearchRestrictions](Org.OData.Capabilities.V1.xml#L269)|[SearchRestrictionsType?](#SearchRestrictionsType)|Restrictions on search expressions
+[SortRestrictions](Org.OData.Capabilities.V1.xml#L272)|[SortRestrictionsType?](#SortRestrictionsType)|Restrictions on orderby expressions
+[TopSupported](Org.OData.Capabilities.V1.xml#L275)|Boolean|Supports $top
+[SkipSupported](Org.OData.Capabilities.V1.xml#L278)|Boolean|Supports $skip
+[SelectSupport](Org.OData.Capabilities.V1.xml#L281)|[SelectSupportType?](#SelectSupportType)|Support for $select
+[IndexableByKey](Org.OData.Capabilities.V1.xml#L284)|Boolean|Supports key values according to OData URL conventions
+[InsertRestrictions](Org.OData.Capabilities.V1.xml#L287)|[InsertRestrictionsType?](#InsertRestrictionsType)|Restrictions on insert operations
+[DeepInsertSupport](Org.OData.Capabilities.V1.xml#L290)|[DeepInsertSupportType?](#DeepInsertSupportType)|Deep Insert Support of the annotated resource (the whole service, an entity set, or a collection-valued resource)
+[UpdateRestrictions](Org.OData.Capabilities.V1.xml#L293)|[UpdateRestrictionsType?](#UpdateRestrictionsType)|Restrictions on update operations
+[DeepUpdateSupport](Org.OData.Capabilities.V1.xml#L296)|[DeepUpdateSupportType?](#DeepUpdateSupportType)|Deep Update Support of the annotated resource (the whole service, an entity set, or a collection-valued resource)
+[DeleteRestrictions](Org.OData.Capabilities.V1.xml#L299)|[DeleteRestrictionsType?](#DeleteRestrictionsType)|Restrictions on delete operations
+[OptimisticConcurrencyControl](Org.OData.Capabilities.V1.xml#L302)|Boolean|Data modification (including insert) along this navigation property requires the use of ETags
+[ReadRestrictions](Org.OData.Capabilities.V1.xml#L305)|[ReadRestrictionsType?](#ReadRestrictionsType)|Restrictions for retrieving entities
 
 <a name="NavigationType"></a>
-## [NavigationType](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L309)
+## [NavigationType](Org.OData.Capabilities.V1.xml#L309)
 
 
 Member|Value|Description
 :-----|----:|:----------
-[Recursive](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L310)|0|Navigation properties can be recursively navigated
-[Single](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L313)|1|Navigation properties can be navigated to a single level
-[None](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L316)|2|Navigation properties are not navigable
+[Recursive](Org.OData.Capabilities.V1.xml#L310)|0|Navigation properties can be recursively navigated
+[Single](Org.OData.Capabilities.V1.xml#L313)|1|Navigation properties can be navigated to a single level
+[None](Org.OData.Capabilities.V1.xml#L316)|2|Navigation properties are not navigable
 
 <a name="SelectSupportType"></a>
-## [SelectSupportType](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L345)
+## [SelectSupportType](Org.OData.Capabilities.V1.xml#L345)
 
 
 Property|Type|Description
 :-------|:---|:----------
-[Supported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L346)|Boolean|Supports $select
-[InstanceAnnotationsSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L349)|Boolean|Supports instance annotations in $select list
-[Expandable](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L352)|Boolean|$expand within $select is supported
-[Filterable](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L355)|Boolean|$filter within $select is supported
-[Searchable](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L358)|Boolean|$search within $select is supported
-[TopSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L361)|Boolean|$top within $select is supported
-[SkipSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L364)|Boolean|$skip within $select is supported
-[ComputeSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L367)|Boolean|$compute within $select is supported
-[Countable](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L370)|Boolean|$count within $select is supported
-[Sortable](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L373)|Boolean|$orderby within $select is supported
+[Supported](Org.OData.Capabilities.V1.xml#L346)|Boolean|Supports $select
+[InstanceAnnotationsSupported](Org.OData.Capabilities.V1.xml#L349)|Boolean|Supports instance annotations in $select list
+[Expandable](Org.OData.Capabilities.V1.xml#L352)|Boolean|$expand within $select is supported
+[Filterable](Org.OData.Capabilities.V1.xml#L355)|Boolean|$filter within $select is supported
+[Searchable](Org.OData.Capabilities.V1.xml#L358)|Boolean|$search within $select is supported
+[TopSupported](Org.OData.Capabilities.V1.xml#L361)|Boolean|$top within $select is supported
+[SkipSupported](Org.OData.Capabilities.V1.xml#L364)|Boolean|$skip within $select is supported
+[ComputeSupported](Org.OData.Capabilities.V1.xml#L367)|Boolean|$compute within $select is supported
+[Countable](Org.OData.Capabilities.V1.xml#L370)|Boolean|$count within $select is supported
+[Sortable](Org.OData.Capabilities.V1.xml#L373)|Boolean|$orderby within $select is supported
 
 <a name="BatchSupportType"></a>
-## [BatchSupportType](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L385)
+## [BatchSupportType](Org.OData.Capabilities.V1.xml#L385)
 
 
 Property|Type|Description
 :-------|:---|:----------
-[Supported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L392)|Boolean|Service supports requests to $batch
-[ContinueOnErrorSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L395)|Boolean|Service supports the continue on error preference
-[ReferencesInRequestBodiesSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L398)|Boolean|Service supports Content-ID referencing in request bodies
-[ReferencesAcrossChangeSetsSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L401)|Boolean|Service supports Content-ID referencing across change sets
-[EtagReferencesSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L404)|Boolean|Service supports referencing Etags from previous requests
-[RequestDependencyConditionsSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L407)|Boolean|Service supports the `if` member in JSON batch requests
-[SupportedFormats](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L410)|\[MediaType\]|Media types of supported formats for $batch<dl>Allowed values:<dt>[multipart/mixed](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L415)<dd>[Multipart Batch Format](http://docs.oasis-open.org/odata/odata/v4.01/cs01/part1-protocol/odata-v4.01-cs01-part1-protocol.html#sec_MultipartBatchFormat)<dt>[application/json](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L419)<dd>[JSON Batch Format](http://docs.oasis-open.org/odata/odata-json-format/v4.01/cs01/odata-json-format-v4.01-cs01.html#sec_BatchRequestsandResponses)</dl>
+[Supported](Org.OData.Capabilities.V1.xml#L392)|Boolean|Service supports requests to $batch
+[ContinueOnErrorSupported](Org.OData.Capabilities.V1.xml#L395)|Boolean|Service supports the continue on error preference
+[ReferencesInRequestBodiesSupported](Org.OData.Capabilities.V1.xml#L398)|Boolean|Service supports Content-ID referencing in request bodies
+[ReferencesAcrossChangeSetsSupported](Org.OData.Capabilities.V1.xml#L401)|Boolean|Service supports Content-ID referencing across change sets
+[EtagReferencesSupported](Org.OData.Capabilities.V1.xml#L404)|Boolean|Service supports referencing Etags from previous requests
+[RequestDependencyConditionsSupported](Org.OData.Capabilities.V1.xml#L407)|Boolean|Service supports the `if` member in JSON batch requests
+[SupportedFormats](Org.OData.Capabilities.V1.xml#L410)|\[MediaType\]|Media types of supported formats for $batch<dl>Allowed values:<dt>[multipart/mixed](Org.OData.Capabilities.V1.xml#L415)<dd>[Multipart Batch Format](http://docs.oasis-open.org/odata/odata/v4.01/cs01/part1-protocol/odata-v4.01-cs01-part1-protocol.html#sec_MultipartBatchFormat)<dt>[application/json](Org.OData.Capabilities.V1.xml#L419)<dd>[JSON Batch Format](http://docs.oasis-open.org/odata/odata-json-format/v4.01/cs01/odata-json-format-v4.01-cs01.html#sec_BatchRequestsandResponses)</dl>
 
 **Applicable Annotation Terms:**
 
@@ -718,7 +718,7 @@ Property|Type|Description
 - [LongDescription](Org.OData.Core.V1.md#LongDescription)
 
 <a name="FilterRestrictionsBase"></a>
-## [FilterRestrictionsBase](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L438)
+## [FilterRestrictionsBase](Org.OData.Capabilities.V1.xml#L438)
 
 
 **Derived Types:**
@@ -726,9 +726,9 @@ Property|Type|Description
 
 Property|Type|Description
 :-------|:---|:----------
-[Filterable](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L444)|Boolean|$filter is supported
-[RequiresFilter](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L447)|Boolean|$filter is required
-[MaxLevels](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L450)|Int32|The maximum number of levels (including recursion) that can be traversed in a filter expression. A value of -1 indicates there is no restriction.
+[Filterable](Org.OData.Capabilities.V1.xml#L444)|Boolean|$filter is supported
+[RequiresFilter](Org.OData.Capabilities.V1.xml#L447)|Boolean|$filter is required
+[MaxLevels](Org.OData.Capabilities.V1.xml#L450)|Int32|The maximum number of levels (including recursion) that can be traversed in a filter expression. A value of -1 indicates there is no restriction.
 
 **Applicable Annotation Terms:**
 
@@ -752,31 +752,31 @@ Property|Type|Description
 - [Description](Org.OData.Core.V1.md#Description)
 
 <a name="FilterExpressionRestrictionType"></a>
-## [FilterExpressionRestrictionType](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L465)
+## [FilterExpressionRestrictionType](Org.OData.Capabilities.V1.xml#L465)
 
 
 Property|Type|Description
 :-------|:---|:----------
-[Property](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L466)|PropertyPath?|Path to the restricted property
-[AllowedExpressions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L469)|[FilterExpressionType?](#FilterExpressionType)|Allowed subset of expressions
+[Property](Org.OData.Capabilities.V1.xml#L466)|PropertyPath?|Path to the restricted property
+[AllowedExpressions](Org.OData.Capabilities.V1.xml#L469)|[FilterExpressionType?](#FilterExpressionType)|Allowed subset of expressions
 
 <a name="FilterExpressionType"></a>
-## [FilterExpressionType](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L473)
+## [FilterExpressionType](Org.OData.Capabilities.V1.xml#L473)
 **Type:** String
 
 
 
 Allowed Value|Description
 :------------|:----------
-[SingleValue](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L476)|Property can be used in a single `eq` clause
-[MultiValue](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L480)|Property can be used in multiple `eq` and `in` clauses, combined by `or` (which is logically equivalent to a single `in` clause)
-[SingleRange](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L484)|Property can be used in at most one `ge` and/or one `le` clause, separated by `and`
-[MultiRange](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L488)|Property can be compared to a union of one or more closed, half-open, or open intervals<br>The filter expression for this property consists of one or more interval expressions combined by `or`. A single interval expression is either a single comparison of the property and a literal value with `eq`, `le`, `lt`, `ge`, or `gt`, or pair of boundaries combined by `and` and enclosed in parentheses. The lower boundary is either `ge` or `gt`, the upper boundary either `le` or `lt`.
-[SearchExpression](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L493)|String property can be used as first operand in `startswith`, `endswith`, and `contains` clauses
-[MultiRangeOrSearchExpression](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L497)|Property can be compared to a union of zero or more closed, half-open, or open intervals plus zero or more simple string patterns<br>The filter expression for this property consists of one or more interval expressions or string comparison functions combined by `or`. See MultiRange for a definition of an interval expression. See SearchExpression for the allowed string comparison functions.
+[SingleValue](Org.OData.Capabilities.V1.xml#L476)|Property can be used in a single `eq` clause
+[MultiValue](Org.OData.Capabilities.V1.xml#L480)|Property can be used in multiple `eq` and `in` clauses, combined by `or` (which is logically equivalent to a single `in` clause)
+[SingleRange](Org.OData.Capabilities.V1.xml#L484)|Property can be used in at most one `ge` and/or one `le` clause, separated by `and`
+[MultiRange](Org.OData.Capabilities.V1.xml#L488)|Property can be compared to a union of one or more closed, half-open, or open intervals<br>The filter expression for this property consists of one or more interval expressions combined by `or`. A single interval expression is either a single comparison of the property and a literal value with `eq`, `le`, `lt`, `ge`, or `gt`, or pair of boundaries combined by `and` and enclosed in parentheses. The lower boundary is either `ge` or `gt`, the upper boundary either `le` or `lt`.
+[SearchExpression](Org.OData.Capabilities.V1.xml#L493)|String property can be used as first operand in `startswith`, `endswith`, and `contains` clauses
+[MultiRangeOrSearchExpression](Org.OData.Capabilities.V1.xml#L497)|Property can be compared to a union of zero or more closed, half-open, or open intervals plus zero or more simple string patterns<br>The filter expression for this property consists of one or more interval expressions or string comparison functions combined by `or`. See MultiRange for a definition of an interval expression. See SearchExpression for the allowed string comparison functions.
 
 <a name="SortRestrictionsBase"></a>
-## [SortRestrictionsBase](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L510)
+## [SortRestrictionsBase](Org.OData.Capabilities.V1.xml#L510)
 
 
 **Derived Types:**
@@ -784,7 +784,7 @@ Allowed Value|Description
 
 Property|Type|Description
 :-------|:---|:----------
-[Sortable](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L516)|Boolean|$orderby is supported
+[Sortable](Org.OData.Capabilities.V1.xml#L516)|Boolean|$orderby is supported
 
 **Applicable Annotation Terms:**
 
@@ -806,7 +806,7 @@ Property|Type|Description
 - [Description](Org.OData.Core.V1.md#Description)
 
 <a name="ExpandRestrictionsBase"></a>
-## [ExpandRestrictionsBase](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L536)
+## [ExpandRestrictionsBase](Org.OData.Capabilities.V1.xml#L536)
 
 
 **Derived Types:**
@@ -814,9 +814,9 @@ Property|Type|Description
 
 Property|Type|Description
 :-------|:---|:----------
-[Expandable](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L542)|Boolean|$expand is supported
-[StreamsExpandable](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L545)|Boolean|$expand is supported for stream properties and media streams
-[MaxLevels](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L548)|Int32|The maximum number of levels that can be expanded in a expand expression. A value of -1 indicates there is no restriction.
+[Expandable](Org.OData.Capabilities.V1.xml#L542)|Boolean|$expand is supported
+[StreamsExpandable](Org.OData.Capabilities.V1.xml#L545)|Boolean|$expand is supported for stream properties and media streams
+[MaxLevels](Org.OData.Capabilities.V1.xml#L548)|Int32|The maximum number of levels that can be expanded in a expand expression. A value of -1 indicates there is no restriction.
 
 **Applicable Annotation Terms:**
 
@@ -839,33 +839,33 @@ Property|Type|Description
 - [Description](Org.OData.Core.V1.md#Description)
 
 <a name="SearchRestrictionsType"></a>
-## [SearchRestrictionsType](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L566)
+## [SearchRestrictionsType](Org.OData.Capabilities.V1.xml#L566)
 
 
 Property|Type|Description
 :-------|:---|:----------
-[Searchable](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L572)|Boolean|$search is supported
-[UnsupportedExpressions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L575)|[SearchExpressions](#SearchExpressions)|Expressions not supported in $search
+[Searchable](Org.OData.Capabilities.V1.xml#L572)|Boolean|$search is supported
+[UnsupportedExpressions](Org.OData.Capabilities.V1.xml#L575)|[SearchExpressions](#SearchExpressions)|Expressions not supported in $search
 
 **Applicable Annotation Terms:**
 
 - [Description](Org.OData.Core.V1.md#Description)
 
 <a name="SearchExpressions"></a>
-## [SearchExpressions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L579)
+## [SearchExpressions](Org.OData.Capabilities.V1.xml#L579)
 
 
 Flag Member|Value|Description
 :-----|----:|:----------
-[none](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L580)|0|Single search term
-[AND](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L583)|1|Multiple search terms, optionally separated by `AND`
-[OR](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L586)|2|Multiple search terms separated by `OR`
-[NOT](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L589)|4|Search terms preceded by `NOT`
-[phrase](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L592)|8|Search phrases enclosed in double quotes
-[group](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L595)|16|Precedence grouping of search expressions with parentheses
+[none](Org.OData.Capabilities.V1.xml#L580)|0|Single search term
+[AND](Org.OData.Capabilities.V1.xml#L583)|1|Multiple search terms, optionally separated by `AND`
+[OR](Org.OData.Capabilities.V1.xml#L586)|2|Multiple search terms separated by `OR`
+[NOT](Org.OData.Capabilities.V1.xml#L589)|4|Search terms preceded by `NOT`
+[phrase](Org.OData.Capabilities.V1.xml#L592)|8|Search phrases enclosed in double quotes
+[group](Org.OData.Capabilities.V1.xml#L595)|16|Precedence grouping of search expressions with parentheses
 
 <a name="InsertRestrictionsBase"></a>
-## [InsertRestrictionsBase](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L614)
+## [InsertRestrictionsBase](Org.OData.Capabilities.V1.xml#L614)
 
 
 **Derived Types:**
@@ -873,15 +873,15 @@ Flag Member|Value|Description
 
 Property|Type|Description
 :-------|:---|:----------
-[Insertable](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L615)|Boolean|Entities can be inserted
-[MaxLevels](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L618)|Int32|The maximum number of navigation properties that can be traversed when addressing the collection to insert into. A value of -1 indicates there is no restriction.
-[TypecastSegmentSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L621)|Boolean|Entities of a specific derived type can be created by specifying a type-cast segment
-[QueryOptions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L624)|[ModificationQueryOptionsType?](#ModificationQueryOptionsType)|Support for query options with insert requests
-[CustomHeaders](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L627)|\[[CustomParameter](#CustomParameter)\]|Supported or required custom headers
-[CustomQueryOptions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L630)|\[[CustomParameter](#CustomParameter)\]|Supported or required custom query options
-[Description](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L633)|String?|A brief description of the request
-[LongDescription](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L637)|String?|A long description of the request
-[ErrorResponses](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L641)|\[[HttpResponse](#HttpResponse)\]|Possible error responses returned by the request.
+[Insertable](Org.OData.Capabilities.V1.xml#L615)|Boolean|Entities can be inserted
+[MaxLevels](Org.OData.Capabilities.V1.xml#L618)|Int32|The maximum number of navigation properties that can be traversed when addressing the collection to insert into. A value of -1 indicates there is no restriction.
+[TypecastSegmentSupported](Org.OData.Capabilities.V1.xml#L621)|Boolean|Entities of a specific derived type can be created by specifying a type-cast segment
+[QueryOptions](Org.OData.Capabilities.V1.xml#L624)|[ModificationQueryOptionsType?](#ModificationQueryOptionsType)|Support for query options with insert requests
+[CustomHeaders](Org.OData.Capabilities.V1.xml#L627)|\[[CustomParameter](#CustomParameter)\]|Supported or required custom headers
+[CustomQueryOptions](Org.OData.Capabilities.V1.xml#L630)|\[[CustomParameter](#CustomParameter)\]|Supported or required custom query options
+[Description](Org.OData.Capabilities.V1.xml#L633)|String?|A brief description of the request
+[LongDescription](Org.OData.Capabilities.V1.xml#L637)|String?|A long description of the request
+[ErrorResponses](Org.OData.Capabilities.V1.xml#L641)|\[[HttpResponse](#HttpResponse)\]|Possible error responses returned by the request.
 
 <a name="InsertRestrictionsType"></a>
 ## [InsertRestrictionsType](Org.OData.Capabilities.V1.xml#L645): [InsertRestrictionsBase](#InsertRestrictionsBase)
@@ -904,34 +904,34 @@ Property|Type|Description
 [Permissions](Org.OData.Capabilities.V1.xml#L655)|\[[PermissionType?](#PermissionType)\]|Required permissions. One of the specified sets of scopes is required to perform the insert.
 
 <a name="PermissionType"></a>
-## [PermissionType](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L660)
+## [PermissionType](Org.OData.Capabilities.V1.xml#L660)
 
 
 Property|Type|Description
 :-------|:---|:----------
-[SchemeName](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L661)|[SchemeName](Org.OData.Authorization.V1.md#SchemeName)|Authorization flow scheme name
-[Scopes](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L664)|\[[ScopeType](#ScopeType)\]|List of scopes that can provide access to the resource
+[SchemeName](Org.OData.Capabilities.V1.xml#L661)|[SchemeName](Org.OData.Authorization.V1.md#SchemeName)|Authorization flow scheme name
+[Scopes](Org.OData.Capabilities.V1.xml#L664)|\[[ScopeType](#ScopeType)\]|List of scopes that can provide access to the resource
 
 <a name="ScopeType"></a>
-## [ScopeType](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L669)
+## [ScopeType](Org.OData.Capabilities.V1.xml#L669)
 
 
 Property|Type|Description
 :-------|:---|:----------
-[Scope](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L670)|String|Name of the scope.
-[RestrictedProperties](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L673)|String?|Comma-separated string value of all properties that will be included or excluded when using the scope.<br>Possible string value identifiers when specifying properties are `*`, _PropertyName_, `-`_PropertyName_.<br/>`*` denotes all properties are accessible.<br/>`-`_PropertyName_ excludes that specific property.<br/>_PropertyName_ explicitly provides access to the specific property.<br/>The absence of `RestrictedProperties` denotes all properties are accessible using that scope.
+[Scope](Org.OData.Capabilities.V1.xml#L670)|String|Name of the scope.
+[RestrictedProperties](Org.OData.Capabilities.V1.xml#L673)|String?|Comma-separated string value of all properties that will be included or excluded when using the scope.<br>Possible string value identifiers when specifying properties are `*`, _PropertyName_, `-`_PropertyName_.<br/>`*` denotes all properties are accessible.<br/>`-`_PropertyName_ excludes that specific property.<br/>_PropertyName_ explicitly provides access to the specific property.<br/>The absence of `RestrictedProperties` denotes all properties are accessible using that scope.
 
 <a name="DeepInsertSupportType"></a>
-## [DeepInsertSupportType](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L693)
+## [DeepInsertSupportType](Org.OData.Capabilities.V1.xml#L693)
 
 
 Property|Type|Description
 :-------|:---|:----------
-[Supported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L694)|Boolean|Annotation target supports deep inserts
-[ContentIDSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L697)|Boolean|Annotation target supports accepting and returning nested entities annotated with the `Core.ContentID` instance annotation.
+[Supported](Org.OData.Capabilities.V1.xml#L694)|Boolean|Annotation target supports deep inserts
+[ContentIDSupported](Org.OData.Capabilities.V1.xml#L697)|Boolean|Annotation target supports accepting and returning nested entities annotated with the `Core.ContentID` instance annotation.
 
 <a name="UpdateRestrictionsBase"></a>
-## [UpdateRestrictionsBase](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L706)
+## [UpdateRestrictionsBase](Org.OData.Capabilities.V1.xml#L706)
 
 
 **Derived Types:**
@@ -939,20 +939,20 @@ Property|Type|Description
 
 Property|Type|Description
 :-------|:---|:----------
-[Updatable](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L707)|Boolean|Entities can be updated
-[Upsertable](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L710)|Boolean|Entities can be upserted
-[DeltaUpdateSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L713)|Boolean|Entities can be inserted, updated, and deleted via a PATCH request with a delta payload
-[UpdateMethod](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L716)|[HttpMethod?](#HttpMethod)|Supported HTTP Methods (PUT or PATCH) for updating an entity. If null, PATCH SHOULD be supported and PUT MAY be supported.
-[FilterSegmentSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L719)|Boolean|Members of collections can be updated via a PATCH request with a `/$filter(...)/$each` segment
-[TypecastSegmentSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L722)|Boolean|Members of collections can be updated via a PATCH request with a type-cast segment and a `/$each` segment
-[MaxLevels](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L725)|Int32|The maximum number of navigation properties that can be traversed when addressing the collection or entity to update. A value of -1 indicates there is no restriction.
-[Permissions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L728)|\[[PermissionType?](#PermissionType)\]|Required permissions. One of the specified sets of scopes is required to perform the update.
-[QueryOptions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L731)|[ModificationQueryOptionsType?](#ModificationQueryOptionsType)|Support for query options with update requests
-[CustomHeaders](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L734)|\[[CustomParameter](#CustomParameter)\]|Supported or required custom headers
-[CustomQueryOptions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L737)|\[[CustomParameter](#CustomParameter)\]|Supported or required custom query options
-[Description](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L740)|String?|A brief description of the request
-[LongDescription](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L744)|String?|A long description of the request
-[ErrorResponses](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L748)|\[[HttpResponse](#HttpResponse)\]|Possible error responses returned by the request.
+[Updatable](Org.OData.Capabilities.V1.xml#L707)|Boolean|Entities can be updated
+[Upsertable](Org.OData.Capabilities.V1.xml#L710)|Boolean|Entities can be upserted
+[DeltaUpdateSupported](Org.OData.Capabilities.V1.xml#L713)|Boolean|Entities can be inserted, updated, and deleted via a PATCH request with a delta payload
+[UpdateMethod](Org.OData.Capabilities.V1.xml#L716)|[HttpMethod?](#HttpMethod)|Supported HTTP Methods (PUT or PATCH) for updating an entity. If null, PATCH SHOULD be supported and PUT MAY be supported.
+[FilterSegmentSupported](Org.OData.Capabilities.V1.xml#L719)|Boolean|Members of collections can be updated via a PATCH request with a `/$filter(...)/$each` segment
+[TypecastSegmentSupported](Org.OData.Capabilities.V1.xml#L722)|Boolean|Members of collections can be updated via a PATCH request with a type-cast segment and a `/$each` segment
+[MaxLevels](Org.OData.Capabilities.V1.xml#L725)|Int32|The maximum number of navigation properties that can be traversed when addressing the collection or entity to update. A value of -1 indicates there is no restriction.
+[Permissions](Org.OData.Capabilities.V1.xml#L728)|\[[PermissionType?](#PermissionType)\]|Required permissions. One of the specified sets of scopes is required to perform the update.
+[QueryOptions](Org.OData.Capabilities.V1.xml#L731)|[ModificationQueryOptionsType?](#ModificationQueryOptionsType)|Support for query options with update requests
+[CustomHeaders](Org.OData.Capabilities.V1.xml#L734)|\[[CustomParameter](#CustomParameter)\]|Supported or required custom headers
+[CustomQueryOptions](Org.OData.Capabilities.V1.xml#L737)|\[[CustomParameter](#CustomParameter)\]|Supported or required custom query options
+[Description](Org.OData.Capabilities.V1.xml#L740)|String?|A brief description of the request
+[LongDescription](Org.OData.Capabilities.V1.xml#L744)|String?|A long description of the request
+[ErrorResponses](Org.OData.Capabilities.V1.xml#L748)|\[[HttpResponse](#HttpResponse)\]|Possible error responses returned by the request.
 
 <a name="UpdateRestrictionsType"></a>
 ## [UpdateRestrictionsType](Org.OData.Capabilities.V1.xml#L752): [UpdateRestrictionsBase](#UpdateRestrictionsBase)
@@ -979,30 +979,30 @@ Property|Type|Description
 [RequiredProperties](Org.OData.Capabilities.V1.xml#L759)|\[PropertyPath\]|These structural properties must be specified on update
 
 <a name="HttpMethod"></a>
-## [HttpMethod](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L764)
+## [HttpMethod](Org.OData.Capabilities.V1.xml#L764)
 
 
 Flag Member|Value|Description
 :-----|----:|:----------
-[GET](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L765)|1|The HTTP GET Method
-[PATCH](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L768)|2|The HTTP PATCH Method
-[PUT](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L771)|4|The HTTP PUT Method
-[POST](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L774)|8|The HTTP POST Method
-[DELETE](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L777)|16|The HTTP DELETE Method
-[OPTIONS](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L780)|32|The HTTP OPTIONS Method
-[HEAD](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L783)|64|The HTTP HEAD Method
+[GET](Org.OData.Capabilities.V1.xml#L765)|1|The HTTP GET Method
+[PATCH](Org.OData.Capabilities.V1.xml#L768)|2|The HTTP PATCH Method
+[PUT](Org.OData.Capabilities.V1.xml#L771)|4|The HTTP PUT Method
+[POST](Org.OData.Capabilities.V1.xml#L774)|8|The HTTP POST Method
+[DELETE](Org.OData.Capabilities.V1.xml#L777)|16|The HTTP DELETE Method
+[OPTIONS](Org.OData.Capabilities.V1.xml#L780)|32|The HTTP OPTIONS Method
+[HEAD](Org.OData.Capabilities.V1.xml#L783)|64|The HTTP HEAD Method
 
 <a name="DeepUpdateSupportType"></a>
-## [DeepUpdateSupportType](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L792)
+## [DeepUpdateSupportType](Org.OData.Capabilities.V1.xml#L792)
 
 
 Property|Type|Description
 :-------|:---|:----------
-[Supported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L793)|Boolean|Annotation target supports deep updates
-[ContentIDSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L796)|Boolean|Annotation target supports accepting and returning nested entities annotated with the `Core.ContentID` instance annotation.
+[Supported](Org.OData.Capabilities.V1.xml#L793)|Boolean|Annotation target supports deep updates
+[ContentIDSupported](Org.OData.Capabilities.V1.xml#L796)|Boolean|Annotation target supports accepting and returning nested entities annotated with the `Core.ContentID` instance annotation.
 
 <a name="DeleteRestrictionsBase"></a>
-## [DeleteRestrictionsBase](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L805)
+## [DeleteRestrictionsBase](Org.OData.Capabilities.V1.xml#L805)
 
 
 **Derived Types:**
@@ -1010,16 +1010,16 @@ Property|Type|Description
 
 Property|Type|Description
 :-------|:---|:----------
-[Deletable](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L806)|Boolean|Entities can be deleted
-[MaxLevels](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L809)|Int32|The maximum number of navigation properties that can be traversed when addressing the collection to delete from or the entity to delete. A value of -1 indicates there is no restriction.
-[FilterSegmentSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L812)|Boolean|Members of collections can be deleted via a DELETE request with a `/$filter(...)/$each` segment
-[TypecastSegmentSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L815)|Boolean|Members of collections can be deleted via a DELETE request with a type-cast segment and a `/$each` segment
-[Permissions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L818)|\[[PermissionType?](#PermissionType)\]|Required permissions. One of the specified sets of scopes is required to perform the delete.
-[CustomHeaders](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L821)|\[[CustomParameter](#CustomParameter)\]|Supported or required custom headers
-[CustomQueryOptions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L824)|\[[CustomParameter](#CustomParameter)\]|Supported or required custom query options
-[Description](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L827)|String?|A brief description of the request
-[LongDescription](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L831)|String?|A long description of the request
-[ErrorResponses](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L835)|\[[HttpResponse](#HttpResponse)\]|Possible error responses returned by the request.
+[Deletable](Org.OData.Capabilities.V1.xml#L806)|Boolean|Entities can be deleted
+[MaxLevels](Org.OData.Capabilities.V1.xml#L809)|Int32|The maximum number of navigation properties that can be traversed when addressing the collection to delete from or the entity to delete. A value of -1 indicates there is no restriction.
+[FilterSegmentSupported](Org.OData.Capabilities.V1.xml#L812)|Boolean|Members of collections can be deleted via a DELETE request with a `/$filter(...)/$each` segment
+[TypecastSegmentSupported](Org.OData.Capabilities.V1.xml#L815)|Boolean|Members of collections can be deleted via a DELETE request with a type-cast segment and a `/$each` segment
+[Permissions](Org.OData.Capabilities.V1.xml#L818)|\[[PermissionType?](#PermissionType)\]|Required permissions. One of the specified sets of scopes is required to perform the delete.
+[CustomHeaders](Org.OData.Capabilities.V1.xml#L821)|\[[CustomParameter](#CustomParameter)\]|Supported or required custom headers
+[CustomQueryOptions](Org.OData.Capabilities.V1.xml#L824)|\[[CustomParameter](#CustomParameter)\]|Supported or required custom query options
+[Description](Org.OData.Capabilities.V1.xml#L827)|String?|A brief description of the request
+[LongDescription](Org.OData.Capabilities.V1.xml#L831)|String?|A long description of the request
+[ErrorResponses](Org.OData.Capabilities.V1.xml#L835)|\[[HttpResponse](#HttpResponse)\]|Possible error responses returned by the request.
 
 <a name="DeleteRestrictionsType"></a>
 ## [DeleteRestrictionsType](Org.OData.Capabilities.V1.xml#L839): [DeleteRestrictionsBase](#DeleteRestrictionsBase)
@@ -1040,50 +1040,50 @@ Property|Type|Description
 [NonDeletableNavigationProperties](Org.OData.Capabilities.V1.xml#L840)|\[NavigationPropertyPath\]|These navigation properties do not allow DeleteLink requests
 
 <a name="CollectionPropertyRestrictionsType"></a>
-## [CollectionPropertyRestrictionsType](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L848)
+## [CollectionPropertyRestrictionsType](Org.OData.Capabilities.V1.xml#L848)
 
 
 Property|Type|Description
 :-------|:---|:----------
-[CollectionProperty](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L849)|PropertyPath?|Restricted Collection-valued property
-[FilterFunctions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L852)|\[String\]|List of functions and operators supported in filter expressions<br>If not specified, null, or empty, all functions and operators may be attempted.
-[FilterRestrictions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L856)|[FilterRestrictionsType?](#FilterRestrictionsType)|Restrictions on filter expressions
-[SearchRestrictions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L859)|[SearchRestrictionsType?](#SearchRestrictionsType)|Restrictions on search expressions
-[SortRestrictions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L862)|[SortRestrictionsType?](#SortRestrictionsType)|Restrictions on orderby expressions
-[TopSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L865)|Boolean|Supports $top
-[SkipSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L868)|Boolean|Supports $skip
-[SelectSupport](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L871)|[SelectSupportType?](#SelectSupportType)|Support for $select
-[Insertable](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L874)|Boolean|Members can be inserted into this collection<br>If additionally annotated with [Core.PositionalInsert](Org.OData.Core.V1.md#PositionalInsert), members can be inserted at a specific position
-[Updatable](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L878)|Boolean|Members of this ordered collection can be updated by ordinal
-[Deletable](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L881)|Boolean|Members of this ordered collection can be deleted by ordinal
+[CollectionProperty](Org.OData.Capabilities.V1.xml#L849)|PropertyPath?|Restricted Collection-valued property
+[FilterFunctions](Org.OData.Capabilities.V1.xml#L852)|\[String\]|List of functions and operators supported in filter expressions<br>If not specified, null, or empty, all functions and operators may be attempted.
+[FilterRestrictions](Org.OData.Capabilities.V1.xml#L856)|[FilterRestrictionsType?](#FilterRestrictionsType)|Restrictions on filter expressions
+[SearchRestrictions](Org.OData.Capabilities.V1.xml#L859)|[SearchRestrictionsType?](#SearchRestrictionsType)|Restrictions on search expressions
+[SortRestrictions](Org.OData.Capabilities.V1.xml#L862)|[SortRestrictionsType?](#SortRestrictionsType)|Restrictions on orderby expressions
+[TopSupported](Org.OData.Capabilities.V1.xml#L865)|Boolean|Supports $top
+[SkipSupported](Org.OData.Capabilities.V1.xml#L868)|Boolean|Supports $skip
+[SelectSupport](Org.OData.Capabilities.V1.xml#L871)|[SelectSupportType?](#SelectSupportType)|Support for $select
+[Insertable](Org.OData.Capabilities.V1.xml#L874)|Boolean|Members can be inserted into this collection<br>If additionally annotated with [Core.PositionalInsert](Org.OData.Core.V1.md#PositionalInsert), members can be inserted at a specific position
+[Updatable](Org.OData.Capabilities.V1.xml#L878)|Boolean|Members of this ordered collection can be updated by ordinal
+[Deletable](Org.OData.Capabilities.V1.xml#L881)|Boolean|Members of this ordered collection can be deleted by ordinal
 
 <a name="OperationRestrictionsType"></a>
-## [OperationRestrictionsType](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L889)
+## [OperationRestrictionsType](Org.OData.Capabilities.V1.xml#L889)
 
 
 Property|Type|Description
 :-------|:---|:----------
-[FilterSegmentSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L890)|Boolean|Bound action or function can be invoked on a collection-valued binding parameter path with a `/$filter(...)` segment
-[Permissions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L893)|\[[PermissionType?](#PermissionType)\]|Required permissions. One of the specified sets of scopes is required to invoke an action or function
-[CustomHeaders](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L896)|\[[CustomParameter](#CustomParameter)\]|Supported or required custom headers
-[CustomQueryOptions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L899)|\[[CustomParameter](#CustomParameter)\]|Supported or required custom query options
-[ErrorResponses](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L902)|\[[HttpResponse](#HttpResponse)\]|Possible error responses returned by the request.
+[FilterSegmentSupported](Org.OData.Capabilities.V1.xml#L890)|Boolean|Bound action or function can be invoked on a collection-valued binding parameter path with a `/$filter(...)` segment
+[Permissions](Org.OData.Capabilities.V1.xml#L893)|\[[PermissionType?](#PermissionType)\]|Required permissions. One of the specified sets of scopes is required to invoke an action or function
+[CustomHeaders](Org.OData.Capabilities.V1.xml#L896)|\[[CustomParameter](#CustomParameter)\]|Supported or required custom headers
+[CustomQueryOptions](Org.OData.Capabilities.V1.xml#L899)|\[[CustomParameter](#CustomParameter)\]|Supported or required custom query options
+[ErrorResponses](Org.OData.Capabilities.V1.xml#L902)|\[[HttpResponse](#HttpResponse)\]|Possible error responses returned by the request.
 
 <a name="ModificationQueryOptionsType"></a>
-## [ModificationQueryOptionsType](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L913)
+## [ModificationQueryOptionsType](Org.OData.Capabilities.V1.xml#L913)
 
 
 Property|Type|Description
 :-------|:---|:----------
-[ExpandSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L914)|Boolean|Supports $expand with modification requests
-[SelectSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L917)|Boolean|Supports $select with modification requests
-[ComputeSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L920)|Boolean|Supports $compute with modification requests
-[FilterSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L923)|Boolean|Supports $filter with modification requests
-[SearchSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L926)|Boolean|Supports $search with modification requests
-[SortSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L929)|Boolean|Supports $orderby with modification requests
+[ExpandSupported](Org.OData.Capabilities.V1.xml#L914)|Boolean|Supports $expand with modification requests
+[SelectSupported](Org.OData.Capabilities.V1.xml#L917)|Boolean|Supports $select with modification requests
+[ComputeSupported](Org.OData.Capabilities.V1.xml#L920)|Boolean|Supports $compute with modification requests
+[FilterSupported](Org.OData.Capabilities.V1.xml#L923)|Boolean|Supports $filter with modification requests
+[SearchSupported](Org.OData.Capabilities.V1.xml#L926)|Boolean|Supports $search with modification requests
+[SortSupported](Org.OData.Capabilities.V1.xml#L929)|Boolean|Supports $orderby with modification requests
 
 <a name="ReadRestrictionsBase"></a>
-## [*ReadRestrictionsBase*](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L938)
+## [*ReadRestrictionsBase*](Org.OData.Capabilities.V1.xml#L938)
 
 
 **Derived Types:**
@@ -1092,13 +1092,13 @@ Property|Type|Description
 
 Property|Type|Description
 :-------|:---|:----------
-[Readable](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L939)|Boolean|Entities can be retrieved
-[Permissions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L942)|\[[PermissionType?](#PermissionType)\]|Required permissions. One of the specified sets of scopes is required to read.
-[CustomHeaders](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L945)|\[[CustomParameter](#CustomParameter)\]|Supported or required custom headers
-[CustomQueryOptions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L948)|\[[CustomParameter](#CustomParameter)\]|Supported or required custom query options
-[Description](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L951)|String?|A brief description of the request
-[LongDescription](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L955)|String?|A long description of the request
-[ErrorResponses](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L959)|\[[HttpResponse](#HttpResponse)\]|Possible error responses returned by the request.
+[Readable](Org.OData.Capabilities.V1.xml#L939)|Boolean|Entities can be retrieved
+[Permissions](Org.OData.Capabilities.V1.xml#L942)|\[[PermissionType?](#PermissionType)\]|Required permissions. One of the specified sets of scopes is required to read.
+[CustomHeaders](Org.OData.Capabilities.V1.xml#L945)|\[[CustomParameter](#CustomParameter)\]|Supported or required custom headers
+[CustomQueryOptions](Org.OData.Capabilities.V1.xml#L948)|\[[CustomParameter](#CustomParameter)\]|Supported or required custom query options
+[Description](Org.OData.Capabilities.V1.xml#L951)|String?|A brief description of the request
+[LongDescription](Org.OData.Capabilities.V1.xml#L955)|String?|A long description of the request
+[ErrorResponses](Org.OData.Capabilities.V1.xml#L959)|\[[HttpResponse](#HttpResponse)\]|Possible error responses returned by the request.
 
 <a name="ReadByKeyRestrictionsType"></a>
 ## [ReadByKeyRestrictionsType](Org.OData.Capabilities.V1.xml#L963): [ReadRestrictionsBase](#ReadRestrictionsBase)
@@ -1131,56 +1131,56 @@ Property|Type|Description
 [ReadByKeyRestrictions](Org.OData.Capabilities.V1.xml#L970)|[ReadByKeyRestrictionsType?](#ReadByKeyRestrictionsType)|Restrictions for retrieving an entity by key<br>Only valid when applied to a collection. If a property of `ReadByKeyRestrictions` is not specified, the corresponding property value of `ReadRestrictions` applies.
 
 <a name="CustomParameter"></a>
-## [CustomParameter](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1033)
+## [CustomParameter](Org.OData.Capabilities.V1.xml#L1033)
 A custom parameter is either a header or a query option
 
 The type of a custom parameter is always a string. Restrictions on the parameter values can be expressed by annotating the record expression describing the parameter with terms from the Validation vocabulary, e.g. Validation.Pattern or Validation.AllowedValues.
 
 Property|Type|Description
 :-------|:---|:----------
-[Name](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1036)|String|Name of the custom parameter
-[Description](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1039)|String?|Description of the custom parameter
-[DocumentationURL](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1042)|URL?|URL of related documentation
-[Required](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1046)|Boolean|true: parameter is required, false or not specified: parameter is optional
-[ExampleValues](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1049)|\[[PrimitiveExampleValue](Org.OData.Core.V1.md#PrimitiveExampleValue)\]|Example values for the custom parameter
+[Name](Org.OData.Capabilities.V1.xml#L1036)|String|Name of the custom parameter
+[Description](Org.OData.Capabilities.V1.xml#L1039)|String?|Description of the custom parameter
+[DocumentationURL](Org.OData.Capabilities.V1.xml#L1042)|URL?|URL of related documentation
+[Required](Org.OData.Capabilities.V1.xml#L1046)|Boolean|true: parameter is required, false or not specified: parameter is optional
+[ExampleValues](Org.OData.Capabilities.V1.xml#L1049)|\[[PrimitiveExampleValue](Org.OData.Core.V1.md#PrimitiveExampleValue)\]|Example values for the custom parameter
 
 <a name="DefaultCapabilitiesType"></a>
-## [DefaultCapabilitiesType](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1068)
+## [DefaultCapabilitiesType](Org.OData.Capabilities.V1.xml#L1068)
 
 
 Property|Type|Description
 :-------|:---|:----------
-[ChangeTracking](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1069)|[ChangeTrackingBase?](#ChangeTrackingBase)|Change tracking capabilities
-[CountRestrictions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1072)|[CountRestrictionsBase?](#CountRestrictionsBase)|Restrictions on /$count path suffix and $count=true system query option
-[IndexableByKey](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1075)|[Tag?](Org.OData.Core.V1.md#Tag)|Supports key values according to OData URL conventions
-[TopSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1078)|[Tag?](Org.OData.Core.V1.md#Tag)|Supports $top
-[SkipSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1081)|[Tag?](Org.OData.Core.V1.md#Tag)|Supports $skip
-[ComputeSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1084)|[Tag?](Org.OData.Core.V1.md#Tag)|Supports $compute
-[SelectSupport](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1087)|[SelectSupportType?](#SelectSupportType)|Support for $select and nested query options within $select
-[FilterRestrictions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1090)|[FilterRestrictionsBase?](#FilterRestrictionsBase)|Restrictions on filter expressions
-[SortRestrictions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1093)|[SortRestrictionsBase?](#SortRestrictionsBase)|Restrictions on orderby expressions
-[ExpandRestrictions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1096)|[ExpandRestrictionsBase?](#ExpandRestrictionsBase)|Restrictions on expand expressions
-[SearchRestrictions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1099)|[SearchRestrictionsType?](#SearchRestrictionsType)|Restrictions on search expressions
-[InsertRestrictions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1102)|[InsertRestrictionsBase?](#InsertRestrictionsBase)|Restrictions on insert operations
-[UpdateRestrictions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1105)|[UpdateRestrictionsBase?](#UpdateRestrictionsBase)|Restrictions on update operations
-[DeleteRestrictions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1108)|[DeleteRestrictionsBase?](#DeleteRestrictionsBase)|Restrictions on delete operations
-[OperationRestrictions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1111)|[OperationRestrictionsType?](#OperationRestrictionsType)|Restrictions for function or action operations
-[ReadRestrictions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1114)|[ReadRestrictionsType?](#ReadRestrictionsType)|Restrictions for retrieving a collection of entities, retrieving a singleton instance
+[ChangeTracking](Org.OData.Capabilities.V1.xml#L1069)|[ChangeTrackingBase?](#ChangeTrackingBase)|Change tracking capabilities
+[CountRestrictions](Org.OData.Capabilities.V1.xml#L1072)|[CountRestrictionsBase?](#CountRestrictionsBase)|Restrictions on /$count path suffix and $count=true system query option
+[IndexableByKey](Org.OData.Capabilities.V1.xml#L1075)|[Tag?](Org.OData.Core.V1.md#Tag)|Supports key values according to OData URL conventions
+[TopSupported](Org.OData.Capabilities.V1.xml#L1078)|[Tag?](Org.OData.Core.V1.md#Tag)|Supports $top
+[SkipSupported](Org.OData.Capabilities.V1.xml#L1081)|[Tag?](Org.OData.Core.V1.md#Tag)|Supports $skip
+[ComputeSupported](Org.OData.Capabilities.V1.xml#L1084)|[Tag?](Org.OData.Core.V1.md#Tag)|Supports $compute
+[SelectSupport](Org.OData.Capabilities.V1.xml#L1087)|[SelectSupportType?](#SelectSupportType)|Support for $select and nested query options within $select
+[FilterRestrictions](Org.OData.Capabilities.V1.xml#L1090)|[FilterRestrictionsBase?](#FilterRestrictionsBase)|Restrictions on filter expressions
+[SortRestrictions](Org.OData.Capabilities.V1.xml#L1093)|[SortRestrictionsBase?](#SortRestrictionsBase)|Restrictions on orderby expressions
+[ExpandRestrictions](Org.OData.Capabilities.V1.xml#L1096)|[ExpandRestrictionsBase?](#ExpandRestrictionsBase)|Restrictions on expand expressions
+[SearchRestrictions](Org.OData.Capabilities.V1.xml#L1099)|[SearchRestrictionsType?](#SearchRestrictionsType)|Restrictions on search expressions
+[InsertRestrictions](Org.OData.Capabilities.V1.xml#L1102)|[InsertRestrictionsBase?](#InsertRestrictionsBase)|Restrictions on insert operations
+[UpdateRestrictions](Org.OData.Capabilities.V1.xml#L1105)|[UpdateRestrictionsBase?](#UpdateRestrictionsBase)|Restrictions on update operations
+[DeleteRestrictions](Org.OData.Capabilities.V1.xml#L1108)|[DeleteRestrictionsBase?](#DeleteRestrictionsBase)|Restrictions on delete operations
+[OperationRestrictions](Org.OData.Capabilities.V1.xml#L1111)|[OperationRestrictionsType?](#OperationRestrictionsType)|Restrictions for function or action operations
+[ReadRestrictions](Org.OData.Capabilities.V1.xml#L1114)|[ReadRestrictionsType?](#ReadRestrictionsType)|Restrictions for retrieving a collection of entities, retrieving a singleton instance
 
 <a name="HttpResponse"></a>
-## [HttpResponse](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1119)
+## [HttpResponse](Org.OData.Capabilities.V1.xml#L1119)
 
 
 Property|Type|Description
 :-------|:---|:----------
-[StatusCode](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1120)|String|HTTP response status code, for example 400, 403, 501
-[Description](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1123)|String|Human-readable description of the response
+[StatusCode](Org.OData.Capabilities.V1.xml#L1120)|String|HTTP response status code, for example 400, 403, 501
+[Description](Org.OData.Capabilities.V1.xml#L1123)|String|Human-readable description of the response
 
 -------
 
 # <a name="MeasuresVocabulary" href="#MeasuresVocabulary">4 Measures Vocabulary</a>
 
-**Namespace: [Org.OData.Measures.V1](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Measures.V1.xml)**
+**Namespace: [Org.OData.Measures.V1](Org.OData.Measures.V1.xml)**
 
 Terms describing monetary amounts and measured quantities
 
@@ -1189,29 +1189,29 @@ Terms describing monetary amounts and measured quantities
 
 Term|Type|Description
 :---|:---|:----------
-[ISOCurrency](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Measures.V1.xml#L70)|String|<a name="ISOCurrency"></a>The currency for this monetary amount as an ISO 4217 currency code
-[Scale](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Measures.V1.xml#L74)|Byte|<a name="Scale"></a>The number of significant decimal places in the scale part (less than or equal to the number declared in the Scale facet)
-[Unit](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Measures.V1.xml#L79)|String|<a name="Unit"></a>The unit of measure for this measured quantity, e.g. cm for centimeters or % for percentages
-[UNECEUnit](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Measures.V1.xml#L83)|String|<a name="UNECEUnit"></a>The unit of measure for this measured quantity, according to the [UN/CEFACT Recommendation 20](http://tfig.unece.org/contents/recommendation-20.htm)
-[DurationGranularity](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Measures.V1.xml#L87)|[DurationGranularityType](#DurationGranularityType)|<a name="DurationGranularity"></a>The minimum granularity of duration values.<br>Absence of this annotation means a granularity of seconds with sub-seconds according to the Precision facet.
+[ISOCurrency](Org.OData.Measures.V1.xml#L70)|String|<a name="ISOCurrency"></a>The currency for this monetary amount as an ISO 4217 currency code
+[Scale](Org.OData.Measures.V1.xml#L74)|Byte|<a name="Scale"></a>The number of significant decimal places in the scale part (less than or equal to the number declared in the Scale facet)
+[Unit](Org.OData.Measures.V1.xml#L79)|String|<a name="Unit"></a>The unit of measure for this measured quantity, e.g. cm for centimeters or % for percentages
+[UNECEUnit](Org.OData.Measures.V1.xml#L83)|String|<a name="UNECEUnit"></a>The unit of measure for this measured quantity, according to the [UN/CEFACT Recommendation 20](http://tfig.unece.org/contents/recommendation-20.htm)
+[DurationGranularity](Org.OData.Measures.V1.xml#L87)|[DurationGranularityType](#DurationGranularityType)|<a name="DurationGranularity"></a>The minimum granularity of duration values.<br>Absence of this annotation means a granularity of seconds with sub-seconds according to the Precision facet.
 
 <a name="DurationGranularityType"></a>
-## [DurationGranularityType](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Measures.V1.xml#L92)
+## [DurationGranularityType](Org.OData.Measures.V1.xml#L92)
 **Type:** String
 
 
 
 Allowed Value|Description
 :------------|:----------
-[days](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Measures.V1.xml#L95)|Duration in days, e.g. `P1D`
-[hours](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Measures.V1.xml#L99)|Duration in days and hours, e.g. `P1DT23H`
-[minutes](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Measures.V1.xml#L103)|Duration in days, hours, and minutes, e.g. `P1DT23H59M`
+[days](Org.OData.Measures.V1.xml#L95)|Duration in days, e.g. `P1D`
+[hours](Org.OData.Measures.V1.xml#L99)|Duration in days and hours, e.g. `P1DT23H`
+[minutes](Org.OData.Measures.V1.xml#L103)|Duration in days, hours, and minutes, e.g. `P1DT23H59M`
 
 -------
 
 # <a name="ValidationVocabulary" href="#ValidationVocabulary">5 Validation Vocabulary</a>
 
-**Namespace: [Org.OData.Validation.V1](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Validation.V1.xml)**
+**Namespace: [Org.OData.Validation.V1](Org.OData.Validation.V1.xml)**
 
 Terms describing validation rules
 
@@ -1220,53 +1220,53 @@ Terms describing validation rules
 
 Term|Type|Description
 :---|:---|:----------
-[Pattern](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Validation.V1.xml#L67)|String|<a name="Pattern"></a>The pattern that a string property, parameter, or term must match. This SHOULD be a valid regular expression, according to the ECMA 262 regular expression dialect.
-[Minimum](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Validation.V1.xml#L72)|PrimitiveType|<a name="Minimum"></a>Minimum value that a property, parameter, or term can have.<br>Can be annotated with:<ul><li>[Exclusive](#Exclusive)</li></ul>
-[Maximum](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Validation.V1.xml#L81)|PrimitiveType|<a name="Maximum"></a>Maximum value that a property, parameter, or term can have.<br>Can be annotated with:<ul><li>[Exclusive](#Exclusive)</li></ul>
-[Exclusive](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Validation.V1.xml#L90)|[Tag](Org.OData.Core.V1.md#Tag)|<a name="Exclusive"></a>Tags a Minimum or Maximum as exclusive, i.e. an open interval boundary.
-[AllowedValues](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Validation.V1.xml#L94)|\[[AllowedValue](#AllowedValue)\]|<a name="AllowedValues"></a>A collection of valid values for the annotated property, parameter, or type definition
-[MultipleOf](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Validation.V1.xml#L108)|Decimal|<a name="MultipleOf"></a>The value of the annotated property, parameter, or term must be an integer multiple of this positive value. For temporal types, the value is measured in seconds.
-[Constraint](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Validation.V1.xml#L112)|[ConstraintType](#ConstraintType)|<a name="Constraint"></a>Condition that the annotation target has to fulfill
-[ItemsOf](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Validation.V1.xml#L125)|\[[ItemsOfType](#ItemsOfType)\]|<a name="ItemsOf"></a>A list of constraints describing that entities related via one navigation property MUST also be related via another, collection-valued navigation property. The same `path` value MUST NOT occur more than once.<br>Example: entity type `Customer` has navigation properties `AllOrders`, `OpenOrders`, and `ClosedOrders`. The term allows to express that items of `OpenOrders` and `ClosedOrders` are also items of the `AllOrders` navigation property, even though they are defined in an `Orders` entity set.
-[OpenPropertyTypeConstraint](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Validation.V1.xml#L143)|\[[SingleOrCollectionType](#SingleOrCollectionType)\]|<a name="OpenPropertyTypeConstraint"></a>Dynamic properties added to the annotated open structured type are restricted to the listed types.
-[DerivedTypeConstraint](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Validation.V1.xml#L147)|\[[SingleOrCollectionType](#SingleOrCollectionType)\]|<a name="DerivedTypeConstraint"></a>Values are restricted to types that are both identical to or derived from the declared type and a type listed in this collection.<br>This allows restricting values to certain sub-trees of an inheritance hierarchy, including hierarchies starting at the [Built-In Abstract Types](https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.01.html#sec_BuiltInAbstractTypes). Types listed in this collection are ignored if they are not derived from the declared type of the annotated model element or would not be allowed as declared type of the annotated model element.<br/> When applied to a collection-valued element, this annotation specifies the types allowed for members of the collection without mentioning the `Collection()` wrapper. The SingleOrCollectionType may only include the `Collection()` wrapper if the annotation is applied to an element with declared type `Edm.Untyped`.
-[AllowedTerms](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Validation.V1.xml#L166)|\[[QualifiedTermName](Org.OData.Core.V1.md#QualifiedTermName)\]|<a name="AllowedTerms"></a>Annotate a term of type Edm.AnnotationPath, or a property of type Edm.AnnotationPath that is used within a structured term, to restrict the terms that can be targeted by the path.<br>The annotation path expression is intended to end in a path segment with one of the listed terms. For forward compatibility, clients should be prepared for the annotation to reference terms besides those listed.
-[ApplicableTerms](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Validation.V1.xml#L172)|\[[QualifiedTermName](Org.OData.Core.V1.md#QualifiedTermName)\]|<a name="ApplicableTerms"></a>Names of specific terms that are applicable and may be applied in the current context. This annotation does not restrict the use of other terms.
-[MaxItems](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Validation.V1.xml#L176)|Int64|<a name="MaxItems"></a>The annotated collection must have at most the specified number of items.
-[MinItems](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Validation.V1.xml#L180)|Int64|<a name="MinItems"></a>The annotated collection must have at least the specified number of items.
+[Pattern](Org.OData.Validation.V1.xml#L67)|String|<a name="Pattern"></a>The pattern that a string property, parameter, or term must match. This SHOULD be a valid regular expression, according to the ECMA 262 regular expression dialect.
+[Minimum](Org.OData.Validation.V1.xml#L72)|PrimitiveType|<a name="Minimum"></a>Minimum value that a property, parameter, or term can have.<br>Can be annotated with:<ul><li>[Exclusive](#Exclusive)</li></ul>
+[Maximum](Org.OData.Validation.V1.xml#L81)|PrimitiveType|<a name="Maximum"></a>Maximum value that a property, parameter, or term can have.<br>Can be annotated with:<ul><li>[Exclusive](#Exclusive)</li></ul>
+[Exclusive](Org.OData.Validation.V1.xml#L90)|[Tag](Org.OData.Core.V1.md#Tag)|<a name="Exclusive"></a>Tags a Minimum or Maximum as exclusive, i.e. an open interval boundary.
+[AllowedValues](Org.OData.Validation.V1.xml#L94)|\[[AllowedValue](#AllowedValue)\]|<a name="AllowedValues"></a>A collection of valid values for the annotated property, parameter, or type definition
+[MultipleOf](Org.OData.Validation.V1.xml#L108)|Decimal|<a name="MultipleOf"></a>The value of the annotated property, parameter, or term must be an integer multiple of this positive value. For temporal types, the value is measured in seconds.
+[Constraint](Org.OData.Validation.V1.xml#L112)|[ConstraintType](#ConstraintType)|<a name="Constraint"></a>Condition that the annotation target has to fulfill
+[ItemsOf](Org.OData.Validation.V1.xml#L125)|\[[ItemsOfType](#ItemsOfType)\]|<a name="ItemsOf"></a>A list of constraints describing that entities related via one navigation property MUST also be related via another, collection-valued navigation property. The same `path` value MUST NOT occur more than once.<br>Example: entity type `Customer` has navigation properties `AllOrders`, `OpenOrders`, and `ClosedOrders`. The term allows to express that items of `OpenOrders` and `ClosedOrders` are also items of the `AllOrders` navigation property, even though they are defined in an `Orders` entity set.
+[OpenPropertyTypeConstraint](Org.OData.Validation.V1.xml#L143)|\[[SingleOrCollectionType](#SingleOrCollectionType)\]|<a name="OpenPropertyTypeConstraint"></a>Dynamic properties added to the annotated open structured type are restricted to the listed types.
+[DerivedTypeConstraint](Org.OData.Validation.V1.xml#L147)|\[[SingleOrCollectionType](#SingleOrCollectionType)\]|<a name="DerivedTypeConstraint"></a>Values are restricted to types that are both identical to or derived from the declared type and a type listed in this collection.<br>This allows restricting values to certain sub-trees of an inheritance hierarchy, including hierarchies starting at the [Built-In Abstract Types](https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.01.html#sec_BuiltInAbstractTypes). Types listed in this collection are ignored if they are not derived from the declared type of the annotated model element or would not be allowed as declared type of the annotated model element.<br/> When applied to a collection-valued element, this annotation specifies the types allowed for members of the collection without mentioning the `Collection()` wrapper. The SingleOrCollectionType may only include the `Collection()` wrapper if the annotation is applied to an element with declared type `Edm.Untyped`.
+[AllowedTerms](Org.OData.Validation.V1.xml#L166)|\[[QualifiedTermName](Org.OData.Core.V1.md#QualifiedTermName)\]|<a name="AllowedTerms"></a>Annotate a term of type Edm.AnnotationPath, or a property of type Edm.AnnotationPath that is used within a structured term, to restrict the terms that can be targeted by the path.<br>The annotation path expression is intended to end in a path segment with one of the listed terms. For forward compatibility, clients should be prepared for the annotation to reference terms besides those listed.
+[ApplicableTerms](Org.OData.Validation.V1.xml#L172)|\[[QualifiedTermName](Org.OData.Core.V1.md#QualifiedTermName)\]|<a name="ApplicableTerms"></a>Names of specific terms that are applicable and may be applied in the current context. This annotation does not restrict the use of other terms.
+[MaxItems](Org.OData.Validation.V1.xml#L176)|Int64|<a name="MaxItems"></a>The annotated collection must have at most the specified number of items.
+[MinItems](Org.OData.Validation.V1.xml#L180)|Int64|<a name="MinItems"></a>The annotated collection must have at least the specified number of items.
 
 <a name="AllowedValue"></a>
-## [AllowedValue](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Validation.V1.xml#L97)
+## [AllowedValue](Org.OData.Validation.V1.xml#L97)
 
 
 Property|Type|Description
 :-------|:---|:----------
-[Value](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Validation.V1.xml#L103)|PrimitiveType?|An allowed value for the property, parameter, or type definition
+[Value](Org.OData.Validation.V1.xml#L103)|PrimitiveType?|An allowed value for the property, parameter, or type definition
 
 **Applicable Annotation Terms:**
 
 - [SymbolicName](Org.OData.Core.V1.md#SymbolicName)
 
 <a name="ConstraintType"></a>
-## [ConstraintType](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Validation.V1.xml#L115)
+## [ConstraintType](Org.OData.Validation.V1.xml#L115)
 
 
 Property|Type|Description
 :-------|:---|:----------
-[FailureMessage](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Validation.V1.xml#L116)|String?|Human-readable message that can be shown to end users if the constraint is not fulfilled
-[Condition](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Validation.V1.xml#L120)|Boolean|Value MUST be a dynamic expression that evaluates to true if and only if the constraint is fulfilled
+[FailureMessage](Org.OData.Validation.V1.xml#L116)|String?|Human-readable message that can be shown to end users if the constraint is not fulfilled
+[Condition](Org.OData.Validation.V1.xml#L120)|Boolean|Value MUST be a dynamic expression that evaluates to true if and only if the constraint is fulfilled
 
 <a name="ItemsOfType"></a>
-## [ItemsOfType](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Validation.V1.xml#L133)
+## [ItemsOfType](Org.OData.Validation.V1.xml#L133)
 Entities related via the single- or collection-valued navigation property identified by `path` are also related via the collection-valued navigation property identified by `target`.
 
 Property|Type|Description
 :-------|:---|:----------
-[path](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Validation.V1.xml#L135)|NavigationPropertyPath|A path to a single- or collection-valued navigation property
-[target](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Validation.V1.xml#L138)|NavigationPropertyPath|A path to a collection-valued navigation property
+[path](Org.OData.Validation.V1.xml#L135)|NavigationPropertyPath|A path to a single- or collection-valued navigation property
+[target](Org.OData.Validation.V1.xml#L138)|NavigationPropertyPath|A path to a collection-valued navigation property
 
 <a name="SingleOrCollectionType"></a>
-## [SingleOrCollectionType](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Validation.V1.xml#L162)
+## [SingleOrCollectionType](Org.OData.Validation.V1.xml#L162)
 **Type:** String
 
 The qualified name of a type in scope, optionally wrapped in `Collection()` to denote a collection of instances of the type
@@ -1275,7 +1275,7 @@ The qualified name of a type in scope, optionally wrapped in `Collection()` to d
 
 # <a name="AggregationVocabulary" href="#AggregationVocabulary">6 Aggregation Vocabulary</a>
 
-**Namespace: [Org.OData.Aggregation.V1](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml)**
+**Namespace: [Org.OData.Aggregation.V1](Org.OData.Aggregation.V1.xml)**
 
 Terms to describe which data in a given entity model can be aggregated, and how.
 
@@ -1286,22 +1286,22 @@ Related to the specification document [OData-Data-Agg-v4.0](http://docs.oasis-op
 
 Term|Type|Description
 :---|:---|:----------
-[ApplySupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L82)|[ApplySupportedType](#ApplySupportedType)|<a name="ApplySupported"></a>This entity set or collection supports the `$apply` system query option
-[ApplySupportedDefaults](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L88)|[ApplySupportedBase](#ApplySupportedBase)|<a name="ApplySupportedDefaults"></a>Default support of the `$apply` system query option for all collection-valued resources in the container<br><p>Annotating term <a href="#ApplySupported"><code>ApplySupported</code></a> for a specific collection-valued resource overrides the default support with the specified properties using PATCH semantics:</p> <ul> <li>Primitive or collection-valued properties specified in <code>ApplySupported</code> replace the corresponding properties specified in <code>ApplySupportedDefaults</code></li> <li>Complex-valued properties specified in <code>ApplySupported</code> override the corresponding properties specified in <code>ApplySupportedDefaults</code> using PATCH semantics recursively</li> <li>Properties specified neither in <code>ApplySupported</code> nor in <code>ApplySupportedDefaults</code> have their default value</li> </ul> 
-[Groupable](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L305) *(Deprecated)*|[Tag](Org.OData.Core.V1.md#Tag)|<a name="Groupable"></a>Deprecated in favor of [`ApplySupported/GroupableProperties`](#ApplySupported)
-[Aggregatable](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L317) *(Deprecated)*|[Tag](Org.OData.Core.V1.md#Tag)|<a name="Aggregatable"></a>Deprecated in favor of [`ApplySupported/AggregatableProperties`](#ApplySupported)
-[CustomAggregate](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L329)|String|<a name="CustomAggregate"></a>Dynamic property that can be used in the `aggregate` transformation<br>This term MUST be applied with a Qualifier, the Qualifier value is the name of the dynamic property. The value of the annotation MUST be the qualified name of a primitive type. The aggregated value will be of that type.
-[ContextDefiningProperties](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L335)|\[PropertyPath\]|<a name="ContextDefiningProperties"></a>The annotated property or custom aggregate is only well-defined in the context of these properties<br>The context-defining properties need either be part of the result entities, or be restricted to a single value by a pre-filter operation. Examples are postal codes within a country, or monetary amounts whose context is the unit of currency.
-[LeveledHierarchy](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L342)|\[PropertyPath\]|<a name="LeveledHierarchy"></a>Defines a leveled hierarchy (OData-Data-Agg-v4.0, section 5.5.1)
-[RecursiveHierarchy](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L346)|[RecursiveHierarchyType](#RecursiveHierarchyType)|<a name="RecursiveHierarchy"></a>Defines a recursive hierarchy (OData-Data-Agg-v4.0, section 5.5.2)
-[UpPath](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L519)|\[String\]|<a name="UpPath"></a>The string values of the node identifiers in a path from the annotated node to a start node in a traversal of a recursive hierarchy<br>This instance annotation occurs in the result set after a `traverse` transformation (OData-Data-Agg-v4.0, section 6.2.2.2). A use case for this is traversal with multiple parents, when this annotation takes as value one parent node identifier followed by one grandparent node identifier and so on.
-[AvailableOnAggregates](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L528)|[AvailableOnAggregatesType](#AvailableOnAggregatesType)|<a name="AvailableOnAggregates"></a>This function is available on aggregated entities if the `RequiredProperties` are still defined
+[ApplySupported](Org.OData.Aggregation.V1.xml#L82)|[ApplySupportedType](#ApplySupportedType)|<a name="ApplySupported"></a>This entity set or collection supports the `$apply` system query option
+[ApplySupportedDefaults](Org.OData.Aggregation.V1.xml#L88)|[ApplySupportedBase](#ApplySupportedBase)|<a name="ApplySupportedDefaults"></a>Default support of the `$apply` system query option for all collection-valued resources in the container<br><p>Annotating term <a href="#ApplySupported"><code>ApplySupported</code></a> for a specific collection-valued resource overrides the default support with the specified properties using PATCH semantics:</p> <ul> <li>Primitive or collection-valued properties specified in <code>ApplySupported</code> replace the corresponding properties specified in <code>ApplySupportedDefaults</code></li> <li>Complex-valued properties specified in <code>ApplySupported</code> override the corresponding properties specified in <code>ApplySupportedDefaults</code> using PATCH semantics recursively</li> <li>Properties specified neither in <code>ApplySupported</code> nor in <code>ApplySupportedDefaults</code> have their default value</li> </ul> 
+[Groupable](Org.OData.Aggregation.V1.xml#L305) *(Deprecated)*|[Tag](Org.OData.Core.V1.md#Tag)|<a name="Groupable"></a>Deprecated in favor of [`ApplySupported/GroupableProperties`](#ApplySupported)
+[Aggregatable](Org.OData.Aggregation.V1.xml#L317) *(Deprecated)*|[Tag](Org.OData.Core.V1.md#Tag)|<a name="Aggregatable"></a>Deprecated in favor of [`ApplySupported/AggregatableProperties`](#ApplySupported)
+[CustomAggregate](Org.OData.Aggregation.V1.xml#L329)|String|<a name="CustomAggregate"></a>Dynamic property that can be used in the `aggregate` transformation<br>This term MUST be applied with a Qualifier, the Qualifier value is the name of the dynamic property. The value of the annotation MUST be the qualified name of a primitive type. The aggregated value will be of that type.
+[ContextDefiningProperties](Org.OData.Aggregation.V1.xml#L335)|\[PropertyPath\]|<a name="ContextDefiningProperties"></a>The annotated property or custom aggregate is only well-defined in the context of these properties<br>The context-defining properties need either be part of the result entities, or be restricted to a single value by a pre-filter operation. Examples are postal codes within a country, or monetary amounts whose context is the unit of currency.
+[LeveledHierarchy](Org.OData.Aggregation.V1.xml#L342)|\[PropertyPath\]|<a name="LeveledHierarchy"></a>Defines a leveled hierarchy (OData-Data-Agg-v4.0, section 5.5.1)
+[RecursiveHierarchy](Org.OData.Aggregation.V1.xml#L346)|[RecursiveHierarchyType](#RecursiveHierarchyType)|<a name="RecursiveHierarchy"></a>Defines a recursive hierarchy (OData-Data-Agg-v4.0, section 5.5.2)
+[UpPath](Org.OData.Aggregation.V1.xml#L519)|\[String\]|<a name="UpPath"></a>The string values of the node identifiers in a path from the annotated node to a start node in a traversal of a recursive hierarchy<br>This instance annotation occurs in the result set after a `traverse` transformation (OData-Data-Agg-v4.0, section 6.2.2.2). A use case for this is traversal with multiple parents, when this annotation takes as value one parent node identifier followed by one grandparent node identifier and so on.
+[AvailableOnAggregates](Org.OData.Aggregation.V1.xml#L528)|[AvailableOnAggregatesType](#AvailableOnAggregatesType)|<a name="AvailableOnAggregates"></a>This function is available on aggregated entities if the `RequiredProperties` are still defined
 
 
 ## Functions
 
 <a name="isnode"></a>
-### [isnode](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L371)
+### [isnode](Org.OData.Aggregation.V1.xml#L371)
 
 Is the entity a node of the hierarchy specified by the [parameter pair](#HierarchyQualifier) (`HierarchyNodes`, `HierarchyQualifier`)? (See OData-Data-Agg-v4.0, section 5.5.2.1)
 
@@ -1309,14 +1309,14 @@ If a node identifier passed to the function is null, the function returns null.
 
 Parameter|Type|Description
 :--------|:---|:----------
-[HierarchyNodes](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L374)|\[EntityType\]|A collection, given through a `$root` expression
-[HierarchyQualifier](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L377)|[HierarchyQualifier](#HierarchyQualifier)|
-[Node](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L378)|PrimitiveType?|Node identifier of the putative node
-[&rarr;](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L381)|Boolean?|
+[HierarchyNodes](Org.OData.Aggregation.V1.xml#L374)|\[EntityType\]|A collection, given through a `$root` expression
+[HierarchyQualifier](Org.OData.Aggregation.V1.xml#L377)|[HierarchyQualifier](#HierarchyQualifier)|
+[Node](Org.OData.Aggregation.V1.xml#L378)|PrimitiveType?|Node identifier of the putative node
+[&rarr;](Org.OData.Aggregation.V1.xml#L381)|Boolean?|
 
 
 <a name="isroot"></a>
-### [isroot](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L384)
+### [isroot](Org.OData.Aggregation.V1.xml#L384)
 
 Is the entity a root node of the hierarchy specified by the [parameter pair](#HierarchyQualifier) (`HierarchyNodes`, `HierarchyQualifier`)?
 
@@ -1324,14 +1324,14 @@ If a node identifier passed to the function is null, the function returns null.
 
 Parameter|Type|Description
 :--------|:---|:----------
-[HierarchyNodes](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L387)|\[EntityType\]|A collection, given through a `$root` expression
-[HierarchyQualifier](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L390)|[HierarchyQualifier](#HierarchyQualifier)|
-[Node](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L391)|PrimitiveType?|Node identifier of the putative root
-[&rarr;](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L394)|Boolean?|
+[HierarchyNodes](Org.OData.Aggregation.V1.xml#L387)|\[EntityType\]|A collection, given through a `$root` expression
+[HierarchyQualifier](Org.OData.Aggregation.V1.xml#L390)|[HierarchyQualifier](#HierarchyQualifier)|
+[Node](Org.OData.Aggregation.V1.xml#L391)|PrimitiveType?|Node identifier of the putative root
+[&rarr;](Org.OData.Aggregation.V1.xml#L394)|Boolean?|
 
 
 <a name="isdescendant"></a>
-### [isdescendant](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L397)
+### [isdescendant](Org.OData.Aggregation.V1.xml#L397)
 
 Is the entity a descendant node of the ancestor node in the hierarchy specified by the [parameter pair](#HierarchyQualifier) (`HierarchyNodes`, `HierarchyQualifier`) with at most the specified distance? (See OData-Data-Agg-v4.0, section 5.5.2.1)
 
@@ -1339,17 +1339,17 @@ If a node identifier passed to the function is null, the function returns null.
 
 Parameter|Type|Description
 :--------|:---|:----------
-[HierarchyNodes](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L400)|\[EntityType\]|A collection, given through a `$root` expression
-[HierarchyQualifier](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L403)|[HierarchyQualifier](#HierarchyQualifier)|
-[Node](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L404)|PrimitiveType?|Node identifier of the putative descendant
-[Ancestor](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L407)|PrimitiveType?|Node identifier of the ancestor node
-*[MaxDistance](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L410)*|Int16|*Optional parameter*
-*[IncludeSelf](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L418)*|Boolean|*Optional parameter:* Whether to include the node itself in the result
-[&rarr;](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L426)|Boolean?|
+[HierarchyNodes](Org.OData.Aggregation.V1.xml#L400)|\[EntityType\]|A collection, given through a `$root` expression
+[HierarchyQualifier](Org.OData.Aggregation.V1.xml#L403)|[HierarchyQualifier](#HierarchyQualifier)|
+[Node](Org.OData.Aggregation.V1.xml#L404)|PrimitiveType?|Node identifier of the putative descendant
+[Ancestor](Org.OData.Aggregation.V1.xml#L407)|PrimitiveType?|Node identifier of the ancestor node
+*[MaxDistance](Org.OData.Aggregation.V1.xml#L410)*|Int16|*Optional parameter*
+*[IncludeSelf](Org.OData.Aggregation.V1.xml#L418)*|Boolean|*Optional parameter:* Whether to include the node itself in the result
+[&rarr;](Org.OData.Aggregation.V1.xml#L426)|Boolean?|
 
 
 <a name="isancestor"></a>
-### [isancestor](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L429)
+### [isancestor](Org.OData.Aggregation.V1.xml#L429)
 
 Is the entity an ancestor node of the descendant node in the hierarchy specified by the [parameter pair](#HierarchyQualifier) (`HierarchyNodes`, `HierarchyQualifier`) with at most the specified distance? (See OData-Data-Agg-v4.0, section 5.5.2.1)
 
@@ -1357,17 +1357,17 @@ If a node identifier passed to the function is null, the function returns null.
 
 Parameter|Type|Description
 :--------|:---|:----------
-[HierarchyNodes](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L432)|\[EntityType\]|A collection, given through a `$root` expression
-[HierarchyQualifier](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L435)|[HierarchyQualifier](#HierarchyQualifier)|
-[Node](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L436)|PrimitiveType?|Node identifier of the putative ancestor
-[Descendant](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L439)|PrimitiveType?|Node identifier of the descendant node
-*[MaxDistance](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L442)*|Int16|*Optional parameter*
-*[IncludeSelf](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L450)*|Boolean|*Optional parameter:* Whether to include the node itself in the result
-[&rarr;](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L458)|Boolean?|
+[HierarchyNodes](Org.OData.Aggregation.V1.xml#L432)|\[EntityType\]|A collection, given through a `$root` expression
+[HierarchyQualifier](Org.OData.Aggregation.V1.xml#L435)|[HierarchyQualifier](#HierarchyQualifier)|
+[Node](Org.OData.Aggregation.V1.xml#L436)|PrimitiveType?|Node identifier of the putative ancestor
+[Descendant](Org.OData.Aggregation.V1.xml#L439)|PrimitiveType?|Node identifier of the descendant node
+*[MaxDistance](Org.OData.Aggregation.V1.xml#L442)*|Int16|*Optional parameter*
+*[IncludeSelf](Org.OData.Aggregation.V1.xml#L450)*|Boolean|*Optional parameter:* Whether to include the node itself in the result
+[&rarr;](Org.OData.Aggregation.V1.xml#L458)|Boolean?|
 
 
 <a name="issibling"></a>
-### [issibling](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L461)
+### [issibling](Org.OData.Aggregation.V1.xml#L461)
 
 Is the entity a sibling node of the other node in the hierarchy specified by the [parameter pair](#HierarchyQualifier) (`HierarchyNodes`, `HierarchyQualifier`)? (See OData-Data-Agg-v4.0, section 5.5.2.1)
 
@@ -1375,15 +1375,15 @@ A node is not a sibling of itself. If a node identifier passed to the function i
 
 Parameter|Type|Description
 :--------|:---|:----------
-[HierarchyNodes](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L464)|\[EntityType\]|A collection, given through a `$root` expression
-[HierarchyQualifier](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L467)|[HierarchyQualifier](#HierarchyQualifier)|
-[Node](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L468)|PrimitiveType?|Node identifier of the putative sibling
-[Other](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L471)|PrimitiveType?|Node identifier of the other node
-[&rarr;](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L474)|Boolean?|
+[HierarchyNodes](Org.OData.Aggregation.V1.xml#L464)|\[EntityType\]|A collection, given through a `$root` expression
+[HierarchyQualifier](Org.OData.Aggregation.V1.xml#L467)|[HierarchyQualifier](#HierarchyQualifier)|
+[Node](Org.OData.Aggregation.V1.xml#L468)|PrimitiveType?|Node identifier of the putative sibling
+[Other](Org.OData.Aggregation.V1.xml#L471)|PrimitiveType?|Node identifier of the other node
+[&rarr;](Org.OData.Aggregation.V1.xml#L474)|Boolean?|
 
 
 <a name="isleaf"></a>
-### [isleaf](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L477)
+### [isleaf](Org.OData.Aggregation.V1.xml#L477)
 
 Is the entity a leaf node in the hierarchy specified by the [parameter pair](#HierarchyQualifier) (`HierarchyNodes`, `HierarchyQualifier`)? (See OData-Data-Agg-v4.0, section 5.5.2.1)
 
@@ -1391,14 +1391,14 @@ If a node identifier passed to the function is null, the function returns null.
 
 Parameter|Type|Description
 :--------|:---|:----------
-[HierarchyNodes](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L480)|\[EntityType\]|A collection, given through a `$root` expression
-[HierarchyQualifier](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L483)|[HierarchyQualifier](#HierarchyQualifier)|
-[Node](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L484)|PrimitiveType?|Node identifier of the putative leaf
-[&rarr;](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L487)|Boolean?|
+[HierarchyNodes](Org.OData.Aggregation.V1.xml#L480)|\[EntityType\]|A collection, given through a `$root` expression
+[HierarchyQualifier](Org.OData.Aggregation.V1.xml#L483)|[HierarchyQualifier](#HierarchyQualifier)|
+[Node](Org.OData.Aggregation.V1.xml#L484)|PrimitiveType?|Node identifier of the putative leaf
+[&rarr;](Org.OData.Aggregation.V1.xml#L487)|Boolean?|
 
 
 <a name="rollupnode"></a>
-### [rollupnode](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L490)
+### [rollupnode](Org.OData.Aggregation.V1.xml#L490)
 
 During `rolluprecursive` for a hierarchy node, this function returns the node
 
@@ -1412,12 +1412,12 @@ constructs a rollup that contains aggregates per hierarchy node while excluding 
 
 Parameter|Type|Description
 :--------|:---|:----------
-*[Position](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L501)*|Int16|*Optional parameter:* Position N among the `rolluprecursive` operators in the first argument of `groupby`<br>Every instance in the output set of a `groupby` transformation with M `rolluprecursive` operators has M relationships to M nodes in M recursive hierarchies. This function returns the node x with path r to the root in relationship number N. If several such `groupby` transformations are nested, this function refers to the innermost one.
-[&rarr;](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L516)|EntityType|
+*[Position](Org.OData.Aggregation.V1.xml#L501)*|Int16|*Optional parameter:* Position N among the `rolluprecursive` operators in the first argument of `groupby`<br>Every instance in the output set of a `groupby` transformation with M `rolluprecursive` operators has M relationships to M nodes in M recursive hierarchies. This function returns the node x with path r to the root in relationship number N. If several such `groupby` transformations are nested, this function refers to the innermost one.
+[&rarr;](Org.OData.Aggregation.V1.xml#L516)|EntityType|
 
 
 <a name="ApplySupportedBase"></a>
-## [ApplySupportedBase](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L99)
+## [ApplySupportedBase](Org.OData.Aggregation.V1.xml#L99)
 
 
 Services that do not fully implement a certain aggregation-related functionality may document
@@ -1429,69 +1429,69 @@ Services that do not fully implement a certain aggregation-related functionality
 
 Property|Type|Description
 :-------|:---|:----------
-[Transformations](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L105)|\[[Transformation](#Transformation)\]|Transformations that can be used in `$apply`
-[CustomAggregationMethods](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L108)|\[String\]|Qualified names of custom aggregation methods that can be used in `aggregate(...with...)`
-[Rollup](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L111)|[RollupType](#RollupType)|The service supports rollup hierarchies in a `groupby` transformation
-[From](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L114)|Boolean|The service supports the `from` keyword in an `aggregate` transformation
+[Transformations](Org.OData.Aggregation.V1.xml#L105)|\[[Transformation](#Transformation)\]|Transformations that can be used in `$apply`
+[CustomAggregationMethods](Org.OData.Aggregation.V1.xml#L108)|\[String\]|Qualified names of custom aggregation methods that can be used in `aggregate(...with...)`
+[Rollup](Org.OData.Aggregation.V1.xml#L111)|[RollupType](#RollupType)|The service supports rollup hierarchies in a `groupby` transformation
+[From](Org.OData.Aggregation.V1.xml#L114)|Boolean|The service supports the `from` keyword in an `aggregate` transformation
 
 <a name="ApplySupportedType"></a>
-## [ApplySupportedType](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L118): [ApplySupportedBase](#ApplySupportedBase)
+## [ApplySupportedType](Org.OData.Aggregation.V1.xml#L118): [ApplySupportedBase](#ApplySupportedBase)
 
 
 Property|Type|Description
 :-------|:---|:----------
-[*Transformations*](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L105)|\[[Transformation](#Transformation)\]|Transformations that can be used in `$apply`
-[*CustomAggregationMethods*](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L108)|\[String\]|Qualified names of custom aggregation methods that can be used in `aggregate(...with...)`
-[*Rollup*](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L111)|[RollupType](#RollupType)|The service supports rollup hierarchies in a `groupby` transformation
-[*From*](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L114)|Boolean|The service supports the `from` keyword in an `aggregate` transformation
-[PropertyRestrictions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L119) *(Deprecated)*|Boolean|Deprecated since [`Groupable`](#Groupable) and [`Aggregatable`](#Aggregatable) are deprecated
-[GroupableProperties](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L130)|\[AnyPropertyPath\]|A non-empty collection indicates that only the listed properties of the annotated target are supported by the `groupby` transformation
-[AggregatableProperties](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L133)|\[[AggregatablePropertyType](#AggregatablePropertyType)\]|A non-empty collection indicates that only the listed properties of the annotated target can be used in the `aggregate` transformation, optionally restricted to the specified aggregation methods
+[*Transformations*](Org.OData.Aggregation.V1.xml#L105)|\[[Transformation](#Transformation)\]|Transformations that can be used in `$apply`
+[*CustomAggregationMethods*](Org.OData.Aggregation.V1.xml#L108)|\[String\]|Qualified names of custom aggregation methods that can be used in `aggregate(...with...)`
+[*Rollup*](Org.OData.Aggregation.V1.xml#L111)|[RollupType](#RollupType)|The service supports rollup hierarchies in a `groupby` transformation
+[*From*](Org.OData.Aggregation.V1.xml#L114)|Boolean|The service supports the `from` keyword in an `aggregate` transformation
+[PropertyRestrictions](Org.OData.Aggregation.V1.xml#L119) *(Deprecated)*|Boolean|Deprecated since [`Groupable`](#Groupable) and [`Aggregatable`](#Aggregatable) are deprecated
+[GroupableProperties](Org.OData.Aggregation.V1.xml#L130)|\[AnyPropertyPath\]|A non-empty collection indicates that only the listed properties of the annotated target are supported by the `groupby` transformation
+[AggregatableProperties](Org.OData.Aggregation.V1.xml#L133)|\[[AggregatablePropertyType](#AggregatablePropertyType)\]|A non-empty collection indicates that only the listed properties of the annotated target can be used in the `aggregate` transformation, optionally restricted to the specified aggregation methods
 
 <a name="AggregatablePropertyType"></a>
-## [AggregatablePropertyType](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L137)
+## [AggregatablePropertyType](Org.OData.Aggregation.V1.xml#L137)
 
 
 Property|Type|Description
 :-------|:---|:----------
-[Property](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L138)|PropertyPath|Aggregatable property
-[SupportedAggregationMethods](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L143)|\[[AggregationMethod](#AggregationMethod)\]|Standard and custom aggregation methods that can be applied to the property. If omitted, all aggregation methods can be applied
-[RecommendedAggregationMethod](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L148)|[AggregationMethod?](#AggregationMethod)|Recommended method for aggregating values of the property
+[Property](Org.OData.Aggregation.V1.xml#L138)|PropertyPath|Aggregatable property
+[SupportedAggregationMethods](Org.OData.Aggregation.V1.xml#L143)|\[[AggregationMethod](#AggregationMethod)\]|Standard and custom aggregation methods that can be applied to the property. If omitted, all aggregation methods can be applied
+[RecommendedAggregationMethod](Org.OData.Aggregation.V1.xml#L148)|[AggregationMethod?](#AggregationMethod)|Recommended method for aggregating values of the property
 
 <a name="Transformation"></a>
-## [Transformation](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L155)
+## [Transformation](Org.OData.Aggregation.V1.xml#L155)
 **Type:** String
 
 A transformation that can be used in `$apply`
 
 Allowed Value|Description
 :------------|:----------
-[aggregate](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L159)|OData-Data-Agg-v4.0, section 3.2.1
-[groupby](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L163)|OData-Data-Agg-v4.0, section 3.2.3
-[concat](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L167)|OData-Data-Agg-v4.0, section 3.2.2
-[identity](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L171)|OData-Data-Agg-v4.0, section 3.4.1
-[filter](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L175)|OData-Data-Agg-v4.0, section 3.3.2
-[search](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L179)|OData-Data-Agg-v4.0, section 3.3.4
-[nest](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L183)|OData-Data-Agg-v4.0, section 3.5.2
-[addnested](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L187)|OData-Data-Agg-v4.0, section 3.4.3
-[join](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L191)|OData-Data-Agg-v4.0, section 3.5.1
-[outerjoin](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L195)|OData-Data-Agg-v4.0, section 3.5.1
-[compute](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L199)|OData-Data-Agg-v4.0, section 3.4.2
-[bottomcount](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L203)|OData-Data-Agg-v4.0, section 3.3.1.1
-[bottomsum](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L207)|OData-Data-Agg-v4.0, section 3.3.1.3
-[bottompercent](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L211)|OData-Data-Agg-v4.0, section 3.3.1.2
-[topcount](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L215)|OData-Data-Agg-v4.0, section 3.3.1.1
-[topsum](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L219)|OData-Data-Agg-v4.0, section 3.3.1.3
-[toppercent](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L223)|OData-Data-Agg-v4.0, section 3.3.1.2
-[orderby](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L227)|OData-Data-Agg-v4.0, section 3.3.3
-[top](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L231)|OData-Data-Agg-v4.0, section 3.3.6
-[skip](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L235)|OData-Data-Agg-v4.0, section 3.3.5
-[ancestors](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L239)|OData-Data-Agg-v4.0, section 6.2.1
-[descendants](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L243)|OData-Data-Agg-v4.0, section 6.2.1
-[traverse](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L247)|OData-Data-Agg-v4.0, section 6.2.2
+[aggregate](Org.OData.Aggregation.V1.xml#L159)|OData-Data-Agg-v4.0, section 3.2.1
+[groupby](Org.OData.Aggregation.V1.xml#L163)|OData-Data-Agg-v4.0, section 3.2.3
+[concat](Org.OData.Aggregation.V1.xml#L167)|OData-Data-Agg-v4.0, section 3.2.2
+[identity](Org.OData.Aggregation.V1.xml#L171)|OData-Data-Agg-v4.0, section 3.4.1
+[filter](Org.OData.Aggregation.V1.xml#L175)|OData-Data-Agg-v4.0, section 3.3.2
+[search](Org.OData.Aggregation.V1.xml#L179)|OData-Data-Agg-v4.0, section 3.3.4
+[nest](Org.OData.Aggregation.V1.xml#L183)|OData-Data-Agg-v4.0, section 3.5.2
+[addnested](Org.OData.Aggregation.V1.xml#L187)|OData-Data-Agg-v4.0, section 3.4.3
+[join](Org.OData.Aggregation.V1.xml#L191)|OData-Data-Agg-v4.0, section 3.5.1
+[outerjoin](Org.OData.Aggregation.V1.xml#L195)|OData-Data-Agg-v4.0, section 3.5.1
+[compute](Org.OData.Aggregation.V1.xml#L199)|OData-Data-Agg-v4.0, section 3.4.2
+[bottomcount](Org.OData.Aggregation.V1.xml#L203)|OData-Data-Agg-v4.0, section 3.3.1.1
+[bottomsum](Org.OData.Aggregation.V1.xml#L207)|OData-Data-Agg-v4.0, section 3.3.1.3
+[bottompercent](Org.OData.Aggregation.V1.xml#L211)|OData-Data-Agg-v4.0, section 3.3.1.2
+[topcount](Org.OData.Aggregation.V1.xml#L215)|OData-Data-Agg-v4.0, section 3.3.1.1
+[topsum](Org.OData.Aggregation.V1.xml#L219)|OData-Data-Agg-v4.0, section 3.3.1.3
+[toppercent](Org.OData.Aggregation.V1.xml#L223)|OData-Data-Agg-v4.0, section 3.3.1.2
+[orderby](Org.OData.Aggregation.V1.xml#L227)|OData-Data-Agg-v4.0, section 3.3.3
+[top](Org.OData.Aggregation.V1.xml#L231)|OData-Data-Agg-v4.0, section 3.3.6
+[skip](Org.OData.Aggregation.V1.xml#L235)|OData-Data-Agg-v4.0, section 3.3.5
+[ancestors](Org.OData.Aggregation.V1.xml#L239)|OData-Data-Agg-v4.0, section 6.2.1
+[descendants](Org.OData.Aggregation.V1.xml#L243)|OData-Data-Agg-v4.0, section 6.2.1
+[traverse](Org.OData.Aggregation.V1.xml#L247)|OData-Data-Agg-v4.0, section 6.2.2
 
 <a name="AggregationMethod"></a>
-## [AggregationMethod](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L255)
+## [AggregationMethod](Org.OData.Aggregation.V1.xml#L255)
 **Type:** String
 
 Standard or custom aggregation method
@@ -1500,33 +1500,33 @@ Custom aggregation methods MUST use a namespace-qualified name, that is contain 
 
 Allowed Value|Description
 :------------|:----------
-[sum](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L264)|Can be applied to numeric values to return the sum of the non-null values, or null if there are no non-null values or the input set is empty
-[min](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L268)|Can be applied to values with a totally ordered domain to return the smallest of the non-null values, or null if there are no non-null values or the input set is empty
-[max](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L272)|Can be applied to values with a totally ordered domain to return the largest of the non-null values, or null if there are no non-null values or the input set is empty
-[average](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L276)|Can be applied to numeric values to return the sum of the non-null values divided by the count of the non-null values, or null if there are no non-null values or the input set is empty
-[countdistinct](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L280)|Counts the distinct values, omitting any null values<br>For navigation properties, it counts the distinct entities in the union of all entities related to entities in the input set. For collection-valued primitive properties, it counts the distinct items in the union of all collection values in the input set.
+[sum](Org.OData.Aggregation.V1.xml#L264)|Can be applied to numeric values to return the sum of the non-null values, or null if there are no non-null values or the input set is empty
+[min](Org.OData.Aggregation.V1.xml#L268)|Can be applied to values with a totally ordered domain to return the smallest of the non-null values, or null if there are no non-null values or the input set is empty
+[max](Org.OData.Aggregation.V1.xml#L272)|Can be applied to values with a totally ordered domain to return the largest of the non-null values, or null if there are no non-null values or the input set is empty
+[average](Org.OData.Aggregation.V1.xml#L276)|Can be applied to numeric values to return the sum of the non-null values divided by the count of the non-null values, or null if there are no non-null values or the input set is empty
+[countdistinct](Org.OData.Aggregation.V1.xml#L280)|Counts the distinct values, omitting any null values<br>For navigation properties, it counts the distinct entities in the union of all entities related to entities in the input set. For collection-valued primitive properties, it counts the distinct items in the union of all collection values in the input set.
 
 <a name="RollupType"></a>
-## [RollupType](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L292)
+## [RollupType](Org.OData.Aggregation.V1.xml#L292)
 The number of `rollup` or `rolluprecursive` operators allowed in a `groupby` transformation
 
 Member|Value|Description
 :-----|----:|:----------
-[None](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L294)|0|No support for `rollup` or `rolluprecursive`
-[SingleHierarchy](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L297)|1|Only one `rollup` or `rolluprecursive` operator per `groupby`
-[MultipleHierarchies](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L300)|2|Full support for `rollup` and `rolluprecursive`
+[None](Org.OData.Aggregation.V1.xml#L294)|0|No support for `rollup` or `rolluprecursive`
+[SingleHierarchy](Org.OData.Aggregation.V1.xml#L297)|1|Only one `rollup` or `rolluprecursive` operator per `groupby`
+[MultipleHierarchies](Org.OData.Aggregation.V1.xml#L300)|2|Full support for `rollup` and `rolluprecursive`
 
 <a name="RecursiveHierarchyType"></a>
-## [RecursiveHierarchyType](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L350)
+## [RecursiveHierarchyType](Org.OData.Aggregation.V1.xml#L350)
 
 
 Property|Type|Description
 :-------|:---|:----------
-[NodeProperty](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L351)|PropertyPath|Primitive property holding the node identifier
-[ParentNavigationProperty](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L354)|NavigationPropertyPath|Property for navigating to the parent node(s). Its type MUST be the entity type annotated with this term, and it MUST be collection-valued or nullable single-valued.
+[NodeProperty](Org.OData.Aggregation.V1.xml#L351)|PropertyPath|Primitive property holding the node identifier
+[ParentNavigationProperty](Org.OData.Aggregation.V1.xml#L354)|NavigationPropertyPath|Property for navigating to the parent node(s). Its type MUST be the entity type annotated with this term, and it MUST be collection-valued or nullable single-valued.
 
 <a name="HierarchyQualifier"></a>
-## [HierarchyQualifier](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L359)
+## [HierarchyQualifier](Org.OData.Aggregation.V1.xml#L359)
 **Type:** String
 
 Qualifier of a [`RecursiveHierarchy`](#RecursiveHierarchy) annotation
@@ -1539,26 +1539,26 @@ Every recursive hierarchy function defined in this vocabulary has
 given by the `HierarchyNodes` parameter. This specifies a recursive hierarchy that is evaluated by the function.
 
 <a name="AvailableOnAggregatesType"></a>
-## [AvailableOnAggregatesType](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L531)
+## [AvailableOnAggregatesType](Org.OData.Aggregation.V1.xml#L531)
 
 
 Property|Type|Description
 :-------|:---|:----------
-[RequiredProperties](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L532)|\[PropertyPath\]|Properties required to apply this function
+[RequiredProperties](Org.OData.Aggregation.V1.xml#L532)|\[PropertyPath\]|Properties required to apply this function
 
 <a name="NavigationPropertyAggregationCapabilities"></a>
-## [NavigationPropertyAggregationCapabilities](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L537): [NavigationPropertyRestriction](Org.OData.Capabilities.V1.md#NavigationPropertyRestriction) *(Deprecated)*
+## [NavigationPropertyAggregationCapabilities](Org.OData.Aggregation.V1.xml#L537): [NavigationPropertyRestriction](Org.OData.Capabilities.V1.md#NavigationPropertyRestriction) *(Deprecated)*
 [`Capabilities.NavigationRestrictions`](Org.OData.Capabilities.V1.md#NavigationRestrictions) that make use of the additional properties in this subtype are deprecated in favor of [`ApplySupported`](#ApplySupported) and [`CustomAggregate`](#CustomAggregate)
 
 <a name="CustomAggregateType"></a>
-## [CustomAggregateType](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.xml#L555) *(Deprecated)*
+## [CustomAggregateType](Org.OData.Aggregation.V1.xml#L555) *(Deprecated)*
 Deprecated since [`NavigationPropertyAggregationCapabilities`](#NavigationPropertyAggregationCapabilities) is also deprecated
 
 -------
 
 # <a name="AuthorizationVocabulary" href="#AuthorizationVocabulary">7 Authorization Vocabulary</a>
 
-**Namespace: [Org.OData.Authorization.V1](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Authorization.V1.xml)**
+**Namespace: [Org.OData.Authorization.V1](Org.OData.Authorization.V1.xml)**
 
 The Authorization Vocabulary provides terms for describing authorization requirements of the service
 
@@ -1567,20 +1567,20 @@ The Authorization Vocabulary provides terms for describing authorization require
 
 Term|Type|Description
 :---|:---|:----------
-[SecuritySchemes](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Authorization.V1.xml#L65)|\[[SecurityScheme](#SecurityScheme)\]|<a name="SecuritySchemes"></a>At least one of the specified security schemes are required to make a request against the service
-[Authorizations](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Authorization.V1.xml#L78)|\[[Authorization](#Authorization)\]|<a name="Authorizations"></a>Lists the methods supported by the service to authorize access
+[SecuritySchemes](Org.OData.Authorization.V1.xml#L65)|\[[SecurityScheme](#SecurityScheme)\]|<a name="SecuritySchemes"></a>At least one of the specified security schemes are required to make a request against the service
+[Authorizations](Org.OData.Authorization.V1.xml#L78)|\[[Authorization](#Authorization)\]|<a name="Authorizations"></a>Lists the methods supported by the service to authorize access
 
 <a name="SecurityScheme"></a>
-## [SecurityScheme](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Authorization.V1.xml#L69)
+## [SecurityScheme](Org.OData.Authorization.V1.xml#L69)
 
 
 Property|Type|Description
 :-------|:---|:----------
-[Authorization](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Authorization.V1.xml#L70)|[SchemeName](#SchemeName)|The name of a required authorization scheme
-[RequiredScopes](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Authorization.V1.xml#L73)|\[String\]|The names of scopes required from this authorization scheme
+[Authorization](Org.OData.Authorization.V1.xml#L70)|[SchemeName](#SchemeName)|The name of a required authorization scheme
+[RequiredScopes](Org.OData.Authorization.V1.xml#L73)|\[String\]|The names of scopes required from this authorization scheme
 
 <a name="Authorization"></a>
-## [*Authorization*](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Authorization.V1.xml#L82)
+## [*Authorization*](Org.OData.Authorization.V1.xml#L82)
 Base type for all Authorization types
 
 **Derived Types:**
@@ -1595,8 +1595,8 @@ Base type for all Authorization types
 
 Property|Type|Description
 :-------|:---|:----------
-[Name](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Authorization.V1.xml#L84)|String|Name that can be used to reference the authorization scheme
-[Description](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Authorization.V1.xml#L87)|String?|Description of the authorization scheme
+[Name](Org.OData.Authorization.V1.xml#L84)|String|Name that can be used to reference the authorization scheme
+[Description](Org.OData.Authorization.V1.xml#L87)|String?|Description of the authorization scheme
 
 <a name="OpenIDConnect"></a>
 ## [OpenIDConnect](Org.OData.Authorization.V1.xml#L92): [Authorization](#Authorization)
@@ -1686,14 +1686,14 @@ Property|Type|Description
 [TokenUrl](Org.OData.Authorization.V1.xml#L145)|URL|Token Url
 
 <a name="AuthorizationScope"></a>
-## [AuthorizationScope](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Authorization.V1.xml#L151)
+## [AuthorizationScope](Org.OData.Authorization.V1.xml#L151)
 
 
 Property|Type|Description
 :-------|:---|:----------
-[Scope](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Authorization.V1.xml#L152)|String|Scope name
-[Grant](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Authorization.V1.xml#L155)|String?|Identity that has access to the scope or can grant access to the scope.
-[Description](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Authorization.V1.xml#L159)|String|Description of the scope
+[Scope](Org.OData.Authorization.V1.xml#L152)|String|Scope name
+[Grant](Org.OData.Authorization.V1.xml#L155)|String?|Identity that has access to the scope or can grant access to the scope.
+[Description](Org.OData.Authorization.V1.xml#L159)|String|Description of the scope
 
 <a name="ApiKey"></a>
 ## [ApiKey](Org.OData.Authorization.V1.xml#L164): [Authorization](#Authorization)
@@ -1707,17 +1707,17 @@ Property|Type|Description
 [Location](Org.OData.Authorization.V1.xml#L168)|[KeyLocation](#KeyLocation)|Whether the API Key is passed in the header or as a query option
 
 <a name="KeyLocation"></a>
-## [KeyLocation](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Authorization.V1.xml#L173)
+## [KeyLocation](Org.OData.Authorization.V1.xml#L173)
 
 
 Member|Value|Description
 :-----|----:|:----------
-[Header](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Authorization.V1.xml#L174)|0|API Key is passed in the header
-[QueryOption](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Authorization.V1.xml#L177)|1|API Key is passed as a query option
-[Cookie](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Authorization.V1.xml#L180)|2|API Key is passed as a cookie
+[Header](Org.OData.Authorization.V1.xml#L174)|0|API Key is passed in the header
+[QueryOption](Org.OData.Authorization.V1.xml#L177)|1|API Key is passed as a query option
+[Cookie](Org.OData.Authorization.V1.xml#L180)|2|API Key is passed as a cookie
 
 <a name="SchemeName"></a>
-## [SchemeName](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Authorization.V1.xml#L185)
+## [SchemeName](Org.OData.Authorization.V1.xml#L185)
 **Type:** String
 
 The name of the authorization scheme.
@@ -1726,7 +1726,7 @@ The name of the authorization scheme.
 
 # <a name="JSONVocabulary" href="#JSONVocabulary">8 JSON Vocabulary</a>
 
-**Namespace: [Org.OData.JSON.V1](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.JSON.V1.xml)**
+**Namespace: [Org.OData.JSON.V1](Org.OData.JSON.V1.xml)**
 
 Terms for JSON properties
 
@@ -1735,10 +1735,10 @@ Terms for JSON properties
 
 Term|Type|Description
 :---|:---|:----------
-[Schema](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.JSON.V1.xml#L67)|[JSON](#JSON)|<a name="Schema"></a>The JSON Schema for JSON values of the annotated media entity type, property, parameter, return type, term, or type definition<br>The schema can be a schema reference, i.e. `{"$ref":"url/of/schemafile#/path/to/schema/within/schemafile"}`
+[Schema](Org.OData.JSON.V1.xml#L67)|[JSON](#JSON)|<a name="Schema"></a>The JSON Schema for JSON values of the annotated media entity type, property, parameter, return type, term, or type definition<br>The schema can be a schema reference, i.e. `{"$ref":"url/of/schemafile#/path/to/schema/within/schemafile"}`
 
 <a name="JSON"></a>
-## [JSON](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.JSON.V1.xml#L75)
+## [JSON](Org.OData.JSON.V1.xml#L75)
 **Type:** Stream
 
 Textual data of media type `application/json`
@@ -1747,7 +1747,7 @@ Textual data of media type `application/json`
 
 # <a name="RepeatabilityVocabulary" href="#RepeatabilityVocabulary">9 Repeatability Vocabulary</a>
 
-**Namespace: [Org.OData.Repeatability.V1](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Repeatability.V1.xml)**
+**Namespace: [Org.OData.Repeatability.V1](Org.OData.Repeatability.V1.xml)**
 
 Terms describing repeatable requests
 
@@ -1756,15 +1756,15 @@ Terms describing repeatable requests
 
 Term|Type|Description
 :---|:---|:----------
-[Supported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Repeatability.V1.xml#L69)|[Tag](Org.OData.Core.V1.md#Tag)|<a name="Supported"></a>Repeatable requests are supported for the annotated service, entity set, or action<br>Annotations on entity set or action import level override an annotation on entity container level, and an annotation on action level override an annotation on action import level.
-[DeleteWithClientIDSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Repeatability.V1.xml#L74)|[Tag](Org.OData.Core.V1.md#Tag)|<a name="DeleteWithClientIDSupported"></a>Deletion of remembered requests by client ID is supported<br>Clients that specify a `RepeatabilityClientID` header can delete all remembered requests for that client ID by sending a<br/>`DELETE $RepeatableRequestsWithClientID/{Repeatability-Client-ID}`<br/>request to the service root.
-[DeleteWithRequestIDSupported](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Repeatability.V1.xml#L85)|[Tag](Org.OData.Core.V1.md#Tag)|<a name="DeleteWithRequestIDSupported"></a>Deletion of remembered requests by request ID is supported<br>Clients can delete a single remembered request by sending a<br/>`DELETE $RepeatableRequestWithRequestID/{Repeatability-Request-ID}`<br/>request to the service root.
+[Supported](Org.OData.Repeatability.V1.xml#L69)|[Tag](Org.OData.Core.V1.md#Tag)|<a name="Supported"></a>Repeatable requests are supported for the annotated service, entity set, or action<br>Annotations on entity set or action import level override an annotation on entity container level, and an annotation on action level override an annotation on action import level.
+[DeleteWithClientIDSupported](Org.OData.Repeatability.V1.xml#L74)|[Tag](Org.OData.Core.V1.md#Tag)|<a name="DeleteWithClientIDSupported"></a>Deletion of remembered requests by client ID is supported<br>Clients that specify a `RepeatabilityClientID` header can delete all remembered requests for that client ID by sending a<br/>`DELETE $RepeatableRequestsWithClientID/{Repeatability-Client-ID}`<br/>request to the service root.
+[DeleteWithRequestIDSupported](Org.OData.Repeatability.V1.xml#L85)|[Tag](Org.OData.Core.V1.md#Tag)|<a name="DeleteWithRequestIDSupported"></a>Deletion of remembered requests by request ID is supported<br>Clients can delete a single remembered request by sending a<br/>`DELETE $RepeatableRequestWithRequestID/{Repeatability-Request-ID}`<br/>request to the service root.
 
 -------
 
 # <a name="TemporalVocabulary" href="#TemporalVocabulary">10 Temporal Vocabulary</a>
 
-**Namespace: [Org.OData.Temporal.V1](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Temporal.V1.xml)**
+**Namespace: [Org.OData.Temporal.V1](Org.OData.Temporal.V1.xml)**
 
 Terms for describing time-dependent data
 
@@ -1773,13 +1773,13 @@ Terms for describing time-dependent data
 
 Term|Type|Description
 :---|:---|:----------
-[ApplicationTimeSupport](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Temporal.V1.xml#L68)|[ApplicationTimeSupportType](#ApplicationTimeSupportType)|<a name="ApplicationTimeSupport"></a>This collection supports temporal requests
+[ApplicationTimeSupport](Org.OData.Temporal.V1.xml#L68)|[ApplicationTimeSupportType](#ApplicationTimeSupportType)|<a name="ApplicationTimeSupport"></a>This collection supports temporal requests
 
 
 ## Actions
 
 <a name="Update"></a>
-### [Update](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Temporal.V1.xml#L172)
+### [Update](Org.OData.Temporal.V1.xml#L172)
 
 Updates existing time slices with values from delta time slices whose object keys match and whose periods overlap
 
@@ -1790,25 +1790,25 @@ The update behavior for a given object key is known from the [SQL statement](htt
 
 Parameter|Type|Description
 :--------|:---|:----------
-**[timeslices](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Temporal.V1.xml#L180)**|\[EntityType\]|**Binding parameter:** Time slices to modify
-[deltaTimeslices](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Temporal.V1.xml#L183)|\[[TimesliceWithPeriod](#TimesliceWithPeriod)\]|New time slices whose property values are used to update the `timeslices` collection<br>The delta time slices need not contain all properties, but at least the boundary values of the period to change. An absent object key property matches any key property value. New time slices are processed in the order of the collection, which especially matters if some of the specified change periods overlap.
-[&rarr;](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Temporal.V1.xml#L191)|\[[TimesliceWithPeriod](#TimesliceWithPeriod)\]|Modified time slices
+**[timeslices](Org.OData.Temporal.V1.xml#L180)**|\[EntityType\]|**Binding parameter:** Time slices to modify
+[deltaTimeslices](Org.OData.Temporal.V1.xml#L183)|\[[TimesliceWithPeriod](#TimesliceWithPeriod)\]|New time slices whose property values are used to update the `timeslices` collection<br>The delta time slices need not contain all properties, but at least the boundary values of the period to change. An absent object key property matches any key property value. New time slices are processed in the order of the collection, which especially matters if some of the specified change periods overlap.
+[&rarr;](Org.OData.Temporal.V1.xml#L191)|\[[TimesliceWithPeriod](#TimesliceWithPeriod)\]|Modified time slices
 
 
 <a name="Upsert"></a>
-### [Upsert](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Temporal.V1.xml#L196)
+### [Upsert](Org.OData.Temporal.V1.xml#L196)
 
 Like [`Update`](#Update), but additionally inserts those (sub-periods of) `deltaTimeslices` that `Update` disregards
 
 Parameter|Type|Description
 :--------|:---|:----------
-**[timeslices](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Temporal.V1.xml#L198)**|\[EntityType\]|**Binding parameter:** Time slices to modify
-[deltaTimeslices](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Temporal.V1.xml#L201)|\[[TimesliceWithPeriod](#TimesliceWithPeriod)\]|New time slices to be merged into the `timeslices` collection<br>The delta time slices must contain all properties that are needed for insertion. New time slices are processed in the order of the collection, which especially matters if some of the specified change periods overlap.
-[&rarr;](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Temporal.V1.xml#L208)|\[[TimesliceWithPeriod](#TimesliceWithPeriod)\]|Modified time slices
+**[timeslices](Org.OData.Temporal.V1.xml#L198)**|\[EntityType\]|**Binding parameter:** Time slices to modify
+[deltaTimeslices](Org.OData.Temporal.V1.xml#L201)|\[[TimesliceWithPeriod](#TimesliceWithPeriod)\]|New time slices to be merged into the `timeslices` collection<br>The delta time slices must contain all properties that are needed for insertion. New time slices are processed in the order of the collection, which especially matters if some of the specified change periods overlap.
+[&rarr;](Org.OData.Temporal.V1.xml#L208)|\[[TimesliceWithPeriod](#TimesliceWithPeriod)\]|Modified time slices
 
 
 <a name="Delete"></a>
-### [Delete](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Temporal.V1.xml#L213)
+### [Delete](Org.OData.Temporal.V1.xml#L213)
 
 Deletes (sub-periods of) existing time slices whose object keys match and whose periods overlap `deltaTimeslices`
 
@@ -1819,23 +1819,23 @@ The deletion behavior for a given object key is known from the [SQL statement](h
 
 Parameter|Type|Description
 :--------|:---|:----------
-**[timeslices](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Temporal.V1.xml#L221)**|\[EntityType\]|**Binding parameter:** Time slices to modify
-[deltaTimeslices](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Temporal.V1.xml#L224)|\[[TimesliceWithPeriod](#TimesliceWithPeriod)\]|Time slices to be deleted from the `timeslices` collection<br>The delta time slices contain only the boundary values of the period to delete and (parts of) the object key. An absent object key property matches any key property value.
-[&rarr;](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Temporal.V1.xml#L231)|\[[TimesliceWithPeriod](#TimesliceWithPeriod)\]|Deleted (sub-periods of) time slices
+**[timeslices](Org.OData.Temporal.V1.xml#L221)**|\[EntityType\]|**Binding parameter:** Time slices to modify
+[deltaTimeslices](Org.OData.Temporal.V1.xml#L224)|\[[TimesliceWithPeriod](#TimesliceWithPeriod)\]|Time slices to be deleted from the `timeslices` collection<br>The delta time slices contain only the boundary values of the period to delete and (parts of) the object key. An absent object key property matches any key property value.
+[&rarr;](Org.OData.Temporal.V1.xml#L231)|\[[TimesliceWithPeriod](#TimesliceWithPeriod)\]|Deleted (sub-periods of) time slices
 
 
 <a name="ApplicationTimeSupportType"></a>
-## [ApplicationTimeSupportType](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Temporal.V1.xml#L75)
+## [ApplicationTimeSupportType](Org.OData.Temporal.V1.xml#L75)
 
 
 Property|Type|Description
 :-------|:---|:----------
-[UnitOfTime](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Temporal.V1.xml#L76)|[UnitOfTime](#UnitOfTime)|Unit of time and other properties of a time period
-[Timeline](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Temporal.V1.xml#L79)|[Timeline](#Timeline)|Describes how the history and future of the data are represented
-[SupportedActions](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Temporal.V1.xml#L82)|\[[QualifiedActionName](Org.OData.Core.V1.md#QualifiedActionName)\]|List of supported temporal actions
+[UnitOfTime](Org.OData.Temporal.V1.xml#L76)|[UnitOfTime](#UnitOfTime)|Unit of time and other properties of a time period
+[Timeline](Org.OData.Temporal.V1.xml#L79)|[Timeline](#Timeline)|Describes how the history and future of the data are represented
+[SupportedActions](Org.OData.Temporal.V1.xml#L82)|\[[QualifiedActionName](Org.OData.Core.V1.md#QualifiedActionName)\]|List of supported temporal actions
 
 <a name="UnitOfTime"></a>
-## [*UnitOfTime*](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Temporal.V1.xml#L87)
+## [*UnitOfTime*](Org.OData.Temporal.V1.xml#L87)
 Unit of time and other properties of a time period
 
 **Derived Types:**
@@ -1861,7 +1861,7 @@ Property|Type|Description
 [ClosedClosedPeriods](Org.OData.Temporal.V1.xml#L101)|Boolean|If `true`, the period end is the last day in the period; if `false`, the period end is the first day after the period
 
 <a name="Timeline"></a>
-## [*Timeline*](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Temporal.V1.xml#L107)
+## [*Timeline*](Org.OData.Temporal.V1.xml#L107)
 Describes how the history and future of the data are represented
 
 **Derived Types:**
@@ -1892,7 +1892,7 @@ Property|Type|Description
 [ObjectKey](Org.OData.Temporal.V1.xml#L137)|\[PropertyPath\]|The set of primitive properties that identify a temporal object<br>A temporal object is a set of facts whose changes over application time are tracked by the service. The entities in the annotated collection belong to potentially multiple temporal objects, and each temporal object is uniquely identified by the values of the specified object key properties. Object key properties follow the same rules as entity key properties. If no object key is specified, only a single temporal object belongs to the annotated collection.
 
 <a name="TimesliceWithPeriod"></a>
-## [TimesliceWithPeriod](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Temporal.V1.xml#L143)
+## [TimesliceWithPeriod](Org.OData.Temporal.V1.xml#L143)
 Delta time slices with validity period
 
 The properties `PeriodStart` and `PeriodEnd` MUST NOT be present
@@ -1906,9 +1906,9 @@ The properties `PeriodStart` and `PeriodEnd` MUST NOT be present
 
 Property|Type|Description
 :-------|:---|:----------
-[PeriodStart](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Temporal.V1.xml#L155)|PrimitiveType?|Lower boundary of the time slice
-[PeriodEnd](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Temporal.V1.xml#L158)|PrimitiveType?|Upper boundary of the time slice
-[Timeslice](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Temporal.V1.xml#L161)|EntityType|A time slice with the same entity type as the binding parameter of the action<br>When it appears in the return type of an action in this vocabulary, the time slice has the same entity set as the binding parameter value.
+[PeriodStart](Org.OData.Temporal.V1.xml#L155)|PrimitiveType?|Lower boundary of the time slice
+[PeriodEnd](Org.OData.Temporal.V1.xml#L158)|PrimitiveType?|Upper boundary of the time slice
+[Timeslice](Org.OData.Temporal.V1.xml#L161)|EntityType|A time slice with the same entity type as the binding parameter of the action<br>When it appears in the return type of an action in this vocabulary, the time slice has the same entity set as the binding parameter value.
 
 
 -------
