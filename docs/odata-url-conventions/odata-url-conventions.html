@@ -1012,7 +1012,7 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <details open><summary>
 <h4 id="5111-logical-operators"><a name="LogicalOperators" href="#LogicalOperators">5.1.1.1 Logical Operators</a></h4>
 </summary>
-<p>OData defines a set of logical operators that evaluate to true or false (i.e. a <code>boolCommonExpr</code> as defined in <a href="#ODataABNF">OData-ABNF</a>). Logical operators are typically used to filter a collection of resources.</p>
+<p>OData defines a set of logical operators that evaluate to <code>true</code> or <code>false</code> (i.e. a <code>boolCommonExpr</code> as defined in <a href="#ODataABNF">OData-ABNF</a>). Logical operators are typically used to filter a collection of resources.</p>
 <p>The syntax rules for the logical operators are defined in <a href="#ODataABNF">OData-ABNF</a>. 4.01 Services MUST support case-insensitive operator names. Clients that want to work with 4.0 services MUST use lower case operator names.</p>
 <p>The six comparison operators can be used with all primitive values except <code>Edm.Binary</code>, <code>Edm.Stream</code>, and the <code>Edm.Geo</code> types. <code>Edm.Binary</code>, <code>Edm.Stream</code>, and the <code>Edm.Geo</code> types can only be compared to the <code>null</code> value using the <a href="#Equals"><code>eq</code></a> and <a href="#NotEquals"><code>ne</code></a> operators.</p>
 <p>When applied to operands of numeric types, <a href="#NumericPromotion">numeric promotion</a> rules are applied.</p>
@@ -1023,8 +1023,8 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <h5 id="51111-equals"><a name="Equals" href="#Equals">5.1.1.1.1 Equals</a></h5>
 </summary>
 <p>The <code>eq</code> operator returns <code>true</code> if the left operand is equal to the right operand, otherwise it returns <code>false</code>.</p>
-<p>When applied to operands of entity types, the <code>eq</code> operator returns <code>true</code> if both operands represent the same entity, or both operands represent null.</p>
-<p>When applied to operands of complex types, the <code>eq</code> operator returns true if both operands have the same structure and same values, or both operands represent null.</p>
+<p>When applied to operands of entity types, the <code>eq</code> operator returns <code>true</code> if both operands represent the same entity, or both operands represent <code>null</code>.</p>
+<p>When applied to operands of complex types, the <code>eq</code> operator returns <code>true</code> if both operands have the same structure and same values, or both operands represent <code>null</code>.</p>
 <p>When applied to ordered collections, the <code>eq</code> operator returns <code>true</code> if both operands have the same cardinality and each member of the left operand is equal to the corresponding member of the right operand.</p>
 <p>For services that support comparing unordered collections, the <code>eq</code> operator returns <code>true</code> if both operands are equal after applying the same ordering on both collections.</p>
 <p>Each of the special values <code>null</code>, <code>-INF</code>, and <code>INF</code> is equal to itself, and only to itself.</p>
@@ -1035,7 +1035,7 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 </summary>
 <p>The <code>ne</code> operator returns <code>true</code> if the left operand is not equal to the right operand, otherwise it returns <code>false</code>.</p>
 <p>When applied to operands of entity types, the <code>ne</code> operator returns <code>true</code> if the two operands do not represent the same entity.</p>
-<p>When applied to operands of complex types, the <code>ne</code> operator returns true if the operands do not have the same structure and same values.</p>
+<p>When applied to operands of complex types, the <code>ne</code> operator returns <code>true</code> if the operands do not have the same structure and same values.</p>
 <p>When applied to ordered collections, the <code>ne</code> operator returns <code>true</code> if both operands do not have the same cardinality or any member of the left operand is not equal to the corresponding member of the right operand.</p>
 <p>For services that support comparing unordered collections, the <code>ne</code> operator returns <code>true</code> if both operands do not have the same cardinality or do not contain the same members, in any order.</p>
 <p>Each of the special values <code>null</code>, <code>-INF</code>, and <code>INF</code> is not equal to any value but itself.</p>
@@ -1049,7 +1049,7 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <p>The special value <code>INF</code> is greater than any number, and any number is greater than <code>-INF</code>.</p>
 <p>The Boolean value <code>true</code> is greater than <code>false</code>.</p>
 <p>Services SHOULD order language-dependent strings according to the <code>Content-Language</code> of the response, and SHOULD annotate string properties with language-dependent order with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent"><code>Core.IsLanguageDependent</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>.</p>
-<p>If any operand is null, the operator returns <code>false</code>.</p>
+<p>If any operand is <code>null</code>, the operator returns <code>false</code>.</p>
 <p>If at least one operand is non-numeric and the operands have different types, the expression involving the <code>gt</code> operator is invalid.</p>
 </details>
 <details open><summary>
@@ -1065,7 +1065,7 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <p>The special value <code>-INF</code> is less than any number, and any number is less than <code>INF</code>.</p>
 <p>The Boolean value <code>false</code> is less than <code>true</code>.</p>
 <p>Services SHOULD order language-dependent strings according to the <code>Content-Language</code> of the response, and SHOULD annotate string properties with language-dependent order with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent"><code>Core.IsLanguageDependent</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>.</p>
-<p>If any operand is null, the operator returns <code>false</code>.</p>
+<p>If any operand is <code>null</code>, the operator returns <code>false</code>.</p>
 </details>
 <details open><summary>
 <h5 id="51116-less-than-or-equal"><a name="LessThanorEqual" href="#LessThanorEqual">5.1.1.1.6 Less Than or Equal</a></h5>
@@ -1076,14 +1076,14 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <details open><summary>
 <h5 id="51117-and"><a name="And" href="#And">5.1.1.1.7 And</a></h5>
 </summary>
-<p>The <code>and</code> operator returns <code>true</code> if both the left and right operands evaluate to true, otherwise it returns <code>false</code>.</p>
-<p>The <code>null</code> value is treated as unknown, so if one operand evaluates to <code>null</code> and the other operand to false, the <code>and</code> operator returns <code>false</code>. All other combinations with <code>null</code> return <code>null</code>.</p>
+<p>The <code>and</code> operator returns <code>true</code> if both the left and right operands evaluate to <code>true</code>, otherwise it returns <code>false</code>.</p>
+<p>The <code>null</code> value is treated as unknown, so if one operand evaluates to <code>null</code> and the other operand to <code>false</code>, the <code>and</code> operator returns <code>false</code>. All other combinations with <code>null</code> return <code>null</code>.</p>
 </details>
 <details open><summary>
 <h5 id="51118-or"><a name="Or" href="#Or">5.1.1.1.8 Or</a></h5>
 </summary>
-<p>The <code>or</code> operator returns <code>false</code> if both the left and right operands both evaluate to false, otherwise it returns <code>true</code>.</p>
-<p>The <code>null</code> value is treated as unknown, so if one operand evaluates to <code>null</code> and the other operand to true, the <code>or</code> operator returns <code>true</code>. All other combinations with <code>null</code> return <code>null</code>.</p>
+<p>The <code>or</code> operator returns <code>false</code> if both the left and right operands both evaluate to <code>false</code>, otherwise it returns <code>true</code>.</p>
+<p>The <code>null</code> value is treated as unknown, so if one operand evaluates to <code>null</code> and the other operand to <code>true</code>, the <code>or</code> operator returns <code>true</code>. All other combinations with <code>null</code> return <code>null</code>.</p>
 </details>
 <details open><summary>
 <h5 id="51119-not"><a name="Not" href="#Not">5.1.1.1.9 Not</a></h5>
@@ -1095,7 +1095,7 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <h5 id="511110-has"><a name="Has" href="#Has">5.1.1.1.10 Has</a></h5>
 </summary>
 <p>The <code>has</code> operator returns <code>true</code> if the right operand is an enumeration value whose flag(s) are set on the left operand.</p>
-<p>The <code>null</code> value is treated as unknown, so if one operand evaluates to null, the <code>has</code> operator returns <code>null</code>.</p>
+<p>The <code>null</code> value is treated as unknown, so if one operand evaluates to <code>null</code>, the <code>has</code> operator returns <code>null</code>.</p>
 </details>
 <details open><summary>
 <h5 id="511111-in"><a name="In" href="#In">5.1.1.1.11 In</a></h5>
@@ -1156,7 +1156,7 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <h4 id="5112-arithmetic-operators"><a name="ArithmeticOperators" href="#ArithmeticOperators">5.1.1.2 Arithmetic Operators</a></h4>
 </summary>
 <p>OData defines a set of arithmetic operators that require operands that evaluate to numeric types. Arithmetic operators are typically used to filter a collection of resources. However, services MAY allow using arithmetic operators with the <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> system query option.</p>
-<p>If an operand of an arithmetic operator is null or has a non-allowed type, the result is <code>null</code>.</p>
+<p>If an operand of an arithmetic operator is <code>null</code> or has a non-allowed type, the result is <code>null</code>.</p>
 <p>The syntax rules for the arithmetic operators are defined in <a href="#ODataABNF">OData-ABNF</a>. 4.01 Services MUST support case-insensitive operator names. Clients that want to work with 4.0 services MUST use lower case operator names.</p>
 <details open><summary>
 <h5 id="51121-addition"><a name="Addition" href="#Addition">5.1.1.2.1 Addition</a></h5>
@@ -1265,7 +1265,7 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 </summary>
 <p>In addition to operators, a set of functions is also defined for use with the <a href="#SystemQueryOptioncompute"><code>$compute</code></a>, <code>$filter</code> or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> system query options, or in <a href="#ParameterAliases">parameter alias</a> values. The following sections describe the available functions.</p>
 <p>Note: ISNULL or COALESCE operators are not defined. Instead, OData defines a <a href="#null"><code>null</code></a> literal that can be used in comparisons.</p>
-<p>If a parameter of a canonical function is null, the function returns <code>null</code>. If the parameter types do not match the function signature, the function also returns <code>null</code>.</p>
+<p>If a parameter of a canonical function is <code>null</code>, the function returns <code>null</code>. If the parameter types do not match the function signature, the function also returns <code>null</code>.</p>
 <p>The syntax rules for all functions are defined in <a href="#ODataABNF">OData-ABNF</a>. 4.01 Services MUST support case-insensitive canonical function names. Clients that want to work with 4.0 services MUST use lower case canonical function names.</p>
 </details>
 <details open><summary>
@@ -1292,8 +1292,8 @@ OrderedCollection concat(OrderedCollection,OrderedCollection)</code></pre>
 <p>The <code>contains</code> function has two overloads, with the following signatures:</p>
 <pre><code>Edm.Boolean contains(Edm.String,Edm.String)
 Edm.Boolean contains(OrderedCollection,OrderedCollection)</code></pre>
-<p>The <code>contains</code> function with string parameter values returns <code>true</code> if the second string is a substring of the first string, otherwise it returns false. String comparison is case-sensitive, case-insensitive comparison can be achieved in combination with <a href="#tolower"><code>tolower</code></a> or <a href="#toupper"><code>toupper</code></a>.</p>
-<p>The <code>contains</code> function with ordered collection parameter values returns true if the first collection can be transformed into the second collection by removing zero or more items from the beginning or the end of the first collection.</p>
+<p>The <code>contains</code> function with string parameter values returns <code>true</code> if the second string is a substring of the first string, otherwise it returns <code>false</code>. String comparison is case-sensitive, case-insensitive comparison can be achieved in combination with <a href="#tolower"><code>tolower</code></a> or <a href="#toupper"><code>toupper</code></a>.</p>
+<p>The <code>contains</code> function with ordered collection parameter values returns <code>true</code> if the first collection can be transformed into the second collection by removing zero or more items from the beginning or the end of the first collection.</p>
 <p>The <code>containsMethodCallExpr</code> syntax rule defines how the <code>contains</code> function is invoked.</p>
 <div class="example">
 <p>Example 70: all customers with a <code>CompanyName</code> that contains <code>Alfreds</code></p>
@@ -1307,7 +1307,7 @@ Edm.Boolean contains(OrderedCollection,OrderedCollection)</code></pre>
 <pre><code>Edm.Boolean endswith(Edm.String,Edm.String)
 Edm.Boolean endswith(OrderedCollection,OrderedCollection)</code></pre>
 <p>The <code>endswith</code> function with string parameter values returns <code>true</code> if the first string ends with the second string, otherwise it returns <code>false</code>. String comparison is case-sensitive, case-insensitive comparison can be achieved in combination with <a href="#tolower"><code>tolower</code></a> or <a href="#toupper"><code>toupper</code></a>.</p>
-<p>The <code>endswith</code> function with ordered collection parameter values returns true if the first collection can be transformed into the second collection by removing zero or more items from the beginning of the first collection.</p>
+<p>The <code>endswith</code> function with ordered collection parameter values returns <code>true</code> if the first collection can be transformed into the second collection by removing zero or more items from the beginning of the first collection.</p>
 <p>The <code>endsWithMethodCallExpr</code> syntax rule defines how the <code>endswith</code> function is invoked.</p>
 <div class="example">
 <p>Example 71: all customers with a <code>CompanyName</code> that ends with <code>Futterkiste</code></p>
@@ -1348,7 +1348,7 @@ Edm.Int32 length(Collection)</code></pre>
 <p>The <code>startswith</code> function has two overloads, with the following signatures:</p>
 <pre><code>Edm.Boolean startswith(Edm.String,Edm.String)
 Edm.Boolean startswith(Collection,Collection)</code></pre>
-<p>The <code>startswith</code> function with string parameter values returns <code>true</code> if the first string starts with the second string, otherwise it returns false. String comparison is case-sensitive, case-insensitive comparison can be achieved in combination with <a href="#tolower"><code>tolower</code></a> or <a href="#toupper"><code>toupper</code></a>.</p>
+<p>The <code>startswith</code> function with string parameter values returns <code>true</code> if the first string starts with the second string, otherwise it returns <code>false</code>. String comparison is case-sensitive, case-insensitive comparison can be achieved in combination with <a href="#tolower"><code>tolower</code></a> or <a href="#toupper"><code>toupper</code></a>.</p>
 <p>The <code>startswith</code> function with ordered collection parameter values returns <code>true</code> if the first collection can be transformed into the second collection by removing zero or more items from the end of the first collection.</p>
 <p>The <code>startsWithMethodCallExpr</code> syntax rule defines how the <code>startswith</code> function is invoked.</p>
 <div class="example">
@@ -1392,7 +1392,7 @@ OrderedCollection substring(OrderedCollection,Edm.Int32,Edm.Int32)</code></pre>
 <pre><code>Edm.Boolean hassubset(Collection, Collection)</code></pre>
 <p>The <code>hassubset</code> function returns <code>true</code> if the first collection can be transformed into the second collection by reordering and/or removing zero or more items. The <code>hasSubsetMethodCallExpr</code> syntax rule defines how the <code>hassubset</code> function is invoked.</p>
 <div class="example">
-<p>Example 77: <code>hassubset</code> expressions that return true</p>
+<p>Example 77: <code>hassubset</code> expressions that return <code>true</code></p>
 <pre><code>hassubset([4,1,3],[4,1,3])</code></pre>
 <pre><code>hassubset([4,1,3],[1,3,4])</code></pre>
 <pre><code>hassubset([4,1,3],[3,1])</code></pre>
@@ -1411,14 +1411,14 @@ OrderedCollection substring(OrderedCollection,Edm.Int32,Edm.Int32)</code></pre>
 <pre><code>Edm.Boolean hassubsequence(OrderedCollection,OrderedCollection)</code></pre>
 <p>The <code>hassubsequence</code> function returns <code>true</code> if the first collection can be transformed into the second collection by removing zero or more items. The <code>hasSubsequenceMethodCallExpr</code> syntax rule defines how the <code>hassubsequence</code> function is invoked.</p>
 <div class="example">
-<p>Example 79: <code>hassubsequence</code> expressions that return true</p>
+<p>Example 79: <code>hassubsequence</code> expressions that return <code>true</code></p>
 <pre><code>hassubsequence([4,1,3],[4,1,3])</code></pre>
 <pre><code>hassubsequence([4,1,3],[4,1])</code></pre>
 <pre><code>hassubsequence([4,1,3],[4,3])</code></pre>
 <pre><code>hassubsequence([4,1,3,1],[1,1])</code></pre>
 </div>
 <div class="example">
-<p>Example 80: <code>hassubsequence</code> expressions that return false</p>
+<p>Example 80: <code>hassubsequence</code> expressions that return <code>false</code></p>
 <pre><code>hassubsequence([4,1,3],[1,3,4])</code></pre>
 <pre><code>hassubsequence([4,1,3],[3,1])</code></pre>
 <pre><code>hassubsequence([1,2],[1,1,2])</code></pre>
@@ -1745,7 +1745,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>The <code>case</code> function has the following signature:</p>
 <pre><code>expression case(Edm.Boolean:expression, …, Edm.Boolean:expression)</code></pre>
 <p>Each parameter is a pair of expressions separated by a colon (<code>:</code>), where the first expression — the condition — MUST be a Boolean expression, and the second expression — the result — may evaluate to any type.</p>
-<p>The case function evaluates the condition in each pair, starting with the leftmost pair, and stops as soon as a condition evaluates to <code>true</code>. It then returns the value of the result of this pair. It returns <code>null</code> if none of the conditions in any pair evaluates to <code>true</code>. Clients can specify a last pair whose condition is <code>true</code> to get a non-null “default/else/otherwise” result.</p>
+<p>The case function evaluates the condition in each pair, starting with the leftmost pair, and stops as soon as a condition evaluates to <code>true</code>. It then returns the value of the result of this pair. It returns <code>null</code> if none of the conditions in any pair evaluates to <code>true</code>. Clients can specify a last pair whose condition is <code>true</code> to get a non-<code>null</code> “default/else/otherwise” result.</p>
 <p>Boolean expressions containing <code>DateTimeOffset</code> or <code>TimeOfDay</code> literals without the optional seconds part will introduce ambiguity for parsers. Clients SHOULD use whitespace or parentheses to avoid ambiguity.</p>
 <p>Clients SHOULD ensure that the results in all pairs are compatible. If all results are of the same type, the type of the <code>case</code> expression is of that type. If all results are of numeric type, then the type of the <code>case</code> expression is a numeric type capable of representing any of these expressions according to standard type promotion rules.</p>
 <p>Services MAY support <code>case</code> expressions containing parameters of incompatible types, in which case the case expression is treated as <code>Edm.Untyped</code> and its value has the type of the parameter expression selected by the case statement.</p>
@@ -1766,7 +1766,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <details open><summary>
 <h5 id="511131-any"><a name="any" href="#any">5.1.1.13.1 <code>any</code></a></h5>
 </summary>
-<p>The <code>any</code> operator applies a Boolean expression to each member of a collection and returns <code>true</code> if and only if the expression is true for any member of the collection, otherwise it returns <code>false</code>. This implies that the <code>any</code> operator always returns <code>false</code> for an empty collection.</p>
+<p>The <code>any</code> operator applies a Boolean expression to each member of a collection and returns <code>true</code> if and only if the expression is <code>true</code> for any member of the collection, otherwise it returns <code>false</code>. This implies that the <code>any</code> operator always returns <code>false</code> for an empty collection.</p>
 <p>The <code>any</code> operator can be used without an argument expression. This short form returns <code>false</code> if and only if the collection is empty.</p>
 <div class="example">
 <p>Example 99: all <code>Orders</code> that have any <code>Items</code> with a <code>Quantity</code> greater than <code>100</code></p>
@@ -1785,7 +1785,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <details open><summary>
 <h5 id="511132-all"><a name="all" href="#all">5.1.1.13.2 <code>all</code></a></h5>
 </summary>
-<p>The <code>all</code> operator applies a Boolean expression to each member of a collection and returns <code>true</code> if the expression is true for all members of the collection, otherwise it returns <code>false</code>. This implies that the <code>all</code> operator always returns <code>true</code> for an empty collection.</p>
+<p>The <code>all</code> operator applies a Boolean expression to each member of a collection and returns <code>true</code> if the expression is <code>true</code> for all members of the collection, otherwise it returns <code>false</code>. This implies that the <code>all</code> operator always returns <code>true</code> for an empty collection.</p>
 <p>The <code>all</code> operator cannot be used without an argument expression.</p>
 <div class="example">
 <p>Example 102: all <code>Orders</code> that have only <code>Items</code> with a <code>Quantity</code> greater than <code>100</code></p>
@@ -1901,13 +1901,13 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>Properties and navigation properties of the structured type on which a common expression is evaluated can be used as operands or function parameters, as shown in the preceding examples.</p>
 <p>Properties of complex properties can be used via the same syntax as in resource paths, i.e. by specifying the name of a complex property, followed by a forward slash (<code>/</code>) and the name of a property of the complex property, and so on,</p>
 <p>Properties and navigation properties of entities related with a target cardinality 0..1 or 1 can be used by specifying the navigation property, followed by a forward slash (<code>/</code>) and the name of a property of the related entity, and so on.</p>
-<p>If a complex property is null, or no entity is related (in case of target cardinality 0..1), its value, and the values of its components, are treated as <code>null</code>.</p>
+<p>If a complex property is <code>null</code>, or no entity is related (in case of target cardinality 0..1), its value, and the values of its components, are treated as <code>null</code>.</p>
 <div class="example">
 <p>Example 113: similar behavior whether <code>HeadquarterAddress</code> is a nullable complex type or a nullable navigation property</p>
 <pre><code>Companies(1)/HeadquarterAddress/Street</code></pre>
 </div>
 <p>To access properties of derived types, the property name MUST be prefixed with the qualified name of the derived type on which the property is defined, followed by a forward slash (<code>/</code>), see <a href="#AddressingDerivedTypes">addressing derived types</a>. If the current instance is not of the specified derived type, the path expression returns <code>null</code>.</p>
-<p>If the property or navigation property is not defined for the type of the resource and that type supports dynamic properties or navigation properties, then the property or navigation property is treated as null for all instances on which it has no value.</p>
+<p>If the property or navigation property is not defined for the type of the resource and that type supports dynamic properties or navigation properties, then the property or navigation property is treated as <code>null</code> for all instances on which it has no value.</p>
 <p>If the property or navigation property is not defined for the type of the resource and that type does not support dynamic properties or navigation properties, then the request may be considered malformed.</p>
 </details>
 <details open><summary>
@@ -2100,7 +2100,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <details open><summary>
 <h3 id="512-system-query-option-filter"><a name="SystemQueryOptionfilter" href="#SystemQueryOptionfilter">5.1.2 System Query Option <code>$filter</code></a></h3>
 </summary>
-<p>The <code>$filter</code> system query option allows clients to filter a collection of resources that are addressed by a request URL. The expression specified with <code>$filter</code> is evaluated for each resource in the collection, and only items where the expression evaluates to true are included in the response. Resources for which the expression evaluates to false or to null, or which reference properties that are unavailable due to permissions, are omitted from the response.</p>
+<p>The <code>$filter</code> system query option allows clients to filter a collection of resources that are addressed by a request URL. The expression specified with <code>$filter</code> is evaluated for each resource in the collection, and only items where the expression evaluates to <code>true</code> are included in the response. Resources for which the expression evaluates to <code>false</code> or to <code>null</code>, or which reference properties that are unavailable due to permissions, are omitted from the response.</p>
 <p>The <a href="#ODataABNF">OData-ABNF</a> <code>filter</code> syntax rule defines the formal grammar of the <code>$filter</code> query option.</p>
 </details>
 <details open><summary>
@@ -2201,7 +2201,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <li>the qualified name of a bound function to include all matching overloads, or</li>
 <li>the qualified name of a bound function followed by parentheses containing the comma-separated lists of non-binding parameters identifying a single overload.</li>
 </ul>
-<p>The <code>$select</code> system query option is interpreted relative to the entity type or complex type of the resources identified by the resource path section of the URL. Each select item in the <code>$select</code> clause indicates that the response MUST include the declared or dynamic properties, actions and functions identified by that select item. If a select item is a path expression traversing an entity or complex property that is null on an instance, then the null-valued entity or complex property is included and represented as <code>null</code>. The simplest form of a select item explicitly requests a property defined on the entity type of the resources identified by the resource path section of the URL.</p>
+<p>The <code>$select</code> system query option is interpreted relative to the entity type or complex type of the resources identified by the resource path section of the URL. Each select item in the <code>$select</code> clause indicates that the response MUST include the declared or dynamic properties, actions and functions identified by that select item. If a select item is a path expression traversing an entity or complex property that is <code>null</code> on an instance, then the null-valued entity or complex property is included and represented as <code>null</code>. The simplest form of a select item explicitly requests a property defined on the entity type of the resources identified by the resource path section of the URL.</p>
 <div class="example">
 <p>Example 129: rating and release date of all products</p>
 <pre><code>http://host/service/Products?$select=Rating,ReleaseDate</code></pre>
@@ -2211,7 +2211,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>Example 130: all structural properties of all products</p>
 <pre><code>http://host/service/Products?$select=*</code></pre>
 </div>
-<p>If the select item is not defined for the type of the resource, and that type supports dynamic properties or instance annotations, then the property is treated as null for all instances on which it is not defined.</p>
+<p>If the select item is not defined for the type of the resource, and that type supports dynamic properties or instance annotations, then the property is treated as <code>null</code> for all instances on which it is not defined.</p>
 <p>If the select item is not defined for the type of the resource, and that type does not support dynamic properties or instance annotations, then the request is considered malformed.</p>
 <p>If the select item is an instance annotation of type entity or collection of entities, then the request is considered malformed. Entity-valued annotations can be included using <a href="#SystemQueryOptionexpand"><code>$expand</code></a>.</p>
 <p>If the select item is a navigation property, then the corresponding navigation link is represented in the response. If the navigation property also appears in an <a href="#SystemQueryOptionexpand"><code>$expand</code></a> query option, then it is additionally represented as inline content. This inline content can itself be restricted with a nested <code>$select</code> query option, see <a href="#SystemQueryOptionfilter">section 5.1.2</a>.</p>
@@ -2284,12 +2284,12 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>Search expressions are used within the <a href="#SystemQueryOptionsearch"><code>$search</code></a> system query option to request entities matching the specified expression. Leading and trailing spaces are not considered part of the search expression.</p>
 <p><em>Terms</em> can be any single word to be matched within the expression.</p>
 <p>Terms enclosed in double-quotes comprise a <em>phrase</em>.</p>
-<p>Each individual term or phrase comprises a Boolean expression that returns <code>true</code> if the term or phrase is matched, otherwise false. The semantics of what is considered a match is dependent upon the service.</p>
+<p>Each individual term or phrase comprises a Boolean expression that returns <code>true</code> if the term or phrase is matched, otherwise <code>false</code>. The semantics of what is considered a match is dependent upon the service.</p>
 <p>Expressions enclosed in parenthesis comprise a <em>group expression</em>.</p>
 <p>The search expression can contain any number of terms, phrases, or group expressions, along with the case-sensitive keywords <code>NOT</code>, <code>AND</code>, and <code>OR</code>, evaluated in that order.</p>
-<p>Expressions prefaced with <code>NOT</code> evaluate to true if the expression is not matched, otherwise false.</p>
-<p>Two expressions not enclosed in quotes and separated by a space are equivalent to the same two expressions separated by the <code>AND</code> keyword. Such expressions evaluate to <code>true</code> if both expressions evaluate to true, otherwise false.</p>
-<p>Expressions separated by an <code>OR</code> evaluate to true if either of the expressions evaluate to true, otherwise false.</p>
+<p>Expressions prefaced with <code>NOT</code> evaluate to <code>true</code> if the expression is not matched, otherwise <code>false</code>.</p>
+<p>Two expressions not enclosed in quotes and separated by a space are equivalent to the same two expressions separated by the <code>AND</code> keyword. Such expressions evaluate to <code>true</code> if both expressions evaluate to <code>true</code>, otherwise <code>false</code>.</p>
+<p>Expressions separated by an <code>OR</code> evaluate to <code>true</code> if either of the expressions evaluate to <code>true</code>, otherwise <code>false</code>.</p>
 <p>To support type-ahead use cases, incomplete search expressions can be sent as OData string literals enclosed in single-quotes, and single-quotes within the search expression doubled. Such an expression can also be used to search for double quotes: <code>?$search='"'</code>.</p>
 <p>The <a href="#ODataABNF">OData-ABNF</a> <code>searchExpr</code> syntax rule defines the formal grammar of the search expression.</p>
 </details>

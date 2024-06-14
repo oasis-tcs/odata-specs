@@ -1533,7 +1533,7 @@ grammar of common expressions.
 
 #### <a name="LogicalOperators" href="#LogicalOperators">5.1.1.1 Logical Operators</a>
 
-OData defines a set of logical operators that evaluate to true or false
+OData defines a set of logical operators that evaluate to `true` or `false`
 (i.e. a `boolCommonExpr` as defined in [OData-ABNF](#ODataABNF)).
 Logical operators are typically used to filter a collection of
 resources.
@@ -1569,11 +1569,11 @@ operand, otherwise it returns `false`.
 
 When applied to operands of entity types, the `eq` operator returns `true`
 if both operands represent the same entity, or both operands represent
-null.
+`null`.
 
 When applied to operands of complex types, the `eq` operator returns
-true if both operands have the same structure and same values, or both
-operands represent null.
+`true` if both operands have the same structure and same values, or both
+operands represent `null`.
 
 When applied to ordered collections, the `eq` operator returns `true` if
 both operands have the same cardinality and each member of the left
@@ -1597,7 +1597,7 @@ When applied to operands of entity types, the `ne` operator returns `true`
 if the two operands do not represent the same entity.
 
 When applied to operands of complex types, the `ne` operator returns
-true if the operands do not have the same structure and same values.
+`true` if the operands do not have the same structure and same values.
 
 When applied to ordered collections, the `ne` operator returns `true` if
 both operands do not have the same cardinality or any member of the left
@@ -1630,7 +1630,7 @@ with language-dependent order with the term
 [`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
 see [OData-VocCore](#ODataVocCore).
 
-If any operand is null, the operator returns `false`.
+If any operand is `null`, the operator returns `false`.
 
 If at least one operand is non-numeric and the operands have different types,
 the expression involving the `gt` operator is invalid.
@@ -1658,7 +1658,7 @@ with language-dependent order with the term
 [`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
 see [OData-VocCore](#ODataVocCore).
 
-If any operand is null, the operator returns `false`.
+If any operand is `null`, the operator returns `false`.
 
 ##### <a name="LessThanorEqual" href="#LessThanorEqual">5.1.1.1.6 Less Than or Equal</a>
 
@@ -1670,19 +1670,19 @@ See rules for [`lt`](#LessThan) and [`eq`](#Equals) for details.
 ##### <a name="And" href="#And">5.1.1.1.7 And</a>
 
 The `and` operator returns `true` if both the left and right operands
-evaluate to true, otherwise it returns `false`.
+evaluate to `true`, otherwise it returns `false`.
 
 The `null` value is treated as unknown, so if one operand evaluates to
-`null` and the other operand to false, the `and` operator returns `false`.
+`null` and the other operand to `false`, the `and` operator returns `false`.
 All other combinations with `null` return `null`.
 
 ##### <a name="Or" href="#Or">5.1.1.1.8 Or</a>
 
 The `or` operator returns `false` if both the left and right operands both
-evaluate to false, otherwise it returns `true`.
+evaluate to `false`, otherwise it returns `true`.
 
 The `null` value is treated as unknown, so if one operand evaluates to
-`null` and the other operand to true, the `or` operator returns `true`.
+`null` and the other operand to `true`, the `or` operator returns `true`.
 All other combinations with `null` return `null`.
 
 ##### <a name="Not" href="#Not">5.1.1.1.9 Not</a>
@@ -1698,7 +1698,7 @@ The `has` operator returns `true` if the right operand is an enumeration
 value whose flag(s) are set on the left operand.
 
 The `null` value is treated as unknown, so if one operand evaluates to
-null, the `has` operator returns `null`.
+`null`, the `has` operator returns `null`.
 
 ##### <a name="In" href="#In">5.1.1.1.11 In</a>
 
@@ -1800,7 +1800,7 @@ filter a collection of resources. However, services MAY allow using
 arithmetic operators with the [`$orderby`](#SystemQueryOptionorderby)
 system query option.
 
-If an operand of an arithmetic operator is null or has a non-allowed type,
+If an operand of an arithmetic operator is `null` or has a non-allowed type,
 the result is `null`.
 
 The syntax rules for the arithmetic operators are defined in
@@ -1991,7 +1991,7 @@ Note: ISNULL or COALESCE operators are
 not defined. Instead, OData defines a [`null`](#null) literal that can
 be used in comparisons.
 
-If a parameter of a canonical function is null, the function returns
+If a parameter of a canonical function is `null`, the function returns
 `null`. If the parameter types do not match the function signature, the
 function also returns `null`.
 
@@ -2042,12 +2042,12 @@ Edm.Boolean contains(OrderedCollection,OrderedCollection)
 
 The `contains` function with string parameter values returns `true` if the
 second string is a substring of the first string, otherwise it returns
-false. String comparison is case-sensitive, case-insensitive comparison
+`false`. String comparison is case-sensitive, case-insensitive comparison
 can be achieved in combination with [`tolower`](#tolower) or
 [`toupper`](#toupper).
 
 The `contains` function with ordered collection parameter values returns
-true if the first collection can be transformed into the second
+`true` if the first collection can be transformed into the second
 collection by removing zero or more items from the beginning or the end
 of the first collection.
 
@@ -2078,7 +2078,7 @@ achieved in combination with [`tolower`](#tolower) or
 [`toupper`](#toupper).
 
 The `endswith` function with ordered collection parameter values returns
-true if the first collection can be transformed into the second
+`true` if the first collection can be transformed into the second
 collection by removing zero or more items from the beginning of the
 first collection.
 
@@ -2163,7 +2163,7 @@ Edm.Boolean startswith(Collection,Collection)
 
 The `startswith` function with string parameter values returns `true` if
 the first string starts with the second string, otherwise it returns
-false. String comparison is case-sensitive, case-insensitive comparison
+`false`. String comparison is case-sensitive, case-insensitive comparison
 can be achieved in combination with [`tolower`](#tolower) or
 [`toupper`](#toupper).
 
@@ -2261,7 +2261,7 @@ zero or more items. The `hasSubsetMethodCallExpr` syntax rule defines
 how the `hassubset` function is invoked.
 
 ::: example
-Example 77: `hassubset` expressions that return true
+Example 77: `hassubset` expressions that return `true`
 ```
 hassubset([4,1,3],[4,1,3])
 ```
@@ -2305,7 +2305,7 @@ items. The `hasSubsequenceMethodCallExpr` syntax rule defines how the
 `hassubsequence` function is invoked.
 
 ::: example
-Example 79: `hassubsequence` expressions that return true
+Example 79: `hassubsequence` expressions that return `true`
 ```
 hassubsequence([4,1,3],[4,1,3])
 ```
@@ -2324,7 +2324,7 @@ hassubsequence([4,1,3,1],[1,1])
 :::
 
 ::: example
-Example 80: `hassubsequence` expressions that return false
+Example 80: `hassubsequence` expressions that return `false`
 ```
 hassubsequence([4,1,3],[1,3,4])
 ```
@@ -2917,7 +2917,7 @@ The case function evaluates the condition in each pair, starting with
 the leftmost pair, and stops as soon as a condition evaluates to `true`.
 It then returns the value of the result of this pair. It returns `null`
 if none of the conditions in any pair evaluates to `true`. Clients can
-specify a last pair whose condition is `true` to get a non-null
+specify a last pair whose condition is `true` to get a non-`null`
 "default/else/otherwise" result.
 
 Boolean expressions containing `DateTimeOffset` or `TimeOfDay` literals without
@@ -2970,7 +2970,7 @@ the lambda operator.
 ##### <a name="any" href="#any">5.1.1.13.1 `any`</a>
 
 The `any` operator applies a Boolean expression to each member of a
-collection and returns `true` if and only if the expression is true for
+collection and returns `true` if and only if the expression is `true` for
 any member of the collection, otherwise it returns `false`. This implies
 that the `any` operator always returns `false` for an empty collection.
 
@@ -3007,7 +3007,7 @@ http://host/service/Categories?$expand=Products(
 ##### <a name="all" href="#all">5.1.1.13.2 `all`</a>
 
 The `all` operator applies a Boolean expression to each member of a
-collection and returns `true` if the expression is true for all members of
+collection and returns `true` if the expression is `true` for all members of
 the collection, otherwise it returns `false`. This implies that the `all`
 operator always returns `true` for an empty collection.
 
@@ -3278,7 +3278,7 @@ cardinality 0..1 or 1 can be used by specifying the navigation property,
 followed by a forward slash (`/`) and the name of a property of the
 related entity, and so on.
 
-If a complex property is null, or no entity is related (in case of
+If a complex property is `null`, or no entity is related (in case of
 target cardinality 0..1), its value, and the values of its components,
 are treated as `null`.
 
@@ -3298,7 +3298,7 @@ of the specified derived type, the path expression returns `null`.
 
 If the property or navigation property is not defined for the type of
 the resource and that type supports dynamic properties or navigation
-properties, then the property or navigation property is treated as null
+properties, then the property or navigation property is treated as `null`
 for all instances on which it has no value.
 
 If the property or navigation property is not defined for the type of
@@ -3410,9 +3410,9 @@ to promote an operand to the target type.
 The `$filter` system query option allows clients to filter a collection
 of resources that are addressed by a request URL. The expression
 specified with `$filter` is evaluated for each resource in the
-collection, and only items where the expression evaluates to true are
+collection, and only items where the expression evaluates to `true` are
 included in the response. Resources for which the expression evaluates
-to false or to null, or which reference properties that are unavailable
+to `false` or to `null`, or which reference properties that are unavailable
 due to permissions, are omitted from the response.
 
 The [OData-ABNF](#ODataABNF) `filter` syntax rule defines the formal
@@ -3665,7 +3665,7 @@ type or complex type of the resources identified by the resource path
 section of the URL. Each select item in the `$select` clause indicates
 that the response MUST include the declared or dynamic properties,
 actions and functions identified by that select item.
-If a select item is a path expression traversing an entity or complex property that is null on an instance, then
+If a select item is a path expression traversing an entity or complex property that is `null` on an instance, then
 the null-valued entity or complex property is included and represented as `null`.
 The simplest form of a select item explicitly requests a property defined on the entity
 type of the resources identified by the resource path section of the URL.
@@ -3689,7 +3689,7 @@ http://host/service/Products?$select=*
 
 If the select item is not defined for the type of the resource, and that
 type supports dynamic properties or instance annotations, then the
-property is treated as null for all instances on which it is not
+property is treated as `null` for all instances on which it is not
 defined.
 
 If the select item is not defined for the type of the resource, and that
@@ -3876,7 +3876,7 @@ Leading and trailing spaces are not considered part of the search expression.
 Terms enclosed in double-quotes comprise a *phrase*.
 
 Each individual term or phrase comprises a Boolean expression that
-returns `true` if the term or phrase is matched, otherwise false. The
+returns `true` if the term or phrase is matched, otherwise `false`. The
 semantics of what is considered a match is dependent upon the service.
 
 Expressions enclosed in parenthesis comprise a *group expression*.
@@ -3885,16 +3885,16 @@ The search expression can contain any number of terms, phrases, or group
 expressions, along with the case-sensitive keywords `NOT`, `AND`, and
 `OR`, evaluated in that order.
 
-Expressions prefaced with `NOT` evaluate to true if the expression is
-not matched, otherwise false.
+Expressions prefaced with `NOT` evaluate to `true` if the expression is
+not matched, otherwise `false`.
 
 Two expressions not enclosed in quotes and separated by a space are
 equivalent to the same two expressions separated by the `AND` keyword.
 Such expressions evaluate to `true` if both expressions evaluate to
-true, otherwise false.
+`true`, otherwise `false`.
 
-Expressions separated by an `OR` evaluate to true if either of the
-expressions evaluate to true, otherwise false.
+Expressions separated by an `OR` evaluate to `true` if either of the
+expressions evaluate to `true`, otherwise `false`.
 
 To support type-ahead use cases, incomplete search expressions can be
 sent as OData string literals enclosed in single-quotes, and
