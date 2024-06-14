@@ -4179,7 +4179,7 @@ Values are represented as GeoJSON, see [OData-JSON](#ODataJSON).
 ::: {.varjson .example}
 Example 58:
 ```json
-"Location": {"type": "Point", "coordinates": [142.1,64.1]}
+"Location": { "type": "Point", "coordinates": [142.1,64.1] }
 ```
 :::
 
@@ -4199,7 +4199,7 @@ and the media type of the stream as its value.
 ::: {.varjson .example}
 Example 59:
 ```json
-"JsonStream": {"foo":true,"bar":42},
+"JsonStream": { "foo":true,"bar":42 },
 "JsonStream@Core.MediaType": "application/json",
 
 "TextStream": "Hello World!",

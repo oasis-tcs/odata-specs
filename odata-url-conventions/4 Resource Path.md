@@ -789,7 +789,8 @@ Example ##ex: filter expression with type cast; will evaluate to `null`
 for all non-`VipCustomer` instances and thus return only instances of
 `VipCustomer`
 ```
-http://host/service/Customers?$filter=Model.VipCustomer/PercentageOfVipPromotionProductsOrdered gt 80
+http://host/service/Customers
+  ?$filter=Model.VipCustomer/PercentageOfVipPromotionProductsOrdered gt 80
 ```
 :::
 
