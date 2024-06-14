@@ -173,7 +173,7 @@ with language-dependent order with the term
 [`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
 see [OData-VocCore](#ODataVocCore).
 
-If any operand is `null`, the operator returns `false`.
+If any operand is null, the operator returns `false`.
 
 If at least one operand is non-numeric and the operands have different types,
 the expression involving the `gt` operator is invalid.
@@ -201,7 +201,7 @@ with language-dependent order with the term
 [`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
 see [OData-VocCore](#ODataVocCore).
 
-If any operand is `null`, the operator returns `false`.
+If any operand is null, the operator returns `false`.
 
 ##### ##subsubsubsubsec Less Than or Equal
 
@@ -1819,7 +1819,7 @@ cardinality 0..1 or 1 can be used by specifying the navigation property,
 followed by a forward slash (`/`) and the name of a property of the
 related entity, and so on.
 
-If a complex property is `null`, or no entity is related (in case of
+If a complex property is null, or no entity is related (in case of
 target cardinality 0..1), its value, and the values of its components,
 are treated as `null`.
 
@@ -2209,7 +2209,7 @@ type or complex type of the resources identified by the resource path
 section of the URL. Each select item in the `$select` clause indicates
 that the response MUST include the declared or dynamic properties,
 actions and functions identified by that select item.
-If a select item is a path expression traversing an entity or complex property that is `null` on an instance, then
+If a select item is a path expression traversing an entity or complex property that is null on an instance, then
 the null-valued entity or complex property is included and represented as `null`.
 The simplest form of a select item explicitly requests a property defined on the entity
 type of the resources identified by the resource path section of the URL.

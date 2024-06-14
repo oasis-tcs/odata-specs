@@ -1048,7 +1048,7 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <p>The special value <code>INF</code> is greater than any number, and any number is greater than <code>-INF</code>.</p>
 <p>The Boolean value <code>true</code> is greater than <code>false</code>.</p>
 <p>Services SHOULD order language-dependent strings according to the <code>Content-Language</code> of the response, and SHOULD annotate string properties with language-dependent order with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent"><code>Core.IsLanguageDependent</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>.</p>
-<p>If any operand is <code>null</code>, the operator returns <code>false</code>.</p>
+<p>If any operand is null, the operator returns <code>false</code>.</p>
 <p>If at least one operand is non-numeric and the operands have different types, the expression involving the <code>gt</code> operator is invalid.</p>
 </details>
 <details open><summary>
@@ -1064,7 +1064,7 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <p>The special value <code>-INF</code> is less than any number, and any number is less than <code>INF</code>.</p>
 <p>The Boolean value <code>false</code> is less than <code>true</code>.</p>
 <p>Services SHOULD order language-dependent strings according to the <code>Content-Language</code> of the response, and SHOULD annotate string properties with language-dependent order with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent"><code>Core.IsLanguageDependent</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>.</p>
-<p>If any operand is <code>null</code>, the operator returns <code>false</code>.</p>
+<p>If any operand is null, the operator returns <code>false</code>.</p>
 </details>
 <details open><summary>
 <h5 id="51116-less-than-or-equal"><a name="LessThanorEqual" href="#LessThanorEqual">5.1.1.1.6 Less Than or Equal</a></h5>
@@ -1897,7 +1897,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>Properties and navigation properties of the structured type on which a common expression is evaluated can be used as operands or function parameters, as shown in the preceding examples.</p>
 <p>Properties of complex properties can be used via the same syntax as in resource paths, i.e. by specifying the name of a complex property, followed by a forward slash (<code>/</code>) and the name of a property of the complex property, and so on,</p>
 <p>Properties and navigation properties of entities related with a target cardinality 0..1 or 1 can be used by specifying the navigation property, followed by a forward slash (<code>/</code>) and the name of a property of the related entity, and so on.</p>
-<p>If a complex property is <code>null</code>, or no entity is related (in case of target cardinality 0..1), its value, and the values of its components, are treated as <code>null</code>.</p>
+<p>If a complex property is null, or no entity is related (in case of target cardinality 0..1), its value, and the values of its components, are treated as <code>null</code>.</p>
 <div class="example">
 <p>Example 113: similar behavior whether <code>HeadquarterAddress</code> is a nullable complex type or a nullable navigation property</p>
 <pre><code>Companies(1)/HeadquarterAddress/Street</code></pre>
@@ -2197,7 +2197,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <li>the qualified name of a bound function to include all matching overloads, or</li>
 <li>the qualified name of a bound function followed by parentheses containing the comma-separated lists of non-binding parameters identifying a single overload.</li>
 </ul>
-<p>The <code>$select</code> system query option is interpreted relative to the entity type or complex type of the resources identified by the resource path section of the URL. Each select item in the <code>$select</code> clause indicates that the response MUST include the declared or dynamic properties, actions and functions identified by that select item. If a select item is a path expression traversing an entity or complex property that is <code>null</code> on an instance, then the null-valued entity or complex property is included and represented as <code>null</code>. The simplest form of a select item explicitly requests a property defined on the entity type of the resources identified by the resource path section of the URL.</p>
+<p>The <code>$select</code> system query option is interpreted relative to the entity type or complex type of the resources identified by the resource path section of the URL. Each select item in the <code>$select</code> clause indicates that the response MUST include the declared or dynamic properties, actions and functions identified by that select item. If a select item is a path expression traversing an entity or complex property that is null on an instance, then the null-valued entity or complex property is included and represented as <code>null</code>. The simplest form of a select item explicitly requests a property defined on the entity type of the resources identified by the resource path section of the URL.</p>
 <div class="example">
 <p>Example 129: rating and release date of all products</p>
 <pre><code>http://host/service/Products?$select=Rating,ReleaseDate</code></pre>
