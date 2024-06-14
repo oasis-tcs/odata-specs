@@ -1946,9 +1946,6 @@ rules, in order:
 Each of these promotions uses the same semantics as a `castExpression`
 to promote an operand to the target type.
 
-OData does not define an implicit conversion between string and numeric
-types.
-
 ### ##subsubsec System Query Option `$filter`
 
 The `$filter` system query option allows clients to filter a collection

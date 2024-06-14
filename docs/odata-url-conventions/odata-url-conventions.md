@@ -3401,9 +3401,6 @@ rules, in order:
 Each of these promotions uses the same semantics as a `castExpression`
 to promote an operand to the target type.
 
-OData does not define an implicit conversion between string and numeric
-types.
-
 ### <a name="SystemQueryOptionfilter" href="#SystemQueryOptionfilter">5.1.2 System Query Option `$filter`</a>
 
 The `$filter` system query option allows clients to filter a collection
