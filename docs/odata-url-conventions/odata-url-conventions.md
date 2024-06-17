@@ -1632,9 +1632,6 @@ see [OData-VocCore](#ODataVocCore).
 
 If any operand is `null`, the operator returns `false`.
 
-If at least one operand is non-numeric and the operands have different types,
-the expression involving the `gt` operator is invalid.
-
 ##### <a name="GreaterThanorEqual" href="#GreaterThanorEqual">5.1.1.1.4 Greater Than or Equal</a>
 
 The `ge` operator returns `true` if the left operand is greater than or
@@ -1992,8 +1989,8 @@ not defined. Instead, OData defines a [`null`](#null) literal that can
 be used in comparisons.
 
 If a parameter of a canonical function is `null`, the function returns
-`null`. If the parameter types do not match the function signature, the
-function also returns `null`.
+`null`. If the parameters cannot be [cast](#cast) to match the function signature,
+the function also returns `null`.
 
 The syntax rules for all functions are defined in
 [OData-ABNF](#ODataABNF). 4.01 Services MUST support case-insensitive
