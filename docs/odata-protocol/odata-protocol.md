@@ -4582,8 +4582,10 @@ annotating the singleton with the term `Capabilities.DeleteRestrictions`
 (nested property `Deletable` with value `true`) defined in
 [OData-VocCap](#ODataVocCap).
 
-On successful completion of the delete, the response MUST be
-[`204 No Content`](#ResponseCode204NoContent) and contain an empty body.
+On successful completion of the delete, the response MUST either be
+[`204 No Content`](#ResponseCode204NoContent) and contain an empty body,
+or [`200 OK`](#ResponseCode200OK) and contain a representation of a
+`deleted entity` according to the specified format.
 
 Services MUST implicitly remove relations to and from an entity when
 deleting it; clients need not delete the relations explicitly.
