@@ -25,7 +25,9 @@ Values of types `Edm.Byte`, `Edm.SByte`,
 `Edm.Single`, `Edm.Double`, and
 `Edm.Decimal` are represented as JSON numbers, except for
 `-INF`, `INF`, and `NaN` which are
-represented as strings.
+represented as strings, and except when the [`IEEE754Compatible`](#ControllingtheRepresentationofNumbers)
+format parameter demands representation of `Edm.Int64` and `Edm.Decimal`
+as strings.
 
 Values of type `Edm.String` are represented as JSON strings,
 using the JSON string escaping rules.
