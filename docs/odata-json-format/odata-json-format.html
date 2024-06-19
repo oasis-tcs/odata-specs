@@ -952,7 +952,6 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;EmailAddresses@nextLink&quot;</span><span class="fu">:</span> <span class="st">&quot;…&quot;</span></span>
 <span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
-<p>A collection of primitive values that occurs in a property of type <code>Edm.Untyped</code> is interpreted as a collection of <code>Edm.Boolean</code>, <code>Edm.String</code>, and <code>Edm.Decimal</code> values, depending on the JavaScript type.</p>
 </details>
 <details open><summary>
 <h2 id="74-collection-of-complex-values"><a name="CollectionofComplexValues" href="#CollectionofComplexValues">7.4 Collection of Complex Values</a></h2>
@@ -982,10 +981,11 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </summary>
 <p>OData 4.01 adds the built-in abstract types <code>Edm.Untyped</code> and <code>Collection(Edm.Untyped)</code>that services can use to advertise in metadata that there is a property of a particular name present, but there is no type to describe the structure of the property’s values.</p>
 <p>The value of an <code>Edm.Untyped</code> property MAY be a primitive value, a structural value, or a collection. If a collection, it may contain any combination of primitive values, structural values, and collections.</p>
-<p>The value of a property of type <code>Collection(Edm.Untyped)</code>MUST be a collection, and it MAY contain any combination of primitive values, structural values, and collections.</p>
+<p>The value of a property of type <code>Collection(Edm.Untyped)</code>MUST be a collection, and it MAY contain any combination of primitive values, structural values, and collections. Enumeration values within an untyped collection SHOULD be represented as a string, using the <code>enumerationMember</code>.</p>
 <p>Untyped values are the only place where a collection can directly contain a collection, or a collection can contain a mix of primitive values, structural values, and collections.</p>
 <p>All children of an untyped property are assumed to be untyped unless they are annotated with the <a href="#ControlInformationtypeodatatype"><code>type</code></a> control information, in which case they MUST conform to the type described by the control information.</p>
-<hr />
+<p>A primitive value within an untyped collection is interpreted as an <code>Edm.Boolean</code>, <code>Edm.String</code>, or <code>Edm.Decimal</code> value, depending on the JavaScript type.</p>
+<h2 id="collections-directly-contained-within-an-untyped-collection-are-themselves-untyped">Collections directly contained within an untyped collection are themselves untyped.</h2>
 </details>
 </details>
 <details open><summary>
