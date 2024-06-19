@@ -7,7 +7,7 @@
 
 ## Committee Specification Draft 02
 
-## 12 June 2024
+## 19 June 2024
 
 $\hbox{}$
 
@@ -73,7 +73,7 @@ When referencing this specification the following citation format should be used
 **[OData-Vocabularies-v4.0]**
 
 _OData Vocabularies Version 4.0_.
-Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. 12 June 2024. OASIS Committee Specification Draft 02.
+Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. 19 June 2024. OASIS Committee Specification Draft 02.
 https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/csd02/odata-vocabularies-v4.0-csd02.html.
 Latest stage: https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/odata-vocabularies-v4.0.html.
 
@@ -1988,6 +1988,7 @@ The contributions of the OASIS OData Technical Committee members, enumerated in 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
 |Committee Specification Draft 01|2016-12-08|Michael Pizzo<br>Ralf Handl<br>Ram Jeyaraman| Documentation automatically extracted from XML source files|
+|Committee Specification Draft 02|2024-06-19|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| Documentation automatically extracted from XML source files|
 
 -------
 
