@@ -138,10 +138,6 @@ Example ##ex: partial collection of strings with next link
 ```
 :::
 
-A primitive value within an untyped collection of primitive values
-is interpreted as an `Edm.Boolean`, `Edm.String`, or `Edm.Decimal` value,
-depending on the JavaScript type.
-
 ## ##subsec Collection of Complex Values
 
 A collection of complex values is represented as a JSON array; each
@@ -183,8 +179,8 @@ collections.
 
 The value of a property of type `Collection(Edm.Untyped)`MUST
 be a collection, and it MAY contain any combination of primitive values,
-structural values, and collections. Enum values within an untyped 
-collection SHOULD be represented as a string, using the member name.
+structural values, and collections. Enumeration values within an untyped 
+collection SHOULD be represented as a string, using the `enumerationMember`.
 
 Untyped values are the only place where a collection can directly
 contain a collection, or a collection can contain a mix of primitive
@@ -196,8 +192,11 @@ they are annotated with the
 control information, in which case they MUST conform to the type
 described by the control information.
 
-Collections within an untyped collection are themselves untyped 
-collections.
+A primitive value within an untyped collection is interpreted as 
+an `Edm.Boolean`, `Edm.String`, or `Edm.Decimal` value,
+depending on the JavaScript type.
+
+Collections directly contained within an untyped collection are themselves untyped.
 -------
 
 # ##sec Navigation Property
