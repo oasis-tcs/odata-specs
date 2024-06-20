@@ -584,10 +584,11 @@ underlying type is `Edm.Stream`, cannot be used in collections.
 Some of these types allow facets, defined in section
 "[Type Facets](#TypeFacets)".
 
-See rule `primitiveLiteral` in [OData-ABNF](#ODataABNF) for the
-representation of primitive type values in URLs and
-[OData-JSON](#ODataJSON) for the representation in requests and
-responses.
+Representation of primitive type values is usage specific, see for example
+- rule `primitiveLiteral` in [OData-ABNF](#ODataABNF) for the
+representation in URLs, and
+- [OData-JSON](#ODataJSON) for the representation in JSON request and
+response bodies.
 
 ## <a name="TypeFacets" href="#TypeFacets">3.4 Type Facets</a>
 
@@ -780,7 +781,7 @@ spatial reference system is applied to its values.
 The value of the `SRID` facet MUST be a non-negative integer or the
 special value `variable`. If no value is specified, the facet defaults
 to `0` for `Geometry` types or `4326` for `Geography` types.
-Services SHOULD NOT use the special value `variable` as [OData-JSON](#ODataJSON)
+Services SHOULD NOT use the special value `variable` as, for example, the [OData-JSON](#ODataJSON)
 defines no representation for instance-specific spatial reference systems.
 
 The valid values of the `SRID` facet and their meanings are as defined

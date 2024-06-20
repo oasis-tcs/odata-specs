@@ -743,7 +743,11 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p><code>Edm.Decimal</code> with a <a href="#Scale"><code>Scale</code></a> value of <code>floating</code>, <code>Edm.Double</code>, and <code>Edm.Single</code> allow the special numeric values <code>-INF</code>, <code>INF</code>, and <code>NaN</code>.</p>
 <p><code>Edm.Stream</code> is a primitive type that can be used as a property of an <a href="#EntityType">entity type</a> or <a href="#ComplexType">complex type</a>, the underlying type for a <a href="#TypeDefinition">type definition</a>, or a binding or non-binding parameter or return type of an <a href="#Action">action</a> or <a href="#Function">function</a>. <code>Edm.Stream</code>, or a type definition whose underlying type is <code>Edm.Stream</code>, cannot be used in collections.</p>
 <p>Some of these types allow facets, defined in section “<a href="#TypeFacets">Type Facets</a>”.</p>
-<p>See rule <code>primitiveLiteral</code> in <a href="#ODataABNF">OData-ABNF</a> for the representation of primitive type values in URLs and <a href="#ODataJSON">OData-JSON</a> for the representation in requests and responses.</p>
+<p>Representation of primitive type values is usage specific, see for example</p>
+<ul>
+<li>rule <code>primitiveLiteral</code> in <a href="#ODataABNF">OData-ABNF</a> for the representation in URLs, and</li>
+<li><a href="#ODataJSON">OData-JSON</a> for the representation in JSON request and response bodies.</li>
+</ul>
 </details>
 <details open><summary>
 <h2 id="34-type-facets"><a name="TypeFacets" href="#TypeFacets">3.4 Type Facets</a></h2>
@@ -848,7 +852,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h3 id="345-srid"><a name="SRID" href="#SRID">3.4.5 SRID</a></h3>
 </summary>
 <p>For a geometry- or geography-typed model element the <code>SRID</code> facet identifies which spatial reference system is applied to its values.</p>
-<p>The value of the <code>SRID</code> facet MUST be a non-negative integer or the special value <code>variable</code>. If no value is specified, the facet defaults to <code>0</code> for <code>Geometry</code> types or <code>4326</code> for <code>Geography</code> types. Services SHOULD NOT use the special value <code>variable</code> as <a href="#ODataJSON">OData-JSON</a> defines no representation for instance-specific spatial reference systems.</p>
+<p>The value of the <code>SRID</code> facet MUST be a non-negative integer or the special value <code>variable</code>. If no value is specified, the facet defaults to <code>0</code> for <code>Geometry</code> types or <code>4326</code> for <code>Geography</code> types. Services SHOULD NOT use the special value <code>variable</code> as, for example, the <a href="#ODataJSON">OData-JSON</a> defines no representation for instance-specific spatial reference systems.</p>
 <p>The valid values of the <code>SRID</code> facet and their meanings are as defined by the European Petroleum Survey Group <a href="#_EPSG">EPSG</a>.</p>
 <section id="srid" class="varjson rep">
 <h3><a name="SRID.1.5" href="#SRID.1.5"><code>$SRID</code></a></h3>
