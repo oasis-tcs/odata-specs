@@ -849,7 +849,7 @@ The value of the `SRID` facet MUST be a non-negative integer or the
 special value `variable`. If no value is specified, the facet defaults
 to `0` for `Geometry` types or `4326` for `Geography` types.
 Services SHOULD NOT use the special value `variable` as, for example, the [OData-JSON](#ODataJSON)
-defines no representation for instance-specific spatial reference systems.
+format does not define a representation for instance-specific spatial reference systems.
 
 The valid values of the `SRID` facet and their meanings are as defined
 by the European Petroleum Survey Group [EPSG](#_EPSG).
