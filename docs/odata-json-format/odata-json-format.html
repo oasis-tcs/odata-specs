@@ -891,7 +891,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </summary>
 <p>Primitive values are represented following the rules of <a href="#rfc8259">RFC8259</a>.</p>
 <p>Values of type <code>Edm.Boolean</code> are represented as the JSON literals <code>true</code> and <code>false</code></p>
-<p>Values of types <code>Edm.Byte</code>, <code>Edm.SByte</code>, <code>Edm.Int16</code>, <code>Edm.Int32</code>, <code>Edm.Int64</code>, <code>Edm.Single</code>, <code>Edm.Double</code>, and <code>Edm.Decimal</code> are represented as JSON numbers, except for <code>-INF</code>, <code>INF</code>, and <code>NaN</code> which are represented as strings.</p>
+<p>Values of types <code>Edm.Byte</code>, <code>Edm.SByte</code>, <code>Edm.Int16</code>, <code>Edm.Int32</code>, <code>Edm.Int64</code>, <code>Edm.Single</code>, <code>Edm.Double</code>, and <code>Edm.Decimal</code> are represented as JSON numbers, except for <code>-INF</code>, <code>INF</code>, and <code>NaN</code> which are represented as strings, and except when the <a href="#ControllingtheRepresentationofNumbers"><code>IEEE754Compatible</code></a> format parameter demands representation of <code>Edm.Int64</code> and <code>Edm.Decimal</code> as strings.</p>
 <p>Values of type <code>Edm.String</code> are represented as JSON strings, using the JSON string escaping rules.</p>
 <p>Values of type <code>Edm.Binary</code>, <code>Edm.Date</code>, <code>Edm.DateTimeOffset</code>, <code>Edm.Duration</code>, <code>Edm.Guid</code>, and <code>Edm.TimeOfDay</code> are represented as JSON strings whose content satisfies the rules <code>binaryValue</code>, <code>dateValue</code>, <code>dateTimeOffsetValue</code>, <code>durationValue</code>, <code>guidValue</code>, and <code>timeOfDayValue</code> respectively, in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>Primitive values that cannot be represented, for example due to server conversion issues or IEEE754 limitations on the size of an <code>Edm.Int64</code> or <code>Edm.Decimal</code> value, are annotated with the <code>Core.ValueException</code> term. In this case, the payload MAY include an approximation of the value and MAY specify a string representation of the exact value in the <code>value</code> property of the annotation.</p>
@@ -957,7 +957,6 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;EmailAddresses@nextLink&quot;</span><span class="fu">:</span> <span class="st">&quot;…&quot;</span></span>
 <span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
-<p>A collection of primitive values that occurs in a property of type <code>Edm.Untyped</code> is interpreted as a collection of <code>Edm.Boolean</code>, <code>Edm.String</code>, and <code>Edm.Decimal</code> values, depending on the JavaScript type.</p>
 </details>
 <details open><summary>
 <h2 id="74-collection-of-complex-values"><a name="CollectionofComplexValues" href="#CollectionofComplexValues">7.4 Collection of Complex Values</a></h2>
@@ -987,10 +986,11 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </summary>
 <p>OData 4.01 adds the built-in abstract types <code>Edm.Untyped</code> and <code>Collection(Edm.Untyped)</code>that services can use to advertise in metadata that there is a property of a particular name present, but there is no type to describe the structure of the property’s values.</p>
 <p>The value of an <code>Edm.Untyped</code> property MAY be a primitive value, a structural value, or a collection. If a collection, it may contain any combination of primitive values, structural values, and collections.</p>
-<p>The value of a property of type <code>Collection(Edm.Untyped)</code>MUST be a collection, and it MAY contain any combination of primitive values, structural values, and collections.</p>
+<p>The value of a property of type <code>Collection(Edm.Untyped)</code>MUST be a collection, and it MAY contain any combination of primitive values, structural values, and collections. Enumeration values within an untyped collection SHOULD be represented as a string, using the <code>enumerationMember</code>.</p>
 <p>Untyped values are the only place where a collection can directly contain a collection, or a collection can contain a mix of primitive values, structural values, and collections.</p>
 <p>All children of an untyped property are assumed to be untyped unless they are annotated with the <a href="#ControlInformationtypeodatatype"><code>type</code></a> control information, in which case they MUST conform to the type described by the control information.</p>
-<hr />
+<p>A primitive value within an untyped collection is interpreted as an <code>Edm.Boolean</code>, <code>Edm.String</code>, or <code>Edm.Decimal</code> value, depending on the JavaScript type.</p>
+<h2 id="collections-directly-contained-within-an-untyped-collection-are-themselves-untyped">Collections directly contained within an untyped collection are themselves untyped.</h2>
 </details>
 </details>
 <details open><summary>
