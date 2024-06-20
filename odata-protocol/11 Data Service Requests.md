@@ -1434,5 +1434,9 @@ A delta payload represents changes to a known state. A delta payload
 includes added entities, changed entities, and deleted entities, as well
 as a representation of added and removed relationships.
 
+Services that support the use of [ETags](#UseofETagsforAvoidingUpdateConflicts) 
+for optimistic concurrency SHOULD return ETag values for added or changed entities 
+within the delta payload.
+
 Delta payloads can be [requested](#RequestingChanges) from the service
 using a delta link or provided as updates to the service.

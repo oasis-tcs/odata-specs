@@ -3985,6 +3985,8 @@ A delta payload represents changes to a known state. A delta payload
 includes added entities, changed entities, and deleted entities, as well
 as a representation of added and removed relationships.
 
+Services that support the use of [ETags](#UseofETagsforAvoidingUpdateConflicts) for optimistic concurrency SHOULD return ETag values for added or changed entities within the delta payload.
+
 Delta payloads can be [requested](#RequestingChanges) from the service
 using a delta link or provided as updates to the service.
 
@@ -5014,6 +5016,9 @@ term, and SHOULD advertise support for returning the
 through the `ContentIDSupported` property of the
 [`Capabilities.DeepUpdateSupport`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#DeepUpdateSupportType)
 term, both defined in [OData-VocCap](#ODataVocCap).
+
+Clients MAY specify [ETag](#UseofETagsforAvoidingUpdateConflicts) values
+obtained from previous requests when updating entities within a collection. If an ETag is provided that does not match the ETag value of the entity being updated, or if the entity does not already exist, services that support ETags MUST NOT apply the change and SHOULD indicate a response code of `412 Precondition Failed`. The special value `\*` can be used to match any existing entity but fail if the entity does not already exist.
 
 The response, if requested, is a delta payload, in the same structure
 and order as the request payload, representing the applied changes.
