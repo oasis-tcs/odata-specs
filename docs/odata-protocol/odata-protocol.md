@@ -64,9 +64,9 @@ This specification is related to:
 The Open Data Protocol (OData) enables the creation of REST-based data services, which allow resources, identified using Uniform Resource Locators (URLs) and defined in an Entity Data Model (EDM), to be published and edited by Web clients using simple HTTP messages. This document defines the core semantics and facilities of the protocol.
 
 #### Status:
-This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the "Latest stage" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical.
+This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the "Latest stage" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at https://groups.oasis-open.org/communities/tc-community-home2?CommunityKey=e7cac2a9-2d18-4640-b94d-018dc7d3f0e2#technical.
 
-TC members should send comments on this specification to the TC's email list. Others should send comments to the TC's public comment list, after subscribing to it by following the instructions at the "<a href="https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=odata">Send A Comment</a>" button on the TC's web page at https://www.oasis-open.org/committees/odata/.
+TC members should send comments on this specification to the TC's email list. Any individual may submit comments to the TC by sending email to Technical-Committee-Comments@oasis-open.org. Please use a Subject line like "Comment on OData Protocol".
 
 This specification is provided under the [RF on RAND Terms Mode](https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode) of the [OASIS IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/), the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC's web page (https://www.oasis-open.org/committees/odata/ipr.php).
 
@@ -4239,8 +4239,8 @@ within the `Manager` and `DirectReports` navigation properties
   "LastName": "Griswold",
   "Manager": { "@id": "Employees(0)" },
   "DirectReports": [
-    {"@id": "Employees(5)"},
-    {"@id": "Employees(6)"}
+    { "@id": "Employees(5)" },
+    { "@id": "Employees(6)" }
   ]
 }
 ```
@@ -4600,8 +4600,10 @@ annotating the singleton with the term `Capabilities.DeleteRestrictions`
 (nested property `Deletable` with value `true`) defined in
 [OData-VocCap](#ODataVocCap).
 
-On successful completion of the delete, the response MUST be
-[`204 No Content`](#ResponseCode204NoContent) and contain an empty body.
+On successful completion of the delete, the response MUST either be
+[`204 No Content`](#ResponseCode204NoContent) and contain an empty body,
+or [`200 OK`](#ResponseCode200OK) and contain a representation of a
+deleted entity according to the specified format.
 
 Services MUST implicitly remove relations to and from an entity when
 deleting it; clients need not delete the relations explicitly.
@@ -5960,7 +5962,7 @@ PATCH /path/service/People(1) HTTP/1.1
 Host: myserver.mydomain.org:1234
 Content-Type: application/json
 
-{"Name": "Peter"}
+{ "Name": "Peter" }
 ```
 :::
 

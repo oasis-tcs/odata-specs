@@ -25,7 +25,9 @@ Values of types `Edm.Byte`, `Edm.SByte`,
 `Edm.Single`, `Edm.Double`, and
 `Edm.Decimal` are represented as JSON numbers, except for
 `-INF`, `INF`, and `NaN` which are
-represented as strings.
+represented as strings, and except when the [`IEEE754Compatible`](#ControllingtheRepresentationofNumbers)
+format parameter demands representation of `Edm.Int64` and `Edm.Decimal`
+as strings.
 
 Values of type `Edm.String` are represented as JSON strings,
 using the JSON string escaping rules.
@@ -82,7 +84,7 @@ Example ##ex:
   "GuidValue": "01234567-89ab-cdef-0123-456789abcdef",
   "Int64Value": 0,
   "ColorEnumValue": "Yellow",
-  "GeographyPoint": {"type": "Point", "coordinates": [142.1,64.1]}
+  "GeographyPoint": { "type": "Point", "coordinates": [142.1,64.1] }
 }
 ```
 :::
@@ -138,10 +140,6 @@ Example ##ex: partial collection of strings with next link
 ```
 :::
 
-A collection of primitive values that occurs in a property of type `Edm.Untyped`
-is interpreted as a collection of `Edm.Boolean`, `Edm.String`, and `Edm.Decimal` values,
-depending on the JavaScript type.
-
 ## ##subsec Collection of Complex Values
 
 A collection of complex values is represented as a JSON array; each
@@ -183,7 +181,8 @@ collections.
 
 The value of a property of type `Collection(Edm.Untyped)`MUST
 be a collection, and it MAY contain any combination of primitive values,
-structural values, and collections.
+structural values, and collections. Enumeration values within an untyped 
+collection SHOULD be represented as a string, using the `enumerationMember`.
 
 Untyped values are the only place where a collection can directly
 contain a collection, or a collection can contain a mix of primitive
@@ -195,6 +194,11 @@ they are annotated with the
 control information, in which case they MUST conform to the type
 described by the control information.
 
+A primitive value within an untyped collection is interpreted as 
+an `Edm.Boolean`, `Edm.String`, or `Edm.Decimal` value,
+depending on the JavaScript type.
+
+Collections directly contained within an untyped collection are themselves untyped.
 -------
 
 # ##sec Navigation Property
@@ -369,7 +373,7 @@ PATCH http://host/service/Products(42) HTTP/1.1
 Content-Type: application/json
 
 {
-  "Category": {"@id": "Categories(6)"}
+  "Category": { "@id": "Categories(6)" }
 }
 ```
 :::
