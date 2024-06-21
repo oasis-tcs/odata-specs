@@ -63,9 +63,9 @@ This specification is related to:
 The Open Data Protocol (OData) enables the creation of REST-based data services, which allow resources, identified using Uniform Resource Locators (URLs) and defined in an Entity Data Model (EDM), to be published and edited by Web clients using simple HTTP messages. This specification defines a set of recommended (but not required) rules for constructing URLs to identify the data and metadata exposed by an OData service as well as a set of reserved URL query string operators.
 
 #### Status:
-This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the "Latest stage" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical.
+This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the "Latest stage" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at https://groups.oasis-open.org/communities/tc-community-home2?CommunityKey=e7cac2a9-2d18-4640-b94d-018dc7d3f0e2#technical.
 
-TC members should send comments on this specification to the TC's email list. Others should send comments to the TC's public comment list, after subscribing to it by following the instructions at the "<a href="https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=odata">Send A Comment</a>" button on the TC's web page at https://www.oasis-open.org/committees/odata/.
+TC members should send comments on this specification to the TC's email list. Any individual may submit comments to the TC by sending email to Technical-Committee-Comments@oasis-open.org. Please use a Subject line like "Comment on OData URL Conventions".
 
 This specification is provided under the [RF on RAND Terms Mode](https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode) of the [OASIS IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/), the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC's web page (https://www.oasis-open.org/committees/odata/ipr.php).
 
@@ -1030,7 +1030,34 @@ Note: there is no literal representation for `Edm.Stream` values in URLs,
 so it is not possible to pass `Edm.Stream` values to parameters of function imports or
 to non-binding parameters of bound functions used in the resource path.
 Function expressions within query options can use [path expressions](#PathExpressions)
-of type `Edm.Stream` as values of non-binding function parameters.
+of type `Edm.Stream` as values of non-binding function parameters. The aliases can contain [common
+expressions](#CommonExpressionSyntax). In the case of a bound function
+these MAY contain [path expressions](#PathExpressions), which
+the service evaluates on the binding parameter value.
+
+::: example
+Example 30: An employee's leave requests for the next two weeks
+pending their manager's approval:
+```
+http://host/service/Employees(23)/self.PendingLeaveRequests(StartDate=@start,
+  EndDate=@end,Approver=@approver)
+  ?@start=now()
+  &@end=now() add duration'P14D'
+  &@approver=Manager
+```
+The expression `Manager` is evaluated on the binding parameter value `Employees(23)`.
+
+When invoking an unbound function through a function import, expressions involving
+paths must start with `$root`:
+```
+http://host/service/PendingLeaveRequests(Requester=@requester,
+  StartDate=@start,EndDate=@end,Approver=@approver)
+  ?@requester=$root/services/Employee(23)
+  &@start=now()
+  &@end=now() add duration'P14D'
+  &@approver=$root/services/Employee(23)/Manager
+```
+:::
 
 ## <a name="AddressingaProperty" href="#AddressingaProperty">4.6 Addressing a Property</a>
 
@@ -1068,21 +1095,21 @@ The count is calculated after applying any
 [`$search`](#SystemQueryOptionsearch) system query options to the collection.
 
 ::: example
-Example 30: the number of related entities
+Example 31: the number of related entities
 ```
 http://host/service/Categories(1)/Products/$count
 ```
 :::
 
 ::: example
-Example 31: the number of entities in an entity set
+Example 32: the number of entities in an entity set
 ```
 http://host/service/Products/$count
 ```
 :::
 
 ::: example
-Example 32: entity count in a `$filter`
+Example 33: entity count in a `$filter`
 expression. Note that the spaces around `gt` are for readability of the
 example only; in real URLs they must be percent-encoded as `%20`.
 ```
@@ -1091,7 +1118,7 @@ http://host/service/Categories?$filter=Products/$count gt 0
 :::
 
 ::: example
-Example 33: count of a filtered collection in a
+Example 34: count of a filtered collection in a
 `$filter` expression; returns all Categories
 containing more than two products whose price is greater than 5.00.
 ```
@@ -1100,7 +1127,7 @@ http://host/service/Categories?$filter=Products/$count($filter=Price gt 5.00) gt
 :::
 
 ::: example
-Example 34: entity count in an `$orderby` expression
+Example 35: entity count in an `$orderby` expression
 ```
 http://host/service/Categories?$orderby=Products/$count
 ```
@@ -1147,7 +1174,7 @@ Entity types are stably addressable using their canonical URL and SHOULD
 NOT be accessed or accessible using an index.
 
 ::: example
-Example 35: the first address in a list of addresses for `MainSupplier`
+Example 36: the first address in a list of addresses for `MainSupplier`
 ```
 http://host/service/MainSupplier/Addresses/0
 ```
@@ -1186,14 +1213,14 @@ SHOULD be called out using the
 annotation term, defined in [OData-VocCore](#ODataVocCore).
 
 ::: example
-Example 36: entity set restricted to `VipCustomer` instances
+Example 37: entity set restricted to `VipCustomer` instances
 ```
 http://host/service/Customers/Model.VipCustomer
 ```
 :::
 
 ::: example
-Example 37: entity restricted to a `VipCustomer` instance, resulting in
+Example 38: entity restricted to a `VipCustomer` instance, resulting in
 `404 Not Found` if the customer with key `1` is not a `VipCustomer`
 ```
 http://host/service/Customers/Model.VipCustomer(1)
@@ -1205,7 +1232,7 @@ http://host/service/Customers(1)/Model.VipCustomer
 :::
 
 ::: example
-Example 38: cast the complex property `Address` to its derived type
+Example 39: cast the complex property `Address` to its derived type
 `DetailedAddress`, then get a property of the derived type
 ```
 http://host/service/Customers(1)/Address/Model.DetailedAddress/Location
@@ -1213,7 +1240,7 @@ http://host/service/Customers(1)/Address/Model.DetailedAddress/Location
 :::
 
 ::: example
-Example 39: filter expression with type cast; will evaluate to `null`
+Example 40: filter expression with type cast; will evaluate to `null`
 for all non-`VipCustomer` instances and thus return only instances of
 `VipCustomer`
 ```
@@ -1223,7 +1250,7 @@ http://host/service/Customers
 :::
 
 ::: example
-Example 40: expand the single related `Customer` only if it is an
+Example 41: expand the single related `Customer` only if it is an
 instance of `Model.VipCustomer`. For to-many relationships only
 `Model.VipCustomer` instances would be inlined,
 ```
@@ -1251,7 +1278,7 @@ combined with the [`$filter`](#SystemQueryOptionfilter) system query
 option.
 
 ::: example
-Example 41: red products that cost less than 10  --- combining path
+Example 42: red products that cost less than 10  --- combining path
 segment and system query option
 ```
 GET Products/$filter(@foo)?@foo=Price lt 10&$filter=Color eq 'red'
@@ -1259,7 +1286,7 @@ GET Products/$filter(@foo)?@foo=Price lt 10&$filter=Color eq 'red'
 :::
 
 ::: example
-Example 42: red products that cost less than 10 --- combine two path
+Example 43: red products that cost less than 10 --- combine two path
 segments
 ```
 GET Products/$filter(@p)/$filter(@c)?@p=Price lt 10&@c=Color eq 'red'
@@ -1267,7 +1294,7 @@ GET Products/$filter(@p)/$filter(@c)?@p=Price lt 10&@c=Color eq 'red'
 :::
 
 ::: example
-Example 43: categories with less than ten products older than three
+Example 44: categories with less than ten products older than three
 ```
 GET Categories?$filter=Products/$filter(Age gt 3)/$count lt 10
 ```
@@ -1287,7 +1314,7 @@ identifying a [bound action](#AddressingActions) or [bound
 function](#AddressingFunctions) applicable to the collection.
 
 ::: example
-Example 44: invoke the `Special.Cluster` action on all products older
+Example 45: invoke the `Special.Cluster` action on all products older
 than 3
 ```
 POST /service/Products/$filter(@foo)/Special.Cluster?@foo=Age gt 3
@@ -1322,7 +1349,7 @@ may redirect from this canonical URL to the source URL of the media
 stream.
 
 ::: example
-Example 45: request the media stream for the picture with the key value
+Example 46: request the media stream for the picture with the key value
 `Sunset4321299432`:
 ```
 http://host/service/Pictures('Sunset4321299432')/$value
@@ -1362,7 +1389,7 @@ The [`$count`](#SystemQueryOptioncount),
 with no special semantics.
 
 ::: example
-Example 46: if `Sales` had a structural property `ProductID` instead of
+Example 47: if `Sales` had a structural property `ProductID` instead of
 a navigation property `Product`, a "cross join" between `Sales` and
 `Products` could be addressed
 ```
@@ -1411,14 +1438,14 @@ entities of that type. Query options such as
 restricted set according to the specified type.
 
 ::: example
-Example 47: all entities in a service that somehow match `red`
+Example 48: all entities in a service that somehow match `red`
 ```
 http://host/service/$all?$search=red
 ```
 :::
 
 ::: example
-Example 48: all `Customer` entities in a service whose name contains
+Example 49: all `Customer` entities in a service whose name contains
 `red`
 ```
 http://host/service/$all/Model.Customer?$filter=contains(Name,'red')
@@ -1448,7 +1475,7 @@ and MUST use the same percent-encoding as in URLs (especially: no spaces, tabs, 
 and MUST follow the syntax rules described in [chapter 5](#QueryOptions).
 
 ::: example
-Example 49: passing a filter condition in the request body
+Example 50: passing a filter condition in the request body
 ```
 POST http://host/service/People/$query
 Content-Type: text/plain
