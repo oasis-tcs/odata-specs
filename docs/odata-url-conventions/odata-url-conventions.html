@@ -146,8 +146,8 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <h4 id="abstract">Abstract:</h4>
 <p>The Open Data Protocol (OData) enables the creation of REST-based data services, which allow resources, identified using Uniform Resource Locators (URLs) and defined in an Entity Data Model (EDM), to be published and edited by Web clients using simple HTTP messages. This specification defines a set of recommended (but not required) rules for constructing URLs to identify the data and metadata exposed by an OData service as well as a set of reserved URL query string operators.</p>
 <h4 id="status">Status:</h4>
-<p>This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the “Latest stage” location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at <a href="https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical">https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical</a>.</p>
-<p>TC members should send comments on this specification to the TC’s email list. Others should send comments to the TC’s public comment list, after subscribing to it by following the instructions at the “<a href="https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=odata">Send A Comment</a>” button on the TC’s web page at <a href="https://www.oasis-open.org/committees/odata/">https://www.oasis-open.org/committees/odata/</a>.</p>
+<p>This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the “Latest stage” location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at <a href="https://groups.oasis-open.org/communities/tc-community-home2?CommunityKey=e7cac2a9-2d18-4640-b94d-018dc7d3f0e2#technical">https://groups.oasis-open.org/communities/tc-community-home2?CommunityKey=e7cac2a9-2d18-4640-b94d-018dc7d3f0e2#technical</a>.</p>
+<p>TC members should send comments on this specification to the TC’s email list. Any individual may submit comments to the TC by sending email to <a href="mailto:Technical-Committee-Comments@oasis-open.org">Technical-Committee-Comments@oasis-open.org</a>. Please use a Subject line like “Comment on OData URL Conventions”.</p>
 <p>This specification is provided under the <a href="https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode">RF on RAND Terms Mode</a> of the <a href="https://www.oasis-open.org/policies-guidelines/ipr/">OASIS IPR Policy</a>, the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC’s web page (<a href="https://www.oasis-open.org/committees/odata/ipr.php">https://www.oasis-open.org/committees/odata/ipr.php</a>).</p>
 <p>Note that any machine-readable content (<a href="https://www.oasis-open.org/policies-guidelines/tc-process-2017-05-26/#wpComponentsCompLang">Computer Language Definitions</a>) declared Normative for this Work Product is provided in separate plain text files. In the event of a discrepancy between any such plain text file and display content in the Work Product’s prose narrative document(s), the content in the separate plain text file prevails.</p>
 <h4 id="key-words">Key words:</h4>
@@ -161,9 +161,9 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>Distributed under the terms of the OASIS <a href="https://www.oasis-open.org/policies-guidelines/ipr/">IPR Policy</a>.</p>
 <p>The name “OASIS” is a trademark of <a href="https://www.oasis-open.org/">OASIS</a>, the owner and developer of this specification, and should be used only to refer to the organization and its official outputs.</p>
 <p>For complete copyright information please see the full Notices section in an Appendix below.</p>
+</details>
+</details>
 <hr />
-</details>
-</details>
 <details open><summary>
 <h1 id="table-of-contents">Table of Contents</h1>
 </summary>
@@ -361,8 +361,8 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><a href="#Notices">D Notices</a></li>
 </ul>
 </div>
-<hr />
 </details>
+<hr />
 <details open><summary>
 <h1 id="1-introduction"><a name="Introduction" href="#Introduction">1 Introduction</a></h1>
 </summary>
@@ -440,10 +440,10 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
 This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 -->
 
+</details>
+</details>
+</details>
 <hr />
-</details>
-</details>
-</details>
 <details open><summary>
 <h1 id="2-url-components"><a name="URLComponents" href="#URLComponents">2 URL Components</a></h1>
 </summary>
@@ -494,17 +494,17 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <pre><code>http://host/service/Categories(&#39;Smartphone/Tablet&#39;)</code></pre>
 </div>
 <p>The first and second examples are invalid because a single quote in a string literal must be represented as two consecutive single quotes. The third example is invalid because forward slashes are interpreted as path segment separators and <code>Categories('Smartphone</code> is not a valid OData path segment, nor is <code>Tablet')</code>.</p>
+</details>
+</details>
 <hr />
-</details>
-</details>
 <details open><summary>
 <h1 id="3-service-root-url"><a name="ServiceRootURL" href="#ServiceRootURL">3 Service Root URL</a></h1>
 </summary>
 <p>The service root URL identifies the root of an OData service. A <code>GET</code> request to this URL returns the format-specific service document, see <a href="#ODataJSON">OData-JSON</a>.</p>
 <p>The service root URL MUST terminate in a forward slash.</p>
 <p>The service document enables simple hypermedia-driven clients to enumerate and explore the resources published by the OData service.</p>
-<hr />
 </details>
+<hr />
 <details open><summary>
 <h1 id="4-resource-path"><a name="ResourcePath" href="#ResourcePath">4 Resource Path</a></h1>
 </summary>
@@ -787,7 +787,23 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <li>The <code>functionExpr</code> and <code>boundFunctionExpr</code> syntax rules as used by the <code>commonExpr</code> syntax rule define the grammar for invoking functions, for example to help filter and order resources identified by the <code>resourcePath</code> of the URL.</li>
 <li>The <code>aliasAndValue</code> syntax rule defines the grammar for providing function parameter values using Parameter Alias Syntax, see <a href="#ODataProtocol">OData-Protocol</a>.</li>
 </ul>
-<p>Note: there is no literal representation for <code>Edm.Stream</code> values in URLs, so it is not possible to pass <code>Edm.Stream</code> values to parameters of function imports or to non-binding parameters of bound functions used in the resource path. Function expressions within query options can use <a href="#PathExpressions">path expressions</a> of type <code>Edm.Stream</code> as values of non-binding function parameters.</p>
+<p>Note: there is no literal representation for <code>Edm.Stream</code> values in URLs, so it is not possible to pass <code>Edm.Stream</code> values to parameters of function imports or to non-binding parameters of bound functions used in the resource path. Function expressions within query options can use <a href="#PathExpressions">path expressions</a> of type <code>Edm.Stream</code> as values of non-binding function parameters. The aliases can contain <a href="#CommonExpressionSyntax">common expressions</a>. In the case of a bound function these MAY contain <a href="#PathExpressions">path expressions</a>, which the service evaluates on the binding parameter value.</p>
+<div class="example">
+<p>Example 30: An employee’s leave requests for the next two weeks pending their manager’s approval:</p>
+<pre><code>http://host/service/Employees(23)/self.PendingLeaveRequests(StartDate=@start,
+  EndDate=@end,Approver=@approver)
+  ?@start=now()
+  &amp;@end=now() add duration&#39;P14D&#39;
+  &amp;@approver=Manager</code></pre>
+<p>The expression <code>Manager</code> is evaluated on the binding parameter value <code>Employees(23)</code>.</p>
+<p>When invoking an unbound function through a function import, expressions involving paths must start with <code>$root</code>:</p>
+<pre><code>http://host/service/PendingLeaveRequests(Requester=@requester,
+  StartDate=@start,EndDate=@end,Approver=@approver)
+  ?@requester=$root/services/Employee(23)
+  &amp;@start=now()
+  &amp;@end=now() add duration&#39;P14D&#39;
+  &amp;@approver=$root/services/Employee(23)/Manager</code></pre>
+</div>
 </details>
 </details>
 <details open><summary>
@@ -808,23 +824,23 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>The <code>/$count</code> path suffix identifies the integer count of records in the collection and SHOULD NOT be combined with the system query options <a href="#SystemQueryOptionstopandskip"><code>$top</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$skip</code></a>, <a href="#SystemQueryOptionorderby"><code>$orderby</code></a>, <a href="#SystemQueryOptionexpand"><code>$expand</code></a>, and <a href="#SystemQueryOptionformat"><code>$format</code></a>. The count MUST NOT be affected by <code>$top</code>, <code>$skip</code>, <code>$orderby</code>, or <code>$expand</code>.</p>
 <p>The count is calculated after applying any <a href="#AddressingaSubsetofaCollection"><code>/$filter</code></a> path segments, or <a href="#SystemQueryOptionfilter"><code>$filter</code></a> or <a href="#SystemQueryOptionsearch"><code>$search</code></a> system query options to the collection.</p>
 <div class="example">
-<p>Example 30: the number of related entities</p>
+<p>Example 31: the number of related entities</p>
 <pre><code>http://host/service/Categories(1)/Products/$count</code></pre>
 </div>
 <div class="example">
-<p>Example 31: the number of entities in an entity set</p>
+<p>Example 32: the number of entities in an entity set</p>
 <pre><code>http://host/service/Products/$count</code></pre>
 </div>
 <div class="example">
-<p>Example 32: entity count in a <code>$filter</code> expression. Note that the spaces around <code>gt</code> are for readability of the example only; in real URLs they must be percent-encoded as <code>%20</code>.</p>
+<p>Example 33: entity count in a <code>$filter</code> expression. Note that the spaces around <code>gt</code> are for readability of the example only; in real URLs they must be percent-encoded as <code>%20</code>.</p>
 <pre><code>http://host/service/Categories?$filter=Products/$count gt 0</code></pre>
 </div>
 <div class="example">
-<p>Example 33: count of a filtered collection in a <code>$filter</code> expression; returns all Categories containing more than two products whose price is greater than 5.00.</p>
+<p>Example 34: count of a filtered collection in a <code>$filter</code> expression; returns all Categories containing more than two products whose price is greater than 5.00.</p>
 <pre><code>http://host/service/Categories?$filter=Products/$count($filter=Price gt 5.00) gt 2</code></pre>
 </div>
 <div class="example">
-<p>Example 34: entity count in an <code>$orderby</code> expression</p>
+<p>Example 35: entity count in an <code>$orderby</code> expression</p>
 <pre><code>http://host/service/Categories?$orderby=Products/$count</code></pre>
 </div>
 </details>
@@ -842,7 +858,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>Collections can be annotated as ordered using the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered"><code>Core.Ordered</code></a> term (see <a href="#ODataVocCore">OData-VocCore</a>). Individual items within an ordered collection of primitive or complex types can be addressed by appending a segment containing the zero-based ordinal to the URL of the collection. A negative ordinal number indexes from the end of the collection, with <code>-1</code> representing the last item in the collection. Services MUST NOT specify a negative index when returning the address of a member of an ordered collection.</p>
 <p>Entity types are stably addressable using their canonical URL and SHOULD NOT be accessed or accessible using an index.</p>
 <div class="example">
-<p>Example 35: the first address in a list of addresses for <code>MainSupplier</code></p>
+<p>Example 36: the first address in a list of addresses for <code>MainSupplier</code></p>
 <pre><code>http://host/service/MainSupplier/Addresses/0</code></pre>
 </div>
 </details>
@@ -854,25 +870,25 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>Services MAY additionally support the use of the unqualified name of a derived type in a URL by defining one or more default namespaces through the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a> term defined in <a href="#ODataVocCore">OData-VocCore</a>. For more information on default namespaces, see Default Namespaces in <a href="#ODataProtocol">OData-Protocol</a>.</p>
 <p>Services MAY also support treating an instance as a type outside of the type hierarchy using the same syntax and semantics as when addressing a derived type. In this case, the set and values of properties of the addressed type may be different than the properties of the source type. The set of such possible target types outside of the type hierarchy SHOULD be called out using the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#MayImplement"><code>Core.MayImplement</code></a> annotation term, defined in <a href="#ODataVocCore">OData-VocCore</a>.</p>
 <div class="example">
-<p>Example 36: entity set restricted to <code>VipCustomer</code> instances</p>
+<p>Example 37: entity set restricted to <code>VipCustomer</code> instances</p>
 <pre><code>http://host/service/Customers/Model.VipCustomer</code></pre>
 </div>
 <div class="example">
-<p>Example 37: entity restricted to a <code>VipCustomer</code> instance, resulting in <code>404 Not Found</code> if the customer with key <code>1</code> is not a <code>VipCustomer</code></p>
+<p>Example 38: entity restricted to a <code>VipCustomer</code> instance, resulting in <code>404 Not Found</code> if the customer with key <code>1</code> is not a <code>VipCustomer</code></p>
 <pre><code>http://host/service/Customers/Model.VipCustomer(1)</code></pre>
 <pre><code>http://host/service/Customers(1)/Model.VipCustomer</code></pre>
 </div>
 <div class="example">
-<p>Example 38: cast the complex property <code>Address</code> to its derived type <code>DetailedAddress</code>, then get a property of the derived type</p>
+<p>Example 39: cast the complex property <code>Address</code> to its derived type <code>DetailedAddress</code>, then get a property of the derived type</p>
 <pre><code>http://host/service/Customers(1)/Address/Model.DetailedAddress/Location</code></pre>
 </div>
 <div class="example">
-<p>Example 39: filter expression with type cast; will evaluate to <code>null</code> for all non-<code>VipCustomer</code> instances and thus return only instances of <code>VipCustomer</code></p>
+<p>Example 40: filter expression with type cast; will evaluate to <code>null</code> for all non-<code>VipCustomer</code> instances and thus return only instances of <code>VipCustomer</code></p>
 <pre><code>http://host/service/Customers
   ?$filter=Model.VipCustomer/PercentageOfVipPromotionProductsOrdered gt 80</code></pre>
 </div>
 <div class="example">
-<p>Example 40: expand the single related <code>Customer</code> only if it is an instance of <code>Model.VipCustomer</code>. For to-many relationships only <code>Model.VipCustomer</code> instances would be inlined,</p>
+<p>Example 41: expand the single related <code>Customer</code> only if it is an instance of <code>Model.VipCustomer</code>. For to-many relationships only <code>Model.VipCustomer</code> instances would be inlined,</p>
 <pre><code>http://host/service/Orders?$expand=Customer/Model.VipCustomer</code></pre>
 </div>
 </details>
@@ -883,21 +899,21 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>The collection will be restricted to instances matching the filter expression assigned to the parameter alias and may be empty.</p>
 <p>The <code>/$filter</code> path segment MAY occur multiple times and it MAY be combined with the <a href="#SystemQueryOptionfilter"><code>$filter</code></a> system query option.</p>
 <div class="example">
-<p>Example 41: red products that cost less than 10 — combining path segment and system query option</p>
+<p>Example 42: red products that cost less than 10 — combining path segment and system query option</p>
 <pre><code>GET Products/$filter(@foo)?@foo=Price lt 10&amp;$filter=Color eq &#39;red&#39;</code></pre>
 </div>
 <div class="example">
-<p>Example 42: red products that cost less than 10 — combine two path segments</p>
+<p>Example 43: red products that cost less than 10 — combine two path segments</p>
 <pre><code>GET Products/$filter(@p)/$filter(@c)?@p=Price lt 10&amp;@c=Color eq &#39;red&#39;</code></pre>
 </div>
 <div class="example">
-<p>Example 43: categories with less than ten products older than three</p>
+<p>Example 44: categories with less than ten products older than three</p>
 <pre><code>GET Categories?$filter=Products/$filter(Age gt 3)/$count lt 10</code></pre>
 </div>
 <p>Note that the <code>/$filter</code> path segment filters the “input” to the operation, and the <code>$filter</code> system query option filters the result of the operation, so the two can be used interchangeably only for <code>GET</code> operations. For a <code>PATCH</code> operation, the <code>/$filter</code> path segment is evaluated on the items <em>before</em> the modification and determines which items are to be modified, whereas the <code>$filter</code> system query option is evaluated <em>after</em> the modification and determines which of the modified items are part of the response.</p>
 <p>The <code>/$filter</code> path segment MAY be followed by a path segment identifying a <a href="#AddressingActions">bound action</a> or <a href="#AddressingFunctions">bound function</a> applicable to the collection.</p>
 <div class="example">
-<p>Example 44: invoke the <code>Special.Cluster</code> action on all products older than 3</p>
+<p>Example 45: invoke the <code>Special.Cluster</code> action on all products older than 3</p>
 <pre><code>POST /service/Products/$filter(@foo)/Special.Cluster?@foo=Age gt 3</code></pre>
 </div>
 </details>
@@ -913,7 +929,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </summary>
 <p>To address the media stream represented by a media entity, clients append <code>/$value</code> to the resource path of the media entity URL. Services may redirect from this canonical URL to the source URL of the media stream.</p>
 <div class="example">
-<p>Example 45: request the media stream for the picture with the key value <code>Sunset4321299432</code>:</p>
+<p>Example 46: request the media stream for the picture with the key value <code>Sunset4321299432</code>:</p>
 <pre><code>http://host/service/Pictures(&#39;Sunset4321299432&#39;)/$value</code></pre>
 </div>
 </details>
@@ -926,27 +942,27 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>The <a href="#SystemQueryOptionexpand"><code>$expand</code></a> query option can be specified using the names of the selected entity sets as navigation property names. If a selected entity set is not expanded, it MUST be represented using the read URL of the related entity as a navigation link in the complex type instance.</p>
 <p>The <a href="#SystemQueryOptioncount"><code>$count</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$skip</code></a>, and <a href="#SystemQueryOptionstopandskip"><code>$top</code></a> query options can also be used with no special semantics.</p>
 <div class="example">
-<p>Example 46: if <code>Sales</code> had a structural property <code>ProductID</code> instead of a navigation property <code>Product</code>, a “cross join” between <code>Sales</code> and <code>Products</code> could be addressed</p>
+<p>Example 47: if <code>Sales</code> had a structural property <code>ProductID</code> instead of a navigation property <code>Product</code>, a “cross join” between <code>Sales</code> and <code>Products</code> could be addressed</p>
 <pre><code>http://host/service/$crossjoin(Products,Sales)?$filter=Products/ID eq Sales/ProductID</code></pre>
 <p>and would result in</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Collection(Edm.ComplexType)&quot;</span><span class="fu">,</span></span>
-<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products@navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Products(0)&quot;</span><span class="fu">,</span></span>
-<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales@navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Sales(42)&quot;</span><span class="fu">,</span></span>
-<span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb65-8"><a href="#cb65-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb65-9"><a href="#cb65-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products@navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Products(0)&quot;</span><span class="fu">,</span></span>
-<span id="cb65-10"><a href="#cb65-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales@navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Sales(57)&quot;</span><span class="fu">,</span></span>
-<span id="cb65-11"><a href="#cb65-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb65-12"><a href="#cb65-12" aria-hidden="true" tabindex="-1"></a>    <span class="er">…</span></span>
-<span id="cb65-13"><a href="#cb65-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb65-14"><a href="#cb65-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products@navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Products(99)&quot;</span><span class="fu">,</span></span>
-<span id="cb65-15"><a href="#cb65-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales@navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Sales(21)&quot;</span><span class="fu">,</span></span>
-<span id="cb65-16"><a href="#cb65-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="cb65-17"><a href="#cb65-17" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
-<span id="cb65-18"><a href="#cb65-18" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Collection(Edm.ComplexType)&quot;</span><span class="fu">,</span></span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products@navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Products(0)&quot;</span><span class="fu">,</span></span>
+<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales@navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Sales(42)&quot;</span><span class="fu">,</span></span>
+<span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb67-8"><a href="#cb67-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb67-9"><a href="#cb67-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products@navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Products(0)&quot;</span><span class="fu">,</span></span>
+<span id="cb67-10"><a href="#cb67-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales@navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Sales(57)&quot;</span><span class="fu">,</span></span>
+<span id="cb67-11"><a href="#cb67-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb67-12"><a href="#cb67-12" aria-hidden="true" tabindex="-1"></a>    <span class="er">…</span></span>
+<span id="cb67-13"><a href="#cb67-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb67-14"><a href="#cb67-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Products@navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Products(99)&quot;</span><span class="fu">,</span></span>
+<span id="cb67-15"><a href="#cb67-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales@navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Sales(21)&quot;</span><span class="fu">,</span></span>
+<span id="cb67-16"><a href="#cb67-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb67-17"><a href="#cb67-17" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb67-18"><a href="#cb67-18" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 </details>
 <details open><summary>
@@ -956,11 +972,11 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>This symbolic resource is of type <code>Collection(Edm.EntityType)</code> and allows the <a href="#SystemQueryOptionsearch"><code>$search</code></a> system query option plus all other query options applicable to collections of entities.</p>
 <p>The <code>$all</code> resource can be appended with a path segment containing the qualified name of an entity type in order to restrict the collections to entities of that type. Query options such as <a href="#SystemQueryOptionselect"><code>$select</code></a>, <a href="#SystemQueryOptionfilter"><code>$filter</code></a>, <a href="#SystemQueryOptionexpand"><code>$expand</code></a>, and <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> can be applied to this restricted set according to the specified type.</p>
 <div class="example">
-<p>Example 47: all entities in a service that somehow match <code>red</code></p>
+<p>Example 48: all entities in a service that somehow match <code>red</code></p>
 <pre><code>http://host/service/$all?$search=red</code></pre>
 </div>
 <div class="example">
-<p>Example 48: all <code>Customer</code> entities in a service whose name contains <code>red</code></p>
+<p>Example 49: all <code>Customer</code> entities in a service whose name contains <code>red</code></p>
 <pre><code>http://host/service/$all/Model.Customer?$filter=contains(Name,&#39;red&#39;)</code></pre>
 </div>
 </details>
@@ -972,15 +988,15 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>Requests to paths ending in <code>/$query</code> MUST use the <code>POST</code> verb. Query options specified in the request body and query options specified in the request URL are processed together.</p>
 <p>The request body MUST use <code>Content-Type: text/plain</code>. It contains the query portion of the URL and MUST use the same percent-encoding as in URLs (especially: no spaces, tabs, or line breaks allowed) and MUST follow the syntax rules described in chapter Query Options.</p>
 <div class="example">
-<p>Example 49: passing a filter condition in the request body</p>
+<p>Example 50: passing a filter condition in the request body</p>
 <pre><code>POST http://host/service/People/$query
 Content-Type: text/plain
 
 $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;Jane&quot;,&quot;Smith&quot;]]</code></pre>
 </div>
+</details>
+</details>
 <hr />
-</details>
-</details>
 <details open><summary>
 <h1 id="5-query-options"><a name="QueryOptions" href="#QueryOptions">5 Query Options</a></h1>
 </summary>
@@ -1104,47 +1120,47 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 </summary>
 <p>The following examples illustrate the use and semantics of each of the logical operators.</p>
 <div class="example">
-<p>Example 50: all products with a <code>Name</code> equal to <code>Milk</code></p>
+<p>Example 51: all products with a <code>Name</code> equal to <code>Milk</code></p>
 <pre><code>http://host/service/Products?$filter=Name eq &#39;Milk&#39;</code></pre>
 </div>
 <div class="example">
-<p>Example 51: all products with a <code>Name</code> not equal to <code>Milk</code></p>
+<p>Example 52: all products with a <code>Name</code> not equal to <code>Milk</code></p>
 <pre><code>http://host/service/Products?$filter=Name ne &#39;Milk&#39;</code></pre>
 </div>
 <div class="example">
-<p>Example 52: all products with a <code>Name</code> greater than <code>Milk</code>:</p>
+<p>Example 53: all products with a <code>Name</code> greater than <code>Milk</code>:</p>
 <pre><code>http://host/service/Products?$filter=Name gt &#39;Milk&#39;</code></pre>
 </div>
 <div class="example">
-<p>Example 53: all products with a <code>Name</code> greater than or equal to <code>Milk</code>:</p>
+<p>Example 54: all products with a <code>Name</code> greater than or equal to <code>Milk</code>:</p>
 <pre><code>http://host/service/Products?$filter=Name ge &#39;Milk&#39;</code></pre>
 </div>
 <div class="example">
-<p>Example 54: all products with a <code>Name</code> less than <code>Milk</code>:</p>
+<p>Example 55: all products with a <code>Name</code> less than <code>Milk</code>:</p>
 <pre><code>http://host/service/Products?$filter=Name lt &#39;Milk&#39;</code></pre>
 </div>
 <div class="example">
-<p>Example 55: all products with a <code>Name</code> less than or equal to <code>Milk</code>:</p>
+<p>Example 56: all products with a <code>Name</code> less than or equal to <code>Milk</code>:</p>
 <pre><code>http://host/service/Products?$filter=Name le &#39;Milk&#39;</code></pre>
 </div>
 <div class="example">
-<p>Example 56: all products with a <code>Name</code> equal to <code>Milk</code> that also have a <code>Price</code> less than 2.55:</p>
+<p>Example 57: all products with a <code>Name</code> equal to <code>Milk</code> that also have a <code>Price</code> less than 2.55:</p>
 <pre><code>http://host/service/Products?$filter=Name eq &#39;Milk&#39; and Price lt 2.55</code></pre>
 </div>
 <div class="example">
-<p>Example 57: all products that either have a <code>Name</code> equal to <code>Milk</code> or have a <code>Price</code> less than 2.55:</p>
+<p>Example 58: all products that either have a <code>Name</code> equal to <code>Milk</code> or have a <code>Price</code> less than 2.55:</p>
 <pre><code>http://host/service/Products?$filter=Name eq &#39;Milk&#39; or Price lt 2.55</code></pre>
 </div>
 <div class="example">
-<p>Example 58: all products that do not have a <code>Name</code> that ends with <code>ilk</code>:</p>
+<p>Example 59: all products that do not have a <code>Name</code> that ends with <code>ilk</code>:</p>
 <pre><code>http://host/service/Products?$filter=not endswith(Name,&#39;ilk&#39;)</code></pre>
 </div>
 <div class="example">
-<p>Example 59: all products whose <code>style</code> value includes <code>Yellow</code>:</p>
+<p>Example 60: all products whose <code>style</code> value includes <code>Yellow</code>:</p>
 <pre><code>http://host/service/Products?$filter=style has Sales.Pattern&#39;Yellow&#39;</code></pre>
 </div>
 <div class="example">
-<p>Example 60: all products whose <code>Name</code> is <code>Milk</code> or <code>Cheese</code>:</p>
+<p>Example 61: all products whose <code>Name</code> is <code>Milk</code> or <code>Cheese</code>:</p>
 <pre><code>http://host/service/Products?$filter=Name in (&#39;Milk&#39;, &#39;Cheese&#39;)</code></pre>
 </div>
 </details>
@@ -1219,31 +1235,31 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 </summary>
 <p>The following examples illustrate the use and semantics of each of the Arithmetic operators.</p>
 <div class="example">
-<p>Example 61: all products with a Price of 2.55:</p>
+<p>Example 62: all products with a Price of 2.55:</p>
 <pre><code>http://host/service/Products?$filter=Price add 2.45 eq 5.00</code></pre>
 </div>
 <div class="example">
-<p>Example 62: all products with a Price of 2.55:</p>
+<p>Example 63: all products with a Price of 2.55:</p>
 <pre><code>http://host/service/Products?$filter=Price sub 0.55 eq 2.00</code></pre>
 </div>
 <div class="example">
-<p>Example 63: all products with a Price of 2.55:</p>
+<p>Example 64: all products with a Price of 2.55:</p>
 <pre><code>http://host/service/Products?$filter=Price mul 2.0 eq 5.10</code></pre>
 </div>
 <div class="example">
-<p>Example 64: all products with a Price of 2.55:</p>
+<p>Example 65: all products with a Price of 2.55:</p>
 <pre><code>http://host/service/Products?$filter=Price div 2.55 eq 1</code></pre>
 </div>
 <div class="example">
-<p>Example 65: all products with an integer Rating value of 4 or 5:</p>
+<p>Example 66: all products with an integer Rating value of 4 or 5:</p>
 <pre><code>http://host/service/Products?$filter=Rating div 2 eq 2</code></pre>
 </div>
 <div class="example">
-<p>Example 66: all products with an integer Rating value of 5:</p>
+<p>Example 67: all products with an integer Rating value of 5:</p>
 <pre><code>http://host/service/Products?$filter=Rating divby 2 eq 2.5</code></pre>
 </div>
 <div class="example">
-<p>Example 67: all products with a Rating exactly divisible by 5:</p>
+<p>Example 68: all products with a Rating exactly divisible by 5:</p>
 <pre><code>http://host/service/Products?$filter=Rating mod 5 eq 0</code></pre>
 </div>
 </details>
@@ -1253,7 +1269,7 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 </summary>
 <p>The Grouping operator (open and close parenthesis “<code>( )</code>”) controls the evaluation order of an expression. The Grouping operator returns the expression grouped inside the parenthesis.</p>
 <div class="example">
-<p>Example 68: all products because 9 mod 3 is 0</p>
+<p>Example 69: all products because 9 mod 3 is 0</p>
 <pre><code>http://host/service/Products?$filter=(4 add 5) mod (4 sub 1) eq 0</code></pre>
 </div>
 </details>
@@ -1279,7 +1295,7 @@ OrderedCollection concat(OrderedCollection,OrderedCollection)</code></pre>
 <p>The concat function with collection parameter values returns a collection that appends all items of the second collection to the first. If both collections are ordered, the result is also ordered.</p>
 <p>The <code>concatMethodCallExpr</code> syntax rule defines how the <code>concat</code> function is invoked.</p>
 <div class="example">
-<p>Example 69: all customers from Berlin, Germany</p>
+<p>Example 70: all customers from Berlin, Germany</p>
 <pre><code>http://host/service/Customers?$filter=concat(concat(City,&#39;, &#39;),Country) eq &#39;Berlin, Germany&#39;</code></pre>
 </div>
 </details>
@@ -1293,7 +1309,7 @@ Edm.Boolean contains(OrderedCollection,OrderedCollection)</code></pre>
 <p>The <code>contains</code> function with ordered collection parameter values returns true if the first collection can be transformed into the second collection by removing zero or more items from the beginning or the end of the first collection.</p>
 <p>The <code>containsMethodCallExpr</code> syntax rule defines how the <code>contains</code> function is invoked.</p>
 <div class="example">
-<p>Example 70: all customers with a <code>CompanyName</code> that contains <code>Alfreds</code></p>
+<p>Example 71: all customers with a <code>CompanyName</code> that contains <code>Alfreds</code></p>
 <pre><code>http://host/service/Customers?$filter=contains(CompanyName,&#39;Alfreds&#39;)</code></pre>
 </div>
 </details>
@@ -1307,7 +1323,7 @@ Edm.Boolean endswith(OrderedCollection,OrderedCollection)</code></pre>
 <p>The <code>endswith</code> function with ordered collection parameter values returns true if the first collection can be transformed into the second collection by removing zero or more items from the beginning of the first collection.</p>
 <p>The <code>endsWithMethodCallExpr</code> syntax rule defines how the <code>endswith</code> function is invoked.</p>
 <div class="example">
-<p>Example 71: all customers with a <code>CompanyName</code> that ends with <code>Futterkiste</code></p>
+<p>Example 72: all customers with a <code>CompanyName</code> that ends with <code>Futterkiste</code></p>
 <pre><code>http://host/service/Customers?$filter=endswith(CompanyName,&#39;Futterkiste&#39;)</code></pre>
 </div>
 </details>
@@ -1321,7 +1337,7 @@ Edm.Int32 indexof(OrderedCollection,OrderedCollection)</code></pre>
 <p>The <code>indexof</code> function with ordered collection parameter values returns the zero-based index of the first occurrence of the second collection in the first collection, or -1 if the first collection does not contain the second collection.</p>
 <p>The <code>indexOfMethodCallExpr</code> syntax rule defines how the <code>indexof</code> function is invoked.</p>
 <div class="example">
-<p>Example 72: all customers with a <code>CompanyName</code> containing <code>lfreds</code> starting at the second character</p>
+<p>Example 73: all customers with a <code>CompanyName</code> containing <code>lfreds</code> starting at the second character</p>
 <pre><code>http://host/service/Customers?$filter=indexof(CompanyName,&#39;lfreds&#39;) eq 1</code></pre>
 </div>
 </details>
@@ -1335,7 +1351,7 @@ Edm.Int32 length(Collection)</code></pre>
 <p>The <code>length</code> function with a collection parameter value returns the number of itens in the collection.</p>
 <p>The <code>lengthMethodCallExpr</code> syntax rule defines how the <code>length</code> function is invoked.</p>
 <div class="example">
-<p>Example 73: all customers with a <code>CompanyName</code> that is 19 characters long</p>
+<p>Example 74: all customers with a <code>CompanyName</code> that is 19 characters long</p>
 <pre><code>http://host/service/Customers?$filter=length(CompanyName) eq 19</code></pre>
 </div>
 </details>
@@ -1349,7 +1365,7 @@ Edm.Boolean startswith(Collection,Collection)</code></pre>
 <p>The <code>startswith</code> function with ordered collection parameter values returns true if the first collection can be transformed into the second collection by removing zero or more items from the end of the first collection.</p>
 <p>The <code>startsWithMethodCallExpr</code> syntax rule defines how the <code>startswith</code> function is invoked.</p>
 <div class="example">
-<p>Example 74: all customers with a <code>CompanyName</code> that starts with <code>Alfr</code></p>
+<p>Example 75: all customers with a <code>CompanyName</code> that starts with <code>Alfr</code></p>
 <pre><code>http://host/service/Customers?$filter=startswith(CompanyName,&#39;Alfr&#39;)</code></pre>
 </div>
 </details>
@@ -1370,11 +1386,11 @@ OrderedCollection substring(OrderedCollection,Edm.Int32,Edm.Int32)</code></pre>
 <p>A negative start index N, if supported, returns a string/collection starting N characters/items before the end of the string/collection.</p>
 <p>The <code>substringMethodCallExpr</code> syntax rule defines how the <code>substring</code> function is invoked.</p>
 <div class="example">
-<p>Example 75: all customers with a <code>CompanyName</code> of <code>lfreds Futterkiste</code> once the first character has been removed</p>
+<p>Example 76: all customers with a <code>CompanyName</code> of <code>lfreds Futterkiste</code> once the first character has been removed</p>
 <pre><code>http://host/service/Customers?$filter=substring(CompanyName,1) eq &#39;lfreds Futterkiste&#39;</code></pre>
 </div>
 <div class="example">
-<p>Example 76: all customers with a <code>CompanyName</code> that has <code>lf</code> as the second and third characters, e.g, <code>Alfreds Futterkiste</code></p>
+<p>Example 77: all customers with a <code>CompanyName</code> that has <code>lf</code> as the second and third characters, e.g, <code>Alfreds Futterkiste</code></p>
 <pre><code>http://host/service/Customers?$filter=substring(CompanyName,1,2) eq &#39;lf&#39;</code></pre>
 </div>
 </details>
@@ -1389,7 +1405,7 @@ OrderedCollection substring(OrderedCollection,Edm.Int32,Edm.Int32)</code></pre>
 <pre><code>Edm.Boolean hassubset(Collection, Collection)</code></pre>
 <p>The <code>hassubset</code> function returns true if the first collection can be transformed into the second collection by reordering and/or removing zero or more items. The <code>hasSubsetMethodCallExpr</code> syntax rule defines how the <code>hassubset</code> function is invoked.</p>
 <div class="example">
-<p>Example 77: <code>hassubset</code> expressions that return true</p>
+<p>Example 78: <code>hassubset</code> expressions that return true</p>
 <pre><code>hassubset([4,1,3],[4,1,3])</code></pre>
 <pre><code>hassubset([4,1,3],[1,3,4])</code></pre>
 <pre><code>hassubset([4,1,3],[3,1])</code></pre>
@@ -1397,7 +1413,7 @@ OrderedCollection substring(OrderedCollection,Edm.Int32,Edm.Int32)</code></pre>
 <pre><code>hassubset([4,1,3,1],[1,1])</code></pre>
 </div>
 <div class="example">
-<p>Example 78: <code>hassubset</code> expression that returns false: 1 appears only once in the left operand</p>
+<p>Example 79: <code>hassubset</code> expression that returns false: 1 appears only once in the left operand</p>
 <pre><code>hassubset([1,2],[1,1,2])</code></pre>
 </div>
 </details>
@@ -1408,14 +1424,14 @@ OrderedCollection substring(OrderedCollection,Edm.Int32,Edm.Int32)</code></pre>
 <pre><code>Edm.Boolean hassubsequence(OrderedCollection,OrderedCollection)</code></pre>
 <p>The <code>hassubsequence</code> function returns true if the first collection can be transformed into the second collection by removing zero or more items. The <code>hasSubsequenceMethodCallExpr</code> syntax rule defines how the <code>hassubsequence</code> function is invoked.</p>
 <div class="example">
-<p>Example 79: <code>hassubsequence</code> expressions that return true</p>
+<p>Example 80: <code>hassubsequence</code> expressions that return true</p>
 <pre><code>hassubsequence([4,1,3],[4,1,3])</code></pre>
 <pre><code>hassubsequence([4,1,3],[4,1])</code></pre>
 <pre><code>hassubsequence([4,1,3],[4,3])</code></pre>
 <pre><code>hassubsequence([4,1,3,1],[1,1])</code></pre>
 </div>
 <div class="example">
-<p>Example 80: <code>hassubsequence</code> expressions that return false</p>
+<p>Example 81: <code>hassubsequence</code> expressions that return false</p>
 <pre><code>hassubsequence([4,1,3],[1,3,4])</code></pre>
 <pre><code>hassubsequence([4,1,3],[3,1])</code></pre>
 <pre><code>hassubsequence([1,2],[1,1,2])</code></pre>
@@ -1433,11 +1449,11 @@ OrderedCollection substring(OrderedCollection,Edm.Int32,Edm.Int32)</code></pre>
 Edm.Boolean matchespattern(Edm.String,Edm.String,Edm.String)</code></pre>
 <p>The second parameter MUST evaluate to a string containing an <a href="#_ECMAScript">ECMAScript</a> (JavaScript) regular expression. The <code>matchespattern</code> function returns true if the first parameter evaluates to a string matching that regular expression, using syntax and semantics of ECMAScript regular expressions, otherwise it returns false. If the optional third parameter is provided, it MUST evaluate to a string consisting of ECMAScript regular expression flags to modify the match.</p>
 <div class="example">
-<p>Example 81: all customers with a <code>CompanyName</code> that match the (percent-encoded) regular expression <code>^A.*e$</code></p>
+<p>Example 82: all customers with a <code>CompanyName</code> that match the (percent-encoded) regular expression <code>^A.*e$</code></p>
 <pre><code>http://host/service/Customers?$filter=matchespattern(CompanyName,&#39;%5EA.*e$&#39;)</code></pre>
 </div>
 <div class="example">
-<p>Example 82: all customers with a <code>FormattedAddress</code> that contains a line ending with <code>berg</code> or ends with <code>berg</code></p>
+<p>Example 83: all customers with a <code>FormattedAddress</code> that contains a line ending with <code>berg</code> or ends with <code>berg</code></p>
 <pre><code>http://host/service/Customers?$filter=matchespattern(FormattedAddress,&#39;berg$&#39;,&#39;m&#39;)</code></pre>
 </div>
 </details>
@@ -1448,7 +1464,7 @@ Edm.Boolean matchespattern(Edm.String,Edm.String,Edm.String)</code></pre>
 <pre><code>Edm.String tolower(Edm.String)</code></pre>
 <p>The <code>tolower</code> function returns the input parameter string value with all uppercase characters converted to lowercase according to Unicode rules. The <code>toLowerMethodCallExpr</code> syntax rule defines how the <code>tolower</code> function is invoked.</p>
 <div class="example">
-<p>Example 83: all customers with a <code>CompanyName</code> that equals <code>alfreds futterkiste</code> once any uppercase characters have been converted to lowercase</p>
+<p>Example 84: all customers with a <code>CompanyName</code> that equals <code>alfreds futterkiste</code> once any uppercase characters have been converted to lowercase</p>
 <pre><code>http://host/service/Customers?$filter=tolower(CompanyName) eq &#39;alfreds futterkiste&#39;</code></pre>
 </div>
 </details>
@@ -1459,7 +1475,7 @@ Edm.Boolean matchespattern(Edm.String,Edm.String,Edm.String)</code></pre>
 <pre><code>Edm.String toupper(Edm.String)</code></pre>
 <p>The <code>toupper</code> function returns the input parameter string value with all lowercase characters converted to uppercase according to Unicode rules. The <code>toUpperMethodCallExpr</code> syntax rule defines how the <code>toupper</code> function is invoked.</p>
 <div class="example">
-<p>Example 84: all customers with a <code>CompanyName</code> that equals <code>ALFREDS FUTTERKISTE</code> once any lowercase characters have been converted to uppercase</p>
+<p>Example 85: all customers with a <code>CompanyName</code> that equals <code>ALFREDS FUTTERKISTE</code> once any lowercase characters have been converted to uppercase</p>
 <pre><code>http://host/service/Customers?$filter=toupper(CompanyName) eq &#39;ALFREDS FUTTERKISTE&#39;</code></pre>
 </div>
 </details>
@@ -1470,7 +1486,7 @@ Edm.Boolean matchespattern(Edm.String,Edm.String,Edm.String)</code></pre>
 <pre><code>Edm.String trim(Edm.String)</code></pre>
 <p>The <code>trim</code> function returns the input parameter string value with all leading and trailing whitespace characters, according to Unicode rules, removed. The <code>trimMethodCallExpr</code> syntax rule defines how the <code>trim</code> function is invoked.</p>
 <div class="example">
-<p>Example 85: all customers with a <code>CompanyName</code> without leading or trailing whitespace characters</p>
+<p>Example 86: all customers with a <code>CompanyName</code> without leading or trailing whitespace characters</p>
 <pre><code>http://host/service/Customers?$filter=trim(CompanyName) eq CompanyName</code></pre>
 </div>
 </details>
@@ -1494,7 +1510,7 @@ Edm.Int32 day(Edm.DateTimeOffset)</code></pre>
 <p>The <code>day</code> function returns the day component <code>Date</code> or <code>DateTimeOffset</code> parameter value, evaluated in the time zone of the <code>DateTimeOffset</code> parameter value. The <code>dayMethodCallExpr</code> syntax rule defines how the <code>day</code> function is invoked.</p>
 <p>Services that are unable to preserve the offset of <code>Edm.DateTimeOffset</code> values and instead normalize the values to some common time zone (for example UTC) MUST fail evaluation of the <code>day</code> function for literal <code>Edm.DateTimeOffset</code> values that are not stated in the time zone of the normalized values.</p>
 <div class="example">
-<p>Example 86: all employees born on the 8th day of a month</p>
+<p>Example 87: all employees born on the 8th day of a month</p>
 <pre><code>http://host/service/Employees?$filter=day(BirthDate) eq 8</code></pre>
 </div>
 </details>
@@ -1506,7 +1522,7 @@ Edm.Int32 day(Edm.DateTimeOffset)</code></pre>
 Edm.Decimal fractionalseconds(Edm.TimeOfDay)</code></pre>
 <p>The <code>fractionalseconds</code> function returns the fractional seconds component of the <code>DateTimeOffset</code> or <code>TimeOfDay</code> parameter value as a non-negative decimal value less than 1. The <code>fractionalsecondsMethodCallExpr</code> syntax rule defines how the <code>fractionalseconds</code> function is invoked.</p>
 <div class="example">
-<p>Example 87: all employees born less than 100 milliseconds after a full second of any minute of any hour on any day</p>
+<p>Example 88: all employees born less than 100 milliseconds after a full second of any minute of any hour on any day</p>
 <pre><code>http://host/service/Employees?$filter=[fractionalseconds(BirthDate) lt 0.1</code></pre>
 </div>
 </details>
@@ -1519,7 +1535,7 @@ Edm.Int32 hour(Edm.TimeOfDay)</code></pre>
 <p>The <code>hour</code> function returns the hour component (<code>0</code> to <code>23</code>) of the <code>DateTimeOffset</code> or <code>TimeOfDay</code> parameter value, evaluated in the time zone of the <code>DateTimeOffset</code> parameter value. The <code>hourMethodCallExpr</code> syntax rule defines how the <code>hour</code> function is invoked.</p>
 <p>Services that are unable to preserve the offset of <code>Edm.DateTimeOffset</code> values and instead normalize the values to some common time zone (for example UTC) MUST fail evaluation of the <code>hour</code> function for literal <code>Edm.DateTimeOffset</code> values that are not stated in the time zone of the normalized values.</p>
 <div class="example">
-<p>Example 88: all employees born in hour 4, between 04:00 (inclusive) and 05:00 (exclusive)</p>
+<p>Example 89: all employees born in hour 4, between 04:00 (inclusive) and 05:00 (exclusive)</p>
 <pre><code>http://host/service/Employees?$filter=hour(BirthDate) eq 4</code></pre>
 </div>
 </details>
@@ -1545,7 +1561,7 @@ Edm.Int32 hour(Edm.TimeOfDay)</code></pre>
 Edm.Int32 minute(Edm.TimeOfDay)</code></pre>
 <p>The <code>minute</code> function returns the minute component (<code>0</code> to <code>59</code>) of the <code>DateTimeOffset</code> or <code>TimeOfDay</code> parameter value, evaluated in the time zone of the <code>DateTimeOffset</code> parameter value. The <code>minuteMethodCallExpr</code> syntax rule defines how the <code>minute</code> function is invoked.</p>
 <div class="example">
-<p>Example 89: all employees born in minute 40 of any hour on any day</p>
+<p>Example 90: all employees born in minute 40 of any hour on any day</p>
 <pre><code>http://host/service/Employees?$filter=minute(BirthDate) eq 40</code></pre>
 </div>
 </details>
@@ -1558,7 +1574,7 @@ Edm.Int32 month(Edm.DateTimeOffset)</code></pre>
 <p>The <code>month</code> function returns the month component of the <code>Date</code> or <code>DateTimeOffset</code> parameter value, evaluated in the time zone of the <code>DateTimeOffset</code> parameter value. The <code>monthMethodCallExpr</code> syntax rule defines how the <code>month</code> function is invoked.</p>
 <p>Services that are unable to preserve the offset of <code>Edm.DateTimeOffset</code> values and instead normalize the values to some common time zone (for example UTC) MUST fail evaluation of the <code>month</code> function for literal <code>Edm.DateTimeOffset</code> values that are not stated in the time zone of the normalized values.</p>
 <div class="example">
-<p>Example 90: all employees born in May</p>
+<p>Example 91: all employees born in May</p>
 <pre><code>http://host/service/Employees?$filter=month(BirthDate) eq 5</code></pre>
 </div>
 </details>
@@ -1578,7 +1594,7 @@ Edm.Int32 month(Edm.DateTimeOffset)</code></pre>
 Edm.Int32 second(Edm.TimeOfDay)</code></pre>
 <p>The <code>second</code> function returns the second component (<code>0</code> to <code>59</code> for regular seconds, and <code>60</code> for leap seconds, without the fractional part) of the <code>DateTimeOffset</code> or <code>TimeOfDay</code> parameter value. The <code>secondMethodCallExpr</code> syntax rule defines how the <code>second</code> function is invoked.</p>
 <div class="example">
-<p>Example 91: all employees born in second 40 of any minute of any hour on any day</p>
+<p>Example 92: all employees born in second 40 of any minute of any hour on any day</p>
 <pre><code>http://host/service/Employees?$filter=second(BirthDate) eq 40</code></pre>
 </div>
 </details>
@@ -1613,7 +1629,7 @@ Edm.Int32 year(Edm.DateTimeOffset)</code></pre>
 <p>The <code>year</code> function returns the year component of the <code>Date</code> or <code>DateTimeOffset</code> parameter value, evaluated in the time zone of the <code>DateTimeOffset</code> parameter value. The <code>yearMethodCallExpr</code> syntax rule defines how the <code>year</code> function is invoked.</p>
 <p>Services that are unable to preserve the offset of <code>Edm.DateTimeOffset</code> values and instead normalize the values to some common time zone (for example UTC) MUST fail evaluation of the <code>year</code> function for literal <code>Edm.DateTimeOffset</code> values that are not stated in the time zone of the normalized values.</p>
 <div class="example">
-<p>Example 92: all employees born in 1971</p>
+<p>Example 93: all employees born in 1971</p>
 <pre><code>http://host/service/Employees?$filter=year(BirthDate) eq 1971</code></pre>
 </div>
 </details>
@@ -1629,7 +1645,7 @@ Edm.Int32 year(Edm.DateTimeOffset)</code></pre>
 Edm.Decimal ceiling(Edm.Decimal)</code></pre>
 <p>The <code>ceiling</code> function rounds the input numeric parameter up to the nearest numeric value with no decimal component. The <code>ceilingMethodCallExpr</code> syntax rule defines how the <code>ceiling</code> function is invoked.</p>
 <div class="example">
-<p>Example 93: all orders with freight costs that round up to 32</p>
+<p>Example 94: all orders with freight costs that round up to 32</p>
 <pre><code>http://host/service/Orders?$filter=ceiling(Freight) eq 32</code></pre>
 </div>
 </details>
@@ -1641,7 +1657,7 @@ Edm.Decimal ceiling(Edm.Decimal)</code></pre>
 Edm.Decimal floor(Edm.Decimal)</code></pre>
 <p>The <code>floor</code> function rounds the input numeric parameter down to the nearest numeric value with no decimal component. The <code>floorMethodCallExpr</code> syntax rule defines how the <code>floor</code> function is invoked.</p>
 <div class="example">
-<p>Example 94: all orders with freight costs that round down to 32</p>
+<p>Example 95: all orders with freight costs that round down to 32</p>
 <pre><code>http://host/service/Orders?$filter=floor(Freight) eq 32</code></pre>
 </div>
 </details>
@@ -1653,7 +1669,7 @@ Edm.Decimal floor(Edm.Decimal)</code></pre>
 Edm.Decimal round(Edm.Decimal)</code></pre>
 <p>The <code>round</code> function rounds the input numeric parameter to the nearest numeric value with no decimal component. The mid-point between two integers is rounded away from zero, i.e. 0.5 is rounded to 1 and -0.5 is rounded to -1. The <code>roundMethodCallExpr</code> syntax rule defines how the <code>round</code> function is invoked.</p>
 <div class="example">
-<p>Example 95: all orders with freight costs that round to 32</p>
+<p>Example 96: all orders with freight costs that round to 32</p>
 <pre><code>http://host/service/Orders?$filter=round(Freight) eq 32</code></pre>
 </div>
 </details>
@@ -1695,12 +1711,12 @@ Edm.Boolean isof(expression,type)</code></pre>
 <p>The two parameter <code>isof</code> function returns true if the object referred to by the expression is assignable to the type specified, according to the same rules, otherwise it returns false.</p>
 <p>The <code>isofExpr</code> syntax rule defines how the <code>isof</code> function is invoked.</p>
 <div class="example">
-<p>Example 96: orders that are also <code>BigOrders</code></p>
+<p>Example 97: orders that are also <code>BigOrders</code></p>
 <pre><code>http://host/service/Orders?$filter=isof(NorthwindModel.BigOrder)</code></pre>
 <pre><code>http://host/service/Orders?$filter=isof($it,NorthwindModel.BigOrder)</code></pre>
 </div>
 <div class="example">
-<p>Example 97: orders of a customer that is a <code>VIPCustomer</code></p>
+<p>Example 98: orders of a customer that is a <code>VIPCustomer</code></p>
 <pre><code>http://host/service/Orders?$filter=isof(Customer,NorthwindModel.VIPCustomer)</code></pre>
 </div>
 </details>
@@ -1747,7 +1763,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>Clients SHOULD ensure that the results in all pairs are compatible. If all results are of the same type, the type of the <code>case</code> expression is of that type. If all results are of numeric type, then the type of the <code>case</code> expression is a numeric type capable of representing any of these expressions according to standard type promotion rules.</p>
 <p>Services MAY support <code>case</code> expressions containing parameters of incompatible types, in which case the case expression is treated as <code>Edm.Untyped</code> and its value has the type of the parameter expression selected by the case statement.</p>
 <div class="example">
-<p>Example 98: compute signum(X)</p>
+<p>Example 99: compute signum(X)</p>
 <pre><code>$compute=case(X gt 0:1,X lt 0:-1,true:0) as SignumX</code></pre>
 </div>
 </details>
@@ -1766,15 +1782,15 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>The <code>any</code> operator applies a Boolean expression to each member of a collection and returns true if and only if the expression is true for any member of the collection, otherwise it returns false. This implies that the <code>any</code> operator always returns false for an empty collection.</p>
 <p>The <code>any</code> operator can be used without an argument expression. This short form returns false if and only if the collection is empty.</p>
 <div class="example">
-<p>Example 99: all <code>Orders</code> that have any <code>Items</code> with a <code>Quantity</code> greater than <code>100</code></p>
+<p>Example 100: all <code>Orders</code> that have any <code>Items</code> with a <code>Quantity</code> greater than <code>100</code></p>
 <pre><code>http://host/service/Orders?$filter=Items/any(d:d/Quantity gt 100)</code></pre>
 </div>
 <div class="example">
-<p>Example 100: all customers having an order with a deviating shipping address. The <code>Address</code> in the argument expression is evaluated in the scope of the <code>Customers</code> collection.</p>
+<p>Example 101: all customers having an order with a deviating shipping address. The <code>Address</code> in the argument expression is evaluated in the scope of the <code>Customers</code> collection.</p>
 <pre><code>http://host/service/Customers?$filter=Orders/any(o:o/ShippingAddress ne Address)</code></pre>
 </div>
 <div class="example">
-<p>Example 101: all categories along with their products used in some order with a deviating unit price. The unprefixed <code>UnitPrice</code> in the argument expression is evaluated in the scope of the expanded <code>Products</code>.</p>
+<p>Example 102: all categories along with their products used in some order with a deviating unit price. The unprefixed <code>UnitPrice</code> in the argument expression is evaluated in the scope of the expanded <code>Products</code>.</p>
 <pre><code>http://host/service/Categories?$expand=Products(
   $filter=OrderItems/any(oi:oi/UnitPrice ne UnitPrice))</code></pre>
 </div>
@@ -1785,7 +1801,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>The <code>all</code> operator applies a Boolean expression to each member of a collection and returns true if the expression is true for all members of the collection, otherwise it returns false. This implies that the <code>all</code> operator always returns true for an empty collection.</p>
 <p>The <code>all</code> operator cannot be used without an argument expression.</p>
 <div class="example">
-<p>Example 102: all <code>Orders</code> that have only <code>Items</code> with a <code>Quantity</code> greater than <code>100</code></p>
+<p>Example 103: all <code>Orders</code> that have only <code>Items</code> with a <code>Quantity</code> greater than <code>100</code></p>
 <pre><code>http://host/service/Orders?$filter=Items/all(d:d/Quantity gt 100)</code></pre>
 </div>
 </details>
@@ -1798,7 +1814,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 </summary>
 <p>Primitive literals can appear in the resource path as key property values, and in the query part, for example, as operands in <a href="#SystemQueryOptionfilter"><code>$filter</code></a> expressions. They are represented according to the <code>primitiveLiteral</code> rule in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <div class="example">
-<p>Example 103: expressions using primitive literals</p>
+<p>Example 104: expressions using primitive literals</p>
 <pre><code>NullValue eq null</code></pre>
 <pre><code>TrueValue eq true</code></pre>
 <pre><code>FalseValue eq false</code></pre>
@@ -1829,11 +1845,11 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>Object member values and array items can be expressions, including other objects and arrays, arithmetic expressions, property names, and of course primitive values.</p>
 <p>Note that the special characters <code>{</code>, <code>}</code>, <code>[</code>, <code>]</code>, and <code>"</code> MUST be percent-encoded in URLs although some browsers will accept and pass them on unencoded.</p>
 <div class="example">
-<p>Example 104: collection of string literals</p>
+<p>Example 105: collection of string literals</p>
 <pre><code>http://host/service/ProductsByColors(colors=@c)?@c=[&quot;red&quot;,&quot;green&quot;]</code></pre>
 </div>
 <div class="example">
-<p>Example 105: check whether a pair of properties has one of several possible pair values</p>
+<p>Example 106: check whether a pair of properties has one of several possible pair values</p>
 <pre><code>$filter=[FirstName,LastName] in [[&quot;John&quot;,&quot;Doe&quot;],[&quot;Jane&quot;,&quot;Smith&quot;]]</code></pre>
 </div>
 <p>Entities are represented as structured literals as described in <a href="#ODataJSON">OData-JSON, section 6</a>. Non-transient entities can alternatively be represented through their <a href="#ResourcePath">resource path</a>.</p>
@@ -2363,15 +2379,15 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <pre><code>http://host/service/Products/Model.WithIngredients(Ingredients=@i)
   ?@i=[&quot;Carrots&quot;,&quot;Ginger&quot;,&quot;Oranges&quot;]</code></pre>
 </div>
+</details>
+</details>
 <hr />
-</details>
-</details>
 <details open><summary>
 <h1 id="6-conformance"><a name="Conformance" href="#Conformance">6 Conformance</a></h1>
 </summary>
 <p>The conformance requirements for OData clients and services are described in <a href="#ODataProtocol">OData-Protocol</a>.</p>
-<hr />
 </details>
+<hr />
 <details open><summary>
 <h1 id="appendix-a-references"><a name="References" href="#References">Appendix A. References</a></h1>
 </summary>
@@ -2426,9 +2442,9 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 do we have considerations specific to URLs, for example length, encoding, privacy (use $batch if in doubt), ...?
 -->
 
+</details>
+</details>
 <hr />
-</details>
-</details>
 <details open><summary>
 <h1 id="appendix-b-acknowledgments"><a name="Acknowledgments" href="#Acknowledgments">Appendix B. Acknowledgments</a></h1>
 </summary>
@@ -2492,9 +2508,9 @@ do we have considerations specific to URLs, for example length, encoding, privac
 </tr>
 </tbody>
 </table>
+</details>
+</details>
 <hr />
-</details>
-</details>
 <details open><summary>
 <h1 id="appendix-c-revision-history"><a name="RevisionHistory" href="#RevisionHistory">Appendix C. Revision History</a></h1>
 </summary>
@@ -2516,8 +2532,8 @@ do we have considerations specific to URLs, for example length, encoding, privac
 </tr>
 </tbody>
 </table>
-<hr />
 </details>
+<hr />
 <details open><summary>
 <h1 id="appendix-d-notices"><a name="Notices" href="#Notices">Appendix D. Notices</a></h1>
 </summary>
