@@ -142,8 +142,8 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <h4 id="abstract">Abstract:</h4>
 <p>The Open Data Protocol (OData) for representing and interacting with structured content is comprised of a set of specifications. The core specification for the protocol is in OData Version 4.02 Part 1: Protocol. This document extends the core specification by defining representations for OData requests and responses using a JSON format.</p>
 <h4 id="status">Status:</h4>
-<p>This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the “Latest stage” location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at <a href="https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical">https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical</a>.</p>
-<p>TC members should send comments on this specification to the TC’s email list. Others should send comments to the TC’s public comment list, after subscribing to it by following the instructions at the “<a href="https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=odata">Send A Comment</a>” button on the TC’s web page at <a href="https://www.oasis-open.org/committees/odata/">https://www.oasis-open.org/committees/odata/</a>.</p>
+<p>This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the “Latest stage” location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at <a href="https://groups.oasis-open.org/communities/tc-community-home2?CommunityKey=e7cac2a9-2d18-4640-b94d-018dc7d3f0e2#technical">https://groups.oasis-open.org/communities/tc-community-home2?CommunityKey=e7cac2a9-2d18-4640-b94d-018dc7d3f0e2#technical</a>.</p>
+<p>TC members should send comments on this specification to the TC’s email list. Any individual may submit comments to the TC by sending email to <a href="mailto:Technical-Committee-Comments@oasis-open.org">Technical-Committee-Comments@oasis-open.org</a>. Please use a Subject line like “Comment on OData JSON Format”.</p>
 <p>This specification is provided under the <a href="https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode">RF on RAND Terms Mode</a> of the <a href="https://www.oasis-open.org/policies-guidelines/ipr/">OASIS IPR Policy</a>, the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC’s web page (<a href="https://www.oasis-open.org/committees/odata/ipr.php">https://www.oasis-open.org/committees/odata/ipr.php</a>).</p>
 <p>Note that any machine-readable content (<a href="https://www.oasis-open.org/policies-guidelines/tc-process-2017-05-26/#wpComponentsCompLang">Computer Language Definitions</a>) declared Normative for this Work Product is provided in separate plain text files. In the event of a discrepancy between any such plain text file and display content in the Work Product’s prose narrative document(s), the content in the separate plain text file prevails.</p>
 <h4 id="key-words">Key words:</h4>
@@ -157,9 +157,9 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>Distributed under the terms of the OASIS <a href="https://www.oasis-open.org/policies-guidelines/ipr/">IPR Policy</a>.</p>
 <p>The name “OASIS” is a trademark of <a href="https://www.oasis-open.org/">OASIS</a>, the owner and developer of this specification, and should be used only to refer to the organization and its official outputs.</p>
 <p>For complete copyright information please see the full Notices section in an Appendix <a href="#Notices">below</a>.</p>
+</details>
+</details>
 <hr />
-</details>
-</details>
 <details open><summary>
 <h1 id="table-of-contents">Table of Contents</h1>
 </summary>
@@ -298,8 +298,8 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><a href="#Notices">E Notices</a></li>
 </ul>
 </div>
-<hr />
 </details>
+<hr />
 <details open><summary>
 <h1 id="1-introduction"><a name="Introduction" href="#Introduction">1 Introduction</a></h1>
 </summary>
@@ -390,10 +390,10 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
 This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 -->
 
+</details>
+</details>
+</details>
 <hr />
-</details>
-</details>
-</details>
 <details open><summary>
 <h1 id="2-json-format-design"><a name="JSONFormatDesign" href="#JSONFormatDesign">2 JSON Format Design</a></h1>
 </summary>
@@ -403,8 +403,8 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>A key feature of OData’s JSON format is to allow omitting predictable parts of the wire format from the actual payload. To reconstitute this data on the receiving end, expressions are used to compute missing links, type information, and other control data. These expressions (together with the data on the wire) can be used by the client to compute predictable payload pieces as if they had been included on the wire directly.</p>
 <p>Control information is used in JSON to capture instance metadata that cannot be predicted (e.g. the next link of a collection) as well as a mechanism to provide values where a computed value would be wrong (e.g. if the media read link of one particular entity does not follow the standard URL conventions). Computing values from metadata expressions is compute intensive and some clients might opt for a larger payload size to avoid computational complexity; to accommodate for this the <code>Accept</code> header allows the client to control the amount of control information added to the response.</p>
 <p>To optimize streaming scenarios, there are a few restrictions that MAY be imposed on the sequence in which name/value pairs appear within JSON objects. For details on the ordering requirements see <a href="#PayloadOrderingConstraints">Payload Ordering Constraints</a>.</p>
-<hr />
 </details>
+<hr />
 <details open><summary>
 <h1 id="3-requesting-the-json-format"><a name="RequestingtheJSONFormat" href="#RequestingtheJSONFormat">3 Requesting the JSON Format</a></h1>
 </summary>
@@ -492,9 +492,9 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>The sender of a request MUST specify <code>ExponentialDecimals=true</code> in the <code>Content-Type</code> header if the request body contains <code>Edm.Decimal</code> values in exponential notation.</p>
 <p>If not specified, or specified as <code>ExponentialDecimals=false</code>, all <code>Edm.Decimal</code> values MUST be serialized in long notation, using only an optional sign, digits, and an optional decimal point followed by digits.</p>
 <p>Payloads with an <code>OData-Version</code> header equal to <code>4.01</code> or greater always allow exponential notation for numbers and the <code>ExponentialDecimals</code> format parameter is not needed or used.</p>
+</details>
+</details>
 <hr />
-</details>
-</details>
 <details open><summary>
 <h1 id="4-common-characteristics"><a name="CommonCharacteristics" href="#CommonCharacteristics">4 Common Characteristics</a></h1>
 </summary>
@@ -777,10 +777,10 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
 <span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
+</details>
+</details>
+</details>
 <hr />
-</details>
-</details>
-</details>
 <details open><summary>
 <h1 id="5-service-document"><a name="ServiceDocument" href="#ServiceDocument">5 Service Document</a></h1>
 </summary>
@@ -829,8 +829,8 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
-<hr />
 </details>
+<hr />
 <details open><summary>
 <h1 id="6-entity"><a name="Entity" href="#Entity">6 Entity</a></h1>
 </summary>
@@ -879,8 +879,8 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Orders@navigationLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ALFKI&#39;)/Orders&quot;</span></span>
 <span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
-<hr />
 </details>
+<hr />
 <details open><summary>
 <h1 id="7-structural-property"><a name="StructuralProperty" href="#StructuralProperty">7 Structural Property</a></h1>
 </summary>
@@ -1148,9 +1148,9 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <p>Note: the collection ETag for a navigation property may or may not be identical to the ETag of the containing entity, the example shows a different ETag for the <code>Items</code> collection.</p>
+</details>
+</details>
 <hr />
-</details>
-</details>
 <details open><summary>
 <h1 id="9-stream-property"><a name="StreamProperty" href="#StreamProperty">9 Stream Property</a></h1>
 </summary>
@@ -1177,8 +1177,8 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
 <span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
-<hr />
 </details>
+<hr />
 <details open><summary>
 <h1 id="10-media-entity"><a name="MediaEntity" href="#MediaEntity">10 Media Entity</a></h1>
 </summary>
@@ -1195,8 +1195,8 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
 <span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
-<hr />
 </details>
+<hr />
 <details open><summary>
 <h1 id="11-individual-property-or-operation-response"><a name="IndividualPropertyorOperationResponse" href="#IndividualPropertyorOperationResponse">11 Individual Property or Operation Response</a></h1>
 </summary>
@@ -1245,8 +1245,8 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <p>Note: the context URL is optional in requests.</p>
-<hr />
 </details>
+<hr />
 <details open><summary>
 <h1 id="12-collection-of-operation-responses"><a name="CollectionofOperationResponses" href="#CollectionofOperationResponses">12 Collection of Operation Responses</a></h1>
 </summary>
@@ -1254,8 +1254,8 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>If present, the <code>context</code> control information MUST be the first name/value pair in the response.</p>
 <p>The <code>count</code> name/value pair represents the number of operation responses in the collection. If present and the <a href="#PayloadOrderingConstraints"><code>streaming=true</code></a> media type parameter is set, it MUST come before the <code>value</code> name/value pair. If the response represents a partial result, the <code>count</code> name/value pair MUST appear in the first partial response, and it MAY appear in subsequent partial responses (in which case it may vary from response to response).</p>
 <p>The value of the <code>value</code> name/value pair is an array of objects, each object representing a single <a href="#IndividualPropertyorOperationResponse">operation response</a>. Note: if the operation response is a collection, each single operation response object itself contains a name/value pair named <code>value</code>.</p>
-<hr />
 </details>
+<hr />
 <details open><summary>
 <h1 id="13-collection-of-entities"><a name="CollectionofEntities" href="#CollectionofEntities">13 Collection of Entities</a></h1>
 </summary>
@@ -1278,8 +1278,8 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@nextLink&quot;</span><span class="fu">:</span> <span class="st">&quot;…?$skiptoken=342r89&quot;</span></span>
 <span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
-<hr />
 </details>
+<hr />
 <details open><summary>
 <h1 id="14-entity-reference"><a name="EntityReference" href="#EntityReference">14 Entity Reference</a></h1>
 </summary>
@@ -1303,8 +1303,8 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
-<hr />
 </details>
+<hr />
 <details open><summary>
 <h1 id="15-delta-payload"><a name="DeltaPayload" href="#DeltaPayload">15 Delta Payload</a></h1>
 </summary>
@@ -1836,9 +1836,9 @@ Preference-Applied: return=minimal, continue-on-error
 <span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
 <span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
+</details>
+</details>
 <hr />
-</details>
-</details>
 <details open><summary>
 <h1 id="16-bound-function"><a name="BoundFunction" href="#BoundFunction">16 Bound Function</a></h1>
 </summary>
@@ -1893,8 +1893,8 @@ Preference-Applied: return=minimal, continue-on-error
 <span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
 <span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
-<hr />
 </details>
+<hr />
 <details open><summary>
 <h1 id="17-bound-action"><a name="BoundAction" href="#BoundAction">17 Bound Action</a></h1>
 </summary>
@@ -1949,8 +1949,8 @@ Preference-Applied: return=minimal, continue-on-error
 <span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
 <span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
-<hr />
 </details>
+<hr />
 <details open><summary>
 <h1 id="18-action-invocation"><a name="ActionInvocation" href="#ActionInvocation">18 Action Invocation</a></h1>
 </summary>
@@ -1996,8 +1996,8 @@ Preference-Applied: return=minimal, continue-on-error
 <span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <p>In order to invoke an action with no non-binding parameters, the client passes an empty JSON object in the body of the request. 4.01 Services MUST also support clients passing an empty request body for this case.</p>
-<hr />
 </details>
+<hr />
 <details open><summary>
 <h1 id="19-batch-requests-and-responses"><a name="BatchRequestsandResponses" href="#BatchRequestsandResponses">19 Batch Requests and Responses</a></h1>
 </summary>
@@ -2337,9 +2337,9 @@ Preference-Applied: return=minimal, continue-on-error
 <span id="cb67-19"><a href="#cb67-19" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb67-20"><a href="#cb67-20" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
+</details>
+</details>
 <hr />
-</details>
-</details>
 <details open><summary>
 <h1 id="20-instance-annotations"><a name="InstanceAnnotations" href="#InstanceAnnotations">20 Instance Annotations</a></h1>
 </summary>
@@ -2383,9 +2383,9 @@ Preference-Applied: return=minimal, continue-on-error
 </summary>
 <p>Individual primitive elements within a JSON array can be annotated by applying the <a href="#ControlInformationcollectionAnnotationsodatacollectionAnnotations"><code>collectionAnnotations</code></a> control information to the array containing the primitive member.</p>
 <p>The control information must come with other annotations or control information immediately before or after the collection valued property. The name of the property representing the control information is the same as the name of the collection-valued property, followed by the “at” sign (<code>@</code>), followed by the <a href="#ControlInformationcollectionAnnotationsodatacollectionAnnotations"><code>collectionAnnotations</code></a> identifier.</p>
+</details>
+</details>
 <hr />
-</details>
-</details>
 <details open><summary>
 <h1 id="21-error-handling"><a name="ErrorHandling" href="#ErrorHandling">21 Error Handling</a></h1>
 </summary>
@@ -2460,16 +2460,16 @@ Preference-Applied: return=minimal, continue-on-error
 </summary>
 <p>Collections within a success payload can contain primitive values that are in error, or structured values that are in error, if the client has specified the <code>continue-on-error</code> preference. Such elements are annotated as described above. Primitive elements within a collection are annotated using the <a href="#ControlInformationcollectionAnnotationsodatacollectionAnnotations"><code>collectionAnnotations</code></a> control information.</p>
 <p>Services can return partial collections within a success payload, for example, if they encounter an error while retrieving the collection and the client has specified the <code>continue-on-error</code> preference. In this case, the service MUST include a <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a>. The <code>nextLink</code> can be used to attempt retrieving the remaining members of the collection and could return an error indicating that the remaining members are not available.</p>
+</details>
+</details>
+</details>
 <hr />
-</details>
-</details>
-</details>
 <details open><summary>
 <h1 id="22-extensibility"><a name="Extensibility" href="#Extensibility">22 Extensibility</a></h1>
 </summary>
 <p>Implementations can add <a href="#InstanceAnnotations">instance annotations</a> of the form <code>@namespace.termname</code> or <code>property@namespace.termname</code> to any JSON object, where <code>property</code> MAY or MAY NOT match the name of a name/value pair within the JSON object. However, the namespace MUST NOT start with <code>odata</code> and SHOULD NOT be required to be understood by the receiving party in order to correctly interpret the rest of the payload as the receiving party MUST ignore unknown annotations not defined in this version of the OData JSON Specification.</p>
-<hr />
 </details>
+<hr />
 <details open><summary>
 <h1 id="23-conformance"><a name="Conformance" href="#Conformance">23 Conformance</a></h1>
 </summary>
@@ -2560,8 +2560,8 @@ Preference-Applied: return=minimal, continue-on-error
 <li>MUST honor the <code>odata.etag</code> control information within <code>PUT</code>, <code>PATCH</code> or <code>DELETE</code> payloads, if specified</li>
 <li>MUST support returning, in the final response to an asynchronous request, the <code>application/json</code> payload that would have been returned had the operation completed synchronously</li>
 </ol>
-<hr />
 </details>
+<hr />
 <details open><summary>
 <h1 id="appendix-a-references"><a name="References" href="#References">Appendix A. References</a></h1>
 </summary>
@@ -2615,17 +2615,17 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 </summary>
 <h6 id="ecmascript"><a name="_ECMAScript">[ECMAScript]</a></h6>
 <p><em>ECMAScript 2023 Language Specification, 14th Edition</em>, June 2023. Standard ECMA-262. <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">https://www.ecma-international.org/publications-and-standards/standards/ecma-262/</a>.</p>
+</details>
+</details>
 <hr />
-</details>
-</details>
 <details open><summary>
 <h1 id="appendix-b-safety-security-and-privacy-considerations"><a name="SafetySecurityandPrivacyConsiderations" href="#SafetySecurityandPrivacyConsiderations">Appendix B. Safety, Security and Privacy Considerations</a></h1>
 </summary>
 <p>This specification raises no security issues.</p>
 <p>This section is provided as a service to the application developers, information providers, and users of OData version 4.0 giving some references to starting points for securing OData services as specified. OData is a REST-full multi-format service that depends on other services and thus inherits both sides of the coin, security enhancements and concerns alike from the latter.</p>
 <p>For JSON-relevant security implications please cf. at least the relevant subsections of <a href="#rfc8259">RFC8259</a> as starting point.</p>
-<hr />
 </details>
+<hr />
 <details open><summary>
 <h1 id="appendix-c-acknowledgments"><a name="Acknowledgments" href="#Acknowledgments">Appendix C. Acknowledgments</a></h1>
 </summary>
@@ -2704,9 +2704,9 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 </tr>
 </tbody>
 </table>
+</details>
+</details>
 <hr />
-</details>
-</details>
 <details open><summary>
 <h1 id="appendix-d-revision-history"><a name="RevisionHistory" href="#RevisionHistory">Appendix D. Revision History</a></h1>
 </summary>
@@ -2728,8 +2728,8 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 </tr>
 </tbody>
 </table>
-<hr />
 </details>
+<hr />
 <details open><summary>
 <h1 id="appendix-e-notices"><a name="Notices" href="#Notices">Appendix E. Notices</a></h1>
 </summary>

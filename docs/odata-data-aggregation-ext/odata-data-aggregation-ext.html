@@ -151,8 +151,8 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <h4 id="abstract">Abstract:</h4>
 <p>This specification adds basic grouping and aggregation functionality (e.g. sum, min, and max) to the Open Data Protocol (OData) without changing any of the base principles of OData.</p>
 <h4 id="status">Status:</h4>
-<p>This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the “Latest stage” location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at <a href="https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical">https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical</a>.</p>
-<p>TC members should send comments on this specification to the TC’s email list. Others should send comments to the TC’s public comment list, after subscribing to it by following the instructions at the “<a href="https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=odata">Send A Comment</a>” button on the TC’s web page at <a href="https://www.oasis-open.org/committees/odata/">https://www.oasis-open.org/committees/odata/</a>.</p>
+<p>This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the “Latest stage” location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at <a href="https://groups.oasis-open.org/communities/tc-community-home2?CommunityKey=e7cac2a9-2d18-4640-b94d-018dc7d3f0e2#technical">https://groups.oasis-open.org/communities/tc-community-home2?CommunityKey=e7cac2a9-2d18-4640-b94d-018dc7d3f0e2#technical</a>.</p>
+<p>TC members should send comments on this specification to the TC’s email list. Any individual may submit comments to the TC by sending email to <a href="mailto:Technical-Committee-Comments@oasis-open.org">Technical-Committee-Comments@oasis-open.org</a>. Please use a Subject line like “Comment on OData Data Aggregation”.</p>
 <p>This specification is provided under the <a href="https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode">RF on RAND Terms Mode</a> of the <a href="https://www.oasis-open.org/policies-guidelines/ipr/">OASIS IPR Policy</a>, the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC’s web page (<a href="https://www.oasis-open.org/committees/odata/ipr.php">https://www.oasis-open.org/committees/odata/ipr.php</a>).</p>
 <p>Note that any machine-readable content (<a href="https://www.oasis-open.org/policies-guidelines/tc-process-2017-05-26/#wpComponentsCompLang">Computer Language Definitions</a>) declared Normative for this Work Product is provided in separate plain text files. In the event of a discrepancy between any such plain text file and display content in the Work Product’s prose narrative document(s), the content in the separate plain text file prevails.</p>
 <h4 id="key-words">Key words:</h4>
@@ -166,9 +166,9 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <p>Distributed under the terms of the OASIS <a href="https://www.oasis-open.org/policies-guidelines/ipr/">IPR Policy</a>.</p>
 <p>The name “OASIS” is a trademark of <a href="https://www.oasis-open.org/">OASIS</a>, the owner and developer of this specification, and should be used only to refer to the organization and its official outputs.</p>
 <p>For complete copyright information please see the full Notices section in an Appendix <a href="#Notices">below</a>.</p>
+</details>
+</details>
 <hr />
-</details>
-</details>
 <details open><summary>
 <h1 id="table-of-contents">Table of Contents</h1>
 </summary>
@@ -317,8 +317,8 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <li><a href="#Notices">D Notices</a></li>
 </ul>
 </div>
-<hr />
 </details>
+<hr />
 <details open><summary>
 <h1 id="1-introduction"><a name="Introduction" href="#Introduction">1 Introduction</a></h1>
 </summary>
@@ -394,10 +394,10 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
 This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 -->
 
+</details>
+</details>
+</details>
 <hr />
-</details>
-</details>
-</details>
 <details open><summary>
 <h1 id="2-overview"><a name="Overview" href="#Overview">2 Overview</a></h1>
 </summary>
@@ -1544,9 +1544,9 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </table>
 <p>Note that this result contains seven fully qualified aggregate values, followed by fifteen rollup rows with subtotal values.</p>
 </div>
+</details>
+</details>
 <hr />
-</details>
-</details>
 <details open><summary>
 <h1 id="3-system-query-option-apply"><a name="SystemQueryOptionapply" href="#SystemQueryOptionapply">3 System Query Option <code>$apply</code></a></h1>
 </summary>
@@ -2555,9 +2555,9 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <h2 id="39-abnf-for-extended-url-conventions"><a name="ABNFforExtendedURLConventions" href="#ABNFforExtendedURLConventions">3.9 ABNF for Extended URL Conventions</a></h2>
 </summary>
 <p>The normative ABNF construction rules for this specification are defined in <a href="#ODataAggABNF">OData-Agg-ABNF</a>. They incrementally extend the rules defined in <a href="#ODataABNF">OData-ABNF</a>.</p>
+</details>
+</details>
 <hr />
-</details>
-</details>
 <details open><summary>
 <h1 id="4-cross-joins-and-aggregation"><a name="CrossJoinsandAggregation" href="#CrossJoinsandAggregation">4 Cross-Joins and Aggregation</a></h1>
 </summary>
@@ -2599,8 +2599,8 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <span id="cb86-11"><a href="#cb86-11" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <p>The entity container may be annotated in the same way as entity sets to express which aggregate queries are supported, see <a href="#VocabularyforDataAggregation">section 5</a>.</p>
-<hr />
 </details>
+<hr />
 <details open><summary>
 <h1 id="5-vocabulary-for-data-aggregation"><a name="VocabularyforDataAggregation" href="#VocabularyforDataAggregation">5 Vocabulary for Data Aggregation</a></h1>
 </summary>
@@ -2956,9 +2956,9 @@ GET /service/Sales?$select=ID&amp;$filter=Aggregation.isdescendant(
 <div class="example">
 <p>Example 59: assume the product is an implicit input for a function bound to a collection of <code>Sales</code>, then aggregating away the product makes this function inapplicable.</p>
 </div>
+</details>
+</details>
 <hr />
-</details>
-</details>
 <details open><summary>
 <h1 id="6-hierarchical-transformations"><a name="HierarchicalTransformations" href="#HierarchicalTransformations">6 Hierarchical Transformations</a></h1>
 </summary>
@@ -3313,9 +3313,9 @@ In this case <span class="math inline">\(\Pi_G(σ(x))\)</span> injects only the 
 <span id="cb123-11"><a href="#cb123-11" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb123-12"><a href="#cb123-12" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
+</details>
+</details>
 <hr />
-</details>
-</details>
 <details open><summary>
 <h1 id="7-examples"><a name="Examples" href="#Examples">7 Examples</a></h1>
 </summary>
@@ -4727,16 +4727,16 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 <span id="cb250-14"><a href="#cb250-14" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb250-15"><a href="#cb250-15" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
+</details>
+</details>
 <hr />
-</details>
-</details>
 <details open><summary>
 <h1 id="8-conformance"><a name="Conformance" href="#Conformance">8 Conformance</a></h1>
 </summary>
 <p>Conforming services MUST follow all rules of this specification for the set transformations and aggregation methods they support. They MUST implement all set transformations and aggregation methods they advertise via the annotation <a href="#AggregationCapabilities"><code>ApplySupported</code></a>.</p>
 <p>Conforming clients MUST be prepared to consume a model that uses any or all of the constructs defined in this specification, including custom aggregation methods defined by the service, and MUST ignore any constructs not defined in this version of the specification.</p>
-<hr />
 </details>
+<hr />
 <details open><summary>
 <h1 id="appendix-a-references"><a name="References" href="#References">Appendix A. References</a></h1>
 </summary>
@@ -4778,9 +4778,9 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <h6 id="rfc8174"><a name="rfc8174">[RFC8174]</a></h6>
 <p><em>Leiba, B., “Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words”, BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017</em><br />
 <a href="https://www.rfc-editor.org/info/rfc8174">https://www.rfc-editor.org/info/rfc8174</a>.</p>
+</details>
+</details>
 <hr />
-</details>
-</details>
 <details open><summary>
 <h1 id="appendix-b-acknowledgments"><a name="Acknowledgments" href="#Acknowledgments">Appendix B. Acknowledgments</a></h1>
 </summary>
@@ -4854,9 +4854,9 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 </tr>
 </tbody>
 </table>
+</details>
+</details>
 <hr />
-</details>
-</details>
 <details open><summary>
 <h1 id="appendix-c-revision-history"><a name="RevisionHistory" href="#RevisionHistory">Appendix C. Revision History</a></h1>
 </summary>
@@ -4908,8 +4908,8 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 </tr>
 </tbody>
 </table>
-<hr />
 </details>
+<hr />
 <details open><summary>
 <h1 id="appendix-d-notices"><a name="Notices" href="#Notices">Appendix D. Notices</a></h1>
 </summary>
