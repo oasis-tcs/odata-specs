@@ -58,9 +58,9 @@ This specification is related to:
 The Open Data Protocol (OData) for representing and interacting with structured content is comprised of a set of specifications. The core specification for the protocol is in OData Version 4.02 Part 1: Protocol. This document extends the core specification by defining representations for OData requests and responses using a JSON format.
 
 #### Status:
-This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the "Latest stage" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical.
+This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the "Latest stage" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at https://groups.oasis-open.org/communities/tc-community-home2?CommunityKey=e7cac2a9-2d18-4640-b94d-018dc7d3f0e2#technical.
 
-TC members should send comments on this specification to the TC's email list. Others should send comments to the TC's public comment list, after subscribing to it by following the instructions at the "<a href="https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=odata">Send A Comment</a>" button on the TC's web page at https://www.oasis-open.org/committees/odata/.
+TC members should send comments on this specification to the TC's email list. Any individual may submit comments to the TC by sending email to Technical-Committee-Comments@oasis-open.org. Please use a Subject line like "Comment on OData JSON Format".
 
 This specification is provided under the [RF on RAND Terms Mode](https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode) of the [OASIS IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/), the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC's web page (https://www.oasis-open.org/committees/odata/ipr.php).
 
@@ -1373,7 +1373,9 @@ Values of types `Edm.Byte`, `Edm.SByte`,
 `Edm.Single`, `Edm.Double`, and
 `Edm.Decimal` are represented as JSON numbers, except for
 `-INF`, `INF`, and `NaN` which are
-represented as strings.
+represented as strings, and except when the [`IEEE754Compatible`](#ControllingtheRepresentationofNumbers)
+format parameter demands representation of `Edm.Int64` and `Edm.Decimal`
+as strings.
 
 Values of type `Edm.String` are represented as JSON strings,
 using the JSON string escaping rules.
@@ -1432,7 +1434,7 @@ Example 12:
   "GuidValue": "01234567-89ab-cdef-0123-456789abcdef",
   "Int64Value": 0,
   "ColorEnumValue": "Yellow",
-  "GeographyPoint": {"type": "Point", "coordinates": [142.1,64.1]}
+  "GeographyPoint": { "type": "Point", "coordinates": [142.1,64.1] }
 }
 ```
 :::
@@ -1488,10 +1490,6 @@ Example 14: partial collection of strings with next link
 ```
 :::
 
-A collection of primitive values that occurs in a property of type `Edm.Untyped`
-is interpreted as a collection of `Edm.Boolean`, `Edm.String`, and `Edm.Decimal` values,
-depending on the JavaScript type.
-
 ## <a name="CollectionofComplexValues" href="#CollectionofComplexValues">7.4 Collection of Complex Values</a>
 
 A collection of complex values is represented as a JSON array; each
@@ -1533,7 +1531,7 @@ collections.
 
 The value of a property of type `Collection(Edm.Untyped)`MUST
 be a collection, and it MAY contain any combination of primitive values,
-structural values, and collections.
+structural values, and collections. Enumeration values within an untyped collection SHOULD be represented as a string, using the `enumerationMember`.
 
 Untyped values are the only place where a collection can directly
 contain a collection, or a collection can contain a mix of primitive
@@ -1545,6 +1543,10 @@ they are annotated with the
 control information, in which case they MUST conform to the type
 described by the control information.
 
+A primitive value within an untyped collection is interpreted as an `Edm.Boolean`, `Edm.String`, or `Edm.Decimal` value,
+depending on the JavaScript type.
+
+Collections directly contained within an untyped collection are themselves untyped.
 -------
 
 # <a name="NavigationProperty" href="#NavigationProperty">8 Navigation Property</a>
@@ -1719,7 +1721,7 @@ PATCH http://host/service/Products(42) HTTP/1.1
 Content-Type: application/json
 
 {
-  "Category": {"@id": "Categories(6)"}
+  "Category": { "@id": "Categories(6)" }
 }
 ```
 :::
