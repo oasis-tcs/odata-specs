@@ -5,7 +5,7 @@
 
 # OData JSON Format Version 4.02
 
-## Committee Specification Draft 01
+## Committee Specification Draft 02
 
 ## 28 February 2024
 
@@ -58,9 +58,9 @@ This specification is related to:
 The Open Data Protocol (OData) for representing and interacting with structured content is comprised of a set of specifications. The core specification for the protocol is in OData Version 4.02 Part 1: Protocol. This document extends the core specification by defining representations for OData requests and responses using a JSON format.
 
 #### Status:
-This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the "Latest stage" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical.
+This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the "Latest stage" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at https://groups.oasis-open.org/communities/tc-community-home2?CommunityKey=e7cac2a9-2d18-4640-b94d-018dc7d3f0e2#technical.
 
-TC members should send comments on this specification to the TC's email list. Others should send comments to the TC's public comment list, after subscribing to it by following the instructions at the "<a href="https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=odata">Send A Comment</a>" button on the TC's web page at https://www.oasis-open.org/committees/odata/.
+TC members should send comments on this specification to the TC's email list. Any individual may submit comments to the TC by sending email to Technical-Committee-Comments@oasis-open.org. Please use a Subject line like "Comment on OData JSON Format".
 
 This specification is provided under the [RF on RAND Terms Mode](https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode) of the [OASIS IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/), the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC's web page (https://www.oasis-open.org/committees/odata/ipr.php).
 
@@ -75,7 +75,7 @@ When referencing this specification the following citation format should be used
 **[OData-JSON-Format-v4.02]**
 
 _OData JSON Format Version 4.02_.
-Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. 28 February 2024. OASIS Committee Specification Draft 01.
+Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. 28 February 2024. OASIS Committee Specification Draft 02.
 https://docs.oasis-open.org/odata/odata-json-format/v4.02/csd02/odata-json-format-v4.02-csd02.html.
 Latest stage: https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html.
 
@@ -151,9 +151,12 @@ For complete copyright information please see the full Notices section in an App
   - [15.1 Delta Responses](#DeltaResponses)
   - [15.2 Added/Changed Entity](#AddedChangedEntity)
   - [15.3 Deleted Entity](#DeletedEntity)
-  - [15.4 Added Link](#AddedLink)
-  - [15.5 Deleted Link](#DeletedLink)
-  - [15.6 Update a Collection of Entities](#UpdateaCollectionofEntities)
+  - [15.4 Related Entities](#RelatedEntities)
+    - [15.4.1 OData 4.01 Expanded Navigation Properties](#OData401ExpandedNavigationProperties)
+    - [15.4.2 OData 4.0 Flattened Delta Payload](#OData40FlattenedDeltaPayload)
+      - [15.4.2.1 Added Link](#AddedLink)
+      - [15.4.2.2 Deleted Link](#DeletedLink)
+  - [15.5 Update a Collection of Entities](#UpdateaCollectionofEntities)
 - [16 Bound Function](#BoundFunction)
 - [17 Bound Action](#BoundAction)
 - [18 Action Invocation](#ActionInvocation)
@@ -212,7 +215,8 @@ An OData JSON payload may represent:
 
 Section | Feature / Change | Issue
 --------|------------------|------
-[Section 4.5.12](#ControlInformationmediaodatamedia)|  `mediaContentType` can be `null`| [ODATA-1470](https://issues.oasis-open.org/browse/ODATA-1470)
+[Section 4.5.1](#ControlInformationcontextodatacontext)| Fragment portion of Context URL is not percent-encoded| [368](https://github.com/oasis-tcs/odata-specs/issues/368)
+[Section 4.5.12](#ControlInformationmediaodatamedia)|  `mediaContentType` can be `null`| [536](https://github.com/oasis-tcs/odata-specs/issues/536)
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -239,8 +243,8 @@ All examples in this document are non-normative and informative only.
 
 All other text is normative unless otherwise labeled.
 
-::: example
-Here is a customized command line which will generate HTML from this markdown file (named `odata-json-format-v4.02-csd02.md`). Line breaks are added for readability only:
+<!--
+Here is a customized command line which will generate HTML from the markdown file (named `odata-json-format-v4.02-csd02.md`). Line breaks are added for readability only:
 
 ```
 pandoc -f gfm+tex_math_dollars+fenced_divs+smart
@@ -256,8 +260,8 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        odata-json-format-v4.02-csd02.md
 ```
 
-This uses pandoc 3.1.11.1 from https://github.com/jgm/pandoc/releases/tag/3.1.11.1.
-:::
+This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
+-->
 
 -------
 
@@ -330,7 +334,7 @@ The names and values of these format parameters are case-insensitive.
 
 Services SHOULD advertise the supported media types by annotating the
 entity container with the term
-[`Capabilities.SupportedFormats`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#SupportedFormats)
+[`Capabilities.SupportedFormats`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#SupportedFormats)
 defined in [OData-VocCap](#ODataVocCap), listing all
 available formats and combinations of supported format parameters.
 
@@ -748,6 +752,7 @@ stop processing and MUST NOT signal an error.
 The `context` control information
 returns the context URL (see [OData-Protocol](#ODataProtocol)) for the
 payload. This URL can be absolute or [relative](#RelativeURLs).
+The fragment portion of the context URL MUST NOT be percent-encoded.
 
 The `context` control information is not returned if
 [`metadata=none`](#metadatanoneodatametadatanone) is requested. Otherwise it MUST be the
@@ -1367,7 +1372,9 @@ Values of types `Edm.Byte`, `Edm.SByte`,
 `Edm.Single`, `Edm.Double`, and
 `Edm.Decimal` are represented as JSON numbers, except for
 `-INF`, `INF`, and `NaN` which are
-represented as strings.
+represented as strings, and except when the [`IEEE754Compatible`](#ControllingtheRepresentationofNumbers)
+format parameter demands representation of `Edm.Int64` and `Edm.Decimal`
+as strings.
 
 Values of type `Edm.String` are represented as JSON strings,
 using the JSON string escaping rules.
@@ -1424,7 +1431,7 @@ Example 12:
   "GuidValue": "01234567-89ab-cdef-0123-456789abcdef",
   "Int64Value": 0,
   "ColorEnumValue": "Yellow",
-  "GeographyPoint": {"type": "Point", "coordinates": [142.1,64.1]}
+  "GeographyPoint": { "type": "Point", "coordinates": [142.1,64.1] }
 }
 ```
 :::
@@ -1480,10 +1487,6 @@ Example 14: partial collection of strings with next link
 ```
 :::
 
-A collection of primitive values that occurs in a property of type `Edm.Untyped`
-is interpreted as a collection of `Edm.Boolean`, `Edm.String`, and `Edm.Decimal` values,
-depending on the JavaScript type.
-
 ## <a name="CollectionofComplexValues" href="#CollectionofComplexValues">7.4 Collection of Complex Values</a>
 
 A collection of complex values is represented as a JSON array; each
@@ -1525,7 +1528,7 @@ collections.
 
 The value of a property of type `Collection(Edm.Untyped)`MUST
 be a collection, and it MAY contain any combination of primitive values,
-structural values, and collections.
+structural values, and collections. Enumeration values within an untyped collection SHOULD be represented as a string, using the `enumerationMember`.
 
 Untyped values are the only place where a collection can directly
 contain a collection, or a collection can contain a mix of primitive
@@ -1537,6 +1540,10 @@ they are annotated with the
 control information, in which case they MUST conform to the type
 described by the control information.
 
+A primitive value within an untyped collection is interpreted as an `Edm.Boolean`, `Edm.String`, or `Edm.Decimal` value,
+depending on the JavaScript type.
+
+Collections directly contained within an untyped collection are themselves untyped.
 -------
 
 # <a name="NavigationProperty" href="#NavigationProperty">8 Navigation Property</a>
@@ -1711,7 +1718,7 @@ PATCH http://host/service/Products(42) HTTP/1.1
 Content-Type: application/json
 
 {
-  "Category": {"@id": "Categories(6)"}
+  "Category": { "@id": "Categories(6)" }
 }
 ```
 :::
@@ -1853,7 +1860,7 @@ a photo. They are represented as entities that contain additional
 
 If the actual stream data for the media entity is included, it is
 represented as property named `$value` whose
-string value is the base64url-encoded value of the media stream, see [RFC4648](rfc4648).
+string value is the base64url-encoded value of the media stream, see [RFC4648](#rfc4648).
 
 ::: example
 Example 25:
@@ -2019,7 +2026,7 @@ control information MUST be included in a response that represents a
 partial result.
 
 ::: example
-Example 28:
+Example 31:
 ```json
 {
   "@context": "…",
@@ -2056,7 +2063,7 @@ control information and MAY contain
 [`deltaLink`](#ControlInformationdeltaLinkodatadeltaLink) control information.
 
 ::: example
-Example 31: entity reference to order 10643
+Example 32: entity reference to order 10643
 ```json
 {
   "@context": "http://host/service/$metadata#$ref",
@@ -2066,7 +2073,7 @@ Example 31: entity reference to order 10643
 :::
 
 ::: example
-Example 32: collection of entity references
+Example 33: collection of entity references
 ```json
 {
   "@context": "http://host/service/$metadata#Collection($ref)",
@@ -2097,93 +2104,100 @@ The JSON object for a delta response to a single entity is either an
 The JSON object for a delta response to a collection of entities MUST
 contain an array-valued property named `value` containing all
 [added](#AddedChangedEntity), [changed](#AddedChangedEntity), or
-[deleted entities](#DeletedEntity), as well as [added
-links](#AddedLink) or [deleted links](#DeletedLink) between
-entities, and MAY contain additional, unchanged entities.
+[deleted entities](#DeletedEntity), and MAY contain additional, unchanged entities. A [flattened OData 4.0 delta response](#OData40FlattenedDeltaPayload)
+may also include [added](#AddedLink) or [deleted links](#DeletedLink), while these are generally represented as [nested delta payloads](#OData401ExpandedNavigationProperties) in OData 4.01 and greater.
+
+If the response from the delta link contains `count` control information,
+the returned number MUST include the count of all top-level added, changed, or deleted entities to be returned, as well as added or deleted links
+in an OData 4.0 delta response.
 
 If the delta response contains a partial list of changes, it MUST
 include a [next link](#ControlInformationnextLinkodatanextLink) for the
 client to retrieve the next set of changes.
 
-The last page of a delta response SHOULD contain a [delta
-link](#ControlInformationdeltaLinkodatadeltaLink) in place of the [next
-link](#ControlInformationnextLinkodatanextLink) for retrieving
+The last page of a delta response SHOULD contain a [delta link](#ControlInformationdeltaLinkodatadeltaLink) in place of the [next link](#ControlInformationnextLinkodatanextLink) for retrieving
 subsequent changes once the current set of changes has been applied to
 the initial set.
 
-If an OData 4.01 delta response includes an expanded collection-valued
-navigation property inline (see [next
-section](#AddedChangedEntity)), the expanded collection can be a
-partial list, in which case the expanded navigation property MUST have
-the
-[`nextLink`](#ControlInformationnextLinkodatanextLink)
-control information applied to it. Following this chain of next links
-does not result in a delta link on the last page of the expanded
-collection.
-
-If the response from the delta link contains a `count` control information,
-the returned number MUST include
-all added, changed, or deleted entities to be returned, as well as added
-or deleted links.
-
 ::: example
-Example 33: a 4.01 delta response with five changes, in order of
+Example 34: a 4.01 delta response with three changes, in order of
 occurrence
 
   1. `ContactName` for customer `BOTTM` was changed to `Susan Halvenstern`
-  2. Order 10643 was removed from customer `ALFKI`
-  3. Order 10645 was added to customer `BOTTM`
-  4. The shipping information for order 10643 was updated
-  5. Customer `ANTON` was deleted
+  2. Customer `ANTON` was deleted
+  3. `ContactName` for customer `ALFKI` was changed to `Blake Smithe`
 
 ```json
 {
   "@context": "http://host/service/$metadata#Customers/$delta",
-  "@count":5,
+  "@count":3,
   "value": [
     {
       "@id": "Customers('BOTTM')",
       "ContactName": "Susan Halvenstern"
     },
     {
-      "@context": "#Customers/$deletedLink",
-      "source": "Customers('ALFKI')",
-      "relationship": "Orders",
-      "target": "Orders(10643)"
-    },
-    {
-      "@context": "#Customers/$link",
-      "source": "Customers('BOTTM')",
-      "relationship": "Orders",
-      "target": "Orders(10645)"
-    },
-    {
-      "@context": "#Orders/$entity",
-      "@id": "Orders(10643)",
-      "ShippingAddress": {
-        "Street": "23 Tsawassen Blvd.",
-        "City": "Tsawassen",
-        "Region": "BC",
-        "PostalCode": "T2F 8M4"
-      },
-    },
-    {
-      "@context": "#Customers/$deletedEntity",
       "@removed": {
         "reason": "deleted"
       },
       "@id": "Customers('ANTON')"
+    },
+    {
+      "@id": "Customers('ALFKI')",
+      "ContactName": "Blake Smithe"
     }
   ],
-  "@deltaLink": "Customers?$expand=Orders&$deltatoken=8015"
+  "@deltaLink": "Customers?$deltatoken=8015"
+}
+```
+:::
+
+::: example
+Example 35: a 4.0 delta response with three changes, in order of
+occurrence
+
+  1. `ContactName` for customer `BOTTM` was changed to `Susan Halvenstern`
+  2. Customer `ANTON` was deleted
+  3. `ContactName` for customer `ALFKI` was changed to `Blake Smithe`
+
+```json
+{
+  "@odata.context": "http://host/service/$metadata#Customers/$delta",
+  "@odata.count": 3,
+  "value": [
+    {
+      "@odata.id": "Customers('BOTTM')",
+      "ContactName": "Susan Halvenstern",
+    },
+    {
+      "@odata.context": "#Customers/$deletedEntity",
+      "@odata.id": "Customers('ANTON')"
+    },
+    {
+      "@odata.id": "Customers('ALFKI')",
+      "ContactName": "Blake Smithe"
+    }
+  ],
+  "@odata.deltaLink": "Customers?$deltatoken=8015"
 }
 ```
 :::
 
 ## <a name="AddedChangedEntity" href="#AddedChangedEntity">15.2 Added/Changed Entity</a>
 
-Added or changed entities within a delta response are represented as
-[entities](#Entity).
+Added or changed entities within a delta payload are represented as
+[entities](#Entity). All entities within a delta response payload MUST include
+the control information [`id`](#ControlInformationidodataid) or all of the
+entity's primary key fields. The `id` control information MUST appear if any of the entity's primary key fields are omitted from the response _or_ the entity-id is not identical to the canonical URL of the entity.
+
+When using a delta payload in an [update request](#UpdateaCollectionofEntities), an [alternate key](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AlternateKeys) (see _Alternate Keys_ in [OData-URL](#ODataURL))
+MAY be used in place of the entity's primary key. A delta response from an update request using alternate keys SHOULD include
+all fields of the alternate key used in the request, in which case it
+MAY omit the `id` control information and other primary key fields.
+
+Any entity in an update request that has neither the `id` control information,
+nor the primary or alternate key values of an existing entity, are treated as
+an added entity.
 
 Added entities MUST include all available selected properties and MAY
 include additional, unselected properties. Collection-valued properties
@@ -2194,129 +2208,8 @@ collection.
 Changed entities MUST include all available selected properties that
 have changed, and MAY include additional properties.
 
-If a property of an entity is dependent upon the property of another
-entity within the expanded set of entities being tracked, then both the
-change to the dependent property as well as the change to the principal
-property or [added](#AddedLink)/[deleted link](#DeletedLink)
-corresponding to the change to the dependent property are returned in
-the delta response.
-
-Entities that are not part of the entity set specified by the context
-URL MUST include the
-[`context`](#ControlInformationcontextodatacontext)
-control information to specify the entity set of the entity, regardless
-of the specified
-[`metadata`](#ControllingtheAmountofControlInformationinResponses) value.
-
 Entities include control information for selected navigation links based
 on [`metadata`](#ControllingtheAmountofControlInformationinResponses).
-
-OData 4.0 payloads MUST NOT include expanded navigation properties
-inline; all changes MUST be represented as a flat array of added,
-deleted, or changed entities, along with added or deleted links.
-
-OData 4.01 delta payloads MAY include expanded navigation properties
-inline. Related single entities are represented as either an
-[added/changed](#AddedChangedEntity) entity, an [entity
-reference](#EntityReference), a [deleted
-entity](#DeletedEntity), or a null value (if no entity is related as
-the outcome of the change). Collection-valued navigation properties are
-represented either as a delta representation or as a full representation
-of the collection.
-
-If the expanded navigation property represents a delta, it MUST be
-represented as an array-valued control information
-[`delta`](#ControlInformationdeltaodatadelta)
-on the navigation property.  [Added/changed](#AddedChangedEntity)
-entities or [entity references](#EntityReference)
-are added to the collection. [Deleted entities](#DeletedEntity) MAY be specified in a nested delta
-representation to represent entities no longer part of the collection.
-If the deleted entity specifies a `reason` as
-`deleted`, then the entity is both removed from the
-collection and deleted, otherwise it is removed from the collection and
-only deleted if the navigation property is a containment navigation
-property. The array MUST NOT contain [added](#AddedLink) or [deleted
-links](#DeletedLink).
-
-::: example
-Example 34: 4.01 delta response customers with expanded orders
-represented inline as a delta
-
-  1. Customer `BOTTM`:
-     1. `ContactName` was changed to `Susan Halvenstern`
-     2. Order 10645 was added
-  2. Customer `ALFKI`:
-     1. Order 10643 was removed
-  3. Customer `ANTON` was deleted
-
-```json
-{
-  "@context": "http://host/service/$metadata#Customers/$delta",
-  "@count": 3,
-  "value": [
-    {
-      "@id": "Customers('BOTTM')",
-      "ContactName": "Susan Halvenstern",
-      "Orders@delta": [
-        {
-          "@id": "Orders(10645)"
-        }
-      ]
-    },
-    {
-      "@id": "Customers('ALFKI')",
-      "Orders@delta": [
-        {
-          "@context": "#Orders/$deletedEntity",
-          "@removed": {
-             "reason": "changed"
-          },
-          "@id": "Orders(10643)"
-        }
-      ]
-    },
-    {
-      "@context": "#Customers/$deletedEntity",
-      "@removed": {
-         "reason": "deleted"
-      },
-      "@id": "Customers('ANTON')"
-    }
-  ],
-  "@deltaLink": "Customers?$expand=Orders&$deltatoken=8015"
-}
-```
-:::
-
-If the expanded navigation property is a full representation of the
-collection, it MUST be represented as an expanded navigation property,
-and its array value represents the full set of entities related
-according to that relationship and satisfying any specified expand
-options. Members of the array MUST be represented as
-[added/changed](#AddedChangedEntity) entities or [entity
-references](#EntityReference) and MUST NOT include added links,
-deleted links, or deleted entities. Any entity not represented in the
-collection has either been removed, deleted, or changed such that it no
-longer satisfies the expand options in the defining query. In any case,
-clients SHOULD NOT receive additional notifications for such removed
-entities.
-
-::: example
-Example 35: 4.01 delta response for a single entity with an expanded navigation
-property containing only a partial list of related entities (as
-indicated with a [next link](#ControlInformationnextLinkodatanextLink))
-```json
-{
-  "@context": "http://host/service/$metadata#Customers/$entity/$delta",
-  …
-  "Orders@count": 42,
-  "Orders": [ … ],
-  "Orders@nextLink": "…",
-  …
-  "@deltaLink": "Customers('ALFKI')?$expand=Orders&$deltatoken=9711"
-}
-```
-:::
 
 ## <a name="DeletedEntity" href="#DeletedEntity">15.3 Deleted Entity</a>
 
@@ -2388,10 +2281,12 @@ following properties, regardless of the specified
 
 - Control information
   [`id`](#ControlInformationidodataid)
-  or all of the entity's key fields. The `id` control
-  information MUST appear if any of the entity's key fields are omitted
+  or all of the entity's primary key fields. The `id` control
+  information MUST appear if any of the entity's primary key fields are omitted
   from the response _or_ the entity-id is not identical to the canonical
-  URL of the entity. For [ordered
+  URL of the entity. When using a delta payload in an   [update request](#UpdateaCollectionofEntities), an [alternate key](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AlternateKeys) (see _Alternate Keys_ in [OData-URL](#ODataURL))
+  MAY be used in place of the entity's primary key. A delta response from an update request using alternate keys SHOULD include all fields of the alternate key used in the request, in which case it
+  MAY omit the `id` control information and other primary key fields. For [ordered
   payloads](#PayloadOrderingConstraints), the control information
   `id`, if present, MUST immediately follow the control
   information
@@ -2435,10 +2330,186 @@ single key field of `Customer`)
 }
 ```
 :::
+## <a name="RelatedEntities" href="#RelatedEntities">15.4 Related Entities</a>
+Changes to related entities are represented differently in OData 4.0 and OData 4.01.
 
-## <a name="AddedLink" href="#AddedLink">15.4 Added Link</a>
+In OData 4.01, changes to relationships and related entities are generally represented as
+[expanded navigation properties](#OData401ExpandedNavigationProperties).
 
-Links within a delta response are represented as link objects.
+In OData 4.0, changes to relationships and related entities are represented as a [flat array](#OData40FlattenedDeltaPayload) of added, deleted, or changed entities, along with added or deleted links.
+
+### <a name="OData401ExpandedNavigationProperties" href="#OData401ExpandedNavigationProperties">15.4.1 OData 4.01 Expanded Navigation Properties</a>
+OData 4.01 delta payloads represent changes to relationships and related
+entities as expanded navigation properties. 
+Related single entities are represented as either an [added/changed](#AddedChangedEntity)
+entity, an [entity reference](#EntityReference), a [deleted entity](#DeletedEntity), or a null value (if no entity is related as the outcome of the change). 
+Collection-valued navigation properties are represented either as a delta representation or as a full representation of the collection.
+
+If the expanded navigation property represents a delta, it MUST be
+represented as an array-valued control information
+[`delta`](#ControlInformationdeltaodatadelta)
+on the navigation property.  [Added/changed](#AddedChangedEntity)
+entities or [entity references](#EntityReference)
+are added to the collection. [Deleted entities](#DeletedEntity) in a nested delta
+representation represent entities no longer part of the collection.
+If the deleted entity specifies a `reason` as
+`deleted`, then the entity is both removed from the
+collection and deleted, otherwise it is removed from the collection and
+only deleted if the navigation property is a containment navigation
+property. The array MUST NOT contain [added](#AddedLink) or [deleted links](#DeletedLink).
+
+::: example
+Example 39: changes to related orders represented as a 4.01 nested delta representation
+
+  1. For Customer `ALFKI`:
+      1. Order 10643 was removed
+      2. Order 10645 was added, and       3. The shipping information for related order 10645 was updated
+  2. Customer `ANTON` was deleted
+  3. `ContactName` for customer `ALFKI` was subsequently changed to `Blake Smithe`
+
+Note that the `count` is the count of top level change records in the response, regardless of how many related changes are applied in each change record.
+
+```json
+{
+  "@context": "http://host/service/$metadata#Customers/$delta",
+  "@count":3,
+  "value": [
+    {
+      "@id": "Customers('ALFKI')",
+      "Orders@delta": [
+        {
+          "@removed": {
+            "reason": "changed"
+          },
+          "@id": "Orders(10643)"
+        },
+        {
+          "@id": "Orders(10645)",
+          "ShippingAddress": {
+            "Street": "23 Tsawassen Blvd.",
+            "City": "Tsawassen",
+            "Region": "BC",
+            "PostalCode": "T2F 8M4"
+          }
+        }
+      ]
+    },
+    {
+      "@removed": {
+        "reason": "deleted"
+      },
+      "@id": "Customers('ANTON')"
+    },
+    {
+      "@id": "Customers('ALFKI')",
+      "ContactName": "Blake Smithe"
+    }
+  ],
+  "@deltaLink": "Customers?$expand=Orders&$deltatoken=8015"
+}
+```
+:::
+
+If the expanded navigation property is a full representation of the
+collection, it MUST be represented as an expanded navigation property,
+and its array value MUST represent the full set of entities related
+according to that relationship and satisfying any specified expand
+options, or a partial list containing a [`nextLink`](#ControlInformationnextLinkodatanextLink). Following this chain of next links MUST eventually return the full set of entities related according to that relationship and satisfying any specified expand options; the final page does not include a delta link.
+
+Members of the expanded navigation property MUST be represented as
+[added/changed](#AddedChangedEntity) entities or [entity references](#EntityReference) and MUST NOT include added links,
+deleted links, or deleted entities. Any entity not represented in the
+collection has either been removed, deleted, or changed such that it no
+longer satisfies the expand options in the defining query. In any case,
+clients SHOULD NOT receive additional notifications for such removed
+entities.
+
+::: example
+Example 40: 4.01 delta response for a single entity with an expanded navigation
+property containing only a partial list of related entities (as
+indicated with a [next link](#ControlInformationnextLinkodatanextLink))
+```json
+{
+  "@context": "http://host/service/$metadata#Customers/$entity/$delta",
+  …
+  "Orders@count": 42,
+  "Orders": [ … ],
+  "Orders@nextLink": "…",
+  …
+  "@deltaLink": "Customers('ALFKI')?$expand=Orders&$deltatoken=9711"
+}
+```
+:::
+
+### <a name="OData40FlattenedDeltaPayload" href="#OData40FlattenedDeltaPayload">15.4.2 OData 4.0 Flattened Delta Payload</a>
+OData 4.0 payloads MUST NOT include expanded navigation properties
+inline. Changes to relationships are represented as [added](#AddedLink)
+or [deleted links](#DeletedLink). Changes to related entities are
+represented as top-level entities whose [`context`](#ControlInformationcontextodatacontext)
+control information specifies the entity set of the entity. This control
+information MUST be present for entities are not part of the entity set specified by the context URL, regardless of the specified
+[`metadata`](#ControllingtheAmountofControlInformationinResponses) value.
+
+::: example
+Example 41: changes to related orders represented as a 4.0 flattened delta payload
+
+  1. Order 10643 was removed from customer `ALFKI`
+  2. Order 10645 was added to customer `ALFKI`
+  3. The shipping information for related order 10645 was updated
+  4. Customer `ANTON` was deleted
+  5. `ContactName` for customer `ALFKI` was subsequently changed to `Blake Smithe`
+
+```json
+{
+  "@odata.context": "http://host/service/$metadata#Customers/$delta",
+  "@odata.count": 5,
+  "value": [
+    {
+      "@odata.context": "#Customers/$deletedLink",
+      "source": "Customers('ALFKI')",
+      "relationship": "Orders",
+      "target": "Orders(10643)"
+    },
+    {
+      "@odata.context": "#Customers/$link",
+      "source": "Customers('BOTTM')",
+      "relationship": "Orders",
+      "target": "Orders(10645)"
+    },
+    {
+      "@odata.context": "#Orders/$entity",
+      "@odata.id": "Orders(10645)",
+      "ShippingAddress": {
+        "Street": "23 Tsawassen Blvd.",
+        "City": "Tsawassen",
+        "Region": "BC",
+        "PostalCode": "T2F 8M4"
+      }
+    },
+    {
+      "@odata.context": "#Customers/$deletedEntity",
+      "@odata.id": "Customers('ANTON')"
+    },
+    {
+      "@odata.id": "Customers('ALFKI')",
+      "ContactName": "Blake Smithe"
+    }
+  ],
+  "@odata.deltaLink": "Customers?$expand=Orders&$deltatoken=8016"
+}
+```
+:::
+
+If a property of an entity is dependent upon the property of another
+entity within the expanded set of entities being tracked, then both the
+change to the dependent property as well as the change to the principal
+property or [added](#AddedLink)/[deleted link](#DeletedLink)
+corresponding to the change to the dependent property are returned in
+the delta response.
+
+#### <a name="AddedLink" href="#AddedLink">15.4.2.1 Added Link</a>
+
+Links within an OData 4.0 [flattened delta response](#OData40FlattenedDeltaPayload) are represented as link objects.
 
 Delta responses MUST contain a link object for each added link that
 corresponds to a `$expand` path in the initial request.
@@ -2457,10 +2528,9 @@ The link object MUST include the following properties, regardless of the specifi
 - `target` --- The [id](#ControlInformationidodataid) of the related entity,
   which may be absolute or [relative](#RelativeURLs)
 
-## <a name="DeletedLink" href="#DeletedLink">15.5 Deleted Link</a>
+#### <a name="DeletedLink" href="#DeletedLink">15.4.2.2 Deleted Link</a>
 
-Deleted links within a delta response are represented as deleted-link
-objects.
+Deleted links within an OData 4.0 [flattened delta response](#OData40FlattenedDeltaPayload) are represented as deleted-link objects.
 
 Delta responses MUST contain a deleted-link object for each deleted link
 that corresponds to a `$expand`
@@ -2487,31 +2557,31 @@ multi-valued navigation properties, which may be absolute or
 that do not specify an `OData-Version` header value of `4.0`,
 the target MAY be omitted for single-valued navigation.
 
-## <a name="UpdateaCollectionofEntities" href="#UpdateaCollectionofEntities">15.6 Update a Collection of Entities</a>
+## <a name="UpdateaCollectionofEntities" href="#UpdateaCollectionofEntities">15.5 Update a Collection of Entities</a>
 
 The body of a `PATCH` request to a URL identifying a collection of
 entities is a JSON object. It MUST contain the
 [`context`](#ControlInformationcontextodatacontext)
 control information with a string value of `#$delta`, and it
 MUST contain an array-valued property named `value`
-containing all [added](#AddedLink),
-[changed](#AddedChangedEntity), or [deleted](#DeletedEntity)
-entities, as well as [added](#AddedLink) or
+containing all [added, changed](#AddedChangedEntity), or [deleted](#DeletedEntity)
+entities. OData 4.0 delta payloads MAY additionally include [added](#AddedLink) or
 [deleted](#DeletedLink) links between entities.
 
 ::: example
-Example 39: 4.01 collection-update request for customers with expanded orders represented
+Example 42: 4.01 collection-update request for customers with expanded orders represented
 inline as a delta
   1. Add customer `EASTC`
   2. Change `ContactName` of customer `AROUT`
   3. Delete customer `ANTON`
   4. Change customer `ALFKI`:
      1. Create order 11011
-     2. Add link to existing order 10692
+     2. Add existing order 10692
      3. Change `RequiredDate` of related order 10835
-     4. Delete link to order 10643
-  5. Add link between customer `ANATR` and order 10643
-  6. Delete link between customer `DUMON` and order 10311
+     4. Remove order 10643
+  5. Add order 10643 to customer `ANATR`
+  6. Remove order 10311 from customer `DUMON`
+
 ```json
 PATCH /service/Customers HTTP/1.1
 Host: host
@@ -2536,7 +2606,9 @@ Prefer: return=minimal, continue-on-error
     },
     {
       "@Org.OData.Core.V1.ContentID": "3",
-      "@removed": {},
+      "@removed": {
+        "reason": "deleted"
+      },
       "CustomerID": "ANTON"
     },
     {
@@ -2571,18 +2643,27 @@ Prefer: return=minimal, continue-on-error
       ]
     },
     {
-      "@context": "#Customers/$link",
       "@Org.OData.Core.V1.ContentID": "5",
-      "source": "Customers('ANATR')",
-      "relationship": "Orders",
-      "target": "Orders(10643)"
+      "CustomerID": "ANATR",
+      "Orders@delta": [
+        {
+          "@Org.OData.Core.V1.ContentID": "5.1",
+          "OrderID": 10643
+        }
+      ],
     },
     {
-      "@context": "#Customers/$deletedLink",
       "@Org.OData.Core.V1.ContentID": "6",
-      "source": "Customers('DUMON')",
-      "relationship": "Orders",
-      "target": "Orders(10311)"
+      "CustomerID": "DUMON",
+      "Orders@delta": [
+        {
+          "@Org.OData.Core.V1.ContentID": "6.1",
+          "@removed": {
+            "reason": "changed"
+          },
+          "OrderID": 10311
+        }
+      ]
     }
   ]
 }
@@ -2602,11 +2683,11 @@ Assuming some or all changes cannot be applied, the overall request is still dee
   3. Delete customer 'ANTON' - failed
   4. Change customer 'ALFKI':
      1. Create order 11011 - succeeded, not mentioned in response
-     2. Add link to existing order 10692 - succeeded, not mentioned in response
+     2. Add existing order 10692 - succeeded, not mentioned in response
      3. Change `RequiredDate` of related order 10835 - failed
-     4. Delete link to order 10643 - succeeded, not mentioned in response
-  5. Add link between customer 'ANATR' and order 10643 - failed without further info
-  6. Delete link between customer 'DUMON' and order 10311 - failed without further info
+     4. Remove order 10643 - succeeded, not mentioned in response
+  5. Add order 10643 to customer 'ANATR' - failed without further info
+  6. Remove order 10311 from customer 'DUMON' - failed without further info
 ```json
 HTTP/1.1 200 OK
 Content-Type: application/json
@@ -2619,7 +2700,9 @@ Preference-Applied: return=minimal, continue-on-error
     {
       "@Org.OData.Core.V1.ContentID": "1",
       "CustomerID": "EASTC",
-      "@removed": {},
+      "@removed": {
+        "reason": "changed"
+      },
       "@Org.OData.Core.V1.DataModificationException": {
         "failedOperation": "insert",
         "responseCode": 400,
@@ -2678,27 +2761,36 @@ Preference-Applied: return=minimal, continue-on-error
       ]
     },
     {
-      "@context": "#Customers/$deletedLink",
       "@Org.OData.Core.V1.ContentID": "5",
-      "source": "Customers('ANATR')",
-      "relationship": "Orders",
-      "target": "Orders(10643)",
-      "@Org.OData.Core.V1.DataModificationException": {
-        "failedOperation": "link",
-        "responseCode": 404,
-        "info": null
-      }
+      "CustomerID": "ANATR",
+      "Orders@delta": [
+        {
+          "@Org.OData.Core.V1.ContentID": "5.1",
+          "@removed": {
+            "reason": "changed"
+          },
+          "OrderID": 10643,
+          "@Org.OData.Core.V1.DataModificationException": {
+            "failedOperation": "link",
+            "responseCode": 404,
+            "info": null
+          }
+        }
+      ]
     },
     {
-      "@context": "#Customers/$link",
       "@Org.OData.Core.V1.ContentID": "6",
-      "source": "Customers('DUMON')",
-      "relationship": "Orders",
-      "target": "Orders(10311)",
-      "@Org.OData.Core.V1.DataModificationException": {
-        "failedOperation": "unlink",
-        "responseCode": 400
-      }
+      "CustomerID": "DUMON",
+      "Orders@delta": [
+        {
+          "@Org.OData.Core.V1.ContentID": "6.1",
+          "OrderID": 10311,
+          "@Org.OData.Core.V1.DataModificationException": {
+            "failedOperation": "unlink",
+            "responseCode": 404
+          }
+        }
+      ]
     }
   ]
 }
@@ -2784,7 +2876,7 @@ is requested, the `target` name/value pair MUST be included
 if its value differs from the canonical function or action URL.
 
 ::: example
-Example 40: minimal representation of a function where all overloads are
+Example 43: minimal representation of a function where all overloads are
 applicable
 ```json
 {
@@ -2796,7 +2888,7 @@ applicable
 :::
 
 ::: example
-Example 41: full representation of a specific overload with parameter
+Example 44: full representation of a specific overload with parameter
 alias for the `Year` parameter
 ```json
 {
@@ -2811,7 +2903,7 @@ alias for the `Year` parameter
 :::
 
 ::: example
-Example 42: full representation in a collection
+Example 45: full representation in a collection
 ```json
 {
   "@context": "http://host/service/$metadata#Employees",
@@ -2825,7 +2917,7 @@ Example 42: full representation in a collection
 :::
 
 ::: example
-Example 43: full representation in a nested collection
+Example 46: full representation in a nested collection
 ```json
 {
   "@context": "http://host/service/$metadata#Employees/$entity",
@@ -2888,7 +2980,7 @@ is requested, the `target` name/value pair MUST be included
 if its value differs from the canonical function or action URL.
 
 ::: example
-Example 44: minimal representation in an entity
+Example 47: minimal representation in an entity
 ```json
 {
   "@context": "http://host/service/$metadata#LeaveRequests/$entity",
@@ -2899,7 +2991,7 @@ Example 44: minimal representation in an entity
 :::
 
 ::: example
-Example 45: full representation in an entity:
+Example 48: full representation in an entity:
 ```json
 {
   "@context": "http://host/service/$metadata#LeaveRequests/$entity",
@@ -2913,7 +3005,7 @@ Example 45: full representation in an entity:
 :::
 
 ::: example
-Example 46: full representation in a collection
+Example 49: full representation in a collection
 ```json
 {
   "@context": "http://host/service/$metadata#LeaveRequests",
@@ -2927,7 +3019,7 @@ Example 46: full representation in a collection
 :::
 
 ::: example
-Example 47: full representation in a nested collection
+Example 50: full representation in a nested collection
 ```json
 {
   "@context": "http://host/service/$metadata#Employees/$entity",
@@ -2958,7 +3050,7 @@ appropriate to the action.
 Stream typed parameter values are represented following the same rules as inlined [stream properties](#StreamProperty).
 
 Non-binding parameters that are nullable or annotated with the term
-[`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#OptionalParameter) defined in
+[`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter) defined in
 [OData-VocCore](#ODataVocCore) MAY be omitted from the request body.
 If an omitted parameter is not annotated (and thus nullable), it MUST be
 interpreted as having the `null` value. If it is annotated
@@ -2970,7 +3062,7 @@ parameter is equivalent to being annotated as optional with a default
 value of `null`.
 
 ::: example
-Example 46:
+Example 51:
 ```json
 {
   "param1": 42,
@@ -3081,7 +3173,7 @@ The URL expression syntax is extended and additionally allows
 Services SHOULD advertise support of the `if` member by
 specifying the property
 `RequestDependencyConditionsSupported` in the
-[`Capabilities.BatchSupport`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#BatchSupport)
+[`Capabilities.BatchSupport`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#BatchSupport)
 term applied to the entity container, see
 [OData-VocCap](#ODataVocCap). If a service does not
 support request dependencies, the dependent request MUST fail with
@@ -3116,7 +3208,7 @@ The request object and the `headers` object MUST NOT contain name/value pairs wi
 This is in conformance with [RFC7493](#rfc7493).
 
 ::: example
-Example <a name="batchRequest" href="#batchRequest">48</a>: a batch request that contains
+Example <a name="batchRequest" href="#batchRequest">52</a>: a batch request that contains
 the following individual requests in the order listed
 
   1. A query request
@@ -3179,7 +3271,7 @@ contains a relative URL, clients MUST be able to resolve it relative to the
 request's URL even if that contains such a reference.
 
 ::: example
-Example 49: a batch request that contains the following operations in
+Example 53: a batch request that contains the following operations in
 the order listed:
 
 - Insert a new entity (with `id = 1`)
@@ -3214,7 +3306,7 @@ Content-Length: ###
 ## <a name="ReferencinganETag" href="#ReferencinganETag">19.3 Referencing an ETag</a>
 
 ::: example
-Example 50: a batch request that contains the following operations in
+Example 54: a batch request that contains the following operations in
 the order listed:
 
 - Get an Employee (with `id` = 1)
@@ -3257,7 +3349,7 @@ Content-Length: ###
 ## <a name="ReferencingResponseBodyValues" href="#ReferencingResponseBodyValues">19.4 Referencing Response Body Values</a>
 
 ::: example
-Example 51: a batch request that contains the following operations in
+Example 55: a batch request that contains the following operations in
 the order listed:
 
 - Get an employee (with `Content-ID = 1`)
@@ -3388,7 +3480,7 @@ request. Especially: URLs in responses MUST NOT contain
 `$`-prefixed request identifiers.
 
 ::: example
-Example 52: referencing the batch request [example 48](#batchRequest) above, assume all
+Example 56: referencing the batch request [example 52](#batchRequest) above, assume all
 the requests except the final query request succeed. In this case the
 response would be
 ```json
@@ -3446,7 +3538,7 @@ to the next link MAY result in a `202 Accepted` response with a
 `location` header pointing to a new status monitor resource.
 
 ::: example
-Example 53: referencing the example 47 above again, assume that the
+Example 57: referencing the [example 52](#batchRequest) above again, assume that the
 request is sent with the `respond-async` preference. This
 results in a `202` response pointing to a status monitor resource:
 ```json
@@ -3536,7 +3628,7 @@ asynchronously executed individual request with a `status` of
 individual status monitor resource, and optionally a `retry-after` header.
 
 ::: example
-Example 54: the first individual request is processed asynchronously,
+Example 58: the first individual request is processed asynchronously,
 the second synchronously, the batch itself is processed synchronously
 ```json
 HTTP/1.1 200 OK
@@ -3599,7 +3691,7 @@ the annotations for the value appear next to the `value`
 property and are not prefixed with a property name.
 
 ::: example
-Example 55:
+Example 59:
 ```json
 {
   "@context": "http://host/service/$metadata#Customers",
@@ -3709,7 +3801,7 @@ Error responses MAY contain [annotations](#InstanceAnnotations) in
 any of its JSON objects.
 
 ::: example
-Example 56:
+Example 60:
 ```json
 {
   "error": {
@@ -3758,7 +3850,7 @@ header-appropriate way:
   [RFC8259](#rfc8259), section 7)
 
 ::: example
-Example 57: note that this is one HTTP header line without any line
+Example 61: note that this is one HTTP header line without any line
 breaks or optional whitespace
 ```json
 OData-error: {"code":"err123","message":"Unsupported
@@ -3854,7 +3946,7 @@ In order to be a conforming consumer of the OData JSON format, a client or servi
    6. MUST support property annotations that appear immediately before or after the property they annotate
 8. MAY be a conforming consumer of the OData 4.01 JSON format, for payloads with an `OData-Version` header value of `4.01`.
    1. MUST be prepared to interpret control information with or without the `odata.` prefix
-   2. MUST be prepared for `@odata.type` primitive values with or without the `#` prefix
+   2. MUST be prepared for `@type` primitive values with or without the `#` prefix
    3. MUST be prepared to handle binding through inclusion of an entity reference within a collection-valued navigation property in the body of a `PATCH`, `PUT`, or `POST` request
    4. MUST be prepared for `TargetId` to be included or omitted in a deleted link for a relationship with a maximum cardinality of one
    5. MUST accept the string values `-INF`, `INF`, and `NaN` for decimal values with floating scale
@@ -4029,7 +4121,7 @@ The contributions of the OASIS OData Technical Committee members, enumerated in 
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
-| Working Draft 01 | 2023-07-20 | Ralf Handl | Import material from OData JSON Format Version 4.01 |
+|Committee Specification Draft 01|2024-02-28|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| Import material from OData JSON Format Version 4.01 <br>Changes listed in [section 1.1](#ChangesfromEarlierVersions)|
 
 -------
 

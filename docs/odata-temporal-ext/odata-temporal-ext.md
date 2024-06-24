@@ -67,9 +67,9 @@ This specification is related to:
 This specification defines how to represent and interact with time-dependent data using the Open Data Protocol (OData).
 
 #### Status:
-This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the "Latest stage" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical.
+This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the "Latest stage" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at https://groups.oasis-open.org/communities/tc-community-home2?CommunityKey=e7cac2a9-2d18-4640-b94d-018dc7d3f0e2#technical.
 
-TC members should send comments on this specification to the TC's email list. Others should send comments to the TC's public comment list, after subscribing to it by following the instructions at the "<a href="https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=odata">Send A Comment</a>" button on the TC's web page at https://www.oasis-open.org/committees/odata/.
+TC members should send comments on this specification to the TC's email list. Any individual may submit comments to the TC by sending email to Technical-Committee-Comments@oasis-open.org. Please use a Subject line like "Comment on OData Temporal".
 
 This specification is provided under the [RF on RAND Terms Mode](https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode) of the [OASIS IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/), the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC's web page (https://www.oasis-open.org/committees/odata/ipr.php).
 
@@ -292,8 +292,8 @@ All examples in this document are non-normative and informative only.
 
 All other text is normative unless otherwise labeled.
 
-::: example
-Here is a customized command line which will generate HTML from this markdown file (named `odata-temporal-ext-v4.0-csd04.md`). Line breaks are added for readability only:
+<!--
+Here is a customized command line which will generate HTML from the markdown file (named `odata-temporal-ext-v4.0-csd04.md`). Line breaks are added for readability only:
 
 ```
 pandoc -f gfm+tex_math_dollars+fenced_divs+smart
@@ -309,8 +309,8 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        odata-temporal-ext-v4.0-csd04.md
 ```
 
-This uses pandoc 3.1.11.1 from https://github.com/jgm/pandoc/releases/tag/3.1.11.1.
-:::
+This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
+-->
 
 
 -------
@@ -1321,10 +1321,10 @@ annotated with temporal terms
   "$Type": "OrgModel.Employee",
   "@Temporal.ApplicationTimeSupport": {
     "Timeline": {
-      "@odata.type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.TimelineSnapshot"
+      "@type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.TimelineSnapshot"
     },
     "UnitOfTime": {
-      "@odata.type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.UnitOfTimeDate"
+      "@type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.UnitOfTimeDate"
     }
   }
 },
@@ -1339,7 +1339,7 @@ Example 7: `history` navigation property in entity set `Employees` from
   "OrgModel.Default/Employees/history": {
     "@Temporal.ApplicationTimeSupport": {
       "Timeline": {
-        "@odata.type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.TimelineVisible",
+        "@type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.TimelineVisible",
         "TimeSliceStart": "From",
         "TimeSliceEnd": "To",
         "SupportedActions": [
@@ -1349,7 +1349,7 @@ Example 7: `history` navigation property in entity set `Employees` from
         ]
       },
       "UnitOfTime": {
-        "@odata.type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.UnitOfTimeDate"
+        "@type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.json#Temporal.UnitOfTimeDate"
       }
     }
   }
@@ -1383,11 +1383,11 @@ temporal objects, the temporal objects identified by combination of
   "this.Default/CostCenters": {
     "@Temporal.ApplicationTimeSupport": {
       "UnitOfTime": {
-        "@odata.type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.xml#Temporal.UnitOfTimeDate",
+        "@type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.xml#Temporal.UnitOfTimeDate",
         "ClosedClosedPeriods": true
       },
       "Timeline": {
-        "@odata.type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.xml#Temporal.TimelineVisible",
+        "@type": "https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Temporal.V1.xml#Temporal.TimelineVisible",
         "PeriodStart": "ValidFrom",
         "PeriodEnd": "ValidTo",
         "ObjectKey": ["AreaID", "CostCenterID"]
@@ -1511,7 +1511,7 @@ GET /api-1/Employees('E314')
 results in
 ```json
 {
-  "@odata.context": "$metadata#Employees/$entity",
+  "@context": "$metadata#Employees/$entity",
   "ID": "E314",
   "Name": "McDevitt",
   "Jobtitle": "Senior"
@@ -1527,7 +1527,7 @@ GET /api-1/Employees('E314')?$at=2012-01-01
 results in
 ```json
 {
-  "@odata.context": "$metadata#Employees/$entity",
+  "@context": "$metadata#Employees/$entity",
   "ID": "E314",
   "Name": "McDevitt",
   "Jobtitle": "Junior"
@@ -1546,7 +1546,7 @@ specified point in time --- note that E401 back then does not satisfy
 this condition
 ```json
 {
-  "@odata.context": "$metadata#Employees",
+  "@context": "$metadata#Employees",
   "value": [
     {
       "ID": "E314",
@@ -1574,7 +1574,7 @@ GET /api-1/Employees('E314')?$at=2012-01-01&$expand=Department($at=2021-11-23)
 results in
 ```json
 {
-  "@odata.context": "$metadata#Employees/$entity",
+  "@context": "$metadata#Employees/$entity",
   "ID": "E314",
   "Name": "McDevitt",
   "Jobtitle": "Junior",
@@ -1595,7 +1595,7 @@ GET /api-1/Departments('D15')?$at=2015-01-01&$expand=Employees
 results in
 ```json
 {
-  "@odata.context": "$metadata#Departments/$entity",
+  "@context": "$metadata#Departments/$entity",
   "ID": "D15",
   "Name": "Services",
   "Employees": [
@@ -1684,7 +1684,7 @@ results in one entity for each employee with time slices that overlap
 the specified application-time period:
 ```json
 {
-  "@odata.context": "$metadata#Employees",
+  "@context": "$metadata#Employees",
   "value": [
     {
       "ID": "E314",
@@ -1747,7 +1747,7 @@ has the following result with department names and budgets as of the
 beginning of each employee time slice:
 ```json
 {
-  "@odata.context": "$metadata#Employees",
+  "@context": "$metadata#Employees",
   "value": [
     {
       "ID": "E314",
@@ -1864,7 +1864,7 @@ the specified application-time period and satisfy the filter condition
 (one less than in [example 14](#employeeHistory)):
 ```json
 {
-  "@odata.context": "$metadata#Employees",
+  "@context": "$metadata#Employees",
   "value": [
     {
       "ID": "E314",
@@ -1917,7 +1917,7 @@ results in one employee whose name matches in the past, and the matching
 time slice is not in the requested time period
 ```json
 {
-  "@odata.context": "$metadata#Employees",
+  "@context": "$metadata#Employees",
   "value": [
     {
       "ID": "E401",
@@ -1941,7 +1941,7 @@ Change tracking for timeline entity sets works identical to non-temporal
 entity sets. If the entity set supports change-tracking combined with
 filtering on application-time period boundaries, the corresponding
 declared properties SHOULD be listed as
-[`FilterableProperties`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#ChangeTrackingType),
+[`FilterableProperties`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#ChangeTrackingType),
 see [OData-VocCap](#ODataVocCap).
 Clients can then use these properties in `$filter` or use the
 convenience shortcuts [`$at`](#QueryOptionat)
@@ -2113,11 +2113,11 @@ D15    | 2011-01-01   | max          | Services            | 1170
 It returns the resulting created or updated time slices
 ```json
 {
-  "@odata.context": "../../$metadata#Collection(Temporal.TimesliceWithPeriod)",
+  "@context": "../../$metadata#Collection(Temporal.TimesliceWithPeriod)",
   "value": [
     {
       "Timeslice": {
-        "@odata.context": "#Departments('D08')/history/$entity",
+        "@context": "#Departments('D08')/history/$entity",
         "From": "2012-01-01",
         "To": "2012-04-01",
         "Name": "Support",
@@ -2126,7 +2126,7 @@ It returns the resulting created or updated time slices
     },
     {
       "Timeslice": {
-        "@odata.context": "#Departments('D08')/history/$entity",
+        "@context": "#Departments('D08')/history/$entity",
         "From": "2012-04-01",
         "To": "2012-06-01",
         "Name": "Support",
@@ -2135,7 +2135,7 @@ It returns the resulting created or updated time slices
     },
     {
       "Timeslice": {
-        "@odata.context": "#Departments('D08')/history/$entity",
+        "@context": "#Departments('D08')/history/$entity",
         "From": "2012-06-01",
         "To": "2014-01-01",
         "Name": "1st Level Support",
@@ -2144,7 +2144,7 @@ It returns the resulting created or updated time slices
     },
     {
       "Timeslice": {
-        "@odata.context": "#Departments('D08')/history/$entity",
+        "@context": "#Departments('D08')/history/$entity",
         "From": "2014-01-01",
         "To": "2014-07-01",
         "Name": "1st Level Support",
@@ -2153,7 +2153,7 @@ It returns the resulting created or updated time slices
     },
     {
       "Timeslice": {
-        "@odata.context": "#Departments('D08')/history/$entity",
+        "@context": "#Departments('D08')/history/$entity",
         "From": "2014-07-01",
         "To": "9999-12-31",
         "Name": "1st Level Support",
@@ -2209,13 +2209,13 @@ E401   | 2012-03-01   | *2021-10-01* | Gibson   | Expert            | D15
 It returns the resulting created or updated time slices
 ```json
 {
-  "@odata.context": "../$metadata#Collection(Temporal.TimesliceWithPeriod)",
+  "@context": "../$metadata#Collection(Temporal.TimesliceWithPeriod)",
   "value": [
     {
       "PeriodStart": "2012-03-01",
       "PeriodEnd": "2021-10-01",
       "Timeslice": {
-        "@odata.context": "#Employees/$entity",
+        "@context": "#Employees/$entity",
         "ID": "E401",
         "Name": "Gibson",
         "Jobtitle": "Expert"
@@ -2225,7 +2225,7 @@ It returns the resulting created or updated time slices
       "PeriodStart": "2021-10-01",
       "PeriodEnd": "9999-12-31",
       "Timeslice": {
-        "@odata.context": "#Employees/$entity",
+        "@context": "#Employees/$entity",
         "ID": "E401",
         "Name": "Gibson",
         "Jobtitle": "Ultimate Expert"
@@ -2323,11 +2323,11 @@ n    | 51     | C1           | *1984-03-31* | 1955-04-01   | P1             | D0
 It returns the resulting created or updated time slices per affected temporal object
 ```json
 {
-  "@odata.context": "../$metadata#Collection(Temporal.TimesliceWithPeriod)",
+  "@context": "../$metadata#Collection(Temporal.TimesliceWithPeriod)",
   "value": [
     {
       "Timeslice": {
-        "@odata.context": "#CostCenters/$entity",
+        "@context": "#CostCenters/$entity",
         "tsid": "n",
         "AreaID": "51",
         "CostCenterID": "C1",
@@ -2339,7 +2339,7 @@ It returns the resulting created or updated time slices per affected temporal ob
     },
     {
       "Timeslice": {
-        "@odata.context": "#CostCenters/$entity",
+        "@context": "#CostCenters/$entity",
         "tsid": "o",
         "AreaID": "51",
         "CostCenterID": "C1",
@@ -2351,7 +2351,7 @@ It returns the resulting created or updated time slices per affected temporal ob
     },
     {
       "Timeslice": {
-        "@odata.context": "#CostCenters/$entity",
+        "@context": "#CostCenters/$entity",
         "tsid": "p",
         "AreaID": "51",
         "CostCenterID": "C1",
@@ -2363,7 +2363,7 @@ It returns the resulting created or updated time slices per affected temporal ob
     },
     {
       "Timeslice": {
-        "@odata.context": "#CostCenters/$entity",
+        "@context": "#CostCenters/$entity",
         "tsid": "q",
         "AreaID": "51",
         "CostCenterID": "C2",

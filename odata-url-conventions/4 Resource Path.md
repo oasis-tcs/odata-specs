@@ -12,7 +12,7 @@ libraries.
 Services that do not follow the resource path conventions for entity
 container children are strongly encouraged to document their resource
 paths by annotating entity container children with the term
-[`Core.ResourcePath`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#ResourcePath)
+[`Core.ResourcePath`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ResourcePath)
 defined in [OData-VocCore](#ODataVocCore). The annotation value is the
 URL of the annotated resource and may be relative to `xml:base` (if
 present), otherwise the request URL.
@@ -340,8 +340,14 @@ document.
 
 In addition to the canonical (primary) key an entity set or entity type
 can specify one or more alternate keys with the
-[`Core.AlternateKeys`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#AlternateKeys)
-term (see [OData-VocCore](#ODataVocCore)). Entities can be addressed via
+[`Core.AlternateKeys`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AlternateKeys)
+term (see [OData-VocCore](#ODataVocCore)). 
+
+Alternate keys can be used by the client to address entities anywhere the canonical key
+can be used; for example, within entity sets, collection-valued navigation properties,
+collection-valued composable functions, and within delta payloads.
+
+Entities are addressed via
 an alternate key using the same parentheses-style convention as for the
 canonical key, with one difference: single-part alternate keys MUST
 specify the key property name to unambiguously determine the alternate
@@ -514,7 +520,7 @@ defined in the [OData-Protocol](#ODataProtocol) document.
 Services MAY additionally support the use of the unqualified name of an
 action or function in a URL by defining one or more default namespaces
 through the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) term
+[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) term
 defined in [OData-VocCore](#ODataVocCore). For more information on
 default namespaces, see Default Namespaces in [OData-Protocol](#ODataProtocol).
 
@@ -569,7 +575,34 @@ Note: there is no literal representation for `Edm.Stream` values in URLs,
 so it is not possible to pass `Edm.Stream` values to parameters of function imports or
 to non-binding parameters of bound functions used in the resource path.
 Function expressions within query options can use [path expressions](#PathExpressions)
-of type `Edm.Stream` as values of non-binding function parameters.
+of type `Edm.Stream` as values of non-binding function parameters. The aliases can contain [common
+expressions](#CommonExpressionSyntax). In the case of a bound function
+these MAY contain [path expressions](#PathExpressions), which
+the service evaluates on the binding parameter value.
+
+::: example
+Example ##ex: An employee's leave requests for the next two weeks
+pending their manager's approval:
+```
+http://host/service/Employees(23)/self.PendingLeaveRequests(StartDate=@start,
+  EndDate=@end,Approver=@approver)
+  ?@start=now()
+  &@end=now() add duration'P14D'
+  &@approver=Manager
+```
+The expression `Manager` is evaluated on the binding parameter value `Employees(23)`.
+
+When invoking an unbound function through a function import, expressions involving
+paths must start with `$root`:
+```
+http://host/service/PendingLeaveRequests(Requester=@requester,
+  StartDate=@start,EndDate=@end,Approver=@approver)
+  ?@requester=$root/services/Employee(23)
+  &@start=now()
+  &@end=now() add duration'P14D'
+  &@approver=$root/services/Employee(23)/Manager
+```
+:::
 
 ## ##subsec Addressing a Property
 
@@ -666,14 +699,14 @@ appended to the collection URL before appending the key segment.
 
 Note: entity sets or collection-valued navigation properties annotated
 with the term
-[`Capabilities.IndexableByKey`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#IndexableByKey)
+[`Capabilities.IndexableByKey`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#IndexableByKey)
 defined in [OData-VocCap](#ODataVocCap) and a value of `false` do not
 support addressing their members by key.
 
 ## ##subsec Addressing a Member of an Ordered Collection
 
 Collections can be annotated as ordered using the
-[`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered)
+[`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered)
 term (see [OData-VocCore](#ODataVocCore)). Individual items within an
 ordered collection of primitive or complex types can be addressed by
 appending a segment containing the zero-based ordinal to the URL of the
@@ -711,7 +744,7 @@ the type cast will evaluate to `null`.
 Services MAY additionally support the use of the unqualified name of a
 derived type in a URL by defining one or more default namespaces through
 the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace)
+[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace)
 term defined in [OData-VocCore](#ODataVocCore). For more information on
 default namespaces, see Default Namespaces in [OData-Protocol](#ODataProtocol).
 
@@ -721,7 +754,7 @@ derived type. In this case, the set and values of properties of the
 addressed type may be different than the properties of the source type.
 The set of such possible target types outside of the type hierarchy
 SHOULD be called out using the
-[`Core.MayImplement`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#MayImplement)
+[`Core.MayImplement`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#MayImplement)
 annotation term, defined in [OData-VocCore](#ODataVocCore).
 
 ::: example
@@ -756,7 +789,8 @@ Example ##ex: filter expression with type cast; will evaluate to `null`
 for all non-`VipCustomer` instances and thus return only instances of
 `VipCustomer`
 ```
-http://host/service/Customers?$filter=Model.VipCustomer/PercentageOfVipPromotionProductsOrdered gt 80
+http://host/service/Customers
+  ?$filter=Model.VipCustomer/PercentageOfVipPromotionProductsOrdered gt 80
 ```
 :::
 
@@ -909,20 +943,20 @@ http://host/service/$crossjoin(Products,Sales)?$filter=Products/ID eq Sales/Prod
 and would result in
 ```json
 {
-  "@odata.context": "http://host/service/$metadata#Collection(Edm.ComplexType)",
+  "@context": "http://host/service/$metadata#Collection(Edm.ComplexType)",
   "value": [
     {
-      "Products@odata.navigationLink": "Products(0)",
-      "Sales@odata.navigationLink": "Sales(42)",
+      "Products@navigationLink": "Products(0)",
+      "Sales@navigationLink": "Sales(42)",
     },
     {
-      "Products@odata.navigationLink": "Products(0)",
-      "Sales@odata.navigationLink": "Sales(57)",
+      "Products@navigationLink": "Products(0)",
+      "Sales@navigationLink": "Sales(57)",
     },
     …
     {
-      "Products@odata.navigationLink": "Products(99)",
-      "Sales@odata.navigationLink": "Sales(21)",
+      "Products@navigationLink": "Products(99)",
+      "Sales@navigationLink": "Sales(21)",
     }
   ]
 }

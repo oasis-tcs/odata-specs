@@ -164,7 +164,7 @@ The Boolean value `true` is greater than `false`.
 Services SHOULD order language-dependent strings according to the
 `Content-Language` of the response, and SHOULD annotate string properties
 with language-dependent order with the term
-[`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
+[`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
 see [OData-VocCore](#ODataVocCore).
 
 If any operand is `null`, the operator returns false.
@@ -189,7 +189,7 @@ The Boolean value `false` is less than `true`.
 Services SHOULD order language-dependent strings according to the
 `Content-Language` of the response, and SHOULD annotate string properties
 with language-dependent order with the term
-[`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
+[`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
 see [OData-VocCore](#ODataVocCore).
 
 If any operand is `null`, the operator returns false.
@@ -238,8 +238,9 @@ The `null` value is treated as unknown, so if one operand evaluates to
 
 The `in` operator returns true if the left operand is a member of the
 right operand. The right operand MUST be either a comma-separated list
-of primitive values, enclosed in parentheses, or a single expression
-that resolves to a collection.
+of zero or more primitive values, enclosed in parentheses, or a single expression
+that resolves to a collection. If the right operand is an empty collection
+or list of values, the expression returns false.
 
 ##### ##subsubsubsubsec Logical Operator Examples
 
@@ -1526,7 +1527,8 @@ Example ##ex: all categories along with their products used in some order
 with a deviating unit price. The unprefixed `UnitPrice` in the argument
 expression is evaluated in the scope of the expanded `Products`.
 ```
-http://host/service/Categories?$expand=Products($filter=OrderItems/any(oi:oi/UnitPrice ne UnitPrice))
+http://host/service/Categories?$expand=Products(
+  $filter=OrderItems/any(oi:oi/UnitPrice ne UnitPrice))
 ```
 :::
 
@@ -1759,14 +1761,16 @@ Example ##ex: products ordered by a set of customers, where the set of
 customers is passed as a JSON array containing the resource paths from
 `$root` to each customer
 ```
-http://host/service/ProductsOrderedBy(Customers=@c)?@c=[$root/Customers('ALFKI'),$root/Customers('BLAUS')]
+http://host/service/ProductsOrderedBy(Customers=@c)
+  ?@c=[$root/Customers('ALFKI'),$root/Customers('BLAUS')]
 ```
 :::
 
 ::: example
 Example ##ex: function call returning the average rating of a given employee by their peers (employees in department D1)
 ```
-http://host/service/Employees('A1245')/self.AvgRating(RatedBy=@peers)?@peers=$root/Employees/$filter(Department eq 'D1')
+http://host/service/Employees('A1245')/self.AvgRating(RatedBy=@peers)
+  ?@peers=$root/Employees/$filter(Department eq 'D1')
 ```
 :::
 
@@ -1834,7 +1838,7 @@ navigation properties, then the request may be considered malformed.
 Services MAY support the use of annotation values as operands or
 function parameters, and they MAY advertise this by annotating the
 entity container with term
-[`Capabilities.AnnotationValuesInQuerySupported`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#AnnotationValuesInQuerySupported),
+[`Capabilities.AnnotationValuesInQuerySupported`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#AnnotationValuesInQuerySupported),
 see [OData-VocCap](#ODataVocCap).
 
 Annotation values are referenced by the annotation name which consists
@@ -1856,7 +1860,7 @@ http://host/service/Products?$filter=Price/@Measures.Currency eq 'EUR'
 
 ::: example
 Example ##ex: Return Employees that have any error messages in the
-[`Core.Messages`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Messages)
+[`Core.Messages`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Messages)
 annotation
 ```
 http://host/service/Employees?$filter=@Core.Messages/any(m:m/severity eq 'error')
@@ -1865,7 +1869,7 @@ http://host/service/Employees?$filter=@Core.Messages/any(m:m/severity eq 'error'
 
 Services MAY additionally support the use of the unqualified term name
 by defining one or more default namespaces through the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) annotation
+[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) annotation
 term defined in [OData-VocCore](#ODataVocCore). For more information on
 default namespaces, see Default Namespaces in [OData-Protocol](#ODataProtocol).
 This short notation however uses the same name pattern as parameter
@@ -2079,7 +2083,8 @@ http://host/service/Categories?$expand=Products/Sales.PremierProduct/$ref
 Example ##ex: all categories and for each category the references of all
 related premier products with a current promotion equal to `null`
 ```
-http://host/service/Categories?$expand=Products/Sales.PremierProduct/$ref($filter=CurrentPromotion eq null)
+http://host/service/Categories
+  ?$expand=Products/Sales.PremierProduct/$ref($filter=CurrentPromotion eq null)
 ```
 :::
 
@@ -2239,7 +2244,8 @@ option, see [section ##SystemQueryOptionfilter].
 Example ##ex: name and description of all products, plus name of expanded
 category
 ```
-http://host/service/Products?$select=Name,Description&$expand=Category($select=Name)
+http://host/service/Products?$select=Name,Description
+  &$expand=Category($select=Name)
 ```
 :::
 
@@ -2257,7 +2263,9 @@ is of the derived type `Namespace.PreferredSupplier`, together with the
 `Street` property of the complex property
 `Address`, and the Location property of the derived complex type `Namespace.AddressWithLocation`
 ```
-http://host/service/Suppliers?$select=Namespace.PreferredSupplier/AccountRepresentative,Address/Street,Address/Namespace.AddressWithLocation/Location
+http://host/service/Suppliers
+  ?$select=Namespace.PreferredSupplier/AccountRepresentative,
+           Address/Street,Address/Namespace.AddressWithLocation/Location
 ```
 :::
 
@@ -2275,7 +2283,10 @@ NOT be specified in more than one expand.
 Example ##ex: select up to five addresses whose `City` starts with an
 `H`, sorted, and with the `Country` expanded
 ```
-http://host/service/Customers?$select=Addresses($filter=startswith(City,'H');$top=5;$orderby=Country/Name,City,Street)&$expand=Addresses/Country
+http://host/service/Customers
+  ?$select=Addresses($filter=startswith(City,'H');$top=5;
+                     $orderby=Country/Name,City,Street)
+  &$expand=Addresses/Country
 ```
 :::
 
@@ -2379,6 +2390,12 @@ http://host/service/Products?$search=blue OR green
 ```
 :::
 
+Clients should be aware that services MAY implement search based on a different
+syntax provided they advertise this with the annotation `SearchRestrictions/SearchSyntax` defined in
+[OData-VocCap](#ODataVocCap). Services MAY treat keywords defined in the standard
+[OData-ABNF](#ODataABNF) `$search` syntax as terms to be matched if they are
+listed in `SearchRestrictions/UnsupportedExpressions`.
+
 #### ##subsubsubsec Search Expressions
 
 Search expressions are used within the
@@ -2475,7 +2492,7 @@ http://host/service/Orders(10)/Items
 
 The `$index` system query option allows clients to do a positional
 insert into a collection annotated with the
-[`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
+[`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
 term (see [OData-VocCore](#ODataVocCore)). The value of the `$index`
 system query option is the zero-based ordinal position where the item is
 to be inserted. The ordinal of items within the collection greater than
@@ -2545,7 +2562,8 @@ Example ##ex: JSON array of strings as parameter alias value --- note that
 `[`, `]`, and `"` need to be percent-encoded in real URLs, the
 clear-text representation used here is just for readability
 ```
-http://host/service/Products/Model.WithIngredients(Ingredients=@i)?@i=["Carrots","Ginger","Oranges"]
+http://host/service/Products/Model.WithIngredients(Ingredients=@i)
+  ?@i=["Carrots","Ginger","Oranges"]
 ```
 :::
 
