@@ -1024,8 +1024,8 @@ Content-Type: application/x-www-form-urlencoded
 <pre><code>GET http://host/service/People?
   $filter=LastName%20eq%20&#39;P%26G&#39;&amp;$select=FirstName,LastName</code></pre>
 </div>
-<p>With <code>Content-Type: application/json</code> query options and function parameters are encoded in a request body that represents a JSON object. Its members include the individual query options with a mandatory <code>$</code> prefix in their name and with their values given as a string or a number, where appropriate.</p>
-<p>Members of the JSON object also include parameters if the resource path is a function invocation or function import. In this case, parameters are represented like parameters in an action invocation <a href="#ODataJSON">OData-JSON, section 18</a>, parentheses after the function name MUST be omitted and the <code>/$query</code> segment MAY be omitted.</p>
+<p>With <code>Content-Type: application/json</code> query options and function parameters are encoded in a request body that represents a JSON object. Its members include the individual query options. Their name MUST have the <code>$</code> prefix and their value MUST be given as a string or a number, as appropriate.</p>
+<p>Members of the JSON object also include parameters if the resource path is a function invocation or function import. In this case parameters MUST be represented like parameters in an action invocation <a href="#ODataJSON">OData-JSON, section 18</a>, and in the resource path the parentheses after the function name MUST be omitted and the <code>/$query</code> segment MAY be omitted.</p>
 <div class="example">
 <p>Example 52: An employee’s top 10 leave requests for the next two weeks pending their manager’s approval. Compare this with <a href="#funcexpr">example 30</a>.</p>
 <div class="sourceCode" id="cb75"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">http://host/service/Employees(23)/self.PendingLeaveRequests</span></span>

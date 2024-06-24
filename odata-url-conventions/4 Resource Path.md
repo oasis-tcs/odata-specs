@@ -1075,14 +1075,14 @@ GET http://host/service/People?
 
 With `Content-Type: application/json` query options and function parameters are
 encoded in a request body that represents a JSON object. Its members include the
-individual query options with a mandatory `$` prefix in their name and with their
-values given as a string or a number, where appropriate.
+individual query options. Their name MUST have the `$` prefix and their
+value MUST be given as a string or a number, as appropriate.
 
 Members of the JSON object also include parameters
-if the resource path is a function invocation or function import. In this case,
-parameters are represented like parameters in an action invocation [OData-JSON, section 18](#ODataJSON),
-parentheses after the function name MUST be omitted and the `/$query` segment MAY be
-omitted.
+if the resource path is a function invocation or function import. In this case
+parameters MUST be represented like parameters in an action invocation [OData-JSON, section 18](#ODataJSON),
+and in the resource path the parentheses after the function name MUST be omitted
+and the `/$query` segment MAY be omitted.
 
 ::: example
 Example ##ex: An employee's top 10 leave requests for the next two weeks
