@@ -1468,8 +1468,8 @@ Requests to paths ending in `/$query` MUST use the `POST` verb. Query
 options specified in the request body and query options specified in the
 request URL are processed together.
 
-The request body MUST use `Content-Type: text/plain` or `Content-Type: application/x-www-form-urlencoded`
-or `Content-Type: application/json`.
+The request body MUST use a `Content-Type` of `text/plain`, `application/x-www-form-urlencoded`,
+or `application/json`.
 
 For `Content-Type: text/plain`, the individual query options MUST be separated by `&` or newlines
 and MUST use the same percent-encoding as in URLs (especially: no spaces, tabs, or line breaks allowed)
@@ -1530,21 +1530,21 @@ GET http://host/service/People?
 
 With `Content-Type: application/json` query options and function parameters are
 encoded in a request body that represents a JSON object. Its members include the
-individual query options. Their name MUST have the `$` prefix and their
-value MUST be given as a string, except for `$top` and `$skip` where it MUST be
-a number.
+individual query options. The name of a system query option MUST have the `$` prefix.
+The value MUST be
+* a JSON number for `$top` and `$skip`, and
+* a JSON string without percent-encoding for all other query options.
 
 Members of the JSON object also include parameters
 if the resource path is a function invocation or function import. In this case
 parameters MUST be represented like parameters in an action invocation [OData-JSON, section 18](#ODataJSON),
-and in the resource path the parentheses after the function name MUST be omitted
-and the `/$query` segment MAY be omitted.
+and in the resource path parentheses after the function name MUST be omitted.
 
 ::: example
-Example 52: An employee's top 10 leave requests for the next two weeks
+Example 52: An employee's top ten leave requests for the next two weeks
 pending their manager's approval. Compare this with [example 30](#funcexpr).
 ```json
-POST http://host/service/Employees(23)/self.PendingLeaveRequests
+POST http://host/service/Employees(23)/self.PendingLeaveRequests/$query
 Content-Type: application/json
 
 {

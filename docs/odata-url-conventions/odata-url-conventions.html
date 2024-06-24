@@ -991,7 +991,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>The query options part of an OData URL can be quite long, potentially exceeding the maximum length of URLs supported by components involved in transmitting or processing the request. One way to avoid this is wrapping the request in a batch request, which has the penalty of needing to construct a well-formed batch request body.</p>
 <p>An easier alternative for <code>GET</code> requests is to append <code>/$query</code> to the resource path of the URL, use the <code>POST</code> verb instead of <code>GET</code>, and pass the query options part of the URL in the request body.</p>
 <p>Requests to paths ending in <code>/$query</code> MUST use the <code>POST</code> verb. Query options specified in the request body and query options specified in the request URL are processed together.</p>
-<p>The request body MUST use <code>Content-Type: text/plain</code> or <code>Content-Type: application/x-www-form-urlencoded</code> or <code>Content-Type: application/json</code>.</p>
+<p>The request body MUST use a <code>Content-Type</code> of <code>text/plain</code>, <code>application/x-www-form-urlencoded</code>, or <code>application/json</code>.</p>
 <p>For <code>Content-Type: text/plain</code>, the individual query options MUST be separated by <code>&amp;</code> or newlines and MUST use the same percent-encoding as in URLs (especially: no spaces, tabs, or line breaks allowed) and MUST follow the syntax rules described in <a href="#QueryOptions">chapter 5</a>.</p>
 <div class="example">
 <p>Example 50: passing a filter condition in the request body</p>
@@ -1024,11 +1024,15 @@ Content-Type: application/x-www-form-urlencoded
 <pre><code>GET http://host/service/People?
   $filter=LastName%20eq%20&#39;P%26G&#39;&amp;$select=FirstName,LastName</code></pre>
 </div>
-<p>With <code>Content-Type: application/json</code> query options and function parameters are encoded in a request body that represents a JSON object. Its members include the individual query options. Their name MUST have the <code>$</code> prefix and their value MUST be given as a string, except for <code>$top</code> and <code>$skip</code> where it MUST be a number.</p>
-<p>Members of the JSON object also include parameters if the resource path is a function invocation or function import. In this case parameters MUST be represented like parameters in an action invocation <a href="#ODataJSON">OData-JSON, section 18</a>, and in the resource path the parentheses after the function name MUST be omitted and the <code>/$query</code> segment MAY be omitted.</p>
+<p>With <code>Content-Type: application/json</code> query options and function parameters are encoded in a request body that represents a JSON object. Its members include the individual query options. The name of a system query option MUST have the <code>$</code> prefix. The value MUST be</p>
+<ul>
+<li>a JSON number for <code>$top</code> and <code>$skip</code>, and</li>
+<li>a JSON string without percent-encoding for all other query options.</li>
+</ul>
+<p>Members of the JSON object also include parameters if the resource path is a function invocation or function import. In this case parameters MUST be represented like parameters in an action invocation <a href="#ODataJSON">OData-JSON, section 18</a>, and in the resource path parentheses after the function name MUST be omitted.</p>
 <div class="example">
-<p>Example 52: An employee’s top 10 leave requests for the next two weeks pending their manager’s approval. Compare this with <a href="#funcexpr">example 30</a>.</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">http://host/service/Employees(23)/self.PendingLeaveRequests</span></span>
+<p>Example 52: An employee’s top ten leave requests for the next two weeks pending their manager’s approval. Compare this with <a href="#funcexpr">example 30</a>.</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">http://host/service/Employees(23)/self.PendingLeaveRequests/$query</span></span>
 <span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
