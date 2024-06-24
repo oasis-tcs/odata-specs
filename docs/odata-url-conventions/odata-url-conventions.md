@@ -1531,7 +1531,8 @@ GET http://host/service/People?
 With `Content-Type: application/json` query options and function parameters are
 encoded in a request body that represents a JSON object. Its members include the
 individual query options. Their name MUST have the `$` prefix and their
-value MUST be given as a string or a number, as appropriate.
+value MUST be given as a string, except for `$top` and `$skip` where it MUST be
+a number.
 
 Members of the JSON object also include parameters
 if the resource path is a function invocation or function import. In this case
