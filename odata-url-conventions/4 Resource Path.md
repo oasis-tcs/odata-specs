@@ -581,7 +581,7 @@ these MAY contain [path expressions](#PathExpressions), which
 the service evaluates on the binding parameter value.
 
 ::: example
-Example ##ex: An employee's leave requests for the next two weeks
+Example ##ex_funcexpr: An employee's leave requests for the next two weeks
 pending their manager's approval:
 ```
 http://host/service/Employees(23)/self.PendingLeaveRequests(StartDate=@start,
@@ -1013,7 +1013,8 @@ Requests to paths ending in `/$query` MUST use the `POST` verb. Query
 options specified in the request body and query options specified in the
 request URL are processed together.
 
-The request body MUST use `Content-Type: text/plain` or `Content-Type: application/x-www-form-urlencoded`.
+The request body MUST use `Content-Type: text/plain` or `Content-Type: application/x-www-form-urlencoded`
+or `Content-Type: application/json`.
 
 For `Content-Type: text/plain`, the individual query options MUST be separated by `&` or newlines
 and MUST use the same percent-encoding as in URLs (especially: no spaces, tabs, or line breaks allowed)
@@ -1069,5 +1070,32 @@ The server must treat it like
 ```
 GET http://host/service/People?
   $filter=LastName%20eq%20'P%26G'&$select=FirstName,LastName
+```
+:::
+
+With `Content-Type: application/json` query options and function parameters are
+encoded in a request body that represents a JSON object. Its members include the
+individual query options with a mandatory `$` prefix in their name and with their
+values given as a string or a number, where appropriate.
+
+Members of the JSON object also include parameters
+if the resource path is a function invocation or function import. In this case,
+parameters are represented like parameters in an action invocation [OData-JSON, section 18](#ODataJSON),
+parentheses after the function name MUST be omitted and the `/$query` segment MAY be
+omitted.
+
+::: example
+Example ##ex: An employee's top 10 leave requests for the next two weeks
+pending their manager's approval. Compare this with [example ##funcexpr].
+```json
+POST http://host/service/Employees(23)/self.PendingLeaveRequests
+Content-Type: application/json
+
+{
+  "StartDate@expression": "now()",
+  "EndDate@expression": "now() add duration'P14D'",
+  "Approver@expression": "Manager",
+  "$top": 10
+}
 ```
 :::
