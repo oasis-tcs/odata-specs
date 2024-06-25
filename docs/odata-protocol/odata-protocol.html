@@ -407,9 +407,16 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </ul></li>
 <li><a href="#ManagingMembersofanOrderedCollection">11.4.10 Managing Members of an Ordered Collection</a></li>
 <li><a href="#PositionalInserts">11.4.11 Positional Inserts</a></li>
-<li><a href="#UpdateaCollectionofEntities">11.4.12 Update a Collection of Entities</a></li>
-<li><a href="#UpdateMembersofaCollection">11.4.13 Update Members of a Collection</a></li>
-<li><a href="#DeleteMembersofaCollection">11.4.14 Delete Members of a Collection</a></li>
+<li><a href="#UpdateaCollectionofEntities">11.4.12 Update a Collection of Entities</a>
+<ul>
+<li><a href="#ErrorHandlingwhenUpdatingaCollectionofEntities">11.4.12.1 Error Handling when Updating a Collection of Entities</a></li>
+</ul></li>
+<li><a href="#ReplaceaCollectionofEntities">11.4.13 Replace a Collection of Entities</a>
+<ul>
+<li><a href="#ErrorHandlingwhenReplacingaCollectionofEntities">11.4.13.1 Error Handling when Replacing a Collection of Entities</a></li>
+</ul></li>
+<li><a href="#UpdateMembersofaCollection">11.4.14 Update Members of a Collection</a></li>
+<li><a href="#DeleteMembersofaCollection">11.4.15 Delete Members of a Collection</a></li>
 </ul></li>
 <li><a href="#Operations">11.5 Operations</a>
 <ul>
@@ -2595,9 +2602,12 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Added/changed entities are applied as <a href="#UpsertanEntity">upserts</a>, and deleted entities as <a href="#DeleteanEntity">deletions</a>. Non-key properties of deleted entities are ignored. The top-level collection may include added and deleted links, and related entities represented inline are updated according to the rules for <a href="#UpdateRelatedEntitiesWhenUpdatinganEntity">treating related entities when updating an entity</a>.</p>
 <p>Clients MAY associate an id with individual nested entities in the request by using the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a> term defined in <a href="#ODataVocCore">OData-VocCore</a>. Services that respond with <a href="#ResponseCode200OK"><code>200 OK</code></a> SHOULD annotate the entities in the response using the same <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a> value as specified in the request.</p>
 <p>Services SHOULD advertise support for updating a collection using a delta payload through the <code>DeltaUpdateSupported</code> property of the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#UpdateRestrictionsType"><code>Capabilities.UpdateRestrictions</code></a> term, and SHOULD advertise support for returning the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a> through the <code>ContentIDSupported</code> property of the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#DeepUpdateSupportType"><code>Capabilities.DeepUpdateSupport</code></a> term, both defined in <a href="#ODataVocCap">OData-VocCap</a>.</p>
-<p>Clients MAY specify <a href="#UseofETagsforAvoidingUpdateConflicts">ETag</a> values obtained from previous requests when updating entities within a collection. If an ETag is provided that does not match the ETag value of the entity being updated, or if the entity does not already exist, services that support ETags MUST NOT apply the change and SHOULD indicate a response code of <code>412 Precondition Failed</code>. The special value <code>\*</code> can be used to match any existing entity but fail if the entity does not already exist.</p>
+<p>For each entity being updated or removed, clients MAY specify an <a href="#UseofETagsforAvoidingUpdateConflicts">ETag</a> value obtained from a previous request. If an ETag is provided that does not match the ETag value of the entity being updated or removed, or if an ETag is provided when adding or updating an entity that does not currently exist, then services that support ETags MUST NOT apply the change and instead report a <code>412 Precondition Failed</code> error according to the appropriate <a href="#ErrorHandlingwhenUpdatingaCollectionofEntities"><code>continue-on-error</code></a> behavior. The special value <code>*</code> can be used to match any existing entity but fail if the entity does not already exist.</p>
 <p>The response, if requested, is a delta payload, in the same structure and order as the request payload, representing the applied changes.</p>
-<p>If the <a href="#Preferencecontinueonerrorodatacontinueonerror"><code>continue-on-error</code></a> preference has been specified and any errors occur in processing the changes, then a delta response MUST be returned regardless of the <a href="#Preferencereturnrepresentationandreturnminimal"><code>return</code></a> preference and MUST contain at least the failed changes. The service represents failed changes in the delta response as follows:</p>
+<details open><summary>
+<h4 id="114121-error-handling-when-updating-a-collection-of-entities"><a name="ErrorHandlingwhenUpdatingaCollectionofEntities" href="#ErrorHandlingwhenUpdatingaCollectionofEntities">11.4.12.1 Error Handling when Updating a Collection of Entities</a></h4>
+</summary>
+<p>If the <a href="#Preferencecontinueonerrorodatacontinueonerror"><code>continue-on-error</code></a> preference has been applied and any errors occur in processing the changes, then a delta response MUST be returned regardless of the <a href="#Preferencereturnrepresentationandreturnminimal"><code>return</code></a> preference and MUST contain at least the failed changes. The service represents failed changes in the delta response as follows:</p>
 <ul>
 <li>Failed deletes in the request MUST be represented in the response as either entities or entity references, annotated with the term <code>Core.DataModificationException</code>, see <a href="#ODataVocCore">OData-VocCore</a>. If the deleted entity specified a reason of <code>deleted</code>, the value of <code>failedOperation</code> MUST be <code>delete</code>, otherwise <code>unlink</code>.</li>
 <li>Failed inserts within the request MUST be represented in the response as deleted entities annotated with the term <code>Core.DataModificationException</code> with a <code>failedOperation</code> value of <code>insert</code>.</li>
@@ -2607,11 +2617,21 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <li>Collections within the request MUST be represented in the response as a collection with the current values and membership of the collection as it exists in the service after processing the request.</li>
 </ul>
 <p>If an individual change fails due to a failed dependency, it MUST be annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DataModificationException"><code>Core.DataModificationException</code></a> and SHOULD specify a <code>responseCode</code> of <code>424</code> (<a href="#ResponseCode424FailedDependency">Failed Dependency</a>).</p>
-<p>Alternatively, the verb <code>PUT</code> can be used, in which case the request body MUST be the representation of a collection of entities. In this case all entities provided in the request are applied as <a href="#UpsertanEntity">upserts</a>, and any entities not provided in the request are deleted. In this case, if the <code>continue-on-error</code> preference has been specified, and the request returns a success response code, then a response MUST be returned regardless of the <a href="#Preferencereturnrepresentationandreturnminimal"><code>return</code></a> preference, and MUST contain the full membership and values of the collection as it exists in the service.</p>
-<p>If the <code>continue-on-error</code> preference has not been specified, and the service is unable to apply all of the changes in the request, then it MUST return an error response and MUST NOT apply any of the changes specified in the request payload.</p>
+</details>
 </details>
 <details open><summary>
-<h3 id="11413-update-members-of-a-collection"><a name="UpdateMembersofaCollection" href="#UpdateMembersofaCollection">11.4.13 Update Members of a Collection</a></h3>
+<h3 id="11413-replace-a-collection-of-entities"><a name="ReplaceaCollectionofEntities" href="#ReplaceaCollectionofEntities">11.4.13 Replace a Collection of Entities</a></h3>
+</summary>
+<p>Collections of entities can be replaced by submitting a <code>PUT</code> request to the resource path of the collection. The body of the request MUST be the representation of the complete collection of replacement entities. In this case all entities provided in the request are applied as <a href="#UpsertanEntity">upserts</a>, and any entities not provided in the request are deleted. For each entity being updated, clients MAY specify an <a href="#UseofETagsforAvoidingUpdateConflicts">ETag</a> value obtained from a previous request. If an ETag is provided that does not match the ETag value of the entity being updated, or if an ETag is provided for an entity that does not currently exist, then services that support ETags MUST NOT apply the change and instead report a <code>412 Precondition Failed</code> error according to the appropriate <a href="#ErrorHandlingwhenReplacingaCollectionofEntities"><code>continue-on-error</code></a> behavior. The special ETag value <code>*</code> can be used to match any existing entity but fail if the entity does not already exist.</p>
+<details open><summary>
+<h4 id="114131-error-handling-when-replacing-a-collection-of-entities"><a name="ErrorHandlingwhenReplacingaCollectionofEntities" href="#ErrorHandlingwhenReplacingaCollectionofEntities">11.4.13.1 Error Handling when Replacing a Collection of Entities</a></h4>
+</summary>
+<p>If the <code>continue-on-error</code> preference has been applied and any errors occur in processing the changes, then a response MUST be returned regardless of the <a href="#Preferencereturnrepresentationandreturnminimal"><code>return</code></a> preference, and MUST contain the full membership and values of the collection as it exists in the service.</p>
+<p>If the <code>continue-on-error</code> preference has not been applied, and the service is unable to apply all of the changes in the request, then it MUST return an error response and MUST NOT apply any of the changes specified in the request payload.</p>
+</details>
+</details>
+<details open><summary>
+<h3 id="11414-update-members-of-a-collection"><a name="UpdateMembersofaCollection" href="#UpdateMembersofaCollection">11.4.14 Update Members of a Collection</a></h3>
 </summary>
 <p>Members of a collection can be updated by submitting a <code>PATCH</code> request to the URL constructed by appending <code>/$each</code> to the resource path of the collection. The additional path segment expresses that the request body describes an update to each member of the collection, not an update to the collection itself.</p>
 <p>The resource path of the collection MAY contain type-cast or filter segments to subset the collection, see <a href="#ODataURL">OData-URL</a>.</p>
@@ -2632,7 +2652,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>If the <code>continue-on-error</code> preference has not been specified, and the service is unable to update all of the members identified by the request, then it MUST return an error response and MUST NOT apply any updates.</p>
 </details>
 <details open><summary>
-<h3 id="11414-delete-members-of-a-collection"><a name="DeleteMembersofaCollection" href="#DeleteMembersofaCollection">11.4.14 Delete Members of a Collection</a></h3>
+<h3 id="11415-delete-members-of-a-collection"><a name="DeleteMembersofaCollection" href="#DeleteMembersofaCollection">11.4.15 Delete Members of a Collection</a></h3>
 </summary>
 <p>Members of a collection can be deleted by submitting a <code>DELETE</code> request to the URL constructed by appending <code>/$each</code> to the resource path of the collection. The additional path segment expresses that the collection itself is not deleted.</p>
 <p>The request resource path of the collection MAY contain type-cast or filter segments to subset the collection.</p>
@@ -3371,7 +3391,7 @@ Content-Length: ###
 <li>SHOULD support <code>PUT</code> and <code>PATCH</code> to an individual primitive (<a href="#UpdateaPrimitiveProperty">section 11.4.9.1</a>) or complex (<a href="#UpdateaComplexProperty">section 11.4.9.3</a>) property (respectively)</li>
 <li>SHOULD support <code>DELETE</code> to set an individual property to null (<a href="#SetaValuetoNull">section 11.4.9.2</a>)</li>
 <li>SHOULD support deep inserts (<a href="#CreateRelatedEntitiesWhenCreatinganEntity">section 11.4.2.2</a>)</li>
-<li>MAY support set-based updates (<a href="#UpdateMembersofaCollection">section 11.4.13</a>) or deletes (<a href="#DeleteMembersofaCollection">section 11.4.14</a>) to members of a collection</li>
+<li>MAY support set-based updates (<a href="#UpdateMembersofaCollection">section 11.4.14</a>) or deletes (<a href="#DeleteMembersofaCollection">section 11.4.15</a>) to members of a collection</li>
 </ol>
 </details>
 <details open><summary>

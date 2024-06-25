@@ -272,8 +272,11 @@ For complete copyright information please see the full Notices section in an App
     - [11.4.10 Managing Members of an Ordered Collection](#ManagingMembersofanOrderedCollection)
     - [11.4.11 Positional Inserts](#PositionalInserts)
     - [11.4.12 Update a Collection of Entities](#UpdateaCollectionofEntities)
-    - [11.4.13 Update Members of a Collection](#UpdateMembersofaCollection)
-    - [11.4.14 Delete Members of a Collection](#DeleteMembersofaCollection)
+      - [11.4.12.1 Error Handling when Updating a Collection of Entities](#ErrorHandlingwhenUpdatingaCollectionofEntities)
+    - [11.4.13 Replace a Collection of Entities](#ReplaceaCollectionofEntities)
+      - [11.4.13.1 Error Handling when Replacing a Collection of Entities](#ErrorHandlingwhenReplacingaCollectionofEntities)
+    - [11.4.14 Update Members of a Collection](#UpdateMembersofaCollection)
+    - [11.4.15 Delete Members of a Collection](#DeleteMembersofaCollection)
   - [11.5 Operations](#Operations)
     - [11.5.1 Binding an Operation to a Resource](#BindinganOperationtoaResource)
     - [11.5.2 Applying an Operation to Members of a Collection](#ApplyinganOperationtoMembersofaCollection)
@@ -5017,14 +5020,13 @@ through the `ContentIDSupported` property of the
 [`Capabilities.DeepUpdateSupport`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#DeepUpdateSupportType)
 term, both defined in [OData-VocCap](#ODataVocCap).
 
-Clients MAY specify [ETag](#UseofETagsforAvoidingUpdateConflicts) values
-obtained from previous requests when updating entities within a collection. If an ETag is provided that does not match the ETag value of the entity being updated, or if the entity does not already exist, services that support ETags MUST NOT apply the change and SHOULD indicate a response code of `412 Precondition Failed`. The special value `\*` can be used to match any existing entity but fail if the entity does not already exist.
+For each entity being updated or removed, clients MAY specify an [ETag](#UseofETagsforAvoidingUpdateConflicts) value obtained from a previous request. If an ETag is provided that does not match the ETag value of the entity being updated or removed, or if an ETag is provided when adding or updating an entity that does not currently exist, then services that support ETags MUST NOT apply the change and instead report a `412 Precondition Failed` error according to the appropriate [`continue-on-error`](#ErrorHandlingwhenUpdatingaCollectionofEntities) behavior. The special value `*` can be used to match any existing entity but fail if the entity does not already exist.
 
 The response, if requested, is a delta payload, in the same structure
 and order as the request payload, representing the applied changes.
 
-If the [`continue-on-error`](#Preferencecontinueonerrorodatacontinueonerror) preference has been specified and any errors
-occur in processing the changes, then a delta response MUST be returned
+#### <a name="ErrorHandlingwhenUpdatingaCollectionofEntities" href="#ErrorHandlingwhenUpdatingaCollectionofEntities">11.4.12.1 Error Handling when Updating a Collection of Entities</a>
+If the [`continue-on-error`](#Preferencecontinueonerrorodatacontinueonerror) preference has been applied and any errors occur in processing the changes, then a delta response MUST be returned
 regardless of the [`return`](#Preferencereturnrepresentationandreturnminimal)
 preference and MUST contain at least the failed changes. The service
 represents failed changes in the delta response as follows:
@@ -5058,23 +5060,28 @@ If an individual change fails due to a failed dependency, it MUST be
 annotated with the term [`Core.DataModificationException`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DataModificationException) and SHOULD specify
 a `responseCode` of `424` ([Failed Dependency](#ResponseCode424FailedDependency)).
 
-Alternatively, the verb `PUT` can be used, in which case the request
-body MUST be the representation of a collection of entities. In this
+### <a name="ReplaceaCollectionofEntities" href="#ReplaceaCollectionofEntities">11.4.13 Replace a Collection of Entities</a>
+Collections of entities can be replaced by submitting a `PUT` request
+to the resource path of the collection. The body of the request MUST be
+the representation of the complete collection of replacement entities. In this
 case all entities provided in the request are applied as
 [upserts](#UpsertanEntity), and any entities not provided in the request
-are deleted. In this case, if the `continue-on-error` preference has
-been specified, and the request returns a success response code, then a
-response MUST be returned regardless of the
+are deleted. 
+For each entity being updated, clients MAY specify an [ETag](#UseofETagsforAvoidingUpdateConflicts)
+value obtained from a previous request. If an ETag is provided that does not match the ETag value of the entity being updated, or if an ETag is provided for an entity that does not currently exist, then services that support ETags MUST NOT apply the change and instead report a `412 Precondition Failed` error according to the appropriate [`continue-on-error`](#ErrorHandlingwhenReplacingaCollectionofEntities) behavior. The special ETag value `*` can be used to match any existing entity but fail if the entity does not already exist.
+
+#### <a name="ErrorHandlingwhenReplacingaCollectionofEntities" href="#ErrorHandlingwhenReplacingaCollectionofEntities">11.4.13.1 Error Handling when Replacing a Collection of Entities</a>
+If the `continue-on-error` preference has been applied and any errors occur in processing the changes, then a response MUST be returned regardless of the
 [`return`](#Preferencereturnrepresentationandreturnminimal) preference, and MUST
 contain the full membership and values of the collection as it exists in
 the service.
 
-If the `continue-on-error` preference has not been specified, and the
+If the `continue-on-error` preference has not been applied, and the
 service is unable to apply all of the changes in the request, then it
 MUST return an error response and MUST NOT apply any of the changes
 specified in the request payload.
 
-### <a name="UpdateMembersofaCollection" href="#UpdateMembersofaCollection">11.4.13 Update Members of a Collection</a>
+### <a name="UpdateMembersofaCollection" href="#UpdateMembersofaCollection">11.4.14 Update Members of a Collection</a>
 
 Members of a collection can be updated by submitting a `PATCH` request
 to the URL constructed by appending `/$each` to the resource path of the
@@ -5131,7 +5138,7 @@ service is unable to update all of the members identified by the
 request, then it MUST return an error response and MUST NOT apply any
 updates.
 
-### <a name="DeleteMembersofaCollection" href="#DeleteMembersofaCollection">11.4.14 Delete Members of a Collection</a>
+### <a name="DeleteMembersofaCollection" href="#DeleteMembersofaCollection">11.4.15 Delete Members of a Collection</a>
 
 Members of a collection can be deleted by submitting a `DELETE` request
 to the URL constructed by appending `/$each` to the resource path of the
@@ -6555,8 +6562,8 @@ or upsert operation that returns `204 No Content` ([section 8.3.4](#HeaderODataE
 31. SHOULD support `DELETE` to set an individual property to null
 ([section 11.4.9.2](#SetaValuetoNull))
 32. SHOULD support deep inserts ([section 11.4.2.2](#CreateRelatedEntitiesWhenCreatinganEntity))
-33. MAY support set-based updates ([section 11.4.13](#UpdateMembersofaCollection)) or deletes
-([section 11.4.14](#DeleteMembersofaCollection)) to members of a collection
+33. MAY support set-based updates ([section 11.4.14](#UpdateMembersofaCollection)) or deletes
+([section 11.4.15](#DeleteMembersofaCollection)) to members of a collection
 
 ### <a name="OData40IntermediateConformanceLevel" href="#OData40IntermediateConformanceLevel">12.1.2 OData 4.0 Intermediate Conformance Level</a>
 

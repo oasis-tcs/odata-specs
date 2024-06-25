@@ -2208,6 +2208,8 @@ collection.
 Changed entities MUST include all available selected properties that
 have changed, and MAY include additional properties.
 
+Added or changed entities MAY include [ETags](#ControlInformationidodataid).
+
 Entities include control information for selected navigation links based
 on [`metadata`](#ControllingtheAmountofControlInformationinResponses).
 
