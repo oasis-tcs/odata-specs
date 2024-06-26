@@ -5026,6 +5026,7 @@ The response, if requested, is a delta payload, in the same structure
 and order as the request payload, representing the applied changes.
 
 #### <a name="ErrorHandlingwhenUpdatingaCollectionofEntities" href="#ErrorHandlingwhenUpdatingaCollectionofEntities">11.4.12.1 Error Handling when Updating a Collection of Entities</a>
+
 If the [`continue-on-error`](#Preferencecontinueonerrorodatacontinueonerror) preference has been applied and any errors occur in processing the changes, then a delta response MUST be returned
 regardless of the [`return`](#Preferencereturnrepresentationandreturnminimal)
 preference and MUST contain at least the failed changes. The service
@@ -5040,9 +5041,10 @@ of `deleted`, the value of `failedOperation` MUST be `delete`, otherwise
 be represented in the response as deleted entities annotated with the term
 `Core.DataModificationException` with a `failedOperation` value of
 `insert`.
-- Failed updates within the request SHOULD
+- Failed updates within the request MUST
 be annotated in the response with the term `Core.DataModificationException`
 with a `failedOperation` value of `update`.
+If the update fails due to an unmatched ETag, the `responseCode` MUST be present with a value of `412`.
 - Failed added links within the request
 MUST represented in the response as deleted links annotated with the term
 `Core.DataModificationException` with a `failedOperation` value of
@@ -5061,6 +5063,7 @@ annotated with the term [`Core.DataModificationException`](https://github.com/oa
 a `responseCode` of `424` ([Failed Dependency](#ResponseCode424FailedDependency)).
 
 ### <a name="ReplaceaCollectionofEntities" href="#ReplaceaCollectionofEntities">11.4.13 Replace a Collection of Entities</a>
+
 Collections of entities can be replaced by submitting a `PUT` request
 to the resource path of the collection. The body of the request MUST be
 the representation of the complete collection of replacement entities. In this
@@ -5071,6 +5074,7 @@ For each entity being updated, clients MAY specify an [ETag](#UseofETagsforAvoid
 value obtained from a previous request. If an ETag is provided that does not match the ETag value of the entity being updated, or if an ETag is provided for an entity that does not currently exist, then services that support ETags MUST NOT apply the change and instead report a `412 Precondition Failed` error according to the appropriate [`continue-on-error`](#ErrorHandlingwhenReplacingaCollectionofEntities) behavior. The special ETag value `*` can be used to match any existing entity but fail if the entity does not already exist.
 
 #### <a name="ErrorHandlingwhenReplacingaCollectionofEntities" href="#ErrorHandlingwhenReplacingaCollectionofEntities">11.4.13.1 Error Handling when Replacing a Collection of Entities</a>
+
 If the `continue-on-error` preference has been applied and any errors occur in processing the changes, then a response MUST be returned regardless of the
 [`return`](#Preferencereturnrepresentationandreturnminimal) preference, and MUST
 contain the full membership and values of the collection as it exists in
