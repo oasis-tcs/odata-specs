@@ -848,7 +848,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h3 id="345-srid"><a name="SRID" href="#SRID">3.4.5 SRID</a></h3>
 </summary>
 <p>For a geometry- or geography-typed model element the <code>SRID</code> facet identifies which spatial reference system is applied to its values.</p>
-<p>The value of the <code>SRID</code> facet MUST be a non-negative integer or the special value <code>variable</code>. If no value is specified, the facet defaults to <code>0</code> for <code>Geometry</code> types or <code>4326</code> for <code>Geography</code> types. Services SHOULD NOT use the special value <code>variable</code> as, for example, the <a href="#ODataJSON">OData-JSON</a> format does not define a representation for instance-specific spatial reference systems.</p>
+<p>The value of the <code>SRID</code> facet MUST be a non-negative integer or the special value <code>variable</code>. If no value is specified, the facet defaults to <code>0</code> for <code>Geometry</code> types or <code>4326</code> for <code>Geography</code> types. Services SHOULD NOT use the special value <code>variable</code> as some formats, for example <a href="#ODataJSON">OData-JSON</a>, do not define a representation for instance-specific spatial reference systems.</p>
 <p>The valid values of the <code>SRID</code> facet and their meanings are as defined by the European Petroleum Survey Group <a href="#_EPSG">EPSG</a>.</p>
 <section id="srid" class="varjson rep">
 <h3><a name="SRID.1.5" href="#SRID.1.5"><code>$SRID</code></a></h3>
