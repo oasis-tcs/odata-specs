@@ -216,6 +216,7 @@ An OData JSON payload may represent:
 Section | Feature / Change | Issue
 --------|------------------|------
 [Section 4.5.1](#ControlInformationcontextodatacontext)| Fragment portion of Context URL is not percent-encoded| [368](https://github.com/oasis-tcs/odata-specs/issues/368)
+[Section 4.5.8](#ControlInformationidodataid)| `id` of transient entity can be non-null| [1928](https://github.com/oasis-tcs/odata-specs/issues/1928)
 [Section 4.5.12](#ControlInformationmediaodatamedia)|  `mediaContentType` can be `null`| [536](https://github.com/oasis-tcs/odata-specs/issues/536)
 [Section 7](#StructuralProperty), [Section A.2](#InformativeReferences)| Removed reference to obsolete version of GeoJSON| [456](https://github.com/oasis-tcs/odata-specs/issues/456)
 
@@ -962,22 +963,21 @@ if it does not match convention for the localized key values. If the
 `id` is represented, it MAY be a [relative
 URL](#RelativeURLs).
 
-If the entity is transient (i.e. cannot be read or updated), the
+If the entity is transient (see [OData-Protocol](#ODataProtocol)), the
 `id` control information MUST appear in OData 4.0 payloads
-and have the `null` value. In 4.01 payloads transient
-entities need not have the `id` control information, and 4.01
-clients MUST treat entities with neither `id` control
+and have the `null` value. In 4.01 or greater payloads transient
+entities need not have the `id` control information, and
+clients receiving such payloads MUST treat entities with neither `id` control
 information nor a full set of key properties as transient entities.
+In 4.02 payloads the `id` control information for transient entities
+MAY have a string value following the pattern
+`odata:transient:{some-generated-identifier-unique-within-the-response}`,
+for example if services need to represent circular dependencies
+between transient entities using [entity references](#EntityReference).
 
 The `id` control information MUST NOT appear for a
 collection. Its meaning in this context is reserved for future versions
 of this specification.
-
-Entities with `id` equal to `null` cannot be
-compared to other entities, reread, or updated. If
-[`metadata=minimal`](#metadataminimalodatametadataminimal)
-is specified and the `id` is not present in the entity, then
-the canonical URL MUST be used as the entity-id.
 
 ### <a name="ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink" href="#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink">4.5.9 Control Information: `editLink` and `readLink` (`odata.editLink` and `odata.readLink`)</a>
 
