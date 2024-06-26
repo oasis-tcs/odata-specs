@@ -528,11 +528,8 @@ underlying type is `Edm.Stream`, cannot be used in collections.
 Some of these types allow facets, defined in section
 "[Type Facets](#TypeFacets)".
 
-Representation of primitive type values is usage specific, see for example
-- rule `primitiveLiteral` in [OData-ABNF](#ODataABNF) for the
-representation in URLs, and
-- [OData-JSON](#ODataJSON) for the representation in JSON request and
-response bodies.
+Representation of primitive type values within a URL is defined by the rule `primitiveLiteral` in [OData-ABNF](#ODataABNF).
+Representation within request and response bodies is format specific.
 
 ## ##subsec Type Facets
 
