@@ -2617,6 +2617,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <li>Collections within the request MUST be represented in the response as a collection with the current values and membership of the collection as it exists in the service after processing the request.</li>
 </ul>
 <p>If an individual change fails due to a failed dependency, it MUST be annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DataModificationException"><code>Core.DataModificationException</code></a> and SHOULD specify a <code>responseCode</code> of <code>424</code> (<a href="#ResponseCode424FailedDependency">Failed Dependency</a>).</p>
+<p>If the <code>continue-on-error</code> preference has not been applied, and the service is unable to apply all of the changes in the request, then it MUST return an error response and MUST NOT apply any of the changes specified in the request payload.</p>
 </details>
 </details>
 <details open><summary>

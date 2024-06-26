@@ -5062,6 +5062,11 @@ If an individual change fails due to a failed dependency, it MUST be
 annotated with the term [`Core.DataModificationException`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DataModificationException) and SHOULD specify
 a `responseCode` of `424` ([Failed Dependency](#ResponseCode424FailedDependency)).
 
+If the `continue-on-error` preference has not been applied, and the
+service is unable to apply all of the changes in the request, then it
+MUST return an error response and MUST NOT apply any of the changes
+specified in the request payload.
+
 ### <a name="ReplaceaCollectionofEntities" href="#ReplaceaCollectionofEntities">11.4.13 Replace a Collection of Entities</a>
 
 Collections of entities can be replaced by submitting a `PUT` request
