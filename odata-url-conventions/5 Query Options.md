@@ -845,7 +845,7 @@ hassubset([4,1,3,1],[1,1])
 :::
 
 ::: example
-Example ##ex: `hassubset` expression that returns `false`: 1 appears only
+Example ##ex: `hassubset` expression that returns `false`: `1` appears only
 once in the left operand
 ```
 hassubset([1,2],[1,1,2])
