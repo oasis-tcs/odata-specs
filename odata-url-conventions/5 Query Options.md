@@ -74,6 +74,14 @@ The following operators, functions, and literals can be used in
 The [OData-ABNF](#ODataABNF) `commonExpr` syntax rule defines the formal
 grammar of common expressions.
 
+The following subsections specify situations in which expressions evaluate to `null`
+if operands or parameters do not have the types expected by an operator or function.
+Notwithstanding these rules, if such a type discrepancy can be inferred for an expression
+that appears in a request, services SHOULD reject the request with an error message
+explaining the discrepancy. The inferral could be based on, for example, the
+declared type of a property or the type of a literal value that occurs in the
+expression.
+
 #### ##subsubsubsec Logical Operators
 
 OData defines a set of logical operators that evaluate to `true` or `false`
@@ -242,8 +250,9 @@ The `null` value is treated as unknown, so if one operand evaluates to
 
 ##### ##subsubsubsubsec In
 
-The `in` operator returns `true` if the left operand [equals](#Equals) a member of
-the right operand. The right operand MUST be either a comma-separated list
+The `in` operator returns `true` if the [equality](#Equals) comparison of the left
+operand with at least one member of the right operand returns `true`.
+The right operand MUST be either a comma-separated list
 of zero or more primitive values, enclosed in parentheses, or a single expression
 that resolves to a collection. If the right operand is an empty collection
 or list of values, the `in` operator returns `false`.
@@ -532,7 +541,7 @@ not defined. Instead, OData defines a [`null`](#null) literal that can
 be used in comparisons.
 
 If a parameter of a canonical function is `null`, the function returns
-`null`. If the parameters cannot be [cast](#cast) to match the function signature,
+`null`. If the types of parameters do not match the function signature,
 the function also returns `null`.
 
 The syntax rules for all functions are defined in
@@ -1355,12 +1364,6 @@ The `cast` function follows these assignment rules:
 
 If the cast fails, the `cast` function returns `null`.
 
-When a parameter of a canonical function or a service-defined action or function
-[OData-CSDL, section 12.9](#ODataCSDL)
-is given a value that can be cast to the parameter type with one of the first five rules
-(for primitive values) or the seventh rule (for structured values), this cast
-is silently carried out.
-
 ##### ##subsubsubsubsec `isof`
 
 The `isof` function has the following signatures
@@ -1945,6 +1948,9 @@ rules, in order:
 
 Each of these promotions uses the same semantics as a `castExpression`
 to promote an operand to the target type.
+
+OData does not define an implicit conversion between string and numeric
+types.
 
 ### ##subsubsec System Query Option `$filter`
 

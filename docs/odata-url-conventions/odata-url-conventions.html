@@ -1025,6 +1025,7 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 </summary>
 <p>The following operators, functions, and literals can be used in <code>$filter</code>, <code>$orderby</code>, and <code>$compute</code> expressions.</p>
 <p>The <a href="#ODataABNF">OData-ABNF</a> <code>commonExpr</code> syntax rule defines the formal grammar of common expressions.</p>
+<p>The following subsections specify situations in which expressions evaluate to <code>null</code> if operands or parameters do not have the types expected by an operator or function. Notwithstanding these rules, if such a type discrepancy can be inferred for an expression that appears in a request, services SHOULD reject the request with an error message explaining the discrepancy. The inferral could be based on, for example, the declared type of a property or the type of a literal value that occurs in the expression.</p>
 <details open><summary>
 <h4 id="5111-logical-operators"><a name="LogicalOperators" href="#LogicalOperators">5.1.1.1 Logical Operators</a></h4>
 </summary>
@@ -1115,7 +1116,7 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <details open><summary>
 <h5 id="511111-in"><a name="In" href="#In">5.1.1.1.11 In</a></h5>
 </summary>
-<p>The <code>in</code> operator returns <code>true</code> if the left operand <a href="#Equals">equals</a> a member of the right operand. The right operand MUST be either a comma-separated list of zero or more primitive values, enclosed in parentheses, or a single expression that resolves to a collection. If the right operand is an empty collection or list of values, the <code>in</code> operator returns <code>false</code>.</p>
+<p>The <code>in</code> operator returns <code>true</code> if the <a href="#Equals">equality</a> comparison of the left operand with at least one member of the right operand returns <code>true</code>. The right operand MUST be either a comma-separated list of zero or more primitive values, enclosed in parentheses, or a single expression that resolves to a collection. If the right operand is an empty collection or list of values, the <code>in</code> operator returns <code>false</code>.</p>
 </details>
 <details open><summary>
 <h5 id="511112-logical-operator-examples"><a name="LogicalOperatorExamples" href="#LogicalOperatorExamples">5.1.1.1.12 Logical Operator Examples</a></h5>
@@ -1280,7 +1281,7 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 </summary>
 <p>In addition to operators, a set of functions is also defined for use with the <a href="#SystemQueryOptioncompute"><code>$compute</code></a>, <code>$filter</code> or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> system query options, or in <a href="#ParameterAliases">parameter alias</a> values. The following sections describe the available functions.</p>
 <p>Note: ISNULL or COALESCE operators are not defined. Instead, OData defines a <a href="#null"><code>null</code></a> literal that can be used in comparisons.</p>
-<p>If a parameter of a canonical function is <code>null</code>, the function returns <code>null</code>. If the parameters cannot be <a href="#cast">cast</a> to match the function signature, the function also returns <code>null</code>.</p>
+<p>If a parameter of a canonical function is <code>null</code>, the function returns <code>null</code>. If the types of parameters do not match the function signature, the function also returns <code>null</code>.</p>
 <p>The syntax rules for all functions are defined in <a href="#ODataABNF">OData-ABNF</a>. 4.01 Services MUST support case-insensitive canonical function names. Clients that want to work with 4.0 services MUST use lower case canonical function names.</p>
 </details>
 <details open><summary>
@@ -1701,7 +1702,6 @@ type cast(expression,type)</code></pre>
 <li>String values containing a representation of a date-time value according to <a href="#XML-Schema2">XML-Schema-2</a>, <a href="https://www.w3.org/TR/xmlschema11-2/#dateTime">section 3.3.7 dateTime</a>, can be cast to <code>Edm.DateTimeOffset</code>. If the string value does not contain a time-zone offset, it is treated as UTC.</li>
 </ol>
 <p>If the cast fails, the <code>cast</code> function returns <code>null</code>.</p>
-<p>When a parameter of a canonical function or a service-defined action or function <a href="#ODataCSDL">OData-CSDL, section 12.9</a> is given a value that can be cast to the parameter type with one of the first five rules (for primitive values) or the seventh rule (for structured values), this cast is silently carried out.</p>
 </details>
 <details open><summary>
 <h5 id="511102-isof"><a name="isof" href="#isof">5.1.1.10.2 <code>isof</code></a></h5>
@@ -2110,6 +2110,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <li>Otherwise, if either operand is <code>Edm.Int16</code>, the other operand is converted to type <code>Edm.Int16</code>.</li>
 </ul>
 <p>Each of these promotions uses the same semantics as a <code>castExpression</code> to promote an operand to the target type.</p>
+<p>OData does not define an implicit conversion between string and numeric types.</p>
 </details>
 </details>
 <details open><summary>
