@@ -1471,25 +1471,17 @@ request URL are processed together.
 The request body MUST use a `Content-Type` of `text/plain`, `application/x-www-form-urlencoded`,
 or `application/json`.
 
-For `Content-Type: text/plain`, the individual query options MUST be separated by `&` or newlines
+For `Content-Type: text/plain`, the individual query options MUST be separated by `&`
 and MUST use the same percent-encoding as in URLs (especially: no spaces, tabs, or line breaks allowed)
 and MUST follow the syntax rules described in [chapter 5](#QueryOptions).
 
 ::: example
-Example 50: passing a filter condition in the request body
+Example <a name="postquery" href="#postquery">50</a>: system query options in request body instead of URL
 ```
 POST http://host/service/People/$query
 Content-Type: text/plain
 
-$filter=[FirstName,LastName]%20in%20[["John","Doe"],["Jane","Smith"]]
-```
-This POST request would result from submitting the HTML form
-```html
-<form method="post" action="http://host/service/People/$query"
-      enctype="text/plain">
-  <input name="$filter"
-    value='[FirstName,LastName]%20in%20[["John","Doe"],["Jane","Smith"]]'>
-</form>
+$filter=LastName%20eq%20'P%26G'&$select=FirstName,LastName
 ```
 :::
 
@@ -1505,7 +1497,9 @@ in the [URL Living Standard](#_url), section 5.2 with _tuples_ being the list
 of name/value pairs for the individual query options.
 
 ::: example
-Example 51: passing multiple system query options in the request body
+Example 51: The same payload as in [example 50](#postquery) can be sent with
+`application/x-www-form-urlencoded` encoding. But the the `application/x-www-form-urlencoded` parser
+also accepts a different encoding:
 ```
 POST http://host/service/People/$query
 Content-Type: application/x-www-form-urlencoded
@@ -1520,12 +1514,8 @@ This POST request would result from submitting the HTML form
   <input name="$select" value="FirstName,LastName">
 </form>
 ```
-and encodes more characters than absolutely necessary.
-The server must treat it like
-```
-GET http://host/service/People?
-  $filter=LastName%20eq%20'P%26G'&$select=FirstName,LastName
-```
+which encodes spaces and ampersands (and more characters for which encoding is
+optional).
 :::
 
 With `Content-Type: application/json` query options and function parameters are
@@ -1541,7 +1531,7 @@ parameters MUST be represented like parameters in an action invocation [OData-JS
 and in the resource path parentheses after the function name MUST be omitted.
 
 ::: example
-Example 52: An employee's top ten leave requests for the next two weeks
+Example 52: An employee's top ten leave requests from now to the end of the year
 pending their manager's approval. Compare this with [example 30](#funcexpr).
 ```json
 POST http://host/service/Employees(23)/self.PendingLeaveRequests/$query
@@ -1549,7 +1539,7 @@ Content-Type: application/json
 
 {
   "StartDate@expression": "now()",
-  "EndDate@expression": "now() add duration'P14D'",
+  "EndDate": "2024-12-31",
   "Approver@expression": "Manager",
   "$top": 10
 }
