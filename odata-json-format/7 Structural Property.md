@@ -63,6 +63,8 @@ payload. Whether the value represents a geography type or geometry type
 is inferred from its usage or specified using the
 [`type`](#ControlInformationtypeodatatype)
 control information.
+[RFC7946](#rfc7946) does not define means for expressing instance-specific
+[Coordinate Reference Systems](https://datatracker.ietf.org/doc/html/rfc7946#section-4).
 
 ::: example
 Example ##ex:

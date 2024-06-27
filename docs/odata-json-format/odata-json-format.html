@@ -338,6 +338,11 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td><code>mediaContentType</code> can be <code>null</code></td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/536">536</a></td>
 </tr>
+<tr class="odd">
+<td><a href="#StructuralProperty">Section 7</a>, <a href="#InformativeReferences">Section A.2</a></td>
+<td>Removed reference to obsolete version of GeoJSON</td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/456">456</a></td>
+</tr>
 </tbody>
 </table>
 </details>
@@ -892,7 +897,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>Primitive values that cannot be represented, for example due to server conversion issues or IEEE754 limitations on the size of an <code>Edm.Int64</code> or <code>Edm.Decimal</code> value, are annotated with the <code>Core.ValueException</code> term. In this case, the payload MAY include an approximation of the value and MAY specify a string representation of the exact value in the <code>value</code> property of the annotation.</p>
 <p>Enumeration values are represented as JSON strings whose content satisfies the rule <code>enumValue</code> in <a href="#ODataABNF">OData-ABNF</a>. The preferred representation is the <code>enumerationMember</code>. If no <code>enumerationMember</code> (or combination of named enumeration members) is available, the <code>enumMemberValue</code> representation may be used.</p>
 <p>Geography and geometry values are represented as geometry types as defined in <a href="#rfc7946">RFC7946</a>.</p>
-<p>Geography and geometry types have the same representation in a JSON payload. Whether the value represents a geography type or geometry type is inferred from its usage or specified using the <a href="#ControlInformationtypeodatatype"><code>type</code></a> control information.</p>
+<p>Geography and geometry types have the same representation in a JSON payload. Whether the value represents a geography type or geometry type is inferred from its usage or specified using the <a href="#ControlInformationtypeodatatype"><code>type</code></a> control information. <a href="#rfc7946">RFC7946</a> does not define means for expressing instance-specific <a href="https://datatracker.ietf.org/doc/html/rfc7946#section-4">Coordinate Reference Systems</a>.</p>
 <div class="example">
 <p>Example 12:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
