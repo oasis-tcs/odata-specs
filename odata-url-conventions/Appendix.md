@@ -50,6 +50,10 @@ https://www.rfc-editor.org/info/rfc3986.
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_.
 https://www.rfc-editor.org/info/rfc8174.
 
+###### <a name="_url">[URL]</a>
+_URL Living Standard._  
+https://url.spec.whatwg.org/.
+
 ###### <a name="XML-Schema2">[XML-Schema-2]</a>
 _W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes_. D. Peterson, S. Gao, C. M. Sperberg-McQueen, H. S. Thompson, P. V. Biron, A. Malhotra, Editors, W3C Recommendation, 5 April 2012.  
 http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/. Latest version available at http://www.w3.org/TR/xmlschema11-2/.
