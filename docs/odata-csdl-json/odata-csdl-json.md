@@ -265,6 +265,7 @@ modifications made necessary to fully cover OData CSDL Version 4.01.
 Section | Feature / Change | Issue
 --------|------------------|------
 [Section 3.3](#PrimitiveTypes)| Allow stream-valued non-binding parameters| [525](https://github.com/oasis-tcs/odata-specs/issues/525)
+[Section 3.4.5](#SRID)| SRID value `variable` is deprecated| [1935](https://github.com/oasis-tcs/odata-specs/issues/1935)
 [Section 4](#CSDLJSONDocument) | Additional `$Version` value `4.02` |
 [Section 14.3.13](#GeoValues) | Constant Geo values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
 [Section 14.3.14](#StreamValues) | Constant Stream values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
@@ -640,10 +641,8 @@ underlying type is `Edm.Stream`, cannot be used in collections.
 Some of these types allow facets, defined in section
 "[Type Facets](#TypeFacets)".
 
-See rule `primitiveLiteral` in [OData-ABNF](#ODataABNF) for the
-representation of primitive type values in URLs and
-[OData-JSON](#ODataJSON) for the representation in requests and
-responses.
+Representation of primitive type values within a URL is defined by the rule `primitiveLiteral` in [OData-ABNF](#ODataABNF).
+Representation within request and response bodies is format specific.
 
 ## <a name="TypeFacets" href="#TypeFacets">3.4 Type Facets</a>
 
@@ -846,6 +845,7 @@ spatial reference system is applied to its values.
 The value of the `SRID` facet MUST be a non-negative integer or the
 special value `variable`. If no value is specified, the facet defaults
 to `0` for `Geometry` types or `4326` for `Geography` types.
+Services SHOULD NOT use the special value `variable` as some formats, for example [OData-JSON](#ODataJSON), do not define a representation for instance-specific spatial reference systems.
 
 The valid values of the `SRID` facet and their meanings are as defined
 by the European Petroleum Survey Group [EPSG](#_EPSG).
@@ -3164,7 +3164,7 @@ holds for singletons. Action imports and function imports cannot be
 redefined, nor can the "extending" container define a child with the
 same name as a child of a different kind in a "base" container.
 
-Note: services should not introduce cycles by extending entity
+Note: services SHOULD NOT introduce cycles by extending entity
 containers. Clients should be prepared to process cycles introduced by
 extending entity containers.
 
