@@ -82,6 +82,17 @@ explaining the discrepancy. The inferral could be based on, for example, the
 declared type of a property or the type of a literal value that occurs in the
 expression.
 
+::: example
+Example ##ex: In a search for people above a certain age
+```
+http://host/service/People?$filter=Age gt '50'
+```
+the expression would always evaluate to `null` because the age 50 is erroneously
+given as a string and the `$filter` would return an empty result, although this is
+really the result of a typing error. That's why a "type mismatch" error SHOULD
+instead be returned in such a case.
+:::
+
 #### ##subsubsubsec Logical Operators
 
 OData defines a set of logical operators that evaluate to `true` or `false`
