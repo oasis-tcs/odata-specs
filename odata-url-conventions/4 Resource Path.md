@@ -1015,25 +1015,27 @@ request URL are processed together.
 
 The request body MUST use `Content-Type: text/plain` or `Content-Type: application/x-www-form-urlencoded`.
 
-For `Content-Type: text/plain`, the individual query options MUST be separated by `&` or newlines
+For `Content-Type: text/plain`, the individual query options MUST be separated by `&`
 and MUST use the same percent-encoding as in URLs (especially: no spaces, tabs, or line breaks allowed)
 and MUST follow the syntax rules described in [chapter ##QueryOptions].
 
 ::: example
-Example ##ex: passing a filter condition in the request body
+Example ##ex_postquery
 ```
 POST http://host/service/People/$query
 Content-Type: text/plain
 
-$filter=[FirstName,LastName]%20in%20[["John","Doe"],["Jane","Smith"]]
+$filter=LastName%20eq%20'P%26G'&$select=FirstName,LastName
 ```
 This POST request would result from submitting the HTML form
 ```html
 <form method="post" action="http://host/service/People/$query"
       enctype="text/plain">
-  <input name="$filter"
-    value='[FirstName,LastName]%20in%20[["John","Doe"],["Jane","Smith"]]'>
+  <input name="$filter" value="LastName%20eq%20'P%26G'">
+  <input name="$select" value="FirstName,LastName">
 </form>
+in which spaces and ampersands must be percent-encoded, because `text/plain`
+forms perform no such encoding.
 ```
 :::
 
@@ -1049,7 +1051,8 @@ in the [URL Living Standard](#_url), section 5.2 with _tuples_ being the list
 of name/value pairs for the individual query options.
 
 ::: example
-Example ##ex: passing multiple system query options in the request body
+Example ##ex: The same request as in [example ##postquery] with `application/x-www-form-urlencoded`
+encoding (note the differences in encoding):
 ```
 POST http://host/service/People/$query
 Content-Type: application/x-www-form-urlencoded
@@ -1064,10 +1067,6 @@ This POST request would result from submitting the HTML form
   <input name="$select" value="FirstName,LastName">
 </form>
 ```
-and encodes more characters than absolutely necessary.
-The server must treat it like
-```
-GET http://host/service/People?
-  $filter=LastName%20eq%20'P%26G'&$select=FirstName,LastName
-```
+which encodes spaces and ampersands (and more characters for which encoding is
+not necessary).
 :::
