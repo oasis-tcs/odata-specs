@@ -2136,6 +2136,8 @@ property* (the property defined on the structured type declaring the
 navigation property) MUST have the same value as the *principal
 property* (the referenced property declared on the entity type that is
 the target of the navigation).
+Elsewhere this specification calls the dependent property and the principal property
+_tied to_ each other.
 
 The type of the dependent property MUST match the type of the principal
 property, or both types MUST be complex types.
