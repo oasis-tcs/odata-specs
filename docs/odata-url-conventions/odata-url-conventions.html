@@ -1029,7 +1029,7 @@ $filter=[FirstName,LastName]%20in%20[[&quot;John&quot;,&quot;Doe&quot;],[&quot;J
 <div class="example">
 <p>Example 51: In a search for people above a certain age</p>
 <pre><code>http://host/service/People?$filter=Age gt &#39;50&#39;</code></pre>
-<p>the expression would always evaluate to <code>null</code> because the age 50 is erroneously given as a string and the <code>$filter</code> would return an empty result, although this is really the result of a typing error. That’s why a “type mismatch” error SHOULD instead be returned in such a case.</p>
+<p>the expression would always evaluate to <code>null</code> because the age 50 is erroneously given as a string and the <a href="#SystemQueryOptionfilter"><code>$filter</code></a> would return an empty result, although this is really the result of a typing error. That’s why a “type mismatch” error SHOULD instead be returned in such a case.</p>
 </div>
 <details open><summary>
 <h4 id="5111-logical-operators"><a name="LogicalOperators" href="#LogicalOperators">5.1.1.1 Logical Operators</a></h4>

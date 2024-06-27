@@ -89,7 +89,7 @@ Example ##ex: In a search for people above a certain age
 http://host/service/People?$filter=Age gt '50'
 ```
 the expression would always evaluate to `null` because the age 50 is erroneously
-given as a string and the `$filter` would return an empty result, although this is
+given as a string and the [`$filter`](#SystemQueryOptionfilter) would return an empty result, although this is
 really the result of a typing error. That's why a "type mismatch" error SHOULD
 instead be returned in such a case.
 :::
