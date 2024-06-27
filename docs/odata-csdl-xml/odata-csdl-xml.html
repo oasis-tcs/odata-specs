@@ -399,36 +399,41 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/525">525</a></td>
 </tr>
 <tr class="even">
+<td><a href="#SRID">Section 3.4.5</a></td>
+<td>SRID value <code>variable</code> is deprecated</td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/1935">1935</a></td>
+</tr>
+<tr class="odd">
 <td><a href="#CSDLXMLDocument">Section 4</a></td>
 <td>Additional <code>Version</code> value <code>4.02</code></td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#EntityContainer">Section 13</a></td>
 <td>All children of <code>edm:EntityContainer</code> are optional</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/464">464</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#GeoValues">Section 14.3.13</a></td>
 <td>Constant Geo values in annotations</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/654">654</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#StreamValues">Section 14.3.14</a></td>
 <td>Constant Stream values in annotations</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/654">654</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#PathEvaluation">Section 14.4.1.2</a></td>
 <td>New path evaluation rules for annotations targeting annotations and external targeting via container</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/575">575</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#IfThenElse">Section 14.4.7</a></td>
 <td>Nested <code>If</code> without else part in collections</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/326">326</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#Conformance">Section 17</a></td>
 <td>Additional conformance clauses for version 4.02</td>
 <td></td>
@@ -734,7 +739,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p><code>Edm.Decimal</code> with a <a href="#Scale"><code>Scale</code></a> value of <code>floating</code>, <code>Edm.Double</code>, and <code>Edm.Single</code> allow the special numeric values <code>-INF</code>, <code>INF</code>, and <code>NaN</code>.</p>
 <p><code>Edm.Stream</code> is a primitive type that can be used as a property of an <a href="#EntityType">entity type</a> or <a href="#ComplexType">complex type</a>, the underlying type for a <a href="#TypeDefinition">type definition</a>, or a binding or non-binding parameter or return type of an <a href="#Action">action</a> or <a href="#Function">function</a>. <code>Edm.Stream</code>, or a type definition whose underlying type is <code>Edm.Stream</code>, cannot be used in collections.</p>
 <p>Some of these types allow facets, defined in section “<a href="#TypeFacets">Type Facets</a>”.</p>
-<p>See rule <code>primitiveLiteral</code> in <a href="#ODataABNF">OData-ABNF</a> for the representation of primitive type values in URLs and <a href="#ODataJSON">OData-JSON</a> for the representation in requests and responses.</p>
+<p>Representation of primitive type values within a URL is defined by the rule <code>primitiveLiteral</code> in <a href="#ODataABNF">OData-ABNF</a>. Representation within request and response bodies is format specific.</p>
 </details>
 <details open><summary>
 <h2 id="34-type-facets"><a name="TypeFacets" href="#TypeFacets">3.4 Type Facets</a></h2>
@@ -823,7 +828,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h3 id="345-srid"><a name="SRID" href="#SRID">3.4.5 SRID</a></h3>
 </summary>
 <p>For a geometry- or geography-typed model element the <code>SRID</code> facet identifies which spatial reference system is applied to its values.</p>
-<p>The value of the <code>SRID</code> facet MUST be a non-negative integer or the special value <code>variable</code>. If no value is specified, the facet defaults to <code>0</code> for <code>Geometry</code> types or <code>4326</code> for <code>Geography</code> types.</p>
+<p>The value of the <code>SRID</code> facet MUST be a non-negative integer or the special value <code>variable</code>. If no value is specified, the facet defaults to <code>0</code> for <code>Geometry</code> types or <code>4326</code> for <code>Geography</code> types. Services SHOULD NOT use the special value <code>variable</code> as some formats, for example <a href="#ODataJSON">OData-JSON</a>, do not define a representation for instance-specific spatial reference systems.</p>
 <p>The valid values of the <code>SRID</code> facet and their meanings are as defined by the European Petroleum Survey Group <a href="#_EPSG">EPSG</a>.</p>
 <section id="attribute-srid" class="varxml rep">
 <h3><a name="AttributeSRID.1.5" href="#AttributeSRID.1.5">Attribute <code>SRID</code></a></h3>
@@ -1934,7 +1939,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </summary>
 <p>An entity container MAY specify that it extends another entity container in scope. All children of the “base” entity container are added to the “extending” entity container.</p>
 <p>If the “extending” entity container defines an entity set with the same name as defined in any of its “base” containers, then the entity set’s type MUST specify an entity type derived from the entity type specified for the identically named entity set in the “base” container. The same holds for singletons. Action imports and function imports cannot be redefined, nor can the “extending” container define a child with the same name as a child of a different kind in a “base” container.</p>
-<p>Note: services should not introduce cycles by extending entity containers. Clients should be prepared to process cycles introduced by extending entity containers.</p>
+<p>Note: services SHOULD NOT introduce cycles by extending entity containers. Clients should be prepared to process cycles introduced by extending entity containers.</p>
 <section id="attribute-extends" class="varxml rep">
 <h3><a name="AttributeExtends.24.2" href="#AttributeExtends.24.2">Attribute <code>Extends</code></a></h3>
 <p>The value of <code>Extends</code> is the qualified name of the entity container to be extended.</p>
