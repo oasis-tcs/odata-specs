@@ -1070,6 +1070,20 @@ The value MUST be
 * a JSON number for `$top` and `$skip`, and
 * a JSON string without percent-encoding for all other query options.
 
+::: example
+Example ##ex: The same request as in [example ##postquery] can be sent with
+`application/json` encoding using the following payload:
+```json
+POST http://host/service/People/$query
+Content-Type: application/json
+
+{
+  "$filter": "LastName eq 'P&G'",
+  "$select": "FirstName,LastName"
+}
+```
+:::
+
 Members of the JSON object also include parameters
 if the resource path is a function invocation or function import. In this case
 parameters MUST be represented like parameters in an action invocation [OData-JSON, section 18](#ODataJSON),
