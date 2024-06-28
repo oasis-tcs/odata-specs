@@ -62,9 +62,9 @@ This specification is related to:
 OData services are described by an Entity Model (EDM). The Common Schema Definition Language (CSDL) defines specific representations of the entity data model exposed by an OData service, using XML, JSON, and other formats. This document (OData CSDL JSON Representation) specifically defines the JSON representation of CSDL.
 
 #### Status:
-This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the "Latest stage" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical.
+This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the "Latest stage" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at https://groups.oasis-open.org/communities/tc-community-home2?CommunityKey=e7cac2a9-2d18-4640-b94d-018dc7d3f0e2#technical.
 
-TC members should send comments on this specification to the TC's email list. Others should send comments to the TC's public comment list, after subscribing to it by following the instructions at the "<a href="https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=odata">Send A Comment</a>" button on the TC's web page at https://www.oasis-open.org/committees/odata/.
+TC members should send comments on this specification to the TC's email list. Any individual may submit comments to the TC by sending email to Technical-Committee-Comments@oasis-open.org. Please use a Subject line like "Comment on OData CSDL".
 
 This specification is provided under the [RF on RAND Terms Mode](https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode) of the [OASIS IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/), the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC's web page (https://www.oasis-open.org/committees/odata/ipr.php).
 
@@ -265,6 +265,7 @@ modifications made necessary to fully cover OData CSDL Version 4.01.
 Section | Feature / Change | Issue
 --------|------------------|------
 [Section 3.3](#PrimitiveTypes)| Allow stream-valued non-binding parameters| [525](https://github.com/oasis-tcs/odata-specs/issues/525)
+[Section 3.4.5](#SRID)| SRID value `variable` is deprecated| [1935](https://github.com/oasis-tcs/odata-specs/issues/1935)
 [Section 4](#CSDLJSONDocument) | Additional `$Version` value `4.02` |
 [Section 14.3.13](#GeoValues) | Constant Geo values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
 [Section 14.3.14](#StreamValues) | Constant Stream values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
@@ -640,10 +641,8 @@ underlying type is `Edm.Stream`, cannot be used in collections.
 Some of these types allow facets, defined in section
 "[Type Facets](#TypeFacets)".
 
-See rule `primitiveLiteral` in [OData-ABNF](#ODataABNF) for the
-representation of primitive type values in URLs and
-[OData-JSON](#ODataJSON) for the representation in requests and
-responses.
+Representation of primitive type values within a URL is defined by the rule `primitiveLiteral` in [OData-ABNF](#ODataABNF).
+Representation within request and response bodies is format specific.
 
 ## <a name="TypeFacets" href="#TypeFacets">3.4 Type Facets</a>
 
@@ -846,6 +845,7 @@ spatial reference system is applied to its values.
 The value of the `SRID` facet MUST be a non-negative integer or the
 special value `variable`. If no value is specified, the facet defaults
 to `0` for `Geometry` types or `4326` for `Geography` types.
+Services SHOULD NOT use the special value `variable` as some formats, for example [OData-JSON](#ODataJSON), do not define a representation for instance-specific spatial reference systems.
 
 The valid values of the `SRID` facet and their meanings are as defined
 by the European Petroleum Survey Group [EPSG](#_EPSG).
@@ -3162,7 +3162,7 @@ holds for singletons. Action imports and function imports cannot be
 redefined, nor can the "extending" container define a child with the
 same name as a child of a different kind in a "base" container.
 
-Note: services should not introduce cycles by extending entity
+Note: services SHOULD NOT introduce cycles by extending entity
 containers. Clients should be prepared to process cycles introduced by
 extending entity containers.
 
@@ -4179,7 +4179,7 @@ Values are represented as GeoJSON, see [OData-JSON](#ODataJSON).
 ::: {.varjson .example}
 Example 58:
 ```json
-"Location": {"type": "Point", "coordinates": [142.1,64.1]}
+"Location": { "type": "Point", "coordinates": [142.1,64.1] }
 ```
 :::
 
@@ -4199,7 +4199,7 @@ and the media type of the stream as its value.
 ::: {.varjson .example}
 Example 59:
 ```json
-"JsonStream": {"foo":true,"bar":42},
+"JsonStream": { "foo":true,"bar":42 },
 "JsonStream@Core.MediaType": "application/json",
 
 "TextStream": "Hello World!",
