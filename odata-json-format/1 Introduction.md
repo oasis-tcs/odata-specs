@@ -27,6 +27,9 @@ Fragment portion of Context URL is not percent-encoded|
 [Section ##ControlInformationmediaodatamedia]| 
 `mediaContentType` can be `null`| 
 [536](https://github.com/oasis-tcs/odata-specs/issues/536)
+[Section ##StructuralProperty], [Section ##InformativeReferences]| 
+Removed reference to obsolete version of GeoJSON| 
+[456](https://github.com/oasis-tcs/odata-specs/issues/456)
 [Section ##ActionInvocation]| 
 Allow common expressions in action payloads| 
 [1943](https://github.com/oasis-tcs/odata-specs/issues/1943)

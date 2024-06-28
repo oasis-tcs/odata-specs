@@ -211,7 +211,7 @@ holds for singletons. Action imports and function imports cannot be
 redefined, nor can the "extending" container define a child with the
 same name as a child of a different kind in a "base" container.
 
-Note: services should not introduce cycles by extending entity
+Note: services SHOULD NOT introduce cycles by extending entity
 containers. Clients should be prepared to process cycles introduced by
 extending entity containers.
 
