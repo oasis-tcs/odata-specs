@@ -32,6 +32,9 @@ Section | Feature / Change | Issue
 [Section ##PrimitiveTypes]| 
 Allow stream-valued non-binding parameters| 
 [525](https://github.com/oasis-tcs/odata-specs/issues/525)
+[Section ##SRID]| 
+SRID value `variable` is deprecated| 
+[1935](https://github.com/oasis-tcs/odata-specs/issues/1935)
 : varjson
 [Section ##CSDLJSONDocument] | Additional `$Version` value `4.02` |
 :
@@ -525,10 +528,8 @@ underlying type is `Edm.Stream`, cannot be used in collections.
 Some of these types allow facets, defined in section
 "[Type Facets](#TypeFacets)".
 
-See rule `primitiveLiteral` in [OData-ABNF](#ODataABNF) for the
-representation of primitive type values in URLs and
-[OData-JSON](#ODataJSON) for the representation in requests and
-responses.
+Representation of primitive type values within a URL is defined by the rule `primitiveLiteral` in [OData-ABNF](#ODataABNF).
+Representation within request and response bodies is format specific.
 
 ## ##subsec Type Facets
 
@@ -812,6 +813,7 @@ spatial reference system is applied to its values.
 The value of the `SRID` facet MUST be a non-negative integer or the
 special value `variable`. If no value is specified, the facet defaults
 to `0` for `Geometry` types or `4326` for `Geography` types.
+Services SHOULD NOT use the special value `variable` as some formats, for example [OData-JSON](#ODataJSON), do not define a representation for instance-specific spatial reference systems.
 
 The valid values of the `SRID` facet and their meanings are as defined
 by the European Petroleum Survey Group [EPSG](#_EPSG).
