@@ -780,8 +780,8 @@ Request](#RequestingData) for the resource. Clients MUST specify the
 value returned in the `ETag` header, or star (`*`), in an
 [`If-Match`](#HeaderIfMatch) header of a subsequent [Data Modification
 Request](#DataModification) or [Action Request](#Actions) in order to
-apply [optimistic concurrency](#UseofETagsforAvoidingUpdateConflicts)
-control in updating, deleting, or invoking an action bound to the
+apply [optimistic concurrency control](#UseofETagsforAvoidingUpdateConflicts)
+in updating, deleting, or invoking an action bound to the
 resource.
 
 As OData allows multiple formats for representing the same structured
