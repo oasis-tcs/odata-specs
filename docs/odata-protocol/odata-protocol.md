@@ -1328,6 +1328,8 @@ The `continue-on-error` preference can also be used on a
 [set-based delete](#DeleteMembersofaCollection) to request that the service
 continue attempting to process changes after receiving an error.
 
+If the service encounters any errors processing the request and returns a successful response code, then it MUST include a [`Preference-Applied`](#HeaderPreferenceApplied) response header containing the `continue-on-error` preference with an explicit value of `true`.
+
 A service MAY specify support for the `continue-on-error` preference
 using an annotation with term
 [`Capabilities.BatchContinueOnErrorSupported`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#BatchContinueOnErrorSupported),
@@ -5018,8 +5020,7 @@ term, both defined in [OData-VocCap](#ODataVocCap).
 The response, if requested, is a delta payload, in the same structure
 and order as the request payload, representing the applied changes.
 
-If the [`continue-on-error`](#Preferencecontinueonerrorodatacontinueonerror) preference has been specified and any errors
-occur in processing the changes, then a delta response MUST be returned
+If the client requests `continue-on-error` behavior and the service encounters any errors while processing the request, then it MUST either fail the entire request without applying any changes or include a [`Preference-Applied`](#HeaderPreferenceApplied)  header in the response indicating that the [`continue-on-error`](#Preferencecontinueonerrorodatacontinueonerror) preference has been applied. In this case, the delta response payload MUST be returned
 regardless of the [`return`](#Preferencereturnrepresentationandreturnminimal)
 preference and MUST contain at least the failed changes. The service
 represents failed changes in the delta response as follows:
