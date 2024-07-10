@@ -508,31 +508,36 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </thead>
 <tbody>
 <tr class="odd">
+<td><a href="#Preferencecontinueonerrorodatacontinueonerror">Section 8.2.8.3</a></td>
+<td>Responses that include errors MUST include the Preference-Applied header <code>with continue-on-error</code> set to <code>true</code></td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/1965">1965</a></td>
+</tr>
+<tr class="even">
 <td><a href="#CollectionofEntities">Section 10.2</a></td>
 <td>Context URLs use parentheses-style keys without percent-encoding</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/368">368</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#DataModification">Section 11.4</a></td>
 <td>Response code <code>204 No Content</code> after successful data modification if requested response could not be constructed</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/443">443</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#UpsertanEntity">Section 11.4.4</a></td>
 <td>Upserts to single-valued non-containment navigation properties</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/455">455</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#UpdateaComplexProperty">Section 11.4.9.3</a></td>
 <td>Setting a complex property to a different type</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/534">534</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#Conformance">Section 12</a></td>
 <td>Allow <code>400 Bad Request</code> in addition to <code>501 Not Implemented</code> for unsupported functionality</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/391">391</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#InteroperableODataClients">Section 12.3</a></td>
 <td>Encoding of plus character in URLs</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/485">485</a></td>
@@ -937,6 +942,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </summary>
 <p>The <code>continue-on-error</code> preference on a <a href="#BatchRequests">batch request</a> is used to request whether, upon encountering a request within the batch that returns an error, the service return the error for that request and continue processing additional requests within the batch (if specified with an implicit or explicit value of <code>true</code>), or rather stop further processing (if specified with an explicit value of <code>false</code>). The syntax of the <code>continue-on-error</code> preference is defined in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>The <code>continue-on-error</code> preference can also be used on a <a href="#UpdateaCollectionofEntities">delta update</a>, <a href="#UpdateMembersofaCollection">set-based update</a>, or <a href="#DeleteMembersofaCollection">set-based delete</a> to request that the service continue attempting to process changes after receiving an error.</p>
+<p>If the service encounters any errors processing the request and returns a successful response code, then it MUST include a <a href="#HeaderPreferenceApplied"><code>Preference-Applied</code></a> response header containing the <code>continue-on-error</code> preference with an explicit value of <code>true</code>.</p>
 <p>A service MAY specify support for the <code>continue-on-error</code> preference using an annotation with term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#BatchContinueOnErrorSupported"><code>Capabilities.BatchContinueOnErrorSupported</code></a>, see <a href="#ODataVocCap">OData-VocCap</a>.</p>
 <p>The <code>continue-on-error</code> preference SHOULD NOT be applied to individual requests within a batch.</p>
 <p>Note: The <code>continue-on-error</code> preference was named <code>odata.continue-on-error</code> in OData version 4.0. Services that support the<code> continue-on-error</code> preference SHOULD also support <code>odata.continue-on-error</code> for OData 4.0 clients and clients SHOULD use <code>odata.continue-on-error</code> for compatibility with OData 4.0 services.</p>
@@ -2595,7 +2601,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Clients MAY associate an id with individual nested entities in the request by using the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a> term defined in <a href="#ODataVocCore">OData-VocCore</a>. Services that respond with <a href="#ResponseCode200OK"><code>200 OK</code></a> SHOULD annotate the entities in the response using the same <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a> value as specified in the request.</p>
 <p>Services SHOULD advertise support for updating a collection using a delta payload through the <code>DeltaUpdateSupported</code> property of the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#UpdateRestrictionsType"><code>Capabilities.UpdateRestrictions</code></a> term, and SHOULD advertise support for returning the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a> through the <code>ContentIDSupported</code> property of the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#DeepUpdateSupportType"><code>Capabilities.DeepUpdateSupport</code></a> term, both defined in <a href="#ODataVocCap">OData-VocCap</a>.</p>
 <p>The response, if requested, is a delta payload, in the same structure and order as the request payload, representing the applied changes.</p>
-<p>If the <a href="#Preferencecontinueonerrorodatacontinueonerror"><code>continue-on-error</code></a> preference has been specified and any errors occur in processing the changes, then a delta response MUST be returned regardless of the <a href="#Preferencereturnrepresentationandreturnminimal"><code>return</code></a> preference and MUST contain at least the failed changes. The service represents failed changes in the delta response as follows:</p>
+<p>If the client requests <code>continue-on-error</code> behavior and the service encounters any errors while processing the request, then it MUST either fail the entire request without applying any changes or include a <a href="#HeaderPreferenceApplied"><code>Preference-Applied</code></a> header in the response indicating that the <a href="#Preferencecontinueonerrorodatacontinueonerror"><code>continue-on-error</code></a> preference has been applied. In this case, the delta response payload MUST be returned regardless of the <a href="#Preferencereturnrepresentationandreturnminimal"><code>return</code></a> preference and MUST contain at least the failed changes. The service represents failed changes in the delta response as follows:</p>
 <ul>
 <li>Failed deletes in the request MUST be represented in the response as either entities or entity references, annotated with the term <code>Core.DataModificationException</code>, see <a href="#ODataVocCore">OData-VocCore</a>. If the deleted entity specified a reason of <code>deleted</code>, the value of <code>failedOperation</code> MUST be <code>delete</code>, otherwise <code>unlink</code>.</li>
 <li>Failed inserts within the request MUST be represented in the response as deleted entities annotated with the term <code>Core.DataModificationException</code> with a <code>failedOperation</code> value of <code>insert</code>.</li>

@@ -351,6 +351,7 @@ resource representations that are exchanged using OData.
 
 Section | Feature / Change | Issue
 --------|------------------|------
+[Section 8.2.8.3](#Preferencecontinueonerrorodatacontinueonerror) | Responses that include errors MUST include the Preference-Applied header `with continue-on-error` set to `true` | [1965](https://github.com/oasis-tcs/odata-specs/issues/1965)
 [Section 10.2](#CollectionofEntities)| Context URLs use parentheses-style keys without percent-encoding| [368](https://github.com/oasis-tcs/odata-specs/issues/368)
 [Section 11.4](#DataModification)| Response code `204 No Content` after successful data modification if requested response could not be constructed| [443](https://github.com/oasis-tcs/odata-specs/issues/443)
 [Section 11.4.4](#UpsertanEntity)| Upserts to single-valued non-containment navigation properties| [455](https://github.com/oasis-tcs/odata-specs/issues/455)
@@ -1327,6 +1328,8 @@ The `continue-on-error` preference can also be used on a
 [set-based update](#UpdateMembersofaCollection), or
 [set-based delete](#DeleteMembersofaCollection) to request that the service
 continue attempting to process changes after receiving an error.
+
+If the service encounters any errors processing the request and returns a successful response code, then it MUST include a [`Preference-Applied`](#HeaderPreferenceApplied) response header containing the `continue-on-error` preference with an explicit value of `true`.
 
 A service MAY specify support for the `continue-on-error` preference
 using an annotation with term
@@ -5018,8 +5021,7 @@ term, both defined in [OData-VocCap](#ODataVocCap).
 The response, if requested, is a delta payload, in the same structure
 and order as the request payload, representing the applied changes.
 
-If the [`continue-on-error`](#Preferencecontinueonerrorodatacontinueonerror) preference has been specified and any errors
-occur in processing the changes, then a delta response MUST be returned
+If the client requests `continue-on-error` behavior and the service encounters any errors while processing the request, then it MUST either fail the entire request without applying any changes or include a [`Preference-Applied`](#HeaderPreferenceApplied)  header in the response indicating that the [`continue-on-error`](#Preferencecontinueonerrorodatacontinueonerror) preference has been applied. In this case, the delta response payload MUST be returned
 regardless of the [`return`](#Preferencereturnrepresentationandreturnminimal)
 preference and MUST contain at least the failed changes. The service
 represents failed changes in the delta response as follows:
