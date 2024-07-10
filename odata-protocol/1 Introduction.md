@@ -26,6 +26,7 @@ resource representations that are exchanged using OData.
 
 Section | Feature / Change | Issue
 --------|------------------|------
+[Section ##Preferencecontinueonerrorodatacontinueonerror] | Responses that include errors MUST include the Preference-Applied header `with continue-on-error` set to `true` | [1965](https://github.com/oasis-tcs/odata-specs/issues/1965)
 [Section ##CollectionofEntities]| 
 Context URLs use parentheses-style keys without percent-encoding| 
 [368](https://github.com/oasis-tcs/odata-specs/issues/368)
