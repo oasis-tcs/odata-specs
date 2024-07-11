@@ -52,7 +52,7 @@ forward-slash separated property, navigation property, or type-cast
 segments
 
 ::: example
-Example ##ex: Target expressions
+Example ##ex: Target paths
 ```
 MySchema.MyEntityContainer/MyEntitySet
 ```
@@ -537,8 +537,8 @@ Conforming services MUST follow all rules of this specification document
 for the types, sets, functions, actions, containers and annotations they
 expose.
 
-In addition, conforming services MUST NOT return 4.01 CSDL constructs
-for requests made with `OData-MaxVersion:4.0`.
+In addition, conforming services MUST NOT return CSDL constructs defined in OData 4.01 or greater 
+for requests made with `OData-MaxVersion: 4.0`.
 
 Specifically, they
 1. MUST NOT include properties in derived types that overwrite a
@@ -551,7 +551,7 @@ to complex types and navigation properties
 6. MUST NOT include a non-abstract entity type with no inherited or
 defined [entity key](#Key)
 7. MUST NOT include the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#DefaultNamespace)
+[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace)
 annotation on [included schemas](#IncludedSchema)
 8. MUST NOT return the Unicode facet for terms, parameters, and return
 types
@@ -565,12 +565,18 @@ types
 11. SHOULD NOT include new/unknown values for the
 [`AppliesTo`](#Applicability) attribute
 :
-12. MAY include new CSDL annotations
+12. SHOULD NOT include constant [Geo](#GeoValues) or [Stream values](#StreamValues) in annotations
+13. MAY include new CSDL annotations
 
-In addition, OData 4.01 services:
-13. SHOULD NOT have identifiers within a uniqueness scope (e.g. a
+In addition, OData 4.01 or greater services:
+
+14. SHOULD NOT have identifiers within a uniqueness scope (e.g. a
 schema, a structural type, or an entity container) that differ only by
 case
+
+In addition, OData 4.01 services:
+
+15. SHOULD NOT include constant [Geo](#GeoValues) or [Stream values](#StreamValues) in annotations
 
 Conforming clients MUST be prepared to consume a model that uses any or
 all constructs defined in this specification, including custom

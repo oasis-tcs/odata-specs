@@ -24,8 +24,17 @@ ecosystem of reusable client components and libraries.
 
 ## ##subsec Changes from Earlier Versions
 
-<!-- TODO -->
-<!-- Describe significant changes from previous differently-numbered Versions, not changes between stages of the current Version -->
+Section | Feature / Change | Issue
+--------|------------------|------
+[Section ##PassingQueryOptionsintheRequestBody]| 
+`POST ~/$query` with `Content-Type: application/x-www-form-urlencoded`| 
+[320](https://github.com/oasis-tcs/odata-specs/issues/320)
+[Section ##matchespattern]| 
+New overload for function `matchespattern` with flags| 
+[441](https://github.com/oasis-tcs/odata-specs/issues/441)
+[Section ##SystemQueryOptionsearch]| 
+Allow alternative `$search` syntax| 
+[293](https://github.com/oasis-tcs/odata-specs/issues/293)
 
 ## ##subsec Glossary
 
@@ -57,8 +66,8 @@ All examples in this document are non-normative and informative only.
 
 All other text is normative unless otherwise labeled.
 
-::: example
-Here is a customized command line which will generate HTML from this markdown file (named `$$$filename$$$.md`). Line breaks are added for readability only:
+<!--
+Here is a customized command line which will generate HTML from the markdown file (named `$$$filename$$$.md`). Line breaks are added for readability only:
 
 ```
 pandoc -f gfm+tex_math_dollars+fenced_divs+smart
@@ -74,8 +83,8 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        $$$filename$$$.md
 ```
 
-This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
-:::
+This uses pandoc $$$pandoc-version$$$ from https://github.com/jgm/pandoc/releases/tag/$$$pandoc-version$$$.
+-->
 
 -------
 

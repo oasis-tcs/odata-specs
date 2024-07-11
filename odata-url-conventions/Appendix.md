@@ -50,6 +50,10 @@ https://www.rfc-editor.org/info/rfc3986.
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_.
 https://www.rfc-editor.org/info/rfc8174.
 
+###### <a name="_url">[URL]</a>
+_URL Living Standard._  
+https://url.spec.whatwg.org/.
+
 ###### <a name="XML-Schema2">[XML-Schema-2]</a>
 _W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes_. D. Peterson, S. Gao, C. M. Sperberg-McQueen, H. S. Thompson, P. V. Biron, A. Malhotra, Editors, W3C Recommendation, 5 April 2012.  
 http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/. Latest version available at http://www.w3.org/TR/xmlschema11-2/.
@@ -60,11 +64,17 @@ http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/. Latest version available 
 _ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262.
 https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
 
+###### <a name="_WKT">[Well-Known Text]</a>
+_OpenGIS Implementation Specification for Geographic information – Simple feature access – Part 1: Common architecture_, May 2011. Open Geospatial Consortium.
+https://www.ogc.org/standard/sfa/.
+
+<!-- TODO:
 -------
 
-# Appendix ##asec Safety, Security and Privacy Considerations
+# Appendix Safety, Security and Privacy Considerations
 
-<!-- TODO: do we have considerations specific to URLs, for example length, encoding, privacy (use $batch if in doubt), ...? -->
+do we have considerations specific to URLs, for example length, encoding, privacy (use $batch if in doubt), ...?
+-->
 
 -------
 
@@ -92,7 +102,9 @@ https://www.ecma-international.org/publications-and-standards/standards/ecma-262
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
-| Working Draft 01 | 2023-07-20 | Heiko Theißen | Import material from OData Version 4.01 Part 2: URL Conventions |
+|Committee Specification Draft 01|2024-02-28|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| 
+Import material from OData Version 4.01 Part 2: URL Conventions 
+<br>Changes listed in [section ##ChangesfromEarlierVersions]|
 
 -------
 

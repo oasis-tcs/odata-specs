@@ -12,12 +12,14 @@
 $\hbox{}$
 
 #### This stage:
-https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/$$$filename$$$.md (Authoritative) \
-https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/$$$filename$$$.html \
-https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/$$$filename$$$.pdf
+https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/$$$partname$$$/$$$filename$$$.md (Authoritative) \
+https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/$$$partname$$$/$$$filename$$$.html \
+https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/$$$partname$$$/$$$filename$$$.pdf
 
 #### Previous stage:
-N/A
+https://docs.oasis-open.org/odata/odata/v4.02/$$$previousStage$$$/$$$partname$$$/odata-v4.02-$$$previousStage$$$-part2-url-conventions.md (Authoritative) \
+https://docs.oasis-open.org/odata/odata/v4.02/$$$previousStage$$$/$$$partname$$$/odata-v4.02-$$$previousStage$$$-part2-url-conventions.html \
+https://docs.oasis-open.org/odata/odata/v4.02/$$$previousStage$$$/$$$partname$$$/odata-v4.02-$$$previousStage$$$-part2-url-conventions.pdf
 
 #### Latest stage:
 https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.md (Authoritative) \
@@ -40,8 +42,9 @@ Heiko Theißen (heiko.theissen@sap.com), [SAP SE](http://www.sap.com/)
 
 #### Additional artifacts:
 This prose specification is one component of a Work Product that also includes:
-* _OData Version 4.02 Part 1: Protocol_. https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/odata-v4.02-csd01-part1-protocol.html
-* _OData Version 4.02 Part 2: URL Conventions_ (this document). https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/$$$filename$$$.html
+* _OData Version 4.02 Part 1: Protocol_. https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/part1-protocol/odata-v4.02-$$$stage$$$-part1-protocol.html
+* _OData Version 4.02 Part 2: URL Conventions_ (this document). https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/$$$partname$$$/$$$filename$$$.html
+* ABNF components: _OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases Version 4.02_. https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/abnf/.
 
 #### <a name="RelatedWork">Related work:</a>
 This specification replaces or supersedes:
@@ -60,9 +63,9 @@ This specification is related to:
 $$$description$$$
 
 #### Status:
-This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the "Latest stage" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical.
+This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the "Latest stage" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at https://groups.oasis-open.org/communities/tc-community-home2?CommunityKey=e7cac2a9-2d18-4640-b94d-018dc7d3f0e2#technical.
 
-TC members should send comments on this specification to the TC's email list. Others should send comments to the TC's public comment list, after subscribing to it by following the instructions at the "<a href="https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=odata">Send A Comment</a>" button on the TC's web page at https://www.oasis-open.org/committees/odata/.
+TC members should send comments on this specification to the TC's email list. Any individual may submit comments to the TC by sending email to Technical-Committee-Comments@oasis-open.org. Please use a Subject line like "Comment on OData URL Conventions".
 
 This specification is provided under the [RF on RAND Terms Mode](https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode) of the [OASIS IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/), the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC's web page (https://www.oasis-open.org/committees/odata/ipr.php).
 
@@ -77,7 +80,7 @@ When referencing this specification the following citation format should be used
 **[OData-v4.02-Part2]**
 
 _$$$pagetitle$$$_.
-Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. $$$pubdate$$$. OASIS Committee Specification Draft 01.
+Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. $$$pubdate$$$. OASIS $$$subtitle$$$.
 https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/$$$filename$$$.html.
 Latest stage: https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html.
 

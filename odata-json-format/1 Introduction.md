@@ -21,9 +21,15 @@ An OData JSON payload may represent:
 
 Section | Feature / Change | Issue
 --------|------------------|------
+[Section ##ControlInformationcontextodatacontext]| 
+Fragment portion of Context URL is not percent-encoded| 
+[368](https://github.com/oasis-tcs/odata-specs/issues/368)
 [Section ##ControlInformationmediaodatamedia]| 
  `mediaContentType` can be `null`| 
-[ODATA-1470](https://issues.oasis-open.org/browse/ODATA-1470)
+[536](https://github.com/oasis-tcs/odata-specs/issues/536)
+[Section ##StructuralProperty], [Section ##InformativeReferences]| 
+Removed reference to obsolete version of GeoJSON| 
+[456](https://github.com/oasis-tcs/odata-specs/issues/456)
 
 ## ##subsec Glossary
 
@@ -50,8 +56,8 @@ All examples in this document are non-normative and informative only.
 
 All other text is normative unless otherwise labeled.
 
-::: example
-Here is a customized command line which will generate HTML from this markdown file (named `$$$filename$$$.md`). Line breaks are added for readability only:
+<!--
+Here is a customized command line which will generate HTML from the markdown file (named `$$$filename$$$.md`). Line breaks are added for readability only:
 
 ```
 pandoc -f gfm+tex_math_dollars+fenced_divs+smart
@@ -67,8 +73,8 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        $$$filename$$$.md
 ```
 
-This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
-:::
+This uses pandoc $$$pandoc-version$$$ from https://github.com/jgm/pandoc/releases/tag/$$$pandoc-version$$$.
+-->
 
 -------
 

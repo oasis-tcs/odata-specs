@@ -208,6 +208,7 @@ stop processing and MUST NOT signal an error.
 The `context` control information
 returns the context URL (see [OData-Protocol](#ODataProtocol)) for the
 payload. This URL can be absolute or [relative](#RelativeURLs).
+The fragment portion of the context URL MUST NOT be percent-encoded.
 
 The `context` control information is not returned if
 [`metadata=none`](#metadatanoneodatametadatanone) is requested. Otherwise it MUST be the
@@ -416,7 +417,7 @@ if it does not match convention for the localized key values. If the
 `id` is represented, it MAY be a [relative
 URL](#RelativeURLs).
 
-If the entity is transient (i.e. cannot be read or updated), the
+If the entity is transient (see [OData-Protocol](#ODataProtocol)), the
 `id` control information MUST appear in OData 4.0 payloads
 and have the `null` value. In 4.01 payloads transient
 entities need not have the `id` control information, and 4.01

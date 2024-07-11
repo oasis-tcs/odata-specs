@@ -29,20 +29,35 @@ Schema Definition Language (XSD) 1.1 as described in
 
 Section | Feature / Change | Issue
 --------|------------------|------
+[Section ##PrimitiveTypes]| 
+Allow stream-valued non-binding parameters| 
+[525](https://github.com/oasis-tcs/odata-specs/issues/525)
+[Section ##SRID]| 
+SRID value `variable` is deprecated| 
+[1935](https://github.com/oasis-tcs/odata-specs/issues/1935)
+: varjson
+[Section ##CSDLJSONDocument] | Additional `$Version` value `4.02` |
+:
+: varxml
+[Section ##CSDLXMLDocument] | Additional `Version` value `4.02` |
+:
 : varxml
 [Section ##EntityContainer]| 
 All children of `edm:EntityContainer` are optional| 
-[ODATA-1571](https://issues.oasis-open.org/browse/ODATA-1571)
+[464](https://github.com/oasis-tcs/odata-specs/issues/464)
 :
 [Section ##Target]| 
 External targeting of bound action/function overloads via container or structured type| 
-[ODATA-1626](https://issues.oasis-open.org/browse/ODATA-1626)
+[393](https://github.com/oasis-tcs/odata-specs/issues/393)
+[Section ##GeoValues] | Constant Geo values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
+[Section ##StreamValues] | Constant Stream values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
 [Section ##PathEvaluation]| 
 New path evaluation rules for annotations targeting annotations and external targeting via container| 
-[ODATA-1420](https://issues.oasis-open.org/browse/ODATA-1420)
-[Section ##PrimitiveTypes]| 
-Allow stream-valued non-binding parameters| 
-[ODATA-1481](https://issues.oasis-open.org/browse/ODATA-1481)
+[575](https://github.com/oasis-tcs/odata-specs/issues/575)
+[Section ##IfThenElse]| 
+Nested `If` without else part in collections| 
+[326](https://github.com/oasis-tcs/odata-specs/issues/326)
+[Section ##Conformance] | Additional conformance clauses for version 4.02 |
 
 ## ##subsec Glossary
 
@@ -77,8 +92,8 @@ Normative representation-specific text
 
 All other text is normative unless otherwise labeled.
 
-::: example
-Here is a customized command line which will generate HTML from this markdown file (named `$$$filename$$$.md`). Line breaks are added for readability only:
+<!--
+Here is a customized command line which will generate HTML from the markdown file (named `$$$filename$$$.md`). Line breaks are added for readability only:
 
 ```
 pandoc -f gfm+tex_math_dollars+fenced_divs+smart
@@ -94,8 +109,8 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        $$$filename$$$.md
 ```
 
-This uses pandoc 3.1.2 from https://github.com/jgm/pandoc/releases/tag/3.1.2.
-:::
+This uses pandoc $$$pandoc-version$$$ from https://github.com/jgm/pandoc/releases/tag/$$$pandoc-version$$$.
+-->
 
 <!-- These source files can be used to produce the JSON variant or the XML variant,
      by using either new Number("...", "json") or new Number("...", "xml").
@@ -178,7 +193,7 @@ The `metadata=minimal` format parameter indicates that the service
 SHOULD remove computable control information from the payload wherever
 possible.
 
-This means that the `@type` control information is only included if the
+This means that the `type` control information is only included if the
 type of the containing object or targeted property cannot be
 heuristically determined, e.g. for
 - Terms or term properties with an abstract declared type,
@@ -193,7 +208,7 @@ See [OData-JSON](#ODataJSON) for the exact rules.
 The `metadata=full` format parameter indicates that the service MUST
 include all control information explicitly in the payload.
 
-This means that the `@type` control information is included in
+This means that the `type` control information is included in
 annotation values except for primitive values whose type can be
 heuristically determined from the representation of the value, see
 [OData-JSON](#ODataJSON) for the exact rules.
@@ -516,10 +531,8 @@ underlying type is `Edm.Stream`, cannot be used in collections.
 Some of these types allow facets, defined in section
 "[Type Facets](#TypeFacets)".
 
-See rule `primitiveLiteral` in [OData-ABNF](#ODataABNF) for the
-representation of primitive type values in URLs and
-[OData-JSON](#ODataJSON) for the representation in requests and
-responses.
+Representation of primitive type values within a URL is defined by the rule `primitiveLiteral` in [OData-ABNF](#ODataABNF).
+Representation within request and response bodies is format specific.
 
 ## ##subsec Type Facets
 
@@ -566,7 +579,7 @@ the service.
 
 Note: the symbolic value `max` is only allowed in OData 4.0 responses;
 it is deprecated in OData 4.01. While clients MUST be prepared for this
-symbolic value, OData 4.01 and greater services MUST NOT return the
+symbolic value, OData 4.01 or greater services MUST NOT return the
 symbolic value `max` and MAY instead specify the concrete maximum length
 supported for the type by the service or omit the attribute entirely.
 :::
@@ -590,7 +603,7 @@ the risk for unintended data loss.
 
 Note: model elements with duration values and a granularity less than seconds
 (e.g. minutes, hours, days) can be annotated with the term
-[`Measures.DurationGranularity`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Measures.V1.md#DurationGranularity),
+[`Measures.DurationGranularity`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Measures.V1.md#DurationGranularity),
 see [OData-VocMeasures](#ODataVocMeasures).
 
 ::: {.varjson .rep}
@@ -803,6 +816,7 @@ spatial reference system is applied to its values.
 The value of the `SRID` facet MUST be a non-negative integer or the
 special value `variable`. If no value is specified, the facet defaults
 to `0` for `Geometry` types or `4326` for `Geography` types.
+Services SHOULD NOT use the special value `variable` as some formats, for example [OData-JSON](#ODataJSON), do not define a representation for instance-specific spatial reference systems.
 
 The valid values of the `SRID` facet and their meanings are as defined
 by the European Petroleum Survey Group [EPSG](#_EPSG).

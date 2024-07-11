@@ -105,13 +105,13 @@ leading back to the property's declaring type, the finiteness condition for
 in this chain MUST be nullable or collection-valued.
 
 A collection-valued property MAY be annotated with the
-[`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered)
+[`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered)
 term, defined in
 [OData-VocCore](#ODataVocCore), to specify that it supports a
 stable ordering.
 
 A collection-valued property MAY be annotated with the
-[`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
+[`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
 term, defined in [OData-VocCore](#ODataVocCore), to specify that it
 supports inserting items into a specific ordinal position.
 
@@ -207,8 +207,8 @@ situation even in OData 4.01 responses.
 ## ##subsec Default Value
 
 A primitive- or enumeration-typed property MAY define a default value that is
-used if the property is not explicitly represented in an annotation or
-the body of a request or response.
+used if the property is not explicitly represented in an annotation,
+the body of a request or response, or a complex literal in a request URL.
 
 If no value is specified, the client SHOULD NOT assume a default value.
 
@@ -375,12 +375,12 @@ For a collection-valued containment navigation property the specified
 entity type MUST have a [key](#Key) defined.
 
 A collection-valued navigation property MAY be annotated with the
-[`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered)
+[`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered)
 term, defined in [OData-VocCore](#ODataVocCore), to specify that it
 supports a stable ordering.
 
 A collection-valued navigation property MAY be annotated with the
-[`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
+[`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
 term, defined in [OData-VocCore](#ODataVocCore), to specify that it
 supports inserting items into a specific ordinal position.
 
@@ -501,7 +501,7 @@ MUST have a [key](#Key) defined.
 
 For items of an ordered collection of complex types (those annotated
 with the
-[`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Core.V1.md#Ordered)
+[`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered)
 term defined in [OData-VocCore](#ODataVocCore) the canonical URL
 of the item is the canonical URL of the collection appended with a
 segment containing the zero-based ordinal of the item. Items within in

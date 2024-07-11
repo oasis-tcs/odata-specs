@@ -106,7 +106,7 @@ GET /api-1/Employees('E314')
 results in
 ```json
 {
-  "@odata.context": "$metadata#Employees/$entity",
+  "@context": "$metadata#Employees/$entity",
   "ID": "E314",
   "Name": "McDevitt",
   "Jobtitle": "Senior"
@@ -122,7 +122,7 @@ GET /api-1/Employees('E314')?$at=2012-01-01
 results in
 ```json
 {
-  "@odata.context": "$metadata#Employees/$entity",
+  "@context": "$metadata#Employees/$entity",
   "ID": "E314",
   "Name": "McDevitt",
   "Jobtitle": "Junior"
@@ -141,7 +141,7 @@ specified point in time --- note that E401 back then does not satisfy
 this condition
 ```json
 {
-  "@odata.context": "$metadata#Employees",
+  "@context": "$metadata#Employees",
   "value": [
     {
       "ID": "E314",
@@ -169,7 +169,7 @@ GET /api-1/Employees('E314')?$at=2012-01-01&$expand=Department($at=2021-11-23)
 results in
 ```json
 {
-  "@odata.context": "$metadata#Employees/$entity",
+  "@context": "$metadata#Employees/$entity",
   "ID": "E314",
   "Name": "McDevitt",
   "Jobtitle": "Junior",
@@ -190,7 +190,7 @@ GET /api-1/Departments('D15')?$at=2015-01-01&$expand=Employees
 results in
 ```json
 {
-  "@odata.context": "$metadata#Departments/$entity",
+  "@context": "$metadata#Departments/$entity",
   "ID": "D15",
   "Name": "Services",
   "Employees": [
@@ -279,7 +279,7 @@ results in one entity for each employee with time slices that overlap
 the specified application-time period:
 ```json
 {
-  "@odata.context": "$metadata#Employees",
+  "@context": "$metadata#Employees",
   "value": [
     {
       "ID": "E314",
@@ -342,7 +342,7 @@ has the following result with department names and budgets as of the
 beginning of each employee time slice:
 ```json
 {
-  "@odata.context": "$metadata#Employees",
+  "@context": "$metadata#Employees",
   "value": [
     {
       "ID": "E314",
@@ -459,7 +459,7 @@ the specified application-time period and satisfy the filter condition
 (one less than in [example ##employeeHistory]):
 ```json
 {
-  "@odata.context": "$metadata#Employees",
+  "@context": "$metadata#Employees",
   "value": [
     {
       "ID": "E314",
@@ -512,7 +512,7 @@ results in one employee whose name matches in the past, and the matching
 time slice is not in the requested time period
 ```json
 {
-  "@odata.context": "$metadata#Employees",
+  "@context": "$metadata#Employees",
   "value": [
     {
       "ID": "E401",
@@ -536,7 +536,7 @@ Change tracking for timeline entity sets works identical to non-temporal
 entity sets. If the entity set supports change-tracking combined with
 filtering on application-time period boundaries, the corresponding
 declared properties SHOULD be listed as
-[`FilterableProperties`](https://github.com/oasis-tcs/odata-vocabularies/blob/master/vocabularies/Org.OData.Capabilities.V1.md#ChangeTrackingType),
+[`FilterableProperties`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#ChangeTrackingType),
 see [OData-VocCap](#ODataVocCap).
 Clients can then use these properties in `$filter` or use the
 convenience shortcuts [`$at`](#QueryOptionat)
