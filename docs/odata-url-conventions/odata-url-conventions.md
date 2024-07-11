@@ -1560,10 +1560,10 @@ grammar of common expressions.
 
 The following subsections specify situations in which expressions evaluate to `null`
 if operands or parameters do not have the types expected by an operator or function.
-Notwithstanding these rules, if such a type discrepancy can be inferred for an expression
+Notwithstanding these rules, if a service can infer such a type discrepancy for an expression
 that appears in a request independently of the underlying data,
-services SHOULD reject the request with an error message
-explaining the discrepancy. The inferral could be based on, for example, the
+it MUST reject the request with an error message
+explaining the discrepancy. The inferral can be based on, for example, the
 declared type of a property or the type of a literal value that occurs in the
 expression.
 
@@ -1574,7 +1574,7 @@ http://host/service/People?$filter=Age gt '50'
 ```
 the expression would always evaluate to `null` because the age 50 is erroneously
 given as a string and the [`$filter`](#SystemQueryOptionfilter) would return an empty result, although this is
-really the result of a typing error. That's why a "type mismatch" error SHOULD
+really the result of a typing error. That's why a "type mismatch" error must
 instead be returned in such a case.
 :::
 
