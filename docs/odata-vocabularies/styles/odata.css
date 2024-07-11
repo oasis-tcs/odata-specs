@@ -215,17 +215,17 @@ hr:first-of-type {
 }
 
 @media screen {
-  details:not([open]) summary {
+  details:not([open]) > summary {
     list-style: disclosure-closed;
   }
 
-  details[open] summary {
+  details[open] > summary {
     list-style: disclosure-open;
   }
 }
 
 @media print {
-  details summary {
+  details > summary {
     list-style: none;
   }
 }

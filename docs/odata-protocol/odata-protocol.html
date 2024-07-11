@@ -146,8 +146,8 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <h4 id="abstract">Abstract:</h4>
 <p>The Open Data Protocol (OData) enables the creation of REST-based data services, which allow resources, identified using Uniform Resource Locators (URLs) and defined in an Entity Data Model (EDM), to be published and edited by Web clients using simple HTTP messages. This document defines the core semantics and facilities of the protocol.</p>
 <h4 id="status">Status:</h4>
-<p>This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the “Latest stage” location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at <a href="https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical">https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical</a>.</p>
-<p>TC members should send comments on this specification to the TC’s email list. Others should send comments to the TC’s public comment list, after subscribing to it by following the instructions at the “<a href="https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=odata">Send A Comment</a>” button on the TC’s web page at <a href="https://www.oasis-open.org/committees/odata/">https://www.oasis-open.org/committees/odata/</a>.</p>
+<p>This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the “Latest stage” location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at <a href="https://groups.oasis-open.org/communities/tc-community-home2?CommunityKey=e7cac2a9-2d18-4640-b94d-018dc7d3f0e2#technical">https://groups.oasis-open.org/communities/tc-community-home2?CommunityKey=e7cac2a9-2d18-4640-b94d-018dc7d3f0e2#technical</a>.</p>
+<p>TC members should send comments on this specification to the TC’s email list. Any individual may submit comments to the TC by sending email to <a href="mailto:Technical-Committee-Comments@oasis-open.org">Technical-Committee-Comments@oasis-open.org</a>. Please use a Subject line like “Comment on OData Protocol”.</p>
 <p>This specification is provided under the <a href="https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode">RF on RAND Terms Mode</a> of the <a href="https://www.oasis-open.org/policies-guidelines/ipr/">OASIS IPR Policy</a>, the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC’s web page (<a href="https://www.oasis-open.org/committees/odata/ipr.php">https://www.oasis-open.org/committees/odata/ipr.php</a>).</p>
 <p>Note that any machine-readable content (<a href="https://www.oasis-open.org/policies-guidelines/tc-process-2017-05-26/#wpComponentsCompLang">Computer Language Definitions</a>) declared Normative for this Work Product is provided in separate plain text files. In the event of a discrepancy between any such plain text file and display content in the Work Product’s prose narrative document(s), the content in the separate plain text file prevails.</p>
 <h4 id="key-words">Key words:</h4>
@@ -161,9 +161,9 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>Distributed under the terms of the OASIS <a href="https://www.oasis-open.org/policies-guidelines/ipr/">IPR Policy</a>.</p>
 <p>The name “OASIS” is a trademark of <a href="https://www.oasis-open.org/">OASIS</a>, the owner and developer of this specification, and should be used only to refer to the organization and its official outputs.</p>
 <p>For complete copyright information please see the full Notices section in an Appendix below.</p>
+</details>
+</details>
 <hr />
-</details>
-</details>
 <details open><summary>
 <h1 id="table-of-contents">Table of Contents</h1>
 </summary>
@@ -485,8 +485,8 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><a href="#Notices">E Notices</a></li>
 </ul>
 </div>
-<hr />
 </details>
+<hr />
 <details open><summary>
 <h1 id="1-introduction"><a name="Introduction" href="#Introduction">1 Introduction</a></h1>
 </summary>
@@ -508,31 +508,36 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </thead>
 <tbody>
 <tr class="odd">
+<td><a href="#Preferencecontinueonerrorodatacontinueonerror">Section 8.2.8.3</a></td>
+<td>Responses that include errors MUST include the Preference-Applied header <code>with continue-on-error</code> set to <code>true</code></td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/1965">1965</a></td>
+</tr>
+<tr class="even">
 <td><a href="#CollectionofEntities">Section 10.2</a></td>
 <td>Context URLs use parentheses-style keys without percent-encoding</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/368">368</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#DataModification">Section 11.4</a></td>
 <td>Response code <code>204 No Content</code> after successful data modification if requested response could not be constructed</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/443">443</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#UpsertanEntity">Section 11.4.4</a></td>
 <td>Upserts to single-valued non-containment navigation properties</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/455">455</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#UpdateaComplexProperty">Section 11.4.9.3</a></td>
 <td>Setting a complex property to a different type</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/534">534</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#Conformance">Section 12</a></td>
 <td>Allow <code>400 Bad Request</code> in addition to <code>501 Not Implemented</code> for unsupported functionality</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/391">391</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#InteroperableODataClients">Section 12.3</a></td>
 <td>Encoding of plus character in URLs</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/485">485</a></td>
@@ -584,10 +589,10 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
 This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 -->
 
+</details>
+</details>
+</details>
 <hr />
-</details>
-</details>
-</details>
 <details open><summary>
 <h1 id="2-overview"><a name="Overview" href="#Overview">2 Overview</a></h1>
 </summary>
@@ -609,8 +614,8 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <li>OData should build incrementally. A very basic, compliant service should be easy to build, with additional work necessary only to support additional capabilities.</li>
 <li>Keep it simple. Address the common cases and provide extensibility where necessary.</li>
 </ul>
-<hr />
 </details>
+<hr />
 <details open><summary>
 <h1 id="3-data-model"><a name="DataModel" href="#DataModel">3 Data Model</a></h1>
 </summary>
@@ -637,9 +642,9 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>Applied <em>annotations</em> consist of a <em>term</em> (the namespace-qualified name of the annotation being applied), a <em>target</em> (the model or instance element to which the term is applied), and a <em>value</em>. The value may be a static value, or an expression that may contain a path to one or more properties of an annotated entity.</p>
 <p>Annotation terms are defined in metadata and have a name and a type.</p>
 <p>A set of related terms in a common namespace comprises a <em>Vocabulary</em>.</p>
+</details>
+</details>
 <hr />
-</details>
-</details>
 <details open><summary>
 <h1 id="4-service-model"><a name="ServiceModel" href="#ServiceModel">4 Service Model</a></h1>
 </summary>
@@ -679,9 +684,9 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>In the case where ambiguity does exist, an unqualified segment appended to a structured value is always first compared to the list of properties defined on the structured type. If no defined property with a name matching the unqualified segment exists, or the preceding segment represents a collection or a scalar value, it is next compared to the names of any bound functions or actions, or derived type names, defined within any default namespace. If it still does not match, and the preceding segment represents a structured value, it is interpreted as a dynamic property.</p>
 <p>Services MAY disallow dynamic properties on structured values whose names conflict with a bound action, function, or derived type defined within in a default namespace.</p>
 <p>The behavior if name conflicts occur across children of default namespaces is undefined. Generic clients are encouraged to always qualify action, function, and type names in order to avoid any possible ambiguity.</p>
+</details>
+</details>
 <hr />
-</details>
-</details>
 <details open><summary>
 <h1 id="5-versioning"><a name="Versioning" href="#Versioning">5 Versioning</a></h1>
 </summary>
@@ -715,9 +720,9 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </ul>
 <p>Clients SHOULD be prepared for services to make such incremental changes to their model. In particular, clients SHOULD be prepared to receive properties and derived types not previously defined by the service.</p>
 <p>Services SHOULD NOT change their data model depending on the authenticated user. If the data model is user or user-group dependent, all changes MUST be <em>safe changes</em> as defined in this section when comparing the full model to the model visible to users with restricted authorizations.</p>
+</details>
+</details>
 <hr />
-</details>
-</details>
 <details open><summary>
 <h1 id="6-extensibility"><a name="Extensibility" href="#Extensibility">6 Extensibility</a></h1>
 </summary>
@@ -763,9 +768,9 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <h2 id="66-format-extensibility"><a name="FormatExtensibility" href="#FormatExtensibility">6.6 Format Extensibility</a></h2>
 </summary>
 <p>An OData service MUST support <a href="#ODataJSON">OData-JSON</a> and MAY support additional formats for both request and response bodies.</p>
+</details>
+</details>
 <hr />
-</details>
-</details>
 <details open><summary>
 <h1 id="7-formats"><a name="Formats" href="#Formats">7 Formats</a></h1>
 </summary>
@@ -777,8 +782,8 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>The format specification <a href="#ODataJSON">OData-JSON</a> describes the media type and the format parameters for non-metadata requests and responses.</p>
 <p>For non-metadata requests, if neither the <code>Accept</code> header nor the <code>$format</code> query option are specified, the service MAY respond to requests in any format.</p>
 <p>Client libraries MUST retain the order of objects within an array in JSON responses, and elements in document order for XML responses, including CSDL documents.</p>
-<hr />
 </details>
+<hr />
 <details open><summary>
 <h1 id="8-header-fields"><a name="HeaderFields" href="#HeaderFields">8 Header Fields</a></h1>
 </summary>
@@ -937,6 +942,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </summary>
 <p>The <code>continue-on-error</code> preference on a <a href="#BatchRequests">batch request</a> is used to request whether, upon encountering a request within the batch that returns an error, the service return the error for that request and continue processing additional requests within the batch (if specified with an implicit or explicit value of <code>true</code>), or rather stop further processing (if specified with an explicit value of <code>false</code>). The syntax of the <code>continue-on-error</code> preference is defined in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>The <code>continue-on-error</code> preference can also be used on a <a href="#UpdateaCollectionofEntities">delta update</a>, <a href="#UpdateMembersofaCollection">set-based update</a>, or <a href="#DeleteMembersofaCollection">set-based delete</a> to request that the service continue attempting to process changes after receiving an error.</p>
+<p>If the service encounters any errors processing the request and returns a successful response code, then it MUST include a <a href="#HeaderPreferenceApplied"><code>Preference-Applied</code></a> response header containing the <code>continue-on-error</code> preference with an explicit value of <code>true</code>.</p>
 <p>A service MAY specify support for the <code>continue-on-error</code> preference using an annotation with term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#BatchContinueOnErrorSupported"><code>Capabilities.BatchContinueOnErrorSupported</code></a>, see <a href="#ODataVocCap">OData-VocCap</a>.</p>
 <p>The <code>continue-on-error</code> preference SHOULD NOT be applied to individual requests within a batch.</p>
 <p>Note: The <code>continue-on-error</code> preference was named <code>odata.continue-on-error</code> in OData version 4.0. Services that support the<code> continue-on-error</code> preference SHOULD also support <code>odata.continue-on-error</code> for OData 4.0 clients and clients SHOULD use <code>odata.continue-on-error</code> for compatibility with OData 4.0 services.</p>
@@ -1060,7 +1066,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <h3 id="832-header-etag"><a name="HeaderETag" href="#HeaderETag">8.3.2 Header <code>ETag</code></a></h3>
 </summary>
 <p>A response MAY include an <code>ETag</code> header, see <a href="#rfc9110">RFC9110</a>. Services MUST include this header if they require an ETag to be specified when modifying the resource.</p>
-<p>Services MUST support specifying the value returned in the <code>ETag</code> header in an <a href="#HeaderIfNoneMatch"><code>If-None-Match</code></a> header of a subsequent <a href="#RequestingData">Data Request</a> for the resource. Clients MUST specify the value returned in the <code>ETag</code> header, or star (<code>*</code>), in an <a href="#HeaderIfMatch"><code>If-Match</code></a> header of a subsequent <a href="#DataModification">Data Modification Request</a> or <a href="#Actions">Action Request</a> in order to apply <a href="#UseofETagsforAvoidingUpdateConflicts">optimistic concurrency</a> control in updating, deleting, or invoking an action bound to the resource.</p>
+<p>Services MUST support specifying the value returned in the <code>ETag</code> header in an <a href="#HeaderIfNoneMatch"><code>If-None-Match</code></a> header of a subsequent <a href="#RequestingData">Data Request</a> for the resource. Clients MUST specify the value returned in the <code>ETag</code> header, or star (<code>*</code>), in an <a href="#HeaderIfMatch"><code>If-Match</code></a> header of a subsequent <a href="#DataModification">Data Modification Request</a> or <a href="#Actions">Action Request</a> in order to apply <a href="#UseofETagsforAvoidingUpdateConflicts">optimistic concurrency control</a> in updating, deleting, or invoking an action bound to the resource.</p>
 <p>As OData allows multiple formats for representing the same structured information, services SHOULD use weak ETags that only depend on the representation-independent entity state. A strong ETag MUST change whenever the representation of an entity changes, so it has to depend on the <a href="#HeaderContentType"><code>Content-Type</code></a>, the <a href="#HeaderContentEncoding"><code>Content-Encoding</code></a>, and potentially other characteristics of the response.</p>
 <p>An <code>ETag</code> header MAY also be returned on a <a href="#MetadataDocumentRequest">metadata document request</a> or <a href="#ServiceDocumentRequest">service document request</a> to allow the client subsequently to make a conditional request for the metadata or service document. Clients can also compare the value of the <code>ETag</code> header returned from a metadata document request to the metadata ETag returned in a response in order to verify the version of the metadata used to generate that response.</p>
 <p>The <code>ETag</code> header SHOULD NOT be included for the overall batch response, but MAY be included in individual responses within a batch.</p>
@@ -1102,10 +1108,10 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>If a response varies depending on the <a href="#HeaderODataVersion"><code>OData-Version</code></a> of the response, the service MUST include a <code>Vary</code> header listing the <a href="#HeaderODataMaxVersion"><code>OData-MaxVersion</code></a> request header field to allow correct caching of the response.</p>
 <p>If a response varies depending on the applied preferences (<a href="#Preferenceallowentityreferencesodataallowentityreferences"><code>allow-entityreferences</code></a>, <a href="#Preferenceincludeannotationsodataincludeannotations"><code>include-annotations</code></a>, <a href="#Preferenceomitvalues"><code>omit-values</code></a>, <a href="#Preferencereturnrepresentationandreturnminimal"><code>return</code></a>), the service MUST include a <code>Vary</code> header listing the <a href="#HeaderPrefer"><code>Prefer</code></a> request header field to allow correct caching of the response.</p>
 <p>Alternatively, the server MAY include a <code>Vary</code> header with the special value <code>*</code> as defined by <a href="#rfc9110">RFC9110</a>, Section 8.2.1. Note that this will make it impossible for a proxy to cache the response, see <a href="#rfc7240">RFC7240</a>.</p>
+</details>
+</details>
+</details>
 <hr />
-</details>
-</details>
-</details>
 <details open><summary>
 <h1 id="9-common-response-status-codes"><a name="CommonResponseStatusCodes" href="#CommonResponseStatusCodes">9 Common Response Status Codes</a></h1>
 </summary>
@@ -1213,9 +1219,9 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </summary>
 <p>In the case that the service encounters an error after sending a success status to the client, the service MUST leave the response malformed according to its <a href="#HeaderContentType"><code>Content-Type</code></a> or abort the response by causing an error on transport protocol level. Clients MUST treat the entire response as being in error.</p>
 <p>Services MAY include the header <a href="#HeaderODataError"><code>OData-Error</code></a> as a trailing header if supported by the transport protocol (e.g. HTTP/1.1 with chunked transfer encoding, or HTTP/2).</p>
+</details>
+</details>
 <hr />
-</details>
-</details>
 <details open><summary>
 <h1 id="10-context-url"><a name="ContextURL" href="#ContextURL">10 Context URL</a></h1>
 </summary>
@@ -1524,9 +1530,9 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Context URL template:</p>
 <pre><code>{context-url}#Collection(Edm.ComplexType)</code></pre>
 <p>Responses to requests to the virtual collections <code>$crossjoin(…)</code> (see <a href="#ODataURL">OData-URL</a>) use the built-in abstract complex type. Single instances in these responses do not have a context URL.</p>
+</details>
+</details>
 <hr />
-</details>
-</details>
 <details open><summary>
 <h1 id="11-data-service-requests"><a name="DataServiceRequests" href="#DataServiceRequests">11 Data Service Requests</a></h1>
 </summary>
@@ -2273,8 +2279,8 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <span id="cb96-5"><a href="#cb96-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;LastName&quot;</span><span class="fu">:</span> <span class="st">&quot;Griswold&quot;</span><span class="fu">,</span></span>
 <span id="cb96-6"><a href="#cb96-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Manager&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Employees(0)&quot;</span> <span class="fu">},</span></span>
 <span id="cb96-7"><a href="#cb96-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;DirectReports&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb96-8"><a href="#cb96-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span><span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Employees(5)&quot;</span><span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb96-9"><a href="#cb96-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span><span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Employees(6)&quot;</span><span class="fu">}</span></span>
+<span id="cb96-8"><a href="#cb96-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Employees(5)&quot;</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb96-9"><a href="#cb96-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Employees(6)&quot;</span> <span class="fu">}</span></span>
 <span id="cb96-10"><a href="#cb96-10" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb96-11"><a href="#cb96-11" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
@@ -2406,7 +2412,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 </summary>
 <p>To delete an individual entity, the client makes a <code>DELETE</code> request to a URL that identifies the entity. Services MAY restrict deletes only to requests addressing the <a href="#ReadURLsandEditURLs">edit URL</a> of the entity.</p>
 <p>The request body SHOULD be empty. Top-level singleton entities can be deleted if they are nullable. Services supporting this MAY advertise it by annotating the singleton with the term <code>Capabilities.DeleteRestrictions</code> (nested property <code>Deletable</code> with value <code>true</code>) defined in <a href="#ODataVocCap">OData-VocCap</a>.</p>
-<p>On successful completion of the delete, the response MUST be <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> and contain an empty body.</p>
+<p>On successful completion of the delete, the response MUST either be <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> and contain an empty body, or <a href="#ResponseCode200OK"><code>200 OK</code></a> and contain a representation of a deleted entity according to the specified format.</p>
 <p>Services MUST implicitly remove relations to and from an entity when deleting it; clients need not delete the relations explicitly.</p>
 <p>Services MAY implicitly delete or modify related entities if required by <a href="#HandlingofIntegrityConstraints">integrity constraints</a>. If integrity constraints are declared in <code>$metadata</code> using a <code>ReferentialConstraint</code> element, services MUST modify affected related entities according to the declared integrity constraints, e.g. by deleting dependent entities, or setting dependent properties to <code>null</code> or their default value.</p>
 <p>One such integrity constraint results from using a navigation property in a key definition of an entity type. If the related “key” entity is deleted, the dependent entity is also deleted.</p>
@@ -2595,7 +2601,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Clients MAY associate an id with individual nested entities in the request by using the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a> term defined in <a href="#ODataVocCore">OData-VocCore</a>. Services that respond with <a href="#ResponseCode200OK"><code>200 OK</code></a> SHOULD annotate the entities in the response using the same <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a> value as specified in the request.</p>
 <p>Services SHOULD advertise support for updating a collection using a delta payload through the <code>DeltaUpdateSupported</code> property of the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#UpdateRestrictionsType"><code>Capabilities.UpdateRestrictions</code></a> term, and SHOULD advertise support for returning the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a> through the <code>ContentIDSupported</code> property of the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#DeepUpdateSupportType"><code>Capabilities.DeepUpdateSupport</code></a> term, both defined in <a href="#ODataVocCap">OData-VocCap</a>.</p>
 <p>The response, if requested, is a delta payload, in the same structure and order as the request payload, representing the applied changes.</p>
-<p>If the <a href="#Preferencecontinueonerrorodatacontinueonerror"><code>continue-on-error</code></a> preference has been specified and any errors occur in processing the changes, then a delta response MUST be returned regardless of the <a href="#Preferencereturnrepresentationandreturnminimal"><code>return</code></a> preference and MUST contain at least the failed changes. The service represents failed changes in the delta response as follows:</p>
+<p>If the client requests <code>continue-on-error</code> behavior and the service encounters any errors while processing the request, then it MUST either fail the entire request without applying any changes or include a <a href="#HeaderPreferenceApplied"><code>Preference-Applied</code></a> header in the response indicating that the <a href="#Preferencecontinueonerrorodatacontinueonerror"><code>continue-on-error</code></a> preference has been applied. In this case, the delta response payload MUST be returned regardless of the <a href="#Preferencereturnrepresentationandreturnminimal"><code>return</code></a> preference and MUST contain at least the failed changes. The service represents failed changes in the delta response as follows:</p>
 <ul>
 <li>Failed deletes in the request MUST be represented in the response as either entities or entity references, annotated with the term <code>Core.DataModificationException</code>, see <a href="#ODataVocCore">OData-VocCore</a>. If the deleted entity specified a reason of <code>deleted</code>, the value of <code>failedOperation</code> MUST be <code>delete</code>, otherwise <code>unlink</code>.</li>
 <li>Failed inserts within the request MUST be represented in the response as deleted entities annotated with the term <code>Core.DataModificationException</code> with a <code>failedOperation</code> value of <code>insert</code>.</li>
@@ -2940,7 +2946,7 @@ Content-Type: application/json
 <span id="cb123-2"><a href="#cb123-2" aria-hidden="true" tabindex="-1"></a><span class="er">Host:</span> <span class="er">myserver.mydomain.org:1234</span></span>
 <span id="cb123-3"><a href="#cb123-3" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb123-4"><a href="#cb123-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb123-5"><a href="#cb123-5" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span><span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Peter&quot;</span><span class="fu">}</span></span></code></pre></div>
+<span id="cb123-5"><a href="#cb123-5" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Peter&quot;</span> <span class="fu">}</span></span></code></pre></div>
 </div>
 <ul>
 <li>Resource path relative to the batch request URI.</li>
@@ -3305,11 +3311,11 @@ Content-Length: ###
 &lt;Error message&gt;
 --b_243234_25424_ef_892u748--</code></pre>
 </div>
+</details>
+</details>
+</details>
+</details>
 <hr />
-</details>
-</details>
-</details>
-</details>
 <details open><summary>
 <h1 id="12-conformance"><a name="Conformance" href="#Conformance">12 Conformance</a></h1>
 </summary>
@@ -3572,9 +3578,9 @@ Content-Length: ###
 <li>MUST be prepared to receive any valid 4.01 response according to the requested format</li>
 <li>SHOULD use capabilities (see <a href="#ODataVocCap">OData-VocCap</a>) to determine if a 4.01 feature is supported but MAY attempt syntax and be prepared to handle <code>400 Bad Request</code> or <a href="#ResponseCode501NotImplemented"><code>501 Not Implemented</code></a></li>
 </ol>
+</details>
+</details>
 <hr />
-</details>
-</details>
 <details open><summary>
 <h1 id="appendix-a-references"><a name="References" href="#References">Appendix A. References</a></h1>
 </summary>
@@ -3634,9 +3640,9 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <p><em>ECMAScript 2023 Language Specification, 14th Edition</em>, June 2023. Standard ECMA-262. <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">https://www.ecma-international.org/publications-and-standards/standards/ecma-262/</a>.</p>
 <h6 id="well-known-text"><a name="_WKT">[Well-Known Text]</a></h6>
 <p><em>OpenGIS Implementation Specification for Geographic information – Simple feature access – Part 1: Common architecture</em>, May 2011. Open Geospatial Consortium. <a href="https://www.ogc.org/standard/sfa/">https://www.ogc.org/standard/sfa/</a>.</p>
+</details>
+</details>
 <hr />
-</details>
-</details>
 <details open><summary>
 <h1 id="appendix-b-safety-security-and-privacy-considerations"><a name="SafetySecurityandPrivacyConsiderations" href="#SafetySecurityandPrivacyConsiderations">Appendix B. Safety, Security and Privacy Considerations</a></h1>
 </summary>
@@ -3646,9 +3652,9 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <h2 id="b1-authentication"><a name="Authentication" href="#Authentication">B.1 Authentication</a></h2>
 </summary>
 <p>OData Services requiring authentication SHOULD consider supporting basic authentication as defined in <a href="#rfc7617">RFC7617</a> over HTTPS for the highest level of interoperability with generic clients. They MAY support other authentication methods.</p>
+</details>
+</details>
 <hr />
-</details>
-</details>
 <details open><summary>
 <h1 id="appendix-c-acknowledgments"><a name="Acknowledgments" href="#Acknowledgments">Appendix C. Acknowledgments</a></h1>
 </summary>
@@ -3784,9 +3790,9 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 </tr>
 </tbody>
 </table>
+</details>
+</details>
 <hr />
-</details>
-</details>
 <details open><summary>
 <h1 id="appendix-d-revision-history"><a name="RevisionHistory" href="#RevisionHistory">Appendix D. Revision History</a></h1>
 </summary>
@@ -3808,8 +3814,8 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 </tr>
 </tbody>
 </table>
-<hr />
 </details>
+<hr />
 <details open><summary>
 <h1 id="appendix-e-notices"><a name="Notices" href="#Notices">Appendix E. Notices</a></h1>
 </summary>

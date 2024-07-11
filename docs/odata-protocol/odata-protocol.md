@@ -64,9 +64,9 @@ This specification is related to:
 The Open Data Protocol (OData) enables the creation of REST-based data services, which allow resources, identified using Uniform Resource Locators (URLs) and defined in an Entity Data Model (EDM), to be published and edited by Web clients using simple HTTP messages. This document defines the core semantics and facilities of the protocol.
 
 #### Status:
-This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the "Latest stage" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical.
+This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the "Latest stage" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at https://groups.oasis-open.org/communities/tc-community-home2?CommunityKey=e7cac2a9-2d18-4640-b94d-018dc7d3f0e2#technical.
 
-TC members should send comments on this specification to the TC's email list. Others should send comments to the TC's public comment list, after subscribing to it by following the instructions at the "<a href="https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=odata">Send A Comment</a>" button on the TC's web page at https://www.oasis-open.org/committees/odata/.
+TC members should send comments on this specification to the TC's email list. Any individual may submit comments to the TC by sending email to Technical-Committee-Comments@oasis-open.org. Please use a Subject line like "Comment on OData Protocol".
 
 This specification is provided under the [RF on RAND Terms Mode](https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode) of the [OASIS IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/), the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC's web page (https://www.oasis-open.org/committees/odata/ipr.php).
 
@@ -351,6 +351,7 @@ resource representations that are exchanged using OData.
 
 Section | Feature / Change | Issue
 --------|------------------|------
+[Section 8.2.8.3](#Preferencecontinueonerrorodatacontinueonerror) | Responses that include errors MUST include the Preference-Applied header `with continue-on-error` set to `true` | [1965](https://github.com/oasis-tcs/odata-specs/issues/1965)
 [Section 10.2](#CollectionofEntities)| Context URLs use parentheses-style keys without percent-encoding| [368](https://github.com/oasis-tcs/odata-specs/issues/368)
 [Section 11.4](#DataModification)| Response code `204 No Content` after successful data modification if requested response could not be constructed| [443](https://github.com/oasis-tcs/odata-specs/issues/443)
 [Section 11.4.4](#UpsertanEntity)| Upserts to single-valued non-containment navigation properties| [455](https://github.com/oasis-tcs/odata-specs/issues/455)
@@ -1328,6 +1329,8 @@ The `continue-on-error` preference can also be used on a
 [set-based delete](#DeleteMembersofaCollection) to request that the service
 continue attempting to process changes after receiving an error.
 
+If the service encounters any errors processing the request and returns a successful response code, then it MUST include a [`Preference-Applied`](#HeaderPreferenceApplied) response header containing the `continue-on-error` preference with an explicit value of `true`.
+
 A service MAY specify support for the `continue-on-error` preference
 using an annotation with term
 [`Capabilities.BatchContinueOnErrorSupported`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#BatchContinueOnErrorSupported),
@@ -1667,8 +1670,8 @@ Request](#RequestingData) for the resource. Clients MUST specify the
 value returned in the `ETag` header, or star (`*`), in an
 [`If-Match`](#HeaderIfMatch) header of a subsequent [Data Modification
 Request](#DataModification) or [Action Request](#Actions) in order to
-apply [optimistic concurrency](#UseofETagsforAvoidingUpdateConflicts)
-control in updating, deleting, or invoking an action bound to the
+apply [optimistic concurrency control](#UseofETagsforAvoidingUpdateConflicts)
+in updating, deleting, or invoking an action bound to the
 resource.
 
 As OData allows multiple formats for representing the same structured
@@ -4229,8 +4232,8 @@ within the `Manager` and `DirectReports` navigation properties
   "LastName": "Griswold",
   "Manager": { "@id": "Employees(0)" },
   "DirectReports": [
-    {"@id": "Employees(5)"},
-    {"@id": "Employees(6)"}
+    { "@id": "Employees(5)" },
+    { "@id": "Employees(6)" }
   ]
 }
 ```
@@ -4582,8 +4585,10 @@ annotating the singleton with the term `Capabilities.DeleteRestrictions`
 (nested property `Deletable` with value `true`) defined in
 [OData-VocCap](#ODataVocCap).
 
-On successful completion of the delete, the response MUST be
-[`204 No Content`](#ResponseCode204NoContent) and contain an empty body.
+On successful completion of the delete, the response MUST either be
+[`204 No Content`](#ResponseCode204NoContent) and contain an empty body,
+or [`200 OK`](#ResponseCode200OK) and contain a representation of a
+deleted entity according to the specified format.
 
 Services MUST implicitly remove relations to and from an entity when
 deleting it; clients need not delete the relations explicitly.
@@ -5016,8 +5021,7 @@ term, both defined in [OData-VocCap](#ODataVocCap).
 The response, if requested, is a delta payload, in the same structure
 and order as the request payload, representing the applied changes.
 
-If the [`continue-on-error`](#Preferencecontinueonerrorodatacontinueonerror) preference has been specified and any errors
-occur in processing the changes, then a delta response MUST be returned
+If the client requests `continue-on-error` behavior and the service encounters any errors while processing the request, then it MUST either fail the entire request without applying any changes or include a [`Preference-Applied`](#HeaderPreferenceApplied)  header in the response indicating that the [`continue-on-error`](#Preferencecontinueonerrorodatacontinueonerror) preference has been applied. In this case, the delta response payload MUST be returned
 regardless of the [`return`](#Preferencereturnrepresentationandreturnminimal)
 preference and MUST contain at least the failed changes. The service
 represents failed changes in the delta response as follows:
@@ -5942,7 +5946,7 @@ PATCH /path/service/People(1) HTTP/1.1
 Host: myserver.mydomain.org:1234
 Content-Type: application/json
 
-{"Name": "Peter"}
+{ "Name": "Peter" }
 ```
 :::
 
