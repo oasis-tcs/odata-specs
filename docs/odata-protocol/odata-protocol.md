@@ -579,7 +579,7 @@ of the specification since there is currently no lossless representation
 of an IRI in the [`EntityId`](#HeaderODataEntityId) header.
 
 Services are strongly encouraged to use the canonical URL for an entity
-as defined in **OData-URL** as its entity-id, but clients cannot assume
+as defined in [OData-URL](#ODataURL) as its entity-id, but clients cannot assume
 the entity-id can be used to locate the entity unless the
 [`Core.DereferenceableIDs`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DereferenceableIDs)
 term is applied to the entity container, nor can the client assume any
@@ -606,7 +606,7 @@ The edit URL of a property is the edit URL of the entity with appended
 segment(s) containing the path to the property.
 
 Services are strongly encouraged to use the canonical URL for an entity
-as defined in **OData-URL** for both the read URL and the edit URL of an
+as defined in [OData-URL](#ODataURL) for both the read URL and the edit URL of an
 entity, with a cast segment to the type of the entity appended to the
 canonical URL if the type of the entity is derived from the declared
 type of the entity set. However, clients cannot assume this convention
