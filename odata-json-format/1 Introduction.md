@@ -25,7 +25,7 @@ Section | Feature / Change | Issue
 Fragment portion of Context URL is not percent-encoded| 
 [368](https://github.com/oasis-tcs/odata-specs/issues/368)
 [Section ##ControlInformationidodataid]| 
-`id` of transient entity can be non-null| 
+`Core.ContentId` in transient entities| 
 [1928](https://github.com/oasis-tcs/odata-specs/issues/1928)
 [Section ##ControlInformationmediaodatamedia]| 
  `mediaContentType` can be `null`| 
@@ -33,6 +33,9 @@ Fragment portion of Context URL is not percent-encoded|
 [Section ##StructuralProperty], [Section ##InformativeReferences]| 
 Removed reference to obsolete version of GeoJSON| 
 [456](https://github.com/oasis-tcs/odata-specs/issues/456)
+[Section ##EntityReference]| 
+Reference transient entities via `Core.ContentId`| 
+[1928](https://github.com/oasis-tcs/odata-specs/issues/1928)
 
 ## ##subsec Glossary
 

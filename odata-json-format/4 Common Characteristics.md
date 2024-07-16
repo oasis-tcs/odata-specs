@@ -423,11 +423,9 @@ and have the `null` value. In 4.01 or greater payloads transient
 entities need not have the `id` control information, and
 clients receiving such payloads MUST treat entities with neither `id` control
 information nor a full set of key properties as transient entities.
-In 4.02 payloads the `id` control information for transient entities
-MAY have a string value following the pattern
-`odata:transient:{some-generated-identifier-unique-within-the-response}`,
-for example if services need to represent circular dependencies
-between transient entities using [entity references](#EntityReference).
+A transient entity in a response can be referenced by an [entity reference](#EntityReference)
+within the same response if it is annotated with [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID)
+and a value that is unique within the response.
 
 The `id` control information MUST NOT appear for a
 collection. Its meaning in this context is reserved for future versions
