@@ -1091,7 +1091,7 @@ and in the resource path parentheses after the function name MUST be omitted.
 
 ::: example
 Example ##ex: An employee's top ten leave requests from now to the end of the year
-pending their manager's approval. Compare this with [example ##funcexpr].
+pending their manager's approval.
 ```json
 POST http://host/service/Employees(23)/self.PendingLeaveRequests/$query
 Content-Type: application/json
@@ -1102,5 +1102,15 @@ Content-Type: application/json
   "Approver@expression": "Manager",
   "$top": 10
 }
+```
+
+The previous request looks analogous to a bound function invocation with expressions (like in [example ##funcexpr])
+if it is written using implicit parameter aliases (see [OData-Protocol, section 11.5.4.1.1](#ODataProtocol)).
+```
+GET http://host/service/Employees(23)/self.PendingLeaveRequests
+  ?StartDate=now()
+  &EndDate=2024-12-31
+  &Approver=Manager
+  &$top=10
 ```
 :::
