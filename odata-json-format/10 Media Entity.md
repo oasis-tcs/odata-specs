@@ -233,18 +233,3 @@ Example ##ex: collection of entity references
 }
 ```
 :::
-
-An entity reference MAY reference a transient entity that is annotated with
-[`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID)
-by including this annotation with the same value.
-
-::: example
-Example ##ex: entity reference to transient entity
-```json
-{
-  "@context": "http://host/service/$metadata#$ref",
-  "@id": null,
-  "@Core.ContentID": "value-unique-within-the-response"
-}
-```
-:::
