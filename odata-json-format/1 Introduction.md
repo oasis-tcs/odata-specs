@@ -32,7 +32,7 @@ Removed reference to obsolete version of GeoJSON|
 [456](https://github.com/oasis-tcs/odata-specs/issues/456)
 [Section ##ActionInvocation]| 
 Allow common expressions in action payloads| 
-[1943](https://github.com/oasis-tcs/odata-specs/issues/1943)
+[341](https://github.com/oasis-tcs/odata-specs/issues/341)
 
 ## ##subsec Glossary
 
