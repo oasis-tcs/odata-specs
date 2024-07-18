@@ -1646,9 +1646,29 @@ The following operators, functions, and literals can be used in
 The [OData-ABNF](#ODataABNF) `commonExpr` syntax rule defines the formal
 grammar of common expressions.
 
+The following subsections specify situations in which expressions evaluate to `null`
+if operands or parameters do not have the types expected by an operator or function.
+Notwithstanding these rules, if a service can infer such a type discrepancy for an expression
+that appears in a request independently of the underlying data,
+it MUST reject the request with an error message
+explaining the discrepancy. The inferral can be based on, for example, the
+declared type of a property or the type of a literal value that occurs in the
+expression.
+
+::: example
+Example 54: In a search for people above a certain age
+```
+http://host/service/People?$filter=Age gt '50'
+```
+the expression would always evaluate to `null` because the age 50 is erroneously
+given as a string and the [`$filter`](#SystemQueryOptionfilter) would return an empty result, although this is
+really the result of a typing error. That's why a "type mismatch" error must
+instead be returned in such a case.
+:::
+
 #### <a name="LogicalOperators" href="#LogicalOperators">5.1.1.1 Logical Operators</a>
 
-OData defines a set of logical operators that evaluate to true or false
+OData defines a set of logical operators that evaluate to `true` or `false`
 (i.e. a `boolCommonExpr` as defined in [OData-ABNF](#ODataABNF)).
 Logical operators are typically used to filter a collection of
 resources.
@@ -1671,25 +1691,31 @@ The `eq`, `ne`, and `in` operators can be used with collection-valued
 operands, and the `eq` and `ne` operators can be used with operands of a
 structured type.
 
+If at least one operand of an `eq`, `ne`, `lt`, `le`, `gt`, or `ge` operator
+is non-numeric and the operands have different types, the operator returns `null`.
+
+The rules for the Boolean operators `and`, `or`, and `not` assume Boolean operands.
+If an operand of a Boolean operator is not Boolean, the operator returns `null`.
+
 ##### <a name="Equals" href="#Equals">5.1.1.1.1 Equals</a>
 
-The `eq` operator returns true if the left operand is equal to the right
-operand, otherwise it returns false.
+The `eq` operator returns `true` if the left operand is equal to the right
+operand, otherwise it returns `false`.
 
-When applied to operands of entity types, the `eq` operator returns true
+When applied to operands of entity types, the `eq` operator returns `true`
 if both operands represent the same entity, or both operands represent
-null.
+`null`.
 
 When applied to operands of complex types, the `eq` operator returns
-true if both operands have the same structure and same values, or both
-operands represent null.
+`true` if both operands have the same structure and same values, or both
+operands represent `null`.
 
-When applied to ordered collections, the `eq` operator returns true if
+When applied to ordered collections, the `eq` operator returns `true` if
 both operands have the same cardinality and each member of the left
 operand is equal to the corresponding member of the right operand.
 
 For services that support comparing unordered collections, the `eq`
-operator returns true if both operands are equal after applying the same
+operator returns `true` if both operands are equal after applying the same
 ordering on both collections.
 
 Each of the special values `null`, `-INF`, and `INF` is equal to itself,
@@ -1699,21 +1725,21 @@ The special value `NaN` is not equal to anything, even to itself.
 
 ##### <a name="NotEquals" href="#NotEquals">5.1.1.1.2 Not Equals</a>
 
-The `ne` operator returns true if the left operand is not equal to the
-right operand, otherwise it returns false.
+The `ne` operator returns `true` if the left operand is not equal to the
+right operand, otherwise it returns `false`.
 
-When applied to operands of entity types, the `ne` operator returns true
+When applied to operands of entity types, the `ne` operator returns `true`
 if the two operands do not represent the same entity.
 
 When applied to operands of complex types, the `ne` operator returns
-true if the operands do not have the same structure and same values.
+`true` if the operands do not have the same structure and same values.
 
-When applied to ordered collections, the `ne` operator returns true if
+When applied to ordered collections, the `ne` operator returns `true` if
 both operands do not have the same cardinality or any member of the left
 operand is not equal to the corresponding member of the right operand.
 
 For services that support comparing unordered collections, the `ne`
-operator returns true if both operands do not have the same cardinality
+operator returns `true` if both operands do not have the same cardinality
 or do not contain the same members, in any order.
 
 Each of the special values `null`, `-INF`, and `INF` is not equal to any
@@ -1725,8 +1751,8 @@ The `null` value is not equal to any value but itself.
 
 ##### <a name="GreaterThan" href="#GreaterThan">5.1.1.1.3 Greater Than</a>
 
-The `gt` operator returns true if the left operand is greater than the
-right operand, otherwise it returns false.
+The `gt` operator returns `true` if the left operand is greater than the
+right operand, otherwise it returns `false`.
 
 The special value `INF` is greater than any number, and any number is
 greater than `-INF`.
@@ -1739,19 +1765,19 @@ with language-dependent order with the term
 [`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
 see [OData-VocCore](#ODataVocCore).
 
-If any operand is `null`, the operator returns false.
+If any operand is `null`, the operator returns `false`.
 
 ##### <a name="GreaterThanorEqual" href="#GreaterThanorEqual">5.1.1.1.4 Greater Than or Equal</a>
 
-The `ge` operator returns true if the left operand is greater than or
-equal to the right operand, otherwise it returns false.
+The `ge` operator returns `true` if the left operand is greater than or
+equal to the right operand, otherwise it returns `false`.
 
 See rules for [`gt`](#GreaterThan) and [`eq`](#Equals) for details.
 
 ##### <a name="LessThan" href="#LessThan">5.1.1.1.5 Less Than</a>
 
-The `lt` operator returns true if the left operand is less than the
-right operand, otherwise it returns false.
+The `lt` operator returns `true` if the left operand is less than the
+right operand, otherwise it returns `false`.
 
 The special value `-INF` is less than any number, and any number is less
 than `INF`.
@@ -1764,43 +1790,43 @@ with language-dependent order with the term
 [`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
 see [OData-VocCore](#ODataVocCore).
 
-If any operand is `null`, the operator returns false.
+If any operand is `null`, the operator returns `false`.
 
 ##### <a name="LessThanorEqual" href="#LessThanorEqual">5.1.1.1.6 Less Than or Equal</a>
 
-The `le` operator returns true if the left operand is less than or equal
-to the right operand, otherwise it returns false.
+The `le` operator returns `true` if the left operand is less than or equal
+to the right operand, otherwise it returns `false`.
 
 See rules for [`lt`](#LessThan) and [`eq`](#Equals) for details.
 
 ##### <a name="And" href="#And">5.1.1.1.7 And</a>
 
-The `and` operator returns true if both the left and right operands
-evaluate to true, otherwise it returns false.
+The `and` operator returns `true` if both the left and right operands
+evaluate to `true`, otherwise it returns `false`.
 
 The `null` value is treated as unknown, so if one operand evaluates to
-`null` and the other operand to false, the `and` operator returns false.
+`null` and the other operand to `false`, the `and` operator returns `false`.
 All other combinations with `null` return `null`.
 
 ##### <a name="Or" href="#Or">5.1.1.1.8 Or</a>
 
-The `or` operator returns false if both the left and right operands both
-evaluate to false, otherwise it returns true.
+The `or` operator returns `false` if both the left and right operands both
+evaluate to `false`, otherwise it returns `true`.
 
 The `null` value is treated as unknown, so if one operand evaluates to
-`null` and the other operand to true, the `or` operator returns true.
+`null` and the other operand to `true`, the `or` operator returns `true`.
 All other combinations with `null` return `null`.
 
 ##### <a name="Not" href="#Not">5.1.1.1.9 Not</a>
 
-The `not` operator returns true if the operand returns false, otherwise
-it returns false.
+The `not` operator returns `true` if the operand returns `false`, otherwise
+it returns `false`.
 
 The `null` value is treated as unknown, so `not null` returns `null`.
 
 ##### <a name="Has" href="#Has">5.1.1.1.10 Has</a>
 
-The `has` operator returns true if the right operand is an enumeration
+The `has` operator returns `true` if the right operand is an enumeration
 value whose flag(s) are set on the left operand.
 
 The `null` value is treated as unknown, so if one operand evaluates to
@@ -1808,11 +1834,12 @@ The `null` value is treated as unknown, so if one operand evaluates to
 
 ##### <a name="In" href="#In">5.1.1.1.11 In</a>
 
-The `in` operator returns true if the left operand is a member of the
-right operand. The right operand MUST be either a comma-separated list
+The `in` operator returns `true` if the [equality](#Equals) comparison of the left
+operand with at least one member of the right operand returns `true`.
+The right operand MUST be either a comma-separated list
 of zero or more primitive values, enclosed in parentheses, or a single expression
 that resolves to a collection. If the right operand is an empty collection
-or list of values, the expression returns false.
+or list of values, the `in` operator returns `false`.
 
 ##### <a name="LogicalOperatorExamples" href="#LogicalOperatorExamples">5.1.1.1.12 Logical Operator Examples</a>
 
@@ -1820,49 +1847,49 @@ The following examples illustrate the use and semantics of each of the
 logical operators.
 
 ::: example
-Example 54: all products with a `Name` equal to `Milk`
+Example 55: all products with a `Name` equal to `Milk`
 ```
 http://host/service/Products?$filter=Name eq 'Milk'
 ```
 :::
 
 ::: example
-Example 55: all products with a `Name` not equal to `Milk`
+Example 56: all products with a `Name` not equal to `Milk`
 ```
 http://host/service/Products?$filter=Name ne 'Milk'
 ```
 :::
 
 ::: example
-Example 56: all products with a `Name` greater than `Milk`:
+Example 57: all products with a `Name` greater than `Milk`:
 ```
 http://host/service/Products?$filter=Name gt 'Milk'
 ```
 :::
 
 ::: example
-Example 57: all products with a `Name` greater than or equal to `Milk`:
+Example 58: all products with a `Name` greater than or equal to `Milk`:
 ```
 http://host/service/Products?$filter=Name ge 'Milk'
 ```
 :::
 
 ::: example
-Example 58: all products with a `Name` less than `Milk`:
+Example 59: all products with a `Name` less than `Milk`:
 ```
 http://host/service/Products?$filter=Name lt 'Milk'
 ```
 :::
 
 ::: example
-Example 59: all products with a `Name` less than or equal to `Milk`:
+Example 60: all products with a `Name` less than or equal to `Milk`:
 ```
 http://host/service/Products?$filter=Name le 'Milk'
 ```
 :::
 
 ::: example
-Example 60: all products with a `Name` equal to `Milk` that also have a `Price`
+Example 61: all products with a `Name` equal to `Milk` that also have a `Price`
 less than 2.55:
 ```
 http://host/service/Products?$filter=Name eq 'Milk' and Price lt 2.55
@@ -1870,7 +1897,7 @@ http://host/service/Products?$filter=Name eq 'Milk' and Price lt 2.55
 :::
 
 ::: example
-Example 61: all products that either have a `Name` equal to `Milk` or have a
+Example 62: all products that either have a `Name` equal to `Milk` or have a
 `Price` less than 2.55:
 ```
 http://host/service/Products?$filter=Name eq 'Milk' or Price lt 2.55
@@ -1878,21 +1905,21 @@ http://host/service/Products?$filter=Name eq 'Milk' or Price lt 2.55
 :::
 
 ::: example
-Example 62: all products that do not have a `Name` that ends with `ilk`:
+Example 63: all products that do not have a `Name` that ends with `ilk`:
 ```
 http://host/service/Products?$filter=not endswith(Name,'ilk')
 ```
 :::
 
 ::: example
-Example 63: all products whose `style` value includes `Yellow`:
+Example 64: all products whose `style` value includes `Yellow`:
 ```
 http://host/service/Products?$filter=style has Sales.Pattern'Yellow'
 ```
 :::
 
 ::: example
-Example 64: all products whose `Name` is `Milk` or `Cheese`:
+Example 65: all products whose `Name` is `Milk` or `Cheese`:
 ```
 http://host/service/Products?$filter=Name in ('Milk', 'Cheese')
 ```
@@ -1906,7 +1933,8 @@ filter a collection of resources. However, services MAY allow using
 arithmetic operators with the [`$orderby`](#SystemQueryOptionorderby)
 system query option.
 
-If an operand of an arithmetic operator is null, the result is null.
+If an operand of an arithmetic operator is `null` or has a non-allowed type,
+the result is `null`.
 
 The syntax rules for the arithmetic operators are defined in
 [OData-ABNF](#ODataABNF). 4.01 Services MUST support case-insensitive
@@ -2023,49 +2051,49 @@ The following examples illustrate the use and semantics of each of the
 Arithmetic operators.
 
 ::: example
-Example 65: all products with a Price of 2.55:
+Example 66: all products with a Price of 2.55:
 ```
 http://host/service/Products?$filter=Price add 2.45 eq 5.00
 ```
 :::
 
 ::: example
-Example 66: all products with a Price of 2.55:
+Example 67: all products with a Price of 2.55:
 ```
 http://host/service/Products?$filter=Price sub 0.55 eq 2.00
 ```
 :::
 
 ::: example
-Example 67: all products with a Price of 2.55:
+Example 68: all products with a Price of 2.55:
 ```
 http://host/service/Products?$filter=Price mul 2.0 eq 5.10
 ```
 :::
 
 ::: example
-Example 68: all products with a Price of 2.55:
+Example 69: all products with a Price of 2.55:
 ```
 http://host/service/Products?$filter=Price div 2.55 eq 1
 ```
 :::
 
 ::: example
-Example 69: all products with an integer Rating value of 4 or 5:
+Example 70: all products with an integer Rating value of 4 or 5:
 ```
 http://host/service/Products?$filter=Rating div 2 eq 2
 ```
 :::
 
 ::: example
-Example 70: all products with an integer Rating value of 5:
+Example 71: all products with an integer Rating value of 5:
 ```
 http://host/service/Products?$filter=Rating divby 2 eq 2.5
 ```
 :::
 
 ::: example
-Example 71: all products with a Rating exactly divisible by 5:
+Example 72: all products with a Rating exactly divisible by 5:
 ```
 http://host/service/Products?$filter=Rating mod 5 eq 0
 ```
@@ -2078,7 +2106,7 @@ evaluation order of an expression. The Grouping operator returns the
 expression grouped inside the parenthesis.
 
 ::: example
-Example 72: all products because 9 mod 3 is 0
+Example 73: all products because 9 mod 3 is 0
 ```
 http://host/service/Products?$filter=(4 add 5) mod (4 sub 1) eq 0
 ```
@@ -2097,7 +2125,8 @@ not defined. Instead, OData defines a [`null`](#null) literal that can
 be used in comparisons.
 
 If a parameter of a canonical function is `null`, the function returns
-`null`.
+`null`. If the types of parameters do not match the function signature,
+the function also returns `null`.
 
 The syntax rules for all functions are defined in
 [OData-ABNF](#ODataABNF). 4.01 Services MUST support case-insensitive
@@ -2128,7 +2157,7 @@ The `concatMethodCallExpr` syntax rule defines how the `concat` function
 is invoked.
 
 ::: example
-Example 73: all customers from Berlin, Germany
+Example 74: all customers from Berlin, Germany
 ```
 http://host/service/Customers?$filter=concat(concat(City,', '),Country) eq 'Berlin, Germany'
 ```
@@ -2144,14 +2173,14 @@ Edm.Boolean contains(Edm.String,Edm.String)
 Edm.Boolean contains(OrderedCollection,OrderedCollection)
 ```
 
-The `contains` function with string parameter values returns true if the
+The `contains` function with string parameter values returns `true` if the
 second string is a substring of the first string, otherwise it returns
-false. String comparison is case-sensitive, case-insensitive comparison
+`false`. String comparison is case-sensitive, case-insensitive comparison
 can be achieved in combination with [`tolower`](#tolower) or
 [`toupper`](#toupper).
 
 The `contains` function with ordered collection parameter values returns
-true if the first collection can be transformed into the second
+`true` if the first collection can be transformed into the second
 collection by removing zero or more items from the beginning or the end
 of the first collection.
 
@@ -2159,7 +2188,7 @@ The `containsMethodCallExpr` syntax rule defines how the `contains`
 function is invoked.
 
 ::: example
-Example 74: all customers with a `CompanyName` that contains `Alfreds`
+Example 75: all customers with a `CompanyName` that contains `Alfreds`
 ```
 http://host/service/Customers?$filter=contains(CompanyName,'Alfreds')
 ```
@@ -2175,14 +2204,14 @@ Edm.Boolean endswith(Edm.String,Edm.String)
 Edm.Boolean endswith(OrderedCollection,OrderedCollection)
 ```
 
-The `endswith` function with string parameter values returns true if the
-first string ends with the second string, otherwise it returns false.
+The `endswith` function with string parameter values returns `true` if the
+first string ends with the second string, otherwise it returns `false`.
 String comparison is case-sensitive, case-insensitive comparison can be
 achieved in combination with [`tolower`](#tolower) or
 [`toupper`](#toupper).
 
 The `endswith` function with ordered collection parameter values returns
-true if the first collection can be transformed into the second
+`true` if the first collection can be transformed into the second
 collection by removing zero or more items from the beginning of the
 first collection.
 
@@ -2190,7 +2219,7 @@ The `endsWithMethodCallExpr` syntax rule defines how the `endswith`
 function is invoked.
 
 ::: example
-Example 75: all customers with a `CompanyName` that ends with
+Example 76: all customers with a `CompanyName` that ends with
 `Futterkiste`
 ```
 http://host/service/Customers?$filter=endswith(CompanyName,'Futterkiste')
@@ -2222,7 +2251,7 @@ The `indexOfMethodCallExpr` syntax rule defines how the `indexof`
 function is invoked.
 
 ::: example
-Example 76: all customers with a `CompanyName` containing `lfreds`
+Example 77: all customers with a `CompanyName` containing `lfreds`
 starting at the second character
 ```
 http://host/service/Customers?$filter=indexof(CompanyName,'lfreds') eq 1
@@ -2248,7 +2277,7 @@ The `lengthMethodCallExpr` syntax rule defines how the `length` function
 is invoked.
 
 ::: example
-Example 77: all customers with a `CompanyName` that is 19 characters
+Example 78: all customers with a `CompanyName` that is 19 characters
 long
 ```
 http://host/service/Customers?$filter=length(CompanyName) eq 19
@@ -2265,14 +2294,14 @@ Edm.Boolean startswith(Edm.String,Edm.String)
 Edm.Boolean startswith(Collection,Collection)
 ```
 
-The `startswith` function with string parameter values returns true if
+The `startswith` function with string parameter values returns `true` if
 the first string starts with the second string, otherwise it returns
-false. String comparison is case-sensitive, case-insensitive comparison
+`false`. String comparison is case-sensitive, case-insensitive comparison
 can be achieved in combination with [`tolower`](#tolower) or
 [`toupper`](#toupper).
 
 The `startswith` function with ordered collection parameter values
-returns true if the first collection can be transformed into the second
+returns `true` if the first collection can be transformed into the second
 collection by removing zero or more items from the end of the first
 collection.
 
@@ -2280,7 +2309,7 @@ The `startsWithMethodCallExpr` syntax rule defines how the `startswith`
 function is invoked.
 
 ::: example
-Example 78: all customers with a `CompanyName` that starts with `Alfr`
+Example 79: all customers with a `CompanyName` that starts with `Alfr`
 ```
 http://host/service/Customers?$filter=startswith(CompanyName,'Alfr')
 ```
@@ -2334,7 +2363,7 @@ The `substringMethodCallExpr` syntax rule defines how the `substring`
 function is invoked.
 
 ::: example
-Example 79: all customers with a `CompanyName` of `lfreds Futterkiste`
+Example 80: all customers with a `CompanyName` of `lfreds Futterkiste`
 once the first character has been removed
 ```
 http://host/service/Customers?$filter=substring(CompanyName,1) eq 'lfreds Futterkiste'
@@ -2342,7 +2371,7 @@ http://host/service/Customers?$filter=substring(CompanyName,1) eq 'lfreds Futter
 :::
 
 ::: example
-Example 80: all customers with a `CompanyName` that has `lf` as the
+Example 81: all customers with a `CompanyName` that has `lf` as the
 second and third characters, e.g, `Alfreds Futterkiste`
 ```
 http://host/service/Customers?$filter=substring(CompanyName,1,2) eq 'lf'
@@ -2359,13 +2388,13 @@ The `hassubset` function has the following signature:
 Edm.Boolean hassubset(Collection, Collection)
 ```
 
-The `hassubset` function returns true if the first collection can be
+The `hassubset` function returns `true` if the first collection can be
 transformed into the second collection by reordering and/or removing
 zero or more items. The `hasSubsetMethodCallExpr` syntax rule defines
 how the `hassubset` function is invoked.
 
 ::: example
-Example 81: `hassubset` expressions that return true
+Example 82: `hassubset` expressions that return `true`
 ```
 hassubset([4,1,3],[4,1,3])
 ```
@@ -2388,7 +2417,7 @@ hassubset([4,1,3,1],[1,1])
 :::
 
 ::: example
-Example 82: `hassubset` expression that returns false: 1 appears only
+Example 83: `hassubset` expression that returns `false`: `1` appears only
 once in the left operand
 ```
 hassubset([1,2],[1,1,2])
@@ -2403,13 +2432,13 @@ The `hassubsequence` function has the following signature:
 Edm.Boolean hassubsequence(OrderedCollection,OrderedCollection)
 ```
 
-The `hassubsequence` function returns true if the first collection can
+The `hassubsequence` function returns `true` if the first collection can
 be transformed into the second collection by removing zero or more
 items. The `hasSubsequenceMethodCallExpr` syntax rule defines how the
 `hassubsequence` function is invoked.
 
 ::: example
-Example 83: `hassubsequence` expressions that return true
+Example 84: `hassubsequence` expressions that return `true`
 ```
 hassubsequence([4,1,3],[4,1,3])
 ```
@@ -2428,7 +2457,7 @@ hassubsequence([4,1,3,1],[1,1])
 :::
 
 ::: example
-Example 84: `hassubsequence` expressions that return false
+Example 85: `hassubsequence` expressions that return `false`
 ```
 hassubsequence([4,1,3],[1,3,4])
 ```
@@ -2454,15 +2483,17 @@ Edm.Boolean matchespattern(Edm.String,Edm.String,Edm.String)
 ```
 
 The second parameter MUST evaluate to a string containing an
-[ECMAScript](#_ECMAScript) (JavaScript) regular expression. The `matchespattern` function returns true if the first parameter evaluates
+[ECMAScript](#_ECMAScript) (JavaScript) regular expression, otherwise the function
+returns `null`. The `matchespattern` function returns `true` if the first parameter evaluates
 to a string matching that regular expression, using syntax and semantics
 of ECMAScript regular expressions, otherwise it
-returns false.
+returns `false`.
 If the optional third parameter is provided, it MUST evaluate to a string
-consisting of ECMAScript regular expression flags to modify the match.
+consisting of ECMAScript regular expression flags to modify the match, otherwise
+the function returns `null`.
 
 ::: example
-Example 85: all customers with a `CompanyName` that match the
+Example 86: all customers with a `CompanyName` that match the
 (percent-encoded) regular expression `^A.*e$`
 ```
 http://host/service/Customers?$filter=matchespattern(CompanyName,'%5EA.*e$')
@@ -2470,7 +2501,7 @@ http://host/service/Customers?$filter=matchespattern(CompanyName,'%5EA.*e$')
 :::
 
 ::: example
-Example 86: all customers with a `FormattedAddress` that contains a line ending with `berg` or ends with `berg`
+Example 87: all customers with a `FormattedAddress` that contains a line ending with `berg` or ends with `berg`
 ```
 http://host/service/Customers?$filter=matchespattern(FormattedAddress,'berg$','m')
 ```
@@ -2490,7 +2521,7 @@ The `toLowerMethodCallExpr` syntax rule defines how the `tolower`
 function is invoked.
 
 ::: example
-Example 87: all customers with a `CompanyName` that equals
+Example 88: all customers with a `CompanyName` that equals
 `alfreds futterkiste` once any uppercase characters have been
 converted to lowercase
 ```
@@ -2512,7 +2543,7 @@ The `toUpperMethodCallExpr` syntax rule defines how the `toupper`
 function is invoked.
 
 ::: example
-Example 88: all customers with a `CompanyName` that equals
+Example 89: all customers with a `CompanyName` that equals
 `ALFREDS FUTTERKISTE` once any lowercase characters have been
 converted to uppercase
 ```
@@ -2534,7 +2565,7 @@ removed. The `trimMethodCallExpr` syntax rule defines how the `trim`
 function is invoked.
 
 ::: example
-Example 89: all customers with a `CompanyName` without leading or
+Example 90: all customers with a `CompanyName` without leading or
 trailing whitespace characters
 ```
 http://host/service/Customers?$filter=trim(CompanyName) eq CompanyName
@@ -2576,7 +2607,7 @@ UTC) MUST fail evaluation of the `day` function for literal
 normalized values.
 
 ::: example
-Example 90: all employees born on the 8th day of a month
+Example 91: all employees born on the 8th day of a month
 ```
 http://host/service/Employees?$filter=day(BirthDate) eq 8
 ```
@@ -2598,7 +2629,7 @@ non-negative decimal value less than 1. The
 `fractionalseconds` function is invoked.
 
 ::: example
-Example 91: all employees born less than 100 milliseconds after a full
+Example 92: all employees born less than 100 milliseconds after a full
 second of any minute of any hour on any day
 ```
 http://host/service/Employees?$filter=[fractionalseconds(BirthDate) lt 0.1
@@ -2626,7 +2657,7 @@ UTC) MUST fail evaluation of the `hour` function for literal
 normalized values.
 
 ::: example
-Example 92: all employees born in hour 4, between 04:00 (inclusive) and
+Example 93: all employees born in hour 4, between 04:00 (inclusive) and
 05:00 (exclusive)
 ```
 http://host/service/Employees?$filter=hour(BirthDate) eq 4
@@ -2670,7 +2701,7 @@ zone of the `DateTimeOffset` parameter value. The `minuteMethodCallExpr`
 syntax rule defines how the `minute` function is invoked.
 
 ::: example
-Example 93: all employees born in minute 40 of any hour on any day
+Example 94: all employees born in minute 40 of any hour on any day
 ```
 http://host/service/Employees?$filter=minute(BirthDate) eq 40
 ```
@@ -2697,7 +2728,7 @@ UTC) MUST fail evaluation of the `month` function for literal
 normalized values.
 
 ::: example
-Example 94: all employees born in May
+Example 95: all employees born in May
 ```
 http://host/service/Employees?$filter=month(BirthDate) eq 5
 ```
@@ -2736,7 +2767,7 @@ of the `DateTimeOffset` or `TimeOfDay` parameter value. The
 invoked.
 
 ::: example
-Example 95: all employees born in second 40 of any minute of any hour on
+Example 96: all employees born in second 40 of any minute of any hour on
 any day
 ```
 http://host/service/Employees?$filter=second(BirthDate) eq 40
@@ -2805,7 +2836,7 @@ UTC) MUST fail evaluation of the `year` function for literal
 normalized values.
 
 ::: example
-Example 96: all employees born in 1971
+Example 97: all employees born in 1971
 ```
 http://host/service/Employees?$filter=year(BirthDate) eq 1971
 ```
@@ -2828,7 +2859,7 @@ nearest numeric value with no decimal component. The
 is invoked.
 
 ::: example
-Example 97: all orders with freight costs that round up to 32
+Example 98: all orders with freight costs that round up to 32
 ```
 http://host/service/Orders?$filter=ceiling(Freight) eq 32
 ```
@@ -2849,7 +2880,7 @@ nearest numeric value with no decimal component. The
 invoked.
 
 ::: example
-Example 98: all orders with freight costs that round down to 32
+Example 99: all orders with freight costs that round down to 32
 ```
 http://host/service/Orders?$filter=floor(Freight) eq 32
 ```
@@ -2871,7 +2902,7 @@ rounded to -1. The `roundMethodCallExpr` syntax rule defines how the
 `round` function is invoked.
 
 ::: example
-Example 99: all orders with freight costs that round to 32
+Example 100: all orders with freight costs that round to 32
 ```
 http://host/service/Orders?$filter=round(Freight) eq 32
 ```
@@ -2914,9 +2945,6 @@ The `cast` function follows these assignment rules:
     [section 3.3.7 dateTime](https://www.w3.org/TR/xmlschema11-2/#dateTime), can be cast to `Edm.DateTimeOffset`.
     If the string value does not contain a time-zone offset, it is treated as UTC.
 
-The `cast` function is optional for primitive values (first five rules)
-and up-casts (seventh rule).
-
 If the cast fails, the `cast` function returns `null`.
 
 ##### <a name="isof" href="#isof">5.1.1.10.2 `isof`</a>
@@ -2928,19 +2956,19 @@ Edm.Boolean isof(type)
 Edm.Boolean isof(expression,type)
 ```
 
-The single parameter `isof` function returns true if the current
+The single parameter `isof` function returns `true` if the current
 instance is assignable to the type specified, according to the
 assignment rules for the [`cast`](#cast) function, otherwise it returns
 `false`.
 
-The two parameter `isof` function returns true if the object referred to
+The two parameter `isof` function returns `true` if the object referred to
 by the expression is assignable to the type specified, according to the
-same rules, otherwise it returns false.
+same rules, otherwise it returns `false`.
 
 The `isofExpr` syntax rule defines how the `isof` function is invoked.
 
 ::: example
-Example 100: orders that are also `BigOrders`
+Example 101: orders that are also `BigOrders`
 ```
 http://host/service/Orders?$filter=isof(NorthwindModel.BigOrder)
 ```
@@ -2951,7 +2979,7 @@ http://host/service/Orders?$filter=isof($it,NorthwindModel.BigOrder)
 :::
 
 ::: example
-Example 101: orders of a customer that is a `VIPCustomer`
+Example 102: orders of a customer that is a `VIPCustomer`
 ```
 http://host/service/Orders?$filter=isof(Customer,NorthwindModel.VIPCustomer)
 ```
@@ -2981,9 +3009,9 @@ Edm.Boolean geo.intersects(Edm.GeographyPoint,Edm.GeographyPolygon)
 Edm.Boolean geo.intersects(Edm.GeometryPoint,Edm.GeometryPolygon)
 ```
 
-The `geo.intersects` function returns true if the specified point lies
+The `geo.intersects` function returns `true` if the specified point lies
 within the interior or on the boundary of the specified polygon,
-otherwise it returns false.
+otherwise it returns `false`.
 
 ##### <a name="geolength" href="#geolength">5.1.1.11.3 `geo.length`</a>
 
@@ -3016,7 +3044,7 @@ The case function evaluates the condition in each pair, starting with
 the leftmost pair, and stops as soon as a condition evaluates to `true`.
 It then returns the value of the result of this pair. It returns `null`
 if none of the conditions in any pair evaluates to `true`. Clients can
-specify a last pair whose condition is `true` to get a non-null
+specify a last pair whose condition is `true` to get a non-`null`
 "default/else/otherwise" result.
 
 Boolean expressions containing `DateTimeOffset` or `TimeOfDay` literals without
@@ -3035,7 +3063,7 @@ incompatible types, in which case the case expression is treated as
 selected by the case statement.
 
 ::: example
-Example 102: compute signum(X)
+Example 103: compute signum(X)
 ```
 $compute=case(X gt 0:1,X lt 0:-1,true:0) as SignumX
 ```
@@ -3069,15 +3097,15 @@ the lambda operator.
 ##### <a name="any" href="#any">5.1.1.13.1 `any`</a>
 
 The `any` operator applies a Boolean expression to each member of a
-collection and returns true if and only if the expression is true for
-any member of the collection, otherwise it returns false. This implies
-that the `any` operator always returns false for an empty collection.
+collection and returns `true` if and only if the expression is `true` for
+any member of the collection, otherwise it returns `false`. This implies
+that the `any` operator always returns `false` for an empty collection.
 
 The `any` operator can be used without an argument expression. This
-short form returns false if and only if the collection is empty.
+short form returns `false` if and only if the collection is empty.
 
 ::: example
-Example 103: all `Orders` that have any `Items` with a `Quantity` greater
+Example 104: all `Orders` that have any `Items` with a `Quantity` greater
 than `100`
 ```
 http://host/service/Orders?$filter=Items/any(d:d/Quantity gt 100)
@@ -3085,7 +3113,7 @@ http://host/service/Orders?$filter=Items/any(d:d/Quantity gt 100)
 :::
 
 ::: example
-Example 104: all customers having an order with a deviating shipping
+Example 105: all customers having an order with a deviating shipping
 address. The `Address` in the argument expression is evaluated in the
 scope of the `Customers` collection.
 ```
@@ -3094,7 +3122,7 @@ http://host/service/Customers?$filter=Orders/any(o:o/ShippingAddress ne Address)
 :::
 
 ::: example
-Example 105: all categories along with their products used in some order
+Example 106: all categories along with their products used in some order
 with a deviating unit price. The unprefixed `UnitPrice` in the argument
 expression is evaluated in the scope of the expanded `Products`.
 ```
@@ -3106,14 +3134,14 @@ http://host/service/Categories?$expand=Products(
 ##### <a name="all" href="#all">5.1.1.13.2 `all`</a>
 
 The `all` operator applies a Boolean expression to each member of a
-collection and returns true if the expression is true for all members of
-the collection, otherwise it returns false. This implies that the `all`
-operator always returns true for an empty collection.
+collection and returns `true` if the expression is `true` for all members of
+the collection, otherwise it returns `false`. This implies that the `all`
+operator always returns `true` for an empty collection.
 
 The `all` operator cannot be used without an argument expression.
 
 ::: example
-Example 106: all `Orders` that have only `Items` with a `Quantity`
+Example 107: all `Orders` that have only `Items` with a `Quantity`
 greater than `100`
 ```
 http://host/service/Orders?$filter=Items/all(d:d/Quantity gt 100)
@@ -3130,7 +3158,7 @@ values, and in the query part, for example, as operands in
 according to the `primitiveLiteral` rule in [OData-ABNF](#ODataABNF).
 
 ::: example
-Example 107: expressions using primitive literals
+Example 108: expressions using primitive literals
 ```
 NullValue eq null
 ```
@@ -3235,14 +3263,14 @@ percent-encoded in URLs although some browsers will accept and pass them
 on unencoded.
 
 ::: example
-Example 108: collection of string literals
+Example 109: collection of string literals
 ```
 http://host/service/ProductsByColors(colors=@c)?@c=["red","green"]
 ```
 :::
 
 ::: example
-Example 109: check whether a pair of properties has one of several
+Example 110: check whether a pair of properties has one of several
 possible pair values
 ```
 $filter=[FirstName,LastName] in [["John","Doe"],["Jane","Smith"]]
@@ -3288,7 +3316,7 @@ function overload on the current instance within an expression. Function
 names without a path prefix refer to an unbound function overload.
 
 ::: example
-Example 110: email addresses ending with `.com` assuming
+Example 111: email addresses ending with `.com` assuming
 `EmailAddresses` is a collection of strings
 ```
 http://host/service/Customers(1)/EmailAddresses?$filter=endswith($it,'.com')
@@ -3296,7 +3324,7 @@ http://host/service/Customers(1)/EmailAddresses?$filter=endswith($it,'.com')
 :::
 
 ::: example
-Example 111: customers along with their orders that shipped to the same
+Example 112: customers along with their orders that shipped to the same
 city as the customer's address. The nested filter expression is
 evaluated in the context of Orders; `$it` allows referring to values in
 the outer context of Customers.
@@ -3307,7 +3335,7 @@ http://host/service/Customers?$expand=Orders($filter=$it/Address/City eq ShipTo/
 :::
 
 ::: example
-Example 112: products with at least 10 positive reviews.
+Example 113: products with at least 10 positive reviews.
 `Model.PositiveReviews` is a function bound to `Model.Product` returning
 a collection of reviews.
 ```
@@ -3321,14 +3349,14 @@ The `$root` literal can be used in expressions to refer to resources of
 the same service.
 
 ::: example
-Example 113: all employees with the same last name as employee `A1235`
+Example 114: all employees with the same last name as employee `A1235`
 ```
 http://host/service/Employees?$filter=LastName eq $root/Employees('A1245')/LastName
 ```
 :::
 
 ::: example
-Example 114: products ordered by a set of customers, where the set of
+Example 115: products ordered by a set of customers, where the set of
 customers is passed as a JSON array containing the resource paths from
 `$root` to each customer
 ```
@@ -3338,7 +3366,7 @@ http://host/service/ProductsOrderedBy(Customers=@c)
 :::
 
 ::: example
-Example 115: function call returning the average rating of a given employee by their peers (employees in department D1)
+Example 116: function call returning the average rating of a given employee by their peers (employees in department D1)
 ```
 http://host/service/Employees('A1245')/self.AvgRating(RatedBy=@peers)
   ?@peers=$root/Employees/$filter(Department eq 'D1')
@@ -3355,7 +3383,7 @@ and navigation properties. It refers to the current instance of the
 collection.
 
 ::: example
-Example 116: select only email addresses ending with `.com`
+Example 117: select only email addresses ending with `.com`
 ```
 http://host/service/Customers?$select=EmailAddresses($filter=endswith($this,'.com'))
 ```
@@ -3382,7 +3410,7 @@ target cardinality 0..1), its value, and the values of its components,
 are treated as `null`.
 
 ::: example
-Example 117: similar behavior whether `HeadquarterAddress` is a nullable
+Example 118: similar behavior whether `HeadquarterAddress` is a nullable
 complex type or a nullable navigation property
 ```
 Companies(1)/HeadquarterAddress/Street
@@ -3397,7 +3425,7 @@ of the specified derived type, the path expression returns `null`.
 
 If the property or navigation property is not defined for the type of
 the resource and that type supports dynamic properties or navigation
-properties, then the property or navigation property is treated as null
+properties, then the property or navigation property is treated as `null`
 for all instances on which it has no value.
 
 If the property or navigation property is not defined for the type of
@@ -3423,14 +3451,14 @@ If an annotation is not applied to the resource or property, then its
 value, and the values of its components, are treated as `null`.
 
 ::: example
-Example 118: Return Products that have prices in Euro
+Example 119: Return Products that have prices in Euro
 ```
 http://host/service/Products?$filter=Price/@Measures.Currency eq 'EUR'
 ```
 :::
 
 ::: example
-Example 119: Return Employees that have any error messages in the
+Example 120: Return Employees that have any error messages in the
 [`Core.Messages`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Messages)
 annotation
 ```
@@ -3512,9 +3540,9 @@ types.
 The `$filter` system query option allows clients to filter a collection
 of resources that are addressed by a request URL. The expression
 specified with `$filter` is evaluated for each resource in the
-collection, and only items where the expression evaluates to true are
+collection, and only items where the expression evaluates to `true` are
 included in the response. Resources for which the expression evaluates
-to false or to null, or which reference properties that are unavailable
+to `false` or to `null`, or which reference properties that are unavailable
 due to permissions, are omitted from the response.
 
 The [OData-ABNF](#ODataABNF) `filter` syntax rule defines the formal
@@ -3565,14 +3593,14 @@ segment does not specify a declared property, then the expanded property
 appears only for those instances on which it has a value.
 
 ::: example
-Example 120: expand a navigation property of an entity type
+Example 121: expand a navigation property of an entity type
 ```
 http://host/service/Products?$expand=Category
 ```
 :::
 
 ::: example
-Example 121: expand a navigation property of a complex type
+Example 122: expand a navigation property of a complex type
 ```
 http://host/service/Customers?$expand=Addresses/Country
 ```
@@ -3596,7 +3624,7 @@ Allowed system query options are
 for collection-valued navigation properties.
 
 ::: example
-Example 122: all categories and for each category all related products
+Example 123: all categories and for each category all related products
 with a discontinued date equal to `null`
 ```
 http://host/service/Categories?$expand=Products($filter=DiscontinuedDate eq null)
@@ -3610,7 +3638,7 @@ property name to return just the count of the related entities. The
 number of related entities included in the count.
 
 ::: example
-Example 123: all categories and for each category the number of all
+Example 124: all categories and for each category the number of all
 related products
 ```
 http://host/service/Categories?$expand=Products/$count
@@ -3618,7 +3646,7 @@ http://host/service/Categories?$expand=Products/$count
 :::
 
 ::: example
-Example 124: all categories and for each category the number of all
+Example 125: all categories and for each category the number of all
 related blue products
 ```
 http://host/service/Categories?$expand=Products/$count($search=blue)
@@ -3635,7 +3663,7 @@ The system query options [`$filter`](#SystemQueryOptionfilter),
 expanded entity references.
 
 ::: example
-Example 125: all categories and for each category the references of all
+Example 126: all categories and for each category the references of all
 related products
 ```
 http://host/service/Categories?$expand=Products/$ref
@@ -3643,7 +3671,7 @@ http://host/service/Categories?$expand=Products/$ref
 :::
 
 ::: example
-Example 126: all categories and for each category the references of all
+Example 127: all categories and for each category the references of all
 related products of the derived type `Sales.PremierProduct`
 ```
 http://host/service/Categories?$expand=Products/Sales.PremierProduct/$ref
@@ -3651,7 +3679,7 @@ http://host/service/Categories?$expand=Products/Sales.PremierProduct/$ref
 :::
 
 ::: example
-Example 127: all categories and for each category the references of all
+Example 128: all categories and for each category the references of all
 related premier products with a current promotion equal to `null`
 ```
 http://host/service/Categories
@@ -3668,7 +3696,7 @@ A `$levels` option with a value of 1 specifies a single expand with no
 recursion.</a>
 
 ::: example
-Example 128: all employees with their manager, manager's manager, and
+Example 129: all employees with their manager, manager's manager, and
 manager's manager's manager
 ```
 http://host/service/Employees?$expand=ReportsTo($levels=3)
@@ -3685,7 +3713,7 @@ which take precedence over the star operator.
 The star operator does not implicitly include stream properties.
 
 ::: example
-Example 129: expand `Supplier` and include references for all other
+Example 130: expand `Supplier` and include references for all other
 related entities
 ```
 http://host/service/Categories?$expand=*/$ref,Supplier
@@ -3693,7 +3721,7 @@ http://host/service/Categories?$expand=*/$ref,Supplier
 :::
 
 ::: example
-Example 130: expand all related entities and their related entities
+Example 131: expand all related entities and their related entities
 ```
 http://host/service/Categories?$expand=*($levels=2)
 ```
@@ -3703,7 +3731,7 @@ Specifying a stream property includes the media stream inline according
 to the specified format.
 
 ::: example
-Example 131: include Employee's `Photo` stream property along with other
+Example 132: include Employee's `Photo` stream property along with other
 properties of the customer
 ```
 http://host/service/Employees?$expand=Photo
@@ -3714,7 +3742,7 @@ Specifying `$value` for a media entity includes the media entity's
 stream value inline according to the specified format.
 
 ::: example
-Example 132: Include the Product's media stream along with other
+Example 133: Include the Product's media stream along with other
 properties of the product
 ```
 http://host/service/Products?$expand=$value
@@ -3773,7 +3801,7 @@ The simplest form of a select item explicitly requests a property defined on the
 type of the resources identified by the resource path section of the URL.
 
 ::: example
-Example 133: rating and release date of all products
+Example 134: rating and release date of all products
 ```
 http://host/service/Products?$select=Rating,ReleaseDate
 ```
@@ -3783,7 +3811,7 @@ It is also possible to request all declared and dynamic structural
 properties using a star (`*`).
 
 ::: example
-Example 134: all structural properties of all products
+Example 135: all structural properties of all products
 ```
 http://host/service/Products?$select=*
 ```
@@ -3791,7 +3819,7 @@ http://host/service/Products?$select=*
 
 If the select item is not defined for the type of the resource, and that
 type supports dynamic properties or instance annotations, then the
-property is treated as null for all instances on which it is not
+property is treated as `null` for all instances on which it is not
 defined.
 
 If the select item is not defined for the type of the resource, and that
@@ -3811,7 +3839,7 @@ inline content can itself be restricted with a nested `$select` query
 option, see [section 5.1.2](#SystemQueryOptionfilter).
 
 ::: example
-Example 135: name and description of all products, plus name of expanded
+Example 136: name and description of all products, plus name of expanded
 category
 ```
 http://host/service/Products?$select=Name,Description
@@ -3828,7 +3856,7 @@ be followed by a forward slash, an optional [type-cast segment](#AddressingDeriv
 complex type (and so on for nested complex types).
 
 ::: example
-Example 136: the `AccountRepresentative` property of any supplier that
+Example 137: the `AccountRepresentative` property of any supplier that
 is of the derived type `Namespace.PreferredSupplier`, together with the
 `Street` property of the complex property
 `Address`, and the Location property of the derived complex type `Namespace.AddressWithLocation`
@@ -3850,7 +3878,7 @@ select options specified in more than one place in a request and MUST
 NOT be specified in more than one expand.
 
 ::: example
-Example 137: select up to five addresses whose `City` starts with an
+Example 138: select up to five addresses whose `City` starts with an
 `H`, sorted, and with the `Country` expanded
 ```
 http://host/service/Customers
@@ -3887,7 +3915,7 @@ qualified name and that operation cannot be bound to the entities
 requested, the service MUST ignore the select item.
 
 ::: example
-Example 138: the `ID` property, the `ActionName` action defined in
+Example 139: the `ID` property, the `ActionName` action defined in
 `Model` and all actions and functions defined in the `Model2` for each
 product if those actions and functions can be bound to that product
 ```
@@ -3953,7 +3981,7 @@ The [OData-ABNF](#ODataABNF) `search` syntax rule defines the formal
 grammar of the `$search` query option.
 
 ::: example
-Example 139: all products that are blue or green. It is up to the
+Example 140: all products that are blue or green. It is up to the
 service to decide what makes a product blue or green.
 ```
 http://host/service/Products?$search=blue OR green
@@ -3978,7 +4006,7 @@ Leading and trailing spaces are not considered part of the search expression.
 Terms enclosed in double-quotes comprise a *phrase*.
 
 Each individual term or phrase comprises a Boolean expression that
-returns true if the term or phrase is matched, otherwise false. The
+returns `true` if the term or phrase is matched, otherwise `false`. The
 semantics of what is considered a match is dependent upon the service.
 
 Expressions enclosed in parenthesis comprise a *group expression*.
@@ -3987,16 +4015,16 @@ The search expression can contain any number of terms, phrases, or group
 expressions, along with the case-sensitive keywords `NOT`, `AND`, and
 `OR`, evaluated in that order.
 
-Expressions prefaced with `NOT` evaluate to true if the expression is
-not matched, otherwise false.
+Expressions prefaced with `NOT` evaluate to `true` if the expression is
+not matched, otherwise `false`.
 
 Two expressions not enclosed in quotes and separated by a space are
 equivalent to the same two expressions separated by the `AND` keyword.
 Such expressions evaluate to `true` if both expressions evaluate to
-true, otherwise false.
+`true`, otherwise `false`.
 
-Expressions separated by an `OR` evaluate to true if either of the
-expressions evaluate to true, otherwise false.
+Expressions separated by an `OR` evaluate to `true` if either of the
+expressions evaluate to `true`, otherwise `false`.
 
 To support type-ahead use cases, incomplete search expressions can be
 sent as OData string literals enclosed in single-quotes, and
@@ -4048,7 +4076,7 @@ result and MUST be included if `$select` is specified with the computed
 property name, or star (`*`).
 
 ::: example
-Example 140: compute total price for order items
+Example 141: compute total price for order items
 ```
 http://host/service/Orders(10)/Items
   ?$select=Product/Description,Total
@@ -4092,7 +4120,7 @@ custom query option is any query option of the form shown by the rule
 Custom query options MUST NOT begin with a `$` or `@` character.
 
 ::: example
-Example 141: service-specific custom query option `debug-mode`
+Example 142: service-specific custom query option `debug-mode`
 ```
 http://host/service/Products?debug-mode=true
 ```
@@ -4114,21 +4142,21 @@ The semantics of parameter aliases are covered in
 values as query options.
 
 ::: example
-Example 142:
+Example 143:
 ```
 http://host/service/Movies?$filter=contains(@word,Title)&@word='Black'
 ```
 :::
 
 ::: example
-Example 143:
+Example 144:
 ```
 http://host/service/Movies?$filter=Title eq @title&@title='Wizard of Oz'
 ```
 :::
 
 ::: example
-Example 144: JSON array of strings as parameter alias value --- note that
+Example 145: JSON array of strings as parameter alias value --- note that
 `[`, `]`, and `"` need to be percent-encoded in real URLs, the
 clear-text representation used here is just for readability
 ```
