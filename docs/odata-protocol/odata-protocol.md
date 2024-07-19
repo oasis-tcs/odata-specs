@@ -4561,7 +4561,7 @@ term `Capabilities.UpdateRestrictions` (nested property `Upsertable`
 with value `true`) defined in [OData-VocCap](#ODataVocCap).
 
 A key property whose value is provided in the request URL SHOULD be omitted from the request body.
-If key property values are provided in the request URL and the request body with different values,
+If key properties are provided in the request URL and the request body with different values,
 services MUST either fail the request or ignore the value in the request body.
 
 To ensure that an update request is not treated as an insert, the client
