@@ -4170,23 +4170,13 @@ values beyond those specified in the metadata SHOULD NOT be sent in the
 request body. The service MUST fail if unable to persist all property
 values specified in the request.
 
-Non-insertable properties SHOULD be omitted from the request body.
-If they are provided, services MUST either ignore the value in the request body or fail the request if the provided values do not match the service-determined values.
+Properties computed by the service (annotated with the term
+[`Core.Computed`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Computed),
+see [OData-VocCore](#ODataVocCore)) and properties that are tied to
+properties of the principal entity by a referential constraint, can be
+omitted and MUST be ignored if included in the request.
 
-Non-insertable properties include (and are not limited to)
-- dependent properties that are tied to
-non-key properties of the principal entity through a referential constraint [OData-CSDL, section 8.5](#ODataCSDL) (informally: "denormalized" properties),
-- properties annotated with the term
-[`Core.Computed`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Computed), see [OData-VocCore](#ODataVocCore),
-- properties listed as `NonInsertableProperties` of term [`Capabilities.InsertRestrictions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#InsertRestrictions), see [OData-VocCap](#ODataVocCap),
-- properties annotated with term
-[`Core.Permissions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Permissions), see [OData-VocCore](#ODataVocCore), where the annotation value does not have the `Write` flag.
-
-Services MUST return an error if the request body contains a value for a
-property that in principle can be inserted and currently cannot be inserted by the
-authenticated user (i.e., given the state of the object or permissions of the user).
-
-Properties with a default value, nullable properties, and
+Properties with a defined default value, nullable properties, and
 collection-valued properties omitted from the request are set to the
 default value, null, or an empty collection, respectively.
 
@@ -4359,25 +4349,17 @@ Updating a principal property that is tied to a dependent entity through
 a referential constraint on the dependent entity updates the dependent
 property.
 
-Non-updatable properties SHOULD be omitted from the request body.
-If they are provided, services MAY ignore the value in the request body or fail the request,
-for example if the value provided in the request body differs from the actual value known by the service.
-
-Non-updatable properties include (and are not limited to)
-- key properties,
-- dependent properties that are tied to non-key properties of the principal entity through a referential constraint [OData-CSDL, section 8.5](#ODataCSDL) (informally: "denormalized" properties),
-- properties annotated with the terms
-[`Core.Computed`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Computed) or [`Core.Immutable`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Immutable), see [OData-VocCore](#ODataVocCore),
-- properties listed as `NonUpdatableProperties` of term [`Capabilities.UpdateRestrictions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#UpdateRestrictions), see [OData-VocCap](#ODataVocCap),
-- properties annotated with term
-[`Core.Permissions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Permissions), see [OData-VocCore](#ODataVocCore), where the annotation value does not have the `Write` flag.
-
-Services MUST return an error if the request body contains a new value for a
-property that in principle can be updated and currently cannot be updated by the
-authenticated user (i.e., given the state of the object or permissions of the user), and
-the specified value differs from the current value of the property.
-
-Clients SHOULD use `PATCH` and specify only those properties intended to be changed.
+Key and other properties marked as read-only in metadata (including
+computed properties), as well as dependent properties that are not tied
+to key properties of the principal entity, can be omitted from the
+request. If the request contains a value for one of these properties,
+the service MUST ignore that value when applying the update. Services
+MUST return an error if an insert or update contains a new value for a
+property marked as updatable that cannot currently be changed by the
+user (i.e., given the state of the object or permissions of the user).
+The service MAY return success in this case if the specified value
+matches the value of the property. Clients SHOULD use `PATCH` and
+specify only those properties intended to be changed.
 
 The entity-id cannot be changed when updating an entity.
 However, format-specific rules might in some cases require providing
