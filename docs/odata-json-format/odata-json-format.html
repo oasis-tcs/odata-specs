@@ -1965,7 +1965,7 @@ Preference-Applied: return=minimal, continue-on-error
 </summary>
 <p>Action parameter values are encoded in a single JSON object in the request body.</p>
 <p>Each non-binding parameter value is encoded as a separate name/value pair in this JSON object. The name is the name of the parameter. The value is the parameter value in the JSON representation appropriate for its type. Entity typed parameter values MAY include a subset of the properties, or just the <a href="#EntityReference">entity reference</a>, as appropriate to the action. Stream typed parameter values are represented following the same rules as inlined <a href="#StreamProperty">stream properties</a>.</p>
-<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD Entities as parameter values are represented as explained in <a href="#Entity">section 6</a>.</p>
+<p>Entities as parameter values are represented as explained in <a href="#Entity">section 6</a>.</p>
 <div class="example">
 <p>Example 51: Create a quote for a product that does not yet exist. The <code>Product</code> parameter takes a transient entity.</p>
 <div class="sourceCode" id="cb55"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">http://host/service/CreateQuote</span></span>
@@ -2002,7 +2002,7 @@ Preference-Applied: return=minimal, continue-on-error
 <span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;CustomerID&quot;</span><span class="fu">:</span> <span class="st">&quot;ALFKI&quot;</span></span>
 <span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
-<p>======= Alternatively, values of non-binding parameters MAY be specified as common expressions <a href="#ODataURL">OData-URL, section 5.1.1</a>. In the case of a bound action these MAY contain path expressions <a href="#ODataURL">OData-URL, section 5.1.1.15</a>, which the service evaluates on the binding parameter value. Such parameters are encoded as name/value pairs where the name is the name of the parameter followed by <code>@expression</code> and the value is the common expression. As the following example demonstrates, non-transient entities can be passed as non-binding action parameters through a resource path in this way.</p>
+<p>Alternatively, values of non-binding parameters MAY be specified as common expressions <a href="#ODataURL">OData-URL, section 5.1.1</a>. In the case of a bound action these MAY contain path expressions <a href="#ODataURL">OData-URL, section 5.1.1.15</a>, which the service evaluates on the binding parameter value. Such parameters are encoded as name/value pairs where the name is the name of the parameter followed by <code>@expression</code> and the value is the common expression. As the following example demonstrates, non-transient entities can be passed as non-binding action parameters through a resource path in this way.</p>
 <div class="example">
 <p>Example 53: An employee requests leave from their manager for the next two weeks:</p>
 <div class="sourceCode" id="cb58"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/service/Employees(23)/self.RequestLeave</span></span>
@@ -2028,21 +2028,6 @@ Preference-Applied: return=minimal, continue-on-error
 <span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <p>Inside a batch request the common expressions can also be value references starting with <code>$</code>, as introduced in <a href="#ODataProtocol">OData-Protocol, section 11.7.6</a>.</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>refs/remotes/origin/main</p>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
 <p>Non-binding parameters that are nullable or annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter"><code>Core.OptionalParameter</code></a> defined in <a href="#ODataVocCore">OData-VocCore</a> MAY be omitted from the request body. If an omitted parameter is not annotated (and thus nullable), it MUST be interpreted as having the <code>null</code> value. If it is annotated and the annotation specifies a <code>DefaultValue</code>, the omitted parameter is interpreted as having that default value. If omitted and the annotation does not specify a default value, the service is free on how to interpret the omitted parameter. Note: a nullable non-binding parameter is equivalent to being annotated as optional with a default value of <code>null</code>.</p>
 <div class="example">
 <p>Example 54:</p>

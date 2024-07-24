@@ -3053,7 +3053,6 @@ properties, or just the [entity reference](#EntityReference), as
 appropriate to the action.
 Stream typed parameter values are represented following the same rules as inlined [stream properties](#StreamProperty).
 
-<<<<<<< HEAD
 Entities as parameter values are represented as explained in [section 6](#Entity).
 
 ::: example
@@ -3103,7 +3102,7 @@ Content-Type: application/json
 }
 ```
 :::
-=======
+
 Alternatively, values of non-binding parameters MAY be specified as common expressions
 [OData-URL, section 5.1.1](#ODataURL). In the case of a bound action
 these MAY contain path expressions [OData-URL, section 5.1.1.15](#ODataURL), which
@@ -3146,7 +3145,6 @@ Content-Type: application/json
 
 Inside a batch request the common expressions can also be value references
 starting with `$`, as introduced in [OData-Protocol, section 11.7.6](#ODataProtocol).
->>>>>>> refs/remotes/origin/main
 
 Non-binding parameters that are nullable or annotated with the term
 [`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter) defined in
