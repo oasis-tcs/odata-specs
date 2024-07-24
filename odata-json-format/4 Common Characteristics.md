@@ -419,20 +419,19 @@ URL](#RelativeURLs).
 
 If the entity is transient (see [OData-Protocol](#ODataProtocol)), the
 `id` control information MUST appear in OData 4.0 payloads
-and have the `null` value. In 4.01 payloads transient
-entities need not have the `id` control information, and 4.01
-clients MUST treat entities with neither `id` control
+and have the `null` value. In 4.01 or greater payloads transient
+entities need not have the `id` control information, and
+clients receiving such payloads MUST treat entities with neither `id` control
 information nor a full set of key properties as transient entities.
+In 4.02 payloads transient entities MAY have the `id` control information with a non-null URI value,
+for example to allow solving a circular dependency by injecting an
+[entity reference](#EntityReference) instead of repeating the transient entity.
+The URI value SHOULD follow the pattern `odata:transient:{some-generated-identifier-unique-within-the-response}`,
+and if the transient entity cannot be re-read its `readLink` control information SHOULD have the `null` value.
 
 The `id` control information MUST NOT appear for a
 collection. Its meaning in this context is reserved for future versions
 of this specification.
-
-Entities with `id` equal to `null` cannot be
-compared to other entities, reread, or updated. If
-[`metadata=minimal`](#metadataminimalodatametadataminimal)
-is specified and the `id` is not present in the entity, then
-the canonical URL MUST be used as the entity-id.
 
 ### ##subsubsec Control Information: `editLink` and `readLink` (`odata.editLink` and `odata.readLink`)
 
