@@ -217,8 +217,9 @@ Section | Feature / Change | Issue
 --------|------------------|------
 [Section 4.5.1](#ControlInformationcontextodatacontext)| Fragment portion of Context URL is not percent-encoded| [368](https://github.com/oasis-tcs/odata-specs/issues/368)
 [Section 4.5.8](#ControlInformationidodataid)| Transient entities can be identifiable| [1928](https://github.com/oasis-tcs/odata-specs/issues/1928)
-[Section 4.5.12](#ControlInformationmediaodatamedia)|  `mediaContentType` can be `null`| [536](https://github.com/oasis-tcs/odata-specs/issues/536)
+[Section 4.5.12](#ControlInformationmediaodatamedia)| `mediaContentType` can be `null`| [536](https://github.com/oasis-tcs/odata-specs/issues/536)
 [Section 7](#StructuralProperty), [Section A.2](#InformativeReferences)| Removed reference to obsolete version of GeoJSON| [456](https://github.com/oasis-tcs/odata-specs/issues/456)
+[Section 18](#ActionInvocation)| Allow common expressions in action payloads| [341](https://github.com/oasis-tcs/odata-specs/issues/341)
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -3052,6 +3053,49 @@ properties, or just the [entity reference](#EntityReference), as
 appropriate to the action.
 Stream typed parameter values are represented following the same rules as inlined [stream properties](#StreamProperty).
 
+Alternatively, values of non-binding parameters MAY be specified as common expressions
+[OData-URL, section 5.1.1](#ODataURL). In the case of a bound action
+these MAY contain path expressions [OData-URL, section 5.1.1.15](#ODataURL), which
+the service evaluates on the binding parameter value. Such parameters are encoded as name/value
+pairs where the name is the name of the parameter followed by `@expression` and
+the value is the common expression. As the following example demonstrates,
+non-transient entities can be passed as non-binding action parameters through a
+resource path in this way.
+
+::: example
+Example 51: An employee requests leave from their manager for the next two weeks:
+```json
+POST /service/Employees(23)/self.RequestLeave
+Host: host
+Content-Type: application/json
+
+{
+  "StartDate@expression": "now()",
+  "EndDate@expression": "now() add duration'P14D'",
+  "Approver@expression": "Manager"
+}
+```
+The expression `Manager` is evaluated on the binding parameter value `Employees(23)`.
+
+When invoking an unbound action through an action import, expressions involving
+paths must start with `$root`:
+```json
+POST /service/RequestLeave
+Host: host
+Content-Type: application/json
+
+{
+  "Requester@expression": "$root/services/Employee(23)",
+  "StartDate@expression": "now()",
+  "EndDate@expression": "now() add duration'P14D'",
+  "Approver@expression": "$root/services/Employee(23)/Manager"
+}
+```
+:::
+
+Inside a batch request the common expressions can also be value references
+starting with `$`, as introduced in [OData-Protocol, section 11.7.6](#ODataProtocol).
+
 Non-binding parameters that are nullable or annotated with the term
 [`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter) defined in
 [OData-VocCore](#ODataVocCore) MAY be omitted from the request body.
@@ -3065,7 +3109,7 @@ parameter is equivalent to being annotated as optional with a default
 value of `null`.
 
 ::: example
-Example 51:
+Example 52:
 ```json
 {
   "param1": 42,
@@ -3211,7 +3255,7 @@ The request object and the `headers` object MUST NOT contain name/value pairs wi
 This is in conformance with [RFC7493](#rfc7493).
 
 ::: example
-Example <a name="batchRequest" href="#batchRequest">52</a>: a batch request that contains
+Example <a name="batchRequest" href="#batchRequest">53</a>: a batch request that contains
 the following individual requests in the order listed
 
   1. A query request
@@ -3274,7 +3318,7 @@ contains a relative URL, clients MUST be able to resolve it relative to the
 request's URL even if that contains such a reference.
 
 ::: example
-Example 53: a batch request that contains the following operations in
+Example 54: a batch request that contains the following operations in
 the order listed:
 
 - Insert a new entity (with `id = 1`)
@@ -3309,7 +3353,7 @@ Content-Length: ###
 ## <a name="ReferencinganETag" href="#ReferencinganETag">19.3 Referencing an ETag</a>
 
 ::: example
-Example 54: a batch request that contains the following operations in
+Example 55: a batch request that contains the following operations in
 the order listed:
 
 - Get an Employee (with `id` = 1)
@@ -3352,7 +3396,7 @@ Content-Length: ###
 ## <a name="ReferencingResponseBodyValues" href="#ReferencingResponseBodyValues">19.4 Referencing Response Body Values</a>
 
 ::: example
-Example 55: a batch request that contains the following operations in
+Example 56: a batch request that contains the following operations in
 the order listed:
 
 - Get an employee (with `Content-ID = 1`)
@@ -3483,7 +3527,7 @@ request. Especially: URLs in responses MUST NOT contain
 `$`-prefixed request identifiers.
 
 ::: example
-Example 56: referencing the batch request [example 52](#batchRequest) above, assume all
+Example 57: referencing the batch request [example 53](#batchRequest) above, assume all
 the requests except the final query request succeed. In this case the
 response would be
 ```json
@@ -3541,7 +3585,7 @@ to the next link MAY result in a `202 Accepted` response with a
 `location` header pointing to a new status monitor resource.
 
 ::: example
-Example 57: referencing the [example 52](#batchRequest) above again, assume that the
+Example 58: referencing the [example 53](#batchRequest) above again, assume that the
 request is sent with the `respond-async` preference. This
 results in a `202` response pointing to a status monitor resource:
 ```json
@@ -3631,7 +3675,7 @@ asynchronously executed individual request with a `status` of
 individual status monitor resource, and optionally a `retry-after` header.
 
 ::: example
-Example 58: the first individual request is processed asynchronously,
+Example 59: the first individual request is processed asynchronously,
 the second synchronously, the batch itself is processed synchronously
 ```json
 HTTP/1.1 200 OK
@@ -3694,7 +3738,7 @@ the annotations for the value appear next to the `value`
 property and are not prefixed with a property name.
 
 ::: example
-Example 59:
+Example 60:
 ```json
 {
   "@context": "http://host/service/$metadata#Customers",
@@ -3804,7 +3848,7 @@ Error responses MAY contain [annotations](#InstanceAnnotations) in
 any of its JSON objects.
 
 ::: example
-Example 60:
+Example 61:
 ```json
 {
   "error": {
@@ -3853,7 +3897,7 @@ header-appropriate way:
   [RFC8259](#rfc8259), section 7)
 
 ::: example
-Example 61: note that this is one HTTP header line without any line
+Example 62: note that this is one HTTP header line without any line
 breaks or optional whitespace
 ```json
 OData-error: {"code":"err123","message":"Unsupported
