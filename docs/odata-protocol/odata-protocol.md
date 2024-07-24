@@ -618,8 +618,9 @@ one or both of them may differ from convention.
 
 Transient entities are instances of an entity type that are
 dynamically generated on request and only exist within a response payload.
-They do not possess an entity-id or an update URL and consequently cannot be updated.
-A transient entity may have a read URL, which generates a new transient entity using the same algorithm.
+They do not possess an update URL and consequently cannot be updated.
+A transient entity may have a read URL, which generates a new transient entity using the same algorithm,
+and they may have an entity id if a repeated occurrence in a response needs to be replaced with an entity reference.
 
 ## <a name="DefaultNamespaces" href="#DefaultNamespaces">4.4 Default Namespaces</a>
 
@@ -4560,9 +4561,9 @@ supporting this SHOULD advertise it by annotating the singleton with the
 term `Capabilities.UpdateRestrictions` (nested property `Upsertable`
 with value `true`) defined in [OData-VocCap](#ODataVocCap).
 
-Key and other non-updatable properties, as well as dependent properties
-that are not tied to key properties of the principal entity, MUST be
-ignored by the service in processing the Upsert request.
+A key property whose value is provided in the request URL SHOULD be omitted from the request body.
+If key properties are provided in the request URL and the request body with different values,
+services MUST either fail the request or ignore the value in the request body.
 
 To ensure that an update request is not treated as an insert, the client
 MAY specify an [`If-Match`](#HeaderIfMatch) header in the update

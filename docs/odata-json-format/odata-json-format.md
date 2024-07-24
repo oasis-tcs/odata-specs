@@ -216,8 +216,10 @@ An OData JSON payload may represent:
 Section | Feature / Change | Issue
 --------|------------------|------
 [Section 4.5.1](#ControlInformationcontextodatacontext)| Fragment portion of Context URL is not percent-encoded| [368](https://github.com/oasis-tcs/odata-specs/issues/368)
-[Section 4.5.12](#ControlInformationmediaodatamedia)|  `mediaContentType` can be `null`| [536](https://github.com/oasis-tcs/odata-specs/issues/536)
+[Section 4.5.8](#ControlInformationidodataid)| Transient entities can be identifiable| [1928](https://github.com/oasis-tcs/odata-specs/issues/1928)
+[Section 4.5.12](#ControlInformationmediaodatamedia)| `mediaContentType` can be `null`| [536](https://github.com/oasis-tcs/odata-specs/issues/536)
 [Section 7](#StructuralProperty), [Section A.2](#InformativeReferences)| Removed reference to obsolete version of GeoJSON| [456](https://github.com/oasis-tcs/odata-specs/issues/456)
+[Section 18](#ActionInvocation)| Allow common expressions in action payloads| [341](https://github.com/oasis-tcs/odata-specs/issues/341)
 
 ## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -964,20 +966,19 @@ URL](#RelativeURLs).
 
 If the entity is transient (see [OData-Protocol](#ODataProtocol)), the
 `id` control information MUST appear in OData 4.0 payloads
-and have the `null` value. In 4.01 payloads transient
-entities need not have the `id` control information, and 4.01
-clients MUST treat entities with neither `id` control
+and have the `null` value. In 4.01 or greater payloads transient
+entities need not have the `id` control information, and
+clients receiving such payloads MUST treat entities with neither `id` control
 information nor a full set of key properties as transient entities.
+In 4.02 payloads transient entities MAY have the `id` control information with a non-null URI value,
+for example to allow solving a circular dependency by injecting an
+[entity reference](#EntityReference) instead of repeating the transient entity.
+The URI value SHOULD follow the pattern `odata:transient:{some-generated-identifier-unique-within-the-response}`,
+and if the transient entity cannot be re-read its `readLink` control information SHOULD have the `null` value.
 
 The `id` control information MUST NOT appear for a
 collection. Its meaning in this context is reserved for future versions
 of this specification.
-
-Entities with `id` equal to `null` cannot be
-compared to other entities, reread, or updated. If
-[`metadata=minimal`](#metadataminimalodatametadataminimal)
-is specified and the `id` is not present in the entity, then
-the canonical URL MUST be used as the entity-id.
 
 ### <a name="ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink" href="#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink">4.5.9 Control Information: `editLink` and `readLink` (`odata.editLink` and `odata.readLink`)</a>
 
@@ -3052,6 +3053,7 @@ properties, or just the [entity reference](#EntityReference), as
 appropriate to the action.
 Stream typed parameter values are represented following the same rules as inlined [stream properties](#StreamProperty).
 
+<<<<<<< HEAD
 Entities as parameter values are represented as explained in [section 6](#Entity).
 
 ::: example
@@ -3101,6 +3103,50 @@ Content-Type: application/json
 }
 ```
 :::
+=======
+Alternatively, values of non-binding parameters MAY be specified as common expressions
+[OData-URL, section 5.1.1](#ODataURL). In the case of a bound action
+these MAY contain path expressions [OData-URL, section 5.1.1.15](#ODataURL), which
+the service evaluates on the binding parameter value. Such parameters are encoded as name/value
+pairs where the name is the name of the parameter followed by `@expression` and
+the value is the common expression. As the following example demonstrates,
+non-transient entities can be passed as non-binding action parameters through a
+resource path in this way.
+
+::: example
+Example 53: An employee requests leave from their manager for the next two weeks:
+```json
+POST /service/Employees(23)/self.RequestLeave
+Host: host
+Content-Type: application/json
+
+{
+  "StartDate@expression": "now()",
+  "EndDate@expression": "now() add duration'P14D'",
+  "Approver@expression": "Manager"
+}
+```
+The expression `Manager` is evaluated on the binding parameter value `Employees(23)`.
+
+When invoking an unbound action through an action import, expressions involving
+paths must start with `$root`:
+```json
+POST /service/RequestLeave
+Host: host
+Content-Type: application/json
+
+{
+  "Requester@expression": "$root/services/Employee(23)",
+  "StartDate@expression": "now()",
+  "EndDate@expression": "now() add duration'P14D'",
+  "Approver@expression": "$root/services/Employee(23)/Manager"
+}
+```
+:::
+
+Inside a batch request the common expressions can also be value references
+starting with `$`, as introduced in [OData-Protocol, section 11.7.6](#ODataProtocol).
+>>>>>>> refs/remotes/origin/main
 
 Non-binding parameters that are nullable or annotated with the term
 [`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter) defined in
@@ -3115,7 +3161,7 @@ parameter is equivalent to being annotated as optional with a default
 value of `null`.
 
 ::: example
-Example 53:
+Example 54:
 ```json
 {
   "param1": 42,
@@ -3261,7 +3307,7 @@ The request object and the `headers` object MUST NOT contain name/value pairs wi
 This is in conformance with [RFC7493](#rfc7493).
 
 ::: example
-Example <a name="batchRequest" href="#batchRequest">54</a>: a batch request that contains
+Example <a name="batchRequest" href="#batchRequest">55</a>: a batch request that contains
 the following individual requests in the order listed
 
   1. A query request
@@ -3324,7 +3370,7 @@ contains a relative URL, clients MUST be able to resolve it relative to the
 request's URL even if that contains such a reference.
 
 ::: example
-Example 55: a batch request that contains the following operations in
+Example 56: a batch request that contains the following operations in
 the order listed:
 
 - Insert a new entity (with `id = 1`)
@@ -3359,7 +3405,7 @@ Content-Length: ###
 ## <a name="ReferencinganETag" href="#ReferencinganETag">19.3 Referencing an ETag</a>
 
 ::: example
-Example 56: a batch request that contains the following operations in
+Example 57: a batch request that contains the following operations in
 the order listed:
 
 - Get an Employee (with `id` = 1)
@@ -3402,7 +3448,7 @@ Content-Length: ###
 ## <a name="ReferencingResponseBodyValues" href="#ReferencingResponseBodyValues">19.4 Referencing Response Body Values</a>
 
 ::: example
-Example 57: a batch request that contains the following operations in
+Example 58: a batch request that contains the following operations in
 the order listed:
 
 - Get an employee (with `Content-ID = 1`)
@@ -3533,7 +3579,7 @@ request. Especially: URLs in responses MUST NOT contain
 `$`-prefixed request identifiers.
 
 ::: example
-Example 58: referencing the batch request [example 54](#batchRequest) above, assume all
+Example 59: referencing the batch request [example 55](#batchRequest) above, assume all
 the requests except the final query request succeed. In this case the
 response would be
 ```json
@@ -3591,7 +3637,7 @@ to the next link MAY result in a `202 Accepted` response with a
 `location` header pointing to a new status monitor resource.
 
 ::: example
-Example 59: referencing the [example 54](#batchRequest) above again, assume that the
+Example 60: referencing the [example 55](#batchRequest) above again, assume that the
 request is sent with the `respond-async` preference. This
 results in a `202` response pointing to a status monitor resource:
 ```json
@@ -3681,7 +3727,7 @@ asynchronously executed individual request with a `status` of
 individual status monitor resource, and optionally a `retry-after` header.
 
 ::: example
-Example 60: the first individual request is processed asynchronously,
+Example 61: the first individual request is processed asynchronously,
 the second synchronously, the batch itself is processed synchronously
 ```json
 HTTP/1.1 200 OK
@@ -3744,7 +3790,7 @@ the annotations for the value appear next to the `value`
 property and are not prefixed with a property name.
 
 ::: example
-Example 61:
+Example 62:
 ```json
 {
   "@context": "http://host/service/$metadata#Customers",
@@ -3854,7 +3900,7 @@ Error responses MAY contain [annotations](#InstanceAnnotations) in
 any of its JSON objects.
 
 ::: example
-Example 62:
+Example 63:
 ```json
 {
   "error": {
@@ -3903,7 +3949,7 @@ header-appropriate way:
   [RFC8259](#rfc8259), section 7)
 
 ::: example
-Example 63: note that this is one HTTP header line without any line
+Example 64: note that this is one HTTP header line without any line
 breaks or optional whitespace
 ```json
 OData-error: {"code":"err123","message":"Unsupported
