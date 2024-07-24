@@ -234,6 +234,56 @@ properties, or just the [entity reference](#EntityReference), as
 appropriate to the action.
 Stream typed parameter values are represented following the same rules as inlined [stream properties](#StreamProperty).
 
+Entities as parameter values are represented as explained in [section ##Entity].
+
+::: example
+Example ##ex: Create a quote for a product that does not yet exist. The `Product`
+parameter takes a transient entity.
+```json
+POST http://host/service/CreateQuote
+Content-Type: application/json
+
+{
+  "Product": {
+    "Name": "Our best ever",
+    "Price": 1
+  },
+  "CustomerID": "ALFKI"
+}
+```
+:::
+
+::: example
+Example ##ex: Create a quote for an existing product. The `Product`
+parameter takes a non-transient entity which can be identified through its
+entity-id:
+```json
+POST http://host/service/CreateQuote
+Content-Type: application/json
+
+{
+  "Product": {
+    "@id": "Products(14)"
+  },
+  "CustomerID": "ALFKI"
+}
+```
+or, as in [section ##AddedChangedEntity], through its primary key fields plus,
+if necessary, its context:
+```json
+POST http://host/service/CreateQuote
+Content-Type: application/json
+
+{
+  "Product": {
+    "@context": "#Products",
+    "ProductID": 14
+  },
+  "CustomerID": "ALFKI"
+}
+```
+:::
+
 Alternatively, values of non-binding parameters MAY be specified as common expressions
 [OData-URL, section 5.1.1](#ODataURL). In the case of a bound action
 these MAY contain path expressions [OData-URL, section 5.1.1.15](#ODataURL), which
