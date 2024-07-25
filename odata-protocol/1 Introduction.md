@@ -33,6 +33,12 @@ Context URLs use parentheses-style keys without percent-encoding|
 [Section ##DataModification]| 
 Response code `204 No Content` after successful data modification if requested response could not be constructed| 
 [443](https://github.com/oasis-tcs/odata-specs/issues/443)
+[Section ##CreateanEntity]| 
+Services can validate non-insertable property values| 
+[356](https://github.com/oasis-tcs/odata-specs/issues/356)
+[Section ##UpdateanEntity]| 
+Services can validate non-updatable property values| 
+[356](https://github.com/oasis-tcs/odata-specs/issues/356)
 [Section ##UpsertanEntity]| 
 Upserts to single-valued non-containment navigation properties| 
 [455](https://github.com/oasis-tcs/odata-specs/issues/455)
