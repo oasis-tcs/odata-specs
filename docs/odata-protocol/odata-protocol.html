@@ -524,12 +524,12 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </tr>
 <tr class="even">
 <td><a href="#CreateanEntity">Section 11.4.2</a></td>
-<td>Services can validate non-insertable property values</td>
+<td>Services can validate non-insertable property values in insert payloads</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/356">356</a></td>
 </tr>
 <tr class="odd">
 <td><a href="#UpdateanEntity">Section 11.4.3</a></td>
-<td>Services can validate non-updatable property values</td>
+<td>Services can validate non-updatable property values in update payloads</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/356">356</a></td>
 </tr>
 <tr class="even">
@@ -2257,7 +2257,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>If the target URL terminates in a type cast segment, then the segment MUST specify the type of, or a type derived from, the type of the collection, and the entity MUST be created as that specified type.</p>
 <p>To create an <em>open entity</em> (an instance of an open type), additional property values beyond those specified in the metadata MAY be sent in the request body. The service MUST treat these as dynamic properties and add them to the created instance.</p>
 <p>If the entity being created is not an open entity, additional property values beyond those specified in the metadata SHOULD NOT be sent in the request body. The service MUST fail if unable to persist all property values specified in the request.</p>
-<p>Non-insertable properties SHOULD be omitted from the request body. If they are provided, services MUST either ignore the value in the request body or fail the request if the provided values do not match the service-determined values.</p>
+<p>Non-insertable properties SHOULD be omitted from the request body. If they are provided, services MUST either ignore the values in the request body or fail the request, for example if the provided values do not match the service-determined values.</p>
 <p>Non-insertable properties include (and are not limited to)</p>
 <ul>
 <li>dependent properties that are tied to non-key properties of the principal entity through a referential constraint <a href="#ODataCSDL">OData-CSDL, section 8.5</a> (informally: “denormalized” properties),</li>
@@ -2327,7 +2327,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>For requests with an <code>OData-Version</code> header with a value of <code>4.01</code> or greater, the media stream of a media entity can be updated by specifying the format-specific representation of the media stream as a virtual property <code>$value</code>.</p>
 <p>Updating a dependent property that is tied to a key property of the principal entity through a referential constraint updates the relationship to point to the entity with the specified key value. If there is no such entity, the update fails.</p>
 <p>Updating a principal property that is tied to a dependent entity through a referential constraint on the dependent entity updates the dependent property.</p>
-<p>Non-updatable properties SHOULD be omitted from the request body. If they are provided, services MAY ignore the value in the request body or fail the request, for example if the value provided in the request body differs from the actual value known by the service.</p>
+<p>Non-updatable properties SHOULD be omitted from the request body. If they are provided, services MUST either ignore the values in the request body or fail the request, for example if the provided values do not match the actual values known by the service.</p>
 <p>Non-updatable properties include (and are not limited to)</p>
 <ul>
 <li>key properties,</li>
@@ -2336,7 +2336,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <li>properties listed as <code>NonUpdatableProperties</code> of term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#UpdateRestrictions"><code>Capabilities.UpdateRestrictions</code></a>, see <a href="#ODataVocCap">OData-VocCap</a>,</li>
 <li>properties annotated with term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Permissions"><code>Core.Permissions</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>, where the annotation value does not have the <code>Write</code> flag.</li>
 </ul>
-<p>Services MUST return an error if the request body contains a new value for a property that in principle can be updated and currently cannot be updated by the authenticated user (i.e., given the state of the object or permissions of the user), and the specified value differs from the current value of the property.</p>
+<p>Services MUST return an error if the request body contains a value for a property that in principle can be updated and currently cannot be updated by the authenticated user (i.e., given the state of the object or permissions of the user), and the specified value differs from the current value of the property.</p>
 <p>Clients SHOULD use <code>PATCH</code> and specify only those properties intended to be changed.</p>
 <p>The entity-id cannot be changed when updating an entity. However, format-specific rules might in some cases require providing the entity-id in the payload when requesting the update.</p>
 <p>For requests with an <code>OData-Version</code> header with a value of <code>4.01</code> or greater, if the entity representation in the request body includes an ETag value, the update MUST NOT be performed and SHOULD return <a href="#ResponseCode412PreconditionFailed"><code>412 Precondition Failed</code></a> if the supplied ETag value is not <code>*</code> and does not match the current ETag value for the entity. ETag values in request bodies MUST be ignored for requests containing an OData-Version header with a value of <code>4.0</code>.</p>

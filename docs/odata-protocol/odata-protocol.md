@@ -354,8 +354,8 @@ Section | Feature / Change | Issue
 [Section 8.2.8.3](#Preferencecontinueonerrorodatacontinueonerror) | Responses that include errors MUST include the Preference-Applied header `with continue-on-error` set to `true` | [1965](https://github.com/oasis-tcs/odata-specs/issues/1965)
 [Section 10.2](#CollectionofEntities)| Context URLs use parentheses-style keys without percent-encoding| [368](https://github.com/oasis-tcs/odata-specs/issues/368)
 [Section 11.4](#DataModification)| Response code `204 No Content` after successful data modification if requested response could not be constructed| [443](https://github.com/oasis-tcs/odata-specs/issues/443)
-[Section 11.4.2](#CreateanEntity)| Services can validate non-insertable property values| [356](https://github.com/oasis-tcs/odata-specs/issues/356)
-[Section 11.4.3](#UpdateanEntity)| Services can validate non-updatable property values| [356](https://github.com/oasis-tcs/odata-specs/issues/356)
+[Section 11.4.2](#CreateanEntity)| Services can validate non-insertable property values in insert payloads| [356](https://github.com/oasis-tcs/odata-specs/issues/356)
+[Section 11.4.3](#UpdateanEntity)| Services can validate non-updatable property values in update payloads| [356](https://github.com/oasis-tcs/odata-specs/issues/356)
 [Section 11.4.4](#UpsertanEntity)| Upserts to single-valued non-containment navigation properties| [455](https://github.com/oasis-tcs/odata-specs/issues/455)
 [Section 11.4.9.3](#UpdateaComplexProperty)| Setting a complex property to a different type| [534](https://github.com/oasis-tcs/odata-specs/issues/534)
 [Section 12](#Conformance) | Allow `400 Bad Request` in addition to `501 Not Implemented` for unsupported functionality| [391](https://github.com/oasis-tcs/odata-specs/issues/391)
@@ -4175,12 +4175,12 @@ request body. The service MUST fail if unable to persist all property
 values specified in the request.
 
 Non-insertable properties SHOULD be omitted from the request body.
-If they are provided, services MUST either ignore the value in the request body or fail the request if the provided values do not match the service-determined values.
+If they are provided, services MUST either ignore the values in the request body or fail the request,
+for example if the provided values do not match the service-determined values.
 
 Non-insertable properties include (and are not limited to)
 
-- dependent properties that are tied to
-  non-key properties of the principal entity through a referential constraint [OData-CSDL, section 8.5](#ODataCSDL) (informally: "denormalized" properties),
+- dependent properties that are tied to non-key properties of the principal entity through a referential constraint [OData-CSDL, section 8.5](#ODataCSDL) (informally: "denormalized" properties),
 - properties annotated with the term
   [`Core.Computed`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Computed), see [OData-VocCore](#ODataVocCore),
 - properties listed as `NonInsertableProperties` of term [`Capabilities.InsertRestrictions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#InsertRestrictions), see [OData-VocCap](#ODataVocCap),
@@ -4369,8 +4369,8 @@ a referential constraint on the dependent entity updates the dependent
 property.
 
 Non-updatable properties SHOULD be omitted from the request body.
-If they are provided, services MAY ignore the value in the request body or fail the request,
-for example if the value provided in the request body differs from the actual value known by the service.
+If they are provided, services MUST either ignore the values in the request body or fail the request,
+for example if the provided values do not match the actual values known by the service.
 
 Non-updatable properties include (and are not limited to)
 
@@ -4382,7 +4382,7 @@ Non-updatable properties include (and are not limited to)
 - properties annotated with term
   [`Core.Permissions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Permissions), see [OData-VocCore](#ODataVocCore), where the annotation value does not have the `Write` flag.
 
-Services MUST return an error if the request body contains a new value for a
+Services MUST return an error if the request body contains a value for a
 property that in principle can be updated and currently cannot be updated by the
 authenticated user (i.e., given the state of the object or permissions of the user), and
 the specified value differs from the current value of the property.
