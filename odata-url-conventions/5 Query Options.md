@@ -1674,7 +1674,7 @@ with or without the type prefix. OData clients that want to operate
 across OData 4.0 and OData 4.01 services should always include the
 prefix for duration and enumeration types.
 
-##### ##subsubsubsubsec Complex and Collection Literals
+##### ##subsubsubsubsec Structured and Collection Literals
 
 Complex literals and collection literals in URLs are represented as JSON
 objects and arrays according to the `arrayOrObject` rule in
@@ -1703,6 +1703,16 @@ Example ##ex: check whether a pair of properties has one of several
 possible pair values
 ```
 $filter=[FirstName,LastName] in [["John","Doe"],["Jane","Smith"]]
+```
+:::
+
+Entities are represented as structured literals as described in [OData-JSON, section 6](#ODataJSON).
+Non-transient entities can alternatively be represented through their [resource path](#ResourcePath).
+
+::: example
+Example ##ex: determine the price of an adhoc-defined product
+```
+http://host/service/Price(Product=@p)?@p={"Color":"red"}
 ```
 :::
 
