@@ -234,6 +234,99 @@ properties, or just the [entity reference](#EntityReference), as
 appropriate to the action.
 Stream typed parameter values are represented following the same rules as inlined [stream properties](#StreamProperty).
 
+Entities as parameter values are represented as explained in [section ##Entity].
+
+::: example
+Example ##ex: Create a quote for a product that does not yet exist. The `Product`
+parameter takes a transient entity.
+```json
+POST http://host/service/CreateQuote
+Content-Type: application/json
+
+{
+  "Product": {
+    "Name": "Our best ever",
+    "Price": 1
+  },
+  "CustomerID": "ALFKI"
+}
+```
+:::
+
+::: example
+Example ##ex: Create a quote for an existing product. The `Product`
+parameter takes a non-transient entity which can be identified through its
+entity-id:
+```json
+POST http://host/service/CreateQuote
+Content-Type: application/json
+
+{
+  "Product": {
+    "@id": "Products(14)"
+  },
+  "CustomerID": "ALFKI"
+}
+```
+or, as in [section ##AddedChangedEntity], through its primary key fields plus,
+if necessary, its context:
+```json
+POST http://host/service/CreateQuote
+Content-Type: application/json
+
+{
+  "Product": {
+    "@context": "#Products",
+    "ProductID": 14
+  },
+  "CustomerID": "ALFKI"
+}
+```
+:::
+
+Alternatively, values of non-binding parameters MAY be specified as common expressions
+[OData-URL, section 5.1.1](#ODataURL). In the case of a bound action
+these MAY contain path expressions [OData-URL, section 5.1.1.15](#ODataURL), which
+the service evaluates on the binding parameter value. Such parameters are encoded as name/value
+pairs where the name is the name of the parameter followed by `@expression` and
+the value is the common expression. As the following example demonstrates,
+non-transient entities can be passed as non-binding action parameters through a
+resource path in this way.
+
+::: example
+Example ##ex: An employee requests leave from their manager for the next two weeks:
+```json
+POST /service/Employees(23)/self.RequestLeave
+Host: host
+Content-Type: application/json
+
+{
+  "StartDate@expression": "now()",
+  "EndDate@expression": "now() add duration'P14D'",
+  "Approver@expression": "Manager"
+}
+```
+The expression `Manager` is evaluated on the binding parameter value `Employees(23)`.
+
+When invoking an unbound action through an action import, expressions involving
+paths must start with `$root`:
+```json
+POST /service/RequestLeave
+Host: host
+Content-Type: application/json
+
+{
+  "Requester@expression": "$root/services/Employee(23)",
+  "StartDate@expression": "now()",
+  "EndDate@expression": "now() add duration'P14D'",
+  "Approver@expression": "$root/services/Employee(23)/Manager"
+}
+```
+:::
+
+Inside a batch request the common expressions can also be value references
+starting with `$`, as introduced in [OData-Protocol, section 11.7.6](#ODataProtocol).
+
 Non-binding parameters that are nullable or annotated with the term
 [`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter) defined in
 [OData-VocCore](#ODataVocCore) MAY be omitted from the request body.

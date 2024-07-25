@@ -351,6 +351,7 @@ resource representations that are exchanged using OData.
 
 Section | Feature / Change | Issue
 --------|------------------|------
+[Section 8.2.8.3](#Preferencecontinueonerrorodatacontinueonerror) | Responses that include errors MUST include the Preference-Applied header `with continue-on-error` set to `true` | [1965](https://github.com/oasis-tcs/odata-specs/issues/1965)
 [Section 10.2](#CollectionofEntities)| Context URLs use parentheses-style keys without percent-encoding| [368](https://github.com/oasis-tcs/odata-specs/issues/368)
 [Section 11.4](#DataModification)| Response code `204 No Content` after successful data modification if requested response could not be constructed| [443](https://github.com/oasis-tcs/odata-specs/issues/443)
 [Section 11.4.4](#UpsertanEntity)| Upserts to single-valued non-containment navigation properties| [455](https://github.com/oasis-tcs/odata-specs/issues/455)
@@ -578,7 +579,7 @@ of the specification since there is currently no lossless representation
 of an IRI in the [`EntityId`](#HeaderODataEntityId) header.
 
 Services are strongly encouraged to use the canonical URL for an entity
-as defined in **OData-URL** as its entity-id, but clients cannot assume
+as defined in [OData-URL](#ODataURL) as its entity-id, but clients cannot assume
 the entity-id can be used to locate the entity unless the
 [`Core.DereferenceableIDs`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DereferenceableIDs)
 term is applied to the entity container, nor can the client assume any
@@ -605,7 +606,7 @@ The edit URL of a property is the edit URL of the entity with appended
 segment(s) containing the path to the property.
 
 Services are strongly encouraged to use the canonical URL for an entity
-as defined in **OData-URL** for both the read URL and the edit URL of an
+as defined in [OData-URL](#ODataURL) for both the read URL and the edit URL of an
 entity, with a cast segment to the type of the entity appended to the
 canonical URL if the type of the entity is derived from the declared
 type of the entity set. However, clients cannot assume this convention
@@ -617,8 +618,9 @@ one or both of them may differ from convention.
 
 Transient entities are instances of an entity type that are
 dynamically generated on request and only exist within a response payload.
-They do not possess an entity-id or an update URL and consequently cannot be updated.
-A transient entity may have a read URL, which generates a new transient entity using the same algorithm.
+They do not possess an update URL and consequently cannot be updated.
+A transient entity may have a read URL, which generates a new transient entity using the same algorithm,
+and they may have an entity id if a repeated occurrence in a response needs to be replaced with an entity reference.
 
 ## <a name="DefaultNamespaces" href="#DefaultNamespaces">4.4 Default Namespaces</a>
 
@@ -1328,6 +1330,8 @@ The `continue-on-error` preference can also be used on a
 [set-based delete](#DeleteMembersofaCollection) to request that the service
 continue attempting to process changes after receiving an error.
 
+If the service encounters any errors processing the request and returns a successful response code, then it MUST include a [`Preference-Applied`](#HeaderPreferenceApplied) response header containing the `continue-on-error` preference with an explicit value of `true`.
+
 A service MAY specify support for the `continue-on-error` preference
 using an annotation with term
 [`Capabilities.BatchContinueOnErrorSupported`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#BatchContinueOnErrorSupported),
@@ -1667,8 +1671,8 @@ Request](#RequestingData) for the resource. Clients MUST specify the
 value returned in the `ETag` header, or star (`*`), in an
 [`If-Match`](#HeaderIfMatch) header of a subsequent [Data Modification
 Request](#DataModification) or [Action Request](#Actions) in order to
-apply [optimistic concurrency](#UseofETagsforAvoidingUpdateConflicts)
-control in updating, deleting, or invoking an action bound to the
+apply [optimistic concurrency control](#UseofETagsforAvoidingUpdateConflicts)
+in updating, deleting, or invoking an action bound to the
 resource.
 
 As OData allows multiple formats for representing the same structured
@@ -4557,9 +4561,9 @@ supporting this SHOULD advertise it by annotating the singleton with the
 term `Capabilities.UpdateRestrictions` (nested property `Upsertable`
 with value `true`) defined in [OData-VocCap](#ODataVocCap).
 
-Key and other non-updatable properties, as well as dependent properties
-that are not tied to key properties of the principal entity, MUST be
-ignored by the service in processing the Upsert request.
+A key property whose value is provided in the request URL SHOULD be omitted from the request body.
+If key properties are provided in the request URL and the request body with different values,
+services MUST either fail the request or ignore the value in the request body.
 
 To ensure that an update request is not treated as an insert, the client
 MAY specify an [`If-Match`](#HeaderIfMatch) header in the update
@@ -5018,8 +5022,7 @@ term, both defined in [OData-VocCap](#ODataVocCap).
 The response, if requested, is a delta payload, in the same structure
 and order as the request payload, representing the applied changes.
 
-If the [`continue-on-error`](#Preferencecontinueonerrorodatacontinueonerror) preference has been specified and any errors
-occur in processing the changes, then a delta response MUST be returned
+If the client requests `continue-on-error` behavior and the service encounters any errors while processing the request, then it MUST either fail the entire request without applying any changes or include a [`Preference-Applied`](#HeaderPreferenceApplied)  header in the response indicating that the [`continue-on-error`](#Preferencecontinueonerrorodatacontinueonerror) preference has been applied. In this case, the delta response payload MUST be returned
 regardless of the [`return`](#Preferencereturnrepresentationandreturnminimal)
 preference and MUST contain at least the failed changes. The service
 represents failed changes in the delta response as follows:

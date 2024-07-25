@@ -581,7 +581,7 @@ these MAY contain [path expressions](#PathExpressions), which
 the service evaluates on the binding parameter value.
 
 ::: example
-Example ##ex: An employee's leave requests for the next two weeks
+Example ##ex_funcexpr: An employee's leave requests for the next two weeks
 pending their manager's approval:
 ```
 http://host/service/Employees(23)/self.PendingLeaveRequests(StartDate=@start,
@@ -1013,17 +1013,104 @@ Requests to paths ending in `/$query` MUST use the `POST` verb. Query
 options specified in the request body and query options specified in the
 request URL are processed together.
 
-The request body MUST use `Content-Type: text/plain`. It contains the
-query portion of the URL and MUST use the same percent-encoding as in
-URLs (especially: no spaces, tabs, or line breaks allowed) and MUST
-follow the syntax rules described in chapter Query Options.
+The request body MUST use a `Content-Type` of `text/plain`, `application/x-www-form-urlencoded`,
+or `application/json`.
+
+For `Content-Type: text/plain`, the individual query options MUST be separated by `&`
+and MUST use the same percent-encoding as in URLs (especially: no spaces, tabs, or line breaks allowed)
+and MUST follow the syntax rules described in [chapter ##QueryOptions].
 
 ::: example
-Example ##ex: passing a filter condition in the request body
+Example ##ex_postquery: system query options in request body instead of URL
 ```
 POST http://host/service/People/$query
 Content-Type: text/plain
 
-$filter=[FirstName,LastName]%20in%20[["John","Doe"],["Jane","Smith"]]
+$filter=LastName%20eq%20'P%26G'&$select=FirstName,LastName
+```
+:::
+
+For `Content-Type: application/x-www-form-urlencoded`, the request body MUST be
+suitable _input_ for the [`application/x-www-form-urlencoded` parser](https://url.spec.whatwg.org/#urlencoded-parsing)
+in the [URL Living Standard](#_url), section 5.1 such that the _output_ of the parsing
+steps is the list of name/value pairs for the individual query options.
+
+To guarantee this, clients are advised to make the request body the value of
+_output_ after running the
+[`application/x-www-form-urlencoded` serializer](https://url.spec.whatwg.org/#concept-urlencoded-serializer)
+in the [URL Living Standard](#_url), section 5.2 with _tuples_ being the list
+of name/value pairs for the individual query options.
+
+::: example
+Example ##ex: The same payload as in [example ##postquery] can be sent with
+`application/x-www-form-urlencoded` encoding. But the the `application/x-www-form-urlencoded` parser
+also accepts a different encoding:
+```
+POST http://host/service/People/$query
+Content-Type: application/x-www-form-urlencoded
+
+%24filter=LastName+eq+%27P%26G%27&%24select=FirstName%2CLastName
+```
+This POST request would result from submitting the HTML form
+```html
+<form method="post" action="http://host/service/People/$query"
+      enctype="application/x-www-form-urlencoded">
+  <input name="$filter" value="LastName eq 'P&G'">
+  <input name="$select" value="FirstName,LastName">
+</form>
+```
+which encodes spaces and ampersands (and more characters for which encoding is
+optional).
+:::
+
+With `Content-Type: application/json` query options and function parameters are
+encoded in a request body that represents a JSON object. Its members include the
+individual query options. The name of a system query option MUST have the `$` prefix.
+The value MUST be
+* a JSON number for `$top` and `$skip`, and
+* a JSON string without percent-encoding for all other query options.
+
+::: example
+Example ##ex: The same request as in [example ##postquery] can be sent with
+`application/json` encoding using the following payload:
+```json
+POST http://host/service/People/$query
+Content-Type: application/json
+
+{
+  "$filter": "LastName eq 'P&G'",
+  "$select": "FirstName,LastName"
+}
+```
+:::
+
+Members of the JSON object also include parameters
+if the resource path is a function invocation or function import. In this case
+parameters MUST be represented like parameters in an action invocation [OData-JSON, section 18](#ODataJSON),
+and in the resource path parentheses after the function name MUST be omitted.
+
+::: example
+Example ##ex: An employee's top ten leave requests from now to the end of the year
+pending their manager's approval.
+```json
+POST http://host/service/Employees(23)/self.PendingLeaveRequests/$query
+Content-Type: application/json
+
+{
+  "StartDate@expression": "now()",
+  "EndDate": "2024-12-31",
+  "Approver@expression": "Manager",
+  "$top": 10
+}
+```
+
+The previous request looks analogous to a bound function invocation with expressions (like in [example ##funcexpr])
+if it is written using implicit parameter aliases (see [OData-Protocol, section 11.5.4.1.1](#ODataProtocol)).
+```
+GET http://host/service/Employees(23)/self.PendingLeaveRequests
+  ?StartDate=now()
+  &EndDate=2024-12-31
+  &Approver=Manager
+  &$top=10
 ```
 :::
