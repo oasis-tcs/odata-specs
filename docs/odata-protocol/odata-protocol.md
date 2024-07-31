@@ -5873,7 +5873,8 @@ reference can consist of a `$` character followed by the value of an instance an
 [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID)
 (see [OData-VocCore](#ODataVocCore)) that occurs in the payload of the preceding request
 as described in [section 11.4.2.2](#CreateRelatedEntitiesWhenCreatinganEntity) and
-[section 11.4.3.1](#UpdateRelatedEntitiesWhenUpdatinganEntity),
+[section 11.4.3.1](#UpdateRelatedEntitiesWhenUpdatinganEntity) or in a preceding action payload
+as in the example in [OData-JSON, section 19.4](#ODataJSON),
 then the referenced value is the corresponding value in the response,
 which the service SHOULD annotate with the same `Core.ContentID` value.
 

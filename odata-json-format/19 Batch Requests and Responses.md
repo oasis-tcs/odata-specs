@@ -303,6 +303,55 @@ Content-Length: ###
 ```
 :::
 
+::: example
+Example ##ex: Given a sales quotation with items for coffee, sugar and paper,
+invoke an action to create a sales order for sugar and paper
+and add a 10% discount for the sugar.
+
+```json
+POST /service/$batch HTTP/1.1
+Host: host
+OData-Version: 4.01
+Content-Type: application/json
+Content-Length: ###
+
+{
+  "requests": [
+    {
+      "id": "1",
+      "method": "post",
+      "url": "/service/SalesQuotation(68)/self.CreateSalesOrder",
+      "headers": {
+        "accept": "application/json"
+      },
+      "body": {
+        "Items": [
+          {"Product": "Sugar", "@Core.ContentID": "I1"},
+          {"Product": "Paper"}
+        ]
+      }
+    },
+    {
+      "id": "2",
+      "dependsOn": [ "1" ],
+      "method": "post",
+      "url": "$I1/Discounts",
+      "headers": {
+        "accept": "application/json"
+      },
+      "body": {
+        "Percent": 10,
+        "Reason": "voucher"
+      }
+    }
+  ]
+}
+```
+
+In the response to the action invocation the sales order item for the sugar is annotated
+with `"@Core.ContentID": "I1"`. The POST request can reference this item without knowing its key.
+:::
+
 ## ##subsec Processing a Batch Request
 
 All requests in an atomicity group represent a single change unit. A
