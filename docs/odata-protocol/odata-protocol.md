@@ -358,7 +358,7 @@ Section | Feature / Change | Issue
 [Section 11.4](#DataModification)| Response code `204 No Content` after successful data modification if requested response could not be constructed| [443](https://github.com/oasis-tcs/odata-specs/issues/443)
 [Section 11.4.4](#UpsertanEntity)| Upserts to single-valued non-containment navigation properties| [455](https://github.com/oasis-tcs/odata-specs/issues/455)
 [Section 11.4.9.3](#UpdateaComplexProperty)| Setting a complex property to a different type| [534](https://github.com/oasis-tcs/odata-specs/issues/534)
-[Section 11.4.13](#ReplaceaCollectionofEntities)| Describe semantics for using `continue-on-error` when replacing a collection of entities. | [358](https://github.com/oasis-tcs/odata-specs/issues/358)
+[Section 11.4.13](#ReplaceaCollectionofEntities)| Semantics of `continue-on-error` when replacing a collection of entities | [358](https://github.com/oasis-tcs/odata-specs/issues/358)
 [Section 12](#Conformance) | Allow `400 Bad Request` in addition to `501 Not Implemented` for unsupported functionality| [391](https://github.com/oasis-tcs/odata-specs/issues/391)
 [Section 12.3](#InteroperableODataClients) | Encoding of plus character in URLs | [485](https://github.com/oasis-tcs/odata-specs/issues/485)
 
@@ -3989,7 +3989,7 @@ A delta payload represents changes to a known state. A delta payload
 includes added entities, changed entities, and deleted entities, as well
 as a representation of added and removed relationships.
 
-Services that support the use of [ETags](#UseofETagsforAvoidingUpdateConflicts) for optimistic concurrency SHOULD return ETag values for added or changed entities within the delta payload.
+Services that support the use of [ETags](#UseofETagsforAvoidingUpdateConflicts) for optimistic concurrency control SHOULD return ETag values for added or changed entities within the delta payload.
 
 Delta payloads can be [requested](#RequestingChanges) from the service
 using a delta link or provided as updates to the service.
@@ -5039,15 +5039,15 @@ preference and MUST contain at least the failed changes. The service
 represents failed changes in the delta response as follows:
 - Failed deletes in the request MUST be represented in the response as either entities or entity references, annotated with the term `Core.DataModificationException`, see
 [OData-VocCore](#ODataVocCore). If the deleted entity specified a reason
-of `deleted`, or the target collection is an entity set or contained navigation property,
+of `deleted`, or the target collection is an entity set or containment navigation property,
 then the value of `failedOperation` MUST be `delete`, otherwise `unlink`.
 - Failed inserts within the request MUST
 be represented in the response as deleted entities annotated with the term
 `Core.DataModificationException` with a `failedOperation` value of
 `insert`.
 - Failed updates within the request SHOULD be annotated in the response with the term `Core.DataModificationException` with a `failedOperation` value of `update`.
-- Failed added links within the request MUST represented in the response as deleted links annotated with the term `Core.DataModificationException` with a `failedOperation` value of `link`.
-- Failed deleted links within the request MUST represented in the response as added links annotated with the term `Core.DataModificationException` with a `failedOperation` value of `unlink`.
+- Failed added links within the request MUST be represented in the response as deleted links annotated with the term `Core.DataModificationException` with a `failedOperation` value of `link`.
+- Failed deleted links within the request MUST be represented in the response as added links annotated with the term `Core.DataModificationException` with a `failedOperation` value of `unlink`.
 - Delta collections within the request are returned as delta collections in the response, according to these same rules.
 - Collections within the request are represented as collections in the response according to the rules specified in [Replace a Collection of Entities](#ErrorHandlingwhenReplacingaCollectionofEntities).
 
@@ -5080,11 +5080,11 @@ If the `continue-on-error` preference has been applied and any errors occur in p
 contain the full membership and values of the collection as it exists in
 the service, as follows:
 - Entities missing in the request that cannot be removed from the collection MUST be represented in the response as either entities or entity references,
-and MAY be annotated with the term `Core.DataModificationException`, see
+and SHOULD be annotated with the term `Core.DataModificationException`, see
 [OData-VocCore](#ODataVocCore). If the target collection is an entity set or containment navigation property, then the value of `failedOperation` MUST be `delete`, otherwise `unlink`.
 - Failed inserts within the request MUST NOT be represented in the response.
 - Failed updates within the request MUST be represented in the response with
-their current values and MAY be annotated with the term `Core.DataModificationException`
+their current values and SHOULD be annotated with the term `Core.DataModificationException`
 with a `failedOperation` value of `update`.
 - Collections within the request MUST also be represented in the response following these same rules.
 

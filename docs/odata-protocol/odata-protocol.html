@@ -536,7 +536,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </tr>
 <tr class="odd">
 <td><a href="#ReplaceaCollectionofEntities">Section 11.4.13</a></td>
-<td>Describe semantics for using <code>continue-on-error</code> when replacing a collection of entities.</td>
+<td>Semantics of <code>continue-on-error</code> when replacing a collection of entities</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/358">358</a></td>
 </tr>
 <tr class="even">
@@ -2191,7 +2191,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <h3 id="1133-delta-payloads"><a name="DeltaPayloads" href="#DeltaPayloads">11.3.3 Delta Payloads</a></h3>
 </summary>
 <p>A delta payload represents changes to a known state. A delta payload includes added entities, changed entities, and deleted entities, as well as a representation of added and removed relationships.</p>
-<p>Services that support the use of <a href="#UseofETagsforAvoidingUpdateConflicts">ETags</a> for optimistic concurrency SHOULD return ETag values for added or changed entities within the delta payload.</p>
+<p>Services that support the use of <a href="#UseofETagsforAvoidingUpdateConflicts">ETags</a> for optimistic concurrency control SHOULD return ETag values for added or changed entities within the delta payload.</p>
 <p>Delta payloads can be <a href="#RequestingChanges">requested</a> from the service using a delta link or provided as updates to the service.</p>
 </details>
 </details>
@@ -2615,11 +2615,11 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>If the <code>continue-on-error</code> preference has not been applied, and the service is unable to apply all of the changes in the request, then it MUST return an error response and MUST NOT apply any of the changes specified in the request payload.</p>
 <p>If the <a href="#Preferencecontinueonerrorodatacontinueonerror"><code>continue-on-error</code></a> preference has been applied and any errors occur in processing the changes, then a delta response MUST be returned regardless of the <a href="#Preferencereturnrepresentationandreturnminimal"><code>return</code></a> preference and MUST contain at least the failed changes. The service represents failed changes in the delta response as follows:</p>
 <ul>
-<li>Failed deletes in the request MUST be represented in the response as either entities or entity references, annotated with the term <code>Core.DataModificationException</code>, see <a href="#ODataVocCore">OData-VocCore</a>. If the deleted entity specified a reason of <code>deleted</code>, or the target collection is an entity set or contained navigation property, then the value of <code>failedOperation</code> MUST be <code>delete</code>, otherwise <code>unlink</code>.</li>
+<li>Failed deletes in the request MUST be represented in the response as either entities or entity references, annotated with the term <code>Core.DataModificationException</code>, see <a href="#ODataVocCore">OData-VocCore</a>. If the deleted entity specified a reason of <code>deleted</code>, or the target collection is an entity set or containment navigation property, then the value of <code>failedOperation</code> MUST be <code>delete</code>, otherwise <code>unlink</code>.</li>
 <li>Failed inserts within the request MUST be represented in the response as deleted entities annotated with the term <code>Core.DataModificationException</code> with a <code>failedOperation</code> value of <code>insert</code>.</li>
 <li>Failed updates within the request SHOULD be annotated in the response with the term <code>Core.DataModificationException</code> with a <code>failedOperation</code> value of <code>update</code>.</li>
-<li>Failed added links within the request MUST represented in the response as deleted links annotated with the term <code>Core.DataModificationException</code> with a <code>failedOperation</code> value of <code>link</code>.</li>
-<li>Failed deleted links within the request MUST represented in the response as added links annotated with the term <code>Core.DataModificationException</code> with a <code>failedOperation</code> value of <code>unlink</code>.</li>
+<li>Failed added links within the request MUST be represented in the response as deleted links annotated with the term <code>Core.DataModificationException</code> with a <code>failedOperation</code> value of <code>link</code>.</li>
+<li>Failed deleted links within the request MUST be represented in the response as added links annotated with the term <code>Core.DataModificationException</code> with a <code>failedOperation</code> value of <code>unlink</code>.</li>
 <li>Delta collections within the request are returned as delta collections in the response, according to these same rules.</li>
 <li>Collections within the request are represented as collections in the response according to the rules specified in <a href="#ErrorHandlingwhenReplacingaCollectionofEntities">Replace a Collection of Entities</a>.</li>
 </ul>
@@ -2637,9 +2637,9 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>If the <code>continue-on-error</code> preference has not been applied, and the service is unable to apply all of the changes in the request, then it MUST return an error response and MUST NOT apply any of the changes specified in the request payload.</p>
 <p>If the <code>continue-on-error</code> preference has been applied and any errors occur in processing the changes, then a response MUST be returned regardless of the <a href="#Preferencereturnrepresentationandreturnminimal"><code>return</code></a> preference, and MUST contain the full membership and values of the collection as it exists in the service, as follows:</p>
 <ul>
-<li>Entities missing in the request that cannot be removed from the collection MUST be represented in the response as either entities or entity references, and MAY be annotated with the term <code>Core.DataModificationException</code>, see <a href="#ODataVocCore">OData-VocCore</a>. If the target collection is an entity set or containment navigation property, then the value of <code>failedOperation</code> MUST be <code>delete</code>, otherwise <code>unlink</code>.</li>
+<li>Entities missing in the request that cannot be removed from the collection MUST be represented in the response as either entities or entity references, and SHOULD be annotated with the term <code>Core.DataModificationException</code>, see <a href="#ODataVocCore">OData-VocCore</a>. If the target collection is an entity set or containment navigation property, then the value of <code>failedOperation</code> MUST be <code>delete</code>, otherwise <code>unlink</code>.</li>
 <li>Failed inserts within the request MUST NOT be represented in the response.</li>
-<li>Failed updates within the request MUST be represented in the response with their current values and MAY be annotated with the term <code>Core.DataModificationException</code> with a <code>failedOperation</code> value of <code>update</code>.</li>
+<li>Failed updates within the request MUST be represented in the response with their current values and SHOULD be annotated with the term <code>Core.DataModificationException</code> with a <code>failedOperation</code> value of <code>update</code>.</li>
 <li>Collections within the request MUST also be represented in the response following these same rules.</li>
 </ul>
 </details>
