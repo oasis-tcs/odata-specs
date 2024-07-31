@@ -4175,8 +4175,8 @@ request body. The service MUST fail if unable to persist all property
 values specified in the request.
 
 Non-insertable properties SHOULD be omitted from the request body.
-If they are provided, services MUST either ignore the values in the request body or fail the request,
-for example if the provided values do not match the service-determined values.
+If they are provided, services MUST either ignore the values in the request body or fail the request
+if the provided values do not match the service-determined values.
 
 Non-insertable properties include (and are not limited to)
 
@@ -4187,10 +4187,7 @@ Non-insertable properties include (and are not limited to)
 - properties annotated with term
   [`Core.Permissions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Permissions), see [OData-VocCore](#ODataVocCore), where the annotation value does not have the `Write` flag.
 
-Services MUST return an error if the request body contains a value for a
-property that in principle can be inserted and currently cannot be inserted by the
-authenticated user (i.e., given the state of the object or permissions of the user).
-
+Services MUST return an error if the request body contains a value for a property that in principle can be specified on insert but the request cannot currently be executed respecting the specified value, for example, due to permissions or state of the object.
 Properties with a default value, nullable properties, and
 collection-valued properties omitted from the request are set to the
 default value, null, or an empty collection, respectively.
@@ -4369,8 +4366,7 @@ a referential constraint on the dependent entity updates the dependent
 property.
 
 Non-updatable properties SHOULD be omitted from the request body.
-If they are provided, services MUST either ignore the values in the request body or fail the request,
-for example if the provided values do not match the actual values known by the service.
+If they are provided, services MUST either ignore the values in the request body or fail the request if the provided values do not match the service-determined values.
 
 Non-updatable properties include (and are not limited to)
 
@@ -4383,9 +4379,7 @@ Non-updatable properties include (and are not limited to)
   [`Core.Permissions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Permissions), see [OData-VocCore](#ODataVocCore), where the annotation value does not have the `Write` flag.
 
 Services MUST return an error if the request body contains a value for a
-property that in principle can be updated and currently cannot be updated by the
-authenticated user (i.e., given the state of the object or permissions of the user), and
-the specified value differs from the current value of the property.
+property that in principle can be specified on update but the request cannot currently be executed respecting the specified value, for example, due to permissions or state of the object.
 
 Clients SHOULD use `PATCH` and specify only those properties intended to be changed.
 
