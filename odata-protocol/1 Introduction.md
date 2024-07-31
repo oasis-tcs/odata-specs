@@ -26,6 +26,7 @@ resource representations that are exchanged using OData.
 
 Section | Feature / Change | Issue
 --------|------------------|------
+[Section ##Preferencecontinueonerrorodatacontinueonerror] | Responses that include errors MUST include the Preference-Applied header `with continue-on-error` set to `true` | [1965](https://github.com/oasis-tcs/odata-specs/issues/1965)
 [Section ##CollectionofEntities]| 
 Context URLs use parentheses-style keys without percent-encoding| 
 [368](https://github.com/oasis-tcs/odata-specs/issues/368)
@@ -262,7 +263,7 @@ of the specification since there is currently no lossless representation
 of an IRI in the [`EntityId`](#HeaderODataEntityId) header.
 
 Services are strongly encouraged to use the canonical URL for an entity
-as defined in **OData-URL** as its entity-id, but clients cannot assume
+as defined in [OData-URL](#ODataURL) as its entity-id, but clients cannot assume
 the entity-id can be used to locate the entity unless the
 [`Core.DereferenceableIDs`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DereferenceableIDs)
 term is applied to the entity container, nor can the client assume any
@@ -289,7 +290,7 @@ The edit URL of a property is the edit URL of the entity with appended
 segment(s) containing the path to the property.
 
 Services are strongly encouraged to use the canonical URL for an entity
-as defined in **OData-URL** for both the read URL and the edit URL of an
+as defined in [OData-URL](#ODataURL) for both the read URL and the edit URL of an
 entity, with a cast segment to the type of the entity appended to the
 canonical URL if the type of the entity is derived from the declared
 type of the entity set. However, clients cannot assume this convention
@@ -301,8 +302,9 @@ one or both of them may differ from convention.
 
 Transient entities are instances of an entity type that are
 dynamically generated on request and only exist within a response payload.
-They do not possess an entity-id or an update URL and consequently cannot be updated.
-A transient entity may have a read URL, which generates a new transient entity using the same algorithm.
+They do not possess an update URL and consequently cannot be updated.
+A transient entity may have a read URL, which generates a new transient entity using the same algorithm,
+and they may have an entity id if a repeated occurrence in a response needs to be replaced with an entity reference.
 
 ## ##subsec Default Namespaces
 
