@@ -3500,14 +3500,14 @@ Content-Length: ###
     {
       "id": "1",
       "method": "post",
-      "url": "/service/SalesQuotation(68)/self.CreateSalesOrder",
+      "url": "/service/SalesQuotation(68)/SampleEntities.CreateSalesOrder",
       "headers": {
         "accept": "application/json"
       },
       "body": {
-        "Items": [
-          {"Product": "Sugar", "@Core.ContentID": "I1"},
-          {"Product": "Paper"}
+        "items": [
+          {"product": "Sugar", "@Core.ContentID": "I1"},
+          {"product": "Paper"}
         ]
       }
     },
@@ -3515,13 +3515,13 @@ Content-Length: ###
       "id": "2",
       "dependsOn": [ "1" ],
       "method": "post",
-      "url": "$I1/Discounts",
+      "url": "$I1/discounts",
       "headers": {
         "accept": "application/json"
       },
       "body": {
-        "Percent": 10,
-        "Reason": "voucher"
+        "percent": 10,
+        "discountCode": "BLACKFRIDAY"
       }
     }
   ]
