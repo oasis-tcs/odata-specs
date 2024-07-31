@@ -5634,6 +5634,15 @@ Content-Type: application/json
 ```
 :::
 
+Clients MAY associate an id with individual values nested in a parameter value in
+the request payload by using the
+[`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID)
+term defined in [OData-VocCore](#ODataVocCore).
+Services that respond with [`200 OK`](#ResponseCode200OK) SHOULD annotate corresponding
+entities in the response using the same
+[`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID)
+value as specified in the request. See the example in [OData-JSON, section 19.4](#ODataJSON).
+
 #### <a name="ActionOverloadResolution" href="#ActionOverloadResolution">11.5.5.2 Action Overload Resolution</a>
 
 The same action name may be used multiple times within a schema provided
@@ -5872,9 +5881,9 @@ represented by the response body of that preceding request. Alternatively, a val
 reference can consist of a `$` character followed by the value of an instance annotation with term
 [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID)
 (see [OData-VocCore](#ODataVocCore)) that occurs in the payload of the preceding request
-as described in [section 11.4.2.2](#CreateRelatedEntitiesWhenCreatinganEntity) and
-[section 11.4.3.1](#UpdateRelatedEntitiesWhenUpdatinganEntity) or in a preceding action payload
-as in the example in [OData-JSON, section 19.4](#ODataJSON),
+as described in [section 11.4.2.2](#CreateRelatedEntitiesWhenCreatinganEntity),
+[section 11.4.3.1](#UpdateRelatedEntitiesWhenUpdatinganEntity), and
+[section 11.5.5.1](#InvokinganAction),
 then the referenced value is the corresponding value in the response,
 which the service SHOULD annotate with the same `Core.ContentID` value.
 
