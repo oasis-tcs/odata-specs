@@ -357,6 +357,8 @@ Section | Feature / Change | Issue
 [Section 8.2.8.3](#Preferencecontinueonerrorodatacontinueonerror) | Responses that include errors MUST include the Preference-Applied header `with continue-on-error` set to `true` | [1965](https://github.com/oasis-tcs/odata-specs/issues/1965)
 [Section 10.2](#CollectionofEntities)| Context URLs use parentheses-style keys without percent-encoding| [368](https://github.com/oasis-tcs/odata-specs/issues/368)
 [Section 11.4](#DataModification)| Response code `204 No Content` after successful data modification if requested response could not be constructed| [443](https://github.com/oasis-tcs/odata-specs/issues/443)
+[Section 11.4.2](#CreateanEntity)| Services can validate non-insertable property values in insert payloads| [356](https://github.com/oasis-tcs/odata-specs/issues/356)
+[Section 11.4.3](#UpdateanEntity)| Services can validate non-updatable property values in update payloads| [356](https://github.com/oasis-tcs/odata-specs/issues/356)
 [Section 11.4.4](#UpsertanEntity)| Upserts to single-valued non-containment navigation properties| [455](https://github.com/oasis-tcs/odata-specs/issues/455)
 [Section 11.4.9.3](#UpdateaComplexProperty)| Setting a complex property to a different type| [534](https://github.com/oasis-tcs/odata-specs/issues/534)
 [Section 11.4.13](#ReplaceaCollectionofEntities)| Semantics of `continue-on-error` when replacing a collection of entities | [358](https://github.com/oasis-tcs/odata-specs/issues/358)
@@ -4144,7 +4146,8 @@ of these query options and instead MUST return [`204 No Content`](#ResponseCode2
 
 To create an entity in a collection, the client sends a `POST` request
 to that collection's URL. The `POST` body MUST contain a single valid
-representation of an entity of the declared target entity type, or one of its derived types.
+representation of an entity of the declared target entity type,
+or one of its derived types.
 
 The entity representation MAY include [references to existing
 entities](#LinktoRelatedEntitiesWhenCreatinganEntity) as well as content for
@@ -4167,7 +4170,7 @@ If the target URL terminates in a type cast segment, then the segment
 MUST specify the type of, or a type derived from, the type of the
 collection, and the entity MUST be created as that specified type.
 
-To create an *open entity* (an instance of an open type), additional
+To create an _open entity_ (an instance of an open type), additional
 property values beyond those specified in the metadata MAY be sent in
 the request body. The service MUST treat these as dynamic properties and
 add them to the created instance.
@@ -4177,13 +4180,21 @@ values beyond those specified in the metadata SHOULD NOT be sent in the
 request body. The service MUST fail if unable to persist all property
 values specified in the request.
 
-Properties computed by the service (annotated with the term
-[`Core.Computed`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Computed),
-see [OData-VocCore](#ODataVocCore)) and properties that are tied to
-properties of the principal entity by a referential constraint, can be
-omitted and MUST be ignored if included in the request.
+Non-insertable properties SHOULD be omitted from the request body.
+If they are provided, services MUST either ignore the values in the request body or fail the request
+if the provided values do not match the service-determined values.
 
-Properties with a defined default value, nullable properties, and
+Non-insertable properties include (and are not limited to)
+
+- dependent properties that are tied to non-key properties of the principal entity through a referential constraint [OData-CSDL, section 8.5](#ODataCSDL) (informally: "denormalized" properties),
+- properties annotated with the term
+  [`Core.Computed`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Computed), see [OData-VocCore](#ODataVocCore),
+- properties listed as `NonInsertableProperties` of term [`Capabilities.InsertRestrictions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#InsertRestrictions), see [OData-VocCap](#ODataVocCap),
+- properties annotated with term
+  [`Core.Permissions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Permissions), see [OData-VocCore](#ODataVocCore), where the annotation value does not have the `Write` flag.
+
+Services MUST return an error if the request body contains a value for a property that in principle can be specified on insert but the request cannot currently be executed respecting the specified value, for example, due to permissions or state of the object.
+Properties with a default value, nullable properties, and
 collection-valued properties omitted from the request are set to the
 default value, null, or an empty collection, respectively.
 
@@ -4212,6 +4223,7 @@ The representation for referencing related entities is format-specific.
 Example 76: using the JSON format, 4.0 clients can create a new manager
 entity with links to an existing manager (of managers) and to two existing employees by applying the `odata.bind`
 annotation to the `Manager` and `DirectReports` navigation properties
+
 ```json
 {
   "@type": "#Northwind.Manager",
@@ -4225,12 +4237,14 @@ annotation to the `Manager` and `DirectReports` navigation properties
   ]
 }
 ```
+
 :::
 
 ::: example
 Example 77: using the JSON format, 4.01 clients can create a new manager
 entity with links to an existing manager (of managers) and to two existing employees by including the entity-ids
 within the `Manager` and `DirectReports` navigation properties
+
 ```json
 {
   "@type": "#Northwind.Manager",
@@ -4238,12 +4252,10 @@ within the `Manager` and `DirectReports` navigation properties
   "FirstName": "Pat",
   "LastName": "Griswold",
   "Manager": { "@id": "Employees(0)" },
-  "DirectReports": [
-    { "@id": "Employees(5)" },
-    { "@id": "Employees(6)" }
-  ]
+  "DirectReports": [{ "@id": "Employees(5)" }, { "@id": "Employees(6)" }]
 }
 ```
+
 :::
 
 Upon successful completion of the operation, the service creates the
@@ -4328,7 +4340,10 @@ dynamic properties, MUST NOT be directly altered unless as a side effect
 of changes resulting from the provided properties.
 
 If the type of the entity in a `PATCH` request differs from the type
-of the entity being updated (i.e., a different derived type of the declared target type), then properties shared through inheritance, as well as dynamic properties, are retained (unless overwritten by new values in the payload). Other properties of the original type are discarded.
+of the entity being updated (i.e., a different derived type of the
+declared target type), then properties shared through inheritance,
+as well as dynamic properties, are retained (unless overwritten by
+new values in the payload). Other properties of the original type are discarded.
 
 Services MAY additionally support `PUT` but should be aware of the
 potential for data-loss in round-tripping properties that the client may
@@ -4356,17 +4371,23 @@ Updating a principal property that is tied to a dependent entity through
 a referential constraint on the dependent entity updates the dependent
 property.
 
-Key and other properties marked as read-only in metadata (including
-computed properties), as well as dependent properties that are not tied
-to key properties of the principal entity, can be omitted from the
-request. If the request contains a value for one of these properties,
-the service MUST ignore that value when applying the update. Services
-MUST return an error if an insert or update contains a new value for a
-property marked as updatable that cannot currently be changed by the
-user (i.e., given the state of the object or permissions of the user).
-The service MAY return success in this case if the specified value
-matches the value of the property. Clients SHOULD use `PATCH` and
-specify only those properties intended to be changed.
+Non-updatable properties SHOULD be omitted from the request body.
+If they are provided, services MUST either ignore the values in the request body or fail the request if the provided values do not match the service-determined values.
+
+Non-updatable properties include (and are not limited to)
+
+- key properties,
+- dependent properties that are tied to non-key properties of the principal entity through a referential constraint [OData-CSDL, section 8.5](#ODataCSDL) (informally: "denormalized" properties),
+- properties annotated with the terms
+  [`Core.Computed`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Computed) or [`Core.Immutable`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Immutable), see [OData-VocCore](#ODataVocCore),
+- properties listed as `NonUpdatableProperties` of term [`Capabilities.UpdateRestrictions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#UpdateRestrictions), see [OData-VocCap](#ODataVocCap),
+- properties annotated with term
+  [`Core.Permissions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Permissions), see [OData-VocCore](#ODataVocCore), where the annotation value does not have the `Write` flag.
+
+Services MUST return an error if the request body contains a value for a
+property that in principle can be specified on update but the request cannot currently be executed respecting the specified value, for example, due to permissions or state of the object.
+
+Clients SHOULD use `PATCH` and specify only those properties intended to be changed.
 
 The entity-id cannot be changed when updating an entity.
 However, format-specific rules might in some cases require providing
@@ -4434,6 +4455,7 @@ Example 78: using the JSON format, a 4.01 `PATCH` request can update a
 manager entity. Following the update, the manager has three direct
 reports; two existing employees and one new employee named
 `Suzanne Brown`. The `LastName` of employee 6 is updated to `Smith`.
+
 ```json
 {
   "@type": "#Northwind.Manager",
@@ -4453,6 +4475,7 @@ reports; two existing employees and one new employee named
   ]
 }
 ```
+
 :::
 
 If the nested collection is represented as a delta annotation on the
@@ -4480,16 +4503,18 @@ fields, they MUST identify the same entity, or the request is invalid.
 ::: example
 Example 79: using the JSON format, a 4.01 `PATCH` request can specify a
 nested delta representation to:
+
 - delete employee 3 and
-remove link to it
+  remove link to it
 - remove the link to
-employee 4 and do not delete it
+  employee 4 and do not delete it
 - add a link to employee
-5
+  5
 - change the last name
-of employee 6 and link to it if necessary
+  of employee 6 and link to it if necessary
 - add a new employee
-named "Suzanne Brown" and link to it
+  named "Suzanne Brown" and link to it
+
 ```json
 {
   "@type": "#Northwind.Manager",
@@ -4521,6 +4546,7 @@ named "Suzanne Brown" and link to it
   ]
 }
 ```
+
 :::
 
 Clients MAY associate an id with individual nested entities in the
@@ -4552,15 +4578,22 @@ request as a [create entity request](#CreateanEntity) or fail the
 request altogether.
 
 Upserts to single-valued navigation properties are possible for
+
 - containment navigation properties,
 - non-containment navigation properties with a navigation property binding, or
 - payloads including a context URL specifying the entity set or
   contained collection of entities in which the new entity is to be created.
 
 Upserts are not supported against entities whose keys' values are
-generated by the service. Services MUST fail an update request to a URL that would identify such an entity and the entity does not yet exist.
+generated by the service. Services MUST fail an update request to a URL
+that would identify such an entity and the entity does not yet exist.
 
-Similarly, services MUST fail an update request to the URL of a [media entity](#RequestingtheMediaStreamofaMediaEntityusingvalue) that does not yet exist. However, a `PUT` request to the *media edit URL* of a media entity does have Upsert semantics, in that the media entity is [created](#CreateaMediaEntity) with the specified media stream if it does not already exist, otherwise the media stream of the existing media entity is [updated](#UpdateaMediaEntityStream).
+Similarly, services MUST fail an update request to the URL of a [media entity](#RequestingtheMediaStreamofaMediaEntityusingvalue) that does not yet exist.
+However, a `PUT` request to the _media edit URL_ of a media entity does have Upsert
+semantics, in that the media entity is [created](#CreateaMediaEntity)
+with the specified media stream if it does not already exist, otherwise the
+media stream of the existing media entity is
+[updated](#UpdateaMediaEntityStream).
 
 Singleton entities can be upserted if they are nullable. Services
 supporting this SHOULD advertise it by annotating the singleton with the
@@ -4695,13 +4728,16 @@ properties special handling is required.
 
 #### <a name="CreateaMediaEntity" href="#CreateaMediaEntity">11.4.7.1 Create a Media Entity</a>
 
-A `PUT` request to the media edit URL of a null-valued singleton media entity (by convention, the resource path of the media entity URL appended with `/$value`), or a `POST` request to a media entity's entity set, create a new media
+A `PUT` request to the media edit URL of a null-valued singleton media entity
+(by convention, the resource path of the media entity URL appended with `/$value`),
+or a `POST` request to a media entity's entity set, create a new media
 entity. The request body MUST contain the media value (for example, the
 photograph) whose media type MUST be specified in a
 [`Content-Type`](#HeaderContentType) header. The request body is always
 interpreted as the media value, even if it has the media type of an
 OData format supported by the service. The service may set other structural
-properties of the media entity upon creation, but it is not possible for clients to specify structural properties when creating the media
+properties of the media entity upon creation, but it is not possible
+for clients to specify structural properties when creating the media
 entity.
 
 Upon successful completion, the response MUST contain
@@ -4718,7 +4754,8 @@ Upon successful completion the service responds with either
 A successful `PUT` request to the media edit URL of an existing media entity
 changes the media stream of the entity.
 
-If the media entity did not previously exist, then the request is interpreted as a creation request according to [Create a Media Entity](#CreateaMediaEntity)
+If the media entity did not previously exist, then the request is interpreted as a
+creation request according to [Create a Media Entity](#CreateaMediaEntity)
 
 If the entity includes an ETag value for the media stream, the client
 MUST include an [`If-Match`](#HeaderIfMatch) header with the ETag value.
@@ -4728,7 +4765,8 @@ media type MUST be specified in a [`Content-Type`](#HeaderContentType)
 header.
 
 The service may set other structural properties of the media entity when updating
-the media entity stream, but it is not possible for clients to specify structural properties when updating the media entity stream.
+the media entity stream, but it is not possible for clients to specify structural
+properties when updating the media entity stream.
 
 On success, the service MUST respond with either
 [`204 No Content`](#ResponseCode204NoContent) and an empty body, or
@@ -4747,7 +4785,7 @@ entity.
 
 ### <a name="ManagingStreamProperties" href="#ManagingStreamProperties">11.4.8 Managing Stream Properties</a>
 
-An entity may have one or more *stream properties*. Stream properties
+An entity may have one or more _stream properties_. Stream properties
 are properties of type `Edm.Stream`.
 
 The values for stream properties do not usually appear in the entity
@@ -4756,10 +4794,13 @@ Instead, the values are generally read or written through URLs.
 
 ::: example
 Example <a name="entityWithStreamProperty" href="#entityWithStreamProperty">80</a>: read an entity and select a stream property
+
 ```
 GET http://host/service/Products(1)?$select=Thumbnail
 ```
+
 would only include control information for the stream property, not the stream data itself
+
 ```json
 {
   "@context": "http://host/service/$metadata#Products/$entity",
@@ -4769,10 +4810,13 @@ would only include control information for the stream property, not the stream d
   …
 }
 ```
+
 The stream data can then be requested using the media read link:
+
 ```
 GET http://server/Thumbnail546.jpg
 ```
+
 :::
 
 Services SHOULD support direct property access to a stream property's canonical URL.
@@ -4781,9 +4825,11 @@ if the media read link is different from the canonical URL.
 
 ::: example
 Example 81: directly read a stream property of an entity
+
 ```
 GET http://host/service/Products(1)/Thumbnail
 ```
+
 can return [`200 OK`](#ResponseCode200OK) and the stream data (see [section 11.2.4.1](#RequestingStreamProperties)),
 or a [`3xx Redirect`](#ResponseCode3xxRedirection) to the media read link of the stream property.
 :::
@@ -4830,9 +4876,11 @@ property is non-nullable.
 
 ::: example
 Example 82: delete the stream value using the media edit link retrieved in [example 80](#entityWithStreamProperty)
+
 ```
 DELETE http://server/uploads/Thumbnail546.jpg
 ```
+
 :::
 
 Attempting to request a stream property whose value is null results in
@@ -4982,6 +5030,7 @@ representing an insert as the last item in the collection.
 
 ::: example
 Example 83: Insert a new email address at the second position
+
 ```json
 POST /service/Customers('ALFKI')/EmailAddresses?$index=1
 Content-Type: application/json
@@ -4990,6 +5039,7 @@ Content-Type: application/json
   "value": "alfred@futterkiste.de"
 }
 ```
+
 :::
 
 ### <a name="UpdateaCollectionofEntities" href="#UpdateaCollectionofEntities">11.4.12 Update a Collection of Entities</a>
@@ -5025,7 +5075,12 @@ through the `ContentIDSupported` property of the
 [`Capabilities.DeepUpdateSupport`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#DeepUpdateSupportType)
 term, both defined in [OData-VocCap](#ODataVocCap).
 
-For each entity being updated or removed, clients MAY specify an [ETag](#UseofETagsforAvoidingUpdateConflicts) value obtained from a previous request. If an ETag is provided that does not match the ETag value of the entity being updated or removed, or if an ETag is provided when adding or updating an entity that does not currently exist, then services that support ETags MUST NOT apply the change and instead [report](#ErrorHandlingwhenUpdatingaCollectionofEntities) a `412 Precondition Failed` error. The special value `*` can be used to match any existing entity but fail if the entity does not already exist.
+For each entity being updated or removed, clients MAY specify an [ETag](#UseofETagsforAvoidingUpdateConflicts) value obtained from a previous request.
+If an ETag is provided that does not match the ETag value of the entity being updated or removed,
+or if an ETag is provided when adding or updating an entity that does not currently exist,
+then services that support ETags MUST NOT apply the change and instead
+[report](#ErrorHandlingwhenUpdatingaCollectionofEntities) a `412 Precondition Failed` error.
+The special value `*` can be used to match any existing entity but fail if the entity does not already exist.
 
 The response, if requested, is a delta payload, in the same structure
 and order as the request payload, representing the applied changes.
@@ -5037,23 +5092,33 @@ service is unable to apply all of the changes in the request, then it
 MUST return an error response and MUST NOT apply any of the changes
 specified in the request payload.
 
-If the [`continue-on-error`](#Preferencecontinueonerrorodatacontinueonerror) preference has been applied and any errors occur in processing the changes, then a delta response MUST be returned
+If the [`continue-on-error`](#Preferencecontinueonerrorodatacontinueonerror) preference
+has been applied and any errors occur in processing the changes, then a delta response MUST be returned
 regardless of the [`return`](#Preferencereturnrepresentationandreturnminimal)
 preference and MUST contain at least the failed changes. The service
 represents failed changes in the delta response as follows:
-- Failed deletes in the request MUST be represented in the response as either entities or entity references, annotated with the term `Core.DataModificationException`, see
-[OData-VocCore](#ODataVocCore). If the deleted entity specified a reason
-of `deleted`, or the target collection is an entity set or containment navigation property,
-then the value of `failedOperation` MUST be `delete`, otherwise `unlink`.
+
+- Failed deletes in the request MUST be represented in the response as either entities
+  or entity references, annotated with the term `Core.DataModificationException`, see
+  [OData-VocCore](#ODataVocCore). If the deleted entity specified a reason
+  of `deleted`, or the target collection is an entity set or containment navigation property,
+  then the value of `failedOperation` MUST be `delete`, otherwise `unlink`.
 - Failed inserts within the request MUST
-be represented in the response as deleted entities annotated with the term
-`Core.DataModificationException` with a `failedOperation` value of
-`insert`.
-- Failed updates within the request SHOULD be annotated in the response with the term `Core.DataModificationException` with a `failedOperation` value of `update`.
-- Failed added links within the request MUST be represented in the response as deleted links annotated with the term `Core.DataModificationException` with a `failedOperation` value of `link`.
-- Failed deleted links within the request MUST be represented in the response as added links annotated with the term `Core.DataModificationException` with a `failedOperation` value of `unlink`.
-- Delta collections within the request are returned as delta collections in the response, according to these same rules.
-- Collections within the request are represented as collections in the response according to the rules specified in [Replace a Collection of Entities](#ErrorHandlingwhenReplacingaCollectionofEntities).
+  be represented in the response as deleted entities annotated with the term
+  `Core.DataModificationException` with a `failedOperation` value of
+  `insert`.
+- Failed updates within the request SHOULD be annotated in the response with
+  the term `Core.DataModificationException` with a `failedOperation` value of `update`.
+- Failed added links within the request MUST be represented in the response as
+  deleted links annotated with the term `Core.DataModificationException`
+  with a `failedOperation` value of `link`.
+- Failed deleted links within the request MUST be represented in the response as
+  added links annotated with the term `Core.DataModificationException`
+  with a `failedOperation` value of `unlink`.
+- Delta collections within the request are returned as delta collections in the
+  response, according to these same rules.
+- Collections within the request are represented as collections in the response
+  according to the rules specified in [Replace a Collection of Entities](#ErrorHandlingwhenReplacingaCollectionofEntities).
 
 If an individual change fails due to a failed dependency, it MUST be
 annotated with the term [`Core.DataModificationException`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DataModificationException) and SHOULD specify
@@ -5069,8 +5134,12 @@ case all entities provided in the request are applied as
 are deleted.
 
 For each entity being updated, clients MAY specify an [ETag](#UseofETagsforAvoidingUpdateConflicts)
-value obtained from a previous request. If an ETag is provided that does not match the ETag value of the entity being updated, or if an ETag is provided for an entity that does not currently exist, then services that support ETags MUST NOT apply the change and instead [report](#ErrorHandlingwhenReplacingaCollectionofEntities)
- a `412 Precondition Failed`. The special ETag value `*` can be used to match any existing entity  but fail if the entity does not already exist.
+value obtained from a previous request. If an ETag is provided that does not match the ETag
+value of the entity being updated, or if an ETag is provided for an entity that does not
+currently exist, then services that support ETags MUST NOT apply the
+change and instead [report](#ErrorHandlingwhenReplacingaCollectionofEntities)
+a `412 Precondition Failed`. The special ETag value `*` can be used to match any existing entity
+but fail if the entity does not already exist.
 
 #### <a name="ErrorHandlingwhenReplacingaCollectionofEntities" href="#ErrorHandlingwhenReplacingaCollectionofEntities">11.4.13.1 Error Handling when Replacing a Collection of Entities</a>
 
@@ -5079,18 +5148,24 @@ service is unable to apply all of the changes in the request, then it
 MUST return an error response and MUST NOT apply any of the changes
 specified in the request payload.
 
-If the `continue-on-error` preference has been applied and any errors occur in processing the changes, then a response MUST be returned regardless of the
+If the `continue-on-error` preference has been applied and any errors occur
+in processing the changes, then a response MUST be returned regardless of the
 [`return`](#Preferencereturnrepresentationandreturnminimal) preference, and MUST
 contain the full membership and values of the collection as it exists in
 the service, as follows:
-- Entities missing in the request that cannot be removed from the collection MUST be represented in the response as either entities or entity references,
-and SHOULD be annotated with the term `Core.DataModificationException`, see
-[OData-VocCore](#ODataVocCore). If the target collection is an entity set or containment navigation property, then the value of `failedOperation` MUST be `delete`, otherwise `unlink`.
+
+- Entities missing in the request that cannot be removed from the collection
+  MUST be represented in the response as either entities or entity references,
+  and SHOULD be annotated with the term `Core.DataModificationException`, see
+  [OData-VocCore](#ODataVocCore). If the target collection is an entity set or
+  containment navigation property, then the value of `failedOperation` MUST be
+  `delete`, otherwise `unlink`.
 - Failed inserts within the request MUST NOT be represented in the response.
 - Failed updates within the request MUST be represented in the response with
-their current values and SHOULD be annotated with the term `Core.DataModificationException`
-with a `failedOperation` value of `update`.
-- Collections within the request MUST also be represented in the response following these same rules.
+  their current values and SHOULD be annotated with the term `Core.DataModificationException`
+  with a `failedOperation` value of `update`.
+- Collections within the request MUST also be represented in the response
+  following these same rules.
 
 ### <a name="UpdateMembersofaCollection" href="#UpdateMembersofaCollection">11.4.14 Update Members of a Collection</a>
 
@@ -5117,6 +5192,7 @@ Entities](#UpdateaCollectionofEntities) applies.
 
 ::: example
 Example 84: change the color of all beige-brown products
+
 ```json
 PATCH /service/Products/$filter(@bar)/$each?@bar=Color eq 'beige-brown'
 Content-Type: application/json
@@ -5125,6 +5201,7 @@ Content-Type: application/json
   "Color": "taupe"
 }
 ```
+
 :::
 
 The response, if requested, is a collection payload containing the
@@ -5161,9 +5238,11 @@ filter segments to subset the collection.
 
 ::: example
 Example 85: delete all products older than 3
+
 ```
 DELETE /service/Products/$filter(Age gt 3)/$each
 ```
+
 :::
 
 If the path identifies a collection of entities and if the service
