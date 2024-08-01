@@ -2272,6 +2272,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>If the entity being created is not an open entity, additional property values beyond those specified in the metadata SHOULD NOT be sent in the request body. The service MUST fail if unable to persist all property values specified in the request.</p>
 <p>If non-insertable properties are included in the request body, services MUST either ignore them or fail the request if the provided values do not match the service-determined values.</p>
 <p>A client who has out-of-band knowledge that a service has the latter behavior for certain non-insertable properties can provide them in an insert request and benefit from the certainty that, if the request succeeds, their service-determined values match the provided values. Providing such properties effectively imposes “post-conditions” that must be met for the request to succeed.</p>
+<p>Otherwise, clients SHOULD omit non-insertable properties from the request body.</p>
 <p>Non-insertable properties include (and are not limited to)</p>
 <ul>
 <li>dependent properties that are tied to non-key properties of the principal entity through a referential constraint <a href="#ODataCSDL">OData-CSDL, section 8.5</a> (informally: “denormalized” properties),</li>

@@ -4190,6 +4190,8 @@ certainty that, if the request succeeds, their service-determined values match
 the provided values. Providing such properties effectively imposes "post-conditions"
 that must be met for the request to succeed.
 
+Otherwise, clients SHOULD omit non-insertable properties from the request body.
+
 Non-insertable properties include (and are not limited to)
 
 - dependent properties that are tied to non-key properties of the principal entity through a referential constraint [OData-CSDL, section 8.5](#ODataCSDL) (informally: "denormalized" properties),
