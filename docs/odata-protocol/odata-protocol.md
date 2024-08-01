@@ -4205,7 +4205,7 @@ Otherwise, clients SHOULD omit non-insertable properties from the request body.
 
 ::: example
 Example 76: The entity `SalesOrder` has a property `ExportRegulationsState`
-which is a annotated with the terms `Core.Computed` and `Core.PostCondition` and which
+which is tagged with `Core.Computed` and `Core.PostCondition` and which
 the service determines based on the product and destination country.
 Clients can specify it with value `Allowed` to impose a "post-condition" that a sales order is created
 only if it meets export regulations.
