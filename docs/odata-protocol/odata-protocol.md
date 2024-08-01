@@ -4180,9 +4180,15 @@ values beyond those specified in the metadata SHOULD NOT be sent in the
 request body. The service MUST fail if unable to persist all property
 values specified in the request.
 
-Non-insertable properties SHOULD be omitted from the request body.
-If they are provided, services MUST either ignore the values in the request body or fail the request
+If non-insertable properties are included in the request body,
+services MUST either ignore them or fail the request
 if the provided values do not match the service-determined values.
+
+A client who has out-of-band knowledge that a service has the latter behavior for
+certain non-insertable properties can provide them in an insert request and benefit from the
+certainty that, if the request succeeds, their service-determined values match
+the provided values. Providing such properties effectively imposes "post-conditions"
+that must be met for the request to succeed.
 
 Non-insertable properties include (and are not limited to)
 
@@ -4194,6 +4200,7 @@ Non-insertable properties include (and are not limited to)
   [`Core.Permissions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Permissions), see [OData-VocCore](#ODataVocCore), where the annotation value does not have the `Write` flag.
 
 Services MUST return an error if the request body contains a value for a property that in principle can be specified on insert but the request cannot currently be executed respecting the specified value, for example, due to permissions or state of the object.
+
 Properties with a default value, nullable properties, and
 collection-valued properties omitted from the request are set to the
 default value, null, or an empty collection, respectively.
@@ -4387,7 +4394,9 @@ Non-updatable properties include (and are not limited to)
 Services MUST return an error if the request body contains a value for a
 property that in principle can be specified on update but the request cannot currently be executed respecting the specified value, for example, due to permissions or state of the object.
 
-Clients SHOULD use `PATCH` and specify only those properties intended to be changed.
+Clients can provide non-updatable properties to impose "post-conditions" as explained
+for [non-insertable properties](#CreateanEntity). Otherwise,
+clients SHOULD use `PATCH` and specify only those properties intended to be changed.
 
 The entity-id cannot be changed when updating an entity.
 However, format-specific rules might in some cases require providing
