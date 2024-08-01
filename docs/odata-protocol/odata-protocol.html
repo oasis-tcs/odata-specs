@@ -2271,8 +2271,6 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>To create an <em>open entity</em> (an instance of an open type), additional property values beyond those specified in the metadata MAY be sent in the request body. The service MUST treat these as dynamic properties and add them to the created instance.</p>
 <p>If the entity being created is not an open entity, additional property values beyond those specified in the metadata SHOULD NOT be sent in the request body. The service MUST fail if unable to persist all property values specified in the request.</p>
 <p>If non-insertable properties are included in the request body, services MUST either ignore them or fail the request if the provided values do not match the service-determined values.</p>
-<p>Assume a client has out-of-band knowledge that a service has the latter behavior for certain non-insertable properties. Then it can provide these properties in an insert request and benefit from the certainty that, if the request succeeds, their service-determined values match the provided values. Providing such properties effectively imposes “post-conditions” that must be met for the request to succeed.</p>
-<p>Otherwise, clients SHOULD omit non-insertable properties from the request body.</p>
 <p>Non-insertable properties include (and are not limited to)</p>
 <ul>
 <li>dependent properties that are tied to non-key properties of the principal entity through a referential constraint <a href="#ODataCSDL">OData-CSDL, section 8.5</a> (informally: “denormalized” properties),</li>
@@ -2280,6 +2278,8 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <li>properties listed as <code>NonInsertableProperties</code> of term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#InsertRestrictions"><code>Capabilities.InsertRestrictions</code></a>, see <a href="#ODataVocCap">OData-VocCap</a>,</li>
 <li>properties annotated with term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Permissions"><code>Core.Permissions</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>, where the annotation value does not have the <code>Write</code> flag.</li>
 </ul>
+<p>Properties annotated with <code>Core.Computed</code> MAY additionally be annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#PostCondition"><code>Core.PostCondition</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>, if the service does not ignore them. Clients can then provide these properties in an insert request and benefit from the certainty that, if the request succeeds, their service-determined values match the provided values. Providing such properties effectively imposes “post-conditions” that must be met for the request to succeed.</p>
+<p>Otherwise, clients SHOULD omit non-insertable properties from the request body.</p>
 <div class="example">
 <p>Example 76: The entity <code>SalesOrder</code> has a property <code>ExportRegulationsState</code> which is a annotated with the term <code>Core.Computed</code> and which the service determines based on the product and destination country. Clients can specify it with value <code>Allowed</code> to impose a “post-condition” that a sales order is created only if it meets export regulations.</p>
 </div>

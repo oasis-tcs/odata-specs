@@ -4184,14 +4184,6 @@ If non-insertable properties are included in the request body,
 services MUST either ignore them or fail the request
 if the provided values do not match the service-determined values.
 
-Assume a client has out-of-band knowledge that a service has the latter behavior for
-certain non-insertable properties. Then it can provide these properties in an insert request and benefit from the
-certainty that, if the request succeeds, their service-determined values match
-the provided values. Providing such properties effectively imposes "post-conditions"
-that must be met for the request to succeed.
-
-Otherwise, clients SHOULD omit non-insertable properties from the request body.
-
 Non-insertable properties include (and are not limited to)
 
 - dependent properties that are tied to non-key properties of the principal entity through a referential constraint [OData-CSDL, section 8.5](#ODataCSDL) (informally: "denormalized" properties),
@@ -4200,6 +4192,16 @@ Non-insertable properties include (and are not limited to)
 - properties listed as `NonInsertableProperties` of term [`Capabilities.InsertRestrictions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#InsertRestrictions), see [OData-VocCap](#ODataVocCap),
 - properties annotated with term
   [`Core.Permissions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Permissions), see [OData-VocCore](#ODataVocCore), where the annotation value does not have the `Write` flag.
+
+Properties annotated with `Core.Computed` MAY additionally be annotated with the term
+[`Core.PostCondition`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#PostCondition),
+see [OData-VocCore](#ODataVocCore), if the service does not ignore them.
+Clients can then provide these properties in an insert request
+and benefit from the certainty that, if the request succeeds, their service-determined values match
+the provided values. Providing such properties effectively imposes "post-conditions"
+that must be met for the request to succeed.
+
+Otherwise, clients SHOULD omit non-insertable properties from the request body.
 
 ::: example
 Example 76: The entity `SalesOrder` has a property `ExportRegulationsState`
