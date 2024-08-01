@@ -4196,7 +4196,8 @@ Non-insertable properties include (and are not limited to)
 Properties tagged with `Core.Computed` MAY additionally be tagged with the term
 [`Core.PostCondition`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#PostCondition),
 see [OData-VocCore](#ODataVocCore), if the service does not ignore them.
-Clients can then provide these properties in an insert request
+Based on this tag (or based on out-of-band knowledge about the service behavior)
+clients can provide these properties in an insert request
 and benefit from the certainty that, if the request succeeds, their service-determined values match
 the provided values. Providing such properties effectively imposes "post-conditions"
 that must be met for the request to succeed.
