@@ -88,6 +88,15 @@
   </style>
   <link rel="stylesheet" href="styles/markdown-styles-v1.7.3b.css" />
   <link rel="stylesheet" href="styles/odata.css" />
+  <script type="text/javascript">
+    MathJax = {startup: {
+      ready() {
+        MathJax.startup.defaultReady();
+        MathJax.startup.document.outputJax.font.variant.monospace.chars
+          [0x2019] = [.611, -.287, .525, {f: "T", c: "'"}];
+      }
+    }};
+  </script>
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 </head>
@@ -1445,7 +1454,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <details open><summary>
 <h2 id="85-referential-constraint"><a name="ReferentialConstraint" href="#ReferentialConstraint">8.5 Referential Constraint</a></h2>
 </summary>
-<p>A single-valued navigation property MAY define one or more referential constraints. A referential constraint asserts that the <em>dependent property</em> (the property defined on the structured type declaring the navigation property) MUST have the same value as the <em>principal property</em> (the referenced property declared on the entity type that is the target of the navigation).</p>
+<p>A single-valued navigation property MAY define one or more referential constraints. A referential constraint asserts that the <em>dependent property</em> (the property defined on the structured type declaring the navigation property) MUST have the same value as the <em>principal property</em> (the referenced property declared on the entity type that is the target of the navigation). Elsewhere this specification calls the dependent property and the principal property <em>tied to</em> each other.</p>
 <p>The type of the dependent property MUST match the type of the principal property, or both types MUST be complex types.</p>
 <p>If the principal property references an entity, then the dependent property must reference the same entity.</p>
 <p>If the principal property’s value is a complex type instance, then the dependent property’s value must be a complex type instance with the same properties, each with the same values.</p>

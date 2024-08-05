@@ -88,6 +88,15 @@
   </style>
   <link rel="stylesheet" href="styles/markdown-styles-v1.7.3b.css" />
   <link rel="stylesheet" href="styles/odata.css" />
+  <script type="text/javascript">
+    MathJax = {startup: {
+      ready() {
+        MathJax.startup.defaultReady();
+        MathJax.startup.document.outputJax.font.variant.monospace.chars
+          [0x2019] = [.611, -.287, .525, {f: "T", c: "'"}];
+      }
+    }};
+  </script>
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 </head>
@@ -1392,6 +1401,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>Any entity in an update request that has neither the <code>id</code> control information, nor the primary or alternate key values of an existing entity, are treated as an added entity.</p>
 <p>Added entities MUST include all available selected properties and MAY include additional, unselected properties. Collection-valued properties are treated as atomic values; any collection-valued properties returned from a delta request MUST contain all current values for that collection.</p>
 <p>Changed entities MUST include all available selected properties that have changed, and MAY include additional properties.</p>
+<p>Added or changed entities MAY include <a href="#ControlInformationetagodataetag">ETags</a>.</p>
 <p>Entities include control information for selected navigation links based on <a href="#ControllingtheAmountofControlInformationinResponses"><code>metadata</code></a>.</p>
 </details>
 <details open><summary>

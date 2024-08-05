@@ -198,13 +198,6 @@ mjx-container[display="true"] {
   margin-left: 40px !important;
 }
 
-/* The following rule enables typewriter single quotes in maths, like $\hbox{\tt{'$Q$'}}$ */
-mjx-c.mjx-c2019::before {
-  content: "\27" !important;
-  padding-right: 0.525em !important;
-  font-family: MJXZERO, MJXTEX-T;
-}
-
 code .er {
   color: unset !important;
   font-weight: unset !important;
