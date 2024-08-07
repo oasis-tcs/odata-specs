@@ -5740,7 +5740,7 @@ term defined in [OData-VocCore](#ODataVocCore).
 Services that respond with [`200 OK`](#ResponseCode200OK) SHOULD annotate corresponding
 entities in the response using the same
 [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID)
-value as specified in the request. See the example in [OData-JSON, section 19.4](#ODataJSON).
+value as specified in the request. See the "sales quotation to order" example in [OData-JSON, section 19.4](#ODataJSON).
 
 #### <a name="ActionOverloadResolution" href="#ActionOverloadResolution">11.5.5.2 Action Overload Resolution</a>
 
