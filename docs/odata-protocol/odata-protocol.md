@@ -5726,7 +5726,7 @@ Content-Type: application/json
 {
   "items": [
     { "product": 4001, "quantity": 2 },
-    { "product": 7062, "quantity": 1 },
+    { "product": 7062, "quantity": 1 }
   ],
   "discountCode": "BLACKFRIDAY"
 }
