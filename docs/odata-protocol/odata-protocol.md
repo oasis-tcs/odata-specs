@@ -5372,7 +5372,7 @@ or function depends on the [format](#Formats).
 
 ::: example
 Example 91: given a `GET` request to
-`http://host/service/Customers('ALFKI')`, the service might respond with
+`http://host/service/Customers(′ALFKI′)`, the service might respond with
 a Customer that includes the `SampleEntities.MostRecentOrder` function
 bound to the entity
 ```json
@@ -5714,7 +5714,7 @@ collection response.
 
 ::: example
 Example 98: invoke the `SampleEntities.CreateOrder` action using
-`Customers('ALFKI')` as the customer (or binding parameter). The values
+`Customers(′ALFKI′)` as the customer (or binding parameter). The values
 `2` for the `quantity` parameter and `BLACKFRIDAY` for the
 `discountCode` parameter are passed in the body of the request. Invoke
 the action only if the customer's ETag still matches.
@@ -6225,13 +6225,13 @@ Location: Orders(1)
 ```
 The second `Location` URL `Orders(1)` is relative with its base URI being the second
 request URL `$1/Orders`. To get an absolute base URI, the client must replace the
-`$1` with the first `Location` URL `Customers('ALFKI')` and resolve the
-resulting URL `Customers('ALFKI')/Orders(1)` relative to its base URI, which is
+`$1` with the first `Location` URL `Customers(′ALFKI′)` and resolve the
+resulting URL `Customers(′ALFKI′)/Orders(1)` relative to its base URI, which is
 `http://host/service/Customers` (determined from the
 first request URL `/service/Customers` and the `Host: host` header
 as in [example 102](#batchhost)). This gives the effective second request URL
-`http://host/service/Customers('ALFKI')/Orders` as base URI for the second `Location`
-URL, which therefore resolves to `http://host/service/Customers('ALFKI')/Orders(1)`.
+`http://host/service/Customers(′ALFKI′)/Orders` as base URI for the second `Location`
+URL, which therefore resolves to `http://host/service/Customers(′ALFKI′)/Orders(1)`.
 :::
 
 #### <a name="ReferencinganETag" href="#ReferencinganETag">11.7.7.3 Referencing an ETag</a>

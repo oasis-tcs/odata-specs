@@ -93,9 +93,46 @@
       ready() {
         MathJax.startup.defaultReady();
         MathJax.startup.document.outputJax.font.variant.monospace.chars
-          [0x2019] = [.611, -.287, .525, {f: "T", c: "'"}];
+          [0x2019] = [.611, -.287, .525, {f: "T", c: "′"}];
       }
     }};
+  </script>
+  <select id="darkmode">
+    <option value="off">Light</option>
+    <option value="on">Dark</option>
+    <option value="auto">Auto</option>
+  </select>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+      function darkmode_auto() {
+        if (darkmode_switch.value === "auto") {
+          if (darkmode_query.matches) document.body.classList.add("darkmode");
+          else document.body.classList.remove("darkmode");
+        }
+      }
+
+      function darkmode_manual() {
+        localStorage.setItem("odata-vocabularies/darkmode", darkmode_switch.value);
+        switch (darkmode_switch.value) {
+          case "auto":
+            darkmode_auto();
+            break;
+          case "on":
+            document.body.classList.add("darkmode");
+            break;
+          default:
+            document.body.classList.remove("darkmode");
+        }
+      }
+
+      const darkmode_query = matchMedia("(prefers-color-scheme: dark)");
+      darkmode_query.addEventListener("change", darkmode_auto);
+      const darkmode_switch = document.getElementById("darkmode");
+      darkmode_switch.value = localStorage.getItem("odata-vocabularies/darkmode") || "off";
+      document.body.appendChild(darkmode_switch);
+      darkmode_switch.addEventListener("change", darkmode_manual);
+      darkmode_manual();
+    });
   </script>
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>

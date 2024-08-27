@@ -655,11 +655,13 @@ Example 2:
   …
 }
 ```
-:::
 
 The resulting absolute URLs are
-`http://host/service/Customers('ALFKI')` and
-`http://host/service/Customers('ALFKI')/Orders`.
+```
+http://host/service/Customers('ALFKI')
+http://host/service/Customers('ALFKI')/Orders
+```
+:::
 
 ## <a name="PayloadOrderingConstraints" href="#PayloadOrderingConstraints">4.4 Payload Ordering Constraints</a>
 

@@ -208,6 +208,17 @@ hr:first-of-type {
 }
 
 @media screen {
+  #darkmode {
+    position: fixed;
+    top: 0;
+    right: 0;
+  }
+
+  body.darkmode {
+    background-color: black;
+    color: white;
+  }
+
   details:not([open]) > summary {
     list-style: disclosure-closed;
   }
@@ -220,6 +231,10 @@ hr:first-of-type {
 @media print {
   details > summary {
     list-style: none;
+  }
+
+  #darkmode {
+    display: none;
   }
 }
 

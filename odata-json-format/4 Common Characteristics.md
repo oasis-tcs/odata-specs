@@ -108,11 +108,13 @@ Example ##ex:
   …
 }
 ```
-:::
 
 The resulting absolute URLs are
-`http://host/service/Customers('ALFKI')` and
-`http://host/service/Customers('ALFKI')/Orders`.
+```
+http://host/service/Customers('ALFKI')
+http://host/service/Customers('ALFKI')/Orders
+```
+:::
 
 ## ##subsec Payload Ordering Constraints
 

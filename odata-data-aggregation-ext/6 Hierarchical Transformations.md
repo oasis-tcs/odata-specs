@@ -44,53 +44,53 @@ The fifth parameter $d$ is optional and takes an integer greater than or equal t
 The output set of the transformation ${\tt ancestors}(H,Q,p,T,d,{\tt keep\ start})$ or ${\tt descendants}(H,Q,p,T,d,{\tt keep\ start})$ is defined as the [union](#HierarchicalTransformations) of the output sets of transformations $F(u)$ applied to the input set for all $u$ in $A$. For a given instance $u$, the transformation $F(u)$ determines all instances of the input set whose node identifier is an ancestor or descendant of the node identifier of $u$:
 
 If $p$ contains only single-valued segments, then, for `ancestors`,
-$$\matrix{ 
-F(u)={\tt filter}(\hbox{\tt Aggregation.isancestor}(\hfill\\ 
-\quad {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ 
-\quad {\tt Node}=p,\;{\tt Descendant}=u[p],\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}))\hfill 
+$$\matrix{
+F(u)={\tt filter}(\hbox{\tt Aggregation.isancestor}(\hfill\\
+\quad {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\
+\quad {\tt Node}=p,\;{\tt Descendant}=u[p],\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}))\hfill
 }$$
 or, for `descendants`,
-$$\matrix{ 
-F(u)={\tt filter}(\hbox{\tt Aggregation.isdescendant}(\hfill\\ 
-\quad {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ 
-\quad {\tt Node}=p,\;{\tt Ancestor}=u[p],\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true})).\hfill 
+$$\matrix{
+F(u)={\tt filter}(\hbox{\tt Aggregation.isdescendant}(\hfill\\
+\quad {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\
+\quad {\tt Node}=p,\;{\tt Ancestor}=u[p],\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true})).\hfill
 }$$
 
 Otherwise $p=p_1/…/p_k/r$ with $k≥1$, in this case the output set of the transformation $F(u)$ is defined as the [union](#HierarchicalTransformations) of the output sets of transformations $G(n)$ applied to the input set for all $n$ in $γ(u,p)$. The output set of $G(n)$ consists of the instances of the input set whose node identifier is an ancestor or descendant of the node identifier $n$:
 
 For `ancestors`,
-$$\matrix{ 
-G(n)={\tt filter}(\hfill\\ 
-\hskip1pc p_1/{\tt any}(y_1:\hfill\\ 
-\hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\ 
-\hskip3pc ⋱\hfill\\ 
-\hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ 
-\hskip5pc \hbox{\tt Aggregation.isancestor}(\hfill\\ 
-\hskip6pc {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ 
-\hskip6pc {\tt Node}=y_k/r,\;{\tt Descendant}=n,\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}\hfill\\ 
-\hskip5pc )\hfill\\ 
-\hskip4pc )\hfill\\ 
-\hskip3pc ⋰\hfill\\ 
-\hskip2pc )\hfill\\ 
-\hskip1pc )\hfill\\ 
-)\hfill 
+$$\matrix{
+G(n)={\tt filter}(\hfill\\
+\hskip1pc p_1/{\tt any}(y_1:\hfill\\
+\hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\
+\hskip3pc ⋱\hfill\\
+\hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\
+\hskip5pc \hbox{\tt Aggregation.isancestor}(\hfill\\
+\hskip6pc {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\
+\hskip6pc {\tt Node}=y_k/r,\;{\tt Descendant}=n,\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}\hfill\\
+\hskip5pc )\hfill\\
+\hskip4pc )\hfill\\
+\hskip3pc ⋰\hfill\\
+\hskip2pc )\hfill\\
+\hskip1pc )\hfill\\
+)\hfill
 }$$
 or, for `descendants`,
-$$\matrix{ 
-G(n)={\tt filter}(\hfill\\ 
-\hskip1pc p_1/{\tt any}(y_1:\hfill\\ 
-\hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\ 
-\hskip3pc ⋱\hfill\\ 
-\hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ 
-\hskip5pc \hbox{\tt Aggregation.isdescendant}(\hfill\\ 
-\hskip6pc {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ 
-\hskip6pc {\tt Node}=y_k/r,\;{\tt Ancestor}=n,\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}\hfill\\ 
-\hskip5pc )\hfill\\ 
-\hskip4pc )\hfill\\ 
-\hskip3pc ⋰\hfill\\ 
-\hskip2pc )\hfill\\ 
-\hskip1pc )\hfill\\ 
-)\hfill 
+$$\matrix{
+G(n)={\tt filter}(\hfill\\
+\hskip1pc p_1/{\tt any}(y_1:\hfill\\
+\hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\
+\hskip3pc ⋱\hfill\\
+\hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\
+\hskip5pc \hbox{\tt Aggregation.isdescendant}(\hfill\\
+\hskip6pc {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\
+\hskip6pc {\tt Node}=y_k/r,\;{\tt Ancestor}=n,\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}\hfill\\
+\hskip5pc )\hfill\\
+\hskip4pc )\hfill\\
+\hskip3pc ⋰\hfill\\
+\hskip2pc )\hfill\\
+\hskip1pc )\hfill\\
+)\hfill
 }$$
 where $y_1,…,y_k$ denote `lambdaVariableExpr`s as defined in [OData-ABNF](#ODataABNF) and ${}/r$ may be absent.
 
@@ -243,18 +243,18 @@ If $p$ contains only single-valued segments, then
 $$F(x)={\tt filter}(p{\tt\ eq\ }x[q]).$$
 
 Otherwise $p=p_1/…/p_k/r$ with $k≥1$ and
-$$\matrix{ 
-F(x)={\tt filter}(\hfill\\ 
-\hskip1pc p_1/{\tt any}(y_1:\hfill\\ 
-\hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\ 
-\hskip3pc ⋱\hfill\\ 
-\hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ 
-\hskip5pc y_k/r{\tt\ eq\ }x[q]\hfill\\ 
-\hskip4pc )\hfill\\ 
-\hskip3pc ⋰\hfill\\ 
-\hskip2pc )\hfill\\ 
-\hskip1pc )\hfill\\ 
-)\hfill 
+$$\matrix{
+F(x)={\tt filter}(\hfill\\
+\hskip1pc p_1/{\tt any}(y_1:\hfill\\
+\hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\
+\hskip3pc ⋱\hfill\\
+\hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\
+\hskip5pc y_k/r{\tt\ eq\ }x[q]\hfill\\
+\hskip4pc )\hfill\\
+\hskip3pc ⋰\hfill\\
+\hskip2pc )\hfill\\
+\hskip1pc )\hfill\\
+)\hfill
 }$$
 where $y_1,…,y_k$ denote `lambdaVariableExpr`s and ${}/r$ may be absent.
 
@@ -373,28 +373,28 @@ Otherwise if $P_1$ and $P_2$ are empty, then
 $$R(x)=F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/T/Z_N/\Pi_G(σ(x)).$$
 
 $F(x)$ is defined as follows: If $p$ contains only single-valued segments, then
-$$\matrix{ 
-F(x)={\tt filter}(\hbox{\tt Aggregation.isdescendant}(\hfill\\ 
-\quad {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ 
-\quad {\tt Node}=p,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true})).\hfill 
+$$\matrix{
+F(x)={\tt filter}(\hbox{\tt Aggregation.isdescendant}(\hfill\\
+\quad {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\
+\quad {\tt Node}=p,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true})).\hfill
 }$$
 
 Otherwise $p=p_1/…/p_k/r$ with $k≥1$ and
-$$\matrix{ 
-F(x)={\tt filter}(\hfill\\ 
-\hskip1pc p_1/{\tt any}(y_1:\hfill\\ 
-\hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\ 
-\hskip3pc ⋱\hfill\\ 
-\hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ 
-\hskip5pc \hbox{\tt Aggregation.isdescendant}(\hfill\\ 
-\hskip6pc {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ 
-\hskip6pc {\tt Node}=y_k/r,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true}\hfill\\ 
-\hskip5pc )\hfill\\ 
-\hskip4pc )\hfill\\ 
-\hskip3pc ⋰\hfill\\ 
-\hskip2pc )\hfill\\ 
-\hskip1pc )\hfill\\ 
-)\hfill 
+$$\matrix{
+F(x)={\tt filter}(\hfill\\
+\hskip1pc p_1/{\tt any}(y_1:\hfill\\
+\hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\
+\hskip3pc ⋱\hfill\\
+\hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\
+\hskip5pc \hbox{\tt Aggregation.isdescendant}(\hfill\\
+\hskip6pc {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\
+\hskip6pc {\tt Node}=y_k/r,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true}\hfill\\
+\hskip5pc )\hfill\\
+\hskip4pc )\hfill\\
+\hskip3pc ⋰\hfill\\
+\hskip2pc )\hfill\\
+\hskip1pc )\hfill\\
+)\hfill
 }$$
 where $y_1,…,y_k$ denote `lambdaVariableExpr`s and ${}/r$ may be absent. (See [example ##rollupcoll] for a case with $k=1$.)
 
