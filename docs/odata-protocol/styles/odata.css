@@ -147,6 +147,19 @@ table {
   stroke-width: 2;
 }
 
+p code,
+li code,
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code,
+td > code {
+  font-size: 1em;
+  font-weight: bold;
+}
+
 .example p code,
 .example li code {
   font-style: initial;

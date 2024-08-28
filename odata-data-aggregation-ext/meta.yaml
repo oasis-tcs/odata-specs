@@ -14,5 +14,3 @@ additionalArtifacts:
 description:
   This specification adds basic grouping and aggregation functionality (e.g. sum, min, and max)
   to the Open Data Protocol (OData) without changing any of the base principles of OData.
-pandocOptions:
-  -c: styles/monospace.css
