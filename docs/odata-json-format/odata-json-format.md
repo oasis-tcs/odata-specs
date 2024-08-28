@@ -231,7 +231,7 @@ Section | Feature / Change | Issue
 
 ### <a name="DocumentConventions" href="#DocumentConventions">1.2.3 Document Conventions</a>
 
-Keywords defined by this specification use `this  monospaced  font`.
+Keywords defined by this specification use `this monospaced font`.
 
 Some sections of this specification are illustrated with non-normative examples.
 

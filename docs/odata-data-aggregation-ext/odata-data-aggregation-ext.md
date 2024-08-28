@@ -237,7 +237,7 @@ The following non-exhaustive list contains variable names that are used througho
 
 ### <a name="DocumentConventions" href="#DocumentConventions">1.1.3 Document Conventions</a>
 
-Keywords defined by this specification use `this  monospaced  font`.
+Keywords defined by this specification use `this monospaced font`.
 
 Some sections of this specification are illustrated with non-normative examples.
 
