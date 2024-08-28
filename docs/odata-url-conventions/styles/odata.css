@@ -209,7 +209,7 @@ hr:first-of-type {
 
   body.darkmode {
     background-color: black;
-    color: white;
+    filter: invert(100%);
   }
 
   details:not([open]) > summary {
