@@ -229,12 +229,12 @@ hr:first-of-type {
 }
 
 @media print {
-  details > summary {
-    list-style: none;
-  }
-
   #darkmode {
     display: none;
+  }
+
+  details > summary {
+    list-style: none;
   }
 }
 
