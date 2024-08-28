@@ -46,7 +46,7 @@ Allow alternative `$search` syntax|
 
 ### ##subsubsec Document Conventions
 
-Keywords defined by this specification use `this  monospaced  font`.
+Keywords defined by this specification use `this monospaced font`.
 
 Function signatures in this specification use the following paragraph style:
 ```

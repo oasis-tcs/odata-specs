@@ -128,7 +128,7 @@ with a `Timeline` of type `TimelineVisible`.
 
 ### ##subsubsec Document Conventions
 
-Keywords defined by this specification use `this  monospaced  font`.
+Keywords defined by this specification use `this monospaced font`.
 
 Some sections of this specification are illustrated with non-normative examples.
 
