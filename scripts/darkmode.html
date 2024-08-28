@@ -13,24 +13,25 @@
     }
 
     function darkmode_manual() {
-      localStorage.setItem("odata-vocabularies/darkmode", darkmode_switch.value);
+      localStorage.setItem("odata-specs/darkmode", darkmode_switch.value);
       switch (darkmode_switch.value) {
-        case "auto":
-          darkmode_auto();
+        case "off":
+          document.body.classList.remove("darkmode");
           break;
         case "on":
           document.body.classList.add("darkmode");
           break;
-        default:
-          document.body.classList.remove("darkmode");
+        case "auto":
+          darkmode_auto();
+          break;
       }
     }
 
     const darkmode_query = matchMedia("(prefers-color-scheme: dark)");
     darkmode_query.addEventListener("change", darkmode_auto);
     const darkmode_switch = document.getElementById("darkmode");
-    darkmode_switch.value = localStorage.getItem("odata-vocabularies/darkmode") || "off";
-    document.body.appendChild(darkmode_switch);
+    darkmode_switch.value =
+      localStorage.getItem("odata-specs/darkmode") || "off";
     darkmode_switch.addEventListener("change", darkmode_manual);
     darkmode_manual();
   });
