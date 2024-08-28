@@ -2420,7 +2420,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>Expressions prefaced with <code>NOT</code> evaluate to <code>true</code> if the expression is not matched, otherwise <code>false</code>.</p>
 <p>Two expressions not enclosed in quotes and separated by a space are equivalent to the same two expressions separated by the <code>AND</code> keyword. Such expressions evaluate to <code>true</code> if both expressions evaluate to <code>true</code>, otherwise <code>false</code>.</p>
 <p>Expressions separated by an <code>OR</code> evaluate to <code>true</code> if either of the expressions evaluate to <code>true</code>, otherwise <code>false</code>.</p>
-<p>To support type-ahead use cases, incomplete search expressions can be sent as OData string literals enclosed in single-quotes, and single-quotes within the search expression doubled. Such an expression can also be used to search for double quotes: <code>?$search=′"′</code>.</p>
+<p>To support type-ahead use cases, incomplete search expressions can be sent as OData string literals enclosed in single-quotes, and single-quotes within the search expression doubled. Such an expression can also be used to search for double quotes: <code>?$search='"'</code>.</p>
 <p>The <a href="#ODataABNF">OData-ABNF</a> <code>searchExpr</code> syntax rule defines the formal grammar of the search expression.</p>
 </details>
 </details>
