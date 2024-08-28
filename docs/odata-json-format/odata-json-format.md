@@ -231,7 +231,7 @@ Section | Feature / Change | Issue
 
 ### <a name="DocumentConventions" href="#DocumentConventions">1.2.3 Document Conventions</a>
 
-Keywords defined by this specification use `this  monospaced  font`.
+Keywords defined by this specification use `this monospaced font`.
 
 Some sections of this specification are illustrated with non-normative examples.
 
@@ -655,11 +655,13 @@ Example 2:
   …
 }
 ```
-:::
 
 The resulting absolute URLs are
-`http://host/service/Customers('ALFKI')` and
-`http://host/service/Customers('ALFKI')/Orders`.
+```
+http://host/service/Customers('ALFKI')
+http://host/service/Customers('ALFKI')/Orders
+```
+:::
 
 ## <a name="PayloadOrderingConstraints" href="#PayloadOrderingConstraints">4.4 Payload Ordering Constraints</a>
 

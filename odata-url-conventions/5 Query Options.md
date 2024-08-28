@@ -912,7 +912,7 @@ Edm.Boolean matchespattern(Edm.String,Edm.String,Edm.String)
 
 The second parameter MUST evaluate to a string containing an
 [ECMAScript](#_ECMAScript) (JavaScript) regular expression, otherwise the function
-returns `null`. The 
+returns `null`. The
 `matchespattern` function returns `true` if the first parameter evaluates
 to a string matching that regular expression, using syntax and semantics
 of ECMAScript regular expressions, otherwise it
@@ -2214,7 +2214,7 @@ functions from that schema
 
 A path consists of segments separated by a forward slash (`/`). Segments
 are either names of single- or collection-valued complex properties,
-[instance annotations](#AnnotationValuesinExpressions), or 
+[instance annotations](#AnnotationValuesinExpressions), or
 [type-cast segments](#AddressingDerivedTypes) consisting of the qualified name of a structured type that is
 derived from the type identified by the preceding path segment to reach
 properties defined on the derived type.

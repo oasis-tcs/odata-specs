@@ -149,16 +149,9 @@ table {
 
 p code,
 li code,
-h1 code,
-h2 code,
-h3 code,
-h4 code,
-h5 code,
-h6 code,
 td > code {
-  font-family: MJXZERO, MJXTEX-T;
   font-size: 1em;
-  line-height: 0;
+  font-weight: bold;
 }
 
 .example p code,

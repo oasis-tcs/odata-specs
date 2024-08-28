@@ -93,7 +93,7 @@
       ready() {
         MathJax.startup.defaultReady();
         MathJax.startup.document.outputJax.font.variant.monospace.chars
-          [0x2019] = [.611, -.287, .525, {f: "T", c: "'"}];
+          [0x2019] = [.611, -.287, .525, {f: "T", c: "′"}];
       }
     }};
   </script>
@@ -424,7 +424,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <details open><summary>
 <h3 id="123-document-conventions"><a name="DocumentConventions" href="#DocumentConventions">1.2.3 Document Conventions</a></h3>
 </summary>
-<p>Keywords defined by this specification use <code>this  monospaced  font</code>.</p>
+<p>Keywords defined by this specification use <code>this monospaced font</code>.</p>
 <p>Function signatures in this specification use the following paragraph style:</p>
 <pre><code>Type FunctionName(Type Param1, Type Param2)</code></pre>
 <p>Some sections of this specification are illustrated with non-normative examples.</p>
@@ -712,7 +712,8 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <details open><summary>
 <h3 id="435-alternate-keys"><a name="AlternateKeys" href="#AlternateKeys">4.3.5 Alternate Keys</a></h3>
 </summary>
-<p>In addition to the canonical (primary) key an entity set or entity type can specify one or more alternate keys with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AlternateKeys"><code>Core.AlternateKeys</code></a> term (see <a href="#ODataVocCore">OData-VocCore</a>). Alternate keys can be used by the client to address entities anywhere the canonical key can be used; for example, within entity sets, collection-valued navigation properties, collection-valued composable functions, and within delta payloads.</p>
+<p>In addition to the canonical (primary) key an entity set or entity type can specify one or more alternate keys with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AlternateKeys"><code>Core.AlternateKeys</code></a> term (see <a href="#ODataVocCore">OData-VocCore</a>).</p>
+<p>Alternate keys can be used by the client to address entities anywhere the canonical key can be used; for example, within entity sets, collection-valued navigation properties, collection-valued composable functions, and within delta payloads.</p>
 <p>Entities are addressed via an alternate key using the same parentheses-style convention as for the canonical key, with one difference: single-part alternate keys MUST specify the key property name to unambiguously determine the alternate key.</p>
 <div class="example">
 <p>Example 24: the same employee identified via the alternate key SSN, the canonical (primary) key ID using the non-canonical long form with specified key property name, and the canonical short form without key property name</p>
