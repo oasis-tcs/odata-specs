@@ -179,7 +179,7 @@ results in
 
 ### ##subsubsec Transformation `traverse`
 
-The traverse transformation returns instances of the input set that are or are related to nodes of a given recursive hierarchy in a specified tree order.
+The `traverse` transformation returns instances of the input set that are or are related to nodes of a given recursive hierarchy in a specified tree order.
 
 $H$, $Q$ and $p$ are the first three parameters defined [above](#CommonParametersforHierarchicalTransformations).
 
