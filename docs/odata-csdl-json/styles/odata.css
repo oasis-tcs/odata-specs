@@ -201,6 +201,21 @@ hr:first-of-type {
 }
 
 @media screen {
+  body {
+    position: relative;
+  }
+
+  #darkmode {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  body.darkmode {
+    background-color: black;
+    filter: invert(100%);
+  }
+
   details:not([open]) > summary {
     list-style: disclosure-closed;
   }
@@ -211,6 +226,10 @@ hr:first-of-type {
 }
 
 @media print {
+  #darkmode {
+    display: none;
+  }
+
   details > summary {
     list-style: none;
   }
