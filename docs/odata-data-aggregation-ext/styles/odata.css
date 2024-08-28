@@ -209,6 +209,9 @@ hr:first-of-type {
 
   body.darkmode {
     background-color: black;
+  }
+
+  body.darkmode details {
     filter: invert(100%);
   }
 
