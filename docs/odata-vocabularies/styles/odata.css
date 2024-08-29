@@ -149,16 +149,9 @@ table {
 
 p code,
 li code,
-h1 code,
-h2 code,
-h3 code,
-h4 code,
-h5 code,
-h6 code,
 td > code {
-  font-family: MJXZERO, MJXTEX-T;
   font-size: 1em;
-  line-height: 0;
+  font-weight: bold;
 }
 
 .example p code,
@@ -198,13 +191,6 @@ mjx-container[display="true"] {
   margin-left: 40px !important;
 }
 
-/* The following rule enables typewriter single quotes in maths, like $\hbox{\tt{'$Q$'}}$ */
-mjx-c.mjx-c2019::before {
-  content: "\27" !important;
-  padding-right: 0.525em !important;
-  font-family: MJXZERO, MJXTEX-T;
-}
-
 code .er {
   color: unset !important;
   font-weight: unset !important;
@@ -215,6 +201,17 @@ hr:first-of-type {
 }
 
 @media screen {
+  #darkmode {
+    position: fixed;
+    top: 0;
+    right: 0;
+  }
+
+  html.darkmode {
+    background-color: #f2eee8;
+    filter: invert(100%);
+  }
+
   details:not([open]) > summary {
     list-style: disclosure-closed;
   }
@@ -225,6 +222,10 @@ hr:first-of-type {
 }
 
 @media print {
+  #darkmode {
+    display: none;
+  }
+
   details > summary {
     list-style: none;
   }

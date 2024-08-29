@@ -201,18 +201,14 @@ hr:first-of-type {
 }
 
 @media screen {
-  body {
-    position: relative;
-  }
-
   #darkmode {
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
   }
 
-  body.darkmode {
-    background-color: black;
+  html.darkmode {
+    background-color: #f2eee8;
     filter: invert(100%);
   }
 
