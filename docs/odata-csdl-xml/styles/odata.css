@@ -208,8 +208,8 @@ hr:first-of-type {
   }
 
   html.darkmode {
-    filter: invert(100%);
     background-color: white;
+    filter: invert(100%);
   }
 
   details:not([open]) > summary {
