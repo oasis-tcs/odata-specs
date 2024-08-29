@@ -101,8 +101,8 @@
     document.addEventListener("DOMContentLoaded", function () {
       function darkmode_auto() {
         if (darkmode_switch.value === "auto") {
-          if (darkmode_query.matches) document.body.classList.add("darkmode");
-          else document.body.classList.remove("darkmode");
+          if (darkmode_query.matches) document.documentElement.classList.add("darkmode");
+          else document.documentElement.classList.remove("darkmode");
         }
       }
 
@@ -110,10 +110,10 @@
         localStorage.setItem("odata-specs/darkmode", darkmode_switch.value);
         switch (darkmode_switch.value) {
           case "off":
-            document.body.classList.remove("darkmode");
+            document.documentElement.classList.remove("darkmode");
             break;
           case "on":
-            document.body.classList.add("darkmode");
+            document.documentElement.classList.add("darkmode");
             break;
           case "auto":
             darkmode_auto();
