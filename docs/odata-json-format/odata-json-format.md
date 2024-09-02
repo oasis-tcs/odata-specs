@@ -3485,55 +3485,6 @@ Content-Length: ###
 ```
 :::
 
-::: example
-Example 59: Given a sales quotation with items for coffee, sugar and paper,
-invoke an action to create a sales order for sugar and paper
-and add a 10% discount for the sugar.
-
-```json
-POST /service/$batch HTTP/1.1
-Host: host
-OData-Version: 4.01
-Content-Type: application/json
-Content-Length: ###
-
-{
-  "requests": [
-    {
-      "id": "1",
-      "method": "post",
-      "url": "/service/SalesQuotation(68)/SampleEntities.CreateSalesOrder",
-      "headers": {
-        "accept": "application/json"
-      },
-      "body": {
-        "items": [
-          {"product": "Sugar", "@Core.ContentID": "I1"},
-          {"product": "Paper"}
-        ]
-      }
-    },
-    {
-      "id": "2",
-      "dependsOn": [ "1" ],
-      "method": "post",
-      "url": "$I1/discounts",
-      "headers": {
-        "accept": "application/json"
-      },
-      "body": {
-        "percent": 10,
-        "discountCode": "BLACKFRIDAY"
-      }
-    }
-  ]
-}
-```
-
-In the response to the action invocation the sales order item for the sugar is annotated
-with `"@Core.ContentID": "I1"`. The POST request can reference this item without knowing its key.
-:::
-
 ## <a name="ProcessingaBatchRequest" href="#ProcessingaBatchRequest">19.5 Processing a Batch Request</a>
 
 All requests in an atomicity group represent a single change unit. A
@@ -3628,7 +3579,7 @@ request. Especially: URLs in responses MUST NOT contain
 `$`-prefixed request identifiers.
 
 ::: example
-Example 60: referencing the batch request [example 55](#batchRequest) above, assume all
+Example 59: referencing the batch request [example 55](#batchRequest) above, assume all
 the requests except the final query request succeed. In this case the
 response would be
 ```json
@@ -3686,7 +3637,7 @@ to the next link MAY result in a `202 Accepted` response with a
 `location` header pointing to a new status monitor resource.
 
 ::: example
-Example 61: referencing the [example 55](#batchRequest) above again, assume that the
+Example 60: referencing the [example 55](#batchRequest) above again, assume that the
 request is sent with the `respond-async` preference. This
 results in a `202` response pointing to a status monitor resource:
 ```json
@@ -3776,7 +3727,7 @@ asynchronously executed individual request with a `status` of
 individual status monitor resource, and optionally a `retry-after` header.
 
 ::: example
-Example 62: the first individual request is processed asynchronously,
+Example 61: the first individual request is processed asynchronously,
 the second synchronously, the batch itself is processed synchronously
 ```json
 HTTP/1.1 200 OK
@@ -3839,7 +3790,7 @@ the annotations for the value appear next to the `value`
 property and are not prefixed with a property name.
 
 ::: example
-Example 63:
+Example 62:
 ```json
 {
   "@context": "http://host/service/$metadata#Customers",
@@ -3949,7 +3900,7 @@ Error responses MAY contain [annotations](#InstanceAnnotations) in
 any of its JSON objects.
 
 ::: example
-Example 64:
+Example 63:
 ```json
 {
   "error": {
@@ -3998,7 +3949,7 @@ header-appropriate way:
   [RFC8259](#rfc8259), section 7)
 
 ::: example
-Example 65: note that this is one HTTP header line without any line
+Example 64: note that this is one HTTP header line without any line
 breaks or optional whitespace
 ```json
 OData-error: {"code":"err123","message":"Unsupported
