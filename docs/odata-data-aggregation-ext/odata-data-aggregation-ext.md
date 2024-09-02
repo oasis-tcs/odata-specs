@@ -237,7 +237,7 @@ The following non-exhaustive list contains variable names that are used througho
 
 ### <a name="DocumentConventions" href="#DocumentConventions">1.1.3 Document Conventions</a>
 
-Keywords defined by this specification use `this  monospaced  font`.
+Keywords defined by this specification use `this monospaced font`.
 
 Some sections of this specification are illustrated with non-normative examples.
 
@@ -1552,15 +1552,32 @@ A groupby with `rollup` applied to a leveled hierarchy allows requesting aggrega
 Such a grouping with `rollup` for a leveled hierarchy is processed using the following equivalence relationships, in which $p_1,…,p_k$ are groupable property paths representing a level, $T$ is a transformation sequence, the ellipsis ($…$) stands in for zero or more property paths, $P_1$ stands in for zero or more property paths and $P_2$ for zero or more `rollup` or [`rolluprecursive`](#Groupingwithrolluprecursive) operators or property paths:
 
 - ${\tt groupby}((P_1,{\tt rollup}(p_1,…,p_{k-1},p_k),P_2),T)$ is equivalent to
-  $$\matrix{   {\tt concat}(\hfill\\   \quad {\tt groupby}((P_1,p_1,…,p_{k-1},p_k,P_2),T),\hfill&\tt (1)\\   \quad {\tt groupby}((P_1,{\tt rollup}(p_1,…,p_{k-1}),P_2),T)\hfill&\tt(2)\\   ).\hskip25pc\\   }$$
+  $$\matrix{
+  {\tt concat}(\hfill\\
+  \quad {\tt groupby}((P_1,p_1,…,p_{k-1},p_k,P_2),T),\hfill&\tt (1)\\
+  \quad {\tt groupby}((P_1,{\tt rollup}(p_1,…,p_{k-1}),P_2),T)\hfill&\tt(2)\\
+  ).\hskip25pc
+  }$$
 - ${\tt groupby}((P_1,{\tt rollup}(p_1,p_2),P_2),T)$ is equivalent to
-  $$\matrix{   {\tt concat}(\hfill&\tt (3)\\   \quad {\tt groupby}((P_1,p_1,p_2,P_2),T),\hfill\\   \quad {\tt groupby}((P_1,p_1,P_2),T)\hfill\\   ).\hskip25pc\\   }$$
+  $$\matrix{
+  {\tt concat}(\hfill&\tt (3)\\
+  \quad {\tt groupby}((P_1,p_1,p_2,P_2),T),\hfill\\
+  \quad {\tt groupby}((P_1,p_1,P_2),T)\hfill\\
+  ).\hskip25pc
+  }$$
 
 ::: example
 Example 22: rolling up two hierarchies, the first with two levels, the second with three levels:
 $$({\tt rollup}(p_{1,1},p_{1,2}),{\tt rollup}(p_{2,1},p_{2,2},p_{2,3}))$$
 will result in the six groupings
-$$\matrix{ (p_{1,1},p_{1,2},\hfill&p_{2,1},p_{2,2},p_{2,3})\hfill\\ (p_{1,1},p_{1,2},\hfill&p_{2,1},p_{2,2})\hfill\\ (p_{1,1},p_{1,2},\hfill&p_{2,1})\hfill\\ (p_{1,1},\hfill&p_{2,1},p_{2,2},p_{2,3})\hfill\\ (p_{1,1},\hfill&p_{2,1},p_{2,2})\hfill\\ (p_{1,1},\hfill&p_{2,1})\hfill }$$
+$$\matrix{
+(p_{1,1},p_{1,2},\hfill&p_{2,1},p_{2,2},p_{2,3})\hfill\\
+(p_{1,1},p_{1,2},\hfill&p_{2,1},p_{2,2})\hfill\\
+(p_{1,1},p_{1,2},\hfill&p_{2,1})\hfill\\
+(p_{1,1},\hfill&p_{2,1},p_{2,2},p_{2,3})\hfill\\
+(p_{1,1},\hfill&p_{2,1},p_{2,2})\hfill\\
+(p_{1,1},\hfill&p_{2,1})\hfill
+}$$
 The leveled hierarchy of the first rollup has 2 levels, the one of the second has 3 levels, and the groupings represent all possible $6=2⋅3$ combinations of levels from both hierarchies.
 :::
 
@@ -1910,7 +1927,7 @@ The `compute` transformation takes a comma-separated list of one or more _comput
 
 A compute expression is a common expression followed by the `as` keyword, followed by an [alias](#TypeStructureandContextURL).
 
-The output set is constructed by copying the instances of the input set and adding one dynamic property per compute expression to [each occurrence](#SamenessandOrder) in the output set. The name of each added dynamic property is the alias of the corresponding compute expression. The value of each added dynamic property is computed relative to the corresponding instance. Services MAY support expressions that address dynamic properties added by other expressions within the same compute transformation, provided that the service can determine an evaluation sequence. The type of the property is determined by the rules for evaluating common expressions and numeric promotion defined in [OData-URL, section 5.1.1](#ODataURL).
+The output set is constructed by copying the instances of the input set and adding one dynamic property per compute expression to [each occurrence](#SamenessandOrder) in the output set. The name of each added dynamic property is the alias of the corresponding compute expression. The value of each added dynamic property is computed relative to the corresponding instance. Services MAY support expressions that address dynamic properties added by other expressions within the same `compute` transformation, provided that the service can determine an evaluation sequence. The type of the property is determined by the rules for evaluating common expressions and numeric promotion defined in [OData-URL, section 5.1.1](#ODataURL).
 
 ::: example
 Example 37:
@@ -2713,16 +2730,54 @@ The fifth parameter $d$ is optional and takes an integer greater than or equal t
 The output set of the transformation ${\tt ancestors}(H,Q,p,T,d,{\tt keep\ start})$ or ${\tt descendants}(H,Q,p,T,d,{\tt keep\ start})$ is defined as the [union](#HierarchicalTransformations) of the output sets of transformations $F(u)$ applied to the input set for all $u$ in $A$. For a given instance $u$, the transformation $F(u)$ determines all instances of the input set whose node identifier is an ancestor or descendant of the node identifier of $u$:
 
 If $p$ contains only single-valued segments, then, for `ancestors`,
-$$\matrix{ F(u)={\tt filter}(\hbox{\tt Aggregation.isancestor}(\hfill\\ \quad {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \quad {\tt Node}=p,\;{\tt Descendant}=u[p],\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}))\hfill }$$
+$$\matrix{
+F(u)={\tt filter}(\hbox{\tt Aggregation.isancestor}(\hfill\\
+\quad {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\
+\quad {\tt Node}=p,\;{\tt Descendant}=u[p],\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}))\hfill
+}$$
 or, for `descendants`,
-$$\matrix{ F(u)={\tt filter}(\hbox{\tt Aggregation.isdescendant}(\hfill\\ \quad {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \quad {\tt Node}=p,\;{\tt Ancestor}=u[p],\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true})).\hfill }$$
+$$\matrix{
+F(u)={\tt filter}(\hbox{\tt Aggregation.isdescendant}(\hfill\\
+\quad {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\
+\quad {\tt Node}=p,\;{\tt Ancestor}=u[p],\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true})).\hfill
+}$$
 
 Otherwise $p=p_1/…/p_k/r$ with $k≥1$, in this case the output set of the transformation $F(u)$ is defined as the [union](#HierarchicalTransformations) of the output sets of transformations $G(n)$ applied to the input set for all $n$ in $γ(u,p)$. The output set of $G(n)$ consists of the instances of the input set whose node identifier is an ancestor or descendant of the node identifier $n$:
 
 For `ancestors`,
-$$\matrix{ G(n)={\tt filter}(\hfill\\ \hskip1pc p_1/{\tt any}(y_1:\hfill\\ \hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\ \hskip3pc ⋱\hfill\\ \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ \hskip5pc \hbox{\tt Aggregation.isancestor}(\hfill\\ \hskip6pc {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \hskip6pc {\tt Node}=y_k/r,\;{\tt Descendant}=n,\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}\hfill\\ \hskip5pc )\hfill\\ \hskip4pc )\hfill\\ \hskip3pc ⋰\hfill\\ \hskip2pc )\hfill\\ \hskip1pc )\hfill\\ )\hfill }$$
+$$\matrix{
+G(n)={\tt filter}(\hfill\\
+\hskip1pc p_1/{\tt any}(y_1:\hfill\\
+\hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\
+\hskip3pc ⋱\hfill\\
+\hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\
+\hskip5pc \hbox{\tt Aggregation.isancestor}(\hfill\\
+\hskip6pc {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\
+\hskip6pc {\tt Node}=y_k/r,\;{\tt Descendant}=n,\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}\hfill\\
+\hskip5pc )\hfill\\
+\hskip4pc )\hfill\\
+\hskip3pc ⋰\hfill\\
+\hskip2pc )\hfill\\
+\hskip1pc )\hfill\\
+)\hfill
+}$$
 or, for `descendants`,
-$$\matrix{ G(n)={\tt filter}(\hfill\\ \hskip1pc p_1/{\tt any}(y_1:\hfill\\ \hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\ \hskip3pc ⋱\hfill\\ \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ \hskip5pc \hbox{\tt Aggregation.isdescendant}(\hfill\\ \hskip6pc {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \hskip6pc {\tt Node}=y_k/r,\;{\tt Ancestor}=n,\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}\hfill\\ \hskip5pc )\hfill\\ \hskip4pc )\hfill\\ \hskip3pc ⋰\hfill\\ \hskip2pc )\hfill\\ \hskip1pc )\hfill\\ )\hfill }$$
+$$\matrix{
+G(n)={\tt filter}(\hfill\\
+\hskip1pc p_1/{\tt any}(y_1:\hfill\\
+\hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\
+\hskip3pc ⋱\hfill\\
+\hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\
+\hskip5pc \hbox{\tt Aggregation.isdescendant}(\hfill\\
+\hskip6pc {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\
+\hskip6pc {\tt Node}=y_k/r,\;{\tt Ancestor}=n,\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}\hfill\\
+\hskip5pc )\hfill\\
+\hskip4pc )\hfill\\
+\hskip3pc ⋰\hfill\\
+\hskip2pc )\hfill\\
+\hskip1pc )\hfill\\
+)\hfill
+}$$
 where $y_1,…,y_k$ denote `lambdaVariableExpr`s as defined in [OData-ABNF](#ODataABNF) and ${}/r$ may be absent.
 
 If parameter $d$ is absent, the parameter ${\tt MaxDistance}=d$ is omitted. If `keep start` is absent, the parameter ${\tt IncludeSelf}={\tt true}$ is omitted.
@@ -2810,7 +2865,7 @@ results in
 
 ### <a name="Transformationtraverse" href="#Transformationtraverse">6.2.2 Transformation `traverse`</a>
 
-The traverse transformation returns instances of the input set that are or are related to nodes of a given recursive hierarchy in a specified tree order.
+The `traverse` transformation returns instances of the input set that are or are related to nodes of a given recursive hierarchy in a specified tree order.
 
 $H$, $Q$ and $p$ are the first three parameters defined [above](#CommonParametersforHierarchicalTransformations).
 
@@ -2874,7 +2929,19 @@ If $p$ contains only single-valued segments, then
 $$F(x)={\tt filter}(p{\tt\ eq\ }x[q]).$$
 
 Otherwise $p=p_1/…/p_k/r$ with $k≥1$ and
-$$\matrix{ F(x)={\tt filter}(\hfill\\ \hskip1pc p_1/{\tt any}(y_1:\hfill\\ \hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\ \hskip3pc ⋱\hfill\\ \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ \hskip5pc y_k/r{\tt\ eq\ }x[q]\hfill\\ \hskip4pc )\hfill\\ \hskip3pc ⋰\hfill\\ \hskip2pc )\hfill\\ \hskip1pc )\hfill\\ )\hfill }$$
+$$\matrix{
+F(x)={\tt filter}(\hfill\\
+\hskip1pc p_1/{\tt any}(y_1:\hfill\\
+\hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\
+\hskip3pc ⋱\hfill\\
+\hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\
+\hskip5pc y_k/r{\tt\ eq\ }x[q]\hfill\\
+\hskip4pc )\hfill\\
+\hskip3pc ⋰\hfill\\
+\hskip2pc )\hfill\\
+\hskip1pc )\hfill\\
+)\hfill
+}$$
 where $y_1,…,y_k$ denote `lambdaVariableExpr`s and ${}/r$ may be absent.
 
 ::: example
@@ -2992,10 +3059,29 @@ Otherwise if $P_1$ and $P_2$ are empty, then
 $$R(x)=F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/T/Z_N/\Pi_G(σ(x)).$$
 
 $F(x)$ is defined as follows: If $p$ contains only single-valued segments, then
-$$\matrix{ F(x)={\tt filter}(\hbox{\tt Aggregation.isdescendant}(\hfill\\ \quad {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \quad {\tt Node}=p,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true})).\hfill }$$
+$$\matrix{
+F(x)={\tt filter}(\hbox{\tt Aggregation.isdescendant}(\hfill\\
+\quad {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\
+\quad {\tt Node}=p,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true})).\hfill
+}$$
 
 Otherwise $p=p_1/…/p_k/r$ with $k≥1$ and
-$$\matrix{ F(x)={\tt filter}(\hfill\\ \hskip1pc p_1/{\tt any}(y_1:\hfill\\ \hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\ \hskip3pc ⋱\hfill\\ \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ \hskip5pc \hbox{\tt Aggregation.isdescendant}(\hfill\\ \hskip6pc {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ \hskip6pc {\tt Node}=y_k/r,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true}\hfill\\ \hskip5pc )\hfill\\ \hskip4pc )\hfill\\ \hskip3pc ⋰\hfill\\ \hskip2pc )\hfill\\ \hskip1pc )\hfill\\ )\hfill }$$
+$$\matrix{
+F(x)={\tt filter}(\hfill\\
+\hskip1pc p_1/{\tt any}(y_1:\hfill\\
+\hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\
+\hskip3pc ⋱\hfill\\
+\hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\
+\hskip5pc \hbox{\tt Aggregation.isdescendant}(\hfill\\
+\hskip6pc {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\
+\hskip6pc {\tt Node}=y_k/r,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true}\hfill\\
+\hskip5pc )\hfill\\
+\hskip4pc )\hfill\\
+\hskip3pc ⋰\hfill\\
+\hskip2pc )\hfill\\
+\hskip1pc )\hfill\\
+)\hfill
+}$$
 where $y_1,…,y_k$ denote `lambdaVariableExpr`s and ${}/r$ may be absent. (See [example 113](#rollupcoll) for a case with $k=1$.)
 
 Informatively speaking, the effect of the algorithm can be summarized as follows: If $M≥1$ and $\hat F_N(x)$ denotes the collection of all instances that are related to a node $x$ as determined by $F(x)$ in the recursive hierarchy of the $N$-th `rolluprecursive` operator, then $T$ is applied to each of the intersections of $\hat F_1(χ_1),…,\hat F_M(χ_M)$, as $χ_N$ runs over all nodes of the $N$-th recursive hierarchy for $1≤N≤M$. Into the instances of the resulting output sets the $\Pi_G$ transformations inject information about the nodes $χ_1,…,χ_M$.

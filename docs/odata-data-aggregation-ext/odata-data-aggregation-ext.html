@@ -93,14 +93,52 @@
       ready() {
         MathJax.startup.defaultReady();
         MathJax.startup.document.outputJax.font.variant.monospace.chars
-          [0x2019] = [.611, -.287, .525, {f: "T", c: "'"}];
+          [0x2019] = [.611, -.287, .525, {f: "T", c: "′"}];
       }
     }};
+  </script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+      function darkmode_auto() {
+        if (darkmode_switch.value === "auto") {
+          if (darkmode_query.matches) document.documentElement.classList.add("darkmode");
+          else document.documentElement.classList.remove("darkmode");
+        }
+      }
+
+      function darkmode_manual() {
+        localStorage.setItem("odata-specs/darkmode", darkmode_switch.value);
+        switch (darkmode_switch.value) {
+          case "off":
+            document.documentElement.classList.remove("darkmode");
+            break;
+          case "on":
+            document.documentElement.classList.add("darkmode");
+            break;
+          case "auto":
+            darkmode_auto();
+            break;
+        }
+      }
+
+      const darkmode_query = matchMedia("(prefers-color-scheme: dark)");
+      darkmode_query.addEventListener("change", darkmode_auto);
+      const darkmode_switch = document.getElementById("darkmode");
+      darkmode_switch.value =
+        localStorage.getItem("odata-specs/darkmode") || "off";
+      darkmode_switch.addEventListener("change", darkmode_manual);
+      darkmode_manual();
+    });
   </script>
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 </head>
 <body>
+<select id="darkmode">
+  <option value="off" title="Light mode">&#x263C;</option>
+  <option value="on" title="Dark mode">&#x263D;</option>
+  <option value="auto" title="Follow device mode">&#x25D1;</option>
+</select>
 <p><img src="https://docs.oasis-open.org/templates/OASISLogo-v3.0.png" alt="OASIS Logo" /></p>
 <hr />
 <h1 id="odata-extension-for-data-aggregation-version-40">OData Extension for Data Aggregation Version 4.0</h1>
@@ -375,7 +413,7 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <details open><summary>
 <h3 id="113-document-conventions"><a name="DocumentConventions" href="#DocumentConventions">1.1.3 Document Conventions</a></h3>
 </summary>
-<p>Keywords defined by this specification use <code>this  monospaced  font</code>.</p>
+<p>Keywords defined by this specification use <code>this monospaced font</code>.</p>
 <p>Some sections of this specification are illustrated with non-normative examples.</p>
 <div class="example">
 <p>Example 1: text describing an example uses this paragraph style</p>
@@ -2019,11 +2057,28 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <p>A groupby with <code>rollup</code> applied to a leveled hierarchy allows requesting aggregation for all levels of that hierarchy. It splits the input set into groups using all grouping properties (see (1) below), then removes the last property from the hierarchy (see (2)) and repeats this process using the remaining grouping properties until all of the levels have been used up (see terminating rule (3)).</p>
 <p>Such a grouping with <code>rollup</code> for a leveled hierarchy is processed using the following equivalence relationships, in which <span class="math inline">\(p_1,…,p_k\)</span> are groupable property paths representing a level, <span class="math inline">\(T\)</span> is a transformation sequence, the ellipsis (<span class="math inline">\(…\)</span>) stands in for zero or more property paths, <span class="math inline">\(P_1\)</span> stands in for zero or more property paths and <span class="math inline">\(P_2\)</span> for zero or more <code>rollup</code> or <a href="#Groupingwithrolluprecursive"><code>rolluprecursive</code></a> operators or property paths:</p>
 <ul>
-<li><span class="math inline">\({\tt groupby}((P_1,{\tt rollup}(p_1,…,p_{k-1},p_k),P_2),T)\)</span> is equivalent to <span class="math display">\[\matrix{   {\tt concat}(\hfill\\   \quad {\tt groupby}((P_1,p_1,…,p_{k-1},p_k,P_2),T),\hfill&amp;\tt (1)\\   \quad {\tt groupby}((P_1,{\tt rollup}(p_1,…,p_{k-1}),P_2),T)\hfill&amp;\tt(2)\\   ).\hskip25pc\\   }\]</span></li>
-<li><span class="math inline">\({\tt groupby}((P_1,{\tt rollup}(p_1,p_2),P_2),T)\)</span> is equivalent to <span class="math display">\[\matrix{   {\tt concat}(\hfill&amp;\tt (3)\\   \quad {\tt groupby}((P_1,p_1,p_2,P_2),T),\hfill\\   \quad {\tt groupby}((P_1,p_1,P_2),T)\hfill\\   ).\hskip25pc\\   }\]</span></li>
+<li><span class="math inline">\({\tt groupby}((P_1,{\tt rollup}(p_1,…,p_{k-1},p_k),P_2),T)\)</span> is equivalent to <span class="math display">\[\matrix{
+{\tt concat}(\hfill\\
+\quad {\tt groupby}((P_1,p_1,…,p_{k-1},p_k,P_2),T),\hfill&amp;\tt (1)\\
+\quad {\tt groupby}((P_1,{\tt rollup}(p_1,…,p_{k-1}),P_2),T)\hfill&amp;\tt(2)\\
+).\hskip25pc
+}\]</span></li>
+<li><span class="math inline">\({\tt groupby}((P_1,{\tt rollup}(p_1,p_2),P_2),T)\)</span> is equivalent to <span class="math display">\[\matrix{
+{\tt concat}(\hfill&amp;\tt (3)\\
+\quad {\tt groupby}((P_1,p_1,p_2,P_2),T),\hfill\\
+\quad {\tt groupby}((P_1,p_1,P_2),T)\hfill\\
+).\hskip25pc
+}\]</span></li>
 </ul>
 <div class="example">
-<p>Example 22: rolling up two hierarchies, the first with two levels, the second with three levels: <span class="math display">\[({\tt rollup}(p_{1,1},p_{1,2}),{\tt rollup}(p_{2,1},p_{2,2},p_{2,3}))\]</span> will result in the six groupings <span class="math display">\[\matrix{ (p_{1,1},p_{1,2},\hfill&amp;p_{2,1},p_{2,2},p_{2,3})\hfill\\ (p_{1,1},p_{1,2},\hfill&amp;p_{2,1},p_{2,2})\hfill\\ (p_{1,1},p_{1,2},\hfill&amp;p_{2,1})\hfill\\ (p_{1,1},\hfill&amp;p_{2,1},p_{2,2},p_{2,3})\hfill\\ (p_{1,1},\hfill&amp;p_{2,1},p_{2,2})\hfill\\ (p_{1,1},\hfill&amp;p_{2,1})\hfill }\]</span> The leveled hierarchy of the first rollup has 2 levels, the one of the second has 3 levels, and the groupings represent all possible <span class="math inline">\(6=2⋅3\)</span> combinations of levels from both hierarchies.</p>
+<p>Example 22: rolling up two hierarchies, the first with two levels, the second with three levels: <span class="math display">\[({\tt rollup}(p_{1,1},p_{1,2}),{\tt rollup}(p_{2,1},p_{2,2},p_{2,3}))\]</span> will result in the six groupings <span class="math display">\[\matrix{
+(p_{1,1},p_{1,2},\hfill&amp;p_{2,1},p_{2,2},p_{2,3})\hfill\\
+(p_{1,1},p_{1,2},\hfill&amp;p_{2,1},p_{2,2})\hfill\\
+(p_{1,1},p_{1,2},\hfill&amp;p_{2,1})\hfill\\
+(p_{1,1},\hfill&amp;p_{2,1},p_{2,2},p_{2,3})\hfill\\
+(p_{1,1},\hfill&amp;p_{2,1},p_{2,2})\hfill\\
+(p_{1,1},\hfill&amp;p_{2,1})\hfill
+}\]</span> The leveled hierarchy of the first rollup has 2 levels, the one of the second has 3 levels, and the groupings represent all possible <span class="math inline">\(6=2⋅3\)</span> combinations of levels from both hierarchies.</p>
 </div>
 <div class="example">
 <p>Example 23: answering the second question in <a href="#ExampleUseCases">section 2.3</a></p>
@@ -2306,7 +2361,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 </summary>
 <p>The <code>compute</code> transformation takes a comma-separated list of one or more <em>compute expressions</em> as parameters.</p>
 <p>A compute expression is a common expression followed by the <code>as</code> keyword, followed by an <a href="#TypeStructureandContextURL">alias</a>.</p>
-<p>The output set is constructed by copying the instances of the input set and adding one dynamic property per compute expression to <a href="#SamenessandOrder">each occurrence</a> in the output set. The name of each added dynamic property is the alias of the corresponding compute expression. The value of each added dynamic property is computed relative to the corresponding instance. Services MAY support expressions that address dynamic properties added by other expressions within the same compute transformation, provided that the service can determine an evaluation sequence. The type of the property is determined by the rules for evaluating common expressions and numeric promotion defined in <a href="#ODataURL">OData-URL, section 5.1.1</a>.</p>
+<p>The output set is constructed by copying the instances of the input set and adding one dynamic property per compute expression to <a href="#SamenessandOrder">each occurrence</a> in the output set. The name of each added dynamic property is the alias of the corresponding compute expression. The value of each added dynamic property is computed relative to the corresponding instance. Services MAY support expressions that address dynamic properties added by other expressions within the same <code>compute</code> transformation, provided that the service can determine an evaluation sequence. The type of the property is determined by the rules for evaluating common expressions and numeric promotion defined in <a href="#ODataURL">OData-URL, section 5.1.1</a>.</p>
 <div class="example">
 <p>Example 37:</p>
 <pre><code>GET /service/Sales?$apply=compute(Amount mul Product/TaxRate as Tax)</code></pre>
@@ -2998,9 +3053,47 @@ GET /service/Sales?$select=ID&amp;$filter=Aggregation.isdescendant(
 <p>The fourth parameter is a transformation sequence <span class="math inline">\(T\)</span> composed of transformations listed <a href="#TransformationsProducingaSubset">section 3.3</a> or <a href="#Transformationsancestorsanddescendants">section 6.2.1</a> and of service-defined bound functions whose output set is a subset of their input set. <span class="math inline">\(A\)</span> is the output set of this sequence applied to the input set.</p>
 <p>The fifth parameter <span class="math inline">\(d\)</span> is optional and takes an integer greater than or equal to 1 that specifies the maximum distance between start nodes and ancestors or descendants to be considered. An optional final <code>keep start</code> parameter drives the optional inclusion of the subset or start nodes.</p>
 <p>The output set of the transformation <span class="math inline">\({\tt ancestors}(H,Q,p,T,d,{\tt keep\ start})\)</span> or <span class="math inline">\({\tt descendants}(H,Q,p,T,d,{\tt keep\ start})\)</span> is defined as the <a href="#HierarchicalTransformations">union</a> of the output sets of transformations <span class="math inline">\(F(u)\)</span> applied to the input set for all <span class="math inline">\(u\)</span> in <span class="math inline">\(A\)</span>. For a given instance <span class="math inline">\(u\)</span>, the transformation <span class="math inline">\(F(u)\)</span> determines all instances of the input set whose node identifier is an ancestor or descendant of the node identifier of <span class="math inline">\(u\)</span>:</p>
-<p>If <span class="math inline">\(p\)</span> contains only single-valued segments, then, for <code>ancestors</code>, <span class="math display">\[\matrix{ F(u)={\tt filter}(\hbox{\tt Aggregation.isancestor}(\hfill\\ \quad {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{&#39;$Q$&#39;}},\hfill\\ \quad {\tt Node}=p,\;{\tt Descendant}=u[p],\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}))\hfill }\]</span> or, for <code>descendants</code>, <span class="math display">\[\matrix{ F(u)={\tt filter}(\hbox{\tt Aggregation.isdescendant}(\hfill\\ \quad {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{&#39;$Q$&#39;}},\hfill\\ \quad {\tt Node}=p,\;{\tt Ancestor}=u[p],\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true})).\hfill }\]</span></p>
+<p>If <span class="math inline">\(p\)</span> contains only single-valued segments, then, for <code>ancestors</code>, <span class="math display">\[\matrix{
+F(u)={\tt filter}(\hbox{\tt Aggregation.isancestor}(\hfill\\
+\quad {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{&#39;$Q$&#39;}},\hfill\\
+\quad {\tt Node}=p,\;{\tt Descendant}=u[p],\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}))\hfill
+}\]</span> or, for <code>descendants</code>, <span class="math display">\[\matrix{
+F(u)={\tt filter}(\hbox{\tt Aggregation.isdescendant}(\hfill\\
+\quad {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{&#39;$Q$&#39;}},\hfill\\
+\quad {\tt Node}=p,\;{\tt Ancestor}=u[p],\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true})).\hfill
+}\]</span></p>
 <p>Otherwise <span class="math inline">\(p=p_1/…/p_k/r\)</span> with <span class="math inline">\(k≥1\)</span>, in this case the output set of the transformation <span class="math inline">\(F(u)\)</span> is defined as the <a href="#HierarchicalTransformations">union</a> of the output sets of transformations <span class="math inline">\(G(n)\)</span> applied to the input set for all <span class="math inline">\(n\)</span> in <span class="math inline">\(γ(u,p)\)</span>. The output set of <span class="math inline">\(G(n)\)</span> consists of the instances of the input set whose node identifier is an ancestor or descendant of the node identifier <span class="math inline">\(n\)</span>:</p>
-<p>For <code>ancestors</code>, <span class="math display">\[\matrix{ G(n)={\tt filter}(\hfill\\ \hskip1pc p_1/{\tt any}(y_1:\hfill\\ \hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\ \hskip3pc ⋱\hfill\\ \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ \hskip5pc \hbox{\tt Aggregation.isancestor}(\hfill\\ \hskip6pc {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{&#39;$Q$&#39;}},\hfill\\ \hskip6pc {\tt Node}=y_k/r,\;{\tt Descendant}=n,\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}\hfill\\ \hskip5pc )\hfill\\ \hskip4pc )\hfill\\ \hskip3pc ⋰\hfill\\ \hskip2pc )\hfill\\ \hskip1pc )\hfill\\ )\hfill }\]</span> or, for <code>descendants</code>, <span class="math display">\[\matrix{ G(n)={\tt filter}(\hfill\\ \hskip1pc p_1/{\tt any}(y_1:\hfill\\ \hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\ \hskip3pc ⋱\hfill\\ \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ \hskip5pc \hbox{\tt Aggregation.isdescendant}(\hfill\\ \hskip6pc {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{&#39;$Q$&#39;}},\hfill\\ \hskip6pc {\tt Node}=y_k/r,\;{\tt Ancestor}=n,\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}\hfill\\ \hskip5pc )\hfill\\ \hskip4pc )\hfill\\ \hskip3pc ⋰\hfill\\ \hskip2pc )\hfill\\ \hskip1pc )\hfill\\ )\hfill }\]</span> where <span class="math inline">\(y_1,…,y_k\)</span> denote <code>lambdaVariableExpr</code>s as defined in <a href="#ODataABNF">OData-ABNF</a> and <span class="math inline">\({}/r\)</span> may be absent.</p>
+<p>For <code>ancestors</code>, <span class="math display">\[\matrix{
+G(n)={\tt filter}(\hfill\\
+\hskip1pc p_1/{\tt any}(y_1:\hfill\\
+\hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\
+\hskip3pc ⋱\hfill\\
+\hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\
+\hskip5pc \hbox{\tt Aggregation.isancestor}(\hfill\\
+\hskip6pc {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{&#39;$Q$&#39;}},\hfill\\
+\hskip6pc {\tt Node}=y_k/r,\;{\tt Descendant}=n,\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}\hfill\\
+\hskip5pc )\hfill\\
+\hskip4pc )\hfill\\
+\hskip3pc ⋰\hfill\\
+\hskip2pc )\hfill\\
+\hskip1pc )\hfill\\
+)\hfill
+}\]</span> or, for <code>descendants</code>, <span class="math display">\[\matrix{
+G(n)={\tt filter}(\hfill\\
+\hskip1pc p_1/{\tt any}(y_1:\hfill\\
+\hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\
+\hskip3pc ⋱\hfill\\
+\hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\
+\hskip5pc \hbox{\tt Aggregation.isdescendant}(\hfill\\
+\hskip6pc {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{&#39;$Q$&#39;}},\hfill\\
+\hskip6pc {\tt Node}=y_k/r,\;{\tt Ancestor}=n,\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}\hfill\\
+\hskip5pc )\hfill\\
+\hskip4pc )\hfill\\
+\hskip3pc ⋰\hfill\\
+\hskip2pc )\hfill\\
+\hskip1pc )\hfill\\
+)\hfill
+}\]</span> where <span class="math inline">\(y_1,…,y_k\)</span> denote <code>lambdaVariableExpr</code>s as defined in <a href="#ODataABNF">OData-ABNF</a> and <span class="math inline">\({}/r\)</span> may be absent.</p>
 <p>If parameter <span class="math inline">\(d\)</span> is absent, the parameter <span class="math inline">\({\tt MaxDistance}=d\)</span> is omitted. If <code>keep start</code> is absent, the parameter <span class="math inline">\({\tt IncludeSelf}={\tt true}\)</span> is omitted.</p>
 <p>Since the output set of <code>ancestors</code> is constructed as a union, no instance from the input set will occur more than once in it, even if, for example, a sale is related to both a sales organization and one of its ancestor organizations. For <code>descendants</code>, analogously.</p>
 <div class="example">
@@ -3071,7 +3164,7 @@ GET /service/Sales?$select=ID&amp;$filter=Aggregation.isdescendant(
 <details open><summary>
 <h3 id="622-transformation-traverse"><a name="Transformationtraverse" href="#Transformationtraverse">6.2.2 Transformation <code>traverse</code></a></h3>
 </summary>
-<p>The traverse transformation returns instances of the input set that are or are related to nodes of a given recursive hierarchy in a specified tree order.</p>
+<p>The <code>traverse</code> transformation returns instances of the input set that are or are related to nodes of a given recursive hierarchy in a specified tree order.</p>
 <p><span class="math inline">\(H\)</span>, <span class="math inline">\(Q\)</span> and <span class="math inline">\(p\)</span> are the first three parameters defined <a href="#CommonParametersforHierarchicalTransformations">above</a>.</p>
 <p>The fourth parameter <span class="math inline">\(h\)</span> of the <code>traverse</code> transformation is either <code>preorder</code> or <code>postorder</code>. <span class="math inline">\(S\)</span> is an optional fifth parameter as defined <a href="#CommonParametersforHierarchicalTransformations">above</a>. Let <span class="math inline">\(H&#39;\)</span> be the output set of the transformation sequence <span class="math inline">\(S\)</span> applied to <span class="math inline">\(H\)</span>, or let <span class="math inline">\(H&#39;\)</span> be the collection of root nodes in the recursive hierarchy <span class="math inline">\((H,Q)\)</span> if <span class="math inline">\(S\)</span> is not specified. Nodes in <span class="math inline">\(H&#39;\)</span> are called start nodes in this subsection (see <a href="#weight">example 117</a>).</p>
 <p>All following parameters are optional and form a list <span class="math inline">\(o\)</span> of expressions that could also be passed as a <code>$orderby</code> system query option. If <span class="math inline">\(o\)</span> is present, the transformation <a href="#SamenessandOrder">stable-sorts</a> <span class="math inline">\(H&#39;\)</span> by <span class="math inline">\(o\)</span>.</p>
@@ -3115,7 +3208,19 @@ In this case <span class="math inline">\(\Pi_G(σ(x))\)</span> injects only the 
 <p>The absence of cycles guarantees that the recursion terminates.</p>
 <p><span class="math inline">\(F(x)\)</span> is a transformation that determines for the specified node <span class="math inline">\(x\)</span> the instances of the input set having the same node identifier as <span class="math inline">\(x\)</span>.</p>
 <p>If <span class="math inline">\(p\)</span> contains only single-valued segments, then <span class="math display">\[F(x)={\tt filter}(p{\tt\ eq\ }x[q]).\]</span></p>
-<p>Otherwise <span class="math inline">\(p=p_1/…/p_k/r\)</span> with <span class="math inline">\(k≥1\)</span> and <span class="math display">\[\matrix{ F(x)={\tt filter}(\hfill\\ \hskip1pc p_1/{\tt any}(y_1:\hfill\\ \hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\ \hskip3pc ⋱\hfill\\ \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ \hskip5pc y_k/r{\tt\ eq\ }x[q]\hfill\\ \hskip4pc )\hfill\\ \hskip3pc ⋰\hfill\\ \hskip2pc )\hfill\\ \hskip1pc )\hfill\\ )\hfill }\]</span> where <span class="math inline">\(y_1,…,y_k\)</span> denote <code>lambdaVariableExpr</code>s and <span class="math inline">\({}/r\)</span> may be absent.</p>
+<p>Otherwise <span class="math inline">\(p=p_1/…/p_k/r\)</span> with <span class="math inline">\(k≥1\)</span> and <span class="math display">\[\matrix{
+F(x)={\tt filter}(\hfill\\
+\hskip1pc p_1/{\tt any}(y_1:\hfill\\
+\hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\
+\hskip3pc ⋱\hfill\\
+\hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\
+\hskip5pc y_k/r{\tt\ eq\ }x[q]\hfill\\
+\hskip4pc )\hfill\\
+\hskip3pc ⋰\hfill\\
+\hskip2pc )\hfill\\
+\hskip1pc )\hfill\\
+)\hfill
+}\]</span> where <span class="math inline">\(y_1,…,y_k\)</span> denote <code>lambdaVariableExpr</code>s and <span class="math inline">\({}/r\)</span> may be absent.</p>
 <div class="example">
 <p>Example 63: Based on the <code>SalesOrgHierarchy</code> defined in <a href="#HierarchyExamples">Hierarchy Examples</a></p>
 <pre><code>GET /service/SalesOrganizations?$apply=
@@ -3197,8 +3302,27 @@ In this case <span class="math inline">\(\Pi_G(σ(x))\)</span> injects only the 
 <p>If at least one of <span class="math inline">\(P_1\)</span> or <span class="math inline">\(P_2\)</span> is non-empty, then <span class="math display">\[R(x)=F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/{\tt groupby}((P_1,P_2),T/Z_N/\Pi_G(σ(x))).\]</span></p>
 <p>The property <span class="math inline">\(χ_N=x\)</span> is present during the evaluation of <span class="math inline">\(T\)</span>, but not afterwards. If <span class="math inline">\(P_2\)</span> contains a <code>rolluprecursive</code> operator, the evaluation of the formula involves a recursive invocation (with <span class="math inline">\(N\)</span> increased by 1) of the <code>rolluprecursive</code> algorithm.</p>
 <p>Otherwise if <span class="math inline">\(P_1\)</span> and <span class="math inline">\(P_2\)</span> are empty, then <span class="math display">\[R(x)=F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/T/Z_N/\Pi_G(σ(x)).\]</span></p>
-<p><span class="math inline">\(F(x)\)</span> is defined as follows: If <span class="math inline">\(p\)</span> contains only single-valued segments, then <span class="math display">\[\matrix{ F(x)={\tt filter}(\hbox{\tt Aggregation.isdescendant}(\hfill\\ \quad {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{&#39;$Q$&#39;}},\hfill\\ \quad {\tt Node}=p,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true})).\hfill }\]</span></p>
-<p>Otherwise <span class="math inline">\(p=p_1/…/p_k/r\)</span> with <span class="math inline">\(k≥1\)</span> and <span class="math display">\[\matrix{ F(x)={\tt filter}(\hfill\\ \hskip1pc p_1/{\tt any}(y_1:\hfill\\ \hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\ \hskip3pc ⋱\hfill\\ \hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ \hskip5pc \hbox{\tt Aggregation.isdescendant}(\hfill\\ \hskip6pc {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{&#39;$Q$&#39;}},\hfill\\ \hskip6pc {\tt Node}=y_k/r,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true}\hfill\\ \hskip5pc )\hfill\\ \hskip4pc )\hfill\\ \hskip3pc ⋰\hfill\\ \hskip2pc )\hfill\\ \hskip1pc )\hfill\\ )\hfill }\]</span> where <span class="math inline">\(y_1,…,y_k\)</span> denote <code>lambdaVariableExpr</code>s and <span class="math inline">\({}/r\)</span> may be absent. (See <a href="#rollupcoll">example 113</a> for a case with <span class="math inline">\(k=1\)</span>.)</p>
+<p><span class="math inline">\(F(x)\)</span> is defined as follows: If <span class="math inline">\(p\)</span> contains only single-valued segments, then <span class="math display">\[\matrix{
+F(x)={\tt filter}(\hbox{\tt Aggregation.isdescendant}(\hfill\\
+\quad {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{&#39;$Q$&#39;}},\hfill\\
+\quad {\tt Node}=p,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true})).\hfill
+}\]</span></p>
+<p>Otherwise <span class="math inline">\(p=p_1/…/p_k/r\)</span> with <span class="math inline">\(k≥1\)</span> and <span class="math display">\[\matrix{
+F(x)={\tt filter}(\hfill\\
+\hskip1pc p_1/{\tt any}(y_1:\hfill\\
+\hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\
+\hskip3pc ⋱\hfill\\
+\hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\
+\hskip5pc \hbox{\tt Aggregation.isdescendant}(\hfill\\
+\hskip6pc {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{&#39;$Q$&#39;}},\hfill\\
+\hskip6pc {\tt Node}=y_k/r,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true}\hfill\\
+\hskip5pc )\hfill\\
+\hskip4pc )\hfill\\
+\hskip3pc ⋰\hfill\\
+\hskip2pc )\hfill\\
+\hskip1pc )\hfill\\
+)\hfill
+}\]</span> where <span class="math inline">\(y_1,…,y_k\)</span> denote <code>lambdaVariableExpr</code>s and <span class="math inline">\({}/r\)</span> may be absent. (See <a href="#rollupcoll">example 113</a> for a case with <span class="math inline">\(k=1\)</span>.)</p>
 <p>Informatively speaking, the effect of the algorithm can be summarized as follows: If <span class="math inline">\(M≥1\)</span> and <span class="math inline">\(\hat F_N(x)\)</span> denotes the collection of all instances that are related to a node <span class="math inline">\(x\)</span> as determined by <span class="math inline">\(F(x)\)</span> in the recursive hierarchy of the <span class="math inline">\(N\)</span>-th <code>rolluprecursive</code> operator, then <span class="math inline">\(T\)</span> is applied to each of the intersections of <span class="math inline">\(\hat F_1(χ_1),…,\hat F_M(χ_M)\)</span>, as <span class="math inline">\(χ_N\)</span> runs over all nodes of the <span class="math inline">\(N\)</span>-th recursive hierarchy for <span class="math inline">\(1≤N≤M\)</span>. Into the instances of the resulting output sets the <span class="math inline">\(\Pi_G\)</span> transformations inject information about the nodes <span class="math inline">\(χ_1,…,χ_M\)</span>.</p>
 <div class="example">
 <p>Example <a name="caseone" href="#caseone">65</a>: Total number of sub-organizations for all organizations in the hierarchy defined in <a href="#HierarchyExamples">Hierarchy Examples</a> with <span class="math inline">\(p=q={\tt ID}\)</span> (case 1 of the <a href="#Transformationtraverse">definition</a> of <span class="math inline">\(σ(x)\)</span>). In this case <span class="math inline">\(\Pi_G(σ(x))\)</span> writes back the entire node into the output set of <span class="math inline">\(T\)</span>, aggregates must have an alias to avoid overwriting by a property of the node with the same name.</p>

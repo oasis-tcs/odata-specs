@@ -284,7 +284,7 @@ Section | Feature / Change | Issue
 
 ### <a name="DocumentConventions" href="#DocumentConventions">1.2.3 Document Conventions</a>
 
-Keywords defined by this specification use `this  monospaced  font`.
+Keywords defined by this specification use `this monospaced font`.
 
 Function signatures in this specification use the following paragraph style:
 ```
@@ -797,7 +797,8 @@ document.
 In addition to the canonical (primary) key an entity set or entity type
 can specify one or more alternate keys with the
 [`Core.AlternateKeys`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AlternateKeys)
-term (see [OData-VocCore](#ODataVocCore)). 
+term (see [OData-VocCore](#ODataVocCore)).
+
 Alternate keys can be used by the client to address entities anywhere the canonical key
 can be used; for example, within entity sets, collection-valued navigation properties,
 collection-valued composable functions, and within delta payloads.
@@ -2484,7 +2485,8 @@ Edm.Boolean matchespattern(Edm.String,Edm.String,Edm.String)
 
 The second parameter MUST evaluate to a string containing an
 [ECMAScript](#_ECMAScript) (JavaScript) regular expression, otherwise the function
-returns `null`. The `matchespattern` function returns `true` if the first parameter evaluates
+returns `null`. The
+`matchespattern` function returns `true` if the first parameter evaluates
 to a string matching that regular expression, using syntax and semantics
 of ECMAScript regular expressions, otherwise it
 returns `false`.
@@ -3785,7 +3787,8 @@ functions from that schema
 
 A path consists of segments separated by a forward slash (`/`). Segments
 are either names of single- or collection-valued complex properties,
-[instance annotations](#AnnotationValuesinExpressions), or [type-cast segments](#AddressingDerivedTypes) consisting of the qualified name of a structured type that is
+[instance annotations](#AnnotationValuesinExpressions), or
+[type-cast segments](#AddressingDerivedTypes) consisting of the qualified name of a structured type that is
 derived from the type identified by the preceding path segment to reach
 properties defined on the derived type.
 

@@ -24,10 +24,57 @@
   </style>
   <link rel="stylesheet" href="styles/markdown-styles-v1.7.3b.css" />
   <link rel="stylesheet" href="styles/odata.css" />
+  <script type="text/javascript">
+    MathJax = {startup: {
+      ready() {
+        MathJax.startup.defaultReady();
+        MathJax.startup.document.outputJax.font.variant.monospace.chars
+          [0x2019] = [.611, -.287, .525, {f: "T", c: "′"}];
+      }
+    }};
+  </script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+      function darkmode_auto() {
+        if (darkmode_switch.value === "auto") {
+          if (darkmode_query.matches) document.documentElement.classList.add("darkmode");
+          else document.documentElement.classList.remove("darkmode");
+        }
+      }
+
+      function darkmode_manual() {
+        localStorage.setItem("odata-specs/darkmode", darkmode_switch.value);
+        switch (darkmode_switch.value) {
+          case "off":
+            document.documentElement.classList.remove("darkmode");
+            break;
+          case "on":
+            document.documentElement.classList.add("darkmode");
+            break;
+          case "auto":
+            darkmode_auto();
+            break;
+        }
+      }
+
+      const darkmode_query = matchMedia("(prefers-color-scheme: dark)");
+      darkmode_query.addEventListener("change", darkmode_auto);
+      const darkmode_switch = document.getElementById("darkmode");
+      darkmode_switch.value =
+        localStorage.getItem("odata-specs/darkmode") || "off";
+      darkmode_switch.addEventListener("change", darkmode_manual);
+      darkmode_manual();
+    });
+  </script>
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 </head>
 <body>
+<select id="darkmode">
+  <option value="off" title="Light mode">&#x263C;</option>
+  <option value="on" title="Dark mode">&#x263D;</option>
+  <option value="auto" title="Follow device mode">&#x25D1;</option>
+</select>
 <p><img src="https://docs.oasis-open.org/templates/OASISLogo-v3.0.png" alt="OASIS Logo" /></p>
 <hr />
 <h1 id="odata-vocabularies-version-40">OData Vocabularies Version 4.0</h1>

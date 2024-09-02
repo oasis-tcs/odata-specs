@@ -53,17 +53,12 @@ The [`pandoc.js`](pandoc.js) module converts this single Markdown document to HT
 and effectively executes
 
 ```
-pandoc -f gfm+tex_math_dollars+fenced_divs
-       -t html
-       -o odata-data-aggregation-ext.html
-       -c styles/markdown-styles-v1.7.3b.css
-       -c styles/odata.css
-       -s
-       --mathjax
-       --eol=lf
-       --metadata pagetitle="..."
+pandoc --metadata pagetitle="..."
+       <other options>
        odata-data-aggregation-ext.md
 ```
+
+where the other options are listed in the [`pandoc.js`](pandoc.js) module.
 
 The Markdown-to-HTML conversion happens in a child process into which the Markdown is written and from which the HTML is read:
 
@@ -75,14 +70,7 @@ proc.stdout.pipe(«HTML file»);
 new Number("odata-data-aggregation-ext").build(proc.stdin);
 ```
 
-The HTML file uses CSS stylesheets contained in the [`docs/*/styles`](../docs/odata-data-aggregation-ext/styles) subfolder in order to render keywords in the same font (MathJax Typewriter) whether they occur standalone or in a formula:
-
-| Keyword occurs     | Markdown source                    | Rendered result                      |
-| ------------------ | ---------------------------------- | ------------------------------------ |
-| standalone         | ``The `aggregate` transformation`` | The ${\tt aggregate}$ transformation |
-| in MathJax formula | `${\tt aggregate}(α{\tt\ as\ }D)$` | ${\tt aggregate}(α{\tt\ as\ }D)$     |
-
-A monospaced font (Courier New) is used for OData requests and their JSON or XML responses.
+A monospaced font (Courier New) is used for keywords, OData requests and their JSON or XML responses.
 
 [`npm start`](server.js) starts a web server that serves such HTML files and the static `.css` files without writing intermediate files. This allows authors to see the effects of every change to the source folder in the working tree after saving the source files which triggers a browser auto-refresh.
 
