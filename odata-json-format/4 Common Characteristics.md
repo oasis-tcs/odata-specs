@@ -49,6 +49,16 @@ result](#DeltaPayload).
 Client libraries MUST retain the
 order of objects within an array in JSON responses.
 
+## ##subsec URLs in Message Bodies
+
+URLs represented as a string within a JSON payload, including [batch
+requests](#BatchRequest), must follow standard OData encoding rules as defined in [OData-URL](#ODataURL).
+
+For [relative URLs](#RelativeURLs) this means that colons (`:`) in the path part, especially
+within key values, MUST be percent-encoded to avoid confusion with the
+scheme separator. Colons within the query part, i.e. after the question
+mark character (`?`), need not be percent-encoded.
+
 ## ##subsec Relative URLs
 
 URLs present in a payload (whether request or response) MAY be
@@ -88,13 +98,6 @@ Clients that receive relative URLs in response payloads SHOULD use the
 same relative URLs, where appropriate, in request payloads (such as
 [bind operations](#BindOperation) and batch requests) and in system
 query options (such as `$id`).
-
-URLs represented as a string within a JSON payload, including [batch
-requests](#BatchRequest), must follow standard OData encoding rules.
-For relative URLs this means that colons in the path part, especially
-within key values, MUST be percent-encoded to avoid confusion with the
-scheme separator. Colons within the query part, i.e. after the question
-mark character (`?`), need not be percent-encoded.
 
 ::: example
 Example ##ex:
@@ -371,7 +374,7 @@ the total count of members in the collection represented by the request.
 ### ##subsubsec Control Information: `nextLink` (`odata.nextLink`)
 
 The `nextLink` control information indicates that a response
-is only a subset of the requested collection. It contains a URL that
+is only a subset of the requested collection. It contains a [URL](URLsinMessageBodies) that
 allows retrieving the next subset of the requested collection.
 
 This control information can also be applied to [expanded to-many
@@ -386,7 +389,7 @@ in membership or value of nested entities.
 
 ### ##subsubsec Control Information: `deltaLink` (`odata.deltaLink`)
 
-The `deltaLink` control information contains a URL that can
+The `deltaLink` control information contains a [URL](URLsinMessageBodies) that can
 be used to retrieve changes to the current set of results. The
 `deltaLink` control information MUST only appear on the last
 page of results. A page of results MUST NOT have both a
@@ -438,7 +441,7 @@ of this specification.
 ### ##subsubsec Control Information: `editLink` and `readLink` (`odata.editLink` and `odata.readLink`)
 
 The `editLink` control information contains
-the edit URL of the entity; see [OData-Protocol](#ODataProtocol).
+the edit [URL](URLsinMessageBodies) of the entity; see [OData-Protocol](#ODataProtocol).
 
 The `readLink` control information contains the read URL of
 the entity or collection; see [OData-Protocol](#ODataProtocol).
@@ -504,7 +507,7 @@ single entities and not written in responses if
 ### ##subsubsec Control Information: `navigationLink` and `associationLink` (`odata.navigationLink` and `odata.associationLink`)
 
 The `navigationLink` control information in a
-response contains a _navigation URL_ that can be used to retrieve an
+response contains a _navigation [URL](URLsinMessageBodies)_ that can be used to retrieve an
 entity or collection of entities related to the current entity via a
 [navigation property](#NavigationProperty).
 
@@ -540,7 +543,7 @@ in [OData-URL](#ODataURL), sections 4.6 Addressing a property and 4.14 Addressin
 [`metadata=full`](#metadatafullodatametadatafull)
 is requested.
 
-The `mediaEditLink` control information contains a URL that
+The `mediaEditLink` control information contains a [URL](URLsinMessageBodies) that
 can be used to update the binary stream associated with the media entity
 or stream property. It MUST be included for updatable streams if it
 differs from standard URL conventions relative to the edit link of the
