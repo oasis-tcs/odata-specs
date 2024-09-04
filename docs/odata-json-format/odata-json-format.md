@@ -109,23 +109,24 @@ For complete copyright information please see the full Notices section in an App
 - [4 Common Characteristics](#CommonCharacteristics)
   - [4.1 Header Content-Type](#HeaderContentType)
   - [4.2 Message Body](#MessageBody)
-  - [4.3 Relative URLs](#RelativeURLs)
-  - [4.4 Payload Ordering Constraints](#PayloadOrderingConstraints)
-  - [4.5 Control Information](#ControlInformation)
-    - [4.5.1 Control Information: `context` (`odata.context`)](#ControlInformationcontextodatacontext)
-    - [4.5.2 Control Information: `metadataEtag` (`odata.metadataEtag`)](#ControlInformationmetadataEtagodatametadataEtag)
-    - [4.5.3 Control Information: `type` (`odata.type`)](#ControlInformationtypeodatatype)
-    - [4.5.4 Control Information: `count` (`odata.count`)](#ControlInformationcountodatacount)
-    - [4.5.5 Control Information: `nextLink` (`odata.nextLink`)](#ControlInformationnextLinkodatanextLink)
-    - [4.5.6 Control Information: `delta` (`odata.delta`)](#ControlInformationdeltaodatadelta)
-    - [4.5.7 Control Information: `deltaLink` (`odata.deltaLink`)](#ControlInformationdeltaLinkodatadeltaLink)
-    - [4.5.8 Control Information: `id` (`odata.id`)](#ControlInformationidodataid)
-    - [4.5.9 Control Information: `editLink` and `readLink` (`odata.editLink` and `odata.readLink`)](#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink)
-    - [4.5.10 Control Information: `etag` (`odata.etag`)](#ControlInformationetagodataetag)
-    - [4.5.11 Control Information: `navigationLink` and `associationLink` (`odata.navigationLink` and `odata.associationLink`)](#ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink)
-    - [4.5.12 Control Information: `media*` (`odata.media*`)](#ControlInformationmediaodatamedia)
-    - [4.5.13 Control Information: `removed` (`odata.removed`)](#ControlInformationremovedodataremoved)
-    - [4.5.14 Control Information: `collectionAnnotations` (`odata.collectionAnnotations`)](#ControlInformationcollectionAnnotationsodatacollectionAnnotations)
+  - [4.3 URLs in Message Bodies](#URLsinMessageBodies)
+  - [4.4 Relative URLs](#RelativeURLs)
+  - [4.5 Payload Ordering Constraints](#PayloadOrderingConstraints)
+  - [4.6 Control Information](#ControlInformation)
+    - [4.6.1 Control Information: `context` (`odata.context`)](#ControlInformationcontextodatacontext)
+    - [4.6.2 Control Information: `metadataEtag` (`odata.metadataEtag`)](#ControlInformationmetadataEtagodatametadataEtag)
+    - [4.6.3 Control Information: `type` (`odata.type`)](#ControlInformationtypeodatatype)
+    - [4.6.4 Control Information: `count` (`odata.count`)](#ControlInformationcountodatacount)
+    - [4.6.5 Control Information: `nextLink` (`odata.nextLink`)](#ControlInformationnextLinkodatanextLink)
+    - [4.6.6 Control Information: `delta` (`odata.delta`)](#ControlInformationdeltaodatadelta)
+    - [4.6.7 Control Information: `deltaLink` (`odata.deltaLink`)](#ControlInformationdeltaLinkodatadeltaLink)
+    - [4.6.8 Control Information: `id` (`odata.id`)](#ControlInformationidodataid)
+    - [4.6.9 Control Information: `editLink` and `readLink` (`odata.editLink` and `odata.readLink`)](#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink)
+    - [4.6.10 Control Information: `etag` (`odata.etag`)](#ControlInformationetagodataetag)
+    - [4.6.11 Control Information: `navigationLink` and `associationLink` (`odata.navigationLink` and `odata.associationLink`)](#ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink)
+    - [4.6.12 Control Information: `media*` (`odata.media*`)](#ControlInformationmediaodatamedia)
+    - [4.6.13 Control Information: `removed` (`odata.removed`)](#ControlInformationremovedodataremoved)
+    - [4.6.14 Control Information: `collectionAnnotations` (`odata.collectionAnnotations`)](#ControlInformationcollectionAnnotationsodatacollectionAnnotations)
 - [5 Service Document](#ServiceDocument)
 - [6 Entity](#Entity)
 - [7 Structural Property](#StructuralProperty)
@@ -215,9 +216,9 @@ An OData JSON payload may represent:
 
 Section | Feature / Change | Issue
 --------|------------------|------
-[Section 4.5.1](#ControlInformationcontextodatacontext)| Fragment portion of Context URL is not percent-encoded| [368](https://github.com/oasis-tcs/odata-specs/issues/368)
-[Section 4.5.8](#ControlInformationidodataid)| Transient entities can be identifiable| [1928](https://github.com/oasis-tcs/odata-specs/issues/1928)
-[Section 4.5.12](#ControlInformationmediaodatamedia)| `mediaContentType` can be `null`| [536](https://github.com/oasis-tcs/odata-specs/issues/536)
+[Section 4.6.1](#ControlInformationcontextodatacontext)| Fragment portion of Context URL is not percent-encoded| [368](https://github.com/oasis-tcs/odata-specs/issues/368)
+[Section 4.6.8](#ControlInformationidodataid)| Transient entities can be identifiable| [1928](https://github.com/oasis-tcs/odata-specs/issues/1928)
+[Section 4.6.12](#ControlInformationmediaodatamedia)| `mediaContentType` can be `null`| [536](https://github.com/oasis-tcs/odata-specs/issues/536)
 [Section 7](#StructuralProperty), [Section A.2](#InformativeReferences)| Removed reference to obsolete version of GeoJSON| [456](https://github.com/oasis-tcs/odata-specs/issues/456)
 [Section 18](#ActionInvocation)| Allow common expressions in action payloads| [341](https://github.com/oasis-tcs/odata-specs/issues/341)
 
@@ -596,7 +597,17 @@ result](#DeltaPayload).
 Client libraries MUST retain the
 order of objects within an array in JSON responses.
 
-## <a name="RelativeURLs" href="#RelativeURLs">4.3 Relative URLs</a>
+## <a name="URLsinMessageBodies" href="#URLsinMessageBodies">4.3 URLs in Message Bodies</a>
+
+URLs represented as a string within a JSON payload, including [batch
+requests](#BatchRequest), must follow standard OData encoding rules as defined in [OData-URL](#ODataURL).
+
+For [relative URLs](#RelativeURLs) this means that colons (`:`) in the path part, especially
+within key values, MUST be percent-encoded to avoid confusion with the
+scheme separator. Colons within the query part, i.e. after the question
+mark character (`?`), need not be percent-encoded.
+
+## <a name="RelativeURLs" href="#RelativeURLs">4.4 Relative URLs</a>
 
 URLs present in a payload (whether request or response) MAY be
 represented as relative URLs.
@@ -636,13 +647,6 @@ same relative URLs, where appropriate, in request payloads (such as
 [bind operations](#BindOperation) and batch requests) and in system
 query options (such as `$id`).
 
-URLs represented as a string within a JSON payload, including [batch
-requests](#BatchRequest), must follow standard OData encoding rules.
-For relative URLs this means that colons in the path part, especially
-within key values, MUST be percent-encoded to avoid confusion with the
-scheme separator. Colons within the query part, i.e. after the question
-mark character (`?`), need not be percent-encoded.
-
 ::: example
 Example 2:
 ```json
@@ -663,7 +667,7 @@ http://host/service/Customers('ALFKI')/Orders
 ```
 :::
 
-## <a name="PayloadOrderingConstraints" href="#PayloadOrderingConstraints">4.4 Payload Ordering Constraints</a>
+## <a name="PayloadOrderingConstraints" href="#PayloadOrderingConstraints">4.5 Payload Ordering Constraints</a>
 
 Ordering constraints MAY be imposed on the JSON payload in order to
 support streaming scenarios. These ordering constraints MUST only be
@@ -733,7 +737,7 @@ Note that in OData 4.0 the `streaming` format parameter was prefixed with
 `OData-Version` header equal to `4.01` or greater SHOULD NOT
 include the `odata.` prefix.
 
-## <a name="ControlInformation" href="#ControlInformation">4.5 Control Information</a>
+## <a name="ControlInformation" href="#ControlInformation">4.6 Control Information</a>
 
 In addition to the "pure data" a message body MAY contain
 [annotations](#InstanceAnnotations) and control information that is
@@ -752,7 +756,7 @@ Receivers that encounter unknown
 annotations in any namespace or unknown control information MUST NOT
 stop processing and MUST NOT signal an error.
 
-### <a name="ControlInformationcontextodatacontext" href="#ControlInformationcontextodatacontext">4.5.1 Control Information: `context` (`odata.context`)</a>
+### <a name="ControlInformationcontextodatacontext" href="#ControlInformationcontextodatacontext">4.6.1 Control Information: `context` (`odata.context`)</a>
 
 The `context` control information
 returns the context URL (see [OData-Protocol](#ODataProtocol)) for the
@@ -785,7 +789,7 @@ Example 4:
 ```
 :::
 
-### <a name="ControlInformationmetadataEtagodatametadataEtag" href="#ControlInformationmetadataEtagodatametadataEtag">4.5.2 Control Information: `metadataEtag` (`odata.metadataEtag`)</a>
+### <a name="ControlInformationmetadataEtagodatametadataEtag" href="#ControlInformationmetadataEtagodatametadataEtag">4.6.2 Control Information: `metadataEtag` (`odata.metadataEtag`)</a>
 
 The `metadataEtag` control information MAY appear in a
 response in order to specify the entity tag (ETag) that can be used to
@@ -802,7 +806,7 @@ in any responses.
 
 For details on how ETags are used, see [OData-Protocol](#ODataProtocol).
 
-### <a name="ControlInformationtypeodatatype" href="#ControlInformationtypeodatatype">4.5.3 Control Information: `type` (`odata.type`)</a>
+### <a name="ControlInformationtypeodatatype" href="#ControlInformationtypeodatatype">4.6.3 Control Information: `type` (`odata.type`)</a>
 
 The `type` control information specifies the type of a JSON
 object or name/value pair. Its value is a URI that identifies the type
@@ -906,7 +910,7 @@ metadata  document of a different service
 ```
 :::
 
-### <a name="ControlInformationcountodatacount" href="#ControlInformationcountodatacount">4.5.4 Control Information: `count` (`odata.count`)</a>
+### <a name="ControlInformationcountodatacount" href="#ControlInformationcountodatacount">4.6.4 Control Information: `count` (`odata.count`)</a>
 
 The `count` control information occurs only in responses and
 can annotate any collection, see [OData-Protocol](#ODataProtocol)
@@ -915,25 +919,25 @@ section 11.2.5.5 System Query Option
 `Edm.Int64` value corresponding to
 the total count of members in the collection represented by the request.
 
-### <a name="ControlInformationnextLinkodatanextLink" href="#ControlInformationnextLinkodatanextLink">4.5.5 Control Information: `nextLink` (`odata.nextLink`)</a>
+### <a name="ControlInformationnextLinkodatanextLink" href="#ControlInformationnextLinkodatanextLink">4.6.5 Control Information: `nextLink` (`odata.nextLink`)</a>
 
 The `nextLink` control information indicates that a response
-is only a subset of the requested collection. It contains a URL that
+is only a subset of the requested collection. It contains a [URL](URLsinMessageBodies) that
 allows retrieving the next subset of the requested collection.
 
 This control information can also be applied to [expanded to-many
 navigation properties](#ExpandedNavigationProperty).
 
-### <a name="ControlInformationdeltaodatadelta" href="#ControlInformationdeltaodatadelta">4.5.6 Control Information: `delta` (`odata.delta`)</a>
+### <a name="ControlInformationdeltaodatadelta" href="#ControlInformationdeltaodatadelta">4.6.6 Control Information: `delta` (`odata.delta`)</a>
 
 The `delta` control information is applied to a
 collection-valued navigation property within an [added/changed
 entity](#AddedChangedEntity) in a delta payload to represent changes
 in membership or value of nested entities.
 
-### <a name="ControlInformationdeltaLinkodatadeltaLink" href="#ControlInformationdeltaLinkodatadeltaLink">4.5.7 Control Information: `deltaLink` (`odata.deltaLink`)</a>
+### <a name="ControlInformationdeltaLinkodatadeltaLink" href="#ControlInformationdeltaLinkodatadeltaLink">4.6.7 Control Information: `deltaLink` (`odata.deltaLink`)</a>
 
-The `deltaLink` control information contains a URL that can
+The `deltaLink` control information contains a [URL](URLsinMessageBodies) that can
 be used to retrieve changes to the current set of results. The
 `deltaLink` control information MUST only appear on the last
 page of results. A page of results MUST NOT have both a
@@ -941,7 +945,7 @@ page of results. A page of results MUST NOT have both a
 [`nextLink`](#ControlInformationnextLinkodatanextLink)
 control information.
 
-### <a name="ControlInformationidodataid" href="#ControlInformationidodataid">4.5.8 Control Information: `id` (`odata.id`)</a>
+### <a name="ControlInformationidodataid" href="#ControlInformationidodataid">4.6.8 Control Information: `id` (`odata.id`)</a>
 
 The `id` control information contains the entity-id, see
 [OData-Protocol](#ODataProtocol). By convention the entity-id is
@@ -982,10 +986,10 @@ The `id` control information MUST NOT appear for a
 collection. Its meaning in this context is reserved for future versions
 of this specification.
 
-### <a name="ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink" href="#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink">4.5.9 Control Information: `editLink` and `readLink` (`odata.editLink` and `odata.readLink`)</a>
+### <a name="ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink" href="#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink">4.6.9 Control Information: `editLink` and `readLink` (`odata.editLink` and `odata.readLink`)</a>
 
 The `editLink` control information contains
-the edit URL of the entity; see [OData-Protocol](#ODataProtocol).
+the edit [URL](URLsinMessageBodies) of the entity; see [OData-Protocol](#ODataProtocol).
 
 The `readLink` control information contains the read URL of
 the entity or collection; see [OData-Protocol](#ODataProtocol).
@@ -1034,7 +1038,7 @@ For collections:
   meaning in this context is reserved for future versions of this
   specification.
 
-### <a name="ControlInformationetagodataetag" href="#ControlInformationetagodataetag">4.5.10 Control Information: `etag` (`odata.etag`)</a>
+### <a name="ControlInformationetagodataetag" href="#ControlInformationetagodataetag">4.6.10 Control Information: `etag` (`odata.etag`)</a>
 
 The `etag` control information MAY be applied to an
 [entity](#Entity) or collection in a response. The
@@ -1048,10 +1052,10 @@ The `etag` control information is ignored in request payloads for
 single entities and not written in responses if
 [`metadata=none`](#metadatanoneodatametadatanone) is requested.
 
-### <a name="ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink" href="#ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink">4.5.11 Control Information: `navigationLink` and `associationLink` (`odata.navigationLink` and `odata.associationLink`)</a>
+### <a name="ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink" href="#ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink">4.6.11 Control Information: `navigationLink` and `associationLink` (`odata.navigationLink` and `odata.associationLink`)</a>
 
 The `navigationLink` control information in a
-response contains a _navigation URL_ that can be used to retrieve an
+response contains a _navigation [URL](URLsinMessageBodies)_ that can be used to retrieve an
 entity or collection of entities related to the current entity via a
 [navigation property](#NavigationProperty).
 
@@ -1077,7 +1081,7 @@ The `navigationLink` and `associationLink` control
 information is ignored in request payloads and not written in responses
 if [`metadata=none`](#metadatanoneodatametadatanone) is requested.
 
-### <a name="ControlInformationmediaodatamedia" href="#ControlInformationmediaodatamedia">4.5.12 Control Information: `media*` (`odata.media*`)</a>
+### <a name="ControlInformationmediaodatamedia" href="#ControlInformationmediaodatamedia">4.6.12 Control Information: `media*` (`odata.media*`)</a>
 
 For [media entities](#MediaEntity) and [stream
 properties](#StreamProperty) at least one of the control information
@@ -1087,7 +1091,7 @@ in [OData-URL](#ODataURL), sections 4.6 Addressing a property and 4.14 Addressin
 [`metadata=full`](#metadatafullodatametadatafull)
 is requested.
 
-The `mediaEditLink` control information contains a URL that
+The `mediaEditLink` control information contains a [URL](URLsinMessageBodies) that
 can be used to update the binary stream associated with the media entity
 or stream property. It MUST be included for updatable streams if it
 differs from standard URL conventions relative to the edit link of the
@@ -1144,13 +1148,13 @@ Example 7:
 ```
 :::
 
-### <a name="ControlInformationremovedodataremoved" href="#ControlInformationremovedodataremoved">4.5.13 Control Information: `removed` (`odata.removed`)</a>
+### <a name="ControlInformationremovedodataremoved" href="#ControlInformationremovedodataremoved">4.6.13 Control Information: `removed` (`odata.removed`)</a>
 
 The `removed` control information is used in [delta
 payloads](#DeletedEntity) and indicates that the represented entity
 is (to be) deleted.
 
-### <a name="ControlInformationcollectionAnnotationsodatacollectionAnnotations" href="#ControlInformationcollectionAnnotationsodatacollectionAnnotations">4.5.14 Control Information: `collectionAnnotations` (`odata.collectionAnnotations`)</a>
+### <a name="ControlInformationcollectionAnnotationsodatacollectionAnnotations" href="#ControlInformationcollectionAnnotationsodatacollectionAnnotations">4.6.14 Control Information: `collectionAnnotations` (`odata.collectionAnnotations`)</a>
 
 The `collectionAnnotations` control information can be
 applied to a collection containing primitive members in order to
@@ -4035,9 +4039,9 @@ In order to be a conforming consumer of the OData JSON format, a client or servi
 3. MUST be prepared to receive all data types ([section 7.1](#PrimitiveValue))
    1. defined in this specification (client)
    2. exposed by the service (service)
-4. MUST interpret all `odata` control information defined according to the `OData-Version` header of the payload ([section 4.5](#ControlInformation))
+4. MUST interpret all `odata` control information defined according to the `OData-Version` header of the payload ([section 4.6](#ControlInformation))
 5. MUST be prepared to receive any annotations and control information not defined in the `OData-Version` header of the payload ([section 20](#InstanceAnnotations))
-6. MUST NOT require `streaming=true` in the `Content-Type` header ([section 4.4](#PayloadOrderingConstraints))
+6. MUST NOT require `streaming=true` in the `Content-Type` header ([section 4.5](#PayloadOrderingConstraints))
 7. MUST be a conforming consumer of the OData 4.0 JSON format, for payloads with an `OData-Version` header value of `4.0`.
    1. MUST accept the `odata.` prefix, where defined, on format parameters and control information
    2. MUST accept the `#` prefix in `@odata.type` values
@@ -4079,12 +4083,12 @@ In addition, in order to conform to the OData JSON format, a service:
 12. MUST support the `application/json` media type in the `Accept` header ([section 3](#RequestingtheJSONFormat))
 13. MUST return well-formed JSON payloads
 14. MUST support `odata.metadata=full` ([section 3.1.2](#metadatafullodatametadatafull))
-15. MUST include the `odata.nextLink` control information in partial results for entity collections ([section 4.5.5](#ControlInformationnextLinkodatanextLink))
-16. MUST support entity instances with external metadata ([section 4.5.1](#ControlInformationcontextodatacontext))
-17. MUST support properties with externally defined data types ([section 4.5.3](#ControlInformationtypeodatatype))
+15. MUST include the `odata.nextLink` control information in partial results for entity collections ([section 4.6.5](#ControlInformationnextLinkodatanextLink))
+16. MUST support entity instances with external metadata ([section 4.6.1](#ControlInformationcontextodatacontext))
+17. MUST support properties with externally defined data types ([section 4.6.3](#ControlInformationtypeodatatype))
 18. MUST NOT violate any other aspects of this OData JSON specification
 19. SHOULD support the `$format` system query option ([section 3](#RequestingtheJSONFormat))
-20. MAY support the `odata.streaming=true` parameter in the `Accept` header ([section 4.4](#PayloadOrderingConstraints))
+20. MAY support the `odata.streaming=true` parameter in the `Accept` header ([section 4.5](#PayloadOrderingConstraints))
 21. MAY return full metadata regardless of `odata.metadata` ([section 3.1.2](#metadatafullodatametadatafull))
 22. MUST NOT omit null or default values unless the `omit-values` preference is specified in the `Prefer` request header and the `omit-values` preference is included in the `Preference-Applied` response header
 23. MUST return OData JSON 4.0-compliant responses for requests with an `OData-MaxVersion` header value of `4.0`
