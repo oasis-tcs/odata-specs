@@ -578,8 +578,8 @@ except actions and functions whose overloads to not possess a natural
 identifier), and all direct children of an entity container.
 
 Model element| 
-External targeting syntax| 
-<div class="example"><p>Example ##ex: Target expressions</p></div>
+Can be targeted with path expression (see also [section ##PathSyntax])| 
+<div class="example"><p style="margin-top:0">Example ##ex: Target expressions</p></div>
 -----|-----|-----
 [Action](#Action) overload| 
 qualified name of action followed by parentheses containing the binding parameter type of a bound action overload to identify that bound overload, or by empty parentheses to identify the unbound overload| 
@@ -649,9 +649,9 @@ qualified name of action or function optionally followed by a parenthesized expr
 [Property](#StructuralProperty) via container| 
 qualified name of entity container followed by a segment containing a singleton or entity set name and zero or more segments containing the name of a structural or navigation property, or a type-cast or term-cast| 
 <pre>`MySchema.MyEntityContainer/MyEntitySet` 
-<br>` /MyProperty` 
+<br>`  /MyProperty` 
 <br>`MySchema.MyEntityContainer/MyEntitySet` 
-<br>` /MySchema.MyEntityType/MyProperty` 
+<br>`  /MySchema.MyEntityType/MyProperty` 
 <br>`MySchema.MyEntityContainer/MyEntitySet` 
 <br>`  /MyComplexProperty/MyProperty`</pre>
 [Property](#StructuralProperty) via structured type| 
@@ -682,6 +682,44 @@ External targeting is possible for properties and navigation
 properties of singletons or entities in a particular entity set. These
 annotations override annotations on the properties or navigation
 properties targeted via the declaring structured type.
+
+External targeting is also possible for bound action and function overloads
+whose binding parameter is addressed via a certain path or has a certain type,
+as well as for parameters and return types thereof. The targeting expression then
+consists of two path expressions from the table above separated by a forward
+slash. The first path expression references one of the following model
+elements:
+
+Model element|means the binding parameter must be
+-------------|-----------------------------------
+Entity Set|an instance or collection of instances from the entity set
+Singleton|the singleton
+Navigation Property via container|addressed via a resource path to the navigation property
+Property via container|addressed via a resource path to the structural property
+Navigation Property via structured type|addressed via a resource path to the navigation property that traverses an instance or collection of the structured type
+Property via structured type|addressed via a resource path to the structural property that traverses an instance or collection of the structured type
+Complex Type|an instance or collection of the type or a subtype thereof
+Entity Type|an instance or collection of the type or a subtype thereof
+
+A binding parameter is "addressed via a resource path" if the path expression addressing the
+binding parameter starts with the resource path, it may then continue with segments
+described in [OData-URL](#ODataURL), sections 4.6 through 4.12. If the resource path
+addresses a collection, the binding parameter can also be a single instance of that
+collection if a segment described in [OData-URL](#ODataURL), sections 4.9 and 4.10, follows.
+
+The second path expression references one of the following model elements:
+- Action overload
+- all overloads of an Action
+- Function overload
+- all overloads of a Function
+- Parameter
+- Return Type
+
+where the overload is bound and the binding parameter meets the condition
+imposed by the first path expression.
+
+These annotations override annotations targeting the action or function
+overloads directly.
 
 ## ##subsec Constant Expression
 

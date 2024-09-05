@@ -46,6 +46,9 @@ SRID value `variable` is deprecated|
 All children of `edm:EntityContainer` are optional| 
 [464](https://github.com/oasis-tcs/odata-specs/issues/464)
 :
+[Section ##Target]| 
+External targeting of bound action/function overloads via container or structured type| 
+[393](https://github.com/oasis-tcs/odata-specs/issues/393)
 [Section ##GeoValues] | Constant Geo values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
 [Section ##StreamValues] | Constant Stream values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
 [Section ##PathEvaluation]| 
