@@ -3928,13 +3928,14 @@ properties targeted via the declaring structured type.
 Constant expressions allow assigning a constant value to an applied
 term.
 
-Primitive values of various types are represented as strings so that their type
+Primitive values of various types are represented as strings, therefore their type
 cannot be inferred from the constant expression alone. If such
-a constant expression is an operand of a larger expression, clients MUST assume
-that the operand has the type demanded by the larger expression, for example in a
+an ambiguous constant expression is an operand of a larger expression, clients MUST assume
+that the operand has the type demanded by the larger expression, for example, in a
 client-side function or in a comparison with another operand of known type.
-(In the `$In` comparison in [example 75](#disambiguate) if `Fabric` is a collection
-of `Edm.String`, the constant expression `"Blue"` is a string, not a binary value.)
+(In the `$Has` comparison in [example 75](#disambiguate) `Fabric` has an enumeration type,
+therefore the constant expression `"Blue"` is an
+enumeration member, not a string or a binary value.)
 
 ### <a name="Binary" href="#Binary">14.3.1 Binary</a>
 

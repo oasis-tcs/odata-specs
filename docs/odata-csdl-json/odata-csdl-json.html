@@ -2763,7 +2763,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h2 id="143-constant-expression"><a name="ConstantExpression" href="#ConstantExpression">14.3 Constant Expression</a></h2>
 </summary>
 <p>Constant expressions allow assigning a constant value to an applied term.</p>
-<p>Primitive values of various types are represented as strings so that their type cannot be inferred from the constant expression alone. If such a constant expression is an operand of a larger expression, clients MUST assume that the operand has the type demanded by the larger expression, for example in a client-side function or in a comparison with another operand of known type. (In the <code>$In</code> comparison in <a href="#disambiguate">example 75</a> if <code>Fabric</code> is a collection of <code>Edm.String</code>, the constant expression <code>"Blue"</code> is a string, not a binary value.)</p>
+<p>Primitive values of various types are represented as strings, therefore their type cannot be inferred from the constant expression alone. If such an ambiguous constant expression is an operand of a larger expression, clients MUST assume that the operand has the type demanded by the larger expression, for example, in a client-side function or in a comparison with another operand of known type. (In the <code>$Has</code> comparison in <a href="#disambiguate">example 75</a> <code>Fabric</code> has an enumeration type, therefore the constant expression <code>"Blue"</code> is an enumeration member, not a string or a binary value.)</p>
 <details open><summary>
 <h3 id="1431-binary"><a name="Binary" href="#Binary">14.3.1 Binary</a></h3>
 </summary>
