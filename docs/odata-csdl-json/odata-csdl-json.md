@@ -3933,9 +3933,8 @@ cannot be inferred from the constant expression alone. If such
 an ambiguous constant expression is an operand of a larger expression, clients MUST assume
 that the operand has the type demanded by the larger expression, for example, in a
 client-side function or in a comparison with another operand of known type.
-(In the `$Has` comparison in [example 75](#disambiguate) `Fabric` has an enumeration type,
-therefore the constant expression `"Blue"` is an
-enumeration member, not a string or a binary value.)
+(In the `$Le` comparison in [example 75](#disambiguate) `Duration` is of type
+`Edm.Duration`, therefore the constant expression `"PT1H"` is a duration, not a string.)
 
 ### <a name="Binary" href="#Binary">14.3.1 Binary</a>
 
@@ -4858,9 +4857,9 @@ Example <a name="disambiguate" href="#disambiguate">75</a>:
 {
   "$Le": [
     {
-      "$Path": "Price"
+      "$Path": "Duration"
     },
-    100
+    "PT1H"
   ]
 },
 {
@@ -4868,7 +4867,7 @@ Example <a name="disambiguate" href="#disambiguate">75</a>:
     {
       "$Path": "Fabric"
     },
-    "Blue"
+    "Red"
   ]
 },
 {

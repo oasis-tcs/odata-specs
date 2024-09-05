@@ -4758,12 +4758,12 @@ Example 75:
   <Int>20</Int>
 </Lt>
 <Le>
-  <Path>Price</Path>
-  <Int>100</Int>
+  <Path>Duration</Path>
+  <Duration>PT1H</Duration>
 </Le>
 <Has>
   <Path>Fabric</Path>
-  <EnumMember>org.example.Pattern/Blue</EnumMember>
+  <EnumMember>org.example.Pattern/Red</EnumMember>
 </Has>
 <In>
   <Path>Size</Path>

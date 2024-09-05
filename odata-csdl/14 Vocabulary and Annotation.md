@@ -694,9 +694,8 @@ cannot be inferred from the constant expression alone. If such
 an ambiguous constant expression is an operand of a larger expression, clients MUST assume
 that the operand has the type demanded by the larger expression, for example, in a
 client-side function or in a comparison with another operand of known type.
-(In the `$Has` comparison in [example ##disambiguate] `Fabric` has an enumeration type,
-therefore the constant expression `"Blue"` is an
-enumeration member, not a string or a binary value.)
+(In the `$Le` comparison in [example ##disambiguate] `Duration` is of type
+`Edm.Duration`, therefore the constant expression `"PT1H"` is a duration, not a string.)
 :
 
 ### ##subsubsec Binary
@@ -2093,9 +2092,9 @@ Example ##ex_disambiguate:
 {
   "$Le": [
     {
-      "$Path": "Price"
+      "$Path": "Duration"
     },
-    100
+    "PT1H"
   ]
 },
 {
@@ -2103,7 +2102,7 @@ Example ##ex_disambiguate:
     {
       "$Path": "Fabric"
     },
-    "Blue"
+    "Red"
   ]
 },
 {
@@ -2186,12 +2185,12 @@ Example ##ex:
   <Int>20</Int>
 </Lt>
 <Le>
-  <Path>Price</Path>
-  <Int>100</Int>
+  <Path>Duration</Path>
+  <Duration>PT1H</Duration>
 </Le>
 <Has>
   <Path>Fabric</Path>
-  <EnumMember>org.example.Pattern/Blue</EnumMember>
+  <EnumMember>org.example.Pattern/Red</EnumMember>
 </Has>
 <In>
   <Path>Size</Path>

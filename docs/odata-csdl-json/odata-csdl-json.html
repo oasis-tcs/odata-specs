@@ -2763,7 +2763,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h2 id="143-constant-expression"><a name="ConstantExpression" href="#ConstantExpression">14.3 Constant Expression</a></h2>
 </summary>
 <p>Constant expressions allow assigning a constant value to an applied term.</p>
-<p>Primitive values of various types are represented as strings, therefore their type cannot be inferred from the constant expression alone. If such an ambiguous constant expression is an operand of a larger expression, clients MUST assume that the operand has the type demanded by the larger expression, for example, in a client-side function or in a comparison with another operand of known type. (In the <code>$Has</code> comparison in <a href="#disambiguate">example 75</a> <code>Fabric</code> has an enumeration type, therefore the constant expression <code>"Blue"</code> is an enumeration member, not a string or a binary value.)</p>
+<p>Primitive values of various types are represented as strings, therefore their type cannot be inferred from the constant expression alone. If such an ambiguous constant expression is an operand of a larger expression, clients MUST assume that the operand has the type demanded by the larger expression, for example, in a client-side function or in a comparison with another operand of known type. (In the <code>$Le</code> comparison in <a href="#disambiguate">example 75</a> <code>Duration</code> is of type <code>Edm.Duration</code>, therefore the constant expression <code>"PT1H"</code> is a duration, not a string.)</p>
 <details open><summary>
 <h3 id="1431-binary"><a name="Binary" href="#Binary">14.3.1 Binary</a></h3>
 </summary>
@@ -3300,9 +3300,9 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <span id="cb83-66"><a href="#cb83-66" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb83-67"><a href="#cb83-67" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$Le&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
 <span id="cb83-68"><a href="#cb83-68" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb83-69"><a href="#cb83-69" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;Price&quot;</span></span>
+<span id="cb83-69"><a href="#cb83-69" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;Duration&quot;</span></span>
 <span id="cb83-70"><a href="#cb83-70" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb83-71"><a href="#cb83-71" aria-hidden="true" tabindex="-1"></a>    <span class="dv">100</span></span>
+<span id="cb83-71"><a href="#cb83-71" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;PT1H&quot;</span></span>
 <span id="cb83-72"><a href="#cb83-72" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb83-73"><a href="#cb83-73" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span><span class="er">,</span></span>
 <span id="cb83-74"><a href="#cb83-74" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
@@ -3310,7 +3310,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <span id="cb83-76"><a href="#cb83-76" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
 <span id="cb83-77"><a href="#cb83-77" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;$Path&quot;</span><span class="fu">:</span> <span class="st">&quot;Fabric&quot;</span></span>
 <span id="cb83-78"><a href="#cb83-78" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb83-79"><a href="#cb83-79" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Blue&quot;</span></span>
+<span id="cb83-79"><a href="#cb83-79" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Red&quot;</span></span>
 <span id="cb83-80"><a href="#cb83-80" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb83-81"><a href="#cb83-81" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span><span class="er">,</span></span>
 <span id="cb83-82"><a href="#cb83-82" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
