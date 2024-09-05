@@ -688,6 +688,16 @@ properties targeted via the declaring structured type.
 Constant expressions allow assigning a constant value to an applied
 term.
 
+: varjson
+Primitive values of various types are represented as strings so that their type
+cannot be inferred from the constant expression alone. If such
+a constant expression is an operand of a larger expression, clients MUST assume
+that the operand has the type demanded by the larger expression, for example in a
+client-side function or in a comparison with another operand of known type.
+(In the `$In` comparison in [example ##disambiguate] if `Fabric` is a collection
+of `Edm.String`, the constant expression `"Blue"` is a string, not a binary value.)
+:
+
 ### ##subsubsec Binary
 
 ::: {.varjson .rep}
@@ -2012,7 +2022,7 @@ They MAY contain [annotations](#Annotation).
 :::
 
 ::: {.varjson .example}
-Example ##ex:
+Example ##ex_disambiguate:
 ```json
 {
   "$And": [
@@ -2092,7 +2102,7 @@ Example ##ex:
     {
       "$Path": "Fabric"
     },
-    "Red"
+    "Blue"
   ]
 },
 {
@@ -2180,7 +2190,7 @@ Example ##ex:
 </Le>
 <Has>
   <Path>Fabric</Path>
-  <EnumMember>org.example.Pattern/Red</EnumMember>
+  <EnumMember>org.example.Pattern/Blue</EnumMember>
 </Has>
 <In>
   <Path>Size</Path>

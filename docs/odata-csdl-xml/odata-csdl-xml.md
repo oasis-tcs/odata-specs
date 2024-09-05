@@ -3737,6 +3737,7 @@ properties targeted via the declaring structured type.
 Constant expressions allow assigning a constant value to an applied
 term.
 
+
 ### <a name="Binary" href="#Binary">14.3.1 Binary</a>
 
 
@@ -4762,7 +4763,7 @@ Example 75:
 </Le>
 <Has>
   <Path>Fabric</Path>
-  <EnumMember>org.example.Pattern/Red</EnumMember>
+  <EnumMember>org.example.Pattern/Blue</EnumMember>
 </Has>
 <In>
   <Path>Size</Path>
