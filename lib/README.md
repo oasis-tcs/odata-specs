@@ -13,9 +13,10 @@ This folder contains several Node.js modules that generate OASIS specification d
   See [subsection ##SubsectionHeading]. Reference to a subsection showing its number.
   See [this example](#aggregation). Reference to an example.
   See [example ##aggregation]. Reference to an example showing its number.
+  [This important sentence](:important) is referenced [elsewhere](#important).
   ```
-- Long MathJax formulas, especially multi-row ones such as `$$\matrix(...)$$`, can be typed on multiple lines, if each line except the last ends with a single space.
-- The same mechanism can be used to spread table lines over several source lines, see the "Revision History" table at the end of [this source file](../odata-data-aggregation-ext/8%20Conformance.md).
+- Lines ending with single space are joined with the next line.
+- This mechanism can be used to spread table lines over several source lines, see the "Revision History" table at the end of [this source file](../odata-data-aggregation-ext/8%20Conformance.md).
 
 The [`number.js`](number.js) module generates a single Markdown document by preprocessing all `.md` files in a given folder:
 

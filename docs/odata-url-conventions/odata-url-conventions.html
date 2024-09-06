@@ -2285,7 +2285,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <pre><code>http://host/service/Categories
   ?$expand=Products/Sales.PremierProduct/$ref($filter=CurrentPromotion eq null)</code></pre>
 </div>
-<p><a id="ExpandOptionlevels" href="#ExpandOptionlevels">Cyclic navigation properties</a> (whose target type is identical or can be cast to its source type) can be recursively expanded using the special <code>$levels</code> option. The value of the <code>$levels</code> option is either a positive integer to specify the number of levels to expand, or the literal string <code>max</code> to specify the maximum expansion level supported by that service. A <code>$levels</code> option with a value of 1 specifies a single expand with no recursion.</p>
+<p><a id="ExpandOptionlevels" href="#ExpandOptionlevels"></a>Cyclic navigation properties (whose target type is identical or can be cast to its source type) can be recursively expanded using the special <code>$levels</code> option. The value of the <code>$levels</code> option is either a positive integer to specify the number of levels to expand, or the literal string <code>max</code> to specify the maximum expansion level supported by that service. A <code>$levels</code> option with a value of 1 specifies a single expand with no recursion.</p>
 <div class="example">
 <p>Example 130: all employees with their manager, manager’s manager, and manager’s manager’s manager</p>
 <pre><code>http://host/service/Employees?$expand=ReportsTo($levels=3)</code></pre>
