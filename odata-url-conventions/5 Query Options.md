@@ -2126,13 +2126,13 @@ http://host/service/Categories
 ```
 :::
 
-<a id="ExpandOptionlevels">Cyclic navigation properties (whose target type is identical or can be
+[Cyclic navigation properties](:ExpandOptionlevels) (whose target type is identical or can be
 cast to its source type) can be recursively expanded using the special
 `$levels` option. The value of the `$levels` option is either a positive
 integer to specify the number of levels to expand, or the literal string
 `max` to specify the maximum expansion level supported by that service.
 A `$levels` option with a value of 1 specifies a single expand with no
-recursion.</a>
+recursion.
 
 ::: example
 Example ##ex: all employees with their manager, manager's manager, and

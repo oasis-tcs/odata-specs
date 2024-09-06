@@ -19,46 +19,46 @@ While any hyperlinks included in this appendix were valid at the time of publica
 
 The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.
 
-###### <a id="ODataABNF">[OData-ABNF]</a>
+###### [OData-ABNF](:ODataABNF)
 _ABNF components: OData ABNF Construction Rules Version 4.01 and OData ABNF Test Cases._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a id="ODataAggABNF">[OData-Agg-ABNF]</a>
+###### [OData-Agg-ABNF](:ODataAggABNF)
 _OData Aggregation ABNF Construction Rules Version 4.0._  
 See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
 
-###### <a id="ODataCSDL">[OData-CSDL]</a>
+###### [OData-CSDL](:ODataCSDL)
 _OData Common Schema Definition Language (CSDL) JSON Representation Version 4.01._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
 _OData Common Schema Definition Language (CSDL) XML Representation Version 4.01._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a id="ODataJSON">[OData-JSON]</a>
+###### [OData-JSON](:ODataJSON)
 _OData JSON Format Version 4.01._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a id="ODataProtocol">[OData-Protocol]</a>
+###### [OData-Protocol](:ODataProtocol)
 _OData Version 4.01. Part 1: Protocol._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a id="ODataURL">[OData-URL]</a>
+###### [OData-URL](:ODataURL)
 _OData Version 4.01. Part 2: URL Conventions._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a id="ODataVocAggr">[OData-VocAggr]</a>
+###### [OData-VocAggr](:ODataVocAggr)
 _OData Aggregation Vocabulary._  
 See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
 
-###### <a id="ODataVocCore">[OData-VocCore]</a>
+###### [OData-VocCore](:ODataVocCore)
 _OData Core Vocabulary._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a id="rfc2119">[RFC2119]</a>
+###### [RFC2119](:rfc2119)
 _Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_  
 https://www.rfc-editor.org/info/rfc2119.
 
-###### <a id="rfc8174">[RFC8174]</a>
+###### [RFC8174](:rfc8174)
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_  
 https://www.rfc-editor.org/info/rfc8174.
 

@@ -171,7 +171,7 @@ Gerald Krause (<a href="mailto:gerald.krause@sap.com">gerald.krause@sap.com</a>)
 Michael Pizzo (<a href="mailto:mikep@microsoft.com">mikep@microsoft.com</a>), <a href="https://www.microsoft.com/">Microsoft</a><br />
 Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</a>), <a href="https://www.sap.com/">SAP SE</a><br />
 Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.com</a>), <a href="https://www.sap.com/">SAP SE</a></p>
-<h4 id="additional-artifacts"><a id="AdditionalArtifacts">Additional artifacts:</a></h4>
+<h4 id="additional-artifacts"><a id="AdditionalArtifacts" href="#AdditionalArtifacts">Additional artifacts:</a></h4>
 <p>This document is one component of a Work Product that also includes:</p>
 <ul>
 <li>ABNF components: <em>OData Aggregation ABNF Construction Rules Version 4.0 and OData Aggregation ABNF Test Cases</em>: <a href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs03/abnf/">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs03/abnf/</a></li>
@@ -181,7 +181,7 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <li><a href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs03/vocabularies/Org.OData.Aggregation.V1.xml">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs03/vocabularies/Org.OData.Aggregation.V1.xml</a></li>
 </ul></li>
 </ul>
-<h4 id="related-work"><a id="RelatedWork">Related work:</a></h4>
+<h4 id="related-work"><a id="RelatedWork" href="#RelatedWork">Related work:</a></h4>
 <p>This specification is related to:</p>
 <ul>
 <li><em>OData Version 4.01</em>. Edited by Michael Pizzo, Ralf Handl, and Martin Zurmuehl. A multi-part Work Product which includes:
@@ -383,12 +383,12 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 </summary>
 <p>This specification defines the following terms:</p>
 <ul>
-<li><a id="AggregatableExpression"><em>Aggregatable Expression</em></a> – an <a href="#Expression">expression</a> not involving term casts and resulting in a value of a complex or entity or an <a href="#AggregatablePrimitiveType">aggregatable primitive type</a></li>
-<li><a id="AggregateExpression"><em>Aggregate Expression</em></a> – argument of the <code>aggregate</code> <a href="#Transformationaggregate">transformation</a> or <a href="#Functionaggregate">function</a> defined in <a href="#AggregationAlgorithm">section 3.2.1.1</a></li>
-<li><a id="AggregatablePrimitiveType"><em>Aggregatable Primitive Type</em></a> – a primitive type other than <code>Edm.Stream</code> or subtypes of <code>Edm.Geography</code> or <code>Edm.Geometry</code></li>
-<li><a id="DataAggregationPath"><em>Data Aggregation Path</em></a> – a path that consists of one or more segments joined together by forward slashes (<code>/</code>). Segments are names of declared or dynamic structural or navigation properties, or type-cast segments consisting of the (optionally qualified) name of a structured type that is derived from the type identified by the preceding path segment to reach properties declared by the derived type.</li>
-<li><a id="Expression"><em>Expression</em></a> – derived from the <code>commonExpr</code> rule (see <a href="#ODataABNF">OData-ABNF</a>)</li>
-<li><a id="SingleValuedPropertyPath"><em>Single-Valued Property Path</em></a> – property path ending in a single-valued primitive, complex, or navigation property</li>
+<li><a id="AggregatableExpression" href="#AggregatableExpression"><em>Aggregatable Expression</em></a> – an <a href="#Expression">expression</a> not involving term casts and resulting in a value of a complex or entity or an <a href="#AggregatablePrimitiveType">aggregatable primitive type</a></li>
+<li><a id="AggregateExpression" href="#AggregateExpression"><em>Aggregate Expression</em></a> – argument of the <code>aggregate</code> <a href="#Transformationaggregate">transformation</a> or <a href="#Functionaggregate">function</a> defined in <a href="#AggregationAlgorithm">section 3.2.1.1</a></li>
+<li><a id="AggregatablePrimitiveType" href="#AggregatablePrimitiveType"><em>Aggregatable Primitive Type</em></a> – a primitive type other than <code>Edm.Stream</code> or subtypes of <code>Edm.Geography</code> or <code>Edm.Geometry</code></li>
+<li><a id="DataAggregationPath" href="#DataAggregationPath"><em>Data Aggregation Path</em></a> – a path that consists of one or more segments joined together by forward slashes (<code>/</code>). Segments are names of declared or dynamic structural or navigation properties, or type-cast segments consisting of the (optionally qualified) name of a structured type that is derived from the type identified by the preceding path segment to reach properties declared by the derived type.</li>
+<li><a id="Expression" href="#Expression"><em>Expression</em></a> – derived from the <code>commonExpr</code> rule (see <a href="#ODataABNF">OData-ABNF</a>)</li>
+<li><a id="SingleValuedPropertyPath" href="#SingleValuedPropertyPath"><em>Single-Valued Property Path</em></a> – property path ending in a single-valued primitive, complex, or navigation property</li>
 </ul>
 </details>
 <details open><summary>
@@ -4879,36 +4879,36 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 <h2 id="a1-normative-references"><a id="NormativeReferences" href="#NormativeReferences">A.1 Normative References</a></h2>
 </summary>
 <p>The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.</p>
-<h6 id="odata-abnf"><a id="ODataABNF">[OData-ABNF]</a></h6>
+<h6 id="odata-abnf"><a id="ODataABNF" href="#ODataABNF">OData-ABNF</a></h6>
 <p><em>ABNF components: OData ABNF Construction Rules Version 4.01 and OData ABNF Test Cases.</em><br />
 See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
-<h6 id="odata-agg-abnf"><a id="ODataAggABNF">[OData-Agg-ABNF]</a></h6>
+<h6 id="odata-agg-abnf"><a id="ODataAggABNF" href="#ODataAggABNF">OData-Agg-ABNF</a></h6>
 <p><em>OData Aggregation ABNF Construction Rules Version 4.0.</em><br />
 See link in “<a href="#AdditionalArtifacts">Additional artifacts</a>” section on cover page.</p>
-<h6 id="odata-csdl"><a id="ODataCSDL">[OData-CSDL]</a></h6>
+<h6 id="odata-csdl"><a id="ODataCSDL" href="#ODataCSDL">OData-CSDL</a></h6>
 <p><em>OData Common Schema Definition Language (CSDL) JSON Representation Version 4.01.</em><br />
 See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
 <p><em>OData Common Schema Definition Language (CSDL) XML Representation Version 4.01.</em><br />
 See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
-<h6 id="odata-json"><a id="ODataJSON">[OData-JSON]</a></h6>
+<h6 id="odata-json"><a id="ODataJSON" href="#ODataJSON">OData-JSON</a></h6>
 <p><em>OData JSON Format Version 4.01.</em><br />
 See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
-<h6 id="odata-protocol"><a id="ODataProtocol">[OData-Protocol]</a></h6>
+<h6 id="odata-protocol"><a id="ODataProtocol" href="#ODataProtocol">OData-Protocol</a></h6>
 <p><em>OData Version 4.01. Part 1: Protocol.</em><br />
 See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
-<h6 id="odata-url"><a id="ODataURL">[OData-URL]</a></h6>
+<h6 id="odata-url"><a id="ODataURL" href="#ODataURL">OData-URL</a></h6>
 <p><em>OData Version 4.01. Part 2: URL Conventions.</em><br />
 See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
-<h6 id="odata-vocaggr"><a id="ODataVocAggr">[OData-VocAggr]</a></h6>
+<h6 id="odata-vocaggr"><a id="ODataVocAggr" href="#ODataVocAggr">OData-VocAggr</a></h6>
 <p><em>OData Aggregation Vocabulary.</em><br />
 See link in “<a href="#AdditionalArtifacts">Additional artifacts</a>” section on cover page.</p>
-<h6 id="odata-voccore"><a id="ODataVocCore">[OData-VocCore]</a></h6>
+<h6 id="odata-voccore"><a id="ODataVocCore" href="#ODataVocCore">OData-VocCore</a></h6>
 <p><em>OData Core Vocabulary.</em><br />
 See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
-<h6 id="rfc2119"><a id="rfc2119">[RFC2119]</a></h6>
+<h6 id="rfc2119"><a id="rfc2119" href="#rfc2119">RFC2119</a></h6>
 <p><em>Bradner, S., “Key words for use in RFCs to Indicate Requirement Levels”, BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997</em><br />
 <a href="https://www.rfc-editor.org/info/rfc2119">https://www.rfc-editor.org/info/rfc2119</a>.</p>
-<h6 id="rfc8174"><a id="rfc8174">[RFC8174]</a></h6>
+<h6 id="rfc8174"><a id="rfc8174" href="#rfc8174">RFC8174</a></h6>
 <p><em>Leiba, B., “Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words”, BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017</em><br />
 <a href="https://www.rfc-editor.org/info/rfc8174">https://www.rfc-editor.org/info/rfc8174</a>.</p>
 </details>
