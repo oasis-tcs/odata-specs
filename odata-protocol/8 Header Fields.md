@@ -193,7 +193,7 @@ ensure that no observable change occurs as a result of the request. In
 the case of an [upsert](#UpsertanEntity), if the addressed entity does
 not exist the provided ETag value is considered not to match.
 
-An `If-Match` header with a value of `*` matches any current representation of the resource, and in a `PUT` or `PATCH` request
+The precondition `If-Match: *` is fulfilled if a current representation of the resource exists, a `PUT` or `PATCH` request with that header
 results in an [upsert request](#UpsertanEntity) being processed as an
 [update](#UpdateanEntity) and not an [insert](#CreateanEntity),
 independent of whether the resource requires an ETag.
@@ -219,7 +219,7 @@ the service MUST respond with
 [`412 Precondition Failed`](#ResponseCode412PreconditionFailed) and MUST
 ensure that no observable change occurs as a result of the request.
 
-An `If-None-Match` header with a value of `*` "matches" if there is no current representation of the resource, and in a `PUT` or `PATCH`
+The precondition `If-None-Match: *` is fulfilled if there is no current representation of the resource, a `PUT` or `PATCH` request with that header
 request results in an [upsert request](#UpsertanEntity) being processed
 as an [insert](#CreateanEntity) and not an [update](#UpdateanEntity),
 independent of whether the resource requires an ETag.
