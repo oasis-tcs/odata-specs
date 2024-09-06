@@ -1276,7 +1276,7 @@ results in
 
 ##### <a name="StandardAggregationMethodcountdistinct" href="#StandardAggregationMethodcountdistinct">3.2.1.3.5 Standard Aggregation Method `countdistinct`</a>
 
-The aggregation method `countdistinct` can be applied to arbitrary collections to count the distinct values. Instance comparison uses the definition of equality in [OData-URL, section 5.1.1.1.1](#ODataURL).
+The aggregation method `countdistinct` can be applied to arbitrary collections to count the distinct values. Instance comparison uses the definition of equality in [OData-URL, section 5.1.1.1.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#Equals).
 
 The result property MUST have type `Edm.Decimal` with `Scale` 0 and sufficient `Precision`.
 

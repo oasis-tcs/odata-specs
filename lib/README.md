@@ -31,14 +31,7 @@ The single Markdown document is output into a writable stream:
 
 ```js
 import * as Number from './lib/number.js';
-new Number("odata-data-aggregation-ext").build(«writable stream»);
-```
-
-or, if variant `XXX` shall be produced:
-
-```js
-import * as Number from './lib/number.js';
-new Number("odata-data-aggregation-ext", "XXX").build(«writable stream»);
+new Number("odata-data-aggregation-ext", "meta", {...}).build(«writable stream»);
 ```
 
 The [`pandoc.js`](pandoc.js) module converts this single Markdown document to HTML with [MathJax](https://www.mathjax.org/). It expects a certain [pandoc release](https://github.com/jgm/pandoc/releases) to be set up, according to the GitHub Action [`nodejs.yml`](../.github/workflows/nodejs.yml) with the step
