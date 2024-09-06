@@ -245,7 +245,7 @@ For complete copyright information please see the full Notices section in an App
 
 -------
 
-# [1 Introduction](:Introduction)
+# [1 Introduction](=Introduction)
 
 The Open Data Protocol (OData) enables the creation of REST-based data
 services, which allow resources, identified using Uniform Resource
@@ -266,7 +266,7 @@ Services are encouraged to follow the URL construction conventions
 defined in this specification when possible as consistency promotes an
 ecosystem of reusable client components and libraries.
 
-## [1.1 Changes from Earlier Versions](:ChangesfromEarlierVersions)
+## [1.1 Changes from Earlier Versions](=ChangesfromEarlierVersions)
 
 Section | Feature / Change | Issue
 --------|------------------|------
@@ -274,15 +274,15 @@ Section | Feature / Change | Issue
 [Section 5.1.1.7.1](#matchespattern)| New overload for function `matchespattern` with flags| [441](https://github.com/oasis-tcs/odata-specs/issues/441)
 [Section 5.1.8](#SystemQueryOptionsearch)| Allow alternative `$search` syntax| [293](https://github.com/oasis-tcs/odata-specs/issues/293)
 
-## [1.2 Glossary](:Glossary)
+## [1.2 Glossary](=Glossary)
 
-### [1.2.1 Definitions of Terms](:DefinitionsofTerms)
+### [1.2.1 Definitions of Terms](=DefinitionsofTerms)
 
-### [1.2.2 Acronyms and Abbreviations](:AcronymsandAbbreviations)
+### [1.2.2 Acronyms and Abbreviations](=AcronymsandAbbreviations)
 
 <!-- TODO -->
 
-### [1.2.3 Document Conventions](:DocumentConventions)
+### [1.2.3 Document Conventions](=DocumentConventions)
 
 Keywords defined by this specification use `this monospaced font`.
 
@@ -326,7 +326,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 
 -------
 
-# [2 URL Components](:URLComponents)
+# [2 URL Components](=URLComponents)
 
 A URL used by an OData service has at most three significant parts: the
 *service root URL*, the *resource path*, and *query options*. Additional
@@ -348,7 +348,7 @@ Mandated and suggested content of these three significant URL components
 used by an OData service are covered in sequence in the three following
 chapters.
 
-## [2.1 URL Parsing](:URLParsing)
+## [2.1 URL Parsing](=URLParsing)
 
 OData follows the URI syntax rules defined in [RFC3986](#rfc3986) and in
 addition assigns special meaning to several of the sub-delimiters
@@ -378,7 +378,7 @@ Some implementations decode "`+`" (octet `0x2B`) as space (octet `0x20`), others
 
 Clients SHOULD percent-encode space (octet `0x20`) as `%20` and "`+`" (octet `0x2B`) as `%2B` and avoid the ambiguous "`+`" (octet `0x2B`) in URLs.
 
-## [2.2 URL Syntax](:URLSyntax)
+## [2.2 URL Syntax](=URLSyntax)
 
 The OData syntax rules for URLs are defined in this document and the
 [OData-ABNF](#ODataABNF). Note that the ABNF is not expressive enough to
@@ -443,7 +443,7 @@ path segment, nor is `Tablet')`.
 
 -------
 
-# [3 Service Root URL](:ServiceRootURL)
+# [3 Service Root URL](=ServiceRootURL)
 
 The service root URL identifies the root of an OData service. A `GET`
 request to this URL returns the format-specific service document, see
@@ -457,7 +457,7 @@ enumerate and explore the resources published by the OData service.
 
 -------
 
-# [4 Resource Path](:ResourcePath)
+# [4 Resource Path](=ResourcePath)
 
 The rules for resource path construction as defined in this section are
 optional. OData services SHOULD follow the subsequently described URL
@@ -486,7 +486,7 @@ properties, links, operations, and so on.
 An OData service MAY respond with `301 Moved Permanently` or
 `307 Temporary Redirect` from the canonical URL to the actual URL.
 
-## [4.1 Addressing the Model for a Service](:AddressingtheModelforaService)
+## [4.1 Addressing the Model for a Service](=AddressingtheModelforaService)
 
 OData services expose their entity model according to
 [OData-CSDLJSON](#ODataCSDL) or [OData-CSDLXML](#ODataCSDL) at the
@@ -511,7 +511,7 @@ http://host/service/$metadata?$format=json
 ```
 :::
 
-## [4.2 Addressing the Batch Endpoint for a Service](:AddressingtheBatchEndpointforaService)
+## [4.2 Addressing the Batch Endpoint for a Service](=AddressingtheBatchEndpointforaService)
 
 OData services that support batch requests expose a batch URL formed by
 appending `$batch` to the [service root URL](#ServiceRootURL).
@@ -523,7 +523,7 @@ http://host/service/$batch
 ```
 :::
 
-## [4.3 Addressing Entities](:AddressingEntities)
+## [4.3 Addressing Entities](=AddressingEntities)
 
 The basic rules for addressing a collection (of entities), a single
 entity within a collection, a singleton, as well as a property of an
@@ -693,7 +693,7 @@ that identifies a primitive, complex instance, collection of primitives
 or collection of complex instances and bind an action or function that
 returns an entity or collections of entities.
 
-### [4.3.1 Canonical URL](:CanonicalURL)
+### [4.3.1 Canonical URL](=CanonicalURL)
 
 For OData services conformant with the addressing conventions in this
 section, the canonical form of an absolute URL identifying a
@@ -723,7 +723,7 @@ http://host/service/Products(1)
 ```
 :::
 
-### [4.3.2 Canonical URL for Contained Entities](:CanonicalURLforContainedEntities)
+### [4.3.2 Canonical URL for Contained Entities](=CanonicalURLforContainedEntities)
 
 For contained entities (i.e. related via a containment navigation
 property, see [OData-CSDLJSON](#ODataCSDL) or
@@ -744,7 +744,7 @@ is the canonical URL for the collection of complex types followed by a
 segment containing the zero-based ordinal of the complex typed instance
 within the collection.
 
-### [4.3.3 URLs for Related Entities with Referential Constraints](:URLsforRelatedEntitieswithReferentialConstraints)
+### [4.3.3 URLs for Related Entities with Referential Constraints](=URLsforRelatedEntitieswithReferentialConstraints)
 
 If a navigation property leading to a related entity type has a partner
 navigation property that specifies a referential constraint, then those
@@ -774,7 +774,7 @@ The shorter form that does not specify the constrained key parts
 redundantly is preferred. If the value of the constrained key is
 redundantly specified, then it MUST match the principal key value.
 
-### [4.3.4 Resolving an Entity-Id](:ResolvinganEntityId)
+### [4.3.4 Resolving an Entity-Id](=ResolvinganEntityId)
 
 To resolve an entity-id into a representation of the identified entity,
 the client issues a `GET` request to the `$entity` resource located at
@@ -792,7 +792,7 @@ http://host/service/$entity?$id=Products(0)
 The semantics of `$entity` are covered in the [OData-Protocol](#ODataProtocol)
 document.
 
-### [4.3.5 Alternate Keys](:AlternateKeys)
+### [4.3.5 Alternate Keys](=AlternateKeys)
 
 In addition to the canonical (primary) key an entity set or entity type
 can specify one or more alternate keys with the
@@ -827,7 +827,7 @@ http://host/service/Employees('A1245')
 ```
 :::
 
-### [4.3.6 Key-as-Segment Convention](:KeyasSegmentConvention)
+### [4.3.6 Key-as-Segment Convention](=KeyasSegmentConvention)
 
 Services MAY support an alternate convention for addressing entities by
 appending a segment containing the unprefixed and unquoted key value to the URL of the
@@ -923,7 +923,7 @@ Note: the key-as-segment convention can only be used with the canonical
 names are not present in the keys and an alternative key cannot be
 determined.
 
-## [4.4 Addressing References between Entities](:AddressingReferencesbetweenEntities)
+## [4.4 Addressing References between Entities](=AddressingReferencesbetweenEntities)
 
 OData services are based on a data model that supports relationships as
 first class constructs. For example, an OData service could expose a
@@ -968,7 +968,7 @@ DELETE http://host/service/Products(0)/Category/$ref
 ```
 :::
 
-## [4.5 Addressing Operations](:AddressingOperations)
+## [4.5 Addressing Operations](=AddressingOperations)
 
 The semantic rules for addressing and invoking actions and functions are
 defined in the [OData-Protocol](#ODataProtocol) document.
@@ -980,7 +980,7 @@ through the
 defined in [OData-VocCore](#ODataVocCore). For more information on
 default namespaces, see Default Namespaces in [OData-Protocol](#ODataProtocol).
 
-### [4.5.1 Addressing Actions](:AddressingActions)
+### [4.5.1 Addressing Actions](=AddressingActions)
 
 The grammar for addressing and invoking actions is defined by the
 following syntax grammar rules in [OData-ABNF](#ODataABNF):
@@ -997,7 +997,7 @@ encompasses the `boundActionCall` syntax rule), when used by the
 `resourcePath` syntax rule, illustrates how a `boundActionCall` can be
 appended to a `resourcePath`.
 
-### [4.5.2 Addressing Functions](:AddressingFunctions)
+### [4.5.2 Addressing Functions](=AddressingFunctions)
 
 The grammar for addressing and invoking functions is defined by
 syntax rules in [OData-ABNF](#ODataABNF), in particular:
@@ -1037,7 +1037,7 @@ these MAY contain [path expressions](#PathExpressions), which
 the service evaluates on the binding parameter value.
 
 ::: example
-Example [30](:funcexpr): An employee's leave requests for the next two weeks
+Example [30](=funcexpr): An employee's leave requests for the next two weeks
 pending their manager's approval:
 ```
 http://host/service/Employees(23)/self.PendingLeaveRequests(StartDate=@start,
@@ -1060,14 +1060,14 @@ http://host/service/PendingLeaveRequests(Requester=@requester,
 ```
 :::
 
-## [4.6 Addressing a Property](:AddressingaProperty)
+## [4.6 Addressing a Property](=AddressingaProperty)
 
 To address an entity property clients append a path segment containing
 the property name to the URL of the entity. If the property has a
 complex type value, properties of that value can be addressed by further
 property name composition.
 
-## [4.7 Addressing a Raw Value](:AddressingaRawValue)
+## [4.7 Addressing a Raw Value](=AddressingaRawValue)
 
 To address the raw value of a primitive property or operation result, clients append the
 path segment `/$value` to the property or operation URL.
@@ -1075,7 +1075,7 @@ path segment `/$value` to the property or operation URL.
 Properties and operation results of type `Edm.Stream` already return the raw value of the
 media stream and do not support appending the `/$value` segment.
 
-## [4.8 Addressing the Count of a Collection](:AddressingtheCountofaCollection)
+## [4.8 Addressing the Count of a Collection](=AddressingtheCountofaCollection)
 
 To address the raw value of the number of items in a collection, clients
 append `/$count` to the resource path of the URL identifying the entity
@@ -1134,7 +1134,7 @@ http://host/service/Categories?$orderby=Products/$count
 ```
 :::
 
-## [4.9 Addressing a Member within an Entity Collection](:AddressingaMemberwithinanEntityCollection)
+## [4.9 Addressing a Member within an Entity Collection](=AddressingaMemberwithinanEntityCollection)
 
 Collections of entities are modeled as entity sets, collection-valued
 navigation properties, or operation results.
@@ -1159,7 +1159,7 @@ with the term
 defined in [OData-VocCap](#ODataVocCap) and a value of `false` do not
 support addressing their members by key.
 
-## [4.10 Addressing a Member of an Ordered Collection](:AddressingaMemberofanOrderedCollection)
+## [4.10 Addressing a Member of an Ordered Collection](=AddressingaMemberofanOrderedCollection)
 
 Collections can be annotated as ordered using the
 [`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered)
@@ -1181,7 +1181,7 @@ http://host/service/MainSupplier/Addresses/0
 ```
 :::
 
-## [4.11 Addressing Derived Types](:AddressingDerivedTypes)
+## [4.11 Addressing Derived Types](=AddressingDerivedTypes)
 
 Any resource path or path expression identifying a collection of
 entities or complex type instances can be appended with a  _type-cast segment_, that is a path segment
@@ -1259,7 +1259,7 @@ http://host/service/Orders?$expand=Customer/Model.VipCustomer
 ```
 :::
 
-## [4.12 Addressing a Subset of a Collection](:AddressingaSubsetofaCollection)
+## [4.12 Addressing a Subset of a Collection](=AddressingaSubsetofaCollection)
 
 Any resource path or path expression identifying a collection can be
 appended with a filter path segment consisting of `/$filter` followed by
@@ -1322,7 +1322,7 @@ POST /service/Products/$filter(@foo)/Special.Cluster?@foo=Age gt 3
 ```
 :::
 
-## [4.13 Addressing Each Member of a Collection](:AddressingEachMemberofaCollection)
+## [4.13 Addressing Each Member of a Collection](=AddressingEachMemberofaCollection)
 
 To apply a `PATCH` or `DELETE` request to each member of a collection,
 clients append the path segment `/$each` to a resource path identifying
@@ -1342,7 +1342,7 @@ The resource path of the collection preceding `/$each` MAY contain
 [type-cast segments](#AddressingDerivedTypes) or [filter path
 segments](#AddressingaSubsetofaCollection) to subset the collection.
 
-## [4.14 Addressing the Media Stream of a Media Entity](:AddressingtheMediaStreamofaMediaEntity)
+## [4.14 Addressing the Media Stream of a Media Entity](=AddressingtheMediaStreamofaMediaEntity)
 
 To address the media stream represented by a media entity, clients
 append `/$value` to the resource path of the media entity URL. Services
@@ -1357,7 +1357,7 @@ http://host/service/Pictures('Sunset4321299432')/$value
 ```
 :::
 
-## [4.15 Addressing the Cross Join of Entity Sets](:AddressingtheCrossJoinofEntitySets)
+## [4.15 Addressing the Cross Join of Entity Sets](=AddressingtheCrossJoinofEntitySets)
 
 In addition to querying related entities through navigation properties
 defined in the entity model of a service, the cross join operator allows
@@ -1419,7 +1419,7 @@ and would result in
 ```
 :::
 
-## [4.16 Addressing All Entities in a Service](:AddressingAllEntitiesinaService)
+## [4.16 Addressing All Entities in a Service](=AddressingAllEntitiesinaService)
 
 The symbolic resource `$all`, located at the service root, identifies
 the collection of all entities in a service, i.e. the union of all
@@ -1453,7 +1453,7 @@ http://host/service/$all/Model.Customer?$filter=contains(Name,'red')
 ```
 :::
 
-## [4.17 Passing Query Options in the Request Body](:PassingQueryOptionsintheRequestBody)
+## [4.17 Passing Query Options in the Request Body](=PassingQueryOptionsintheRequestBody)
 
 The query options part of an OData URL can be quite long, potentially
 exceeding the maximum length of URLs supported by components involved in
@@ -1477,7 +1477,7 @@ and MUST use the same percent-encoding as in URLs (especially: no spaces, tabs, 
 and MUST follow the syntax rules described in [chapter 5](#QueryOptions).
 
 ::: example
-Example [50](:postquery): system query options in request body instead of URL
+Example [50](=postquery): system query options in request body instead of URL
 ```
 POST http://host/service/People/$query
 Content-Type: text/plain
@@ -1574,7 +1574,7 @@ GET http://host/service/Employees(23)/self.PendingLeaveRequests
 
 -------
 
-# [5 Query Options](:QueryOptions)
+# [5 Query Options](=QueryOptions)
 
 The query options part of an OData URL specifies three types of
 information: [system query options](#SystemQueryOptions), [custom query
@@ -1583,7 +1583,7 @@ aliases](#ParameterAliases). All OData services MUST follow the query
 string parsing and construction rules defined in this section and its
 subsections.
 
-## [5.1 System Query Options](:SystemQueryOptions)
+## [5.1 System Query Options](=SystemQueryOptions)
 
 System query options are query string parameters that control the amount
 and order of the data returned for the resource identified by the URL.
@@ -1639,7 +1639,7 @@ The grammar and syntax rules for system query options are defined in
 Dynamic properties can be used in the same way as declared properties.
 If they are not defined on an instance, they evaluate to `null`.
 
-### [5.1.1 Common Expression Syntax](:CommonExpressionSyntax)
+### [5.1.1 Common Expression Syntax](=CommonExpressionSyntax)
 
 The following operators, functions, and literals can be used in
 `$filter`, `$orderby`, and `$compute` expressions.
@@ -1667,7 +1667,7 @@ really the result of a typing error. That's why a "type mismatch" error must
 instead be returned in such a case.
 :::
 
-#### [5.1.1.1 Logical Operators](:LogicalOperators)
+#### [5.1.1.1 Logical Operators](=LogicalOperators)
 
 OData defines a set of logical operators that evaluate to `true` or `false`
 (i.e. a `boolCommonExpr` as defined in [OData-ABNF](#ODataABNF)).
@@ -1698,7 +1698,7 @@ is non-numeric and the operands have different types, the operator returns `null
 The rules for the Boolean operators `and`, `or`, and `not` assume Boolean operands.
 If an operand of a Boolean operator is not Boolean, the operator returns `null`.
 
-##### [5.1.1.1.1 Equals](:Equals)
+##### [5.1.1.1.1 Equals](=Equals)
 
 The `eq` operator returns `true` if the left operand is equal to the right
 operand, otherwise it returns `false`.
@@ -1724,7 +1724,7 @@ and only to itself.
 
 The special value `NaN` is not equal to anything, even to itself.
 
-##### [5.1.1.1.2 Not Equals](:NotEquals)
+##### [5.1.1.1.2 Not Equals](=NotEquals)
 
 The `ne` operator returns `true` if the left operand is not equal to the
 right operand, otherwise it returns `false`.
@@ -1750,7 +1750,7 @@ The special value `NaN` is not equal to anything, even to itself.
 
 The `null` value is not equal to any value but itself.
 
-##### [5.1.1.1.3 Greater Than](:GreaterThan)
+##### [5.1.1.1.3 Greater Than](=GreaterThan)
 
 The `gt` operator returns `true` if the left operand is greater than the
 right operand, otherwise it returns `false`.
@@ -1768,14 +1768,14 @@ see [OData-VocCore](#ODataVocCore).
 
 If any operand is `null`, the operator returns `false`.
 
-##### [5.1.1.1.4 Greater Than or Equal](:GreaterThanorEqual)
+##### [5.1.1.1.4 Greater Than or Equal](=GreaterThanorEqual)
 
 The `ge` operator returns `true` if the left operand is greater than or
 equal to the right operand, otherwise it returns `false`.
 
 See rules for [`gt`](#GreaterThan) and [`eq`](#Equals) for details.
 
-##### [5.1.1.1.5 Less Than](:LessThan)
+##### [5.1.1.1.5 Less Than](=LessThan)
 
 The `lt` operator returns `true` if the left operand is less than the
 right operand, otherwise it returns `false`.
@@ -1793,14 +1793,14 @@ see [OData-VocCore](#ODataVocCore).
 
 If any operand is `null`, the operator returns `false`.
 
-##### [5.1.1.1.6 Less Than or Equal](:LessThanorEqual)
+##### [5.1.1.1.6 Less Than or Equal](=LessThanorEqual)
 
 The `le` operator returns `true` if the left operand is less than or equal
 to the right operand, otherwise it returns `false`.
 
 See rules for [`lt`](#LessThan) and [`eq`](#Equals) for details.
 
-##### [5.1.1.1.7 And](:And)
+##### [5.1.1.1.7 And](=And)
 
 The `and` operator returns `true` if both the left and right operands
 evaluate to `true`, otherwise it returns `false`.
@@ -1809,7 +1809,7 @@ The `null` value is treated as unknown, so if one operand evaluates to
 `null` and the other operand to `false`, the `and` operator returns `false`.
 All other combinations with `null` return `null`.
 
-##### [5.1.1.1.8 Or](:Or)
+##### [5.1.1.1.8 Or](=Or)
 
 The `or` operator returns `false` if both the left and right operands both
 evaluate to `false`, otherwise it returns `true`.
@@ -1818,14 +1818,14 @@ The `null` value is treated as unknown, so if one operand evaluates to
 `null` and the other operand to `true`, the `or` operator returns `true`.
 All other combinations with `null` return `null`.
 
-##### [5.1.1.1.9 Not](:Not)
+##### [5.1.1.1.9 Not](=Not)
 
 The `not` operator returns `true` if the operand returns `false`, otherwise
 it returns `false`.
 
 The `null` value is treated as unknown, so `not null` returns `null`.
 
-##### [5.1.1.1.10 Has](:Has)
+##### [5.1.1.1.10 Has](=Has)
 
 The `has` operator returns `true` if the right operand is an enumeration
 value whose flag(s) are set on the left operand.
@@ -1833,7 +1833,7 @@ value whose flag(s) are set on the left operand.
 The `null` value is treated as unknown, so if one operand evaluates to
 `null`, the `has` operator returns `null`.
 
-##### [5.1.1.1.11 In](:In)
+##### [5.1.1.1.11 In](=In)
 
 The `in` operator returns `true` if the [equality](#Equals) comparison of the left
 operand with at least one member of the right operand returns `true`.
@@ -1842,7 +1842,7 @@ of zero or more primitive values, enclosed in parentheses, or a single expressio
 that resolves to a collection. If the right operand is an empty collection
 or list of values, the `in` operator returns `false`.
 
-##### [5.1.1.1.12 Logical Operator Examples](:LogicalOperatorExamples)
+##### [5.1.1.1.12 Logical Operator Examples](=LogicalOperatorExamples)
 
 The following examples illustrate the use and semantics of each of the
 logical operators.
@@ -1926,7 +1926,7 @@ http://host/service/Products?$filter=Name in ('Milk', 'Cheese')
 ```
 :::
 
-#### [5.1.1.2 Arithmetic Operators](:ArithmeticOperators)
+#### [5.1.1.2 Arithmetic Operators](=ArithmeticOperators)
 
 OData defines a set of arithmetic operators that require operands that
 evaluate to numeric types. Arithmetic operators are typically used to
@@ -1942,7 +1942,7 @@ The syntax rules for the arithmetic operators are defined in
 operator names. Clients that want to work with 4.0 services MUST use
 lower case operator names.
 
-##### [5.1.1.2.1 Addition](:Addition)
+##### [5.1.1.2.1 Addition](=Addition)
 
 The `add` operator adds the left and right numeric operands.
 
@@ -1968,7 +1968,7 @@ Specifically, for adding a duration to a date:
 Thus, today plus a positive duration smaller than one day is today;
 today minus a positive duration smaller than one day is yesterday.
 
-##### [5.1.1.2.2 Subtraction](:Subtraction)
+##### [5.1.1.2.2 Subtraction](=Subtraction)
 
 The `sub` operator subtracts the right numeric operand from the left
 numeric operand.
@@ -1993,12 +1993,12 @@ The rules for time-related operands are defined in
 Specifically for subtracting a duration from a date see the preceding
 [section](#Addition).
 
-##### [5.1.1.2.3 Negation](:Negation)
+##### [5.1.1.2.3 Negation](=Negation)
 
 The negation operator, represented by a minus (`-`) sign, changes the
 sign of its numeric or `Duration` operand.
 
-##### [5.1.1.2.4 Multiplication](:Multiplication)
+##### [5.1.1.2.4 Multiplication](=Multiplication)
 
 The `mul` operator multiplies the left and right numeric operands. The
 `mul` operator is also valid for multiplying a `Duration` value with a
@@ -2009,7 +2009,7 @@ ${\rm scaleof}(A {\ \tt mul\ } B) = {\rm scaleof}(A) + {\rm scaleof}(B)$,
 `floating` if any operand has floating
 scale, or else `variable` if any operand has variable scale.
 
-##### [5.1.1.2.5 Division](:Division)
+##### [5.1.1.2.5 Division](=Division)
 
 The `div` and` divby` operators divide the left numeric operand by the
 right numeric operand. They are also valid for dividing a `Duration`
@@ -2035,7 +2035,7 @@ operands to decimal before computing the result, may yield a fractional
 result, and does not fail for `divby` zero, returning `-INF`, `INF`, or
 `NaN` depending on the sign of the left operand.
 
-##### [5.1.1.2.6 Modulo](:Modulo)
+##### [5.1.1.2.6 Modulo](=Modulo)
 
 The `mod` operator returns the remainder when the left numeric operand
 is divided by the right numeric operand.  The sign of the result is the
@@ -2046,7 +2046,7 @@ For operands of type `Edm.Decimal` the scale of the result is
 ${\rm scaleof}(A {\ \tt mod\ } B) = \max({\rm scaleof}(A), {\rm scaleof}(B))$,
 or `variable` if any operand has variable scale.
 
-##### [5.1.1.2.7 Arithmetic Operator Examples](:ArithmeticOperatorExamples)
+##### [5.1.1.2.7 Arithmetic Operator Examples](=ArithmeticOperatorExamples)
 
 The following examples illustrate the use and semantics of each of the
 Arithmetic operators.
@@ -2100,7 +2100,7 @@ http://host/service/Products?$filter=Rating mod 5 eq 0
 ```
 :::
 
-#### [5.1.1.3 Grouping](:Grouping)
+#### [5.1.1.3 Grouping](=Grouping)
 
 The Grouping operator (open and close parenthesis "`( )`") controls the
 evaluation order of an expression. The Grouping operator returns the
@@ -2113,7 +2113,7 @@ http://host/service/Products?$filter=(4 add 5) mod (4 sub 1) eq 0
 ```
 :::
 
-#### [5.1.1.4 Canonical Functions](:CanonicalFunctions)
+#### [5.1.1.4 Canonical Functions](=CanonicalFunctions)
 
 In addition to operators, a set of functions is also defined for use
 with the [`$compute`](#SystemQueryOptioncompute), `$filter` or
@@ -2134,9 +2134,9 @@ The syntax rules for all functions are defined in
 canonical function names. Clients that want to work with 4.0 services
 MUST use lower case canonical function names.
 
-#### [5.1.1.5 String and Collection Functions](:StringandCollectionFunctions)
+#### [5.1.1.5 String and Collection Functions](=StringandCollectionFunctions)
 
-##### [5.1.1.5.1 `concat`](:concat)
+##### [5.1.1.5.1 `concat`](=concat)
 
 The `concat` function has three overloads, with the following
 signatures:
@@ -2164,7 +2164,7 @@ http://host/service/Customers?$filter=concat(concat(City,', '),Country) eq 'Berl
 ```
 :::
 
-##### [5.1.1.5.2 `contains`](:contains)
+##### [5.1.1.5.2 `contains`](=contains)
 
 The `contains` function has two overloads, with the following
 signatures:
@@ -2195,7 +2195,7 @@ http://host/service/Customers?$filter=contains(CompanyName,'Alfreds')
 ```
 :::
 
-##### [5.1.1.5.3 `endswith`](:endswith)
+##### [5.1.1.5.3 `endswith`](=endswith)
 
 The `endswith` function has two overloads, with the following
 signatures:
@@ -2227,7 +2227,7 @@ http://host/service/Customers?$filter=endswith(CompanyName,'Futterkiste')
 ```
 :::
 
-##### [5.1.1.5.4 `indexof`](:indexof)
+##### [5.1.1.5.4 `indexof`](=indexof)
 
 The `indexof` function has two overloads, with the following signatures:
 
@@ -2259,7 +2259,7 @@ http://host/service/Customers?$filter=indexof(CompanyName,'lfreds') eq 1
 ```
 :::
 
-##### [5.1.1.5.5 `length`](:length)
+##### [5.1.1.5.5 `length`](=length)
 
 The `length` function has two overloads, with the following signatures:
 
@@ -2285,7 +2285,7 @@ http://host/service/Customers?$filter=length(CompanyName) eq 19
 ```
 :::
 
-##### [5.1.1.5.6 `startswith`](:startswith)
+##### [5.1.1.5.6 `startswith`](=startswith)
 
 The `startswith` function has two overloads, with the following
 signatures:
@@ -2316,7 +2316,7 @@ http://host/service/Customers?$filter=startswith(CompanyName,'Alfr')
 ```
 :::
 
-##### [5.1.1.5.7 `substring`](:substring)
+##### [5.1.1.5.7 `substring`](=substring)
 
 The `substring` function has four overloads, with the following
 signatures:
@@ -2379,9 +2379,9 @@ http://host/service/Customers?$filter=substring(CompanyName,1,2) eq 'lf'
 ```
 :::
 
-#### [5.1.1.6 Collection Functions](:CollectionFunctions)
+#### [5.1.1.6 Collection Functions](=CollectionFunctions)
 
-##### [5.1.1.6.1 `hassubset`](:hassubset)
+##### [5.1.1.6.1 `hassubset`](=hassubset)
 
 The `hassubset` function has the following signature:
 
@@ -2425,7 +2425,7 @@ hassubset([1,2],[1,1,2])
 ```
 :::
 
-##### [5.1.1.6.2 `hassubsequence`](:hassubsequence)
+##### [5.1.1.6.2 `hassubsequence`](=hassubsequence)
 
 The `hassubsequence` function has the following signature:
 
@@ -2472,9 +2472,9 @@ hassubsequence([1,2],[1,1,2])
 ```
 :::
 
-#### [5.1.1.7 String Functions](:StringFunctions)
+#### [5.1.1.7 String Functions](=StringFunctions)
 
-##### [5.1.1.7.1 `matchespattern`](:matchespattern)
+##### [5.1.1.7.1 `matchespattern`](=matchespattern)
 
 The `matchespattern` function has the following signatures:
 
@@ -2509,7 +2509,7 @@ http://host/service/Customers?$filter=matchespattern(FormattedAddress,'berg$','m
 ```
 :::
 
-##### [5.1.1.7.2 `tolower`](:tolower)
+##### [5.1.1.7.2 `tolower`](=tolower)
 
 The `tolower` function has the following signature:
 
@@ -2531,7 +2531,7 @@ http://host/service/Customers?$filter=tolower(CompanyName) eq 'alfreds futterkis
 ```
 :::
 
-##### [5.1.1.7.3 `toupper`](:toupper)
+##### [5.1.1.7.3 `toupper`](=toupper)
 
 The `toupper` function has the following signature:
 
@@ -2553,7 +2553,7 @@ http://host/service/Customers?$filter=toupper(CompanyName) eq 'ALFREDS FUTTERKIS
 ```
 :::
 
-##### [5.1.1.7.4 `trim`](:trim)
+##### [5.1.1.7.4 `trim`](=trim)
 
 The `trim` function has the following signature:
 
@@ -2574,9 +2574,9 @@ http://host/service/Customers?$filter=trim(CompanyName) eq CompanyName
 ```
 :::
 
-#### [5.1.1.8 Date and Time Functions](:DateandTimeFunctions)
+#### [5.1.1.8 Date and Time Functions](=DateandTimeFunctions)
 
-##### [5.1.1.8.1 `date`](:date)
+##### [5.1.1.8.1 `date`](=date)
 
 The `date` function has the following signature:
 
@@ -2588,7 +2588,7 @@ The `date` function returns the date part of the `DateTimeOffset`
 parameter value, evaluated in the time zone of the `DateTimeOffset`
 parameter value.
 
-##### [5.1.1.8.2 `day`](:day)
+##### [5.1.1.8.2 `day`](=day)
 
 The `day` function has the following signatures:
 
@@ -2615,7 +2615,7 @@ http://host/service/Employees?$filter=day(BirthDate) eq 8
 ```
 :::
 
-##### [5.1.1.8.3 `fractionalseconds`](:fractionalseconds)
+##### [5.1.1.8.3 `fractionalseconds`](=fractionalseconds)
 
 The `fractionalseconds` function has the following signatures:
 
@@ -2638,7 +2638,7 @@ http://host/service/Employees?$filter=[fractionalseconds(BirthDate) lt 0.1
 ```
 :::
 
-##### [5.1.1.8.4 `hour`](:hour)
+##### [5.1.1.8.4 `hour`](=hour)
 
 The `hour` function has the following signatures:
 
@@ -2666,7 +2666,7 @@ http://host/service/Employees?$filter=hour(BirthDate) eq 4
 ```
 :::
 
-##### [5.1.1.8.5 `maxdatetime`](:maxdatetime)
+##### [5.1.1.8.5 `maxdatetime`](=maxdatetime)
 
 The `maxdatetime` function has the following signature:
 
@@ -2677,7 +2677,7 @@ Edm.DateTimeOffset maxdatetime()
 The `maxdatetime` function returns the latest possible point in time as
 a `DateTimeOffset` value.
 
-##### [5.1.1.8.6 `mindatetime`](:mindatetime)
+##### [5.1.1.8.6 `mindatetime`](=mindatetime)
 
 The `mindatetime` function has the following signature:
 
@@ -2688,7 +2688,7 @@ Edm.DateTimeOffset mindatetime()
 The `mindatetime` function returns the earliest possible point in time
 as a `DateTimeOffset` value.
 
-##### [5.1.1.8.7 `minute`](:minute)
+##### [5.1.1.8.7 `minute`](=minute)
 
 The `minute` function has the following signatures:
 
@@ -2709,7 +2709,7 @@ http://host/service/Employees?$filter=minute(BirthDate) eq 40
 ```
 :::
 
-##### [5.1.1.8.8 `month`](:month)
+##### [5.1.1.8.8 `month`](=month)
 
 The `month` function has the following signatures:
 
@@ -2736,7 +2736,7 @@ http://host/service/Employees?$filter=month(BirthDate) eq 5
 ```
 :::
 
-##### [5.1.1.8.9 `now`](:now)
+##### [5.1.1.8.9 `now`](=now)
 
 The `now` function has the following signature:
 
@@ -2753,7 +2753,7 @@ UTC. Services that are unable to preserve the offset of
 common time zone SHOULD return a value in the normalized time zone
 (for example UTC).
 
-##### [5.1.1.8.10 `second`](:second)
+##### [5.1.1.8.10 `second`](=second)
 
 The `second` function has the following signatures:
 
@@ -2776,7 +2776,7 @@ http://host/service/Employees?$filter=second(BirthDate) eq 40
 ```
 :::
 
-##### [5.1.1.8.11 `time`](:time)
+##### [5.1.1.8.11 `time`](=time)
 
 The `time` function has the following signature:
 
@@ -2794,7 +2794,7 @@ UTC) MUST fail evaluation of the `time` function for literal
 `Edm.DateTimeOffset` values that are not stated in the time zone of the
 normalized values.
 
-##### [5.1.1.8.12 `totaloffsetminutes`](:totaloffsetminutes)
+##### [5.1.1.8.12 `totaloffsetminutes`](=totaloffsetminutes)
 
 The `totaloffsetminutes` function has the following signature:
 
@@ -2806,7 +2806,7 @@ The `totaloffsetminutes` function returns the signed number of minutes
 in the time zone offset part of the `DateTimeOffset` parameter value,
 evaluated in the time zone of the `DateTimeOffset` parameter value.
 
-##### [5.1.1.8.13 `totalseconds`](:totalseconds)
+##### [5.1.1.8.13 `totalseconds`](=totalseconds)
 
 The `totalseconds` function has the following signature:
 
@@ -2817,7 +2817,7 @@ Edm.Decimal totalseconds(Edm.Duration)
 The `totalseconds` function returns the duration of the value in total
 seconds, including fractional seconds.
 
-##### [5.1.1.8.14 `year`](:year)
+##### [5.1.1.8.14 `year`](=year)
 
 The `year` function has the following signatures:
 
@@ -2844,9 +2844,9 @@ http://host/service/Employees?$filter=year(BirthDate) eq 1971
 ```
 :::
 
-#### [5.1.1.9 Arithmetic Functions](:ArithmeticFunctions)
+#### [5.1.1.9 Arithmetic Functions](=ArithmeticFunctions)
 
-##### [5.1.1.9.1 `ceiling`](:ceiling)
+##### [5.1.1.9.1 `ceiling`](=ceiling)
 
 The `ceiling` function has the following signatures
 
@@ -2867,7 +2867,7 @@ http://host/service/Orders?$filter=ceiling(Freight) eq 32
 ```
 :::
 
-##### [5.1.1.9.2 `floor`](:floor)
+##### [5.1.1.9.2 `floor`](=floor)
 
 The `floor` function has the following signatures
 
@@ -2888,7 +2888,7 @@ http://host/service/Orders?$filter=floor(Freight) eq 32
 ```
 :::
 
-##### [5.1.1.9.3 `round`](:round)
+##### [5.1.1.9.3 `round`](=round)
 
 The `round` function has the following signatures
 
@@ -2910,9 +2910,9 @@ http://host/service/Orders?$filter=round(Freight) eq 32
 ```
 :::
 
-#### [5.1.1.10 Type Functions](:TypeFunctions)
+#### [5.1.1.10 Type Functions](=TypeFunctions)
 
-##### [5.1.1.10.1 `cast`](:cast)
+##### [5.1.1.10.1 `cast`](=cast)
 
 The `cast` function has the following signatures:
 
@@ -2949,7 +2949,7 @@ The `cast` function follows these assignment rules:
 
 If the cast fails, the `cast` function returns `null`.
 
-##### [5.1.1.10.2 `isof`](:isof)
+##### [5.1.1.10.2 `isof`](=isof)
 
 The `isof` function has the following signatures
 
@@ -2987,9 +2987,9 @@ http://host/service/Orders?$filter=isof(Customer,NorthwindModel.VIPCustomer)
 ```
 :::
 
-#### [5.1.1.11 Geo Functions](:GeoFunctions)
+#### [5.1.1.11 Geo Functions](=GeoFunctions)
 
-##### [5.1.1.11.1 `geo.distance`](:geodistance)
+##### [5.1.1.11.1 `geo.distance`](=geodistance)
 
 The `geo.distance` function has the following signatures:
 
@@ -3002,7 +3002,7 @@ The `geo.distance` function returns the shortest distance between the
 two points in the coordinate reference system signified by the two
 points' SRIDs.
 
-##### [5.1.1.11.2 `geo.intersects`](:geointersects)
+##### [5.1.1.11.2 `geo.intersects`](=geointersects)
 
 The `geo.intersects` function has the following signatures:
 
@@ -3015,7 +3015,7 @@ The `geo.intersects` function returns `true` if the specified point lies
 within the interior or on the boundary of the specified polygon,
 otherwise it returns `false`.
 
-##### [5.1.1.11.3 `geo.length`](:geolength)
+##### [5.1.1.11.3 `geo.length`](=geolength)
 
 The `geo.length` function has the following signatures:
 
@@ -3027,9 +3027,9 @@ Edm.Double geo.length(Edm.GeometryLineString)
 The `geo.length` function returns the total length of its line string
 parameter in the coordinate reference system signified by its SRID.
 
-#### [5.1.1.12 Conditional Functions](:ConditionalFunctions)
+#### [5.1.1.12 Conditional Functions](=ConditionalFunctions)
 
-##### [5.1.1.12.1 `case`](:case)
+##### [5.1.1.12.1 `case`](=case)
 
 The `case` function has the following signature:
 
@@ -3071,7 +3071,7 @@ $compute=case(X gt 0:1,X lt 0:-1,true:0) as SignumX
 ```
 :::
 
-#### [5.1.1.13 Lambda Operators](:LambdaOperators)
+#### [5.1.1.13 Lambda Operators](=LambdaOperators)
 
 OData defines two operators that evaluate a Boolean expression on a
 collection. Both must be prepended with a path expression that
@@ -3096,7 +3096,7 @@ the lambda variable nor `$it` are evaluated in the scope of the
 instance or of members of the collection at the origin of the path expression prepended to
 the lambda operator.
 
-##### [5.1.1.13.1 `any`](:any)
+##### [5.1.1.13.1 `any`](=any)
 
 The `any` operator applies a Boolean expression to each member of a
 collection and returns `true` if and only if the expression is `true` for
@@ -3133,7 +3133,7 @@ http://host/service/Categories?$expand=Products(
 ```
 :::
 
-##### [5.1.1.13.2 `all`](:all)
+##### [5.1.1.13.2 `all`](=all)
 
 The `all` operator applies a Boolean expression to each member of a
 collection and returns `true` if the expression is `true` for all members of
@@ -3150,9 +3150,9 @@ http://host/service/Orders?$filter=Items/all(d:d/Quantity gt 100)
 ```
 :::
 
-#### [5.1.1.14 Literals](:Literals)
+#### [5.1.1.14 Literals](=Literals)
 
-##### [5.1.1.14.1 Primitive Literals](:PrimitiveLiterals)
+##### [5.1.1.14.1 Primitive Literals](=PrimitiveLiterals)
 
 Primitive literals can appear in the resource path as key property
 values, and in the query part, for example, as operands in
@@ -3247,7 +3247,7 @@ with or without the type prefix. OData clients that want to operate
 across OData 4.0 and OData 4.01 services should always include the
 prefix for duration and enumeration types.
 
-##### [5.1.1.14.2 Structured and Collection Literals](:StructuredandCollectionLiterals)
+##### [5.1.1.14.2 Structured and Collection Literals](=StructuredandCollectionLiterals)
 
 Complex literals and collection literals in URLs are represented as JSON
 objects and arrays according to the `arrayOrObject` rule in
@@ -3289,12 +3289,12 @@ http://host/service/Price(Product=@p)?@p={"Color":"red"}
 ```
 :::
 
-##### [5.1.1.14.3 `null`](:null)
+##### [5.1.1.14.3 `null`](=null)
 
 The `null` literal can be used to compare a value to null, or to pass a
 null value to a function.
 
-##### [5.1.1.14.4 `$it`](:it)
+##### [5.1.1.14.4 `$it`](=it)
 
 The `$it` literal can be used in expressions to refer to the current
 instance of the resource identified by the resource path. For a
@@ -3355,7 +3355,7 @@ http://host/service/Products?$filter=$it/Model.PositiveReviews()/$count ge 10
 ```
 :::
 
-##### [5.1.1.14.5 `$root`](:root)
+##### [5.1.1.14.5 `$root`](=root)
 
 The `$root` literal can be used in expressions to refer to resources of
 the same service.
@@ -3385,7 +3385,7 @@ http://host/service/Employees('A1245')/self.AvgRating(RatedBy=@peers)
 ```
 :::
 
-##### [5.1.1.14.6 `$this`](:this)
+##### [5.1.1.14.6 `$this`](=this)
 
 The `$this` literal can be used in [`$filter`](#SystemQueryOptionfilter)
 and [`$orderby`](#SystemQueryOptionorderby) expressions nested within
@@ -3401,7 +3401,7 @@ http://host/service/Customers?$select=EmailAddresses($filter=endswith($this,'.co
 ```
 :::
 
-#### [5.1.1.15 Path Expressions](:PathExpressions)
+#### [5.1.1.15 Path Expressions](=PathExpressions)
 
 Properties and navigation properties of the structured type on which
 a common expression is evaluated can be used as operands
@@ -3444,7 +3444,7 @@ If the property or navigation property is not defined for the type of
 the resource and that type does not support dynamic properties or
 navigation properties, then the request may be considered malformed.
 
-#### [5.1.1.16 Annotation Values in Expressions](:AnnotationValuesinExpressions)
+#### [5.1.1.16 Annotation Values in Expressions](=AnnotationValuesinExpressions)
 
 Services MAY support the use of annotation values as operands or
 function parameters, and they MAY advertise this by annotating the
@@ -3490,7 +3490,7 @@ name in an expression MUST evaluate to the parameter alias value and
 MUST NOT evaluate to the annotation value of an identical unqualified
 term name.
 
-#### [5.1.1.17 Operator Precedence](:OperatorPrecedence)
+#### [5.1.1.17 Operator Precedence](=OperatorPrecedence)
 
 OData services MUST use the following operator precedence for supported
 operators when evaluating [`$filter`](#SystemQueryOptionfilter) and
@@ -3524,7 +3524,7 @@ Equality        | `eq`            | Equal           | `eqExpr`
 Conditional AND | `and`           | Logical And     | `andExpr`
 Conditional OR  | `or`            | Logical Or      | `orExpr`
 
-#### [5.1.1.18 Numeric Promotion](:NumericPromotion)
+#### [5.1.1.18 Numeric Promotion](=NumericPromotion)
 
 Services SHOULD NOT require explicit cast operations between numeric
 types used in comparison expressions. Wherever possible, such
@@ -3547,7 +3547,7 @@ to promote an operand to the target type.
 OData does not define an implicit conversion between string and numeric
 types.
 
-### [5.1.2 System Query Option `$filter`](:SystemQueryOptionfilter)
+### [5.1.2 System Query Option `$filter`](=SystemQueryOptionfilter)
 
 The `$filter` system query option allows clients to filter a collection
 of resources that are addressed by a request URL. The expression
@@ -3560,7 +3560,7 @@ due to permissions, are omitted from the response.
 The [OData-ABNF](#ODataABNF) `filter` syntax rule defines the formal
 grammar of the `$filter` query option.
 
-### [5.1.3 System Query Option `$expand`](:SystemQueryOptionexpand)
+### [5.1.3 System Query Option `$expand`](=SystemQueryOptionexpand)
 
 The `$expand` system query option specifies the related resources or
 media streams to be included in line with retrieved resources.
@@ -3761,7 +3761,7 @@ http://host/service/Products?$expand=$value
 ```
 :::
 
-### [5.1.4 System Query Option `$select`](:SystemQueryOptionselect)
+### [5.1.4 System Query Option `$select`](=SystemQueryOptionselect)
 
 The `$select` system query option allows clients to request a specific
 set of properties for each entity or complex type.
@@ -3941,7 +3941,7 @@ of properties, open properties, navigation properties, actions and
 functions to be returned is equal to the union of the set of those
 identified by each select item.
 
-### [5.1.5 System Query Option `$orderby`](:SystemQueryOptionorderby)
+### [5.1.5 System Query Option `$orderby`](=SystemQueryOptionorderby)
 
 The `$orderby` system query option allows clients to request resources
 in a particular order.
@@ -3952,7 +3952,7 @@ document.
 The [OData-ABNF](#ODataABNF) `orderby` syntax rule defines the formal
 grammar of the `$orderby` query option.
 
-### [5.1.6 System Query Options `$top` and `$skip`](:SystemQueryOptionstopandskip)
+### [5.1.6 System Query Options `$top` and `$skip`](=SystemQueryOptionstopandskip)
 
 The `$top` system query option requests the number of items in the
 queried collection to be included in the result. The `$skip` query
@@ -3965,7 +3965,7 @@ The semantics of `$top` and `$skip` are covered in the
 and `skip` syntax rules define the formal grammar of the `$top` and
 `$skip` query options respectively.
 
-### [5.1.7 System Query Option `$count`](:SystemQueryOptioncount)
+### [5.1.7 System Query Option `$count`](=SystemQueryOptioncount)
 
 The `$count` system query option allows clients to request a count of
 the matching resources included with the resources in the response. The
@@ -3974,7 +3974,7 @@ the matching resources included with the resources in the response. The
 The semantics of `$count` is covered in the [OData-Protocol](#ODataProtocol)
 document.
 
-### [5.1.8 System Query Option `$search`](:SystemQueryOptionsearch)
+### [5.1.8 System Query Option `$search`](=SystemQueryOptionsearch)
 
 The `$search` system query option allows clients to request items within
 a collection matching a free-text [search
@@ -4007,7 +4007,7 @@ syntax provided they advertise this with the annotation `SearchRestrictions/Sear
 [OData-ABNF](#ODataABNF) `$search` syntax as terms to be matched if they are
 listed in `SearchRestrictions/UnsupportedExpressions`.
 
-#### [5.1.8.1 Search Expressions](:SearchExpressions)
+#### [5.1.8.1 Search Expressions](=SearchExpressions)
 
 Search expressions are used within the
 [`$search`](#SystemQueryOptionsearch) system query option to request
@@ -4047,7 +4047,7 @@ Such an expression can also be used to search for double quotes: `?$search='"'`.
 The [OData-ABNF](#ODataABNF) `searchExpr` syntax rule defines the formal
 grammar of the search expression.
 
-### [5.1.9 System Query Option `$format`](:SystemQueryOptionformat)
+### [5.1.9 System Query Option `$format`](=SystemQueryOptionformat)
 
 The `$format` system query option allows clients to request a response
 in a particular format and is useful for clients without access to
@@ -4060,7 +4060,7 @@ document.
 The [OData-ABNF](#ODataABNF) `format` syntax rule defines the formal
 grammar of the `$format` query option.
 
-### [5.1.10 System Query Option `$compute`](:SystemQueryOptioncompute)
+### [5.1.10 System Query Option `$compute`](=SystemQueryOptioncompute)
 
 The `$compute` system query option allows clients to define computed
 properties that can be used in a [`$select`](#SystemQueryOptionselect)
@@ -4099,7 +4099,7 @@ http://host/service/Orders(10)/Items
 ```
 :::
 
-### [5.1.11 System Query Option `$index`](:SystemQueryOptionindex)
+### [5.1.11 System Query Option `$index`](=SystemQueryOptionindex)
 
 The `$index` system query option allows clients to do a positional
 insert into a collection annotated with the
@@ -4114,7 +4114,7 @@ insert at the end of the collection.
 The [OData-ABNF](#ODataABNF) `index` syntax rule defines the formal
 grammar of the `$index` query option.
 
-### [5.1.12 System Query Option `$schemaversion`](:SystemQueryOptionschemaversion)
+### [5.1.12 System Query Option `$schemaversion`](=SystemQueryOptionschemaversion)
 
 The `$schemaversion` system query option allows clients to specify the
 version of the schema against which the request is made. The semantics
@@ -4123,7 +4123,7 @@ of `$schemaversion` is covered in the [OData-Protocol](#ODataProtocol) document.
 The [OData-ABNF](#ODataABNF) `schemaversion` syntax rule defines the
 formal grammar of the `$schemaversion` query option
 
-## [5.2 Custom Query Options](:CustomQueryOptions)
+## [5.2 Custom Query Options](=CustomQueryOptions)
 
 Custom query options provide an extensible mechanism for
 service-specific information to be placed in a URL query string. A
@@ -4139,7 +4139,7 @@ http://host/service/Products?debug-mode=true
 ```
 :::
 
-## [5.3 Parameter Aliases](:ParameterAliases)
+## [5.3 Parameter Aliases](=ParameterAliases)
 
 Parameter aliases can be used in place of literal values in entity keys,
 [function](#AddressingFunctions) parameters, or within a
@@ -4180,7 +4180,7 @@ http://host/service/Products/Model.WithIngredients(Ingredients=@i)
 
 -------
 
-# [6 Conformance](:Conformance)
+# [6 Conformance](=Conformance)
 
 The conformance requirements for OData clients and services are
 described in [OData-Protocol](#ODataProtocol).
@@ -4188,13 +4188,13 @@ described in [OData-Protocol](#ODataProtocol).
 
 -------
 
-# [Appendix A. References](:References)
+# [Appendix A. References](=References)
 
 This appendix contains the normative and informative references that are used in this document.
 
 While any hyperlinks included in this appendix were valid at the time of publication, OASIS cannot guarantee their long-term validity.
 
-## [A.1 Normative References](:NormativeReferences)
+## [A.1 Normative References](=NormativeReferences)
 
 The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.
 
@@ -4245,7 +4245,7 @@ https://url.spec.whatwg.org/.
 _W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes_. D. Peterson, S. Gao, C. M. Sperberg-McQueen, H. S. Thompson, P. V. Biron, A. Malhotra, Editors, W3C Recommendation, 5 April 2012.  
 http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/. Latest version available at http://www.w3.org/TR/xmlschema11-2/.
 
-## [A.2 Informative References](:InformativeReferences)
+## [A.2 Informative References](=InformativeReferences)
 
 ###### [ECMAScript](:_ECMAScript)
 _ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262.
@@ -4265,9 +4265,9 @@ do we have considerations specific to URLs, for example length, encoding, privac
 
 -------
 
-# [Appendix B. Acknowledgments](:Acknowledgments)
+# [Appendix B. Acknowledgments](=Acknowledgments)
 
-## [B.1 Participants](:Participants)
+## [B.1 Participants](=Participants)
 
 **OData TC Members:**
 
@@ -4285,7 +4285,7 @@ do we have considerations specific to URLs, for example length, encoding, privac
 
 -------
 
-# [Appendix C. Revision History](:RevisionHistory)
+# [Appendix C. Revision History](=RevisionHistory)
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
@@ -4293,7 +4293,7 @@ do we have considerations specific to URLs, for example length, encoding, privac
 
 -------
 
-# [Appendix D. Notices](:Notices)
+# [Appendix D. Notices](=Notices)
 
 <!-- Required section. Do not modify. -->
 

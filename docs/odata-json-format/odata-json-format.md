@@ -196,7 +196,7 @@ For complete copyright information please see the full Notices section in an App
 
 -------
 
-# [1 Introduction](:Introduction)
+# [1 Introduction](=Introduction)
 
 The OData protocol is comprised of a set of specifications for representing and interacting with structured content. The core specification for the protocol is in [OData-Protocol](#ODataProtocol); this document is an extension of the core protocol. This document defines representations for the OData requests and responses using the JavaScript Object Notation (JSON), see [RFC8259].
 
@@ -212,7 +212,7 @@ An OData JSON payload may represent:
 - a [service document](#ServiceDocument) describing the top-level resources exposed by the service
 - an [error](#ErrorResponse).
 
-## [1.1 Changes from Earlier Versions](:ChangesfromEarlierVersions)
+## [1.1 Changes from Earlier Versions](=ChangesfromEarlierVersions)
 
 Section | Feature / Change | Issue
 --------|------------------|------
@@ -222,15 +222,15 @@ Section | Feature / Change | Issue
 [Section 7](#StructuralProperty), [Section A.2](#InformativeReferences)| Removed reference to obsolete version of GeoJSON| [456](https://github.com/oasis-tcs/odata-specs/issues/456)
 [Section 18](#ActionInvocation)| Allow common expressions in action payloads| [341](https://github.com/oasis-tcs/odata-specs/issues/341)
 
-## [1.2 Glossary](:Glossary)
+## [1.2 Glossary](=Glossary)
 
-### [1.2.1 Definitions of Terms](:DefinitionsofTerms)
+### [1.2.1 Definitions of Terms](=DefinitionsofTerms)
 
-### [1.2.2 Acronyms and Abbreviations](:AcronymsandAbbreviations)
+### [1.2.2 Acronyms and Abbreviations](=AcronymsandAbbreviations)
 
 <!-- TODO -->
 
-### [1.2.3 Document Conventions](:DocumentConventions)
+### [1.2.3 Document Conventions](=DocumentConventions)
 
 Keywords defined by this specification use `this monospaced font`.
 
@@ -269,7 +269,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 
 -------
 
-# [2 JSON Format Design](:JSONFormatDesign)
+# [2 JSON Format Design](=JSONFormatDesign)
 
 JSON, as described in [RFC8259](#rfc8259) defines
 a text format for serializing structured data. Objects are serialized as
@@ -312,7 +312,7 @@ Constraints](#PayloadOrderingConstraints).
 
 -------
 
-# [3 Requesting the JSON Format](:RequestingtheJSONFormat)
+# [3 Requesting the JSON Format](=RequestingtheJSONFormat)
 
 The OData JSON format can be requested using the `$format`
 query option in the request URL with the media type
@@ -343,7 +343,7 @@ defined in [OData-VocCap](#ODataVocCap), listing all
 available formats and combinations of supported format parameters.
 
 
-## [3.1 Controlling the Amount of Control Information in Responses](:ControllingtheAmountofControlInformationinResponses)
+## [3.1 Controlling the Amount of Control Information in Responses](=ControllingtheAmountofControlInformationinResponses)
 
 The amount of [control information](#ControlInformation) needed (or
 desired) in the payload depends on the client application and device.
@@ -392,7 +392,7 @@ prefixed with `odata.`. Payloads with an `OData-Version` header equal to
 `OData-Version` header equal to `4.01` or greater SHOULD NOT
 include the `odata.` prefix.
 
-### [3.1.1 `metadata=minimal` (`odata.metadata=minimal`)](:metadataminimalodatametadataminimal)
+### [3.1.1 `metadata=minimal` (`odata.metadata=minimal`)](=metadataminimalodatametadataminimal)
 
 The `metadata=minimal` format parameter indicates that the
 service SHOULD remove computable control information from the payload
@@ -427,7 +427,7 @@ following control information:
 - [`mediaContentType`](#ControlInformationmediaodatamedia):
   the media type of the stream
 
-### [3.1.2 `metadata=full` (`odata.metadata=full`)](:metadatafullodatametadatafull)
+### [3.1.2 `metadata=full` (`odata.metadata=full`)](=metadatafullodatametadatafull)
 
 The `metadata=full` format parameter indicates that the
 service MUST include all control information explicitly in the payload.
@@ -479,7 +479,7 @@ following control information:
 - [`mediaContentType`](#ControlInformationmediaodatamedia):
   the media type of the stream
 
-### [3.1.3 `metadata=none` (`odata.metadata=none`)](:metadatanoneodatametadatanone)
+### [3.1.3 `metadata=none` (`odata.metadata=none`)](=metadatanoneodatametadatanone)
 
 The `metadata=none` format parameter indicates that the
 service SHOULD omit control information other than
@@ -491,7 +491,7 @@ even in the `metadata=none` case.
 It is not valid to specify `metadata=none` on a [delta
 request](#DeltaPayload).
 
-## [3.2 Controlling the Representation of Numbers](:ControllingtheRepresentationofNumbers)
+## [3.2 Controlling the Representation of Numbers](=ControllingtheRepresentationofNumbers)
 
 The `IEEE754Compatible=true` format parameter indicates that
 the service MUST serialize `Edm.Int64` and
@@ -549,7 +549,7 @@ or greater always allow exponential notation for numbers and the
 
 -------
 
-# [4 Common Characteristics](:CommonCharacteristics)
+# [4 Common Characteristics](=CommonCharacteristics)
 
 This section describes common characteristics of the representation for
 OData values in JSON. A request or response body consists of several
@@ -557,7 +557,7 @@ parts. It contains OData values as part of a larger document. Requests
 and responses are structured almost identical; the few existing
 differences will be explicitly called out in the respective subsections.
 
-## [4.1 Header Content-Type](:HeaderContentType)
+## [4.1 Header Content-Type](=HeaderContentType)
 
 Requests and responses with a JSON message body MUST have a
 `Content-Type` header value of `application/json`.
@@ -580,7 +580,7 @@ Requests and responses MAY add the `streaming` parameter with
 a value of `true` or `false`, see section
 "[Payload Ordering Constraints](#PayloadOrderingConstraints)".
 
-## [4.2 Message Body](:MessageBody)
+## [4.2 Message Body](=MessageBody)
 
 Each message body is represented as a single JSON object. This object is
 either the representation of an [entity](#Entity),
@@ -597,7 +597,7 @@ result](#DeltaPayload).
 Client libraries MUST retain the
 order of objects within an array in JSON responses.
 
-## [4.3 URLs in Message Bodies](:URLsinMessageBodies)
+## [4.3 URLs in Message Bodies](=URLsinMessageBodies)
 
 URLs represented as a string within a JSON payload, including [batch
 requests](#BatchRequest), must follow standard OData encoding rules as defined in [OData-URL](#ODataURL).
@@ -607,7 +607,7 @@ within key values, MUST be percent-encoded to avoid confusion with the
 scheme separator. Colons within the query part, i.e. after the question
 mark character (`?`), need not be percent-encoded.
 
-## [4.4 Relative URLs](:RelativeURLs)
+## [4.4 Relative URLs](=RelativeURLs)
 
 URLs present in a payload (whether request or response) MAY be
 represented as relative URLs.
@@ -667,7 +667,7 @@ http://host/service/Customers('ALFKI')/Orders
 ```
 :::
 
-## [4.5 Payload Ordering Constraints](:PayloadOrderingConstraints)
+## [4.5 Payload Ordering Constraints](=PayloadOrderingConstraints)
 
 Ordering constraints MAY be imposed on the JSON payload in order to
 support streaming scenarios. These ordering constraints MUST only be
@@ -737,7 +737,7 @@ Note that in OData 4.0 the `streaming` format parameter was prefixed with
 `OData-Version` header equal to `4.01` or greater SHOULD NOT
 include the `odata.` prefix.
 
-## [4.6 Control Information](:ControlInformation)
+## [4.6 Control Information](=ControlInformation)
 
 In addition to the "pure data" a message body MAY contain
 [annotations](#InstanceAnnotations) and control information that is
@@ -756,7 +756,7 @@ Receivers that encounter unknown
 annotations in any namespace or unknown control information MUST NOT
 stop processing and MUST NOT signal an error.
 
-### [4.6.1 Control Information: `context` (`odata.context`)](:ControlInformationcontextodatacontext)
+### [4.6.1 Control Information: `context` (`odata.context`)](=ControlInformationcontextodatacontext)
 
 The `context` control information
 returns the context URL (see [OData-Protocol](#ODataProtocol)) for the
@@ -789,7 +789,7 @@ Example 4:
 ```
 :::
 
-### [4.6.2 Control Information: `metadataEtag` (`odata.metadataEtag`)](:ControlInformationmetadataEtagodatametadataEtag)
+### [4.6.2 Control Information: `metadataEtag` (`odata.metadataEtag`)](=ControlInformationmetadataEtagodatametadataEtag)
 
 The `metadataEtag` control information MAY appear in a
 response in order to specify the entity tag (ETag) that can be used to
@@ -806,7 +806,7 @@ in any responses.
 
 For details on how ETags are used, see [OData-Protocol](#ODataProtocol).
 
-### [4.6.3 Control Information: `type` (`odata.type`)](:ControlInformationtypeodatatype)
+### [4.6.3 Control Information: `type` (`odata.type`)](=ControlInformationtypeodatatype)
 
 The `type` control information specifies the type of a JSON
 object or name/value pair. Its value is a URI that identifies the type
@@ -910,7 +910,7 @@ metadata  document of a different service
 ```
 :::
 
-### [4.6.4 Control Information: `count` (`odata.count`)](:ControlInformationcountodatacount)
+### [4.6.4 Control Information: `count` (`odata.count`)](=ControlInformationcountodatacount)
 
 The `count` control information occurs only in responses and
 can annotate any collection, see [OData-Protocol](#ODataProtocol)
@@ -919,7 +919,7 @@ section 11.2.5.5 System Query Option
 `Edm.Int64` value corresponding to
 the total count of members in the collection represented by the request.
 
-### [4.6.5 Control Information: `nextLink` (`odata.nextLink`)](:ControlInformationnextLinkodatanextLink)
+### [4.6.5 Control Information: `nextLink` (`odata.nextLink`)](=ControlInformationnextLinkodatanextLink)
 
 The `nextLink` control information indicates that a response
 is only a subset of the requested collection. It contains a [URL](URLsinMessageBodies) that
@@ -928,14 +928,14 @@ allows retrieving the next subset of the requested collection.
 This control information can also be applied to [expanded to-many
 navigation properties](#ExpandedNavigationProperty).
 
-### [4.6.6 Control Information: `delta` (`odata.delta`)](:ControlInformationdeltaodatadelta)
+### [4.6.6 Control Information: `delta` (`odata.delta`)](=ControlInformationdeltaodatadelta)
 
 The `delta` control information is applied to a
 collection-valued navigation property within an [added/changed
 entity](#AddedChangedEntity) in a delta payload to represent changes
 in membership or value of nested entities.
 
-### [4.6.7 Control Information: `deltaLink` (`odata.deltaLink`)](:ControlInformationdeltaLinkodatadeltaLink)
+### [4.6.7 Control Information: `deltaLink` (`odata.deltaLink`)](=ControlInformationdeltaLinkodatadeltaLink)
 
 The `deltaLink` control information contains a [URL](URLsinMessageBodies) that can
 be used to retrieve changes to the current set of results. The
@@ -945,7 +945,7 @@ page of results. A page of results MUST NOT have both a
 [`nextLink`](#ControlInformationnextLinkodatanextLink)
 control information.
 
-### [4.6.8 Control Information: `id` (`odata.id`)](:ControlInformationidodataid)
+### [4.6.8 Control Information: `id` (`odata.id`)](=ControlInformationidodataid)
 
 The `id` control information contains the entity-id, see
 [OData-Protocol](#ODataProtocol). By convention the entity-id is
@@ -986,7 +986,7 @@ The `id` control information MUST NOT appear for a
 collection. Its meaning in this context is reserved for future versions
 of this specification.
 
-### [4.6.9 Control Information: `editLink` and `readLink` (`odata.editLink` and `odata.readLink`)](:ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink)
+### [4.6.9 Control Information: `editLink` and `readLink` (`odata.editLink` and `odata.readLink`)](=ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink)
 
 The `editLink` control information contains
 the edit [URL](URLsinMessageBodies) of the entity; see [OData-Protocol](#ODataProtocol).
@@ -1038,7 +1038,7 @@ For collections:
   meaning in this context is reserved for future versions of this
   specification.
 
-### [4.6.10 Control Information: `etag` (`odata.etag`)](:ControlInformationetagodataetag)
+### [4.6.10 Control Information: `etag` (`odata.etag`)](=ControlInformationetagodataetag)
 
 The `etag` control information MAY be applied to an
 [entity](#Entity) or collection in a response. The
@@ -1052,7 +1052,7 @@ The `etag` control information is ignored in request payloads for
 single entities and not written in responses if
 [`metadata=none`](#metadatanoneodatametadatanone) is requested.
 
-### [4.6.11 Control Information: `navigationLink` and `associationLink` (`odata.navigationLink` and `odata.associationLink`)](:ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink)
+### [4.6.11 Control Information: `navigationLink` and `associationLink` (`odata.navigationLink` and `odata.associationLink`)](=ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink)
 
 The `navigationLink` control information in a
 response contains a _navigation [URL](URLsinMessageBodies)_ that can be used to retrieve an
@@ -1081,7 +1081,7 @@ The `navigationLink` and `associationLink` control
 information is ignored in request payloads and not written in responses
 if [`metadata=none`](#metadatanoneodatametadatanone) is requested.
 
-### [4.6.12 Control Information: `media*` (`odata.media*`)](:ControlInformationmediaodatamedia)
+### [4.6.12 Control Information: `media*` (`odata.media*`)](=ControlInformationmediaodatamedia)
 
 For [media entities](#MediaEntity) and [stream
 properties](#StreamProperty) at least one of the control information
@@ -1148,13 +1148,13 @@ Example 7:
 ```
 :::
 
-### [4.6.13 Control Information: `removed` (`odata.removed`)](:ControlInformationremovedodataremoved)
+### [4.6.13 Control Information: `removed` (`odata.removed`)](=ControlInformationremovedodataremoved)
 
 The `removed` control information is used in [delta
 payloads](#DeletedEntity) and indicates that the represented entity
 is (to be) deleted.
 
-### [4.6.14 Control Information: `collectionAnnotations` (`odata.collectionAnnotations`)](:ControlInformationcollectionAnnotationsodatacollectionAnnotations)
+### [4.6.14 Control Information: `collectionAnnotations` (`odata.collectionAnnotations`)](=ControlInformationcollectionAnnotationsodatacollectionAnnotations)
 
 The `collectionAnnotations` control information can be
 applied to a collection containing primitive members in order to
@@ -1194,7 +1194,7 @@ Example 8: Annotating primitive values within a collection
 
 -------
 
-# [5 Service Document](:ServiceDocument)
+# [5 Service Document](=ServiceDocument)
 
 A service document in JSON is represented as a single JSON object with
 at least the [`context`](#ControlInformationcontextodatacontext)
@@ -1284,7 +1284,7 @@ Example 9:
 
 -------
 
-# [6 Entity](:Entity)
+# [6 Entity](=Entity)
 
 An entity is serialized as a JSON object. It MAY contain
 [`context`](#ControlInformationcontextodatacontext),
@@ -1356,7 +1356,7 @@ Example 11: entity with `metadata=full`
 
 -------
 
-# [7 Structural Property](:StructuralProperty)
+# [7 Structural Property](=StructuralProperty)
 
 A property within an entity or complex type instance is represented as a
 name/value pair. The name MUST be the name of the property; a non-null value is
@@ -1367,7 +1367,7 @@ a [collection of complex values](#CollectionofComplexValues).
 
 Null values are represented as the JSON literal `null`.
 
-## [7.1 Primitive Value](:PrimitiveValue)
+## [7.1 Primitive Value](=PrimitiveValue)
 
 Primitive values are represented following the rules of
 [RFC8259](#rfc8259).
@@ -1446,7 +1446,7 @@ Example 12:
 ```
 :::
 
-## [7.2 Complex Value](:ComplexValue)
+## [7.2 Complex Value](=ComplexValue)
 
 A complex value is represented as a single JSON object containing one
 name/value pair for each property that makes up the complex type. Each
@@ -1474,7 +1474,7 @@ A complex value with no selected properties, or no defined properties
 (such as an empty open complex type or complex type with no structural
 properties) is represented as an empty JSON object.
 
-## [7.3 Collection of Primitive Values](:CollectionofPrimitiveValues)
+## [7.3 Collection of Primitive Values](=CollectionofPrimitiveValues)
 
 A collection of primitive values is represented as a JSON array; each
 element in the array is the representation of a [primitive
@@ -1497,7 +1497,7 @@ Example 14: partial collection of strings with next link
 ```
 :::
 
-## [7.4 Collection of Complex Values](:CollectionofComplexValues)
+## [7.4 Collection of Complex Values](=CollectionofComplexValues)
 
 A collection of complex values is represented as a JSON array; each
 element in the array is the representation of a [complex value](#ComplexValue). A JSON literal `null` represents a
@@ -1524,7 +1524,7 @@ Example 15: partial collection of complex values with next link
 ```
 :::
 
-## [7.5 Untyped Value](:UntypedValue)
+## [7.5 Untyped Value](=UntypedValue)
 
 OData 4.01 adds the built-in abstract types `Edm.Untyped` and
 `Collection(Edm.Untyped)`that services can use to advertise
@@ -1556,12 +1556,12 @@ depending on the JavaScript type.
 Collections directly contained within an untyped collection are themselves untyped.
 -------
 
-# [8 Navigation Property](:NavigationProperty)
+# [8 Navigation Property](=NavigationProperty)
 
 A navigation property is a reference from a source entity to zero or
 more related entities.
 
-## [8.1 Navigation Link](:NavigationLink)
+## [8.1 Navigation Link](=NavigationLink)
 
 The navigation link for a navigation property is represented as a
 [`navigationLink`](#ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink)
@@ -1587,7 +1587,7 @@ Example 16:
 ```
 :::
 
-## [8.2 Association Link](:AssociationLink)
+## [8.2 Association Link](=AssociationLink)
 
 The association link for a navigation property is represented as an
 [`associationLink`](#ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink)
@@ -1614,7 +1614,7 @@ Example 17:
 ```
 :::
 
-## [8.3 Expanded Navigation Property](:ExpandedNavigationProperty)
+## [8.3 Expanded Navigation Property](=ExpandedNavigationProperty)
 
 An expanded navigation property is represented as a name/value pair
 where the name is the name of the navigation property, and the value is
@@ -1649,7 +1649,7 @@ Example 18:
 ```
 :::
 
-## [8.4 Deep Insert](:DeepInsert)
+## [8.4 Deep Insert](=DeepInsert)
 
 When inserting a new entity with a `POST` request, related
 new entities MAY be specified using the same representation as for an
@@ -1686,7 +1686,7 @@ related to existing products:
 ```
 :::
 
-## [8.5 Bind Operation](:BindOperation)
+## [8.5 Bind Operation](=BindOperation)
 
 When inserting or updating an entity, relationships of navigation
 properties MAY be inserted or updated via bind operations.
@@ -1780,7 +1780,7 @@ property adds additional relationships, it does not replace existing
 relationships, while bind operations on an entity navigation property
 update the relationship.
 
-## [8.6 Collection ETag](:CollectionETag)
+## [8.6 Collection ETag](=CollectionETag)
 
 The ETag for a collection of related entities is represented as
 [`etag`](#ControlInformationetagodataetag) control
@@ -1810,7 +1810,7 @@ different ETag for the `Items` collection.
 
 -------
 
-# [9 Stream Property](:StreamProperty)
+# [9 Stream Property](=StreamProperty)
 
 An entity or complex type instance can have one or more stream properties.
 
@@ -1862,7 +1862,7 @@ Example 24:
 
 -------
 
-# [10 Media Entity](:MediaEntity)
+# [10 Media Entity](=MediaEntity)
 
 Media entities are entities that describe a media resource, for example
 a photo. They are represented as entities that contain additional
@@ -1888,7 +1888,7 @@ Example 25:
 
 -------
 
-# [11 Individual Property or Operation Response](:IndividualPropertyorOperationResponse)
+# [11 Individual Property or Operation Response](=IndividualPropertyorOperationResponse)
 
 An individual property or operation response is represented as a JSON
 object.
@@ -1969,7 +1969,7 @@ Note: the context URL is optional in requests.
 
 -------
 
-# [12 Collection of Operation Responses](:CollectionofOperationResponses)
+# [12 Collection of Operation Responses](=CollectionofOperationResponses)
 
 Invoking a bound action or function with `/$each` on each
 member of a collection in one request results in a collection of
@@ -1999,7 +1999,7 @@ object itself contains a name/value pair named `value`.
 
 -------
 
-# [13 Collection of Entities](:CollectionofEntities)
+# [13 Collection of Entities](=CollectionofEntities)
 
 A collection of entities is represented as a JSON object containing a
 name/value pair named `value`. It MAY contain
@@ -2053,7 +2053,7 @@ Example 31:
 
 -------
 
-# [14 Entity Reference](:EntityReference)
+# [14 Entity Reference](=EntityReference)
 
 An entity reference (see [OData-Protocol](#ODataProtocol)) MAY take the
 place of an entity in a JSON payload, based on the client request. It
@@ -2098,12 +2098,12 @@ Example 33: collection of entity references
 
 -------
 
-# [15 Delta Payload](:DeltaPayload)
+# [15 Delta Payload](=DeltaPayload)
 
 The non-format specific aspects of the delta handling are described in
 the section "Requesting Changes" in [OData-Protocol](#ODataProtocol).
 
-## [15.1 Delta Responses](:DeltaResponses)
+## [15.1 Delta Responses](=DeltaResponses)
 
 Responses from a delta request are returned as a JSON object.
 
@@ -2193,7 +2193,7 @@ occurrence
 ```
 :::
 
-## [15.2 Added/Changed Entity](:AddedChangedEntity)
+## [15.2 Added/Changed Entity](=AddedChangedEntity)
 
 Added or changed entities within a delta payload are represented as
 [entities](#Entity). All entities within a delta response payload MUST include
@@ -2223,7 +2223,7 @@ Added or changed entities MAY include [ETags](#ControlInformationetagodataetag).
 Entities include control information for selected navigation links based
 on [`metadata`](#ControllingtheAmountofControlInformationinResponses).
 
-## [15.3 Deleted Entity](:DeletedEntity)
+## [15.3 Deleted Entity](=DeletedEntity)
 
 Deleted entities in JSON are returned as deleted-entity objects. Delta
 responses MUST contain a deleted-entity object for each deleted entity,
@@ -2342,7 +2342,7 @@ single key field of `Customer`)
 }
 ```
 :::
-## [15.4 Related Entities](:RelatedEntities)
+## [15.4 Related Entities](=RelatedEntities)
 Changes to related entities are represented differently in OData 4.0 and OData 4.01.
 
 In OData 4.01, changes to relationships and related entities are generally represented as
@@ -2350,7 +2350,7 @@ In OData 4.01, changes to relationships and related entities are generally repre
 
 In OData 4.0, changes to relationships and related entities are represented as a [flat array](#OData40FlattenedDeltaPayload) of added, deleted, or changed entities, along with added or deleted links.
 
-### [15.4.1 OData 4.01 Expanded Navigation Properties](:OData401ExpandedNavigationProperties)
+### [15.4.1 OData 4.01 Expanded Navigation Properties](=OData401ExpandedNavigationProperties)
 OData 4.01 delta payloads represent changes to relationships and related
 entities as expanded navigation properties. 
 Related single entities are represented as either an [added/changed](#AddedChangedEntity)
@@ -2453,7 +2453,7 @@ indicated with a [next link](#ControlInformationnextLinkodatanextLink))
 ```
 :::
 
-### [15.4.2 OData 4.0 Flattened Delta Payload](:OData40FlattenedDeltaPayload)
+### [15.4.2 OData 4.0 Flattened Delta Payload](=OData40FlattenedDeltaPayload)
 OData 4.0 payloads MUST NOT include expanded navigation properties
 inline. Changes to relationships are represented as [added](#AddedLink)
 or [deleted links](#DeletedLink). Changes to related entities are
@@ -2519,7 +2519,7 @@ property or [added](#AddedLink)/[deleted link](#DeletedLink)
 corresponding to the change to the dependent property are returned in
 the delta response.
 
-#### [15.4.2.1 Added Link](:AddedLink)
+#### [15.4.2.1 Added Link](=AddedLink)
 
 Links within an OData 4.0 [flattened delta response](#OData40FlattenedDeltaPayload) are represented as link objects.
 
@@ -2540,7 +2540,7 @@ The link object MUST include the following properties, regardless of the specifi
 - `target` --- The [id](#ControlInformationidodataid) of the related entity,
   which may be absolute or [relative](#RelativeURLs)
 
-#### [15.4.2.2 Deleted Link](:DeletedLink)
+#### [15.4.2.2 Deleted Link](=DeletedLink)
 
 Deleted links within an OData 4.0 [flattened delta response](#OData40FlattenedDeltaPayload) are represented as deleted-link objects.
 
@@ -2569,7 +2569,7 @@ multi-valued navigation properties, which may be absolute or
 that do not specify an `OData-Version` header value of `4.0`,
 the target MAY be omitted for single-valued navigation.
 
-## [15.5 Update a Collection of Entities](:UpdateaCollectionofEntities)
+## [15.5 Update a Collection of Entities](=UpdateaCollectionofEntities)
 
 The body of a `PATCH` request to a URL identifying a collection of
 entities is a JSON object. It MUST contain the
@@ -2828,7 +2828,7 @@ Content-Length: ###
 
 -------
 
-# [16 Bound Function](:BoundFunction)
+# [16 Bound Function](=BoundFunction)
 
 A bound function is advertised via a name/value pair where the name is a
 hash (`#`) character followed by the namespace- or
@@ -2946,7 +2946,7 @@ Example 46: full representation in a nested collection
 
 -------
 
-# [17 Bound Action](:BoundAction)
+# [17 Bound Action](=BoundAction)
 
 A bound action is advertised via a name/value pair where the name is a
 hash (`#`) character followed by the namespace- or
@@ -3048,7 +3048,7 @@ Example 50: full representation in a nested collection
 
 -------
 
-# [18 Action Invocation](:ActionInvocation)
+# [18 Action Invocation](=ActionInvocation)
 
 Action parameter values are encoded in a single JSON object in the
 request body.
@@ -3189,9 +3189,9 @@ MUST also support clients passing an empty request body for this case.
 
 -------
 
-# [19 Batch Requests and Responses](:BatchRequestsandResponses)
+# [19 Batch Requests and Responses](=BatchRequestsandResponses)
 
-## [19.1 Batch Request](:BatchRequest)
+## [19.1 Batch Request](=BatchRequest)
 
 A JSON batch request body consists of a single JSON object that MUST
 contain the name/value pair `requests` and MAY contain
@@ -3313,7 +3313,7 @@ The request object and the `headers` object MUST NOT contain name/value pairs wi
 This is in conformance with [RFC7493](#rfc7493).
 
 ::: example
-Example [55](:batchRequest): a batch request that contains
+Example [55](=batchRequest): a batch request that contains
 the following individual requests in the order listed
 
   1. A query request
@@ -3368,7 +3368,7 @@ Content-Length: ###
 ```
 :::
 
-## [19.2 Referencing New Entities](:ReferencingNewEntities)
+## [19.2 Referencing New Entities](=ReferencingNewEntities)
 
 The entity returned by a preceding request can be referenced in the
 request URL of subsequent requests. If the `Location` header in the response
@@ -3408,7 +3408,7 @@ Content-Length: ###
 ```
 :::
 
-## [19.3 Referencing an ETag](:ReferencinganETag)
+## [19.3 Referencing an ETag](=ReferencinganETag)
 
 ::: example
 Example 57: a batch request that contains the following operations in
@@ -3451,7 +3451,7 @@ Content-Length: ###
 ```
 :::
 
-## [19.4 Referencing Response Body Values](:ReferencingResponseBodyValues)
+## [19.4 Referencing Response Body Values](=ReferencingResponseBodyValues)
 
 ::: example
 Example 58: a batch request that contains the following operations in
@@ -3491,7 +3491,7 @@ Content-Length: ###
 ```
 :::
 
-## [19.5 Processing a Batch Request](:ProcessingaBatchRequest)
+## [19.5 Processing a Batch Request](=ProcessingaBatchRequest)
 
 All requests in an atomicity group represent a single change unit. A
 service MUST successfully process and apply all the requests in the
@@ -3518,7 +3518,7 @@ response object with the value of the request identifier that the client
 specified in the corresponding request, so clients can correlate
 requests and responses.
 
-## [19.6 Batch Response](:BatchResponse)
+## [19.6 Batch Response](=BatchResponse)
 
 A JSON batch response body consists of a single JSON object that MUST
 contain the name/value pair `responses` and MAY contain
@@ -3623,7 +3623,7 @@ Content-Type: application/json
 ```
 :::
 
-## [19.7 Asynchronous Batch Requests](:AsynchronousBatchRequests)
+## [19.7 Asynchronous Batch Requests](=AsynchronousBatchRequests)
 
 A batch request that specifies the `respond-async` preference MAY be executed asynchronously. This means that the "outer" batch request is executed asynchronously; this
 preference does not automatically cascade down to the individual
@@ -3762,7 +3762,7 @@ Content-Type: application/json
 
 -------
 
-# [20 Instance Annotations](:InstanceAnnotations)
+# [20 Instance Annotations](=InstanceAnnotations)
 
 Annotations are an extensibility mechanism
 that allows services and clients to include information other than the
@@ -3814,7 +3814,7 @@ Example 62:
 ```
 :::
 
-## [20.1 Annotate a JSON Object](:AnnotateaJSONObject)
+## [20.1 Annotate a JSON Object](=AnnotateaJSONObject)
 
 When annotating a name/value pair for which the value is represented as
 a JSON object, each annotation is placed within the object and
@@ -3825,7 +3825,7 @@ by the annotation identifier.
 
 The value MUST be an appropriate value for the annotation.
 
-## [20.2 Annotate a JSON Array or Primitive](:AnnotateaJSONArrayorPrimitive)
+## [20.2 Annotate a JSON Array or Primitive](=AnnotateaJSONArrayorPrimitive)
 
 When annotating a name/value pair for which the value is represented as
 a JSON array or primitive value, each annotation that applies to this
@@ -3842,7 +3842,7 @@ the annotation identifier.
 
 The value MUST be an appropriate value for the annotation.
 
-## [20.3 Annotate a Primitive Value within a JSON Array](:AnnotateaPrimitiveValuewithinaJSONArray)
+## [20.3 Annotate a Primitive Value within a JSON Array](=AnnotateaPrimitiveValuewithinaJSONArray)
 
 Individual primitive elements within a JSON array can be annotated by
 applying the [`collectionAnnotations`](#ControlInformationcollectionAnnotationsodatacollectionAnnotations)
@@ -3859,13 +3859,13 @@ identifier.
 
 -------
 
-# [21 Error Handling](:ErrorHandling)
+# [21 Error Handling](=ErrorHandling)
 
 OData requests may return a well formed [error response](#ErrorResponse),
 an [in-stream error](#InStreamError), or error information
 [within a success payload](#ErrorInformationinaSuccessPayload).
 
-## [21.1 Error Response](:ErrorResponse)
+## [21.1 Error Response](=ErrorResponse)
 
 The error response MUST be a single JSON object. This object MUST have a
 single name/value pair named `error`. The value must be an
@@ -3929,7 +3929,7 @@ Example 63:
 ```
 :::
 
-## [21.2 In-Stream Error](:InStreamError)
+## [21.2 In-Stream Error](=InStreamError)
 
 In the case that a service encounters an error after sending a success
 status to the client, the service MUST leave the response malformed.
@@ -3964,13 +3964,13 @@ query option not supported"}]}
 ```
 :::
 
-## [21.3 Error Information in a Success Payload](:ErrorInformationinaSuccessPayload)
+## [21.3 Error Information in a Success Payload](=ErrorInformationinaSuccessPayload)
 
 Services may return error information within a success payload; for
 example, if the client has specified the
 `continue-on-error` preference.
 
-### [21.3.1 Primitive Value Errors](:PrimitiveValueErrors)
+### [21.3.1 Primitive Value Errors](=PrimitiveValueErrors)
 
 Primitive values that are in error are annotated with the
 `Core.ValueException` term, see
@@ -3978,7 +3978,7 @@ Primitive values that are in error are annotated with the
 an approximation of the value and MAY specify a string representation of
 the exact value in the `value` property of the annotation.
 
-### [21.3.2 Structured Type Errors](:StructuredTypeErrors)
+### [21.3.2 Structured Type Errors](=StructuredTypeErrors)
 
 Structured types that are in error can be represented within a success
 payload only if the client has specified the
@@ -3988,7 +3988,7 @@ payload only if the client has specified the
 `retryLink` property that can be used by the client to
 attempt to re-fetch the resource.
 
-### [21.3.3 Collection Errors](:CollectionErrors)
+### [21.3.3 Collection Errors](=CollectionErrors)
 
 Collections within a success payload can contain primitive values that
 are in error, or structured values that are in error, if the client has
@@ -4009,7 +4009,7 @@ members are not available.
 
 -------
 
-# [22 Extensibility](:Extensibility)
+# [22 Extensibility](=Extensibility)
 
 Implementations can add [instance annotations](#InstanceAnnotations)
 of the form `@namespace.termname` or
@@ -4024,7 +4024,7 @@ this version of the OData JSON Specification.
 
 -------
 
-# [23 Conformance](:Conformance)
+# [23 Conformance](=Conformance)
 
 Conforming clients MUST be prepared to consume a service that uses any or all of the constructs defined in this specification. The exception to this are the constructs defined in Delta Response, which are only required for clients that request changes.
 
@@ -4105,13 +4105,13 @@ In addition, in order to comply with the OData 4.01 JSON format, a service:
 
 -------
 
-# [Appendix A. References](:References)
+# [Appendix A. References](=References)
 
 This appendix contains the normative and informative references that are used in this document.
 
 While any hyperlinks included in this appendix were valid at the time of publication, OASIS cannot guarantee their long-term validity.
 
-## [A.1 Normative References](:NormativeReferences)
+## [A.1 Normative References](=NormativeReferences)
 
 The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.
 
@@ -4178,7 +4178,7 @@ https://www.rfc-editor.org/info/rfc8174.
 _Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", STD 90, RFC 8259, DOI 10.17487/RFC8259, December 2017_.
 https://www.rfc-editor.org/info/rfc8259.
 
-## [A.2 Informative References](:InformativeReferences)
+## [A.2 Informative References](=InformativeReferences)
 
 ###### [ECMAScript](:_ECMAScript)
 _ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262.
@@ -4186,7 +4186,7 @@ https://www.ecma-international.org/publications-and-standards/standards/ecma-262
 
 -------
 
-# [Appendix B. Safety, Security and Privacy Considerations](:SafetySecurityandPrivacyConsiderations)
+# [Appendix B. Safety, Security and Privacy Considerations](=SafetySecurityandPrivacyConsiderations)
 
 This specification raises no security issues.
 
@@ -4196,13 +4196,13 @@ For JSON-relevant security implications please cf. at least the relevant subsect
 
 -------
 
-# [Appendix C. Acknowledgments](:Acknowledgments)
+# [Appendix C. Acknowledgments](=Acknowledgments)
 
-## [C.1 Special Thanks](:SpecialThanks)
+## [C.1 Special Thanks](=SpecialThanks)
 
 The contributions of the OASIS OData Technical Committee members, enumerated in [OData-Protocol](#ODataProtocol) are gratefully acknowledged.
 
-## [C.2 Participants](:Participants)
+## [C.2 Participants](=Participants)
 
 **OData TC Members:**
 
@@ -4222,7 +4222,7 @@ The contributions of the OASIS OData Technical Committee members, enumerated in 
 
 -------
 
-# [Appendix D. Revision History](:RevisionHistory)
+# [Appendix D. Revision History](=RevisionHistory)
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
@@ -4230,7 +4230,7 @@ The contributions of the OASIS OData Technical Committee members, enumerated in 
 
 -------
 
-# [Appendix E. Notices](:Notices)
+# [Appendix E. Notices](=Notices)
 
 <!-- Required section. Do not modify. -->
 

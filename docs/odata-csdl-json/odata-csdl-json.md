@@ -248,7 +248,7 @@ For complete copyright information please see the full Notices section in an App
 
 -------
 
-# [1 Introduction](:Introduction)
+# [1 Introduction](=Introduction)
 
 OData services are described in terms of an [Entity
 Model](#EntityModel). The Common Schema Definition Language (CSDL)
@@ -260,7 +260,7 @@ This format is based on the OpenUI5 OData V4 Metadata JSON Format, see
 modifications made necessary to fully cover OData CSDL Version 4.01.
 
 
-## [1.1 Changes from Earlier Versions](:ChangesfromEarlierVersions)
+## [1.1 Changes from Earlier Versions](=ChangesfromEarlierVersions)
 
 Section | Feature / Change | Issue
 --------|------------------|------
@@ -273,15 +273,15 @@ Section | Feature / Change | Issue
 [Section 14.4.7](#IfThenElse)| Nested `If` without else part in collections| [326](https://github.com/oasis-tcs/odata-specs/issues/326)
 [Section 17](#Conformance) | Additional conformance clauses for version 4.02 |
 
-## [1.2 Glossary](:Glossary)
+## [1.2 Glossary](=Glossary)
 
-### [1.2.1 Definitions of Terms](:DefinitionsofTerms)
+### [1.2.1 Definitions of Terms](=DefinitionsofTerms)
 
-### [1.2.2 Acronyms and Abbreviations](:AcronymsandAbbreviations)
+### [1.2.2 Acronyms and Abbreviations](=AcronymsandAbbreviations)
 
 <!-- TODO -->
 
-### [1.2.3 Document Conventions](:DocumentConventions)
+### [1.2.3 Document Conventions](=DocumentConventions)
 
 Keywords defined by this specification use `this monospaced font`.
 
@@ -332,7 +332,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 
 -------
 
-# [2 JSON Representation](:JSONRepresentation)
+# [2 JSON Representation](=JSONRepresentation)
 
 OData CSDL JSON is a full representation of the OData Common Schema
 Definition Language in the JavaScript Object Notation (JSON) defined in
@@ -345,7 +345,7 @@ It is an alternative to the CSDL XML representation defined in
 [OData-CSDLXML](#ODataCSDL) and neither adds nor removes
 features.
 
-## [2.1 Requesting the JSON Representation](:RequestingtheJSONRepresentation)
+## [2.1 Requesting the JSON Representation](=RequestingtheJSONRepresentation)
 
 The OData CSDL JSON representation can be requested using the `$format`
 query option in the request URL with the media type `application/json`,
@@ -368,7 +368,7 @@ Possible media type parameters are:
 
 The names and values of these parameters are case-insensitive.
 
-### [2.1.1 Controlling the Representation of Numbers](:ControllingtheRepresentationofNumbers)
+### [2.1.1 Controlling the Representation of Numbers](=ControllingtheRepresentationofNumbers)
 
 The `IEEE754Compatible=true` parameter indicates that the service MUST
 serialize `Edm.Int64` and `Edm.Decimal` numbers as strings. This is in
@@ -387,7 +387,7 @@ Responses that format `Edm.Int64` and `Edm.Decimal` values as strings
 MUST specify this parameter in the media type returned in the
 `Content-Type` header.
 
-### [2.1.2 Controlling the Amount of Control Information](:ControllingtheAmountofControlInformation)
+### [2.1.2 Controlling the Amount of Control Information](=ControllingtheAmountofControlInformation)
 
 The representation of constant annotation values in CSDL JSON documents
 closely follows the representation of data defined in
@@ -400,7 +400,7 @@ much control information will be included in the response.
 Other `Accept` header parameters are orthogonal to the `metadata`
 parameter and are therefore not mentioned in this section.
 
-#### [2.1.2.1 `metadata=minimal`](:metadataminimal)
+#### [2.1.2.1 `metadata=minimal`](=metadataminimal)
 
 The `metadata=minimal` format parameter indicates that the service
 SHOULD remove computable control information from the payload wherever
@@ -416,7 +416,7 @@ types, or
 
 See [OData-JSON](#ODataJSON) for the exact rules.
 
-#### [2.1.2.2 `metadata=full`](:metadatafull)
+#### [2.1.2.2 `metadata=full`](=metadatafull)
 
 The `metadata=full` format parameter indicates that the service MUST
 include all control information explicitly in the payload.
@@ -426,12 +426,12 @@ annotation values except for primitive values whose type can be
 heuristically determined from the representation of the value, see
 [OData-JSON](#ODataJSON) for the exact rules.
 
-#### [2.1.2.3 `metadata=none`](:metadatanone)
+#### [2.1.2.3 `metadata=none`](=metadatanone)
 
 The `metadata=none` format parameter indicates that the service SHOULD
 omit all control information.
 
-## [2.2 Design Considerations](:DesignConsiderations)
+## [2.2 Design Considerations](=DesignConsiderations)
 
 CSDL JSON documents are designed for easy and efficient lookup of model
 constructs by their name without having to know or guess what kind of
@@ -479,7 +479,7 @@ return types, as this type is more common than other primitive types.
 In general, all members that have a default value SHOULD be omitted if
 they have the default value.
 
-## [2.3 JSON Schema Definition](:JSONSchemaDefinition)
+## [2.3 JSON Schema Definition](=JSONSchemaDefinition)
 
 The structure of CSDL JSON documents can be verified with the JSON
 Schema [OData-CSDL-Schema](#ODataCSDLSchema) provided as an
@@ -495,7 +495,7 @@ this specification document take precedence.
 
 -------
 
-# [3 Entity Model](:EntityModel)
+# [3 Entity Model](=EntityModel)
 
 An OData service exposes a single entity model. This model may be
 distributed over several [schemas](#Schema), and these schemas may be
@@ -536,7 +536,7 @@ defined in directly referenced documents can be used within the schema.
 However, those elements may in turn include or reference model elements
 defined in schemas referenced by their defining schema.
 
-## [3.1 Nominal Types](:NominalTypes)
+## [3.1 Nominal Types](=NominalTypes)
 
 A nominal type has a name that MUST be a [simple
 identifier](#SimpleIdentifier). Nominal types are referenced using their
@@ -547,7 +547,7 @@ parts of the model.
 Names are case-sensitive, but service authors SHOULD NOT choose names
 that differ only in case.
 
-## [3.2 Structured Types](:StructuredTypes)
+## [3.2 Structured Types](=StructuredTypes)
 
 Structured types are composed of other model elements. Structured types
 are common in entity models as the means of representing entities and
@@ -578,7 +578,7 @@ self-reference.
 types](#OpenComplexType) allow properties to be added dynamically to
 instances of the open type.
 
-## [3.3 Primitive Types](:PrimitiveTypes)
+## [3.3 Primitive Types](=PrimitiveTypes)
 
 Structured types are composed of other structured types and primitive
 types. OData defines the following primitive types:
@@ -644,7 +644,7 @@ Some of these types allow facets, defined in section
 Representation of primitive type values within a URL is defined by the rule `primitiveLiteral` in [OData-ABNF](#ODataABNF).
 Representation within request and response bodies is format specific.
 
-## [3.4 Type Facets](:TypeFacets)
+## [3.4 Type Facets](=TypeFacets)
 
 The facets in the following subsections modify or constrain the acceptable values of primitive typed model elements,
 for example a [structural property](#StructuralProperty),
@@ -656,7 +656,7 @@ For single-valued model elements the facets apply to the value of the
 model element. For collection-valued model elements the facets apply to the items
 in the collection.
 
-### [3.4.1 MaxLength](:MaxLength)
+### [3.4.1 MaxLength](=MaxLength)
 
 A positive integer value specifying the maximum length of a binary,
 stream or string value. For binary or stream values this is the octet
@@ -667,8 +667,8 @@ If no maximum length is specified, clients SHOULD expect arbitrary
 length.
 
 ::: {.varjson .rep}
-### [ Type Facet Members](:TypeFacetMembers.1)
-### [ `$MaxLength`](:MaxLength.1.1)
+### [Type Facet Members](=TypeFacetMembers.1)
+### [`$MaxLength`](=MaxLength.1.1)
 
 The value of `$MaxLength` is a positive integer.
 
@@ -680,7 +680,7 @@ service or omit the member entirely.
 :::
 
 
-### [3.4.2 Precision](:Precision)
+### [3.4.2 Precision](=Precision)
 
 For a decimal value: the maximum number of significant decimal digits of
 the model element's value; it MUST be a positive integer.
@@ -703,7 +703,7 @@ Note: model elements with duration values and a granularity less than seconds
 see [OData-VocMeasures](#ODataVocMeasures).
 
 ::: {.varjson .rep}
-### [ `$Precision`](:Precision.1.2)
+### [`$Precision`](=Precision.1.2)
 
 The value of `$Precision` is a number.
 
@@ -723,7 +723,7 @@ Example 2: `Precision` facet applied to the `DateTimeOffset` type
 
 
 
-### [3.4.3 Scale](:Scale)
+### [3.4.3 Scale](=Scale)
 
 A non-negative integer value specifying the maximum number of digits
 allowed to the right of the decimal point, or one of the symbolic values
@@ -754,7 +754,7 @@ scale added to the actual number of significant decimal digits, and
 client-provided values may have to be rounded before being stored.
 
 ::: {.varjson .rep}
-### [ `$Scale`](:Scale.1.3)
+### [`$Scale`](=Scale.1.3)
 
 The value of `$Scale` is a number or a string with one of the symbolic
 values `floating` or `variable`.
@@ -819,7 +819,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values:
 
 
 
-### [3.4.4 Unicode](:Unicode)
+### [3.4.4 Unicode](=Unicode)
 
 For a string-typed model element the `Unicode` facet indicates whether the it
 might contain and accept string values with Unicode characters (code
@@ -830,14 +830,14 @@ limited to the ASCII character set.
 If no value is specified, the `Unicode` facet defaults to `true`.
 
 ::: {.varjson .rep}
-### [ `$Unicode`](:Unicode.1.4)
+### [`$Unicode`](=Unicode.1.4)
 
 The value of `$Unicode` is one of the Boolean literals `true` or
 `false`. Absence of the member means `true`.
 :::
 
 
-### [3.4.5 SRID](:SRID)
+### [3.4.5 SRID](=SRID)
 
 For a geometry- or geography-typed model element the `SRID` facet identifies which
 spatial reference system is applied to its values.
@@ -851,14 +851,14 @@ The valid values of the `SRID` facet and their meanings are as defined
 by the European Petroleum Survey Group [EPSG](#_EPSG).
 
 ::: {.varjson .rep}
-### [ `$SRID`](:SRID.1.5)
+### [`$SRID`](=SRID.1.5)
 
 The value of `$SRID` is a string containing a number or the symbolic
 value `variable`.
 :::
 
 
-## [3.5 Built-In Abstract Types](:BuiltInAbstractTypes)
+## [3.5 Built-In Abstract Types](=BuiltInAbstractTypes)
 
 The following built-in abstract types can be used within a model:
 - `Edm.PrimitiveType`
@@ -902,7 +902,7 @@ be used anywhere a corresponding concrete type can be used, except:
         of `4.0`. Services should treat untyped properties as dynamic
         properties in `4.0` payloads.
 
-## [3.6 Built-In Types for defining Vocabulary Terms](:BuiltInTypesfordefiningVocabularyTerms)
+## [3.6 Built-In Types for defining Vocabulary Terms](=BuiltInTypesfordefiningVocabularyTerms)
 
 [Vocabulary terms](#VocabularyandAnnotation) can, in addition, use
 - `Edm.AnnotationPath`
@@ -917,7 +917,7 @@ as the type of a primitive term, or the type of a property of a complex
 type (recursively) that is exclusively used as the type of a term. See
 section "[Path Expressions](#PathExpressions)" for details.
 
-## [3.7 Annotations](:Annotations)
+## [3.7 Annotations](=Annotations)
 
 Many parts of the model can be decorated with additional information
 using [annotations](#Annotation). Annotations are identified by their
@@ -930,11 +930,11 @@ combination of term and qualifier.
 
 -------
 
-# [4 CSDL JSON Document](:CSDLJSONDocument)
+# [4 CSDL JSON Document](=CSDLJSONDocument)
 
 <!-- Lines from here to the closing ::: belong to the JSON variant only. -->
 ::: {.varjson .rep}
-### [ Document Object](:DocumentObject.2)
+### [Document Object](=DocumentObject.2)
 
 A CSDL JSON document consists of a single JSON object. This document object MUST contain the member `$Version`.
 
@@ -944,7 +944,7 @@ It also MAY contain members for schemas.
 
 If the CSDL JSON document is the metadata document of an OData service, the document object MUST contain the member `$EntityContainer`.
 
-### [ `$Version`](:Version.2.1)
+### [`$Version`](=Version.2.1)
 
 The value of `$Version` is a string specifying the OData protocol version of the
 document, either `4.0`, `4.01`, or `4.02`.
@@ -952,7 +952,7 @@ document, either `4.0`, `4.01`, or `4.02`.
 Services MUST return an OData 4.0 response if the request was
 made with an `OData-MaxVersion` header with a value of `4.0`.
 
-### [ `$EntityContainer`](:EntityContainer.2.2)
+### [`$EntityContainer`](=EntityContainer.2.2)
 
 The value of `$EntityContainer` is the namespace-qualified name of the entity container of that service. This is the only place where a model element MUST be referenced with its namespace-qualified name and use of the alias-qualified name is not allowed.
 :::
@@ -971,7 +971,7 @@ Example 7:
 <!-- Lines from here to the closing ::: belong to the XML variant only. -->
 
 
-## [4.1 Reference](:Reference)
+## [4.1 Reference](=Reference)
 
 A reference to an external CSDL document allows to bring part of the
 referenced document's content into the scope of the referencing
@@ -997,14 +997,14 @@ annotation is present, the `$schemaversion` system query option, defined
 referenced schema document.
 
 ::: {.varjson .rep}
-### [ `$Reference`](:Reference.2.3)
+### [`$Reference`](=Reference.2.3)
 
 The value of `$Reference` is an object that contains one member per
 referenced CSDL document. The name of the pair is a URI for the
 referenced document. The URI MAY be relative to the document containing
 the `$Reference`. The value of each member is a reference object.
 
-### [ Reference Object](:ReferenceObject.3)
+### [Reference Object](=ReferenceObject.3)
 
 The reference object MAY contain the members
 [`$Include`](#IncludedSchema) and
@@ -1035,7 +1035,7 @@ Example 8: references to other CSDL documents
 
 
 
-## [4.2 Included Schema](:IncludedSchema)
+## [4.2 Included Schema](=IncludedSchema)
 
 A [reference](#Reference) MAY include zero or more schemas from the referenced
 document.
@@ -1071,19 +1071,19 @@ An alias is only valid within the document in which it is declared; a
 referencing document may define its own aliases for included schemas.
 
 ::: {.varjson .rep}
-### [ `$Include`](:Include.3.1)
+### [`$Include`](=Include.3.1)
 
 The value of `$Include` is an array. Array items are objects that MUST
 contain the member `$Namespace` and MAY contain the member `$Alias`.
 
 The item objects MAY contain [annotations](#Annotation).
 
-### [ `$Namespace`](:Namespace.3.2)
+### [`$Namespace`](=Namespace.3.2)
 
 The value of `$Namespace` is a string containing the namespace of the
 included schema.
 
-### [ `$Alias`](:Alias.3.3)
+### [`$Alias`](=Alias.3.3)
 
 The value of `$Alias` is a string containing the alias for the included
 schema.
@@ -1129,7 +1129,7 @@ vocabulary terms
 
 
 
-## [4.3 Included Annotations](:IncludedAnnotations)
+## [4.3 Included Annotations](=IncludedAnnotations)
 
 In addition to including whole schemas with all model constructs defined
 within that schema, a [reference](#Reference) may include annotations.
@@ -1168,21 +1168,21 @@ not interested in that particular target namespace, the consumer can opt
 not to inspect the referenced document.
 
 ::: {.varjson .rep}
-### [ `$IncludeAnnotations`](:IncludeAnnotations.3.4)
+### [`$IncludeAnnotations`](=IncludeAnnotations.3.4)
 
 The value of `$IncludeAnnotations` is an array. Array items are objects
 that MUST contain the member `$TermNamespace` and MAY contain the
 members `$Qualifier` and `$TargetNamespace`.
 
-### [ `$TermNamespace`](:TermNamespace.3.5)
+### [`$TermNamespace`](=TermNamespace.3.5)
 
 The value of `$TermNamespace` is a namespace.
 
-### [ `$Qualifier`](:Qualifier.3.6)
+### [`$Qualifier`](=Qualifier.3.6)
 
 The value of `$Qualifier` is a simple identifier.
 
-### [ `$TargetNamespace`](:TargetNamespace.3.7)
+### [`$TargetNamespace`](=TargetNamespace.3.7)
 
 The value of `$TargetNamespace` is a namespace.
 :::
@@ -1239,7 +1239,7 @@ a term from the `org.example.hcm` namespace to an element of the
 
 -------
 
-# [5 Schema](:Schema)
+# [5 Schema](=Schema)
 
 One or more schemas describe the entity model exposed by an OData
 service. The schema acts as a namespace for elements of the entity model
@@ -1264,7 +1264,7 @@ The namespace MUST NOT be one of the reserved values `Edm`, `odata`,
 `System`, or `Transient`.
 
 ::: {.varjson .rep}
-### [ Schema Object](:SchemaObject.4)
+### [Schema Object](=SchemaObject.4)
 
 A schema is represented as a member of the document object whose name is
 the schema namespace. Its value is an object that MAY contain the
@@ -1282,7 +1282,7 @@ to the schema itself.
 :::
 
 
-## [5.1 Alias](:Alias)
+## [5.1 Alias](=Alias)
 
 A schema MAY specify an alias which MUST be a [simple
 identifier](#SimpleIdentifier).
@@ -1304,7 +1304,7 @@ The alias MUST NOT be one of the reserved values `Edm`, `odata`,
 `System`, or `Transient`.
 
 ::: {.varjson .rep}
-### [ `$Alias`](:Alias.4.1)
+### [`$Alias`](=Alias.4.1)
 
 The value of `$Alias` is a string containing the alias for the schema.
 :::
@@ -1327,10 +1327,10 @@ description for the schema
 
 
 
-## [5.2 Annotations with External Targeting](:AnnotationswithExternalTargeting)
+## [5.2 Annotations with External Targeting](=AnnotationswithExternalTargeting)
 
 ::: {.varjson .rep}
-### [ `$Annotations`](:Annotations.4.2)
+### [`$Annotations`](=Annotations.4.2)
 
 The value of `$Annotations` is an object with one member per [annotation target](#Target).
 The member name is an expression identifying the [annotation target](#Target).
@@ -1358,7 +1358,7 @@ Example 12: annotations targeting the `Person` type with qualifier
 
 -------
 
-# [6 Entity Type](:EntityType)
+# [6 Entity Type](=EntityType)
 
 Entity types are [nominal](#NominalTypes) [structured
 types](#StructuredTypes) with a key that consists of one or more
@@ -1381,7 +1381,7 @@ the same name as one of the direct or indirect base types or derived
 types.
 
 ::: {.varjson .rep}
-### [ Entity Type Object](:EntityTypeObject.5)
+### [Entity Type Object](=EntityTypeObject.5)
 
 An entity type is represented as a member of the schema object whose
 name is the unqualified name of the entity type and whose value is an
@@ -1400,7 +1400,7 @@ properties](#NavigationProperty) as well as [annotations](#Annotation).
 :::
 
 ::: {.varjson .example}
-Example [13](:entitytype): a simple entity type
+Example [13](=entitytype): a simple entity type
 ```json
 "Employee": {
   "$Kind": "EntityType",
@@ -1421,7 +1421,7 @@ Example [13](:entitytype): a simple entity type
 
 
 
-## [6.1 Derived Entity Type](:DerivedEntityType)
+## [6.1 Derived Entity Type](=DerivedEntityType)
 
 An entity type can inherit from another entity type by specifying it as
 its base type.
@@ -1433,7 +1433,7 @@ An entity type MUST NOT introduce an inheritance cycle by specifying a
 base type.
 
 ::: {.varjson .rep}
-### [ `$BaseType`](:BaseType.5.1)
+### [`$BaseType`](=BaseType.5.1)
 
 The value of `$BaseType` is the qualified name of the base type.
 :::
@@ -1465,7 +1465,7 @@ Note: the derived type has the same name as one of the properties of its
 base type.
 :::
 
-## [6.2 Abstract Entity Type](:AbstractEntityType)
+## [6.2 Abstract Entity Type](=AbstractEntityType)
 
 An entity type MAY indicate that it is abstract and cannot have
 instances.
@@ -1478,14 +1478,14 @@ An abstract entity type MUST NOT inherit from a non-abstract entity
 type.
 
 ::: {.varjson .rep}
-### [ `$Abstract`](:Abstract.5.2)
+### [`$Abstract`](=Abstract.5.2)
 
 The value of `$Abstract` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
 :::
 
 
-## [6.3 Open Entity Type](:OpenEntityType)
+## [6.3 Open Entity Type](=OpenEntityType)
 
 An entity type MAY indicate that it is open and allows clients to add
 properties dynamically to instances of the type by specifying uniquely
@@ -1502,14 +1502,14 @@ properties on instances of any structured type, see
 [OData-Protocol](#ODataProtocol).
 
 ::: {.varjson .rep}
-### [ `$OpenType`](:OpenType.5.3)
+### [`$OpenType`](=OpenType.5.3)
 
 The value of `$OpenType` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
 :::
 
 
-## [6.4 Media Entity Type](:MediaEntityType)
+## [6.4 Media Entity Type](=MediaEntityType)
 
 An entity type that does not specify a base type MAY indicate that it is
 a media entity type. *Media entities* are entities that represent a
@@ -1531,14 +1531,14 @@ annotation with term
 see [OData-VocCore](#ODataVocCore).
 
 ::: {.varjson .rep}
-### [ `$HasStream`](:HasStream.5.4)
+### [`$HasStream`](=HasStream.5.4)
 
 The value of `$HasStream` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
 :::
 
 
-## [6.5 Key](:Key)
+## [6.5 Key](=Key)
 
 An entity is uniquely identified within an entity set by its key. A key
 MAY be specified if the entity type does not specify a [base
@@ -1612,7 +1612,7 @@ used in the query part of URLs, where paths to properties don't require
 special encoding and are a standard constituent of expressions anyway.
 
 ::: {.varjson .rep}
-### [ `$Key`](:Key.5.5)
+### [`$Key`](=Key.5.5)
 
 The value of `$Key` is an array with one item per key property.
 
@@ -1644,7 +1644,7 @@ Example 15: entity type with a simple key
 :::
 
 ::: {.varjson .example}
-Example [16](:complexkey): entity type with a simple key referencing a property of a
+Example [16](=complexkey): entity type with a simple key referencing a property of a
 [complex type](#ComplexType)
 ```json
 "Category": {
@@ -1716,7 +1716,7 @@ GET http://example.org/OData.svc/Categories?$filter=Info/ID le 100
 
 -------
 
-# [7 Structural Property](:StructuralProperty)
+# [7 Structural Property](=StructuralProperty)
 
 A structural property is a property of a structured type that has one of
 the following types:
@@ -1744,7 +1744,7 @@ Names are case-sensitive, but service authors SHOULD NOT choose names
 that differ only in case.
 
 ::: {.varjson .rep}
-### [ Property Object](:PropertyObject.6)
+### [Property Object](=PropertyObject.6)
 
 Structural properties are represented as members of the object
 representing a structured type. The member name is the property name,
@@ -1781,7 +1781,7 @@ Example 20: complex type with two properties `Dimension` and `Length`
 
 
 
-## [7.1 Type](:Type)
+## [7.1 Type](=Type)
 
 The property's type MUST be a [primitive type](#PrimitiveTypes),
 [complex type](#ComplexType), or [enumeration type](#EnumerationType) in
@@ -1805,7 +1805,7 @@ term, defined in [OData-VocCore](#ODataVocCore), to specify that it
 supports inserting items into a specific ordinal position.
 
 ::: {.varjson .rep}
-### [ `$Type`] :Type.6.1)and [ `$Collection`](:Collection.6.2)
+### [`$Type`] =Type.6.1)and [`$Collection`](=Collection.6.2)
 
 For single-valued properties the value of `$Type` is the qualified name
 of the property's type.
@@ -1830,13 +1830,13 @@ value
 
 
 
-## [7.2 Nullable](:Nullable)
+## [7.2 Nullable](=Nullable)
 
 A Boolean value specifying whether the property can have the value
 `null`.
 
 ::: {.varjson .rep}
-### [ `$Nullable`](:Nullable.6.3)
+### [`$Nullable`](=Nullable.6.3)
 
 The value of `$Nullable` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
@@ -1851,7 +1851,7 @@ of the collection and specifies whether the collection MAY contain
 :::
 
 
-## [7.3 Default Value](:DefaultValue)
+## [7.3 Default Value](=DefaultValue)
 
 A primitive- or enumeration-typed property MAY define a default value that is
 used if the property is not explicitly represented in an annotation,
@@ -1860,7 +1860,7 @@ the body of a request or response, or a complex literal in a request URL.
 If no value is specified, the client SHOULD NOT assume a default value.
 
 ::: {.varjson .rep}
-### [ `$DefaultValue`](:DefaultValue.6.4)
+### [`$DefaultValue`](=DefaultValue.6.4)
 
 The value of `$DefaultValue` is the type-specific JSON representation of
 the default value of the property, see
@@ -1873,7 +1873,7 @@ type parameter
 
 -------
 
-# [8 Navigation Property](:NavigationProperty)
+# [8 Navigation Property](=NavigationProperty)
 
 A navigation property allows navigation to related entities. It MUST
 specify a unique name as well as a type.
@@ -1896,7 +1896,7 @@ Names are case-sensitive, but service authors SHOULD NOT choose names
 that differ only in case.
 
 ::: {.varjson .rep}
-### [ Navigation Property Object](:NavigationPropertyObject.7)
+### [Navigation Property Object](=NavigationPropertyObject.7)
 
 Navigation properties are represented as members of the object
 representing a structured type. The member name is the property name,
@@ -1953,7 +1953,7 @@ Example 22: the `Product` entity type has a navigation property to a
 
 
 
-## [8.1 Navigation Property Type](:NavigationPropertyType)
+## [8.1 Navigation Property Type](=NavigationPropertyType)
 
 The navigation property's type MUST be an [entity type](#EntityType) in
 scope, the [abstract type](#BuiltInAbstractTypes) `Edm.EntityType`, or a
@@ -1985,7 +1985,7 @@ term, defined in [OData-VocCore](#ODataVocCore), to specify that it
 supports inserting items into a specific ordinal position.
 
 ::: {.varjson .rep}
-### [ `$Type`] :Type.7.1)and [ `$Collection`](:Collection.7.2)
+### [`$Type`] =Type.7.1)and [`$Collection`](=Collection.7.2)
 
 For single-valued navigation properties the value of `$Type` is the
 qualified name of the navigation property's type.
@@ -1996,7 +1996,7 @@ qualified name of the navigation property's item type, and the member
 :::
 
 
-## [8.2 Nullable Navigation Property](:NullableNavigationProperty)
+## [8.2 Nullable Navigation Property](=NullableNavigationProperty)
 
 A Boolean value specifying whether the declaring type MAY have no
 related entity. If false, instances of the declaring structured type
@@ -2006,14 +2006,14 @@ Nullable MUST NOT be specified for a collection-valued navigation
 property, a collection is allowed to have zero items.
 
 ::: {.varjson .rep}
-### [ `$Nullable`](:Nullable.7.3)
+### [`$Nullable`](=Nullable.7.3)
 
 The value of `$Nullable` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
 :::
 
 
-## [8.3 Partner Navigation Property](:PartnerNavigationProperty)
+## [8.3 Partner Navigation Property](=PartnerNavigationProperty)
 
 A navigation property of an [entity type](#EntityType) MAY specify a
 partner navigation property. Navigation properties of complex types MUST
@@ -2046,14 +2046,14 @@ navigation property is defined on a type derived from the type of the
 partner navigation property.
 
 ::: {.varjson .rep}
-### [ `$Partner`](:Partner.7.4)
+### [`$Partner`](=Partner.7.4)
 
 The value of `$Partner` is a string containing the path to the partner
 navigation property.
 :::
 
 
-## [8.4 Containment Navigation Property](:ContainmentNavigationProperty)
+## [8.4 Containment Navigation Property](=ContainmentNavigationProperty)
 
 A navigation property MAY indicate that instances of its declaring
 structured type contain the targets of the navigation property, in which
@@ -2121,14 +2121,14 @@ entity. This may lead to problems for clients if the contained entity
 can also be reached via a non-containment navigation path.
 
 ::: {.varjson .rep}
-### [ `$ContainsTarget`](:ContainsTarget.7.5)
+### [`$ContainsTarget`](=ContainsTarget.7.5)
 
 The value of `$ContainsTarget` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
 :::
 
 
-## [8.5 Referential Constraint](:ReferentialConstraint)
+## [8.5 Referential Constraint](=ReferentialConstraint)
 
 A single-valued navigation property MAY define one or more referential
 constraints. A referential constraint asserts that the *dependent
@@ -2156,7 +2156,7 @@ property and the principal property are not nullable, then the dependent
 property MUST NOT be nullable.
 
 ::: {.varjson .rep}
-### [ `$ReferentialConstraint`](:ReferentialConstraint.7.6)
+### [`$ReferentialConstraint`](=ReferentialConstraint.7.6)
 
 The value of `$ReferentialConstraint` is an object with one member per
 referential constraint. The member name is the path to the dependent
@@ -2208,7 +2208,7 @@ the `Kind` property of the category.
 
 
 
-## [8.6 On-Delete Action](:OnDeleteAction)
+## [8.6 On-Delete Action](=OnDeleteAction)
 
 A navigation property MAY define an on-delete action that describes the
 action the service will take on related entities when the entity on
@@ -2233,7 +2233,7 @@ If no on-delete action is specified, the action taken by the service is
 not predictable by the client and could vary per entity.
 
 ::: {.varjson .rep}
-### [ `$OnDelete`](:OnDelete.7.7)
+### [`$OnDelete`](=OnDelete.7.7)
 
 The value of `$OnDelete` is a string with one of the values `Cascade`,
 `None`, `SetNull`, or `SetDefault`.
@@ -2266,7 +2266,7 @@ products in that category
 
 -------
 
-# [9 Complex Type](:ComplexType)
+# [9 Complex Type](=ComplexType)
 
 Complex types are keyless [nominal](#NominalTypes) [structured
 types](#StructuredTypes). The lack of a key means that instances of
@@ -2289,7 +2289,7 @@ the same name as one of the direct or indirect base types or derived
 types.
 
 ::: {.varjson .rep}
-### [ Complex Type Object](:ComplexTypeObject.8)
+### [Complex Type Object](=ComplexTypeObject.8)
 
 A complex type is represented as a member of the schema object whose
 name is the unqualified name of the complex type and whose value is an
@@ -2345,7 +2345,7 @@ Example 25: a complex type used by two entity types
 
 
 
-## [9.1 Derived Complex Type](:DerivedComplexType)
+## [9.1 Derived Complex Type](=DerivedComplexType)
 
 A complex type can inherit from another complex type by specifying it as
 its base type.
@@ -2360,26 +2360,26 @@ The rules for annotations of derived complex types are described in
 [section 14.2](#Annotation).
 
 ::: {.varjson .rep}
-### [ `$BaseType`](:BaseType.8.1)
+### [`$BaseType`](=BaseType.8.1)
 
 The value of `$BaseType` is the qualified name of the base type.
 :::
 
 
-## [9.2 Abstract Complex Type](:AbstractComplexType)
+## [9.2 Abstract Complex Type](=AbstractComplexType)
 
 A complex type MAY indicate that it is abstract and cannot have
 instances.
 
 ::: {.varjson .rep}
-### [ `$Abstract`](:Abstract.8.2)
+### [`$Abstract`](=Abstract.8.2)
 
 The value of `$Abstract` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
 :::
 
 
-## [9.3 Open Complex Type](:OpenComplexType)
+## [9.3 Open Complex Type](=OpenComplexType)
 
 A complex type MAY indicate that it is open and allows clients to add
 properties dynamically to instances of the type by specifying uniquely
@@ -2396,7 +2396,7 @@ properties on instances of any structured type, see
 [OData‑Protocol](#ODataProtocol).
 
 ::: {.varjson .rep}
-### [ `$OpenType`](:OpenType.8.3)
+### [`$OpenType`](=OpenType.8.3)
 
 The value of `$OpenType` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
@@ -2405,7 +2405,7 @@ The value of `$OpenType` is one of the Boolean literals `true` or
 
 -------
 
-# [10 Enumeration Type](:EnumerationType)
+# [10 Enumeration Type](=EnumerationType)
 
 Enumeration types are [nominal](#NominalTypes) types that represent a
 non-empty series of related values. Enumeration types expose these
@@ -2424,7 +2424,7 @@ Enumeration types marked as flags allow values that consist of more than
 one enumeration member at a time.
 
 ::: {.varjson .rep}
-### [ Enumeration Type Object](:EnumerationTypeObject.9)
+### [Enumeration Type Object](=EnumerationTypeObject.9)
 
 An enumeration type is represented as a member of the schema object
 whose name is the unqualified name of the enumeration type and whose
@@ -2459,7 +2459,7 @@ Example 26: a simple flags-enabled enumeration
 
 
 
-## [10.1 Underlying Integer Type](:UnderlyingIntegerType)
+## [10.1 Underlying Integer Type](=UnderlyingIntegerType)
 
 An enumeration type MAY specify one of `Edm.Byte`, `Edm.SByte`,
 `Edm.Int16`, `Edm.Int32`, or `Edm.Int64` as its underlying type.
@@ -2467,14 +2467,14 @@ An enumeration type MAY specify one of `Edm.Byte`, `Edm.SByte`,
 If not explicitly specified, `Edm.Int32` is used as the underlying type.
 
 ::: {.varjson .rep}
-### [ `$UnderlyingType`](:UnderlyingType.9.1)
+### [`$UnderlyingType`](=UnderlyingType.9.1)
 
 The value of `$UnderlyingType` is the qualified name of the underlying
 type.
 :::
 
 
-## [10.2 Flags Enumeration Type](:FlagsEnumerationType)
+## [10.2 Flags Enumeration Type](=FlagsEnumerationType)
 
 An enumeration type MAY indicate that the enumeration type allows
 multiple members to be selected simultaneously.
@@ -2483,7 +2483,7 @@ If not explicitly specified, only one enumeration type member MAY be
 selected simultaneously.
 
 ::: {.varjson .rep}
-### [ `$IsFlags`](:IsFlags.9.2)
+### [`$IsFlags`](=IsFlags.9.2)
 
 The value of `$IsFlags` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
@@ -2515,7 +2515,7 @@ have explicit names
 
 
 
-## [10.3 Enumeration Type Member](:EnumerationTypeMember)
+## [10.3 Enumeration Type Member](=EnumerationTypeMember)
 
 Enumeration type values consist of discrete members.
 
@@ -2538,7 +2538,7 @@ selected members is the bitwise OR of the discrete numeric member
 values.
 
 ::: {.varjson .rep}
-### [ Enumeration Member Object](:EnumerationMemberObject.10)
+### [Enumeration Member Object](=EnumerationMemberObject.10)
 
 Enumeration type members are represented as JSON object members, where
 the object member name is the enumeration member name and the object
@@ -2573,7 +2573,7 @@ Example 28: `FirstClass` has a value of 0, `TwoDay` a value of 1, and
 
 -------
 
-# [11 Type Definition](:TypeDefinition)
+# [11 Type Definition](=TypeDefinition)
 
 A type definition defines a specialization of one of the [primitive
 types](#PrimitiveTypes) or of the built-in abstract type
@@ -2592,7 +2592,7 @@ annotations with this term propagate to places where the annotated type
 definition is used, and whether they can be overridden.
 
 ::: {.varjson .rep}
-### [ Type Definition Object](:TypeDefinitionObject.11)
+### [Type Definition Object](=TypeDefinitionObject.11)
 
 A type definition is represented as a member of the schema object whose
 name is the unqualified name of the type definition and whose value is
@@ -2635,13 +2635,13 @@ Example 29:
 
 
 
-## [11.1 Underlying Primitive Type](:UnderlyingPrimitiveType)
+## [11.1 Underlying Primitive Type](=UnderlyingPrimitiveType)
 
 The underlying type of a type definition MUST be a primitive type that
 MUST NOT be another type definition.
 
 ::: {.varjson .rep}
-### [ `$UnderlyingType`](:UnderlyingType.11.1)
+### [`$UnderlyingType`](=UnderlyingType.11.1)
 
 The value of `$UnderlyingType` is the qualified name of the underlying
 type.
@@ -2670,9 +2670,9 @@ response.
 
 -------
 
-# [12 Action and Function](:ActionandFunction)
+# [12 Action and Function](=ActionandFunction)
 
-## [12.1 Action](:Action)
+## [12.1 Action](=Action)
 
 Actions are service-defined operations that MAY have observable side
 effects and MAY return a single instance or a collection of instances of
@@ -2690,7 +2690,7 @@ or complex types in scope.
 An action MAY define [parameters](#Parameter) used during the execution
 of the action.
 
-## [12.2 Action Overloads](:ActionOverloads)
+## [12.2 Action Overloads](=ActionOverloads)
 
 [Bound](#BoundorUnboundActionorFunctionOverloads) actions support
 overloading (multiple actions having the same name within the same
@@ -2704,7 +2704,7 @@ schema.
 An unbound action MAY have the same name as a bound action.
 
 ::: {.varjson .rep}
-### [ Action Overload Object](:ActionOverloadObject.12)
+### [Action Overload Object](=ActionOverloadObject.12)
 
 An action is represented as a member of the schema object whose name is
 the unqualified name of the action and whose value is an array. The
@@ -2721,7 +2721,7 @@ It MAY contain the members
 :::
 
 
-## [12.3 Function](:Function)
+## [12.3 Function](=Function)
 
 Functions are service-defined operations that MUST NOT have observable
 side effects and MUST return a single instance or a collection of
@@ -2739,7 +2739,7 @@ or complex types in scope.
 A function MAY define [parameters](#Parameter) used during the execution
 of the function.
 
-## [12.4 Function Overloads](:FunctionOverloads)
+## [12.4 Function Overloads](=FunctionOverloads)
 
 [Bound](#BoundorUnboundActionorFunctionOverloads) functions support
 overloading (multiple functions having the same name within the same
@@ -2770,7 +2770,7 @@ disambiguate overloads for both bound and unbound functions, even if
 they specify the same underlying type.
 
 ::: {.varjson .rep}
-### [ Function Overload Object](:FunctionOverloadObject.13)
+### [Function Overload Object](=FunctionOverloadObject.13)
 
 A function is represented as a member of the schema object whose name is
 the unqualified name of the function and whose value is an array. The
@@ -2786,7 +2786,7 @@ and it MAY contain [annotations](#Annotation).
 :::
 
 
-## [12.5 Bound or Unbound Action or Function Overloads](:BoundorUnboundActionorFunctionOverloads)
+## [12.5 Bound or Unbound Action or Function Overloads](=BoundorUnboundActionorFunctionOverloads)
 
 An action or function overload MAY indicate that it is bound. If not
 explicitly indicated, it is unbound.
@@ -2803,14 +2803,14 @@ Unbound functions are invoked as static functions within a common expression
 or from the entity container through a [function import](#FunctionImport).
 
 ::: {.varjson .rep}
-### [ `$IsBound`](:IsBound.13.1)
+### [`$IsBound`](=IsBound.13.1)
 
 The value of `$IsBound` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
 :::
 
 
-## [12.6 Entity Set Path](:EntitySetPath)
+## [12.6 Entity Set Path](=EntitySetPath)
 
 Bound actions and functions that return an entity or a collection of
 entities MAY specify an entity set path if the entity set of the
@@ -2830,14 +2830,14 @@ type-cast segment names the [qualified name](#QualifiedName) of the
 entity type that should be returned from the type cast.
 
 ::: {.varjson .rep}
-### [ `$EntitySetPath`](:EntitySetPath.13.2)
+### [`$EntitySetPath`](=EntitySetPath.13.2)
 
 The value of `$EntitySetPath` is a string containing the entity set
 path.
 :::
 
 
-## [12.7 Composable Function](:ComposableFunction)
+## [12.7 Composable Function](=ComposableFunction)
 
 A function MAY indicate that it is composable. If not explicitly
 indicated, it is not composable.
@@ -2848,14 +2848,14 @@ composable function, and with system query options as appropriate for
 the type returned by the composable function.
 
 ::: {.varjson .rep}
-### [ `$IsComposable`](:IsComposable.13.3)
+### [`$IsComposable`](=IsComposable.13.3)
 
 The value of `$IsComposable` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
 :::
 
 
-## [12.8 Return Type](:ReturnType)
+## [12.8 Return Type](=ReturnType)
 
 The return type of an action or function overload MAY be any type in
 scope, or a collection of any type in scope.
@@ -2870,7 +2870,7 @@ For a collection-valued return type the facets apply to the items in the
 returned collection.
 
 ::: {.varjson .rep}
-### [ `$ReturnType`](:ReturnType.13.4)
+### [`$ReturnType`](=ReturnType.13.4)
 
 The value of `$ReturnType` is an object. It MAY contain the members
 `$Type`, `$Collection`, `$Nullable`, [`$MaxLength`](#MaxLength),
@@ -2879,7 +2879,7 @@ and [`$SRID`](#SRID).
 
 It also MAY contain [annotations](#Annotation).
 
-### [ `$Type`] :Type.13.5)and [ `$Collection`](:Collection.13.6)
+### [`$Type`] =Type.13.5)and [`$Collection`](=Collection.13.6)
 
 For single-valued return types the value of `$Type` is the qualified
 name of the returned type.
@@ -2890,7 +2890,7 @@ present with the literal value `true`.
 
 Absence of the `$Type` member means the type is `Edm.String`.
 
-### [ `$Nullable`](:Nullable.13.7)
+### [`$Nullable`](=Nullable.13.7)
 
 The value of `$Nullable` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
@@ -2910,7 +2910,7 @@ fail with an error response if it cannot compute a result.
 :::
 
 
-## [12.9 Parameter](:Parameter)
+## [12.9 Parameter](=Parameter)
 
 An action or function overload MAY specify parameters.
 
@@ -2935,12 +2935,12 @@ the parameter value is a collection, the facets apply to the items in
 the collection.
 
 ::: {.varjson .rep}
-### [ `$Parameter`](:Parameter.13.8)
+### [`$Parameter`](=Parameter.13.8)
 
 The value of `$Parameter` is an array. The array contains one object per
 parameter.
 
-### [ Parameter Object](:ParameterObject.14)
+### [Parameter Object](=ParameterObject.14)
 
 A parameter object MUST contain the member `$Name`, and it MAY contain
 the members `$Type`, `$Collection`, `$Nullable`,
@@ -2949,11 +2949,11 @@ the members `$Type`, `$Collection`, `$Nullable`,
 
 Parameter objects MAY also contain [annotations](#Annotation).
 
-### [ `$Name`](:Name.14.1)
+### [`$Name`](=Name.14.1)
 
 The value of `$Name` is a string containing the parameter name.
 
-### [ `$Type`] :Type.14.2)and [ `$Collection`](:Collection.14.3)
+### [`$Type`] =Type.14.2)and [`$Collection`](=Collection.14.3)
 
 For single-valued parameters the value of `$Type` is the qualified name
 of the accepted type.
@@ -2964,7 +2964,7 @@ present with the literal value `true`.
 
 Absence of the `$Type` member means the type is `Edm.String`.
 
-### [ `$Nullable`](:Nullable.14.4)
+### [`$Nullable`](=Nullable.14.4)
 
 The value of `$Nullable` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
@@ -3009,7 +3009,7 @@ function with the `$Parameter` member.
 
 -------
 
-# [13 Entity Container](:EntityContainer)
+# [13 Entity Container](=EntityContainer)
 
 Each metadata document used to describe an OData service MUST define
 exactly one entity container.
@@ -3088,7 +3088,7 @@ import*](#ActionImport) is used to expose a function or action defined
 in an entity model as a top level resource.
 
 ::: {.varjson .rep}
-### [ Entity Container Object](:EntityContainerObject.15)
+### [Entity Container Object](=EntityContainerObject.15)
 
 An entity container is represented as a member of the schema object
 whose name is the unqualified name of the entity container and whose
@@ -3150,7 +3150,7 @@ action imports, and function imports.
 
 
 
-## [13.1 Extending an Entity Container](:ExtendinganEntityContainer)
+## [13.1 Extending an Entity Container](=ExtendinganEntityContainer)
 
 An entity container MAY specify that it extends another entity container
 in scope. All children of the "base" entity container are added to the
@@ -3169,7 +3169,7 @@ containers. Clients should be prepared to process cycles introduced by
 extending entity containers.
 
 ::: {.varjson .rep}
-### [ `$Extends`](:Extends.15.1)
+### [`$Extends`](=Extends.15.1)
 
 The value of `$Extends` is the qualified name of the entity container to
 be extended.
@@ -3190,7 +3190,7 @@ entity container located in `SomeOtherSchema`
 
 
 
-## [13.2 Entity Set](:EntitySet)
+## [13.2 Entity Set](=EntitySet)
 
 Entity sets are top-level collection-valued resources.
 
@@ -3211,7 +3211,7 @@ Entity sets that cannot be queried without specifying additional query
 options SHOULD NOT be included in the service document.
 
 ::: {.varjson .rep}
-### [ Entity Set Object](:EntitySetObject.16)
+### [Entity Set Object](=EntitySetObject.16)
 
 An entity set is represented as a member of the entity container object
 whose name is the name of the entity set and whose value is an object.
@@ -3223,22 +3223,22 @@ It MAY contain the members `$IncludeInServiceDocument` and
 [`$NavigationPropertyBinding`](#NavigationPropertyBinding) as well as
 [annotations](#Annotation).
 
-### [ `$Collection`](:Collection.16.1)
+### [`$Collection`](=Collection.16.1)
 
 The value of `$Collection` is the Boolean value `true`.
 
-### [ `$Type`](:Type.16.2)
+### [`$Type`](=Type.16.2)
 
 The value of `$Type` is the qualified name of an entity type.
 
-### [ `$IncludeInServiceDocument`](:IncludeInServiceDocument.16.3)
+### [`$IncludeInServiceDocument`](=IncludeInServiceDocument.16.3)
 
 The value of `$IncludeInServiceDocument` is one of the Boolean literals
 `true` or `false`. Absence of the member means `true`.
 :::
 
 
-## [13.3 Singleton](:Singleton)
+## [13.3 Singleton](=Singleton)
 
 Singletons are top-level single-valued resources.
 
@@ -3251,7 +3251,7 @@ A singleton MUST specify a type that MUST be an entity type in scope.
 A singleton MUST reference an instance its entity type.
 
 ::: {.varjson .rep}
-### [ Singleton Object](:SingletonObject.17)
+### [Singleton Object](=SingletonObject.17)
 
 A singleton is represented as a member of the entity container object
 whose name is the name of the singleton and whose value is an object.
@@ -3263,11 +3263,11 @@ It MAY contain the member
 [`$NavigationPropertyBinding`](#NavigationPropertyBinding) as well as
 [annotations](#Annotation).
 
-### [ `$Type`](:Type.17.1)
+### [`$Type`](=Type.17.1)
 
 The value of `$Type` is the qualified name of an entity type.
 
-### [ `$Nullable`](:Nullable.17.2)
+### [`$Nullable`](=Nullable.17.2)
 
 The value of `$Nullable` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.In OData 4.0 responses this
@@ -3275,7 +3275,7 @@ member MUST NOT be specified.
 :::
 
 
-## [13.4 Navigation Property Binding](:NavigationPropertyBinding)
+## [13.4 Navigation Property Binding](=NavigationPropertyBinding)
 
 If the entity type of an entity set or singleton declares navigation
 properties, a navigation property binding allows describing which entity
@@ -3289,7 +3289,7 @@ or containment navigation properties.
 If omitted, clients MUST assume that the target entity set or singleton
 can vary per related entity.
 
-### [13.4.1 Navigation Property Path Binding](:NavigationPropertyPathBinding)
+### [13.4.1 Navigation Property Path Binding](=NavigationPropertyPathBinding)
 
 A navigation property binding MUST specify a path to a navigation
 property of the entity set's or singleton's declared entity type, or a
@@ -3328,7 +3328,7 @@ that differ only in a type-cast segment, allowing to bind instances of
 different sub-types to different targets. If paths differ only in
 type-cast segments, the most specific path applies.
 
-### [13.4.2 Binding Target](:BindingTarget)
+### [13.4.2 Binding Target](=BindingTarget)
 
 A navigation property binding MUST specify a target via a [simple
 identifier](#SimpleIdentifier) or [target path](#TargetPath). It
@@ -3347,7 +3347,7 @@ before ending in a containment navigation property, and there MUST NOT
 be any non-containment navigation properties prior to the final segment.
 
 ::: {.varjson .rep}
-### [ `$NavigationPropertyBinding`](:NavigationPropertyBinding.17.3)
+### [`$NavigationPropertyBinding`](=NavigationPropertyBinding.17.3)
 
 The value of `$NavigationPropertyBinding` is an object. It consists of
 members whose name is the navigation property binding path and whose
@@ -3401,7 +3401,7 @@ Example 37: binding `Supplier` on `Products` contained within
 
 
 
-## [13.5 Action Import](:ActionImport)
+## [13.5 Action Import](=ActionImport)
 
 Action imports sets are top-level resources that are never included in
 the service document.
@@ -3421,7 +3421,7 @@ container. If a [target path](#TargetPath) is specified, it MUST resolve
 to an entity set in scope.
 
 ::: {.varjson .rep}
-### [ Action Import Object](:ActionImportObject.18)
+### [Action Import Object](=ActionImportObject.18)
 
 An action import is represented as a member of the entity container
 object whose name is the name of the action import and whose value is an
@@ -3433,12 +3433,12 @@ It MAY contain the member `$EntitySet`.
 
 It MAY also contain [annotations](#Annotation).
 
-### [ `$Action`](:Action.18.1)
+### [`$Action`](=Action.18.1)
 
 The value of `$Action` is a string containing the qualified name of an
 unbound action.
 
-### [ `$EntitySet`](:EntitySet.18.2)
+### [`$EntitySet`](=EntitySet.18.2)
 
 The value of `$EntitySet` is a string containing either the unqualified
 name of an entity set in the same entity container or a path to an
@@ -3446,7 +3446,7 @@ entity set in a different entity container.
 :::
 
 
-## [13.6 Function Import](:FunctionImport)
+## [13.6 Function Import](=FunctionImport)
 
 Function imports sets are top-level resources.
 
@@ -3471,7 +3471,7 @@ is included in the service document. If not explicitly indicated, it is
 not included.
 
 ::: {.varjson .rep}
-### [ Function Import Object](:FunctionImportObject.19)
+### [Function Import Object](=FunctionImportObject.19)
 
 A function import is represented as a member of the entity container
 object whose name is the name of the function import and whose value is
@@ -3483,18 +3483,18 @@ It MAY contain the members `$EntitySet` and `$IncludeInServiceDocument`.
 
 It MAY also contain [annotations](#Annotation).
 
-### [ `$Function`](:Function.19.1)
+### [`$Function`](=Function.19.1)
 
 The value of `$Function` is a string containing the qualified name of an
 unbound function.
 
-### [ `$EntitySet`](:EntitySet.19.2)
+### [`$EntitySet`](=EntitySet.19.2)
 
 The value of `$EntitySet` is a string containing either the unqualified
 name of an entity set in the same entity container or a path to an
 entity set in a different entity container.
 
-### [ `$IncludeInServiceDocument`](:IncludeInServiceDocument.19.3)
+### [`$IncludeInServiceDocument`](=IncludeInServiceDocument.19.3)
 
 The value of `$IncludeInServiceDocument` is one of the Boolean literals
 `true` or `false`. Absence of the member means `false`.
@@ -3504,7 +3504,7 @@ The value of `$IncludeInServiceDocument` is one of the Boolean literals
 
 -------
 
-# [14 Vocabulary and Annotation](:VocabularyandAnnotation)
+# [14 Vocabulary and Annotation](=VocabularyandAnnotation)
 
 Vocabularies and annotations provide the ability to annotate metadata as
 well as instance data, and define a powerful extensibility point for
@@ -3606,7 +3606,7 @@ type specified by the term `SearchResult`
 :::
 
 
-## [14.1 Term](:Term)
+## [14.1 Term](=Term)
 
 A term allows annotating a model element or OData resource
 representation with additional data.
@@ -3618,7 +3618,7 @@ The term's type MUST be a type in scope, or a collection of a type in
 scope.
 
 ::: {.varjson .rep}
-### [ Term Object](:TermObject.20)
+### [Term Object](=TermObject.20)
 
 A term is represented as a member of the schema object whose name is the
 unqualified name of the term and whose value is an object.
@@ -3635,7 +3635,7 @@ It MAY contain the members `$Type`, `$Collection`, `$Nullable`, `$DefaultValue`,
 
 It MAY contain [annotations](#Annotation).
 
-### [ `$Type`] :Type.20.1)and [ `$Collection`](:Collection.20.2)
+### [`$Type`] =Type.20.1)and [`$Collection`](=Collection.20.2)
 
 For single-valued terms the value of `$Type` is the qualified name of
 the term's type.
@@ -3646,7 +3646,7 @@ with the literal value `true`.
 
 Absence of the `$Type` member means the type is `Edm.String`.
 
-### [ `$Nullable`](:Nullable.20.3)
+### [`$Nullable`](=Nullable.20.3)
 
 The value of `$Nullable` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
@@ -3659,7 +3659,7 @@ collection that MAY be empty. In this case `$Nullable` applies to items
 of the collection and specifies whether the collection MAY contain
 `null` values.
 
-### [ `$DefaultValue`](:DefaultValue.20.4)
+### [`$DefaultValue`](=DefaultValue.20.4)
 
 The value of `$DefaultValue` is the type-specific JSON representation of
 the default value of the term, see
@@ -3671,7 +3671,7 @@ CSDL JSON documents MUST always specify an explicit value.
 :::
 
 
-### [14.1.1 Specialized Term](:SpecializedTerm)
+### [14.1.1 Specialized Term](=SpecializedTerm)
 
 A term MAY specialize another term in scope by specifying it as its base
 term.
@@ -3681,13 +3681,13 @@ with the same qualifier, and so on until a term without a base term is
 reached.
 
 ::: {.varjson .rep}
-### [ `$BaseTerm`](:BaseTerm.20.5)
+### [`$BaseTerm`](=BaseTerm.20.5)
 
 The value of `$BaseTerm` is the qualified name of the base term.
 :::
 
 
-### [14.1.2 Applicability](:Applicability)
+### [14.1.2 Applicability](=Applicability)
 
 Applicability specifies a list of model elements to which the term MAY be applied.
 If no list is supplied, the term MAY be applied to any model element.
@@ -3734,7 +3734,7 @@ Symbolic Value|Model Element
 `UrlRef`                  |UrlRef annotation expression
 
 ::: {.varjson .rep}
-### [ `$AppliesTo`](:AppliesTo.20.6)
+### [`$AppliesTo`](=AppliesTo.20.6)
 
 The value of `$AppliesTo` is an array whose items are strings containing
 symbolic values from the table above that identify model elements the
@@ -3762,7 +3762,7 @@ are defined in [OData-VocCore](#ODataVocCore))
 
 
 
-## [14.2 Annotation](:Annotation)
+## [14.2 Annotation](=Annotation)
 
 An annotation applies a [term](#Term) to a model element and defines how
 to calculate a value for the term application. Both term and model
@@ -3777,7 +3777,7 @@ an annotation value is a [path expression](#ValuePath) that refers to a
 property of the same or a related structured type.
 
 ::: {.varjson .rep}
-### [ Annotation Member](:AnnotationMember.21)
+### [Annotation Member](=AnnotationMember.21)
 
 An annotation is represented as a member whose name consists of an at
 (`@`) character, followed by the qualified name of a term, optionally
@@ -3849,7 +3849,7 @@ property with a more specific label, whereas an annotation marking a
 type definition as containing a phone number will propagate to all using
 properties but may not be overridden.
 
-### [14.2.1 Qualifier](:Qualifier)
+### [14.2.1 Qualifier](=Qualifier)
 
 A term can be applied multiple times to the same model element by
 providing a qualifier to distinguish the annotations. The qualifier is a
@@ -3869,7 +3869,7 @@ Example 41: annotation should only be applied to tablet devices
 
 
 
-### [14.2.2 Target](:Target)
+### [14.2.2 Target](=Target)
 
 The target of an annotation is the model element the term is applied to.
 
@@ -3923,12 +3923,12 @@ properties of singletons or entities in a particular entity set. These
 annotations override annotations on the properties or navigation
 properties targeted via the declaring structured type.
 
-## [14.3 Constant Expression](:ConstantExpression)
+## [14.3 Constant Expression](=ConstantExpression)
 
 Constant expressions allow assigning a constant value to an applied
 term.
 
-### [14.3.1 Binary](:Binary)
+### [14.3.1 Binary](=Binary)
 
 ::: {.varjson .rep}
 Binary expressions are represented as a string containing the
@@ -3944,7 +3944,7 @@ Example 43: base64url-encoded binary value (OData)
 
 
 
-### [14.3.2 Boolean](:Boolean)
+### [14.3.2 Boolean](=Boolean)
 
 ::: {.varjson .rep}
 Boolean expressions are represented as the literals `true` or `false`.
@@ -3959,7 +3959,7 @@ Example 44:
 
 
 
-### [14.3.3 Date](:Date)
+### [14.3.3 Date](=Date)
 
 ::: {.varjson .rep}
 Date expressions are represented as a string containing the date value.
@@ -3979,7 +3979,7 @@ Example 45:
 
 
 
-### [14.3.4 DateTimeOffset](:DateTimeOffset)
+### [14.3.4 DateTimeOffset](=DateTimeOffset)
 
 ::: {.varjson .rep}
 Datetimestamp expressions are represented as a string containing the
@@ -4000,7 +4000,7 @@ Example 46:
 
 
 
-### [14.3.5 Decimal](:Decimal)
+### [14.3.5 Decimal](=Decimal)
 
 ::: {.varjson .rep}
 Decimal expressions are represented as either a number or a string. The
@@ -4027,7 +4027,7 @@ Example 48: "safe" representation as a string
 
 
 
-### [14.3.6 Duration](:Duration)
+### [14.3.6 Duration](=Duration)
 
 ::: {.varjson .rep}
 Duration expressions are represented as a string containing the duration
@@ -4045,7 +4045,7 @@ Example 49:
 
 
 
-### [14.3.7 Enumeration Member](:EnumerationMember)
+### [14.3.7 Enumeration Member](=EnumerationMember)
 
 ::: {.varjson .rep}
 Enumeration member expressions are represented as a string containing
@@ -4078,7 +4078,7 @@ symbolic value
 
 
 
-### [14.3.8 Floating-Point Number](:FloatingPointNumber)
+### [14.3.8 Floating-Point Number](=FloatingPointNumber)
 
 ::: {.varjson .rep}
 Floating-point expressions are represented as a number or as a string
@@ -4098,7 +4098,7 @@ Example 52:
 
 
 
-### [14.3.9 Guid](:Guid)
+### [14.3.9 Guid](=Guid)
 
 ::: {.varjson .rep}
 Guid expressions are represented as a string containing the uuid value.
@@ -4115,7 +4115,7 @@ Example 53:
 
 
 
-### [14.3.10 Integer](:Integer)
+### [14.3.10 Integer](=Integer)
 
 ::: {.varjson .rep}
 Integer expressions are represented as either a number or a string,
@@ -4140,7 +4140,7 @@ Example 55: "safe" representation as a string
 
 
 
-### [14.3.11 String](:String)
+### [14.3.11 String](=String)
 
 ::: {.varjson .rep}
 String expressions are represented as a JSON string.
@@ -4155,7 +4155,7 @@ Example 56:
 
 
 
-### [14.3.12 Time of Day](:TimeofDay)
+### [14.3.12 Time of Day](=TimeofDay)
 
 ::: {.varjson .rep}
 Time-of-day expressions are represented as a string containing the
@@ -4172,7 +4172,7 @@ Example 57:
 
 
 
-### [14.3.13 Geo Values](:GeoValues)
+### [14.3.13 Geo Values](=GeoValues)
 
 ::: {.varjson .rep}
 Values are represented as GeoJSON, see [OData-JSON](#ODataJSON).
@@ -4187,7 +4187,7 @@ Example 58:
 
 
 
-### [14.3.14 Stream Values](:StreamValues)
+### [14.3.14 Stream Values](=StreamValues)
 
 ::: {.varjson .rep}
 Constant values of type `Edm.Stream` are represented according to [OData-JSON](#ODataJSON) and MUST be accompanied by the `mediaContentType` control information to indicate how the stream value is to be interpreted.
@@ -4213,12 +4213,12 @@ Example 59:
 :::
 
 
-## [14.4 Dynamic Expression](:DynamicExpression)
+## [14.4 Dynamic Expression](=DynamicExpression)
 
 Dynamic expressions allow assigning a calculated value to an applied
 term.
 
-### [14.4.1 Path Expressions](:PathExpressions)
+### [14.4.1 Path Expressions](=PathExpressions)
 
 Path expressions allow assigning a value to an applied term or term
 component. There are two kinds of path expressions:
@@ -4235,7 +4235,7 @@ Instance paths are used within [Value Path](#ValuePath) expressions.
 They allow assigning values to terms or term properties of model-defined types or of built-in types other
 than the `Edm.*Path` types.
 
-#### [14.4.1.1 Path Syntax](:PathSyntax)
+#### [14.4.1.1 Path Syntax](=PathSyntax)
 
 Model paths and instance paths share a common syntax which is derived
 from the path expression syntax of URLs, see [OData-URL](#ODataURL).
@@ -4411,7 +4411,7 @@ Addresses/-1/Street
 ```
 :::
 
-#### [14.4.1.2 Path Evaluation](:PathEvaluation)
+#### [14.4.1.2 Path Evaluation](=PathEvaluation)
 
 Annotations MAY be embedded within their target, or specified separately,
 e.g. as part of a different schema, and specify a path to their target model
@@ -4560,7 +4560,7 @@ type `self.A` named in the target expression.
 
 :::
 
-#### [14.4.1.3 Annotation Path](:AnnotationPath)
+#### [14.4.1.3 Annotation Path](=AnnotationPath)
 
 The annotation path expression provides a value for terms or term
 properties that specify the [built-in
@@ -4595,7 +4595,7 @@ Example 70:
 
 
 
-#### [14.4.1.4 Model Element Path](:ModelElementPath)
+#### [14.4.1.4 Model Element Path](=ModelElementPath)
 
 The model element path expression provides a value for terms or term
 properties that specify the [built-in
@@ -4619,7 +4619,7 @@ Example 71:
 
 
 
-#### [14.4.1.5 Navigation Property Path](:NavigationPropertyPath)
+#### [14.4.1.5 Navigation Property Path](=NavigationPropertyPath)
 
 The navigation property path expression provides a value for terms or
 term properties that specify the [built-in
@@ -4654,7 +4654,7 @@ Example 72:
 
 
 
-#### [14.4.1.6 Property Path](:PropertyPath)
+#### [14.4.1.6 Property Path](=PropertyPath)
 
 The property path expression provides a value for terms or term
 properties that specify one of the [built-in
@@ -4689,7 +4689,7 @@ Example 73:
 
 
 
-#### [14.4.1.7 Value Path](:ValuePath)
+#### [14.4.1.7 Value Path](=ValuePath)
 
 The value path expression allows assigning a value by traversing an
 object graph. It can be used in annotations that target entity
@@ -4701,7 +4701,7 @@ The value of the path expression is the instance or collection of
 instances identified by the path.
 
 ::: {.varjson .rep}
-### [ `$Path`](:Path.21.1)
+### [`$Path`](=Path.21.1)
 
 Path expressions are represented as an object with a single member
 `$Path` whose value is a string containing a path.
@@ -4721,7 +4721,7 @@ Example 74:
 
 
 
-### [14.4.2 Comparison and Logical Operators](:ComparisonandLogicalOperators)
+### [14.4.2 Comparison and Logical Operators](=ComparisonandLogicalOperators)
 
 Annotations MAY use the following logical and comparison expressions
 which evaluate to a Boolean value. These expressions MAY be combined and
@@ -4753,7 +4753,7 @@ The other comparison operators require two operand expressions that
 evaluate to comparable values.
 
 ::: {.varjson .rep}
-### [ `$And`] :And.21.2)and [ `$Or`](:Or.21.3)
+### [`$And`] =And.21.2)and [`$Or`](=Or.21.3)
 
 The `And` and `Or` logical expressions are represented as an object with
 a single member whose value is an array with two annotation expressions.
@@ -4761,14 +4761,14 @@ The member name is one of `$And`, or `$Or`.
 
 It MAY contain [annotations](#Annotation).
 
-### [ `$Not`](:Not.21.4)
+### [`$Not`](=Not.21.4)
 
 Negation expressions are represented as an object with a single member
 `$Not` whose value is an annotation expression.
 
 It MAY contain [annotations](#Annotation).
 
-### [ `$Eq`], :Eq.21.5)    [ `$Ne`], :Ne.21.6)    [ `$Gt`], :Gt.21.7)    [ `$Ge`], :Ge.21.8)    [ `$Lt`], :Lt.21.9)    [ `$Le`], :Le.21.10)    [ `$Has`], :Has.21.11)and [ `$In`](:In.21.12)
+### [`$Eq`], =Eq.21.5)    [`$Ne`], =Ne.21.6)    [`$Gt`], =Gt.21.7)    [`$Ge`], =Ge.21.8)    [`$Lt`], =Lt.21.9)    [`$Le`], =Le.21.10)    [`$Has`], =Has.21.11)and [`$In`](=In.21.12)
 
 All comparison expressions are represented as an object with a single
 member whose value is an array with two annotation expressions. The
@@ -4878,7 +4878,7 @@ Example 75:
 
 
 
-### [14.4.3 Arithmetic Operators](:ArithmeticOperators)
+### [14.4.3 Arithmetic Operators](=ArithmeticOperators)
 
 Annotations MAY use the following arithmetic expressions which evaluate
 to a numeric value. These expressions MAY be combined, and they MAY be
@@ -4902,14 +4902,14 @@ to a numeric value. The other arithmetic operators require two operand
 expressions that evaluate to numeric values.
 
 ::: {.varjson .rep}
-### [ `$Neg`](:Neg.21.13)
+### [`$Neg`](=Neg.21.13)
 
 Negation expressions are represented as an object with a single member
 `$Neg` whose value is an annotation expression.
 
 It MAY contain [annotations](#Annotation).
 
-### [ `$Add`], :Add.21.14)    [ `$Sub`], :Sub.21.15)    [ `$Mul`], :Mul.21.16)    [ `$Div`], :Div.21.17)    [ `$DivBy`], :DivBy.21.18)and [ `$Mod`](:Mod.21.19)
+### [`$Add`], =Add.21.14)    [`$Sub`], =Sub.21.15)    [`$Mul`], =Mul.21.16)    [`$Div`], =Div.21.17)    [`$DivBy`], =DivBy.21.18)and [`$Mod`](=Mod.21.19)
 
 These arithmetic expressions are represented as an object with as single
 member whose value is an array with two annotation expressions. The
@@ -4992,7 +4992,7 @@ Example 76:
 
 
 
-### [14.4.4 Apply Client-Side Functions](:ApplyClientSideFunctions)
+### [14.4.4 Apply Client-Side Functions](=ApplyClientSideFunctions)
 
 The apply expression enables a value to be obtained by applying a
 client-side function. The apply expression MAY have operand expressions.
@@ -5000,7 +5000,7 @@ The operand expressions are used as parameters to the client-side
 function.
 
 ::: {.varjson .rep}
-### [ `$Apply`] :Apply.21.20)and [ `$Function`](:Function.21.21)
+### [`$Apply`] =Apply.21.20)and [`$Function`](=Function.21.21)
 
 Apply expressions are represented as an object with a member `$Apply`
 whose value is an array of annotation expressions, and a member
@@ -5016,7 +5016,7 @@ functions that MUST be qualified with a namespace other than `odata`.
 Function names qualified with `odata` are reserved for this
 specification and its future versions.
 
-#### [14.4.4.1 Canonical Functions](:CanonicalFunctions)
+#### [14.4.4.1 Canonical Functions](=CanonicalFunctions)
 
 All canonical functions defined in [OData-URL](#ODataURL) can be used as
 client-side functions, qualified with the namespace `odata`. The
@@ -5087,7 +5087,7 @@ Example 77:
 enumeration, so the result of the `Path` expression is represented as
 the member name of the enumeration value.
 
-#### [14.4.4.2 Function `odata.fillUriTemplate`](:FunctionodatafillUriTemplate)
+#### [14.4.4.2 Function `odata.fillUriTemplate`](=FunctionodatafillUriTemplate)
 
 The `odata.fillUriTemplate` client-side function takes two or more
 expressions as arguments and returns a value of type `Edm.String`.
@@ -5136,7 +5136,7 @@ Name property of the Actor entity
 :::
 
 
-#### [14.4.4.3 Function `odata.matchesPattern`](:FunctionodatamatchesPattern)
+#### [14.4.4.3 Function `odata.matchesPattern`](=FunctionodatamatchesPattern)
 
 The `odata.matchesPattern` client-side function takes two string
 expressions as arguments and returns a Boolean value.
@@ -5165,7 +5165,7 @@ Example 79: all non-empty `FirstName` values not containing the letters
 :::
 
 
-#### [14.4.4.4 Function `odata.uriEncode`](:FunctionodatauriEncode)
+#### [14.4.4.4 Function `odata.uriEncode`](=FunctionodatauriEncode)
 
 The `odata.uriEncode` client-side function takes one argument of
 primitive type and returns the URL-encoded OData literal that can be
@@ -5198,7 +5198,7 @@ Example 80:
 :::
 
 
-### [14.4.5 Cast](:Cast)
+### [14.4.5 Cast](=Cast)
 
 The cast expression casts the value obtained from its single child
 expression to the specified type. The cast expression follows the same
@@ -5206,7 +5206,7 @@ rules as the `cast` canonical function defined in
 [OData-URL](#ODataURL).
 
 ::: {.varjson .rep}
-### [ `$Cast`](:Cast.21.22)
+### [`$Cast`](=Cast.21.22)
 
 Cast expressions are represented as an object with a member `$Cast`
 whose value is an annotation expression, a member `$Type` whose value is
@@ -5237,7 +5237,7 @@ Example 81:
 
 
 
-### [14.4.6 Collection](:Collection)
+### [14.4.6 Collection](=Collection)
 
 The collection expression enables a value to be obtained from zero or
 more item expressions. The value calculated by the collection expression
@@ -5263,7 +5263,7 @@ Example 82:
 
 
 
-### [14.4.7 If-Then-Else](:IfThenElse)
+### [14.4.7 If-Then-Else](=IfThenElse)
 
 The if-then-else expression enables a value to be obtained by evaluating
 a *condition expression*.
@@ -5294,7 +5294,7 @@ third expression is present, nothing is added to the surrounding
 collection.
 
 ::: {.varjson .rep}
-### [ `$If`](:If.21.23)
+### [`$If`](=If.21.23)
 
 Conditional expressions are represented as an object with a member `$If`
 whose value is an array of two or three annotation expressions.
@@ -5362,7 +5362,7 @@ Example 84: pronouns based on a person's `IdentifiesAsFemale` and `IdentifiesAsM
 
 
 
-### [14.4.8 Is-Of](:IsOf)
+### [14.4.8 Is-Of](=IsOf)
 
 The `is-of` expression checks whether the value obtained from its single
 child expression is compatible with the specified type. It returns
@@ -5370,7 +5370,7 @@ child expression is compatible with the specified type. It returns
 the specified type, and `false` otherwise.
 
 ::: {.varjson .rep}
-### [ `$IsOf`](:IsOf.21.24)
+### [`$IsOf`](=IsOf.21.24)
 
 Is-of expressions are represented as an object with a member `$IsOf`
 whose value is an annotation expression, a member `$Type` whose value is
@@ -5401,7 +5401,7 @@ Example 85:
 
 
 
-### [14.4.9 Labeled Element](:LabeledElement)
+### [14.4.9 Labeled Element](=LabeledElement)
 
 The labeled element expression assigns a name to its single child
 expression. The value of the child expression can then be reused
@@ -5417,7 +5417,7 @@ identifier](#SimpleIdentifier) value as its name that MUST be unique
 within the schema containing the expression.
 
 ::: {.varjson .rep}
-### [ `$LabeledElement`](:LabeledElement.21.25)
+### [`$LabeledElement`](=LabeledElement.21.25)
 
 Labeled element expressions are represented as an object with a member
 `$LabeledElement` whose value is an annotation expression, and a member
@@ -5440,7 +5440,7 @@ Example 86:
 
 
 
-### [14.4.10 Labeled Element Reference](:LabeledElementReference)
+### [14.4.10 Labeled Element Reference](=LabeledElementReference)
 
 The labeled element reference expression MUST specify the [qualified
 name](#QualifiedName) of a [labeled element expression](#LabeledElement)
@@ -5448,7 +5448,7 @@ in scope and returns the value of the identified labeled element
 expression as its value.
 
 ::: {.varjson .rep}
-### [ `$LabeledElementReference`](:LabeledElementReference.21.26)
+### [`$LabeledElementReference`](=LabeledElementReference.21.26)
 
 Labeled element reference expressions are represented as an object with
 a member `$LabeledElementReference` whose value is a string containing
@@ -5466,7 +5466,7 @@ Example 87:
 
 
 
-### [14.4.11 Null](:Null)
+### [14.4.11 Null](=Null)
 
 The null expression indicates the absence of a value. The null
 expression MAY be annotated.
@@ -5484,7 +5484,7 @@ Example 88:
 :::
 
 ::: {.varjson .rep}
-### [ `$Null`](:Null.21.27)
+### [`$Null`](=Null.21.27)
 
 Null expression containing [annotations](#Annotations) are represented
 as an object with a member `$Null` whose value is the literal `null`.
@@ -5503,7 +5503,7 @@ Example 89:
 
 
 
-### [14.4.12 Record](:Record)
+### [14.4.12 Record](=Record)
 
 The record expression enables a new entity type or complex type instance
 to be constructed.
@@ -5582,7 +5582,7 @@ that is pointing to a different service
 
 
 
-### [14.4.13 URL Reference](:URLReference)
+### [14.4.13 URL Reference](=URLReference)
 
 The URL reference expression enables a value to be obtained by sending a
 `GET` request.
@@ -5599,7 +5599,7 @@ expression MUST be type compatible with the type expected by the
 surrounding expression.
 
 ::: {.varjson .rep}
-### [ `$UrlRef`](:UrlRef.21.28)
+### [`$UrlRef`](=UrlRef.21.28)
 
 URL reference expressions are represented as an object with a single
 member `$UrlRef` whose value is an annotation expression.
@@ -5641,15 +5641,15 @@ Example 91:
 
 -------
 
-# [15 Identifier and Path Values](:IdentifierandPathValues)
+# [15 Identifier and Path Values](=IdentifierandPathValues)
 
-## [15.1 Namespace](:Namespace)
+## [15.1 Namespace](=Namespace)
 
 A namespace is a dot-separated sequence of [simple
 identifier](#SimpleIdentifier)s with a maximum length of 511 Unicode
 characters (code points).
 
-## [15.2 Simple Identifier](:SimpleIdentifier)
+## [15.2 Simple Identifier](=SimpleIdentifier)
 
 A simple identifier is a Unicode character sequence with the following
 restrictions:
@@ -5668,7 +5668,7 @@ restrictions:
 Non-normatively speaking it starts with a letter or underscore, followed
 by at most 127 letters, underscores or digits.
 
-## [15.3 Qualified Name](:QualifiedName)
+## [15.3 Qualified Name](=QualifiedName)
 
 For model elements that are direct children of a schema: the namespace
 or alias of the schema that defines the model element, followed by a dot
@@ -5678,7 +5678,7 @@ and the name of the model element, see rule `qualifiedTypeName` in
 For built-in [primitive types](#PrimitiveTypes): the name of the type,
 prefixed with `Edm` followed by a dot.
 
-## [15.4 Target Path](:TargetPath)
+## [15.4 Target Path](=TargetPath)
 
 Target paths are used to refer to other model elements.
 
@@ -5716,13 +5716,13 @@ MySchema.MyEntityContainer/MySingleton/MyComplexProperty/MyContainmentNavProp
 
 -------
 
-# [16 CSDL Examples](:CSDLExamples)
+# [16 CSDL Examples](=CSDLExamples)
 
 Following are two basic examples of valid EDM models as represented in
 CSDL JSON. These examples demonstrate many of the topics covered above.
 
 
-## [16.1 Products and Categories Example](:ProductsandCategoriesExample)
+## [16.1 Products and Categories Example](=ProductsandCategoriesExample)
 
 ::: {.varjson .example}
 Example 93:
@@ -5943,7 +5943,7 @@ Example 93:
 
 
 
-## [16.2 Annotations for Products and Categories Example](:AnnotationsforProductsandCategoriesExample)
+## [16.2 Annotations for Products and Categories Example](=AnnotationsforProductsandCategoriesExample)
 
 ::: {.varjson .example}
 Example 94:
@@ -6008,7 +6008,7 @@ Example 94:
 
 -------
 
-# [17 Conformance](:Conformance)
+# [17 Conformance](=Conformance)
 
 Conforming services MUST follow all rules of this specification document
 for the types, sets, functions, actions, containers and annotations they
@@ -6056,7 +6056,7 @@ the specification.
 
 -------
 
-# [Appendix A. References](:References)
+# [Appendix A. References](=References)
 
 <!-- Required section -->
 
@@ -6064,7 +6064,7 @@ This appendix contains the normative and informative references that are used in
 
 While any hyperlinks included in this appendix were valid at the time of publication, OASIS cannot guarantee their long-term validity.
 
-## [A.1 Normative References](:NormativeReferences)
+## [A.1 Normative References](=NormativeReferences)
 
 The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.
 
@@ -6139,7 +6139,7 @@ https://www.rfc-editor.org/info/rfc8259.
 _W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes_. D. Peterson, S. Gao, C. M. Sperberg-McQueen, H. S. Thompson, P. V. Biron, A. Malhotra, Editors, W3C Recommendation, 5 April 2012.  
 http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/. Latest version available at http://www.w3.org/TR/xmlschema11-2/.
 
-## [A.2 Informative References](:InformativeReferences)
+## [A.2 Informative References](=InformativeReferences)
 
 ###### [OpenUI5](:_OpenUI5)
 _OpenUI5 --- OData V4 Metadata JSON Format_.  
@@ -6147,7 +6147,7 @@ https://openui5.hana.ondemand.com/topic/87aac894a40640f89920d7b2a414499b.
 
 -------
 
-# [Appendix B. Table of JSON Objects and Members](:TableofJSONObjectsandMembers)
+# [Appendix B. Table of JSON Objects and Members](=TableofJSONObjectsandMembers)
 
 ::: toc
 - [Type Facet Members](#TypeFacetMembers.1)
@@ -6272,9 +6272,9 @@ https://openui5.hana.ondemand.com/topic/87aac894a40640f89920d7b2a414499b.
 
 -------
 
-# [Appendix C. Acknowledgments](:Acknowledgments)
+# [Appendix C. Acknowledgments](=Acknowledgments)
 
-## [C.1 Special Thanks](:SpecialThanks)
+## [C.1 Special Thanks](=SpecialThanks)
 
 The work of the OpenUI5 team on the OData V4 Metadata JSON Format, see
 [OpenUI5](#_OpenUI5), is gratefully acknowledged,
@@ -6287,7 +6287,7 @@ The contributions of the OASIS OData Technical Committee members,
 enumerated in [ODataProtocol](#ODataProtocol), are gratefully
 acknowledged.
 
-## [C.2 Participants](:Participants)
+## [C.2 Participants](=Participants)
 
 **OData TC Members:**
 
@@ -6306,7 +6306,7 @@ acknowledged.
 
 -------
 
-# [Appendix D. Revision History](:RevisionHistory)
+# [Appendix D. Revision History](=RevisionHistory)
 
 <!-- Optional section -->
 
@@ -6316,7 +6316,7 @@ acknowledged.
 
 -------
 
-# [Appendix E. Notices](:Notices)
+# [Appendix E. Notices](=Notices)
 
 <!-- Required section. Do not modify. -->
 

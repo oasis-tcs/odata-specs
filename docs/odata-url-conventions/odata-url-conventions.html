@@ -175,7 +175,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><em>OData Version 4.02 Part 2: URL Conventions</em> (this document). <a href="https://docs.oasis-open.org/odata/odata/v4.02/csd02/part2-url-conventions/odata-v4.02-csd02-part2-url-conventions.html">https://docs.oasis-open.org/odata/odata/v4.02/csd02/part2-url-conventions/odata-v4.02-csd02-part2-url-conventions.html</a></li>
 <li>ABNF components: <em>OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases Version 4.02</em>. <a href="https://docs.oasis-open.org/odata/odata/v4.02/csd02/abnf/">https://docs.oasis-open.org/odata/odata/v4.02/csd02/abnf/</a>.</li>
 </ul>
-<h4 id="related-work"><a id="RelatedWork" href="#RelatedWork">Related work:</a></h4>
+<h4 id="related-work"><a id="RelatedWork">Related work:</a></h4>
 <p>This specification replaces or supersedes:</p>
 <ul>
 <li><em>OData Version 4.01. Part 2: URL Conventions</em>. Edited by Michael Pizzo, Ralf Handl, and Martin Zurmuehl. OASIS Standard. Latest stage: <a href="https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part2-url-conventions.html">https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part2-url-conventions.html</a>.</li>
@@ -2285,7 +2285,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <pre><code>http://host/service/Categories
   ?$expand=Products/Sales.PremierProduct/$ref($filter=CurrentPromotion eq null)</code></pre>
 </div>
-<p><a id="ExpandOptionlevels" href="#ExpandOptionlevels">Cyclic navigation properties</a> (whose target type is identical or can be cast to its source type) can be recursively expanded using the special <code>$levels</code> option. The value of the <code>$levels</code> option is either a positive integer to specify the number of levels to expand, or the literal string <code>max</code> to specify the maximum expansion level supported by that service. A <code>$levels</code> option with a value of 1 specifies a single expand with no recursion.</p>
+<p><a id="ExpandOptionlevels">Cyclic navigation properties</a> (whose target type is identical or can be cast to its source type) can be recursively expanded using the special <code>$levels</code> option. The value of the <code>$levels</code> option is either a positive integer to specify the number of levels to expand, or the literal string <code>max</code> to specify the maximum expansion level supported by that service. A <code>$levels</code> option with a value of 1 specifies a single expand with no recursion.</p>
 <div class="example">
 <p>Example 130: all employees with their manager, manager’s manager, and manager’s manager’s manager</p>
 <pre><code>http://host/service/Employees?$expand=ReportsTo($levels=3)</code></pre>
@@ -2508,45 +2508,45 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <h2 id="a1-normative-references"><a id="NormativeReferences" href="#NormativeReferences">A.1 Normative References</a></h2>
 </summary>
 <p>The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.</p>
-<h6 id="odata-abnf"><a id="ODataABNF" href="#ODataABNF">OData-ABNF</a></h6>
+<h6 id="odata-abnf"><a id="ODataABNF">OData-ABNF</a></h6>
 <p><em>ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases.</em><br />
 See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
-<h6 id="odata-csdl"><a id="ODataCSDL" href="#ODataCSDL">OData-CSDL</a></h6>
+<h6 id="odata-csdl"><a id="ODataCSDL">OData-CSDL</a></h6>
 <p><em>OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02.</em><br />
 See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
 <p><em>OData Common Schema Definition Language (CSDL) XML Representation Version 4.02.</em><br />
 See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
-<h6 id="odata-json"><a id="ODataJSON" href="#ODataJSON">OData-JSON</a></h6>
+<h6 id="odata-json"><a id="ODataJSON">OData-JSON</a></h6>
 <p><em>OData JSON Format Version 4.02.</em><br />
 See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
-<h6 id="odata-protocol"><a id="ODataProtocol" href="#ODataProtocol">OData-Protocol</a></h6>
+<h6 id="odata-protocol"><a id="ODataProtocol">OData-Protocol</a></h6>
 <p><em>OData Version 4.02. Part 1: Protocol.</em><br />
 See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
-<h6 id="odata-voccap"><a id="ODataVocCap" href="#ODataVocCap">OData-VocCap</a></h6>
+<h6 id="odata-voccap"><a id="ODataVocCap">OData-VocCap</a></h6>
 <p><em>OData Vocabularies Version 4.0: Capabilities Vocabulary.</em><br />
 See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
-<h6 id="odata-voccore"><a id="ODataVocCore" href="#ODataVocCore">OData-VocCore</a></h6>
+<h6 id="odata-voccore"><a id="ODataVocCore">OData-VocCore</a></h6>
 <p><em>OData Vocabularies Version 4.0: Core Vocabulary.</em><br />
 See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
-<h6 id="rfc2119"><a id="rfc2119" href="#rfc2119">RFC2119</a></h6>
+<h6 id="rfc2119"><a id="rfc2119">RFC2119</a></h6>
 <p><em>Bradner, S., “Key words for use in RFCs to Indicate Requirement Levels”, BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997</em>. <a href="https://www.rfc-editor.org/info/rfc2119">https://www.rfc-editor.org/info/rfc2119</a>.</p>
-<h6 id="rfc3986"><a id="rfc3986" href="#rfc3986">RFC3986</a></h6>
+<h6 id="rfc3986"><a id="rfc3986">RFC3986</a></h6>
 <p><em>Berners-Lee, T., Fielding, R., and L. Masinter, “Uniform Resource Identifier (URI): Generic Syntax”, STD 66, RFC 3986, DOI 10.17487/RFC3986, January 2005</em>. <a href="https://www.rfc-editor.org/info/rfc3986">https://www.rfc-editor.org/info/rfc3986</a>.</p>
-<h6 id="rfc8174"><a id="rfc8174" href="#rfc8174">RFC8174</a></h6>
+<h6 id="rfc8174"><a id="rfc8174">RFC8174</a></h6>
 <p><em>Leiba, B., “Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words”, BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017</em>. <a href="https://www.rfc-editor.org/info/rfc8174">https://www.rfc-editor.org/info/rfc8174</a>.</p>
-<h6 id="url"><a id="_url" href="#_url">URL</a></h6>
+<h6 id="url"><a id="_url">URL</a></h6>
 <p><em>URL Living Standard.</em><br />
 <a href="https://url.spec.whatwg.org/">https://url.spec.whatwg.org/</a>.</p>
-<h6 id="xml-schema-2"><a id="XML-Schema2" href="#XML-Schema2">XML-Schema-2</a></h6>
+<h6 id="xml-schema-2"><a id="XML-Schema2">XML-Schema-2</a></h6>
 <p><em>W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes</em>. D. Peterson, S. Gao, C. M. Sperberg-McQueen, H. S. Thompson, P. V. Biron, A. Malhotra, Editors, W3C Recommendation, 5 April 2012.<br />
 <a href="http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/">http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/</a>. Latest version available at <a href="http://www.w3.org/TR/xmlschema11-2/">http://www.w3.org/TR/xmlschema11-2/</a>.</p>
 </details>
 <details open><summary>
 <h2 id="a2-informative-references"><a id="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a></h2>
 </summary>
-<h6 id="ecmascript"><a id="_ECMAScript" href="#_ECMAScript">ECMAScript</a></h6>
+<h6 id="ecmascript"><a id="_ECMAScript">ECMAScript</a></h6>
 <p><em>ECMAScript 2023 Language Specification, 14th Edition</em>, June 2023. Standard ECMA-262. <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">https://www.ecma-international.org/publications-and-standards/standards/ecma-262/</a>.</p>
-<h6 id="well-known-text"><a id="_WKT" href="#_WKT">Well-Known Text</a></h6>
+<h6 id="well-known-text"><a id="_WKT">Well-Known Text</a></h6>
 <p><em>OpenGIS Implementation Specification for Geographic information – Simple feature access – Part 1: Common architecture</em>, May 2011. Open Geospatial Consortium. <a href="https://www.ogc.org/standard/sfa/">https://www.ogc.org/standard/sfa/</a>.</p>
 <!-- TODO:
 -------
