@@ -20,7 +20,10 @@ Example [1](=ref): [Section 1.1](#Firstsubsection) contains [example 1](#ref).
 
 ### [Matrix](=Matrix.1)
 
-$$\matrix{ {\tt concat}(T,\hfill&\tt (1)\\ \quad{\tt aggregate}(α{\tt\ as\ }D))\hfill&\tt (2) }$$
+$$\matrix{
+{\tt concat}(T,\hfill&\tt (1)\\
+\quad{\tt aggregate}(α{\tt\ as\ }D))\hfill&\tt (2)
+}$$
 
 ### [Table](=Table.1.1)
 
