@@ -1960,7 +1960,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>An action or function overload MAY indicate that it is bound. If not explicitly indicated, it is unbound.</p>
 <p>Bound actions or functions are invoked on resources matching the type of the binding parameter. The binding parameter can be of any type, and it MAY be nullable.</p>
 <p>Unbound actions are invoked from the entity container through an <a href="#ActionImport">action import</a>.</p>
-<p>Unbound functions are invoked as static functions within a common expression (see <a href="#ODataURL">OData-URL</a>, section 5.1.1), or from the entity container through a <a href="#FunctionImport">function import</a>.</p>
+<p>Unbound functions are invoked as static functions within a common expression (see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CommonExpressions">OData-URL, section “Common Expressions”</a>), or from the entity container through a <a href="#FunctionImport">function import</a>.</p>
 <section id="isbound" class="varjson rep">
 <h3><a name="IsBound.13.1" href="#IsBound.13.1"><code>$IsBound</code></a></h3>
 <p>The value of <code>$IsBound</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the member means <code>false</code>.</p>
@@ -3536,7 +3536,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <details open><summary>
 <h4 id="14443-function-odatamatchespattern"><a name="FunctionodatamatchesPattern" href="#FunctionodatamatchesPattern">14.4.4.3 Function <code>odata.matchesPattern</code></a></h4>
 </summary>
-<p>The <code>odata.matchesPattern</code> client-side function takes two string expressions as arguments and returns a Boolean value. It is the counterpart of the identically named URL function <a href="#ODataURL">OData-URL, section 5.1.1.7.1</a>.</p>
+<p>The <code>odata.matchesPattern</code> client-side function takes two string expressions as arguments and returns a Boolean value. It is the counterpart of the identically named URL function <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#matchespattern">OData-URL, section “<code>matchespattern</code>”</a>.</p>
 <p>The function returns true if the second expression evaluates to an <a href="#_ECMAScript">ECMAScript</a> (JavaScript) regular expression and the result of the first argument expression matches that regular expression, using syntax and semantics of <a href="#_ECMAScript">ECMAScript</a> regular expressions.</p>
 <div class="varjson example">
 <p>Example 79: all non-empty <code>FirstName</code> values not containing the letters <code>b</code>, <code>c</code>, or <code>d</code> evaluate to <code>true</code></p>
