@@ -349,7 +349,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </details>
 <hr />
 <details open><summary>
-<h1 id="1-introduction"><a name="Introduction" href="#Introduction">1 Introduction</a></h1>
+<h1 id="1-introduction"><a id="Introduction" href="#Introduction">1 Introduction</a></h1>
 </summary>
 <p>The OData protocol is comprised of a set of specifications for representing and interacting with structured content. The core specification for the protocol is in <a href="#ODataProtocol">OData-Protocol</a>; this document is an extension of the core protocol. This document defines representations for the OData requests and responses using the JavaScript Object Notation (JSON), see [RFC8259].</p>
 <p>An OData JSON payload may represent:</p>
@@ -365,7 +365,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li>an <a href="#ErrorResponse">error</a>.</li>
 </ul>
 <details open><summary>
-<h2 id="11-changes-from-earlier-versions"><a name="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a></h2>
+<h2 id="11-changes-from-earlier-versions"><a id="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a></h2>
 </summary>
 <table>
 <thead>
@@ -405,20 +405,20 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </table>
 </details>
 <details open><summary>
-<h2 id="12-glossary"><a name="Glossary" href="#Glossary">1.2 Glossary</a></h2>
+<h2 id="12-glossary"><a id="Glossary" href="#Glossary">1.2 Glossary</a></h2>
 </summary>
 <details open><summary>
-<h3 id="121-definitions-of-terms"><a name="DefinitionsofTerms" href="#DefinitionsofTerms">1.2.1 Definitions of Terms</a></h3>
+<h3 id="121-definitions-of-terms"><a id="DefinitionsofTerms" href="#DefinitionsofTerms">1.2.1 Definitions of Terms</a></h3>
 </summary>
 </details>
 <details open><summary>
-<h3 id="122-acronyms-and-abbreviations"><a name="AcronymsandAbbreviations" href="#AcronymsandAbbreviations">1.2.2 Acronyms and Abbreviations</a></h3>
+<h3 id="122-acronyms-and-abbreviations"><a id="AcronymsandAbbreviations" href="#AcronymsandAbbreviations">1.2.2 Acronyms and Abbreviations</a></h3>
 </summary>
 <!-- TODO -->
 
 </details>
 <details open><summary>
-<h3 id="123-document-conventions"><a name="DocumentConventions" href="#DocumentConventions">1.2.3 Document Conventions</a></h3>
+<h3 id="123-document-conventions"><a id="DocumentConventions" href="#DocumentConventions">1.2.3 Document Conventions</a></h3>
 </summary>
 <p>Keywords defined by this specification use <code>this monospaced font</code>.</p>
 <p>Some sections of this specification are illustrated with non-normative examples.</p>
@@ -453,7 +453,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </details>
 <hr />
 <details open><summary>
-<h1 id="2-json-format-design"><a name="JSONFormatDesign" href="#JSONFormatDesign">2 JSON Format Design</a></h1>
+<h1 id="2-json-format-design"><a id="JSONFormatDesign" href="#JSONFormatDesign">2 JSON Format Design</a></h1>
 </summary>
 <p>JSON, as described in <a href="#rfc8259">RFC8259</a> defines a text format for serializing structured data. Objects are serialized as an unordered collection of name/value pairs.</p>
 <p>JSON does not define any semantics around the name/value pairs that make up an object, nor does it define an extensibility mechanism for adding control information to a payload.</p>
@@ -464,7 +464,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </details>
 <hr />
 <details open><summary>
-<h1 id="3-requesting-the-json-format"><a name="RequestingtheJSONFormat" href="#RequestingtheJSONFormat">3 Requesting the JSON Format</a></h1>
+<h1 id="3-requesting-the-json-format"><a id="RequestingtheJSONFormat" href="#RequestingtheJSONFormat">3 Requesting the JSON Format</a></h1>
 </summary>
 <p>The OData JSON format can be requested using the <code>$format</code> query option in the request URL with the media type <code>application/json</code>, optionally followed by format parameters, or the case-insensitive abbreviation <code>json</code> which MUST NOT be followed by format parameters.</p>
 <p>Alternatively, this format can be requested using the <code>Accept</code> header with the media type <code>application/json</code>, optionally followed by format parameters.</p>
@@ -479,7 +479,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>The names and values of these format parameters are case-insensitive.</p>
 <p>Services SHOULD advertise the supported media types by annotating the entity container with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#SupportedFormats"><code>Capabilities.SupportedFormats</code></a> defined in <a href="#ODataVocCap">OData-VocCap</a>, listing all available formats and combinations of supported format parameters.</p>
 <details open><summary>
-<h2 id="31-controlling-the-amount-of-control-information-in-responses"><a name="ControllingtheAmountofControlInformationinResponses" href="#ControllingtheAmountofControlInformationinResponses">3.1 Controlling the Amount of Control Information in Responses</a></h2>
+<h2 id="31-controlling-the-amount-of-control-information-in-responses"><a id="ControllingtheAmountofControlInformationinResponses" href="#ControllingtheAmountofControlInformationinResponses">3.1 Controlling the Amount of Control Information in Responses</a></h2>
 </summary>
 <p>The amount of <a href="#ControlInformation">control information</a> needed (or desired) in the payload depends on the client application and device. The <code>metadata</code> parameter can be applied to the <code>Accept</code> header of an OData request to influence how much control information will be included in the response.</p>
 <p>Other <code>Accept</code> header parameters (e.g., <code>streaming</code>) are orthogonal to the <code>metadata</code> parameter and are therefore not mentioned in this section.</p>
@@ -488,7 +488,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>If the client includes the <code>OData-MaxVersion</code> header in a request and does not specify the <code>metadata</code> format parameter in either the <code>Accept</code> header or <code>$format</code> query option, the service MUST return at least the <a href="#metadataminimalodatametadataminimal">minimal control information</a>.</p>
 <p>Note that in OData 4.0 the <code>metadata</code> format parameter was prefixed with <code>odata.</code>. Payloads with an <code>OData-Version</code> header equal to <code>4.0</code> MUST include the <code>odata.</code> prefix. Payloads with an <code>OData-Version</code> header equal to <code>4.01</code> or greater SHOULD NOT include the <code>odata.</code> prefix.</p>
 <details open><summary>
-<h3 id="311-metadataminimal-odatametadataminimal"><a name="metadataminimalodatametadataminimal" href="#metadataminimalodatametadataminimal">3.1.1 <code>metadata=minimal</code> (<code>odata.metadata=minimal</code>)</a></h3>
+<h3 id="311-metadataminimal-odatametadataminimal"><a id="metadataminimalodatametadataminimal" href="#metadataminimalodatametadataminimal">3.1.1 <code>metadata=minimal</code> (<code>odata.metadata=minimal</code>)</a></h3>
 </summary>
 <p>The <code>metadata=minimal</code> format parameter indicates that the service SHOULD remove computable control information from the payload wherever possible. The response payload MUST contain at least the following <a href="#ControlInformation">control information</a>:</p>
 <ul>
@@ -506,7 +506,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </ul>
 </details>
 <details open><summary>
-<h3 id="312-metadatafull-odatametadatafull"><a name="metadatafullodatametadatafull" href="#metadatafullodatametadatafull">3.1.2 <code>metadata=full</code> (<code>odata.metadata=full</code>)</a></h3>
+<h3 id="312-metadatafull-odatametadatafull"><a id="metadatafullodatametadatafull" href="#metadatafullodatametadatafull">3.1.2 <code>metadata=full</code> (<code>odata.metadata=full</code>)</a></h3>
 </summary>
 <p>The <code>metadata=full</code> format parameter indicates that the service MUST include all control information explicitly in the payload.</p>
 <p>The full list of control information that may appear in a <code>metadata=full</code> response is as follows:</p>
@@ -532,14 +532,14 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </ul>
 </details>
 <details open><summary>
-<h3 id="313-metadatanone-odatametadatanone"><a name="metadatanoneodatametadatanone" href="#metadatanoneodatametadatanone">3.1.3 <code>metadata=none</code> (<code>odata.metadata=none</code>)</a></h3>
+<h3 id="313-metadatanone-odatametadatanone"><a id="metadatanoneodatametadatanone" href="#metadatanoneodatametadatanone">3.1.3 <code>metadata=none</code> (<code>odata.metadata=none</code>)</a></h3>
 </summary>
 <p>The <code>metadata=none</code> format parameter indicates that the service SHOULD omit control information other than <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a> and <a href="#ControlInformationcountodatacount"><code>count</code></a>. This control information MUST continue to be included, as applicable, even in the <code>metadata=none</code> case.</p>
 <p>It is not valid to specify <code>metadata=none</code> on a <a href="#DeltaPayload">delta request</a>.</p>
 </details>
 </details>
 <details open><summary>
-<h2 id="32-controlling-the-representation-of-numbers"><a name="ControllingtheRepresentationofNumbers" href="#ControllingtheRepresentationofNumbers">3.2 Controlling the Representation of Numbers</a></h2>
+<h2 id="32-controlling-the-representation-of-numbers"><a id="ControllingtheRepresentationofNumbers" href="#ControllingtheRepresentationofNumbers">3.2 Controlling the Representation of Numbers</a></h2>
 </summary>
 <p>The <code>IEEE754Compatible=true</code> format parameter indicates that the service MUST serialize <code>Edm.Int64</code> and <code>Edm.Decimal</code> numbers (including the <a href="#ControlInformationcountodatacount"><code>count</code></a>, if requested) as strings. This is in conformance with <a href="#rfc7493">RFC7493</a>.</p>
 <p>If not specified, or specified as <code>IEEE754Compatible=false</code>, all numbers MUST be serialized as JSON numbers.</p>
@@ -554,11 +554,11 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </details>
 <hr />
 <details open><summary>
-<h1 id="4-common-characteristics"><a name="CommonCharacteristics" href="#CommonCharacteristics">4 Common Characteristics</a></h1>
+<h1 id="4-common-characteristics"><a id="CommonCharacteristics" href="#CommonCharacteristics">4 Common Characteristics</a></h1>
 </summary>
 <p>This section describes common characteristics of the representation for OData values in JSON. A request or response body consists of several parts. It contains OData values as part of a larger document. Requests and responses are structured almost identical; the few existing differences will be explicitly called out in the respective subsections.</p>
 <details open><summary>
-<h2 id="41-header-content-type"><a name="HeaderContentType" href="#HeaderContentType">4.1 Header Content-Type</a></h2>
+<h2 id="41-header-content-type"><a id="HeaderContentType" href="#HeaderContentType">4.1 Header Content-Type</a></h2>
 </summary>
 <p>Requests and responses with a JSON message body MUST have a <code>Content-Type</code> header value of <code>application/json</code>.</p>
 <p>Requests MAY add the <code>charset</code> parameter to the content type. Allowed values are <code>UTF-8</code>, <code>UTF-16</code>, and <code>UTF-32</code>. If no <code>charset</code> parameter is present, <code>UTF-8</code> MUST be assumed.</p>
@@ -567,19 +567,19 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>Requests and responses MAY add the <code>streaming</code> parameter with a value of <code>true</code> or <code>false</code>, see section “<a href="#PayloadOrderingConstraints">Payload Ordering Constraints</a>”.</p>
 </details>
 <details open><summary>
-<h2 id="42-message-body"><a name="MessageBody" href="#MessageBody">4.2 Message Body</a></h2>
+<h2 id="42-message-body"><a id="MessageBody" href="#MessageBody">4.2 Message Body</a></h2>
 </summary>
 <p>Each message body is represented as a single JSON object. This object is either the representation of an <a href="#Entity">entity</a>, an <a href="#EntityReference">entity reference</a> or a <a href="#ComplexValue">complex type instance</a>, or it contains a name/value pair whose name MUST be <code>value</code> and whose value is the correct representation for a <a href="#PrimitiveValue">primitive value</a>, a <a href="#CollectionofPrimitiveValues">collection of primitive values</a>, a <a href="#CollectionofComplexValues">collection of complex values</a>, a <a href="#CollectionofEntities">collection of entities</a>, or a collection of objects that represent <a href="#DeltaPayload">changes to a previous result</a>.</p>
 <p>Client libraries MUST retain the order of objects within an array in JSON responses.</p>
 </details>
 <details open><summary>
-<h2 id="43-urls-in-message-bodies"><a name="URLsinMessageBodies" href="#URLsinMessageBodies">4.3 URLs in Message Bodies</a></h2>
+<h2 id="43-urls-in-message-bodies"><a id="URLsinMessageBodies" href="#URLsinMessageBodies">4.3 URLs in Message Bodies</a></h2>
 </summary>
 <p>URLs represented as a string within a JSON payload, including <a href="#BatchRequest">batch requests</a>, must follow standard OData encoding rules as defined in <a href="#ODataURL">OData-URL</a>.</p>
 <p>For <a href="#RelativeURLs">relative URLs</a> this means that colons (<code>:</code>) in the path part, especially within key values, MUST be percent-encoded to avoid confusion with the scheme separator. Colons within the query part, i.e. after the question mark character (<code>?</code>), need not be percent-encoded.</p>
 </details>
 <details open><summary>
-<h2 id="44-relative-urls"><a name="RelativeURLs" href="#RelativeURLs">4.4 Relative URLs</a></h2>
+<h2 id="44-relative-urls"><a id="RelativeURLs" href="#RelativeURLs">4.4 Relative URLs</a></h2>
 </summary>
 <p>URLs present in a payload (whether request or response) MAY be represented as relative URLs.</p>
 <p>Relative URLs, other than those in <a href="#ControlInformationtypeodatatype"><code>type</code></a>, are relative to their base URL, which is</p>
@@ -615,7 +615,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 </div>
 </details>
 <details open><summary>
-<h2 id="45-payload-ordering-constraints"><a name="PayloadOrderingConstraints" href="#PayloadOrderingConstraints">4.5 Payload Ordering Constraints</a></h2>
+<h2 id="45-payload-ordering-constraints"><a id="PayloadOrderingConstraints" href="#PayloadOrderingConstraints">4.5 Payload Ordering Constraints</a></h2>
 </summary>
 <p>Ordering constraints MAY be imposed on the JSON payload in order to support streaming scenarios. These ordering constraints MUST only be assumed if explicitly specified as some clients (and services) might not be able to control, or might not care about, the order of the JSON properties in the payload.</p>
 <p>Clients can request that a JSON response conform to these ordering constraints by specifying a media type of <code>application/json</code> with the <code>streaming=true</code> parameter in the <code>Accept</code> header or <code>$format</code> query option. Services MUST return <code>406 Not Acceptable</code> if the client only requests streaming and the service does not support it.</p>
@@ -641,14 +641,14 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <p>Note that in OData 4.0 the <code>streaming</code> format parameter was prefixed with <code>odata.</code>. Payloads with an <code>OData-Version</code> header equal to <code>4.0</code> MUST include the <code>odata.</code> prefix. Payloads with an <code>OData-Version</code> header equal to <code>4.01</code> or greater SHOULD NOT include the <code>odata.</code> prefix.</p>
 </details>
 <details open><summary>
-<h2 id="46-control-information"><a name="ControlInformation" href="#ControlInformation">4.6 Control Information</a></h2>
+<h2 id="46-control-information"><a id="ControlInformation" href="#ControlInformation">4.6 Control Information</a></h2>
 </summary>
 <p>In addition to the “pure data” a message body MAY contain <a href="#InstanceAnnotations">annotations</a> and control information that is represented as name/value pairs whose names start with <code>@</code>.</p>
 <p>In requests and responses with an <code>OData-Version</code> header with a value of <code>4.0</code> control information names are prefixed with <code>@odata.</code>, e.g. <code>@odata.context</code>. In requests and responses without such a header the <code>odata.</code> prefix SHOULD be omitted, e.g. <code>@context</code>.</p>
 <p>In some cases, control information is required in request payloads; this is called out in the following subsections.</p>
 <p>Receivers that encounter unknown annotations in any namespace or unknown control information MUST NOT stop processing and MUST NOT signal an error.</p>
 <details open><summary>
-<h3 id="461-control-information-context-odatacontext"><a name="ControlInformationcontextodatacontext" href="#ControlInformationcontextodatacontext">4.6.1 Control Information: <code>context</code> (<code>odata.context</code>)</a></h3>
+<h3 id="461-control-information-context-odatacontext"><a id="ControlInformationcontextodatacontext" href="#ControlInformationcontextodatacontext">4.6.1 Control Information: <code>context</code> (<code>odata.context</code>)</a></h3>
 </summary>
 <p>The <code>context</code> control information returns the context URL (see <a href="#ODataProtocol">OData-Protocol</a>) for the payload. This URL can be absolute or <a href="#RelativeURLs">relative</a>. The fragment portion of the context URL MUST NOT be percent-encoded.</p>
 <p>The <code>context</code> control information is not returned if <a href="#metadatanoneodatametadatanone"><code>metadata=none</code></a> is requested. Otherwise it MUST be the first property of any JSON response that allows this control information (this excludes for example <a href="#ErrorResponse">error responses</a>).</p>
@@ -665,13 +665,13 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 </div>
 </details>
 <details open><summary>
-<h3 id="462-control-information-metadataetag-odatametadataetag"><a name="ControlInformationmetadataEtagodatametadataEtag" href="#ControlInformationmetadataEtagodatametadataEtag">4.6.2 Control Information: <code>metadataEtag</code> (<code>odata.metadataEtag</code>)</a></h3>
+<h3 id="462-control-information-metadataetag-odatametadataetag"><a id="ControlInformationmetadataEtagodatametadataEtag" href="#ControlInformationmetadataEtagodatametadataEtag">4.6.2 Control Information: <code>metadataEtag</code> (<code>odata.metadataEtag</code>)</a></h3>
 </summary>
 <p>The <code>metadataEtag</code> control information MAY appear in a response in order to specify the entity tag (ETag) that can be used to determine the version of the metadata of the response. If an ETag is returned when requesting the metadata document, then the service SHOULD set the <code>metadataEtag</code> control information to the metadata document's ETag in all responses when using <a href="#metadataminimalodatametadataminimal"><code>metadata=minimal</code></a> or <a href="#metadatafullodatametadatafull"><code>metadata=full</code></a>. If no ETag is returned when requesting the metadata document, then the service SHOULD NOT set the <code>metadataEtag</code> control information in any responses.</p>
 <p>For details on how ETags are used, see <a href="#ODataProtocol">OData-Protocol</a>.</p>
 </details>
 <details open><summary>
-<h3 id="463-control-information-type-odatatype"><a name="ControlInformationtypeodatatype" href="#ControlInformationtypeodatatype">4.6.3 Control Information: <code>type</code> (<code>odata.type</code>)</a></h3>
+<h3 id="463-control-information-type-odatatype"><a id="ControlInformationtypeodatatype" href="#ControlInformationtypeodatatype">4.6.3 Control Information: <code>type</code> (<code>odata.type</code>)</a></h3>
 </summary>
 <p>The <code>type</code> control information specifies the type of a JSON object or name/value pair. Its value is a URI that identifies the type of the property or object. For built-in primitive types the value is the unqualified name of the primitive type. For payloads described by an <code>OData-Version</code> header with a value of <code>4.0</code>, this name MUST be prefixed with the hash symbol (<code>#</code>); for non-OData 4.0 payloads, built-in primitive type values SHOULD be represented without the hash symbol, but consumers of 4.01 or greater payloads MUST support values with or without the hash symbol. For all other types, the URI may be absolute or relative to the <code>type</code> of the containing object. The root <code>type</code> may be absolute or relative to the root <a href="#ControlInformationcontextodatacontext">context URL</a>.</p>
 <p>If the URI references a metadata document (that is, it’s not just a fragment), it MAY refer to a specific version of that metadata document using the <code>$schemaversion</code> system query option defined in <a href="#ODataProtocol">OData-Protocol</a>.</p>
@@ -713,28 +713,28 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 </div>
 </details>
 <details open><summary>
-<h3 id="464-control-information-count-odatacount"><a name="ControlInformationcountodatacount" href="#ControlInformationcountodatacount">4.6.4 Control Information: <code>count</code> (<code>odata.count</code>)</a></h3>
+<h3 id="464-control-information-count-odatacount"><a id="ControlInformationcountodatacount" href="#ControlInformationcountodatacount">4.6.4 Control Information: <code>count</code> (<code>odata.count</code>)</a></h3>
 </summary>
 <p>The <code>count</code> control information occurs only in responses and can annotate any collection, see <a href="#ODataProtocol">OData-Protocol</a> section 11.2.5.5 System Query Option <code>$count</code>. Its value is an <code>Edm.Int64</code> value corresponding to the total count of members in the collection represented by the request.</p>
 </details>
 <details open><summary>
-<h3 id="465-control-information-nextlink-odatanextlink"><a name="ControlInformationnextLinkodatanextLink" href="#ControlInformationnextLinkodatanextLink">4.6.5 Control Information: <code>nextLink</code> (<code>odata.nextLink</code>)</a></h3>
+<h3 id="465-control-information-nextlink-odatanextlink"><a id="ControlInformationnextLinkodatanextLink" href="#ControlInformationnextLinkodatanextLink">4.6.5 Control Information: <code>nextLink</code> (<code>odata.nextLink</code>)</a></h3>
 </summary>
 <p>The <code>nextLink</code> control information indicates that a response is only a subset of the requested collection. It contains a <a href="URLsinMessageBodies">URL</a> that allows retrieving the next subset of the requested collection.</p>
 <p>This control information can also be applied to <a href="#ExpandedNavigationProperty">expanded to-many navigation properties</a>.</p>
 </details>
 <details open><summary>
-<h3 id="466-control-information-delta-odatadelta"><a name="ControlInformationdeltaodatadelta" href="#ControlInformationdeltaodatadelta">4.6.6 Control Information: <code>delta</code> (<code>odata.delta</code>)</a></h3>
+<h3 id="466-control-information-delta-odatadelta"><a id="ControlInformationdeltaodatadelta" href="#ControlInformationdeltaodatadelta">4.6.6 Control Information: <code>delta</code> (<code>odata.delta</code>)</a></h3>
 </summary>
 <p>The <code>delta</code> control information is applied to a collection-valued navigation property within an <a href="#AddedChangedEntity">added/changed entity</a> in a delta payload to represent changes in membership or value of nested entities.</p>
 </details>
 <details open><summary>
-<h3 id="467-control-information-deltalink-odatadeltalink"><a name="ControlInformationdeltaLinkodatadeltaLink" href="#ControlInformationdeltaLinkodatadeltaLink">4.6.7 Control Information: <code>deltaLink</code> (<code>odata.deltaLink</code>)</a></h3>
+<h3 id="467-control-information-deltalink-odatadeltalink"><a id="ControlInformationdeltaLinkodatadeltaLink" href="#ControlInformationdeltaLinkodatadeltaLink">4.6.7 Control Information: <code>deltaLink</code> (<code>odata.deltaLink</code>)</a></h3>
 </summary>
 <p>The <code>deltaLink</code> control information contains a <a href="URLsinMessageBodies">URL</a> that can be used to retrieve changes to the current set of results. The <code>deltaLink</code> control information MUST only appear on the last page of results. A page of results MUST NOT have both a <code>deltaLink</code> control information and a <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a> control information.</p>
 </details>
 <details open><summary>
-<h3 id="468-control-information-id-odataid"><a name="ControlInformationidodataid" href="#ControlInformationidodataid">4.6.8 Control Information: <code>id</code> (<code>odata.id</code>)</a></h3>
+<h3 id="468-control-information-id-odataid"><a id="ControlInformationidodataid" href="#ControlInformationidodataid">4.6.8 Control Information: <code>id</code> (<code>odata.id</code>)</a></h3>
 </summary>
 <p>The <code>id</code> control information contains the entity-id, see <a href="#ODataProtocol">OData-Protocol</a>. By convention the entity-id is identical to the canonical URL of the entity, as defined in <a href="#ODataURL">OData-URL</a>.</p>
 <p>The <code>id</code> control information MUST appear in responses if <a href="#metadatafullodatametadatafull"><code>metadata=full</code></a> is requested, or if <a href="#metadataminimalodatametadataminimal"><code>metadata=minimal</code></a> is requested and any of a non-transient entity’s key fields are omitted from the response <em>or</em> the entity-id is not identical to the canonical URL of the entity after</p>
@@ -748,7 +748,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <p>The <code>id</code> control information MUST NOT appear for a collection. Its meaning in this context is reserved for future versions of this specification.</p>
 </details>
 <details open><summary>
-<h3 id="469-control-information-editlink-and-readlink-odataeditlink-and-odatareadlink"><a name="ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink" href="#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink">4.6.9 Control Information: <code>editLink</code> and <code>readLink</code> (<code>odata.editLink</code> and <code>odata.readLink</code>)</a></h3>
+<h3 id="469-control-information-editlink-and-readlink-odataeditlink-and-odatareadlink"><a id="ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink" href="#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink">4.6.9 Control Information: <code>editLink</code> and <code>readLink</code> (<code>odata.editLink</code> and <code>odata.readLink</code>)</a></h3>
 </summary>
 <p>The <code>editLink</code> control information contains the edit <a href="URLsinMessageBodies">URL</a> of the entity; see <a href="#ODataProtocol">OData-Protocol</a>.</p>
 <p>The <code>readLink</code> control information contains the read URL of the entity or collection; see <a href="#ODataProtocol">OData-Protocol</a>.</p>
@@ -771,14 +771,14 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 </ul>
 </details>
 <details open><summary>
-<h3 id="4610-control-information-etag-odataetag"><a name="ControlInformationetagodataetag" href="#ControlInformationetagodataetag">4.6.10 Control Information: <code>etag</code> (<code>odata.etag</code>)</a></h3>
+<h3 id="4610-control-information-etag-odataetag"><a id="ControlInformationetagodataetag" href="#ControlInformationetagodataetag">4.6.10 Control Information: <code>etag</code> (<code>odata.etag</code>)</a></h3>
 </summary>
 <p>The <code>etag</code> control information MAY be applied to an <a href="#Entity">entity</a> or collection in a response. The value of the control information is an entity tag (ETag) which is an opaque string value that can be used in a subsequent request to determine if the value of the entity or collection has changed.</p>
 <p>For details on how ETags are used, see <a href="#ODataProtocol">OData-Protocol</a>.</p>
 <p>The <code>etag</code> control information is ignored in request payloads for single entities and not written in responses if <a href="#metadatanoneodatametadatanone"><code>metadata=none</code></a> is requested.</p>
 </details>
 <details open><summary>
-<h3 id="4611-control-information-navigationlink-and-associationlink-odatanavigationlink-and-odataassociationlink"><a name="ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink" href="#ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink">4.6.11 Control Information: <code>navigationLink</code> and <code>associationLink</code> (<code>odata.navigationLink</code> and <code>odata.associationLink</code>)</a></h3>
+<h3 id="4611-control-information-navigationlink-and-associationlink-odatanavigationlink-and-odataassociationlink"><a id="ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink" href="#ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink">4.6.11 Control Information: <code>navigationLink</code> and <code>associationLink</code> (<code>odata.navigationLink</code> and <code>odata.associationLink</code>)</a></h3>
 </summary>
 <p>The <code>navigationLink</code> control information in a response contains a <em>navigation <a href="URLsinMessageBodies">URL</a></em> that can be used to retrieve an entity or collection of entities related to the current entity via a <a href="#NavigationProperty">navigation property</a>.</p>
 <p>The <em>default computed value of a navigation URL</em> is the value of the <a href="#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink">read URL</a> appended with a segment containing the name of the navigation property. The service MAY omit the <code>navigationLink</code> control information if <a href="#metadataminimalodatametadataminimal"><code>metadata=minimal</code></a> has been specified on the request and the navigation link matches this computed value.</p>
@@ -787,7 +787,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <p>The <code>navigationLink</code> and <code>associationLink</code> control information is ignored in request payloads and not written in responses if <a href="#metadatanoneodatametadatanone"><code>metadata=none</code></a> is requested.</p>
 </details>
 <details open><summary>
-<h3 id="4612-control-information-media-odatamedia"><a name="ControlInformationmediaodatamedia" href="#ControlInformationmediaodatamedia">4.6.12 Control Information: <code>media*</code> (<code>odata.media*</code>)</a></h3>
+<h3 id="4612-control-information-media-odatamedia"><a id="ControlInformationmediaodatamedia" href="#ControlInformationmediaodatamedia">4.6.12 Control Information: <code>media*</code> (<code>odata.media*</code>)</a></h3>
 </summary>
 <p>For <a href="#MediaEntity">media entities</a> and <a href="#StreamProperty">stream properties</a> at least one of the control information <code>mediaEditLink</code> and <code>mediaReadLink</code> MUST be included in responses if they don't follow standard URL conventions as defined in <a href="#ODataURL">OData-URL</a>, sections 4.6 Addressing a property and 4.14 Addressing the Media Stream of a Media Entity, or if <a href="#metadatafullodatametadatafull"><code>metadata=full</code></a> is requested.</p>
 <p>The <code>mediaEditLink</code> control information contains a <a href="URLsinMessageBodies">URL</a> that can be used to update the binary stream associated with the media entity or stream property. It MUST be included for updatable streams if it differs from standard URL conventions relative to the edit link of the entity.</p>
@@ -810,12 +810,12 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 </div>
 </details>
 <details open><summary>
-<h3 id="4613-control-information-removed-odataremoved"><a name="ControlInformationremovedodataremoved" href="#ControlInformationremovedodataremoved">4.6.13 Control Information: <code>removed</code> (<code>odata.removed</code>)</a></h3>
+<h3 id="4613-control-information-removed-odataremoved"><a id="ControlInformationremovedodataremoved" href="#ControlInformationremovedodataremoved">4.6.13 Control Information: <code>removed</code> (<code>odata.removed</code>)</a></h3>
 </summary>
 <p>The <code>removed</code> control information is used in <a href="#DeletedEntity">delta payloads</a> and indicates that the represented entity is (to be) deleted.</p>
 </details>
 <details open><summary>
-<h3 id="4614-control-information-collectionannotations-odatacollectionannotations"><a name="ControlInformationcollectionAnnotationsodatacollectionAnnotations" href="#ControlInformationcollectionAnnotationsodatacollectionAnnotations">4.6.14 Control Information: <code>collectionAnnotations</code> (<code>odata.collectionAnnotations</code>)</a></h3>
+<h3 id="4614-control-information-collectionannotations-odatacollectionannotations"><a id="ControlInformationcollectionAnnotationsodatacollectionAnnotations" href="#ControlInformationcollectionAnnotationsodatacollectionAnnotations">4.6.14 Control Information: <code>collectionAnnotations</code> (<code>odata.collectionAnnotations</code>)</a></h3>
 </summary>
 <p>The <code>collectionAnnotations</code> control information can be applied to a collection containing primitive members in order to annotate such primitive members. The value of the <code>collectionAnnotations</code> control information is an array of JSON objects containing an integer property <code>index</code>, specifying the zero-based ordinal index of the primitive item within the collection, along with any annotations that are to be applied to that primitive collection member.</p>
 <div class="example">
@@ -846,7 +846,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 </details>
 <hr />
 <details open><summary>
-<h1 id="5-service-document"><a name="ServiceDocument" href="#ServiceDocument">5 Service Document</a></h1>
+<h1 id="5-service-document"><a id="ServiceDocument" href="#ServiceDocument">5 Service Document</a></h1>
 </summary>
 <p>A service document in JSON is represented as a single JSON object with at least the <a href="#ControlInformationcontextodatacontext"><code>context</code></a> control information and a property <code>value</code>.</p>
 <p>The value of the <a href="#ControlInformationcontextodatacontext"><code>context</code></a> control information MUST be the URL of the metadata document, without any fragment part.</p>
@@ -896,7 +896,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 </details>
 <hr />
 <details open><summary>
-<h1 id="6-entity"><a name="Entity" href="#Entity">6 Entity</a></h1>
+<h1 id="6-entity"><a id="Entity" href="#Entity">6 Entity</a></h1>
 </summary>
 <p>An entity is serialized as a JSON object. It MAY contain <a href="#ControlInformationcontextodatacontext"><code>context</code></a>, <a href="#ControlInformationtypeodatatype"><code>type</code></a>, or <a href="#ControlInformationdeltaLinkodatadeltaLink"><code>deltaLink</code></a> control information.</p>
 <p>Each <a href="#StructuralProperty">property</a> to be transmitted is represented as a name/value pair within the object. The order properties appear within the object is considered insignificant.</p>
@@ -946,12 +946,12 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 </details>
 <hr />
 <details open><summary>
-<h1 id="7-structural-property"><a name="StructuralProperty" href="#StructuralProperty">7 Structural Property</a></h1>
+<h1 id="7-structural-property"><a id="StructuralProperty" href="#StructuralProperty">7 Structural Property</a></h1>
 </summary>
 <p>A property within an entity or complex type instance is represented as a name/value pair. The name MUST be the name of the property; a non-null value is represented depending on its type as a <a href="#PrimitiveValue">primitive value</a>, a <a href="#ComplexValue">complex value</a>, a <a href="#CollectionofPrimitiveValues">collection of primitive values</a>, or a <a href="#CollectionofComplexValues">collection of complex values</a>.</p>
 <p>Null values are represented as the JSON literal <code>null</code>.</p>
 <details open><summary>
-<h2 id="71-primitive-value"><a name="PrimitiveValue" href="#PrimitiveValue">7.1 Primitive Value</a></h2>
+<h2 id="71-primitive-value"><a id="PrimitiveValue" href="#PrimitiveValue">7.1 Primitive Value</a></h2>
 </summary>
 <p>Primitive values are represented following the rules of <a href="#rfc8259">RFC8259</a>.</p>
 <p>Values of type <code>Edm.Boolean</code> are represented as the JSON literals <code>true</code> and <code>false</code></p>
@@ -986,7 +986,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 </div>
 </details>
 <details open><summary>
-<h2 id="72-complex-value"><a name="ComplexValue" href="#ComplexValue">7.2 Complex Value</a></h2>
+<h2 id="72-complex-value"><a id="ComplexValue" href="#ComplexValue">7.2 Complex Value</a></h2>
 </summary>
 <p>A complex value is represented as a single JSON object containing one name/value pair for each property that makes up the complex type. Each property value is formatted as appropriate for the type of the property.</p>
 <p>It MAY have name/value pairs for <a href="#InstanceAnnotations">instance annotations</a> and control information.</p>
@@ -1006,7 +1006,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <p>A complex value with no selected properties, or no defined properties (such as an empty open complex type or complex type with no structural properties) is represented as an empty JSON object.</p>
 </details>
 <details open><summary>
-<h2 id="73-collection-of-primitive-values"><a name="CollectionofPrimitiveValues" href="#CollectionofPrimitiveValues">7.3 Collection of Primitive Values</a></h2>
+<h2 id="73-collection-of-primitive-values"><a id="CollectionofPrimitiveValues" href="#CollectionofPrimitiveValues">7.3 Collection of Primitive Values</a></h2>
 </summary>
 <p>A collection of primitive values is represented as a JSON array; each element in the array is the representation of a <a href="#PrimitiveValue">primitive value</a>. A JSON literal <code>null</code> represents a null value within the collection. An empty collection is represented as an empty array.</p>
 <div class="example">
@@ -1023,7 +1023,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 </div>
 </details>
 <details open><summary>
-<h2 id="74-collection-of-complex-values"><a name="CollectionofComplexValues" href="#CollectionofComplexValues">7.4 Collection of Complex Values</a></h2>
+<h2 id="74-collection-of-complex-values"><a id="CollectionofComplexValues" href="#CollectionofComplexValues">7.4 Collection of Complex Values</a></h2>
 </summary>
 <p>A collection of complex values is represented as a JSON array; each element in the array is the representation of a <a href="#ComplexValue">complex value</a>. A JSON literal <code>null</code> represents a null value within the collection. An empty collection is represented as an empty array.</p>
 <div class="example">
@@ -1046,7 +1046,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 </div>
 </details>
 <details open><summary>
-<h2 id="75-untyped-value"><a name="UntypedValue" href="#UntypedValue">7.5 Untyped Value</a></h2>
+<h2 id="75-untyped-value"><a id="UntypedValue" href="#UntypedValue">7.5 Untyped Value</a></h2>
 </summary>
 <p>OData 4.01 adds the built-in abstract types <code>Edm.Untyped</code> and <code>Collection(Edm.Untyped)</code>that services can use to advertise in metadata that there is a property of a particular name present, but there is no type to describe the structure of the property’s values.</p>
 <p>The value of an <code>Edm.Untyped</code> property MAY be a primitive value, a structural value, or a collection. If a collection, it may contain any combination of primitive values, structural values, and collections.</p>
@@ -1058,11 +1058,11 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 </details>
 </details>
 <details open><summary>
-<h1 id="8-navigation-property"><a name="NavigationProperty" href="#NavigationProperty">8 Navigation Property</a></h1>
+<h1 id="8-navigation-property"><a id="NavigationProperty" href="#NavigationProperty">8 Navigation Property</a></h1>
 </summary>
 <p>A navigation property is a reference from a source entity to zero or more related entities.</p>
 <details open><summary>
-<h2 id="81-navigation-link"><a name="NavigationLink" href="#NavigationLink">8.1 Navigation Link</a></h2>
+<h2 id="81-navigation-link"><a id="NavigationLink" href="#NavigationLink">8.1 Navigation Link</a></h2>
 </summary>
 <p>The navigation link for a navigation property is represented as a <a href="#ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink"><code>navigationLink</code></a> control information on the navigation property. Its value is an absolute or <a href="#RelativeURLs">relative URL</a> that allows retrieving the related entity or collection of entities.</p>
 <p>The navigation link for a navigation property is only represented if the client requests <code>metadata=full</code> or the navigation link cannot be computed, e.g. if it is within a collection of complex type instances. If it is represented it MUST immediately precede the expanded navigation property if the latter is represented.</p>
@@ -1077,7 +1077,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 </div>
 </details>
 <details open><summary>
-<h2 id="82-association-link"><a name="AssociationLink" href="#AssociationLink">8.2 Association Link</a></h2>
+<h2 id="82-association-link"><a id="AssociationLink" href="#AssociationLink">8.2 Association Link</a></h2>
 </summary>
 <p>The association link for a navigation property is represented as an <a href="#ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink"><code>associationLink</code></a> control information on the navigation property. Its value is an absolute or <a href="#RelativeURLs">relative URL</a> that can be used to retrieve the reference or collection of references to the related entity or entities.</p>
 <p>The association link for a navigation property is only represented if the client requests <code>metadata=full</code> or the association link cannot be computed by appending <code>/$ref</code> to the navigation link. If it is represented, it MUST immediately precede the navigation link if the latter is represented, otherwise it MUST immediately precede the expanded navigation property if it is represented.</p>
@@ -1092,7 +1092,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 </div>
 </details>
 <details open><summary>
-<h2 id="83-expanded-navigation-property"><a name="ExpandedNavigationProperty" href="#ExpandedNavigationProperty">8.3 Expanded Navigation Property</a></h2>
+<h2 id="83-expanded-navigation-property"><a id="ExpandedNavigationProperty" href="#ExpandedNavigationProperty">8.3 Expanded Navigation Property</a></h2>
 </summary>
 <p>An expanded navigation property is represented as a name/value pair where the name is the name of the navigation property, and the value is the representation of the related entity or collection of entities.</p>
 <p>If at most one entity can be related, the value is the representation of the related entity, or <code>null</code> if no entity is currently related.</p>
@@ -1109,7 +1109,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 </div>
 </details>
 <details open><summary>
-<h2 id="84-deep-insert"><a name="DeepInsert" href="#DeepInsert">8.4 Deep Insert</a></h2>
+<h2 id="84-deep-insert"><a id="DeepInsert" href="#DeepInsert">8.4 Deep Insert</a></h2>
 </summary>
 <p>When inserting a new entity with a <code>POST</code> request, related new entities MAY be specified using the same representation as for an <a href="#ExpandedNavigationProperty">expanded navigation property</a>.</p>
 <p>Deep inserts are not allowed in update operations using <code>PUT</code> or <code>PATCH</code> requests.</p>
@@ -1139,7 +1139,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 </div>
 </details>
 <details open><summary>
-<h2 id="85-bind-operation"><a name="BindOperation" href="#BindOperation">8.5 Bind Operation</a></h2>
+<h2 id="85-bind-operation"><a id="BindOperation" href="#BindOperation">8.5 Bind Operation</a></h2>
 </summary>
 <p>When inserting or updating an entity, relationships of navigation properties MAY be inserted or updated via bind operations.</p>
 <p>For requests containing an <code>OData-Version</code> header with a value of <code>4.0</code>, a bind operation is encoded as a property control information <code>odata.bind</code> on the navigation property it belongs to and has a single value for single-valued navigation properties or an array of values for collection navigation properties. For nullable single-valued navigation properties the value <code>null</code> may be used to remove the relationship.</p>
@@ -1196,7 +1196,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <p>For update operations a bind operation on a collection navigation property adds additional relationships, it does not replace existing relationships, while bind operations on an entity navigation property update the relationship.</p>
 </details>
 <details open><summary>
-<h2 id="86-collection-etag"><a name="CollectionETag" href="#CollectionETag">8.6 Collection ETag</a></h2>
+<h2 id="86-collection-etag"><a id="CollectionETag" href="#CollectionETag">8.6 Collection ETag</a></h2>
 </summary>
 <p>The ETag for a collection of related entities is represented as <a href="#ControlInformationetagodataetag"><code>etag</code></a> control information on the navigation property. Its value is an opaque string that can be used in a subsequent request to determine if the collection has changed.</p>
 <p>Services MAY include this control information as appropriate.</p>
@@ -1216,7 +1216,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 </details>
 <hr />
 <details open><summary>
-<h1 id="9-stream-property"><a name="StreamProperty" href="#StreamProperty">9 Stream Property</a></h1>
+<h1 id="9-stream-property"><a id="StreamProperty" href="#StreamProperty">9 Stream Property</a></h1>
 </summary>
 <p>An entity or complex type instance can have one or more stream properties.</p>
 <p>The actual stream data is not usually contained in the representation. Instead stream property data is generally read and edited via URLs.</p>
@@ -1244,7 +1244,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 </details>
 <hr />
 <details open><summary>
-<h1 id="10-media-entity"><a name="MediaEntity" href="#MediaEntity">10 Media Entity</a></h1>
+<h1 id="10-media-entity"><a id="MediaEntity" href="#MediaEntity">10 Media Entity</a></h1>
 </summary>
 <p>Media entities are entities that describe a media resource, for example a photo. They are represented as entities that contain additional <a href="#ControlInformationmediaodatamedia"><code>media*</code></a> control information.</p>
 <p>If the actual stream data for the media entity is included, it is represented as property named <code>$value</code> whose string value is the base64url-encoded value of the media stream, see <a href="#rfc4648">RFC4648</a>.</p>
@@ -1262,7 +1262,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 </details>
 <hr />
 <details open><summary>
-<h1 id="11-individual-property-or-operation-response"><a name="IndividualPropertyorOperationResponse" href="#IndividualPropertyorOperationResponse">11 Individual Property or Operation Response</a></h1>
+<h1 id="11-individual-property-or-operation-response"><a id="IndividualPropertyorOperationResponse" href="#IndividualPropertyorOperationResponse">11 Individual Property or Operation Response</a></h1>
 </summary>
 <p>An individual property or operation response is represented as a JSON object.</p>
 <p>A single-valued property or operation response that has the <code>null</code> value does not have a representation; see <a href="#ODataProtocol">OData-Protocol</a>.</p>
@@ -1312,7 +1312,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 </details>
 <hr />
 <details open><summary>
-<h1 id="12-collection-of-operation-responses"><a name="CollectionofOperationResponses" href="#CollectionofOperationResponses">12 Collection of Operation Responses</a></h1>
+<h1 id="12-collection-of-operation-responses"><a id="CollectionofOperationResponses" href="#CollectionofOperationResponses">12 Collection of Operation Responses</a></h1>
 </summary>
 <p>Invoking a bound action or function with <code>/$each</code> on each member of a collection in one request results in a collection of operation results, which is represented as a JSON object containing a name/value pair named <code>value</code>. It MAY contain <a href="#ControlInformationcontextodatacontext"><code>context</code></a>, <a href="#ControlInformationtypeodatatype"><code>type</code></a>, <a href="#ControlInformationcountodatacount"><code>count</code></a>, or <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a> control information.</p>
 <p>If present, the <code>context</code> control information MUST be the first name/value pair in the response.</p>
@@ -1321,7 +1321,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 </details>
 <hr />
 <details open><summary>
-<h1 id="13-collection-of-entities"><a name="CollectionofEntities" href="#CollectionofEntities">13 Collection of Entities</a></h1>
+<h1 id="13-collection-of-entities"><a id="CollectionofEntities" href="#CollectionofEntities">13 Collection of Entities</a></h1>
 </summary>
 <p>A collection of entities is represented as a JSON object containing a name/value pair named <code>value</code>. It MAY contain <a href="#ControlInformationcontextodatacontext"><code>context</code></a>, <a href="#ControlInformationtypeodatatype"><code>type</code></a>, <a href="#ControlInformationcountodatacount"><code>count</code></a>, <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a>, or <a href="#ControlInformationdeltaLinkodatadeltaLink"><code>deltaLink</code></a> control information.</p>
 <p>If present, the <code>context</code> control information MUST be the first name/value pair in the response.</p>
@@ -1345,7 +1345,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 </details>
 <hr />
 <details open><summary>
-<h1 id="14-entity-reference"><a name="EntityReference" href="#EntityReference">14 Entity Reference</a></h1>
+<h1 id="14-entity-reference"><a id="EntityReference" href="#EntityReference">14 Entity Reference</a></h1>
 </summary>
 <p>An entity reference (see <a href="#ODataProtocol">OData-Protocol</a>) MAY take the place of an entity in a JSON payload, based on the client request. It is serialized as a JSON object that MUST contain the <a href="#ControlInformationidodataid">id</a> of the referenced entity and MAY contain the <a href="#ControlInformationtypeodatatype"><code>type</code></a> control information and <a href="#InstanceAnnotations">instance annotations</a>, but no additional properties or control information.</p>
 <p>A collection of entity references is represented as a <a href="#CollectionofEntities">collection of entities</a>, with entity reference representations instead of entity representations as items in the array value of the <code>value</code> name/value pair.</p>
@@ -1370,11 +1370,11 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 </details>
 <hr />
 <details open><summary>
-<h1 id="15-delta-payload"><a name="DeltaPayload" href="#DeltaPayload">15 Delta Payload</a></h1>
+<h1 id="15-delta-payload"><a id="DeltaPayload" href="#DeltaPayload">15 Delta Payload</a></h1>
 </summary>
 <p>The non-format specific aspects of the delta handling are described in the section “Requesting Changes” in <a href="#ODataProtocol">OData-Protocol</a>.</p>
 <details open><summary>
-<h2 id="151-delta-responses"><a name="DeltaResponses" href="#DeltaResponses">15.1 Delta Responses</a></h2>
+<h2 id="151-delta-responses"><a id="DeltaResponses" href="#DeltaResponses">15.1 Delta Responses</a></h2>
 </summary>
 <p>Responses from a delta request are returned as a JSON object.</p>
 <p>The JSON object for a delta response to a single entity is either an <a href="#AddedChangedEntity">added</a>, <a href="#AddedChangedEntity">changed</a>, or <a href="#DeletedEntity">deleted entity</a>.</p>
@@ -1440,7 +1440,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 </div>
 </details>
 <details open><summary>
-<h2 id="152-addedchanged-entity"><a name="AddedChangedEntity" href="#AddedChangedEntity">15.2 Added/Changed Entity</a></h2>
+<h2 id="152-addedchanged-entity"><a id="AddedChangedEntity" href="#AddedChangedEntity">15.2 Added/Changed Entity</a></h2>
 </summary>
 <p>Added or changed entities within a delta payload are represented as <a href="#Entity">entities</a>. All entities within a delta response payload MUST include the control information <a href="#ControlInformationidodataid"><code>id</code></a> or all of the entity’s primary key fields. The <code>id</code> control information MUST appear if any of the entity’s primary key fields are omitted from the response <em>or</em> the entity-id is not identical to the canonical URL of the entity.</p>
 <p>When using a delta payload in an <a href="#UpdateaCollectionofEntities">update request</a>, an <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AlternateKeys">alternate key</a> (see <em>Alternate Keys</em> in <a href="#ODataURL">OData-URL</a>) MAY be used in place of the entity’s primary key. A delta response from an update request using alternate keys SHOULD include all fields of the alternate key used in the request, in which case it MAY omit the <code>id</code> control information and other primary key fields.</p>
@@ -1451,7 +1451,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <p>Entities include control information for selected navigation links based on <a href="#ControllingtheAmountofControlInformationinResponses"><code>metadata</code></a>.</p>
 </details>
 <details open><summary>
-<h2 id="153-deleted-entity"><a name="DeletedEntity" href="#DeletedEntity">15.3 Deleted Entity</a></h2>
+<h2 id="153-deleted-entity"><a id="DeletedEntity" href="#DeletedEntity">15.3 Deleted Entity</a></h2>
 </summary>
 <p>Deleted entities in JSON are returned as deleted-entity objects. Delta responses MUST contain a deleted-entity object for each deleted entity, including deleted expanded entities that are not related through a containment navigation property. The service MAY additionally include expanded entities related through a containment navigation property in which case it MUST include those in any returned count of enumerated changes.</p>
 <p>The representation of deleted-entity objects differs between OData 4.0 and OData 4.01.</p>
@@ -1499,13 +1499,13 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 </div>
 </details>
 <details open><summary>
-<h2 id="154-related-entities"><a name="RelatedEntities" href="#RelatedEntities">15.4 Related Entities</a></h2>
+<h2 id="154-related-entities"><a id="RelatedEntities" href="#RelatedEntities">15.4 Related Entities</a></h2>
 </summary>
 <p>Changes to related entities are represented differently in OData 4.0 and OData 4.01.</p>
 <p>In OData 4.01, changes to relationships and related entities are generally represented as <a href="#OData401ExpandedNavigationProperties">expanded navigation properties</a>.</p>
 <p>In OData 4.0, changes to relationships and related entities are represented as a <a href="#OData40FlattenedDeltaPayload">flat array</a> of added, deleted, or changed entities, along with added or deleted links.</p>
 <details open><summary>
-<h3 id="1541-odata-401-expanded-navigation-properties"><a name="OData401ExpandedNavigationProperties" href="#OData401ExpandedNavigationProperties">15.4.1 OData 4.01 Expanded Navigation Properties</a></h3>
+<h3 id="1541-odata-401-expanded-navigation-properties"><a id="OData401ExpandedNavigationProperties" href="#OData401ExpandedNavigationProperties">15.4.1 OData 4.01 Expanded Navigation Properties</a></h3>
 </summary>
 <p>OData 4.01 delta payloads represent changes to relationships and related entities as expanded navigation properties. Related single entities are represented as either an <a href="#AddedChangedEntity">added/changed</a> entity, an <a href="#EntityReference">entity reference</a>, a <a href="#DeletedEntity">deleted entity</a>, or a null value (if no entity is related as the outcome of the change). Collection-valued navigation properties are represented either as a delta representation or as a full representation of the collection.</p>
 <p>If the expanded navigation property represents a delta, it MUST be represented as an array-valued control information <a href="#ControlInformationdeltaodatadelta"><code>delta</code></a> on the navigation property. <a href="#AddedChangedEntity">Added/changed</a> entities or <a href="#EntityReference">entity references</a> are added to the collection. <a href="#DeletedEntity">Deleted entities</a> in a nested delta representation represent entities no longer part of the collection. If the deleted entity specifies a <code>reason</code> as <code>deleted</code>, then the entity is both removed from the collection and deleted, otherwise it is removed from the collection and only deleted if the navigation property is a containment navigation property. The array MUST NOT contain <a href="#AddedLink">added</a> or <a href="#DeletedLink">deleted links</a>.</p>
@@ -1575,7 +1575,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 </div>
 </details>
 <details open><summary>
-<h3 id="1542-odata-40-flattened-delta-payload"><a name="OData40FlattenedDeltaPayload" href="#OData40FlattenedDeltaPayload">15.4.2 OData 4.0 Flattened Delta Payload</a></h3>
+<h3 id="1542-odata-40-flattened-delta-payload"><a id="OData40FlattenedDeltaPayload" href="#OData40FlattenedDeltaPayload">15.4.2 OData 4.0 Flattened Delta Payload</a></h3>
 </summary>
 <p>OData 4.0 payloads MUST NOT include expanded navigation properties inline. Changes to relationships are represented as <a href="#AddedLink">added</a> or <a href="#DeletedLink">deleted links</a>. Changes to related entities are represented as top-level entities whose <a href="#ControlInformationcontextodatacontext"><code>context</code></a> control information specifies the entity set of the entity. This control information MUST be present for entities are not part of the entity set specified by the context URL, regardless of the specified <a href="#ControllingtheAmountofControlInformationinResponses"><code>metadata</code></a> value.</p>
 <div class="example">
@@ -1627,7 +1627,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 </div>
 <p>If a property of an entity is dependent upon the property of another entity within the expanded set of entities being tracked, then both the change to the dependent property as well as the change to the principal property or <a href="#AddedLink">added</a>/<a href="#DeletedLink">deleted link</a> corresponding to the change to the dependent property are returned in the delta response.</p>
 <details open><summary>
-<h4 id="15421-added-link"><a name="AddedLink" href="#AddedLink">15.4.2.1 Added Link</a></h4>
+<h4 id="15421-added-link"><a id="AddedLink" href="#AddedLink">15.4.2.1 Added Link</a></h4>
 </summary>
 <p>Links within an OData 4.0 <a href="#OData40FlattenedDeltaPayload">flattened delta response</a> are represented as link objects.</p>
 <p>Delta responses MUST contain a link object for each added link that corresponds to a <code>$expand</code> path in the initial request.</p>
@@ -1640,7 +1640,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 </ul>
 </details>
 <details open><summary>
-<h4 id="15422-deleted-link"><a name="DeletedLink" href="#DeletedLink">15.4.2.2 Deleted Link</a></h4>
+<h4 id="15422-deleted-link"><a id="DeletedLink" href="#DeletedLink">15.4.2.2 Deleted Link</a></h4>
 </summary>
 <p>Deleted links within an OData 4.0 <a href="#OData40FlattenedDeltaPayload">flattened delta response</a> are represented as deleted-link objects.</p>
 <p>Delta responses MUST contain a deleted-link object for each deleted link that corresponds to a <code>$expand</code> path in the initial request, unless either of the following is true:</p>
@@ -1659,7 +1659,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 </details>
 </details>
 <details open><summary>
-<h2 id="155-update-a-collection-of-entities"><a name="UpdateaCollectionofEntities" href="#UpdateaCollectionofEntities">15.5 Update a Collection of Entities</a></h2>
+<h2 id="155-update-a-collection-of-entities"><a id="UpdateaCollectionofEntities" href="#UpdateaCollectionofEntities">15.5 Update a Collection of Entities</a></h2>
 </summary>
 <p>The body of a <code>PATCH</code> request to a URL identifying a collection of entities is a JSON object. It MUST contain the <a href="#ControlInformationcontextodatacontext"><code>context</code></a> control information with a string value of <code>#$delta</code>, and it MUST contain an array-valued property named <code>value</code> containing all <a href="#AddedChangedEntity">added, changed</a>, or <a href="#DeletedEntity">deleted</a> entities. OData 4.0 delta payloads MAY additionally include <a href="#AddedLink">added</a> or <a href="#DeletedLink">deleted</a> links between entities.</p>
 <div class="example">
@@ -1905,7 +1905,7 @@ Preference-Applied: return=minimal, continue-on-error
 </details>
 <hr />
 <details open><summary>
-<h1 id="16-bound-function"><a name="BoundFunction" href="#BoundFunction">16 Bound Function</a></h1>
+<h1 id="16-bound-function"><a id="BoundFunction" href="#BoundFunction">16 Bound Function</a></h1>
 </summary>
 <p>A bound function is advertised via a name/value pair where the name is a hash (<code>#</code>) character followed by the namespace- or alias-qualified name of the function. The namespace or alias MUST be defined or the namespace referenced in the metadata document of the service, see <a href="#ODataCSDL">OData-CSDLJSON</a> or <a href="#ODataCSDL">OData-CSDLXML</a> A specific function overload can be advertised by appending the parentheses-enclosed, comma-separated list of non-binding parameter names to the qualified function name, see rule <code>qualifiedFunctionName</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>A function that is bound to a single structured type MAY be advertised within the JSON object representing that structured type.</p>
@@ -1961,7 +1961,7 @@ Preference-Applied: return=minimal, continue-on-error
 </details>
 <hr />
 <details open><summary>
-<h1 id="17-bound-action"><a name="BoundAction" href="#BoundAction">17 Bound Action</a></h1>
+<h1 id="17-bound-action"><a id="BoundAction" href="#BoundAction">17 Bound Action</a></h1>
 </summary>
 <p>A bound action is advertised via a name/value pair where the name is a hash (<code>#</code>) character followed by the namespace- or alias-qualified name of the action. The namespace or alias MUST be defined or the namespace referenced in the metadata document of the service, see <a href="#ODataCSDL">OData-CSDLJSON</a> or <a href="#ODataCSDL">OData-CSDLXML</a></p>
 <p>An action that is bound to a single structured type is advertised within the JSON object representing that structured type.</p>
@@ -2017,7 +2017,7 @@ Preference-Applied: return=minimal, continue-on-error
 </details>
 <hr />
 <details open><summary>
-<h1 id="18-action-invocation"><a name="ActionInvocation" href="#ActionInvocation">18 Action Invocation</a></h1>
+<h1 id="18-action-invocation"><a id="ActionInvocation" href="#ActionInvocation">18 Action Invocation</a></h1>
 </summary>
 <p>Action parameter values are encoded in a single JSON object in the request body.</p>
 <p>Each non-binding parameter value is encoded as a separate name/value pair in this JSON object. The name is the name of the parameter. The value is the parameter value in the JSON representation appropriate for its type. Entity typed parameter values MAY include a subset of the properties, or just the <a href="#EntityReference">entity reference</a>, as appropriate to the action. Stream typed parameter values are represented following the same rules as inlined <a href="#StreamProperty">stream properties</a>.</p>
@@ -2101,10 +2101,10 @@ Preference-Applied: return=minimal, continue-on-error
 </details>
 <hr />
 <details open><summary>
-<h1 id="19-batch-requests-and-responses"><a name="BatchRequestsandResponses" href="#BatchRequestsandResponses">19 Batch Requests and Responses</a></h1>
+<h1 id="19-batch-requests-and-responses"><a id="BatchRequestsandResponses" href="#BatchRequestsandResponses">19 Batch Requests and Responses</a></h1>
 </summary>
 <details open><summary>
-<h2 id="191-batch-request"><a name="BatchRequest" href="#BatchRequest">19.1 Batch Request</a></h2>
+<h2 id="191-batch-request"><a id="BatchRequest" href="#BatchRequest">19.1 Batch Request</a></h2>
 </summary>
 <p>A JSON batch request body consists of a single JSON object that MUST contain the name/value pair <code>requests</code> and MAY contain <a href="#InstanceAnnotations">annotations</a>. It does not contain the <code>context</code> control information.</p>
 <p>The value of <code>requests</code> is an array of request objects, each representing an individual request. Note: an individual request MUST NOT itself be a batch request.</p>
@@ -2133,7 +2133,7 @@ Preference-Applied: return=minimal, continue-on-error
 <p>A <code>body</code> MUST NOT be specified if the <code>method</code> is <code>get</code> or <code>delete</code>.</p>
 <p>The request object and the <code>headers</code> object MUST NOT contain name/value pairs with duplicate names. This is in conformance with <a href="#rfc7493">RFC7493</a>.</p>
 <div class="example">
-<p>Example <a name="batchRequest" href="#batchRequest">55</a>: a batch request that contains the following individual requests in the order listed</p>
+<p>Example <a id="batchRequest" href="#batchRequest">55</a>: a batch request that contains the following individual requests in the order listed</p>
 <ol type="1">
 <li>A query request</li>
 <li>An atomicity group that contains the following requests:
@@ -2186,7 +2186,7 @@ Preference-Applied: return=minimal, continue-on-error
 </div>
 </details>
 <details open><summary>
-<h2 id="192-referencing-new-entities"><a name="ReferencingNewEntities" href="#ReferencingNewEntities">19.2 Referencing New Entities</a></h2>
+<h2 id="192-referencing-new-entities"><a id="ReferencingNewEntities" href="#ReferencingNewEntities">19.2 Referencing New Entities</a></h2>
 </summary>
 <p>The entity returned by a preceding request can be referenced in the request URL of subsequent requests. If the <code>Location</code> header in the response contains a relative URL, clients MUST be able to resolve it relative to the request’s URL even if that contains such a reference.</p>
 <div class="example">
@@ -2221,7 +2221,7 @@ Preference-Applied: return=minimal, continue-on-error
 </div>
 </details>
 <details open><summary>
-<h2 id="193-referencing-an-etag"><a name="ReferencinganETag" href="#ReferencinganETag">19.3 Referencing an ETag</a></h2>
+<h2 id="193-referencing-an-etag"><a id="ReferencinganETag" href="#ReferencinganETag">19.3 Referencing an ETag</a></h2>
 </summary>
 <div class="example">
 <p>Example 57: a batch request that contains the following operations in the order listed:</p>
@@ -2262,7 +2262,7 @@ Preference-Applied: return=minimal, continue-on-error
 </div>
 </details>
 <details open><summary>
-<h2 id="194-referencing-response-body-values"><a name="ReferencingResponseBodyValues" href="#ReferencingResponseBodyValues">19.4 Referencing Response Body Values</a></h2>
+<h2 id="194-referencing-response-body-values"><a id="ReferencingResponseBodyValues" href="#ReferencingResponseBodyValues">19.4 Referencing Response Body Values</a></h2>
 </summary>
 <div class="example">
 <p>Example 58: a batch request that contains the following operations in the order listed:</p>
@@ -2300,14 +2300,14 @@ Preference-Applied: return=minimal, continue-on-error
 </div>
 </details>
 <details open><summary>
-<h2 id="195-processing-a-batch-request"><a name="ProcessingaBatchRequest" href="#ProcessingaBatchRequest">19.5 Processing a Batch Request</a></h2>
+<h2 id="195-processing-a-batch-request"><a id="ProcessingaBatchRequest" href="#ProcessingaBatchRequest">19.5 Processing a Batch Request</a></h2>
 </summary>
 <p>All requests in an atomicity group represent a single change unit. A service MUST successfully process and apply all the requests in the atomicity group or else apply none of them. It is up to the service implementation to define rollback semantics to undo any requests within an atomicity group that may have been applied before another request in that same atomicity group failed.</p>
 <p>The service MAY process the individual requests and atomicity groups within a batch request, or individual requests within an atomicity group, in any order that is compatible with the dependencies expressed with the <code>dependsOn</code> name/value pair. Individual requests and atomicity groups that do not specify the <code>dependsOn</code> name/value pair may be processed in parallel. Clients that are only interested in completely successful batch responses MAY specify the preference <code>continue-on-error=false</code> to indicate that the service need not spend cycles on further processing once an error occurs in one of the dependency chains. In this case the response MAY omit response objects for requests that have not been processed. If the preference <code>continue-on-error</code> is not specified, or specified with a value of <code>true</code>, all requests are processed according to their dependencies.</p>
 <p>The service MUST include the <code>id</code> name/value pair in each response object with the value of the request identifier that the client specified in the corresponding request, so clients can correlate requests and responses.</p>
 </details>
 <details open><summary>
-<h2 id="196-batch-response"><a name="BatchResponse" href="#BatchResponse">19.6 Batch Response</a></h2>
+<h2 id="196-batch-response"><a id="BatchResponse" href="#BatchResponse">19.6 Batch Response</a></h2>
 </summary>
 <p>A JSON batch response body consists of a single JSON object that MUST contain the name/value pair <code>responses</code> and MAY contain <a href="#InstanceAnnotations">annotations</a>. It does not contain the <code>context</code> control information.</p>
 <p>The value of <code>responses</code> is an array of response objects, each representing an individual response.</p>
@@ -2356,7 +2356,7 @@ Preference-Applied: return=minimal, continue-on-error
 </div>
 </details>
 <details open><summary>
-<h2 id="197-asynchronous-batch-requests"><a name="AsynchronousBatchRequests" href="#AsynchronousBatchRequests">19.7 Asynchronous Batch Requests</a></h2>
+<h2 id="197-asynchronous-batch-requests"><a id="AsynchronousBatchRequests" href="#AsynchronousBatchRequests">19.7 Asynchronous Batch Requests</a></h2>
 </summary>
 <p>A batch request that specifies the <code>respond-async</code> preference MAY be executed asynchronously. This means that the “outer” batch request is executed asynchronously; this preference does not automatically cascade down to the individual requests within the batch. After successful execution of the batch request the response to the batch request is returned in the body of a response to an interrogation request against the status monitor resource URL, see section “Asynchronous Requests” in <a href="#ODataProtocol">OData-Protocol</a>.</p>
 <p>A service MAY return interim results to an asynchronously executing batch. It does this by responding with <code>200 OK</code> to a <code>GET</code> request to the monitor resource and including a <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a> control information in the JSON batch response, thus signaling that the response is only a partial result. A subsequent <code>GET</code> request to the next link MAY result in a <code>202 Accepted</code> response with a <code>location</code> header pointing to a new status monitor resource.</p>
@@ -2443,7 +2443,7 @@ Preference-Applied: return=minimal, continue-on-error
 </details>
 <hr />
 <details open><summary>
-<h1 id="20-instance-annotations"><a name="InstanceAnnotations" href="#InstanceAnnotations">20 Instance Annotations</a></h1>
+<h1 id="20-instance-annotations"><a id="InstanceAnnotations" href="#InstanceAnnotations">20 Instance Annotations</a></h1>
 </summary>
 <p>Annotations are an extensibility mechanism that allows services and clients to include information other than the raw data in the request or response.</p>
 <p>Annotations are name/value pairs that have an at (<code>@</code>) and a dot (<code>.</code>) as part of the name. The part after the “at” sign (<code>@</code>) is the <em>annotation identifier</em>. It consists of the namespace or alias of the schema that defines the term, followed by a dot (<code>.</code>), followed by the name of the term, optionally followed by a hash (<code>#</code>) and a qualifier. The namespace or alias MUST be defined in the metadata document, see <a href="#ODataCSDL">OData-CSDLJSON</a> or <a href="#ODataCSDL">OData-CSDLXML</a></p>
@@ -2467,21 +2467,21 @@ Preference-Applied: return=minimal, continue-on-error
 <span id="cb72-13"><a href="#cb72-13" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <details open><summary>
-<h2 id="201-annotate-a-json-object"><a name="AnnotateaJSONObject" href="#AnnotateaJSONObject">20.1 Annotate a JSON Object</a></h2>
+<h2 id="201-annotate-a-json-object"><a id="AnnotateaJSONObject" href="#AnnotateaJSONObject">20.1 Annotate a JSON Object</a></h2>
 </summary>
 <p>When annotating a name/value pair for which the value is represented as a JSON object, each annotation is placed within the object and represented as a single name/value pair.</p>
 <p>The name always starts with the “at” sign (<code>@</code>), followed by the annotation identifier.</p>
 <p>The value MUST be an appropriate value for the annotation.</p>
 </details>
 <details open><summary>
-<h2 id="202-annotate-a-json-array-or-primitive"><a name="AnnotateaJSONArrayorPrimitive" href="#AnnotateaJSONArrayorPrimitive">20.2 Annotate a JSON Array or Primitive</a></h2>
+<h2 id="202-annotate-a-json-array-or-primitive"><a id="AnnotateaJSONArrayorPrimitive" href="#AnnotateaJSONArrayorPrimitive">20.2 Annotate a JSON Array or Primitive</a></h2>
 </summary>
 <p>When annotating a name/value pair for which the value is represented as a JSON array or primitive value, each annotation that applies to this name/value pair MUST be represented as a single name/value pair and placed immediately prior to the annotated name/value pair, with the exception of the <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a> or <a href="#ControlInformationcollectionAnnotationsodatacollectionAnnotations"><code>collectionAnnotations</code></a> control information, which can appear immediately before or after the annotated collection.</p>
 <p>The name is the same as the name of the property or name/value pair being annotated, followed by the “at” sign (<code>@</code>), followed by the annotation identifier.</p>
 <p>The value MUST be an appropriate value for the annotation.</p>
 </details>
 <details open><summary>
-<h2 id="203-annotate-a-primitive-value-within-a-json-array"><a name="AnnotateaPrimitiveValuewithinaJSONArray" href="#AnnotateaPrimitiveValuewithinaJSONArray">20.3 Annotate a Primitive Value within a JSON Array</a></h2>
+<h2 id="203-annotate-a-primitive-value-within-a-json-array"><a id="AnnotateaPrimitiveValuewithinaJSONArray" href="#AnnotateaPrimitiveValuewithinaJSONArray">20.3 Annotate a Primitive Value within a JSON Array</a></h2>
 </summary>
 <p>Individual primitive elements within a JSON array can be annotated by applying the <a href="#ControlInformationcollectionAnnotationsodatacollectionAnnotations"><code>collectionAnnotations</code></a> control information to the array containing the primitive member.</p>
 <p>The control information must come with other annotations or control information immediately before or after the collection valued property. The name of the property representing the control information is the same as the name of the collection-valued property, followed by the “at” sign (<code>@</code>), followed by the <a href="#ControlInformationcollectionAnnotationsodatacollectionAnnotations"><code>collectionAnnotations</code></a> identifier.</p>
@@ -2489,11 +2489,11 @@ Preference-Applied: return=minimal, continue-on-error
 </details>
 <hr />
 <details open><summary>
-<h1 id="21-error-handling"><a name="ErrorHandling" href="#ErrorHandling">21 Error Handling</a></h1>
+<h1 id="21-error-handling"><a id="ErrorHandling" href="#ErrorHandling">21 Error Handling</a></h1>
 </summary>
 <p>OData requests may return a well formed <a href="#ErrorResponse">error response</a>, an <a href="#InStreamError">in-stream error</a>, or error information <a href="#ErrorInformationinaSuccessPayload">within a success payload</a>.</p>
 <details open><summary>
-<h2 id="211-error-response"><a name="ErrorResponse" href="#ErrorResponse">21.1 Error Response</a></h2>
+<h2 id="211-error-response"><a id="ErrorResponse" href="#ErrorResponse">21.1 Error Response</a></h2>
 </summary>
 <p>The error response MUST be a single JSON object. This object MUST have a single name/value pair named <code>error</code>. The value must be an OData error object.</p>
 <p>The OData error object MUST contain name/value pairs with the names <code>code</code> and <code>message</code>, and it MAY contain name/value pairs with the names <code>target</code>, <code>details</code>, and <code>innererror</code>.</p>
@@ -2527,7 +2527,7 @@ Preference-Applied: return=minimal, continue-on-error
 </div>
 </details>
 <details open><summary>
-<h2 id="212-in-stream-error"><a name="InStreamError" href="#InStreamError">21.2 In-Stream Error</a></h2>
+<h2 id="212-in-stream-error"><a id="InStreamError" href="#InStreamError">21.2 In-Stream Error</a></h2>
 </summary>
 <p>In the case that a service encounters an error after sending a success status to the client, the service MUST leave the response malformed. This can be achieved by immediately stopping response serialization and thus omitting (among others) the end-object character of the top-level JSON object in the response.</p>
 <p>Services MAY include the header <code>OData-Error</code> as a trailing header if supported by the transport protocol (e.g. with HTTP/1.1 and chunked transfer encoding, or with HTTP/2), see <a href="#ODataProtocol">OData-Protocol</a>.</p>
@@ -2544,21 +2544,21 @@ Preference-Applied: return=minimal, continue-on-error
 </div>
 </details>
 <details open><summary>
-<h2 id="213-error-information-in-a-success-payload"><a name="ErrorInformationinaSuccessPayload" href="#ErrorInformationinaSuccessPayload">21.3 Error Information in a Success Payload</a></h2>
+<h2 id="213-error-information-in-a-success-payload"><a id="ErrorInformationinaSuccessPayload" href="#ErrorInformationinaSuccessPayload">21.3 Error Information in a Success Payload</a></h2>
 </summary>
 <p>Services may return error information within a success payload; for example, if the client has specified the <code>continue-on-error</code> preference.</p>
 <details open><summary>
-<h3 id="2131-primitive-value-errors"><a name="PrimitiveValueErrors" href="#PrimitiveValueErrors">21.3.1 Primitive Value Errors</a></h3>
+<h3 id="2131-primitive-value-errors"><a id="PrimitiveValueErrors" href="#PrimitiveValueErrors">21.3.1 Primitive Value Errors</a></h3>
 </summary>
 <p>Primitive values that are in error are annotated with the <code>Core.ValueException</code> term, see <a href="#ODataVocCore">OData-VocCore</a>. In this case, the payload MAY include an approximation of the value and MAY specify a string representation of the exact value in the <code>value</code> property of the annotation.</p>
 </details>
 <details open><summary>
-<h3 id="2132-structured-type-errors"><a name="StructuredTypeErrors" href="#StructuredTypeErrors">21.3.2 Structured Type Errors</a></h3>
+<h3 id="2132-structured-type-errors"><a id="StructuredTypeErrors" href="#StructuredTypeErrors">21.3.2 Structured Type Errors</a></h3>
 </summary>
 <p>Structured types that are in error can be represented within a success payload only if the client has specified the <code>continue-on-error</code> preference. Such items are annotated with the <code>Core.ResourceException</code> term, see <a href="#ODataVocCore">OData-VocCore</a>. The annotation MAY include a <code>retryLink</code> property that can be used by the client to attempt to re-fetch the resource.</p>
 </details>
 <details open><summary>
-<h3 id="2133-collection-errors"><a name="CollectionErrors" href="#CollectionErrors">21.3.3 Collection Errors</a></h3>
+<h3 id="2133-collection-errors"><a id="CollectionErrors" href="#CollectionErrors">21.3.3 Collection Errors</a></h3>
 </summary>
 <p>Collections within a success payload can contain primitive values that are in error, or structured values that are in error, if the client has specified the <code>continue-on-error</code> preference. Such elements are annotated as described above. Primitive elements within a collection are annotated using the <a href="#ControlInformationcollectionAnnotationsodatacollectionAnnotations"><code>collectionAnnotations</code></a> control information.</p>
 <p>Services can return partial collections within a success payload, for example, if they encounter an error while retrieving the collection and the client has specified the <code>continue-on-error</code> preference. In this case, the service MUST include a <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a>. The <code>nextLink</code> can be used to attempt retrieving the remaining members of the collection and could return an error indicating that the remaining members are not available.</p>
@@ -2567,13 +2567,13 @@ Preference-Applied: return=minimal, continue-on-error
 </details>
 <hr />
 <details open><summary>
-<h1 id="22-extensibility"><a name="Extensibility" href="#Extensibility">22 Extensibility</a></h1>
+<h1 id="22-extensibility"><a id="Extensibility" href="#Extensibility">22 Extensibility</a></h1>
 </summary>
 <p>Implementations can add <a href="#InstanceAnnotations">instance annotations</a> of the form <code>@namespace.termname</code> or <code>property@namespace.termname</code> to any JSON object, where <code>property</code> MAY or MAY NOT match the name of a name/value pair within the JSON object. However, the namespace MUST NOT start with <code>odata</code> and SHOULD NOT be required to be understood by the receiving party in order to correctly interpret the rest of the payload as the receiving party MUST ignore unknown annotations not defined in this version of the OData JSON Specification.</p>
 </details>
 <hr />
 <details open><summary>
-<h1 id="23-conformance"><a name="Conformance" href="#Conformance">23 Conformance</a></h1>
+<h1 id="23-conformance"><a id="Conformance" href="#Conformance">23 Conformance</a></h1>
 </summary>
 <p>Conforming clients MUST be prepared to consume a service that uses any or all of the constructs defined in this specification. The exception to this are the constructs defined in Delta Response, which are only required for clients that request changes.</p>
 <!--TODO: V4.02 conformance -->
@@ -2665,12 +2665,12 @@ Preference-Applied: return=minimal, continue-on-error
 </details>
 <hr />
 <details open><summary>
-<h1 id="appendix-a-references"><a name="References" href="#References">Appendix A. References</a></h1>
+<h1 id="appendix-a-references"><a id="References" href="#References">Appendix A. References</a></h1>
 </summary>
 <p>This appendix contains the normative and informative references that are used in this document.</p>
 <p>While any hyperlinks included in this appendix were valid at the time of publication, OASIS cannot guarantee their long-term validity.</p>
 <details open><summary>
-<h2 id="a1-normative-references"><a name="NormativeReferences" href="#NormativeReferences">A.1 Normative References</a></h2>
+<h2 id="a1-normative-references"><a id="NormativeReferences" href="#NormativeReferences">A.1 Normative References</a></h2>
 </summary>
 <p>The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.</p>
 <h6 id="odata-abnf"><span id="ODataABNF">OData-ABNF</span></h6>
@@ -2713,7 +2713,7 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <p><em>Bray, T., Ed., “The JavaScript Object Notation (JSON) Data Interchange Format”, STD 90, RFC 8259, DOI 10.17487/RFC8259, December 2017</em>. <a href="https://www.rfc-editor.org/info/rfc8259">https://www.rfc-editor.org/info/rfc8259</a>.</p>
 </details>
 <details open><summary>
-<h2 id="a2-informative-references"><a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a></h2>
+<h2 id="a2-informative-references"><a id="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a></h2>
 </summary>
 <h6 id="ecmascript"><span id="_ECMAScript">ECMAScript</span></h6>
 <p><em>ECMAScript 2023 Language Specification, 14th Edition</em>, June 2023. Standard ECMA-262. <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">https://www.ecma-international.org/publications-and-standards/standards/ecma-262/</a>.</p>
@@ -2721,7 +2721,7 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 </details>
 <hr />
 <details open><summary>
-<h1 id="appendix-b-safety-security-and-privacy-considerations"><a name="SafetySecurityandPrivacyConsiderations" href="#SafetySecurityandPrivacyConsiderations">Appendix B. Safety, Security and Privacy Considerations</a></h1>
+<h1 id="appendix-b-safety-security-and-privacy-considerations"><a id="SafetySecurityandPrivacyConsiderations" href="#SafetySecurityandPrivacyConsiderations">Appendix B. Safety, Security and Privacy Considerations</a></h1>
 </summary>
 <p>This specification raises no security issues.</p>
 <p>This section is provided as a service to the application developers, information providers, and users of OData version 4.0 giving some references to starting points for securing OData services as specified. OData is a REST-full multi-format service that depends on other services and thus inherits both sides of the coin, security enhancements and concerns alike from the latter.</p>
@@ -2729,15 +2729,15 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 </details>
 <hr />
 <details open><summary>
-<h1 id="appendix-c-acknowledgments"><a name="Acknowledgments" href="#Acknowledgments">Appendix C. Acknowledgments</a></h1>
+<h1 id="appendix-c-acknowledgments"><a id="Acknowledgments" href="#Acknowledgments">Appendix C. Acknowledgments</a></h1>
 </summary>
 <details open><summary>
-<h2 id="c1-special-thanks"><a name="SpecialThanks" href="#SpecialThanks">C.1 Special Thanks</a></h2>
+<h2 id="c1-special-thanks"><a id="SpecialThanks" href="#SpecialThanks">C.1 Special Thanks</a></h2>
 </summary>
 <p>The contributions of the OASIS OData Technical Committee members, enumerated in <a href="#ODataProtocol">OData-Protocol</a> are gratefully acknowledged.</p>
 </details>
 <details open><summary>
-<h2 id="c2-participants"><a name="Participants" href="#Participants">C.2 Participants</a></h2>
+<h2 id="c2-participants"><a id="Participants" href="#Participants">C.2 Participants</a></h2>
 </summary>
 <p><strong>OData TC Members:</strong></p>
 <table>
@@ -2810,7 +2810,7 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 </details>
 <hr />
 <details open><summary>
-<h1 id="appendix-d-revision-history"><a name="RevisionHistory" href="#RevisionHistory">Appendix D. Revision History</a></h1>
+<h1 id="appendix-d-revision-history"><a id="RevisionHistory" href="#RevisionHistory">Appendix D. Revision History</a></h1>
 </summary>
 <table>
 <thead>
@@ -2833,7 +2833,7 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 </details>
 <hr />
 <details open><summary>
-<h1 id="appendix-e-notices"><a name="Notices" href="#Notices">Appendix E. Notices</a></h1>
+<h1 id="appendix-e-notices"><a id="Notices" href="#Notices">Appendix E. Notices</a></h1>
 </summary>
 <!-- Required section. Do not modify. -->
 

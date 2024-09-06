@@ -13,7 +13,7 @@ This folder contains several Node.js modules that generate OASIS specification d
   See [subsection ##SubsectionHeading]. Reference to a subsection showing its number.
   See [this example](#aggregation). Reference to an example.
   See [example ##aggregation]. Reference to an example showing its number.
-  [This important sentence](:important) is referenced [elsewhere](#important).
+  [This important sentence]{id=important} is referenced [elsewhere](#important).
   ```
 - Lines ending with single space are joined with the next line.
 - This mechanism can be used to spread table lines over several source lines, see the "Revision History" table at the end of [this source file](../odata-data-aggregation-ext/8%20Conformance.md).
