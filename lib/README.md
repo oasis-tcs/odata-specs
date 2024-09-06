@@ -60,7 +60,11 @@ import * as Number from './lib/number.js';
 import * as pandoc from './lib/pandoc.js';
 var proc = pandoc({"--metadata-file": "./odata-data-aggregation-ext/meta.yaml"});
 proc.stdout.pipe(«HTML file»);
-new Number("odata-data-aggregation-ext").build(proc.stdin);
+var meta = {
+  ...yaml.load(fs.readFileSync("./meta.yaml")),
+  ...yaml.load(fs.readFileSync("./odata-data-aggregation-ext/meta.yaml"))
+}
+new Number("odata-data-aggregation-ext", "meta", meta).build(proc.stdin);
 ```
 
 A monospaced font (Courier New) is used for keywords, OData requests and their JSON or XML responses.
