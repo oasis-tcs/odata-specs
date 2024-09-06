@@ -1,4 +1,5 @@
-a:target {
+a:target,
+span:target {
   background-color: yellow;
 }
 
