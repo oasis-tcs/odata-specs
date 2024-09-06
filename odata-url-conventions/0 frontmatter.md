@@ -46,7 +46,7 @@ This prose specification is one component of a Work Product that also includes:
 * _OData Version 4.02 Part 2: URL Conventions_ (this document). https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/$$$partname$$$/$$$filename$$$.html
 * ABNF components: _OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases Version 4.02_. https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/abnf/.
 
-#### [Related work:](:RelatedWork)
+#### [Related work:]{id=RelatedWork}
 This specification replaces or supersedes:
 * _OData Version 4.01. Part 2: URL Conventions_. Edited by Michael Pizzo, Ralf Handl, and Martin Zurmuehl. OASIS Standard. Latest stage: https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part2-url-conventions.html.
 * _OData Version 4.0. Part 2: URL Conventions_. Edited by Michael Pizzo, Ralf Handl, and Martin Zurmuehl. OASIS Standard. Latest stage: http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html.

@@ -47,7 +47,7 @@ This prose specification is one component of a Work Product that also includes:
 * ABNF components: _OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases Version 4.02_. https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/abnf/.
 
 
-#### [Related work:](:RelatedWork)
+#### [Related work:]{id=RelatedWork}
 This specification replaces or supersedes:
 * _OData Version 4.01. Part 1: Protocol_. Edited by Michael Pizzo, Ralf Handl, and Martin Zurmuehl. OASIS Standard. Latest stage: https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html
 * _OData Version 4.0. Part 1: Protocol_. Edited by Michael Pizzo, Ralf Handl, and Martin Zurmuehl. OASIS Standard. Latest stage: http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part1-protocol.html

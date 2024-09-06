@@ -2,7 +2,7 @@ a:target {
   background-color: yellow;
 }
 
-h6 a:not(href),
+h6 span[id],
 a[href^="https://docs.oasis-open.org"][href*="#"],
 a[href^="#_"],
 a[href^="#OData"]:not(a[href^="#OData4"]),
@@ -11,7 +11,7 @@ a[href^="#XML-"] {
   font-weight: bold;
 }
 
-h6 a:not(href)::before,
+h6 span[id]::before,
 a[href^="https://docs.oasis-open.org"][href*="#"]::before,
 a[href^="#_"]::before,
 a[href^="#OData"]:not(a[href^="#OData4"])::before,
@@ -21,7 +21,7 @@ a[href^="#XML-"]::before {
   font-weight: bold;
 }
 
-h6 a:not(href)::after,
+h6 span[id]::after,
 a[href^="https://docs.oasis-open.org"][href*="#"]::after,
 a[href^="#_"]::after,
 a[href^="#OData"]:not(a[href^="#OData4"])::after,

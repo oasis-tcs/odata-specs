@@ -44,14 +44,14 @@ Michael Pizzo (mikep@microsoft.com), [Microsoft](https://www.microsoft.com/) \
 Heiko Theißen (heiko.theissen@sap.com), [SAP SE](https://www.sap.com/) \
 Martin Zurmuehl (martin.zurmuehl@sap.com), [SAP SE](https://www.sap.com/)
 
-#### [Additional artifacts:](:AdditionalArtifacts)
+#### [Additional artifacts:]{id=AdditionalArtifacts}
 This document is one component of a Work Product that also includes:
 * ABNF components: _OData Temporal ABNF Construction Rules Version 4.0 and OData Temporal ABNF Test Cases_: https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/csd04/abnf/
 * OData Temporal Vocabulary:
   * https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/csd04/vocabularies/Org.OData.Temporal.V1.json
   * https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/csd04/vocabularies/Org.OData.Temporal.V1.xml
 
-#### [Related work:](:RelatedWork)
+#### [Related work:]{id=RelatedWork}
 This specification is related to:
 * _OData Version 4.02_. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. A multi-part Work Product that includes:
   * _OData Version 4.02 Part 1: Protocol_. Latest stage. https://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part1-protocol.html
@@ -150,7 +150,7 @@ For complete copyright information please see the full Notices section in an App
 
 -------
 
-# [1 Introduction](=Introduction)
+# <a name="Introduction" href="#Introduction">1 Introduction</a>
 
 This specification adds the notion of time-dependency to the Open Data
 Protocol (OData) without changing any of the base principles of OData.
@@ -159,16 +159,16 @@ It defines semantics and a representation for temporal data, especially:
 -   Semantics and operations for querying and modifying temporal data,
 -   Vocabulary terms to annotate which data depends on time, and how.
 
-## [1.1 Changes from Earlier Versions](=ChangesfromEarlierVersions)
+## <a name="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a>
 
 <!-- TODO -->
 <!-- Describe significant changes from previous differently-numbered Versions, not changes between stages of the current Version -->
 
-## [1.2 Glossary](=Glossary)
+## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
 
-### [1.2.1 Definitions of Terms](=DefinitionsofTerms)
+### <a name="DefinitionsofTerms" href="#DefinitionsofTerms">1.2.1 Definitions of Terms</a>
 
-#### [1.2.1.1 Application Time](=ApplicationTime)
+#### <a name="ApplicationTime" href="#ApplicationTime">1.2.1.1 Application Time</a>
 
 Application time is used to describe data that is known to change over
 time, for example the budget of a department, or which department an
@@ -177,7 +177,7 @@ future, for example transferring an employee to a new department next
 month or capturing next year's budget for a department. Both future and
 past data can be changed.
 
-#### [1.2.1.2 System Time](=SystemTime)
+#### <a name="SystemTime" href="#SystemTime">1.2.1.2 System Time</a>
 
 System time is used to record when data became known by the "system of
 record". System time does not extend into the future, and record entries
@@ -190,12 +190,12 @@ properties are read-only.
 As system time is typically not visible in APIs, we do not consider this
 in the remainder of this document.
 
-#### [1.2.1.3 Temporal Object](=TemporalObject)
+#### <a name="TemporalObject" href="#TemporalObject">1.2.1.3 Temporal Object</a>
 
 A temporal object is a set of data whose change over time is tracked by
 the service as a sequence of [time slices](#TimeSlice).
 
-#### [1.2.1.4 Time Slice](=TimeSlice)
+#### <a name="TimeSlice" href="#TimeSlice">1.2.1.4 Time Slice</a>
 
 A piece of temporal data with attached time period, documenting that the
 data did not change during this time period.
@@ -208,7 +208,7 @@ Time slices for a temporal object need not cover the complete timeline.
 There can be points in time for which no time slice exists, indicating
 that the object's values are not known to the service.
 
-##### [1.2.1.4.1 Closed-Open Semantics](=ClosedOpenSemantics)
+##### <a name="ClosedOpenSemantics" href="#ClosedOpenSemantics">1.2.1.4.1 Closed-Open Semantics</a>
 
 Time slices typically use closed-open semantics, following [SQL:2011](#_SQL).
 This means the start is part of the period, the end is not part of the
@@ -216,7 +216,7 @@ period, and for directly adjacent time slices the end of the earlier
 time slice is identical to the start of the next time slice. The period
 start must be less than the period end.
 
-##### [1.2.1.4.2 Closed-Closed Semantics](=ClosedClosedSemantics)
+##### <a name="ClosedClosedSemantics" href="#ClosedClosedSemantics">1.2.1.4.2 Closed-Closed Semantics</a>
 
 Some software systems predating the availability of temporal databases
 and with data type *date* for the application-time period start and end
@@ -226,7 +226,7 @@ day on the way out and subtracting one day on the way in, or
 alternatively express the used time slice semantics via
 [annotations](#VocabularyforTemporalData).
 
-#### [1.2.1.5 Snapshot Entity Set](=SnapshotEntitySet)
+#### <a name="SnapshotEntitySet" href="#SnapshotEntitySet">1.2.1.5 Snapshot Entity Set</a>
 
 An entity in a snapshot entity set represents a [temporal object](#TemporalObject)
 at a specified point in time. When the entity is addressed via a
@@ -249,7 +249,7 @@ is not possible.
 Snapshot entity sets MUST be [annotated](#VocabularyforTemporalData)
 with a `Timeline` of type `TimelineSnapshot`.
 
-#### [1.2.1.6 Timeline Entity Set](=TimelineEntitySet)
+#### <a name="TimelineEntitySet" href="#TimelineEntitySet">1.2.1.6 Timeline Entity Set</a>
 
 An entity in a timeline entity set represents one [time slice](#TimeSlice)
 of a [temporal object](#TemporalObject),
@@ -275,7 +275,7 @@ across an expand tree.
 Timeline entity sets MUST be [annotated](#VocabularyforTemporalData)
 with a `Timeline` of type `TimelineVisible`.
 
-### [1.2.2 Document Conventions](=DocumentConventions)
+### <a name="DocumentConventions" href="#DocumentConventions">1.2.2 Document Conventions</a>
 
 Keywords defined by this specification use `this monospaced font`.
 
@@ -315,7 +315,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 
 -------
 
-# [2 Overview](=Overview)
+# <a name="Overview" href="#Overview">2 Overview</a>
 
 When keeping track of time, the most important questions are:
 - When did or will something happen?
@@ -350,7 +350,7 @@ even if time-dependency is hidden,
 if time-dependency is visible, and
 - Provide easy means for modifying time-dependent data.
 
-## [2.1 Example Model](=ExampleModel)
+## <a name="ExampleModel" href="#ExampleModel">2.1 Example Model</a>
 
 Assume a simple scenario: employees will work in different roles and in
 different departments during their career, and sometimes they even
@@ -368,7 +368,7 @@ In the sections below we will discuss two different API models that can
 be backed by the same storage model:
 
 ::: example
-Example [2](=api1): model for `api-1` with snapshot entity sets (hidden
+Example <a name="api1" href="#api1">2</a>: model for `api-1` with snapshot entity sets (hidden
 application time), key properties marked with {id}
 :::
 
@@ -562,7 +562,7 @@ application time), key properties marked with {id}
 and
 
 ::: example
-Example [3](=api2): model for `api-2` with timeline entity sets (visible
+Example <a name="api2" href="#api2">3</a>: model for `api-2` with timeline entity sets (visible
 application time), key properties marked with {id}
 :::
 
@@ -922,7 +922,7 @@ application time), key properties marked with {id}
     </switch>
 </svg>
 
-## [2.2 Example Data](=ExampleData)
+## <a name="ExampleData" href="#ExampleData">2.2 Example Data</a>
 
 Both API models in the previous section are views on the same underlying
 data. A possible storage model for this data is:
@@ -1250,7 +1250,7 @@ E401   | 2012-03-01 | max        | Gibson   | Expert   | D15
 ::::
 :::
 
-## [2.3 Example Use Cases](=ExampleUseCases)
+## <a name="ExampleUseCases" href="#ExampleUseCases">2.3 Example Use Cases</a>
 
 A client might wish to query the example APIs in several ways:
 
@@ -1271,7 +1271,7 @@ employee's department as of that same point in time.
 
 -------
 
-# [3 Vocabulary for Temporal Data](=VocabularyforTemporalData)
+# <a name="VocabularyforTemporalData" href="#VocabularyforTemporalData">3 Vocabulary for Temporal Data</a>
 
 The vocabulary for temporal data [OData-VocTemporal](#ODataVocTemporal)
 defines a structured term for describing temporal query and modification
@@ -1358,7 +1358,7 @@ Example 7: `history` navigation property in entity set `Employees` from
 :::
 
 ::: example
-Example [8](=CostCenters): `CostCenters` entity set containing time slices for multiple
+Example <a name="CostCenters" href="#CostCenters">8</a>: `CostCenters` entity set containing time slices for multiple
 temporal objects, the temporal objects identified by combination of
 `AreaID` and `CostCenterID`
 ```json
@@ -1406,9 +1406,9 @@ temporal objects, the temporal objects identified by combination of
 
 -------
 
-# [4 Temporal Requests](=TemporalRequests)
+# <a name="TemporalRequests" href="#TemporalRequests">4 Temporal Requests</a>
 
-## [4.1 Temporal Expressions](=TemporalExpressions)
+## <a name="TemporalExpressions" href="#TemporalExpressions">4.1 Temporal Expressions</a>
 
 A temporal expression is
 
@@ -1433,7 +1433,7 @@ Note that services may allow service-defined functions for temporal
 expressions, for example to deal with fiscal years in a particular
 company.
 
-## [4.2 Querying Temporal Data](=QueryingTemporalData)
+## <a name="QueryingTemporalData" href="#QueryingTemporalData">4.2 Querying Temporal Data</a>
 
 Temporal query options allow point-in-time as well as time-range
 queries. They take a temporal expression as their argument whose result
@@ -1451,7 +1451,7 @@ If no temporal query options are specified,
 - timeline entity sets return all time slices, and
 - snapshot entity sets return the snapshot valid at the time of the request.
 
-### [4.2.1 Propagation of Temporal Query Options](=PropagationofTemporalQueryOptions)
+### <a name="PropagationofTemporalQueryOptions" href="#PropagationofTemporalQueryOptions">4.2.1 Propagation of Temporal Query Options</a>
 
 Temporal query options can be specified for the requested resource, and
 for expanded navigation properties. They are propagated along navigation
@@ -1487,7 +1487,7 @@ applicable rule:
 2. by temporal query option values propagated along `$expand`
 3. by temporal query options in the query option part of the request URL
 
-### [4.2.2 Query Option `$at`](=QueryOptionat)
+### <a name="QueryOptionat" href="#QueryOptionat">4.2.2 Query Option `$at`</a>
 
 The `$at` query option takes a temporal expression as its argument. It
 retrieves the snapshot whose application time period contains the value
@@ -1614,7 +1614,7 @@ results in
 ```
 :::
 
-### [4.2.3 Query Options `$from`, `$to`, and `$toInclusive`](=QueryOptionsfromtoandtoInclusive)
+### <a name="QueryOptionsfromtoandtoInclusive" href="#QueryOptionsfromtoandtoInclusive">4.2.3 Query Options `$from`, `$to`, and `$toInclusive`</a>
 
 The query options `$from`, `$to`, and `$toInclusive` only have an effect
 on timeline entity sets and collection-valued navigation to timeline
@@ -1675,7 +1675,7 @@ If no `$select` is specified, each returned entity SHOULD contain the
 application-time period boundaries as part of the default selection.
 
 ::: example
-Example [14](=employeeHistory): retrieve employee history over a period of application time
+Example <a name="employeeHistory" href="#employeeHistory">14</a>: retrieve employee history over a period of application time
 ```
 GET /api-2/Employees?$expand=history($select=Name,Jobtitle)
                     &$from=2012-03-01&$to=2025-01-01
@@ -1834,7 +1834,7 @@ beginning of each employee time slice:
 ```
 :::
 
-### [4.2.4 Interaction with Standard System Query Options](=InteractionwithStandardSystemQueryOptions)
+### <a name="InteractionwithStandardSystemQueryOptions" href="#InteractionwithStandardSystemQueryOptions">4.2.4 Interaction with Standard System Query Options</a>
 
 For [snapshot entity sets](#SnapshotEntitySet)
 the point in time for representing data is determined following the
@@ -1935,7 +1935,7 @@ time slice is not in the requested time period
 ```
 :::
 
-### [4.2.5 Requesting Changes to Temporal Data](=RequestingChangestoTemporalData)
+### <a name="RequestingChangestoTemporalData" href="#RequestingChangestoTemporalData">4.2.5 Requesting Changes to Temporal Data</a>
 
 Change tracking for timeline entity sets works identical to non-temporal
 entity sets. If the entity set supports change-tracking combined with
@@ -1952,7 +1952,7 @@ slices that contain the point in time specified via
 [`$at`](#QueryOptionat), or the point in time at which the defining query was received if no
 [`$at`](#QueryOptionat) is specified. Mere passage of time does not lead to reported changes.
 
-## [4.3 Modifying Temporal Data](=ModifyingTemporalData)
+## <a name="ModifyingTemporalData" href="#ModifyingTemporalData">4.3 Modifying Temporal Data</a>
 
 This section and its subsections describe modifications in application
 time, both for
@@ -1972,7 +1972,7 @@ Modification operations fall into two categories:
   period of application time that can affect multiple time slices without
   explicitly addressing each single affected time slice.
 
-### [4.3.1 Direct Modification of Time Slices](=DirectModificationofTimeSlices)
+### <a name="DirectModificationofTimeSlices" href="#DirectModificationofTimeSlices">4.3.1 Direct Modification of Time Slices</a>
 
 The temporal query options [`$at`](#QueryOptionat),
 [`$from` and `$to`/`$toInclusive`](#QueryOptionsfromtoandtoInclusive)
@@ -1990,7 +1990,7 @@ boundaries and adjacent time slices are beyond the scope of this
 specification as the underlying business logic will vary from service to
 service.
 
-### [4.3.2 Operations on Temporal Objects](=OperationsonTemporalObjects)
+### <a name="OperationsonTemporalObjects" href="#OperationsonTemporalObjects">4.3.2 Operations on Temporal Objects</a>
 
 Changes to a temporal object over a period of application time can
 affect multiple time slices. For timeline entity sets this can in
@@ -2031,7 +2031,7 @@ and end and a time slice, which has the same entity set as the binding
 parameter and advertises this through `odata.context` control
 information.
 
-#### [4.3.2.1 Update during a Period](=UpdateduringaPeriod)
+#### <a name="UpdateduringaPeriod" href="#UpdateduringaPeriod">4.3.2.1 Update during a Period</a>
 
 The `Update` action updates existing time slices with values from delta
 time slices whose temporal object keys match and whose periods overlap.
@@ -2236,7 +2236,7 @@ It returns the resulting created or updated time slices
 ```
 :::
 
-#### [4.3.2.2 Upsert during a Period](=UpsertduringaPeriod)
+#### <a name="UpsertduringaPeriod" href="#UpsertduringaPeriod">4.3.2.2 Upsert during a Period</a>
 
 The `Upsert` action upserts existing time slices with values from delta
 time slices whose temporal object keys match and whose periods overlap,
@@ -2378,7 +2378,7 @@ It returns the resulting created or updated time slices per affected temporal ob
 ```
 :::
 
-#### [4.3.2.3 Delete during a Period](=DeleteduringaPeriod)
+#### <a name="DeleteduringaPeriod" href="#DeleteduringaPeriod">4.3.2.3 Delete during a Period</a>
 
 The `Delete` action deletes (sub-periods of) time slices.
 
@@ -2408,7 +2408,7 @@ This works identical to the SQL statement DELETE FOR PORTION OF:
 
 On success it returns the deleted time slices.
 
-### [4.3.3 ETags](=ETags)
+### <a name="ETags" href="#ETags">4.3.3 ETags</a>
 
 Timeline entity sets need no special consideration as each time slice is
 an OData entity.
@@ -2419,7 +2419,7 @@ consequently defines no rules for ETags of entities in snapshot entity
 sets. Services supporting these requests are advised to associate ETags
 with time slices rather than with temporal objects.
 
-### [4.3.4 Read, Edit, Navigation, and Association URLs](=ReadEditNavigationandAssociationURLs)
+### <a name="ReadEditNavigationandAssociationURLs" href="#ReadEditNavigationandAssociationURLs">4.3.4 Read, Edit, Navigation, and Association URLs</a>
 
 Timeline entity sets need no special consideration as each time slice is
 an OData entity.
@@ -2431,7 +2431,7 @@ time-independent OData entity.
 
 -------
 
-# [5 Conformance](=Conformance)
+# <a name="Conformance" href="#Conformance">5 Conformance</a>
 
 Conforming services MUST follow all rules of this specification for the
 temporal system query options they support.
@@ -2442,88 +2442,88 @@ all constructs defined in this specification.
 
 -------
 
-# [Appendix A. References](=References)
+# <a name="References" href="#References">Appendix A. References</a>
 
 This appendix contains the normative and informative references that are used in this document.
 
 While any hyperlinks included in this appendix were valid at the time of publication, OASIS cannot guarantee their long-term validity.
 
-## [A.1 Normative References](=NormativeReferences)
+## <a name="NormativeReferences" href="#NormativeReferences">A.1 Normative References</a>
 
 The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.
 
-###### [OData-ABNF](:ODataABNF)
+###### [OData-ABNF]{id=ODataABNF}
 _ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### [OData-Aggregation](:ODataAggregation)
+###### [OData-Aggregation]{id=ODataAggregation}
 _OData Extension for Data Aggregation Version 4.0._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### [OData-CSDL](:ODataCSDL)
+###### [OData-CSDL]{id=ODataCSDL}
 _OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
 _OData Common Schema Definition Language (CSDL) XML Representation Version 4.02._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### [OData-Protocol](:ODataProtocol)
+###### [OData-Protocol]{id=ODataProtocol}
 _OData Version 4.02. Part 1: Protocol._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### [OData-URL](:ODataURL)
+###### [OData-URL]{id=ODataURL}
 _OData Version 4.02. Part 2: URL Conventions._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### [OData-VocCap](:ODataVocCap)
+###### [OData-VocCap]{id=ODataVocCap}
 _OData Vocabularies Version 4.0: Capabilities Vocabulary._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### [OData-VocCore](:ODataVocCore)
+###### [OData-VocCore]{id=ODataVocCore}
 _OData Vocabularies Version 4.0: Core Vocabulary._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### [OData-VocTemporal](:ODataVocTemporal)
+###### [OData-VocTemporal]{id=ODataVocTemporal}
 _OData Temporal Vocabulary._  
 See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
 
-###### [RFC2119](:rfc2119)
+###### [RFC2119]{id=rfc2119}
 _Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_  
 https://www.rfc-editor.org/info/rfc2119.
 
-###### [RFC8174](:rfc8174)
+###### [RFC8174]{id=rfc8174}
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_  
 https://www.rfc-editor.org/info/rfc8174.
 
-## [A.2 Informative References](=InformativeReferences)
+## <a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a>
 
-###### [Fowler](:_Fowler)
+###### [Fowler]{id=_Fowler}
 _Martin Fowler, "Temporal Patterns", 16 February 2005_  
 http://martinfowler.com/eaaDev/timeNarrative.html.
 
-###### [Kulkarni](:_Kulkarni)
+###### [Kulkarni]{id=_Kulkarni}
 _Krishna Kulkarni, "Temporal Features in SQL standard", September 2012_  
 https://dbs.uni-leipzig.de/file/Temporal%20features%20in%20SQL2011.pdf.
 
-###### [Snodgrass](:_Snodgrass)
+###### [Snodgrass]{id=_Snodgrass}
 _Richard T. Snodgrass, "Developing Time-Oriented Database Applications in SQL", Morgan Kaufmann Publishers, Inc., San Francisco, July, 1999, ISBN 1-55860-436-7_  
 http://www2.cs.arizona.edu/people/rts/tdbbook.pdf and
 http://www2.cs.arizona.edu/people/rts/pp30-31.pdf.
 
-###### [SQL:2011](:_SQL)
+###### [SQL:2011]{id=_SQL}
 _ISO/IEC 9075-2:2011 Information technology - Database languages - SQL - Part 2: Foundation (SQL/Foundation)_.
 
 -------
 
-# [Appendix B. Acknowledgments](=Acknowledgments)
+# <a name="Acknowledgments" href="#Acknowledgments">Appendix B. Acknowledgments</a>
 
-## [B.1 Special Thanks](=SpecialThanks)
+## <a name="SpecialThanks" href="#SpecialThanks">B.1 Special Thanks</a>
 
 The contributions of the OASIS OData Technical Committee members, enumerated in [OData-Protocol](#ODataProtocol) are gratefully acknowledged.
 
 Special thanks to Andrew Eisenberg, whose contributions in the early stages of the OData TC were invaluable to getting this extension specification on track.
 
-## [B.2 Participants](=Participants)
+## <a name="Participants" href="#Participants">B.2 Participants</a>
 
 **OData TC Members:**
 
@@ -2543,7 +2543,7 @@ Special thanks to Andrew Eisenberg, whose contributions in the early stages of t
 
 -------
 
-# [Appendix C. Revision History](=RevisionHistory)
+# <a name="RevisionHistory" href="#RevisionHistory">Appendix C. Revision History</a>
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
@@ -2555,7 +2555,7 @@ Special thanks to Andrew Eisenberg, whose contributions in the early stages of t
 
 -------
 
-# [Appendix D. Notices](=Notices)
+# <a name="Notices" href="#Notices">Appendix D. Notices</a>
 
 <!-- Required section. Do not modify. -->
 

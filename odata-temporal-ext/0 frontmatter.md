@@ -44,14 +44,14 @@ Michael Pizzo (mikep@microsoft.com), [Microsoft](https://www.microsoft.com/) \
 Heiko Theißen (heiko.theissen@sap.com), [SAP SE](https://www.sap.com/) \
 Martin Zurmuehl (martin.zurmuehl@sap.com), [SAP SE](https://www.sap.com/)
 
-#### [Additional artifacts:](:AdditionalArtifacts)
+#### [Additional artifacts:]{id=AdditionalArtifacts}
 This document is one component of a Work Product that also includes:
 * ABNF components: _OData Temporal ABNF Construction Rules Version 4.0 and OData Temporal ABNF Test Cases_: https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/$$$stage$$$/abnf/
 * OData Temporal Vocabulary:
   * https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/$$$stage$$$/vocabularies/Org.OData.Temporal.V1.json
   * https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/$$$stage$$$/vocabularies/Org.OData.Temporal.V1.xml
 
-#### [Related work:](:RelatedWork)
+#### [Related work:]{id=RelatedWork}
 This specification is related to:
 * _OData Version 4.02_. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. A multi-part Work Product that includes:
   * _OData Version 4.02 Part 1: Protocol_. Latest stage. https://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part1-protocol.html
