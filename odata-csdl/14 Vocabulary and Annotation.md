@@ -625,7 +625,7 @@ qualified name of function|
 <pre>`MySchema.MyFunction`</pre>
 [Function Import](#FunctionImport)| 
 qualified name of entity container followed by a segment containing the function import name| 
-<pre>`MySchema.MyEntityContainer/MyFunctionImport`
+<pre>`MySchema.MyEntityContainer/MyFunctionImport`</pre>
 [Navigation Property](#NavigationProperty) via container| 
 qualified name of entity container followed by a segment containing a singleton or entity set name and zero or more segments containing the name of a structural or navigation property, or a type-cast or term-cast| 
 <pre>`MySchema.MyEntityContainer/MyEntitySet` 
