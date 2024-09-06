@@ -40,7 +40,7 @@ Ralf Handl (ralf.handl@sap.com), [SAP SE](http://www.sap.com/) \
 Michael Pizzo (mikep@microsoft.com), [Microsoft](http://www.microsoft.com/) \
 Heiko Theißen (heiko.theissen@sap.com), [SAP SE](http://www.sap.com/)
 
-#### <a name="RelatedWork">Related work:</a>
+#### <a id="RelatedWork">Related work:</a>
 This specification replaces or supersedes:
 * OData JSON Format Version 4.01. Edited by Michael Pizzo, Ralf Handl, and Mark Biamonte. OASIS Standard. Latest stage: https://docs.oasis-open.org/odata/odata-json-format/v4.01/odata-json-format-v4.01.html.
 * OData JSON Format Version 4.0. Edited by Ralf Handl, Michael Pizzo, and Mark Biamonte. OASIS Standard. Latest stage: http://docs.oasis-open.org/odata/odata-json-format/v4.0/odata-json-format-v4.0.html.

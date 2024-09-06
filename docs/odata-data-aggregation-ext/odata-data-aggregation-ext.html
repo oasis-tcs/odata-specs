@@ -171,7 +171,7 @@ Gerald Krause (<a href="mailto:gerald.krause@sap.com">gerald.krause@sap.com</a>)
 Michael Pizzo (<a href="mailto:mikep@microsoft.com">mikep@microsoft.com</a>), <a href="https://www.microsoft.com/">Microsoft</a><br />
 Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</a>), <a href="https://www.sap.com/">SAP SE</a><br />
 Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.com</a>), <a href="https://www.sap.com/">SAP SE</a></p>
-<h4 id="additional-artifacts"><a name="AdditionalArtifacts">Additional artifacts:</a></h4>
+<h4 id="additional-artifacts"><a id="AdditionalArtifacts">Additional artifacts:</a></h4>
 <p>This document is one component of a Work Product that also includes:</p>
 <ul>
 <li>ABNF components: <em>OData Aggregation ABNF Construction Rules Version 4.0 and OData Aggregation ABNF Test Cases</em>: <a href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs03/abnf/">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs03/abnf/</a></li>
@@ -181,7 +181,7 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <li><a href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs03/vocabularies/Org.OData.Aggregation.V1.xml">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs03/vocabularies/Org.OData.Aggregation.V1.xml</a></li>
 </ul></li>
 </ul>
-<h4 id="related-work"><a name="RelatedWork">Related work:</a></h4>
+<h4 id="related-work"><a id="RelatedWork">Related work:</a></h4>
 <p>This specification is related to:</p>
 <ul>
 <li><em>OData Version 4.01</em>. Edited by Michael Pizzo, Ralf Handl, and Martin Zurmuehl. A multi-part Work Product which includes:
@@ -367,7 +367,7 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 </details>
 <hr />
 <details open><summary>
-<h1 id="1-introduction"><a name="Introduction" href="#Introduction">1 Introduction</a></h1>
+<h1 id="1-introduction"><a id="Introduction" href="#Introduction">1 Introduction</a></h1>
 </summary>
 <p>This specification adds aggregation functionality to the Open Data Protocol (OData) without changing any of the base principles of OData. It defines semantics and a representation for aggregation of data, especially:</p>
 <ul>
@@ -376,23 +376,23 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <li>Vocabulary terms to annotate what can be aggregated, and how.</li>
 </ul>
 <details open><summary>
-<h2 id="11-glossary"><a name="Glossary" href="#Glossary">1.1 Glossary</a></h2>
+<h2 id="11-glossary"><a id="Glossary" href="#Glossary">1.1 Glossary</a></h2>
 </summary>
 <details open><summary>
-<h3 id="111-definitions-of-terms"><a name="DefinitionsofTerms" href="#DefinitionsofTerms">1.1.1 Definitions of Terms</a></h3>
+<h3 id="111-definitions-of-terms"><a id="DefinitionsofTerms" href="#DefinitionsofTerms">1.1.1 Definitions of Terms</a></h3>
 </summary>
 <p>This specification defines the following terms:</p>
 <ul>
-<li><a name="AggregatableExpression"><em>Aggregatable Expression</em></a> – an <a href="#Expression">expression</a> not involving term casts and resulting in a value of a complex or entity or an <a href="#AggregatablePrimitiveType">aggregatable primitive type</a></li>
-<li><a name="AggregateExpression"><em>Aggregate Expression</em></a> – argument of the <code>aggregate</code> <a href="#Transformationaggregate">transformation</a> or <a href="#Functionaggregate">function</a> defined in <a href="#AggregationAlgorithm">section 3.2.1.1</a></li>
-<li><a name="AggregatablePrimitiveType"><em>Aggregatable Primitive Type</em></a> – a primitive type other than <code>Edm.Stream</code> or subtypes of <code>Edm.Geography</code> or <code>Edm.Geometry</code></li>
-<li><a name="DataAggregationPath"><em>Data Aggregation Path</em></a> – a path that consists of one or more segments joined together by forward slashes (<code>/</code>). Segments are names of declared or dynamic structural or navigation properties, or type-cast segments consisting of the (optionally qualified) name of a structured type that is derived from the type identified by the preceding path segment to reach properties declared by the derived type.</li>
-<li><a name="Expression"><em>Expression</em></a> – derived from the <code>commonExpr</code> rule (see <a href="#ODataABNF">OData-ABNF</a>)</li>
-<li><a name="SingleValuedPropertyPath"><em>Single-Valued Property Path</em></a> – property path ending in a single-valued primitive, complex, or navigation property</li>
+<li><a id="AggregatableExpression"><em>Aggregatable Expression</em></a> – an <a href="#Expression">expression</a> not involving term casts and resulting in a value of a complex or entity or an <a href="#AggregatablePrimitiveType">aggregatable primitive type</a></li>
+<li><a id="AggregateExpression"><em>Aggregate Expression</em></a> – argument of the <code>aggregate</code> <a href="#Transformationaggregate">transformation</a> or <a href="#Functionaggregate">function</a> defined in <a href="#AggregationAlgorithm">section 3.2.1.1</a></li>
+<li><a id="AggregatablePrimitiveType"><em>Aggregatable Primitive Type</em></a> – a primitive type other than <code>Edm.Stream</code> or subtypes of <code>Edm.Geography</code> or <code>Edm.Geometry</code></li>
+<li><a id="DataAggregationPath"><em>Data Aggregation Path</em></a> – a path that consists of one or more segments joined together by forward slashes (<code>/</code>). Segments are names of declared or dynamic structural or navigation properties, or type-cast segments consisting of the (optionally qualified) name of a structured type that is derived from the type identified by the preceding path segment to reach properties declared by the derived type.</li>
+<li><a id="Expression"><em>Expression</em></a> – derived from the <code>commonExpr</code> rule (see <a href="#ODataABNF">OData-ABNF</a>)</li>
+<li><a id="SingleValuedPropertyPath"><em>Single-Valued Property Path</em></a> – property path ending in a single-valued primitive, complex, or navigation property</li>
 </ul>
 </details>
 <details open><summary>
-<h3 id="112-acronyms-and-abbreviations"><a name="AcronymsandAbbreviations" href="#AcronymsandAbbreviations">1.1.2 Acronyms and Abbreviations</a></h3>
+<h3 id="112-acronyms-and-abbreviations"><a id="AcronymsandAbbreviations" href="#AcronymsandAbbreviations">1.1.2 Acronyms and Abbreviations</a></h3>
 </summary>
 <p>The following non-exhaustive list contains variable names that are used throughout this document:</p>
 <ul>
@@ -411,7 +411,7 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 </ul>
 </details>
 <details open><summary>
-<h3 id="113-document-conventions"><a name="DocumentConventions" href="#DocumentConventions">1.1.3 Document Conventions</a></h3>
+<h3 id="113-document-conventions"><a id="DocumentConventions" href="#DocumentConventions">1.1.3 Document Conventions</a></h3>
 </summary>
 <p>Keywords defined by this specification use <code>this monospaced font</code>.</p>
 <p>Some sections of this specification are illustrated with non-normative examples.</p>
@@ -446,7 +446,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </details>
 <hr />
 <details open><summary>
-<h1 id="2-overview"><a name="Overview" href="#Overview">2 Overview</a></h1>
+<h1 id="2-overview"><a id="Overview" href="#Overview">2 Overview</a></h1>
 </summary>
 <p>Open Data Protocol (OData) services expose a data model that describes the schema of the service in terms of the Entity Data Model (EDM, see <a href="#ODataCSDL">OData-CSDL</a>) and then allows for querying data in terms of this model. The responses returned by an OData service are based on that data model and retain the relationships between the entities in the model.</p>
 <p>Extending the OData query features with simple aggregation capabilities avoids cluttering OData services with an exponential number of explicitly modeled “aggregation level entities” or else restricting the consumer to a small subset of predefined aggregations.</p>
@@ -457,7 +457,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </ol>
 <p>Implementing any of these two aspects is valuable in itself independent of the other, and implementing both provides additional value for consumers. The provided aggregation annotations help a consumer understand more of the data structure looking at the service’s exposed data model. The query extensions allow the consumers to explicitly express the desired aggregation behavior for a particular query. They also allow consumers to formulate queries that utilize the aggregation annotations.</p>
 <details open><summary>
-<h2 id="21-example-data-model"><a name="ExampleDataModel" href="#ExampleDataModel">2.1 Example Data Model</a></h2>
+<h2 id="21-example-data-model"><a id="ExampleDataModel" href="#ExampleDataModel">2.1 Example Data Model</a></h2>
 </summary>
 <div class="example">
 <p>Example 2: The following diagram depicts a simple model that is used throughout this document.</p>
@@ -991,7 +991,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </div>
 </details>
 <details open><summary>
-<h2 id="22-example-data"><a name="ExampleData" href="#ExampleData">2.2 Example Data</a></h2>
+<h2 id="22-example-data"><a id="ExampleData" href="#ExampleData">2.2 Example Data</a></h2>
 </summary>
 <div class="example">
 <p>Example 4: The following entity sets and sample data will be used to further illustrate the capabilities introduced by this extension.</p>
@@ -1346,7 +1346,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </div>
 </details>
 <details open><summary>
-<h2 id="23-example-use-cases"><a name="ExampleUseCases" href="#ExampleUseCases">2.3 Example Use Cases</a></h2>
+<h2 id="23-example-use-cases"><a id="ExampleUseCases" href="#ExampleUseCases">2.3 Example Use Cases</a></h2>
 </summary>
 <div class="example">
 <p>Example 5: In the example model, one prominent use case is the relation of customers to products. The first question that is likely to be asked is: “Which customers bought which products?”</p>
@@ -1595,7 +1595,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </details>
 <hr />
 <details open><summary>
-<h1 id="3-system-query-option-apply"><a name="SystemQueryOptionapply" href="#SystemQueryOptionapply">3 System Query Option <code>$apply</code></a></h1>
+<h1 id="3-system-query-option-apply"><a id="SystemQueryOptionapply" href="#SystemQueryOptionapply">3 System Query Option <code>$apply</code></a></h1>
 </summary>
 <p>A <em>set transformation</em> (<em>transformation</em> for short) is an operation on an input set that produces an output set. A <em>transformation sequence</em> is a sequence of set transformations, separated by forward slashes to express that they are consecutively applied. A transformation sequence may be invoked using the system query option <code>$apply</code>. The input set of the first set transformation is the collection addressed by the resource path. The output set of each set transformation is the input set for the next set transformation. The output set of the last set transformation in the transformation sequence invoked by the system query option <code>$apply</code> is the result of <code>$apply</code>. This is consistent with the use of service-defined bound and composable functions in path segments. Set transformations may also appear as a parameter of certain other set transformations defined below.</p>
 <p>The system query option <code>$apply</code> MUST NOT be used if the resource path addresses a single instance.</p>
@@ -1614,11 +1614,11 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>On resource paths ending in <code>/$count</code> the system query option <code>$apply</code> is evaluated on the set identified by the resource path without the <code>/$count</code> segment, the result is the plain-text number of items in the result of <code>$apply</code>. This is similar to the combination of <code>/$count</code> and <code>$filter</code>.</p>
 <p>During serialization of the result of <code>$apply</code> declared properties and dynamic properties are represented as defined by the response format. Other properties have been aggregated away and are not represented in the response. The entities returned in the request examples in the following sections that involve aggregation are therefore transient.</p>
 <details open><summary>
-<h2 id="31-fundamentals-of-input-and-output-sets"><a name="FundamentalsofInputandOutputSets" href="#FundamentalsofInputandOutputSets">3.1 Fundamentals of Input and Output Sets</a></h2>
+<h2 id="31-fundamentals-of-input-and-output-sets"><a id="FundamentalsofInputandOutputSets" href="#FundamentalsofInputandOutputSets">3.1 Fundamentals of Input and Output Sets</a></h2>
 </summary>
 <p>The definitions of italicized terms made in this section are used throughout this text, always with a hyperlink to this section.</p>
 <details open><summary>
-<h3 id="311-type-structure-and-context-url"><a name="TypeStructureandContextURL" href="#TypeStructureandContextURL">3.1.1 Type, Structure and Context URL</a></h3>
+<h3 id="311-type-structure-and-context-url"><a id="TypeStructureandContextURL" href="#TypeStructureandContextURL">3.1.1 Type, Structure and Context URL</a></h3>
 </summary>
 <p>All input sets and output sets in one transformation sequence are collections of the <em>input type</em>, that is the entity type or complex type of the first input set, or in other words, of the resource to which the transformation sequence is applied. The input type is determined by the entity model element identified within the metadata document by the context URL of that resource <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ContextURL">OData-Protocol, section “Context URL”</a>. Individual instances in an input or output set can have a subtype of the input type. (See <a href="#subinputtype">example 74</a>.) The transformation sequence given as the <code>$apply</code> system query option is applied to the resource addressed by the resource path. The transformations defined below can have nested transformation sequences as parameters, these are then applied to resources that can differ from the current input set.</p>
 <p>The <em>structure</em> of an instance that occurs in an input or output set is defined by the names of the structural and navigation properties that the instance contains. Instances of an input type can have different structures, subject to the following rules:</p>
@@ -1640,7 +1640,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>If the first input set is a collection of entities from a given entity set, then so are all input sets and output sets in the transformation sequence. The <code>{select-list}</code> in the context URL <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ContextURL">OData-Protocol, section “Context URL”</a> MUST describe only properties that are present or annotated as absent (for example, if <code>Core.Permissions</code> is <code>None</code> <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#RequestingIndividualEntities">OData-Protocol, section “Requesting Individual Entities”</a>) in all instances of the collection, after applying any <code>$select</code> and <code>$expand</code> system query options. The <code>{select-list}</code> SHOULD describe as many such properties as possible, even if the request involves a concatenation that leads to a non-homogeneous structure. If the server cannot determine any such properties, the <code>{select-list}</code> MUST consist of just the instance annotation <code>AnyStructure</code> defined in the <code>Core</code> vocabulary <a href="#ODataVocCore">OData-VocCore</a>. (See <a href="#anystructure">example 75</a>.)</p>
 </details>
 <details open><summary>
-<h3 id="312-sameness-and-order"><a name="SamenessandOrder" href="#SamenessandOrder">3.1.2 Sameness and Order</a></h3>
+<h3 id="312-sameness-and-order"><a id="SamenessandOrder" href="#SamenessandOrder">3.1.2 Sameness and Order</a></h3>
 </summary>
 <p>Input sets and output sets are not sets of instances in the mathematical sense but collections, because the same instance can occur multiple times in them. In other words: A collection contains values (which can be instances of structured types or primitive values), possibly with repetitions. The occurrences of the values in the collection form a set in the mathematical sense. The <em>cardinality</em> of a collection is the total number of occurrences in it. When this text describes a transformation algorithmically and stipulates that certain steps are carried out <em>for each occurrence</em> in a collection, this means that the steps are carried out multiple times for the same value if it occurs multiple times in the collection.</p>
 <p>A collection addressed by the resource path is returned by the service either as an ordered collection <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ManagingMembersofanOrderedCollection">OData-Protocol, section “Managing Members of an Ordered Collection”</a> or as an unordered collection. The same applies to collections that are nested in or related to the addressed resource as well as to collections that are the result of evaluating an expression starting with <code>$root</code>, which occur, for example, as the first parameter of a <a href="#HierarchicalTransformations">hierarchical transformation</a>.</p>
@@ -1675,7 +1675,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </ul>
 </details>
 <details open><summary>
-<h3 id="313-evaluation-of-data-aggregation-paths"><a name="EvaluationofDataAggregationPaths" href="#EvaluationofDataAggregationPaths">3.1.3 Evaluation of Data Aggregation Paths</a></h3>
+<h3 id="313-evaluation-of-data-aggregation-paths"><a id="EvaluationofDataAggregationPaths" href="#EvaluationofDataAggregationPaths">3.1.3 Evaluation of Data Aggregation Paths</a></h3>
 </summary>
 <p>This document specifies how a <a href="#DataAggregationPath">data aggregation path</a> that occurs in a request is evaluated by the service. If such an evaluation fails, the service MUST reject the request.</p>
 <p>For a data aggregation path to be a common expression according to <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CommonExpressions">OData-URL, section “Common Expressions”</a>, its segments must be single-valued with the possible exception of the last segment, and it can then be evaluated relative to an instance of a structured type. For the transformations defined in this document, a data aggregation path can also be evaluated relative to a collection <span class="math inline">\(A\)</span>, even if it has arbitrary collection-valued segments itself.</p>
@@ -1695,13 +1695,13 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </details>
 </details>
 <details open><summary>
-<h2 id="32-basic-aggregation"><a name="BasicAggregation" href="#BasicAggregation">3.2 Basic Aggregation</a></h2>
+<h2 id="32-basic-aggregation"><a id="BasicAggregation" href="#BasicAggregation">3.2 Basic Aggregation</a></h2>
 </summary>
 <details open><summary>
-<h3 id="321-transformation-aggregate"><a name="Transformationaggregate" href="#Transformationaggregate">3.2.1 Transformation <code>aggregate</code></a></h3>
+<h3 id="321-transformation-aggregate"><a id="Transformationaggregate" href="#Transformationaggregate">3.2.1 Transformation <code>aggregate</code></a></h3>
 </summary>
 <details open><summary>
-<h4 id="3211-aggregation-algorithm"><a name="AggregationAlgorithm" href="#AggregationAlgorithm">3.2.1.1 Aggregation Algorithm</a></h4>
+<h4 id="3211-aggregation-algorithm"><a id="AggregationAlgorithm" href="#AggregationAlgorithm">3.2.1.1 Aggregation Algorithm</a></h4>
 </summary>
 <p>The <code>aggregate</code> transformation takes a comma-separated list of one or more <a href="#AggregateExpression"><em>aggregate expressions</em></a> as parameters and returns an output set with a single instance of the <a href="#TypeStructureandContextURL">input type</a> without entity-id containing one property per aggregate expression, representing the aggregated value of the input set.</p>
 <p>An aggregate expression MUST have one of the types listed below or be constructed with the <a href="#Keywordfrom"><code>from</code></a> keyword. To compute the value of the property for a given aggregate expression, the <code>aggregate</code> transformation first determines a collection <span class="math inline">\(A\)</span> of instances of structured types or primitive values, based on the input set of the <code>aggregate</code> transformation, and a path <span class="math inline">\(p\)</span> that occurs in the aggregate expression. Let <span class="math inline">\(p_1\)</span> denote a <a href="#DataAggregationPath">data aggregation path</a> with single- or collection-valued segments and <span class="math inline">\(p_2\)</span> a type-cast segment. Depending on its type, the aggregate expression contains a path <span class="math inline">\(p=p_1\)</span> or <span class="math inline">\(p=p_2\)</span> or <span class="math inline">\(p=p_1/p_2\)</span>. Each type of aggregate expression defines a function <span class="math inline">\(f(A)\)</span> which the aggregate transformation evaluates to obtain the property value.</p>
@@ -1731,7 +1731,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <p>Then, if <span class="math inline">\(r\)</span> is empty, let <span class="math inline">\(A=E\)</span>, otherwise let <span class="math inline">\(A=\Gamma(E,r)\)</span>, this consists of instances of structured types or primitive values, possibly with repetitions.</p>
 </details>
 <details open><summary>
-<h4 id="3212-keyword-as"><a name="Keywordas" href="#Keywordas">3.2.1.2 Keyword <code>as</code></a></h4>
+<h4 id="3212-keyword-as"><a id="Keywordas" href="#Keywordas">3.2.1.2 Keyword <code>as</code></a></h4>
 </summary>
 <p>Aggregate expressions can be followed by the <code>as</code> keyword followed by an <a href="#TypeStructureandContextURL">alias</a>.</p>
 <div class="example">
@@ -1748,7 +1748,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
-<p>Example <a name="aggrmul" href="#aggrmul">8</a>:</p>
+<p>Example <a id="aggrmul" href="#aggrmul">8</a>:</p>
 <pre><code>GET /service/Sales?$apply=aggregate(Amount mul Product/TaxRate
                                     with sum as Tax)</code></pre>
 <p>results in</p>
@@ -1762,11 +1762,11 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <p>An alias affects the structure of the output set: each alias corresponds to a dynamic property in a <code>$select</code> option.</p>
 </details>
 <details open><summary>
-<h4 id="3213-aggregation-methods"><a name="AggregationMethods" href="#AggregationMethods">3.2.1.3 Aggregation Methods</a></h4>
+<h4 id="3213-aggregation-methods"><a id="AggregationMethods" href="#AggregationMethods">3.2.1.3 Aggregation Methods</a></h4>
 </summary>
 <p>Values can be aggregated using the standard aggregation methods <a href="#StandardAggregationMethodsum"><code>sum</code></a>, <a href="#StandardAggregationMethodmin"><code>min</code></a>, <a href="#StandardAggregationMethodmax"><code>max</code></a>, <a href="#StandardAggregationMethodaverage"><code>average</code></a>, and <a href="#StandardAggregationMethodcountdistinct"><code>countdistinct</code></a>, or with <a href="#CustomAggregationMethods">custom aggregation methods</a> defined by the service. Only types 1 and 2 of the <a href="#AggregationAlgorithm">aggregation algorithm</a> involve aggregation methods, and the algorithm ensures that no null values occur among the values to be aggregated.</p>
 <details open><summary>
-<h5 id="32131-standard-aggregation-method-sum"><a name="StandardAggregationMethodsum" href="#StandardAggregationMethodsum">3.2.1.3.1 Standard Aggregation Method <code>sum</code></a></h5>
+<h5 id="32131-standard-aggregation-method-sum"><a id="StandardAggregationMethodsum" href="#StandardAggregationMethodsum">3.2.1.3.1 Standard Aggregation Method <code>sum</code></a></h5>
 </summary>
 <p>The standard aggregation method <code>sum</code> can be applied to numeric values to return the sum of the values, or null if there are no values to be aggregated. The provider MUST choose a single type for the property across all instances of that type in the result that is capable of representing the aggregated values. This may require a larger integer type, <code>Edm.Decimal</code> with sufficient <code>Precision</code> and <code>Scale</code>, or <code>Edm.Double</code>.</p>
 <div class="example">
@@ -1782,7 +1782,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 </div>
 </details>
 <details open><summary>
-<h5 id="32132-standard-aggregation-method-min"><a name="StandardAggregationMethodmin" href="#StandardAggregationMethodmin">3.2.1.3.2 Standard Aggregation Method <code>min</code></a></h5>
+<h5 id="32132-standard-aggregation-method-min"><a id="StandardAggregationMethodmin" href="#StandardAggregationMethodmin">3.2.1.3.2 Standard Aggregation Method <code>min</code></a></h5>
 </summary>
 <p>The standard aggregation method <code>min</code> can be applied to values with a totally ordered domain to return the smallest of the values, or null if there are no values to be aggregated.</p>
 <p>The result property will have the same type as the input property.</p>
@@ -1799,7 +1799,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 </div>
 </details>
 <details open><summary>
-<h5 id="32133-standard-aggregation-method-max"><a name="StandardAggregationMethodmax" href="#StandardAggregationMethodmax">3.2.1.3.3 Standard Aggregation Method <code>max</code></a></h5>
+<h5 id="32133-standard-aggregation-method-max"><a id="StandardAggregationMethodmax" href="#StandardAggregationMethodmax">3.2.1.3.3 Standard Aggregation Method <code>max</code></a></h5>
 </summary>
 <p>The standard aggregation method <code>max</code> can be applied to values with a totally ordered domain to return the largest of the values, or null if there are no values to be aggregated.</p>
 <p>The result property will have the same type as the input property.</p>
@@ -1816,7 +1816,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 </div>
 </details>
 <details open><summary>
-<h5 id="32134-standard-aggregation-method-average"><a name="StandardAggregationMethodaverage" href="#StandardAggregationMethodaverage">3.2.1.3.4 Standard Aggregation Method <code>average</code></a></h5>
+<h5 id="32134-standard-aggregation-method-average"><a id="StandardAggregationMethodaverage" href="#StandardAggregationMethodaverage">3.2.1.3.4 Standard Aggregation Method <code>average</code></a></h5>
 </summary>
 <p>The standard aggregation method <code>average</code> can be applied to numeric values to return the sum of the values divided by the count of the values, or null if there are no values to be aggregated.</p>
 <p>The provider MUST choose a single type for the property across all instances of that type in the result that is capable of representing the aggregated values; either <code>Edm.Double</code> or <code>Edm.Decimal</code> with sufficient <code>Precision</code> and <code>Scale</code>.</p>
@@ -1833,7 +1833,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 </div>
 </details>
 <details open><summary>
-<h5 id="32135-standard-aggregation-method-countdistinct"><a name="StandardAggregationMethodcountdistinct" href="#StandardAggregationMethodcountdistinct">3.2.1.3.5 Standard Aggregation Method <code>countdistinct</code></a></h5>
+<h5 id="32135-standard-aggregation-method-countdistinct"><a id="StandardAggregationMethodcountdistinct" href="#StandardAggregationMethodcountdistinct">3.2.1.3.5 Standard Aggregation Method <code>countdistinct</code></a></h5>
 </summary>
 <p>The aggregation method <code>countdistinct</code> can be applied to arbitrary collections to count the distinct values. Instance comparison uses the definition of equality in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#Equals">OData-URL, section “Equals”</a>.</p>
 <p>The result property MUST have type <code>Edm.Decimal</code> with <code>Scale</code> 0 and sufficient <code>Precision</code>.</p>
@@ -1852,7 +1852,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <p>The number of instances in the input set can be counted with the <a href="#AggregateExpressioncount">aggregate expression <code>$count</code></a>.</p>
 </details>
 <details open><summary>
-<h5 id="32136-custom-aggregation-methods"><a name="CustomAggregationMethods" href="#CustomAggregationMethods">3.2.1.3.6 Custom Aggregation Methods</a></h5>
+<h5 id="32136-custom-aggregation-methods"><a id="CustomAggregationMethods" href="#CustomAggregationMethods">3.2.1.3.6 Custom Aggregation Methods</a></h5>
 </summary>
 <p>Services can define custom aggregation methods if the functionality offered by the standard aggregation methods is not sufficient for the intended consumers.</p>
 <p>Custom aggregation methods MUST use a namespace-qualified name (see <a href="#ODataABNF">OData-ABNF</a>), i.e. contain at least one dot. Dot-less names are reserved for future versions of this specification.</p>
@@ -1877,7 +1877,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 </details>
 </details>
 <details open><summary>
-<h4 id="3214-aggregate-expression-count"><a name="AggregateExpressioncount" href="#AggregateExpressioncount">3.2.1.4 Aggregate Expression <code>$count</code></a></h4>
+<h4 id="3214-aggregate-expression-count"><a id="AggregateExpressioncount" href="#AggregateExpressioncount">3.2.1.4 Aggregate Expression <code>$count</code></a></h4>
 </summary>
 <p>The aggregate expression <code>$count</code> is defined as type 3 in the <a href="#AggregationAlgorithm">aggregation algorithm</a>. It MUST always specify an <a href="#TypeStructureandContextURL">alias</a> and MUST NOT specify an <a href="#AggregationMethods">aggregation method</a>.</p>
 <p>The result property MUST have type <code>Edm.Decimal</code> with <code>Scale</code> 0 and sufficient <code>Precision</code>.</p>
@@ -1894,7 +1894,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 </div>
 </details>
 <details open><summary>
-<h4 id="3215-keyword-from"><a name="Keywordfrom" href="#Keywordfrom">3.2.1.5 Keyword <code>from</code></a></h4>
+<h4 id="3215-keyword-from"><a id="Keywordfrom" href="#Keywordfrom">3.2.1.5 Keyword <code>from</code></a></h4>
 </summary>
 <p>The <code>from</code> keyword offers a shortcut for a sequence of <a href="#Transformationgroupby"><code>groupby</code></a> and <a href="#Transformationaggregate"><code>aggregate</code></a> transformations with the pattern <span class="math inline">\({\tt groupby}(…,{\tt aggregate}(…{\tt\ as\ }D_1))/{\tt aggregate}(D_1{\tt\ with\ }…)\)</span>.</p>
 <p>In the following <span class="math inline">\(p_1,…,p_n\)</span> are <a href="#DataAggregationPath">data aggregation paths</a> that are allowed in <code>groupby</code> for <a href="#SimpleGrouping">simple grouping</a>.</p>
@@ -1904,7 +1904,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 </ol>
 <p>Aggregate expressions constructed by these rules MUST be followed in the <code>aggregate</code> transformation by the keyword <code>as</code> and an <a href="#TypeStructureandContextURL">alias</a>. These rules can be applied repeatedly and lead to multiple <code>from</code> and <code>with</code> clauses in an aggregate expression.</p>
 <div class="example">
-<p>⚠ Example <a name="from" href="#from">16</a>: illustrates rule 1 where <span class="math inline">\(α={\tt Amount\ with\ sum}\)</span>, <span class="math inline">\(p_1={\tt Time}\)</span>, <span class="math inline">\(g={\tt average}\)</span></p>
+<p>⚠ Example <a id="from" href="#from">16</a>: illustrates rule 1 where <span class="math inline">\(α={\tt Amount\ with\ sum}\)</span>, <span class="math inline">\(p_1={\tt Time}\)</span>, <span class="math inline">\(g={\tt average}\)</span></p>
 <pre><code>GET /service/Sales?$apply=aggregate(Amount with sum from Time with average
                                     as DailyAverage)</code></pre>
 <p>is equivalent to (but avoids the intermediate dynamic property <code>Total</code>)</p>
@@ -1941,7 +1941,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 </details>
 </details>
 <details open><summary>
-<h3 id="322-transformation-concat"><a name="Transformationconcat" href="#Transformationconcat">3.2.2 Transformation <code>concat</code></a></h3>
+<h3 id="322-transformation-concat"><a id="Transformationconcat" href="#Transformationconcat">3.2.2 Transformation <code>concat</code></a></h3>
 </summary>
 <p>The <code>concat</code> transformation takes two or more parameters, each of which is a sequence of set transformations.</p>
 <p>It applies each transformation sequence to the input set and concatenates the intermediate output sets in the order of the parameters into the output set, preserving the ordering of the individual output sets as well as the structure of each instance in these sets, potentially leading to a non-homogeneously structured output set. If different intermediate output sets contain dynamic properties with the same alias, clients SHOULD ensure they have the same type and meaning in each intermediate output set.</p>
@@ -1962,11 +1962,11 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 </div>
 </details>
 <details open><summary>
-<h3 id="323-transformation-groupby"><a name="Transformationgroupby" href="#Transformationgroupby">3.2.3 Transformation <code>groupby</code></a></h3>
+<h3 id="323-transformation-groupby"><a id="Transformationgroupby" href="#Transformationgroupby">3.2.3 Transformation <code>groupby</code></a></h3>
 </summary>
 <p>The <code>groupby</code> transformation takes one or two parameters where the second is a list of set transformations, separated by forward slashes to express that they are consecutively applied. If the second parameter is not specified, it defaults to a single transformation whose output set consists of a single instance of the <a href="#TypeStructureandContextURL">input type</a> without properties and without entity-id.</p>
 <details open><summary>
-<h4 id="3231-simple-grouping"><a name="SimpleGrouping" href="#SimpleGrouping">3.2.3.1 Simple Grouping</a></h4>
+<h4 id="3231-simple-grouping"><a id="SimpleGrouping" href="#SimpleGrouping">3.2.3.1 Simple Grouping</a></h4>
 </summary>
 <p>In its simplest form the first parameter of <code>groupby</code> specifies the <em>grouping properties</em>, a comma-separated parenthesized list <span class="math inline">\(G\)</span> of one or more <a href="#DataAggregationPath">data aggregation paths</a> with single-valued segments. The same path SHOULD NOT appear more than once; redundant property paths MAY be considered valid, but MUST NOT alter the meaning of the request. Navigation properties and stream properties specified in grouping properties are expanded by default (see <a href="#groupbynav">example 72</a>).</p>
 <p>The algorithmic description of this transformation makes use of the following definitions: Let <span class="math inline">\(u[q]\)</span> denote the value of a structural or navigation property <span class="math inline">\(q\)</span> in an instance <span class="math inline">\(u\)</span>. A path <span class="math inline">\(p_1\)</span> is called a <em>prefix</em> of a path <span class="math inline">\(p\)</span> if there is a non-empty path <span class="math inline">\(p_2\)</span> such that <span class="math inline">\(p\)</span> equals the concatenated path <span class="math inline">\(p_1/p_2\)</span>. Let <span class="math inline">\(e\)</span> denote the empty path.</p>
@@ -2050,7 +2050,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <p>A <code>groupby</code> transformation affects the structure of the output set similar to <code>$select</code> where each grouping property corresponds to an item in a <code>$select</code> clause.</p>
 </details>
 <details open><summary>
-<h4 id="3232-grouping-with-rollup"><a name="Groupingwithrollup" href="#Groupingwithrollup">3.2.3.2 Grouping with <code>rollup</code></a></h4>
+<h4 id="3232-grouping-with-rollup"><a id="Groupingwithrollup" href="#Groupingwithrollup">3.2.3.2 Grouping with <code>rollup</code></a></h4>
 </summary>
 <p>The <code>rollup</code> grouping operator allows applying set transformations to instances of an input set organized in a <a href="#LeveledHierarchy">leveled hierarchy</a>. It can be used instead of a grouping property in the first parameter of <code>groupby</code>. It has two overloads, depending on the number of parameters.</p>
 <p>If used with two or more parameters, it defines an unnamed leveled hierarchy of grouping properties as a list of <a href="#DataAggregationPath">data aggregation paths</a> with single-valued segments. The first path in the list is the root level of the hierarchy defining the coarsest granularity, and the other paths define consecutively finer-grained levels of the hierarchy. This unnamed hierarchy is used for grouping instances.</p>
@@ -2119,7 +2119,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 </details>
 </details>
 <details open><summary>
-<h2 id="33-transformations-producing-a-subset"><a name="TransformationsProducingaSubset" href="#TransformationsProducingaSubset">3.3 Transformations Producing a Subset</a></h2>
+<h2 id="33-transformations-producing-a-subset"><a id="TransformationsProducingaSubset" href="#TransformationsProducingaSubset">3.3 Transformations Producing a Subset</a></h2>
 </summary>
 <p>These transformations produce an output set that is a subset of their input set, possibly in a different order. Some of the algorithmic descriptions below make use of the following definition: A total order of a collection is called <em>stable across requests</em> if it is the same for all requests that construct the collection by executing the same resource path and transformations, possibly nested, on the same underlying data.</p>
 <div class="example">
@@ -2130,7 +2130,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <p>where the number in <code>skip</code> is <span class="math inline">\(M=(i-1)⋅N\)</span>. Other values of <span class="math inline">\(M\)</span> can be used to skip, for example, half a page.</p>
 </div>
 <details open><summary>
-<h3 id="331-topbottom-transformations"><a name="Topbottomtransformations" href="#Topbottomtransformations">3.3.1 Top/bottom transformations</a></h3>
+<h3 id="331-topbottom-transformations"><a id="Topbottomtransformations" href="#Topbottomtransformations">3.3.1 Top/bottom transformations</a></h3>
 </summary>
 <p>These transformations take two parameters. The first parameter MUST be an <a href="#Expression">expression</a> that is <a href="#ExpressionsEvaluableonaCollection">evaluable on the input set as a collection</a>, without reference to an individual instance (and which therefore cannot be a property path). The second parameter MUST be an expression that is evaluated on each instance of the input set in turn.</p>
 <p>The output set is constructed as follows:</p>
@@ -2146,7 +2146,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <p>For example, if the input set consists of non-transient entities and the datastore contains an index ordered by the second parameter and then the entity-id, a service may implement this algorithm with <span class="math inline">\(A=B\)</span> ordered like this index.</p>
 <p>The order of the output set can be influenced with a subsequent <a href="#Transformationorderby"><code>orderby</code></a> transformation.</p>
 <details open><summary>
-<h4 id="3311-transformations-bottomcount-and-topcount"><a name="Transformationsbottomcountandtopcount" href="#Transformationsbottomcountandtopcount">3.3.1.1 Transformations <code>bottomcount</code> and <code>topcount</code></a></h4>
+<h4 id="3311-transformations-bottomcount-and-topcount"><a id="Transformationsbottomcountandtopcount" href="#Transformationsbottomcountandtopcount">3.3.1.1 Transformations <code>bottomcount</code> and <code>topcount</code></a></h4>
 </summary>
 <p>The first parameter MUST evaluate to a positive integer <span class="math inline">\(c\)</span>. The second parameter MUST evaluate to a primitive type whose values are totally ordered. In step 5, exit the loop if the cardinality of the output set equals <span class="math inline">\(c\)</span>.</p>
 <div class="example">
@@ -2176,7 +2176,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 </div>
 </details>
 <details open><summary>
-<h4 id="3312-transformations-bottompercent-and-toppercent"><a name="Transformationsbottompercentandtoppercent" href="#Transformationsbottompercentandtoppercent">3.3.1.2 Transformations <code>bottompercent</code> and <code>toppercent</code></a></h4>
+<h4 id="3312-transformations-bottompercent-and-toppercent"><a id="Transformationsbottompercentandtoppercent" href="#Transformationsbottompercentandtoppercent">3.3.1.2 Transformations <code>bottompercent</code> and <code>toppercent</code></a></h4>
 </summary>
 <p>The first parameter MUST evaluate to a positive number <span class="math inline">\(p\)</span> less than or equal to 100. The second parameter MUST evaluate to a number. In step 5, exit the loop if the ratio of the sum of the numbers addressed by the second parameter in the output set to their sum in the input set equals or exceeds <span class="math inline">\(p\)</span> percent.</p>
 <div class="example">
@@ -2209,7 +2209,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 </div>
 </details>
 <details open><summary>
-<h4 id="3313-transformations-bottomsum-and-topsum"><a name="Transformationsbottomsumandtopsum" href="#Transformationsbottomsumandtopsum">3.3.1.3 Transformations <code>bottomsum</code> and <code>topsum</code></a></h4>
+<h4 id="3313-transformations-bottomsum-and-topsum"><a id="Transformationsbottomsumandtopsum" href="#Transformationsbottomsumandtopsum">3.3.1.3 Transformations <code>bottomsum</code> and <code>topsum</code></a></h4>
 </summary>
 <p>The first parameter MUST evaluate to a number <span class="math inline">\(s\)</span>. The second parameter MUST be an <a href="#AggregatableExpression">aggregatable expression</a> that evaluates to a number. In step 5, exit the loop if the sum of the numbers addressed by the second parameter in the output set is greater than or equal to <span class="math inline">\(s\)</span>.</p>
 <div class="example">
@@ -2243,7 +2243,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 </details>
 </details>
 <details open><summary>
-<h3 id="332-transformation-filter"><a name="Transformationfilter" href="#Transformationfilter">3.3.2 Transformation <code>filter</code></a></h3>
+<h3 id="332-transformation-filter"><a id="Transformationfilter" href="#Transformationfilter">3.3.2 Transformation <code>filter</code></a></h3>
 </summary>
 <p>The <code>filter</code> transformation takes a Boolean expression that could also be passed as a <code>$filter</code> system query option. Its output set is the subset of the input set containing all instances (possibly with repetitions) for which this expression, evaluated relative to the instance, yields true. No order is defined on the output set.</p>
 <div class="example">
@@ -2261,7 +2261,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 </div>
 </details>
 <details open><summary>
-<h3 id="333-transformation-orderby"><a name="Transformationorderby" href="#Transformationorderby">3.3.3 Transformation <code>orderby</code></a></h3>
+<h3 id="333-transformation-orderby"><a id="Transformationorderby" href="#Transformationorderby">3.3.3 Transformation <code>orderby</code></a></h3>
 </summary>
 <p>The <code>orderby</code> transformation takes a list of expressions that could also be passed as a <code>$orderby</code> system query option. Its output set consists of the instances of the input set in the same order <code>$orderby</code> would produce for the given expressions, but keeping the relative order from the input set if the given expressions do not distinguish between two instances. The orderby transformation thereby performs a <a href="#SamenessandOrder">stable-sort</a>. A service supporting this transformation MUST at least offer sorting by values addressed by property paths, including dynamic properties, with both suffixes <code>asc</code> and <code>desc</code>.</p>
 <div class="example">
@@ -2284,7 +2284,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 </div>
 </details>
 <details open><summary>
-<h3 id="334-transformation-search"><a name="Transformationsearch" href="#Transformationsearch">3.3.4 Transformation <code>search</code></a></h3>
+<h3 id="334-transformation-search"><a id="Transformationsearch" href="#Transformationsearch">3.3.4 Transformation <code>search</code></a></h3>
 </summary>
 <p>The <code>search</code> transformation takes a search expression that could also be passed as a <code>$search</code> system query option. Its output set is the subset of the input set containing all instances (possibly with repetitions) that match this search expression. Closing parentheses in search expressions must be within single or double quotes in order to avoid syntax errors like <code>search())</code>. No order is defined on the output set.</p>
 <div class="example">
@@ -2301,7 +2301,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 </div>
 </details>
 <details open><summary>
-<h3 id="335-transformation-skip"><a name="Transformationskip" href="#Transformationskip">3.3.5 Transformation <code>skip</code></a></h3>
+<h3 id="335-transformation-skip"><a id="Transformationskip" href="#Transformationskip">3.3.5 Transformation <code>skip</code></a></h3>
 </summary>
 <p>The <code>skip</code> transformation takes a non-negative integer <span class="math inline">\(c\)</span> as argument. Let <span class="math inline">\(A\)</span> be a copy of the input set with a total order that extends any existing order of the input set but is otherwise chosen by the service. The total order MUST be stable across requests.</p>
 <p>The transformation excludes from the output set the first <span class="math inline">\(c\)</span> occurrences in <span class="math inline">\(A\)</span>. It keeps all remaining instances in the same order as they occur in <span class="math inline">\(A\)</span>.</p>
@@ -2319,7 +2319,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 </div>
 </details>
 <details open><summary>
-<h3 id="336-transformation-top"><a name="Transformationtop" href="#Transformationtop">3.3.6 Transformation <code>top</code></a></h3>
+<h3 id="336-transformation-top"><a id="Transformationtop" href="#Transformationtop">3.3.6 Transformation <code>top</code></a></h3>
 </summary>
 <p>The <code>top</code> transformation takes a non-negative integer <span class="math inline">\(c\)</span> as argument. Let <span class="math inline">\(A\)</span> be a copy of the input set with a total order that extends any existing order of the input set but is otherwise chosen by the service. The total order MUST be stable across requests.</p>
 <p>If <span class="math inline">\(A\)</span> contains more than <span class="math inline">\(c\)</span> instances, the output set consists of the first <span class="math inline">\(c\)</span> occurrences in <span class="math inline">\(A\)</span>. Otherwise, the output set equals <span class="math inline">\(A\)</span>. The instances in the output set are in the same order as they occur in <span class="math inline">\(A\)</span>.</p>
@@ -2338,17 +2338,17 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 </div>
 </details>
 <details open><summary>
-<h3 id="337-stable-total-order-before-skip-and-top"><a name="StableTotalOrderBeforeskipandtop" href="#StableTotalOrderBeforeskipandtop">3.3.7 Stable Total Order Before <code>$skip</code> and <code>$top</code></a></h3>
+<h3 id="337-stable-total-order-before-skip-and-top"><a id="StableTotalOrderBeforeskipandtop" href="#StableTotalOrderBeforeskipandtop">3.3.7 Stable Total Order Before <code>$skip</code> and <code>$top</code></a></h3>
 </summary>
 <p>When the system query options <code>$top</code> and <code>$skip</code> <a href="#ODataProtocol">OData-Protocol, sections 11.2.6.3 and 11.2.6.4</a> are executed after the system query option <code>$apply</code> and after <code>$filter</code> and <code>$orderby</code>, if applicable, they operate on a collection with a total order that extends any existing order but is otherwise chosen by the service. The total order MUST be stable across requests.</p>
 </details>
 </details>
 <details open><summary>
-<h2 id="34-one-to-one-transformations"><a name="OnetoOneTransformations" href="#OnetoOneTransformations">3.4 One-to-One Transformations</a></h2>
+<h2 id="34-one-to-one-transformations"><a id="OnetoOneTransformations" href="#OnetoOneTransformations">3.4 One-to-One Transformations</a></h2>
 </summary>
 <p>These transformations produce an output set in one-to-one correspondence with their input set. The output set is initially a clone of the input set, then dynamic properties are added to the output set. The values of properties copied from the input set are not changed, nor is the order of instances changed.</p>
 <details open><summary>
-<h3 id="341-transformation-identity"><a name="Transformationidentity" href="#Transformationidentity">3.4.1 Transformation <code>identity</code></a></h3>
+<h3 id="341-transformation-identity"><a id="Transformationidentity" href="#Transformationidentity">3.4.1 Transformation <code>identity</code></a></h3>
 </summary>
 <p>The output set of the <code>identity</code> transformation is its input set in unchanged order.</p>
 <div class="example">
@@ -2357,7 +2357,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 </div>
 </details>
 <details open><summary>
-<h3 id="342-transformation-compute"><a name="Transformationcompute" href="#Transformationcompute">3.4.2 Transformation <code>compute</code></a></h3>
+<h3 id="342-transformation-compute"><a id="Transformationcompute" href="#Transformationcompute">3.4.2 Transformation <code>compute</code></a></h3>
 </summary>
 <p>The <code>compute</code> transformation takes a comma-separated list of one or more <em>compute expressions</em> as parameters.</p>
 <p>A compute expression is a common expression followed by the <code>as</code> keyword, followed by an <a href="#TypeStructureandContextURL">alias</a>.</p>
@@ -2382,7 +2382,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 </div>
 </details>
 <details open><summary>
-<h3 id="343-transformation-addnested"><a name="Transformationaddnested" href="#Transformationaddnested">3.4.3 Transformation <code>addnested</code></a></h3>
+<h3 id="343-transformation-addnested"><a id="Transformationaddnested" href="#Transformationaddnested">3.4.3 Transformation <code>addnested</code></a></h3>
 </summary>
 <p>The <code>addnested</code> transformation expands a path relative to the input set, applies one or more transformation sequences to the addressed resources, and adds the transformed resources as dynamic (navigation) properties to the output set. The output set <span class="math inline">\(A\)</span> is initially a clone of the input set.</p>
 <p>The first parameter of the <code>addnested</code> transformation is a path <span class="math inline">\(p\)</span> or a concatenated path <span class="math inline">\(p/q\)</span>. Here, <span class="math inline">\(p=p_1/…/p_k\)</span> with <span class="math inline">\(k≥1\)</span> is a <a href="#DataAggregationPath">data aggregation path</a> with single- or collection-valued segments. The path <span class="math inline">\(p\)</span> MUST NOT contain any navigation properties prior to the last segment <span class="math inline">\(p_k\)</span>, which MUST either be a navigation or a complex structural property. If the optional <span class="math inline">\(q\)</span> is present, it MUST be a type-cast segment. This is an extension of the definition in <a href="#ODataURL">OData-URL, section 5.1.3</a> in that the first parameter need not contain a navigation property.</p>
@@ -2423,11 +2423,11 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 </details>
 </details>
 <details open><summary>
-<h2 id="35-transformations-changing-the-input-set-structure"><a name="TransformationsChangingtheInputSetStructure" href="#TransformationsChangingtheInputSetStructure">3.5 Transformations Changing the Input Set Structure</a></h2>
+<h2 id="35-transformations-changing-the-input-set-structure"><a id="TransformationsChangingtheInputSetStructure" href="#TransformationsChangingtheInputSetStructure">3.5 Transformations Changing the Input Set Structure</a></h2>
 </summary>
 <p>The output set of the <a href="#Transformationsjoinandouterjoin">join</a> transformations differs from their input set in the number of instances as well as in their structure, but reflects the order of the input set. Transformation <a href="#Transformationnest"><code>nest</code></a> produces a one-instance output set.</p>
 <details open><summary>
-<h3 id="351-transformations-join-and-outerjoin"><a name="Transformationsjoinandouterjoin" href="#Transformationsjoinandouterjoin">3.5.1 Transformations <code>join</code> and <code>outerjoin</code></a></h3>
+<h3 id="351-transformations-join-and-outerjoin"><a id="Transformationsjoinandouterjoin" href="#Transformationsjoinandouterjoin">3.5.1 Transformations <code>join</code> and <code>outerjoin</code></a></h3>
 </summary>
 <p>The <code>join</code> and <code>outerjoin</code> transformations take as their first parameter <span class="math inline">\(p\)</span> a collection-valued complex or navigation property, optionally followed by a type-cast segment to address only instances of that derived type or one of its sub-types, followed by the <code>as</code> keyword, followed by an <a href="#TypeStructureandContextURL">alias</a>. The optional second parameter specifies a transformation sequence <span class="math inline">\(T\)</span>.</p>
 <p><a href="#SamenessandOrder">For each occurrence</a> <span class="math inline">\(u\)</span> in an <a href="#SamenessandOrder">order-preserving loop</a> over the input set</p>
@@ -2488,7 +2488,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 </div>
 </details>
 <details open><summary>
-<h3 id="352-transformation-nest"><a name="Transformationnest" href="#Transformationnest">3.5.2 Transformation <code>nest</code></a></h3>
+<h3 id="352-transformation-nest"><a id="Transformationnest" href="#Transformationnest">3.5.2 Transformation <code>nest</code></a></h3>
 </summary>
 <p>The <code>nest</code> transformation takes as parameters one or more transformation sequences followed by the <code>as</code> keyword followed by an <a href="#TypeStructureandContextURL">alias</a>.</p>
 <p>The output set consists of a single instance of the <a href="#TypeStructureandContextURL">input type</a> without entity-id having one dynamic property per transformation sequence. The name of the dynamic property is the alias for this transformation sequence. The value of the dynamic property is the collection resulting from the transformation sequence applied to the input set. The dynamic property carries as control information the context URL of the transformed input set.</p>
@@ -2509,7 +2509,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 </details>
 </details>
 <details open><summary>
-<h2 id="36-expressions-evaluable-on-a-collection"><a name="ExpressionsEvaluableonaCollection" href="#ExpressionsEvaluableonaCollection">3.6 Expressions Evaluable on a Collection</a></h2>
+<h2 id="36-expressions-evaluable-on-a-collection"><a id="ExpressionsEvaluableonaCollection" href="#ExpressionsEvaluableonaCollection">3.6 Expressions Evaluable on a Collection</a></h2>
 </summary>
 <p>The following two subsections introduce two new types of <a href="#Expression">expression</a> that are evaluated relative to a collection, called the input collection.</p>
 <p>These expressions are</p>
@@ -2523,7 +2523,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 </ul></li>
 </ul>
 <details open><summary>
-<h3 id="361-function-aggregate"><a name="Functionaggregate" href="#Functionaggregate">3.6.1 Function <code>aggregate</code></a></h3>
+<h3 id="361-function-aggregate"><a id="Functionaggregate" href="#Functionaggregate">3.6.1 Function <code>aggregate</code></a></h3>
 </summary>
 <p>The <code>aggregate</code> function allows the use of aggregated values in <a href="#Expression">expressions</a>. It takes a single parameter accepting an <a href="#AggregateExpression">aggregate expression</a> and returns the aggregated value of type <code>Edm.PrimitiveType</code> as the result from applying the aggregate expression on its input collection.</p>
 <p>More precisely, if <span class="math inline">\(α\)</span> is an aggregate expression, the function <span class="math inline">\(p/{\tt aggregate}(α)\)</span> or <span class="math inline">\({\tt\$these}/{\tt aggregate}(α)\)</span> evaluates to the value of the property <span class="math inline">\(D\)</span> in the single instance of the output set that is produced when the transformation <span class="math inline">\({\tt aggregate}(α{\tt\ as\ }D)\)</span> is applied with the input collection as input set.</p>
@@ -2557,11 +2557,11 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 </div>
 </details>
 <details open><summary>
-<h3 id="362-expression-count"><a name="Expressioncount" href="#Expressioncount">3.6.2 Expression <code>$count</code></a></h3>
+<h3 id="362-expression-count"><a id="Expressioncount" href="#Expressioncount">3.6.2 Expression <code>$count</code></a></h3>
 </summary>
 <p>The expression <code>$count</code> evaluates to the cardinality of the input collection.</p>
 <div class="example">
-<p>Example <a name="collexpr" href="#collexpr">44</a>: The input collection for <code>$count</code> consists of all sales entities, the top third of sales entities by amount form the result.</p>
+<p>Example <a id="collexpr" href="#collexpr">44</a>: The input collection for <code>$count</code> consists of all sales entities, the top third of sales entities by amount form the result.</p>
 <pre><code>GET /service/Sales?$apply=topcount($these/$count div 3,Amount)</code></pre>
 <p>results in 2 (a third of 8, rounded down) entities. (This differs from <code>toppercent(33.3,Amount)</code>, which returns only the sales entity with <code>ID</code> 4, because that already makes up a third of the total amount.)</p>
 <div class="sourceCode" id="cb78"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
@@ -2576,7 +2576,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 </details>
 </details>
 <details open><summary>
-<h2 id="37-function-isdefined"><a name="Functionisdefined" href="#Functionisdefined">3.7 Function <code>isdefined</code></a></h2>
+<h2 id="37-function-isdefined"><a id="Functionisdefined" href="#Functionisdefined">3.7 Function <code>isdefined</code></a></h2>
 </summary>
 <p>Properties that are not explicitly mentioned in <a href="#Transformationaggregate"><code>aggregate</code></a> or <a href="#Transformationgroupby"><code>groupby</code></a> are considered to have been <em>aggregated away</em>. Since they are treated as having the null value in <code>$filter</code> expressions <a href="#ODataURL">OData-URL, section 5.1.1.15</a>, the <code>$filter</code> expression <code>Product eq null</code> cannot distinguish between an instance containing the value for the null product and the instance containing the aggregated value across all products (where the <code>Product</code> has been aggregated away).</p>
 <p>The function <code>isdefined</code> can be used to determine whether a property is present or absent in an instance. It takes a <a href="#SingleValuedPropertyPath">single-valued property path</a> as its only parameter and returns true if the property is present in the instance for which the expression containing the <code>isdefined</code> function call is evaluated. A present property can still have the null value; it can represent a grouping of null values, or an aggregation that results in a null value.</p>
@@ -2592,7 +2592,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 </div>
 </details>
 <details open><summary>
-<h2 id="38-evaluating-apply-as-an-expand-and-select-option"><a name="EvaluatingapplyasanExpandandSelectOption" href="#EvaluatingapplyasanExpandandSelectOption">3.8 Evaluating <code>$apply</code> as an Expand and Select Option</a></h2>
+<h2 id="38-evaluating-apply-as-an-expand-and-select-option"><a id="EvaluatingapplyasanExpandandSelectOption" href="#EvaluatingapplyasanExpandandSelectOption">3.8 Evaluating <code>$apply</code> as an Expand and Select Option</a></h2>
 </summary>
 <p>The new system query option <code>$apply</code> can be used as an expand or select option to inline the result of aggregating related entities or nested instances. The rules for <a href="#SystemQueryOptionapply">evaluating <code>$apply</code></a> are applied in the context of the related collection of entities or the selected collection of instances, meaning this context defines the input set of the first transformation. Furthermore, <code>$apply</code> is evaluated first, and other expand or select options on the same (navigation) property are evaluated on the result of <code>$apply</code>.</p>
 <div class="example">
@@ -2616,14 +2616,14 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 </div>
 </details>
 <details open><summary>
-<h2 id="39-abnf-for-extended-url-conventions"><a name="ABNFforExtendedURLConventions" href="#ABNFforExtendedURLConventions">3.9 ABNF for Extended URL Conventions</a></h2>
+<h2 id="39-abnf-for-extended-url-conventions"><a id="ABNFforExtendedURLConventions" href="#ABNFforExtendedURLConventions">3.9 ABNF for Extended URL Conventions</a></h2>
 </summary>
 <p>The normative ABNF construction rules for this specification are defined in <a href="#ODataAggABNF">OData-Agg-ABNF</a>. They incrementally extend the rules defined in <a href="#ODataABNF">OData-ABNF</a>.</p>
 </details>
 </details>
 <hr />
 <details open><summary>
-<h1 id="4-cross-joins-and-aggregation"><a name="CrossJoinsandAggregation" href="#CrossJoinsandAggregation">4 Cross-Joins and Aggregation</a></h1>
+<h1 id="4-cross-joins-and-aggregation"><a id="CrossJoinsandAggregation" href="#CrossJoinsandAggregation">4 Cross-Joins and Aggregation</a></h1>
 </summary>
 <p>OData supports querying related entities through defining navigation properties in the data model. These navigation paths help guide simple consumers in understanding and navigating relationships.</p>
 <p>In some cases, however, requests need to span entity sets with no predefined associations. Such requests can be sent to the special resource <code>$crossjoin</code> instead of an individual entity set. The cross join of a list of entity sets is the Cartesian product of the listed entity sets, represented as a collection of complex type instances that have a navigation property with cardinality to-one for each participating entity set, and queries across entity sets can be formulated using these navigation properties. See <a href="#ODataURL">OData-URL</a> for details.</p>
@@ -2666,11 +2666,11 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 </details>
 <hr />
 <details open><summary>
-<h1 id="5-vocabulary-for-data-aggregation"><a name="VocabularyforDataAggregation" href="#VocabularyforDataAggregation">5 Vocabulary for Data Aggregation</a></h1>
+<h1 id="5-vocabulary-for-data-aggregation"><a id="VocabularyforDataAggregation" href="#VocabularyforDataAggregation">5 Vocabulary for Data Aggregation</a></h1>
 </summary>
 <p>The following terms are defined in the vocabulary for data aggregation <a href="#ODataVocAggr">OData-VocAggr</a>.</p>
 <details open><summary>
-<h2 id="51-aggregation-capabilities"><a name="AggregationCapabilities" href="#AggregationCapabilities">5.1 Aggregation Capabilities</a></h2>
+<h2 id="51-aggregation-capabilities"><a id="AggregationCapabilities" href="#AggregationCapabilities">5.1 Aggregation Capabilities</a></h2>
 </summary>
 <p>The term <code>ApplySupported</code> can be applied to an entity set, an entity type, or a collection if the target expression of the annotation starts with an entity container (see <a href="#containerrooted">example 50</a>). It describes the aggregation capabilities of the annotated target. If present, it implies that instances of the annotated target can contain dynamic properties as an effect of <code>$apply</code> even if they do not specify the <code>OpenType</code> attribute, see <a href="#ODataCSDL">OData-CSDL</a>. The term has a complex type with the following properties:</p>
 <ul>
@@ -2695,7 +2695,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">EntityContainer</span>&gt;</span></code></pre></div>
 </div>
 <div class="example">
-<p>Example <a name="containerrooted" href="#containerrooted">50</a>: Define aggregation support only for the products of a given category</p>
+<p>Example <a id="containerrooted" href="#containerrooted">50</a>: Define aggregation support only for the products of a given category</p>
 <div class="sourceCode" id="cb88"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotations</span><span class="ot"> Target=</span><span class="st">&quot;SalesModel.SalesData/Categories/Products&quot;</span>&gt;</span>
 <span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Aggregation.ApplySupported&quot;</span>&gt;</span>
 <span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>    …</span>
@@ -2704,7 +2704,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 </div>
 </details>
 <details open><summary>
-<h2 id="52-custom-aggregates"><a name="CustomAggregates" href="#CustomAggregates">5.2 Custom Aggregates</a></h2>
+<h2 id="52-custom-aggregates"><a id="CustomAggregates" href="#CustomAggregates">5.2 Custom Aggregates</a></h2>
 </summary>
 <p>The term <code>CustomAggregate</code> allows defining dynamic properties that can be used in <a href="#Transformationaggregate"><code>aggregate</code></a>. No assumptions can be made on how the values of these custom aggregates are calculated, whether they are null, and which input values are used.</p>
 <p>When applied to an entity set, an entity type, or a collection if the target expression of the annotation starts with an entity container, the annotation specifies custom aggregates that are available for its instances and for aggregated instances resulting from these instances. When applied to an entity container, the annotation specifies custom aggregates whose input set may span multiple entity sets within the container.</p>
@@ -2729,13 +2729,13 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 </div>
 </details>
 <details open><summary>
-<h2 id="53-context-defining-properties"><a name="ContextDefiningProperties" href="#ContextDefiningProperties">5.3 Context-Defining Properties</a></h2>
+<h2 id="53-context-defining-properties"><a id="ContextDefiningProperties" href="#ContextDefiningProperties">5.3 Context-Defining Properties</a></h2>
 </summary>
 <p>Sometimes the value of a property or custom aggregate is only well-defined within the context given by values of other properties, e.g. a postal code together with its country, or a monetary amount together with its currency unit. These context-defining properties can be listed with the term <code>ContextDefiningProperties</code> whose type is a collection of property paths.</p>
 <p>If present, the context-defining properties SHOULD be used as grouping properties when aggregating the annotated property or custom aggregate, or alternatively be restricted to a single value by a pre-filter operation. Services MAY respond with <code>400 Bad Request</code> if the context-defining properties are not sufficiently specified for calculating a meaningful aggregate value.</p>
 </details>
 <details open><summary>
-<h2 id="54-annotation-example"><a name="AnnotationExample" href="#AnnotationExample">5.4 Annotation Example</a></h2>
+<h2 id="54-annotation-example"><a id="AnnotationExample" href="#AnnotationExample">5.4 Annotation Example</a></h2>
 </summary>
 <div class="example">
 <p>Example 52: This simplified <code>Sales</code> entity set has a single aggregatable property <code>Amount</code> whose context is defined by the <code>Code</code> property of the related <code>Currency</code>, and a custom aggregate <code>Forecast</code> with the same context. The <code>Code</code> property of <code>Currencies</code> is groupable. All other properties are neither groupable nor aggregatable.</p>
@@ -2809,11 +2809,11 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 </div>
 </details>
 <details open><summary>
-<h2 id="55-hierarchies"><a name="Hierarchies" href="#Hierarchies">5.5 Hierarchies</a></h2>
+<h2 id="55-hierarchies"><a id="Hierarchies" href="#Hierarchies">5.5 Hierarchies</a></h2>
 </summary>
 <p>A hierarchy is an arrangement of entities whose values are represented as being “above”, “below”, or “at the same level as” one another. A hierarchy can be leveled or recursive.</p>
 <details open><summary>
-<h3 id="551-leveled-hierarchy"><a name="LeveledHierarchy" href="#LeveledHierarchy">5.5.1 Leveled Hierarchy</a></h3>
+<h3 id="551-leveled-hierarchy"><a id="LeveledHierarchy" href="#LeveledHierarchy">5.5.1 Leveled Hierarchy</a></h3>
 </summary>
 <p>A <em>leveled hierarchy</em> has a fixed number of levels each of which is represented by a <a href="#SimpleGrouping">grouping property</a>. The values of a lower-level property depend on the property value of the level above.</p>
 <p>A leveled hierarchy can be defined for a collection of instances of an entity or complex type and is described with the term <code>LeveledHierarchy</code> that lists the properties used to form the hierarchy.</p>
@@ -2821,7 +2821,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <p>The term <code>LeveledHierarchy</code> MUST be applied with a qualifier that can be used to reference the hierarchy in <a href="#Groupingwithrollup">grouping with <code>rollup</code></a>.</p>
 </details>
 <details open><summary>
-<h3 id="552-recursive-hierarchy"><a name="RecursiveHierarchy" href="#RecursiveHierarchy">5.5.2 Recursive Hierarchy</a></h3>
+<h3 id="552-recursive-hierarchy"><a id="RecursiveHierarchy" href="#RecursiveHierarchy">5.5.2 Recursive Hierarchy</a></h3>
 </summary>
 <p>A recursive hierarchy is defined on a collection of entities by</p>
 <ul>
@@ -2839,7 +2839,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <p>The <em>ancestors with maximum distance <span class="math inline">\(d≥1\)</span></em> of a node are its parent nodes and, if <span class="math inline">\(d&gt;1\)</span>, the ancestors of these parent nodes with maximum distance <span class="math inline">\(d-1\)</span>. The <em>ancestors</em> are the ancestors with maximum distance <span class="math inline">\(d=∞\)</span>. The <code>ParentNavigationProperty</code> MUST be such that no node is an ancestor of itself, in other words: cycles are forbidden.</p>
 <p>The term <code>UpPath</code> can be used in hierarchical result sets to associate with each instance one of its ancestors, one ancestor of that ancestor and so on. This instance annotation is introduced in <a href="#Transformationtraverse">section 6.2.2</a>.</p>
 <details open><summary>
-<h4 id="5521-hierarchy-functions"><a name="HierarchyFunctions" href="#HierarchyFunctions">5.5.2.1 Hierarchy Functions</a></h4>
+<h4 id="5521-hierarchy-functions"><a id="HierarchyFunctions" href="#HierarchyFunctions">5.5.2.1 Hierarchy Functions</a></h4>
 </summary>
 <p>For testing the position of a given entity in a recursive hierarchy, the Aggregation vocabulary <a href="#ODataVocAggr">OData-VocAggr</a> defines unbound functions. These have</p>
 <ul>
@@ -2861,7 +2861,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 </details>
 </details>
 <details open><summary>
-<h3 id="553-hierarchy-examples"><a name="HierarchyExamples" href="#HierarchyExamples">5.5.3 Hierarchy Examples</a></h3>
+<h3 id="553-hierarchy-examples"><a id="HierarchyExamples" href="#HierarchyExamples">5.5.3 Hierarchy Examples</a></h3>
 </summary>
 <p>The hierarchy terms can be applied to the <a href="#ExampleDataModel">Example Data Model</a>.</p>
 <div class="example">
@@ -3011,7 +3011,7 @@ GET /service/Sales?$select=ID&amp;$filter=Aggregation.isdescendant(
 </details>
 </details>
 <details open><summary>
-<h2 id="56-functions-on-aggregated-entities"><a name="FunctionsonAggregatedEntities" href="#FunctionsonAggregatedEntities">5.6 Functions on Aggregated Entities</a></h2>
+<h2 id="56-functions-on-aggregated-entities"><a id="FunctionsonAggregatedEntities" href="#FunctionsonAggregatedEntities">5.6 Functions on Aggregated Entities</a></h2>
 </summary>
 <p>Service-defined bound functions that serve as set transformations MAY be annotated with the term <code>AvailableOnAggregates</code> to indicate that they are applicable to aggregated entities under specific conditions:</p>
 <ul>
@@ -3024,7 +3024,7 @@ GET /service/Sales?$select=ID&amp;$filter=Aggregation.isdescendant(
 </details>
 <hr />
 <details open><summary>
-<h1 id="6-hierarchical-transformations"><a name="HierarchicalTransformations" href="#HierarchicalTransformations">6 Hierarchical Transformations</a></h1>
+<h1 id="6-hierarchical-transformations"><a id="HierarchicalTransformations" href="#HierarchicalTransformations">6 Hierarchical Transformations</a></h1>
 </summary>
 <p>The transformations and the <code>rolluprecursive</code> operator defined in this section are called hierarchical, because they make use of a recursive hierarchy and are defined in terms of hierarchy functions introduced in the previous section.</p>
 <p>The transformations <code>ancestors</code> and <code>descendants</code> do not define an order on the output set. An order can be imposed by a subsequent <code>orderby</code> or <code>traverse</code> transformation or a <code>$orderby</code>. The output set of <code>traverse</code> is in preorder or postorder, and grouping with <code>rolluprecursive</code> orders its output set in analogy with <a href="#SimpleGrouping">simple grouping</a>.</p>
@@ -3032,7 +3032,7 @@ GET /service/Sales?$select=ID&amp;$filter=Aggregation.isdescendant(
 <p>The notation <span class="math inline">\(u[t]\)</span> is used to denote the value of a property <span class="math inline">\(t\)</span>, possibly preceded by a type-cast segment, in an instance <span class="math inline">\(u\)</span>. It is also used to denote the value of a single-valued data aggregation path <span class="math inline">\(t\)</span>, evaluated relative to <span class="math inline">\(u\)</span>. The value of a collection-valued <a href="#DataAggregationPath">data aggregation path</a> is denoted in the <a href="#EvaluationofDataAggregationPaths"><span class="math inline">\(\Gamma\)</span> notation</a> by <span class="math inline">\(γ(u,t)\)</span>.</p>
 <p>The notations introduced here are used throughout the following subsections.</p>
 <details open><summary>
-<h2 id="61-common-parameters-for-hierarchical-transformations"><a name="CommonParametersforHierarchicalTransformations" href="#CommonParametersforHierarchicalTransformations">6.1 Common Parameters for Hierarchical Transformations</a></h2>
+<h2 id="61-common-parameters-for-hierarchical-transformations"><a id="CommonParametersforHierarchicalTransformations" href="#CommonParametersforHierarchicalTransformations">6.1 Common Parameters for Hierarchical Transformations</a></h2>
 </summary>
 <p>The parameter lists defined in the following subsections have three mandatory parameters in common.</p>
 <p>The recursive hierarchy is defined by a parameter pair <span class="math inline">\((H,Q)\)</span>, where <span class="math inline">\(H\)</span> and <span class="math inline">\(Q\)</span> MUST be specified as the first and second parameter. Here, <span class="math inline">\(H\)</span> MUST be an expression of type <code>Collection(Edm.EntityType)</code> starting with <code>$root</code> that has no multiple occurrences of the same entity. <span class="math inline">\(H\)</span> identifies the collection of node entities forming a recursive hierarchy based on an annotation of their common entity type with term <code>RecursiveHierarchy</code> with a <code>Qualifier</code> attribute whose value MUST be provided in <span class="math inline">\(Q\)</span>. The property paths referenced by <code>NodeProperty</code> and <code>ParentNavigationProperty</code> in the <code>RecursiveHierarchy</code> annotation must be evaluable for the nodes in the recursive hierarchy, otherwise the service MUST reject the request. The <code>NodeProperty</code> is denoted by <span class="math inline">\(q\)</span> in this section.</p>
@@ -3040,11 +3040,11 @@ GET /service/Sales?$select=ID&amp;$filter=Aggregation.isdescendant(
 <p>Some parameter lists allow as optional fourth or fifth parameter a non-empty sequence <span class="math inline">\(S\)</span> of transformations. The transformation sequence <span class="math inline">\(S\)</span> will be applied to the node collection <span class="math inline">\(H\)</span>. It MUST consist of transformations listed in <a href="#TransformationsProducingaSubset">section 3.3</a> or <a href="#HierarchicalTransformationsProducingaSubset">section 6.2</a> or service-defined bound functions whose output set is a subset of their input set.</p>
 </details>
 <details open><summary>
-<h2 id="62-hierarchical-transformations-producing-a-subset"><a name="HierarchicalTransformationsProducingaSubset" href="#HierarchicalTransformationsProducingaSubset">6.2 Hierarchical Transformations Producing a Subset</a></h2>
+<h2 id="62-hierarchical-transformations-producing-a-subset"><a id="HierarchicalTransformationsProducingaSubset" href="#HierarchicalTransformationsProducingaSubset">6.2 Hierarchical Transformations Producing a Subset</a></h2>
 </summary>
 <p>These transformations produce an output set that consists of certain instances from their input set, possibly with repetitions or in a different order.</p>
 <details open><summary>
-<h3 id="621-transformations-ancestors-and-descendants"><a name="Transformationsancestorsanddescendants" href="#Transformationsancestorsanddescendants">6.2.1 Transformations <code>ancestors</code> and <code>descendants</code></a></h3>
+<h3 id="621-transformations-ancestors-and-descendants"><a id="Transformationsancestorsanddescendants" href="#Transformationsancestorsanddescendants">6.2.1 Transformations <code>ancestors</code> and <code>descendants</code></a></h3>
 </summary>
 <p>In the simple case, the <code>ancestors</code> transformation takes an input set consisting of instances that belong to a recursive hierarchy <span class="math inline">\((H,Q)\)</span>. It determines a subset <span class="math inline">\(A\)</span> of the input set and then determines the set of ancestors of <span class="math inline">\(A\)</span> that were already contained in the input set. Its output set is the ancestors set, optionally including <span class="math inline">\(A\)</span>.</p>
 <p>In the more complex case, the instances in the input set are instead related to nodes in a recursive hierarchy. Then the <code>ancestors</code> transformation determines a subset <span class="math inline">\(A\)</span> of the input set consisting of instances that are related to certain nodes in the hierarchy, called start nodes. The ancestors of these start nodes are then determined, and the output set consists of instances of the input set that are related to the ancestors, or optionally to the start nodes.</p>
@@ -3162,7 +3162,7 @@ G(n)={\tt filter}(\hfill\\
 </div>
 </details>
 <details open><summary>
-<h3 id="622-transformation-traverse"><a name="Transformationtraverse" href="#Transformationtraverse">6.2.2 Transformation <code>traverse</code></a></h3>
+<h3 id="622-transformation-traverse"><a id="Transformationtraverse" href="#Transformationtraverse">6.2.2 Transformation <code>traverse</code></a></h3>
 </summary>
 <p>The <code>traverse</code> transformation returns instances of the input set that are or are related to nodes of a given recursive hierarchy in a specified tree order.</p>
 <p><span class="math inline">\(H\)</span>, <span class="math inline">\(Q\)</span> and <span class="math inline">\(p\)</span> are the first three parameters defined <a href="#CommonParametersforHierarchicalTransformations">above</a>.</p>
@@ -3198,7 +3198,7 @@ In this case <span class="math inline">\(\Pi_G(σ(x))\)</span> injects only the 
 </ol>
 <p>(See <a href="#traversecoll">example 112</a>.)</p>
 <details open><summary>
-<h4 id="6221-standard-case-of-traverse"><a name="StandardCaseoftraverse" href="#StandardCaseoftraverse">6.2.2.1 Standard Case of <code>traverse</code></a></h4>
+<h4 id="6221-standard-case-of-traverse"><a id="StandardCaseoftraverse" href="#StandardCaseoftraverse">6.2.2.1 Standard Case of <code>traverse</code></a></h4>
 </summary>
 <p>The algorithm is first given for the standard case where <code>RecursiveHierarchy/ParentNavigationProperty</code> is single-valued and the optional parameter <span class="math inline">\(S\)</span> is not specified. In this standard case, start nodes are root nodes and <span class="math inline">\(σ(x)\)</span> is computed exactly once for every node <span class="math inline">\(x\)</span>, as part of the recursive formula for <span class="math inline">\(R(x)\)</span> given below. The general case follows <a href="#GeneralCaseoftraverse">later</a>.</p>
 <p>Let <span class="math inline">\(r_1,…,r_n\)</span> be a sequence of the start nodes in <span class="math inline">\(H&#39;\)</span> <a href="#SamenessandOrder">preserving the order</a> of <span class="math inline">\(H&#39;\)</span> stable-sorted by <span class="math inline">\(o\)</span>. Then the transformation <span class="math inline">\({\tt traverse}(H,Q,p,h,o)\)</span> is defined as equivalent to <span class="math display">\[{\tt concat}(R(r_1),…,R(r_n)).\]</span></p>
@@ -3243,7 +3243,7 @@ F(x)={\tt filter}(\hfill\\
 </div>
 </details>
 <details open><summary>
-<h4 id="6222-general-case-of-traverse"><a name="GeneralCaseoftraverse" href="#GeneralCaseoftraverse">6.2.2.2 General Case of <code>traverse</code></a></h4>
+<h4 id="6222-general-case-of-traverse"><a id="GeneralCaseoftraverse" href="#GeneralCaseoftraverse">6.2.2.2 General Case of <code>traverse</code></a></h4>
 </summary>
 <p>In the general case, the recursive algorithm can reach a node <span class="math inline">\(x\)</span> multiple times, via different parents or ancestors, or because <span class="math inline">\(x\)</span> is a start node and a descendant of another start node. Then the algorithm computes <span class="math inline">\(R(x)\)</span> and hence <span class="math inline">\(σ(x)\)</span> multiple times. In order to distinguish these computation results, information about the ancestors up to the start node is injected into each <span class="math inline">\(σ(x)\)</span> by annotating <span class="math inline">\(x\)</span> differently before each <span class="math inline">\(σ(x)\)</span> is computed. On the other hand, certain nodes can be unreachable from any start node, these are called orphans of the traversal (see <a href="#weight">example 117</a>).</p>
 <p>More precisely, in the general case every node <span class="math inline">\(y\)</span> is annotated with the term <code>UpPath</code> from the <code>Aggregation</code> vocabulary <a href="#ODataVocAggr">OData-VocAggr</a>. The annotation has <span class="math inline">\(Q\)</span> as qualifier and the annotation value is a collection of string values of node identifiers. The first member of that collection is the node identifier of the parent node <span class="math inline">\(x\)</span> such that <span class="math inline">\(R(y)\)</span> appears on the right-hand side of the recursive formula for <span class="math inline">\(R(x)\)</span>. The following members are the members of the <code>Aggregation.UpPath</code> collection of <span class="math inline">\(x\)</span>. Every instance in the output set of <code>traverse</code> is related to one node with <code>Aggregation.UpPath</code> annotation. Start nodes appear annotated with an empty collection.</p>
@@ -3288,7 +3288,7 @@ F(x)={\tt filter}(\hfill\\
 </details>
 </details>
 <details open><summary>
-<h2 id="63-grouping-with-rolluprecursive"><a name="Groupingwithrolluprecursive" href="#Groupingwithrolluprecursive">6.3 Grouping with <code>rolluprecursive</code></a></h2>
+<h2 id="63-grouping-with-rolluprecursive"><a id="Groupingwithrolluprecursive" href="#Groupingwithrolluprecursive">6.3 Grouping with <code>rolluprecursive</code></a></h2>
 </summary>
 <p>Recall that simple grouping partitions the input set and applies a transformation sequence to each partition. By contrast, grouping with <code>rolluprecursive</code>, informally speaking, transforms the input set into overlapping portions (like “US” and “US East”), one for each node <span class="math inline">\(x\)</span> of a <a href="#RecursiveHierarchy">recursive hierarchy</a>. The transformation <span class="math inline">\(F(x)\)</span>, defined below, outputs the portion whose node identifiers are among the descendants of <span class="math inline">\(x\)</span> (including <span class="math inline">\(x\)</span> itself). A transformation sequence is then applied to each portion, and they are made distinguishable in the output set through injection of information about the node <span class="math inline">\(x\)</span>, which is achieved through the transformation <span class="math inline">\(\Pi_G(σ(x))\)</span> defined in the <a href="#Transformationtraverse"><code>traverse</code></a> section.</p>
 <p>As defined <a href="#CommonParametersforHierarchicalTransformations">above</a>, <span class="math inline">\(H\)</span>, <span class="math inline">\(Q\)</span> and <span class="math inline">\(p\)</span> are the first three parameters of <code>rolluprecursive</code>, <span class="math inline">\(S\)</span> is an optional fourth parameter. Let <span class="math inline">\(H&#39;\)</span> be the output set of the transformation sequence <span class="math inline">\(S\)</span> applied to <span class="math inline">\(H\)</span>, or <span class="math inline">\(H&#39;=H\)</span> if <span class="math inline">\(S\)</span> is not specified.</p>
@@ -3325,7 +3325,7 @@ F(x)={\tt filter}(\hfill\\
 }\]</span> where <span class="math inline">\(y_1,…,y_k\)</span> denote <code>lambdaVariableExpr</code>s and <span class="math inline">\({}/r\)</span> may be absent. (See <a href="#rollupcoll">example 113</a> for a case with <span class="math inline">\(k=1\)</span>.)</p>
 <p>Informatively speaking, the effect of the algorithm can be summarized as follows: If <span class="math inline">\(M≥1\)</span> and <span class="math inline">\(\hat F_N(x)\)</span> denotes the collection of all instances that are related to a node <span class="math inline">\(x\)</span> as determined by <span class="math inline">\(F(x)\)</span> in the recursive hierarchy of the <span class="math inline">\(N\)</span>-th <code>rolluprecursive</code> operator, then <span class="math inline">\(T\)</span> is applied to each of the intersections of <span class="math inline">\(\hat F_1(χ_1),…,\hat F_M(χ_M)\)</span>, as <span class="math inline">\(χ_N\)</span> runs over all nodes of the <span class="math inline">\(N\)</span>-th recursive hierarchy for <span class="math inline">\(1≤N≤M\)</span>. Into the instances of the resulting output sets the <span class="math inline">\(\Pi_G\)</span> transformations inject information about the nodes <span class="math inline">\(χ_1,…,χ_M\)</span>.</p>
 <div class="example">
-<p>Example <a name="caseone" href="#caseone">65</a>: Total number of sub-organizations for all organizations in the hierarchy defined in <a href="#HierarchyExamples">Hierarchy Examples</a> with <span class="math inline">\(p=q={\tt ID}\)</span> (case 1 of the <a href="#Transformationtraverse">definition</a> of <span class="math inline">\(σ(x)\)</span>). In this case <span class="math inline">\(\Pi_G(σ(x))\)</span> writes back the entire node into the output set of <span class="math inline">\(T\)</span>, aggregates must have an alias to avoid overwriting by a property of the node with the same name.</p>
+<p>Example <a id="caseone" href="#caseone">65</a>: Total number of sub-organizations for all organizations in the hierarchy defined in <a href="#HierarchyExamples">Hierarchy Examples</a> with <span class="math inline">\(p=q={\tt ID}\)</span> (case 1 of the <a href="#Transformationtraverse">definition</a> of <span class="math inline">\(σ(x)\)</span>). In this case <span class="math inline">\(\Pi_G(σ(x))\)</span> writes back the entire node into the output set of <span class="math inline">\(T\)</span>, aggregates must have an alias to avoid overwriting by a property of the node with the same name.</p>
 <pre><code>GET /service/SalesOrganizations?$apply=
     groupby((rolluprecursive(
                  $root/SalesOrganizations,SalesOrgHierarchy,ID)),
@@ -3354,7 +3354,7 @@ F(x)={\tt filter}(\hfill\\
 </div>
 <p>The value of the property <span class="math inline">\(χ_N\)</span> in the <code>rolluprecursive</code> algorithm is the node <span class="math inline">\(x\)</span> at recursion level <span class="math inline">\(N\)</span>. In a common expression, <span class="math inline">\(χ_N\)</span> cannot be accessed by its name, but can only be read as the return value of the unbound function <span class="math inline">\({\tt rollupnode}({\tt Position}=N)\)</span> defined in the <code>Aggregation</code> vocabulary <a href="#ODataVocAggr">OData-VocAggr</a>, with <span class="math inline">\(1≤N≤M\)</span>, and only during the application of the transformation sequence <span class="math inline">\(T\)</span> in the formula for <span class="math inline">\(R(x)\)</span> above (the function is undefined otherwise). If <span class="math inline">\(N=1\)</span>, the <code>Position</code> parameter can be omitted.</p>
 <div class="example">
-<p>⚠ Example <a name="rollupnode" href="#rollupnode">66</a>: Total sales amounts per organization, both including and excluding sub-organizations, in the US sub-hierarchy defined in <a href="#HierarchyExamples">Hierarchy Examples</a> with <span class="math inline">\(p=p&#39;/q={\tt SalesOrganization}/{\tt ID}\)</span> and <span class="math inline">\(p&#39;={\tt SalesOrganization}\)</span> (case 2 of the <a href="#Transformationtraverse">definition</a> of <span class="math inline">\(σ(x)\)</span>). The Boolean expression <span class="math inline">\(p&#39;\hbox{\tt\ eq Aggregation.rollupnode}()\)</span> is true for sales in the organization for which the aggregate is computed, but not for sales in sub-organizations.</p>
+<p>⚠ Example <a id="rollupnode" href="#rollupnode">66</a>: Total sales amounts per organization, both including and excluding sub-organizations, in the US sub-hierarchy defined in <a href="#HierarchyExamples">Hierarchy Examples</a> with <span class="math inline">\(p=p&#39;/q={\tt SalesOrganization}/{\tt ID}\)</span> and <span class="math inline">\(p&#39;={\tt SalesOrganization}\)</span> (case 2 of the <a href="#Transformationtraverse">definition</a> of <span class="math inline">\(σ(x)\)</span>). The Boolean expression <span class="math inline">\(p&#39;\hbox{\tt\ eq Aggregation.rollupnode}()\)</span> is true for sales in the organization for which the aggregate is computed, but not for sales in sub-organizations.</p>
 <pre><code>GET /service/Sales?$apply=groupby(
     (rolluprecursive(
       $root/SalesOrganizations,
@@ -3427,7 +3427,7 @@ F(x)={\tt filter}(\hfill\\
 <span id="cb121-11"><a href="#cb121-11" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
-<p>⚠ Example <a name="pathequals" href="#pathequals">68</a>: Although <span class="math inline">\(p={\tt ID}\)</span> and <span class="math inline">\(q={\tt ID}\)</span>, they are not equal in the sense of case 1, because they are evaluated relative to different entity sets. Hence, this is an example of case 3 of the <a href="#Transformationtraverse">definition</a> of <span class="math inline">\(σ(x)\)</span>, where no <code>Sales/ID</code> matches a <code>SalesOrganizations/ID</code>, that is, all <span class="math inline">\(F(x)\)</span> have empty output sets.</p>
+<p>⚠ Example <a id="pathequals" href="#pathequals">68</a>: Although <span class="math inline">\(p={\tt ID}\)</span> and <span class="math inline">\(q={\tt ID}\)</span>, they are not equal in the sense of case 1, because they are evaluated relative to different entity sets. Hence, this is an example of case 3 of the <a href="#Transformationtraverse">definition</a> of <span class="math inline">\(σ(x)\)</span>, where no <code>Sales/ID</code> matches a <code>SalesOrganizations/ID</code>, that is, all <span class="math inline">\(F(x)\)</span> have empty output sets.</p>
 <pre><code>GET /service/Sales?$apply=
     groupby((rolluprecursive(
                  $root/SalesOrganizations,SalesOrgHierarchy,ID))),
@@ -3450,11 +3450,11 @@ F(x)={\tt filter}(\hfill\\
 </details>
 <hr />
 <details open><summary>
-<h1 id="7-examples"><a name="Examples" href="#Examples">7 Examples</a></h1>
+<h1 id="7-examples"><a id="Examples" href="#Examples">7 Examples</a></h1>
 </summary>
 <p>The following examples show some common aggregation-related questions that can be answered by combining the transformations defined in <a href="#SystemQueryOptionapply">sections 3</a> and <a href="#HierarchicalTransformations">6</a>.</p>
 <details open><summary>
-<h2 id="71-requesting-distinct-values"><a name="RequestingDistinctValues" href="#RequestingDistinctValues">7.1 Requesting Distinct Values</a></h2>
+<h2 id="71-requesting-distinct-values"><a id="RequestingDistinctValues" href="#RequestingDistinctValues">7.1 Requesting Distinct Values</a></h2>
 </summary>
 <p>Grouping without specifying a set transformation returns the distinct combination of the grouping properties.</p>
 <div class="example">
@@ -3504,7 +3504,7 @@ F(x)={\tt filter}(\hfill\\
            &amp;$expand=Customer($select=Name,ID)</code></pre>
 </div>
 <div class="example">
-<p>Example <a name="groupbynav" href="#groupbynav">72</a>: Grouping by navigation property <code>Customer</code></p>
+<p>Example <a id="groupbynav" href="#groupbynav">72</a>: Grouping by navigation property <code>Customer</code></p>
 <pre><code>
 GET /service/Sales?$apply=groupby((Customer))</code></pre>
 <p>results in</p>
@@ -3542,7 +3542,7 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 <span id="cb134-19"><a href="#cb134-19" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
-<p>⚠ Example <a name="subinputtype" href="#subinputtype">74</a>: grouping by properties of subtypes</p>
+<p>⚠ Example <a id="subinputtype" href="#subinputtype">74</a>: grouping by properties of subtypes</p>
 <pre><code>GET /service/Products?$apply=groupby((SalesModel.FoodProduct/Rating,
                                       SalesModel.NonFoodProduct/RatingClass))</code></pre>
 <p>results in</p>
@@ -3558,7 +3558,7 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 <span id="cb136-10"><a href="#cb136-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
-<p>⚠ Example <a name="anystructure" href="#anystructure">75</a>: grouping by a property of a subtype</p>
+<p>⚠ Example <a id="anystructure" href="#anystructure">75</a>: grouping by a property of a subtype</p>
 <pre><code>GET /service/Products?$apply=groupby((SalesModel.FoodProduct/Rating))</code></pre>
 <p>results in a third group representing entities with no <code>SalesModel.FoodProduct/Rating</code>, including the <code>SalesModel.NonFoodProduct</code>s:</p>
 <div class="sourceCode" id="cb138"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb138-1"><a href="#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
@@ -3572,11 +3572,11 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 </div>
 </details>
 <details open><summary>
-<h2 id="72-standard-aggregation-methods"><a name="StandardAggregationMethods" href="#StandardAggregationMethods">7.2 Standard Aggregation Methods</a></h2>
+<h2 id="72-standard-aggregation-methods"><a id="StandardAggregationMethods" href="#StandardAggregationMethods">7.2 Standard Aggregation Methods</a></h2>
 </summary>
 <p>The client may specify one of the predefined aggregation methods <a href="#StandardAggregationMethodmin"><code>min</code></a>, <a href="#StandardAggregationMethodmax"><code>max</code></a>, <a href="#StandardAggregationMethodsum"><code>sum</code></a>, <a href="#StandardAggregationMethodaverage"><code>average</code></a>, and <a href="#StandardAggregationMethodcountdistinct"><code>countdistinct</code></a>, or a <a href="#CustomAggregationMethods">custom aggregation method</a>, to aggregate an <a href="#AggregatableExpression">aggregatable expression</a>. Expressions defining an aggregate method specify an <a href="#Keywordas">alias</a>. The aggregated values are returned in a dynamic property whose name is determined by the alias.</p>
 <div class="example">
-<p>Example <a name="aggr" href="#aggr">76</a>:</p>
+<p>Example <a id="aggr" href="#aggr">76</a>:</p>
 <pre><code>GET /service/Products?$apply=groupby((Name),
                               aggregate(Sales/Amount with sum as Total))</code></pre>
 <p>results in</p>
@@ -3592,7 +3592,7 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 <p>Note that the base set of the request is <code>Products</code>, so there is a result item for product <code>Pencil</code> even though there are no sales items. The input set for the aggregation in the third row is <span class="math inline">\(I\)</span> consisting of the pencil, <span class="math inline">\(p=q/r={\tt Sales}/{\tt Amount}\)</span>, <span class="math inline">\(E=\Gamma(I,q)\)</span> is empty and <span class="math inline">\(A=\Gamma(E,r)\)</span> is also empty. The sum over the empty collection is null.</p>
 </div>
 <div class="example">
-<p>Example <a name="nest" href="#nest">77</a>: Alternatively, the request could ask for the aggregated amount to be nested inside a clone of Sales</p>
+<p>Example <a id="nest" href="#nest">77</a>: Alternatively, the request could ask for the aggregated amount to be nested inside a clone of Sales</p>
 <pre><code>GET /service/Products?$apply=addnested(Sales,
     aggregate(Amount with sum as Total) as AggregatedSales)</code></pre>
 <p>results in</p>
@@ -3821,7 +3821,7 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 </div>
 </details>
 <details open><summary>
-<h2 id="73-requesting-expanded-results"><a name="RequestingExpandedResults" href="#RequestingExpandedResults">7.3 Requesting Expanded Results</a></h2>
+<h2 id="73-requesting-expanded-results"><a id="RequestingExpandedResults" href="#RequestingExpandedResults">7.3 Requesting Expanded Results</a></h2>
 </summary>
 <div class="example">
 <p>Example 89: Assuming an extension of the data model where <code>Customer</code> contains an additional collection-valued complex property <code>Addresses</code> and these contain a single-valued navigation property <code>ResponsibleSalesOrganization</code>, <code>addnested</code> can be used to compute a nested dynamic property:</p>
@@ -3955,7 +3955,7 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 </div>
 </details>
 <details open><summary>
-<h2 id="74-requesting-custom-aggregates"><a name="RequestingCustomAggregates" href="#RequestingCustomAggregates">7.4 Requesting Custom Aggregates</a></h2>
+<h2 id="74-requesting-custom-aggregates"><a id="RequestingCustomAggregates" href="#RequestingCustomAggregates">7.4 Requesting Custom Aggregates</a></h2>
 </summary>
 <p>Custom aggregates are defined through the <a href="#CustomAggregates"><code>CustomAggregate</code></a> annotation. They can be associated with an entity set, a collection or an entity container.</p>
 <p>A custom aggregate can be used by specifying the name of the custom aggregate in the <a href="#Transformationaggregate"><code>aggregate</code></a> clause.</p>
@@ -4020,7 +4020,7 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 </div>
 </details>
 <details open><summary>
-<h2 id="75-aliasing"><a name="Aliasing" href="#Aliasing">7.5 Aliasing</a></h2>
+<h2 id="75-aliasing"><a id="Aliasing" href="#Aliasing">7.5 Aliasing</a></h2>
 </summary>
 <p>A property can be aggregated in multiple ways, each with a different alias.</p>
 <div class="example">
@@ -4088,11 +4088,11 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 </div>
 </details>
 <details open><summary>
-<h2 id="76-combining-transformations-per-group"><a name="CombiningTransformationsperGroup" href="#CombiningTransformationsperGroup">7.6 Combining Transformations per Group</a></h2>
+<h2 id="76-combining-transformations-per-group"><a id="CombiningTransformationsperGroup" href="#CombiningTransformationsperGroup">7.6 Combining Transformations per Group</a></h2>
 </summary>
 <p>Dynamic property names may be reused in different transformation sequences passed to <code>concat</code>.</p>
 <div class="example">
-<p>Example <a name="bestselling" href="#bestselling">101</a>: to get the best-selling product per country with sub-totals for every country, the partial results of a transformation sequence and a <code>groupby</code> transformation are concatenated:</p>
+<p>Example <a id="bestselling" href="#bestselling">101</a>: to get the best-selling product per country with sub-totals for every country, the partial results of a transformation sequence and a <code>groupby</code> transformation are concatenated:</p>
 <pre><code>GET /service/Sales?$apply=concat(
                      groupby((Customer/Country,Product/Name),
                              aggregate(Amount with sum as Total))
@@ -4145,7 +4145,7 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 <span id="cb194-20"><a href="#cb194-20" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
-<p>Example <a name="contradict" href="#contradict">103</a>: concatenation of two different groupings “biggest sale per customer” and “biggest sale per product”, made distinguishable by a dynamic property:</p>
+<p>Example <a id="contradict" href="#contradict">103</a>: concatenation of two different groupings “biggest sale per customer” and “biggest sale per product”, made distinguishable by a dynamic property:</p>
 <pre><code>GET /service/Sales?$apply=concat(
     groupby((Customer),topcount(1,Amount))/compute(&#39;Customer&#39; as per),
     groupby((Product),topcount(1,Amount))/compute(&#39;Product&#39; as per))
@@ -4171,7 +4171,7 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 </div>
 </details>
 <details open><summary>
-<h2 id="77-model-functions-as-set-transformations"><a name="ModelFunctionsasSetTransformations" href="#ModelFunctionsasSetTransformations">7.7 Model Functions as Set Transformations</a></h2>
+<h2 id="77-model-functions-as-set-transformations"><a id="ModelFunctionsasSetTransformations" href="#ModelFunctionsasSetTransformations">7.7 Model Functions as Set Transformations</a></h2>
 </summary>
 <div class="example">
 <p>Example 104: As a variation of <a href="#bestselling">example 101</a>, a query for returning the best-selling product per country and the total amount of the remaining products can be formulated with the help of a model function.</p>
@@ -4210,7 +4210,7 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 </div>
 </details>
 <details open><summary>
-<h2 id="78-controlling-aggregation-per-rollup-level"><a name="ControllingAggregationperRollupLevel" href="#ControllingAggregationperRollupLevel">7.8 Controlling Aggregation per Rollup Level</a></h2>
+<h2 id="78-controlling-aggregation-per-rollup-level"><a id="ControllingAggregationperRollupLevel" href="#ControllingAggregationperRollupLevel">7.8 Controlling Aggregation per Rollup Level</a></h2>
 </summary>
 <p>For a leveled hierarchy, consumers may specify a different aggregation method per level for every property passed to <a href="#Groupingwithrollup"><code>rollup</code></a> as a hierarchy level below the root level.</p>
 <div class="example">
@@ -4264,7 +4264,7 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 </div>
 </details>
 <details open><summary>
-<h2 id="79-aggregation-in-recursive-hierarchies"><a name="AggregationinRecursiveHierarchies" href="#AggregationinRecursiveHierarchies">7.9 Aggregation in Recursive Hierarchies</a></h2>
+<h2 id="79-aggregation-in-recursive-hierarchies"><a id="AggregationinRecursiveHierarchies" href="#AggregationinRecursiveHierarchies">7.9 Aggregation in Recursive Hierarchies</a></h2>
 </summary>
 <p>If aggregation along a recursive hierarchy does not apply to the entire hierarchy, transformations <code>ancestors</code> and <code>descendants</code> may be used to restrict it as needed.</p>
 <div class="example">
@@ -4418,7 +4418,7 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 <span id="cb213-15"><a href="#cb213-15" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
-<p>Example <a name="traversecoll" href="#traversecoll">112</a>: Preorder traversal of a hierarchy with 1:N relationship with collection-valued segment <span class="math inline">\(p_1={\tt Sales}\)</span> and <span class="math inline">\(r={\tt SalesOrganization}/{\tt ID}\)</span>.</p>
+<p>Example <a id="traversecoll" href="#traversecoll">112</a>: Preorder traversal of a hierarchy with 1:N relationship with collection-valued segment <span class="math inline">\(p_1={\tt Sales}\)</span> and <span class="math inline">\(r={\tt SalesOrganization}/{\tt ID}\)</span>.</p>
 <pre><code>GET /service/Products?$apply=traverse(
       $root/SalesOrganizations,
       SalesOrgHierarchy,
@@ -4452,7 +4452,7 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 <span id="cb215-23"><a href="#cb215-23" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
-<p>Example <a name="rollupcoll" href="#rollupcoll">113</a>: Aggregation along a hierarchy with 1:N relationship: Sold products per sales organization</p>
+<p>Example <a id="rollupcoll" href="#rollupcoll">113</a>: Aggregation along a hierarchy with 1:N relationship: Sold products per sales organization</p>
 <pre><code>GET /service/Products?$apply=
     groupby((rolluprecursive(
                $root/SalesOrganizations,
@@ -4552,7 +4552,7 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 </div>
 </details>
 <details open><summary>
-<h2 id="710-maintaining-recursive-hierarchies"><a name="MaintainingRecursiveHierarchies" href="#MaintainingRecursiveHierarchies">7.10 Maintaining Recursive Hierarchies</a></h2>
+<h2 id="710-maintaining-recursive-hierarchies"><a id="MaintainingRecursiveHierarchies" href="#MaintainingRecursiveHierarchies">7.10 Maintaining Recursive Hierarchies</a></h2>
 </summary>
 <p>Besides changes to the structural properties of the entities in a hierarchical collection, hierarchy maintenance involves changes to the parent-child relationships.</p>
 <div class="example">
@@ -4571,7 +4571,7 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 <pre><code>DELETE /service/SalesOrganizations(&#39;Switzerland&#39;)/Superordinate/$ref</code></pre>
 </div>
 <div class="example">
-<p>Example <a name="refconstr" href="#refconstr">116</a>: If the parent navigation property contained a referential constraint for the key of the target <a href="#ODataCSDL">OData-CSDL, section 8.5</a>,</p>
+<p>Example <a id="refconstr" href="#refconstr">116</a>: If the parent navigation property contained a referential constraint for the key of the target <a href="#ODataCSDL">OData-CSDL, section 8.5</a>,</p>
 <div class="sourceCode" id="cb224"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb224-1"><a href="#cb224-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">EntityType</span><span class="ot"> Name=</span><span class="st">&quot;SalesOrganization&quot;</span>&gt;</span>
 <span id="cb224-2"><a href="#cb224-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Key</span>&gt;</span>
 <span id="cb224-3"><a href="#cb224-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">PropertyRef</span><span class="ot"> Name=</span><span class="st">&quot;ID&quot;</span> /&gt;</span>
@@ -4593,7 +4593,7 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 </div>
 <p>If the parent-child relationship between sales organizations is maintained in a separate entity set, a node can have multiple parents, with additional information on each parent-child relationship.</p>
 <div class="example">
-<p>⚠ Example <a name="weight" href="#weight">117</a>: Assume the relation from a node to its parent nodes contains a weight:</p>
+<p>⚠ Example <a id="weight" href="#weight">117</a>: Assume the relation from a node to its parent nodes contains a weight:</p>
 <div class="sourceCode" id="cb226"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb226-1"><a href="#cb226-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">EntityType</span><span class="ot"> Name=</span><span class="st">&quot;SalesOrganizationRelation&quot;</span>&gt;</span>
 <span id="cb226-2"><a href="#cb226-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Key</span>&gt;</span>
 <span id="cb226-3"><a href="#cb226-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">PropertyRef</span><span class="ot"> Name=</span><span class="st">&quot;Superordinate/ID&quot;</span><span class="ot"> Alias=</span><span class="st">&quot;SuperordinateID&quot;</span> /&gt;</span>
@@ -4683,7 +4683,7 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 <pre><code>DELETE /service/SalesOrganizations(&#39;Mars&#39;)/Relations(&#39;Sales&#39;)</code></pre>
 </div>
 <div class="example">
-<p>⚠ Example <a name="weighted" href="#weighted">118</a>: Continuing <a href="#weight">example 117</a>, assume a <a href="#CustomAggregates">custom aggregate</a> <code>MultiParentWeightedTotal</code> that computes the total sales amount weighted by the <code>SalesOrganizationRelation/Weight</code> properties along the <code>@Aggregation.UpPath#MultiParentHierarchy</code> of a sales organization:</p>
+<p>⚠ Example <a id="weighted" href="#weighted">118</a>: Continuing <a href="#weight">example 117</a>, assume a <a href="#CustomAggregates">custom aggregate</a> <code>MultiParentWeightedTotal</code> that computes the total sales amount weighted by the <code>SalesOrganizationRelation/Weight</code> properties along the <code>@Aggregation.UpPath#MultiParentHierarchy</code> of a sales organization:</p>
 <div class="sourceCode" id="cb231"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb231-1"><a href="#cb231-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotations</span><span class="ot"> Target=</span><span class="st">&quot;SalesData.Sales&quot;</span>&gt;</span>
 <span id="cb231-2"><a href="#cb231-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Aggregation.CustomAggregate&quot;</span></span>
 <span id="cb231-3"><a href="#cb231-3" aria-hidden="true" tabindex="-1"></a><span class="ot">    Qualifier=</span><span class="st">&quot;MultiParentWeightedTotal&quot;</span><span class="ot"> String=</span><span class="st">&quot;Edm.Decimal&quot;</span> /&gt;</span>
@@ -4727,7 +4727,7 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 </div>
 </details>
 <details open><summary>
-<h2 id="711-transformation-sequences"><a name="TransformationSequences" href="#TransformationSequences">7.11 Transformation Sequences</a></h2>
+<h2 id="711-transformation-sequences"><a id="TransformationSequences" href="#TransformationSequences">7.11 Transformation Sequences</a></h2>
 </summary>
 <p>Applying aggregation first covers the most prominent use cases. The slightly more sophisticated question “how much money is earned with small sales” requires filtering the base set before applying the aggregation. To enable this type of question several transformations can be specified in <code>$apply</code> in the order they are to be applied, separated by a forward slash.</p>
 <div class="example">
@@ -4832,7 +4832,7 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
   /aggregate(Amount)</code></pre>
 </div>
 <div class="example">
-<p>Example <a name="aggrconflict" href="#aggrconflict">128</a>: The output set of the <code>concat</code> transformation contains <code>Sales</code> entities multiple times with conflicting related <code>AugmentedProduct</code> entities that cannot be aggregated by the second transformation.</p>
+<p>Example <a id="aggrconflict" href="#aggrconflict">128</a>: The output set of the <code>concat</code> transformation contains <code>Sales</code> entities multiple times with conflicting related <code>AugmentedProduct</code> entities that cannot be aggregated by the second transformation.</p>
 <pre><code>GET /service/Sales?$apply=
   concat(addnested(Product,compute(0.1 as Discount) as AugmentedProduct),
          addnested(Product,compute(0.2 as Discount) as AugmentedProduct))
@@ -4864,66 +4864,66 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 </details>
 <hr />
 <details open><summary>
-<h1 id="8-conformance"><a name="Conformance" href="#Conformance">8 Conformance</a></h1>
+<h1 id="8-conformance"><a id="Conformance" href="#Conformance">8 Conformance</a></h1>
 </summary>
 <p>Conforming services MUST follow all rules of this specification for the set transformations and aggregation methods they support. They MUST implement all set transformations and aggregation methods they advertise via the annotation <a href="#AggregationCapabilities"><code>ApplySupported</code></a>.</p>
 <p>Conforming clients MUST be prepared to consume a model that uses any or all of the constructs defined in this specification, including custom aggregation methods defined by the service, and MUST ignore any constructs not defined in this version of the specification.</p>
 </details>
 <hr />
 <details open><summary>
-<h1 id="appendix-a-references"><a name="References" href="#References">Appendix A. References</a></h1>
+<h1 id="appendix-a-references"><a id="References" href="#References">Appendix A. References</a></h1>
 </summary>
 <p>This appendix contains the normative references that are used in this document.</p>
 <p>While any hyperlinks included in this appendix were valid at the time of publication, OASIS cannot guarantee their long-term validity.</p>
 <details open><summary>
-<h2 id="a1-normative-references"><a name="NormativeReferences" href="#NormativeReferences">A.1 Normative References</a></h2>
+<h2 id="a1-normative-references"><a id="NormativeReferences" href="#NormativeReferences">A.1 Normative References</a></h2>
 </summary>
 <p>The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.</p>
-<h6 id="odata-abnf"><a name="ODataABNF">[OData-ABNF]</a></h6>
+<h6 id="odata-abnf"><a id="ODataABNF">[OData-ABNF]</a></h6>
 <p><em>ABNF components: OData ABNF Construction Rules Version 4.01 and OData ABNF Test Cases.</em><br />
 See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
-<h6 id="odata-agg-abnf"><a name="ODataAggABNF">[OData-Agg-ABNF]</a></h6>
+<h6 id="odata-agg-abnf"><a id="ODataAggABNF">[OData-Agg-ABNF]</a></h6>
 <p><em>OData Aggregation ABNF Construction Rules Version 4.0.</em><br />
 See link in “<a href="#AdditionalArtifacts">Additional artifacts</a>” section on cover page.</p>
-<h6 id="odata-csdl"><a name="ODataCSDL">[OData-CSDL]</a></h6>
+<h6 id="odata-csdl"><a id="ODataCSDL">[OData-CSDL]</a></h6>
 <p><em>OData Common Schema Definition Language (CSDL) JSON Representation Version 4.01.</em><br />
 See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
 <p><em>OData Common Schema Definition Language (CSDL) XML Representation Version 4.01.</em><br />
 See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
-<h6 id="odata-json"><a name="ODataJSON">[OData-JSON]</a></h6>
+<h6 id="odata-json"><a id="ODataJSON">[OData-JSON]</a></h6>
 <p><em>OData JSON Format Version 4.01.</em><br />
 See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
-<h6 id="odata-protocol"><a name="ODataProtocol">[OData-Protocol]</a></h6>
+<h6 id="odata-protocol"><a id="ODataProtocol">[OData-Protocol]</a></h6>
 <p><em>OData Version 4.01. Part 1: Protocol.</em><br />
 See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
-<h6 id="odata-url"><a name="ODataURL">[OData-URL]</a></h6>
+<h6 id="odata-url"><a id="ODataURL">[OData-URL]</a></h6>
 <p><em>OData Version 4.01. Part 2: URL Conventions.</em><br />
 See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
-<h6 id="odata-vocaggr"><a name="ODataVocAggr">[OData-VocAggr]</a></h6>
+<h6 id="odata-vocaggr"><a id="ODataVocAggr">[OData-VocAggr]</a></h6>
 <p><em>OData Aggregation Vocabulary.</em><br />
 See link in “<a href="#AdditionalArtifacts">Additional artifacts</a>” section on cover page.</p>
-<h6 id="odata-voccore"><a name="ODataVocCore">[OData-VocCore]</a></h6>
+<h6 id="odata-voccore"><a id="ODataVocCore">[OData-VocCore]</a></h6>
 <p><em>OData Core Vocabulary.</em><br />
 See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
-<h6 id="rfc2119"><a name="rfc2119">[RFC2119]</a></h6>
+<h6 id="rfc2119"><a id="rfc2119">[RFC2119]</a></h6>
 <p><em>Bradner, S., “Key words for use in RFCs to Indicate Requirement Levels”, BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997</em><br />
 <a href="https://www.rfc-editor.org/info/rfc2119">https://www.rfc-editor.org/info/rfc2119</a>.</p>
-<h6 id="rfc8174"><a name="rfc8174">[RFC8174]</a></h6>
+<h6 id="rfc8174"><a id="rfc8174">[RFC8174]</a></h6>
 <p><em>Leiba, B., “Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words”, BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017</em><br />
 <a href="https://www.rfc-editor.org/info/rfc8174">https://www.rfc-editor.org/info/rfc8174</a>.</p>
 </details>
 </details>
 <hr />
 <details open><summary>
-<h1 id="appendix-b-acknowledgments"><a name="Acknowledgments" href="#Acknowledgments">Appendix B. Acknowledgments</a></h1>
+<h1 id="appendix-b-acknowledgments"><a id="Acknowledgments" href="#Acknowledgments">Appendix B. Acknowledgments</a></h1>
 </summary>
 <details open><summary>
-<h2 id="b1-special-thanks"><a name="SpecialThanks" href="#SpecialThanks">B.1 Special Thanks</a></h2>
+<h2 id="b1-special-thanks"><a id="SpecialThanks" href="#SpecialThanks">B.1 Special Thanks</a></h2>
 </summary>
 <p>The contributions of the OASIS OData Technical Committee members, enumerated in <a href="#ODataProtocol">OData-Protocol</a>, are gratefully acknowledged.</p>
 </details>
 <details open><summary>
-<h2 id="b2-participants"><a name="Participants" href="#Participants">B.2 Participants</a></h2>
+<h2 id="b2-participants"><a id="Participants" href="#Participants">B.2 Participants</a></h2>
 </summary>
 <p><strong>OData TC Members:</strong></p>
 <table>
@@ -4991,7 +4991,7 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 </details>
 <hr />
 <details open><summary>
-<h1 id="appendix-c-revision-history"><a name="RevisionHistory" href="#RevisionHistory">Appendix C. Revision History</a></h1>
+<h1 id="appendix-c-revision-history"><a id="RevisionHistory" href="#RevisionHistory">Appendix C. Revision History</a></h1>
 </summary>
 <table>
 <thead>
@@ -5044,7 +5044,7 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 </details>
 <hr />
 <details open><summary>
-<h1 id="appendix-d-notices"><a name="Notices" href="#Notices">Appendix D. Notices</a></h1>
+<h1 id="appendix-d-notices"><a id="Notices" href="#Notices">Appendix D. Notices</a></h1>
 </summary>
 <p>Copyright © OASIS Open 2023. All Rights Reserved.</p>
 <p>All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the “OASIS IPR Policy”). The full <a href="https://www.oasis-open.org/policies-guidelines/ipr/">Policy</a> may be found at the OASIS website.</p>

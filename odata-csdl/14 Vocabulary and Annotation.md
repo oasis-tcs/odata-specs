@@ -1349,7 +1349,7 @@ Address/City
 :::
 
 If a path segment is a [qualified name](#QualifiedName), it represents a
-<a name="TypeCast">*type cast*</a>, and the segment MUST be the name of a type
+<a id="TypeCast">*type cast*</a>, and the segment MUST be the name of a type
 in scope. If the type or instance identified by the preceding path part
 cannot be cast to the specified type, the path expression evaluates to
 the null value.
@@ -1362,7 +1362,7 @@ Example ##ex: type-cast segment
 :::
 
 If a path segment starts with an at (`@`) character, it represents a
-<a name="TermCast">*term cast*</a>. The at (`@`) character MUST be followed by
+<a id="TermCast">*term cast*</a>. The at (`@`) character MUST be followed by
 a [qualified name](#QualifiedName) that MAY be followed by a hash (`#`)
 character and a [simple identifier](#SimpleIdentifier). The [qualified
 name](#QualifiedName) preceding the hash character MUST resolve to a

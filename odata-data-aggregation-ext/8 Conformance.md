@@ -19,46 +19,46 @@ While any hyperlinks included in this appendix were valid at the time of publica
 
 The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.
 
-###### <a name="ODataABNF">[OData-ABNF]</a>
+###### <a id="ODataABNF">[OData-ABNF]</a>
 _ABNF components: OData ABNF Construction Rules Version 4.01 and OData ABNF Test Cases._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataAggABNF">[OData-Agg-ABNF]</a>
+###### <a id="ODataAggABNF">[OData-Agg-ABNF]</a>
 _OData Aggregation ABNF Construction Rules Version 4.0._  
 See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
 
-###### <a name="ODataCSDL">[OData-CSDL]</a>
+###### <a id="ODataCSDL">[OData-CSDL]</a>
 _OData Common Schema Definition Language (CSDL) JSON Representation Version 4.01._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
 _OData Common Schema Definition Language (CSDL) XML Representation Version 4.01._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataJSON">[OData-JSON]</a>
+###### <a id="ODataJSON">[OData-JSON]</a>
 _OData JSON Format Version 4.01._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataProtocol">[OData-Protocol]</a>
+###### <a id="ODataProtocol">[OData-Protocol]</a>
 _OData Version 4.01. Part 1: Protocol._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataURL">[OData-URL]</a>
+###### <a id="ODataURL">[OData-URL]</a>
 _OData Version 4.01. Part 2: URL Conventions._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataVocAggr">[OData-VocAggr]</a>
+###### <a id="ODataVocAggr">[OData-VocAggr]</a>
 _OData Aggregation Vocabulary._  
 See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
 
-###### <a name="ODataVocCore">[OData-VocCore]</a>
+###### <a id="ODataVocCore">[OData-VocCore]</a>
 _OData Core Vocabulary._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="rfc2119">[RFC2119]</a>
+###### <a id="rfc2119">[RFC2119]</a>
 _Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_  
 https://www.rfc-editor.org/info/rfc2119.
 
-###### <a name="rfc8174">[RFC8174]</a>
+###### <a id="rfc8174">[RFC8174]</a>
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_  
 https://www.rfc-editor.org/info/rfc8174.
 

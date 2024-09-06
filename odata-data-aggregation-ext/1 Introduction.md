@@ -13,12 +13,12 @@ This specification adds aggregation functionality to the Open Data Protocol (ODa
 ### ##subsubsec Definitions of Terms
 
 This specification defines the following terms:
-- <a name="AggregatableExpression">_Aggregatable Expression_</a> – an [expression](#Expression) not involving term casts and resulting in a value of a complex or entity or an [aggregatable primitive type](#AggregatablePrimitiveType)
-- <a name="AggregateExpression">_Aggregate Expression_</a> – argument of the `aggregate` [transformation](#Transformationaggregate) or [function](#Functionaggregate) defined in [section ##AggregationAlgorithm]
-- <a name="AggregatablePrimitiveType">_Aggregatable Primitive Type_</a> – a primitive type other than `Edm.Stream` or subtypes of `Edm.Geography` or `Edm.Geometry`
-- <a name="DataAggregationPath">_Data Aggregation Path_</a> – a path that consists of one or more segments joined together by forward slashes (`/`). Segments are names of declared or dynamic structural or navigation properties, or type-cast segments consisting of the (optionally qualified) name of a structured type that is derived from the type identified by the preceding path segment to reach properties declared by the derived type.
-- <a name="Expression">_Expression_</a> – derived from the `commonExpr` rule (see [OData-ABNF](#ODataABNF))
-- <a name="SingleValuedPropertyPath">_Single-Valued Property Path_</a> – property path ending in a single-valued primitive, complex, or navigation property
+- <a id="AggregatableExpression">_Aggregatable Expression_</a> – an [expression](#Expression) not involving term casts and resulting in a value of a complex or entity or an [aggregatable primitive type](#AggregatablePrimitiveType)
+- <a id="AggregateExpression">_Aggregate Expression_</a> – argument of the `aggregate` [transformation](#Transformationaggregate) or [function](#Functionaggregate) defined in [section ##AggregationAlgorithm]
+- <a id="AggregatablePrimitiveType">_Aggregatable Primitive Type_</a> – a primitive type other than `Edm.Stream` or subtypes of `Edm.Geography` or `Edm.Geometry`
+- <a id="DataAggregationPath">_Data Aggregation Path_</a> – a path that consists of one or more segments joined together by forward slashes (`/`). Segments are names of declared or dynamic structural or navigation properties, or type-cast segments consisting of the (optionally qualified) name of a structured type that is derived from the type identified by the preceding path segment to reach properties declared by the derived type.
+- <a id="Expression">_Expression_</a> – derived from the `commonExpr` rule (see [OData-ABNF](#ODataABNF))
+- <a id="SingleValuedPropertyPath">_Single-Valued Property Path_</a> – property path ending in a single-valued primitive, complex, or navigation property
 
 ### ##subsubsec Acronyms and Abbreviations
 

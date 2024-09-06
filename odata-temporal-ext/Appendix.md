@@ -11,65 +11,65 @@ While any hyperlinks included in this appendix were valid at the time of publica
 
 The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.
 
-###### <a name="ODataABNF">[OData-ABNF]</a>
+###### <a id="ODataABNF">[OData-ABNF]</a>
 _ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataAggregation">[OData-Aggregation]</a>
+###### <a id="ODataAggregation">[OData-Aggregation]</a>
 _OData Extension for Data Aggregation Version 4.0._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataCSDL">[OData-CSDL]</a>
+###### <a id="ODataCSDL">[OData-CSDL]</a>
 _OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
 _OData Common Schema Definition Language (CSDL) XML Representation Version 4.02._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataProtocol">[OData-Protocol]</a>
+###### <a id="ODataProtocol">[OData-Protocol]</a>
 _OData Version 4.02. Part 1: Protocol._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataURL">[OData-URL]</a>
+###### <a id="ODataURL">[OData-URL]</a>
 _OData Version 4.02. Part 2: URL Conventions._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataVocCap">[OData-VocCap]</a>
+###### <a id="ODataVocCap">[OData-VocCap]</a>
 _OData Vocabularies Version 4.0: Capabilities Vocabulary._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataVocCore">[OData-VocCore]</a>
+###### <a id="ODataVocCore">[OData-VocCore]</a>
 _OData Vocabularies Version 4.0: Core Vocabulary._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataVocTemporal">[OData-VocTemporal]</a>
+###### <a id="ODataVocTemporal">[OData-VocTemporal]</a>
 _OData Temporal Vocabulary._  
 See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
 
-###### <a name="rfc2119">[RFC2119]</a>
+###### <a id="rfc2119">[RFC2119]</a>
 _Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_  
 https://www.rfc-editor.org/info/rfc2119.
 
-###### <a name="rfc8174">[RFC8174]</a>
+###### <a id="rfc8174">[RFC8174]</a>
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_  
 https://www.rfc-editor.org/info/rfc8174.
 
 ## ##subasec Informative References
 
-###### <a name="_Fowler">[Fowler]</a>
+###### <a id="_Fowler">[Fowler]</a>
 _Martin Fowler, "Temporal Patterns", 16 February 2005_  
 http://martinfowler.com/eaaDev/timeNarrative.html.
 
-###### <a name="_Kulkarni">[Kulkarni]</a>
+###### <a id="_Kulkarni">[Kulkarni]</a>
 _Krishna Kulkarni, "Temporal Features in SQL standard", September 2012_  
 https://dbs.uni-leipzig.de/file/Temporal%20features%20in%20SQL2011.pdf.
 
-###### <a name="_Snodgrass">[Snodgrass]</a>
+###### <a id="_Snodgrass">[Snodgrass]</a>
 _Richard T. Snodgrass, "Developing Time-Oriented Database Applications in SQL", Morgan Kaufmann Publishers, Inc., San Francisco, July, 1999, ISBN 1-55860-436-7_  
 http://www2.cs.arizona.edu/people/rts/tdbbook.pdf and
 http://www2.cs.arizona.edu/people/rts/pp30-31.pdf.
 
-###### <a name="_SQL">[SQL:2011]</a>
+###### <a id="_SQL">[SQL:2011]</a>
 _ISO/IEC 9075-2:2011 Information technology - Database languages - SQL - Part 2: Foundation (SQL/Foundation)_.
 
 -------

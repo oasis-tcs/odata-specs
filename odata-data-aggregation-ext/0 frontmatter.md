@@ -43,14 +43,14 @@ Michael Pizzo (mikep@microsoft.com), [Microsoft](https://www.microsoft.com/) \
 Heiko Theißen (heiko.theissen@sap.com), [SAP SE](https://www.sap.com/) \
 Martin Zurmuehl (martin.zurmuehl@sap.com), [SAP SE](https://www.sap.com/)
 
-#### <a name="AdditionalArtifacts">Additional artifacts:</a>
+#### <a id="AdditionalArtifacts">Additional artifacts:</a>
 This document is one component of a Work Product that also includes:
 * ABNF components: _OData Aggregation ABNF Construction Rules Version 4.0 and OData Aggregation ABNF Test Cases_: https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/$$$stage$$$/abnf/
 * OData Aggregation Vocabulary:
   * https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/$$$stage$$$/vocabularies/Org.OData.Aggregation.V1.json
   * https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/$$$stage$$$/vocabularies/Org.OData.Aggregation.V1.xml
 
-#### <a name="RelatedWork">Related work:</a>
+#### <a id="RelatedWork">Related work:</a>
 This specification is related to:
 * _OData Version 4.01_. Edited by Michael Pizzo, Ralf Handl, and Martin Zurmuehl. A multi-part Work Product which includes:
   * _OData Version 4.01 Part 1: Protocol_. Latest stage: https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html

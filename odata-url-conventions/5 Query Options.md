@@ -2126,7 +2126,7 @@ http://host/service/Categories
 ```
 :::
 
-<a name="ExpandOptionlevels">Cyclic navigation properties (whose target type is identical or can be
+<a id="ExpandOptionlevels">Cyclic navigation properties (whose target type is identical or can be
 cast to its source type) can be recursively expanded using the special
 `$levels` option. The value of the `$levels` option is either a positive
 integer to specify the number of levels to expand, or the literal string
