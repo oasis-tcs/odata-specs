@@ -243,7 +243,7 @@ system query option.
 #### ##subsubsubsec Requesting a Raw Value using `$value`
 
 To retrieve the raw value of a primitive property or operation result, the client sends
-a `GET` request to the raw value URL. See the [OData-URL]($$$OData-URL$$$) document for details.
+a `GET` request to the raw value URL. See the [OData-URL](#ODataURL) document for details.
 
 The `Content-Type` of the response is determined using the `Accept`
 header and the [`$format`](#SystemQueryOptionformat) system query
