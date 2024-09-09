@@ -1007,7 +1007,7 @@ A _set transformation_ (_transformation_ for short) is an operation on an input 
 
 The system query option `$apply` MUST NOT be used if the resource path addresses a single instance.
 
-The system query option `$apply` is evaluated first, then the other system query options are evaluated, if applicable, on the result of `$apply`, see [OData-Protocol, section "System Query Options"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptions). Stability across requests for system query options `$top` and `$skip` [OData-Protocol, sections "`$top`" and "`$skip`"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptiontop) is defined in [section 3.3.7](#StableTotalOrderBeforeskipandtop).
+The system query option `$apply` is evaluated first, then the other system query options are evaluated, if applicable, on the result of `$apply`, see [OData-Protocol, section "System Query Options"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptions). Stability across requests for system query options `$top` and `$skip` [OData-Protocol, sections "System Query Option `$top`" and "`$skip`"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptiontop) is defined in [section 3.3.7](#StableTotalOrderBeforeskipandtop).
 
 Each set transformation:
 - carries over the input type to the output set such that it fits into the data model of the service.
@@ -1094,7 +1094,7 @@ Collections are _the same_ if there is a one-to-one correspondence $f$ between t
 
 This document specifies how a [data aggregation path](#DataAggregationPath) that occurs in a request is evaluated by the service. If such an evaluation fails, the service MUST reject the request.
 
-For a data aggregation path to be a common expression according to [OData-URL, section "Common Expressions"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CommonExpressions), its segments must be single-valued with the possible exception of the last segment, and it can then be evaluated relative to an instance of a structured type. For the transformations defined in this document, a data aggregation path can also be evaluated relative to a collection $A$, even if it has arbitrary collection-valued segments itself.
+For a data aggregation path to be a common expression according to [OData-URL, section "Common Expression Syntax"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CommonExpressionSyntax), its segments must be single-valued with the possible exception of the last segment, and it can then be evaluated relative to an instance of a structured type. For the transformations defined in this document, a data aggregation path can also be evaluated relative to a collection $A$, even if it has arbitrary collection-valued segments itself.
 
 To this end, the following notation is used in the subsequent sections: If $A$ is a collection and $p$ a data aggregation path, optionally followed by a type-cast segment, the result of such a path evaluation is denoted by $\Gamma(A,p)$ and defined as the unordered concatenation, possibly containing repetitions, of the collections $γ(u,p)$ for each $u$ in $A$ that is not null. The function $γ(u,p)$ takes a non-null value and a path as arguments and returns a collection of instances of structured types or primitive values, depending on the type of the final segment of $p$. It is recursively defined as follows:
 1. If $p$ is an empty path, let $B$ be a collection with $u$ as its single member and continue with step 9.
@@ -1904,7 +1904,7 @@ results in
 
 ### <a id="StableTotalOrderBeforeskipandtop" href="#StableTotalOrderBeforeskipandtop">3.3.7 Stable Total Order Before `$skip` and `$top`</a>
 
-When the system query options `$top` and `$skip` [OData-Protocol, sections 11.2.6.3 and 11.2.6.4](#ODataProtocol) are executed after the system query option `$apply` and after `$filter` and `$orderby`, if applicable, they operate on a collection with a total order that extends any existing order but is otherwise chosen by the service. The total order MUST be stable across requests.
+When the system query options `$top` and `$skip` [OData-Protocol, sections "System Query Option `$top`" and "`$skip`"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptiontop) are executed after the system query option `$apply` and after `$filter` and `$orderby`, if applicable, they operate on a collection with a total order that extends any existing order but is otherwise chosen by the service. The total order MUST be stable across requests.
 
 ## <a id="OnetoOneTransformations" href="#OnetoOneTransformations">3.4 One-to-One Transformations</a>
 
@@ -1927,7 +1927,7 @@ The `compute` transformation takes a comma-separated list of one or more _comput
 
 A compute expression is a common expression followed by the `as` keyword, followed by an [alias](#TypeStructureandContextURL).
 
-The output set is constructed by copying the instances of the input set and adding one dynamic property per compute expression to [each occurrence](#SamenessandOrder) in the output set. The name of each added dynamic property is the alias of the corresponding compute expression. The value of each added dynamic property is computed relative to the corresponding instance. Services MAY support expressions that address dynamic properties added by other expressions within the same `compute` transformation, provided that the service can determine an evaluation sequence. The type of the property is determined by the rules for evaluating common expressions and numeric promotion defined in [OData-URL, section 5.1.1](#ODataURL).
+The output set is constructed by copying the instances of the input set and adding one dynamic property per compute expression to [each occurrence](#SamenessandOrder) in the output set. The name of each added dynamic property is the alias of the corresponding compute expression. The value of each added dynamic property is computed relative to the corresponding instance. Services MAY support expressions that address dynamic properties added by other expressions within the same `compute` transformation, provided that the service can determine an evaluation sequence. The type of the property is determined by the rules for evaluating common expressions and numeric promotion defined in [OData-URL, section "Common Expression Syntax"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CommonExpressionSyntax).
 
 ::: example
 Example 37:
@@ -1956,7 +1956,7 @@ results in
 
 The `addnested` transformation expands a path relative to the input set, applies one or more transformation sequences to the addressed resources, and adds the transformed resources as dynamic (navigation) properties to the output set. The output set $A$ is initially a clone of the input set.
 
-The first parameter of the `addnested` transformation is a path $p$ or a concatenated path $p/q$. Here, $p=p_1/…/p_k$ with $k≥1$ is a [data aggregation path](#DataAggregationPath) with single- or collection-valued segments. The path $p$ MUST NOT contain any navigation properties prior to the last segment $p_k$, which MUST either be a navigation or a complex structural property. If the optional $q$ is present, it MUST be a type-cast segment. This is an extension of the definition in [OData-URL, section 5.1.3](#ODataURL) in that the first parameter need not contain a navigation property.
+The first parameter of the `addnested` transformation is a path $p$ or a concatenated path $p/q$. Here, $p=p_1/…/p_k$ with $k≥1$ is a [data aggregation path](#DataAggregationPath) with single- or collection-valued segments. The path $p$ MUST NOT contain any navigation properties prior to the last segment $p_k$, which MUST either be a navigation or a complex structural property. If the optional $q$ is present, it MUST be a type-cast segment. This is an extension of the definition in [OData-URL, section "System Query Option `$expand`"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#SystemQueryOptionexpand) in that the first parameter need not contain a navigation property.
 
 Further parameters are one or more transformation sequences followed by the `as` keyword followed by an [alias](#TypeStructureandContextURL) whose name need not differ from names in the input set but MUST differ from names already in $\Gamma(A,p_1/…/p_{k-1})$ (using the [$\Gamma$ notation](#EvaluationofDataAggregationPaths)) as well as from aliases for other transformation sequences.
 
@@ -2098,10 +2098,10 @@ results in
 The following two subsections introduce two new types of [expression](#Expression) that are evaluated relative to a collection, called the input collection.
 
 These expressions are
-- either prepended with a collection-valued path $p$ followed by a forward slash, like a lambda operator [OData-URL, section 5.1.1.13](#ODataURL). The collection identified by that path is then the input collection for the expression.
+- either prepended with a collection-valued path $p$ followed by a forward slash, like a lambda operator [OData-URL, section "Lambda Operators"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#LambdaOperators). The collection identified by that path is then the input collection for the expression.
 - or prepended with the keyword `$these` followed by a forward slash, the input collection is then the _current collection_ defined as follows:
   - In a system query option other than `$apply`, possibly nested within `$expand` or `$select`, the current collection is the collection that is the subject of the system query option.
-  - In a path segment that addresses a subset of a collection [OData-URL, section 4.12](#ODataURL), the current collection is the collection that is the subject of the path segment.
+  - In a path segment that addresses a subset of a collection [OData-URL, section "Addressing a Subset of a Collection"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingaSubsetofaCollection), the current collection is the collection that is the subject of the path segment.
   - In an `$apply` transformation, the current collection is the input set of the transformation.
 
 ### <a id="Functionaggregate" href="#Functionaggregate">3.6.1 Function `aggregate`</a>
@@ -2172,11 +2172,11 @@ results in 2 (a third of 8, rounded down) entities. (This differs from `topperce
 ```
 :::
 
-A definition that is equivalent to a `$count` expression after a collection-valued path was made in [OData-URL, section 4.8](#ODataURL).
+A definition that is equivalent to a `$count` expression after a collection-valued path was made in [OData-URL, section "Addressing the Count of a Collection"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingtheCountofaCollection).
 
 ## <a id="Functionisdefined" href="#Functionisdefined">3.7 Function `isdefined`</a>
 
-Properties that are not explicitly mentioned in [`aggregate`](#Transformationaggregate) or [`groupby`](#Transformationgroupby) are considered to have been _aggregated away_. Since they are treated as having the null value in `$filter` expressions [OData-URL, section 5.1.1.15](#ODataURL), the `$filter` expression `Product eq null` cannot distinguish between an instance containing the value for the null product and the instance containing the aggregated value across all products (where the `Product` has been aggregated away).
+Properties that are not explicitly mentioned in [`aggregate`](#Transformationaggregate) or [`groupby`](#Transformationgroupby) are considered to have been _aggregated away_. Since they are treated as having the null value in `$filter` expressions [OData-URL,  section "Path Expressions"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#PathExpressions), the `$filter` expression `Product eq null` cannot distinguish between an instance containing the value for the null product and the instance containing the aggregated value across all products (where the `Product` has been aggregated away).
 
 The function `isdefined` can be used to determine whether a property is present or absent in an instance. It takes a [single-valued property path](#SingleValuedPropertyPath) as its only parameter and returns true if the property is present in the instance for which the expression containing the `isdefined` function call is evaluated. A present property can still have the null value; it can represent a grouping of null values, or an aggregation that results in a null value.
 
@@ -4585,7 +4585,7 @@ works differently: `descendants` is the parameter $T$ of `ancestors` and operate
 Besides changes to the structural properties of the entities in a hierarchical collection, hierarchy maintenance involves changes to the parent-child relationships.
 
 ::: example
-Example 115: Move a sales organization Switzerland under the parent EMEA Central by binding the parent navigation property to EMEA Central [OData-JSON, section 8.5](#ODataJSON):
+Example 115: Move a sales organization Switzerland under the parent EMEA Central by binding the parent navigation property to EMEA Central [OData-JSON, section "Bind Operation"](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#BindOperation):
 ```json
 PATCH /service/SalesOrganizations('Switzerland')
 Content-Type: application/json
@@ -4608,7 +4608,7 @@ DELETE /service/SalesOrganizations('Switzerland')/Superordinate/$ref
 :::
 
 ::: example
-Example <a id="refconstr" href="#refconstr">116</a>: If the parent navigation property contained a referential constraint for the key of the target [OData-CSDL, section 8.5](#ODataCSDL),
+Example <a id="refconstr" href="#refconstr">116</a>: If the parent navigation property contained a referential constraint for the key of the target [OData-CSDL, section "Referential Constraint"](https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#ReferentialConstraint),
 ```xml
 <EntityType Name="SalesOrganization">
   <Key>
@@ -4624,7 +4624,7 @@ Example <a id="refconstr" href="#refconstr">116</a>: If the parent navigation pr
   </NavigationProperty>
 </EntityType>
 ```
-then alternatively the property taking part in the referential constraint [OData-Protocol, section 11.4.9.1](#ODataProtocol) could be changed to EMEA Central:
+then alternatively the property taking part in the referential constraint [OData-Protocol, section "Update a Primitive Property"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UpdateaPrimitiveProperty) could be changed to EMEA Central:
 ```json
 PATCH /service/SalesOrganizations('Switzerland')
 Content-Type: application/json
