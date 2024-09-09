@@ -328,7 +328,7 @@ Inside a batch request the common expressions can also be value references
 starting with `$`, as introduced in [OData-Protocol, section "Referencing Values from Response Bodies"]($$$OData-Protocol$$$#ReferencingValuesFromResponseBodies).
 
 Non-binding parameters that are nullable or annotated with the term
-[`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter) defined in
+[`Core.OptionalParameter`]($$$OData-VocCore$$$#OptionalParameter) defined in
 [OData-VocCore](#ODataVocCore) MAY be omitted from the request body.
 If an omitted parameter is not annotated (and thus nullable), it MUST be
 interpreted as having the `null` value. If it is annotated

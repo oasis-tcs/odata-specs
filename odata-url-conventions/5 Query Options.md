@@ -190,7 +190,7 @@ The Boolean value `true` is greater than `false`.
 Services SHOULD order language-dependent strings according to the
 `Content-Language` of the response, and SHOULD annotate string properties
 with language-dependent order with the term
-[`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
+[`Core.IsLanguageDependent`]($$$OData-VocCore$$$#IsLanguageDependent),
 see [OData-VocCore](#ODataVocCore).
 
 If any operand is `null`, the operator returns `false`.
@@ -215,7 +215,7 @@ The Boolean value `false` is less than `true`.
 Services SHOULD order language-dependent strings according to the
 `Content-Language` of the response, and SHOULD annotate string properties
 with language-dependent order with the term
-[`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
+[`Core.IsLanguageDependent`]($$$OData-VocCore$$$#IsLanguageDependent),
 see [OData-VocCore](#ODataVocCore).
 
 If any operand is `null`, the operator returns `false`.
@@ -1876,7 +1876,7 @@ navigation properties, then the request may be considered malformed.
 Services MAY support the use of annotation values as operands or
 function parameters, and they MAY advertise this by annotating the
 entity container with term
-[`Capabilities.AnnotationValuesInQuerySupported`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#AnnotationValuesInQuerySupported),
+[`Capabilities.AnnotationValuesInQuerySupported`]($$$OData-VocCap$$$#AnnotationValuesInQuerySupported),
 see [OData-VocCap](#ODataVocCap).
 
 Annotation values are referenced by the annotation name which consists
@@ -1898,7 +1898,7 @@ http://host/service/Products?$filter=Price/@Measures.Currency eq 'EUR'
 
 ::: example
 Example ##ex: Return Employees that have any error messages in the
-[`Core.Messages`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Messages)
+[`Core.Messages`]($$$OData-VocCore$$$#Messages)
 annotation
 ```
 http://host/service/Employees?$filter=@Core.Messages/any(m:m/severity eq 'error')
@@ -1907,7 +1907,7 @@ http://host/service/Employees?$filter=@Core.Messages/any(m:m/severity eq 'error'
 
 Services MAY additionally support the use of the unqualified term name
 by defining one or more default namespaces through the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) annotation
+[`Core.DefaultNamespace`]($$$OData-VocCore$$$#DefaultNamespace) annotation
 term defined in [OData-VocCore](#ODataVocCore). For more information on
 default namespaces, see Default Namespaces in [OData-Protocol](#ODataProtocol).
 This short notation however uses the same name pattern as parameter
@@ -2530,7 +2530,7 @@ http://host/service/Orders(10)/Items
 
 The `$index` system query option allows clients to do a positional
 insert into a collection annotated with the
-[`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
+[`Core.PositionalInsert`]($$$OData-VocCore$$$#PositionalInsert)
 term (see [OData-VocCore](#ODataVocCore)). The value of the `$index`
 system query option is the zero-based ordinal position where the item is
 to be inserted. The ordinal of items within the collection greater than
