@@ -2322,7 +2322,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Non-insertable properties SHOULD be omitted from the request body. If they are provided, services MUST either ignore the values in the request body or fail the request if the provided values do not match the service-determined values.</p>
 <p>Non-insertable properties include (and are not limited to)</p>
 <ul>
-<li>dependent properties that are tied to non-key properties of the principal entity through a referential constraint <a href="#ODataCSDL">OData-CSDL, section 8.5</a> (informally: “denormalized” properties),</li>
+<li>dependent properties that are tied to non-key properties of the principal entity through a referential constraint <a href="https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#ReferentialConstraint">OData-CSDL, section “Referential Constraint”</a> (informally: “denormalized” properties),</li>
 <li>properties annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Computed"><code>Core.Computed</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>,</li>
 <li>properties listed as <code>NonInsertableProperties</code> of term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#InsertRestrictions"><code>Capabilities.InsertRestrictions</code></a>, see <a href="#ODataVocCap">OData-VocCap</a>,</li>
 <li>properties annotated with term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Permissions"><code>Core.Permissions</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>, where the annotation value does not have the <code>Write</code> flag.</li>
@@ -2392,7 +2392,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Non-updatable properties include (and are not limited to)</p>
 <ul>
 <li>key properties,</li>
-<li>dependent properties that are tied to non-key properties of the principal entity through a referential constraint <a href="#ODataCSDL">OData-CSDL, section 8.5</a> (informally: “denormalized” properties),</li>
+<li>dependent properties that are tied to non-key properties of the principal entity through a referential constraint <a href="https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#ReferentialConstraint">OData-CSDL, section “Referential Constraint”</a> (informally: “denormalized” properties),</li>
 <li>properties annotated with the terms <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Computed"><code>Core.Computed</code></a> or <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Immutable"><code>Core.Immutable</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>,</li>
 <li>properties listed as <code>NonUpdatableProperties</code> of term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#UpdateRestrictions"><code>Capabilities.UpdateRestrictions</code></a>, see <a href="#ODataVocCap">OData-VocCap</a>,</li>
 <li>properties annotated with term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Permissions"><code>Core.Permissions</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>, where the annotation value does not have the <code>Write</code> flag.</li>

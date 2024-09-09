@@ -1965,7 +1965,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>Example 110: check whether a pair of properties has one of several possible pair values</p>
 <pre><code>$filter=[FirstName,LastName] in [[&quot;John&quot;,&quot;Doe&quot;],[&quot;Jane&quot;,&quot;Smith&quot;]]</code></pre>
 </div>
-<p>Entities are represented as structured literals as described in <a href="#ODataJSON">OData-JSON, section 6</a>. Non-transient entities can alternatively be represented through their <a href="#ResourcePath">resource path</a>.</p>
+<p>Entities are represented as structured literals as described in <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#Entity">OData-JSON, section “Entity”</a>. Non-transient entities can alternatively be represented through their <a href="#ResourcePath">resource path</a>.</p>
 <div class="example">
 <p>Example 111: determine the price of an adhoc-defined product</p>
 <pre><code>http://host/service/Price(Product=@p)?@p={&quot;Color&quot;:&quot;red&quot;}</code></pre>

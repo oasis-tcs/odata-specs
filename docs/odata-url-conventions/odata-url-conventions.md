@@ -3279,7 +3279,7 @@ $filter=[FirstName,LastName] in [["John","Doe"],["Jane","Smith"]]
 ```
 :::
 
-Entities are represented as structured literals as described in [OData-JSON, section 6](#ODataJSON).
+Entities are represented as structured literals as described in [OData-JSON, section "Entity"](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#Entity).
 Non-transient entities can alternatively be represented through their [resource path](#ResourcePath).
 
 ::: example
