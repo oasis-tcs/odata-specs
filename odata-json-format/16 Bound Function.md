@@ -325,7 +325,7 @@ Content-Type: application/json
 :::
 
 Inside a batch request the common expressions can also be value references
-starting with `$`, as introduced in [OData-Protocol, section "Referencing Values from Response Bodies"]($$$OData-Protocol$$$#ReferencingValuesFromResponseBodies).
+starting with `$`, as introduced in [OData-Protocol, section "Referencing Values from Response Bodies"]($$$OData-Protocol$$$#ReferencingValuesfromResponseBodies).
 
 Non-binding parameters that are nullable or annotated with the term
 [`Core.OptionalParameter`]($$$OData-VocCore$$$#OptionalParameter) defined in

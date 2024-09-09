@@ -3152,7 +3152,7 @@ Content-Type: application/json
 :::
 
 Inside a batch request the common expressions can also be value references
-starting with `$`, as introduced in [OData-Protocol, section "Referencing Values from Response Bodies"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ReferencingValuesFromResponseBodies).
+starting with `$`, as introduced in [OData-Protocol, section "Referencing Values from Response Bodies"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ReferencingValuesfromResponseBodies).
 
 Non-binding parameters that are nullable or annotated with the term
 [`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter) defined in
