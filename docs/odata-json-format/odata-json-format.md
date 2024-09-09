@@ -1087,7 +1087,8 @@ For [media entities](#MediaEntity) and [stream
 properties](#StreamProperty) at least one of the control information
 `mediaEditLink` and `mediaReadLink` MUST be included
 in responses if they don\'t follow standard URL conventions as defined
-in [OData-URL](#ODataURL), sections 4.6 Addressing a property and 4.14 Addressing the Media Stream of a Media Entity, or if
+in [OData-URL, section "Addressing a Property"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingaProperty)
+and [OData-URL, section "Addressing the Media Stream of a Media Entity"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingtheMediaStreamofaMediaEntity), or if
 [`metadata=full`](#metadatafullodatametadatafull)
 is requested.
 
@@ -3112,8 +3113,8 @@ Content-Type: application/json
 :::
 
 Alternatively, values of non-binding parameters MAY be specified as common expressions
-[OData-URL, section 5.1.1](#ODataURL). In the case of a bound action
-these MAY contain path expressions [OData-URL, section 5.1.1.15](#ODataURL), which
+[OData-URL, section "Common Expression Syntax"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CommonExpressionSyntax). In the case of a bound action
+these MAY contain path expressions [OData-URL, section "Path Expressions"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#PathExpressions), which
 the service evaluates on the binding parameter value. Such parameters are encoded as name/value
 pairs where the name is the name of the parameter followed by `@expression` and
 the value is the common expression. As the following example demonstrates,
@@ -3152,7 +3153,7 @@ Content-Type: application/json
 :::
 
 Inside a batch request the common expressions can also be value references
-starting with `$`, as introduced in [OData-Protocol, section 11.7.6](#ODataProtocol).
+starting with `$`, as introduced in [OData-Protocol, section "Referencing Values from Response Bodies"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ReferencingValuesFromResponseBodies).
 
 Non-binding parameters that are nullable or annotated with the term
 [`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter) defined in

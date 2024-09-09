@@ -539,7 +539,8 @@ For [media entities](#MediaEntity) and [stream
 properties](#StreamProperty) at least one of the control information
 `mediaEditLink` and `mediaReadLink` MUST be included
 in responses if they don\'t follow standard URL conventions as defined
-in [OData-URL](#ODataURL), sections 4.6 Addressing a property and 4.14 Addressing the Media Stream of a Media Entity, or if
+in [OData-URL, section "Addressing a Property"]($$$OData-URL$$$#AddressingaProperty)
+and [OData-URL, section "Addressing the Media Stream of a Media Entity"]($$$OData-URL$$$#AddressingtheMediaStreamofaMediaEntity), or if
 [`metadata=full`](#metadatafullodatametadatafull)
 is requested.
 
