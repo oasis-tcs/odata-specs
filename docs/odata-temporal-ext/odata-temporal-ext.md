@@ -1846,7 +1846,7 @@ on the data valid at that point in time, including the query option
 For timeline entity sets the interval for filtering data is determined
 following the rules in section "[Propagation of Temporal Query Options](#PropagationofTemporalQueryOptions)"
 and evaluated as an additional criterion for `$filter` in the evaluation
-sequence defined in [OData-Protocol, section "System Query Options"](#ODataProtocol),
+sequence defined in [OData-Protocol, section "System Query Options"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptions),
 which is evaluated _after_ the query option `$apply`.
 
 ::: example

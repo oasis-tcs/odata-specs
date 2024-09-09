@@ -2792,7 +2792,7 @@ GET http://host/service/Products(1)/Name
 #### <a id="RequestingStreamProperties" href="#RequestingStreamProperties">11.2.4.1 Requesting Stream Properties</a>
 
 If the property being requested has type `Edm.Stream` (see
-[OData-URL, section 9](#ODataURL)), the media type of the response is the
+[OData-URL, section "Addressing a Property"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingaProperty)), the media type of the response is the
 media type of the stream, subject to content type negotiation based on the
 [`Accept`](#HeaderAccept) header of the request.
 The response body is the octet-stream that represents the raw
@@ -2804,7 +2804,7 @@ system query option.
 #### <a id="RequestingaRawValueusingvalue" href="#RequestingaRawValueusingvalue">11.2.4.2 Requesting a Raw Value using `$value`</a>
 
 To retrieve the raw value of a primitive property or operation result, the client sends
-a `GET` request to the raw value URL. See the [OData-URL](#ODataURL) document for details.
+a `GET` request to the raw value URL. See the [OData-URL](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html) document for details.
 
 The `Content-Type` of the response is determined using the `Accept`
 header and the [`$format`](#SystemQueryOptionformat) system query
@@ -2972,7 +2972,7 @@ expand item is evaluated relative to the retrieved resource being
 expanded.
 
 For a full description of the syntax used when building requests, see
-[OData-URL](#ODataURL), section 5.1.3.
+[OData-URL, section "System Query Option `$expand`"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#SystemQueryOptionexpand).
 
 ::: example
 Example 38: for each customer entity within the Customers entity set the
