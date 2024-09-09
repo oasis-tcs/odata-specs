@@ -6690,8 +6690,7 @@ with generic clients
 13. SHOULD support the `$count` system query option ([section 11.2.6.5](#SystemQueryOptioncount))
 14. SHOULD support `$expand` ([section 11.2.5.2](#SystemQueryOptionexpand))
 15. SHOULD support the lambda operators `any` and `all` on navigation-
-and collection-valued properties (section 5.1.1.10 in
-[OData-URL](#ODataURL))
+and collection-valued properties ([OData-URL, section "Lambda Operators"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#LambdaOperators))
 16. SHOULD support the `/$count` segment on navigation and collection
 properties ([section 11.2.10](#RequestingtheNumberofItemsinaCollection))
 17. SHOULD support `$orderby asc` and `desc` on individual properties
@@ -6709,8 +6708,7 @@ Level](#OData40IntermediateConformanceLevel)
 4. MUST support the `/$count` segment on navigation and collection
 properties ([section 11.2.10](#RequestingtheNumberofItemsinaCollection))
 5. MUST support the lambda operators `any` and `all` on navigation- and
-collection-valued properties (section 5.1.1.10 in
-[OData-URL](#ODataURL))
+and collection-valued properties ([OData-URL, section "Lambda Operators"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#LambdaOperators))
 6. MUST support the `$skip` system query option ([section 11.2.6.4](#SystemQueryOptionskip))
 7. MUST support the `$count` system query option ([section 11.2.6.5](#SystemQueryOptioncount))
 8. MUST support `$orderby` with `asc` and `desc` on individual properties

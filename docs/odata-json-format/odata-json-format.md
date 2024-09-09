@@ -913,9 +913,8 @@ metadata  document of a different service
 ### <a id="ControlInformationcountodatacount" href="#ControlInformationcountodatacount">4.6.4 Control Information: `count` (`odata.count`)</a>
 
 The `count` control information occurs only in responses and
-can annotate any collection, see [OData-Protocol](#ODataProtocol)
-section 11.2.5.5 System Query Option
-`$count`. Its value is an
+can annotate any collection, see [OData-Protocol, section "System Query Option `$count`"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptioncount).
+Its value is an
 `Edm.Int64` value corresponding to
 the total count of members in the collection represented by the request.
 

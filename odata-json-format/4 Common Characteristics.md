@@ -365,9 +365,8 @@ metadata  document of a different service
 ### ##subsubsec Control Information: `count` (`odata.count`)
 
 The `count` control information occurs only in responses and
-can annotate any collection, see [OData-Protocol](#ODataProtocol)
-section 11.2.5.5 System Query Option
-`$count`. Its value is an
+can annotate any collection, see [OData-Protocol, section "System Query Option `$count`"]($$$OData-Protocol$$$#SystemQueryOptioncount).
+Its value is an
 `Edm.Int64` value corresponding to
 the total count of members in the collection represented by the request.
 
