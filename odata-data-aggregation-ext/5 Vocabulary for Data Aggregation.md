@@ -195,19 +195,19 @@ The term `UpPath` can be used in hierarchical result sets to associate with each
 
 #### ##subsubsubsec Hierarchy Functions
 
-For testing the position of a given entity in a recursive hierarchy, the Aggregation vocabulary [OData-VocAggr](#ODataVocAggr) defines unbound functions. These have
+For testing the position of a given entity in a recursive hierarchy, the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr) defines unbound functions. These have
 - a parameter pair `HierarchyNodes`, `HierarchyQualifier` where `HierarchyNodes` is a collection and `HierarchyQualifier` is the qualifier of a `RecursiveHierarchy` annotation on its common entity type. The node identifiers in this collection define the recursive hierarchy.
 - a parameter `Node` that contains the node identifier of the entity to be tested. Note that the test result depends only on this node identifier, not on any other property of the given entity
 - additional parameters, depending on the type of test (see below)
 - a Boolean return value for the outcome of the test.
 
 The following functions are defined:
-- `isnode` tests if the given entity is a node of the hierarchy.
-- `isroot` tests if the given entity is a root node of the hierarchy.
-- `isdescendant` tests if the given entity is a descendant with maximum distance `MaxDistance` of an ancestor node (whose node identifier is given in a parameter `Ancestor`), or equals the ancestor if `IncludeSelf` is true.
-- `isancestor` tests if the given entity is an ancestor with maximum distance `MaxDistance` of a descendant node (whose node identifier is given in a parameter `Descendant`), or equals the descendant if `IncludeSelf` is true.
-- `issibling` tests if the given entity and another entity (whose node identifier is given in a parameter `Other`) are sibling nodes.
-- `isleaf` tests if the given entity is a leaf node.
+- [`isnode`]($$$OData-VocAggr$$$#isnode) tests if the given entity is a node of the hierarchy.
+- [`isroot`]($$$OData-VocAggr$$$#isroot) tests if the given entity is a root node of the hierarchy.
+- [`isdescendant`]($$$OData-VocAggr$$$#isdescendant) tests if the given entity is a descendant with maximum distance `MaxDistance` of an ancestor node (whose node identifier is given in a parameter `Ancestor`), or equals the ancestor if `IncludeSelf` is true.
+- [`isancestor`]($$$OData-VocAggr$$$#isancestor) tests if the given entity is an ancestor with maximum distance `MaxDistance` of a descendant node (whose node identifier is given in a parameter `Descendant`), or equals the descendant if `IncludeSelf` is true.
+- [`issibling`]($$$OData-VocAggr$$$#issibling) tests if the given entity and another entity (whose node identifier is given in a parameter `Other`) are sibling nodes.
+- [`isleaf`]($$$OData-VocAggr$$$#isleaf) tests if the given entity is a leaf node.
 
 Another function `rollupnode` is defined that can only be used in connection with [`rolluprecursive`](#Groupingwithrolluprecursive).
 

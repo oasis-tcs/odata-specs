@@ -90,7 +90,7 @@ The URL expression syntax is extended and additionally allows
 Services SHOULD advertise support of the `if` member by
 specifying the property
 `RequestDependencyConditionsSupported` in the
-[`Capabilities.BatchSupport`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#BatchSupport)
+[`Capabilities.BatchSupport`]($$$OData-VocCap$$$#BatchSupport)
 term applied to the entity container, see
 [OData-VocCap](#ODataVocCap). If a service does not
 support request dependencies, the dependent request MUST fail with

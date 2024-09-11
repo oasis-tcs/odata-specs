@@ -11,60 +11,60 @@ While any hyperlinks included in this appendix were valid at the time of publica
 
 The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.
 
-###### <a name="ODataABNF">[OData-ABNF]</a>
+###### [OData-ABNF]{id=ODataABNF}
 _ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataCSDL">[OData-CSDL]</a>
+###### [OData-CSDL]{id=ODataCSDL}
 _OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
 _OData Common Schema Definition Language (CSDL) XML Representation Version 4.02._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataJSON">[OData-JSON]</a>
+###### [OData-JSON]{id=ODataJSON}
 _OData JSON Format Version 4.02._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataProtocol">[OData-Protocol]</a>
+###### [OData-Protocol]{id=ODataProtocol}
 _OData Version 4.02. Part 1: Protocol._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataVocCap">[OData-VocCap]</a>
+###### [OData-VocCap]{id=ODataVocCap}
 _OData Vocabularies Version 4.0: Capabilities Vocabulary._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataVocCore">[OData-VocCore]</a>
+###### [OData-VocCore]{id=ODataVocCore}
 _OData Vocabularies Version 4.0: Core Vocabulary._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="rfc2119">[RFC2119]</a>
+###### [RFC2119]{id=rfc2119}
 _Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_.
 https://www.rfc-editor.org/info/rfc2119.
 
-###### <a name="rfc3986">[RFC3986]</a>
+###### [RFC3986]{id=rfc3986}
 _Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform Resource Identifier (URI): Generic Syntax", STD 66, RFC 3986, DOI 10.17487/RFC3986, January 2005_.
 https://www.rfc-editor.org/info/rfc3986.
 
-###### <a name="rfc8174">[RFC8174]</a>
+###### [RFC8174]{id=rfc8174}
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_.
 https://www.rfc-editor.org/info/rfc8174.
 
-###### <a name="_url">[URL]</a>
+###### [URL]{id=_url}
 _URL Living Standard._  
 https://url.spec.whatwg.org/.
 
-###### <a name="XML-Schema2">[XML-Schema-2]</a>
+###### [XML-Schema-2]{id=XML-Schema2}
 _W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes_. D. Peterson, S. Gao, C. M. Sperberg-McQueen, H. S. Thompson, P. V. Biron, A. Malhotra, Editors, W3C Recommendation, 5 April 2012.  
 http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/. Latest version available at http://www.w3.org/TR/xmlschema11-2/.
 
 ## ##subasec Informative References
 
-###### <a name="_ECMAScript">[ECMAScript]</a>
+###### [ECMAScript]{id=_ECMAScript}
 _ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262.
 https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
 
-###### <a name="_WKT">[Well-Known Text]</a>
+###### [Well-Known Text]{id=_WKT}
 _OpenGIS Implementation Specification for Geographic information – Simple feature access – Part 1: Common architecture_, May 2011. Open Geospatial Consortium.
 https://www.ogc.org/standard/sfa/.
 

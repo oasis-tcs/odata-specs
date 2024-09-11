@@ -7,22 +7,25 @@ Front matter
   - [1.1 First subsection](#Firstsubsection)
 :::
 
-# <a name="Firstsection" href="#Firstsection">1 First section</a>
-## <a name="Firstsubsection" href="#Firstsubsection">1.1 First subsection</a>
+# <a id="Firstsection" href="#Firstsection">1 First section</a>
+## <a id="Firstsubsection" href="#Firstsubsection">1.1 First subsection</a>
 
 Test document
 
-Example <a name="ref" href="#ref">1</a>: [Section 1.1](#Firstsubsection) contains [example 1](#ref).
+Example <a id="ref" href="#ref">1</a>: [Section 1.1](#Firstsubsection) contains [example 1](#ref).
 
 ```js
 "Source code"
 ```
 
-### <a name="Matrix.1" href="#Matrix.1">Matrix</a>
+### <a id="Matrix.1" href="#Matrix.1">Matrix</a>
 
-$$\matrix{ {\tt concat}(T,\hfill&\tt (1)\\ \quad{\tt aggregate}(α{\tt\ as\ }D))\hfill&\tt (2) }$$
+$$\matrix{
+{\tt concat}(T,\hfill&\tt (1)\\
+\quad{\tt aggregate}(α{\tt\ as\ }D))\hfill&\tt (2)
+}$$
 
-### <a name="Table.1.1" href="#Table.1.1">Table</a>
+### <a id="Table.1.1" href="#Table.1.1">Table</a>
 
 A|B
 -|-

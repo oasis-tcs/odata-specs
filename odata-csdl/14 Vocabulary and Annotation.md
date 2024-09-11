@@ -625,7 +625,7 @@ qualified name of function|
 <pre>`MySchema.MyFunction`</pre>
 [Function Import](#FunctionImport)| 
 qualified name of entity container followed by a segment containing the function import name| 
-<pre>`MySchema.MyEntityContainer/MyFunctionImport`
+<pre>`MySchema.MyEntityContainer/MyFunctionImport`</pre>
 [Navigation Property](#NavigationProperty) via container| 
 qualified name of entity container followed by a segment containing a singleton or entity set name and zero or more segments containing the name of a structural or navigation property, or a type-cast or term-cast| 
 <pre>`MySchema.MyEntityContainer/MyEntitySet` 
@@ -687,6 +687,16 @@ properties targeted via the declaring structured type.
 
 Constant expressions allow assigning a constant value to an applied
 term.
+
+: varjson
+Primitive values of various types are represented as strings, therefore their type
+cannot be inferred from the constant expression alone. If such
+an ambiguous constant expression is an operand of a larger expression, clients MUST assume
+that the operand has the type demanded by the larger expression, for example, in a
+client-side function or in a comparison with another operand of known type.
+(In the `$Le` comparison in [example ##disambiguate] `Duration` is of type
+`Edm.Duration`, therefore the constant expression `"PT1H"` is a duration, not a string.)
+:
 
 ### ##subsubsec Binary
 
@@ -1257,7 +1267,7 @@ Constant values of type `Edm.Stream` with other media types are represented as [
 :::
 
 The annotation (property) being assigned a stream value MUST be annotated with term
-[`Core.MediaType`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#MediaType)
+[`Core.MediaType`]($$$OData-VocCore$$$#MediaType)
 and the media type of the stream as its value.
 
 ::: {.varjson .example}
@@ -1349,7 +1359,7 @@ Address/City
 :::
 
 If a path segment is a [qualified name](#QualifiedName), it represents a
-<a name="TypeCast">*type cast*</a>, and the segment MUST be the name of a type
+[*type cast*]{id=TypeCast}, and the segment MUST be the name of a type
 in scope. If the type or instance identified by the preceding path part
 cannot be cast to the specified type, the path expression evaluates to
 the null value.
@@ -1362,7 +1372,7 @@ Example ##ex: type-cast segment
 :::
 
 If a path segment starts with an at (`@`) character, it represents a
-<a name="TermCast">*term cast*</a>. The at (`@`) character MUST be followed by
+[*term cast*]{id=TermCast}. The at (`@`) character MUST be followed by
 a [qualified name](#QualifiedName) that MAY be followed by a hash (`#`)
 character and a [simple identifier](#SimpleIdentifier). The [qualified
 name](#QualifiedName) preceding the hash character MUST resolve to a
@@ -2012,7 +2022,7 @@ They MAY contain [annotations](#Annotation).
 :::
 
 ::: {.varjson .example}
-Example ##ex:
+Example ##ex_disambiguate:
 ```json
 {
   "$And": [
@@ -2082,9 +2092,9 @@ Example ##ex:
 {
   "$Le": [
     {
-      "$Path": "Price"
+      "$Path": "Duration"
     },
-    100
+    "PT1H"
   ]
 },
 {
@@ -2175,8 +2185,8 @@ Example ##ex:
   <Int>20</Int>
 </Lt>
 <Le>
-  <Path>Price</Path>
-  <Int>100</Int>
+  <Path>Duration</Path>
+  <Duration>PT1H</Duration>
 </Le>
 <Has>
   <Path>Fabric</Path>
@@ -2561,7 +2571,7 @@ Name property of the Actor entity
 
 The `odata.matchesPattern` client-side function takes two string
 expressions as arguments and returns a Boolean value.
-It is the counterpart of the identically named URL function [OData-URL, section 5.1.1.7.1](#ODataURL).
+It is the counterpart of the identically named URL function [OData-URL, section "`matchespattern`"]($$$OData-URL$$$#matchespattern).
 
 The function returns true if the second expression evaluates to an
 [ECMAScript](#_ECMAScript) (JavaScript) regular expression and
