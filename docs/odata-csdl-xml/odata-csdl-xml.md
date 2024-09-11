@@ -3737,6 +3737,7 @@ properties targeted via the declaring structured type.
 Constant expressions allow assigning a constant value to an applied
 term.
 
+
 ### <a id="Binary" href="#Binary">14.3.1 Binary</a>
 
 
@@ -4757,8 +4758,8 @@ Example 75:
   <Int>20</Int>
 </Lt>
 <Le>
-  <Path>Price</Path>
-  <Int>100</Int>
+  <Path>Duration</Path>
+  <Duration>PT1H</Duration>
 </Le>
 <Has>
   <Path>Fabric</Path>

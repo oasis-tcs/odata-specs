@@ -3928,6 +3928,14 @@ properties targeted via the declaring structured type.
 Constant expressions allow assigning a constant value to an applied
 term.
 
+Primitive values of various types are represented as strings, therefore their type
+cannot be inferred from the constant expression alone. If such
+an ambiguous constant expression is an operand of a larger expression, clients MUST assume
+that the operand has the type demanded by the larger expression, for example, in a
+client-side function or in a comparison with another operand of known type.
+(In the `$Le` comparison in [example 75](#disambiguate) `Duration` is of type
+`Edm.Duration`, therefore the constant expression `"PT1H"` is a duration, not a string.)
+
 ### <a id="Binary" href="#Binary">14.3.1 Binary</a>
 
 ::: {.varjson .rep}
@@ -4779,7 +4787,7 @@ They MAY contain [annotations](#Annotation).
 :::
 
 ::: {.varjson .example}
-Example 75:
+Example <a id="disambiguate" href="#disambiguate">75</a>:
 ```json
 {
   "$And": [
@@ -4849,9 +4857,9 @@ Example 75:
 {
   "$Le": [
     {
-      "$Path": "Price"
+      "$Path": "Duration"
     },
-    100
+    "PT1H"
   ]
 },
 {
