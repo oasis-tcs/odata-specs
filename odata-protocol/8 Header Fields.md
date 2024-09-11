@@ -164,7 +164,7 @@ batch request.
 As defined in [RFC9110](#rfc9110), a client MAY include an
 `If-Match` header in a request to `GET`, `POST`, `PUT`, `PATCH` or
 `DELETE`. The value of the `If-Match` request header MUST be an ETag
-value previously retrieved for the resource, or `*` to match any value.
+value previously retrieved for the resource, or `*`.
 
 If an operation on an existing resource requires an ETag, (see term
 [`Core.OptimisticConcurrency`]($$$OData-VocCore$$$#OptimisticConcurrency) in
@@ -193,9 +193,10 @@ ensure that no observable change occurs as a result of the request. In
 the case of an [upsert](#UpsertanEntity), if the addressed entity does
 not exist the provided ETag value is considered not to match.
 
-An `If-Match` header with a value of `*` in a `PUT` or `PATCH` request
+The precondition `If-Match: *` is fulfilled if a current representation of the resource exists, a `PUT` or `PATCH` request with that header
 results in an [upsert request](#UpsertanEntity) being processed as an
-update and not an insert.
+[update](#UpdateanEntity) and not an [insert](#CreateanEntity),
+independent of whether the resource requires an ETag.
 
 The `If-Match` header MUST NOT be specified on a batch request, but MAY
 be specified on individual requests within the batch.
@@ -218,9 +219,10 @@ the service MUST respond with
 [`412 Precondition Failed`](#ResponseCode412PreconditionFailed) and MUST
 ensure that no observable change occurs as a result of the request.
 
-An `If-None-Match` header with a value of `*` in a `PUT` or `PATCH`
+The precondition `If-None-Match: *` is fulfilled if there is no current representation of the resource, a `PUT` or `PATCH` request with that header
 request results in an [upsert request](#UpsertanEntity) being processed
-as an [insert](#CreateanEntity) and not an [update](#UpdateanEntity).
+as an [insert](#CreateanEntity) and not an [update](#UpdateanEntity),
+independent of whether the resource requires an ETag.
 
 The `If-None-Match` header MUST NOT be specified on a batch request, but
 MAY be specified on individual requests within the batch.
