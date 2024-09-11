@@ -551,7 +551,7 @@ to complex types and navigation properties
 6. MUST NOT include a non-abstract entity type with no inherited or
 defined [entity key](#Key)
 7. MUST NOT include the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace)
+[`Core.DefaultNamespace`]($$$OData-VocCore$$$#DefaultNamespace)
 annotation on [included schemas](#IncludedSchema)
 8. MUST NOT return the Unicode facet for terms, parameters, and return
 types

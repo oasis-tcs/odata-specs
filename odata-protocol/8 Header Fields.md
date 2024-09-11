@@ -38,7 +38,7 @@ field is used as a modifier to the media-type (as indicated in the
 content codings have been applied to the entity-body.
 A service MAY specify a list of acceptable content codings using an
 annotation with term
-[`Capabilities.AcceptableEncodings`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#AcceptableEncodings),
+[`Capabilities.AcceptableEncodings`]($$$OData-VocCap$$$#AcceptableEncodings),
 see [OData-VocCap](#ODataVocCap).
 
 If the `Content-Encoding` header is specified on an individual request
@@ -55,7 +55,7 @@ the intended audience for the enclosed message body. OData does not add
 any additional requirements over HTTP for including `Content-Language`.
 OData services can annotate model elements whose content depends on the
 content language with the term
-[`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
+[`Core.IsLanguageDependent`]($$$OData-VocCore$$$#IsLanguageDependent),
 see [OData-VocCore](#ODataVocCore).
 
 If the `Content-Language` header is specified on an individual request
@@ -164,13 +164,13 @@ batch request.
 As defined in [RFC9110](#rfc9110), a client MAY include an
 `If-Match` header in a request to `GET`, `POST`, `PUT`, `PATCH` or
 `DELETE`. The value of the `If-Match` request header MUST be an ETag
-value previously retrieved for the resource, or `*` to match any value.
+value previously retrieved for the resource, or `*`.
 
 If an operation on an existing resource requires an ETag, (see term
-[`Core.OptimisticConcurrency`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptimisticConcurrency) in
+[`Core.OptimisticConcurrency`]($$$OData-VocCore$$$#OptimisticConcurrency) in
 [OData-VocCore](#ODataVocCore) and property
 `OptimisticConcurrencyControl` of type
-[`Capabilities.NavigationPropertyRestriction`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#NavigationPropertyRestriction)
+[`Capabilities.NavigationPropertyRestriction`]($$$OData-VocCap$$$#NavigationPropertyRestriction)
 in [OData-VocCap](#ODataVocCap)) and the client does not specify an
 `If-Match` request header in a [Data Modification
 Request](#DataModification) or in an [Action Request](#Actions) invoking
@@ -193,9 +193,10 @@ ensure that no observable change occurs as a result of the request. In
 the case of an [upsert](#UpsertanEntity), if the addressed entity does
 not exist the provided ETag value is considered not to match.
 
-An `If-Match` header with a value of `*` in a `PUT` or `PATCH` request
+The precondition `If-Match: *` is fulfilled if a current representation of the resource exists, a `PUT` or `PATCH` request with that header
 results in an [upsert request](#UpsertanEntity) being processed as an
-update and not an insert.
+[update](#UpdateanEntity) and not an [insert](#CreateanEntity),
+independent of whether the resource requires an ETag.
 
 The `If-Match` header MUST NOT be specified on a batch request, but MAY
 be specified on individual requests within the batch.
@@ -218,9 +219,10 @@ the service MUST respond with
 [`412 Precondition Failed`](#ResponseCode412PreconditionFailed) and MUST
 ensure that no observable change occurs as a result of the request.
 
-An `If-None-Match` header with a value of `*` in a `PUT` or `PATCH`
+The precondition `If-None-Match: *` is fulfilled if there is no current representation of the resource, a `PUT` or `PATCH` request with that header
 request results in an [upsert request](#UpsertanEntity) being processed
-as an [insert](#CreateanEntity) and not an [update](#UpdateanEntity).
+as an [insert](#CreateanEntity) and not an [update](#UpdateanEntity),
+independent of whether the resource requires an ETag.
 
 The `If-None-Match` header MUST NOT be specified on a batch request, but
 MAY be specified on individual requests within the batch.
@@ -265,7 +267,7 @@ The syntax of the `Isolation` header is defined in
 
 A service MAY specify the support for `Isolation:snapshot` using an
 annotation with term
-[`Capabilities.IsolationSupported`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#IsolationSupported),
+[`Capabilities.IsolationSupported`]($$$OData-VocCap$$$#IsolationSupported),
 see [OData-VocCap](#ODataVocCap).
 
 Note: The `Isolation` header was named `OData-Isolation` in OData
@@ -367,7 +369,7 @@ request against the specified URL.
 
 Services that support `callback` SHOULD support notifying the client
 through HTTP. Services can advertise callback support using the
-[`Capabilities.CallbackSupported`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#CallbackSupported)
+[`Capabilities.CallbackSupported`]($$$OData-VocCap$$$#CallbackSupported)
 annotation term defined in [OData-VocCap](#ODataVocCap).
 
 If the service applies the `callback` preference it MUST include the
@@ -443,7 +445,7 @@ If the service encounters any errors processing the request and returns a succes
 
 A service MAY specify support for the `continue-on-error` preference
 using an annotation with term
-[`Capabilities.BatchContinueOnErrorSupported`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#BatchContinueOnErrorSupported),
+[`Capabilities.BatchContinueOnErrorSupported`]($$$OData-VocCap$$$#BatchContinueOnErrorSupported),
 see [OData-VocCap](#ODataVocCap).
 
 The `continue-on-error` preference SHOULD NOT be applied to individual
@@ -680,7 +682,7 @@ containing the `respond-async` preference.
 
 A service MAY specify the support for the `respond-async` preference
 using an annotation with term
-[`Capabilities.AsynchronousRequestsSupported`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#AsynchronousRequestsSupported),
+[`Capabilities.AsynchronousRequestsSupported`]($$$OData-VocCap$$$#AsynchronousRequestsSupported),
 see [OData-VocCap](#ODataVocCap).
 
 ::: example
@@ -719,7 +721,7 @@ to signal that changes are being tracked.
 
 A service MAY specify the support for the `track-changes` preference
 using an annotation with term
-[`Capabilities.ChangeTracking`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#ChangeTracking),
+[`Capabilities.ChangeTracking`]($$$OData-VocCap$$$#ChangeTracking),
 see [OData-VocCap](#ODataVocCap).
 
 The `track-changes` preference SHOULD NOT be applied to a batch request,

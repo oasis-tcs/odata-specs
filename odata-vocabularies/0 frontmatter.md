@@ -40,7 +40,7 @@ Ralf Handl (ralf.handl@sap.com), [SAP SE](http://www.sap.com/) \
 Michael Pizzo (mikep@microsoft.com), [Microsoft](http://www.microsoft.com/) \
 Heiko Theißen (heiko.theissen@sap.com), [SAP SE](http://www.sap.com/)
 
-#### <a name="RelatedWork">Related work:</a>
+#### [Related work:]{id=RelatedWork}
 This specification is related to:
 * _OData Version 4.02_. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. A multi-part Work Product that includes:
   * _OData Version 4.02 Part 1: Protocol_. Latest stage. https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html
