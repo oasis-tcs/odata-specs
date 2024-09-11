@@ -420,7 +420,7 @@ also a media entity type.
 
 Media entity types MAY specify a list of acceptable media types using an
 annotation with term
-[`Core.AcceptableMediaTypes`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AcceptableMediaTypes),
+[`Core.AcceptableMediaTypes`]($$$OData-VocCore$$$#AcceptableMediaTypes),
 see [OData-VocCore](#ODataVocCore).
 
 ::: {.varjson .rep}

@@ -13,17 +13,17 @@ While any hyperlinks included in this appendix were valid at the time of publica
 
 The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.
 
-###### <a name="_ECMAScript">[ECMAScript]</a>
+###### [ECMAScript]{id=_ECMAScript}
 _ECMAScript 2016 Language Specification, 7th Edition_. June 2016. Standard ECMA-262. http://www.ecma-international.org/publications/standards/Ecma-262.htm.
 
-###### <a name="_EPSG">[EPSG]</a>
+###### [EPSG]{id=_EPSG}
 _European Petroleum Survey Group (EPSG)_. https://spatialreference.org/ref/epsg/.
 
-###### <a name="ODataABNF">[OData-ABNF]</a>
+###### [OData-ABNF]{id=ODataABNF}
 _OData ABNF Construction Rules Version 4.02_.  
 See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
 
-###### <a name="ODataCSDL">[OData-CSDL]</a>
+###### [OData-CSDL]{id=ODataCSDL}
 _OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02._
 : varjson
 This document.
@@ -41,96 +41,96 @@ This document.
 :
 
 : varjson
-###### <a name="ODataCSDLSchema">[OData-CSDL-Schema]</a>
+###### [OData-CSDL-Schema]{id=ODataCSDLSchema}
 _OData CSDL JSON Schema_.  
 See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
 :
 
 : varxml
-###### <a name="ODataEDM">[OData-EDM]</a>
+###### [OData-EDM]{id=ODataEDM}
 _OData EDM XML Schema_.  
 See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
 
-###### <a name="ODataEDMX">[OData-EDMX]</a>
+###### [OData-EDMX]{id=ODataEDMX}
 _OData EDM XML Schema_.  
 See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
 :
 
-###### <a name="ODataJSON">[OData-JSON]</a>
+###### [OData-JSON]{id=ODataJSON}
 _OData JSON Format Version 4.02_.  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataProtocol">[OData-Protocol]</a>
+###### [OData-Protocol]{id=ODataProtocol}
 _OData Version 4.02 Part 1: Protocol_.  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataURL">[OData-URL]</a>
+###### [OData-URL]{id=ODataURL}
 _OData Version 4.02 Part 2: URL Conventions_.  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataVocCore">[OData-VocCore]</a>
+###### [OData-VocCore]{id=ODataVocCore}
 _OData Vocabularies Version 4.0: Core Vocabulary_.  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataVocMeasures">[OData-VocMeasures]</a>
+###### [OData-VocMeasures]{id=ODataVocMeasures}
 _OData Vocabularies Version 4.0: Measures Vocabulary_.  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataVocValidation">[OData-VocValidation]</a>
+###### [OData-VocValidation]{id=ODataVocValidation}
 _OData Vocabularies Version 4.0: Validation Vocabulary_.  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="rfc2119">[RFC2119]</a>
+###### [RFC2119]{id=rfc2119}
 _Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_.  
 https://www.rfc-editor.org/info/rfc2119.
 
-###### <a name="rfc6570">[RFC6570]</a>
+###### [RFC6570]{id=rfc6570}
 _Gregorio, J., Fielding, R., Hadley, M., Nottingham, M., and D. Orchard, "URI Template", RFC 6570, DOI 10.17487/RFC6570, March 2012_.  
 https://www.rfc-editor.org/info/rfc6570.
 
 : varjson
-###### <a name="rfc7493">[RFC7493]</a>
+###### [RFC7493]{id=rfc7493}
 _The I-JSON Message Format", RFC 7493, DOI 10.17487/RFC7493, March 2015_.  
 https://www.rfc-editor.org/info/rfc7493.
 :
 
-###### <a name="rfc8174">[RFC8174]</a>
+###### [RFC8174]{id=rfc8174}
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_.  
 https://www.rfc-editor.org/info/rfc8174.
 
 : varjson
-###### <a name="rfc8259">[RFC8259]</a>
+###### [RFC8259]{id=rfc8259}
 _Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", STD 90, RFC 8259, DOI 10.17487/RFC8259, December 2017_.  
 https://www.rfc-editor.org/info/rfc8259.
 :
 
 : varxml
-###### <a name="XML-10">[XML-1.0]</a>
+###### [XML-1.0]{id=XML-10}
 _Extensible Markup Language (XML) 1.0 (Fifth Edition)_. T. Bray, J. Paoli, C. M. Sperberg-McQueen, E. Maler, F. Yergeau, Editors, W3C Recommendation, 26 November 2008.  
 http://www.w3.org/TR/2008/REC-xml-20081126/. Latest version available at http://www.w3.org/TR/xml/.
 
-###### <a name="XML-Base">[XML-Base]</a>
+###### [XML-Base]{id=XML-Base}
 _XML Base (Second Edition)_. J. Marsh, R. Tobin, Editors, W3C Recommendation, 28 January 2009.  
 http://www.w3.org/TR/2009/REC-xmlbase-20090128/. Latest version available at http://www.w3.org/TR/xmlbase/.
 
-###### <a name="XML-Schema1">[XML-Schema-1]</a>
+###### [XML-Schema-1]{id=XML-Schema1}
 _W3C XML Schema Definition Language (XSD) 1.1 Part 1: Structures_. D. Beech, M. Maloney, C. M. Sperberg-McQueen, H. S. Thompson, S. Gao, N. Mendelsohn, Editors, W3C Recommendation, 5 April 2012.  
 http://www.w3.org/TR/2012/REC-xmlschema11-1-20120405/. Latest version available at http://www.w3.org/TR/xmlschema11-1/.
 :
 
-###### <a name="XML-Schema2">[XML-Schema-2]</a>
+###### [XML-Schema-2]{id=XML-Schema2}
 _W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes_. D. Peterson, S. Gao, C. M. Sperberg-McQueen, H. S. Thompson, P. V. Biron, A. Malhotra, Editors, W3C Recommendation, 5 April 2012.  
 http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/. Latest version available at http://www.w3.org/TR/xmlschema11-2/.
 
 : varjson
 ## ##subasec Informative References
 
-###### <a name="_OpenUI5">[OpenUI5]</a>
+###### [OpenUI5]{id=_OpenUI5}
 _OpenUI5 --- OData V4 Metadata JSON Format_.  
 https://openui5.hana.ondemand.com/topic/87aac894a40640f89920d7b2a414499b.
 :
 : varxml
-###### <a name="_WKT">[Well-Known Text]</a>
+###### [Well-Known Text]{id=_WKT}
 _OpenGIS Implementation Specification for Geographic information – Simple feature access – Part 1: Common architecture_, May 2011. Open Geospatial Consortium.
 https://www.ogc.org/standard/sfa/.
 :
