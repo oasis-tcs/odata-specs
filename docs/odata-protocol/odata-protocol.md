@@ -4050,7 +4050,7 @@ If optimistic concurrency control is required for a resource, the
 service MUST include an [`ETag`](#HeaderETag) header in a response to a
 `GET` request to the resource, and MAY include the ETag in a
 format-specific manner in responses containing that resource,
-see for example [OData-JSON](#ODataJSON), section "Control Information: `etag` (`odata.etag`)".
+see for example [OData-JSON, section "Control Information: `etag` (`odata.etag`)"](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformationetagodataetag).
 
 The presence of an [`ETag`](#HeaderETag) header in a response does not
 imply in itself that the resource requires optimistic concurrency
