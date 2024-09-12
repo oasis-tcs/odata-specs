@@ -2472,7 +2472,8 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <span id="cb98-29"><a href="#cb98-29" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
-<p>Example 80: When updating an entity with a 4.01 <code>PUT</code> request, the target of a non-containment navigation property can be replaced without changing either the old or the new targeted entity itself. The targeted entity can then only be specified by an entity reference (see <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#EntityReference">OData-JSON, section “Entity Reference”</a>):</p>
+<p>Example 80: When updating an entity with a 4.01 <code>PUT</code> request, the target of a non-containment navigation property can be replaced without changing either the old or the new targeted entity itself. The targeted entity can then only be specified by an entity reference (see <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#EntityReference">OData-JSON, section “Entity Reference”</a>).</p>
+<p>The following JSON payload changes the last name and the manager of Suzanne Brown:</p>
 <div class="sourceCode" id="cb99"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="er">PUT</span> <span class="er">http://host/service/Employees(7)</span></span>
 <span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a></span>
