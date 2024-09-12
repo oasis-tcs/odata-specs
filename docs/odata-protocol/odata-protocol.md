@@ -4580,7 +4580,6 @@ payloads both reset the first and last names of the new manager:
   "FirstName": "Suzanne",
   "LastName": "Brown-Johnson",
   "Manager": {
-    "@context": "$metadata#$ref",
     "@id": "Employees(6)",
     "EmployeeID": 6
   }
