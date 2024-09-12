@@ -140,7 +140,7 @@ operands represent `null`.
 
 When applied to ordered collections, the `eq` operator returns `true` if
 both operands have the same cardinality and each member of the left
-operand is equal to the corresponding member of the right operand.
+operand is equal to the member of the right operand at the same index.
 
 For services that support comparing unordered collections, the `eq`
 operator returns `true` if both operands are equal after applying the same
