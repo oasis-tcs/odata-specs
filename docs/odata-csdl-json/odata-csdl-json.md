@@ -638,8 +638,7 @@ parameter or return type of an [action](#Action) or
 `Edm.Stream`, or a type definition whose
 underlying type is `Edm.Stream`, cannot be used in collections.
 
-Some of these types allow facets, defined in section
-"[Type Facets](#TypeFacets)".
+Some of these types allow facets, defined in [section 3.4](#TypeFacets).
 
 Representation of primitive type values within a URL is defined by the rule `primitiveLiteral` in [OData-ABNF](#ODataABNF).
 Representation within request and response bodies is format specific.
@@ -915,7 +914,7 @@ be used anywhere a corresponding concrete type can be used, except:
 
 as the type of a primitive term, or the type of a property of a complex
 type (recursively) that is exclusively used as the type of a term. See
-section "[Path Expressions](#PathExpressions)" for details.
+[section 14.4.1](#PathExpressions) for details.
 
 ## <a id="Annotations" href="#Annotations">3.7 Annotations</a>
 
@@ -4264,8 +4263,7 @@ Example 60: absolute path to an entity set
 :::
 
 Paths not starting with a forward slash are interpreted relative to the
-annotation target, following the rules specified in section "[Path
-Evaluation](#PathEvaluation)".
+annotation target, following the rules specified in [section 14.4.1.2](#PathEvaluation).
 
 ::: example
 Example 61: relative path to a property
