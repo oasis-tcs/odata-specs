@@ -433,13 +433,13 @@ beginning of each employee time slice:
 
 For [snapshot entity sets](#SnapshotEntitySet)
 the point in time for representing data is determined following the
-rules in section "[Propagation of Temporal Query Options](#PropagationofTemporalQueryOptions)"
+rules in [section ##PropagationofTemporalQueryOptions]
 and evaluated *first*, then all other system query options are evaluated
 on the data valid at that point in time, including the query option
 `$apply` defined in [OData-Aggregation](#ODataAggregation).
 
 For timeline entity sets the interval for filtering data is determined
-following the rules in section "[Propagation of Temporal Query Options](#PropagationofTemporalQueryOptions)"
+following the rules in [section ##PropagationofTemporalQueryOptions]
 and evaluated as an additional criterion for `$filter` in the evaluation
 sequence defined in [OData-Protocol, section "System Query Options"]($$$OData-Protocol$$$#SystemQueryOptions),
 which is evaluated _after_ the query option `$apply`.
