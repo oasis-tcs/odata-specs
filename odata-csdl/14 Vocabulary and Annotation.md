@@ -2571,7 +2571,7 @@ Name property of the Actor entity
 
 The `odata.matchesPattern` client-side function takes two string
 expressions as arguments and returns a Boolean value.
-It is the counterpart of the identically named URL function [OData-URL, section "`matchespattern`"]($$$OData-URL$$$#matchespattern).
+It is the counterpart of the identically named URL function [OData-URL, section ##/odata-url-conventions/matchespattern].
 
 The function returns true if the second expression evaluates to an
 [ECMAScript](#_ECMAScript) (JavaScript) regular expression and
