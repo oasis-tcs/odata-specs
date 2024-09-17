@@ -365,7 +365,7 @@ metadata  document of a different service
 ### ##subsubsec Control Information: `count` (`odata.count`)
 
 The `count` control information occurs only in responses and
-can annotate any collection, see [OData-Protocol #odata-protocol#SystemQueryOptioncount].
+can annotate any collection, see [OData-Protocol, section #odata-protocol#SystemQueryOptioncount].
 Its value is an
 `Edm.Int64` value corresponding to
 the total count of members in the collection represented by the request.
@@ -538,8 +538,8 @@ For [media entities](#MediaEntity) and [stream
 properties](#StreamProperty) at least one of the control information
 `mediaEditLink` and `mediaReadLink` MUST be included
 in responses if they don\'t follow standard URL conventions as defined
-in [OData-URL #odata-url-conventions#AddressingaProperty]
-and [OData-URL #odata-url-conventions#AddressingtheMediaStreamofaMediaEntity], or if
+in [OData-URL, section #odata-url-conventions#AddressingaProperty]
+and [OData-URL, section #odata-url-conventions#AddressingtheMediaStreamofaMediaEntity], or if
 [`metadata=full`](#metadatafullodatametadatafull)
 is requested.
 

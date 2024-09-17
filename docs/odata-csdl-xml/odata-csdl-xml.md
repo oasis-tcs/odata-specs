@@ -2678,7 +2678,7 @@ Unbound actions are invoked from the entity container through an [action
 import](#ActionImport).
 
 Unbound functions are invoked as static functions within a common expression
-(see [OData-URL 5.1.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CommonExpressionSyntax)),
+(see [OData-URL, section 5.1.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CommonExpressionSyntax)),
 or from the entity container through a [function import](#FunctionImport).
 
 
