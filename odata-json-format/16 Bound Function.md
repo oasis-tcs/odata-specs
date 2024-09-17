@@ -285,8 +285,8 @@ Content-Type: application/json
 :::
 
 Alternatively, values of non-binding parameters MAY be specified as common expressions
-[OData-URL, section "Common Expression Syntax"]($$$OData-URL$$$#CommonExpressionSyntax). In the case of a bound action
-these MAY contain path expressions [OData-URL, section "Path Expressions"]($$$OData-URL$$$#PathExpressions), which
+[OData-URL #odata-url-conventions#CommonExpressionSyntax]. In the case of a bound action
+these MAY contain path expressions [OData-URL #odata-url-conventions#PathExpressions], which
 the service evaluates on the binding parameter value. Such parameters are encoded as name/value
 pairs where the name is the name of the parameter followed by `@expression` and
 the value is the common expression. As the following example demonstrates,
@@ -325,7 +325,7 @@ Content-Type: application/json
 :::
 
 Inside a batch request the common expressions can also be value references
-starting with `$`, as introduced in [OData-Protocol, section "Referencing Values from Response Bodies"]($$$OData-Protocol$$$#ReferencingValuesfromResponseBodies).
+starting with `$`, as introduced in [OData-Protocol #odata-protocol#ReferencingValuesfromResponseBodies].
 
 Non-binding parameters that are nullable or annotated with the term
 [`Core.OptionalParameter`]($$$OData-VocCore$$$#OptionalParameter) defined in

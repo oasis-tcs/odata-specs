@@ -1347,7 +1347,7 @@ works differently: `descendants` is the parameter $T$ of `ancestors` and operate
 Besides changes to the structural properties of the entities in a hierarchical collection, hierarchy maintenance involves changes to the parent-child relationships.
 
 ::: example
-Example ##ex: Move a sales organization Switzerland under the parent EMEA Central by binding the parent navigation property to EMEA Central [OData-JSON, section "Bind Operation"]($$$OData-JSON$$$#BindOperation):
+Example ##ex: Move a sales organization Switzerland under the parent EMEA Central by binding the parent navigation property to EMEA Central [OData-JSON #odata-json-format#BindOperation]:
 ```json
 PATCH /service/SalesOrganizations('Switzerland')
 Content-Type: application/json
@@ -1370,7 +1370,7 @@ DELETE /service/SalesOrganizations('Switzerland')/Superordinate/$ref
 :::
 
 ::: example
-Example ##ex_refconstr: If the parent navigation property contained a referential constraint for the key of the target [OData-CSDL, section "Referential Constraint"]($$$OData-CSDLJSON$$$#ReferentialConstraint),
+Example ##ex_refconstr: If the parent navigation property contained a referential constraint for the key of the target [OData-CSDL #odata-csdl-json#ReferentialConstraint],
 ```xml
 <EntityType Name="SalesOrganization">
   <Key>
@@ -1386,7 +1386,7 @@ Example ##ex_refconstr: If the parent navigation property contained a referentia
   </NavigationProperty>
 </EntityType>
 ```
-then alternatively the property taking part in the referential constraint [OData-Protocol, section "Update a Primitive Property"]($$$OData-Protocol$$$#UpdateaPrimitiveProperty) could be changed to EMEA Central:
+then alternatively the property taking part in the referential constraint [OData-Protocol #odata-protocol#UpdateaPrimitiveProperty] could be changed to EMEA Central:
 ```json
 PATCH /service/SalesOrganizations('Switzerland')
 Content-Type: application/json

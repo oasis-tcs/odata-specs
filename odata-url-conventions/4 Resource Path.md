@@ -1086,7 +1086,7 @@ Content-Type: application/json
 
 Members of the JSON object also include parameters
 if the resource path is a function invocation or function import. In this case
-parameters MUST be represented like parameters in an action invocation [OData-JSON, section "Action Invocation"]($$$OData-JSON$$$#ActionInvocation),
+parameters MUST be represented like parameters in an action invocation [OData-JSON #odata-json-format#ActionInvocation],
 and in the resource path parentheses after the function name MUST be omitted.
 
 ::: example
@@ -1105,7 +1105,7 @@ Content-Type: application/json
 ```
 
 The previous request looks analogous to a bound function invocation with expressions (like in [example ##funcexpr])
-if it is written using implicit parameter aliases (see [OData-Protocol, section "Inline Parameter Syntax"]($$$OData-Protocol$$$#InlineParameterSyntax)).
+if it is written using implicit parameter aliases (see [OData-Protocol #odata-protocol#InlineParameterSyntax]).
 ```
 GET http://host/service/Employees(23)/self.PendingLeaveRequests
   ?StartDate=now()
