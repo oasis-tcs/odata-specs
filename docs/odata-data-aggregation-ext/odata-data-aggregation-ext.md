@@ -1074,7 +1074,7 @@ An order of a collection is more precisely defined as follows: Given two differe
 When transformations are defined in the following sections, the algorithmic description sometimes contains an _order-preserving loop_ over a collection. Such a loop processes the occurrences in an order chosen by the service in such a way that $u_1$ is processed before $u_2$ whenever $u_1$ precedes $u_2$. Likewise, in an _order-preserving sequence_ $u_1,…,u_n$ we have $i<j$ whenever $u_i$ precedes $u_j$.
 
 A collection can be _stable-sorted_ by a list of expressions. In the stable-sorted collection an occurrence $u_1$ precedes $u_2$ if and only if either
-- $u_1$ precedes $u_2$ according to the rules of [OData-Protocol, section "System Query Option `$orderby`]($$$OData-Protocol$$$#SystemQueryOptionorderby) or
+- $u_1$ precedes $u_2$ according to the rules of [OData-Protocol, section 11.2.6.2](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptionorderby) or
 - these rules do not determine a precedence in either direction between $u_1$ and $u_2$ but $u_1$ preceded $u_2$ in the collection before the sort.
 
 Stable-sorting of an ordered collection produces another ordered collection. A stable-sort does not necessarily produce a total order, the sorted collection may still contain two occurrences whose relative order does not matter. The transformation [`orderby`](#Transformationorderby) performs a stable-sort.
