@@ -1007,7 +1007,7 @@ A _set transformation_ (_transformation_ for short) is an operation on an input 
 
 The system query option `$apply` MUST NOT be used if the resource path addresses a single instance.
 
-The system query option `$apply` is evaluated first, then the other system query options are evaluated, if applicable, on the result of `$apply`, see [OData-Protocol, section 11.2.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptions). Stability across requests for system query options `$top` and `$skip` [OData-Protocol, sections "System Query Option `$top`" and "System Query Option `$skip`"]($$$OData-Protocol$$$#SystemQueryOptiontop) is defined in [section 3.3.7](#StableTotalOrderBeforeskipandtop).
+The system query option `$apply` is evaluated first, then the other system query options are evaluated, if applicable, on the result of `$apply`, see [OData-Protocol, section 11.2.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptions). Stability across requests for system query options `$top` and `$skip` [OData-Protocol, section 11.2.6.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptiontop) is defined in [section 3.3.7](#StableTotalOrderBeforeskipandtop).
 
 Each set transformation:
 - carries over the input type to the output set such that it fits into the data model of the service.
@@ -1904,7 +1904,7 @@ results in
 
 ### <a id="StableTotalOrderBeforeskipandtop" href="#StableTotalOrderBeforeskipandtop">3.3.7 Stable Total Order Before `$skip` and `$top`</a>
 
-When the system query options `$top` and `$skip` [OData-Protocol, sections "System Query Option `$top`" and "System Query Option `$skip`"]($$$OData-Protocol$$$#SystemQueryOptiontop) are executed after the system query option `$apply` and after `$filter` and `$orderby`, if applicable, they operate on a collection with a total order that extends any existing order but is otherwise chosen by the service. The total order MUST be stable across requests.
+When the system query options `$top` and `$skip` [OData-Protocol, section 11.2.6.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptiontop) are executed after the system query option `$apply` and after `$filter` and `$orderby`, if applicable, they operate on a collection with a total order that extends any existing order but is otherwise chosen by the service. The total order MUST be stable across requests.
 
 ## <a id="OnetoOneTransformations" href="#OnetoOneTransformations">3.4 One-to-One Transformations</a>
 
