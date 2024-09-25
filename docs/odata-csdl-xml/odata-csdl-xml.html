@@ -787,7 +787,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p><code>Edm.Date</code> and <code>Edm.DateTimeOffset</code> follow <a href="#XML-Schema2">XML-Schema-2</a> and use the proleptic Gregorian calendar, allowing the year <code>0000</code> (equivalent to 1 BCE) and negative years (year <code>-0001</code> being equivalent to 2 BCE etc.). The supported date range is service-specific and typically depends on the underlying persistency layer, e.g. SQL only supports years <code>0001</code> to <code>9999</code>.</p>
 <p><code>Edm.Decimal</code> with a <a href="#Scale"><code>Scale</code></a> value of <code>floating</code>, <code>Edm.Double</code>, and <code>Edm.Single</code> allow the special numeric values <code>-INF</code>, <code>INF</code>, and <code>NaN</code>.</p>
 <p><code>Edm.Stream</code> is a primitive type that can be used as a property of an <a href="#EntityType">entity type</a> or <a href="#ComplexType">complex type</a>, the underlying type for a <a href="#TypeDefinition">type definition</a>, or a binding or non-binding parameter or return type of an <a href="#Action">action</a> or <a href="#Function">function</a>. <code>Edm.Stream</code>, or a type definition whose underlying type is <code>Edm.Stream</code>, cannot be used in collections.</p>
-<p>Some of these types allow facets, defined in section “<a href="#TypeFacets">Type Facets</a>”.</p>
+<p>Some of these types allow facets, defined in <a href="#TypeFacets">section 3.4</a>.</p>
 <p>Representation of primitive type values within a URL is defined by the rule <code>primitiveLiteral</code> in <a href="#ODataABNF">OData-ABNF</a>. Representation within request and response bodies is format specific.</p>
 </details>
 <details open><summary>
@@ -941,7 +941,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <li><code>Edm.AnyPropertyPath</code> (<code>Edm.PropertyPath</code> or <code>Edm.NavigationPropertyPath</code>)</li>
 <li><code>Edm.ModelElementPath</code> (any model element, including <code>Edm.AnnotationPath</code>, <code>Edm.NavigationPropertyPath</code>, and <code>Edm.PropertyPath</code>)</li>
 </ul>
-<p>as the type of a primitive term, or the type of a property of a complex type (recursively) that is exclusively used as the type of a term. See section “<a href="#PathExpressions">Path Expressions</a>” for details.</p>
+<p>as the type of a primitive term, or the type of a property of a complex type (recursively) that is exclusively used as the type of a term. See <a href="#PathExpressions">section 14.4.1</a> for details.</p>
 </details>
 <details open><summary>
 <h2 id="37-annotations"><a id="Annotations" href="#Annotations">3.7 Annotations</a></h2>
@@ -1849,7 +1849,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>An action or function overload MAY indicate that it is bound. If not explicitly indicated, it is unbound.</p>
 <p>Bound actions or functions are invoked on resources matching the type of the binding parameter. The binding parameter can be of any type, and it MAY be nullable.</p>
 <p>Unbound actions are invoked from the entity container through an <a href="#ActionImport">action import</a>.</p>
-<p>Unbound functions are invoked as static functions within a common expression (see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CommonExpressionSyntax">OData-URL, section “Common Expression Syntax”</a>), or from the entity container through a <a href="#FunctionImport">function import</a>.</p>
+<p>Unbound functions are invoked as static functions within a common expression (see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CommonExpressionSyntax">OData-URL, section 5.1.1</a>), or from the entity container through a <a href="#FunctionImport">function import</a>.</p>
 <section class="varxml rep">
 <h3><a id="AttributeIsBound.21.2" href="#AttributeIsBound.21.2">Attribute <code>IsBound</code></a></h3>
 <p>The value of <code>IsBound</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the attribute means <code>false</code>.</p>
@@ -2859,7 +2859,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>Example 60: absolute path to an entity set</p>
 <pre><code>/My.Schema.MyEntityContainer/MyEntitySet</code></pre>
 </div>
-<p>Paths not starting with a forward slash are interpreted relative to the annotation target, following the rules specified in section “<a href="#PathEvaluation">Path Evaluation</a>”.</p>
+<p>Paths not starting with a forward slash are interpreted relative to the annotation target, following the rules specified in <a href="#PathEvaluation">section 14.4.1.2</a>.</p>
 <div class="example">
 <p>Example 61: relative path to a property</p>
 <pre><code>Address/City</code></pre>
@@ -3322,7 +3322,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <details open><summary>
 <h4 id="14443-function-odatamatchespattern"><a id="FunctionodatamatchesPattern" href="#FunctionodatamatchesPattern">14.4.4.3 Function <code>odata.matchesPattern</code></a></h4>
 </summary>
-<p>The <code>odata.matchesPattern</code> client-side function takes two string expressions as arguments and returns a Boolean value. It is the counterpart of the identically named URL function <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#matchespattern">OData-URL, section “<code>matchespattern</code>”</a>.</p>
+<p>The <code>odata.matchesPattern</code> client-side function takes two string expressions as arguments and returns a Boolean value. It is the counterpart of the identically named URL function <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#matchespattern">OData-URL, section 5.1.1.7.1</a>.</p>
 <p>The function returns true if the second expression evaluates to an <a href="#_ECMAScript">ECMAScript</a> (JavaScript) regular expression and the result of the first argument expression matches that regular expression, using syntax and semantics of <a href="#_ECMAScript">ECMAScript</a> regular expressions.</p>
 <div class="varxml example">
 <p>Example 79: all non-empty <code>FirstName</code> values not containing the letters <code>b</code>, <code>c</code>, or <code>d</code> evaluate to <code>true</code></p>

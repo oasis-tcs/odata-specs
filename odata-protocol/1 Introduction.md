@@ -565,8 +565,7 @@ as defined in [OData-VocCap](#ODataVocCap), listing all available
 formats and combinations of supported format parameters.
 
 The media types for the JSON and XML representation of the metadata
-document are described in section "[Metadata Document
-Request](#MetadataDocumentRequest)".
+document are described in [section ##MetadataDocumentRequest].
 
 The format specification [OData-JSON](#ODataJSON) describes the media
 type and the format parameters for non-metadata requests and responses.

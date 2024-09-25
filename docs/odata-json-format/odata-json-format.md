@@ -365,7 +365,7 @@ incapable of computing control information,
 directs the service to inline the control information that normally
 would be computed from metadata expressions in the payload.
 [`metadata=none`](#metadatanoneodatametadatanone)
-is an option for clients that have out-of-band knowledge or don\'t
+is an option for clients that have out-of-band knowledge or don't
 require control information.
 
 In addition, the client may use the `include-annotations`
@@ -464,8 +464,7 @@ The full list of control information that may appear in a
 - [`type`](#ControlInformationtypeodatatype):
   the type of the containing object or targeted property if the type of
   the object or targeted property cannot be heuristically determined from
-  the data value, see section
-  "[Control Information: type (odata.type)](#ControlInformationtypeodatatype)".
+  the data value, see [section 4.6.3](#ControlInformationtypeodatatype).
 
 Media entities and stream properties may in addition contain the
 following control information:
@@ -577,8 +576,7 @@ parameter if `Edm.Int64` and `Edm.Decimal` numbers
 are represented as strings.
 
 Requests and responses MAY add the `streaming` parameter with
-a value of `true` or `false`, see section
-"[Payload Ordering Constraints](#PayloadOrderingConstraints)".
+a value of `true` or `false`, see [section 4.5](#PayloadOrderingConstraints).
 
 ## <a id="MessageBody" href="#MessageBody">4.2 Message Body</a>
 
@@ -796,7 +794,7 @@ response in order to specify the entity tag (ETag) that can be used to
 determine the version of the metadata of the response. If an ETag is
 returned when requesting the metadata document, then the service SHOULD
 set the `metadataEtag` control information to the metadata
-document\'s ETag in all responses when using
+document's ETag in all responses when using
 [`metadata=minimal`](#metadataminimalodatametadataminimal)
 or
 [`metadata=full`](#metadatafullodatametadatafull).
@@ -913,7 +911,7 @@ metadata  document of a different service
 ### <a id="ControlInformationcountodatacount" href="#ControlInformationcountodatacount">4.6.4 Control Information: `count` (`odata.count`)</a>
 
 The `count` control information occurs only in responses and
-can annotate any collection, see [OData-Protocol, section "System Query Option `$count`"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptioncount).
+can annotate any collection, see [OData-Protocol, section 11.2.6.5](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptioncount).
 Its value is an
 `Edm.Int64` value corresponding to
 the total count of members in the collection represented by the request.
@@ -998,7 +996,7 @@ is ignored in request payloads and not written in responses if
 [`metadata=none`](#metadatanoneodatametadatanone)
 is requested.
 
-The default value of both the edit URL and read URL is the entity\'s
+The default value of both the edit URL and read URL is the entity's
 [entity-id](#ControlInformationidodataid) appended with a cast
 segment to the type of the entity if its type is derived from the
 declared type of the entity set. If neither the `editLink`
@@ -1085,9 +1083,9 @@ if [`metadata=none`](#metadatanoneodatametadatanone) is requested.
 For [media entities](#MediaEntity) and [stream
 properties](#StreamProperty) at least one of the control information
 `mediaEditLink` and `mediaReadLink` MUST be included
-in responses if they don\'t follow standard URL conventions as defined
-in [OData-URL, section "Addressing a Property"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingaProperty)
-and [OData-URL, section "Addressing the Media Stream of a Media Entity"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingtheMediaStreamofaMediaEntity), or if
+in responses if they don't follow standard URL conventions as defined
+in [OData-URL, section 4.6](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingaProperty)
+and [OData-URL, section 4.14](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingtheMediaStreamofaMediaEntity), or if
 [`metadata=full`](#metadatafullodatametadatafull)
 is requested.
 
@@ -2101,7 +2099,7 @@ Example 33: collection of entity references
 # <a id="DeltaPayload" href="#DeltaPayload">15 Delta Payload</a>
 
 The non-format specific aspects of the delta handling are described in
-the section "Requesting Changes" in [OData-Protocol](#ODataProtocol).
+[OData-Protocol, section 11.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#RequestingChanges).
 
 ## <a id="DeltaResponses" href="#DeltaResponses">15.1 Delta Responses</a>
 
@@ -3112,8 +3110,8 @@ Content-Type: application/json
 :::
 
 Alternatively, values of non-binding parameters MAY be specified as common expressions
-[OData-URL, section "Common Expression Syntax"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CommonExpressionSyntax). In the case of a bound action
-these MAY contain path expressions [OData-URL, section "Path Expressions"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#PathExpressions), which
+[OData-URL, section 5.1.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CommonExpressionSyntax). In the case of a bound action
+these MAY contain path expressions [OData-URL, section 5.1.1.15](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#PathExpressions), which
 the service evaluates on the binding parameter value. Such parameters are encoded as name/value
 pairs where the name is the name of the parameter followed by `@expression` and
 the value is the common expression. As the following example demonstrates,
@@ -3152,7 +3150,7 @@ Content-Type: application/json
 :::
 
 Inside a batch request the common expressions can also be value references
-starting with `$`, as introduced in [OData-Protocol, section "Referencing Values from Response Bodies"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ReferencingValuesfromResponseBodies).
+starting with `$`, as introduced in [OData-Protocol, section 11.7.6](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ReferencingValuesfromResponseBodies).
 
 Non-binding parameters that are nullable or annotated with the term
 [`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter) defined in
@@ -3630,8 +3628,7 @@ preference does not automatically cascade down to the individual
 requests within the batch. After successful execution of the batch
 request the response to the batch request is returned in the body of a
 response to an interrogation request against the status monitor resource
-URL, see section "Asynchronous Requests" in
-[OData-Protocol](#ODataProtocol).
+URL, see [OData-Protocol, section 11.6](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#AsynchronousRequests).
 
 A service MAY return interim results to an asynchronously executing
 batch. It does this by responding with `200 OK` to a

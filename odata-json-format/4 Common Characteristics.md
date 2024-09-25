@@ -29,8 +29,7 @@ parameter if `Edm.Int64` and `Edm.Decimal` numbers
 are represented as strings.
 
 Requests and responses MAY add the `streaming` parameter with
-a value of `true` or `false`, see section
-"[Payload Ordering Constraints](#PayloadOrderingConstraints)".
+a value of `true` or `false`, see [section ##PayloadOrderingConstraints].
 
 ## ##subsec Message Body
 
@@ -248,7 +247,7 @@ response in order to specify the entity tag (ETag) that can be used to
 determine the version of the metadata of the response. If an ETag is
 returned when requesting the metadata document, then the service SHOULD
 set the `metadataEtag` control information to the metadata
-document\'s ETag in all responses when using
+document's ETag in all responses when using
 [`metadata=minimal`](#metadataminimalodatametadataminimal)
 or
 [`metadata=full`](#metadatafullodatametadatafull).
@@ -365,7 +364,7 @@ metadata  document of a different service
 ### ##subsubsec Control Information: `count` (`odata.count`)
 
 The `count` control information occurs only in responses and
-can annotate any collection, see [OData-Protocol, section "System Query Option `$count`"]($$$OData-Protocol$$$#SystemQueryOptioncount).
+can annotate any collection, see [#OData-Protocol#SystemQueryOptioncount].
 Its value is an
 `Edm.Int64` value corresponding to
 the total count of members in the collection represented by the request.
@@ -450,7 +449,7 @@ is ignored in request payloads and not written in responses if
 [`metadata=none`](#metadatanoneodatametadatanone)
 is requested.
 
-The default value of both the edit URL and read URL is the entity\'s
+The default value of both the edit URL and read URL is the entity's
 [entity-id](#ControlInformationidodataid) appended with a cast
 segment to the type of the entity if its type is derived from the
 declared type of the entity set. If neither the `editLink`
@@ -537,9 +536,9 @@ if [`metadata=none`](#metadatanoneodatametadatanone) is requested.
 For [media entities](#MediaEntity) and [stream
 properties](#StreamProperty) at least one of the control information
 `mediaEditLink` and `mediaReadLink` MUST be included
-in responses if they don\'t follow standard URL conventions as defined
-in [OData-URL, section "Addressing a Property"]($$$OData-URL$$$#AddressingaProperty)
-and [OData-URL, section "Addressing the Media Stream of a Media Entity"]($$$OData-URL$$$#AddressingtheMediaStreamofaMediaEntity), or if
+in responses if they don't follow standard URL conventions as defined
+in [#OData-URL#AddressingaProperty]
+and [#OData-URL#AddressingtheMediaStreamofaMediaEntity], or if
 [`metadata=full`](#metadatafullodatametadatafull)
 is requested.
 

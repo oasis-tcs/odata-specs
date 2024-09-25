@@ -1,3 +1,5 @@
+name: OData-CSDL
+url: https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html
 pagetitle: OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02
 subtitle: Committee Specification Draft 02
 dirname: odata-csdl-json

@@ -1542,7 +1542,7 @@ Content-Type: application/json
 
 Members of the JSON object also include parameters
 if the resource path is a function invocation or function import. In this case
-parameters MUST be represented like parameters in an action invocation [OData-JSON, section "Action Invocation"](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ActionInvocation),
+parameters MUST be represented like parameters in an action invocation [OData-JSON, section 18](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ActionInvocation),
 and in the resource path parentheses after the function name MUST be omitted.
 
 ::: example
@@ -1561,7 +1561,7 @@ Content-Type: application/json
 ```
 
 The previous request looks analogous to a bound function invocation with expressions (like in [example 30](#funcexpr))
-if it is written using implicit parameter aliases (see [OData-Protocol, section "Inline Parameter Syntax"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#InlineParameterSyntax)).
+if it is written using implicit parameter aliases (see [OData-Protocol, section 11.5.4.1.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#InlineParameterSyntax)).
 ```
 GET http://host/service/Employees(23)/self.PendingLeaveRequests
   ?StartDate=now()
@@ -3279,7 +3279,7 @@ $filter=[FirstName,LastName] in [["John","Doe"],["Jane","Smith"]]
 ```
 :::
 
-Entities are represented as structured literals as described in [OData-JSON, section "Entity"](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#Entity).
+Entities are represented as structured literals as described in [OData-JSON, section 6](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#Entity).
 Non-transient entities can alternatively be represented through their [resource path](#ResourcePath).
 
 ::: example

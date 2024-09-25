@@ -442,8 +442,7 @@ preference does not automatically cascade down to the individual
 requests within the batch. After successful execution of the batch
 request the response to the batch request is returned in the body of a
 response to an interrogation request against the status monitor resource
-URL, see section "Asynchronous Requests" in
-[OData-Protocol](#ODataProtocol).
+URL, see [#OData-Protocol#AsynchronousRequests].
 
 A service MAY return interim results to an asynchronously executing
 batch. It does this by responding with `200 OK` to a
