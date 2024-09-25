@@ -54,7 +54,7 @@ incapable of computing control information,
 directs the service to inline the control information that normally
 would be computed from metadata expressions in the payload.
 [`metadata=none`](#metadatanoneodatametadatanone)
-is an option for clients that have out-of-band knowledge or don\'t
+is an option for clients that have out-of-band knowledge or don't
 require control information.
 
 In addition, the client may use the `include-annotations`
@@ -153,8 +153,7 @@ The full list of control information that may appear in a
 - [`type`](#ControlInformationtypeodatatype):
   the type of the containing object or targeted property if the type of
   the object or targeted property cannot be heuristically determined from
-  the data value, see section
-  "[Control Information: type (odata.type)](#ControlInformationtypeodatatype)".
+  the data value, see [section ##ControlInformationtypeodatatype].
 
 Media entities and stream properties may in addition contain the
 following control information:

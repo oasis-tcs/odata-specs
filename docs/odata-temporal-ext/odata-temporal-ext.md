@@ -231,7 +231,7 @@ alternatively express the used time slice semantics via
 An entity in a snapshot entity set represents a [temporal object](#TemporalObject)
 at a specified point in time. When the entity is addressed via a
 resource path (directly or via related resources), the point in time
-must be specified, see section "[Propagation of Temporal Query Options](#PropagationofTemporalQueryOptions)"
+must be specified, see [section 4.2.1](#PropagationofTemporalQueryOptions)
 for details on how to determine this point in time.
 
 The entity's id and its canonical URL are independent of this point in
@@ -1838,13 +1838,13 @@ beginning of each employee time slice:
 
 For [snapshot entity sets](#SnapshotEntitySet)
 the point in time for representing data is determined following the
-rules in section "[Propagation of Temporal Query Options](#PropagationofTemporalQueryOptions)"
+rules in [section 4.2.1](#PropagationofTemporalQueryOptions)
 and evaluated *first*, then all other system query options are evaluated
 on the data valid at that point in time, including the query option
 `$apply` defined in [OData-Aggregation](#ODataAggregation).
 
 For timeline entity sets the interval for filtering data is determined
-following the rules in section "[Propagation of Temporal Query Options](#PropagationofTemporalQueryOptions)"
+following the rules in [section 4.2.1](#PropagationofTemporalQueryOptions)
 and evaluated as an additional criterion for `$filter` in the evaluation
 sequence defined in [OData-Protocol, section "System Query Options"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptions),
 which is evaluated _after_ the query option `$apply`.

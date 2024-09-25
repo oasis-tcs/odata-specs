@@ -82,7 +82,7 @@ alternatively express the used time slice semantics via
 An entity in a snapshot entity set represents a [temporal object](#TemporalObject)
 at a specified point in time. When the entity is addressed via a
 resource path (directly or via related resources), the point in time
-must be specified, see section "[Propagation of Temporal Query Options](#PropagationofTemporalQueryOptions)"
+must be specified, see [section ##PropagationofTemporalQueryOptions]
 for details on how to determine this point in time.
 
 The entity's id and its canonical URL are independent of this point in
