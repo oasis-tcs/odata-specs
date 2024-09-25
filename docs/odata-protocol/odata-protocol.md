@@ -4554,7 +4554,7 @@ nested delta representation to:
 Example 80: When updating an entity with a 4.01 `PUT` request, the target of a
 non-containment navigation property can be replaced without changing either the
 old or the new targeted entity itself. The targeted entity can then only be
-specified by an entity reference (see [OData-JSON, section "Entity Reference"](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#EntityReference)).
+specified by an entity reference (see [OData-JSON, section 14](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#EntityReference)).
 
 The following JSON payload changes the last name and the manager of Suzanne Brown:
 ```json
