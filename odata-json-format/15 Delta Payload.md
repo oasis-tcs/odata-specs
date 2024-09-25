@@ -4,7 +4,7 @@
 # ##sec Delta Payload
 
 The non-format specific aspects of the delta handling are described in
-the section "Requesting Changes" in [OData-Protocol](#ODataProtocol).
+[OData-Protocol, section "Requesting Changes"]($$$OData-Protocol$$$#RequestingChanges).
 
 ## ##subsec Delta Responses
 

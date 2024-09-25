@@ -1348,8 +1348,7 @@ Example ##ex: absolute path to an entity set
 :::
 
 Paths not starting with a forward slash are interpreted relative to the
-annotation target, following the rules specified in section "[Path
-Evaluation](#PathEvaluation)".
+annotation target, following the rules specified in [section ##PathEvaluation].
 
 ::: example
 Example ##ex: relative path to a property
