@@ -911,7 +911,7 @@ metadata  document of a different service
 ### <a id="ControlInformationcountodatacount" href="#ControlInformationcountodatacount">4.6.4 Control Information: `count` (`odata.count`)</a>
 
 The `count` control information occurs only in responses and
-can annotate any collection, see [OData-Protocol, section "System Query Option `$count`"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptioncount).
+can annotate any collection, see [OData-Protocol, section 11.2.6.5](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptioncount).
 Its value is an
 `Edm.Int64` value corresponding to
 the total count of members in the collection represented by the request.
@@ -1084,8 +1084,8 @@ For [media entities](#MediaEntity) and [stream
 properties](#StreamProperty) at least one of the control information
 `mediaEditLink` and `mediaReadLink` MUST be included
 in responses if they don't follow standard URL conventions as defined
-in [OData-URL, section "Addressing a Property"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingaProperty)
-and [OData-URL, section "Addressing the Media Stream of a Media Entity"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingtheMediaStreamofaMediaEntity), or if
+in [OData-URL, section 4.6](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingaProperty)
+and [OData-URL, section 4.14](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingtheMediaStreamofaMediaEntity), or if
 [`metadata=full`](#metadatafullodatametadatafull)
 is requested.
 
@@ -2099,7 +2099,7 @@ Example 33: collection of entity references
 # <a id="DeltaPayload" href="#DeltaPayload">15 Delta Payload</a>
 
 The non-format specific aspects of the delta handling are described in
-[OData-Protocol, section "Requesting Changes"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#RequestingChanges).
+[OData-Protocol, section 11.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#RequestingChanges).
 
 ## <a id="DeltaResponses" href="#DeltaResponses">15.1 Delta Responses</a>
 
@@ -3110,8 +3110,8 @@ Content-Type: application/json
 :::
 
 Alternatively, values of non-binding parameters MAY be specified as common expressions
-[OData-URL, section "Common Expression Syntax"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CommonExpressionSyntax). In the case of a bound action
-these MAY contain path expressions [OData-URL, section "Path Expressions"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#PathExpressions), which
+[OData-URL, section 5.1.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CommonExpressionSyntax). In the case of a bound action
+these MAY contain path expressions [OData-URL, section 5.1.1.15](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#PathExpressions), which
 the service evaluates on the binding parameter value. Such parameters are encoded as name/value
 pairs where the name is the name of the parameter followed by `@expression` and
 the value is the common expression. As the following example demonstrates,
@@ -3150,7 +3150,7 @@ Content-Type: application/json
 :::
 
 Inside a batch request the common expressions can also be value references
-starting with `$`, as introduced in [OData-Protocol, section "Referencing Values from Response Bodies"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ReferencingValuesfromResponseBodies).
+starting with `$`, as introduced in [OData-Protocol, section 11.7.6](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ReferencingValuesfromResponseBodies).
 
 Non-binding parameters that are nullable or annotated with the term
 [`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter) defined in
@@ -3628,7 +3628,7 @@ preference does not automatically cascade down to the individual
 requests within the batch. After successful execution of the batch
 request the response to the batch request is returned in the body of a
 response to an interrogation request against the status monitor resource
-URL, see [OData-Protocol, section "Asynchronous Requests"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#AsynchronousRequests).
+URL, see [OData-Protocol, section 11.6](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#AsynchronousRequests).
 
 A service MAY return interim results to an asynchronously executing
 batch. It does this by responding with `200 OK` to a

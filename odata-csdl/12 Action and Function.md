@@ -162,7 +162,7 @@ Unbound actions are invoked from the entity container through an [action
 import](#ActionImport).
 
 Unbound functions are invoked as static functions within a common expression
-(see [OData-URL, section "Common Expression Syntax"]($$$OData-URL$$$#CommonExpressionSyntax)),
+(see [#OData-URL#CommonExpressionSyntax]),
 or from the entity container through a [function import](#FunctionImport).
 
 ::: {.varjson .rep}

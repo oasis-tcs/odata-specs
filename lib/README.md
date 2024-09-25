@@ -13,6 +13,8 @@ This folder contains several Node.js modules that generate OASIS specification d
   See [subsection ##SubsectionHeading]. Reference to a subsection showing its number.
   See [this example](#aggregation). Reference to an example.
   See [example ##aggregation]. Reference to an example showing its number.
+  See [#OData-Protocol#SectionHeading]. Cross-document section reference.
+  See [OData-Protocol, example #OData-Protocol#aggregation]. Other cross-document reference.
   [This important sentence]{id=important} is referenced [elsewhere](#important).
   ```
 - Lines ending with single space are joined with the next line.

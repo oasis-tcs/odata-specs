@@ -1706,7 +1706,7 @@ $filter=[FirstName,LastName] in [["John","Doe"],["Jane","Smith"]]
 ```
 :::
 
-Entities are represented as structured literals as described in [OData-JSON, section "Entity"]($$$OData-JSON$$$#Entity).
+Entities are represented as structured literals as described in [#OData-JSON#Entity].
 Non-transient entities can alternatively be represented through their [resource path](#ResourcePath).
 
 ::: example

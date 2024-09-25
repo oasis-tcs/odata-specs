@@ -2793,7 +2793,7 @@ GET http://host/service/Products(1)/Name
 #### <a id="RequestingStreamProperties" href="#RequestingStreamProperties">11.2.4.1 Requesting Stream Properties</a>
 
 If the property being requested has type `Edm.Stream` (see
-[OData-URL, section "Addressing a Property"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingaProperty)), the media type of the response is the
+[OData-URL, section 4.6](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingaProperty)), the media type of the response is the
 media type of the stream, subject to content type negotiation based on the
 [`Accept`](#HeaderAccept) header of the request.
 The response body is the octet-stream that represents the raw
@@ -2973,7 +2973,7 @@ expand item is evaluated relative to the retrieved resource being
 expanded.
 
 For a full description of the syntax used when building requests, see
-[OData-URL, section "System Query Option `$expand`"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#SystemQueryOptionexpand).
+[OData-URL, section 5.1.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#SystemQueryOptionexpand).
 
 ::: example
 Example 38: for each customer entity within the Customers entity set the
@@ -4049,7 +4049,7 @@ If optimistic concurrency control is required for a resource, the
 service MUST include an [`ETag`](#HeaderETag) header in a response to a
 `GET` request to the resource, and MAY include the ETag in a
 format-specific manner in responses containing that resource,
-see for example [OData-JSON, section "Control Information: `etag` (`odata.etag`)"](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformationetagodataetag).
+see for example [OData-JSON, section 4.6.10](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformationetagodataetag).
 
 The presence of an [`ETag`](#HeaderETag) header in a response does not
 imply in itself that the resource requires optimistic concurrency
@@ -4188,7 +4188,7 @@ if the provided values do not match the service-determined values.
 
 Non-insertable properties include (and are not limited to)
 
-- dependent properties that are tied to non-key properties of the principal entity through a referential constraint [OData-CSDL, section "Referential Constraint"](https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#ReferentialConstraint) (informally: "denormalized" properties),
+- dependent properties that are tied to non-key properties of the principal entity through a referential constraint [OData-CSDL, section 8.5](https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#ReferentialConstraint) (informally: "denormalized" properties),
 - properties annotated with the term
   [`Core.Computed`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Computed), see [OData-VocCore](#ODataVocCore),
 - properties listed as `NonInsertableProperties` of term [`Capabilities.InsertRestrictions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#InsertRestrictions), see [OData-VocCap](#ODataVocCap),
@@ -4379,7 +4379,7 @@ If they are provided, services MUST either ignore the values in the request body
 Non-updatable properties include (and are not limited to)
 
 - key properties,
-- dependent properties that are tied to non-key properties of the principal entity through a referential constraint [OData-CSDL, section "Referential Constraint"](https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#ReferentialConstraint) (informally: "denormalized" properties),
+- dependent properties that are tied to non-key properties of the principal entity through a referential constraint [OData-CSDL, section 8.5](https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#ReferentialConstraint) (informally: "denormalized" properties),
 - properties annotated with the terms
   [`Core.Computed`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Computed) or [`Core.Immutable`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Immutable), see [OData-VocCore](#ODataVocCore),
 - properties listed as `NonUpdatableProperties` of term [`Capabilities.UpdateRestrictions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#UpdateRestrictions), see [OData-VocCap](#ODataVocCap),
@@ -6692,7 +6692,7 @@ with generic clients
 13. SHOULD support the `$count` system query option ([section 11.2.6.5](#SystemQueryOptioncount))
 14. SHOULD support `$expand` ([section 11.2.5.2](#SystemQueryOptionexpand))
 15. SHOULD support the lambda operators `any` and `all` on navigation-
-and collection-valued properties ([OData-URL, section "Lambda Operators"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#LambdaOperators))
+and collection-valued properties ([OData-URL, section 5.1.1.13](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#LambdaOperators))
 16. SHOULD support the `/$count` segment on navigation and collection
 properties ([section 11.2.10](#RequestingtheNumberofItemsinaCollection))
 17. SHOULD support `$orderby asc` and `desc` on individual properties
@@ -6710,7 +6710,7 @@ Level](#OData40IntermediateConformanceLevel)
 4. MUST support the `/$count` segment on navigation and collection
 properties ([section 11.2.10](#RequestingtheNumberofItemsinaCollection))
 5. MUST support the lambda operators `any` and `all` on navigation- and
-and collection-valued properties ([OData-URL, section "Lambda Operators"](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#LambdaOperators))
+and collection-valued properties ([OData-URL, section 5.1.1.13](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#LambdaOperators))
 6. MUST support the `$skip` system query option ([section 11.2.6.4](#SystemQueryOptionskip))
 7. MUST support the `$count` system query option ([section 11.2.6.5](#SystemQueryOptioncount))
 8. MUST support `$orderby` with `asc` and `desc` on individual properties

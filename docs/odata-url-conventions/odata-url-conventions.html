@@ -1081,7 +1081,7 @@ Content-Type: application/x-www-form-urlencoded
 <span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$select&quot;</span><span class="fu">:</span> <span class="st">&quot;FirstName,LastName&quot;</span></span>
 <span id="cb73-7"><a href="#cb73-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
-<p>Members of the JSON object also include parameters if the resource path is a function invocation or function import. In this case parameters MUST be represented like parameters in an action invocation <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ActionInvocation">OData-JSON, section “Action Invocation”</a>, and in the resource path parentheses after the function name MUST be omitted.</p>
+<p>Members of the JSON object also include parameters if the resource path is a function invocation or function import. In this case parameters MUST be represented like parameters in an action invocation <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ActionInvocation">OData-JSON, section 18</a>, and in the resource path parentheses after the function name MUST be omitted.</p>
 <div class="example">
 <p>Example 53: An employee’s top ten leave requests from now to the end of the year pending their manager’s approval.</p>
 <div class="sourceCode" id="cb74"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">http://host/service/Employees(23)/self.PendingLeaveRequests/$query</span></span>
@@ -1093,7 +1093,7 @@ Content-Type: application/x-www-form-urlencoded
 <span id="cb74-7"><a href="#cb74-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Approver@expression&quot;</span><span class="fu">:</span> <span class="st">&quot;Manager&quot;</span><span class="fu">,</span></span>
 <span id="cb74-8"><a href="#cb74-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$top&quot;</span><span class="fu">:</span> <span class="dv">10</span></span>
 <span id="cb74-9"><a href="#cb74-9" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
-<p>The previous request looks analogous to a bound function invocation with expressions (like in <a href="#funcexpr">example 30</a>) if it is written using implicit parameter aliases (see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#InlineParameterSyntax">OData-Protocol, section “Inline Parameter Syntax”</a>).</p>
+<p>The previous request looks analogous to a bound function invocation with expressions (like in <a href="#funcexpr">example 30</a>) if it is written using implicit parameter aliases (see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#InlineParameterSyntax">OData-Protocol, section 11.5.4.1.1</a>).</p>
 <pre><code>GET http://host/service/Employees(23)/self.PendingLeaveRequests
   ?StartDate=now()
   &amp;EndDate=2024-12-31
@@ -1965,7 +1965,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>Example 110: check whether a pair of properties has one of several possible pair values</p>
 <pre><code>$filter=[FirstName,LastName] in [[&quot;John&quot;,&quot;Doe&quot;],[&quot;Jane&quot;,&quot;Smith&quot;]]</code></pre>
 </div>
-<p>Entities are represented as structured literals as described in <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#Entity">OData-JSON, section “Entity”</a>. Non-transient entities can alternatively be represented through their <a href="#ResourcePath">resource path</a>.</p>
+<p>Entities are represented as structured literals as described in <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#Entity">OData-JSON, section 6</a>. Non-transient entities can alternatively be represented through their <a href="#ResourcePath">resource path</a>.</p>
 <div class="example">
 <p>Example 111: determine the price of an adhoc-defined product</p>
 <pre><code>http://host/service/Price(Product=@p)?@p={&quot;Color&quot;:&quot;red&quot;}</code></pre>
