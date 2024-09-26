@@ -267,6 +267,7 @@ Section | Feature / Change | Issue
 [Section 3.3](#PrimitiveTypes)| Allow stream-valued non-binding parameters| [525](https://github.com/oasis-tcs/odata-specs/issues/525)
 [Section 3.4.5](#SRID)| SRID value `variable` is deprecated| [1935](https://github.com/oasis-tcs/odata-specs/issues/1935)
 [Section 4](#CSDLJSONDocument) | Additional `$Version` value `4.02` |
+[Section 12](#ActionandFunction) | Actions and functions can take, and return, delta payloads | [348](https://github.com/oasis-tcs/odata-specs/issues/348)
 [Section 14.3.13](#GeoValues) | Constant Geo values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
 [Section 14.3.14](#StreamValues) | Constant Stream values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
 [Section 14.4.1.2](#PathEvaluation)| New path evaluation rules for annotations targeting annotations and external targeting via container| [575](https://github.com/oasis-tcs/odata-specs/issues/575)
@@ -2889,7 +2890,15 @@ present with the literal value `true`.
 
 Absence of the `$Type` member means the type is `Edm.String`.
 
-### <a id="Nullable.13.7" href="#Nullable.13.7">`$Nullable`</a>
+### <a id="AnnotationCoreIsDelta.13.7" href="#AnnotationCoreIsDelta.13.7">Annotation `Core.IsDelta`</a>
+
+The `$ReturnType` of a function or action that returns results as a delta payload
+is annotated with the term [`Core.IsDelta`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsDelta).
+
+Delta payloads represent changes between two versions of data and, in addition
+to current values, MAY include deleted entries as well as changes to related entities and relationships, according to the format-specific delta representation.
+
+### <a id="Nullable.13.8" href="#Nullable.13.8">`$Nullable`</a>
 
 The value of `$Nullable` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
@@ -2934,7 +2943,7 @@ the parameter value is a collection, the facets apply to the items in
 the collection.
 
 ::: {.varjson .rep}
-### <a id="Parameter.13.8" href="#Parameter.13.8">`$Parameter`</a>
+### <a id="Parameter.13.9" href="#Parameter.13.9">`$Parameter`</a>
 
 The value of `$Parameter` is an array. The array contains one object per
 parameter.
@@ -2963,7 +2972,15 @@ present with the literal value `true`.
 
 Absence of the `$Type` member means the type is `Edm.String`.
 
-### <a id="Nullable.14.4" href="#Nullable.14.4">`$Nullable`</a>
+### <a id="AnnotationCoreIsDelta.14.4" href="#AnnotationCoreIsDelta.14.4">Annotation `Core.IsDelta`</a>
+
+A `$Parameter` that accepts a delta payload
+is annotated with the term [`Core.IsDelta`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsDelta).
+
+Delta payloads represent changes between two versions of data and, in addition
+to current values, MAY include deleted entries as well as changes to related entities and relationships, according to the format-specific delta representation.
+
+### <a id="Nullable.14.5" href="#Nullable.14.5">`$Nullable`</a>
 
 The value of `$Nullable` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
@@ -2975,6 +2992,12 @@ For collection-valued parameters the parameter value will always be a
 collection that MAY be empty. In this case `$Nullable` applies to items
 of the collection and specifies whether the collection MAY contain
 `null` values.
+
+### <a id="AnnotationCoreOptionalParameter.14.6" href="#AnnotationCoreOptionalParameter.14.6">Annotation `Core.OptionalParameter`</a>
+A `$Parameter` object annotated with the term [`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter) MAY be omitted when invoking the function or action.
+
+All parameters marked as optional MUST come after any parameters not marked as optional. 
+The binding parameter MUST NOT be marked as optional.
 :::
 
 ::: {.varjson .example}
@@ -3719,7 +3742,7 @@ Symbolic Value|Model Element
 `NavigationProperty`      |Navigation Property
 `Null`                    |Null annotation expression
 `OnDelete`                |On-Delete Action of a navigation property
-`Parameter`               |Action of Function Parameter
+`Parameter`               |Action or Function Parameter
 `Property`                |Structural Property
 `PropertyValue`           |Property value of a Record annotation expression
 `Record`                  |Record annotation expression
@@ -6214,13 +6237,16 @@ https://openui5.hana.ondemand.com/topic/87aac894a40640f89920d7b2a414499b.
   - [`$ReturnType`](#ReturnType.13.4)
   - [`$Type`](#Type.13.5)
   - [`$Collection`](#Collection.13.6)
-  - [`$Nullable`](#Nullable.13.7)
-  - [`$Parameter`](#Parameter.13.8)
+  - [Annotation `Core.IsDelta`](#AnnotationCoreIsDelta.13.7)
+  - [`$Nullable`](#Nullable.13.8)
+  - [`$Parameter`](#Parameter.13.9)
 - [Parameter Object](#ParameterObject.14)
   - [`$Name`](#Name.14.1)
   - [`$Type`](#Type.14.2)
   - [`$Collection`](#Collection.14.3)
-  - [`$Nullable`](#Nullable.14.4)
+  - [Annotation `Core.IsDelta`](#AnnotationCoreIsDelta.14.4)
+  - [`$Nullable`](#Nullable.14.5)
+  - [Annotation `Core.OptionalParameter`](#AnnotationCoreOptionalParameter.14.6)
 - [Entity Container Object](#EntityContainerObject.15)
   - [`$Extends`](#Extends.15.1)
 - [Entity Set Object](#EntitySetObject.16)

@@ -463,26 +463,31 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/464">464</a></td>
 </tr>
 <tr class="odd">
+<td><a href="#ActionandFunction">Section 12</a></td>
+<td>Actions and functions can take, and return, delta payloads</td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/348">348</a></td>
+</tr>
+<tr class="even">
 <td><a href="#GeoValues">Section 14.3.13</a></td>
 <td>Constant Geo values in annotations</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/654">654</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#StreamValues">Section 14.3.14</a></td>
 <td>Constant Stream values in annotations</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/654">654</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#PathEvaluation">Section 14.4.1.2</a></td>
 <td>New path evaluation rules for annotations targeting annotations and external targeting via container</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/575">575</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#IfThenElse">Section 14.4.7</a></td>
 <td>Nested <code>If</code> without else part in collections</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/326">326</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#Conformance">Section 17</a></td>
 <td>Additional conformance clauses for version 4.02</td>
 <td></td>
@@ -1890,7 +1895,10 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h3><a id="AttributeType.22.1" href="#AttributeType.22.1">Attribute <code>Type</code></a></h3>
 <p>For single-valued return types the value of <code>Type</code> is the qualified name of the return type.</p>
 <p>For collection-valued return types the value of <code>Type</code> is the character sequence <code>Collection(</code> followed by the qualified name of the return item type, followed by a closing parenthesis <code>)</code>.</p>
-<h3><a id="AttributeNullable.22.2" href="#AttributeNullable.22.2">Attribute <code>Nullable</code></a></h3>
+<h3><a id="AnnotationCoreIsDelta.22.2" href="#AnnotationCoreIsDelta.22.2">Annotation <code>Core.IsDelta</code></a></h3>
+<p>The <code>edm:ReturnType</code> element of a function or action that returns results as a delta payload is annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsDelta"><code>Core.IsDelta</code></a>.</p>
+<p>Delta payloads represent changes between two versions of data and, in addition to current values, MAY include deleted entries as well as changes to related entities and relationships, according to the format-specific delta representation.</p>
+<h3><a id="AttributeNullable.22.3" href="#AttributeNullable.22.3">Attribute <code>Nullable</code></a></h3>
 <p>The value of <code>Nullable</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the attribute means <code>true</code>.</p>
 <p>If the return type is a collection of entity types, the <code>Nullable</code> attribute has no meaning and MUST NOT be specified.</p>
 <p>For other collection-valued return types the result will always be a collection that MAY be empty. In this case the <code>Nullable</code> attribute applies to items of the collection and specifies whether the collection MAY contain <code>null</code> values.</p>
@@ -1915,9 +1923,15 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h3><a id="AttributeType.23.2" href="#AttributeType.23.2">Attribute <code>Type</code></a></h3>
 <p>For single-valued parameters the value of <code>Type</code> is the qualified name of the parameter.</p>
 <p>For collection-valued parameters the value of <code>Type</code> is the character sequence <code>Collection(</code> followed by the qualified name of the parameter’s type, followed by a closing parenthesis <code>)</code>.</p>
-<h3><a id="AttributeNullable.23.3" href="#AttributeNullable.23.3">Attribute <code>Nullable</code></a></h3>
+<h3><a id="AnnotationCoreIsDelta.23.3" href="#AnnotationCoreIsDelta.23.3">Annotation <code>Core.IsDelta</code></a></h3>
+<p>An <code>edm:Parameter</code> element that accepts a delta payload is annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsDelta"><code>Core.IsDelta</code></a>.</p>
+<p>Delta payloads represent changes between two versions of data and, in addition to current values, MAY include deleted entries as well as changes to related entities and relationships, according to the format-specific delta representation.</p>
+<h3><a id="AttributeNullable.23.4" href="#AttributeNullable.23.4">Attribute <code>Nullable</code></a></h3>
 <p>The value of <code>Nullable</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the attribute means <code>true</code>.</p>
 <p>The value <code>true</code> means that the parameter accepts a <code>null</code> value.</p>
+<h3><a id="AnnotationCoreOptionalParameter.23.5" href="#AnnotationCoreOptionalParameter.23.5">Annotation <code>Core.OptionalParameter</code></a></h3>
+<p>An <code>edm:Parameter</code> element that is annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter"><code>Core.OptionalParameter</code></a> MAY be omitted when invoking the function or action.</p>
+<p>All parameters marked as optional MUST come after any parameters not marked as optional. The binding parameter MUST NOT be marked as optional.</p>
 </div>
 <div class="varxml example">
 <p>Example 30: a function returning the top-selling products for a given year. In this case the year must be specified as a parameter of the function with the <code>edm:Parameter</code> element.</p>
@@ -2318,7 +2332,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </tr>
 <tr class="even">
 <td><code>Parameter</code></td>
-<td>Action of Function Parameter</td>
+<td>Action or Function Parameter</td>
 </tr>
 <tr class="odd">
 <td><code>Property</code></td>
@@ -4039,13 +4053,16 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <li><a href="#ElementedmReturnType.22">Element <code>edm:ReturnType</code></a>
 <ul>
 <li><a href="#AttributeType.22.1">Attribute <code>Type</code></a></li>
-<li><a href="#AttributeNullable.22.2">Attribute <code>Nullable</code></a></li>
+<li><a href="#AnnotationCoreIsDelta.22.2">Annotation <code>Core.IsDelta</code></a></li>
+<li><a href="#AttributeNullable.22.3">Attribute <code>Nullable</code></a></li>
 </ul></li>
 <li><a href="#ElementedmParameter.23">Element <code>edm:Parameter</code></a>
 <ul>
 <li><a href="#AttributeName.23.1">Attribute <code>Name</code></a></li>
 <li><a href="#AttributeType.23.2">Attribute <code>Type</code></a></li>
-<li><a href="#AttributeNullable.23.3">Attribute <code>Nullable</code></a></li>
+<li><a href="#AnnotationCoreIsDelta.23.3">Annotation <code>Core.IsDelta</code></a></li>
+<li><a href="#AttributeNullable.23.4">Attribute <code>Nullable</code></a></li>
+<li><a href="#AnnotationCoreOptionalParameter.23.5">Annotation <code>Core.OptionalParameter</code></a></li>
 </ul></li>
 <li><a href="#ElementedmEntityContainer.24">Element <code>edm:EntityContainer</code></a>
 <ul>

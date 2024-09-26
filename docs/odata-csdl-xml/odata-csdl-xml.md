@@ -268,6 +268,7 @@ Section | Feature / Change | Issue
 [Section 3.4.5](#SRID)| SRID value `variable` is deprecated| [1935](https://github.com/oasis-tcs/odata-specs/issues/1935)
 [Section 4](#CSDLXMLDocument) | Additional `Version` value `4.02` |
 [Section 13](#EntityContainer)| All children of `edm:EntityContainer` are optional| [464](https://github.com/oasis-tcs/odata-specs/issues/464)
+[Section 12](#ActionandFunction) | Actions and functions can take, and return, delta payloads | [348](https://github.com/oasis-tcs/odata-specs/issues/348)
 [Section 14.3.13](#GeoValues) | Constant Geo values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
 [Section 14.3.14](#StreamValues) | Constant Stream values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
 [Section 14.4.1.2](#PathEvaluation)| New path evaluation rules for annotations targeting annotations and external targeting via container| [575](https://github.com/oasis-tcs/odata-specs/issues/575)
@@ -2766,7 +2767,15 @@ For collection-valued return types the value of `Type` is the character
 sequence `Collection(` followed by the qualified name of the return item
 type, followed by a closing parenthesis `)`.
 
-### <a id="AttributeNullable.22.2" href="#AttributeNullable.22.2">Attribute `Nullable`</a>
+### <a id="AnnotationCoreIsDelta.22.2" href="#AnnotationCoreIsDelta.22.2">Annotation `Core.IsDelta`</a>
+
+The `edm:ReturnType` element of a function or action that returns results as a delta payload
+is annotated with the term [`Core.IsDelta`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsDelta).
+
+Delta payloads represent changes between two versions of data and, in addition
+to current values, MAY include deleted entries as well as changes to related entities and relationships, according to the format-specific delta representation.
+
+### <a id="AttributeNullable.22.3" href="#AttributeNullable.22.3">Attribute `Nullable`</a>
 
 The value of `Nullable` is one of the Boolean literals `true` or
 `false`. Absence of the attribute means `true`.
@@ -2834,12 +2843,26 @@ For collection-valued parameters the value of `Type` is the character
 sequence `Collection(` followed by the qualified name of the parameter's
 type, followed by a closing parenthesis `)`.
 
-### <a id="AttributeNullable.23.3" href="#AttributeNullable.23.3">Attribute `Nullable`</a>
+### <a id="AnnotationCoreIsDelta.23.3" href="#AnnotationCoreIsDelta.23.3">Annotation `Core.IsDelta`</a>
+
+An `edm:Parameter` element that accepts a delta payload
+is annotated with the term [`Core.IsDelta`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsDelta).
+
+Delta payloads represent changes between two versions of data and, in addition
+to current values, MAY include deleted entries as well as changes to related entities and relationships, according to the format-specific delta representation.
+
+### <a id="AttributeNullable.23.4" href="#AttributeNullable.23.4">Attribute `Nullable`</a>
 
 The value of `Nullable` is one of the Boolean literals `true` or
 `false`. Absence of the attribute means `true`.
 
 The value `true` means that the parameter accepts a `null` value.
+
+### <a id="AnnotationCoreOptionalParameter.23.5" href="#AnnotationCoreOptionalParameter.23.5">Annotation `Core.OptionalParameter`</a>
+An `edm:Parameter` element that is annotated with the term [`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter) MAY be omitted when invoking the function or action.
+
+All parameters marked as optional MUST come after any parameters not marked as optional. 
+The binding parameter MUST NOT be marked as optional.
 :::
 
 ::: {.varxml .example}
@@ -3524,7 +3547,7 @@ Symbolic Value|Model Element
 `NavigationProperty`      |Navigation Property
 `Null`                    |Null annotation expression
 `OnDelete`                |On-Delete Action of a navigation property
-`Parameter`               |Action of Function Parameter
+`Parameter`               |Action or Function Parameter
 `Property`                |Structural Property
 `PropertyValue`           |Property value of a Record annotation expression
 `Record`                  |Record annotation expression
@@ -5919,11 +5942,14 @@ https://www.ogc.org/standard/sfa/.
   - [Attribute `IsComposable`](#AttributeIsComposable.21.4)
 - [Element `edm:ReturnType`](#ElementedmReturnType.22)
   - [Attribute `Type`](#AttributeType.22.1)
-  - [Attribute `Nullable`](#AttributeNullable.22.2)
+  - [Annotation `Core.IsDelta`](#AnnotationCoreIsDelta.22.2)
+  - [Attribute `Nullable`](#AttributeNullable.22.3)
 - [Element `edm:Parameter`](#ElementedmParameter.23)
   - [Attribute `Name`](#AttributeName.23.1)
   - [Attribute `Type`](#AttributeType.23.2)
-  - [Attribute `Nullable`](#AttributeNullable.23.3)
+  - [Annotation `Core.IsDelta`](#AnnotationCoreIsDelta.23.3)
+  - [Attribute `Nullable`](#AttributeNullable.23.4)
+  - [Annotation `Core.OptionalParameter`](#AnnotationCoreOptionalParameter.23.5)
 - [Element `edm:EntityContainer`](#ElementedmEntityContainer.24)
   - [Attribute `Name`](#AttributeName.24.1)
   - [Attribute `Extends`](#AttributeExtends.24.2)

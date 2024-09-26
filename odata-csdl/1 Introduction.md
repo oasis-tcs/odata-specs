@@ -46,6 +46,7 @@ SRID value `variable` is deprecated|
 All children of `edm:EntityContainer` are optional| 
 [464](https://github.com/oasis-tcs/odata-specs/issues/464)
 :
+[Section ##ActionandFunction] | Actions and functions can take, and return, delta payloads | [348](https://github.com/oasis-tcs/odata-specs/issues/348)
 [Section ##GeoValues] | Constant Geo values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
 [Section ##StreamValues] | Constant Stream values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
 [Section ##PathEvaluation]| 

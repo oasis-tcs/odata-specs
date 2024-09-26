@@ -271,6 +271,15 @@ present with the literal value `true`.
 
 Absence of the `$Type` member means the type is `Edm.String`.
 
+### ##subisec Annotation `Core.IsDelta`
+
+The `$ReturnType` of a function or action that returns results as a delta payload
+is annotated with the term [`Core.IsDelta`]($$$OData-VocCore$$$#IsDelta).
+
+Delta payloads represent changes between two versions of data and, in addition
+to current values, MAY include deleted entries as well as changes to related 
+entities and relationships, according to the format-specific delta representation.
+
 ### ##subisec `$Nullable`
 
 The value of `$Nullable` is one of the Boolean literals `true` or
@@ -308,6 +317,15 @@ of the return type.
 For collection-valued return types the value of `Type` is the character
 sequence `Collection(` followed by the qualified name of the return item
 type, followed by a closing parenthesis `)`.
+
+### ##subisec Annotation `Core.IsDelta`
+
+The `edm:ReturnType` element of a function or action that returns results as a delta payload
+is annotated with the term [`Core.IsDelta`]($$$OData-VocCore$$$#IsDelta).
+
+Delta payloads represent changes between two versions of data and, in addition
+to current values, MAY include deleted entries as well as changes to related 
+entities and relationships, according to the format-specific delta representation.
 
 ### ##subisec Attribute `Nullable`
 
@@ -383,6 +401,15 @@ present with the literal value `true`.
 
 Absence of the `$Type` member means the type is `Edm.String`.
 
+### ##subisec Annotation `Core.IsDelta`
+
+A `$Parameter` that accepts a delta payload
+is annotated with the term [`Core.IsDelta`]($$$OData-VocCore$$$#IsDelta).
+
+Delta payloads represent changes between two versions of data and, in addition
+to current values, MAY include deleted entries as well as changes to related 
+entities and relationships, according to the format-specific delta representation.
+
 ### ##subisec `$Nullable`
 
 The value of `$Nullable` is one of the Boolean literals `true` or
@@ -395,6 +422,15 @@ For collection-valued parameters the parameter value will always be a
 collection that MAY be empty. In this case `$Nullable` applies to items
 of the collection and specifies whether the collection MAY contain
 `null` values.
+
+### ##subisec Annotation `Core.OptionalParameter`
+A `$Parameter` object annotated with the term 
+[`Core.OptionalParameter`]($$$OData-VocCore$$$#OptionalParameter) MAY be 
+omitted when invoking the function or action.
+
+All parameters marked as optional MUST come after any parameters not marked as optional. 
+
+The binding parameter MUST NOT be marked as optional.
 :::
 
 ::: {.varjson .example}
@@ -446,12 +482,30 @@ For collection-valued parameters the value of `Type` is the character
 sequence `Collection(` followed by the qualified name of the parameter's
 type, followed by a closing parenthesis `)`.
 
+### ##subisec Annotation `Core.IsDelta`
+
+An `edm:Parameter` element that accepts a delta payload
+is annotated with the term [`Core.IsDelta`]($$$OData-VocCore$$$#IsDelta).
+
+Delta payloads represent changes between two versions of data and, in addition
+to current values, MAY include deleted entries as well as changes to related 
+entities and relationships, according to the format-specific delta representation.
+
 ### ##subisec Attribute `Nullable`
 
 The value of `Nullable` is one of the Boolean literals `true` or
 `false`. Absence of the attribute means `true`.
 
 The value `true` means that the parameter accepts a `null` value.
+
+### ##subisec Annotation `Core.OptionalParameter`
+An `edm:Parameter` element that is annotated with the term 
+[`Core.OptionalParameter`]($$$OData-VocCore$$$#OptionalParameter) MAY be 
+omitted when invoking the function or action.
+
+All parameters marked as optional MUST come after any parameters not marked as optional. 
+
+The binding parameter MUST NOT be marked as optional.
 :::
 
 ::: {.varxml .example}
