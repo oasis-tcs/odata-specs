@@ -171,6 +171,17 @@ td > code {
   margin-left: 40px;
 }
 
+.side-by-side:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.side-by-side > div {
+  width: 50%;
+  float: left;
+}
+
 .indent {
   margin-left: 40px;
 }

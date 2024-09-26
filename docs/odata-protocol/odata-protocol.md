@@ -4557,8 +4557,9 @@ old or the new targeted entity itself. The targeted entity can then only be
 specified by an entity reference (see [OData-JSON, section 14](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#EntityReference)).
 
 The following JSON payload changes the last name and the manager of Suzanne Brown:
+:::: side-by-side
 ```json
-PUT http://host/service/Employees(7)
+PUT http://host/service/Employees(7)?$expand=Manager
 Content-Type: application/json
 
 {
@@ -4570,10 +4571,25 @@ Content-Type: application/json
   }
 }
 ```
+```json
+{
+  "@context": "$metadata#Employees/$entity",
+  "EmployeeID": 7,
+  "FirstName": "Suzanne",
+  "LastName": "Brown-Johnson",
+  "Manager": {
+    "EmployeeID": 6,
+    "FirstName": "Patricia",
+    "LastName": "Miller"
+  }
+}
+```
+::::
 
 If the targeted entity in the payload contains some structural properties,
 `PUT` resets all its other structural properties. The following alternative
 payloads both reset the first and last names of the new manager:
+:::: side-by-side
 ```json
 {
   "FirstName": "Suzanne",
@@ -4584,7 +4600,20 @@ payloads both reset the first and last names of the new manager:
   }
 }
 ```
+```json
+{
+  "@context": "$metadata#Employees/$entity",
+  "EmployeeID": 7,
+  "FirstName": "Suzanne",
+  "LastName": "Brown-Johnson",
+  "Manager": {
+    "EmployeeID": 6
+  }
+}
+```
+::::
 
+:::: side-by-side
 ```json
 {
   "FirstName": "Suzanne",
@@ -4594,6 +4623,18 @@ payloads both reset the first and last names of the new manager:
   }
 }
 ```
+```json
+{
+  "@context": "$metadata#Employees/$entity",
+  "EmployeeID": 7,
+  "FirstName": "Suzanne",
+  "LastName": "Brown-Johnson",
+  "Manager": {
+    "EmployeeID": 6
+  }
+}
+```
+::::
 :::
 
 Clients MAY associate an id with individual nested entities in the
