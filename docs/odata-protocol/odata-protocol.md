@@ -4619,7 +4619,9 @@ payloads both reset the first and last names of the new manager:
   "FirstName": "Suzanne",
   "LastName": "Brown-Johnson",
   "Manager": {
-    "EmployeeID": 6
+    "EmployeeID": 6,
+    "FirstName": null,
+    "LastName": null
   }
 }
 ```
@@ -4630,7 +4632,9 @@ payloads both reset the first and last names of the new manager:
   "FirstName": "Suzanne",
   "LastName": "Brown-Johnson",
   "Manager": {
-    "EmployeeID": 6
+    "EmployeeID": 6,
+    "FirstName": null,
+    "LastName": null
   }
 }
 ```
