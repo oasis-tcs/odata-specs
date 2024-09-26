@@ -171,6 +171,10 @@ td > code {
   margin-left: 40px;
 }
 
+.side-by-side {
+  margin: -1em 0;
+}
+
 .side-by-side:after {
   content: "";
   display: block;
