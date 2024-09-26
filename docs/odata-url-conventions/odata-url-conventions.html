@@ -1153,7 +1153,7 @@ Content-Type: application/x-www-form-urlencoded
 <p>The <code>eq</code> operator returns <code>true</code> if the left operand is equal to the right operand, otherwise it returns <code>false</code>.</p>
 <p>When applied to operands of entity types, the <code>eq</code> operator returns <code>true</code> if both operands represent the same entity, or both operands represent <code>null</code>.</p>
 <p>When applied to operands of complex types, the <code>eq</code> operator returns <code>true</code> if both operands have the same structure and same values, or both operands represent <code>null</code>.</p>
-<p>When applied to ordered collections, the <code>eq</code> operator returns <code>true</code> if both operands have the same cardinality and each member of the left operand is equal to the corresponding member of the right operand.</p>
+<p>When applied to ordered collections, the <code>eq</code> operator returns <code>true</code> if both operands have the same cardinality and each member of the left operand is equal to the member of the right operand at the same index.</p>
 <p>For services that support comparing unordered collections, the <code>eq</code> operator returns <code>true</code> if both operands are equal after applying the same ordering on both collections.</p>
 <p>Each of the special values <code>null</code>, <code>-INF</code>, and <code>INF</code> is equal to itself, and only to itself.</p>
 <p>The special value <code>NaN</code> is not equal to anything, even to itself.</p>
