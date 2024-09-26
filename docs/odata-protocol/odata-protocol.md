@@ -3557,6 +3557,11 @@ set of items. This link is called a *next link*; its representation is
 format-specific. The final partial set of items MUST NOT contain a next
 link.
 
+This is called *server-driven paging*, and servers MAY use it in any response.
+Clients therefore cannot assume to have received all items unless they have ruled
+out the presence of next links in the response, including in expanded and nested
+collections.
+
 The client can request a maximum page size through the
 [`maxpagesize`](#Preferencemaxpagesizeodatamaxpagesize) preference. The
 service may apply this requested page size or implement a page size
