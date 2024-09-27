@@ -2036,15 +2036,15 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>Parameter objects MAY also contain <a href="#Annotation">annotations</a>.</p>
 <h3><a id="Name.14.1" href="#Name.14.1"><code>$Name</code></a></h3>
 <p>The value of <code>$Name</code> is a string containing the parameter name.</p>
-<h3><a id="TypeandsubisecCollection.14.2" href="#TypeandsubisecCollection.14.2"><code>$Type</code> and ##subisec <code>$Collection</code></a></h3>
+<h3><a id="Type.14.2" href="#Type.14.2"><code>$Type</code></a> and <a id="Collection.14.3" href="#Collection.14.3"><code>$Collection</code></a></h3>
 <p>For single-valued parameters the value of <code>$Type</code> is the qualified name of the accepted type.</p>
 <p>For collection-valued parameters the value of <code>$Type</code> is the qualified name of the accepted item type, and the member <code>$Collection</code> MUST be present with the literal value <code>true</code>.</p>
 <p>Absence of the <code>$Type</code> member means the type is <code>Edm.String</code>.</p>
-<h3><a id="Nullable.14.3" href="#Nullable.14.3"><code>$Nullable</code></a></h3>
+<h3><a id="Nullable.14.4" href="#Nullable.14.4"><code>$Nullable</code></a></h3>
 <p>The value of <code>$Nullable</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the member means <code>false</code>.</p>
 <p>For single-valued parameters the value <code>true</code> means that the parameter accepts a <code>null</code> value.</p>
 <p>For collection-valued parameters the parameter value will always be a collection that MAY be empty. In this case <code>$Nullable</code> applies to items of the collection and specifies whether the collection MAY contain <code>null</code> values.</p>
-<h3><a id="AnnotationCoreOptionalParameter.14.4" href="#AnnotationCoreOptionalParameter.14.4">Annotation <code>Core.OptionalParameter</code></a></h3>
+<h3><a id="AnnotationCoreOptionalParameter.14.5" href="#AnnotationCoreOptionalParameter.14.5">Annotation <code>Core.OptionalParameter</code></a></h3>
 <p>A <code>$Parameter</code> object annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter"><code>Core.OptionalParameter</code></a> MAY be omitted when invoking the function or action.</p>
 <p>All parameters marked as optional MUST come after any parameters not marked as optional. The binding parameter MUST NOT be marked as optional.</p>
 </div>
@@ -2069,7 +2069,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
 <span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a><span class="ot">]</span></span></code></pre></div>
 </div>
-<h3><a id="AnnotationCoreIsDelta.14.5" href="#AnnotationCoreIsDelta.14.5">Annotation <code>Core.IsDelta</code></a></h3>
+<h3><a id="AnnotationCoreIsDelta.14.6" href="#AnnotationCoreIsDelta.14.6">Annotation <code>Core.IsDelta</code></a></h3>
 <p>A parameter that accepts a single entity or a collection of entities MAY accept a delta representation. This is indicated by annotating the parameter with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsDelta"><code>Core.IsDelta</code></a>.</p>
 <p>Deltas represent changes between two versions of data and, in addition to current values, MAY include deleted entities as well as changes to related entities and relationships, according to the format-specific delta representation.</p>
 </details>
@@ -4389,10 +4389,11 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <li><a href="#ParameterObject.14">Parameter Object</a>
 <ul>
 <li><a href="#Name.14.1"><code>$Name</code></a></li>
-<li><a href="#TypeandsubisecCollection.14.2"><code>$Type</code> and ##subisec <code>$Collection</code></a></li>
-<li><a href="#Nullable.14.3"><code>$Nullable</code></a></li>
-<li><a href="#AnnotationCoreOptionalParameter.14.4">Annotation <code>Core.OptionalParameter</code></a></li>
-<li><a href="#AnnotationCoreIsDelta.14.5">Annotation <code>Core.IsDelta</code></a></li>
+<li><a href="#Type.14.2"><code>$Type</code></a></li>
+<li><a href="#Collection.14.3"><code>$Collection</code></a></li>
+<li><a href="#Nullable.14.4"><code>$Nullable</code></a></li>
+<li><a href="#AnnotationCoreOptionalParameter.14.5">Annotation <code>Core.OptionalParameter</code></a></li>
+<li><a href="#AnnotationCoreIsDelta.14.6">Annotation <code>Core.IsDelta</code></a></li>
 </ul></li>
 <li><a href="#EntityContainerObject.15">Entity Container Object</a>
 <ul>

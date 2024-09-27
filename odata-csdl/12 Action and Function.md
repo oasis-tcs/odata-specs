@@ -380,7 +380,8 @@ Parameter objects MAY also contain [annotations](#Annotation).
 
 The value of `$Name` is a string containing the parameter name.
 
-### ##subisec `$Type` and ##subisec `$Collection`
+### ##subisec `$Type` 
+and ##subisec `$Collection`
 
 For single-valued parameters the value of `$Type` is the qualified name
 of the accepted type.
