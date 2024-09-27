@@ -3634,6 +3634,8 @@ Allowed system query options are
 [`$count`](#SystemQueryOptioncount), and
 [`$search`](#SystemQueryOptionsearch)
 for collection-valued navigation properties.
+The same system query option, irrespective of casing or whether or not it is prefixed with a `$`,
+MUST NOT be specified more than once for a collection-valued navigation property.
 
 ::: example
 Example 124: all categories and for each category all related products
