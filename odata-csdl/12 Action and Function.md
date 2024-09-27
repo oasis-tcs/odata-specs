@@ -271,15 +271,6 @@ present with the literal value `true`.
 
 Absence of the `$Type` member means the type is `Edm.String`.
 
-### ##subisec Annotation `Core.IsDelta`
-
-The `$ReturnType` of a function or action that returns results as a delta payload
-is annotated with the term [`Core.IsDelta`]($$$OData-VocCore$$$#IsDelta).
-
-Delta payloads represent changes between two versions of data and, in addition
-to current values, MAY include deleted entries as well as changes to related 
-entities and relationships, according to the format-specific delta representation.
-
 ### ##subisec `$Nullable`
 
 The value of `$Nullable` is one of the Boolean literals `true` or
@@ -318,15 +309,6 @@ For collection-valued return types the value of `Type` is the character
 sequence `Collection(` followed by the qualified name of the return item
 type, followed by a closing parenthesis `)`.
 
-### ##subisec Annotation `Core.IsDelta`
-
-The `edm:ReturnType` element of a function or action that returns results as a delta payload
-is annotated with the term [`Core.IsDelta`]($$$OData-VocCore$$$#IsDelta).
-
-Delta payloads represent changes between two versions of data and, in addition
-to current values, MAY include deleted entries as well as changes to related 
-entities and relationships, according to the format-specific delta representation.
-
 ### ##subisec Attribute `Nullable`
 
 The value of `Nullable` is one of the Boolean literals `true` or
@@ -345,6 +327,15 @@ function MAY return a single `null` value. The value `false` means that
 the action or function will never return a `null` value and instead will
 fail with an error response if it cannot compute a result.
 :::
+
+### ##subisec Annotation `Core.IsDelta`
+
+An action or function that returns a single entity or a collection of entities MAY return results as a delta payload.
+This is indicated by annotating the return type with the term [`Core.IsDelta`]($$$OData-VocCore$$$#IsDelta).
+
+Delta payloads represent changes between two versions of data and, in addition
+to current values, MAY include deleted entities as well as changes to related 
+entities and relationships, according to the format-specific delta representation.
 
 ## ##subsec Parameter
 

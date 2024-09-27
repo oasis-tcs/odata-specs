@@ -2890,15 +2890,7 @@ present with the literal value `true`.
 
 Absence of the `$Type` member means the type is `Edm.String`.
 
-### <a id="AnnotationCoreIsDelta.13.7" href="#AnnotationCoreIsDelta.13.7">Annotation `Core.IsDelta`</a>
-
-The `$ReturnType` of a function or action that returns results as a delta payload
-is annotated with the term [`Core.IsDelta`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsDelta).
-
-Delta payloads represent changes between two versions of data and, in addition
-to current values, MAY include deleted entries as well as changes to related entities and relationships, according to the format-specific delta representation.
-
-### <a id="Nullable.13.8" href="#Nullable.13.8">`$Nullable`</a>
+### <a id="Nullable.13.7" href="#Nullable.13.7">`$Nullable`</a>
 
 The value of `$Nullable` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
@@ -2917,6 +2909,14 @@ the action or function will never return a `null` value and instead will
 fail with an error response if it cannot compute a result.
 :::
 
+
+### <a id="AnnotationCoreIsDelta.13.8" href="#AnnotationCoreIsDelta.13.8">Annotation `Core.IsDelta`</a>
+
+An action or function that returns a single entity or a collection of entities MAY return results as a delta payload.
+This is indicated by annotating the return type with the term [`Core.IsDelta`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsDelta).
+
+Delta payloads represent changes between two versions of data and, in addition
+to current values, MAY include deleted entries as well as changes to related entities and relationships, according to the format-specific delta representation.
 
 ## <a id="Parameter" href="#Parameter">12.9 Parameter</a>
 
@@ -6237,8 +6237,8 @@ https://openui5.hana.ondemand.com/topic/87aac894a40640f89920d7b2a414499b.
   - [`$ReturnType`](#ReturnType.13.4)
   - [`$Type`](#Type.13.5)
   - [`$Collection`](#Collection.13.6)
-  - [Annotation `Core.IsDelta`](#AnnotationCoreIsDelta.13.7)
-  - [`$Nullable`](#Nullable.13.8)
+  - [`$Nullable`](#Nullable.13.7)
+  - [Annotation `Core.IsDelta`](#AnnotationCoreIsDelta.13.8)
   - [`$Parameter`](#Parameter.13.9)
 - [Parameter Object](#ParameterObject.14)
   - [`$Name`](#Name.14.1)

@@ -2767,15 +2767,7 @@ For collection-valued return types the value of `Type` is the character
 sequence `Collection(` followed by the qualified name of the return item
 type, followed by a closing parenthesis `)`.
 
-### <a id="AnnotationCoreIsDelta.22.2" href="#AnnotationCoreIsDelta.22.2">Annotation `Core.IsDelta`</a>
-
-The `edm:ReturnType` element of a function or action that returns results as a delta payload
-is annotated with the term [`Core.IsDelta`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsDelta).
-
-Delta payloads represent changes between two versions of data and, in addition
-to current values, MAY include deleted entries as well as changes to related entities and relationships, according to the format-specific delta representation.
-
-### <a id="AttributeNullable.22.3" href="#AttributeNullable.22.3">Attribute `Nullable`</a>
+### <a id="AttributeNullable.22.2" href="#AttributeNullable.22.2">Attribute `Nullable`</a>
 
 The value of `Nullable` is one of the Boolean literals `true` or
 `false`. Absence of the attribute means `true`.
@@ -2793,6 +2785,14 @@ function MAY return a single `null` value. The value `false` means that
 the action or function will never return a `null` value and instead will
 fail with an error response if it cannot compute a result.
 :::
+
+### <a id="AnnotationCoreIsDelta.22.3" href="#AnnotationCoreIsDelta.22.3">Annotation `Core.IsDelta`</a>
+
+An action or function that returns a single entity or a collection of entities MAY return results as a delta payload.
+This is indicated by annotating the return type with the term [`Core.IsDelta`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsDelta).
+
+Delta payloads represent changes between two versions of data and, in addition
+to current values, MAY include deleted entries as well as changes to related entities and relationships, according to the format-specific delta representation.
 
 ## <a id="Parameter" href="#Parameter">12.9 Parameter</a>
 
@@ -5942,8 +5942,8 @@ https://www.ogc.org/standard/sfa/.
   - [Attribute `IsComposable`](#AttributeIsComposable.21.4)
 - [Element `edm:ReturnType`](#ElementedmReturnType.22)
   - [Attribute `Type`](#AttributeType.22.1)
-  - [Annotation `Core.IsDelta`](#AnnotationCoreIsDelta.22.2)
-  - [Attribute `Nullable`](#AttributeNullable.22.3)
+  - [Attribute `Nullable`](#AttributeNullable.22.2)
+  - [Annotation `Core.IsDelta`](#AnnotationCoreIsDelta.22.3)
 - [Element `edm:Parameter`](#ElementedmParameter.23)
   - [Attribute `Name`](#AttributeName.23.1)
   - [Attribute `Type`](#AttributeType.23.2)

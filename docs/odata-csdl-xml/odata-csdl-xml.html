@@ -1895,15 +1895,15 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h3><a id="AttributeType.22.1" href="#AttributeType.22.1">Attribute <code>Type</code></a></h3>
 <p>For single-valued return types the value of <code>Type</code> is the qualified name of the return type.</p>
 <p>For collection-valued return types the value of <code>Type</code> is the character sequence <code>Collection(</code> followed by the qualified name of the return item type, followed by a closing parenthesis <code>)</code>.</p>
-<h3><a id="AnnotationCoreIsDelta.22.2" href="#AnnotationCoreIsDelta.22.2">Annotation <code>Core.IsDelta</code></a></h3>
-<p>The <code>edm:ReturnType</code> element of a function or action that returns results as a delta payload is annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsDelta"><code>Core.IsDelta</code></a>.</p>
-<p>Delta payloads represent changes between two versions of data and, in addition to current values, MAY include deleted entries as well as changes to related entities and relationships, according to the format-specific delta representation.</p>
-<h3><a id="AttributeNullable.22.3" href="#AttributeNullable.22.3">Attribute <code>Nullable</code></a></h3>
+<h3><a id="AttributeNullable.22.2" href="#AttributeNullable.22.2">Attribute <code>Nullable</code></a></h3>
 <p>The value of <code>Nullable</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the attribute means <code>true</code>.</p>
 <p>If the return type is a collection of entity types, the <code>Nullable</code> attribute has no meaning and MUST NOT be specified.</p>
 <p>For other collection-valued return types the result will always be a collection that MAY be empty. In this case the <code>Nullable</code> attribute applies to items of the collection and specifies whether the collection MAY contain <code>null</code> values.</p>
 <p>For single-valued return types the value <code>true</code> means that the action or function MAY return a single <code>null</code> value. The value <code>false</code> means that the action or function will never return a <code>null</code> value and instead will fail with an error response if it cannot compute a result.</p>
 </div>
+<h3><a id="AnnotationCoreIsDelta.22.3" href="#AnnotationCoreIsDelta.22.3">Annotation <code>Core.IsDelta</code></a></h3>
+<p>An action or function that returns a single entity or a collection of entities MAY return results as a delta payload. This is indicated by annotating the return type with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsDelta"><code>Core.IsDelta</code></a>.</p>
+<p>Delta payloads represent changes between two versions of data and, in addition to current values, MAY include deleted entries as well as changes to related entities and relationships, according to the format-specific delta representation.</p>
 </details>
 <details open><summary>
 <h2 id="129-parameter"><a id="Parameter" href="#Parameter">12.9 Parameter</a></h2>
@@ -4053,8 +4053,8 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <li><a href="#ElementedmReturnType.22">Element <code>edm:ReturnType</code></a>
 <ul>
 <li><a href="#AttributeType.22.1">Attribute <code>Type</code></a></li>
-<li><a href="#AnnotationCoreIsDelta.22.2">Annotation <code>Core.IsDelta</code></a></li>
-<li><a href="#AttributeNullable.22.3">Attribute <code>Nullable</code></a></li>
+<li><a href="#AttributeNullable.22.2">Attribute <code>Nullable</code></a></li>
+<li><a href="#AnnotationCoreIsDelta.22.3">Annotation <code>Core.IsDelta</code></a></li>
 </ul></li>
 <li><a href="#ElementedmParameter.23">Element <code>edm:Parameter</code></a>
 <ul>
