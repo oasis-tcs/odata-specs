@@ -2050,6 +2050,8 @@ A path MUST NOT appear in more than one expand item.
 Query options can be applied to an expanded navigation property by
 appending a semicolon-separated list of query options, enclosed in
 parentheses, to the navigation property name.
+The system query option, irrespective of casing or whether or not it is prefixed with a `$`,
+MUST NOT be specified more than once in the list.
 Allowed system query options are
 [`$compute`](#SystemQueryOptioncompute),
 [`$select`](#SystemQueryOptionselect),
@@ -2061,8 +2063,6 @@ Allowed system query options are
 [`$count`](#SystemQueryOptioncount), and
 [`$search`](#SystemQueryOptionsearch)
 for collection-valued navigation properties.
-The same system query option, irrespective of casing or whether or not it is prefixed with a `$`,
-MUST NOT be specified more than once for a collection-valued navigation property.
 
 ::: example
 Example ##ex: all categories and for each category all related products
