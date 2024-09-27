@@ -2792,7 +2792,7 @@ An action or function that returns a single entity or a collection of entities M
 This is indicated by annotating the return type with the term [`Core.IsDelta`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsDelta).
 
 Delta payloads represent changes between two versions of data and, in addition
-to current values, MAY include deleted entries as well as changes to related entities and relationships, according to the format-specific delta representation.
+to current values, MAY include deleted entities as well as changes to related entities and relationships, according to the format-specific delta representation.
 
 ## <a id="Parameter" href="#Parameter">12.9 Parameter</a>
 
@@ -2843,22 +2843,14 @@ For collection-valued parameters the value of `Type` is the character
 sequence `Collection(` followed by the qualified name of the parameter's
 type, followed by a closing parenthesis `)`.
 
-### <a id="AnnotationCoreIsDelta.23.3" href="#AnnotationCoreIsDelta.23.3">Annotation `Core.IsDelta`</a>
-
-An `edm:Parameter` element that accepts a delta payload
-is annotated with the term [`Core.IsDelta`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsDelta).
-
-Delta payloads represent changes between two versions of data and, in addition
-to current values, MAY include deleted entries as well as changes to related entities and relationships, according to the format-specific delta representation.
-
-### <a id="AttributeNullable.23.4" href="#AttributeNullable.23.4">Attribute `Nullable`</a>
+### <a id="AttributeNullable.23.3" href="#AttributeNullable.23.3">Attribute `Nullable`</a>
 
 The value of `Nullable` is one of the Boolean literals `true` or
 `false`. Absence of the attribute means `true`.
 
 The value `true` means that the parameter accepts a `null` value.
 
-### <a id="AnnotationCoreOptionalParameter.23.5" href="#AnnotationCoreOptionalParameter.23.5">Annotation `Core.OptionalParameter`</a>
+### <a id="AnnotationCoreOptionalParameter.23.4" href="#AnnotationCoreOptionalParameter.23.4">Annotation `Core.OptionalParameter`</a>
 An `edm:Parameter` element that is annotated with the term [`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter) MAY be omitted when invoking the function or action.
 
 All parameters marked as optional MUST come after any parameters not marked as optional. 
@@ -2876,6 +2868,14 @@ function with the `edm:Parameter` element.
 </Function>
 ```
 :::
+
+### <a id="AnnotationCoreIsDelta.23.5" href="#AnnotationCoreIsDelta.23.5">Annotation `Core.IsDelta`</a>
+
+A parameter that accepts a single entity or a collection of entities MAY accept a delta representation.
+This is indicated by annotating the parameter with the term [`Core.IsDelta`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsDelta).
+
+Deltas represent changes between two versions of data and, in addition
+to current values, MAY include deleted entities as well as changes to related entities and relationships, according to the format-specific delta representation.
 
 
 -------
@@ -5947,9 +5947,9 @@ https://www.ogc.org/standard/sfa/.
 - [Element `edm:Parameter`](#ElementedmParameter.23)
   - [Attribute `Name`](#AttributeName.23.1)
   - [Attribute `Type`](#AttributeType.23.2)
-  - [Annotation `Core.IsDelta`](#AnnotationCoreIsDelta.23.3)
-  - [Attribute `Nullable`](#AttributeNullable.23.4)
-  - [Annotation `Core.OptionalParameter`](#AnnotationCoreOptionalParameter.23.5)
+  - [Attribute `Nullable`](#AttributeNullable.23.3)
+  - [Annotation `Core.OptionalParameter`](#AnnotationCoreOptionalParameter.23.4)
+  - [Annotation `Core.IsDelta`](#AnnotationCoreIsDelta.23.5)
 - [Element `edm:EntityContainer`](#ElementedmEntityContainer.24)
   - [Attribute `Name`](#AttributeName.24.1)
   - [Attribute `Extends`](#AttributeExtends.24.2)

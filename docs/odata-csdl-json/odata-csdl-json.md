@@ -2916,7 +2916,7 @@ An action or function that returns a single entity or a collection of entities M
 This is indicated by annotating the return type with the term [`Core.IsDelta`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsDelta).
 
 Delta payloads represent changes between two versions of data and, in addition
-to current values, MAY include deleted entries as well as changes to related entities and relationships, according to the format-specific delta representation.
+to current values, MAY include deleted entities as well as changes to related entities and relationships, according to the format-specific delta representation.
 
 ## <a id="Parameter" href="#Parameter">12.9 Parameter</a>
 
@@ -2961,7 +2961,7 @@ Parameter objects MAY also contain [annotations](#Annotation).
 
 The value of `$Name` is a string containing the parameter name.
 
-### <a id="Type.14.2" href="#Type.14.2">`$Type`</a> and <a id="Collection.14.3" href="#Collection.14.3">`$Collection`</a>
+### <a id="TypeandsubisecCollection.14.2" href="#TypeandsubisecCollection.14.2">`$Type` and ##subisec `$Collection`</a>
 
 For single-valued parameters the value of `$Type` is the qualified name
 of the accepted type.
@@ -2972,15 +2972,7 @@ present with the literal value `true`.
 
 Absence of the `$Type` member means the type is `Edm.String`.
 
-### <a id="AnnotationCoreIsDelta.14.4" href="#AnnotationCoreIsDelta.14.4">Annotation `Core.IsDelta`</a>
-
-A `$Parameter` that accepts a delta payload
-is annotated with the term [`Core.IsDelta`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsDelta).
-
-Delta payloads represent changes between two versions of data and, in addition
-to current values, MAY include deleted entries as well as changes to related entities and relationships, according to the format-specific delta representation.
-
-### <a id="Nullable.14.5" href="#Nullable.14.5">`$Nullable`</a>
+### <a id="Nullable.14.3" href="#Nullable.14.3">`$Nullable`</a>
 
 The value of `$Nullable` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
@@ -2993,7 +2985,8 @@ collection that MAY be empty. In this case `$Nullable` applies to items
 of the collection and specifies whether the collection MAY contain
 `null` values.
 
-### <a id="AnnotationCoreOptionalParameter.14.6" href="#AnnotationCoreOptionalParameter.14.6">Annotation `Core.OptionalParameter`</a>
+### <a id="AnnotationCoreOptionalParameter.14.4" href="#AnnotationCoreOptionalParameter.14.4">Annotation `Core.OptionalParameter`</a>
+
 A `$Parameter` object annotated with the term [`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter) MAY be omitted when invoking the function or action.
 
 All parameters marked as optional MUST come after any parameters not marked as optional. 
@@ -3027,6 +3020,14 @@ function with the `$Parameter` member.
 :::
 
 
+
+### <a id="AnnotationCoreIsDelta.14.5" href="#AnnotationCoreIsDelta.14.5">Annotation `Core.IsDelta`</a>
+
+A parameter that accepts a single entity or a collection of entities MAY accept a delta representation.
+This is indicated by annotating the parameter with the term [`Core.IsDelta`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsDelta).
+
+Deltas represent changes between two versions of data and, in addition
+to current values, MAY include deleted entities as well as changes to related entities and relationships, according to the format-specific delta representation.
 
 
 -------
@@ -6242,11 +6243,10 @@ https://openui5.hana.ondemand.com/topic/87aac894a40640f89920d7b2a414499b.
   - [`$Parameter`](#Parameter.13.9)
 - [Parameter Object](#ParameterObject.14)
   - [`$Name`](#Name.14.1)
-  - [`$Type`](#Type.14.2)
-  - [`$Collection`](#Collection.14.3)
-  - [Annotation `Core.IsDelta`](#AnnotationCoreIsDelta.14.4)
-  - [`$Nullable`](#Nullable.14.5)
-  - [Annotation `Core.OptionalParameter`](#AnnotationCoreOptionalParameter.14.6)
+  - [`$Type` and ##subisec `$Collection`](#TypeandsubisecCollection.14.2)
+  - [`$Nullable`](#Nullable.14.3)
+  - [Annotation `Core.OptionalParameter`](#AnnotationCoreOptionalParameter.14.4)
+  - [Annotation `Core.IsDelta`](#AnnotationCoreIsDelta.14.5)
 - [Entity Container Object](#EntityContainerObject.15)
   - [`$Extends`](#Extends.15.1)
 - [Entity Set Object](#EntitySetObject.16)

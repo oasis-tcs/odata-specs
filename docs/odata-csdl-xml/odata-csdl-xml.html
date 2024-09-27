@@ -1903,7 +1903,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </div>
 <h3><a id="AnnotationCoreIsDelta.22.3" href="#AnnotationCoreIsDelta.22.3">Annotation <code>Core.IsDelta</code></a></h3>
 <p>An action or function that returns a single entity or a collection of entities MAY return results as a delta payload. This is indicated by annotating the return type with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsDelta"><code>Core.IsDelta</code></a>.</p>
-<p>Delta payloads represent changes between two versions of data and, in addition to current values, MAY include deleted entries as well as changes to related entities and relationships, according to the format-specific delta representation.</p>
+<p>Delta payloads represent changes between two versions of data and, in addition to current values, MAY include deleted entities as well as changes to related entities and relationships, according to the format-specific delta representation.</p>
 </details>
 <details open><summary>
 <h2 id="129-parameter"><a id="Parameter" href="#Parameter">12.9 Parameter</a></h2>
@@ -1923,13 +1923,10 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h3><a id="AttributeType.23.2" href="#AttributeType.23.2">Attribute <code>Type</code></a></h3>
 <p>For single-valued parameters the value of <code>Type</code> is the qualified name of the parameter.</p>
 <p>For collection-valued parameters the value of <code>Type</code> is the character sequence <code>Collection(</code> followed by the qualified name of the parameter’s type, followed by a closing parenthesis <code>)</code>.</p>
-<h3><a id="AnnotationCoreIsDelta.23.3" href="#AnnotationCoreIsDelta.23.3">Annotation <code>Core.IsDelta</code></a></h3>
-<p>An <code>edm:Parameter</code> element that accepts a delta payload is annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsDelta"><code>Core.IsDelta</code></a>.</p>
-<p>Delta payloads represent changes between two versions of data and, in addition to current values, MAY include deleted entries as well as changes to related entities and relationships, according to the format-specific delta representation.</p>
-<h3><a id="AttributeNullable.23.4" href="#AttributeNullable.23.4">Attribute <code>Nullable</code></a></h3>
+<h3><a id="AttributeNullable.23.3" href="#AttributeNullable.23.3">Attribute <code>Nullable</code></a></h3>
 <p>The value of <code>Nullable</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the attribute means <code>true</code>.</p>
 <p>The value <code>true</code> means that the parameter accepts a <code>null</code> value.</p>
-<h3><a id="AnnotationCoreOptionalParameter.23.5" href="#AnnotationCoreOptionalParameter.23.5">Annotation <code>Core.OptionalParameter</code></a></h3>
+<h3><a id="AnnotationCoreOptionalParameter.23.4" href="#AnnotationCoreOptionalParameter.23.4">Annotation <code>Core.OptionalParameter</code></a></h3>
 <p>An <code>edm:Parameter</code> element that is annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter"><code>Core.OptionalParameter</code></a> MAY be omitted when invoking the function or action.</p>
 <p>All parameters marked as optional MUST come after any parameters not marked as optional. The binding parameter MUST NOT be marked as optional.</p>
 </div>
@@ -1940,6 +1937,9 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">ReturnType</span><span class="ot"> Type=</span><span class="st">&quot;Collection(self.Product)&quot;</span> /&gt;</span>
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Function</span>&gt;</span></code></pre></div>
 </div>
+<h3><a id="AnnotationCoreIsDelta.23.5" href="#AnnotationCoreIsDelta.23.5">Annotation <code>Core.IsDelta</code></a></h3>
+<p>A parameter that accepts a single entity or a collection of entities MAY accept a delta representation. This is indicated by annotating the parameter with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsDelta"><code>Core.IsDelta</code></a>.</p>
+<p>Deltas represent changes between two versions of data and, in addition to current values, MAY include deleted entities as well as changes to related entities and relationships, according to the format-specific delta representation.</p>
 </details>
 </details>
 <hr />
@@ -4060,9 +4060,9 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <ul>
 <li><a href="#AttributeName.23.1">Attribute <code>Name</code></a></li>
 <li><a href="#AttributeType.23.2">Attribute <code>Type</code></a></li>
-<li><a href="#AnnotationCoreIsDelta.23.3">Annotation <code>Core.IsDelta</code></a></li>
-<li><a href="#AttributeNullable.23.4">Attribute <code>Nullable</code></a></li>
-<li><a href="#AnnotationCoreOptionalParameter.23.5">Annotation <code>Core.OptionalParameter</code></a></li>
+<li><a href="#AttributeNullable.23.3">Attribute <code>Nullable</code></a></li>
+<li><a href="#AnnotationCoreOptionalParameter.23.4">Annotation <code>Core.OptionalParameter</code></a></li>
+<li><a href="#AnnotationCoreIsDelta.23.5">Annotation <code>Core.IsDelta</code></a></li>
 </ul></li>
 <li><a href="#ElementedmEntityContainer.24">Element <code>edm:EntityContainer</code></a>
 <ul>

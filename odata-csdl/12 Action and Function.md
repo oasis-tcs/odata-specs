@@ -380,8 +380,7 @@ Parameter objects MAY also contain [annotations](#Annotation).
 
 The value of `$Name` is a string containing the parameter name.
 
-### ##subisec `$Type` 
-and ##subisec `$Collection`
+### ##subisec `$Type` and ##subisec `$Collection`
 
 For single-valued parameters the value of `$Type` is the qualified name
 of the accepted type.
@@ -391,15 +390,6 @@ name of the accepted item type, and the member `$Collection` MUST be
 present with the literal value `true`.
 
 Absence of the `$Type` member means the type is `Edm.String`.
-
-### ##subisec Annotation `Core.IsDelta`
-
-A `$Parameter` that accepts a delta payload
-is annotated with the term [`Core.IsDelta`]($$$OData-VocCore$$$#IsDelta).
-
-Delta payloads represent changes between two versions of data and, in addition
-to current values, MAY include deleted entries as well as changes to related 
-entities and relationships, according to the format-specific delta representation.
 
 ### ##subisec `$Nullable`
 
@@ -415,6 +405,7 @@ of the collection and specifies whether the collection MAY contain
 `null` values.
 
 ### ##subisec Annotation `Core.OptionalParameter`
+
 A `$Parameter` object annotated with the term 
 [`Core.OptionalParameter`]($$$OData-VocCore$$$#OptionalParameter) MAY be 
 omitted when invoking the function or action.
@@ -473,15 +464,6 @@ For collection-valued parameters the value of `Type` is the character
 sequence `Collection(` followed by the qualified name of the parameter's
 type, followed by a closing parenthesis `)`.
 
-### ##subisec Annotation `Core.IsDelta`
-
-An `edm:Parameter` element that accepts a delta payload
-is annotated with the term [`Core.IsDelta`]($$$OData-VocCore$$$#IsDelta).
-
-Delta payloads represent changes between two versions of data and, in addition
-to current values, MAY include deleted entries as well as changes to related 
-entities and relationships, according to the format-specific delta representation.
-
 ### ##subisec Attribute `Nullable`
 
 The value of `Nullable` is one of the Boolean literals `true` or
@@ -510,3 +492,12 @@ function with the `edm:Parameter` element.
 </Function>
 ```
 :::
+
+### ##subisec Annotation `Core.IsDelta`
+
+A parameter that accepts a single entity or a collection of entities MAY accept a delta representation.
+This is indicated by annotating the parameter with the term [`Core.IsDelta`]($$$OData-VocCore$$$#IsDelta).
+
+Deltas represent changes between two versions of data and, in addition
+to current values, MAY include deleted entities as well as changes to related 
+entities and relationships, according to the format-specific delta representation.
