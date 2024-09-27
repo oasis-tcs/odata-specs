@@ -2819,7 +2819,6 @@ the parameter value is a collection, the facets apply to the items in
 the collection.
 
 
-
 ::: {.varxml .rep}
 ### <a id="ElementedmParameter.23" href="#ElementedmParameter.23">Element `edm:Parameter`</a>
 
@@ -2849,14 +2848,14 @@ The value of `Nullable` is one of the Boolean literals `true` or
 `false`. Absence of the attribute means `true`.
 
 The value `true` means that the parameter accepts a `null` value.
+:::
 
 ### <a id="AnnotationCoreOptionalParameter.23.4" href="#AnnotationCoreOptionalParameter.23.4">Annotation `Core.OptionalParameter`</a>
 
-An `edm:Parameter` element that is annotated with the term [`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter) MAY be omitted when invoking the function or action.
+A parameter that is annotated with the term [`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter) MAY be omitted when invoking the function or action.
 
 All parameters marked as optional MUST come after any parameters not marked as optional. 
 The binding parameter MUST NOT be marked as optional.
-:::
 
 ::: {.varxml .example}
 Example 30: a function returning the top-selling products for a given

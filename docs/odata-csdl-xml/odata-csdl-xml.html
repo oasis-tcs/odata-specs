@@ -1926,10 +1926,10 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h3><a id="AttributeNullable.23.3" href="#AttributeNullable.23.3">Attribute <code>Nullable</code></a></h3>
 <p>The value of <code>Nullable</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the attribute means <code>true</code>.</p>
 <p>The value <code>true</code> means that the parameter accepts a <code>null</code> value.</p>
-<h3><a id="AnnotationCoreOptionalParameter.23.4" href="#AnnotationCoreOptionalParameter.23.4">Annotation <code>Core.OptionalParameter</code></a></h3>
-<p>An <code>edm:Parameter</code> element that is annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter"><code>Core.OptionalParameter</code></a> MAY be omitted when invoking the function or action.</p>
-<p>All parameters marked as optional MUST come after any parameters not marked as optional. The binding parameter MUST NOT be marked as optional.</p>
 </div>
+<h3><a id="AnnotationCoreOptionalParameter.23.4" href="#AnnotationCoreOptionalParameter.23.4">Annotation <code>Core.OptionalParameter</code></a></h3>
+<p>A parameter that is annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter"><code>Core.OptionalParameter</code></a> MAY be omitted when invoking the function or action.</p>
+<p>All parameters marked as optional MUST come after any parameters not marked as optional. The binding parameter MUST NOT be marked as optional.</p>
 <div class="varxml example">
 <p>Example 30: a function returning the top-selling products for a given year. In this case the year must be specified as a parameter of the function with the <code>edm:Parameter</code> element.</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Function</span><span class="ot"> Name=</span><span class="st">&quot;TopSellingProducts&quot;</span>&gt;</span>

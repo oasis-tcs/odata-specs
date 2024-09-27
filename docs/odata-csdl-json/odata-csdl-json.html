@@ -2044,10 +2044,10 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>The value of <code>$Nullable</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the member means <code>false</code>.</p>
 <p>For single-valued parameters the value <code>true</code> means that the parameter accepts a <code>null</code> value.</p>
 <p>For collection-valued parameters the parameter value will always be a collection that MAY be empty. In this case <code>$Nullable</code> applies to items of the collection and specifies whether the collection MAY contain <code>null</code> values.</p>
-<h3><a id="AnnotationCoreOptionalParameter.14.5" href="#AnnotationCoreOptionalParameter.14.5">Annotation <code>Core.OptionalParameter</code></a></h3>
-<p>A <code>$Parameter</code> object annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter"><code>Core.OptionalParameter</code></a> MAY be omitted when invoking the function or action.</p>
-<p>All parameters marked as optional MUST come after any parameters not marked as optional. The binding parameter MUST NOT be marked as optional.</p>
 </div>
+<h3><a id="AnnotationCoreOptionalParameter.14.5" href="#AnnotationCoreOptionalParameter.14.5">Annotation <code>Core.OptionalParameter</code></a></h3>
+<p>A parameter that is annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter"><code>Core.OptionalParameter</code></a> MAY be omitted when invoking the function or action.</p>
+<p>All parameters marked as optional MUST come after any parameters not marked as optional. The binding parameter MUST NOT be marked as optional.</p>
 <div class="varjson example">
 <p>Example 30: a function returning the top-selling products for a given year. In this case the year must be specified as a parameter of the function with the <code>$Parameter</code> member.</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;TopSellingProducts&quot;:</span> <span class="ot">[</span></span>

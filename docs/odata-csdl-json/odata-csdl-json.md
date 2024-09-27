@@ -2984,14 +2984,15 @@ For collection-valued parameters the parameter value will always be a
 collection that MAY be empty. In this case `$Nullable` applies to items
 of the collection and specifies whether the collection MAY contain
 `null` values.
+:::
+
 
 ### <a id="AnnotationCoreOptionalParameter.14.5" href="#AnnotationCoreOptionalParameter.14.5">Annotation `Core.OptionalParameter`</a>
 
-A `$Parameter` object annotated with the term [`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter) MAY be omitted when invoking the function or action.
+A parameter that is annotated with the term [`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter) MAY be omitted when invoking the function or action.
 
 All parameters marked as optional MUST come after any parameters not marked as optional. 
 The binding parameter MUST NOT be marked as optional.
-:::
 
 ::: {.varjson .example}
 Example 30: a function returning the top-selling products for a given
@@ -3018,8 +3019,6 @@ function with the `$Parameter` member.
 ]
 ```
 :::
-
-
 
 ### <a id="AnnotationCoreIsDelta.14.6" href="#AnnotationCoreIsDelta.14.6">Annotation `Core.IsDelta`</a>
 

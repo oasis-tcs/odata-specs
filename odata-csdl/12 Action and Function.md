@@ -404,42 +404,6 @@ For collection-valued parameters the parameter value will always be a
 collection that MAY be empty. In this case `$Nullable` applies to items
 of the collection and specifies whether the collection MAY contain
 `null` values.
-
-### ##subisec Annotation `Core.OptionalParameter`
-
-A `$Parameter` object annotated with the term 
-[`Core.OptionalParameter`]($$$OData-VocCore$$$#OptionalParameter) MAY be 
-omitted when invoking the function or action.
-
-All parameters marked as optional MUST come after any parameters not marked as optional. 
-
-The binding parameter MUST NOT be marked as optional.
-:::
-
-::: {.varjson .example}
-Example ##ex: a function returning the top-selling products for a given
-year. In this case the year must be specified as a parameter of the
-function with the `$Parameter` member.
-```json
-"TopSellingProducts": [
-  {
-    "$Kind": "Function",
-    "$Parameter": [
-      {
-        "$Name": "Year",
-        "$Nullable": true,
-        "$Type": "Edm.Decimal",
-        "$Precision": 4,
-        "$Scale": 0
-      }
-    ],
-    "$ReturnType": {
-      "$Collection": true,
-      "$Type": "self.Product"
-    }
-  }
-]
-```
 :::
 
 ::: {.varxml .rep}
@@ -471,18 +435,43 @@ The value of `Nullable` is one of the Boolean literals `true` or
 `false`. Absence of the attribute means `true`.
 
 The value `true` means that the parameter accepts a `null` value.
+:::
 
 ### ##subisec Annotation `Core.OptionalParameter`
 
-An `edm:Parameter` element that is annotated with the term 
+A parameter that is annotated with the term 
 [`Core.OptionalParameter`]($$$OData-VocCore$$$#OptionalParameter) MAY be 
 omitted when invoking the function or action.
 
 All parameters marked as optional MUST come after any parameters not marked as optional. 
 
 The binding parameter MUST NOT be marked as optional.
-:::
 
+::: {.varjson .example}
+Example ##ex: a function returning the top-selling products for a given
+year. In this case the year must be specified as a parameter of the
+function with the `$Parameter` member.
+```json
+"TopSellingProducts": [
+  {
+    "$Kind": "Function",
+    "$Parameter": [
+      {
+        "$Name": "Year",
+        "$Nullable": true,
+        "$Type": "Edm.Decimal",
+        "$Precision": 4,
+        "$Scale": 0
+      }
+    ],
+    "$ReturnType": {
+      "$Collection": true,
+      "$Type": "self.Product"
+    }
+  }
+]
+```
+:::
 ::: {.varxml .example}
 Example ##ex: a function returning the top-selling products for a given
 year. In this case the year must be specified as a parameter of the
