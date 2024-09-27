@@ -2851,6 +2851,7 @@ The value of `Nullable` is one of the Boolean literals `true` or
 The value `true` means that the parameter accepts a `null` value.
 
 ### <a id="AnnotationCoreOptionalParameter.23.4" href="#AnnotationCoreOptionalParameter.23.4">Annotation `Core.OptionalParameter`</a>
+
 An `edm:Parameter` element that is annotated with the term [`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter) MAY be omitted when invoking the function or action.
 
 All parameters marked as optional MUST come after any parameters not marked as optional. 

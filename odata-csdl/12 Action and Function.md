@@ -473,6 +473,7 @@ The value of `Nullable` is one of the Boolean literals `true` or
 The value `true` means that the parameter accepts a `null` value.
 
 ### ##subisec Annotation `Core.OptionalParameter`
+
 An `edm:Parameter` element that is annotated with the term 
 [`Core.OptionalParameter`]($$$OData-VocCore$$$#OptionalParameter) MAY be 
 omitted when invoking the function or action.
