@@ -272,6 +272,7 @@ Section | Feature / Change | Issue
 --------|------------------|------
 [Section 4.17](#PassingQueryOptionsintheRequestBody)| `POST ~/$query` with `Content-Type: application/x-www-form-urlencoded` or `application/json`| [320](https://github.com/oasis-tcs/odata-specs/issues/320), [371](https://github.com/oasis-tcs/odata-specs/issues/371)
 [Section 5.1.1.7.1](#matchespattern)| New overload for function `matchespattern` with flags| [441](https://github.com/oasis-tcs/odata-specs/issues/441)
+[Section 5.1.3](#SystemQueryOptionexpand)| Nested query options can only appear once per expand item| [2004](https://github.com/oasis-tcs/odata-specs/issues/2004)
 [Section 5.1.8](#SystemQueryOptionsearch)| Allow alternative `$search` syntax| [293](https://github.com/oasis-tcs/odata-specs/issues/293)
 
 ## <a id="Glossary" href="#Glossary">1.2 Glossary</a>
