@@ -345,8 +345,8 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><a href="#CollectionofComplexorPrimitiveTypes">10.14 Collection of Complex or Primitive Types</a></li>
 <li><a href="#ComplexorPrimitiveType">10.15 Complex or Primitive Type</a></li>
 <li><a href="#OperationResult">10.16 Operation Result</a></li>
-<li><a href="#DeltaPayloadResponse">10.17 Delta Payload Response</a></li>
-<li><a href="#IteminaDeltaPayloadResponse">10.18 Item in a Delta Payload Response</a></li>
+<li><a href="#DeltaPayload">10.17 Delta Payload</a></li>
+<li><a href="#IteminaDeltaPayload">10.18 Item in a Delta Payload</a></li>
 <li><a href="#allResponse">10.19 <code>$all</code> Response</a></li>
 <li><a href="#crossjoinResponse">10.20 <code>$crossjoin</code> Response</a></li>
 </ul></li>
@@ -1563,7 +1563,7 @@ http://host/service/$metadata#Customers</code></pre>
 </div>
 </details>
 <details open><summary>
-<h2 id="1017-delta-payload-response"><a id="DeltaPayloadResponse" href="#DeltaPayloadResponse">10.17 Delta Payload Response</a></h2>
+<h2 id="1017-delta-payload"><a id="DeltaPayload" href="#DeltaPayload">10.17 Delta Payload</a></h2>
 </summary>
 <p>Context URL template:</p>
 <pre><code>{context-url}#{entity-set}{/type-name}{select-list}/$delta
@@ -1577,10 +1577,10 @@ http://host/service/$metadata#Customers</code></pre>
 <pre><code>http://host/service/Customers?$deltatoken=1234
 http://host/service/$metadata#Customers/$delta</code></pre>
 </div>
-<p>The context URL of an update request body for a collection of entities is simply the fragment <code>#$delta</code>.</p>
+<p>The context URL of an <a href="#UpdateaCollectionofEntities">update request body for a collection of entities</a> is simply the fragment <code>#$delta</code>.</p>
 </details>
 <details open><summary>
-<h2 id="1018-item-in-a-delta-payload-response"><a id="IteminaDeltaPayloadResponse" href="#IteminaDeltaPayloadResponse">10.18 Item in a Delta Payload Response</a></h2>
+<h2 id="1018-item-in-a-delta-payload"><a id="IteminaDeltaPayload" href="#IteminaDeltaPayload">10.18 Item in a Delta Payload</a></h2>
 </summary>
 <p>Context URL templates:</p>
 <pre><code>{context-url}#{entity-set}/$deletedEntity

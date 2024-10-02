@@ -324,7 +324,7 @@ Symbolic Value|Model Element
 `NavigationProperty`      |Navigation Property
 `Null`                    |Null annotation expression
 `OnDelete`                |On-Delete Action of a navigation property
-`Parameter`               |Action of Function Parameter
+`Parameter`               |Action or Function Parameter
 `Property`                |Structural Property
 `PropertyValue`           |Property value of a Record annotation expression
 `Record`                  |Record annotation expression
