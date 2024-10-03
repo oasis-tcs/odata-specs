@@ -103,6 +103,7 @@ the type of the returned entity collection.
 Context URL template:
 
     {context-url}#{entity-set}/$entity
+    {context-url}#{single-navprop}
     {context-url}#{type-name}
 
 If a response or response part is a single entity of the declared type
@@ -117,8 +118,8 @@ http://host/service/$metadata#Customers/$entity
 ```
 :::
 
-If the entity is contained, then `entity-set` is the  top-level entity
-set or singleton followed by the path to the containment navigation
+If the entity is bound to a contained entity set, then `entity-set` is the top-level entity
+set or singleton followed by the path to the collection-valued containment navigation
 property of the containing entity.
 
 ::: example
@@ -127,6 +128,20 @@ entity
 ```
 http://host/service/Orders(4711)/Items(1)
 http://host/service/$metadata#Orders(4711)/Items/$entity
+```
+:::
+
+If the entity is the target of a single-valued containment navigation property,
+the context URL fragment is the top-level entity
+set or singleton followed by the path to the single-valued containment navigation
+property without `/$entity` appended.
+
+::: example
+Example ##ex: resource URL and corresponding context URL for
+entity targeted by a single-valued containment navigation property
+```
+http://host/service/Orders(4711)/DeliveryAddress
+http://host/service/$metadata#Orders(4711)/DeliveryAddress
 ```
 :::
 
