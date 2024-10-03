@@ -171,6 +171,11 @@ td > code {
   margin-left: 40px;
 }
 
+.caption p {
+  margin-left: 40px;
+  margin-bottom: -1em;
+}
+
 .side-by-side {
   margin: -1em 0;
 }
