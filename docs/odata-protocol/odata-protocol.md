@@ -2109,9 +2109,8 @@ http://host/service/$metadata#Orders(4711)/Items/$entity
 :::
 
 If the entity is the target of a single-valued containment navigation property,
-the context URL fragment is the top-level entity
-set or singleton followed by the path to the single-valued containment navigation
-property without `/$entity` appended.
+then `single-navprop` is the path targeting the entity and the context URL fragment
+is the top-level entity set or singleton followed by `single-navprop` without `/$entity` appended.
 
 ::: example
 Example 15: resource URL and corresponding context URL for
@@ -2126,7 +2125,7 @@ If the entity is not bound to an entity set, such as an entity
 returned from a function or action with no entity set path, a function
 import or action import with no specified entity set, or a navigation
 property with no navigation property binding, the context URL fragment specifies
-the type of the returned entity.
+the type `type-name` of the returned entity.
 
 ## <a id="Singleton" href="#Singleton">10.4 Singleton</a>
 

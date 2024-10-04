@@ -1362,13 +1362,13 @@ http://host/service/$metadata#Customers/$entity</code></pre>
 <pre><code>http://host/service/Orders(4711)/Items(1)
 http://host/service/$metadata#Orders(4711)/Items/$entity</code></pre>
 </div>
-<p>If the entity is the target of a single-valued containment navigation property, the context URL fragment is the top-level entity set or singleton followed by the path to the single-valued containment navigation property without <code>/$entity</code> appended.</p>
+<p>If the entity is the target of a single-valued containment navigation property, then <code>single-navprop</code> is the path targeting the entity and the context URL fragment is the top-level entity set or singleton followed by <code>single-navprop</code> without <code>/$entity</code> appended.</p>
 <div class="example">
 <p>Example 15: resource URL and corresponding context URL for entity targeted by a single-valued containment navigation property</p>
 <pre><code>http://host/service/Orders(4711)/DeliveryAddress
 http://host/service/$metadata#Orders(4711)/DeliveryAddress</code></pre>
 </div>
-<p>If the entity is not bound to an entity set, such as an entity returned from a function or action with no entity set path, a function import or action import with no specified entity set, or a navigation property with no navigation property binding, the context URL fragment specifies the type of the returned entity.</p>
+<p>If the entity is not bound to an entity set, such as an entity returned from a function or action with no entity set path, a function import or action import with no specified entity set, or a navigation property with no navigation property binding, the context URL fragment specifies the type <code>type-name</code> of the returned entity.</p>
 </details>
 <details open><summary>
 <h2 id="104-singleton"><a id="Singleton" href="#Singleton">10.4 Singleton</a></h2>
