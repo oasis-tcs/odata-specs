@@ -1,3 +1,7 @@
+:root {
+  --indent: 40px;
+}
+
 a:target,
 span:target {
   background-color: yellow;
@@ -168,11 +172,11 @@ td > code {
 
 .example pre,
 .rep {
-  margin-left: 40px;
+  margin-left: var(--indent);
 }
 
 .caption p {
-  margin-left: 40px;
+  margin-left: var(--indent);
   margin-bottom: -1em;
 }
 
@@ -192,7 +196,7 @@ td > code {
 }
 
 .indent {
-  margin-left: 40px;
+  margin-left: var(--indent);
 }
 
 td pre {
@@ -215,7 +219,7 @@ mjx-container {
 
 mjx-container[display="true"] {
   text-align: left !important;
-  margin-left: 40px !important;
+  margin-left: var(--indent) !important;
 }
 
 code .er {
