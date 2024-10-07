@@ -4599,6 +4599,9 @@ payload resets the first and last names of the new manager.
 The effect would be the same if the `@id` was omitted from the request.
 :::: side-by-side
 ```json
+PUT http://host/service/Employees(7)?$expand=Manager
+Content-Type: application/json
+
 {
   "FirstName": "Suzanne",
   "LastName": "Brown-Johnson",
