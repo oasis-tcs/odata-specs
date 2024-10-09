@@ -376,7 +376,9 @@ is only a subset of the requested collection. It contains a [URL](URLsinMessageB
 allows retrieving the next subset of the requested collection.
 
 This control information can also be applied to [expanded to-many
-navigation properties](#ExpandedNavigationProperty).
+navigation properties](#ExpandedNavigationProperty) and to collections of
+[primitive](#CollectionofPrimitiveValues) or [complex](#CollectionofComplexValues)
+values.
 
 ### ##subsubsec Control Information: `delta` (`odata.delta`)
 

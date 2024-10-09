@@ -993,7 +993,8 @@ Responses that include only a partial set of the items identified by the
 request URL MUST contain a link that allows retrieving the next partial
 set of items. This link is called a *next link*; its representation is
 format-specific. The final partial set of items MUST NOT contain a next
-link.
+link. Clients MUST check for next links before assuming to have received
+all items within a collection, including expanded and nested collections.
 
 The client can request a maximum page size through the
 [`maxpagesize`](#Preferencemaxpagesizeodatamaxpagesize) preference. The

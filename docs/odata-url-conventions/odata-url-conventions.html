@@ -441,6 +441,11 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/441">441</a></td>
 </tr>
 <tr class="odd">
+<td><a href="#SystemQueryOptionexpand">Section 5.1.3</a></td>
+<td>Nested query options can only appear once per expand item</td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/2004">2004</a></td>
+</tr>
+<tr class="even">
 <td><a href="#SystemQueryOptionsearch">Section 5.1.8</a></td>
 <td>Allow alternative <code>$search</code> syntax</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/293">293</a></td>
@@ -2259,7 +2264,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <pre><code>http://host/service/Customers?$expand=Addresses/Country</code></pre>
 </div>
 <p>A path MUST NOT appear in more than one expand item.</p>
-<p>Query options can be applied to an expanded navigation property by appending a semicolon-separated list of query options, enclosed in parentheses, to the navigation property name. Allowed system query options are <a href="#SystemQueryOptioncompute"><code>$compute</code></a>, <a href="#SystemQueryOptionselect"><code>$select</code></a>, <code>$expand</code>, and <a href="#ExpandOptionlevels"><code>$levels</code></a> for all navigation properties, plus <a href="#SystemQueryOptionfilter"><code>$filter</code></a>, <a href="#SystemQueryOptionorderby"><code>$orderby</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$skip</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$top</code></a>, <a href="#SystemQueryOptioncount"><code>$count</code></a>, and <a href="#SystemQueryOptionsearch"><code>$search</code></a> for collection-valued navigation properties.</p>
+<p>Query options can be applied to an expanded navigation property by appending a semicolon-separated list of query options, enclosed in parentheses, to the navigation property name. The system query option, irrespective of casing or whether or not it is prefixed with a <code>$</code>, MUST NOT be specified more than once in the list. Allowed system query options are <a href="#SystemQueryOptioncompute"><code>$compute</code></a>, <a href="#SystemQueryOptionselect"><code>$select</code></a>, <code>$expand</code>, and <a href="#ExpandOptionlevels"><code>$levels</code></a> for all navigation properties, plus <a href="#SystemQueryOptionfilter"><code>$filter</code></a>, <a href="#SystemQueryOptionorderby"><code>$orderby</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$skip</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$top</code></a>, <a href="#SystemQueryOptioncount"><code>$count</code></a>, and <a href="#SystemQueryOptionsearch"><code>$search</code></a> for collection-valued navigation properties.</p>
 <div class="example">
 <p>Example 124: all categories and for each category all related products with a discontinued date equal to <code>null</code></p>
 <pre><code>http://host/service/Categories?$expand=Products($filter=DiscontinuedDate eq null)</code></pre>
