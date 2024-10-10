@@ -997,9 +997,9 @@ http://host/service/$all/Model.Customer?$filter=contains(Name,'red')
 ```
 :::
 
-## ##subsec Passing Query Options in the Request Body
+## ##subsec Passing Resource Path and Query Options in the Request Body
 
-The query options part of an OData URL can be quite long, potentially
+The resource path and the query options part of an OData URL can be quite long, potentially
 exceeding the maximum length of URLs supported by components involved in
 transmitting or processing the request. One way to avoid this is
 wrapping the request in a batch request, which has the penalty of
@@ -1007,11 +1007,12 @@ needing to construct a well-formed batch request body.
 
 An easier alternative for `GET` requests is to append `/$query` to the
 resource path of the URL, use the `POST` verb instead of `GET`, and pass
-the query options part of the URL in the request body.
+the resource path or the query options part of the URL in the request body.
 
 Requests to paths ending in `/$query` MUST use the `POST` verb. Query
 options specified in the request body and query options specified in the
-request URL are processed together.
+request URL are processed together. When the resource path is specified in the
+request body, `$query` MUST be appended to the [service root URL](#ServiceRootURL).
 
 The request body MUST use a `Content-Type` of `text/plain`, `application/x-www-form-urlencoded`,
 or `application/json`.
@@ -1030,16 +1031,20 @@ $filter=LastName%20eq%20'P%26G'&$select=FirstName,LastName
 ```
 :::
 
+If the resource path is passed in the request body, it MUST be percent-encoded,
+come before any query options and be separated from them by a `?`.
+
 For `Content-Type: application/x-www-form-urlencoded`, the request body MUST be
 suitable _input_ for the [`application/x-www-form-urlencoded` parser](https://url.spec.whatwg.org/#urlencoded-parsing)
 in the [URL Living Standard](#_url), section 5.1 such that the _output_ of the parsing
-steps is the list of name/value pairs for the individual query options.
+steps is a list of name/value pairs. This list contains pairs for the individual query options
+and an optional pair with name `$resource` for the resource path without percent-encoding.
 
 To guarantee this, clients are advised to make the request body the value of
 _output_ after running the
 [`application/x-www-form-urlencoded` serializer](https://url.spec.whatwg.org/#concept-urlencoded-serializer)
 in the [URL Living Standard](#_url), section 5.2 with _tuples_ being the list
-of name/value pairs for the individual query options.
+of name/value pairs.
 
 ::: example
 Example ##ex: The same payload as in [example ##postquery] can be sent with
@@ -1065,7 +1070,8 @@ optional).
 
 With `Content-Type: application/json` query options and function parameters are
 encoded in a request body that represents a JSON object. Its members include the
-individual query options. The name of a system query option MUST have the `$` prefix.
+individual query options and optionally `$resource` for the resource path without
+percent-encoding. The name of a system query option MUST have the `$` prefix.
 The value MUST be
 * a JSON number for `$top` and `$skip`, and
 * a JSON string without percent-encoding for all other query options.
@@ -1093,10 +1099,11 @@ and in the resource path parentheses after the function name MUST be omitted.
 Example ##ex: An employee's top ten leave requests from now to the end of the year
 pending their manager's approval.
 ```json
-POST http://host/service/Employees(23)/self.PendingLeaveRequests/$query
+POST http://host/service/$query
 Content-Type: application/json
 
 {
+  "$resource": "Employees(23)/self.PendingLeaveRequests",
   "StartDate@expression": "now()",
   "EndDate": "2024-12-31",
   "Approver@expression": "Manager",
@@ -1107,7 +1114,8 @@ Content-Type: application/json
 The previous request looks analogous to a bound function invocation with expressions (like in [example ##funcexpr])
 if it is written using implicit parameter aliases (see [#OData-Protocol#InlineParameterSyntax]).
 ```
-GET http://host/service/Employees(23)/self.PendingLeaveRequests
+GET http://host/service/
+  Employees(23)/self.PendingLeaveRequests
   ?StartDate=now()
   &EndDate=2024-12-31
   &Approver=Manager
