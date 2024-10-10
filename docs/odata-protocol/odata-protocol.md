@@ -4454,8 +4454,7 @@ set of entities to be related according to that relationship and MUST
 NOT include added links, deleted links, or deleted entities.
 
 If a navigation property is absent from a `PUT` or `PATCH` request payload, the referenced
-or contained entity, or the collection thereof, which the navigation property targets
-remain unchanged by a successful update.
+or contained entity, or the collection thereof, remain unchanged by a successful update.
 
 ::: example
 Example 78: using the JSON format, a 4.01 `PATCH` request can update a
