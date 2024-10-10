@@ -1732,7 +1732,7 @@ Content-Type: application/json
 :::
 
 ::: example
-Example 22: submit a partial update request to:
+Example <a id="deepupdate" href="#deepupdate">22</a>: submit a partial update request to:
 - modify the name of an existing category
 - assign an existing product with the id 42 to the category
 - assign an existing product 57 to the category and update its name
