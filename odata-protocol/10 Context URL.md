@@ -22,12 +22,10 @@ for each category of payload by providing a *context URL template*. The
 context URL template uses the following terms:
 - `{context-url}` is the canonical
 resource path to the `$metadata` document,
-- `{entity-set}` is the name of an entity
-set or path to a containment navigation property,
+- `{entity-set}` is the name of an entity set or the canonical path to a collection-valued containment navigation property,
 - `{entity}` is the canonical URL for an
 entity,
-- `{singleton}` is the canonical URL for a
-singleton entity,
+- `{single-entity}` is the name of a singleton or the canonical path to a single-valued containment navigation property,
 - `{select-list}` is an optional
 parenthesized comma-separated list of selected properties, instance
 annotations, functions, and actions,
@@ -37,6 +35,9 @@ path to a structural property of the entity,
 - `{/type-name}` is an optional type-cast
 segment containing the qualified name of a derived or implemented type
 prefixed with a forward slash.
+
+Key values in the canonical path in `{entity-set}` and `{single-entity}` are represented in canonical form
+(parentheses-style) without percent-encoding.
 
 The full grammar for the context URL is defined in
 [OData-ABNF](#ODataABNF). Note that the syntax of the context URL is
@@ -78,10 +79,9 @@ http://host/service/$metadata#Customers
 ```
 :::
 
-If the entities are contained, then `entity-set` is the top-level entity
+If the entities are contained, then `{entity-set}` is the top-level entity
 set or singleton followed by the canonical path to the containment navigation
 property of the containing entity.
-Key values in that path are represented in canonical form (parentheses-style) without percent-encoding.
 
 ::: example
 Example ##ex: resource URL and corresponding context URL for contained
@@ -103,6 +103,7 @@ the type of the returned entity collection.
 Context URL template:
 
     {context-url}#{entity-set}/$entity
+    {context-url}#{single-entity}
     {context-url}#{type-name}
 
 If a response or response part is a single entity of the declared type
@@ -117,8 +118,8 @@ http://host/service/$metadata#Customers/$entity
 ```
 :::
 
-If the entity is contained, then `entity-set` is the  top-level entity
-set or singleton followed by the path to the containment navigation
+If the entity is bound to a contained entity set, then `{entity-set}` is the
+canonical path to the collection-valued containment navigation
 property of the containing entity.
 
 ::: example
@@ -130,17 +131,31 @@ http://host/service/$metadata#Orders(4711)/Items/$entity
 ```
 :::
 
+If the entity is the target of a single-valued containment navigation property,
+then the context URL fragment is the canonical path `{single-entity}`
+to the single-valued containment navigation
+property of the containing entity without `/$entity` appended.
+
+::: example
+Example ##ex: resource URL and corresponding context URL for
+entity targeted by a single-valued containment navigation property
+```
+http://host/service/Orders(4711)/DeliveryAddress
+http://host/service/$metadata#Orders(4711)/DeliveryAddress
+```
+:::
+
 If the entity is not bound to an entity set, such as an entity
 returned from a function or action with no entity set path, a function
 import or action import with no specified entity set, or a navigation
 property with no navigation property binding, the context URL fragment specifies
-the type of the returned entity.
+the type `{type-name}` of the returned entity.
 
 ## ##subsec Singleton
 
 Context URL template:
 
-    {context-url}#{singleton}
+    {context-url}#{single-entity}
 
 If a response or response part is a singleton, its name is the context
 URL fragment.
@@ -242,7 +257,7 @@ http://host/service/$metadata#Customers(Address,Orders,Model.VipCustomer/Preferr
 Context URL templates:
 
     {context-url}#{entity-set}{/type-name}{select-list}/$entity
-    {context-url}#{singleton}{select-list}
+    {context-url}#{single-entity}{select-list}
     {context-url}#{type-name}{select-list}
 
 If a single entity contains a subset of properties, the parenthesized
@@ -357,7 +372,7 @@ http://host/service/$metadata
 Context URL template:
 
     {context-url}#{entity-set}{/type-name}{select-list}/$entity
-    {context-url}#{singleton}{select-list}
+    {context-url}#{single-entity}{select-list}
     {context-url}#{type-name}{select-list}
 
 For a 4.01 response, if a navigation property is explicitly expanded,
