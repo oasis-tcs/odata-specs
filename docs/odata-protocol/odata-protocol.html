@@ -1430,7 +1430,7 @@ http://host/service/$metadata#Customers(Address,Orders,Model.VipCustomer/Preferr
 </summary>
 <p>Context URL templates:</p>
 <pre><code>{context-url}#{entity-set}{/type-name}{select-list}/$entity
-{context-url}#{singleton}{select-list}
+{context-url}#{single-entity}{select-list}
 {context-url}#{type-name}{select-list}</code></pre>
 <p>If a single entity contains a subset of properties, the parenthesized comma-separated list of the selected defined or dynamic properties, instance annotations, navigation properties, functions, and actions is appended to the <code>{entity-set}</code> after an optional type-cast segment and prior to appending <code>/$entity</code>. If the response is not a subset of a single entity set, the <code>{select-list}</code> is instead appended to the <code>{type-name}</code> of the returned entity.</p>
 <p>Regardless of how contained structural properties are represented in the request URL (as paths or as select options) they are represented in the context URL using path syntax, as defined in OData 4.0.</p>
@@ -1478,7 +1478,7 @@ http://host/service/$metadata
 </summary>
 <p>Context URL template:</p>
 <pre><code>{context-url}#{entity-set}{/type-name}{select-list}/$entity
-{context-url}#{singleton}{select-list}
+{context-url}#{single-entity}{select-list}
 {context-url}#{type-name}{select-list}</code></pre>
 <p>For a 4.01 response, if a navigation property is explicitly expanded, then in addition to the non-suffixed names of any selected properties, navigation properties, functions or actions, the comma-separated list of properties MUST include the name of the expanded property, suffixed with the parenthesized comma-separated list of any properties of the expanded navigation property that are selected or expanded. If the expanded navigation property does not contain a nested <code>$select</code> or <code>$expand</code>, then the expanded property is suffixed with empty parentheses. If the expansion is recursive for nested children, a plus sign (<code>+</code>) is infixed between the navigation property name and the opening parenthesis.</p>
 <p>For a 4.0 response, the expanded navigation property suffixed with parentheses is omitted from the select-list if it does not contain a nested <code>$select</code> or <code>$expand</code>, but MUST still be present, without a suffix, if it is explicitly selected.</p>

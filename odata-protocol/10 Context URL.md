@@ -257,7 +257,7 @@ http://host/service/$metadata#Customers(Address,Orders,Model.VipCustomer/Preferr
 Context URL templates:
 
     {context-url}#{entity-set}{/type-name}{select-list}/$entity
-    {context-url}#{singleton}{select-list}
+    {context-url}#{single-entity}{select-list}
     {context-url}#{type-name}{select-list}
 
 If a single entity contains a subset of properties, the parenthesized
@@ -372,7 +372,7 @@ http://host/service/$metadata
 Context URL template:
 
     {context-url}#{entity-set}{/type-name}{select-list}/$entity
-    {context-url}#{singleton}{select-list}
+    {context-url}#{single-entity}{select-list}
     {context-url}#{type-name}{select-list}
 
 For a 4.01 response, if a navigation property is explicitly expanded,
