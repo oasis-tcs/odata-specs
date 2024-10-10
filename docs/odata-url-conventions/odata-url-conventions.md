@@ -1468,8 +1468,10 @@ the resource path or the query options part of the URL in the request body.
 
 Requests to paths ending in `/$query` MUST use the `POST` verb. Query
 options specified in the request body and query options specified in the
-request URL are processed together. When the resource path is specified in the
-request body, `$query` MUST be appended to the [service root URL](#ServiceRootURL).
+request URL are processed together. If the resource path is specified in the
+request body, it MUST be given as a URL relative to the [service root URL](#ServiceRootURL),
+and the request URL MUST consist of the service root URL followed by `$query`.
+Dividing the resource path between request URL and request body is not allowed.
 
 The request body MUST use a `Content-Type` of `text/plain`, `application/x-www-form-urlencoded`,
 or `application/json`.
@@ -1489,7 +1491,8 @@ $filter=LastName%20eq%20'P%26G'&$select=FirstName,LastName
 :::
 
 If the resource path is passed in the request body, it MUST be percent-encoded,
-come before any query options and be separated from them by a `?`.
+come before any query options, and be separated from them by a `?`. In other words,
+the request body is then a URL relative to the service root URL.
 
 For `Content-Type: application/x-www-form-urlencoded`, the request body MUST be
 suitable _input_ for the [`application/x-www-form-urlencoded` parser](https://url.spec.whatwg.org/#urlencoded-parsing)
