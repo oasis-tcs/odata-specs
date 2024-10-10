@@ -381,7 +381,7 @@ Content-Type: application/json
 :::
 
 ::: example
-Example ##ex: submit a partial update request to:
+Example ##ex_deepupdate: submit a partial update request to:
 - modify the name of an existing category
 - assign an existing product with the id 42 to the category
 - assign an existing product 57 to the category and update its name
