@@ -195,8 +195,8 @@ For complete copyright information please see the full Notices section in an App
   - [10.14 Collection of Complex or Primitive Types](#CollectionofComplexorPrimitiveTypes)
   - [10.15 Complex or Primitive Type](#ComplexorPrimitiveType)
   - [10.16 Operation Result](#OperationResult)
-  - [10.17 Delta Payload Response](#DeltaPayloadResponse)
-  - [10.18 Item in a Delta Payload Response](#IteminaDeltaPayloadResponse)
+  - [10.17 Delta Payload](#DeltaPayload)
+  - [10.18 Item in a Delta Payload](#IteminaDeltaPayload)
   - [10.19 `$all` Response](#allResponse)
   - [10.20 `$crossjoin` Response](#crossjoinResponse)
 - [11 Data Service Requests](#DataServiceRequests)
@@ -2496,7 +2496,7 @@ http://host/service/$metadata#Customers
 ```
 :::
 
-## <a id="DeltaPayloadResponse" href="#DeltaPayloadResponse">10.17 Delta Payload Response</a>
+## <a id="DeltaPayload" href="#DeltaPayload">10.17 Delta Payload</a>
 
 Context URL template:
 
@@ -2522,10 +2522,10 @@ http://host/service/$metadata#Customers/$delta
 ```
 :::
 
-The context URL of an update request body for a collection of entities
+The context URL of an [update request body for a collection of entities](#UpdateaCollectionofEntities)
 is simply the fragment `#$delta`.
 
-## <a id="IteminaDeltaPayloadResponse" href="#IteminaDeltaPayloadResponse">10.18 Item in a Delta Payload Response</a>
+## <a id="IteminaDeltaPayload" href="#IteminaDeltaPayload">10.18 Item in a Delta Payload</a>
 
 Context URL templates:
 
@@ -3555,7 +3555,8 @@ Responses that include only a partial set of the items identified by the
 request URL MUST contain a link that allows retrieving the next partial
 set of items. This link is called a *next link*; its representation is
 format-specific. The final partial set of items MUST NOT contain a next
-link.
+link. Clients MUST check for next links before assuming to have received
+all items within a collection, including expanded and nested collections.
 
 The client can request a maximum page size through the
 [`maxpagesize`](#Preferencemaxpagesizeodatamaxpagesize) preference. The

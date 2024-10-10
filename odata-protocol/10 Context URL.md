@@ -519,7 +519,7 @@ http://host/service/$metadata#Customers
 ```
 :::
 
-## ##subsec Delta Payload Response
+## ##subsec Delta Payload
 
 Context URL template:
 
@@ -545,10 +545,10 @@ http://host/service/$metadata#Customers/$delta
 ```
 :::
 
-The context URL of an update request body for a collection of entities
+The context URL of an [update request body for a collection of entities](#UpdateaCollectionofEntities)
 is simply the fragment `#$delta`.
 
-## ##subsec Item in a Delta Payload Response
+## ##subsec Item in a Delta Payload
 
 Context URL templates:
 
