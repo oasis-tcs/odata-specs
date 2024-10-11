@@ -1045,7 +1045,13 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </summary>
 <p>The resource path and the query options part of an OData URL can be quite long, potentially exceeding the maximum length of URLs supported by components involved in transmitting or processing the request. One way to avoid this is wrapping the request in a batch request, which has the penalty of needing to construct a well-formed batch request body.</p>
 <p>An easier alternative for <code>GET</code> requests is to append <code>/$query</code> to the resource path of the URL, use the <code>POST</code> verb instead of <code>GET</code>, and pass the resource path or the query options part of the URL in the request body.</p>
-<p>Requests to paths ending in <code>/$query</code> MUST use the <code>POST</code> verb. Query options specified in the request body and query options specified in the request URL are processed together. If the resource path is specified in the request body, it MUST be given as a URL relative to the <a href="#ServiceRootURL">service root URL</a>, and the request URL MUST consist of the service root URL followed by <code>$query</code>. Dividing the resource path between request URL and request body is not allowed.</p>
+<p>Requests to paths ending in <code>/$query</code> MUST use the <code>POST</code> verb. Query options specified in the request body and query options specified in the request URL are processed together. The entire resource path MAY also be specified in the request body, provided that</p>
+<ul>
+<li>it is given as a URL relative to the <a href="#ServiceRootURL">service root URL</a></li>
+<li>all query options are specified in the request body</li>
+<li>the request URL consists of the service root URL followed by <code>$query</code>.</li>
+</ul>
+<p>Dividing the resource path between request URL and request body is not allowed.</p>
 <p>The request body MUST use a <code>Content-Type</code> of <code>text/plain</code>, <code>application/x-www-form-urlencoded</code>, or <code>application/json</code>.</p>
 <p>For <code>Content-Type: text/plain</code>, the individual query options MUST be separated by <code>&amp;</code> and MUST use the same percent-encoding as in URLs (especially: no spaces, tabs, or line breaks allowed) and MUST follow the syntax rules described in <a href="#QueryOptions">chapter 5</a>.</p>
 <div class="example">

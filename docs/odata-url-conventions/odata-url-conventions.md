@@ -1468,9 +1468,12 @@ the resource path or the query options part of the URL in the request body.
 
 Requests to paths ending in `/$query` MUST use the `POST` verb. Query
 options specified in the request body and query options specified in the
-request URL are processed together. If the resource path is specified in the
-request body, it MUST be given as a URL relative to the [service root URL](#ServiceRootURL),
-and the request URL MUST consist of the service root URL followed by `$query`.
+request URL are processed together. The entire resource path MAY also be specified in the
+request body, provided that
+- it is given as a URL relative to the [service root URL](#ServiceRootURL)
+- all query options are specified in the request body
+- the request URL consists of the service root URL followed by `$query`.
+
 Dividing the resource path between request URL and request body is not allowed.
 
 The request body MUST use a `Content-Type` of `text/plain`, `application/x-www-form-urlencoded`,
