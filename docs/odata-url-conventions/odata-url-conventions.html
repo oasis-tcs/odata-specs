@@ -600,8 +600,8 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </summary>
 <p>The basic rules for addressing a collection (of entities), a single entity within a collection, a singleton, as well as a property of an entity are covered in the <code>resourcePath</code> syntax rule in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>Below is a (non-normative) snippet from <a href="#ODataABNF">OData-ABNF</a>:</p>
-<pre><code>resourcePath = entitySetName                  [collectionNavigation]
-             / singletonEntity                [singleNavigation]
+<pre><code>resourcePath = entitySetName                  [ collectionNavigation ]
+             / singletonEntity                [ singleNavigation ]
              / actionImportCall
              / entityColFunctionImportCall    [ collectionNavigation ]
              / entityFunctionImportCall       [ singleNavigation ]

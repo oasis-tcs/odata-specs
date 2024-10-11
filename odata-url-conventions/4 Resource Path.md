@@ -77,8 +77,8 @@ entity are covered in the `resourcePath` syntax rule in
 Below is a (non-normative) snippet from [OData-ABNF](#ODataABNF):
 
 ```
-resourcePath = entitySetName                  [collectionNavigation]
-             / singletonEntity                [singleNavigation]
+resourcePath = entitySetName                  [ collectionNavigation ]
+             / singletonEntity                [ singleNavigation ]
              / actionImportCall
              / entityColFunctionImportCall    [ collectionNavigation ]
              / entityFunctionImportCall       [ singleNavigation ]
