@@ -997,7 +997,7 @@ http://host/service/$all/Model.Customer?$filter=contains(Name,'red')
 ```
 :::
 
-## ##subsec Passing Resource Path and Query Options in the Request Body
+## ##subsec Passing Query Options in the Request Body
 
 The resource path and the query options part of an OData URL can be quite long, potentially
 exceeding the maximum length of URLs supported by components involved in

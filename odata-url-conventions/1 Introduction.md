@@ -26,7 +26,7 @@ ecosystem of reusable client components and libraries.
 
 Section | Feature / Change | Issue
 --------|------------------|------
-[Section ##PassingResourcePathandQueryOptionsintheRequestBody]| 
+[Section ##PassingQueryOptionsintheRequestBody]| 
 `POST ~/$query` with `Content-Type: application/x-www-form-urlencoded` or `application/json`| 
 [320](https://github.com/oasis-tcs/odata-specs/issues/320), [371](https://github.com/oasis-tcs/odata-specs/issues/371), [2011](https://github.com/oasis-tcs/odata-specs/issues/2011)
 [Section ##matchespattern]| 

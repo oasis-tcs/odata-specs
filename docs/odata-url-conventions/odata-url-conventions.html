@@ -264,7 +264,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><a href="#AddressingtheMediaStreamofaMediaEntity">4.14 Addressing the Media Stream of a Media Entity</a></li>
 <li><a href="#AddressingtheCrossJoinofEntitySets">4.15 Addressing the Cross Join of Entity Sets</a></li>
 <li><a href="#AddressingAllEntitiesinaService">4.16 Addressing All Entities in a Service</a></li>
-<li><a href="#PassingResourcePathandQueryOptionsintheRequestBody">4.17 Passing Resource Path and Query Options in the Request Body</a></li>
+<li><a href="#PassingQueryOptionsintheRequestBody">4.17 Passing Query Options in the Request Body</a></li>
 </ul></li>
 <li><a href="#QueryOptions">5 Query Options</a>
 <ul>
@@ -431,7 +431,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="#PassingResourcePathandQueryOptionsintheRequestBody">Section 4.17</a></td>
+<td><a href="#PassingQueryOptionsintheRequestBody">Section 4.17</a></td>
 <td><code>POST ~/$query</code> with <code>Content-Type: application/x-www-form-urlencoded</code> or <code>application/json</code></td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/320">320</a>, <a href="https://github.com/oasis-tcs/odata-specs/issues/371">371</a>, <a href="https://github.com/oasis-tcs/odata-specs/issues/2011">2011</a></td>
 </tr>
@@ -1041,7 +1041,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </div>
 </details>
 <details open><summary>
-<h2 id="417-passing-resource-path-and-query-options-in-the-request-body"><a id="PassingResourcePathandQueryOptionsintheRequestBody" href="#PassingResourcePathandQueryOptionsintheRequestBody">4.17 Passing Resource Path and Query Options in the Request Body</a></h2>
+<h2 id="417-passing-query-options-in-the-request-body"><a id="PassingQueryOptionsintheRequestBody" href="#PassingQueryOptionsintheRequestBody">4.17 Passing Query Options in the Request Body</a></h2>
 </summary>
 <p>The resource path and the query options part of an OData URL can be quite long, potentially exceeding the maximum length of URLs supported by components involved in transmitting or processing the request. One way to avoid this is wrapping the request in a batch request, which has the penalty of needing to construct a well-formed batch request body.</p>
 <p>An easier alternative for <code>GET</code> requests is to append <code>/$query</code> to the resource path of the URL, use the <code>POST</code> verb instead of <code>GET</code>, and pass the resource path or the query options part of the URL in the request body.</p>
