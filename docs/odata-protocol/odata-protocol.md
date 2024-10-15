@@ -2946,7 +2946,7 @@ for collection-valued properties. A property MUST NOT have select
 options specified in more than one place in a request and MUST NOT have
 both select options and expand options specified.
 
-If the `$select` query option is not specified, [the service returns
+If the `$select` query option is not specified, the service returns
 the full set of properties or a default set of properties. The default
 set of properties MUST include all key properties.
 Services may change the default set of properties returned. This
