@@ -2273,7 +2273,7 @@ a property, not control information
 :::
 
 In OData 4.01 payloads the deleted-entity object MUST include the
-following properties regardless of the specified
+following properties, regardless of the specified
 [`metadata`](#ControllingtheAmountofControlInformationinResponses) value.
 For ordered payloads, this control information MUST follow the [payload ordering constraints](#PayloadOrderingConstraints).
 
