@@ -635,7 +635,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <p>To support streaming scenarios the following payload ordering constraints have to be met:</p>
 <ul>
 <li>If present, the <code>context</code> control information MUST be the first property in the JSON object.</li>
-<li>For 4.01 deleted entities, the <code>@removed</code> control information MUST appear after <code>context</code>, if present, and before any other property or control information.</li>
+<li>For 4.01 deleted entities, the <code>removed</code> control information MUST appear after <code>context</code>, if present, and before any other property or control information.</li>
 <li>The <code>type</code> control information, if present, MUST appear next in the JSON object.</li>
 <li>The <code>id</code> and <code>etag</code> control information MUST appear before any property, property annotation, or property control information.</li>
 <li>All annotations or control information for a structural or navigation property MUST appear as a group immediately before the property itself. The one exception is the <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a> of a collection which MAY appear after the collection it annotates.</li>
