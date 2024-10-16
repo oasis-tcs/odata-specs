@@ -4454,7 +4454,7 @@ set of entities to be related according to that relationship and MUST
 NOT include added links, deleted links, or deleted entities.
 
 If a navigation property is absent from a `PUT` or `PATCH` request payload, the referenced
-or contained entity, or the collection thereof, remain unchanged by a successful update.
+or contained entity, or the collection thereof, remains unchanged by a successful update.
 
 ::: example
 Example 78: using the JSON format, a 4.01 `PATCH` request can update a
@@ -4600,7 +4600,8 @@ Response
 ::::
 
 If `Products` was a containment navigation property, the request and response
-would be the same, except for the entity-id: `"@id": "Categories(6)/Products(57)"`.
+would be the same, except that the `@id` would likely be relative to the category,
+for example, `Categories(6)/Products(57)`.
 
 If the targeted entity in the payload contains some structural properties,
 `PUT` resets all its other structural properties. The following alternative
