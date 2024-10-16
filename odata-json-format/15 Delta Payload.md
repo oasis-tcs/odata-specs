@@ -211,9 +211,10 @@ following properties, regardless of the specified
   MAY be used in place of the entity's primary key. A delta response from an update request using alternate keys SHOULD include all fields of the alternate key used in the request, in which case it
   MAY omit the `id` control information and other primary key fields. For [ordered
   payloads](#PayloadOrderingConstraints), the control information
-  `id`, if present, MUST immediately follow the control
-  information
-  [`removed`](#ControlInformationremovedodataremoved).
+  `id`, if present, MUST appear following the control information
+  [`removed`](#ControlInformationremovedodataremoved) and, if present, 
+  [`type`](#ControlInformationtypeodatatype), and before any other
+  properties or control information.
 
 For full metadata the
 [`context`](#ControlInformationcontextodatacontext)

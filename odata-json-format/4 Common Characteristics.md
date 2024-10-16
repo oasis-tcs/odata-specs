@@ -164,6 +164,8 @@ constraints have to be met:
 
 - If present, the `context` control information MUST be the first
   property in the JSON object.
+- For 4.01 deleted entities, the `@removed` control information MUST appear 
+  after `context`, if present, and before any other property or control information.
 - The
   `type` control information, if present, MUST appear next in
   the JSON object.

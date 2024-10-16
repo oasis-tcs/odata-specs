@@ -220,6 +220,8 @@ Section | Feature / Change | Issue
 [Section 4.6.8](#ControlInformationidodataid)| Transient entities can be identifiable| [1928](https://github.com/oasis-tcs/odata-specs/issues/1928)
 [Section 4.6.12](#ControlInformationmediaodatamedia)| `mediaContentType` can be `null`| [536](https://github.com/oasis-tcs/odata-specs/issues/536)
 [Section 7](#StructuralProperty), [Section A.2](#InformativeReferences)| Removed reference to obsolete version of GeoJSON| [456](https://github.com/oasis-tcs/odata-specs/issues/456)
+[Section 15.3](#DeletedEntity) | `type` control information, if present, must come immediately after `removed` |
+[1985](https://github.com/oasis-tcs/odata-specs/issues/1985)
 [Section 18](#ActionInvocation)| Allow common expressions in action payloads| [341](https://github.com/oasis-tcs/odata-specs/issues/341)
 
 ## <a id="Glossary" href="#Glossary">1.2 Glossary</a>
@@ -711,6 +713,7 @@ constraints have to be met:
 
 - If present, the `context` control information MUST be the first
   property in the JSON object.
+- For 4.01 deleted entities, the `@removed` control information MUST appear   after `context`, if present, and before any other property or control information.
 - The
   `type` control information, if present, MUST appear next in
   the JSON object.
@@ -2300,9 +2303,9 @@ following properties, regardless of the specified
   MAY be used in place of the entity's primary key. A delta response from an update request using alternate keys SHOULD include all fields of the alternate key used in the request, in which case it
   MAY omit the `id` control information and other primary key fields. For [ordered
   payloads](#PayloadOrderingConstraints), the control information
-  `id`, if present, MUST immediately follow the control
-  information
-  [`removed`](#ControlInformationremovedodataremoved).
+  `id`, if present, MUST appear following the control information
+  [`removed`](#ControlInformationremovedodataremoved) and, if present,   [`type`](#ControlInformationtypeodatatype), and before any other
+  properties or control information.
 
 For full metadata the
 [`context`](#ControlInformationcontextodatacontext)

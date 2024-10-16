@@ -399,12 +399,13 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/456">456</a></td>
 </tr>
 <tr class="odd">
-<td><a href="#ActionInvocation">Section 18</a></td>
-<td>Allow common expressions in action payloads</td>
-<td><a href="https://github.com/oasis-tcs/odata-specs/issues/341">341</a></td>
+<td><a href="#DeletedEntity">Section 15.3</a></td>
+<td><code>type</code> control information, if present, must come immediately after <code>removed</code></td>
+<td></td>
 </tr>
 </tbody>
 </table>
+<p><a href="https://github.com/oasis-tcs/odata-specs/issues/1985">1985</a> <a href="#ActionInvocation">Section 18</a>| Allow common expressions in action payloads| <a href="https://github.com/oasis-tcs/odata-specs/issues/341">341</a></p>
 </details>
 <details open><summary>
 <h2 id="12-glossary"><a id="Glossary" href="#Glossary">1.2 Glossary</a></h2>
@@ -634,6 +635,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <p>To support streaming scenarios the following payload ordering constraints have to be met:</p>
 <ul>
 <li>If present, the <code>context</code> control information MUST be the first property in the JSON object.</li>
+<li>For 4.01 deleted entities, the <code>@removed</code> control information MUST appear after <code>context</code>, if present, and before any other property or control information.</li>
 <li>The <code>type</code> control information, if present, MUST appear next in the JSON object.</li>
 <li>The <code>id</code> and <code>etag</code> control information MUST appear before any property, property annotation, or property control information.</li>
 <li>All annotations or control information for a structural or navigation property MUST appear as a group immediately before the property itself. The one exception is the <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a> of a collection which MAY appear after the collection it annotates.</li>
@@ -1477,7 +1479,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <p>In OData 4.01 payloads the deleted-entity object MUST include the following properties, regardless of the specified <a href="#ControllingtheAmountofControlInformationinResponses"><code>metadata</code></a> value:</p>
 <ul>
 <li><p>Control information <a href="#ControlInformationremovedodataremoved"><code>removed</code></a>, whose value is an object that MAY contain a property named <code>reason</code>. If present, the value of <code>reason</code> MUST be either <code>deleted</code> if the entity was deleted (destroyed), or <code>changed</code> if the entity was removed from membership in the result either due to change in value such that the entity no longer matches the defining query or because the entity was removed from the collection. The object MAY include <a href="#InstanceAnnotations">annotations</a>, and clients SHOULD NOT error due to the presence of additional properties that MAY be defined by future versions of this specification. For <a href="#PayloadOrderingConstraints">ordered payloads</a>, the control information <a href="#ControlInformationremovedodataremoved"><code>removed</code></a> MUST immediately follow the <a href="#ControlInformationcontextodatacontext"><code>context</code></a> control information, if present, otherwise it MUST be the first property in the deleted entity.</p></li>
-<li><p>Control information <a href="#ControlInformationidodataid"><code>id</code></a> or all of the entity’s primary key fields. The <code>id</code> control information MUST appear if any of the entity’s primary key fields are omitted from the response <em>or</em> the entity-id is not identical to the canonical URL of the entity. When using a delta payload in an <a href="#UpdateaCollectionofEntities">update request</a>, an <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AlternateKeys">alternate key</a> (see <em>Alternate Keys</em> in <a href="#ODataURL">OData-URL</a>) MAY be used in place of the entity’s primary key. A delta response from an update request using alternate keys SHOULD include all fields of the alternate key used in the request, in which case it MAY omit the <code>id</code> control information and other primary key fields. For <a href="#PayloadOrderingConstraints">ordered payloads</a>, the control information <code>id</code>, if present, MUST immediately follow the control information <a href="#ControlInformationremovedodataremoved"><code>removed</code></a>.</p></li>
+<li><p>Control information <a href="#ControlInformationidodataid"><code>id</code></a> or all of the entity’s primary key fields. The <code>id</code> control information MUST appear if any of the entity’s primary key fields are omitted from the response <em>or</em> the entity-id is not identical to the canonical URL of the entity. When using a delta payload in an <a href="#UpdateaCollectionofEntities">update request</a>, an <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AlternateKeys">alternate key</a> (see <em>Alternate Keys</em> in <a href="#ODataURL">OData-URL</a>) MAY be used in place of the entity’s primary key. A delta response from an update request using alternate keys SHOULD include all fields of the alternate key used in the request, in which case it MAY omit the <code>id</code> control information and other primary key fields. For <a href="#PayloadOrderingConstraints">ordered payloads</a>, the control information <code>id</code>, if present, MUST appear following the control information <a href="#ControlInformationremovedodataremoved"><code>removed</code></a> and, if present, <a href="#ControlInformationtypeodatatype"><code>type</code></a>, and before any other properties or control information.</p></li>
 </ul>
 <p>For full metadata the <a href="#ControlInformationcontextodatacontext"><code>context</code></a> control information MUST be included. It also MUST be included if the entity set of the deleted entity cannot be determined from the surrounding context.</p>
 <p>The deleted-entity object MAY include additional properties of the entity, as well as <a href="#InstanceAnnotations">annotations</a>, and MAY include related entities, related deleted entities, or a delta or full representation of a related collection of entities, to represent related entities that have been modified or deleted.</p>
