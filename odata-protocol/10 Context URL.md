@@ -22,12 +22,12 @@ for each category of payload by providing a *context URL template*. The
 context URL template uses the following terms:
 - `{context-url}` is the canonical
 resource path to the `$metadata` document,
-- `{entity-set}` is the name of an entity
-set or path to a containment navigation property,
+- `{entity-set}` is the name of an entity set [#OData-CSDL#EntitySet]
+or the canonical path to a collection-valued containment navigation property
+(implicit entity set [#OData-CSDL#ContainmentNavigationProperty]),
+- `{single-entity}` is the name of a singleton or the canonical path to a single-valued containment navigation property,
 - `{entity}` is the canonical URL for an
 entity,
-- `{singleton}` is the canonical URL for a
-singleton entity,
 - `{select-list}` is an optional
 parenthesized comma-separated list of selected properties, instance
 annotations, functions, and actions,
@@ -37,6 +37,9 @@ path to a structural property of the entity,
 - `{/type-name}` is an optional type-cast
 segment containing the qualified name of a derived or implemented type
 prefixed with a forward slash.
+
+Key values in the canonical path in `{entity-set}`, `{single-entity}`, and `{entity}` are represented in canonical form
+(parentheses-style) without percent-encoding.
 
 The full grammar for the context URL is defined in
 [OData-ABNF](#ODataABNF). Note that the syntax of the context URL is
@@ -67,8 +70,9 @@ Context URL template:
     {context-url}#{entity-set}
     {context-url}#Collection({type-name})
 
-If all entities in the collection are members of one entity set, its
-name is the context URL fragment.
+If all entities in the collection are members of one (named or implicit)
+entity set, the context URL fragment is the canonical path `{entity-set}` to the
+entity set.
 
 ::: example
 Example ##ex: resource URL and corresponding context URL
@@ -77,11 +81,6 @@ http://host/service/Customers
 http://host/service/$metadata#Customers
 ```
 :::
-
-If the entities are contained, then `entity-set` is the top-level entity
-set or singleton followed by the canonical path to the containment navigation
-property of the containing entity.
-Key values in that path are represented in canonical form (parentheses-style) without percent-encoding.
 
 ::: example
 Example ##ex: resource URL and corresponding context URL for contained
@@ -103,30 +102,42 @@ the type of the returned entity collection.
 Context URL template:
 
     {context-url}#{entity-set}/$entity
+    {context-url}#{single-entity}
     {context-url}#{type-name}
 
-If a response or response part is a single entity of the declared type
-of an entity set, the context URL fragment is the entity set's
-name with `/$entity` appended.
+If a response or response part is an entity of the declared type
+of a (named or implicit) entity set, the context URL fragment is the canonical path
+`{entity-set}` to the entity set with `/$entity` appended.
 
 ::: example
-Example ##ex: resource URL and corresponding context URL
+Example ##ex: resource URL and corresponding context URL for named entity set.
+Note the absence of the key predicate `(1)` in the context URL.
 ```
 http://host/service/Customers(1)
 http://host/service/$metadata#Customers/$entity
 ```
 :::
 
-If the entity is contained, then `entity-set` is the  top-level entity
-set or singleton followed by the path to the containment navigation
-property of the containing entity.
-
 ::: example
 Example ##ex: resource URL and corresponding context URL for contained
-entity
+entity (implicit entity set)
 ```
 http://host/service/Orders(4711)/Items(1)
 http://host/service/$metadata#Orders(4711)/Items/$entity
+```
+:::
+
+If a response or response part is an entity of the declared type of
+a single-valued containment navigation property,
+the context URL fragment is the canonical path `{single-entity}`
+to that navigation property without `/$entity` appended.
+
+::: example
+Example ##ex: resource URL and corresponding context URL for
+entity targeted by a single-valued containment navigation property
+```
+http://host/service/Orders(4711)/DeliveryAddress
+http://host/service/$metadata#Orders(4711)/DeliveryAddress
 ```
 :::
 
@@ -134,13 +145,13 @@ If the entity is not bound to an entity set, such as an entity
 returned from a function or action with no entity set path, a function
 import or action import with no specified entity set, or a navigation
 property with no navigation property binding, the context URL fragment specifies
-the type of the returned entity.
+the type `{type-name}` of the returned entity.
 
 ## ##subsec Singleton
 
 Context URL template:
 
-    {context-url}#{singleton}
+    {context-url}#{single-entity}
 
 If a response or response part is a singleton, its name is the context
 URL fragment.
@@ -176,7 +187,7 @@ Context URL template:
 
     {context-url}#{entity-set}{/type-name}/$entity
 
-If a response or response part is a single entity of a type derived from
+If a response or response part is an entity of a type derived from
 the declared type of an entity set, a type-cast segment is appended to
 the entity set name.
 
@@ -242,14 +253,15 @@ http://host/service/$metadata#Customers(Address,Orders,Model.VipCustomer/Preferr
 Context URL templates:
 
     {context-url}#{entity-set}{/type-name}{select-list}/$entity
-    {context-url}#{singleton}{select-list}
+    {context-url}#{single-entity}{select-list}
     {context-url}#{type-name}{select-list}
 
-If a single entity contains a subset of properties, the parenthesized
+If an entity contains a subset of properties, the parenthesized
 comma-separated list of the selected defined or dynamic properties,
 instance annotations, navigation properties, functions, and actions is
 appended to the `{entity-set}` after an optional type-cast segment and
-prior to appending `/$entity`. If the response is not a subset of a
+prior to appending `/$entity`, or to the `{single-entity}`.
+If the response is not a subset of a
 single entity set, the `{select-list}` is instead appended to the
 `{type-name}` of the returned entity.
 
@@ -357,7 +369,7 @@ http://host/service/$metadata
 Context URL template:
 
     {context-url}#{entity-set}{/type-name}{select-list}/$entity
-    {context-url}#{singleton}{select-list}
+    {context-url}#{single-entity}{select-list}
     {context-url}#{type-name}{select-list}
 
 For a 4.01 response, if a navigation property is explicitly expanded,
@@ -418,7 +430,7 @@ Context URL template:
 
     {context-url}#$ref
 
-If a response is a single entity reference, `$ref` is the context URL
+If a response is one entity reference, `$ref` is the context URL
 fragment.
 
 ::: example
@@ -504,9 +516,9 @@ Context URL templates:
     {context-url}#{type-name}{select-list}
 
 If the response from an action or function is a collection of entities
-or a single entity that is a member of an entity set, the context URL
+or one entity that is a member of an entity set, the context URL
 identifies the entity set. If the response from an action or function is
-a property of a single entity, the context URL identifies the entity and
+a property of one entity, the context URL identifies the entity and
 property. Otherwise, the context URL identifies the type returned by the
 operation. The context URL will correspond to one of the former
 examples.
