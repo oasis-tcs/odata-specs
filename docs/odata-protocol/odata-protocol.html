@@ -1507,7 +1507,7 @@ http://host/service/$metadata#Collection($ref)</code></pre>
 </summary>
 <p>Context URL template:</p>
 <pre><code>{context-url}#$ref</code></pre>
-<p>If a response is a single entity reference, <code>$ref</code> is the context URL fragment.</p>
+<p>If a response is one entity reference, <code>$ref</code> is the context URL fragment.</p>
 <div class="example">
 <p>Example 26: resource URL and corresponding context URL for a single entity reference</p>
 <pre><code>http://host/service/Orders(10643)/Customer/$ref
@@ -1561,7 +1561,7 @@ http://host/service/$metadata#Edm.String</code></pre>
 {context-url}#{entity}/{property-path}{select-list}
 {context-url}#Collection({type-name}){select-list}
 {context-url}#{type-name}{select-list}</code></pre>
-<p>If the response from an action or function is a collection of entities or a single entity that is a member of an entity set, the context URL identifies the entity set. If the response from an action or function is a property of a single entity, the context URL identifies the entity and property. Otherwise, the context URL identifies the type returned by the operation. The context URL will correspond to one of the former examples.</p>
+<p>If the response from an action or function is a collection of entities or one entity that is a member of an entity set, the context URL identifies the entity set. If the response from an action or function is a property of one entity, the context URL identifies the entity and property. Otherwise, the context URL identifies the type returned by the operation. The context URL will correspond to one of the former examples.</p>
 <div class="example">
 <p>Example 30: resource URL and corresponding context URL</p>
 <pre><code>http://host/service/TopFiveCustomers()

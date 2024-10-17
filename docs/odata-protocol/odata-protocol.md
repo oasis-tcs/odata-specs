@@ -2407,7 +2407,7 @@ Context URL template:
 
     {context-url}#$ref
 
-If a response is a single entity reference, `$ref` is the context URL
+If a response is one entity reference, `$ref` is the context URL
 fragment.
 
 ::: example
@@ -2493,9 +2493,9 @@ Context URL templates:
     {context-url}#{type-name}{select-list}
 
 If the response from an action or function is a collection of entities
-or a single entity that is a member of an entity set, the context URL
+or one entity that is a member of an entity set, the context URL
 identifies the entity set. If the response from an action or function is
-a property of a single entity, the context URL identifies the entity and
+a property of one entity, the context URL identifies the entity and
 property. Otherwise, the context URL identifies the type returned by the
 operation. The context URL will correspond to one of the former
 examples.
