@@ -181,7 +181,9 @@ a property, not control information
 
 In OData 4.01 payloads the deleted-entity object MUST include the
 following properties, regardless of the specified
-[`metadata`](#ControllingtheAmountofControlInformationinResponses) value:
+[`metadata`](#ControllingtheAmountofControlInformationinResponses) value.
+For ordered payloads, this control information MUST follow the 
+[payload ordering constraints](#PayloadOrderingConstraints).
 
 - Control information
   [`removed`](#ControlInformationremovedodataremoved),
@@ -194,12 +196,7 @@ following properties, regardless of the specified
   collection. The object MAY include
   [annotations](#InstanceAnnotations), and clients SHOULD NOT error
   due to the presence of additional properties that MAY be defined by
-  future versions of this specification. For [ordered
-  payloads](#PayloadOrderingConstraints), the control information
-  [`removed`](#ControlInformationremovedodataremoved) MUST immediately
-  follow the [`context`](#ControlInformationcontextodatacontext) control
-  information, if present, otherwise it MUST be the first property in the
-  deleted entity.
+  future versions of this specification.
 
 - Control information
   [`id`](#ControlInformationidodataid)
@@ -209,11 +206,7 @@ following properties, regardless of the specified
   URL of the entity. When using a delta payload in an 
   [update request](#UpdateaCollectionofEntities), an [alternate key](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AlternateKeys) (see _Alternate Keys_ in [OData-URL](#ODataURL))
   MAY be used in place of the entity's primary key. A delta response from an update request using alternate keys SHOULD include all fields of the alternate key used in the request, in which case it
-  MAY omit the `id` control information and other primary key fields. For [ordered
-  payloads](#PayloadOrderingConstraints), the control information
-  `id`, if present, MUST immediately follow the control
-  information
-  [`removed`](#ControlInformationremovedodataremoved).
+  MAY omit the `id` control information and other primary key fields.
 
 For full metadata the
 [`context`](#ControlInformationcontextodatacontext)

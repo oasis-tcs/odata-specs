@@ -2958,7 +2958,7 @@ for collection-valued properties. A property MUST NOT have select
 options specified in more than one place in a request and MUST NOT have
 both select options and expand options specified.
 
-If the `$select` query option is not specified, [the service returns
+If the `$select` query option is not specified, the service returns
 the full set of properties or a default set of properties. The default
 set of properties MUST include all key properties.
 Services may change the default set of properties returned. This
@@ -4465,6 +4465,9 @@ references specified in a successful update request represents the full
 set of entities to be related according to that relationship and MUST
 NOT include added links, deleted links, or deleted entities.
 
+If a navigation property is absent from a `PUT` or `PATCH` request payload, the referenced
+or contained entity, or the collection thereof, remains unchanged by a successful update.
+
 ::: example
 Example 79: using the JSON format, a 4.01 `PATCH` request can update a
 manager entity. Following the update, the manager has three direct
@@ -4561,7 +4564,90 @@ nested delta representation to:
   ]
 }
 ```
+:::
 
+::: example
+Example 81: When updating an entity with a 4.01 `PUT` request, the target of a
+non-containment navigation property can be replaced if the targeted entity is specified
+by an entity reference (see [OData-JSON, section 14](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#EntityReference)), without specifying all
+its structural properties in `PUT` semantics.
+
+The following JSON payload changes the name of a category and the products belonging
+to it. (Compare this to [OData-JSON, example 22](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#deepupdate).)
+The effect would be the same if the `@context` was omitted from the request.
+:::: side-by-side
+::::: caption
+Request
+```json
+PUT http://host/service/Categories(6)?$expand=Products
+Content-Type: application/json
+
+{
+  "Name": "UpdatedCategory",
+  "Products": [
+    {
+      "@context": "$metadata#$ref",
+      "@id": "Products(57)"
+    }
+  ]
+}
+```
+:::::
+::::: caption
+Response
+```json
+{
+  "@context": "$metadata#Categories/$entity",
+  "CategoryID": 6,
+  "Name": "UpdatedCategory",
+  "Products": [
+    {
+      "ProductID": 57,
+      "Name": "Widgets"
+    }
+  ]
+}
+```
+:::::
+::::
+
+If `Products` was a containment navigation property, the request and response
+would be the same, except that the `@id` would likely be relative to the category,
+for example, `Categories(6)/Products(57)`.
+
+If the targeted entity in the payload contains some structural properties,
+`PUT` resets all its other structural properties. The following alternative
+payload resets the product name.
+The effect would be the same if the `@id` was omitted from the request.
+:::: side-by-side
+```json
+PUT http://host/service/Categories(6)?$expand=Products
+Content-Type: application/json
+
+{
+  "Name": "UpdatedCategory",
+  "Products": [
+    {
+      "@id": "Products(57)",
+      "ProductID": 57
+    }
+  ]
+}
+```
+```json
+{
+  "@context": "$metadata#Categories/$entity",
+  "CategoryID": 6,
+  "Name": "UpdatedCategory",
+  "Products": [
+    {
+      "ProductID": 57,
+      "Name": null
+    }
+  ]
+}
+```
+::::
 :::
 
 Clients MAY associate an id with individual nested entities in the
@@ -4808,7 +4894,7 @@ payload unless explicitly requested with [`$expand`](#SystemQueryOptionexpand).
 Instead, the values are generally read or written through URLs.
 
 ::: example
-Example <a id="entityWithStreamProperty" href="#entityWithStreamProperty">81</a>: read an entity and select a stream property
+Example <a id="entityWithStreamProperty" href="#entityWithStreamProperty">82</a>: read an entity and select a stream property
 
 ```
 GET http://host/service/Products(1)?$select=Thumbnail
@@ -4839,7 +4925,7 @@ The response MAY be a redirect to the media read link of the stream property
 if the media read link is different from the canonical URL.
 
 ::: example
-Example 82: directly read a stream property of an entity
+Example 83: directly read a stream property of an entity
 
 ```
 GET http://host/service/Products(1)/Thumbnail
@@ -4890,7 +4976,7 @@ attempts to set the property to null and results in an error if the
 property is non-nullable.
 
 ::: example
-Example 83: delete the stream value using the media edit link retrieved in [example 81](#entityWithStreamProperty)
+Example 84: delete the stream value using the media edit link retrieved in [example 82](#entityWithStreamProperty)
 
 ```
 DELETE http://server/uploads/Thumbnail546.jpg
@@ -5044,7 +5130,7 @@ ordinal number indexes from the end of the collection, with -1
 representing an insert as the last item in the collection.
 
 ::: example
-Example 84: Insert a new email address at the second position
+Example 85: Insert a new email address at the second position
 
 ```json
 POST /service/Customers('ALFKI')/EmailAddresses?$index=1
@@ -5206,7 +5292,7 @@ semantics described in [Update a Collection of
 Entities](#UpdateaCollectionofEntities) applies.
 
 ::: example
-Example 85: change the color of all beige-brown products
+Example 86: change the color of all beige-brown products
 
 ```json
 PATCH /service/Products/$filter(@bar)/$each?@bar=Color eq 'beige-brown'
@@ -5252,7 +5338,7 @@ The request resource path of the collection MAY contain type-cast or
 filter segments to subset the collection.
 
 ::: example
-Example 86: delete all products older than 3
+Example 87: delete all products older than 3
 
 ```
 DELETE /service/Products/$filter(Age gt 3)/$each
@@ -5304,7 +5390,7 @@ by that URL is used as the *binding parameter value*. Only aliases
 defined in the metadata document of the service can be used in URLs.
 
 ::: example
-Example 87: the function `MostRecentOrder` can be bound to any URL that
+Example 88: the function `MostRecentOrder` can be bound to any URL that
 identifies a `SampleModel.Customer`
 ```xml
 <Function Name="MostRecentOrder" IsBound="true">
@@ -5315,7 +5401,7 @@ identifies a `SampleModel.Customer`
 :::
 
 ::: example
-Example 88: invoke the `MostRecentOrder` function with the value of the
+Example 89: invoke the `MostRecentOrder` function with the value of the
 binding parameter `customer` being the entity identified by
 `http://host/service/Customers(6)`
 ```
@@ -5324,7 +5410,7 @@ GET http://host/service/Customers(6)/SampleModel.MostRecentOrder()
 :::
 
 ::: example
-Example 89: the function `Comparison` can be bound to any URL that
+Example 90: the function `Comparison` can be bound to any URL that
 identifies a collection of entities
 ```xml
 <Function Name="Comparison" IsBound="true">
@@ -5335,7 +5421,7 @@ identifies a collection of entities
 :::
 
 ::: example
-Example 90: invoke the `Comparison` function on the set of red products
+Example 91: invoke the `Comparison` function on the set of red products
 ```
 GET http://host/service/Products/$filter(Color eq 'Red')/Diff.Comparison()
 ```
@@ -5358,7 +5444,7 @@ result type of the bound operation. If the bound operation returns a
 collection, the response is a collection of collections.
 
 ::: example
-Example 91: invoke the `MostRecentOrder` function on each entity in the
+Example 92: invoke the `MostRecentOrder` function on each entity in the
 entity set `Customers`
 ```
 GET http://host/service/Customers/$each/SampleModel.MostRecentOrder()
@@ -5386,7 +5472,7 @@ or entity collection within the payload. The representation of an action
 or function depends on the [format](#Formats).
 
 ::: example
-Example 92: given a `GET` request to
+Example 93: given a `GET` request to
 `http://host/service/Customers('ALFKI')`, the service might respond with
 a Customer that includes the `SampleEntities.MostRecentOrder` function
 bound to the entity
@@ -5413,7 +5499,7 @@ Services can advertise that a function or action is not available for a
 particular instance by setting its value to null.
 
 ::: example
-Example 93: the `SampleEntities.MostRecentOrder` function is not
+Example 94: the `SampleEntities.MostRecentOrder` function is not
 available for customer `ALFKI`
 ```json
 {
@@ -5497,7 +5583,7 @@ segment is a multi-valued navigation property, a `POST` request may be
 used to create a new entity in the identified collection.
 
 ::: example
-Example 94: add a new item to the list of items of the shopping cart
+Example 95: add a new item to the list of items of the shopping cart
 returned by the composable `MyShoppingCart` function import
 ```
 POST http://host/service/MyShoppingCart()/Items
@@ -5546,7 +5632,7 @@ Each parameter value is represented as a name/value pair in the format
 and `Value` is the parameter value.
 
 ::: example
-Example 95: invoke a `Sales.EmployeesByManager` function which takes a
+Example 96: invoke a `Sales.EmployeesByManager` function which takes a
 single `ManagerID` parameter via the function import
 `EmployeesByManager`
 ```
@@ -5555,7 +5641,7 @@ GET http://host/service/EmployeesByManager(ManagerID=3)
 :::
 
 ::: example
-Example 96: return all Customers whose `City` property returns
+Example 97: return all Customers whose `City` property returns
 `Western` when passed to the `Sales.SalesRegion` function
 ```
 GET http://host/service/Customers?
@@ -5568,7 +5654,7 @@ parameter value. The value for the alias is specified as a separate
 query option using the name of the parameter alias.
 
 ::: example
-Example 97: invoke a `Sales.EmployeesByManager` function via the
+Example 98: invoke a `Sales.EmployeesByManager` function via the
 function import `EmployeesByManager`, passing 3 for the `ManagerID`
 parameter
 ```
@@ -5588,7 +5674,7 @@ optional `$` prefix), the parameter name MUST be prefixed with an at
 (`@`) sign.
 
 ::: example
-Example 98: invoke a `Sales.EmployeesByManager` function via the
+Example 99: invoke a `Sales.EmployeesByManager` function via the
 function import `EmployeesByManager`, passing 3 for the `ManagerID`
 parameter using the implicit parameter alias
 ```
@@ -5728,7 +5814,7 @@ collection as a whole is transported in the [`ETag`](#HeaderETag) header of a
 collection response.
 
 ::: example
-Example 99: invoke the `SampleEntities.CreateOrder` action using
+Example 100: invoke the `SampleEntities.CreateOrder` action using
 `Customers('ALFKI')` as the customer (or binding parameter). The values
 `2` for the `quantity` parameter and `BLACKFRIDAY` for the
 `discountCode` parameter are passed in the body of the request. Invoke
@@ -5875,7 +5961,7 @@ format](#MultipartBatchFormat) MUST contain a
 [RFC2046](#rfc2046).
 
 ::: example
-Example 100: multipart batch request
+Example 101: multipart batch request
 ```
 POST /service/$batch HTTP/1.1
 Host: odata.org
@@ -5890,7 +5976,7 @@ A batch request using the JSON batch format MUST contain a
 `Content-Type` header specifying a content type of `application/json`.
 
 ::: example
-Example 101: JSON batch request
+Example 102: JSON batch request
 ```
 POST /service/$batch HTTP/1.1
 Host: odata.org
@@ -5945,7 +6031,7 @@ the request URL. Services MUST treat this segment like the URL in the
 [`Location`](#HeaderLocation) header of the response to the request identified by the segment.
 If the `Location` header in the response to the subsequent request contains a relative URL,
 clients MUST be able to resolve it relative to the request's URL even if
-that contains such a reference. See [example 106](#batchcontentid).
+that contains such a reference. See [example 107](#batchcontentid).
 
 If the `$`-prefixed request identifier is identical to the name of a
 top-level system resource (`$batch`, `$crossjoin`, `$all`, `$entity`,
@@ -6046,7 +6132,7 @@ set can use one of the following three formats:
 - Absolute URI with schema, host, port, and absolute resource path.
 
 ::: example
-Example 102:
+Example 103:
 ```
 GET https://host:1234/path/service/People(1) HTTP/1.1
 ```
@@ -6055,7 +6141,7 @@ GET https://host:1234/path/service/People(1) HTTP/1.1
 - Absolute resource path and separate `Host` header
 
 ::: example
-Example <a id="batchhost" href="#batchhost">103</a>:
+Example <a id="batchhost" href="#batchhost">104</a>:
 ```json
 PATCH /path/service/People(1) HTTP/1.1
 Host: myserver.mydomain.org:1234
@@ -6068,7 +6154,7 @@ Content-Type: application/json
 - Resource path relative to the batch request URI.
 
 ::: example
-Example 104:
+Example 105:
 ```
 DELETE People(1) HTTP/1.1
 ```
@@ -6093,7 +6179,7 @@ processor may choose to disallow chunked encoding to be used by such
 HTTP requests.
 
 ::: example
-Example <a id="batchRequest" href="#batchRequest">105</a>: a batch request that contains the following individual
+Example <a id="batchRequest" href="#batchRequest">106</a>: a batch request that contains the following individual
 requests in the order listed
 
   1. A query request
@@ -6172,7 +6258,7 @@ which case they SHOULD advertise this support by specifying the
 term applied to the entity container, see [OData-VocCap](#ODataVocCap).
 
 ::: example
-Example <a id="batchcontentid" href="#batchcontentid">106</a>: a batch request that contains the following operations in
+Example <a id="batchcontentid" href="#batchcontentid">107</a>: a batch request that contains the following operations in
 the order listed:
 
 A change set that contains the following requests:
@@ -6244,7 +6330,7 @@ request URL `$1/Orders`. To get an absolute base URI, the client must replace th
 resulting URL `Customers('ALFKI')/Orders(1)` relative to its base URI, which is
 `http://host/service/Customers` (determined from the
 first request URL `/service/Customers` and the `Host: host` header
-as in [example 103](#batchhost)). This gives the effective second request URL
+as in [example 104](#batchhost)). This gives the effective second request URL
 `http://host/service/Customers('ALFKI')/Orders` as base URI for the second `Location`
 URL, which therefore resolves to `http://host/service/Customers('ALFKI')/Orders(1)`.
 :::
@@ -6252,7 +6338,7 @@ URL, which therefore resolves to `http://host/service/Customers('ALFKI')/Orders(
 #### <a id="ReferencinganETag" href="#ReferencinganETag">11.7.7.3 Referencing an ETag</a>
 
 ::: example
-Example 107: a batch request that contains the following operations in
+Example 108: a batch request that contains the following operations in
 the order listed:
 
 - Get an employee (with `Content-ID = 1`)
@@ -6293,7 +6379,7 @@ If-Match: $1
 #### <a id="ReferencingResponseBodyValues" href="#ReferencingResponseBodyValues">11.7.7.4 Referencing Response Body Values</a>
 
 ::: example
-Example 108: a batch request that contains the following operations in
+Example 109: a batch request that contains the following operations in
 the order listed:
 
 - Get an employee (with `Content-ID = 1`)
@@ -6386,11 +6472,11 @@ A response to an operation in a batch MUST be formatted exactly as it
 would have appeared outside of a batch as described in the corresponding
 subsections of chapter [Data Service Requests](#DataServiceRequests).
 Relative URLs in each individual response are relative to the request
-URL of the corresponding individual request (see [example 106](#batchcontentid)).
+URL of the corresponding individual request (see [example 107](#batchcontentid)).
 URLs in responses MUST NOT contain `$`-prefixed request identifiers.
 
 ::: example
-Example 109: referencing the batch request [example 105](#batchRequest) above, assume all
+Example 110: referencing the batch request [example 106](#batchRequest) above, assume all
 the requests except the final query request succeed. In this case the
 response would be
 ```
@@ -6466,7 +6552,7 @@ Since a change set is executed atomically,
 a change set.
 
 ::: example
-Example 110: referencing the [example 105](#batchRequest) above again, assume that
+Example 111: referencing the [example 106](#batchRequest) above again, assume that
 ```
 HTTP/1.1 202 Accepted
 Location: http://service-root/async-monitor-0

@@ -220,6 +220,8 @@ Section | Feature / Change | Issue
 [Section 4.6.8](#ControlInformationidodataid)| Transient entities can be identifiable| [1928](https://github.com/oasis-tcs/odata-specs/issues/1928)
 [Section 4.6.12](#ControlInformationmediaodatamedia)| `mediaContentType` can be `null`| [536](https://github.com/oasis-tcs/odata-specs/issues/536)
 [Section 7](#StructuralProperty), [Section A.2](#InformativeReferences)| Removed reference to obsolete version of GeoJSON| [456](https://github.com/oasis-tcs/odata-specs/issues/456)
+[Section 15.3](#DeletedEntity) | `type` control information, if present, must come immediately after `removed` |
+[1985](https://github.com/oasis-tcs/odata-specs/issues/1985)
 [Section 18](#ActionInvocation)| Allow common expressions in action payloads| [341](https://github.com/oasis-tcs/odata-specs/issues/341)
 
 ## <a id="Glossary" href="#Glossary">1.2 Glossary</a>
@@ -711,6 +713,7 @@ constraints have to be met:
 
 - If present, the `context` control information MUST be the first
   property in the JSON object.
+- For 4.01 deleted entities, the `removed` control information MUST appear   after `context`, if present, and before any other property or control information.
 - The
   `type` control information, if present, MUST appear next in
   the JSON object.
@@ -1734,7 +1737,7 @@ Content-Type: application/json
 :::
 
 ::: example
-Example 22: submit a partial update request to:
+Example <a id="deepupdate" href="#deepupdate">22</a>: submit a partial update request to:
 - modify the name of an existing category
 - assign an existing product with the id 42 to the category
 - assign an existing product 57 to the category and update its name
@@ -2271,7 +2274,8 @@ a property, not control information
 
 In OData 4.01 payloads the deleted-entity object MUST include the
 following properties, regardless of the specified
-[`metadata`](#ControllingtheAmountofControlInformationinResponses) value:
+[`metadata`](#ControllingtheAmountofControlInformationinResponses) value.
+For ordered payloads, this control information MUST follow the [payload ordering constraints](#PayloadOrderingConstraints).
 
 - Control information
   [`removed`](#ControlInformationremovedodataremoved),
@@ -2284,12 +2288,7 @@ following properties, regardless of the specified
   collection. The object MAY include
   [annotations](#InstanceAnnotations), and clients SHOULD NOT error
   due to the presence of additional properties that MAY be defined by
-  future versions of this specification. For [ordered
-  payloads](#PayloadOrderingConstraints), the control information
-  [`removed`](#ControlInformationremovedodataremoved) MUST immediately
-  follow the [`context`](#ControlInformationcontextodatacontext) control
-  information, if present, otherwise it MUST be the first property in the
-  deleted entity.
+  future versions of this specification.
 
 - Control information
   [`id`](#ControlInformationidodataid)
@@ -2298,11 +2297,7 @@ following properties, regardless of the specified
   from the response _or_ the entity-id is not identical to the canonical
   URL of the entity. When using a delta payload in an   [update request](#UpdateaCollectionofEntities), an [alternate key](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AlternateKeys) (see _Alternate Keys_ in [OData-URL](#ODataURL))
   MAY be used in place of the entity's primary key. A delta response from an update request using alternate keys SHOULD include all fields of the alternate key used in the request, in which case it
-  MAY omit the `id` control information and other primary key fields. For [ordered
-  payloads](#PayloadOrderingConstraints), the control information
-  `id`, if present, MUST immediately follow the control
-  information
-  [`removed`](#ControlInformationremovedodataremoved).
+  MAY omit the `id` control information and other primary key fields.
 
 For full metadata the
 [`context`](#ControlInformationcontextodatacontext)
