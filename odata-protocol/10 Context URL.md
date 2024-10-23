@@ -249,8 +249,8 @@ If a single entity contains a subset of properties, the parenthesized
 comma-separated list of the selected defined or dynamic properties,
 instance annotations, navigation properties, functions, and actions is
 appended to the `{entity-set}` after an optional type-cast segment and
-prior to appending `/$entity`. If the entity is not bound to an
-entity set, the `{select-list}` is instead appended to the
+prior to appending `/$entity`. If the response is not a subset of a
+single entity set, the `{select-list}` is instead appended to the
 `{type-name}` of the returned entity.
 
 Regardless of how contained structural properties are represented in the
