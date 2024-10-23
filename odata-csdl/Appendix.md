@@ -92,6 +92,10 @@ https://www.rfc-editor.org/info/rfc6570.
 ###### [RFC7493]{id=rfc7493}
 _The I-JSON Message Format", RFC 7493, DOI 10.17487/RFC7493, March 2015_.  
 https://www.rfc-editor.org/info/rfc7493.
+
+###### [RFC7946]{id=rfc7946}
+_Butler, H., Daly, M., Doyle, A., Gillies, S., Hagen, S., and T. Schaub, "The GeoJSON Format", RFC 7946, DOI 10.17487/RFC7946, August 2016_.
+https://www.rfc-editor.org/info/rfc7946.
 :
 
 ###### [RFC8174]{id=rfc8174}
@@ -164,7 +168,7 @@ especially the contributions of
 :
 
 The contributions of the OASIS OData Technical Committee members,
-enumerated in [ODataProtocol](#ODataProtocol), are gratefully
+enumerated in [#OData-Protocol#Participants], are gratefully
 acknowledged.
 
 ## ##subasec Participants

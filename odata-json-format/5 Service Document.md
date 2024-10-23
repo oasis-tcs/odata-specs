@@ -15,7 +15,7 @@ The value of the `value` property MUST be a JSON array
 containing one element for each entity set and function import with an
 explicit or default value of `true` for the attribute
 `IncludeInServiceDocument` and each singleton exposed by the
-service, see [OData-CSDLJSON](#ODataCSDL) or [OData-CSDLXML](#ODataCSDL).
+service, see [OData-CSDL](#ODataCSDL).
 
 Each element MUST be a JSON object with at least two name/value pairs,
 one with name `name` containing the name of the entity set,
@@ -104,9 +104,8 @@ represented as a name/value pair within the object. The order properties
 appear within the object is considered insignificant.
 
 An entity in a payload may be a complete entity, a projected entity (see
-_System Query Option_ `$select` in
-[OData-Protocol](#ODataProtocol)), or a partial entity update (see
-_Update an Entity_ in [OData-Protocol](#ODataProtocol)).
+[#OData-Protocol#SystemQueryOptionselect]), or a partial entity update (see
+[#OData-Protocol#UpdateanEntity]).
 
 An entity representation can be (modified and) round-tripped to the
 service directly. The [context

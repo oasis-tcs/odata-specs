@@ -178,7 +178,7 @@ Note: structural and navigation properties MAY be returned by the
 service on instances of any structured type, whether or not the type is
 marked as open. Clients MUST always be prepared to deal with additional
 properties on instances of any structured type, see
-[OData‑Protocol](#ODataProtocol).
+[#OData-Protocol#DataModel].
 
 ::: {.varjson .rep}
 ### ##subisec `$OpenType`

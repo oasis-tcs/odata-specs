@@ -78,7 +78,7 @@ _ISO/IEC 9075-2:2011 Information technology - Database languages - SQL - Part 2:
 
 ## ##subasec Special Thanks
 
-The contributions of the OASIS OData Technical Committee members, enumerated in [OData-Protocol](#ODataProtocol) are gratefully acknowledged.
+The contributions of the OASIS OData Technical Committee members, enumerated in [#OData-Protocol#Participants], are gratefully acknowledged.
 
 Special thanks to Andrew Eisenberg, whose contributions in the early stages of the OData TC were invaluable to getting this extension specification on track.
 
