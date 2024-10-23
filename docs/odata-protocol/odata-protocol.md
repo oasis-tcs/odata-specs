@@ -344,7 +344,7 @@ service as well as a set of reserved URL query options.
 The [OData-CSDLJSON](#ODataCSDL) specification defines a JSON
 representation of the entity data model exposed by an OData service.
 
-The [OData-CSDLXML](#ODataCSDL) specification defines an XML
+The [OData-CSDLXML](#ODataCSDLXML) specification defines an XML
 representation of the entity data model exposed by an OData service.
 
 The [OData-JSON](#ODataJSON) document specifies the JSON format of the
@@ -526,7 +526,7 @@ set.
 An OData *resource* is anything in the model that can be addressed (an
 entity set, entity, property, or operation).
 
-Refer to [OData-CSDLJSON](#ODataCSDL) or [OData-CSDLXML](#ODataCSDL) for
+Refer to [OData-CSDLJSON](#ODataCSDL) or [OData-CSDLXML](#ODataCSDLXML) for
 more information on the OData entity data model.
 
 ## <a id="Annotations" href="#Annotations">3.1 Annotations</a>
@@ -585,7 +585,7 @@ of the specification since there is currently no lossless representation
 of an IRI in the [`EntityId`](#HeaderODataEntityId) header.
 
 Services are strongly encouraged to use the canonical URL for an entity
-as defined in [OData-URL](#ODataURL) as its entity-id, but clients cannot assume
+as defined in [OData-URL, section 4.3.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalURL) as its entity-id, but clients cannot assume
 the entity-id can be used to locate the entity unless the
 [`Core.DereferenceableIDs`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DereferenceableIDs)
 term is applied to the entity container, nor can the client assume any
@@ -612,7 +612,7 @@ The edit URL of a property is the edit URL of the entity with appended
 segment(s) containing the path to the property.
 
 Services are strongly encouraged to use the canonical URL for an entity
-as defined in [OData-URL](#ODataURL) for both the read URL and the edit URL of an
+as defined in [OData-URL, section 4.3.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalURL)(#ODataURL) for both the read URL and the edit URL of an
 entity, with a cast segment to the type of the entity appended to the
 canonical URL if the type of the entity is derived from the declared
 type of the entity set. However, clients cannot assume this convention
@@ -923,7 +923,7 @@ ignored. Custom format parameters MUST NOT start with `odata` and
 services MUST NOT require generic OData consumers to understand custom
 format parameters in order to correctly interpret the payload.
 
-See [OData-JSON](#ODataJSON) for format-specific details about format
+See [OData-JSON, section 4.1](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#HeaderContentType) for format-specific details about format
 parameters within the `Content-Type` header.
 
 ### <a id="HeaderContentEncoding" href="#HeaderContentEncoding">8.1.2 Header `Content-Encoding`</a>
@@ -1734,7 +1734,7 @@ HTTP/2).
 
 The value of this trailing header is a standard OData error response
 according to the OData response format, encoded suitably for transport
-in a header, see e.g. [OData-JSON](#ODataJSON).
+in a header, see e.g. [OData-JSON, section 21.2](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#InStreamError).
 
 ### <a id="HeaderPreferenceApplied" href="#HeaderPreferenceApplied">8.3.6 Header `Preference-Applied`</a>
 
@@ -2546,7 +2546,7 @@ Context URL template:
     {context-url}#Collection(Edm.EntityType)
 
 Responses to requests to the virtual collection `$all` (see
-[OData-URL](#ODataURL)) use the built-in abstract entity type. Each
+[OData-URL, section 4.16](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingAllEntitiesinaService)) use the built-in abstract entity type. Each
 single entity in such a response has its individual context URL that
 identifies the entity set or singleton.
 
@@ -2557,7 +2557,7 @@ Context URL template:
     {context-url}#Collection(Edm.ComplexType)
 
 Responses to requests to the virtual collections `$crossjoin(…)` (see
-[OData-URL](#ODataURL)) use the built-in abstract complex type. Single
+[OData-URL, section 4.15](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingtheCrossJoinofEntitySets)) use the built-in abstract complex type. Single
 instances in these responses do not have a context URL.
 
 
@@ -2629,7 +2629,7 @@ metadata documents and provides a JSON schema to validate their
 contents. The media type of the JSON representation of an OData metadata
 document is `application/json`.
 
-[OData-CSDLXML](#ODataCSDL) describes an XML representation for OData
+[OData-CSDLXML](#ODataCSDLXML) describes an XML representation for OData
 metadata documents and provides an XML schema to validate their
 contents. The media type of the XML representation of an OData metadata
 document is `application/xml`.
@@ -2713,9 +2713,9 @@ URL that identifies the entity, e.g. its read URL.
 
 The read URL can be obtained from a response payload containing that
 instance, for example as a `readLink` or `editLink` in an
-[OData-JSON](#ODataJSON) payload. In addition, services
+[OData-JSON, section 4.6.9](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink) payload. In addition, services
 MAY support conventions for constructing a read URL using the entity's
-key value(s), as described in [OData-URL](#ODataURL).
+key value(s), as described in [OData-URL, section 4.3.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalURL).
 
 The set of structural or navigation properties to return may be
 specified through [`$select`](#SystemQueryOptionselect) or
@@ -2775,7 +2775,7 @@ the property name appended.
 For complex typed properties, the path can be further extended with the
 name of an individual property of the complex type.
 
-See [OData-URL](#ODataURL) for details.
+See [OData-URL, section 4.6](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingaProperty) for details.
 
 If the property is single-valued and has the `null` value, the service
 responds with [`204 No Content`](#ResponseCode204NoContent).
@@ -2805,7 +2805,7 @@ system query option.
 #### <a id="RequestingaRawValueusingvalue" href="#RequestingaRawValueusingvalue">11.2.4.2 Requesting a Raw Value using `$value`</a>
 
 To retrieve the raw value of a primitive property or operation result, the client sends
-a `GET` request to the raw value URL. See the [OData-URL](#ODataURL) document for details.
+a `GET` request to the raw value URL. See [OData-URL, section 4.7](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingaRawValue) for details.
 
 The `Content-Type` of the response is determined using the `Accept`
 header and the [`$format`](#SystemQueryOptionformat) system query
@@ -3004,7 +3004,7 @@ GET http://host/service.svc/Customers?$expand=Photo
 The set of expanded entities can be further refined through the
 application of expand options, expressed as a semicolon-separated list
 of system query options, enclosed in parentheses, see
-[OData-URL](#ODataURL).
+[OData-URL, section 5.1.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#SystemQueryOptionexpand).
 
 Allowed system query options are
 [`$compute`](#SystemQueryOptioncompute),
@@ -3794,7 +3794,7 @@ GET http://host/service/Orders?$format=application/json;metadata=full
 is equivalent to a request with an `Accept` header using the same media
 type; it requests the set of Order entities represented using the JSON
 media type including full metadata, as defined in
-[OData-JSON](#ODataJSON).
+[OData-JSON, section 3.1.2](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#metadatafullodatametadatafull).
 
 ::: example
 Example 75: the request
@@ -3806,7 +3806,7 @@ GET http://host/service/Orders?$format=json
 is equivalent to a request with the `Accept` header set to
 `application/json`; it requests the set of Order entities represented
 using the JSON media type with minimal metadata, as defined in
-[OData-JSON](#ODataJSON).
+[OData-JSON, section 3.1.1](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#metadataminimalodatametadataminimal).
 
 In [metadata document requests](#MetadataDocumentRequest), the values
 `application/xml` and `application/json`, along with their subtypes and
@@ -4737,7 +4737,7 @@ deleted, the dependent entity is also deleted.
 
 Relationships between entities are represented by navigation properties
 as described in [Data Model](#DataModel). URL conventions for navigation
-properties are described in [OData-URL](#ODataURL).
+properties are described in [OData-URL, section 4.3.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#URLsforRelatedEntitieswithReferentialConstraints).
 
 #### <a id="AddaReferencetoaCollectionValuedNavigationProperty" href="#AddaReferencetoaCollectionValuedNavigationProperty">11.4.6.1 Add a Reference to a Collection-Valued Navigation Property</a>
 
@@ -4763,7 +4763,7 @@ collection of related references, with the reference to be removed
 identified by the [`$id`](#ResolvinganEntityId) query option. OData 4.01
 services additionally support using the URL that represents the
 reference of the collection member to be removed, identified by key, as
-described in [OData-URL](#ODataURL).
+described in [OData-URL, section 4.4](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingReferencesbetweenEntities).
 
 For single-valued navigation properties, the
 [`$id`](#ResolvinganEntityId) query option MUST NOT be specified.
@@ -4787,7 +4787,7 @@ On successful completion, the response MUST be
 Alternatively, a relationship MAY be updated as part of an update to the
 source entity by including the required binding information for the new
 target entity. This binding information is format-specific, see
-[OData-JSON](#ODataJSON) for details.
+[OData-JSON, section 15.4](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#RelatedEntities) for details.
 
 If the single-valued navigation property is used in the key definition
 of an entity type, it cannot be changed and the request MUST fail with
@@ -4980,7 +4980,7 @@ Attempting to request a stream property whose value is null results in
 Values and properties can be explicitly addressed with URLs. The edit
 URL of a property is the edit URL of the entity appended with the path
 segment(s) specifying the individual property. The edit URL allows
-properties to be individually modified. See [OData-URL](#ODataURL) for
+properties to be individually modified. See [OData-URL, section 4.6](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingaProperty) for
 details on addressing individual properties.
 
 #### <a id="UpdateaPrimitiveProperty" href="#UpdateaPrimitiveProperty">11.4.9.1 Update a Primitive Property</a>
@@ -5265,7 +5265,8 @@ describes an update to each member of the collection, not an update to
 the collection itself.
 
 The resource path of the collection MAY contain type-cast or filter
-segments to subset the collection, see [OData-URL](#ODataURL).
+segments to subset the collection, see [OData-URL, section 4.11](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingDerivedTypes) and
+[OData-URL, section 4.12](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingaSubsetofaCollection).
 
 For primitive-typed collections the body of the request MUST be a
 primitive value. Each member of the potentially filtered collection is
@@ -5362,7 +5363,7 @@ Custom operations ([Actions](#Actions) and [Functions](#Functions))
 allow encapsulating logic for modifying or requesting data that goes
 beyond simple CRUD described in the preceding sections of this chapter.
 See `Action`, `ActionImport`, `Function`, and `FunctionImport` in
-[OData-CSDLJSON](#ODataCSDL) or [OData-CSDLXML](#ODataCSDL).
+[OData-CSDLJSON](#ODataCSDL) or [OData-CSDLXML](#ODataCSDLXML).
 
 ### <a id="BindinganOperationtoaResource" href="#BindinganOperationtoaResource">11.5.1 Binding an Operation to a Resource</a>
 
@@ -5481,7 +5482,7 @@ bound to the entity
 An efficient format that assumes client knowledge of metadata may omit
 actions and functions from the payload  whose target URL can be computed
 via metadata following standard conventions defined in
-[OData-URL](#ODataURL).
+[OData-URL, section 4.5](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingOperations).
 
 Services can advertise that a function or action is not available for a
 particular instance by setting its value to null.
@@ -5608,7 +5609,7 @@ result requires a `4xx` response, and continues otherwise.
 Function imports preceded by the `$root` literal MAY be used in the
 [`$filter`](#SystemQueryOptionfilter) or
 [`$orderby`](#SystemQueryOptionorderby) system query options, see
-[OData-URL](#ODataURL).
+[OData-URL, section 5.1.2](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#SystemQueryOptionfilter) and [OData-URL, section 5.1.5](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#SystemQueryOptionorderby).
 
 ##### <a id="InlineParameterSyntax" href="#InlineParameterSyntax">11.5.4.1.1 Inline Parameter Syntax</a>
 
@@ -5696,7 +5697,7 @@ If the function is bound and the binding parameter type is part of an
 inheritance hierarchy, the function overload is selected based on the
 type of the URL segment preceding the function name. A type-cast segment
 can be used to select a function defined on a particular type in the
-hierarchy, see [OData-URL](#ODataURL).
+hierarchy, see [OData-URL, section 4.11](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingDerivedTypes).
 
 Non-binding parameters MAY be marked as optional by annotating them with
 the term
@@ -5832,7 +5833,7 @@ If the action is bound and the binding parameter type is part of an
 inheritance hierarchy, the action overload is selected based on the type
 of the URL segment preceding the action name. A type-cast segment can be
 used to select an action defined on a particular type in the hierarchy,
-see [OData-URL](#ODataURL).
+see [OData-URL, section 4.11](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingDerivedTypes).
 
 ## <a id="AsynchronousRequests" href="#AsynchronousRequests">11.6 Asynchronous Requests</a>
 
@@ -5927,7 +5928,7 @@ a batch request.
 
 A batch request is represented using either the [multipart batch
 format](#MultipartBatchFormat) defined in this document or the JSON
-batch format defined in [OData-JSON](#ODataJSON).
+batch format defined in [OData-JSON, section 19](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#BatchRequestsandResponses).
 
 If the set of request headers of a batch request are valid the service
 MUST return a [`200 OK`](#ResponseCode200OK) HTTP response code to
@@ -6686,7 +6687,7 @@ request
 7. MUST successfully parse the request according to
 [OData-ABNF](#ODataABNF) for any supported system query options and
 follow the specification or fail the request
-8. MUST expose only data types defined in [OData-CSDLXML](#ODataCSDL)
+8. MUST expose only data types defined in [OData-CSDLXML](#ODataCSDLXML)
 9. MUST NOT require clients to understand any metadata or instance
 annotations ([section 6.4](#VocabularyExtensibility)), custom headers ([section 6.5](#HeaderFieldExtensibility)), or custom
 content ([section 6.2](#PayloadExtensibility)) in the payload in order to correctly consume the
@@ -6696,7 +6697,7 @@ service
 11. MUST NOT violate any other OData-defined semantics
 12. SHOULD support `$expand` ([section 11.2.5.2](#SystemQueryOptionexpand))
 13. SHOULD publish metadata at `$metadata` according to
-[OData-CSDLXML](#ODataCSDL) and MAY publish metadata according to
+[OData-CSDLXML](#ODataCSDLXML) and MAY publish metadata according to
 [OData-CSDLJSON](#ODataCSDL) ([section 11.1.2](#MetadataDocumentRequest))
 14. MUST support prefixed variants of supported headers and preference
 values
@@ -6714,7 +6715,7 @@ final response to an asynchronous request
 To be considered an *Updatable OData Service*, the service additionally:
 
 18. MUST include edit links (explicitly or implicitly) for all
-updatable or deletable resources according to [OData-JSON](#ODataJSON)
+updatable or deletable resources according to [OData-JSON, section 4.6.9](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink)
 19. MUST support `POST` of new entities to insertable entity sets
 ([section 11.4.1.5](#ReturningResultsfromDataModificationRequests))
 20. MUST support `POST` of new related entities to updatable navigation
@@ -6755,7 +6756,7 @@ Level](#OData40MinimalConformanceLevel)
 follow the specification or fail the request
 3. MUST support `$select` ([section 11.2.5.1](#SystemQueryOptionselect))
 4. MUST support casting to a derived type according to
-[OData-URL](#ODataURL) if derived types are present in the model
+[OData-URL, section 4.11](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingDerivedTypes) if derived types are present in the model
 5. MUST support `$top` ([section 11.2.6.3](#SystemQueryOptiontop))
 6. MUST support `/$value` on media entities ([section 11.1.2](#MetadataDocumentRequest)) and individual properties ([section 11.2.4.2](#RequestingaRawValueusingvalue))
 7. MUST support `$filter` ([section 11.2.6.1](#SystemQueryOptionfilter))
@@ -6769,7 +6770,7 @@ operations
 MUST fail the request for any unsupported canonical functions
    5. SHOULD support `$filter` on expanded entities ([section 11.2.5.2.1](#ExpandOptions))
 8. SHOULD publish metadata at `$metadata` according to
-[OData-CSDLXML](#ODataCSDL) ([section 11.1.2](#MetadataDocumentRequest))
+[OData-CSDLXML](#ODataCSDLXML) ([section 11.1.2](#MetadataDocumentRequest))
 9. SHOULD support the [OData-JSON](#ODataJSON) format
 10. SHOULD consider supporting basic authentication as defined in
 [RFC7617](#rfc7617) over HTTPS for the highest level of interoperability
@@ -6792,7 +6793,7 @@ In order to conform to the OData Advanced Conformance Level, a service:
 1. MUST conform to at least the [OData 4.0 Intermediate Conformance
 Level](#OData40IntermediateConformanceLevel)
 2. MUST publish metadata at `$metadata` according to
-[OData-CSDLXML](#ODataCSDL) ([section 11.1.2](#MetadataDocumentRequest))
+[OData-CSDLXML](#ODataCSDLXML) ([section 11.1.2](#MetadataDocumentRequest))
 3. MUST support the [OData-JSON](#ODataJSON) format
 4. MUST support the `/$count` segment on navigation and collection
 properties ([section 11.2.10](#RequestingtheNumberofItemsinaCollection))
@@ -6817,13 +6818,13 @@ properties
 10. MUST support the `$search` system query option ([section 11.2.6.6](#SystemQueryOptionsearch))
 11. MUST support batch requests according to the multipart format
 ([section 11.7](#BatchRequests) and all subsections) and MAY support batch requests
-according to the JSON Batch format defined in [OData-JSON](#ODataJSON)
+according to the JSON Batch format defined in [OData-JSON, section 19](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#BatchRequestsandResponses)
 12. MUST support the resource path conventions defined in
-[OData-URL](#ODataURL)
+[OData-URL, section 4](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#ResourcePath)
 13. SHOULD support asynchronous requests
 ([section 11.6](#AsynchronousRequests))
 14. SHOULD support Delta change tracking ([section 11.3](#RequestingChanges))
-15. SHOULD support cross-join queries defined in [OData-URL](#ODataURL)
+15. SHOULD support cross-join queries defined in [OData-URL, section 4.15](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingtheCrossJoinofEntitySets)
 16. MAY support the `$compute` system query option ([section 11.2.5.3](#SystemQueryOptioncompute))
 
 ## <a id="OData401ServiceConformanceLevels" href="#OData401ServiceConformanceLevels">12.2 OData 4.01 Service Conformance Levels</a>
@@ -6884,12 +6885,12 @@ with a maximum cardinality of one
    11. SHOULD support negative indexes for the substring function
    12. MAY support Key-As-Segment URL convention
        1. MUST also support canonical URL conventions (described in
-[OData-URL](#ODataURL)) or include URLs in payload
+[OData-URL, section 4.3.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalURL)) or include URLs in payload
    13. MAY support the count of a filtered collection in a common
 expression
    14. MAY support equal and non-equal structural comparison
 10. SHOULD publish metadata at `$metadata` according to both
-[OData-CSDLXML](#ODataCSDL) and [OData-CSDLJSON](#ODataCSDL) ([section 11.1.2](#MetadataDocumentRequest))
+[OData-CSDLXML](#ODataCSDLXML) and [OData-CSDLJSON](#ODataCSDL) ([section 11.1.2](#MetadataDocumentRequest))
 11. SHOULD NOT have identifiers within a uniqueness scope (e.g. a
 schema, a structural type, or an entity container) that differ only by
 case
@@ -6971,7 +6972,7 @@ properties
 [OData-CSDLJSON](#ODataCSDL) ([section 11.1.2](#MetadataDocumentRequest))
 7. MUST support batch requests according both to the multipart format
 ([section 11.7](#BatchRequests) and all subsections) and the JSON Batch format defined in
-[OData-JSON](#ODataJSON)
+[OData-JSON, section 19](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#BatchRequestsandResponses)
 8. SHOULD support filtering a collection using a `/$filter` path
 segment
 9. SHOULD support nested parameter alias assignments in
@@ -6994,7 +6995,7 @@ To be generally interoperable, OData clients
 2. MUST specify `OData-Version` ([section 8.1.5](#HeaderODataVersion)) and `Content-Type`
 ([section 8.1.1](#HeaderContentType)) in any request with a payload
 3. MUST be a conforming consumer of OData as defined in
-[OData-JSON](#ODataJSON)
+[OData-JSON, section 23](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#Conformance)
 4. MUST follow redirects ([section 9.1.5](#ResponseCode3xxRedirection))
 5. MUST correctly handle next links ([section 11.2.6.7](#ServerDrivenPaging))
 6. MUST support instances returning properties and navigation
@@ -7014,9 +7015,9 @@ returned in the response ([section 11.2.8](#RequestingEntityReferences))
 in a delta response ([section 11.3](#RequestingChanges))
 14. MAY support asynchronous responses ([section 11.6](#AsynchronousRequests))
 15. MAY support `metadata=minimal` in a JSON response (see
-[OData-JSON](#ODataJSON))
+[OData-JSON, section 3.1.1](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#metadataminimalodatametadataminimal))
 16. MAY support `streaming` in a JSON response (see
-[OData-JSON](#ODataJSON))
+[OData-JSON, section 4.5](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#PayloadOrderingConstraints))
 
 In addition, interoperable OData 4.01 clients
 
@@ -7054,10 +7055,11 @@ See link in "[Related work](#RelatedWork)" section on cover page.
 _OData Extension for Data Aggregation Version 4.02._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### [OData-CSDL]{id=ODataCSDL}
+###### [OData-CSDLJSON]{id=ODataCSDL}
 _OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
+###### [OData-CSDLXML]{id=ODataCSDLXML}
 _OData Common Schema Definition Language (CSDL) XML Representation Version 4.02._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 

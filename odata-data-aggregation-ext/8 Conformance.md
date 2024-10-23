@@ -68,7 +68,7 @@ https://www.rfc-editor.org/info/rfc8174.
 
 ## ##subasec Special Thanks
 
-The contributions of the OASIS OData Technical Committee members, enumerated in [OData-Protocol](#ODataProtocol), are gratefully acknowledged.
+The contributions of the OASIS OData Technical Committee members, enumerated in [#OData-Protocol#Participants], are gratefully acknowledged.
 
 ## ##subasec Participants
 
