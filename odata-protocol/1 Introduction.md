@@ -296,7 +296,7 @@ The edit URL of a property is the edit URL of the entity with appended
 segment(s) containing the path to the property.
 
 Services are strongly encouraged to use the canonical URL for an entity
-as defined in [#OData-URL#CanonicalURL](#ODataURL) for both the read URL and the edit URL of an
+as defined in [#OData-URL#CanonicalURL] for both the read URL and the edit URL of an
 entity, with a cast segment to the type of the entity appended to the
 canonical URL if the type of the entity is derived from the declared
 type of the entity set. However, clients cannot assume this convention
