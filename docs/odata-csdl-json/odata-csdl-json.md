@@ -272,6 +272,7 @@ Section | Feature / Change | Issue
 [Section 14.3.14](#StreamValues) | Constant Stream values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
 [Section 14.4.1.2](#PathEvaluation)| New path evaluation rules for annotations targeting annotations and external targeting via container| [575](https://github.com/oasis-tcs/odata-specs/issues/575)
 [Section 14.4.7](#IfThenElse)| Nested `If` without else part in collections| [326](https://github.com/oasis-tcs/odata-specs/issues/326)
+[Section 15.2](#SimpleIdentifier) | Prefer identifiers consisting only of latin letters, the underscore, and decimal numbers | [375](https://github.com/oasis-tcs/odata-specs/issues/375)
 [Section 17](#Conformance) | Additional conformance clauses for version 4.02 |
 
 ## <a id="Glossary" href="#Glossary">1.2 Glossary</a>
@@ -5697,6 +5698,10 @@ restrictions:
 Non-normatively speaking it starts with a letter or underscore, followed
 by at most 127 letters, underscores or digits.
 
+For maximum interoperability services SHOULD use simple identifiers
+consisting only of latin letters, the underscore, and decimal numbers,
+that is match the pattern `^[_A-Za-z][_A-Za-z0-9]*$`.
+
 ## <a id="QualifiedName" href="#QualifiedName">15.3 Qualified Name</a>
 
 For model elements that are direct children of a schema: the namespace
@@ -6073,9 +6078,10 @@ In addition, OData 4.01 or greater services:
 schema, a structural type, or an entity container) that differ only by
 case
 
-In addition, OData 4.01 services:
+In addition, OData 4.02 or greater services:
 
 15. SHOULD NOT include constant [Geo](#GeoValues) or [Stream values](#StreamValues) in annotations
+16. SHOULD use [simple identifiers](#SimpleIdentifier) matching the pattern `^[_A-Za-z][_A-Za-z0-9]*$`
 
 Conforming clients MUST be prepared to consume a model that uses any or
 all constructs defined in this specification, including custom
