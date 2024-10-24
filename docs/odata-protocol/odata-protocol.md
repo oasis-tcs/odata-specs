@@ -2836,7 +2836,8 @@ Responses for the other primitive types follow the rules `booleanValue`, `byteVa
 `dateValue`, `dateTimeOffsetValue`, `decimalValue`, `doubleValue`,
 `durationValue`, `enumValue`, `guidValue`, `int16Value`, `int32Value`,
 `int64Value`, `sbyteValue`, `singleValue`, and `timeOfDayValue` in
-[OData-ABNF](#ODataABNF); they MUST NOT use the `charset` parameter which implies the default character set `US-ASCII`.
+[OData-ABNF](#ODataABNF); they MUST NOT use the `charset` parameter which implies the default character set `US-ASCII`,
+see [RFC2046](#rfc2046), [section 4.1.2](https://www.rfc-editor.org/rfc/rfc2046.html#section-4.1.2).
 
 A raw value request for a property or operation result of type `Edm.Stream`
 returns `400 Bad Request`.
