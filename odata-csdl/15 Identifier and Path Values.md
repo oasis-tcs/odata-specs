@@ -28,6 +28,10 @@ restrictions:
 Non-normatively speaking it starts with a letter or underscore, followed
 by at most 127 letters, underscores or digits.
 
+For maximum interoperability services SHOULD use simple identifiers
+consisting only of latin letters, the underscore, and decimal numbers,
+that is match the pattern `^[_A-Za-z][_A-Za-z0-9]*$`.
+
 ## ##subsec Qualified Name
 
 For model elements that are direct children of a schema: the namespace
@@ -574,9 +578,10 @@ In addition, OData 4.01 or greater services:
 schema, a structural type, or an entity container) that differ only by
 case
 
-In addition, OData 4.01 services:
+In addition, OData 4.02 or greater services:
 
 15. SHOULD NOT include constant [Geo](#GeoValues) or [Stream values](#StreamValues) in annotations
+16. SHOULD use [simple identifiers](#SimpleIdentifier) matching the pattern `^[_A-Za-z][_A-Za-z0-9]*$`
 
 Conforming clients MUST be prepared to consume a model that uses any or
 all constructs defined in this specification, including custom
