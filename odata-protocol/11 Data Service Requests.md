@@ -1149,7 +1149,7 @@ matching the request after applying any
 [`$filter`](#SystemQueryOptionfilter) or
 [`$search`](#SystemQueryOptionsearch) system query options, formatted as
 a simple primitive integer value with media type `text/plain` without `charset` parameter,
-and the response body following rule `1*DIGIT`.
+and the response body following rule `1*DIGIT`, see [OData-ABNF](#ODataABNF).
 
 Clients SHOULD NOT combine the system query options
 [`$top`](#SystemQueryOptiontop),
