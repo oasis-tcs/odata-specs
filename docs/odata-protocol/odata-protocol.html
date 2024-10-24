@@ -574,6 +574,16 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/368">368</a></td>
 </tr>
 <tr class="odd">
+<td><a href="#RequestingaRawValueusingvalue">Section 11.2.4.2</a></td>
+<td>Use of <code>charset</code> parameter in responses to <code>/$value</code></td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/325">325</a></td>
+</tr>
+<tr class="even">
+<td><a href="#RequestingtheNumberofItemsinaCollection">Section 11.2.10</a></td>
+<td>Only digits in a response to <code>/$count</code></td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/325">325</a></td>
+</tr>
+<tr class="odd">
 <td><a href="#DataModification">Section 11.4</a></td>
 <td>Response code <code>204 No Content</code> after successful data modification if requested response could not be constructed</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/443">443</a></td>
@@ -1743,8 +1753,10 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>To retrieve the raw value of a primitive property or operation result, the client sends a <code>GET</code> request to the raw value URL. See the <a href="#ODataURL">OData-URL</a> document for details.</p>
 <p>The <code>Content-Type</code> of the response is determined using the <code>Accept</code> header and the <a href="#SystemQueryOptionformat"><code>$format</code></a> system query option.</p>
 <p>The default format for <code>Edm.Binary</code> is the format specified by the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#MediaType"><code>Core.MediaType</code></a> annotation (see <a href="#ODataVocCore">OData-VocCore</a>) if this annotation is present. If not annotated, the format cannot be predicted by the client.</p>
-<p>The default format for <code>Edm.Geo</code> types is <code>text/plain</code> using the WKT (well-known text) format, see rules <code>fullCollectionLiteral</code>, <code>fullLineStringLiteral</code>, <code>fullMultiPointLiteral</code>, <code>fullMultiLineStringLiteral</code>, <code>fullMultiPolygonLiteral</code>, <code>fullPointLiteral</code>, and <code>fullPolygonLiteral</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
-<p>The default format for single primitive values except <code>Edm.Binary</code> and the <code>Edm.Geo</code> types is <code>text/plain</code>. Responses of type <code>Edm.String</code> can use the <code>charset</code> format parameter to specify the character set used for representing the string value. Responses for the other primitive types follow the rules <code>booleanValue</code>, <code>byteValue</code>, <code>dateValue</code>, <code>dateTimeOffsetValue</code>, <code>decimalValue</code>, <code>doubleValue</code>, <code>durationValue</code>, <code>enumValue</code>, <code>guidValue</code>, <code>int16Value</code>, <code>int32Value</code>, <code>int64Value</code>, <code>sbyteValue</code>, <code>singleValue</code>, and <code>timeOfDayValue</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
+<p>The default format for <code>Edm.Geo</code> types is <code>text/plain</code> without <code>charset</code> parameter, using the WKT (well-known text) format, see rules <code>fullCollectionLiteral</code>, <code>fullLineStringLiteral</code>, <code>fullMultiPointLiteral</code>, <code>fullMultiLineStringLiteral</code>, <code>fullMultiPolygonLiteral</code>, <code>fullPointLiteral</code>, and <code>fullPolygonLiteral</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
+<p>The default format for single primitive values except <code>Edm.Binary</code> and the <code>Edm.Geo</code> types is <code>text/plain</code>.</p>
+<p>Responses for type <code>Edm.String</code> MAY use the <code>charset</code> format parameter to specify the character set used for representing the string value; omission of the <code>charset</code> parameter implies the default character set <code>US-ASCII</code>.</p>
+<p>Responses for the other primitive types follow the rules <code>booleanValue</code>, <code>byteValue</code>, <code>dateValue</code>, <code>dateTimeOffsetValue</code>, <code>decimalValue</code>, <code>doubleValue</code>, <code>durationValue</code>, <code>enumValue</code>, <code>guidValue</code>, <code>int16Value</code>, <code>int32Value</code>, <code>int64Value</code>, <code>sbyteValue</code>, <code>singleValue</code>, and <code>timeOfDayValue</code> in <a href="#ODataABNF">OData-ABNF</a>; they MUST NOT use the <code>charset</code> parameter which implies the default character set <code>US-ASCII</code>.</p>
 <p>A raw value request for a property or operation result of type <code>Edm.Stream</code> returns <code>400 Bad Request</code>.</p>
 <p>A raw value request for a property or operation result that is <code>null</code> results in a <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> response.</p>
 <p>If the property or operation result is not available, for example due to permissions, the service responds with <a href="#ResponseCode404NotFound"><code>404 Not Found</code></a>.</p>
@@ -2163,7 +2175,8 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <h3 id="11210-requesting-the-number-of-items-in-a-collection"><a id="RequestingtheNumberofItemsinaCollection" href="#RequestingtheNumberofItemsinaCollection">11.2.10 Requesting the Number of Items in a Collection</a></h3>
 </summary>
 <p>To request only the number of items of a collection of entities or items of a collection-valued property, the client issues a <code>GET</code> request with <code>/$count</code> appended to the resource path of the collection.</p>
-<p>On success, the response body MUST contain the exact count of items matching the request after applying any <a href="#SystemQueryOptionfilter"><code>$filter</code></a> or <a href="#SystemQueryOptionsearch"><code>$search</code></a> system query options, formatted as a simple primitive integer value with media type <code>text/plain</code>. Clients SHOULD NOT combine the system query options <a href="#SystemQueryOptiontop"><code>$top</code></a>, <a href="#SystemQueryOptionskip"><code>$skip</code></a>, <a href="#SystemQueryOptionorderby"><code>$orderby</code></a>, <a href="#SystemQueryOptionexpand"><code>$expand</code></a>, and <a href="#SystemQueryOptionformat"><code>$format</code></a> with the path suffix <code>/$count</code>. The result of such a request is undefined.</p>
+<p>On success, the response body MUST contain the exact count of items matching the request after applying any <a href="#SystemQueryOptionfilter"><code>$filter</code></a> or <a href="#SystemQueryOptionsearch"><code>$search</code></a> system query options, formatted as a simple primitive integer value with media type <code>text/plain</code> without <code>charset</code> parameter, and the response body consisting only of octets <code>0x30</code> to <code>0x39</code>.</p>
+<p>Clients SHOULD NOT combine the system query options <a href="#SystemQueryOptiontop"><code>$top</code></a>, <a href="#SystemQueryOptionskip"><code>$skip</code></a>, <a href="#SystemQueryOptionorderby"><code>$orderby</code></a>, <a href="#SystemQueryOptionexpand"><code>$expand</code></a>, and <a href="#SystemQueryOptionformat"><code>$format</code></a> with the path suffix <code>/$count</code>. The result of such a request is undefined.</p>
 <div class="example">
 <p>Example 69: return the number of products in the Products entity set</p>
 <pre><code>GET http://host/service/Products/$count</code></pre>

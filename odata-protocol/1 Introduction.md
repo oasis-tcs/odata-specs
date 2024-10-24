@@ -30,7 +30,8 @@ Section | Feature / Change | Issue
 [Section ##CollectionofEntities]| 
 Context URLs use parentheses-style keys without percent-encoding| 
 [368](https://github.com/oasis-tcs/odata-specs/issues/368)
-[Section ##RequestingtheNumberofItemsinaCollection]| Only digits in a response to `/$count` |  [325](https://github.com/oasis-tcs/odata-specs/issues/325)
+[Section ##RequestingaRawValueusingvalue]| Use of `charset` parameter in responses to `/$value` | [325](https://github.com/oasis-tcs/odata-specs/issues/325)
+[Section ##RequestingtheNumberofItemsinaCollection]| Only digits in a response to `/$count` | [325](https://github.com/oasis-tcs/odata-specs/issues/325)
 [Section ##DataModification]| 
 Response code `204 No Content` after successful data modification if requested response could not be constructed| 
 [443](https://github.com/oasis-tcs/odata-specs/issues/443)

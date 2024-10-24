@@ -356,6 +356,8 @@ Section | Feature / Change | Issue
 --------|------------------|------
 [Section 8.2.8.3](#Preferencecontinueonerrorodatacontinueonerror) | Responses that include errors MUST include the `Preference-Applied` header with `continue-on-error` set to `true` | [1965](https://github.com/oasis-tcs/odata-specs/issues/1965)
 [Section 10.2](#CollectionofEntities)| Context URLs use parentheses-style keys without percent-encoding| [368](https://github.com/oasis-tcs/odata-specs/issues/368)
+[Section 11.2.4.2](#RequestingaRawValueusingvalue)| Use of `charset` parameter in responses to `/$value` | [325](https://github.com/oasis-tcs/odata-specs/issues/325)
+[Section 11.2.10](#RequestingtheNumberofItemsinaCollection)| Only digits in a response to `/$count` | [325](https://github.com/oasis-tcs/odata-specs/issues/325)
 [Section 11.4](#DataModification)| Response code `204 No Content` after successful data modification if requested response could not be constructed| [443](https://github.com/oasis-tcs/odata-specs/issues/443)
 [Section 11.4.2](#CreateanEntity)| Services can validate non-insertable property values in insert payloads| [356](https://github.com/oasis-tcs/odata-specs/issues/356)
 [Section 11.4.3](#UpdateanEntity)| Services can validate non-updatable property values in update payloads| [356](https://github.com/oasis-tcs/odata-specs/issues/356)
@@ -2817,7 +2819,7 @@ annotation (see [OData-VocCore](#ODataVocCore)) if this
 annotation is present. If not annotated, the format cannot be predicted
 by the client.
 
-The default format for `Edm.Geo` types is `text/plain` using the WKT
+The default format for `Edm.Geo` types is `text/plain` without `charset` parameter, using the WKT
 (well-known text) format, see rules `fullCollectionLiteral`,
 `fullLineStringLiteral`, `fullMultiPointLiteral`,
 `fullMultiLineStringLiteral`, `fullMultiPolygonLiteral`,
@@ -2825,14 +2827,16 @@ The default format for `Edm.Geo` types is `text/plain` using the WKT
 [OData-ABNF](#ODataABNF).
 
 The default format for single primitive values except `Edm.Binary` and
-the `Edm.Geo` types is `text/plain`. Responses of type
-`Edm.String` can use the `charset` format parameter to specify the
-character set used for representing the string value. Responses for the
-other primitive types follow the rules `booleanValue`, `byteValue`,
+the `Edm.Geo` types is `text/plain`.
+
+Responses for type `Edm.String` MAY use the `charset` format parameter to specify the
+character set used for representing the string value; omission of the `charset` parameter implies the default character set `US-ASCII`.
+
+Responses for the other primitive types follow the rules `booleanValue`, `byteValue`,
 `dateValue`, `dateTimeOffsetValue`, `decimalValue`, `doubleValue`,
 `durationValue`, `enumValue`, `guidValue`, `int16Value`, `int32Value`,
 `int64Value`, `sbyteValue`, `singleValue`, and `timeOfDayValue` in
-[OData-ABNF](#ODataABNF).
+[OData-ABNF](#ODataABNF); they MUST NOT use the `charset` parameter which implies the default character set `US-ASCII`.
 
 A raw value request for a property or operation result of type `Edm.Stream`
 returns `400 Bad Request`.
@@ -3707,8 +3711,10 @@ On success, the response body MUST contain the exact count of items
 matching the request after applying any
 [`$filter`](#SystemQueryOptionfilter) or
 [`$search`](#SystemQueryOptionsearch) system query options, formatted as
-a simple primitive integer value with media type `text/plain`. Clients
-SHOULD NOT combine the system query options
+a simple primitive integer value with media type `text/plain` without `charset` parameter,
+and the response body consisting only of octets `0x30` to `0x39`.
+
+Clients SHOULD NOT combine the system query options
 [`$top`](#SystemQueryOptiontop),
 [`$skip`](#SystemQueryOptionskip),
 [`$orderby`](#SystemQueryOptionorderby),
