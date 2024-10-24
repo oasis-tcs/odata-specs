@@ -3889,7 +3889,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <li>The remaining characters MUST be the underscore character (U+005F) or any character in the Unicode category “Letter (L)”, “Letter number (Nl)”, “Decimal number (Nd)”, “Non-spacing mark (Mn)”, “Combining spacing mark (Mc)”, “Connector punctuation (Pc)”, and “Other, format (Cf)”.</li>
 </ul>
 <p>Non-normatively speaking it starts with a letter or underscore, followed by at most 127 letters, underscores or digits.</p>
-<p>For maximum interoperability services SHOULD use simple identifiers consisting only of latin letters, the underscore, and decimal numbers, that is match the pattern <code>^[_A-Za-z][_A-Za-z0-9]*$</code>.</p>
+<p>For maximum interoperability services SHOULD use simple identifiers that additionally only consist of characters from the Basic Latin code block and match the pattern <code>^[_A-Za-z][_A-Za-z0-9]*$</code>.</p>
 </details>
 <details open><summary>
 <h2 id="153-qualified-name"><a id="QualifiedName" href="#QualifiedName">15.3 Qualified Name</a></h2>

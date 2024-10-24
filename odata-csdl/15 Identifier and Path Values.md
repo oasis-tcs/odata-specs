@@ -29,8 +29,8 @@ Non-normatively speaking it starts with a letter or underscore, followed
 by at most 127 letters, underscores or digits.
 
 For maximum interoperability services SHOULD use simple identifiers
-consisting only of latin letters, the underscore, and decimal numbers,
-that is match the pattern `^[_A-Za-z][_A-Za-z0-9]*$`.
+that additionally only consist of characters from the Basic Latin code block
+and match the pattern `^[_A-Za-z][_A-Za-z0-9]*$`.
 
 ## ##subsec Qualified Name
 
