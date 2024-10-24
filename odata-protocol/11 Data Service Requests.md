@@ -255,7 +255,7 @@ annotation (see [OData-VocCore](#ODataVocCore)) if this
 annotation is present. If not annotated, the format cannot be predicted
 by the client.
 
-The default format for `Edm.Geo` types is `text/plain` using the WKT
+The default format for `Edm.Geo` types is `text/plain` without `charset` parameter, using the WKT
 (well-known text) format, see rules `fullCollectionLiteral`,
 `fullLineStringLiteral`, `fullMultiPointLiteral`,
 `fullMultiLineStringLiteral`, `fullMultiPolygonLiteral`,
@@ -263,14 +263,17 @@ The default format for `Edm.Geo` types is `text/plain` using the WKT
 [OData-ABNF](#ODataABNF).
 
 The default format for single primitive values except `Edm.Binary` and
-the `Edm.Geo` types is `text/plain`. Responses of type
-`Edm.String` can use the `charset` format parameter to specify the
-character set used for representing the string value. Responses for the
-other primitive types follow the rules `booleanValue`, `byteValue`,
+the `Edm.Geo` types is `text/plain`.
+
+Responses for type `Edm.String` MAY use the `charset` format parameter to specify the
+character set used for representing the string value; omission of the `charset` parameter implies the default character set `US-ASCII`.
+
+Responses for the other primitive types follow the rules `booleanValue`, `byteValue`,
 `dateValue`, `dateTimeOffsetValue`, `decimalValue`, `doubleValue`,
 `durationValue`, `enumValue`, `guidValue`, `int16Value`, `int32Value`,
 `int64Value`, `sbyteValue`, `singleValue`, and `timeOfDayValue` in
-[OData-ABNF](#ODataABNF).
+[OData-ABNF](#ODataABNF); they MUST NOT use the `charset` parameter, this implies the default character set `US-ASCII`,
+see [RFC2046](#rfc2046), [section 4.1.2](https://www.rfc-editor.org/rfc/rfc2046.html#section-4.1.2).
 
 A raw value request for a property or operation result of type `Edm.Stream`
 returns `400 Bad Request`.
@@ -1145,8 +1148,10 @@ On success, the response body MUST contain the exact count of items
 matching the request after applying any
 [`$filter`](#SystemQueryOptionfilter) or
 [`$search`](#SystemQueryOptionsearch) system query options, formatted as
-a simple primitive integer value with media type `text/plain`. Clients
-SHOULD NOT combine the system query options
+a simple primitive integer value with media type `text/plain` without `charset` parameter,
+and the response body following rule `1*DIGIT`, see [OData-ABNF](#ODataABNF).
+
+Clients SHOULD NOT combine the system query options
 [`$top`](#SystemQueryOptiontop),
 [`$skip`](#SystemQueryOptionskip),
 [`$orderby`](#SystemQueryOptionorderby),
