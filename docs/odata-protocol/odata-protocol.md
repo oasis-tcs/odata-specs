@@ -2836,7 +2836,7 @@ Responses for the other primitive types follow the rules `booleanValue`, `byteVa
 `dateValue`, `dateTimeOffsetValue`, `decimalValue`, `doubleValue`,
 `durationValue`, `enumValue`, `guidValue`, `int16Value`, `int32Value`,
 `int64Value`, `sbyteValue`, `singleValue`, and `timeOfDayValue` in
-[OData-ABNF](#ODataABNF); they MUST NOT use the `charset` parameter which implies the default character set `US-ASCII`,
+[OData-ABNF](#ODataABNF); they MUST NOT use the `charset` parameter, this implies the default character set `US-ASCII`,
 see [RFC2046](#rfc2046), [section 4.1.2](https://www.rfc-editor.org/rfc/rfc2046.html#section-4.1.2).
 
 A raw value request for a property or operation result of type `Edm.Stream`
@@ -3713,7 +3713,7 @@ matching the request after applying any
 [`$filter`](#SystemQueryOptionfilter) or
 [`$search`](#SystemQueryOptionsearch) system query options, formatted as
 a simple primitive integer value with media type `text/plain` without `charset` parameter,
-and the response body consisting only of octets `0x30` to `0x39`.
+and the response body following rule `int64value` without the sign, see [OData-ABNF](#ODataABNF).
 
 Clients SHOULD NOT combine the system query options
 [`$top`](#SystemQueryOptiontop),
