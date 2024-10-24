@@ -1145,8 +1145,10 @@ On success, the response body MUST contain the exact count of items
 matching the request after applying any
 [`$filter`](#SystemQueryOptionfilter) or
 [`$search`](#SystemQueryOptionsearch) system query options, formatted as
-a simple primitive integer value with media type `text/plain`. Clients
-SHOULD NOT combine the system query options
+a simple primitive integer value with media type `text/plain` without `charset` parameter,
+and the response body consisting only of octets `0x30` to `0x39`.
+
+Clients SHOULD NOT combine the system query options
 [`$top`](#SystemQueryOptiontop),
 [`$skip`](#SystemQueryOptionskip),
 [`$orderby`](#SystemQueryOptionorderby),
