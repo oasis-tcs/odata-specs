@@ -1295,21 +1295,7 @@ An entity is serialized as a JSON object. It MAY contain
 or [`deltaLink`](#ControlInformationdeltaLinkodatadeltaLink)
 control information.
 
-If a nullable single-valued navigation property or
-entity-valued annotation or return type of an operation has the `null` value,
-the value is serialized as follows:
-- If, with [minimal metadata](#metadataminimalodatametadataminimal),
-  the value carries no [control information](#ControlInformation) other than
-  [`context`](#ControlInformationcontextodatacontext)
-  and no [instance annotations](#InstanceAnnotations),
-  - the value does not have a representation as response to a request (see [OData-Protocol, section 9.1.4](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ResponseCode204NoContent))
-  - but is represented by the JSON literal `null` when it occurs in a name/value pair
-    in another JSON object (for example, an [expanded single-valued navigation property](#ExpandedNavigationProperty)).
-- Otherwise the context control information is omitted and the serialization produces
-  a JSON object consisting of name/value pairs for the
-  other control information and instance annotations only.
-
-Otherwise, each [property](#StructuralProperty) to be transmitted is
+Each [property](#StructuralProperty) to be transmitted is
 represented as a name/value pair within the object. The order properties
 appear within the object is considered insignificant.
 
@@ -1911,11 +1897,8 @@ An individual property or operation response is represented as a JSON
 object.
 
 A single-valued property or operation response that has the
-`null` value does not have a representation provided that, with
-[minimal metadata](#metadataminimalodatametadataminimal), it carries no
-[control information](#ControlInformation) other than
-[`context`](#ControlInformationcontextodatacontext)
-and no [instance annotations](#InstanceAnnotations); see [OData-Protocol](#ODataProtocol).
+`null` value does not have a representation; see
+[OData-Protocol](#ODataProtocol).
 
 A property or operation response that is of a primitive type is
 represented as an object with a name/value pair whose name is
@@ -1923,9 +1906,7 @@ represented as an object with a name/value pair whose name is
 value](#PrimitiveValue) or `null`.
 
 A property or operation response that is of complex type is represented
-as a [complex value](#ComplexValue). If the value is `null`, the context control information
-is omitted and the JSON object consists of name/value pairs for the
-other control information and instance annotations only.
+as a [complex value](#ComplexValue).
 
 A property or operation response that is of a collection type is
 represented as an object with a name/value pair whose name is
@@ -1983,21 +1964,6 @@ Example 30: empty collection of complex values
 {
   "@context": "http://host/service/$metadata#Collection(Model.Address)",
   "value": []
-}
-```
-:::
-
-::: example
-Example 31: An action is invoked when a utilities customer moves into a building,
-it returns the address. After a successful move-in it might return the
-`null` value accompanied by an instance annotation:
-```json
-{
-  "@Core.Messages": [{
-    "code": "EADDRESS",
-    "message": "Street name not yet determined",
-    "severity": "error"
-  }]
 }
 ```
 :::
@@ -2073,7 +2039,7 @@ control information MUST be included in a response that represents a
 partial result.
 
 ::: example
-Example 32:
+Example 31:
 ```json
 {
   "@context": "…",
@@ -2110,7 +2076,7 @@ control information and MAY contain
 [`deltaLink`](#ControlInformationdeltaLinkodatadeltaLink) control information.
 
 ::: example
-Example 33: entity reference to order 10643
+Example 32: entity reference to order 10643
 ```json
 {
   "@context": "http://host/service/$metadata#$ref",
@@ -2120,7 +2086,7 @@ Example 33: entity reference to order 10643
 :::
 
 ::: example
-Example 34: collection of entity references
+Example 33: collection of entity references
 ```json
 {
   "@context": "http://host/service/$metadata#Collection($ref)",
@@ -2167,7 +2133,7 @@ subsequent changes once the current set of changes has been applied to
 the initial set.
 
 ::: example
-Example 35: a 4.01 delta response with three changes, in order of
+Example 34: a 4.01 delta response with three changes, in order of
 occurrence
 
   1. `ContactName` for customer `BOTTM` was changed to `Susan Halvenstern`
@@ -2200,7 +2166,7 @@ occurrence
 :::
 
 ::: example
-Example 36: a 4.0 delta response with three changes, in order of
+Example 35: a 4.0 delta response with three changes, in order of
 occurrence
 
   1. `ContactName` for customer `BOTTM` was changed to `Susan Halvenstern`
@@ -2295,7 +2261,7 @@ following optional property, regardless of the specified
   result (i.e., due to a data change).
 
 ::: example
-Example 37: deleted entity in OData 4.0 response --- note that `id` is
+Example 36: deleted entity in OData 4.0 response --- note that `id` is
 a property, not control information
 ```json
 {
@@ -2346,7 +2312,7 @@ representation of a related collection of entities, to represent related
 entities that have been modified or deleted.
 
 ::: example
-Example 38: deleted entity in OData 4.01 response with `id`
+Example 37: deleted entity in OData 4.01 response with `id`
 control information (prefixed with an `@`)
 ```json
 {
@@ -2361,7 +2327,7 @@ control information (prefixed with an `@`)
 :::
 
 ::: example
-Example 39: entity removed OData 4.01 response without `id`
+Example 38: entity removed OData 4.01 response without `id`
 control information and instead all key fields (`ID` is the
 single key field of `Customer`)
 ```json
@@ -2400,7 +2366,7 @@ only deleted if the navigation property is a containment navigation
 property. The array MUST NOT contain [added](#AddedLink) or [deleted links](#DeletedLink).
 
 ::: example
-Example 40: changes to related orders represented as a 4.01 nested delta representation
+Example 39: changes to related orders represented as a 4.01 nested delta representation
 
   1. For Customer `ALFKI`:
       1. Order 10643 was removed
@@ -2466,7 +2432,7 @@ clients SHOULD NOT receive additional notifications for such removed
 entities.
 
 ::: example
-Example 41: 4.01 delta response for a single entity with an expanded navigation
+Example 40: 4.01 delta response for a single entity with an expanded navigation
 property containing only a partial list of related entities (as
 indicated with a [next link](#ControlInformationnextLinkodatanextLink))
 ```json
@@ -2492,7 +2458,7 @@ information MUST be present for entities are not part of the entity set specifie
 [`metadata`](#ControllingtheAmountofControlInformationinResponses) value.
 
 ::: example
-Example 42: changes to related orders represented as a 4.0 flattened delta payload
+Example 41: changes to related orders represented as a 4.0 flattened delta payload
 
   1. Order 10643 was removed from customer `ALFKI`
   2. Order 10645 was added to customer `ALFKI`
@@ -2610,7 +2576,7 @@ entities. OData 4.0 delta payloads MAY additionally include [added](#AddedLink) 
 [deleted](#DeletedLink) links between entities.
 
 ::: example
-Example 43: 4.01 collection-update request for customers with expanded orders represented
+Example 42: 4.01 collection-update request for customers with expanded orders represented
 inline as a delta
   1. Add customer `EASTC`
   2. Change `ContactName` of customer `AROUT`
@@ -2917,7 +2883,7 @@ is requested, the `target` name/value pair MUST be included
 if its value differs from the canonical function or action URL.
 
 ::: example
-Example 44: minimal representation of a function where all overloads are
+Example 43: minimal representation of a function where all overloads are
 applicable
 ```json
 {
@@ -2929,7 +2895,7 @@ applicable
 :::
 
 ::: example
-Example 45: full representation of a specific overload with parameter
+Example 44: full representation of a specific overload with parameter
 alias for the `Year` parameter
 ```json
 {
@@ -2944,7 +2910,7 @@ alias for the `Year` parameter
 :::
 
 ::: example
-Example 46: full representation in a collection
+Example 45: full representation in a collection
 ```json
 {
   "@context": "http://host/service/$metadata#Employees",
@@ -2958,7 +2924,7 @@ Example 46: full representation in a collection
 :::
 
 ::: example
-Example 47: full representation in a nested collection
+Example 46: full representation in a nested collection
 ```json
 {
   "@context": "http://host/service/$metadata#Employees/$entity",
@@ -3021,7 +2987,7 @@ is requested, the `target` name/value pair MUST be included
 if its value differs from the canonical function or action URL.
 
 ::: example
-Example 48: minimal representation in an entity
+Example 47: minimal representation in an entity
 ```json
 {
   "@context": "http://host/service/$metadata#LeaveRequests/$entity",
@@ -3032,7 +2998,7 @@ Example 48: minimal representation in an entity
 :::
 
 ::: example
-Example 49: full representation in an entity:
+Example 48: full representation in an entity:
 ```json
 {
   "@context": "http://host/service/$metadata#LeaveRequests/$entity",
@@ -3046,7 +3012,7 @@ Example 49: full representation in an entity:
 :::
 
 ::: example
-Example 50: full representation in a collection
+Example 49: full representation in a collection
 ```json
 {
   "@context": "http://host/service/$metadata#LeaveRequests",
@@ -3060,7 +3026,7 @@ Example 50: full representation in a collection
 :::
 
 ::: example
-Example 51: full representation in a nested collection
+Example 50: full representation in a nested collection
 ```json
 {
   "@context": "http://host/service/$metadata#Employees/$entity",
@@ -3093,7 +3059,7 @@ Stream typed parameter values are represented following the same rules as inline
 Entities as parameter values are represented as explained in [section 6](#Entity).
 
 ::: example
-Example 52: Create a quote for a product that does not yet exist. The `Product`
+Example 51: Create a quote for a product that does not yet exist. The `Product`
 parameter takes a transient entity.
 ```json
 POST http://host/service/CreateQuote
@@ -3110,7 +3076,7 @@ Content-Type: application/json
 :::
 
 ::: example
-Example 53: Create a quote for an existing product. The `Product`
+Example 52: Create a quote for an existing product. The `Product`
 parameter takes a non-transient entity which can be identified through its
 entity-id:
 ```json
@@ -3150,7 +3116,7 @@ non-transient entities can be passed as non-binding action parameters through a
 resource path in this way.
 
 ::: example
-Example 54: An employee requests leave from their manager for the next two weeks:
+Example 53: An employee requests leave from their manager for the next two weeks:
 ```json
 POST /service/Employees(23)/self.RequestLeave
 Host: host
@@ -3196,7 +3162,7 @@ parameter is equivalent to being annotated as optional with a default
 value of `null`.
 
 ::: example
-Example 55:
+Example 54:
 ```json
 {
   "param1": 42,
@@ -3342,7 +3308,7 @@ The request object and the `headers` object MUST NOT contain name/value pairs wi
 This is in conformance with [RFC7493](#rfc7493).
 
 ::: example
-Example <a id="batchRequest" href="#batchRequest">56</a>: a batch request that contains
+Example <a id="batchRequest" href="#batchRequest">55</a>: a batch request that contains
 the following individual requests in the order listed
 
   1. A query request
@@ -3405,7 +3371,7 @@ contains a relative URL, clients MUST be able to resolve it relative to the
 request's URL even if that contains such a reference.
 
 ::: example
-Example 57: a batch request that contains the following operations in
+Example 56: a batch request that contains the following operations in
 the order listed:
 
 - Insert a new entity (with `id = 1`)
@@ -3440,7 +3406,7 @@ Content-Length: ###
 ## <a id="ReferencinganETag" href="#ReferencinganETag">19.3 Referencing an ETag</a>
 
 ::: example
-Example 58: a batch request that contains the following operations in
+Example 57: a batch request that contains the following operations in
 the order listed:
 
 - Get an Employee (with `id` = 1)
@@ -3483,7 +3449,7 @@ Content-Length: ###
 ## <a id="ReferencingResponseBodyValues" href="#ReferencingResponseBodyValues">19.4 Referencing Response Body Values</a>
 
 ::: example
-Example 59: a batch request that contains the following operations in
+Example 58: a batch request that contains the following operations in
 the order listed:
 
 - Get an employee (with `Content-ID = 1`)
@@ -3614,7 +3580,7 @@ request. Especially: URLs in responses MUST NOT contain
 `$`-prefixed request identifiers.
 
 ::: example
-Example 60: referencing the batch request [example 56](#batchRequest) above, assume all
+Example 59: referencing the batch request [example 55](#batchRequest) above, assume all
 the requests except the final query request succeed. In this case the
 response would be
 ```json
@@ -3671,7 +3637,7 @@ to the next link MAY result in a `202 Accepted` response with a
 `location` header pointing to a new status monitor resource.
 
 ::: example
-Example 61: referencing the [example 56](#batchRequest) above again, assume that the
+Example 60: referencing the [example 55](#batchRequest) above again, assume that the
 request is sent with the `respond-async` preference. This
 results in a `202` response pointing to a status monitor resource:
 ```json
@@ -3761,7 +3727,7 @@ asynchronously executed individual request with a `status` of
 individual status monitor resource, and optionally a `retry-after` header.
 
 ::: example
-Example 62: the first individual request is processed asynchronously,
+Example 61: the first individual request is processed asynchronously,
 the second synchronously, the batch itself is processed synchronously
 ```json
 HTTP/1.1 200 OK
@@ -3824,7 +3790,7 @@ the annotations for the value appear next to the `value`
 property and are not prefixed with a property name.
 
 ::: example
-Example 63:
+Example 62:
 ```json
 {
   "@context": "http://host/service/$metadata#Customers",
@@ -3934,7 +3900,7 @@ Error responses MAY contain [annotations](#InstanceAnnotations) in
 any of its JSON objects.
 
 ::: example
-Example 64:
+Example 63:
 ```json
 {
   "error": {
@@ -3983,7 +3949,7 @@ header-appropriate way:
   [RFC8259](#rfc8259), section 7)
 
 ::: example
-Example 65: note that this is one HTTP header line without any line
+Example 64: note that this is one HTTP header line without any line
 breaks or optional whitespace
 ```json
 OData-error: {"code":"err123","message":"Unsupported
