@@ -1058,9 +1058,10 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <p>Untyped values are the only place where a collection can directly contain a collection, or a collection can contain a mix of primitive values, structural values, and collections.</p>
 <p>All children of an untyped property are assumed to be untyped unless they are annotated with the <a href="#ControlInformationtypeodatatype"><code>type</code></a> control information, in which case they MUST conform to the type described by the control information.</p>
 <p>A primitive value within an untyped collection is interpreted as an <code>Edm.Boolean</code>, <code>Edm.String</code>, or <code>Edm.Decimal</code> value, depending on the JavaScript type.</p>
-<h2>Collections directly contained within an untyped collection are themselves untyped.</h2>
+<p>Collections directly contained within an untyped collection are themselves untyped.</p>
 </details>
 </details>
+<hr />
 <details open><summary>
 <h1 id="8-navigation-property"><a id="NavigationProperty" href="#NavigationProperty">8 Navigation Property</a></h1>
 </summary>

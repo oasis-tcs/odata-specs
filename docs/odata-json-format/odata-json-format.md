@@ -1554,6 +1554,7 @@ A primitive value within an untyped collection is interpreted as an `Edm.Boolean
 depending on the JavaScript type.
 
 Collections directly contained within an untyped collection are themselves untyped.
+
 -------
 
 # <a id="NavigationProperty" href="#NavigationProperty">8 Navigation Property</a>

@@ -201,6 +201,7 @@ an `Edm.Boolean`, `Edm.String`, or `Edm.Decimal` value,
 depending on the JavaScript type.
 
 Collections directly contained within an untyped collection are themselves untyped.
+
 -------
 
 # ##sec Navigation Property
