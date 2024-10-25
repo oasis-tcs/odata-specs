@@ -99,21 +99,7 @@ An entity is serialized as a JSON object. It MAY contain
 or [`deltaLink`](#ControlInformationdeltaLinkodatadeltaLink)
 control information.
 
-If a nullable single-valued navigation property or
-entity-valued annotation or return type of an operation has the `null` value,
-the value is serialized as follows:
-- If, with [minimal metadata](#metadataminimalodatametadataminimal),
-  the value carries no [control information](#ControlInformation) other than
-  [`context`](#ControlInformationcontextodatacontext)
-  and no [instance annotations](#InstanceAnnotations),
-  - the value does not have a representation as response to a request (see [#OData-Protocol#ResponseCode204NoContent])
-  - but is represented by the JSON literal `null` when it occurs in a name/value pair
-    in another JSON object (for example, an [expanded single-valued navigation property](#ExpandedNavigationProperty)).
-- Otherwise the context control information is omitted and the serialization produces
-  a JSON object consisting of name/value pairs for the
-  other control information and instance annotations only.
-
-Otherwise, each [property](#StructuralProperty) to be transmitted is
+Each [property](#StructuralProperty) to be transmitted is
 represented as a name/value pair within the object. The order properties
 appear within the object is considered insignificant.
 

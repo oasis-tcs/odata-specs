@@ -33,11 +33,8 @@ An individual property or operation response is represented as a JSON
 object.
 
 A single-valued property or operation response that has the
-`null` value does not have a representation provided that, with
-[minimal metadata](#metadataminimalodatametadataminimal), it carries no
-[control information](#ControlInformation) other than
-[`context`](#ControlInformationcontextodatacontext)
-and no [instance annotations](#InstanceAnnotations); see [OData-Protocol](#ODataProtocol).
+`null` value does not have a representation; see
+[OData-Protocol](#ODataProtocol).
 
 A property or operation response that is of a primitive type is
 represented as an object with a name/value pair whose name is
@@ -45,9 +42,7 @@ represented as an object with a name/value pair whose name is
 value](#PrimitiveValue) or `null`.
 
 A property or operation response that is of complex type is represented
-as a [complex value](#ComplexValue). If the value is `null`, the context control information
-is omitted and the JSON object consists of name/value pairs for the
-other control information and instance annotations only.
+as a [complex value](#ComplexValue).
 
 A property or operation response that is of a collection type is
 represented as an object with a name/value pair whose name is
@@ -105,21 +100,6 @@ Example ##ex: empty collection of complex values
 {
   "@context": "http://host/service/$metadata#Collection(Model.Address)",
   "value": []
-}
-```
-:::
-
-::: example
-Example ##ex: An action is invoked when a utilities customer moves into a building,
-it returns the address. After a successful move-in it might return the
-`null` value accompanied by an instance annotation:
-```json
-{
-  "@Core.Messages": [{
-    "code": "EADDRESS",
-    "message": "Street name not yet determined",
-    "severity": "error"
-  }]
 }
 ```
 :::
