@@ -1897,10 +1897,10 @@ An individual property or operation response is represented as a JSON
 object.
 
 A single-valued property or operation response that has the
-`null` value and carries no [control information](#ControlInformation)
-or [instance annotations](#InstanceAnnotations)
-does not have a representation; see
-[OData-Protocol](#ODataProtocol).
+`null` value does not have a representation provided that it carries no
+[control information](#ControlInformation) other than
+[`context`](#ControlInformationcontextodatacontext)
+and no [instance annotations](#InstanceAnnotations); see [OData-Protocol](#ODataProtocol).
 
 A property or operation response that is of a primitive type is
 represented as an object with a name/value pair whose name is
@@ -1909,7 +1909,7 @@ value](#PrimitiveValue) or `null`.
 
 A property or operation response that is of complex type is represented
 as a [complex value](#ComplexValue). If the value is `null`, the JSON object
-consists of name/value pairs for the `@context` and the
+consists of name/value pairs for the
 [control information](#ControlInformation)
 and [instance annotations](#InstanceAnnotations) only.
 
