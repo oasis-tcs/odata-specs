@@ -1295,7 +1295,21 @@ An entity is serialized as a JSON object. It MAY contain
 or [`deltaLink`](#ControlInformationdeltaLinkodatadeltaLink)
 control information.
 
-Each [property](#StructuralProperty) to be transmitted is
+If a nullable single-valued navigation property or
+entity-valued annotation or return type of an operation has the `null` value,
+the value is serialized as follows:
+- If, with [minimal metadata](#metadataminimalodatametadataminimal),
+  the value carries no [control information](#ControlInformation) other than
+  [`context`](#ControlInformationcontextodatacontext)
+  and no [instance annotations](#InstanceAnnotations),
+  - the value does not have a representation as response to a request (see [OData-Protocol, section 9.1.4](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ResponseCode204NoContent))
+  - but is represented by the JSON literal `null` when it occurs in a name/value pair
+    in another JSON object (for example, an [expanded single-valued navigation property](#ExpandedNavigationProperty)).
+- Otherwise the context control information is omitted and the serialization produces
+  a JSON object consisting of name/value pairs for the
+  other control information and instance annotations only.
+
+Otherwise, each [property](#StructuralProperty) to be transmitted is
 represented as a name/value pair within the object. The order properties
 appear within the object is considered insignificant.
 
@@ -1897,7 +1911,8 @@ An individual property or operation response is represented as a JSON
 object.
 
 A single-valued property or operation response that has the
-`null` value does not have a representation provided that it carries no
+`null` value does not have a representation provided that, with
+[minimal metadata](#metadataminimalodatametadataminimal), it carries no
 [control information](#ControlInformation) other than
 [`context`](#ControlInformationcontextodatacontext)
 and no [instance annotations](#InstanceAnnotations); see [OData-Protocol](#ODataProtocol).
@@ -1908,10 +1923,9 @@ represented as an object with a name/value pair whose name is
 value](#PrimitiveValue) or `null`.
 
 A property or operation response that is of complex type is represented
-as a [complex value](#ComplexValue). If the value is `null`, the JSON object
-consists of name/value pairs for the
-[control information](#ControlInformation)
-and [instance annotations](#InstanceAnnotations) only.
+as a [complex value](#ComplexValue). If the value is `null`, the context control information
+is omitted and the JSON object consists of name/value pairs for the
+other control information and instance annotations only.
 
 A property or operation response that is of a collection type is
 represented as an object with a name/value pair whose name is
@@ -1979,7 +1993,6 @@ it returns the address. After a successful move-in it might return the
 `null` value accompanied by an instance annotation:
 ```json
 {
-  "@context": "http://host/service/$metadata#Model.Address",
   "@Core.Messages": [{
     "code": "EADDRESS",
     "message": "Street name not yet determined",

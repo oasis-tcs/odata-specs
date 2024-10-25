@@ -903,7 +903,16 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <h1 id="6-entity"><a id="Entity" href="#Entity">6 Entity</a></h1>
 </summary>
 <p>An entity is serialized as a JSON object. It MAY contain <a href="#ControlInformationcontextodatacontext"><code>context</code></a>, <a href="#ControlInformationtypeodatatype"><code>type</code></a>, or <a href="#ControlInformationdeltaLinkodatadeltaLink"><code>deltaLink</code></a> control information.</p>
-<p>Each <a href="#StructuralProperty">property</a> to be transmitted is represented as a name/value pair within the object. The order properties appear within the object is considered insignificant.</p>
+<p>If a nullable single-valued navigation property or entity-valued annotation or return type of an operation has the <code>null</code> value, the value is serialized as follows:</p>
+<ul>
+<li>If, with <a href="#metadataminimalodatametadataminimal">minimal metadata</a>, the value carries no <a href="#ControlInformation">control information</a> other than <a href="#ControlInformationcontextodatacontext"><code>context</code></a> and no <a href="#InstanceAnnotations">instance annotations</a>,
+<ul>
+<li>the value does not have a representation as response to a request (see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ResponseCode204NoContent">OData-Protocol, section 9.1.4</a>)</li>
+<li>but is represented by the JSON literal <code>null</code> when it occurs in a name/value pair in another JSON object (for example, an <a href="#ExpandedNavigationProperty">expanded single-valued navigation property</a>).</li>
+</ul></li>
+<li>Otherwise the context control information is omitted and the serialization produces a JSON object consisting of name/value pairs for the other control information and instance annotations only.</li>
+</ul>
+<p>Otherwise, each <a href="#StructuralProperty">property</a> to be transmitted is represented as a name/value pair within the object. The order properties appear within the object is considered insignificant.</p>
 <p>An entity in a payload may be a complete entity, a projected entity (see <em>System Query Option</em> <code>$select</code> in <a href="#ODataProtocol">OData-Protocol</a>), or a partial entity update (see <em>Update an Entity</em> in <a href="#ODataProtocol">OData-Protocol</a>).</p>
 <p>An entity representation can be (modified and) round-tripped to the service directly. The <a href="#ControlInformationcontextodatacontext">context URL</a> is used in requests only as a base for <a href="#RelativeURLs">relative URLs</a>.</p>
 <div class="example">
@@ -1269,9 +1278,9 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <h1 id="11-individual-property-or-operation-response"><a id="IndividualPropertyorOperationResponse" href="#IndividualPropertyorOperationResponse">11 Individual Property or Operation Response</a></h1>
 </summary>
 <p>An individual property or operation response is represented as a JSON object.</p>
-<p>A single-valued property or operation response that has the <code>null</code> value does not have a representation provided that it carries no <a href="#ControlInformation">control information</a> other than <a href="#ControlInformationcontextodatacontext"><code>context</code></a> and no <a href="#InstanceAnnotations">instance annotations</a>; see <a href="#ODataProtocol">OData-Protocol</a>.</p>
+<p>A single-valued property or operation response that has the <code>null</code> value does not have a representation provided that, with <a href="#metadataminimalodatametadataminimal">minimal metadata</a>, it carries no <a href="#ControlInformation">control information</a> other than <a href="#ControlInformationcontextodatacontext"><code>context</code></a> and no <a href="#InstanceAnnotations">instance annotations</a>; see <a href="#ODataProtocol">OData-Protocol</a>.</p>
 <p>A property or operation response that is of a primitive type is represented as an object with a name/value pair whose name is <code>value</code> and whose value is a <a href="#PrimitiveValue">primitive value</a> or <code>null</code>.</p>
-<p>A property or operation response that is of complex type is represented as a <a href="#ComplexValue">complex value</a>. If the value is <code>null</code>, the JSON object consists of name/value pairs for the <a href="#ControlInformation">control information</a> and <a href="#InstanceAnnotations">instance annotations</a> only.</p>
+<p>A property or operation response that is of complex type is represented as a <a href="#ComplexValue">complex value</a>. If the value is <code>null</code>, the context control information is omitted and the JSON object consists of name/value pairs for the other control information and instance annotations only.</p>
 <p>A property or operation response that is of a collection type is represented as an object with a name/value pair whose name is <code>value</code>. Its value is the JSON representation of a <a href="#CollectionofComplexValues">collection of complex type values</a> or <a href="#CollectionofPrimitiveValues">collection of primitive values</a>.</p>
 <div class="example">
 <p>Example 26: primitive value</p>
@@ -1315,13 +1324,12 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <div class="example">
 <p>Example 31: An action is invoked when a utilities customer moves into a building, it returns the address. After a successful move-in it might return the <code>null</code> value accompanied by an instance annotation:</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Model.Address&quot;</span><span class="fu">,</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@Core.Messages&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="fu">{</span></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;code&quot;</span><span class="fu">:</span> <span class="st">&quot;EADDRESS&quot;</span><span class="fu">,</span></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;message&quot;</span><span class="fu">:</span> <span class="st">&quot;Street name not yet determined&quot;</span><span class="fu">,</span></span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;severity&quot;</span><span class="fu">:</span> <span class="st">&quot;error&quot;</span></span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span><span class="ot">]</span></span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@Core.Messages&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="fu">{</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;code&quot;</span><span class="fu">:</span> <span class="st">&quot;EADDRESS&quot;</span><span class="fu">,</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;message&quot;</span><span class="fu">:</span> <span class="st">&quot;Street name not yet determined&quot;</span><span class="fu">,</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;severity&quot;</span><span class="fu">:</span> <span class="st">&quot;error&quot;</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span><span class="ot">]</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <p>Note: the context URL is optional in requests.</p>
 </details>

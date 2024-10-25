@@ -33,7 +33,8 @@ An individual property or operation response is represented as a JSON
 object.
 
 A single-valued property or operation response that has the
-`null` value does not have a representation provided that it carries no
+`null` value does not have a representation provided that, with
+[minimal metadata](#metadataminimalodatametadataminimal), it carries no
 [control information](#ControlInformation) other than
 [`context`](#ControlInformationcontextodatacontext)
 and no [instance annotations](#InstanceAnnotations); see [OData-Protocol](#ODataProtocol).
@@ -44,10 +45,9 @@ represented as an object with a name/value pair whose name is
 value](#PrimitiveValue) or `null`.
 
 A property or operation response that is of complex type is represented
-as a [complex value](#ComplexValue). If the value is `null`, the JSON object
-consists of name/value pairs for the
-[control information](#ControlInformation)
-and [instance annotations](#InstanceAnnotations) only.
+as a [complex value](#ComplexValue). If the value is `null`, the context control information
+is omitted and the JSON object consists of name/value pairs for the
+other control information and instance annotations only.
 
 A property or operation response that is of a collection type is
 represented as an object with a name/value pair whose name is
@@ -115,7 +115,6 @@ it returns the address. After a successful move-in it might return the
 `null` value accompanied by an instance annotation:
 ```json
 {
-  "@context": "http://host/service/$metadata#Model.Address",
   "@Core.Messages": [{
     "code": "EADDRESS",
     "message": "Street name not yet determined",
