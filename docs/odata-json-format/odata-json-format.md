@@ -1974,13 +1974,15 @@ Example 30: empty collection of complex values
 :::
 
 ::: example
-Example 31: `null` value accompanied by an instance annotation
+Example 31: An action is invoked when a utilities customer moves into a building,
+it returns the address. After a successful move-in it might return the
+`null` value accompanied by an instance annotation:
 ```json
 {
   "@context": "http://host/service/$metadata#Model.Address",
   "@Core.Messages": [{
-    "code": "EPOSTCODE",
-    "message": "Could not resolve postcode XYZ",
+    "code": "EADDRESS",
+    "message": "Street name not yet determined",
     "severity": "error"
   }]
 }
