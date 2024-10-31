@@ -584,31 +584,36 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/356">356</a></td>
 </tr>
 <tr class="odd">
+<td>Section 11.4.2.2](#CreateRelatedEntitiesWhenCreatinganEntity) Deep-insert response includes at least the properties present in the request</td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/363">363</a></td>
+<td></td>
+</tr>
+<tr class="even">
 <td><a href="#UpdateanEntity">Section 11.4.3</a></td>
 <td>Services can validate non-updatable property values in update payloads</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/356">356</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#UpsertanEntity">Section 11.4.4</a></td>
 <td>Upserts to single-valued non-containment navigation properties</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/455">455</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#UpdateaComplexProperty">Section 11.4.9.3</a></td>
 <td>Setting a complex property to a different type</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/534">534</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#ReplaceaCollectionofEntities">Section 11.4.13</a></td>
 <td>Semantics of <code>continue-on-error</code> when replacing a collection of entities</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/358">358</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#Conformance">Section 12</a></td>
 <td>Allow <code>400 Bad Request</code> in addition to <code>501 Not Implemented</code> for unsupported functionality</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/391">391</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#InteroperableODataClients">Section 12.3</a></td>
 <td>Encoding of plus character in URLs</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/485">485</a></td>
@@ -2370,7 +2375,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>A request to create an entity that includes related entities, represented using the appropriate inline representation, is referred to as a “deep insert”.</p>
 <p>Media entities MUST contain the format-specific representation of their media stream as a virtual property <code>$value</code> when nested within a deep insert.</p>
 <p>Each included related entity is processed observing the rules for <a href="#CreateanEntity">creating an entity</a> as if it was posted against the original target URL extended with the navigation path to this related entity.</p>
-<p>On success, the service MUST create all entities and relate them. If the service responds with <a href="#ResponseCode201Created"><code>201 Created</code></a>, the response MUST be expanded to at least the level that was present in the deep-insert request.</p>
+<p>On success, the service MUST create all entities and relate them. If the service responds with <a href="#ResponseCode201Created"><code>201 Created</code></a>, the response MUST be expanded to at least the level that was present in the deep-insert request and include at least the properties specified in the request.</p>
 <p>Clients MAY associate an id with individual nested entities in the request by applying the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a> term using the namespace or alias defined for the <a href="#ODataVocCore">OData-VocCore</a> vocabulary in the service’s <code>$metadata</code> document. Services that respond with <a href="#ResponseCode201Created"><code>201 Created</code></a> SHOULD annotate the entities in the response using the same <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a> value as specified in the request. Services SHOULD advertise support for deep inserts, including support for returning the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a>, through the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#DeepInsertSupport"><code>Capabilities.DeepInsertSupport</code></a> term, defined in <a href="#ODataVocCap">OData-VocCap</a>; services that advertise support through <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#DeepInsertSupport"><code>Capabilities.DeepInsertSupport</code></a> MUST return the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a> for the inserted or updated entities.</p>
 <p>The <code>continue-on-error</code> preference is not supported for deep insert operations.</p>
 <p>On failure, the service MUST NOT create any of the entities.</p>

@@ -358,6 +358,7 @@ Section | Feature / Change | Issue
 [Section 10.2](#CollectionofEntities)| Context URLs use parentheses-style keys without percent-encoding| [368](https://github.com/oasis-tcs/odata-specs/issues/368)
 [Section 11.4](#DataModification)| Response code `204 No Content` after successful data modification if requested response could not be constructed| [443](https://github.com/oasis-tcs/odata-specs/issues/443)
 [Section 11.4.2](#CreateanEntity)| Services can validate non-insertable property values in insert payloads| [356](https://github.com/oasis-tcs/odata-specs/issues/356)
+|Section 11.4.2.2](#CreateRelatedEntitiesWhenCreatinganEntity) Deep-insert response includes at least the properties present in the request| [363](https://github.com/oasis-tcs/odata-specs/issues/363)
 [Section 11.4.3](#UpdateanEntity)| Services can validate non-updatable property values in update payloads| [356](https://github.com/oasis-tcs/odata-specs/issues/356)
 [Section 11.4.4](#UpsertanEntity)| Upserts to single-valued non-containment navigation properties| [455](https://github.com/oasis-tcs/odata-specs/issues/455)
 [Section 11.4.9.3](#UpdateaComplexProperty)| Setting a complex property to a different type| [534](https://github.com/oasis-tcs/odata-specs/issues/534)
@@ -4290,7 +4291,7 @@ entity.
 
 On success, the service MUST create all entities and relate them. If the
 service responds with [`201 Created`](#ResponseCode201Created), the response MUST be expanded to at
-least the level that was present in the deep-insert request.
+least the level that was present in the deep-insert request and include at least the properties specified in the request.
 
 Clients MAY associate an id with individual nested entities in the
 request by applying the
