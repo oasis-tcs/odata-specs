@@ -402,9 +402,8 @@ class ComplexType extends NamedModelElement {
     return effectiveType;
   }
   fromJSON(json) {
+    @<Optional qualified name represented as NamespacePath in fromJSON@>@(BaseType@)
     super.fromJSON(json, "Property");
-    if (json.$BaseType)
-      this.$BaseType = new NamespacePath(this, json.$BaseType, "$BaseType");
   }
 }
 
@@ -485,7 +484,7 @@ class TypedModelElement extends NamedModelElement {
     return this.$Type.target.evaluateSegment(segment);
   }
   fromJSON(json) {
-    this.$Type = new NamespacePath(this, json.$Type, "$Type");
+    @<Qualified name represented as NamespacePath in fromJSON@>@(Type@)
     super.fromJSON(json);
   }
 }
@@ -525,7 +524,7 @@ class EntitySetOrSingleton extends NamedModelElement {
     return this.$Type.target.evaluateSegment(segment);
   }
   fromJSON(json) {
-    this.$Type = new NamespacePath(this, json.$Type, "$Type");
+    @<Qualified name represented as NamespacePath in fromJSON@>@(Type@)
     super.fromJSON(json);
     for (const prop in json.$NavigationPropertyBinding)
       new NavigationPropertyBinding(this, prop).fromJSON(
@@ -583,14 +582,14 @@ class Parameter extends ListedModelElement {
     super(operation, "$Parameter");
   }
   fromJSON(json) {
-    this.$Type = new NamespacePath(this, json.$Type, "$Type");
+    @<Qualified name represented as NamespacePath in fromJSON@>@(Type@)
     super.fromJSON(json);
   }
 }
 
 class ReturnType extends ModelElement {
   fromJSON(json) {
-    this.$Type = new NamespacePath(this, json.$Type, "$Type");
+    @<Qualified name represented as NamespacePath in fromJSON@>@(Type@)
     super.fromJSON(json);
   }
 }
@@ -599,7 +598,7 @@ class Function extends Operation {}
 
 class FunctionImport extends NamedModelElement {
   fromJSON(json) {
-    this.$Function = new NamespacePath(this, json.$Function, "$Function");
+    @<Qualified name represented as NamespacePath in fromJSON@>@(Function@)
     if (json.$EntitySet)
       this.$EntitySet = new RelativePath(
         this,
@@ -615,7 +614,7 @@ class Action extends Operation {}
 
 class ActionImport extends NamedModelElement {
   fromJSON(json) {
-    this.$Action = new NamespacePath(this, json.$Function, "$Action");
+    @<Qualified name represented as NamespacePath in fromJSON@>@(Action@)
     if (json.$EntitySet)
       this.$EntitySet = new RelativePath(
         this,
@@ -642,8 +641,7 @@ class Member extends NamedValue {}
 
 class Term extends Property {
   fromJSON(json) {
-    if (json.$BaseTerm)
-      this.$BaseTerm = new NamespacePath(this, json.$BaseTerm, "$BaseTerm");
+    @<Optional qualified name represented as NamespacePath in fromJSON@>@(BaseTerm@)
     super.fromJSON(json, "Member");
   }
 }

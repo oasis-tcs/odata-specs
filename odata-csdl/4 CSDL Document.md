@@ -122,14 +122,18 @@ if (!this[member] && typeof json[member] !== "object")
   this[member] = json[member];
 @}
 
+@$@<Qualified name represented as NamespacePath in fromJSON@>@(@1@)@{
+this.$@1 = new NamespacePath(this, json.$@1, "@1");
+@}
+
+@$@<Optional qualified name represented as NamespacePath in fromJSON@>@(@1@)@{
+if (json.$@1)
+  this.$@1 = @<Qualified name represented as NamespacePath in fromJSON@>@(@1@)
+@}
+
 @$@<CSDLDocument@>@{
 fromJSON(json) {
-  if (json.$EntityContainer)
-    this.$EntityContainer = new NamespacePath(
-      this,
-      json.$EntityContainer,
-      "$EntityContainer",
-    );
+  @<Optional qualified name represented as NamespacePath in fromJSON@>@(EntityContainer@)
   super.fromJSON(json, "Schema");
 @}
 
