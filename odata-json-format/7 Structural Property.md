@@ -201,6 +201,7 @@ an `Edm.Boolean`, `Edm.String`, or `Edm.Decimal` value,
 depending on the JavaScript type.
 
 Collections directly contained within an untyped collection are themselves untyped.
+
 -------
 
 # ##sec Navigation Property
@@ -467,7 +468,7 @@ Instead stream property data is generally read and edited via URLs.
 [`media*`](#ControlInformationmediaodatamedia) control information.
 - Stream properties requested with `$expand` or implicitly expanded are represented as a property with its value.
 
-See [OData-Protocol](#ODataProtocol) for details on the system query options `$select` and `$expand`.
+See [#OData-Protocol#SystemQueryOptionselect] for details on the system query options `$select` and `$expand`.
 
 Depending on the [metadata level](#ControllingtheAmountofControlInformationinResponses),
 the stream property MAY be annotated to provide the read link, edit

@@ -57,8 +57,8 @@ The same system query option, irrespective of casing or whether or not
 it is prefixed with a `$`, MUST NOT be specified more than once for any
 resource.
 
-The semantics of all system query options are defined in the
-[OData-Protocol](#ODataProtocol) document.
+The semantics of all system query options are defined in
+[#OData-Protocol#SystemQueryOptions].
 
 The grammar and syntax rules for system query options are defined in
 [OData-ABNF](#ODataABNF).
@@ -1909,7 +1909,7 @@ Services MAY additionally support the use of the unqualified term name
 by defining one or more default namespaces through the
 [`Core.DefaultNamespace`]($$$OData-VocCore$$$#DefaultNamespace) annotation
 term defined in [OData-VocCore](#ODataVocCore). For more information on
-default namespaces, see Default Namespaces in [OData-Protocol](#ODataProtocol).
+default namespaces, see [#OData-Protocol#DefaultNamespaces].
 This short notation however uses the same name pattern as parameter
 aliases. If a query option is specified as a [parameter
 alias](#ParameterAliases), then any occurrence of the parameter alias
@@ -2336,7 +2336,7 @@ omitted from the response.
 
 Annotations requested in `$select` MUST be included in the response;
 `$select` overrules the `include-annotations` preference (see
-[OData-Protocol](#ODataProtocol)) for the explicitly requested annotations.
+[#OData-Protocol#Preferenceincludeannotationsodataincludeannotations]) for the explicitly requested annotations.
 Additional annotations matching the preference can be included even if
 not requested via `$select`. The `Preference-Applied` response header
 only reflects the set of annotations included due to the
@@ -2375,8 +2375,7 @@ identified by each select item.
 The `$orderby` system query option allows clients to request resources
 in a particular order.
 
-The semantics of `$orderby` are covered in the [OData-Protocol](#ODataProtocol)
-document.
+The semantics of `$orderby` are covered in [#OData-Protocol#SystemQueryOptionorderby].
 
 The [OData-ABNF](#ODataABNF) `orderby` syntax rule defines the formal
 grammar of the `$orderby` query option.
@@ -2389,8 +2388,9 @@ option requests the number of items in the queried collection that are
 to be skipped and not included in the result. A client can request a
 particular page of items by combining `$top` and `$skip`.
 
-The semantics of `$top` and `$skip` are covered in the
-[OData-Protocol](#ODataProtocol) document. The [OData-ABNF](#ODataABNF) `top`
+The semantics of `$top` and `$skip` are covered in
+[#OData-Protocol#SystemQueryOptiontop] and [#OData-Protocol#SystemQueryOptionskip].
+The [OData-ABNF](#ODataABNF) `top`
 and `skip` syntax rules define the formal grammar of the `$top` and
 `$skip` query options respectively.
 
@@ -2400,8 +2400,7 @@ The `$count` system query option allows clients to request a count of
 the matching resources included with the resources in the response. The
 `$count` query option has a Boolean value of `true` or `false`.
 
-The semantics of `$count` is covered in the [OData-Protocol](#ODataProtocol)
-document.
+The semantics of `$count` is covered in [#OData-Protocol#SystemQueryOptioncount].
 
 ### ##subsubsec System Query Option `$search`
 
@@ -2483,8 +2482,7 @@ in a particular format and is useful for clients without access to
 request headers for standard content-type negotiation. Where present
 `$format` takes precedence over standard content-type negotiation.
 
-The semantics of `$format` is covered in the [OData-Protocol](#ODataProtocol)
-document.
+The semantics of `$format` is covered in [#OData-Protocol#SystemQueryOptionformat].
 
 The [OData-ABNF](#ODataABNF) `format` syntax rule defines the formal
 grammar of the `$format` query option.
@@ -2547,7 +2545,7 @@ grammar of the `$index` query option.
 
 The `$schemaversion` system query option allows clients to specify the
 version of the schema against which the request is made. The semantics
-of `$schemaversion` is covered in the [OData-Protocol](#ODataProtocol) document.
+of `$schemaversion` is covered in [#OData-Protocol#SystemQueryOptionschemaversion].
 
 The [OData-ABNF](#ODataABNF) `schemaversion` syntax rule defines the
 formal grammar of the `$schemaversion` query option
@@ -2579,7 +2577,7 @@ Parameter aliases MUST start with an `@` character, see rule
 `parameterAlias` in [OData-ABNF](#ODataABNF).
 
 The semantics of parameter aliases are covered in
-[OData-Protocol](#ODataProtocol). The [OData-ABNF](#ODataABNF) rule
+[#OData-Protocol#ParameterAliases]. The [OData-ABNF](#ODataABNF) rule
 `aliasAndValue` defines the formal grammar for passing parameter alias
 values as query options.
 
@@ -2612,4 +2610,4 @@ http://host/service/Products/Model.WithIngredients(Ingredients=@i)
 # ##sec Conformance
 
 The conformance requirements for OData clients and services are
-described in [OData-Protocol](#ODataProtocol).
+described in [#OData-Protocol#Conformance].

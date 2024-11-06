@@ -18,7 +18,7 @@ Metadata annotations are applied in CSDL documents describing or
 referencing an entity model.
 
 *Instance annotations* are terms applied to a particular instance within
-an OData payload, such as described in [OData-JSON](#ODataJSON). An
+an OData payload, such as described in [#OData-JSON#InstanceAnnotations]. An
 instance annotation can be used to define additional information
 associated with a particular result, entity, property, or error. For
 example, whether a property is read-only for a particular instance.
@@ -195,10 +195,10 @@ of the collection and specifies whether the collection MAY contain
 
 The value of `$DefaultValue` is the type-specific JSON representation of
 the default value of the term, see
-[OData-JSON](#ODataJSON).
+[#OData-JSON#PrimitiveValue].
 
 Note: the `$DefaultValue` member is purely for documentation and
-isomorphy to [OData-CSDLXML](#ODataCSDL). Annotations in
+isomorphy to [#OData-CSDLXML#DefaultValue]. Annotations in
 CSDL JSON documents MUST always specify an explicit value.
 :::
 
@@ -1223,7 +1223,7 @@ Example ##ex:
 ### ##subsubsec Geo Values
 
 ::: {.varjson .rep}
-Values are represented as GeoJSON, see [OData-JSON](#ODataJSON).
+Values are represented as GeoJSON, see [RFC7946](#rfc7946).
 :::
 
 ::: {.varjson .example}
@@ -1252,7 +1252,7 @@ Example ##ex:
 ### ##subsubsec Stream Values
 
 ::: {.varjson .rep}
-Constant values of type `Edm.Stream` are represented according to [OData-JSON](#ODataJSON) and MUST be accompanied by 
+Constant values of type `Edm.Stream` are represented according to [#OData-JSON#StreamProperty] and MUST be accompanied by 
 the `mediaContentType` control information to indicate how the stream value is to be interpreted.
 :::
 
@@ -1330,7 +1330,7 @@ than the `Edm.*Path` types.
 #### ##subsubsubsec Path Syntax
 
 Model paths and instance paths share a common syntax which is derived
-from the path expression syntax of URLs, see [OData-URL](#ODataURL).
+from the path expression syntax of URLs, see [#OData-URL#PathExpressions].
 
 A path MUST be composed of zero or more path segments joined together by
 forward slashes (`/`).
@@ -1466,7 +1466,7 @@ vs. term cast addressing an annotation on the resource addressed by the navigati
 An instance path MAY contain path segments starting with an entity set
 or a collection-valued navigation property, then followed by a key
 predicate using parentheses-style convention, see
-[OData-URL](#ODataURL). The key values are either primitive literals or
+[#OData-URL#CanonicalURL]. The key values are either primitive literals or
 instance paths. If the key value is a relative instance path, it is
 interpreted according to the same rule below as the instance path it is
 part of, *not* relative to the instance identified by the preceding path
@@ -1981,7 +1981,7 @@ they MAY be used anywhere instead of a Boolean expression.
 The `And` and `Or` operators require two operand expressions that
 evaluate to Boolean values. The `Not` operator requires a single operand
 expression that evaluates to a Boolean value. For details on null
-handling for comparison operators see [OData-URL](#ODataURL).
+handling for comparison operators see [#OData-URL#LogicalOperators].
 
 The other comparison operators require two operand expressions that
 evaluate to comparable values.
@@ -2208,7 +2208,7 @@ to a numeric value. These expressions MAY be combined, and they MAY be
 used anywhere instead of a numeric expression of the appropriate type.
 The semantics and evaluation rules for each arithmetic expression is
 identical to the corresponding arithmetic operator defined in
-[OData-URL](#ODataURL).
+[#OData-URL#ArithmeticOperators].
 
 Operator|Description
 --------|-----------
@@ -2412,10 +2412,10 @@ specification and its future versions.
 
 #### ##subsubsubsec Canonical Functions
 
-All canonical functions defined in [OData-URL](#ODataURL) can be used as
+All canonical functions defined in [#OData-URL#CanonicalFunctions] can be used as
 client-side functions, qualified with the namespace `odata`. The
 semantics of these client-side functions is identical to their
-counterpart function defined in [OData-URL](#ODataURL).
+counterpart function defined in [#OData-URL#CanonicalFunctions].
 
 For example, the `odata.concat` client-side function takes two
 expressions as arguments. Each argument MUST evaluate to a primitive or
@@ -2656,7 +2656,7 @@ Example ##ex:
 The cast expression casts the value obtained from its single child
 expression to the specified type. The cast expression follows the same
 rules as the `cast` canonical function defined in
-[OData-URL](#ODataURL).
+[#OData-URL#cast].
 
 ::: {.varjson .rep}
 ### ##subisec `$Cast`
@@ -3167,7 +3167,7 @@ property value expression. The member name is the property name, and the
 member value is the property value expression.
 
 The type of a record expression is represented as the `type` control
-information, see  [OData-JSON](#ODataJSON).
+information, see [#OData-JSON#ControlInformationtypeodatatype].
 
 It MAY contain [annotations](#Annotation) for itself and its members.
 Annotations for record members are prefixed with the member name.
