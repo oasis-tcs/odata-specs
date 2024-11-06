@@ -126,21 +126,6 @@ derived from the class `ModelElement`.
 @o@</git/oasis-tcs/odata-csdl-schemas/lib/metamodel.js@>@{
 @<Javascript CSDL metamodel@>
 const csdlDocuments = new Map();
-class NamedModelElement extends ModelElement {
-  #name;
-  get name() {
-    return this.#name;
-  }
-  constructor(parent, name) {
-    super(parent);
-    this.#name = name;
-    parent.children[name] = this;
-  }
-  toString() {
-    return this.name;
-  }
-}
-
 class NamedSubElement extends NamedModelElement {
   constructor(parent, sub, name) {
     super(parent, name);
@@ -170,85 +155,7 @@ class NamedValue extends NamedModelElement {
 }
 
 class Segment {
-  #path;
-  #segment;
-  #target;
-  constructor(path, segment) {
-    this.#path = path;
-    this.#segment = segment;
-  }
-  get target() {
-    if (!this.#target) this.#path.evaluate();
-    return this.#target;
-  }
-  set target(target) {
-    this.#target = target;
-  }
-  qualifiedName() {
-    const i = this.#segment.lastIndexOf(".");
-    return (
-      i !== -1 && {
-        namespace: this.#segment.substring(0, i),
-        name: this.#segment.substring(i + 1),
-      }
-    );
-  }
-  evaluate(modelElement) {
-    if (!modelElement.evaluateSegment) throw new InvalidPathError(this.#path);
-    return (this.#target = modelElement.evaluateSegment(this.#segment));
-  }
-  toJSON() {
-    return this.#segment;
-  }
-}
-
-class AbstractPath extends ModelElement {
-  #attribute;
-  #segments;
-  constructor(host, path, attribute) {
-    super(host);
-    this.#segments = path
-      .split("/")
-      .map((segment) => new Segment(this, segment));
-    this.#attribute = attribute;
-  }
-  get target() {
-    return this.#segments[this.#segments.length - 1].target;
-  }
-  get segments() {
-    return this.#segments;
-  }
-  get attribute() {
-    return this.#attribute;
-  }
-  toString() {
-    return this.attribute || super.toString();
-  }
-  toJSON() {
-    return this.segments.map((segment) => segment.toJSON()).join("/");
-  }
-}
-
-class NamespacePath extends AbstractPath {
-  constructor(host, path, attribute) {
-    super(host, path, attribute);
-    this.csdlDocument.paths?.unshift(this);
-  }
-  unalias() {
-    const { namespace, name } = this.segments[0].qualifiedName();
-    return this.csdlDocument.unalias(namespace) + "." + name;
-  }
-  evaluate() {
-    const { namespace, name } = this.segments[0].qualifiedName();
-    if (["Edm", "odata"].includes(namespace)) return this.segments[0];
-    let target = this.csdlDocument.byQualifiedName(namespace, name);
-    if (!target) throw new InvalidPathError(this);
-    // TODO: Address operation overloads
-    if (target instanceof Array)
-      target = target.some((t) => t.evaluate(this, 1));
-    else target = target.evaluate(this, 1);
-    return (this.segments[0].target = target);
-  }
+  @<Segment@>
 }
 
 class RelativePath extends AbstractPath {
@@ -277,7 +184,7 @@ class Annotation extends ModelElement {
   #value;
   constructor(target, term, qualifier) {
     super(target);
-    this.#term = new NamespacePath(this, term, "term");
+    this.#term = new QualifiedNamePath(this, term, "term");
     this.#qualifier = qualifier;
   }
   get termcast() {
@@ -380,111 +287,12 @@ class Path extends ModelElement {
   }
 }
 
-class ComplexType extends NamedModelElement {
-  evaluateSegment(segment) {
-    return (
-      super.evaluateSegment(segment) ||
-      this.$BaseType.target.evaluateSegment(segment)
-    );
-  }
-  effectiveType() {
-    if (!this.$BaseType) return this;
-    const props = { ...this.$BaseType.effectiveType };
-    for (const prop in this.children)
-      if (prop in props) {
-        // TODO: Merge this.children[prop] into props[prop]
-      } else props[prop] = this.children[prop];
-    const effectiveType = new this.constructor(
-      new ModelElement(this),
-      this.name,
-    );
-    for (const prop in props) effectiveType.children[prop] = props[prop];
-    return effectiveType;
-  }
-  fromJSON(json) {
-    @<Optional qualified name represented as NamespacePath in fromJSON@>@(BaseType@)
-    super.fromJSON(json, "Property");
-  }
-}
-
-class EntityType extends ComplexType {
-  effectiveType() {
-    const effectiveType = super.effectiveType();
-    if (effectiveType !== this)
-      for (let t = this; t; t = t.$BaseType?.target)
-        if (t.$Key) {
-          effectiveType.$Key = t.$Key;
-          break;
-        }
-    return effectiveType;
-  }
-  fromJSON(json) {
-    super.fromJSON(json);
-    if (json.$Key) {
-      this.$Key = new Key(this);
-      this.$Key.fromJSON(json.$Key);
-    }
-  }
-}
-
-class Key extends ModelElement {
-  #entityType;
-  #propertyRefs = [];
-  constructor(entityType) {
-    super(entityType);
-    this.#entityType = entityType;
-  }
-  fromJSON(json) {
-    for (const prop of json) {
-      let propRef;
-      if (typeof prop === "string")
-        propRef = new PropertyRef(
-          this,
-          prop,
-          new RelativePath(this, prop, this.#entityType, "$Key"),
-        );
-      else
-        for (const name in prop)
-          propRef = new PropertyRef(
-            this,
-            name,
-            new RelativePath(this, prop[name], this.#entityType, "$Key"),
-            true,
-          );
-      this.#propertyRefs.push(propRef);
-    }
-  }
-  toJSON() {
-    return this.#propertyRefs;
-  }
-}
-
-class PropertyRef extends NamedModelElement {
-  #path;
-  #alias;
-  constructor(key, name, path, alias) {
-    super(key, name);
-    this.#path = path;
-    this.#alias = alias;
-  }
-  get target() {
-    return this.#path.target;
-  }
-  toJSON() {
-    if (this.#alias) {
-      const propRef = {};
-      propRef[this.name] = this.#path;
-      return propRef;
-    } else return this.name;
-  }
-}
-
 class TypedModelElement extends NamedModelElement {
   evaluateSegment(segment) {
     return this.$Type.target.evaluateSegment(segment);
   }
   fromJSON(json) {
-    @<Qualified name represented as NamespacePath in fromJSON@>@(Type@)
+    @<Qualified name in fromJSON@>@(Type@)
     super.fromJSON(json);
   }
 }
@@ -524,7 +332,7 @@ class EntitySetOrSingleton extends NamedModelElement {
     return this.$Type.target.evaluateSegment(segment);
   }
   fromJSON(json) {
-    @<Qualified name represented as NamespacePath in fromJSON@>@(Type@)
+    @<Qualified name in fromJSON@>@(Type@)
     super.fromJSON(json);
     for (const prop in json.$NavigationPropertyBinding)
       new NavigationPropertyBinding(this, prop).fromJSON(
@@ -582,14 +390,14 @@ class Parameter extends ListedModelElement {
     super(operation, "$Parameter");
   }
   fromJSON(json) {
-    @<Qualified name represented as NamespacePath in fromJSON@>@(Type@)
+    @<Qualified name in fromJSON@>@(Type@)
     super.fromJSON(json);
   }
 }
 
 class ReturnType extends ModelElement {
   fromJSON(json) {
-    @<Qualified name represented as NamespacePath in fromJSON@>@(Type@)
+    @<Qualified name in fromJSON@>@(Type@)
     super.fromJSON(json);
   }
 }
@@ -598,7 +406,7 @@ class Function extends Operation {}
 
 class FunctionImport extends NamedModelElement {
   fromJSON(json) {
-    @<Qualified name represented as NamespacePath in fromJSON@>@(Function@)
+    @<Qualified name in fromJSON@>@(Function@)
     if (json.$EntitySet)
       this.$EntitySet = new RelativePath(
         this,
@@ -614,7 +422,7 @@ class Action extends Operation {}
 
 class ActionImport extends NamedModelElement {
   fromJSON(json) {
-    @<Qualified name represented as NamespacePath in fromJSON@>@(Action@)
+    @<Qualified name in fromJSON@>@(Action@)
     if (json.$EntitySet)
       this.$EntitySet = new RelativePath(
         this,
@@ -641,7 +449,7 @@ class Member extends NamedValue {}
 
 class Term extends Property {
   fromJSON(json) {
-    @<Optional qualified name represented as NamespacePath in fromJSON@>@(BaseTerm@)
+    @<Optional qualified name in fromJSON@>@(BaseTerm@)
     super.fromJSON(json, "Member");
   }
 }
@@ -658,7 +466,7 @@ function CSDLReviver(key, value) {
 const closure = (module.exports = {
   InvalidPathError,
   RelativePath,
-  NamespacePath,
+  QualifiedNamePath,
   CSDLDocument,
   Reference,
   Include,
@@ -695,6 +503,53 @@ global.csdl = JSON.parse(
 );
 @}
 
+@$@<AbstractPath@>@{
+class AbstractPath extends ModelElement {
+  @<Internal property@>@(attribute@,@)
+  @<Internal property@>@(segments@,@)
+  constructor(host, path, attribute) {
+    super(host);
+    this.#segments = path
+      .split("/")
+      .map((segment) => new Segment(this, segment));
+    this.#attribute = attribute;
+  }
+  get target() {
+    return this.#segments[this.#segments.length - 1].target;
+  }
+  toString() {
+    return this.attribute || super.toString();
+  }
+  toJSON() {
+    return this.segments.map((segment) => segment.toJSON()).join("/");
+  }
+}
+@}
+
+@$@<Segment@>@{
+#path;
+#segment;
+#target;
+constructor(path, segment) {
+  this.#path = path;
+  this.#segment = segment;
+}
+get target() {
+  if (!this.#target) this.#path.evaluate();
+  return this.#target;
+}
+set target(target) {
+  this.#target = target;
+}
+evaluate(modelElement) {
+  if (!modelElement.evaluateSegment) throw new InvalidPathError(this.#path);
+  return (this.#target = modelElement.evaluateSegment(this.#segment));
+}
+toJSON() {
+  return this.#segment;
+}
+@}
+
 @$@<Javascript CSDL metamodel@>@{
 class ModelElement {
   @<ModelElement@>
@@ -716,8 +571,8 @@ get @1() {
 @}
 
 @$@<ModelElement@>@{
+@<Internal property@>@(parent@,@)
 @<Internal property@>@(children@,= {}@)
-@<Internal property@>@(parent@,= {}@)
 @<Internal property@>@(targetingPaths@,= new Set()@)
 @<Internal property@>@(targetingSegments@,= new Set()@)
 constructor(parent) {
@@ -741,7 +596,7 @@ toString() {
 eval(path) {
   return (
     path.includes(".")
-      ? new NamespacePath(this, path)
+      ? new QualifiedNamePath(this, path)
       : new RelativePath(this, path, this.evaluationStart())
   ).evaluate(this);
 }
@@ -803,9 +658,6 @@ fromJSON(json, defaultKind) {
       if (typeof target === "object") target[a] = annos[member][a];
       else this[member + a] = annos[member][a];
     }
-}
-toJSON() {
-  return { ...this, ...this.children };
 }
 @}
 

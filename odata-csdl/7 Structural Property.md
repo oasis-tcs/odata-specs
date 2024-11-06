@@ -38,6 +38,10 @@ the member value is an object.
 The property object MAY contain the member `$Kind` with a string value
 of `Property`. This member SHOULD be omitted to reduce document size.
 
+@$@<fromJSON with Property as the default kind of member@>@{
+super.fromJSON(json, "Property");
+@}
+
 It MAY contain the members [`$Type`](#Type), [`$Collection`](#Type),
 [`$Nullable`](#Nullable), [`$MaxLength`](#MaxLength),
 [`$Unicode`](#Unicode), [`$Precision`](#Precision), [`$Scale`](#Scale),

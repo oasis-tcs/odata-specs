@@ -43,6 +43,36 @@ The schema object MAY also contain [annotations](#Annotation) that apply
 to the schema itself.
 :::
 
+@!{
+Addressing a schema member by its qualified name is a special case
+of evaluating a one-segment path that starts with a namespace or alias.
+@!}
+
+@$@<Javascript CSDL metamodel@>@{
+@<AbstractPath@>
+class QualifiedNamePath extends AbstractPath {
+  constructor(host, path, attribute) {
+    super(host, path, attribute);
+    this.csdlDocument.paths?.unshift(this);
+  }
+  unalias() {
+    const { namespace, name } = this.segments[0].qualifiedName();
+    return this.csdlDocument.unalias(namespace) + "." + name;
+  }
+  evaluate() {
+    const { namespace, name } = this.segments[0].qualifiedName();
+    if (@<namespace is reserved@>) return this.segments[0];
+    let target = this.csdlDocument.byQualifiedName(namespace, name);
+    if (!target) throw new InvalidPathError(this);
+    // TODO: Address operation overloads
+    if (target instanceof Array)
+      target = target.some((t) => t.evaluate(this, 1));
+    else target = target.evaluate(this, 1);
+    return (this.segments[0].target = target);
+  }
+}
+@}
+
 ::: {.varxml .rep}
 ### ##isec Element `edm:Schema`
 
@@ -232,6 +262,54 @@ properties](#StructuralProperty) and [navigation
 properties](#NavigationProperty) as well as [annotations](#Annotation).
 :::
 
+@!{
+The entity type is the first of many model elements that appear as schema members
+with an unqualified name. They are represented as subclasses of `NamedModelElement`
+whose constructor ensures that they are appended to the children list of their parent.
+Note the analogy with the [`ListedModelElement`](#IncludedSchema) constructor.
+@!}
+
+@$@<Javascript CSDL metamodel@>@{
+class NamedModelElement extends ModelElement {
+  @<Internal property@>@(name@,@)
+  constructor(parent, name) {
+    super(parent);
+    this.#name = name;
+    parent.children[name] = this;
+  }
+  toString() {
+    return this.name;
+  }
+}
+@}
+
+@!{
+We cannot simply say `parent[name] = this`, because `name` may be a reserved name,
+like the `toJSON` method that every model element has. The `children` property is
+introduced for this reason, but during JSON serialization the `children` are treated
+like other object members.
+@!}
+
+@$@<ModelElement@>@{
+toJSON() {
+  return { ...this, ...this.children };
+}
+@}
+
+@!{
+Since the entity type has much in common with the [complex type](#ComplexType),
+its class is derived from the other one.
+@!}
+
+@$@<Javascript CSDL metamodel@>@{
+class ComplexType extends NamedModelElement {
+  @<Common parts of complex and entity type@>
+}
+class EntityType extends ComplexType {
+  @<EntityType@>
+}
+@}
+
 ::: {.varjson .example}
 Example ##ex_entitytype: a simple entity type
 ```json
@@ -304,6 +382,33 @@ base type.
 
 The value of `$BaseType` is the qualified name of the base type.
 :::
+
+@$@<Common parts of complex and entity type@>@{
+evaluateSegment(segment) {
+  return (
+    super.evaluateSegment(segment) ||
+    this.$BaseType.target.evaluateSegment(segment)
+  );
+}
+effectiveType() {
+  if (!this.$BaseType) return this;
+  const props = { ...this.$BaseType.effectiveType };
+  for (const prop in this.children)
+    if (prop in props) {
+      // TODO: Merge this.children[prop] into props[prop]
+    } else props[prop] = this.children[prop];
+  const effectiveType = new this.constructor(
+    new ModelElement(this),
+    this.name,
+  );
+  for (const prop in props) effectiveType.children[prop] = props[prop];
+  return effectiveType;
+}
+fromJSON(json) {
+  @<Optional qualified name in fromJSON@>@(BaseType@)
+  @<fromJSON with Property as the default kind of member@>
+}
+@}
 
 ::: {.varjson .example}
 Example ##ex: a derived entity type based on the previous example
@@ -522,6 +627,77 @@ Key properties with a key alias are represented as objects with one
 member whose name is the key alias and whose value is a string
 containing the path to the property.
 :::
+
+@$@<Javascript CSDL metamodel@>@{
+class Key extends ModelElement {
+  #entityType;
+  #propertyRefs = [];
+  constructor(entityType) {
+    super(entityType);
+    this.#entityType = entityType;
+    entityType.$Key = this;
+  }
+  fromJSON(json) {
+    for (const prop of json) {
+      let propRef;
+      if (typeof prop === "string")
+        propRef = new PropertyRef(
+          this,
+          prop,
+          new RelativePath(this, prop, this.#entityType, "$Key"),
+        );
+      else
+        for (const name in prop)
+          propRef = new PropertyRef(
+            this,
+            name,
+            new RelativePath(this, prop[name], this.#entityType, "$Key"),
+            true,
+          );
+      this.#propertyRefs.push(propRef);
+    }
+  }
+  toJSON() {
+    return this.#propertyRefs;
+  }
+}
+class PropertyRef extends NamedModelElement {
+  #path;
+  #alias;
+  constructor(key, name, path, alias) {
+    super(key, name);
+    this.#path = path;
+    this.#alias = alias;
+  }
+  get target() {
+    return this.#path.target;
+  }
+  toJSON() {
+    if (this.#alias) {
+      const propRef = {};
+      propRef[this.name] = this.#path;
+      return propRef;
+    } else return this.name;
+  }
+}
+@}
+
+@$@<EntityType@>@{
+effectiveType() {
+  const effectiveType = super.effectiveType();
+  if (effectiveType !== this)
+    for (let t = this; t; t = t.$BaseType?.target)
+      if (t.$Key) {
+        effectiveType.$Key = t.$Key;
+        break;
+      }
+  return effectiveType;
+}
+fromJSON(json) {
+  if (json.$Key) new Key(this).fromJSON(json.$Key);
+  super.fromJSON(json);
+}
+@}
 
 ::: {.varjson .example}
 Example ##ex: entity type with a simple key

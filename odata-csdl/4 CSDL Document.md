@@ -56,6 +56,24 @@ class CSDLDocument extends ModelElement {
 }
 @}
 
+@!{
+The CSDL document is the root of a hierarchy of model elements, and every
+model element has a `csdlDocument` property. Its getter delegates to
+the parent until the root is reached, which returns itself.
+@!}
+
+@$@<ModelElement@>@{
+get csdlDocument() {
+  return this.#parent.csdlDocument;
+}
+@}
+
+@$@<CSDLDocument@>@{
+get csdlDocument() {
+  return this;
+}
+@}
+
 <!-- Lines from here to the closing ::: belong to the JSON variant only. -->
 ::: {.varjson .rep}
 ### ##isec Document Object
@@ -81,24 +99,6 @@ made with an `OData-MaxVersion` header with a value of `4.0`.
 The value of `$EntityContainer` is the namespace-qualified name of the entity container of that service. This is the only place where a model element MUST be referenced with its namespace-qualified name and use of the alias-qualified name is not allowed.
 :::
 
-@!{
-The CSDL document is the root of a hierarchy of model elements, and every
-model element has a `csdlDocument` property. Its getter delegates to
-the parent until the root is reached, which returns itself.
-@!}
-
-@$@<ModelElement@>@{
-get csdlDocument() {
-  return this.#parent.csdlDocument;
-}
-@}
-
-@$@<CSDLDocument@>@{
-get csdlDocument() {
-  return this;
-}
-@}
-
 ::: {.varjson .example}
 Example ##ex:
 ```json
@@ -113,8 +113,9 @@ Example ##ex:
 @!{
 Values like `$Version` that have a string, numeric or Boolean value
 have the same representation in the Javascript object model as in JSON.
-But paths or namespace-qualified names (like `$EntityContainer`) are represented
-by separate classes.
+But paths or qualified names (like `$EntityContainer`) are represented
+by separate classes. ([`QualifiedNamePath`](#Schema) also handles aliases and does not enforce
+the restriction of `$EntityContainer` to _namespace_-qualified names.)
 @!}
 
 @$@<String, number or Boolean values in fromJSON@>@{
@@ -122,18 +123,17 @@ if (!this[member] && typeof json[member] !== "object")
   this[member] = json[member];
 @}
 
-@$@<Qualified name represented as NamespacePath in fromJSON@>@(@1@)@{
-this.$@1 = new NamespacePath(this, json.$@1, "@1");
+@$@<Qualified name in fromJSON@>@(@1@)@{
+this.$@1 = new QualifiedNamePath(this, json.$@1, "$@1");
 @}
 
-@$@<Optional qualified name represented as NamespacePath in fromJSON@>@(@1@)@{
-if (json.$@1)
-  this.$@1 = @<Qualified name represented as NamespacePath in fromJSON@>@(@1@)
+@$@<Optional qualified name in fromJSON@>@(@1@)@{
+if (json.$@1) @<Qualified name in fromJSON@>@(@1@)
 @}
 
 @$@<CSDLDocument@>@{
 fromJSON(json) {
-  @<Optional qualified name represented as NamespacePath in fromJSON@>@(EntityContainer@)
+  @<Optional qualified name in fromJSON@>@(EntityContainer@)
   super.fromJSON(json, "Schema");
 @}
 
