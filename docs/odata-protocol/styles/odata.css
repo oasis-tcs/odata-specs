@@ -41,13 +41,19 @@ a[href^="#XML-"]::after {
 }
 
 .example,
-.example table {
+.example table,
+.funnelweb {
   font-size: smaller;
 }
 
 .example p,
 .example li {
   font-style: italic;
+}
+
+.funnelweb p,
+.funnelweb li {
+  color: green;
 }
 
 .rep {
@@ -171,6 +177,7 @@ td > code {
 }
 
 .example pre,
+.funnelweb pre,
 .rep {
   margin-left: var(--indent);
 }
