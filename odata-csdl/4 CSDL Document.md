@@ -8,68 +8,6 @@
 # ##sec CSDL XML Document
 :
 
-@$@<Javascript CSDL metamodel@>@{
-class CSDLDocument extends ModelElement {
-  #uri;
-  #finish;
-  @<Internal property@>@(paths@,= []@)
-  constructor(uri) {
-    super();
-    this.#uri = uri || "";
-  }
-  get csdlDocument() {
-    return this;
-  }
-  @<CSDLDocument@>
-  unalias(namespace) {
-    return this.#findSchema(namespace, (schema) => schema.name);
-  }
-  byQualifiedName(namespace, name) {
-    return this.#findSchema(namespace, (schema) => schema.children[name]);
-  }
-  finish() {
-    if (!this.#finish) {
-      let finished;
-      this.#finish = new Promise(function (resolve, reject) {
-        finished = resolve;
-      });
-      const references = [];
-      for (const uri in this.$Reference)
-        references.push(this.$Reference[uri].resolve());
-      Promise.all(references).then(
-        async function (uris) {
-          for (const path of this.paths) path.target;
-          this.#paths = undefined;
-          await Promise.all(
-            uris
-              .filter((uri) => uri > this.#uri)
-              .map((uri) =>
-                csdlDocuments.get(uri).then((csdl) => csdl.finish()),
-              ),
-          );
-          finished();
-        }.bind(this),
-      );
-    }
-    return this.#finish;
-  }
-  fromJSON(json) {
-    super.fromJSON(json, "Schema");
-    for (const uri in json.$Reference)
-      new Reference(this, uri).fromJSON(json.$Reference[uri]);
-    if (json.$EntityContainer)
-      this.$EntityContainer = new NamespacePath(
-        this,
-        json.$EntityContainer,
-        "$EntityContainer",
-      );
-  }
-  toString() {
-    return "";
-  }
-}
-@}
-
 <!-- Lines from here to the closing ::: belong to the JSON variant only. -->
 ::: {.varjson .rep}
 ### ##isec Document Object
@@ -105,17 +43,6 @@ Example ##ex:
 }
 ```
 :::
-
-@!{
-Values like `$Version` that have a string, numeric or Boolean value, but not
-a path or namespace-qualified name (like `$EntityContainer`), have the same representation in the
-Javascript object model as in JSON.
-@!}
-
-@$@<String, number or Boolean values@>@{
-if (!this[member] && typeof json[member] !== "object")
-  this[member] = json[member];
-@}
 
 <!-- Lines from here to the closing ::: belong to the XML variant only. -->
 ::: {.varxml .rep}
@@ -300,35 +227,8 @@ into a document MUST have different aliases, and aliases MUST differ
 from the namespaces of all schemas defined within or included into a
 document.
 
-@!{
-Because of this globality condition, we can implement the namespace resolution
-as follows:
-@!}
-
-@$@<CSDLDocument@>@{
-#findSchema(namespace, callback) {
-  let result;
-  for (const schema in this.children)
-    if ([this.children[schema].$Alias, schema].includes(namespace))
-      result = callback(this.children[schema]);
-  if (!result)
-    reference: {
-      for (const uri in this.$Reference)
-        for (const include of this.$Reference[uri].$Include)
-          if ([include.$Alias, include.$Namespace].includes(namespace))
-            result = callback(include.schema);
-      if (result) break reference;
-    }
-  return result;
-}
-@}
-
 The alias MUST NOT be one of the reserved values `Edm`, `odata`,
 `System`, or `Transient`.
-
-@$@<namespace is reserved@>@{
-["Edm", "odata", "System", "Transient"].includes(namespace)
-@}
 
 An alias is only valid within the document in which it is declared; a
 referencing document may define its own aliases for included schemas.
