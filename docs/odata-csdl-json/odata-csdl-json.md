@@ -268,6 +268,7 @@ Section | Feature / Change | Issue
 [Section 3.4.5](#SRID)| SRID value `variable` is deprecated| [1935](https://github.com/oasis-tcs/odata-specs/issues/1935)
 [Section 4](#CSDLJSONDocument) | Additional `$Version` value `4.02` |
 [Section 12](#ActionandFunction) | Actions and functions can take, and return, delta payloads | [348](https://github.com/oasis-tcs/odata-specs/issues/348)
+[Section 12.8](#ReturnType) | Returned collections of entities may contain `null` values | [1983](https://github.com/oasis-tcs/odata-specs/issues/1983)
 [Section 14.3.13](#GeoValues) | Constant Geo values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
 [Section 14.3.14](#StreamValues) | Constant Stream values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
 [Section 14.4.1.2](#PathEvaluation)| New path evaluation rules for annotations targeting annotations and external targeting via container| [575](https://github.com/oasis-tcs/odata-specs/issues/575)
@@ -2895,10 +2896,7 @@ Absence of the `$Type` member means the type is `Edm.String`.
 The value of `$Nullable` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
 
-If the return type is a collection of entity types, the `$Nullable`
-member has no meaning and MUST NOT be specified.
-
-For other collection-valued return types the result will always be a
+For collection-valued return types the result will always be a
 collection that MAY be empty. In this case `$Nullable` applies to items
 of the collection and specifies whether the collection MAY contain
 `null` values.
