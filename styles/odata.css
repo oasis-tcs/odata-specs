@@ -182,6 +182,10 @@ td > code {
   margin-left: var(--indent);
 }
 
+.funnelweb pre {
+  border: dotted 1px black;
+}
+
 .caption p {
   margin-left: var(--indent);
   margin-bottom: -1em;
