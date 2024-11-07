@@ -114,6 +114,521 @@ This uses pandoc $$$pandoc-version$$$ from https://github.com/jgm/pandoc/release
      by using either new Number("...", "json") or new Number("...", "xml").
      Lines between the next and the closing : belong to the JSON variant only. -->
 
+@!{
+## ##subsec Javascript Model of CSDL
+@!}
+
+@!{
+All model elements defined in this document are represented by Javascript classes
+derived from the class `ModelElement`.
+@!}
+
+@o@</git/oasis-tcs/odata-csdl-schemas/lib/metamodel.js@>@{
+@<Javascript CSDL metamodel@>
+const csdlDocuments = new Map();
+
+class Segment {
+  @<Segment@>
+}
+
+class RelativePath extends AbstractPath {
+  #relativeTo;
+  constructor(host, path, relativeTo, attribute) {
+    super(host, path, attribute);
+    this.#relativeTo = relativeTo;
+    this.csdlDocument.paths?.push(this);
+  }
+  evaluate() {
+    if (this.#relativeTo instanceof AbstractPath)
+      this.#relativeTo = this.#relativeTo.target;
+    const target = this.#relativeTo.evaluate(this);
+    if (!target) throw new InvalidPathError(this);
+    return target;
+  }
+}
+
+class InvalidPathError extends Error {
+  constructor(path) {
+    super("Invalid path " + path.toJSON());
+  }
+}
+
+class Annotation extends ModelElement {
+  #term;
+  #qualifier;
+  #value;
+  constructor(target, term, qualifier) {
+    super(target);
+    this.#term = new QualifiedNamePath(this, term, "term");
+    this.#qualifier = qualifier;
+  }
+  get termcast() {
+    return (
+      "@@" +
+      this.#term.toJSON() +
+      (this.#qualifier ? "#" + this.#qualifier : "")
+    );
+  }
+  get value() {
+    return this.#value;
+  }
+  set value(value) {
+    this.#value = value;
+  }
+  evaluationStart() {
+    return this.parent.evaluationStart();
+  }
+  fromJSON(json) {
+    if (typeof json === "object") {
+      dynamic: {
+        for (const dynamicExpr in json)
+          switch (dynamicExpr) {
+            case "$Path":
+              this.value = new Path(this, json[dynamicExpr]);
+              break dynamic;
+          }
+        this.value = new (json instanceof Array ? Collection : Record)(this);
+      }
+      this.value.fromJSON(json);
+    } else this.value = json;
+  }
+  toJSON() {
+    return this.value.toJSON?.() || this.value;
+  }
+}
+
+class Schema extends NamedModelElement {}
+
+class Record extends ModelElement {
+  evaluationStart() {
+    return this.parent.evaluationStart();
+  }
+  fromJSON(json) {
+    super.fromJSON(json, "PropertyValue");
+  }
+}
+
+class Collection extends ModelElement {
+  #value;
+  get value() {
+    return this.#value;
+  }
+  set value(value) {
+    this.#value = value;
+  }
+  evaluationStart() {
+    return this.parent.evaluationStart();
+  }
+  fromJSON(json) {
+    const value = [];
+    for (const item of json) {
+      Annotation.prototype.fromJSON.call(this, item);
+      value.push(this.value);
+    }
+    this.value = value;
+  }
+  toJSON() {
+    return this.value.map((item) =>
+      Annotation.prototype.toJSON.call(this, item)
+    );
+  }
+}
+
+class PropertyValue extends NamedModelElement {
+  #value;
+  get value() {
+    return this.#value;
+  }
+  set value(value) {
+    this.#value = value;
+  }
+  evaluationStart() {
+    return this.parent.evaluationStart();
+  }
+  fromJSON(json) {
+    Annotation.prototype.fromJSON.call(this, json);
+  }
+  toJSON(json) {
+    return Annotation.prototype.toJSON.call(this, json);
+  }
+}
+
+class Path extends ModelElement {
+  constructor(host, path) {
+    super(host);
+    this.$Path = new RelativePath(this, path, host.evaluationStart(), "$Path");
+  }
+}
+
+class EntityContainer extends NamedModelElement {
+  fromJSON(json) {
+    super.fromJSON(json, function (json) {
+      if (json.$Type) return "EntitySetOrSingleton";
+      if (json.$Function) return "FunctionImport";
+      if (json.$Action) return "ActionImport";
+    });
+  }
+}
+
+class EntitySetOrSingleton extends NamedModelElement {
+  evaluateSegment(segment) {
+    return this.$Type.target.evaluateSegment(segment);
+  }
+  fromJSON(json) {
+    @<Qualified name in fromJSON@>@(Type@)
+    super.fromJSON(json);
+    for (const prop in json.$NavigationPropertyBinding)
+      new NavigationPropertyBinding(this, prop).fromJSON(
+        json.$NavigationPropertyBinding
+      );
+  }
+}
+
+class NavigationPropertyBinding extends NamedSubElement {
+  #navigationProperty;
+  #entitySet;
+  constructor(entitySetOrSingleton, prop) {
+    super(entitySetOrSingleton, "$NavigationPropertyBinding", prop);
+  }
+  get navigationProperty() {
+    return this.#navigationProperty;
+  }
+  get entitySet() {
+    return this.#entitySet;
+  }
+  fromJSON(json) {
+    super.fromJSON(json);
+    this.#navigationProperty = new RelativePath(
+      this,
+      this.name,
+      this.parent.$Type,
+      "$NavigationPropertyBinding"
+    );
+    this.#entitySet = new RelativePath(
+      this,
+      json[this.name],
+      this.parent.parent,
+      "$NavigationPropertyBinding.Target"
+    );
+  }
+  toJSON() {
+    return this.entitySet.toJSON();
+  }
+}
+
+class Operation extends ModelElement {
+  fromJSON(json) {
+    if (json.$Parameter) {
+      for (const param of json.$Parameter) new Parameter(this).fromJSON(param);
+    }
+    if (json.$ReturnType) {
+      this.$ReturnType = new ReturnType(this);
+      this.$ReturnType.fromJSON(json.$ReturnType);
+    }
+    super.fromJSON(json);
+  }
+}
+
+class Parameter extends ListedModelElement {
+  constructor(operation) {
+    super(operation, "$Parameter");
+  }
+  fromJSON(json) {
+    @<Qualified name in fromJSON@>@(Type@)
+    super.fromJSON(json);
+  }
+}
+
+class ReturnType extends ModelElement {
+  fromJSON(json) {
+    @<Qualified name in fromJSON@>@(Type@)
+    super.fromJSON(json);
+  }
+}
+
+class Function extends Operation {}
+
+class FunctionImport extends NamedModelElement {
+  fromJSON(json) {
+    @<Qualified name in fromJSON@>@(Function@)
+    if (json.$EntitySet)
+      this.$EntitySet = new RelativePath(
+        this,
+        json.$EntitySet,
+        this.parent,
+        "$EntitySet"
+      );
+    super.fromJSON(json);
+  }
+}
+
+class Action extends Operation {}
+
+class ActionImport extends NamedModelElement {
+  fromJSON(json) {
+    @<Qualified name in fromJSON@>@(Action@)
+    if (json.$EntitySet)
+      this.$EntitySet = new RelativePath(
+        this,
+        json.$EntitySet,
+        this.parent,
+        "$EntitySet"
+      );
+    super.fromJSON(json);
+  }
+}
+
+class Term extends Property {
+  fromJSON(json) {
+    @<Optional qualified name in fromJSON@>@(BaseTerm@)
+    super.fromJSON(json, "Member");
+  }
+}
+
+function CSDLReviver(key, value) {
+  if (key === "") {
+    const csdl = new CSDLDocument();
+    csdl.fromJSON(value);
+    csdl.finish();
+    return csdl;
+  } else return value;
+}
+
+const closure = (module.exports = {
+  InvalidPathError,
+  RelativePath,
+  QualifiedNamePath,
+  CSDLDocument,
+  Reference,
+  Include,
+  IncludeAnnotations,
+  Schema,
+  Annotation,
+  Record,
+  Collection,
+  PropertyValue,
+  ComplexType,
+  EntityType,
+  Key,
+  PropertyRef,
+  Property,
+  NavigationProperty,
+  EntityContainer,
+  EntitySetOrSingleton,
+  NavigationPropertyBinding,
+  Function,
+  FunctionImport,
+  Action,
+  ActionImport,
+  TypeDefinition,
+  EnumType,
+  Member,
+  Term,
+  CSDLReviver
+});
+
+debugger;
+global.csdl = JSON.parse(
+  require("fs").readFileSync(__dirname + "/../examples/csdl-16.1.json"),
+  CSDLReviver
+);
+@}
+
+@$@<NamedValue@>@{
+static toJSONWithAnnotations(modelElement, json) {
+  for (const member in modelElement.children)
+    for (const anno in modelElement.children[member])
+      if (anno.startsWith("@@"))
+        json[member + anno] = modelElement.children[member][anno];
+  return json;
+}
+@}
+
+@$@<EnumType@>@{
+toJSON() {
+  return NamedValue.toJSONWithAnnotations(this, super.toJSON());
+}
+@}
+
+@$@<ModelElement@>@{
+toJSONWithAnnotations(sub, json) {
+  for (const member in this[sub])
+    for (const anno in this[sub][member])
+      if (anno.startsWith("@@")) {
+        json[sub] ||= {};
+        json[sub][member + anno] = this[sub][member][anno];
+      }
+  return json;
+}
+@}
+
+@$@<NavigationProperty@>@{
+toJSON() {
+  return this.toJSONWithAnnotations(
+    "$ReferentialConstraint",
+    super.toJSON()
+  );
+}
+@}
+
+@$@<AbstractPath@>@{
+class AbstractPath extends ModelElement {
+  @<Internal property@>@(attribute@,@)
+  @<Internal property@>@(segments@,@)
+  constructor(host, path, attribute) {
+    super(host);
+    this.#segments = path
+      .split("/")
+      .map((segment) => new Segment(this, segment));
+    this.#attribute = attribute;
+  }
+  get target() {
+    return this.#segments[this.#segments.length - 1].target;
+  }
+  toString() {
+    return this.attribute || super.toString();
+  }
+  toJSON() {
+    return this.segments.map((segment) => segment.toJSON()).join("/");
+  }
+}
+@}
+
+@$@<Segment@>@{
+#path;
+#segment;
+#target;
+constructor(path, segment) {
+  this.#path = path;
+  this.#segment = segment;
+}
+get target() {
+  if (!this.#target) this.#path.evaluate();
+  return this.#target;
+}
+set target(target) {
+  this.#target = target;
+}
+evaluate(modelElement) {
+  if (!modelElement.evaluateSegment) throw new InvalidPathError(this.#path);
+  return (this.#target = modelElement.evaluateSegment(this.#segment));
+}
+toJSON() {
+  return this.#segment;
+}
+@}
+
+@$@<Javascript CSDL metamodel@>@{
+class ModelElement {
+  @<ModelElement@>
+}
+@}
+
+@!{
+The JSON serialization of these classes produces the CSDL format specified by this document.
+Therefore, properties that shall not be part of the JSON format are defined as "internal".
+They have a getter, but not necessarily a setter. The second macro parameter is an
+optional initialization.
+@!}
+
+@$@<Internal property@>@(@2@)@{
+#@1@2;
+get @1() {
+  return this.#@1;
+}
+@}
+
+@$@<ModelElement@>@{
+@<Internal property@>@(parent@,@)
+@<Internal property@>@(children@,= {}@)
+@<Internal property@>@(targetingPaths@,= new Set()@)
+@<Internal property@>@(targetingSegments@,= new Set()@)
+constructor(parent) {
+  this.#parent = parent;
+}
+@}
+
+@$@<ModelElement@>@{
+path() {
+  return (
+    (this.parent instanceof Schema
+      ? this.parent.path() + "."
+      : this.parent
+        ? this.parent.path() + "/"
+        : "") + this.toString()
+  );
+}
+toString() {
+  return this.constructor.name;
+}
+eval(path) {
+  return (
+    path.includes(".")
+      ? new QualifiedNamePath(this, path)
+      : new RelativePath(this, path, this.evaluationStart())
+  ).evaluate(this);
+}
+evaluationStart() {
+  return this;
+}
+evaluate(path, offset = 0) {
+  let target = this;
+  for (let i = offset; i < path.segments.length; i++) {
+    target = path.segments[i].evaluate(target);
+    if (!target) throw new InvalidPathError(path);
+    if (i < path.segments.length - 1)
+      target.targetingSegments.add(path.segments[i]);
+  }
+  target.targetingPaths.add(path);
+  return target;
+}
+evaluateSegment(segment) {
+  return this.children[segment];
+}
+fromJSON(json, defaultKind) {
+  const annos = {};
+  for (const member in json) {
+    const m = member.match(/^(.*)@@(.*?)(#(.*?))?$/);
+    if (m) {
+      const anno = new Annotation(
+        m[1] ? new RelativePath(this, m[1], this, "target").evaluate() : this,
+        m[2],
+        m[4],
+      );
+      anno.fromJSON(json[member]);
+      if (m[1]) {
+        annos[m[1]] ||= {};
+        annos[m[1]][anno.termcast] = anno;
+      } else this[member] = anno;
+    } else if (!member.startsWith("$")) {
+      if (json[member] instanceof Array) {
+        this.children[member] = [];
+        for (const item of json[member]) {
+          const memberItem = new closure[item.$Kind](this);
+          memberItem.fromJSON(item);
+          this.children[member].push(memberItem);
+        }
+      } else {
+        const kind =
+          json[member].$Kind ||
+          (typeof defaultKind === "function"
+            ? defaultKind(json[member])
+            : defaultKind);
+        if (kind) new closure[kind](this, member);
+        else this.children[member] = new ModelElement(this);
+        this.children[member].fromJSON(json[member]);
+      }
+    } else @<String, number or Boolean values in fromJSON@>
+  }
+  for (const member in annos)
+    for (const a in annos[member]) {
+      const target = this[member] || this.children[member];
+      if (typeof target === "object") target[a] = annos[member][a];
+      else this[member + a] = annos[member][a];
+    }
+}
+@}
+
 -------
 
 : varjson
