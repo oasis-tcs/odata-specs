@@ -578,7 +578,7 @@ Context URL template:
     {context-url}#Collection(Edm.EntityType)
 
 Responses to requests to the virtual collection `$all` (see
-[OData-URL](#ODataURL)) use the built-in abstract entity type. Each
+[#OData-URL#AddressingAllEntitiesinaService]) use the built-in abstract entity type. Each
 single entity in such a response has its individual context URL that
 identifies the entity set or singleton.
 
@@ -589,5 +589,5 @@ Context URL template:
     {context-url}#Collection(Edm.ComplexType)
 
 Responses to requests to the virtual collections `$crossjoin(…)` (see
-[OData-URL](#ODataURL)) use the built-in abstract complex type. Single
+[#OData-URL#AddressingtheCrossJoinofEntitySets]) use the built-in abstract complex type. Single
 instances in these responses do not have a context URL.
