@@ -516,21 +516,9 @@ http://host/service/$metadata#Edm.String
 
 ## ##subsec Operation Result
 
-Context URL templates:
-
-    {context-url}#{entity-collection}{/type-name}{select-list}
-    {context-url}#{entity-collection}{/type-name}{select-list}/$entity
-    {context-url}#{entity}/{property-path}{select-list}
-    {context-url}#Collection({type-name}){select-list}
-    {context-url}#{type-name}{select-list}
-
-If the response from an action or function is a collection of entities
-or one entity that is a member of an entity set, the context URL
-identifies the entity set. If the response from an action or function is
-a property of one entity, the context URL identifies the entity and
-property. Otherwise, the context URL identifies the type returned by the
-operation. The context URL will correspond to one of the former
-examples.
+The context URL in a response from an action or function has one of the formats
+described so far (except the [service document](#ServiceDocument) format).
+It does not mention the name of the invoked action or function.
 
 ::: example
 Example ##ex: resource URL and corresponding context URL
