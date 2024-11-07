@@ -406,7 +406,7 @@ effectiveType() {
 }
 fromJSON(json) {
   @<Optional qualified name in fromJSON@>@(BaseType@)
-  @<fromJSON with Property as the default kind of member@>
+  @<JSON members without kind are properties@>
 }
 @}
 

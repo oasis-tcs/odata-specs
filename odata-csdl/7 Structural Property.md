@@ -38,7 +38,7 @@ the member value is an object.
 The property object MAY contain the member `$Kind` with a string value
 of `Property`. This member SHOULD be omitted to reduce document size.
 
-@$@<fromJSON with Property as the default kind of member@>@{
+@$@<JSON members without kind are properties@>@{
 super.fromJSON(json, "Property");
 @}
 
@@ -46,6 +46,23 @@ It MAY contain the members [`$Type`](#Type), [`$Collection`](#Type),
 [`$Nullable`](#Nullable), [`$MaxLength`](#MaxLength),
 [`$Unicode`](#Unicode), [`$Precision`](#Precision), [`$Scale`](#Scale),
 [`$SRID`](#SRID), and [`$DefaultValue`](#DefaultValue).
+
+@$@<Javascript CSDL metamodel@>@{
+class TypedModelElement extends NamedModelElement {
+  evaluateSegment(segment) {
+    return this.$Type.target.evaluateSegment(segment);
+  }
+  fromJSON(json) {
+    @<Qualified name in fromJSON@>@(Type@)
+    super.fromJSON(json);
+  }
+}
+class AbstractProperty extends TypedModelElement {
+  evaluationStart() {
+    return this.parent;
+  }
+}
+@}
 
 It also MAY contain [annotations](#Annotation).
 :::
@@ -133,6 +150,20 @@ present with the literal value `true`.
 Absence of the `$Type` member means the type is `Edm.String`. This
 member SHOULD be omitted for string properties to reduce document size.
 :::
+
+@$@<Javascript CSDL metamodel@>@{
+class Property extends AbstractProperty {
+  fromJSON(json) {
+    if (!json.$Type) json = { ...json, $Type: "Edm.String" };
+    super.fromJSON(json);
+  }
+  toJSON() {
+    const json = { ...this };
+    if (this.$Type.evaluate().toJSON() === "Edm.String") delete json.$Type;
+    return json;
+  }
+}
+@}
 
 ::: {.varjson .example}
 Example ##ex: property `Units` that can have zero or more strings as its

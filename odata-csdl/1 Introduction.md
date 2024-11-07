@@ -287,34 +287,6 @@ class Path extends ModelElement {
   }
 }
 
-class TypedModelElement extends NamedModelElement {
-  evaluateSegment(segment) {
-    return this.$Type.target.evaluateSegment(segment);
-  }
-  fromJSON(json) {
-    @<Qualified name in fromJSON@>@(Type@)
-    super.fromJSON(json);
-  }
-}
-
-class AbstractProperty extends TypedModelElement {
-  evaluationStart() {
-    return this.parent;
-  }
-}
-
-class Property extends AbstractProperty {
-  fromJSON(json) {
-    if (!json.$Type) json = { ...json, $Type: "Edm.String" };
-    super.fromJSON(json);
-  }
-  toJSON() {
-    const json = { ...this };
-    if (this.$Type.evaluate().toJSON() === "Edm.String") delete json.$Type;
-    return json;
-  }
-}
-
 class NavigationProperty extends AbstractProperty {}
 
 class EntityContainer extends NamedModelElement {
