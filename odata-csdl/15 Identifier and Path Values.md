@@ -35,6 +35,12 @@ or alias of the schema that defines the model element, followed by a dot
 and the name of the model element, see rule `qualifiedTypeName` in
 [OData‑ABNF](#ODataABNF).
 
+@$@<Determine namespace and name of segment@>@{
+const i = segment.lastIndexOf(".");
+this.#namespace = segment.substring(0, i);
+this.#name = segment.substring(i + 1);
+@}
+
 For built-in [primitive types](#PrimitiveTypes): the name of the type,
 prefixed with `Edm` followed by a dot.
 
