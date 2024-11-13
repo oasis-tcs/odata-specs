@@ -178,12 +178,17 @@ td > code {
 
 .example pre,
 .funnelweb pre,
+.funnelweb p,
 .rep {
   margin-left: var(--indent);
 }
 
 .funnelweb pre {
   border: dotted 1px black;
+}
+
+.funnelweb font[size="1"] {
+  display: none;
 }
 
 .caption p {
