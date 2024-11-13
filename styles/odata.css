@@ -178,6 +178,7 @@ td > code {
 
 .example pre,
 .funnelweb pre,
+.funnelweb p,
 .rep {
   margin-left: var(--indent);
 }
