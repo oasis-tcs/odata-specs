@@ -67,7 +67,7 @@ metadata documents and provides a JSON schema to validate their
 contents. The media type of the JSON representation of an OData metadata
 document is `application/json`.
 
-[OData-CSDLXML](#ODataCSDL) describes an XML representation for OData
+[OData-CSDLXML](#ODataCSDLXML) describes an XML representation for OData
 metadata documents and provides an XML schema to validate their
 contents. The media type of the XML representation of an OData metadata
 document is `application/xml`.
@@ -151,9 +151,9 @@ URL that identifies the entity, e.g. its read URL.
 
 The read URL can be obtained from a response payload containing that
 instance, for example as a `readLink` or `editLink` in an
-[OData-JSON](#ODataJSON) payload. In addition, services
+[#OData-JSON#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink] payload. In addition, services
 MAY support conventions for constructing a read URL using the entity's
-key value(s), as described in [OData-URL](#ODataURL).
+key value(s), as described in [#OData-URL#CanonicalURL].
 
 The set of structural or navigation properties to return may be
 specified through [`$select`](#SystemQueryOptionselect) or
@@ -213,7 +213,7 @@ the property name appended.
 For complex typed properties, the path can be further extended with the
 name of an individual property of the complex type.
 
-See [OData-URL](#ODataURL) for details.
+See [#OData-URL#AddressingaProperty] for details.
 
 If the property is single-valued and has the `null` value, the service
 responds with [`204 No Content`](#ResponseCode204NoContent).
@@ -243,7 +243,7 @@ system query option.
 #### ##subsubsubsec Requesting a Raw Value using `$value`
 
 To retrieve the raw value of a primitive property or operation result, the client sends
-a `GET` request to the raw value URL. See the [OData-URL](#ODataURL) document for details.
+a `GET` request to the raw value URL. See [#OData-URL#AddressingaRawValue] for details.
 
 The `Content-Type` of the response is determined using the `Accept`
 header and the [`$format`](#SystemQueryOptionformat) system query
@@ -442,7 +442,7 @@ GET http://host/service.svc/Customers?$expand=Photo
 The set of expanded entities can be further refined through the
 application of expand options, expressed as a semicolon-separated list
 of system query options, enclosed in parentheses, see
-[OData-URL](#ODataURL).
+[#OData-URL#SystemQueryOptionexpand].
 
 Allowed system query options are
 [`$compute`](#SystemQueryOptioncompute),
@@ -1232,7 +1232,7 @@ GET http://host/service/Orders?$format=application/json;metadata=full
 is equivalent to a request with an `Accept` header using the same media
 type; it requests the set of Order entities represented using the JSON
 media type including full metadata, as defined in
-[OData-JSON](#ODataJSON).
+[#OData-JSON#metadatafullodatametadatafull].
 
 ::: example
 Example ##ex: the request
@@ -1244,7 +1244,7 @@ GET http://host/service/Orders?$format=json
 is equivalent to a request with the `Accept` header set to
 `application/json`; it requests the set of Order entities represented
 using the JSON media type with minimal metadata, as defined in
-[OData-JSON](#ODataJSON).
+[#OData-JSON#metadataminimalodatametadataminimal].
 
 In [metadata document requests](#MetadataDocumentRequest), the values
 `application/xml` and `application/json`, along with their subtypes and

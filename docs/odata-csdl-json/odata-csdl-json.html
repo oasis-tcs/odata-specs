@@ -464,31 +464,36 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/348">348</a></td>
 </tr>
 <tr class="odd">
+<td><a href="#ReturnType">Section 12.8</a></td>
+<td>Returned collections of entities may contain <code>null</code> values</td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/1983">1983</a></td>
+</tr>
+<tr class="even">
 <td><a href="#GeoValues">Section 14.3.13</a></td>
 <td>Constant Geo values in annotations</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/654">654</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#StreamValues">Section 14.3.14</a></td>
 <td>Constant Stream values in annotations</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/654">654</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#PathEvaluation">Section 14.4.1.2</a></td>
 <td>New path evaluation rules for annotations targeting annotations and external targeting via container</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/575">575</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#IfThenElse">Section 14.4.7</a></td>
 <td>Nested <code>If</code> without else part in collections</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/326">326</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#SimpleIdentifier">Section 15.2</a></td>
 <td>Prefer identifiers consisting only of latin letters, the underscore, and decimal numbers</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/375">375</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#Conformance">Section 17</a></td>
 <td>Additional conformance clauses for version 4.02</td>
 <td></td>
@@ -818,7 +823,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <h3><a id="TypeFacetMembers.1" href="#TypeFacetMembers.1">Type Facet Members</a></h3>
 <h3><a id="MaxLength.1.1" href="#MaxLength.1.1"><code>$MaxLength</code></a></h3>
 <p>The value of <code>$MaxLength</code> is a positive integer.</p>
-<p>Note: <a href="#ODataCSDL">OData-CSDL-XML</a> defines a symbolic value <code>max</code> that is only allowed in OData 4.0 responses. This symbolic value is not allowed in CDSL JSON documents at all. Services MAY instead specify the concrete maximum length supported for the type by the service or omit the member entirely.</p>
+<p>Note: <a href="https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/odata-csdl-xml-v4.02.html#MaxLength">OData-CSDLXML, section 3.4.1</a> defines a symbolic value <code>max</code> that is only allowed in OData 4.0 responses. This symbolic value is not allowed in CDSL JSON documents at all. Services MAY instead specify the concrete maximum length supported for the type by the service or omit the member entirely.</p>
 </div>
 </details>
 <details open><summary>
@@ -1014,7 +1019,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>A reference to an external CSDL document allows to bring part of the referenced document’s content into the scope of the referencing document.</p>
 <p>A reference MUST specify a URI that uniquely identifies the referenced document, so two references MUST NOT specify the same URI. The URI SHOULD be a URL that locates the referenced document. If the URI is not dereferencable it SHOULD identify a well-known schema. The URI MAY be absolute or relative URI; relative URLs are relative to the URL of the document containing the reference, or relative to a base URL specified in a format-specific way.</p>
 <p>A reference MAY be annotated.</p>
-<p>The <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#SchemaVersion"><code>Core.SchemaVersion</code></a> annotation, defined in <a href="#ODataVocCore">OData-VocCore</a>, MAY be used to indicate a particular version of the referenced document. If the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#SchemaVersion"><code>Core.SchemaVersion</code></a> annotation is present, the <code>$schemaversion</code> system query option, defined <a href="#ODataProtocol">OData-Protocol</a>, SHOULD be used when retrieving the referenced schema document.</p>
+<p>The <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#SchemaVersion"><code>Core.SchemaVersion</code></a> annotation, defined in <a href="#ODataVocCore">OData-VocCore</a>, MAY be used to indicate a particular version of the referenced document. If the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#SchemaVersion"><code>Core.SchemaVersion</code></a> annotation is present, the <code>$schemaversion</code> system query option, defined in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptionschemaversion">OData-Protocol, section 11.2.12</a>, SHOULD be used when retrieving the referenced schema document.</p>
 <div class="varjson rep">
 <h3><a id="Reference.2.3" href="#Reference.2.3"><code>$Reference</code></a></h3>
 <p>The value of <code>$Reference</code> is an object that contains one member per referenced CSDL document. The name of the pair is a URI for the referenced document. The URI MAY be relative to the document containing the <code>$Reference</code>. The value of each member is a reference object.</p>
@@ -1295,7 +1300,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </summary>
 <p>An entity type MAY indicate that it is open and allows clients to add properties dynamically to instances of the type by specifying uniquely named property values in the payload used to insert or update an instance of the type.</p>
 <p>An entity type derived from an open entity type MUST indicate that it is also open.</p>
-<p>Note: structural and navigation properties MAY be returned by the service on instances of any structured type, whether or not the type is marked as open. Clients MUST always be prepared to deal with additional properties on instances of any structured type, see <a href="#ODataProtocol">OData-Protocol</a>.</p>
+<p>Note: structural and navigation properties MAY be returned by the service on instances of any structured type, whether or not the type is marked as open. Clients MUST always be prepared to deal with additional properties on instances of any structured type, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#DataModel">OData-Protocol, section 3</a>.</p>
 <section class="varjson rep">
 <h3><a id="OpenType.5.3" href="#OpenType.5.3"><code>$OpenType</code></a></h3>
 <p>The value of <code>$OpenType</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the member means <code>false</code>.</p>
@@ -1304,7 +1309,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <details open><summary>
 <h2 id="64-media-entity-type"><a id="MediaEntityType" href="#MediaEntityType">6.4 Media Entity Type</a></h2>
 </summary>
-<p>An entity type that does not specify a base type MAY indicate that it is a media entity type. <em>Media entities</em> are entities that represent a media stream, such as a photo. Use a media entity if the out-of-band stream is the main topic of interest and the media entity is just additional structured information attached to the stream. Use a normal entity with one or more properties of type <code>Edm.Stream</code> if the structured data of the entity is the main topic of interest and the stream data is just additional information attached to the structured data. For more information on media entities see <a href="#ODataProtocol">OData-Protocol</a>.</p>
+<p>An entity type that does not specify a base type MAY indicate that it is a media entity type. <em>Media entities</em> are entities that represent a media stream, such as a photo. Use a media entity if the out-of-band stream is the main topic of interest and the media entity is just additional structured information attached to the stream. Use a normal entity with one or more properties of type <code>Edm.Stream</code> if the structured data of the entity is the main topic of interest and the stream data is just additional information attached to the structured data. For more information on media entities see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#RequestingtheMediaStreamofaMediaEntityusingvalue">OData-Protocol, section 11.2.3</a>.</p>
 <p>An entity type derived from a media entity type MUST indicate that it is also a media entity type.</p>
 <p>Media entity types MAY specify a list of acceptable media types using an annotation with term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AcceptableMediaTypes"><code>Core.AcceptableMediaTypes</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>.</p>
 <section class="varjson rep">
@@ -1335,7 +1340,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <li><code>Edm.String</code></li>
 <li><code>Edm.TimeOfDay</code></li>
 </ul>
-<p>Key property values MAY be language-dependent, but their values MUST be unique across all languages and the entity-ids (defined in <a href="#ODataProtocol">OData-Protocol</a>) MUST be language independent.</p>
+<p>Key property values MAY be language-dependent, but their values MUST be unique across all languages and the entity-ids (defined in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#EntityIdsandEntityReferences">OData-Protocol, section 4.1</a>) MUST be language independent.</p>
 <p>A key property MUST be a non-nullable primitive property of the entity type itself, including non-nullable primitive properties of non-nullable single-valued complex properties, recursively.</p>
 <p>In OData 4.01 the key properties of a directly related entity type MAY also be part of the key if the navigation property is single-valued and not nullable. This includes navigation properties of non-nullable single-valued complex properties (recursively) of the entity type. If a key property of a related entity type is part of the key, all key properties of the related entity type MUST also be part of the key.</p>
 <p>If the key property is a property of a complex property (recursively) or of a directly related entity type, the key MUST specify an alias for that property that MUST be a <a href="#SimpleIdentifier">simple identifier</a> and MUST be unique within the set of aliases, structural and navigation properties of the declaring entity type and any of its base types.</p>
@@ -1490,7 +1495,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>If no value is specified, the client SHOULD NOT assume a default value.</p>
 <section class="varjson rep">
 <h3><a id="DefaultValue.6.4" href="#DefaultValue.6.4"><code>$DefaultValue</code></a></h3>
-<p>The value of <code>$DefaultValue</code> is the type-specific JSON representation of the default value of the property, see <a href="#ODataJSON">OData-JSON</a>. For properties of type <code>Edm.Decimal</code> and <code>Edm.Int64</code> the representation depends on the media type parameter <a href="#ControllingtheRepresentationofNumbers"><code>IEEE754Compatible</code></a>.</p>
+<p>The value of <code>$DefaultValue</code> is the type-specific JSON representation of the default value of the property, see <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#PrimitiveValue">OData-JSON, section 7.1</a>. For properties of type <code>Edm.Decimal</code> and <code>Edm.Int64</code> the representation depends on the media type parameter <a href="#ControllingtheRepresentationofNumbers"><code>IEEE754Compatible</code></a>.</p>
 </section>
 </details>
 </details>
@@ -1583,7 +1588,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </summary>
 <p>A navigation property MAY indicate that instances of its declaring structured type contain the targets of the navigation property, in which case the navigation property is called a <em>containment navigation property</em>.</p>
 <p>Containment navigation properties define an implicit entity set for each instance of its declaring structured type. This implicit entity set is identified by the read URL of the navigation property for that structured type instance.</p>
-<p>Instances of the structured type that declares the navigation property, either directly or indirectly via a property of complex type, contain the entities referenced by the containment navigation property. The canonical URL for contained entities is the canonical URL of the containing instance, followed by the path segment of the navigation property and the key of the contained entity, see <a href="#ODataURL">OData-URL</a>.</p>
+<p>Instances of the structured type that declares the navigation property, either directly or indirectly via a property of complex type, contain the entities referenced by the containment navigation property. The canonical URL for contained entities is the canonical URL of the containing instance, followed by the path segment of the navigation property and the key of the contained entity, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalURLforContainedEntities">OData-URL, section 4.3.2</a>.</p>
 <p>Entity types used in collection-valued containment navigation properties MUST have a <a href="#Key">key</a> defined.</p>
 <p>For items of an ordered collection of complex types (those annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered"><code>Core.Ordered</code></a> term defined in <a href="#ODataVocCore">OData-VocCore</a> the canonical URL of the item is the canonical URL of the collection appended with a segment containing the zero-based ordinal of the item. Items within in an unordered collection of complex types do not have a canonical URL. Services that support unordered collections of complex types declaring a containment navigation property, either directly or indirectly via a property of complex type, MUST specify the URL for the navigation link within a payload representing that item, according to format-specific rules.</p>
 <p>OData 4.0 responses MUST NOT specify a complex type declaring a containment navigation property as the type of a collection-valued property.</p>
@@ -1751,7 +1756,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </summary>
 <p>A complex type MAY indicate that it is open and allows clients to add properties dynamically to instances of the type by specifying uniquely named property values in the payload used to insert or update an instance of the type.</p>
 <p>A complex type derived from an open complex type MUST indicate that it is also open.</p>
-<p>Note: structural and navigation properties MAY be returned by the service on instances of any structured type, whether or not the type is marked as open. Clients MUST always be prepared to deal with additional properties on instances of any structured type, see <a href="#ODataProtocol">OData‑Protocol</a>.</p>
+<p>Note: structural and navigation properties MAY be returned by the service on instances of any structured type, whether or not the type is marked as open. Clients MUST always be prepared to deal with additional properties on instances of any structured type, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#DataModel">OData-Protocol, section 3</a>.</p>
 <section class="varjson rep">
 <h3><a id="OpenType.8.3" href="#OpenType.8.3"><code>$OpenType</code></a></h3>
 <p>The value of <code>$OpenType</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the member means <code>false</code>.</p>
@@ -2016,8 +2021,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>Absence of the <code>$Type</code> member means the type is <code>Edm.String</code>.</p>
 <h3><a id="Nullable.13.7" href="#Nullable.13.7"><code>$Nullable</code></a></h3>
 <p>The value of <code>$Nullable</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the member means <code>false</code>.</p>
-<p>If the return type is a collection of entity types, the <code>$Nullable</code> member has no meaning and MUST NOT be specified.</p>
-<p>For other collection-valued return types the result will always be a collection that MAY be empty. In this case <code>$Nullable</code> applies to items of the collection and specifies whether the collection MAY contain <code>null</code> values.</p>
+<p>For collection-valued return types the result will always be a collection that MAY be empty. In this case <code>$Nullable</code> applies to items of the collection and specifies whether the collection MAY contain <code>null</code> values.</p>
 <p>For single-valued return types the value <code>true</code> means that the action or function MAY return a single <code>null</code> value. The value <code>false</code> means that the action or function will never return a <code>null</code> value and instead will fail with an error response if it cannot compute a result.</p>
 </div>
 <h3><a id="AnnotationCoreIsDelta.13.8" href="#AnnotationCoreIsDelta.13.8">Annotation <code>Core.IsDelta</code></a></h3>
@@ -2336,7 +2340,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </summary>
 <p>Vocabularies and annotations provide the ability to annotate metadata as well as instance data, and define a powerful extensibility point for OData. An <a href="#Annotation"><em>annotation</em></a> applies a <a href="#Term"><em>term</em></a> to a model element and defines how to calculate a value for the applied term.</p>
 <p><em>Metadata annotations</em> are terms applied to model elements. Behaviors or constraints described by a metadata annotation must be consistent with the annotated model element. Such annotations define additional behaviors or constraints on the model element, such as a service, entity type, property, function, action, or parameter. For example, a metadata annotation may define ranges of valid values for a particular property. Metadata annotations are applied in CSDL documents describing or referencing an entity model.</p>
-<p><em>Instance annotations</em> are terms applied to a particular instance within an OData payload, such as described in <a href="#ODataJSON">OData-JSON</a>. An instance annotation can be used to define additional information associated with a particular result, entity, property, or error. For example, whether a property is read-only for a particular instance. Where the same annotation is defined at both the metadata and instance level, the instance-level annotation overrides the annotation specified at the metadata level. Annotations that apply across instances should be specified as metadata annotations.</p>
+<p><em>Instance annotations</em> are terms applied to a particular instance within an OData payload, such as described in <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#InstanceAnnotations">OData-JSON, section 20</a>. An instance annotation can be used to define additional information associated with a particular result, entity, property, or error. For example, whether a property is read-only for a particular instance. Where the same annotation is defined at both the metadata and instance level, the instance-level annotation overrides the annotation specified at the metadata level. Annotations that apply across instances should be specified as metadata annotations.</p>
 <p>A <em>vocabulary</em> is a schema containing a set of terms where each <a href="#Term">term</a> is a named metadata extension. Anyone can define a vocabulary (a set of terms) that is scenario-specific or company-specific; more commonly used terms can be published as shared vocabularies such as the OData Core vocabulary <a href="#ODataVocCore">OData-VocCore</a>.</p>
 <p>A <a href="#Term">term</a> can be used to:</p>
 <ul>
@@ -2409,8 +2413,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>For single-valued terms the value <code>true</code> means that annotations may have the <code>null</code> value.</p>
 <p>For collection-valued terms the annotation value will always be a collection that MAY be empty. In this case <code>$Nullable</code> applies to items of the collection and specifies whether the collection MAY contain <code>null</code> values.</p>
 <h3><a id="DefaultValue.20.4" href="#DefaultValue.20.4"><code>$DefaultValue</code></a></h3>
-<p>The value of <code>$DefaultValue</code> is the type-specific JSON representation of the default value of the term, see <a href="#ODataJSON">OData-JSON</a>.</p>
-<p>Note: the <code>$DefaultValue</code> member is purely for documentation and isomorphy to <a href="#ODataCSDL">OData-CSDLXML</a>. Annotations in CSDL JSON documents MUST always specify an explicit value.</p>
+<p>The value of <code>$DefaultValue</code> is the type-specific JSON representation of the default value of the term, see <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#PrimitiveValue">OData-JSON, section 7.1</a>.</p>
+<p>Note: the <code>$DefaultValue</code> member is purely for documentation and isomorphy to <a href="https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/odata-csdl-xml-v4.02.html#DefaultValue">OData-CSDLXML, section 7.3</a>. Annotations in CSDL JSON documents MUST always specify an explicit value.</p>
 </div>
 <details open><summary>
 <h3 id="1411-specialized-term"><a id="SpecializedTerm" href="#SpecializedTerm">14.1.1 Specialized Term</a></h3>
@@ -2936,7 +2940,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h3 id="14313-geo-values"><a id="GeoValues" href="#GeoValues">14.3.13 Geo Values</a></h3>
 </summary>
 <div class="varjson rep">
-<p>Values are represented as GeoJSON, see <a href="#ODataJSON">OData-JSON</a>.</p>
+<p>Values are represented as GeoJSON, see <a href="#rfc7946">RFC7946</a>.</p>
 </div>
 <div class="varjson example">
 <p>Example 58:</p>
@@ -2947,7 +2951,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h3 id="14314-stream-values"><a id="StreamValues" href="#StreamValues">14.3.14 Stream Values</a></h3>
 </summary>
 <div class="varjson rep">
-<p>Constant values of type <code>Edm.Stream</code> are represented according to <a href="#ODataJSON">OData-JSON</a> and MUST be accompanied by the <code>mediaContentType</code> control information to indicate how the stream value is to be interpreted.</p>
+<p>Constant values of type <code>Edm.Stream</code> are represented according to <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#StreamProperty">OData-JSON, section 9</a> and MUST be accompanied by the <code>mediaContentType</code> control information to indicate how the stream value is to be interpreted.</p>
 </div>
 <p>The annotation (property) being assigned a stream value MUST be annotated with term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#MediaType"><code>Core.MediaType</code></a> and the media type of the stream as its value.</p>
 <div class="varjson example">
@@ -2978,7 +2982,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <details open><summary>
 <h4 id="14411-path-syntax"><a id="PathSyntax" href="#PathSyntax">14.4.1.1 Path Syntax</a></h4>
 </summary>
-<p>Model paths and instance paths share a common syntax which is derived from the path expression syntax of URLs, see <a href="#ODataURL">OData-URL</a>.</p>
+<p>Model paths and instance paths share a common syntax which is derived from the path expression syntax of URLs, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#PathExpressions">OData-URL, section 5.1.1.15</a>.</p>
 <p>A path MUST be composed of zero or more path segments joined together by forward slashes (<code>/</code>).</p>
 <p>Paths starting with a forward slash (<code>/</code>) are absolute paths, and the first path segment MUST be the qualified name of a model element, e.g. an entity container. The remaining path after the second forward slash is interpreted relative to that model element.</p>
 <div class="example">
@@ -3025,7 +3029,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <pre><code>…/Items@Core.Description</code></pre>
 <pre><code>…/Items/@Core.Description</code></pre>
 </div>
-<p>An instance path MAY contain path segments starting with an entity set or a collection-valued navigation property, then followed by a key predicate using parentheses-style convention, see <a href="#ODataURL">OData-URL</a>. The key values are either primitive literals or instance paths. If the key value is a relative instance path, it is interpreted according to the same rule below as the instance path it is part of, <em>not</em> relative to the instance identified by the preceding path part.</p>
+<p>An instance path MAY contain path segments starting with an entity set or a collection-valued navigation property, then followed by a key predicate using parentheses-style convention, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalURL">OData-URL, section 4.3.1</a>. The key values are either primitive literals or instance paths. If the key value is a relative instance path, it is interpreted according to the same rule below as the instance path it is part of, <em>not</em> relative to the instance identified by the preceding path part.</p>
 <div class="example">
 <p>Example 67: instance path with entity set and key predicate</p>
 <pre><code>/self.container/SettingsCollection(&#39;FeatureXxx&#39;)/IsAvailable</code></pre>
@@ -3238,7 +3242,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <tr><td><code>In</code></td><td>Is in collection           </td></tr>
 </table>
 
-<p>The <code>And</code> and <code>Or</code> operators require two operand expressions that evaluate to Boolean values. The <code>Not</code> operator requires a single operand expression that evaluates to a Boolean value. For details on null handling for comparison operators see <a href="#ODataURL">OData-URL</a>.</p>
+<p>The <code>And</code> and <code>Or</code> operators require two operand expressions that evaluate to Boolean values. The <code>Not</code> operator requires a single operand expression that evaluates to a Boolean value. For details on null handling for comparison operators see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#LogicalOperators">OData-URL, section 5.1.1.1</a>.</p>
 <p>The other comparison operators require two operand expressions that evaluate to comparable values.</p>
 <div class="varjson rep">
 <h3><a id="And.21.2" href="#And.21.2"><code>$And</code></a> and <a id="Or.21.3" href="#Or.21.3"><code>$Or</code></a></h3>
@@ -3350,7 +3354,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <details open><summary>
 <h3 id="1443-arithmetic-operators"><a id="ArithmeticOperators" href="#ArithmeticOperators">14.4.3 Arithmetic Operators</a></h3>
 </summary>
-<p>Annotations MAY use the following arithmetic expressions which evaluate to a numeric value. These expressions MAY be combined, and they MAY be used anywhere instead of a numeric expression of the appropriate type. The semantics and evaluation rules for each arithmetic expression is identical to the corresponding arithmetic operator defined in <a href="#ODataURL">OData-URL</a>.</p>
+<p>Annotations MAY use the following arithmetic expressions which evaluate to a numeric value. These expressions MAY be combined, and they MAY be used anywhere instead of a numeric expression of the appropriate type. The semantics and evaluation rules for each arithmetic expression is identical to the corresponding arithmetic operator defined in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#ArithmeticOperators">OData-URL, section 5.1.1.2</a>.</p>
 <table>
 <thead>
 <tr class="header">
@@ -3480,7 +3484,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <details open><summary>
 <h4 id="14441-canonical-functions"><a id="CanonicalFunctions" href="#CanonicalFunctions">14.4.4.1 Canonical Functions</a></h4>
 </summary>
-<p>All canonical functions defined in <a href="#ODataURL">OData-URL</a> can be used as client-side functions, qualified with the namespace <code>odata</code>. The semantics of these client-side functions is identical to their counterpart function defined in <a href="#ODataURL">OData-URL</a>.</p>
+<p>All canonical functions defined in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalFunctions">OData-URL, section 5.1.1.4</a> can be used as client-side functions, qualified with the namespace <code>odata</code>. The semantics of these client-side functions is identical to their counterpart function defined in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalFunctions">OData-URL, section 5.1.1.4</a>.</p>
 <p>For example, the <code>odata.concat</code> client-side function takes two expressions as arguments. Each argument MUST evaluate to a primitive or enumeration type. It returns a value of type <code>Edm.String</code> that is the concatenation of the literal representations of the results of the argument expressions. Values of primitive types other than <code>Edm.String</code> are represented according to the appropriate alternative in the <code>primitiveValue</code> rule of <a href="#ODataABNF">OData-ABNF</a>, i.e. <code>Edm.Binary</code> as <code>binaryValue</code>, <code>Edm.Boolean</code> as <code>booleanValue</code> etc.</p>
 <div class="varjson example">
 <p>Example 77:</p>
@@ -3603,7 +3607,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <details open><summary>
 <h3 id="1445-cast"><a id="Cast" href="#Cast">14.4.5 Cast</a></h3>
 </summary>
-<p>The cast expression casts the value obtained from its single child expression to the specified type. The cast expression follows the same rules as the <code>cast</code> canonical function defined in <a href="#ODataURL">OData-URL</a>.</p>
+<p>The cast expression casts the value obtained from its single child expression to the specified type. The cast expression follows the same rules as the <code>cast</code> canonical function defined in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#cast">OData-URL, section 5.1.1.10.1</a>.</p>
 <section class="varjson rep">
 <h3><a id="Cast.21.22" href="#Cast.21.22"><code>$Cast</code></a></h3>
 <p>Cast expressions are represented as an object with a member <code>$Cast</code> whose value is an annotation expression, a member <code>$Type</code> whose value is a string containing the qualified type name, and optionally a member <code>$Collection</code> with a value of <code>true</code>.</p>
@@ -3791,7 +3795,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>For collection-valued properties the absence of a property value expression is equivalent to specifying an empty collection as its value.</p>
 <div class="varjson rep">
 <p>Record expressions are represented as objects with one member per property value expression. The member name is the property name, and the member value is the property value expression.</p>
-<p>The type of a record expression is represented as the <code>type</code> control information, see <a href="#ODataJSON">OData-JSON</a>.</p>
+<p>The type of a record expression is represented as the <code>type</code> control information, see <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformationtypeodatatype">OData-JSON, section 4.6.3</a>.</p>
 <p>It MAY contain <a href="#Annotation">annotations</a> for itself and its members. Annotations for record members are prefixed with the member name.</p>
 </div>
 <div class="varjson example">
@@ -4286,6 +4290,8 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <h6><span id="rfc7493">RFC7493</span></h6>
 <p><em>The I-JSON Message Format“, RFC 7493, DOI 10.17487/RFC7493, March 2015</em>.<br />
 <a href="https://www.rfc-editor.org/info/rfc7493">https://www.rfc-editor.org/info/rfc7493</a>.</p>
+<h6><span id="rfc7946">RFC7946</span></h6>
+<p><em>Butler, H., Daly, M., Doyle, A., Gillies, S., Hagen, S., and T. Schaub, “The GeoJSON Format”, RFC 7946, DOI 10.17487/RFC7946, August 2016</em>. <a href="https://www.rfc-editor.org/info/rfc7946">https://www.rfc-editor.org/info/rfc7946</a>.</p>
 <h6><span id="rfc8174">RFC8174</span></h6>
 <p><em>Leiba, B., “Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words”, BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017</em>.<br />
 <a href="https://www.rfc-editor.org/info/rfc8174">https://www.rfc-editor.org/info/rfc8174</a>.</p>
@@ -4485,7 +4491,7 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <li>Jens Ittel (SAP SE)</li>
 <li>Patric Ksinsik (SAP SE)</li>
 </ul>
-<p>The contributions of the OASIS OData Technical Committee members, enumerated in <a href="#ODataProtocol">ODataProtocol</a>, are gratefully acknowledged.</p>
+<p>The contributions of the OASIS OData Technical Committee members, enumerated in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#Participants">OData-Protocol, section C.2</a>, are gratefully acknowledged.</p>
 </details>
 <details open><summary>
 <h2 id="c2-participants"><a id="Participants" href="#Participants">C.2 Participants</a></h2>

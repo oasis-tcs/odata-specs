@@ -212,7 +212,7 @@ path segment, nor is `Tablet')`.
 
 The service root URL identifies the root of an OData service. A `GET`
 request to this URL returns the format-specific service document, see
-[OData-JSON](#ODataJSON).
+[#OData-JSON#ServiceDocument].
 
 The service root URL MUST terminate in a forward slash.
 
