@@ -494,12 +494,12 @@ The type of the partner navigation property MUST be the declaring entity
 type of the current navigation property or one of its parent entity
 types.
 
-@!{
+::: funnelweb
 The `$Partner` path is relative to the `$Type` of the navigation property,
 that's why `super.fromJSON` is called before setting `this.$Partner`.
 (Normally we set specific attributes _before_ calling `super.fromJSON` to avoid
 overwriting them with a model element after they have already been set to a string, say.)
-@!}
+:::
 
 @$@<NavigationProperty fromJSON@>@{
 super.fromJSON(json);
@@ -661,11 +661,11 @@ the path of the dependent property of the annotated referential
 constraint.
 :::
 
-@!{
+::: funnelweb
 `ReferentialConstraint` is the first example of a model element that appears not
 in the `children` property of its parent but as named member of a specially named `sub`-property
 (`$ReferentialConstraint` in this case).
-@!}
+:::
 
 @$@<Javascript CSDL metamodel@>@{
 class NamedSubElement extends NamedModelElement {
@@ -705,11 +705,11 @@ class ReferentialConstraint extends NamedSubElement {
 }
 @}
 
-@!{
+::: funnelweb
 The `fromJSON` method must be called for each `ReferentialConstraint`
 with the entire `$ReferentialConstraint` object, because otherwise the annotations
 would be lost.
-@!}
+:::
 
 @$@<NavigationProperty fromJSON@>@{
 for (const ref in json.$ReferentialConstraint)

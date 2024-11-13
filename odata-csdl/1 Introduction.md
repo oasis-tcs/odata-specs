@@ -114,14 +114,10 @@ This uses pandoc $$$pandoc-version$$$ from https://github.com/jgm/pandoc/release
      by using either new Number("...", "json") or new Number("...", "xml").
      Lines between the next and the closing : belong to the JSON variant only. -->
 
-@!{
-## ##subsec Javascript Model of CSDL
-@!}
-
-@!{
+::: funnelweb
 All model elements defined in this document are represented by Javascript classes
 derived from the class `ModelElement`.
-@!}
+:::
 
 @o@</git/oasis-tcs/odata-csdl-schemas/lib/metamodel.js@>@{
 @<Javascript CSDL metamodel@>
@@ -424,10 +420,10 @@ if (i < this.segments.length - 1)
   target.targetingSegments.add(this.segments[i]);
 @}
 
-@!{
+::: funnelweb
 At this point, `target` may be a primitive type like `Edm.String` and has then
 no `targetingPaths`.
-@!}
+:::
 
 @$@<Housekeeping during path evaluation@>@{
 if (!target) throw new InvalidPathError(this);
@@ -477,12 +473,16 @@ class ModelElement {
 }
 @}
 
-@!{
+: funnelweb
+## ##subsec Javascript CSDL metamodel
+:
+
+::: funnelweb
 The JSON serialization of these classes produces the CSDL format specified by this document.
 Therefore, properties that shall not be part of the JSON format are defined as "internal".
 They have a getter, but not necessarily a setter. The second macro parameter is an
 optional initialization.
-@!}
+:::
 
 @$@<Internal property@>@(@2@)@{
 #@1@2;

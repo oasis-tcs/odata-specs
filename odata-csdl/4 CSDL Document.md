@@ -56,11 +56,11 @@ class CSDLDocument extends ModelElement {
 }
 @}
 
-@!{
+::: funnelweb
 The CSDL document is the root of a hierarchy of model elements, and every
 model element has a `csdlDocument` property. Its getter delegates to
 the parent until the root is reached, which returns itself.
-@!}
+:::
 
 @$@<ModelElement@>@{
 get csdlDocument() {
@@ -110,13 +110,13 @@ Example ##ex:
 ```
 :::
 
-@!{
+::: funnelweb
 Values like `$Version` that have a string, numeric or Boolean value
 have the same representation in the Javascript object model as in JSON.
 But paths or qualified names (like `$EntityContainer`) are represented
 by separate classes. ([`PathExpression`](#Schema) also handles aliases and does not enforce
 the restriction of `$EntityContainer` to _namespace_-qualified names.)
-@!}
+:::
 
 @$@<String, number or Boolean values in fromJSON@>@{
 if (!this[member] && typeof json[member] !== "object")
@@ -372,10 +372,10 @@ into a document MUST have different aliases, and aliases MUST differ
 from the namespaces of all schemas defined within or included into a
 document.
 
-@!{
+::: funnelweb
 Because of this globality condition, we can implement the namespace resolution
 as follows:
-@!}
+:::
 
 @$@<CSDLDocument@>@{
 #findSchema(namespace, callback) {
@@ -424,11 +424,11 @@ The value of `$Alias` is a string containing the alias for the included
 schema.
 :::
 
-@!{
+::: funnelweb
 Array-valued properties like `$Include` are represented by an array of instances of a
 model element class. The constructor of such a `ListedModelElement` takes care to add the instance to
 the array in the parent. Note the analogy to the [`Reference`](#Reference) constructor.
-@!}
+:::
 
 @$@<Javascript CSDL metamodel@>@{
 class ListedModelElement extends ModelElement {

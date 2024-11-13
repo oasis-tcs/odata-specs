@@ -1340,11 +1340,11 @@ first path segment MUST be the qualified name of a model element, e.g.
 an entity container. The remaining path after the second forward slash
 is interpreted relative to that model element.
 
-@!{
+::: funnelweb
 A path is a `ModelElement` whose parent is the model element that "hosts" the path.
 For example, the `$Type` of a property is constructed with the property as `host`
 and `$Type` as `attribute`.
-@!}
+:::
 
 @$@<AbstractPath@>@{
 @<Internal property@>@(segments@,@)
@@ -1364,10 +1364,10 @@ toJSON() {
 }
 @}
 
-@!{
+::: funnelweb
 Each segment of a path has a private `#target` attribute. When the getter for one
 of these is invoked, the entire path is evaluated.
-@!}
+:::
 
 @$@<Segment@>@{
 #target;
@@ -1409,11 +1409,11 @@ constructor(host, path, relativeTo, attribute) {
 }
 @}
 
-@!{
+::: funnelweb
 Path evaluation relative to a model element moves from
 one model element to the next by invoking each
 segment's `evaluateRelativeTo` method in turn and storing the `target` of each segment.
-@!}
+:::
 
 @$@<RelativePath@>@{
 evaluate() {
@@ -1428,10 +1428,10 @@ evaluate() {
 }
 @}
 
-@!{
+::: funnelweb
 The `target` getter of a path can then simply call the
 `target` getter of the last path segment.
-@!}
+:::
 
 @$@<AbstractPath@>@{
 get target() {
@@ -1503,11 +1503,11 @@ the path expression only needs to reference the next traversed document
 to bring the navigation target type into scope, and each traversed
 document in turn needs to reference only its next document.
 
-@!{
+::: funnelweb
 Evaluating such a segment on a property calls `evaluateSegment` on the
 property (a `TypedModelElement`), which delegates to `evaluateSegment` on the
 property type (a `ModelElement`).
-@!}
+:::
 
 @$@<Types of path segment@>@{
 return new RelativeSegment(this, segment);

@@ -43,10 +43,10 @@ The schema object MAY also contain [annotations](#Annotation) that apply
 to the schema itself.
 :::
 
-@!{
+::: funnelweb
 Addressing a schema member by its qualified name is a special case
 of evaluating a path consisting of one segment that starts with a namespace or alias.
-@!}
+:::
 
 @$@<Javascript CSDL metamodel@>@{
 class AbstractPath extends ModelElement {
@@ -64,10 +64,10 @@ class QualifiedNamePath extends AbstractPath {
 }
 @}
 
-@!{
+::: funnelweb
 The `evaluateRelativeTo` method of the segment accepts an optional `modelElement`
 that is set if the segment represents a type cast.
-@!}
+:::
 
 @$@<Javascript CSDL metamodel@>@{
 class Segment {
@@ -282,12 +282,12 @@ properties](#StructuralProperty) and [navigation
 properties](#NavigationProperty) as well as [annotations](#Annotation).
 :::
 
-@!{
+::: funnelweb
 The entity type is the first of many model elements that appear as schema members
 with an unqualified name. They are represented as subclasses of `NamedModelElement`
 whose constructor ensures that they are appended to the children list of their parent.
 Note the analogy with the [`ListedModelElement`](#IncludedSchema) constructor.
-@!}
+:::
 
 @$@<Javascript CSDL metamodel@>@{
 class NamedModelElement extends ModelElement {
@@ -303,12 +303,12 @@ class NamedModelElement extends ModelElement {
 }
 @}
 
-@!{
+::: funnelweb
 We cannot simply say `parent[name] = this`, because `name` may be a reserved name,
 like the `toJSON` method that every model element has. The `children` property is
 introduced for this reason, but during JSON serialization the `children` are treated
 like other object members.
-@!}
+:::
 
 @$@<ModelElement@>@{
 toJSON() {
@@ -316,10 +316,10 @@ toJSON() {
 }
 @}
 
-@!{
+::: funnelweb
 Since the entity type has much in common with the [complex type](#ComplexType),
 its class is derived from the other one.
-@!}
+:::
 
 @$@<Javascript CSDL metamodel@>@{
 class ComplexType extends NamedModelElement {

@@ -148,17 +148,15 @@ https://www.ogc.org/standard/sfa/.
 $$$isec$$$
 :::
 
-@!{
+: funnelweb
 -------
 
 # Appendix ##asec Table of FunnelWeb Macros
-@!}
 
-@!{
-:::: toc
+::: toc
 $$$fwisec$$$
-::::
-@!}
+:::
+:
 
 -------
 

@@ -414,9 +414,9 @@ Annotations for enumeration members are prefixed with the enumeration
 member name.
 :::
 
-@!{
+::: funnelweb
 Enumeration type members are named model elements that "wrap" a primitive JSON value.
-@!}
+:::
 
 @$@<Javascript CSDL metamodel@>@{
 class NamedValue extends NamedModelElement {
