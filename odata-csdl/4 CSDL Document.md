@@ -8,6 +8,72 @@
 # ##sec CSDL XML Document
 :
 
+@$@<Javascript CSDL metamodel@>@{
+class CSDLDocument extends ModelElement {
+  #uri;
+  #finish;
+  @<Internal property@>@(paths@,= []@)
+  constructor(uri) {
+    super();
+    this.#uri = uri || "";
+  }
+  @<CSDLDocument@>
+  unalias(namespace) {
+    return this.#findSchema(namespace, (schema) => schema.name);
+  }
+  byQualifiedName(namespace, name) {
+    return this.#findSchema(namespace, (schema) => schema.children[name]);
+  }
+  finish() {
+    if (!this.#finish) {
+      let finished;
+      this.#finish = new Promise(function (resolve, reject) {
+        finished = resolve;
+      });
+      const references = [];
+      for (const uri in this.$Reference)
+        references.push(this.$Reference[uri].resolve());
+      Promise.all(references).then(
+        async function (uris) {
+          for (const path of this.paths) path.target;
+          this.#paths = undefined;
+          await Promise.all(
+            uris
+              .filter((uri) => uri > this.#uri)
+              .map((uri) =>
+                csdlDocuments.get(uri).then((csdl) => csdl.finish())
+              )
+          );
+          finished();
+        }.bind(this)
+      );
+    }
+    return this.#finish;
+  }
+  toString() {
+    return "";
+  }
+}
+@}
+
+@!{
+The CSDL document is the root of a hierarchy of model elements, and every
+model element has a `csdlDocument` property. Its getter delegates to
+the parent until the root is reached, which returns itself.
+@!}
+
+@$@<ModelElement@>@{
+get csdlDocument() {
+  return this.parent.csdlDocument;
+}
+@}
+
+@$@<CSDLDocument@>@{
+get csdlDocument() {
+  return this;
+}
+@}
+
 <!-- Lines from here to the closing ::: belong to the JSON variant only. -->
 ::: {.varjson .rep}
 ### ##isec Document Object
@@ -43,6 +109,35 @@ Example ##ex:
 }
 ```
 :::
+
+@!{
+Values like `$Version` that have a string, numeric or Boolean value
+have the same representation in the Javascript object model as in JSON.
+But paths or qualified names (like `$EntityContainer`) are represented
+by separate classes. ([`PathExpression`](#Schema) also handles aliases and does not enforce
+the restriction of `$EntityContainer` to _namespace_-qualified names.)
+@!}
+
+@$@<String, number or Boolean values in fromJSON@>@{
+if (!this[member] && typeof json[member] !== "object")
+  this[member] = json[member];
+@}
+
+@$@<Qualified name in fromJSON@>@(@1@)@{
+this.$@1 = new QualifiedNamePath(this, json.$@1, "$@1");
+@}
+
+@$@<Optional qualified name in fromJSON@>@(@1@)@{
+if (json.$@1) @<Qualified name in fromJSON@>@(@1@)
+@}
+
+@$@<CSDLDocument@>@{
+fromJSON(json) {
+  @<Optional qualified name in fromJSON@>@(EntityContainer@)
+  super.fromJSON(json, "Schema");
+  @<Deserialize members contained in CSDLDocument@>
+}
+@}
 
 <!-- Lines from here to the closing ::: belong to the XML variant only. -->
 ::: {.varxml .rep}
@@ -124,6 +219,49 @@ The reference object MAY contain the members
 [annotations](#Annotation).
 :::
 
+@$@<Deserialize members contained in CSDLDocument@>@{
+for (const uri in json.$Reference)
+  new Reference(this, uri).fromJSON(json.$Reference[uri]);
+@}
+
+@$@<Javascript CSDL metamodel@>@{
+class Reference extends ModelElement {
+  @<Reference@>
+}
+@}
+
+@$@<Reference@>@{
+@<Internal property@>@(uri@,@)
+constructor(csdlDocument, uri) {
+  super(csdlDocument);
+  this.#uri = uri;
+  csdlDocument.$Reference ||= {};
+  csdlDocument.$Reference[uri] = this;
+}
+async resolve() {
+  let csdl = csdlDocuments.get(this.uri);
+  if (!csdl)
+    csdlDocuments.set(
+      this.uri,
+      (csdl = new Promise(
+        async function (resolve, reject) {
+          const csdl = new CSDLDocument(this.uri);
+          csdl.fromJSON(await (await fetch(this.uri)).json());
+          resolve(csdl);
+        }.bind(this),
+      )),
+    );
+  csdl = await csdl;
+  if (this.$Include)
+    for (const include of this.$Include)
+      include.schema = csdl.children[include.$Namespace];
+  return this.uri;
+}
+toString() {
+  return "$Reference<" + this.uri + ">";
+}
+@}
+
 ::: {.varjson .example}
 Example ##ex: references to other CSDL documents
 ```json
@@ -199,6 +337,13 @@ The included schemas are identified via their [namespace](#Namespace).
 The same namespace MUST NOT be included more than once, even if it is
 declared in more than one referenced document.
 
+@$@<Reference@>@{
+fromJSON(json) {
+  super.fromJSON(json);
+  if (json.$Include)
+    for (const include of json.$Include) new Include(this).fromJSON(include);
+@}
+
 When including a schema, a [simple identifier](#SimpleIdentifier) value
 MAY be specified as an alias for the schema that is used in qualified
 names instead of the namespace. For example, an alias of `display` might
@@ -227,8 +372,35 @@ into a document MUST have different aliases, and aliases MUST differ
 from the namespaces of all schemas defined within or included into a
 document.
 
+@!{
+Because of this globality condition, we can implement the namespace resolution
+as follows:
+@!}
+
+@$@<CSDLDocument@>@{
+#findSchema(namespace, callback) {
+  let result;
+  for (const schema in this.children)
+    if ([this.children[schema].$Alias, schema].includes(namespace))
+      result = callback(this.children[schema]);
+  if (!result)
+    reference: {
+      for (const uri in this.$Reference)
+        for (const include of this.$Reference[uri].$Include)
+          if ([include.$Alias, include.$Namespace].includes(namespace))
+            result = callback(include.schema);
+      if (result) break reference;
+    }
+  return result;
+}
+@}
+
 The alias MUST NOT be one of the reserved values `Edm`, `odata`,
 `System`, or `Transient`.
+
+@$@<namespace is reserved@>@{@!false
+["Edm", "odata", "System", "Transient"].includes(this.#namespace)
+@}
 
 An alias is only valid within the document in which it is declared; a
 referencing document may define its own aliases for included schemas.
@@ -251,6 +423,38 @@ included schema.
 The value of `$Alias` is a string containing the alias for the included
 schema.
 :::
+
+@!{
+Array-valued properties like `$Include` are represented by an array of instances of a
+model element class. The constructor of such a `ListedModelElement` takes care to add the instance to
+the array in the parent. Note the analogy to the [`Reference`](#Reference) constructor.
+@!}
+
+@$@<Javascript CSDL metamodel@>@{
+class ListedModelElement extends ModelElement {
+  #list;
+  #index;
+  constructor(parent, list) {
+    super(parent);
+    parent[list] ||= [];
+    parent[list].push(this);
+    this.#list = list;
+    this.#index = parent[list].length - 1;
+  }
+  toString() {
+    return this.#list + "/" + this.#index;
+  }
+}
+class Include extends ListedModelElement {
+  @<Internal property@>@(schema@,@)
+  set schema(schema) {
+    this.#schema = schema;
+  }
+  constructor(reference) {
+    super(reference, "$Include");
+  }
+}
+@}
 
 ::: {.varjson .example}
 Example ##ex: references to entity models containing definitions of
@@ -345,6 +549,13 @@ Annotations are selectively included by specifying the
 to inspect the referenced document if none of the term namespaces is of
 interest for the consumer.
 
+@$@<Reference@>@{
+  if (json.$IncludeAnnotations)
+    for (const include of json.$IncludeAnnotations)
+      new IncludeAnnotations(this).fromJSON(include);
+}
+@}
+
 In addition, the [qualifier](#Qualifier) of annotations to be included
 MAY be specified. For instance, a service author might want to supply a
 different set of annotations for various device form factors. If a
@@ -392,6 +603,14 @@ The value of `$Qualifier` is a simple identifier.
 
 The value of `$TargetNamespace` is a namespace.
 :::
+
+@$@<Javascript CSDL metamodel@>@{
+class IncludeAnnotations extends ListedModelElement {
+  constructor(reference) {
+    super(reference, "$IncludeAnnotations");
+  }
+}
+@}
 
 ::: {.varjson .example}
 Example ##ex: reference documents that contain annotations
