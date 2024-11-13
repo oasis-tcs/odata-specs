@@ -1340,6 +1340,105 @@ first path segment MUST be the qualified name of a model element, e.g.
 an entity container. The remaining path after the second forward slash
 is interpreted relative to that model element.
 
+::: funnelweb
+A path is a `ModelElement` whose parent is the model element that "hosts" the path.
+For example, the `$Type` of a property is constructed with the property as `host`
+and `$Type` as `attribute`.
+:::
+
+@$@<AbstractPath@>@{
+@<Internal property@>@(segments@,@)
+@<Internal property@>@(attribute@,@)
+constructor(host, attribute) {
+  super(host);
+  this.#attribute = attribute;
+}
+set segments(segments) {
+  this.#segments = segments;
+}
+toString() {
+  return this.attribute || super.toString();
+}
+toJSON() {
+  return this.segments.map((segment) => segment.toJSON()).join("/");
+}
+@}
+
+::: funnelweb
+Each segment of a path has a private `#target` attribute. When the getter for one
+of these is invoked, the entire path is evaluated.
+:::
+
+@$@<Segment@>@{
+#target;
+@<Internal property@>@(path@,@)
+@<Internal property@>@(segment@,@)
+constructor(path, segment) {
+  this.#path = path;
+  this.#segment = segment;
+}
+get target() {
+  if (!this.#target) this.path.evaluate();
+  return this.#target;
+}
+set target(target) {
+  this.#target = target;
+}
+toJSON() {
+  return this.#segment;
+}
+@}
+
+@$@<Javascript CSDL metamodel@>@{
+class RelativePath extends AbstractPath {
+  @<RelativePath@>
+}
+@}
+
+@$@<RelativePath@>@{
+#relativeTo;
+constructor(host, path, relativeTo, attribute) {
+  super(host, attribute);
+  this.#relativeTo = relativeTo;
+  this.segments = path
+    .split("/")
+    .map(function(segment) {
+      @<Types of path segment@>
+    }.bind(this));
+  @<Housekeeping for relative paths@>
+}
+@}
+
+::: funnelweb
+Path evaluation relative to a model element moves from
+one model element to the next by invoking each
+segment's `evaluateRelativeTo` method in turn and storing the `target` of each segment.
+:::
+
+@$@<RelativePath@>@{
+evaluate() {
+  let target = this.#relativeTo;
+  for (let i = 0; i < this.segments.length; i++) {
+    target = this.segments[i].target =
+      this.segments[i].evaluateRelativeTo(target);
+    @<Housekeeping during segment evaluation@>
+  }
+  @<Housekeeping during path evaluation@>
+  return target;
+}
+@}
+
+::: funnelweb
+The `target` getter of a path can then simply call the
+`target` getter of the last path segment.
+:::
+
+@$@<AbstractPath@>@{
+get target() {
+  return this.segments[this.segments.length - 1].target;
+}
+@}
+
 ::: example
 Example ##ex: absolute path to an entity set
 ```
@@ -1403,6 +1502,36 @@ segments can traverse multiple CSDL documents. The document containing
 the path expression only needs to reference the next traversed document
 to bring the navigation target type into scope, and each traversed
 document in turn needs to reference only its next document.
+
+::: funnelweb
+Evaluating such a segment on a property calls `evaluateSegment` on the
+property (a `TypedModelElement`), which delegates to `evaluateSegment` on the
+property type (a `ModelElement`).
+:::
+
+@$@<Types of path segment@>@{
+return new RelativeSegment(this, segment);
+@}
+
+@$@<Javascript CSDL metamodel@>@{
+class RelativeSegment extends Segment {
+  evaluateRelativeTo(modelElement) {
+    return modelElement.evaluateSegment(this);
+  }
+}
+@}
+
+@$@<TypedModelElement@>@{
+evaluateSegment(segment) {
+  return this.$Type.target.evaluateSegment(segment);
+}
+@}
+
+@$@<ModelElement@>@{
+evaluateSegment(segment) {
+  return this.children[segment.segment];
+}
+@}
 
 A model path MAY contain any number of segments representing
 collection-valued structural or navigation properties. The result of the

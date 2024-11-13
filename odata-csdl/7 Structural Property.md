@@ -46,6 +46,31 @@ It MAY contain the members [`$Type`](#Type), [`$Collection`](#Type),
 It also MAY contain [annotations](#Annotation).
 :::
 
+@$@<JSON members without kind are properties@>@{
+super.fromJSON(json, "Property");
+@}
+
+@$@<Javascript CSDL metamodel@>@{
+class TypedModelElement extends NamedModelElement {
+  @<TypedModelElement@>
+}
+class AbstractProperty extends TypedModelElement {
+  evaluationStart() {
+    return this.parent;
+  }
+}
+class Property extends AbstractProperty {
+  @<Property@>
+}
+@}
+
+@$@<TypedModelElement@>@{
+fromJSON(json) {
+  @<Qualified name in fromJSON@>@(Type@)
+  super.fromJSON(json);
+}
+@}
+
 ::: {.varjson .example}
 Example ##ex: complex type with two properties `Dimension` and `Length`
 ```json
@@ -129,6 +154,26 @@ present with the literal value `true`.
 Absence of the `$Type` member means the type is `Edm.String`. This
 member SHOULD be omitted for string properties to reduce document size.
 :::
+
+@$@<Property@>@{
+fromJSON(json) {
+  @<Absence of $Type means Edm.String@>
+  super.fromJSON(json);
+}
+toJSON() {
+  @<Omit $Type if it is Edm.String@>@(this@)
+}
+@}
+
+@$@<Absence of $Type means Edm.String@>@{
+if (!json.$Type) json = { ...json, $Type: "Edm.String" };
+@}
+
+@$@<Omit $Type if it is Edm.String@>@(@1@)@{
+const json = { ...@1 };
+if (this.$Type.evaluate().toJSON() === "Edm.String") delete json.$Type;
+return json;
+@}
 
 ::: {.varjson .example}
 Example ##ex: property `Units` that can have zero or more strings as its
@@ -278,6 +323,24 @@ MAY contain the members [`$Collection`](#NavigationPropertyType),
 
 It also MAY contain [annotations](#Annotation).
 :::
+
+@$@<Javascript CSDL metamodel@>@{
+class NavigationProperty extends AbstractProperty {
+  @<NavigationProperty@>
+}
+@}
+
+::: funnelweb
+We set specific attributes _before_ calling `super.fromJSON` to avoid
+overwriting them with a model element after they have already been set to a string, say.
+:::
+
+@$@<NavigationProperty@>@{
+fromJSON(json) {
+  @<NavigationProperty fromJSON@>
+  super.fromJSON(json);
+}
+@}
 
 ::: {.varjson .example}
 Example ##ex: the `Product` entity type has a navigation property to a
@@ -445,6 +508,11 @@ The type of the partner navigation property MUST be the declaring entity
 type of the current navigation property or one of its parent entity
 types.
 
+@$@<NavigationProperty fromJSON@>@{
+if (json.$Partner)
+  this.$Partner = new RelativePath(this, json.$Partner, this, "$Partner");
+@}
+
 If the partner navigation property is single-valued, it MUST lead back
 to the source entity from all related entities. If the partner
 navigation property is collection-valued, the source entity MUST be part
@@ -598,6 +666,61 @@ It also MAY contain [annotations](#Annotation). These are prefixed with
 the path of the dependent property of the annotated referential
 constraint.
 :::
+
+::: funnelweb
+`ReferentialConstraint` is the first example of a model element that appears not
+in the `children` property of its parent but as named member of a specially named `sub`-property
+(`$ReferentialConstraint` in this case).
+:::
+
+@$@<Javascript CSDL metamodel@>@{
+class NamedSubElement extends NamedModelElement {
+  constructor(parent, sub, name) {
+    super(parent, name);
+    parent[sub] ||= {};
+    parent[sub][name] = this;
+  }
+  annotationsFromJSON(json) {
+    // TODO: Transfer annotations with this.name as prefix
+  }
+}
+class ReferentialConstraint extends NamedSubElement {
+  @<Internal property@>@(dependent@,@)
+  @<Internal property@>@(principal@,@)
+  constructor(navigationProperty, prop) {
+    super(navigationProperty, "$ReferentialConstraint", prop);
+  }
+  fromJSON(json) {
+    this.annotationsFromJSON(json);
+    this.#dependent = new RelativePath(
+      this,
+      this.name,
+      this.parent.parent,
+      "$ReferentialConstraint.Dependent"
+    );
+    this.#principal = new RelativePath(
+      this,
+      json[this.name],
+      this.parent,
+      "$ReferentialConstraint.Principal"
+    );
+  }
+  toJSON() {
+    return this.principal.toJSON();
+  }
+}
+@}
+
+::: funnelweb
+The `fromJSON` method must be called for each `ReferentialConstraint`
+with the entire `$ReferentialConstraint` object, because otherwise the annotations
+would be lost.
+:::
+
+@$@<NavigationProperty fromJSON@>@{
+for (const ref in json.$ReferentialConstraint)
+  new ReferentialConstraint(this, ref).fromJSON(json.$ReferentialConstraint);
+@}
 
 ::: {.varjson .example}
 Example ##ex: the category must exist for a product in that category to

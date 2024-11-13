@@ -115,6 +115,24 @@ imports](#ActionImport), and [function imports](#FunctionImport), as
 well as [annotations](#Annotation).
 :::
 
+::: funnelweb
+The children of an `EntityContainer` have no `$Kind` property, instead their
+kind is determined according to which other properties they have.
+:::
+
+@$@<Javascript CSDL metamodel@>@{
+class EntityContainer extends NamedModelElement {
+  fromJSON(json) {
+    @<EntityContainer fromJSON@>
+    super.fromJSON(json, function (json) {
+      if (json.$Type) return "EntitySetOrSingleton";
+      if (json.$Function) return "FunctionImport";
+      if (json.$Action) return "ActionImport";
+    });
+  }
+}
+@}
+
 ::: {.varjson .example}
 Example ##ex: An entity container aggregates entity sets, singletons,
 action imports, and function imports.
@@ -235,6 +253,10 @@ entity container located in `SomeOtherSchema`
 ```
 :::
 
+@$@<EntityContainer fromJSON@>@{
+@<Optional qualified name in fromJSON@>@(Extends@)
+@}
+
 ::: {.varxml .rep}
 ### ##subisec Attribute `Extends`
 
@@ -299,6 +321,20 @@ The value of `$Type` is the qualified name of an entity type.
 The value of `$IncludeInServiceDocument` is one of the Boolean literals
 `true` or `false`. Absence of the member means `true`.
 :::
+
+::: funnelweb
+Entity Set and Singleton have the same stucture in the CSDL metamodel, they differ
+only in their `$Collection` value. They are represented by the same class.
+:::
+
+@$@<Javascript CSDL metamodel@>@{
+class EntitySetOrSingleton extends TypedModelElement {
+  fromJSON(json) {
+    @<EntitySetOrSingleton fromJSON@>
+    super.fromJSON(json);
+  }
+}
+@}
 
 ::: {.varxml .rep}
 ### ##isec Element `edm:EntitySet`
@@ -474,6 +510,64 @@ the target is in the same entity container, the target MUST NOT be
 prefixed with the qualified entity container name.
 :::
 
+::: funnelweb
+The `$NavigationPropertyBinding` is a `NamedSubElement`, like the
+[`$ReferentialConstraint`](#ReferentialConstraint).
+:::
+
+@$@<EntitySetOrSingleton fromJSON@>@{
+for (const prop in json.$NavigationPropertyBinding)
+  new NavigationPropertyBinding(this, prop).fromJSON(
+    json.$NavigationPropertyBinding
+  );
+@}
+
+@$@<Javascript CSDL metamodel@>@{
+class NavigationPropertyBinding extends NamedSubElement {
+  @<Internal property@>@(navigationProperty@,@);
+  @<Internal property@>@(entitySet@,@);
+  constructor(entitySetOrSingleton, prop) {
+    super(entitySetOrSingleton, "$NavigationPropertyBinding", prop);
+  }
+  fromJSON(json) {
+    this.annotationsFromJSON(json);
+    this.#navigationProperty = new RelativePath(
+      this,
+      this.name,
+      @<Relative to entity set or singleton@>,
+      "$NavigationPropertyBinding"
+    );
+    this.#entitySet = new RelativePath(
+      this,
+      json[this.name],
+      @<Absolute or relative to this entity container@>,
+      this.parent.parent,
+      "$NavigationPropertyBinding.Target"
+    );
+  }
+  toJSON() {
+    return this.entitySet.toJSON();
+  }
+}
+@}
+
+@$@<Relative to entity set or singleton@>@{@!false
+this.parent
+@}
+
+::: funnelweb
+The navigation property binding target is absolute (which we treat as
+relative to the CSDL document) if it
+contains a qualified entity container name (and hence a dot), and relative to
+the entity container (the grandparent of the current `NavigationPropertyBinding`) otherwise.
+:::
+
+@$@<Absolute or relative to this entity container@>@{@!false
+json[this.name].includes(".")
+? this.csdlDocument
+: this.parent.parent
+@}
+
 ::: {.varjson .example}
 Example ##ex: for an entity set in the same container as the enclosing
 entity set `Categories`
@@ -606,6 +700,31 @@ name of an entity set in the same entity container or a path to an
 entity set in a different entity container.
 :::
 
+::: funnelweb
+Action and function imports are derived from a common superclass.
+:::
+
+@$@<Javascript CSDL metamodel@>@{
+class OperationImport extends NamedModelElement {
+  fromJSON(json) {
+    if (json.$EntitySet)
+      this.$EntitySet = new RelativePath(
+        this,
+        json.$EntitySet,
+        this.parent,
+        "$EntitySet"
+      );
+    super.fromJSON(json);
+  }
+}
+class ActionImport extends OperationImport {
+  fromJSON(json) {
+    @<Qualified name in fromJSON@>@(Action@)
+    super.fromJSON(json);
+  }
+}
+@}
+
 ::: {.varxml .rep}
 ### ##isec Element `edm:ActionImport`
 
@@ -682,6 +801,15 @@ entity set in a different entity container.
 The value of `$IncludeInServiceDocument` is one of the Boolean literals
 `true` or `false`. Absence of the member means `false`.
 :::
+
+@$@<Javascript CSDL metamodel@>@{
+class FunctionImport extends OperationImport {
+  fromJSON(json) {
+    @<Qualified name in fromJSON@>@(Function@)
+    super.fromJSON(json);
+  }
+}
+@}
 
 ::: {.varxml .rep}
 ### ##isec Element `edm:FunctionImport`
