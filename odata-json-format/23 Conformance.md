@@ -56,7 +56,7 @@ In order to be a conforming producer of the OData JSON format, a client or servi
 
 In addition, in order to conform to the OData JSON format, a service:
 
-11. MUST comply with one of the conformance levels defined in [OData-Protocol](#ODataProtocol)
+11. MUST comply with one of the conformance levels defined in [#OData-Protocol#Conformance]
 12. MUST support the `application/json` media type in the `Accept` header ([section ##RequestingtheJSONFormat])
 13. MUST return well-formed JSON payloads
 14. MUST support `odata.metadata=full` ([section ##metadatafullodatametadatafull])

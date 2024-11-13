@@ -47,6 +47,7 @@ All children of `edm:EntityContainer` are optional|
 [464](https://github.com/oasis-tcs/odata-specs/issues/464)
 :
 [Section ##ActionandFunction] | Actions and functions can take, and return, delta payloads | [348](https://github.com/oasis-tcs/odata-specs/issues/348)
+[Section ##ReturnType] | Returned collections of entities may contain `null` values | [1983](https://github.com/oasis-tcs/odata-specs/issues/1983)
 [Section ##GeoValues] | Constant Geo values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
 [Section ##StreamValues] | Constant Stream values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
 [Section ##PathEvaluation]| 
@@ -559,7 +560,7 @@ length.
 
 The value of `$MaxLength` is a positive integer.
 
-Note: [OData-CSDL-XML](#ODataCSDL) defines a symbolic
+Note: [#OData-CSDLXML#MaxLength] defines a symbolic
 value `max` that is only allowed in OData 4.0 responses. This symbolic
 value is not allowed in CDSL JSON documents at all. Services MAY instead
 specify the concrete maximum length supported for the type by the

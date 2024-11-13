@@ -50,7 +50,7 @@ do we have considerations specific to URLs, for example length, encoding, privac
 
 ## ##subasec Special Thanks
 
-The contributions of the OASIS OData Technical Committee members, enumerated in [OData-Protocol](#ODataProtocol), are gratefully acknowledged.
+The contributions of the OASIS OData Technical Committee members, enumerated in [#OData-Protocol#Partipants], are gratefully acknowledged.
 
 ## ##subasec Participants
 

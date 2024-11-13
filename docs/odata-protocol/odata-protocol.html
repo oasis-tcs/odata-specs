@@ -549,7 +549,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <p>The Open Data Protocol (OData) enables the creation of REST-based data services which allow resources, identified using Uniform Resource Locators (URLs) and defined in a data model, to be published and edited by Web clients using simple HTTP messages. This specification defines the core semantics and the behavioral aspects of the protocol.</p>
 <p>The <a href="#ODataURL">OData-URL</a> specification defines a set of rules for constructing URLs to identify the data and metadata exposed by an OData service as well as a set of reserved URL query options.</p>
 <p>The <a href="#ODataCSDL">OData-CSDLJSON</a> specification defines a JSON representation of the entity data model exposed by an OData service.</p>
-<p>The <a href="#ODataCSDL">OData-CSDLXML</a> specification defines an XML representation of the entity data model exposed by an OData service.</p>
+<p>The <a href="#ODataCSDLXML">OData-CSDLXML</a> specification defines an XML representation of the entity data model exposed by an OData service.</p>
 <p>The <a href="#ODataJSON">OData-JSON</a> document specifies the JSON format of the resource representations that are exchanged using OData.</p>
 <details open><summary>
 <h2 id="11-changes-from-earlier-versions"><a id="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a></h2>
@@ -714,7 +714,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p><em>Operations</em> allow the execution of custom logic on parts of a data model. <a href="#Functions"><em>Functions</em></a> are operations that do not have side effects and may support further composition, for example, with additional filter operations, functions or an action. <a href="#Actions"><em>Actions</em></a> are operations that allow side effects, such as data modification, and cannot be further composed in order to avoid non-deterministic behavior. Actions and functions are either <em>bound</em> to a type, enabling them to be called as members of an instance of that type, or unbound, in which case they are called as static operations. <em>Action imports</em> and <em>function imports</em> enable unbound actions and functions to be called from the service root.</p>
 <p><em>Singletons</em> are named entities which can be accessed as direct children of the entity container. A singleton may also be a member of an entity set.</p>
 <p>An OData <em>resource</em> is anything in the model that can be addressed (an entity set, entity, property, or operation).</p>
-<p>Refer to <a href="#ODataCSDL">OData-CSDLJSON</a> or <a href="#ODataCSDL">OData-CSDLXML</a> for more information on the OData entity data model.</p>
+<p>Refer to <a href="#ODataCSDL">OData-CSDLJSON</a> or <a href="#ODataCSDLXML">OData-CSDLXML</a> for more information on the OData entity data model.</p>
 <details open><summary>
 <h2 id="31-annotations"><a id="Annotations" href="#Annotations">3.1 Annotations</a></h2>
 </summary>
@@ -739,7 +739,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <h2 id="41-entity-ids-and-entity-references"><a id="EntityIdsandEntityReferences" href="#EntityIdsandEntityReferences">4.1 Entity-Ids and Entity References</a></h2>
 </summary>
 <p>Whereas entities within an entity set are uniquely identified by their key values, entities are also uniquely identified by a durable, opaque, globally unique <em>entity-id</em>. The entity-id MUST be an IRI as defined in <a href="#rfc3987">RFC3987</a> and MAY be expressed in payloads, headers, and URLs as a relative reference as appropriate. While the client MUST be prepared to accept any IRI, services MUST use valid URIs in this version of the specification since there is currently no lossless representation of an IRI in the <a href="#HeaderODataEntityId"><code>EntityId</code></a> header.</p>
-<p>Services are strongly encouraged to use the canonical URL for an entity as defined in <a href="#ODataURL">OData-URL</a> as its entity-id, but clients cannot assume the entity-id can be used to locate the entity unless the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DereferenceableIDs"><code>Core.DereferenceableIDs</code></a> term is applied to the entity container, nor can the client assume any semantics from the structure of the entity-id. The canonical resource <code>$entity</code> provides a general mechanism for <a href="#ResolvinganEntityId">resolving an entity-id</a> into an entity representation.</p>
+<p>Services are strongly encouraged to use the canonical URL for an entity as defined in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalURL">OData-URL, section 4.3.1</a> as its entity-id, but clients cannot assume the entity-id can be used to locate the entity unless the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DereferenceableIDs"><code>Core.DereferenceableIDs</code></a> term is applied to the entity container, nor can the client assume any semantics from the structure of the entity-id. The canonical resource <code>$entity</code> provides a general mechanism for <a href="#ResolvinganEntityId">resolving an entity-id</a> into an entity representation.</p>
 <p>Services that use the standard URL conventions for entity-ids annotate their entity container with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ConventionalIDs"><code>Core.ConventionalIDs</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>.</p>
 <p><em>Entity references</em> refer to an entity using the entity’s entity-id.</p>
 </details>
@@ -749,7 +749,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>The read URL of an entity is the URL that can be used to read the entity.</p>
 <p>The edit URL of an entity is the URL that can be used to update or delete the entity.</p>
 <p>The edit URL of a property is the edit URL of the entity with appended segment(s) containing the path to the property.</p>
-<p>Services are strongly encouraged to use the canonical URL for an entity as defined in <a href="#ODataURL">OData-URL</a> for both the read URL and the edit URL of an entity, with a cast segment to the type of the entity appended to the canonical URL if the type of the entity is derived from the declared type of the entity set. However, clients cannot assume this convention and must use the links specified in the payload according to the appropriate format as the two URLs may be different from one another, or one or both of them may differ from convention.</p>
+<p>Services are strongly encouraged to use the canonical URL for an entity as defined in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalURL">OData-URL, section 4.3.1</a> for both the read URL and the edit URL of an entity, with a cast segment to the type of the entity appended to the canonical URL if the type of the entity is derived from the declared type of the entity set. However, clients cannot assume this convention and must use the links specified in the payload according to the appropriate format as the two URLs may be different from one another, or one or both of them may differ from convention.</p>
 </details>
 <details open><summary>
 <h2 id="43-transient-entities"><a id="TransientEntities" href="#TransientEntities">4.3 Transient Entities</a></h2>
@@ -878,7 +878,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </summary>
 <p>The format of a non-empty individual request or response body, alone or within a batch, MUST be specified in the <code>Content-Type</code> header of a request or response. The exception to this is if the body represents the media stream of a <a href="#RequestingtheMediaStreamofaMediaEntityusingvalue">media entity</a> or <a href="#ManagingStreamProperties">stream property</a>, in which case the <code>Content-Type</code> header SHOULD be present.</p>
 <p>The specified format MAY include format parameters. Clients MUST be prepared for the service to return custom format parameters not defined in OData and SHOULD NOT expect that such format parameters can be ignored. Custom format parameters MUST NOT start with <code>odata</code> and services MUST NOT require generic OData consumers to understand custom format parameters in order to correctly interpret the payload.</p>
-<p>See <a href="#ODataJSON">OData-JSON</a> for format-specific details about format parameters within the <code>Content-Type</code> header.</p>
+<p>See <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#HeaderContentType">OData-JSON, section 4.1</a> for format-specific details about format parameters within the <code>Content-Type</code> header.</p>
 </details>
 <details open><summary>
 <h3 id="812-header-content-encoding"><a id="HeaderContentEncoding" href="#HeaderContentEncoding">8.1.2 Header <code>Content-Encoding</code></a></h3>
@@ -1168,7 +1168,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <h3 id="835-header-odata-error"><a id="HeaderODataError" href="#HeaderODataError">8.3.5 Header <code>OData-Error</code></a></h3>
 </summary>
 <p>A response with an <a href="#InStreamErrors">in-stream error</a> MAY include an <code>OData-Error</code> trailing header if the transport protocol supports trailing headers (e.g. HTTP/1.1 with chunked transfer encoding, or HTTP/2).</p>
-<p>The value of this trailing header is a standard OData error response according to the OData response format, encoded suitably for transport in a header, see e.g. <a href="#ODataJSON">OData-JSON</a>.</p>
+<p>The value of this trailing header is a standard OData error response according to the OData response format, encoded suitably for transport in a header, see e.g. <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#InStreamError">OData-JSON, section 21.2</a>.</p>
 </details>
 <details open><summary>
 <h3 id="836-header-preference-applied"><a id="HeaderPreferenceApplied" href="#HeaderPreferenceApplied">8.3.6 Header <code>Preference-Applied</code></a></h3>
@@ -1603,14 +1603,14 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 </summary>
 <p>Context URL template:</p>
 <pre><code>{context-url}#Collection(Edm.EntityType)</code></pre>
-<p>Responses to requests to the virtual collection <code>$all</code> (see <a href="#ODataURL">OData-URL</a>) use the built-in abstract entity type. Each single entity in such a response has its individual context URL that identifies the entity set or singleton.</p>
+<p>Responses to requests to the virtual collection <code>$all</code> (see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingAllEntitiesinaService">OData-URL, section 4.16</a>) use the built-in abstract entity type. Each single entity in such a response has its individual context URL that identifies the entity set or singleton.</p>
 </details>
 <details open><summary>
 <h2 id="1020-crossjoin-response"><a id="crossjoinResponse" href="#crossjoinResponse">10.20 <code>$crossjoin</code> Response</a></h2>
 </summary>
 <p>Context URL template:</p>
 <pre><code>{context-url}#Collection(Edm.ComplexType)</code></pre>
-<p>Responses to requests to the virtual collections <code>$crossjoin(…)</code> (see <a href="#ODataURL">OData-URL</a>) use the built-in abstract complex type. Single instances in these responses do not have a context URL.</p>
+<p>Responses to requests to the virtual collections <code>$crossjoin(…)</code> (see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingtheCrossJoinofEntitySets">OData-URL, section 4.15</a>) use the built-in abstract complex type. Single instances in these responses do not have a context URL.</p>
 </details>
 </details>
 <hr />
@@ -1671,7 +1671,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 </summary>
 <p>An OData <em>metadata document</em> is a representation of the <a href="#DataModel">data model</a> that describes the data and operations exposed by an OData service.</p>
 <p><a href="#ODataCSDL">OData-CSDLJSON</a> describes a JSON representation for OData metadata documents and provides a JSON schema to validate their contents. The media type of the JSON representation of an OData metadata document is <code>application/json</code>.</p>
-<p><a href="#ODataCSDL">OData-CSDLXML</a> describes an XML representation for OData metadata documents and provides an XML schema to validate their contents. The media type of the XML representation of an OData metadata document is <code>application/xml</code>.</p>
+<p><a href="#ODataCSDLXML">OData-CSDLXML</a> describes an XML representation for OData metadata documents and provides an XML schema to validate their contents. The media type of the XML representation of an OData metadata document is <code>application/xml</code>.</p>
 <p>OData services can expose a metadata document that describes the data model exposed by the service. The <em>metadata document URL</em> MUST be the root URL of the service with <code>$metadata</code> appended. To retrieve this document the client issues a <code>GET</code> request to the metadata document URL.</p>
 <p>If a request for metadata does not specify a format preference (via <a href="#HeaderAccept"><code>Accept</code></a> header or <a href="#SystemQueryOptionformat"><code>$format</code></a>) then the XML representation MUST be returned.</p>
 </details>
@@ -1714,7 +1714,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <h3 id="1122-requesting-individual-entities"><a id="RequestingIndividualEntities" href="#RequestingIndividualEntities">11.2.2 Requesting Individual Entities</a></h3>
 </summary>
 <p>To retrieve an individual entity, the client makes a <code>GET</code> request to a URL that identifies the entity, e.g. its read URL.</p>
-<p>The read URL can be obtained from a response payload containing that instance, for example as a <code>readLink</code> or <code>editLink</code> in an <a href="#ODataJSON">OData-JSON</a> payload. In addition, services MAY support conventions for constructing a read URL using the entity’s key value(s), as described in <a href="#ODataURL">OData-URL</a>.</p>
+<p>The read URL can be obtained from a response payload containing that instance, for example as a <code>readLink</code> or <code>editLink</code> in an <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink">OData-JSON, section 4.6.9</a> payload. In addition, services MAY support conventions for constructing a read URL using the entity’s key value(s), as described in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalURL">OData-URL, section 4.3.1</a>.</p>
 <p>The set of structural or navigation properties to return may be specified through <a href="#SystemQueryOptionselect"><code>$select</code></a> or <a href="#SystemQueryOptionexpand"><code>$expand</code></a> system query options.</p>
 <p>Clients MUST be prepared to receive additional properties in an entity or complex type instance that are not advertised in metadata, even for types not marked as open.</p>
 <p>Properties that are not available are not returned. If their unavailability is due to permissions, the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Permissions"><code>Core.Permissions</code></a> annotation, defined in <a href="#ODataVocCore">OData-VocCore</a> MUST be returned for the property with a value of <code>None</code>. If the <a href="#Preferenceomitvalues"><code>omit-values</code></a> preference is applied, <code>Core.Permissions</code> or another specific annotation that explains the reason MUST be returned for every unavailable property.</p>
@@ -1734,7 +1734,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 </summary>
 <p>To retrieve an individual property, the client issues a <code>GET</code> request to the property URL. The property URL is the entity read URL with <code>/</code> and the property name appended.</p>
 <p>For complex typed properties, the path can be further extended with the name of an individual property of the complex type.</p>
-<p>See <a href="#ODataURL">OData-URL</a> for details.</p>
+<p>See <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingaProperty">OData-URL, section 4.6</a> for details.</p>
 <p>If the property is single-valued and has the <code>null</code> value, the service responds with <a href="#ResponseCode204NoContent"><code>204 No Content</code></a>.</p>
 <p>If the property is not available, for example due to permissions, the service responds with <a href="#ResponseCode404NotFound"><code>404 Not Found</code></a>.</p>
 <div class="example">
@@ -1750,7 +1750,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <details open><summary>
 <h4 id="11242-requesting-a-raw-value-using-value"><a id="RequestingaRawValueusingvalue" href="#RequestingaRawValueusingvalue">11.2.4.2 Requesting a Raw Value using <code>$value</code></a></h4>
 </summary>
-<p>To retrieve the raw value of a primitive property or operation result, the client sends a <code>GET</code> request to the raw value URL. See the <a href="#ODataURL">OData-URL</a> document for details.</p>
+<p>To retrieve the raw value of a primitive property or operation result, the client sends a <code>GET</code> request to the raw value URL. See <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingaRawValue">OData-URL, section 4.7</a> for details.</p>
 <p>The <code>Content-Type</code> of the response is determined using the <code>Accept</code> header and the <a href="#SystemQueryOptionformat"><code>$format</code></a> system query option.</p>
 <p>The default format for <code>Edm.Binary</code> is the format specified by the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#MediaType"><code>Core.MediaType</code></a> annotation (see <a href="#ODataVocCore">OData-VocCore</a>) if this annotation is present. If not annotated, the format cannot be predicted by the client.</p>
 <p>The default format for <code>Edm.Geo</code> types is <code>text/plain</code> without <code>charset</code> parameter, using the WKT (well-known text) format, see rules <code>fullCollectionLiteral</code>, <code>fullLineStringLiteral</code>, <code>fullMultiPointLiteral</code>, <code>fullMultiLineStringLiteral</code>, <code>fullMultiPolygonLiteral</code>, <code>fullPointLiteral</code>, and <code>fullPolygonLiteral</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
@@ -1824,7 +1824,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <details open><summary>
 <h5 id="112521-expand-options"><a id="ExpandOptions" href="#ExpandOptions">11.2.5.2.1 Expand Options</a></h5>
 </summary>
-<p>The set of expanded entities can be further refined through the application of expand options, expressed as a semicolon-separated list of system query options, enclosed in parentheses, see <a href="#ODataURL">OData-URL</a>.</p>
+<p>The set of expanded entities can be further refined through the application of expand options, expressed as a semicolon-separated list of system query options, enclosed in parentheses, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#SystemQueryOptionexpand">OData-URL, section 5.1.3</a>.</p>
 <p>Allowed system query options are <a href="#SystemQueryOptioncompute"><code>$compute</code></a>, <a href="#SystemQueryOptionselect"><code>$select</code></a>, <code>$expand</code>, and <a href="#ExpandOptionlevels"><code>$levels</code></a> for all navigation properties, plus <a href="#SystemQueryOptionfilter"><code>$filter</code></a>, <a href="#SystemQueryOptionorderby"><code>$orderby</code></a>, <a href="#SystemQueryOptionskip"><code>$skip</code></a>, <a href="#SystemQueryOptiontop"><code>$top</code></a>, <a href="#SystemQueryOptioncount"><code>$count</code></a>, and <a href="#SystemQueryOptionsearch"><code>$search</code></a> for collection-valued navigation properties.</p>
 <div class="example">
 <p>Example 41: for each customer entity within the <code>Customers</code> entity set, the value of those related <code>Orders</code> whose <code>Amount</code> is greater than 100 will be represented inline</p>
@@ -2213,12 +2213,12 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Example 74: the request</p>
 <pre><code>GET http://host/service/Orders?$format=application/json;metadata=full</code></pre>
 </div>
-<p>is equivalent to a request with an <code>Accept</code> header using the same media type; it requests the set of Order entities represented using the JSON media type including full metadata, as defined in <a href="#ODataJSON">OData-JSON</a>.</p>
+<p>is equivalent to a request with an <code>Accept</code> header using the same media type; it requests the set of Order entities represented using the JSON media type including full metadata, as defined in <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#metadatafullodatametadatafull">OData-JSON, section 3.1.2</a>.</p>
 <div class="example">
 <p>Example 75: the request</p>
 <pre><code>GET http://host/service/Orders?$format=json</code></pre>
 </div>
-<p>is equivalent to a request with the <code>Accept</code> header set to <code>application/json</code>; it requests the set of Order entities represented using the JSON media type with minimal metadata, as defined in <a href="#ODataJSON">OData-JSON</a>.</p>
+<p>is equivalent to a request with the <code>Accept</code> header set to <code>application/json</code>; it requests the set of Order entities represented using the JSON media type with minimal metadata, as defined in <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#metadataminimalodatametadataminimal">OData-JSON, section 3.1.1</a>.</p>
 <p>In <a href="#MetadataDocumentRequest">metadata document requests</a>, the values <code>application/xml</code> and <code>application/json</code>, along with their subtypes and parameterized variants, as well as the format-specific abbreviations <code>xml</code> and <code>json</code>, are reserved for this specification.</p>
 </details>
 <details open><summary>
@@ -2582,7 +2582,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <details open><summary>
 <h3 id="1146-modifying-relationships-between-entities"><a id="ModifyingRelationshipsbetweenEntities" href="#ModifyingRelationshipsbetweenEntities">11.4.6 Modifying Relationships between Entities</a></h3>
 </summary>
-<p>Relationships between entities are represented by navigation properties as described in <a href="#DataModel">Data Model</a>. URL conventions for navigation properties are described in <a href="#ODataURL">OData-URL</a>.</p>
+<p>Relationships between entities are represented by navigation properties as described in <a href="#DataModel">Data Model</a>. URL conventions for navigation properties are described in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#URLsforRelatedEntitieswithReferentialConstraints">OData-URL, section 4.3.3</a>.</p>
 <details open><summary>
 <h4 id="11461-add-a-reference-to-a-collection-valued-navigation-property"><a id="AddaReferencetoaCollectionValuedNavigationProperty" href="#AddaReferencetoaCollectionValuedNavigationProperty">11.4.6.1 Add a Reference to a Collection-Valued Navigation Property</a></h4>
 </summary>
@@ -2594,7 +2594,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <h4 id="11462-remove-a-reference-to-an-entity"><a id="RemoveaReferencetoanEntity" href="#RemoveaReferencetoanEntity">11.4.6.2 Remove a Reference to an Entity</a></h4>
 </summary>
 <p>A successful <code>DELETE</code> request to the URL that represents a reference to a related entity removes the relationship to that entity.</p>
-<p>In OData 4.0, the entity reference to be removed within a collection-valued navigation property is the URL that represents the collection of related references, with the reference to be removed identified by the <a href="#ResolvinganEntityId"><code>$id</code></a> query option. OData 4.01 services additionally support using the URL that represents the reference of the collection member to be removed, identified by key, as described in <a href="#ODataURL">OData-URL</a>.</p>
+<p>In OData 4.0, the entity reference to be removed within a collection-valued navigation property is the URL that represents the collection of related references, with the reference to be removed identified by the <a href="#ResolvinganEntityId"><code>$id</code></a> query option. OData 4.01 services additionally support using the URL that represents the reference of the collection member to be removed, identified by key, as described in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingReferencesbetweenEntities">OData-URL, section 4.4</a>.</p>
 <p>For single-valued navigation properties, the <a href="#ResolvinganEntityId"><code>$id</code></a> query option MUST NOT be specified.</p>
 <p>The <code>DELETE</code> request MUST NOT violate any <a href="#HandlingofIntegrityConstraints">integrity constraints</a> in the data model.</p>
 <p>On successful completion, the response MUST be <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> and contain an empty body.</p>
@@ -2604,7 +2604,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 </summary>
 <p>A successful <code>PUT</code> request to a single-valued navigation property’s reference resource changes the related entity. The request body MUST contain a single entity reference that identifies the existing entity to be related. See the appropriate format document for details.</p>
 <p>On successful completion, the response MUST be <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> and contain an empty body.</p>
-<p>Alternatively, a relationship MAY be updated as part of an update to the source entity by including the required binding information for the new target entity. This binding information is format-specific, see <a href="#ODataJSON">OData-JSON</a> for details.</p>
+<p>Alternatively, a relationship MAY be updated as part of an update to the source entity by including the required binding information for the new target entity. This binding information is format-specific, see <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#RelatedEntities">OData-JSON, section 15.4</a> for details.</p>
 <p>If the single-valued navigation property is used in the key definition of an entity type, it cannot be changed and the request MUST fail with <a href="#ResponseCode405MethodNotAllowed"><code>405 Method Not Allowed</code></a> or an other appropriate error.</p>
 </details>
 <details open><summary>
@@ -2693,7 +2693,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <details open><summary>
 <h3 id="1149-managing-values-and-properties-directly"><a id="ManagingValuesandPropertiesDirectly" href="#ManagingValuesandPropertiesDirectly">11.4.9 Managing Values and Properties Directly</a></h3>
 </summary>
-<p>Values and properties can be explicitly addressed with URLs. The edit URL of a property is the edit URL of the entity appended with the path segment(s) specifying the individual property. The edit URL allows properties to be individually modified. See <a href="#ODataURL">OData-URL</a> for details on addressing individual properties.</p>
+<p>Values and properties can be explicitly addressed with URLs. The edit URL of a property is the edit URL of the entity appended with the path segment(s) specifying the individual property. The edit URL allows properties to be individually modified. See <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingaProperty">OData-URL, section 4.6</a> for details on addressing individual properties.</p>
 <details open><summary>
 <h4 id="11491-update-a-primitive-property"><a id="UpdateaPrimitiveProperty" href="#UpdateaPrimitiveProperty">11.4.9.1 Update a Primitive Property</a></h4>
 </summary>
@@ -2803,7 +2803,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <h3 id="11414-update-members-of-a-collection"><a id="UpdateMembersofaCollection" href="#UpdateMembersofaCollection">11.4.14 Update Members of a Collection</a></h3>
 </summary>
 <p>Members of a collection can be updated by submitting a <code>PATCH</code> request to the URL constructed by appending <code>/$each</code> to the resource path of the collection. The additional path segment expresses that the request body describes an update to each member of the collection, not an update to the collection itself.</p>
-<p>The resource path of the collection MAY contain type-cast or filter segments to subset the collection, see <a href="#ODataURL">OData-URL</a>.</p>
+<p>The resource path of the collection MAY contain type-cast or filter segments to subset the collection, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingDerivedTypes">OData-URL, section 4.11</a> and <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingaSubsetofaCollection">OData-URL, section 4.12</a>.</p>
 <p>For primitive-typed collections the body of the request MUST be a primitive value. Each member of the potentially filtered collection is updated to the specified primitive value.</p>
 <p>For collections of structured type, the body of the request MUST be a full or partial representation of an instance of the collection’s structured type. Each member of the potentially filtered collection is <a href="#UpdateanEntity">updated</a> using <code>PATCH</code> semantics. Structured types MAY include nested collections or delta collections, in which case the semantics described in <a href="#UpdateaCollectionofEntities">Update a Collection of Entities</a> applies.</p>
 <div class="example">
@@ -2838,7 +2838,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <details open><summary>
 <h2 id="115-operations"><a id="Operations" href="#Operations">11.5 Operations</a></h2>
 </summary>
-<p>Custom operations (<a href="#Actions">Actions</a> and <a href="#Functions">Functions</a>) allow encapsulating logic for modifying or requesting data that goes beyond simple CRUD described in the preceding sections of this chapter. See <code>Action</code>, <code>ActionImport</code>, <code>Function</code>, and <code>FunctionImport</code> in <a href="#ODataCSDL">OData-CSDLJSON</a> or <a href="#ODataCSDL">OData-CSDLXML</a>.</p>
+<p>Custom operations (<a href="#Actions">Actions</a> and <a href="#Functions">Functions</a>) allow encapsulating logic for modifying or requesting data that goes beyond simple CRUD described in the preceding sections of this chapter. See <code>Action</code>, <code>ActionImport</code>, <code>Function</code>, and <code>FunctionImport</code> in <a href="#ODataCSDL">OData-CSDLJSON</a> or <a href="#ODataCSDLXML">OData-CSDLXML</a>.</p>
 <details open><summary>
 <h3 id="1151-binding-an-operation-to-a-resource"><a id="BindinganOperationtoaResource" href="#BindinganOperationtoaResource">11.5.1 Binding an Operation to a Resource</a></h3>
 </summary>
@@ -2897,7 +2897,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <span id="cb116-9"><a href="#cb116-9" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
 <span id="cb116-10"><a href="#cb116-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
-<p>An efficient format that assumes client knowledge of metadata may omit actions and functions from the payload whose target URL can be computed via metadata following standard conventions defined in <a href="#ODataURL">OData-URL</a>.</p>
+<p>An efficient format that assumes client knowledge of metadata may omit actions and functions from the payload whose target URL can be computed via metadata following standard conventions defined in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingOperations">OData-URL, section 4.5</a>.</p>
 <p>Services can advertise that a function or action is not available for a particular instance by setting its value to null.</p>
 <div class="example">
 <p>Example 93: the <code>SampleEntities.MostRecentOrder</code> function is not available for customer <code>ALFKI</code></p>
@@ -2935,7 +2935,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>If a collection-valued function has no result for a given parameter value combination, the response is the format-specific representation of an empty collection. If a single-valued function with a nullable return-type has no result, the service returns <a href="#ResponseCode204NoContent"><code>204 No Content</code></a>.</p>
 <p>If a single-valued function with a non-nullable return type has no result, the service returns <code>4xx</code>. For functions that return a single entity <a href="#ResponseCode404NotFound"><code>404 Not Found</code></a> is the appropriate response code.</p>
 <p>For a composable function the processing is stopped when the function result requires a <code>4xx</code> response, and continues otherwise.</p>
-<p>Function imports preceded by the <code>$root</code> literal MAY be used in the <a href="#SystemQueryOptionfilter"><code>$filter</code></a> or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> system query options, see <a href="#ODataURL">OData-URL</a>.</p>
+<p>Function imports preceded by the <code>$root</code> literal MAY be used in the <a href="#SystemQueryOptionfilter"><code>$filter</code></a> or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> system query options, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#SystemQueryOptionfilter">OData-URL, section 5.1.2</a> and <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#SystemQueryOptionorderby">OData-URL, section 5.1.5</a>.</p>
 <details open><summary>
 <h5 id="115411-inline-parameter-syntax"><a id="InlineParameterSyntax" href="#InlineParameterSyntax">11.5.4.1.1 Inline Parameter Syntax</a></h5>
 </summary>
@@ -2968,7 +2968,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 </summary>
 <p>The same function name may be used multiple times within a schema, each with a different set of parameters. For unbound overloads the combination of the function name and the unordered set of parameter names MUST identify a particular function overload. For bound overloads the combination of the function name, the binding parameter type, and the unordered set of names of the non-binding parameters MUST identify a particular function overload.</p>
 <p>All unbound overloads MUST have the same return type. Also, all bound overloads with a given binding parameter type MUST have the same return type.</p>
-<p>If the function is bound and the binding parameter type is part of an inheritance hierarchy, the function overload is selected based on the type of the URL segment preceding the function name. A type-cast segment can be used to select a function defined on a particular type in the hierarchy, see <a href="#ODataURL">OData-URL</a>.</p>
+<p>If the function is bound and the binding parameter type is part of an inheritance hierarchy, the function overload is selected based on the type of the URL segment preceding the function name. A type-cast segment can be used to select a function defined on a particular type in the hierarchy, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingDerivedTypes">OData-URL, section 4.11</a>.</p>
 <p>Non-binding parameters MAY be marked as optional by annotating them with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter"><code>Core.OptionalParameter</code></a> defined in <a href="#ODataVocCore">OData-VocCore</a>. All parameters marked as optional MUST come after any parameters not marked as optional.</p>
 <p>A function overload is selected if</p>
 <ul>
@@ -3015,7 +3015,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <h4 id="11552-action-overload-resolution"><a id="ActionOverloadResolution" href="#ActionOverloadResolution">11.5.5.2 Action Overload Resolution</a></h4>
 </summary>
 <p>The same action name may be used multiple times within a schema provided there is at most one unbound overload, and each bound overload specifies a different binding parameter type.</p>
-<p>If the action is bound and the binding parameter type is part of an inheritance hierarchy, the action overload is selected based on the type of the URL segment preceding the action name. A type-cast segment can be used to select an action defined on a particular type in the hierarchy, see <a href="#ODataURL">OData-URL</a>.</p>
+<p>If the action is bound and the binding parameter type is part of an inheritance hierarchy, the action overload is selected based on the type of the URL segment preceding the action name. A type-cast segment can be used to select an action defined on a particular type in the hierarchy, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingDerivedTypes">OData-URL, section 4.11</a>.</p>
 </details>
 </details>
 </details>
@@ -3026,8 +3026,8 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>If the client has specified<code> respond-async</code> in the request, the service MAY process the request asynchronously and return a <a href="#ResponseCode202Accepted"><code>202 Accepted</code></a> response. A service MUST NOT reply to a <a href="#DataServiceRequests">Data Service Request</a> with <code>202 Accepted</code> if the request has not included the <code>respond-async</code> preference.</p>
 <p>Responses that return <code>202 Accepted</code> MUST include a <a href="#HeaderLocation"><code>Location</code></a> header pointing to a <em>status monitor resource</em> that represents the current state of the asynchronous processing in addition to an optional <a href="#HeaderRetryAfter"><code>Retry-After</code></a> header indicating the time, in seconds, the client should wait before querying the service for status. Services MAY include a response body, for example, to provide additional status information.</p>
 <p>A <code>GET</code> request to the status monitor resource again returns <code>202 Accepted</code> response if the asynchronous processing has not finished. This response MUST again include a <a href="#HeaderLocation"><code>Location</code></a> header and MAY include a <a href="#HeaderRetryAfter"><code>Retry-After</code></a> header to be used for a subsequent request. The <code>Location</code> header and optional <code>Retry-After</code> header may or may not contain the same values as returned by the previous request.</p>
-<p>A <code>GET</code> request to the status monitor resource returns <a href="#ResponseCode200OK"><code>200 OK</code></a> once the asynchronous processing has completed. For OData 4.01 or greater responses, or OData 4.0 requests that include an <code>Accept</code> header that does not specify <code>application/http</code>, the response MUST include the <a href="#HeaderAsyncResult"><code>AsyncResult</code></a> response header. Any other headers, along with the response body, represent the result of the completed asynchronous operation. If the <code>GET</code> request to the status monitor includes an <code>OData-MaxVersion</code> header with a value of <code>4.0</code> and no <code>Accept</code> header, or an <code>Accept</code> header that includes <code>application/http</code>, then the body of the final <code>200 OK</code> response MUST be represented as an HTTP message, as described in <a href="#rfc9110">RFC9110</a>, which is the full HTTP response to the completed asynchronous operation.</p>
-<p>A <code>DELETE</code> request sent to the status monitor resource requests that the asynchronous processing be canceled. A <code>200 OK</code> or a <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> response indicates that the asynchronous processing has been successfully canceled. A client can request that the <code>DELETE</code> should be executed asynchronously. A <code>202 Accepted</code> response indicates that the cancellation is being processed asynchronously; the client can use the returned <a href="#HeaderLocation"><code>Location</code></a> header (which MUST be different from the status monitor resource of the initial request) to query for the status of the cancellation. If a delete request is not supported by the service, the service returns <a href="#ResponseCode405MethodNotAllowed"><code>405 Method Not Allowed</code></a>.</p>
+<p>Once the asynchronous processing has completed, a <code>GET</code> request to the status monitor resource returns <a href="#ResponseCode200OK"><code>200 OK</code></a>, or <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> if the request included a <code>Prefer</code> header with a value of <code>return=minimal</code> that was applied by the service. For OData 4.01 or greater responses, or OData 4.0 requests that include an <code>Accept</code> header that does not specify <code>application/http</code>, the response MUST include the <a href="#HeaderAsyncResult"><code>AsyncResult</code></a> response header. A <code>204 No Content</code> response MUST include a <code>Location</code> header that contains the status monitor resource URL that can be used to request the result of the completed asynchronous operation. This may or may not be the current request’s URL. In a <code>200 OK</code> response any other headers, along with the response body, represent the result of the completed asynchronous operation. If the <code>GET</code> request to the status monitor includes an <code>OData-MaxVersion</code> header with a value of <code>4.0</code> and no <code>Accept</code> header, or an <code>Accept</code> header that includes <code>application/http</code>, then the body of the final <code>200 OK</code> response MUST be represented as an HTTP message, as described in <a href="#rfc9110">RFC9110</a>, which is the full HTTP response to the completed asynchronous operation.</p>
+<p>A <code>DELETE</code> request sent to the status monitor resource requests that the asynchronous processing be canceled. A <code>200 OK</code> or a <code>204 No Content</code> response indicates that the asynchronous processing has been successfully canceled. A client can request that the <code>DELETE</code> should be executed asynchronously. A <code>202 Accepted</code> response indicates that the cancellation is being processed asynchronously; the client can use the returned <code>Location</code> header (which MUST be different from the status monitor resource of the initial request) to query for the status of the cancellation. If a delete request is not supported by the service, the service returns <a href="#ResponseCode405MethodNotAllowed"><code>405 Method Not Allowed</code></a>.</p>
 <p>After a successful <code>DELETE</code> request against the status monitor resource, any subsequent <code>GET</code> requests for the same status monitor resource returns <a href="#ResponseCode404NotFound"><code>404 Not Found</code></a>.</p>
 <p>If an asynchronous request is cancelled for reasons other than the consumers issuing a <code>DELETE</code> request against the status monitor resource, a <code>GET</code> request to the status monitor resource returns <code>200 OK</code> with a response body containing a single HTTP response with a status code in the <a href="#ServerErrorResponses"><code>5xx Server Error</code></a> range indicating that the operation was cancelled.</p>
 <p>The service MUST ensure that no observable change has occurred as a result of a canceled request.</p>
@@ -3040,7 +3040,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Batch requests allow grouping multiple individual requests into a single HTTP request payload. An individual request in the context of a batch request is a <a href="#MetadataRequests">Metadata Request</a>, <a href="#RequestingData">Data Request</a>, <a href="#DataModification">Data Modification Request</a>, <a href="#InvokinganAction">Action invocation</a> request, or <a href="#InvokingaFunction">Function invocation</a> request.</p>
 <p>Batch requests are submitted as a single HTTP <code>POST</code> request to the batch endpoint of a service, located at the URL <code>$batch</code> relative to the service root.</p>
 <p>Individual requests within a batch request are evaluated according to the same semantics used when the request appears outside the context of a batch request.</p>
-<p>A batch request is represented using either the <a href="#MultipartBatchFormat">multipart batch format</a> defined in this document or the JSON batch format defined in <a href="#ODataJSON">OData-JSON</a>.</p>
+<p>A batch request is represented using either the <a href="#MultipartBatchFormat">multipart batch format</a> defined in this document or the JSON batch format defined in <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#BatchRequestsandResponses">OData-JSON, section 19</a>.</p>
 <p>If the set of request headers of a batch request are valid the service MUST return a <a href="#ResponseCode200OK"><code>200 OK</code></a> HTTP response code to indicate that the batch request was accepted for processing, even if the processing is yet to be completed. The individual requests within the body of the batch request may be processed as soon as they are received, this enables clients to stream batch requests, and batch implementations to stream the results.</p>
 <p>If the service receives a batch request with an invalid set of headers it MUST return a <a href="#ClientErrorResponses"><code>4xx</code> response code</a> and perform no further processing of the batch request.</p>
 <details open><summary>
@@ -3529,12 +3529,12 @@ Content-Length: ###
 </ol></li>
 <li>MUST follow OData guidelines for extensibility (<a href="#Extensibility">section 6</a> and all subsections)</li>
 <li>MUST successfully parse the request according to <a href="#ODataABNF">OData-ABNF</a> for any supported system query options and follow the specification or fail the request</li>
-<li>MUST expose only data types defined in <a href="#ODataCSDL">OData-CSDLXML</a></li>
+<li>MUST expose only data types defined in <a href="#ODataCSDLXML">OData-CSDLXML</a></li>
 <li>MUST NOT require clients to understand any metadata or instance annotations (<a href="#VocabularyExtensibility">section 6.4</a>), custom headers (<a href="#HeaderFieldExtensibility">section 6.5</a>), or custom content (<a href="#PayloadExtensibility">section 6.2</a>) in the payload in order to correctly consume the service</li>
 <li>MUST NOT violate any OData update semantics (<a href="#DataModification">section 11.4</a> and all subsections)</li>
 <li>MUST NOT violate any other OData-defined semantics</li>
 <li>SHOULD support <code>$expand</code> (<a href="#SystemQueryOptionexpand">section 11.2.5.2</a>)</li>
-<li>SHOULD publish metadata at <code>$metadata</code> according to <a href="#ODataCSDL">OData-CSDLXML</a> and MAY publish metadata according to <a href="#ODataCSDL">OData-CSDLJSON</a> (<a href="#MetadataDocumentRequest">section 11.1.2</a>)</li>
+<li>SHOULD publish metadata at <code>$metadata</code> according to <a href="#ODataCSDLXML">OData-CSDLXML</a> and MAY publish metadata according to <a href="#ODataCSDL">OData-CSDLJSON</a> (<a href="#MetadataDocumentRequest">section 11.1.2</a>)</li>
 <li>MUST support prefixed variants of supported headers and preference values</li>
 <li>MUST support enumeration and duration literals in URLs with the type prefix</li>
 </ol>
@@ -3545,7 +3545,7 @@ Content-Length: ###
 </ol>
 <p>To be considered an <em>Updatable OData Service</em>, the service additionally:</p>
 <ol start="18" type="1">
-<li>MUST include edit links (explicitly or implicitly) for all updatable or deletable resources according to <a href="#ODataJSON">OData-JSON</a></li>
+<li>MUST include edit links (explicitly or implicitly) for all updatable or deletable resources according to <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink">OData-JSON, section 4.6.9</a></li>
 <li>MUST support <code>POST</code> of new entities to insertable entity sets (<a href="#ReturningResultsfromDataModificationRequests">section 11.4.1.5</a>)</li>
 <li>MUST support <code>POST</code> of new related entities to updatable navigation properties (<a href="#CreateanEntity">section 11.4.2</a>)</li>
 <li>MUST support <code>POST</code> to <code>$ref</code> to add an existing entity to an updatable related collection (<a href="#AddaReferencetoaCollectionValuedNavigationProperty">section 11.4.6.1</a>)</li>
@@ -3571,7 +3571,7 @@ Content-Length: ###
 <li>MUST conform to the <a href="#OData40MinimalConformanceLevel">OData 4.0 Minimal Conformance Level</a></li>
 <li>MUST successfully parse the request according to <a href="#ODataABNF">OData-ABNF</a> and follow the specification or fail the request</li>
 <li>MUST support <code>$select</code> (<a href="#SystemQueryOptionselect">section 11.2.5.1</a>)</li>
-<li>MUST support casting to a derived type according to <a href="#ODataURL">OData-URL</a> if derived types are present in the model</li>
+<li>MUST support casting to a derived type according to <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingDerivedTypes">OData-URL, section 4.11</a> if derived types are present in the model</li>
 <li>MUST support <code>$top</code> (<a href="#SystemQueryOptiontop">section 11.2.6.3</a>)</li>
 <li>MUST support <code>/$value</code> on media entities (<a href="#MetadataDocumentRequest">section 11.1.2</a>) and individual properties (<a href="#RequestingaRawValueusingvalue">section 11.2.4.2</a>)</li>
 <li>MUST support <code>$filter</code> (<a href="#SystemQueryOptionfilter">section 11.2.6.1</a>)
@@ -3582,7 +3582,7 @@ Content-Length: ###
 <li>SHOULD support the canonical functions (<a href="#BuiltinQueryFunctions">section 11.2.6.1.2</a>) and MUST fail the request for any unsupported canonical functions</li>
 <li>SHOULD support <code>$filter</code> on expanded entities (<a href="#ExpandOptions">section 11.2.5.2.1</a>)</li>
 </ol></li>
-<li>SHOULD publish metadata at <code>$metadata</code> according to <a href="#ODataCSDL">OData-CSDLXML</a> (<a href="#MetadataDocumentRequest">section 11.1.2</a>)</li>
+<li>SHOULD publish metadata at <code>$metadata</code> according to <a href="#ODataCSDLXML">OData-CSDLXML</a> (<a href="#MetadataDocumentRequest">section 11.1.2</a>)</li>
 <li>SHOULD support the <a href="#ODataJSON">OData-JSON</a> format</li>
 <li>SHOULD consider supporting basic authentication as defined in <a href="#rfc7617">RFC7617</a> over HTTPS for the highest level of interoperability with generic clients</li>
 <li>SHOULD support the <code>$search</code> system query option (<a href="#SystemQueryOptionsearch">section 11.2.6.6</a>)</li>
@@ -3600,7 +3600,7 @@ Content-Length: ###
 <p>In order to conform to the OData Advanced Conformance Level, a service:</p>
 <ol type="1">
 <li>MUST conform to at least the <a href="#OData40IntermediateConformanceLevel">OData 4.0 Intermediate Conformance Level</a></li>
-<li>MUST publish metadata at <code>$metadata</code> according to <a href="#ODataCSDL">OData-CSDLXML</a> (<a href="#MetadataDocumentRequest">section 11.1.2</a>)</li>
+<li>MUST publish metadata at <code>$metadata</code> according to <a href="#ODataCSDLXML">OData-CSDLXML</a> (<a href="#MetadataDocumentRequest">section 11.1.2</a>)</li>
 <li>MUST support the <a href="#ODataJSON">OData-JSON</a> format</li>
 <li>MUST support the <code>/$count</code> segment on navigation and collection properties (<a href="#RequestingtheNumberofItemsinaCollection">section 11.2.10</a>)</li>
 <li>MUST support the lambda operators <code>any</code> and <code>all</code> on navigation- and and collection-valued properties (<a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#LambdaOperators">OData-URL, section 5.1.1.13</a>)</li>
@@ -3620,11 +3620,11 @@ Content-Length: ###
 <li>MAY support <code>$compute</code> on expanded properties</li>
 </ol></li>
 <li>MUST support the <code>$search</code> system query option (<a href="#SystemQueryOptionsearch">section 11.2.6.6</a>)</li>
-<li>MUST support batch requests according to the multipart format (<a href="#BatchRequests">section 11.7</a> and all subsections) and MAY support batch requests according to the JSON Batch format defined in <a href="#ODataJSON">OData-JSON</a></li>
-<li>MUST support the resource path conventions defined in <a href="#ODataURL">OData-URL</a></li>
+<li>MUST support batch requests according to the multipart format (<a href="#BatchRequests">section 11.7</a> and all subsections) and MAY support batch requests according to the JSON Batch format defined in <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#BatchRequestsandResponses">OData-JSON, section 19</a></li>
+<li>MUST support the resource path conventions defined in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#ResourcePath">OData-URL, section 4</a></li>
 <li>SHOULD support asynchronous requests (<a href="#AsynchronousRequests">section 11.6</a>)</li>
 <li>SHOULD support Delta change tracking (<a href="#RequestingChanges">section 11.3</a>)</li>
-<li>SHOULD support cross-join queries defined in <a href="#ODataURL">OData-URL</a></li>
+<li>SHOULD support cross-join queries defined in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingtheCrossJoinofEntitySets">OData-URL, section 4.15</a></li>
 <li>MAY support the <code>$compute</code> system query option (<a href="#SystemQueryOptioncompute">section 11.2.5.3</a>)</li>
 </ol>
 </details>
@@ -3661,12 +3661,12 @@ Content-Length: ###
 <li>SHOULD support negative indexes for the substring function</li>
 <li>MAY support Key-As-Segment URL convention
 <ol type="1">
-<li>MUST also support canonical URL conventions (described in <a href="#ODataURL">OData-URL</a>) or include URLs in payload</li>
+<li>MUST also support canonical URL conventions (described in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalURL">OData-URL, section 4.3.1</a>) or include URLs in payload</li>
 </ol></li>
 <li>MAY support the count of a filtered collection in a common expression</li>
 <li>MAY support equal and non-equal structural comparison</li>
 </ol></li>
-<li>SHOULD publish metadata at <code>$metadata</code> according to both <a href="#ODataCSDL">OData-CSDLXML</a> and <a href="#ODataCSDL">OData-CSDLJSON</a> (<a href="#MetadataDocumentRequest">section 11.1.2</a>)</li>
+<li>SHOULD publish metadata at <code>$metadata</code> according to both <a href="#ODataCSDLXML">OData-CSDLXML</a> and <a href="#ODataCSDL">OData-CSDLJSON</a> (<a href="#MetadataDocumentRequest">section 11.1.2</a>)</li>
 <li>SHOULD NOT have identifiers within a uniqueness scope (e.g. a schema, a structural type, or an entity container) that differ only by case</li>
 <li>SHOULD return the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ODataVersions"><code>Core.ODataVersions</code></a> annotation</li>
 <li>SHOULD report capabilities through the Capabilities vocabulary</li>
@@ -3725,7 +3725,7 @@ Content-Length: ###
 <li>SHOULD support <code>$search</code> on selected collection-valued properties</li>
 </ol></li>
 <li>MUST publish metadata at <code>$metadata</code> according to <a href="#ODataCSDL">OData-CSDLJSON</a> (<a href="#MetadataDocumentRequest">section 11.1.2</a>)</li>
-<li>MUST support batch requests according both to the multipart format (<a href="#BatchRequests">section 11.7</a> and all subsections) and the JSON Batch format defined in <a href="#ODataJSON">OData-JSON</a></li>
+<li>MUST support batch requests according both to the multipart format (<a href="#BatchRequests">section 11.7</a> and all subsections) and the JSON Batch format defined in <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#BatchRequestsandResponses">OData-JSON, section 19</a></li>
 <li>SHOULD support filtering a collection using a <code>/$filter</code> path segment</li>
 <li>SHOULD support nested parameter alias assignments in <code>$select</code> and <code>$expand</code></li>
 <li>MAY support case-insensitive comparison of identifiers in URLs and request payloads if no exact match is found, using the same lookup sequence as for <a href="#DefaultNamespaces">default namespaces</a> with a case-insensitive comparison</li>
@@ -3740,7 +3740,7 @@ Content-Length: ###
 <ol type="1">
 <li>MUST specify the <code>OData-MaxVersion</code> header in requests (<a href="#HeaderODataMaxVersion">section 8.2.7</a>)</li>
 <li>MUST specify <code>OData-Version</code> (<a href="#HeaderODataVersion">section 8.1.5</a>) and <code>Content-Type</code> (<a href="#HeaderContentType">section 8.1.1</a>) in any request with a payload</li>
-<li>MUST be a conforming consumer of OData as defined in <a href="#ODataJSON">OData-JSON</a></li>
+<li>MUST be a conforming consumer of OData as defined in <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#Conformance">OData-JSON, section 23</a></li>
 <li>MUST follow redirects (<a href="#ResponseCode3xxRedirection">section 9.1.5</a>)</li>
 <li>MUST correctly handle next links (<a href="#ServerDrivenPaging">section 11.2.6.7</a>)</li>
 <li>MUST support instances returning properties and navigation properties not specified in metadata (<a href="#RequestingData">section 11.2</a>)</li>
@@ -3752,8 +3752,8 @@ Content-Length: ###
 <li>MAY request entity references in place of entities previously returned in the response (<a href="#RequestingEntityReferences">section 11.2.8</a>)</li>
 <li>MAY support deleted entities, link entities, deleted link entities in a delta response (<a href="#RequestingChanges">section 11.3</a>)</li>
 <li>MAY support asynchronous responses (<a href="#AsynchronousRequests">section 11.6</a>)</li>
-<li>MAY support <code>metadata=minimal</code> in a JSON response (see <a href="#ODataJSON">OData-JSON</a>)</li>
-<li>MAY support <code>streaming</code> in a JSON response (see <a href="#ODataJSON">OData-JSON</a>)</li>
+<li>MAY support <code>metadata=minimal</code> in a JSON response (see <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#metadataminimalodatametadataminimal">OData-JSON, section 3.1.1</a>)</li>
+<li>MAY support <code>streaming</code> in a JSON response (see <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#PayloadOrderingConstraints">OData-JSON, section 4.5</a>)</li>
 </ol>
 <p>In addition, interoperable OData 4.01 clients</p>
 <ol start="17" type="1">
@@ -3781,9 +3781,10 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <h6><span id="ODataAggregation">OData-Aggregation</span></h6>
 <p><em>OData Extension for Data Aggregation Version 4.02.</em><br />
 See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
-<h6><span id="ODataCSDL">OData-CSDL</span></h6>
+<h6><span id="ODataCSDL">OData-CSDLJSON</span></h6>
 <p><em>OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02.</em><br />
 See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
+<h6><span id="ODataCSDLXML">OData-CSDLXML</span></h6>
 <p><em>OData Common Schema Definition Language (CSDL) XML Representation Version 4.02.</em><br />
 See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
 <h6><span id="ODataJSON">OData-JSON</span></h6>
