@@ -56,6 +56,7 @@ New path evaluation rules for annotations targeting annotations and external tar
 [Section ##IfThenElse]| 
 Nested `If` without else part in collections| 
 [326](https://github.com/oasis-tcs/odata-specs/issues/326)
+[Section ##SimpleIdentifier] | Prefer identifiers consisting only of latin letters, the underscore, and decimal numbers | [375](https://github.com/oasis-tcs/odata-specs/issues/375)
 [Section ##Conformance] | Additional conformance clauses for version 4.02 |
 
 ## ##subsec Glossary

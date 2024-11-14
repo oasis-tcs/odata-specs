@@ -489,6 +489,11 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/326">326</a></td>
 </tr>
 <tr class="even">
+<td><a href="#SimpleIdentifier">Section 15.2</a></td>
+<td>Prefer identifiers consisting only of latin letters, the underscore, and decimal numbers</td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/375">375</a></td>
+</tr>
+<tr class="odd">
 <td><a href="#Conformance">Section 17</a></td>
 <td>Additional conformance clauses for version 4.02</td>
 <td></td>
@@ -3888,6 +3893,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <li>The remaining characters MUST be the underscore character (U+005F) or any character in the Unicode category “Letter (L)”, “Letter number (Nl)”, “Decimal number (Nd)”, “Non-spacing mark (Mn)”, “Combining spacing mark (Mc)”, “Connector punctuation (Pc)”, and “Other, format (Cf)”.</li>
 </ul>
 <p>Non-normatively speaking it starts with a letter or underscore, followed by at most 127 letters, underscores or digits.</p>
+<p>For maximum interoperability services SHOULD use simple identifiers that additionally only consist of characters from the Basic Latin code block and match the pattern <code>^[_A-Za-z][_A-Za-z0-9]*$</code>.</p>
 </details>
 <details open><summary>
 <h2 id="153-qualified-name"><a id="QualifiedName" href="#QualifiedName">15.3 Qualified Name</a></h2>
@@ -4225,9 +4231,10 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <ol start="14" type="1">
 <li>SHOULD NOT have identifiers within a uniqueness scope (e.g. a schema, a structural type, or an entity container) that differ only by case</li>
 </ol>
-<p>In addition, OData 4.01 services:</p>
+<p>In addition, OData 4.02 or greater services:</p>
 <ol start="15" type="1">
 <li>SHOULD NOT include constant <a href="#GeoValues">Geo</a> or <a href="#StreamValues">Stream values</a> in annotations</li>
+<li>SHOULD use <a href="#SimpleIdentifier">simple identifiers</a> matching the pattern <code>^[_A-Za-z][_A-Za-z0-9]*$</code></li>
 </ol>
 <p>Conforming clients MUST be prepared to consume a model that uses any or all constructs defined in this specification, including custom annotations, and MUST ignore constructs not defined in this version of the specification.</p>
 </details>
