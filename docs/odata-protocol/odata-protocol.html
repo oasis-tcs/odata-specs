@@ -1301,16 +1301,16 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>For details on how the context URL is used to describe a payload, see the relevant sections in the particular format.</p>
 <p>The following subsections describe how the context URL is constructed for each category of payload by providing a <em>context URL template</em>. The context URL template uses the following terms:</p>
 <ul>
-<li><code>{context-url}</code> is the canonical resource path to the <code>$metadata</code> document,</li>
-<li><code>{entity-collection}</code> is the name of an entity set <a href="https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#EntitySet">OData-CSDL, section 13.2</a> or the canonical path to a collection-valued containment navigation property (implicit entity set <a href="https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#ContainmentNavigationProperty">OData-CSDL, section 8.4</a>),</li>
-<li><code>{entity-singleton}</code> is the name of a singleton or the canonical path to a single-valued containment navigation property,</li>
-<li><code>{entity}</code> is the canonical URL for an entity within a collection,</li>
-<li><code>{select-list}</code> is an optional parenthesized comma-separated list of selected properties, instance annotations, functions, and actions,</li>
-<li><code>{property-path}</code> is the path to a structural property of the entity,</li>
-<li><code>{type-name}</code> is a qualified type name,</li>
+<li><code>{context-url}</code> is the canonical resource path to the <code>$metadata</code> document.</li>
+<li>A <em>canonical collection</em> is an entity set <a href="https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#EntitySet">OData-CSDL, section 13.2</a> or a collection addressed by a collection-valued containment navigation property <a href="https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#ContainmentNavigationProperty">OData-CSDL, section 8.4</a>. We denote by <code>{canonical-collection}</code> the canonical URL <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalURL">OData-URL, section 4.3.1</a> that addresses a canonical collection relative to the service root.</li>
+<li>A <em>canonical singleton</em> is a singleton <a href="https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#Singleton">OData-CSDL, section 13.3</a> or an entity addressed by a single-valued collection-valued containment navigation property. We denote by <code>{canonical-singleton}</code> the canonical URL that addresses a canonical singleton relative to the service root.</li>
+<li>A <em>canonical member</em> is an entity within a canonical collection. We denote by <code>{canonical-member}</code> the canonical URL that addresses a canonical member relative to the service root.</li>
+<li><code>{select-list}</code> is an optional parenthesized comma-separated list of selected properties, instance annotations, functions, and actions.</li>
+<li><code>{property-path}</code> is the path to a structural property of the entity.</li>
+<li><code>{type-name}</code> is a qualified type name.</li>
 <li><code>{/type-name}</code> is an optional type-cast segment containing the qualified name of a derived or implemented type prefixed with a forward slash.</li>
 </ul>
-<p>Key values in the canonical path in <code>{entity-collection}</code>, <code>{entity-singleton}</code>, and <code>{entity}</code> are represented in canonical form (parentheses-style) without percent-encoding.</p>
+<p>Key values in the canonical path in <code>{canonical-collection}</code>, <code>{canonical-singleton}</code>, and <code>{canonical-member}</code> are represented in canonical form (parentheses-style) without percent-encoding.</p>
 <p>The full grammar for the context URL is defined in <a href="#ODataABNF">OData-ABNF</a>. Note that the syntax of the context URL is independent of whatever URL conventions the service uses for addressing individual entities.</p>
 <details open><summary>
 <h2 id="101-service-document"><a id="ServiceDocument" href="#ServiceDocument">10.1 Service Document</a></h2>
@@ -1328,9 +1328,9 @@ http://host/service/$metadata</code></pre>
 <h2 id="102-collection-of-entities"><a id="CollectionofEntities" href="#CollectionofEntities">10.2 Collection of Entities</a></h2>
 </summary>
 <p>Context URL template:</p>
-<pre><code>{context-url}#{entity-collection}
+<pre><code>{context-url}#{canonical-collection}
 {context-url}#Collection({type-name})</code></pre>
-<p>If all entities in the collection are members of one entity set (including implicit), the context URL fragment is the canonical path <code>{entity-collection}</code> to the entity set.</p>
+<p>If all entities in the response or a response part are members of one canonical collection, the context URL fragment is the <code>{canonical-collection}</code>.</p>
 <div class="example">
 <p>Example 11: resource URL and corresponding context URL</p>
 <pre><code>http://host/service/Customers
@@ -1341,15 +1341,15 @@ http://host/service/$metadata#Customers</code></pre>
 <pre><code>http://host/service/Orders(4711)/Items
 http://host/service/$metadata#Orders(4711)/Items</code></pre>
 </div>
-<p>If the entities in the response are not bound to a single entity set (including implicit), such as from a function or action with no entity set path, a function import or action import with no specified entity set, or a navigation property with no navigation property binding, the context URL fragment specifies the type of the returned entity collection.</p>
+<p>If the entities are not members of one canonical collection, such as entities from a function or action with no entity set path, a function import or action import with no specified entity set, or a navigation property with no navigation property binding, the context URL fragment specifies the type of the returned entity collection.</p>
 </details>
 <details open><summary>
 <h2 id="103-entity"><a id="Entity" href="#Entity">10.3 Entity</a></h2>
 </summary>
 <p>Context URL template:</p>
-<pre><code>{context-url}#{entity-collection}/$entity
+<pre><code>{context-url}#{canonical-collection}/$entity
 {context-url}#{type-name}</code></pre>
-<p>If a response or response part is an entity bound to an entity set (including implicit), the context URL fragment is the canonical path <code>{entity-collection}</code> to the entity set with <code>/$entity</code> appended.</p>
+<p>If a response or response part is an entity within in a canonical collection, the context URL fragment is the <code>{canonical-collection}</code> with <code>/$entity</code> appended.</p>
 <div class="example">
 <p>Example 13: resource URL and corresponding context URL for named entity set. Note the absence of the key predicate <code>(1)</code> in the context URL.</p>
 <pre><code>http://host/service/Customers(1)
@@ -1360,20 +1360,19 @@ http://host/service/$metadata#Customers/$entity</code></pre>
 <pre><code>http://host/service/Orders(4711)/Items(1)
 http://host/service/$metadata#Orders(4711)/Items/$entity</code></pre>
 </div>
-<p>If the entity is within a collection, but its entity set (including implicit) cannot be determined, such as for an entity returned from a function or action with no entity set path, a function import or action import with no specified entity set, or a navigation property with no navigation property binding, the context URL fragment specifies the type <code>{type-name}</code> of the returned entity.</p>
+<p>If the entity is within a collection, but a canonical collection cannot be determined, such as for an entity returned from a function or action with no entity set path, a function import or action import with no specified entity set, or a navigation property with no navigation property binding, the context URL fragment specifies the type <code>{type-name}</code> of the returned entity.</p>
 </details>
 <details open><summary>
 <h2 id="104-singleton"><a id="Singleton" href="#Singleton">10.4 Singleton</a></h2>
 </summary>
 <p>Context URL template:</p>
-<pre><code>{context-url}#{entity-singleton}</code></pre>
-<p>If a response or response part is a singleton, its name is the context URL fragment.</p>
+<pre><code>{context-url}#{canonical-singleton}</code></pre>
+<p>If a response or response part is a canonical singleton, the context URL fragment is the <code>{canonical-singleton}</code> without <code>/$entity</code> appended.</p>
 <div class="example">
 <p>Example 15: resource URL and corresponding context URL</p>
 <pre><code>http://host/service/MainSupplier
 http://host/service/$metadata#MainSupplier</code></pre>
 </div>
-<p>If a response or response part is an entity targeted by a single-valued containment navigation property, the context URL fragment is the canonical path <code>{entity-singleton}</code> to that navigation property without <code>/$entity</code> appended.</p>
 <div class="example">
 <p>Example 16: resource URL and corresponding context URL for entity targeted by a single-valued containment navigation property</p>
 <pre><code>http://host/service/Orders(4711)/DeliveryAddress
@@ -1384,7 +1383,7 @@ http://host/service/$metadata#Orders(4711)/DeliveryAddress</code></pre>
 <h2 id="105-collection-of-derived-entities"><a id="CollectionofDerivedEntities" href="#CollectionofDerivedEntities">10.5 Collection of Derived Entities</a></h2>
 </summary>
 <p>Context URL template:</p>
-<pre><code>{context-url}#{entity-collection}{/type-name}</code></pre>
+<pre><code>{context-url}#{canonical-collection}{/type-name}</code></pre>
 <p>If a response or response part is a collection filtered by a type cast segment in the resource URL <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingDerivedTypes">OData-URL, section 4.11</a>, the type-cast segment is added to the context URL.</p>
 <div class="example">
 <p>Example 17: resource URL and corresponding context URL</p>
@@ -1396,9 +1395,9 @@ http://host/service/$metadata#Customers/Model.VipCustomer</code></pre>
 <h2 id="106-derived-entity"><a id="DerivedEntity" href="#DerivedEntity">10.6 Derived Entity</a></h2>
 </summary>
 <p>Context URL template:</p>
-<pre><code>{context-url}#{entity-collection}{/type-name}/$entity
-{context-url}#{entity-singleton}{/type-name}</code></pre>
-<p>If a response or response part is an entity filtered by a type cast segment in the resource URL <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingDerivedTypes">OData-URL, section 4.11</a>, the type-cast segment is appended to the <code>{entity-collection}</code> or <code>{entity-singleton}</code> and prior to appending <code>/$entity</code>, if any.</p>
+<pre><code>{context-url}#{canonical-collection}{/type-name}/$entity
+{context-url}#{canonical-singleton}{/type-name}</code></pre>
+<p>If a response or response part is an entity filtered by a type cast segment in the resource URL <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingDerivedTypes">OData-URL, section 4.11</a>, the type-cast segment is appended to the <code>{canonical-collection}</code> or <code>{canonical-singleton}</code> and prior to appending <code>/$entity</code>, if any.</p>
 <div class="example">
 <p>Example 18: resource URL with key predicate and corresponding context URL</p>
 <pre><code>http://host/service/Customers(2)/Model.VipCustomer
@@ -1414,7 +1413,7 @@ http://host/service/$metadata#MainSupplier/Model.PreferredVendor</code></pre>
 <h2 id="107-collection-of-projected-entities"><a id="CollectionofProjectedEntities" href="#CollectionofProjectedEntities">10.7 Collection of Projected Entities</a></h2>
 </summary>
 <p>Context URL templates:</p>
-<pre><code>{context-url}#{entity-collection}{/type-name}{select-list}
+<pre><code>{context-url}#{canonical-collection}{/type-name}{select-list}
 {context-url}#Collection({type-name}){select-list}</code></pre>
 <p>If a response or response part contains only a subset of properties, the parenthesized comma-separated list of the selected defined or dynamic properties, instance annotations, navigation properties, functions, and actions is appended to the context URL representing the <a href="#CollectionofEntities">collection of entities</a>.</p>
 <p>Regardless of how contained structural properties are represented in the request URL (as paths or as select options) they are represented in the context URL using path syntax, as defined in OData 4.0.</p>
@@ -1432,10 +1431,10 @@ http://host/service/$metadata#Customers(Address,Orders,Model.VipCustomer/Preferr
 <h2 id="108-projected-entity"><a id="ProjectedEntity" href="#ProjectedEntity">10.8 Projected Entity</a></h2>
 </summary>
 <p>Context URL templates:</p>
-<pre><code>{context-url}#{entity-collection}{/type-name}{select-list}/$entity
-{context-url}#{entity-singleton}{/type-name}{select-list}
+<pre><code>{context-url}#{canonical-collection}{/type-name}{select-list}/$entity
+{context-url}#{canonical-singleton}{/type-name}{select-list}
 {context-url}#{type-name}{select-list}</code></pre>
-<p>If a response or response part is an entity that contains a subset of properties, the parenthesized comma-separated list of the selected defined or dynamic properties, instance annotations, navigation properties, functions, and actions is appended to the <code>{entity-collection}</code> or <code>{entity-singleton}</code> after an optional type-cast segment and prior to appending <code>/$entity</code>, if any.</p>
+<p>If a response or response part is an entity that contains a subset of properties, the parenthesized comma-separated list of the selected defined or dynamic properties, instance annotations, navigation properties, functions, and actions is appended to the <code>{canonical-collection}</code> or <code>{canonical-singleton}</code> after an optional type-cast segment and prior to appending <code>/$entity</code>, if any.</p>
 <p>Regardless of how contained structural properties are represented in the request URL (as paths or as select options) they are represented in the context URL using path syntax, as defined in OData 4.0.</p>
 <p>The shortcut <code>*</code> represents the list of all structural properties. Properties defined on types derived from the type of the entity set (or type specified in the type-cast segment if specified) are prefixed with the qualified name of the derived type as defined in <a href="#ODataABNF">OData-ABNF</a>. Note that expanded properties are automatically included in the response.</p>
 <p>The list also contains explicitly selected or expanded instance annotations. It is possible to select or expand only instance annotations, in which case only those selected or expanded annotations appear in the result. Note that annotations specified only in the <a href="#Preferenceincludeannotationsodataincludeannotations"><code>include-annotations</code></a> preference do not appear in the context URL and do not affect the selected/expanded properties.</p>
@@ -1451,7 +1450,7 @@ http://host/service/$metadata#Customers(Name,Rating)/$entity</code></pre>
 <h2 id="109-collection-of-expanded-entities"><a id="CollectionofExpandedEntities" href="#CollectionofExpandedEntities">10.9 Collection of Expanded Entities</a></h2>
 </summary>
 <p>Context URL template:</p>
-<pre><code>{context-url}#{entity-collection}{/type-name}{select-list}
+<pre><code>{context-url}#{canonical-collection}{/type-name}{select-list}
 {context-url}#Collection({type-name}){select-list}</code></pre>
 <p>For a 4.01 response, if a navigation property is explicitly expanded, then in addition to any non-suffixed names of any selected properties, navigation properties, functions or actions, the comma-separated list of properties MUST include the name of the expanded property, suffixed with the parenthesized comma-separated list of any properties of the expanded navigation property that are selected or expanded. If the expanded navigation property does not contain a nested <code>$select</code> or <code>$expand</code>, then the expanded property is suffixed with empty parentheses. If the expansion is recursive for nested children, a plus sign (<code>+</code>) is infixed between the navigation property name and the opening parenthesis.</p>
 <p>For a 4.0 response, the expanded navigation property suffixed with parentheses is omitted from the select-list if it does not contain a nested <code>$select</code> or <code>$expand</code>, but MUST still be present, without a suffix, if it is explicitly selected.</p>
@@ -1480,8 +1479,8 @@ http://host/service/$metadata
 <h2 id="1010-expanded-entity"><a id="ExpandedEntity" href="#ExpandedEntity">10.10 Expanded Entity</a></h2>
 </summary>
 <p>Context URL template:</p>
-<pre><code>{context-url}#{entity-collection}{/type-name}{select-list}/$entity
-{context-url}#{entity-singleton}{/type-name}{select-list}
+<pre><code>{context-url}#{canonical-collection}{/type-name}{select-list}/$entity
+{context-url}#{canonical-singleton}{/type-name}{select-list}
 {context-url}#{type-name}{select-list}</code></pre>
 <p>For a 4.01 response, if a navigation property is explicitly expanded, then in addition to the non-suffixed names of any selected properties, navigation properties, functions or actions, the comma-separated list of properties MUST include the name of the expanded property, suffixed with the parenthesized comma-separated list of any properties of the expanded navigation property that are selected or expanded. If the expanded navigation property does not contain a nested <code>$select</code> or <code>$expand</code>, then the expanded property is suffixed with empty parentheses. If the expansion is recursive for nested children, a plus sign (<code>+</code>) is infixed between the navigation property name and the opening parenthesis.</p>
 <p>For a 4.0 response, the expanded navigation property suffixed with parentheses is omitted from the select-list if it does not contain a nested <code>$select</code> or <code>$expand</code>, but MUST still be present, without a suffix, if it is explicitly selected.</p>
@@ -1523,9 +1522,9 @@ http://host/service/$metadata#$ref</code></pre>
 <h2 id="1013-property-value"><a id="PropertyValue" href="#PropertyValue">10.13 Property Value</a></h2>
 </summary>
 <p>Context URL templates:</p>
-<pre><code>{context-url}#{entity}/{property-path}{select-list}
+<pre><code>{context-url}#{canonical-member}/{property-path}{select-list}
 {context-url}#{type-name}{select-list}</code></pre>
-<p>If a response represents an <a href="#RequestingIndividualProperties">individual property</a> of an entity with a canonical URL, the context URL specifies the canonical URL of the entity and the path to the structural property of that entity. The path MUST include cast segments for properties defined on types derived from the expected type of the previous segment.</p>
+<p>If a response represents an <a href="#RequestingIndividualProperties">individual property</a> of a canonical member, the context URL specifies the <code>{canonical-member}</code> and the path to the structural property. The path MUST include cast segments for properties defined on types derived from the expected type of the previous segment.</p>
 <p>If the property value does not contain explicitly or implicitly selected navigation properties or operations, OData 4.01 responses MAY use the less specific second template.</p>
 <div class="example">
 <p>Example 28: resource URL and corresponding context URL</p>
@@ -1538,7 +1537,7 @@ http://host/service/$metadata#Customers(1)/Addresses</code></pre>
 </summary>
 <p>Context URL template:</p>
 <pre><code>{context-url}#Collection({type-name}){select-list}</code></pre>
-<p>If a response is a collection of complex types or primitive types that do not represent an individual property of an entity with a canonical URL, the context URL specifies the fully qualified type of the collection.</p>
+<p>If a response is a collection of complex types or primitive types that do not represent an individual property of a canonical member, the context URL specifies the fully qualified type of the collection.</p>
 <div class="example">
 <p>Example 29: resource URL and corresponding context URL</p>
 <pre><code>http://host/service/TopFiveHobbies()
@@ -1550,7 +1549,7 @@ http://host/service/$metadata#Collection(Edm.String)</code></pre>
 </summary>
 <p>Context URL template:</p>
 <pre><code>{context-url}#{type-name}{select-list}</code></pre>
-<p>If a response is a complex type or primitive type that does not represent an individual property of an entity with a canonical URL, the context URL specifies the fully qualified type of the result.</p>
+<p>If a response is a complex type or primitive type that does not represent an individual property of a canonical member, the context URL specifies the fully qualified type of the result.</p>
 <div class="example">
 <p>Example 30: resource URL and corresponding context URL</p>
 <pre><code>http://host/service/MostPopularName()
@@ -1571,12 +1570,12 @@ http://host/service/$metadata#Customers</code></pre>
 <h2 id="1017-delta-payload"><a id="DeltaPayload" href="#DeltaPayload">10.17 Delta Payload</a></h2>
 </summary>
 <p>Context URL template:</p>
-<pre><code>{context-url}#{entity-collection}{/type-name}{select-list}/$delta
-{context-url}#{entity}{select-list}/$delta
-{context-url}#{entity}/{property-path}{select-list}/$delta
+<pre><code>{context-url}#{canonical-collection}{/type-name}{select-list}/$delta
+{context-url}#{canonical-member}{select-list}/$delta
+{context-url}#{canonical-member}/{property-path}{select-list}/$delta
 #$delta</code></pre>
 <p>The context URL of a <a href="#RequestingChanges">delta response</a> is the context URL of the response to the defining query, followed by <code>/$delta</code>. This includes singletons, single-valued navigation properties, and collection-valued navigation properties.</p>
-<p>If the entities are contained, then <code>{entity-collection}</code> is the top-level entity set followed by the path to the containment navigation property of the containing entity.</p>
+<p>If the entities are contained, then <code>{canonical-collection}</code> is the top-level entity set followed by the path to the containment navigation property of the containing entity.</p>
 <div class="example">
 <p>Example 32: resource URL and corresponding context URL</p>
 <pre><code>http://host/service/Customers?$deltatoken=1234
@@ -1588,10 +1587,10 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <h2 id="1018-item-in-a-delta-payload"><a id="IteminaDeltaPayload" href="#IteminaDeltaPayload">10.18 Item in a Delta Payload</a></h2>
 </summary>
 <p>Context URL templates:</p>
-<pre><code>{context-url}#{entity-collection}/$deletedEntity
-{context-url}#{entity-collection}/$link
-{context-url}#{entity-collection}/$deletedLink</code></pre>
-<p>In addition to new or changed entities which have the canonical context URL for an entity, a delta response can contain deleted entities, new links, and deleted links. They are identified by the corresponding context URL fragment. <code>{entity-collection}</code> corresponds to the set of the deleted entity, or source entity for an added or deleted link.</p>
+<pre><code>{context-url}#{canonical-collection}/$deletedEntity
+{context-url}#{canonical-collection}/$link
+{context-url}#{canonical-collection}/$deletedLink</code></pre>
+<p>In addition to new or changed entities which have the canonical context URL for an entity, a delta response can contain deleted entities, new links, and deleted links. They are identified by the corresponding context URL fragment. <code>{canonical-collection}</code> corresponds to the set of the deleted entity, or source entity for an added or deleted link.</p>
 </details>
 <details open><summary>
 <h2 id="1019-all-response"><a id="allResponse" href="#allResponse">10.19 <code>$all</code> Response</a></h2>
