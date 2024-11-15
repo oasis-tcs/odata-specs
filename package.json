@@ -25,7 +25,6 @@
   },
   "devDependencies": {
     "connect-livereload": "^0.6.1",
-    "livereload": "^0.9.3",
-    "prettier": "^3.3.3"
+    "livereload": "^0.9.3"
   }
 }
