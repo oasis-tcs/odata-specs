@@ -123,7 +123,7 @@ kind is determined according to which other properties they have.
 @$@<Javascript CSDL metamodel@>@{
 class EntityContainer extends NamedModelElement {
   fromJSON(json) {
-    @<EntityContainer fromJSON@>
+    @<Deserialize members contained in EntityContainer@>
     super.fromJSON(json, function (json) {
       if (json.$Type) return "EntitySetOrSingleton";
       if (json.$Function) return "FunctionImport";
@@ -253,7 +253,7 @@ entity container located in `SomeOtherSchema`
 ```
 :::
 
-@$@<EntityContainer fromJSON@>@{
+@$@<Deserialize members contained in EntityContainer@>@{
 @<Optional qualified name in fromJSON@>@(Extends@)
 @}
 
@@ -330,7 +330,7 @@ only in their `$Collection` value. They are represented by the same class.
 @$@<Javascript CSDL metamodel@>@{
 class EntitySetOrSingleton extends TypedModelElement {
   fromJSON(json) {
-    @<EntitySetOrSingleton fromJSON@>
+    @<Deserialize members contained in EntitySetOrSingleton@>
     super.fromJSON(json);
   }
 }
@@ -515,7 +515,7 @@ The `$NavigationPropertyBinding` is a `NamedSubElement`, like the
 [`$ReferentialConstraint`](#ReferentialConstraint).
 :::
 
-@$@<EntitySetOrSingleton fromJSON@>@{
+@$@<Deserialize members contained in EntitySetOrSingleton@>@{
 for (const prop in json.$NavigationPropertyBinding)
   new NavigationPropertyBinding(this, prop).fromJSON(
     json.$NavigationPropertyBinding

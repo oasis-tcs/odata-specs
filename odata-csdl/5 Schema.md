@@ -44,6 +44,41 @@ to the schema itself.
 :::
 
 ::: funnelweb
+The schema is the first of many model elements that appear as members
+with an unqualified name. They are represented as subclasses of `NamedModelElement`
+whose constructor ensures that they are appended to the children list of their parent.
+Note the analogy with the [`ListedModelElement`](#IncludedSchema) constructor.
+:::
+
+@$@<Javascript CSDL metamodel@>@{
+class NamedModelElement extends ModelElement {
+  @<Internal property@>@(name@,@)
+  constructor(parent, name) {
+    super(parent);
+    this.#name = name;
+    parent.children[name] = this;
+  }
+  toString() {
+    return this.name;
+  }
+}
+class Schema extends NamedModelElement {}
+@}
+
+::: funnelweb
+We cannot simply say `parent[name] = this`, because `name` may be a reserved name,
+like the `toJSON` method that every model element has. The `children` property is
+introduced for this reason, but during JSON serialization the `children` are treated
+like other object members.
+:::
+
+@$@<ModelElement@>@{
+toJSON() {
+  return { ...this, ...this.children };
+}
+@}
+
+::: funnelweb
 Addressing a schema member by its qualified name is a special case
 of evaluating a path consisting of one segment that starts with a namespace or alias.
 :::
@@ -281,40 +316,6 @@ It also MAY contain members representing [structural
 properties](#StructuralProperty) and [navigation
 properties](#NavigationProperty) as well as [annotations](#Annotation).
 :::
-
-::: funnelweb
-The entity type is the first of many model elements that appear as schema members
-with an unqualified name. They are represented as subclasses of `NamedModelElement`
-whose constructor ensures that they are appended to the children list of their parent.
-Note the analogy with the [`ListedModelElement`](#IncludedSchema) constructor.
-:::
-
-@$@<Javascript CSDL metamodel@>@{
-class NamedModelElement extends ModelElement {
-  @<Internal property@>@(name@,@)
-  constructor(parent, name) {
-    super(parent);
-    this.#name = name;
-    parent.children[name] = this;
-  }
-  toString() {
-    return this.name;
-  }
-}
-@}
-
-::: funnelweb
-We cannot simply say `parent[name] = this`, because `name` may be a reserved name,
-like the `toJSON` method that every model element has. The `children` property is
-introduced for this reason, but during JSON serialization the `children` are treated
-like other object members.
-:::
-
-@$@<ModelElement@>@{
-toJSON() {
-  return { ...this, ...this.children };
-}
-@}
 
 ::: funnelweb
 Since the entity type has much in common with the [complex type](#ComplexType),

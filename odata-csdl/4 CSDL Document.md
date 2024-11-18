@@ -114,7 +114,7 @@ Example ##ex:
 Values like `$Version` that have a string, numeric or Boolean value
 have the same representation in the Javascript object model as in JSON.
 But paths or qualified names (like `$EntityContainer`) are represented
-by separate classes. ([`PathExpression`](#Schema) also handles aliases and does not enforce
+by separate classes. ([`QualifiedNamePath`](#Schema) also handles aliases and does not enforce
 the restriction of `$EntityContainer` to _namespace_-qualified names.)
 :::
 
@@ -134,8 +134,8 @@ if (json.$@1) @<Qualified name in fromJSON@>@(@1@)
 @$@<CSDLDocument@>@{
 fromJSON(json) {
   @<Optional qualified name in fromJSON@>@(EntityContainer@)
-  super.fromJSON(json, "Schema");
   @<Deserialize members contained in CSDLDocument@>
+  super.fromJSON(json, "Schema");
 }
 @}
 

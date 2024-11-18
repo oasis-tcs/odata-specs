@@ -110,9 +110,9 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
 This uses pandoc $$$pandoc-version$$$ from https://github.com/jgm/pandoc/releases/tag/$$$pandoc-version$$$.
 -->
 
-<!-- These source files can be used to produce the JSON variant or the XML variant,
-     by using either new Number("...", "json") or new Number("...", "xml").
-     Lines between the next and the closing : belong to the JSON variant only. -->
+: funnelweb
+## ##subsec Javascript CSDL metamodel
+:
 
 ::: funnelweb
 All model elements defined in this document are represented by Javascript classes
@@ -126,120 +126,6 @@ const csdlDocuments = new Map();
 class InvalidPathError extends Error {
   constructor(path) {
     super("Invalid path " + path.toJSON());
-  }
-}
-
-class Annotation extends ModelElement {
-  #term;
-  #qualifier;
-  #value;
-  constructor(target, term, qualifier) {
-    super(target);
-    this.#term = new QualifiedNamePath(this, term, "term");
-    this.#qualifier = qualifier;
-  }
-  get termcast() {
-    return (
-      "@@" +
-      this.#term.toJSON() +
-      (this.#qualifier ? "#" + this.#qualifier : "")
-    );
-  }
-  get value() {
-    return this.#value;
-  }
-  set value(value) {
-    this.#value = value;
-  }
-  evaluationStart() {
-    return this.parent.evaluationStart();
-  }
-  fromJSON(json) {
-    if (typeof json === "object") {
-      dynamic: {
-        for (const dynamicExpr in json)
-          switch (dynamicExpr) {
-            case "$Path":
-              this.value = new Path(this, json[dynamicExpr]);
-              break dynamic;
-          }
-        this.value = new (json instanceof Array ? Collection : Record)(this);
-      }
-      this.value.fromJSON(json);
-    } else this.value = json;
-  }
-  toJSON() {
-    return this.value.toJSON?.() || this.value;
-  }
-}
-
-class Schema extends NamedModelElement {}
-
-class Record extends ModelElement {
-  evaluationStart() {
-    return this.parent.evaluationStart();
-  }
-  fromJSON(json) {
-    super.fromJSON(json, "PropertyValue");
-  }
-}
-
-class Collection extends ModelElement {
-  #value;
-  get value() {
-    return this.#value;
-  }
-  set value(value) {
-    this.#value = value;
-  }
-  evaluationStart() {
-    return this.parent.evaluationStart();
-  }
-  fromJSON(json) {
-    const value = [];
-    for (const item of json) {
-      Annotation.prototype.fromJSON.call(this, item);
-      value.push(this.value);
-    }
-    this.value = value;
-  }
-  toJSON() {
-    return this.value.map((item) =>
-      Annotation.prototype.toJSON.call(this, item)
-    );
-  }
-}
-
-class PropertyValue extends NamedModelElement {
-  #value;
-  get value() {
-    return this.#value;
-  }
-  set value(value) {
-    this.#value = value;
-  }
-  evaluationStart() {
-    return this.parent.evaluationStart();
-  }
-  fromJSON(json) {
-    Annotation.prototype.fromJSON.call(this, json);
-  }
-  toJSON(json) {
-    return Annotation.prototype.toJSON.call(this, json);
-  }
-}
-
-class Path extends ModelElement {
-  constructor(host, path) {
-    super(host);
-    this.$Path = new RelativePath(this, path, host.evaluationStart(), "$Path");
-  }
-}
-
-class Term extends Property {
-  fromJSON(json) {
-    @<Optional qualified name in fromJSON@>@(BaseTerm@)
-    super.fromJSON(json, "Member");
   }
 }
 
@@ -316,52 +202,11 @@ if (!target) throw new InvalidPathError(this);
 target.targetingPaths?.add(this);
 @}
 
-@$@<NamedValue@>@{
-static toJSONWithAnnotations(modelElement, json) {
-  for (const member in modelElement.children)
-    for (const anno in modelElement.children[member])
-      if (anno.startsWith("@@"))
-        json[member + anno] = modelElement.children[member][anno];
-  return json;
-}
-@}
-
-@$@<EnumType@>@{
-toJSON() {
-  return NamedValue.toJSONWithAnnotations(this, super.toJSON());
-}
-@}
-
-@$@<ModelElement@>@{
-toJSONWithAnnotations(sub, json) {
-  for (const member in this[sub])
-    for (const anno in this[sub][member])
-      if (anno.startsWith("@@")) {
-        json[sub] ||= {};
-        json[sub][member + anno] = this[sub][member][anno];
-      }
-  return json;
-}
-@}
-
-@$@<NavigationProperty@>@{
-toJSON() {
-  return this.toJSONWithAnnotations(
-    "$ReferentialConstraint",
-    super.toJSON()
-  );
-}
-@}
-
 @$@<Javascript CSDL metamodel@>@{
 class ModelElement {
   @<ModelElement@>
 }
 @}
-
-: funnelweb
-## ##subsec Javascript CSDL metamodel
-:
 
 ::: funnelweb
 The JSON serialization of these classes produces the CSDL format specified by this document.
@@ -404,21 +249,10 @@ evaluationStart() {
   return this;
 }
 fromJSON(json, defaultKind) {
-  const annos = {};
+  const annotations = {};
   for (const member in json) {
-    const m = member.match(/^(.*)@@(.*?)(#(.*?))?$/);
-    if (m) {
-      const anno = new Annotation(
-        m[1] ? new RelativePath(this, m[1], this, "target") : this,
-        m[2],
-        m[4],
-      );
-      anno.fromJSON(json[member]);
-      if (m[1]) {
-        annos[m[1]] ||= {};
-        annos[m[1]][anno.termcast] = anno;
-      } else this[member] = anno;
-    } else if (!member.startsWith("$")) {
+    @<Deserialize an embedded annotation@>
+    else if (!member.startsWith("$")) {
       if (json[member] instanceof Array) {
         this.children[member] = [];
         for (const item of json[member]) {
@@ -437,16 +271,15 @@ fromJSON(json, defaultKind) {
       }
     } else @<String, number or Boolean values in fromJSON@>
   }
-  for (const member in annos)
-    for (const a in annos[member]) {
-      const target = this[member] || this.children[member];
-      if (typeof target === "object") target[a] = annos[member][a];
-      else this[member + a] = annos[member][a];
-    }
+  @<Inject the deserialized annotations@>
 }
 @}
 
 -------
+
+<!-- These source files can be used to produce the JSON variant or the XML variant,
+     by using either new Number("...", "json") or new Number("...", "xml").
+     Lines between the next and the closing : belong to the JSON variant only. -->
 
 : varjson
 # ##sec JSON Representation

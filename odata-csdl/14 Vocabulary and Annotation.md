@@ -202,6 +202,19 @@ isomorphy to [OData-CSDLXML](#ODataCSDL). Annotations in
 CSDL JSON documents MUST always specify an explicit value.
 :::
 
+::: funnelweb
+`Term` inherits from `Property` the omission of `Edm.String` as default [`$Type`](#Type).
+:::
+
+@$@<Javascript CSDL metamodel@>@{
+class Term extends Property {
+  fromJSON(json) {
+    @<Deserialize members contained in Term@>
+    super.fromJSON(json);
+  }
+}
+@}
+
 ::: {.varxml .rep}
 ### ##isec Element `edm:Term`
 
@@ -284,6 +297,10 @@ reached.
 
 The value of `$BaseTerm` is the qualified name of the base term.
 :::
+
+@$@<Deserialize members contained in Term@>@{
+@<Optional qualified name in fromJSON@>@(BaseTerm@)
+@}
 
 ::: {.varxml .rep}
 ### ##subisec Attribute `BaseTerm`
@@ -425,6 +442,89 @@ represented as a member whose name consists of the annotation name
 followed by the qualified name of a term, optionally followed by a hash
 (`#`) and a [qualifier](#Qualifier).
 :::
+
+@$@<Javascript CSDL metamodel@>@{
+class Annotation extends ModelElement {
+  #term;
+  #qualifier;
+  @<Internal value property@>
+  constructor(target, term, qualifier) {
+    super(target);
+    this.#term = new QualifiedNamePath(this, term, "term");
+    this.#qualifier = qualifier;
+  }
+  get termcast() {
+    return (
+      "@@" +
+      this.#term.toJSON() +
+      (this.#qualifier ? "#" + this.#qualifier : "")
+    );
+  }
+  evaluationStart() {
+    return this.parent.evaluationStart();
+  }
+  fromJSON(json) {
+    if (typeof json === "object") {
+      dynamic: {
+        for (const dynamicExpr in json)
+          switch (dynamicExpr) {
+            case "$Path":
+              this.value = new Path(this, json[dynamicExpr]);
+              break dynamic;
+          }
+        this.value = new (json instanceof Array ? Collection : Record)(this);
+      }
+      this.value.fromJSON(json);
+    } else this.value = json;
+  }
+  toJSON() {
+    return this.value.toJSON?.() || this.value;
+  }
+}
+@}
+
+::: funnelweb
+The `Annotation` class and many classes in the following sections have an
+internal `value` property with a setter.
+:::
+
+@$@<Internal value property@>@{
+@<Internal property@>@(value@,@)
+set value(value) {
+  this.#value = value;
+}
+@}
+
+@$@<Deserialize an embedded annotation@>@{
+const m = member.match(/^(.*)@@(.*?)(#(.*?))?$/);
+if (m) {
+  const anno = new Annotation(
+    m[1] ? new RelativePath(this, m[1], this, "target") : this,
+    m[2],
+    m[4],
+  );
+  anno.fromJSON(json[member]);
+  if (m[1]) {
+    annotations[m[1]] ||= {};
+    annotations[m[1]][anno.termcast] = anno;
+  } else this[member] = anno;
+}
+@}
+
+::: funnelweb
+An `Annotation` that targets a model element becomes its child even if in JSON
+it appears next to its target rather than nested (for example, an
+[enumeration type member](#EnumerationTypeMember)).
+:::
+
+@$@<Inject the deserialized annotations@>@{
+for (const member in annotations)
+  for (const a in annotations[member]) {
+    const target = this[member] || this.children[member];
+    if (typeof target === "object") target[a] = annotations[member][a];
+    else this[member + a] = annotations[member][a];
+  }
+@}
 
 ::: {.varjson .example}
 Example ##ex: term `Measures.ISOCurrency`, once applied with a constant
@@ -1404,6 +1504,7 @@ constructor(host, path, relativeTo, attribute) {
     .split("/")
     .map(function(segment) {
       @<Types of path segment@>
+      @<Default type of path segment@>
     }.bind(this));
   @<Housekeeping for relative paths@>
 }
@@ -1462,6 +1563,11 @@ in scope. If the type or instance identified by the preceding path part
 cannot be cast to the specified type, the path expression evaluates to
 the null value.
 
+@$@<Types of path segment@>@{
+if (!segment.startsWith("@@") && segment.includes("."))
+  return new QualifiedNameSegment(this, segment);
+@}
+
 ::: example
 Example ##ex: type-cast segment
 ```
@@ -1506,10 +1612,11 @@ document in turn needs to reference only its next document.
 ::: funnelweb
 Evaluating such a segment on a property calls `evaluateSegment` on the
 property (a `TypedModelElement`), which delegates to `evaluateSegment` on the
+`$Type` attribute (a `QualifiedNamePath`), which delegates to `evaluateSegment` on the
 property type (a `ModelElement`).
 :::
 
-@$@<Types of path segment@>@{
+@$@<Default type of path segment@>@{
 return new RelativeSegment(this, segment);
 @}
 
@@ -1523,7 +1630,13 @@ class RelativeSegment extends Segment {
 
 @$@<TypedModelElement@>@{
 evaluateSegment(segment) {
-  return this.$Type.target.evaluateSegment(segment);
+  return this.$Type.evaluateSegment(segment);
+}
+@}
+
+@$@<AbstractPath@>@{
+evaluateSegment(segment) {
+  return this.target.evaluateSegment(segment);
 }
 @}
 
@@ -2053,6 +2166,15 @@ instances identified by the path.
 Path expressions are represented as an object with a single member
 `$Path` whose value is a string containing a path.
 :::
+
+@$@<Javascript CSDL metamodel@>@{
+class Path extends ModelElement {
+  constructor(host, path) {
+    super(host);
+    this.$Path = new RelativePath(this, path, host.evaluationStart(), "$Path");
+  }
+}
+@}
 
 ::: {.varjson .example}
 Example ##ex:
@@ -2863,6 +2985,26 @@ Collection expressions are represented as arrays with one array item per
 item expression within the collection expression.
 :::
 
+@$@<Javascript CSDL metamodel@>@{
+class Collection extends ModelElement {
+  @<Internal value property@>
+  evaluationStart() {
+    return this.parent.evaluationStart();
+  }
+  fromJSON(json) {
+    const value = [];
+    for (const item of json) {
+      Annotation.prototype.fromJSON.call(this, item);
+      value.push(this.value);
+    }
+    this.value = value;
+  }
+  toJSON() {
+    return this.value.map((item) => item.toJSON?.() || item);
+  }
+}
+@}
+
 ::: {.varjson .example}
 Example ##ex:
 ```json
@@ -3301,6 +3443,29 @@ information, see  [OData-JSON](#ODataJSON).
 It MAY contain [annotations](#Annotation) for itself and its members.
 Annotations for record members are prefixed with the member name.
 :::
+
+@$@<Javascript CSDL metamodel@>@{
+class Record extends ModelElement {
+  evaluationStart() {
+    return this.parent.evaluationStart();
+  }
+  fromJSON(json) {
+    super.fromJSON(json, "PropertyValue");
+  }
+}
+class PropertyValue extends NamedModelElement {
+  @<Internal value property@>
+  evaluationStart() {
+    return this.parent.evaluationStart();
+  }
+  fromJSON(json) {
+    Annotation.prototype.fromJSON.call(this, json);
+  }
+  toJSON() {
+    return Annotation.prototype.toJSON.call(this.value);
+  }
+}
+@}
 
 ::: {.varjson .example}
 Example ##ex: this annotation "morphs" the entity type from [example ##entitytype] into

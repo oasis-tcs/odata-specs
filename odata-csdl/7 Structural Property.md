@@ -337,7 +337,7 @@ overwriting them with a model element after they have already been set to a stri
 
 @$@<NavigationProperty@>@{
 fromJSON(json) {
-  @<NavigationProperty fromJSON@>
+  @<Deserialize members contained in NavigationProperty@>
   super.fromJSON(json);
 }
 @}
@@ -508,7 +508,7 @@ The type of the partner navigation property MUST be the declaring entity
 type of the current navigation property or one of its parent entity
 types.
 
-@$@<NavigationProperty fromJSON@>@{
+@$@<Deserialize members contained in NavigationProperty@>@{
 if (json.$Partner)
   this.$Partner = new RelativePath(this, json.$Partner, this, "$Partner");
 @}
@@ -717,9 +717,35 @@ with the entire `$ReferentialConstraint` object, because otherwise the annotatio
 would be lost.
 :::
 
-@$@<NavigationProperty fromJSON@>@{
+@$@<Deserialize members contained in NavigationProperty@>@{
 for (const ref in json.$ReferentialConstraint)
   new ReferentialConstraint(this, ref).fromJSON(json.$ReferentialConstraint);
+@}
+
+::: funnelweb
+The following function runs during JSON serialization of the navigation property
+and produces a name-prefixed annotation next to the targeted referential constraint.
+:::
+
+@$@<ModelElement@>@{
+toJSONWithAnnotations(sub, json) {
+  for (const member in this[sub])
+    for (const anno in this[sub][member])
+      if (anno.startsWith("@@")) {
+        json[sub] ||= {};
+        json[sub][member + anno] = this[sub][member][anno];
+      }
+  return json;
+}
+@}
+
+@$@<NavigationProperty@>@{
+toJSON() {
+  return this.toJSONWithAnnotations(
+    "$ReferentialConstraint",
+    super.toJSON()
+  );
+}
 @}
 
 ::: {.varjson .example}

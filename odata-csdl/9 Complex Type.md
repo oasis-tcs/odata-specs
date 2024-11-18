@@ -435,6 +435,28 @@ toJSON() {
 }
 @}
 
+::: funnelweb
+The following function runs during JSON serialization of the enumeration type
+and produces a name-prefixed annotation next to the targeted enumeration member.
+(Compare this to the JSON serialization of annotations of [referential constraints](#ReferentialConstraint).)
+:::
+
+@$@<NamedValue@>@{
+static toJSONWithAnnotations(modelElement, json) {
+  for (const member in modelElement.children)
+    for (const anno in modelElement.children[member])
+      if (anno.startsWith("@@"))
+        json[member + anno] = modelElement.children[member][anno];
+  return json;
+}
+@}
+
+@$@<EnumType@>@{
+toJSON() {
+  return NamedValue.toJSONWithAnnotations(this, super.toJSON());
+}
+@}
+
 ::: {.varjson .example}
 Example ##ex: `FirstClass` has a value of 0, `TwoDay` a value of 1, and
 `Overnight` a value of 2.
