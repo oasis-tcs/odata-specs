@@ -3471,14 +3471,12 @@ results in
     { "ID": "P3", "Name": "Paper",  "Color": "White", "TaxRate": 0.14,
       "Total@type": "Decimal", "Total":  8 },
     { "ID": "P4", "Name": "Pencil", "Color": "Black", "TaxRate": 0.14,
-                                     "Total": null },
+                               "Total": null },
     { "ID": "P1", "Name": "Sugar",  "Color": "White", "TaxRate": 0.06,
       "Total@type": "Decimal", "Total":  4 }
   ]
 }
 ```
-
-The expression `$it/Sales` refers to the sales of the current product. Without `$it`, all sales of all products would be aggregated, because the input collection for the `aggregate` function consists of all products.
 :::
 
 ::: example
