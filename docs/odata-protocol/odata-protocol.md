@@ -4290,8 +4290,7 @@ original target URL extended with the navigation path to this related
 entity.
 
 On success, the service MUST create all entities and relate them. If the
-service responds with [`201 Created`](#ResponseCode201Created), the response MUST be expanded to at
-least the level that was present in the deep-insert request and include at least the properties specified in the request.
+service responds with [`201 Created`](#ResponseCode201Created), the response MUST be expanded to include at least the entities and properties that were specified in the deep-insert request.
 
 Clients MAY associate an id with individual nested entities in the
 request by applying the
