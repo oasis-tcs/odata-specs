@@ -23,12 +23,12 @@ context URL template uses the following terms:
 - `{context-url}` is the canonical
 resource path to the `$metadata` document.
 - A _canonical collection_ is an entity set [#OData-CSDL#EntitySet]
-or a collection addressed by a collection-valued containment navigation property
+or a collection addressed by a containment navigation property
 [#OData-CSDL#ContainmentNavigationProperty].
 We denote by `{canonical-collection}` the canonical URL [#OData-URL#CanonicalURL]
 that addresses a canonical collection relative to the service root.
 - A _canonical singleton_ is a singleton [#OData-CSDL#Singleton]
-or an entity addressed by a single-valued collection-valued containment
+or an entity addressed by a single-valued containment
 navigation property.
 We denote by `{canonical-singleton}` the canonical URL
 that addresses a canonical singleton relative to the service root.
@@ -45,7 +45,7 @@ path to a structural property of the entity.
 segment containing the qualified name of a derived or implemented type
 prefixed with a forward slash.
 
-Key values in the canonical path in `{canonical-collection}`, `{canonical-singleton}`, and `{canonical-member}` are represented in canonical form
+Key values in `{canonical-collection}`, `{canonical-singleton}`, and `{canonical-member}` are represented in canonical form
 (parentheses-style) without percent-encoding.
 
 The full grammar for the context URL is defined in
@@ -77,7 +77,7 @@ Context URL template:
     {context-url}#{canonical-collection}
     {context-url}#Collection({type-name})
 
-If all entities in the response or a response part are members of one
+If all entities in the response or a response part are members of a single
 canonical collection,
 the context URL fragment is the `{canonical-collection}`.
 
@@ -98,7 +98,7 @@ http://host/service/$metadata#Orders(4711)/Items
 ```
 :::
 
-If the entities are not members of one
+If the entities are not members of a single
 canonical collection, such as entities from a function or action with no entity set path, a function
 import or action import with no specified entity set, or a navigation
 property with no navigation property binding, the context URL fragment specifies

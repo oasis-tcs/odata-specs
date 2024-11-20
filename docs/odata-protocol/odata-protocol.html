@@ -1302,15 +1302,15 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>The following subsections describe how the context URL is constructed for each category of payload by providing a <em>context URL template</em>. The context URL template uses the following terms:</p>
 <ul>
 <li><code>{context-url}</code> is the canonical resource path to the <code>$metadata</code> document.</li>
-<li>A <em>canonical collection</em> is an entity set <a href="https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#EntitySet">OData-CSDL, section 13.2</a> or a collection addressed by a collection-valued containment navigation property <a href="https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#ContainmentNavigationProperty">OData-CSDL, section 8.4</a>. We denote by <code>{canonical-collection}</code> the canonical URL <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalURL">OData-URL, section 4.3.1</a> that addresses a canonical collection relative to the service root.</li>
-<li>A <em>canonical singleton</em> is a singleton <a href="https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#Singleton">OData-CSDL, section 13.3</a> or an entity addressed by a single-valued collection-valued containment navigation property. We denote by <code>{canonical-singleton}</code> the canonical URL that addresses a canonical singleton relative to the service root.</li>
+<li>A <em>canonical collection</em> is an entity set <a href="https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#EntitySet">OData-CSDL, section 13.2</a> or a collection addressed by a containment navigation property <a href="https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#ContainmentNavigationProperty">OData-CSDL, section 8.4</a>. We denote by <code>{canonical-collection}</code> the canonical URL <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalURL">OData-URL, section 4.3.1</a> that addresses a canonical collection relative to the service root.</li>
+<li>A <em>canonical singleton</em> is a singleton <a href="https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#Singleton">OData-CSDL, section 13.3</a> or an entity addressed by a single-valued containment navigation property. We denote by <code>{canonical-singleton}</code> the canonical URL that addresses a canonical singleton relative to the service root.</li>
 <li>A <em>canonical member</em> is an entity within a canonical collection. We denote by <code>{canonical-member}</code> the canonical URL that addresses a canonical member relative to the service root.</li>
 <li><code>{select-list}</code> is an optional parenthesized comma-separated list of selected properties, instance annotations, functions, and actions.</li>
 <li><code>{property-path}</code> is the path to a structural property of the entity.</li>
 <li><code>{type-name}</code> is a qualified type name.</li>
 <li><code>{/type-name}</code> is an optional type-cast segment containing the qualified name of a derived or implemented type prefixed with a forward slash.</li>
 </ul>
-<p>Key values in the canonical path in <code>{canonical-collection}</code>, <code>{canonical-singleton}</code>, and <code>{canonical-member}</code> are represented in canonical form (parentheses-style) without percent-encoding.</p>
+<p>Key values in <code>{canonical-collection}</code>, <code>{canonical-singleton}</code>, and <code>{canonical-member}</code> are represented in canonical form (parentheses-style) without percent-encoding.</p>
 <p>The full grammar for the context URL is defined in <a href="#ODataABNF">OData-ABNF</a>. Note that the syntax of the context URL is independent of whatever URL conventions the service uses for addressing individual entities.</p>
 <details open><summary>
 <h2 id="101-service-document"><a id="ServiceDocument" href="#ServiceDocument">10.1 Service Document</a></h2>
@@ -1330,7 +1330,7 @@ http://host/service/$metadata</code></pre>
 <p>Context URL template:</p>
 <pre><code>{context-url}#{canonical-collection}
 {context-url}#Collection({type-name})</code></pre>
-<p>If all entities in the response or a response part are members of one canonical collection, the context URL fragment is the <code>{canonical-collection}</code>.</p>
+<p>If all entities in the response or a response part are members of a single canonical collection, the context URL fragment is the <code>{canonical-collection}</code>.</p>
 <div class="example">
 <p>Example 11: resource URL and corresponding context URL</p>
 <pre><code>http://host/service/Customers
@@ -1341,7 +1341,7 @@ http://host/service/$metadata#Customers</code></pre>
 <pre><code>http://host/service/Orders(4711)/Items
 http://host/service/$metadata#Orders(4711)/Items</code></pre>
 </div>
-<p>If the entities are not members of one canonical collection, such as entities from a function or action with no entity set path, a function import or action import with no specified entity set, or a navigation property with no navigation property binding, the context URL fragment specifies the type of the returned entity collection.</p>
+<p>If the entities are not members of a single canonical collection, such as entities from a function or action with no entity set path, a function import or action import with no specified entity set, or a navigation property with no navigation property binding, the context URL fragment specifies the type of the returned entity collection.</p>
 </details>
 <details open><summary>
 <h2 id="103-entity"><a id="Entity" href="#Entity">10.3 Entity</a></h2>
