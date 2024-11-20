@@ -8,72 +8,6 @@
 # ##sec CSDL XML Document
 :
 
-@$@<Javascript CSDL metamodel@>@{
-class CSDLDocument extends ModelElement {
-  #uri;
-  #finish;
-  @<Internal property@>@(paths@,= []@)
-  constructor(uri) {
-    super();
-    this.#uri = uri || "";
-  }
-  @<CSDLDocument@>
-  unalias(namespace) {
-    return this.#findSchema(namespace, (schema) => schema.name);
-  }
-  byQualifiedName(namespace, name) {
-    return this.#findSchema(namespace, (schema) => schema.children[name]);
-  }
-  finish() {
-    if (!this.#finish) {
-      let finished;
-      this.#finish = new Promise(function (resolve, reject) {
-        finished = resolve;
-      });
-      const references = [];
-      for (const uri in this.$Reference)
-        references.push(this.$Reference[uri].resolve());
-      Promise.all(references).then(
-        async function (uris) {
-          for (const path of this.paths) path.target;
-          this.#paths = undefined;
-          await Promise.all(
-            uris
-              .filter((uri) => uri > this.#uri)
-              .map((uri) =>
-                csdlDocuments.get(uri).then((csdl) => csdl.finish())
-              )
-          );
-          finished();
-        }.bind(this)
-      );
-    }
-    return this.#finish;
-  }
-  toString() {
-    return "";
-  }
-}
-@}
-
-::: funnelweb
-The CSDL document is the root of a hierarchy of model elements, and every
-model element has a `csdlDocument` property. Its getter delegates to
-the parent until the root is reached, which returns itself.
-:::
-
-@$@<ModelElement@>@{
-get csdlDocument() {
-  return this.parent.csdlDocument;
-}
-@}
-
-@$@<CSDLDocument@>@{
-get csdlDocument() {
-  return this;
-}
-@}
-
 <!-- Lines from here to the closing ::: belong to the JSON variant only. -->
 ::: {.varjson .rep}
 ### ##isec Document Object
@@ -98,6 +32,67 @@ made with an `OData-MaxVersion` header with a value of `4.0`.
 
 The value of `$EntityContainer` is the namespace-qualified name of the entity container of that service. This is the only place where a model element MUST be referenced with its namespace-qualified name and use of the alias-qualified name is not allowed.
 :::
+
+@$@<Javascript CSDL metamodel@>@{
+class CSDLDocument extends ModelElement {
+  @<CSDLDocument@>
+  unalias(namespace) {
+    return this.#findSchema(namespace, (schema) => schema.name);
+  }
+  byQualifiedName(namespace, name) {
+    return this.#findSchema(namespace, (schema) => schema.children[name]);
+  }
+  toString() {
+    return "";
+  }
+}
+@}
+
+::: funnelweb
+The following reviver function can be passed to `JSON.parse` in order to parse a
+CSDL JSON document into an instance of `CSDLDocument`.
+:::
+
+@$@<Javascript CSDL metamodel@>@{
+function CSDLReviver(key, value) {
+  if (key === "") {
+    const csdlDocument = new CSDLDocument();
+    csdlDocument.fromJSON(value);
+    @<Finish the CSDL document@>
+    return csdlDocument;
+  } else return value;
+}
+@}
+
+:::funnelweb
+Some classes defined in this document are only needed by other classes. Classes
+that are needed by an external consumer of the Javascript CSDL metamodel are "exported"
+and can then be used, for example, to create a `CSDLDocument` while parsing a CSDL XML
+document.
+:::
+
+@$@<Exports@>@{
+CSDLDocument,
+CSDLReviver,
+@}
+
+::: funnelweb
+The CSDL document is the root of a hierarchy of model elements, and every
+model element has a `csdlDocument` property. Its getter delegates to
+the parent until the root is reached, which returns itself.
+:::
+
+@$@<ModelElement@>@{
+get csdlDocument() {
+  return this.parent.csdlDocument;
+}
+@}
+
+@$@<CSDLDocument@>@{
+get csdlDocument() {
+  return this;
+}
+@}
 
 ::: {.varjson .example}
 Example ##ex:
@@ -230,6 +225,11 @@ class Reference extends ModelElement {
 }
 @}
 
+@$@<Exports@>@{
+Reference,
+@}
+
+
 @$@<Reference@>@{
 @<Internal property@>@(uri@,@)
 constructor(csdlDocument, uri) {
@@ -237,25 +237,6 @@ constructor(csdlDocument, uri) {
   this.#uri = uri;
   csdlDocument.$Reference ||= {};
   csdlDocument.$Reference[uri] = this;
-}
-async resolve() {
-  let csdl = csdlDocuments.get(this.uri);
-  if (!csdl)
-    csdlDocuments.set(
-      this.uri,
-      (csdl = new Promise(
-        async function (resolve, reject) {
-          const csdl = new CSDLDocument(this.uri);
-          csdl.fromJSON(await (await fetch(this.uri)).json());
-          resolve(csdl);
-        }.bind(this),
-      )),
-    );
-  csdl = await csdl;
-  if (this.$Include)
-    for (const include of this.$Include)
-      include.schema = csdl.children[include.$Namespace];
-  return this.uri;
 }
 toString() {
   return "$Reference<" + this.uri + ">";
@@ -456,6 +437,10 @@ class Include extends ListedModelElement {
 }
 @}
 
+@$@<Exports@>@{
+Include,
+@}
+
 ::: {.varjson .example}
 Example ##ex: references to entity models containing definitions of
 vocabulary terms
@@ -610,6 +595,10 @@ class IncludeAnnotations extends ListedModelElement {
     super(reference, "$IncludeAnnotations");
   }
 }
+@}
+
+@$@<Exports@>@{
+IncludeAnnotations,
 @}
 
 ::: {.varjson .example}

@@ -149,10 +149,6 @@ $$$isec$$$
 :::
 
 : funnelweb
--------
-
-# Appendix ##asec Table of FunnelWeb Macros
-
 ::: toc
 $$$fwisec$$$
 :::

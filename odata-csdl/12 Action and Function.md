@@ -66,6 +66,10 @@ class Operation extends ModelElement {
 class Action extends Operation {}
 @}
 
+@$@<Exports@>@{
+Action,
+@}
+
 ::: {.varxml .rep}
 ### ##isec Element `edm:Action`
 
@@ -149,6 +153,10 @@ and it MAY contain [annotations](#Annotation).
 
 @$@<Javascript CSDL metamodel@>@{
 class Function extends Operation {}
+@}
+
+@$@<Exports@>@{
+Function,
 @}
 
 ::: {.varxml .rep}
@@ -331,6 +339,10 @@ class ReturnType extends ModelElement {
 }
 @}
 
+@$@<Exports@>@{
+ReturnType,
+@}
+
 @$@<Deserialize members contained in Operation@>@{
 if (json.$ReturnType) {
   this.$ReturnType = new ReturnType(this);
@@ -473,6 +485,10 @@ class Parameter extends ListedModelElement {
     @<Omit $Type if it is Edm.String@>@(this@)
   }
 }
+@}
+
+@$@<Exports@>@{
+Parameter,
 @}
 
 @$@<Deserialize members contained in Operation@>@{

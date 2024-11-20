@@ -239,6 +239,10 @@ class EnumType extends NamedModelElement {
 }
 @}
 
+@$@<Exports@>@{
+EnumType,
+@}
+
 @$@<EnumType@>@{
 fromJSON(json) {
   super.fromJSON(json, "Member");
@@ -425,6 +429,10 @@ class NamedValue extends NamedModelElement {
 class Member extends NamedValue {}
 @}
 
+@$@<Exports@>@{
+Member,
+@}
+
 @$@<NamedValue@>@{
 @<Internal property@>@(value@,@)
 fromJSON(json) {
@@ -565,6 +573,10 @@ class TypeDefinition extends NamedModelElement {
     super.fromJSON(json);
   }
 }
+@}
+
+@$@<Exports@>@{
+TypeDefinition,
 @}
 
 ::: {.varjson .example}

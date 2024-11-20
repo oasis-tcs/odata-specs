@@ -215,6 +215,10 @@ class Term extends Property {
 }
 @}
 
+@$@<Exports@>@{
+Term,
+@}
+
 ::: {.varxml .rep}
 ### ##isec Element `edm:Term`
 
@@ -483,6 +487,10 @@ class Annotation extends ModelElement {
 }
 @}
 
+@$@<Exports@>@{
+Annotation,
+@}
+
 ::: funnelweb
 The `Annotation` class and many classes in the following sections have an
 internal `value` property with a setter.
@@ -501,7 +509,7 @@ if (m) {
   const anno = new Annotation(
     m[1] ? new RelativePath(this, m[1], this, "target") : this,
     m[2],
-    m[4],
+    m[4]
   );
   anno.fromJSON(json[member]);
   if (m[1]) {
@@ -1531,7 +1539,8 @@ evaluate() {
 
 ::: funnelweb
 The `target` getter of a path can then simply call the
-`target` getter of the last path segment.
+`target` getter of the last path segment. Note that a path is evaluated and its
+`#target` set only once.
 :::
 
 @$@<AbstractPath@>@{
@@ -1937,6 +1946,137 @@ type `self.A` named in the target expression.
 
 :::
 
+::: funnelweb
+All paths that appear in a `CSDLDocument` are evaluated
+and their `target`s populated when the document has been completely parsed.
+In addition, paths that appear in a [`$Reference`](#Reference) are evaluated
+after that reference has been resolved. Since this introduces asynchronousness into
+the process, some juggling with `Promise`s is necessary in the `finish` function
+that accomplishes that.
+
+`csdlDocuments` is a map from a document's URI to the `CSDLDocument` instance. By
+maintaining this, we need not resolve any document URI more than once.
+:::
+
+@$@<Javascript CSDL metamodel@>@{
+const csdlDocuments = new Map();
+@}
+
+@$@<Finish the CSDL document@>@{
+csdlDocument.finish();
+@}
+
+@$@<CSDLDocument@>@{
+#uri;
+#finish;
+@<Internal property@>@(paths@,= []@)
+constructor(uri) {
+  super();
+  this.#uri = uri || "";
+}
+finish() {
+  if (!this.#finish) {
+    let finished;
+    this.#finish = new Promise(function (resolve, reject) {
+      finished = resolve;
+    });
+    const references = [];
+    for (const uri in this.$Reference)
+      references.push(this.$Reference[uri].resolve());
+    Promise.all(references).then(
+      async function (uris) {
+        for (const path of this.paths) path.target;
+        this.#paths = undefined;
+        await Promise.all(
+          uris
+            .filter((uri) => uri > this.#uri)
+            .map((uri) =>
+              csdlDocuments.get(uri).then((csdl) => csdl.finish())
+            )
+        );
+        finished();
+      }.bind(this)
+    );
+  }
+  return this.#finish;
+}
+@}
+
+@$@<Reference@>@{
+async resolve() {
+  let csdl = csdlDocuments.get(this.uri);
+  if (!csdl)
+    csdlDocuments.set(
+      this.uri,
+      (csdl = new Promise(
+        async function (resolve, reject) {
+          const csdl = new CSDLDocument(this.uri);
+          csdl.fromJSON(await (await fetch(this.uri)).json());
+          resolve(csdl);
+        }.bind(this),
+      )),
+    );
+  csdl = await csdl;
+  if (this.$Include)
+    for (const include of this.$Include)
+      include.schema = csdl.children[include.$Namespace];
+  return this.uri;
+}
+@}
+
+::: funnelweb
+The `paths` property in `CSDLDocument` collects all paths that are encountered during
+the parsing of the document.
+:::
+ 
+@$@<Housekeeping for qualified name paths@>@{
+this.csdlDocument.paths?.unshift(this);
+@}
+
+@$@<Housekeeping for relative paths@>@{
+this.csdlDocument.paths?.push(this);
+@}
+
+::: funnelweb
+During the path evaluation (which happens once in the path's lifetime as explained
+[here](#PathSyntax)), all model elements traversed by any segment are collected
+into `targetingSegments`, except for the last segment, which is collected into
+`targetingPaths`.
+:::
+
+@$@<ModelElement@>@{
+@<Internal property@>@(targetingPaths@,= new Set()@)
+@<Internal property@>@(targetingSegments@,= new Set()@)
+@}
+
+@$@<Housekeeping during segment evaluation@>@{
+if (!target) throw new InvalidPathError(this);
+if (i < this.segments.length - 1)
+  target.targetingSegments.add(this.segments[i]);
+@}
+
+::: funnelweb
+At this point, `target` may be a primitive type like `Edm.String` and has then
+no `targetingPaths`.
+:::
+
+@$@<Housekeeping during path evaluation@>@{
+if (!target) throw new InvalidPathError(this);
+target.targetingPaths?.add(this);
+@}
+
+@$@<Javascript CSDL metamodel@>@{
+class InvalidPathError extends Error {
+  constructor(path) {
+    super("Invalid path " + path.toJSON());
+  }
+}
+@}
+
+@$@<Exports@>@{
+InvalidPathError,
+@}
+
 #### ##subsubsubsec Annotation Path
 
 The annotation path expression provides a value for terms or term
@@ -2174,6 +2314,10 @@ class Path extends ModelElement {
     this.$Path = new RelativePath(this, path, host.evaluationStart(), "$Path");
   }
 }
+@}
+
+@$@<Exports@>@{
+Path,
 @}
 
 ::: {.varjson .example}
@@ -3005,6 +3149,10 @@ class Collection extends ModelElement {
 }
 @}
 
+@$@<Exports@>@{
+Collection,
+@}
+
 ::: {.varjson .example}
 Example ##ex:
 ```json
@@ -3465,6 +3613,11 @@ class PropertyValue extends NamedModelElement {
     return Annotation.prototype.toJSON.call(this.value);
   }
 }
+@}
+
+@$@<Exports@>@{
+Record,
+PropertyValue,
 @}
 
 ::: {.varjson .example}

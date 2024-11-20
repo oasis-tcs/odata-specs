@@ -114,93 +114,17 @@ This uses pandoc $$$pandoc-version$$$ from https://github.com/jgm/pandoc/release
 ## ##subsec Javascript CSDL metamodel
 :
 
+@o@</git/oasis-tcs/odata-csdl-schemas/lib/metamodel.js@>@{
+@<Javascript CSDL metamodel@>
+const closure = (module.exports = {
+  @<Exports@>
+});
+@}
+
 ::: funnelweb
 All model elements defined in this document are represented by Javascript classes
 derived from the class `ModelElement`.
 :::
-
-@o@</git/oasis-tcs/odata-csdl-schemas/lib/metamodel.js@>@{
-@<Javascript CSDL metamodel@>
-const csdlDocuments = new Map();
-
-class InvalidPathError extends Error {
-  constructor(path) {
-    super("Invalid path " + path.toJSON());
-  }
-}
-
-function CSDLReviver(key, value) {
-  if (key === "") {
-    const csdl = new CSDLDocument();
-    csdl.fromJSON(value);
-    csdl.finish();
-    return csdl;
-  } else return value;
-}
-
-const closure = (module.exports = {
-  InvalidPathError,
-  RelativePath,
-  QualifiedNamePath,
-  CSDLDocument,
-  Reference,
-  Include,
-  IncludeAnnotations,
-  Schema,
-  Annotation,
-  Record,
-  Collection,
-  PropertyValue,
-  ComplexType,
-  EntityType,
-  Key,
-  PropertyRef,
-  Property,
-  NavigationProperty,
-  EntityContainer,
-  EntitySetOrSingleton,
-  NavigationPropertyBinding,
-  Function,
-  FunctionImport,
-  Action,
-  ActionImport,
-  TypeDefinition,
-  EnumType,
-  Member,
-  Term,
-  CSDLReviver
-});
-
-debugger;
-global.csdl = JSON.parse(
-  require("fs").readFileSync(__dirname + "/../examples/csdl-16.1.json"),
-  CSDLReviver
-);
-@}
-
-@$@<Housekeeping for qualified name paths@>@{
-this.csdlDocument.paths?.unshift(this);
-@}
-
-@$@<Housekeeping for relative paths@>@{
-this.csdlDocument.paths?.push(this);
-@}
-
-@$@<Housekeeping during segment evaluation@>@{
-if (!target) throw new InvalidPathError(this);
-if (i < this.segments.length - 1)
-  target.targetingSegments.add(this.segments[i]);
-@}
-
-::: funnelweb
-At this point, `target` may be a primitive type like `Edm.String` and has then
-no `targetingPaths`.
-:::
-
-@$@<Housekeeping during path evaluation@>@{
-if (!target) throw new InvalidPathError(this);
-target.targetingPaths?.add(this);
-@}
 
 @$@<Javascript CSDL metamodel@>@{
 class ModelElement {
@@ -225,8 +149,6 @@ get @1() {
 @$@<ModelElement@>@{
 @<Internal property@>@(parent@,@)
 @<Internal property@>@(children@,= {}@)
-@<Internal property@>@(targetingPaths@,= new Set()@)
-@<Internal property@>@(targetingSegments@,= new Set()@)
 constructor(parent) {
   this.#parent = parent;
 }

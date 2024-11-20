@@ -133,6 +133,10 @@ class EntityContainer extends NamedModelElement {
 }
 @}
 
+@$@<Exports@>@{
+EntityContainer,
+@}
+
 ::: {.varjson .example}
 Example ##ex: An entity container aggregates entity sets, singletons,
 action imports, and function imports.
@@ -334,6 +338,10 @@ class EntitySetOrSingleton extends TypedModelElement {
     super.fromJSON(json);
   }
 }
+@}
+
+@$@<Exports@>@{
+EntitySetOrSingleton,
 @}
 
 ::: {.varxml .rep}
@@ -551,6 +559,10 @@ class NavigationPropertyBinding extends NamedSubElement {
 }
 @}
 
+@$@<Exports@>@{
+NavigationPropertyBinding,
+@}
+
 @$@<Relative to entity set or singleton@>@{@!false
 this.parent
 @}
@@ -725,6 +737,10 @@ class ActionImport extends OperationImport {
 }
 @}
 
+@$@<Exports@>@{
+ActionImport,
+@}
+
 ::: {.varxml .rep}
 ### ##isec Element `edm:ActionImport`
 
@@ -809,6 +825,10 @@ class FunctionImport extends OperationImport {
     super.fromJSON(json);
   }
 }
+@}
+
+@$@<Exports@>@{
+FunctionImport,
 @}
 
 ::: {.varxml .rep}

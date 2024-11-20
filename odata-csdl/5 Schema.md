@@ -65,6 +65,10 @@ class NamedModelElement extends ModelElement {
 class Schema extends NamedModelElement {}
 @}
 
+@$@<Exports@>@{
+Schema,
+@}
+
 ::: funnelweb
 We cannot simply say `parent[name] = this`, because `name` may be a reserved name,
 like the `toJSON` method that every model element has. The `children` property is
@@ -97,6 +101,10 @@ class QualifiedNamePath extends AbstractPath {
     return this.segments[0].evaluateRelativeTo();
   }
 }
+@}
+
+@$@<Exports@>@{
+QualifiedNamePath,
 @}
 
 ::: funnelweb
@@ -329,6 +337,11 @@ class ComplexType extends NamedModelElement {
 class EntityType extends ComplexType {
   @<EntityType@>
 }
+@}
+
+@$@<Exports@>@{
+ComplexType,
+EntityType,
 @}
 
 ::: {.varjson .example}
@@ -701,6 +714,11 @@ class PropertyRef extends NamedModelElement {
     } else return this.name;
   }
 }
+@}
+
+@$@<Exports@>@{
+Key,
+PropertyRef,
 @}
 
 @$@<EntityType@>@{

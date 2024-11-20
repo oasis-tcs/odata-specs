@@ -64,6 +64,10 @@ class Property extends AbstractProperty {
 }
 @}
 
+@$@<Exports@>@{
+Property,
+@}
+
 @$@<TypedModelElement@>@{
 fromJSON(json) {
   @<Qualified name in fromJSON@>@(Type@)
@@ -328,6 +332,10 @@ It also MAY contain [annotations](#Annotation).
 class NavigationProperty extends AbstractProperty {
   @<NavigationProperty@>
 }
+@}
+
+@$@<Exports@>@{
+NavigationProperty,
 @}
 
 ::: funnelweb
@@ -709,6 +717,10 @@ class ReferentialConstraint extends NamedSubElement {
     return this.principal.toJSON();
   }
 }
+@}
+
+@$@<Exports@>@{
+ReferentialConstraint,
 @}
 
 ::: funnelweb
