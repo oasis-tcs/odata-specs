@@ -1360,7 +1360,7 @@ http://host/service/$metadata#Customers/$entity</code></pre>
 <pre><code>http://host/service/Orders(4711)/Items(1)
 http://host/service/$metadata#Orders(4711)/Items/$entity</code></pre>
 </div>
-<p>If the entity is within a collection, but a canonical collection cannot be determined, such as for an entity returned from a function or action with no entity set path, a function import or action import with no specified entity set, or a navigation property with no navigation property binding, the context URL fragment specifies the type <code>{type-name}</code> of the returned entity.</p>
+<p>If the entity is within a collection, but a canonical collection cannot be determined, such as for an entity returned from a function or action with no entity set path, a function import or action import with no specified entity set, or a navigation property with no navigation property binding, the context URL fragment specifies the <code>{type-name}</code> of the returned entity.</p>
 </details>
 <details open><summary>
 <h2 id="104-singleton"><a id="Singleton" href="#Singleton">10.4 Singleton</a></h2>
@@ -1511,7 +1511,7 @@ http://host/service/$metadata#Collection($ref)</code></pre>
 </summary>
 <p>Context URL template:</p>
 <pre><code>{context-url}#$ref</code></pre>
-<p>If a response is one entity reference, <code>$ref</code> is the context URL fragment.</p>
+<p>If a response is a single entity reference, <code>$ref</code> is the context URL fragment.</p>
 <div class="example">
 <p>Example 27: resource URL and corresponding context URL for a single entity reference</p>
 <pre><code>http://host/service/Orders(10643)/Customer/$ref

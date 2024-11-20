@@ -2115,7 +2115,7 @@ cannot be determined, such as for an entity
 returned from a function or action with no entity set path, a function
 import or action import with no specified entity set, or a navigation
 property with no navigation property binding, the context URL fragment specifies
-the type `{type-name}` of the returned entity.
+the `{type-name}` of the returned entity.
 
 ## <a id="Singleton" href="#Singleton">10.4 Singleton</a>
 
@@ -2418,7 +2418,7 @@ Context URL template:
 
     {context-url}#$ref
 
-If a response is one entity reference, `$ref` is the context URL
+If a response is a single entity reference, `$ref` is the context URL
 fragment.
 
 ::: example
