@@ -751,6 +751,8 @@ toJSONWithAnnotations(sub, json) {
       if (anno.startsWith("@@")) {
         json[sub] ||= {};
         json[sub][member + anno] = this[sub][member][anno];
+        @<Serialize annotations of annotations@>@(this[sub][member][anno]@,
+          json[sub]@,member + anno@)
       }
   return json;
 }

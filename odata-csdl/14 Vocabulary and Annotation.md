@@ -535,59 +535,41 @@ get termcast() {
 @}
 
 ::: funnelweb
-Annotations can again have annotations, which appear next to
-them in the containing JSON object with the same prefix.
+Annotations can again host annotations, which appear next to
+them in the containing JSON object with the same prefix. The targets of
+such annotations are represented as empty paths relative to the hosting annotation.
 :::
 
 @$@<Annotation@>@{
-static annotationsFromJSON(anno, prefix, json) {
+static annotationsFromJSON(host, prefix, json) {
   for (const member in json)
     if (member.startsWith(prefix + "@@")) {
       const target = member.substring(prefix.length);
       const m = target.match(/^@@([^@@]*?)(#([^@@]*?))?$/);
-      const subanno = new Annotation(
-        anno,
-        new RelativePath(anno, "", anno, "target"),
-        m[1],
-        m[3]
-      );
-      subanno.fromJSON(json[member]);
-      Annotation.annotationsFromJSON(subanno, prefix + target, json);
-      anno[target] = subanno;
+      if (m) {
+        const anno = new Annotation(
+          host,
+          new RelativePath(host, "", host, "target"),
+          m[1],
+          m[3]
+        );
+        anno.fromJSON(json[member]);
+        Annotation.annotationsFromJSON(anno, prefix + target, json);
+        host[target] = anno;
+      }
     }
 }
 @}
 
 ::: funnelweb
-Annotations of a `NamedSubElement` are very similar to annotations of primitive-valued
-annotations in that they also appear next to their target prefixed with the
-target's name followed by `@`. They are deserialized by the `fromJSON` method, which looks
-only at members with this prefix (and does not call its super method). The target of
-such an annotation is represented as an empty path relative to the named subelement,
-because that seems the only way to address such subelements.
+A `NamedSubElement` can also be host of annotations that also appear next to their target
+prefixed with the target's name followed by `@`. (That's the reason we made `annotationsFromJSON`
+a static function with `host` as first argument.)
 :::
 
 @$@<NamedSubElement@>@{
 fromJSON(json) {
   Annotation.annotationsFromJSON(this, this.name, json);
-}
-@}
-
-::: funnelweb
-Annotations of annotations must also be serialized.
-:::
-
-@$@<Serialize annotations of annotations@>@{
-this.annotationsOfAnnotations(json, "");
-@}
-
-@$@<ModelElement@>@{
-annotationsOfAnnotations(json, prefix) {
-  for (const anno in this)
-    if (anno.startsWith("@@")) {
-      this[anno].annotationsOfAnnotations(json, prefix + anno);
-      if (prefix) json[prefix + anno] = this[anno];
-    }
 }
 @}
 
@@ -604,6 +586,25 @@ for (const member in annotations)
     if (typeof target === "object") target[a] = annotations[member][a];
     else this[member + a] = annotations[member][a];
   }
+@}
+
+::: funnelweb
+Conversely, an `Annotation` that is a child (or descendant) of another `Annotation`
+becomes its sibling when they are serialized.
+:::
+
+@$@<Serialize annotations of annotations@>@(@3@)@{
+@1.annotationsOfAnnotations(@2, @3);
+@}
+
+@$@<ModelElement@>@{
+annotationsOfAnnotations(json, prefix) {
+  for (const anno in this)
+    if (anno.startsWith("@@")) {
+      this[anno].annotationsOfAnnotations(json, prefix + anno);
+      if (prefix) json[prefix + anno] = this[anno];
+    }
+}
 @}
 
 ::: {.varjson .example}
@@ -1585,8 +1586,9 @@ constructor(host, path, relativeTo, attribute) {
   this.segments = path
     .split("/")
     .map(function(segment) {
-      @<Types of path segment@>
-      @<Default type of path segment@>
+      switch (true) {
+        @<Types of path segment@>
+      }
     }.bind(this));
   @<Housekeeping for paths@>
 }
@@ -1647,7 +1649,7 @@ cannot be cast to the specified type, the path expression evaluates to
 the null value.
 
 @$@<Types of path segment@>@{
-if (!segment.startsWith("@@") && segment.includes("."))
+case !segment.startsWith("@@") && segment.includes("."):
   return new QualifiedNameSegment(this, segment);
 @}
 
@@ -1677,7 +1679,8 @@ properties:
 -   `odata.mediaEtag`
 
 @$@<Types of path segment@>@{
-if (segment.startsWith("@@")) return new TermCastSegment(this, segment);
+case segment.startsWith("@@"):
+  return new TermCastSegment(this, segment);
 @}
 
 @$@<Javascript CSDL metamodel@>@{
@@ -1713,8 +1716,9 @@ property type (a `ModelElement`).
 An empty segment evaluated relative to a model element results in that model element.
 :::
 
-@$@<Default type of path segment@>@{
-return new RelativeSegment(this, segment);
+@$@<Types of path segment@>@{
+default:
+  return new RelativeSegment(this, segment);
 @}
 
 @$@<Javascript CSDL metamodel@>@{
@@ -2058,30 +2062,52 @@ constructor(uri) {
 }
 finish() {
   if (!this.#finish) {
-    let finished;
-    this.#finish = new Promise(function (resolve, reject) {
-      finished = resolve;
-    });
+    @<Make this.#finish a promise that resolves when all paths have been evaluated@>
     const references = [];
     for (const uri in this.$Reference)
       references.push(this.$Reference[uri].resolve());
     Promise.all(references).then(
       async function (uris) {
         @<Evaluate all paths that appear in this CSDL document@>
-        await Promise.all(
-          uris
-            .filter((uri) => uri > this.#uri)
-            .map((uri) =>
-              csdlDocuments.get(uri).then((csdl) => csdl.finish())
-            )
-        );
-        finished();
+        @<Resolve this.#finish after all referenced CSDL documents are finished@>
       }.bind(this)
     );
   }
   return this.#finish;
 }
 @}
+
+@$@<Make this.#finish a promise that resolves when all paths have been evaluated@>@{
+let finished;
+this.#finish = new Promise(function (resolve, reject) {
+  finished = resolve;
+});
+@}
+
+::: funnelweb
+When the following code is reached, all referenced CSDL documents have been parsed and we can
+wait for them to `finish()`. But in order to avoid deadlocks if two documents
+reference each other, each document only
+awaits referenced documents with a lexicographically greater URI.
+The `uris` are (asynchronously) returned by the `resolve` method of the `Reference`s.
+
+The main CSDL document has an empty URI, so its waits for all others to `finish()`.
+:::
+
+@$@<Resolve this.#finish after all referenced CSDL documents are finished@>@{
+await Promise.all(
+  uris
+    .filter((uri) => uri > this.#uri)
+    .map((uri) => csdlDocuments.get(uri).then((csdl) => csdl.finish()))
+);
+finished();
+@}
+
+::: funnelweb
+The map `csdlDocuments` does not contain the `CSDLDocument`s themselves but promises
+that resolve to them. This makes it possible find a URI in this map even while the
+CSDL document is still being loaded and thus avoid several parallel loading attempts.
+:::
 
 @$@<Reference@>@{
 async resolve() {

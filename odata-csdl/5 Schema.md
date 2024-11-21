@@ -79,7 +79,7 @@ like other object members.
 @$@<ModelElement@>@{
 toJSON() {
   const json = { ...this, ...this.children };
-  @<Serialize annotations of annotations@>
+  @<Serialize annotations of annotations@>@(this@,json@,""@)
   return json;
 }
 @}
