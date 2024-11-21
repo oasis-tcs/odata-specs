@@ -36,12 +36,6 @@ The value of `$EntityContainer` is the namespace-qualified name of the entity co
 @$@<Javascript CSDL metamodel@>@{
 class CSDLDocument extends ModelElement {
   @<CSDLDocument@>
-  unalias(namespace) {
-    return this.#findSchema(namespace, (schema) => schema.name);
-  }
-  byQualifiedName(namespace, name) {
-    return this.#findSchema(namespace, (schema) => schema.children[name]);
-  }
   toString() {
     return "";
   }
@@ -58,7 +52,6 @@ function CSDLReviver(key, value) {
   if (key === "") {
     const csdlDocument = new CSDLDocument();
     csdlDocument.fromJSON(value);
-    @<Finish the CSDL document@>
     return csdlDocument;
   } else return value;
 }
@@ -114,8 +107,7 @@ the restriction of `$EntityContainer` to _namespace_-qualified names.)
 :::
 
 @$@<String, number or Boolean values in fromJSON@>@{
-if (!this[member] && typeof json[member] !== "object")
-  this[member] = json[member];
+if (typeof json[member] !== "object") this[member] = json[member];
 @}
 
 @$@<Qualified name in fromJSON@>@(@1@)@{
@@ -373,6 +365,12 @@ as follows:
       if (result) break reference;
     }
   return result;
+}
+unalias(namespace) {
+  return this.#findSchema(namespace, (schema) => schema.name);
+}
+byQualifiedName(namespace, name) {
+  return this.#findSchema(namespace, (schema) => schema.children[name]);
 }
 @}
 

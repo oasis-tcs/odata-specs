@@ -78,7 +78,9 @@ like other object members.
 
 @$@<ModelElement@>@{
 toJSON() {
-  return { ...this, ...this.children };
+  const json = { ...this, ...this.children };
+  @<Serialize annotations of annotations@>
+  return json;
 }
 @}
 
@@ -95,7 +97,7 @@ class QualifiedNamePath extends AbstractPath {
   constructor(host, qname, attribute) {
     super(host, attribute);
     this.segments = [new QualifiedNameSegment(this, qname)];
-    @<Housekeeping for qualified name paths@>
+    @<Housekeeping for paths@>
   }
   evaluate() {
     return this.segments[0].evaluateRelativeTo();

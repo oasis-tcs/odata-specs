@@ -525,9 +525,10 @@ The `$NavigationPropertyBinding` is a `NamedSubElement`, like the
 
 @$@<Deserialize members contained in EntitySetOrSingleton@>@{
 for (const prop in json.$NavigationPropertyBinding)
-  new NavigationPropertyBinding(this, prop).fromJSON(
-    json.$NavigationPropertyBinding
-  );
+  if (!prop.includes("@@"))
+    new NavigationPropertyBinding(this, prop).fromJSON(
+      json.$NavigationPropertyBinding
+    );
 @}
 
 @$@<Javascript CSDL metamodel@>@{
@@ -538,7 +539,6 @@ class NavigationPropertyBinding extends NamedSubElement {
     super(entitySetOrSingleton, "$NavigationPropertyBinding", prop);
   }
   fromJSON(json) {
-    this.annotationsFromJSON(json);
     this.#navigationProperty = new RelativePath(
       this,
       this.name,
@@ -552,6 +552,7 @@ class NavigationPropertyBinding extends NamedSubElement {
       this.parent.parent,
       "$NavigationPropertyBinding.Target"
     );
+    super.fromJSON(json);
   }
   toJSON() {
     return this.entitySet.toJSON();

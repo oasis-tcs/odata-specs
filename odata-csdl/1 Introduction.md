@@ -114,13 +114,6 @@ This uses pandoc $$$pandoc-version$$$ from https://github.com/jgm/pandoc/release
 ## ##subsec Javascript CSDL metamodel
 :
 
-@o@</git/oasis-tcs/odata-csdl-schemas/lib/metamodel.js@>@{
-@<Javascript CSDL metamodel@>
-const closure = (module.exports = {
-  @<Exports@>
-});
-@}
-
 ::: funnelweb
 All model elements defined in this document are represented by Javascript classes
 derived from the class `ModelElement`.
@@ -154,6 +147,12 @@ constructor(parent) {
 }
 @}
 
+::: funnelweb
+The `parent` is also used to construct a path representation for every model element
+out of the string representation of itself and its ancestors. The string representation
+of last resort is the class name.
+:::
+
 @$@<ModelElement@>@{
 path() {
   return (
@@ -167,32 +166,56 @@ path() {
 toString() {
   return this.constructor.name;
 }
+@}
+
+::: funnelweb
+The most important method of a model element is `fromJSON`, which deserializes the CSDL JSON
+representation into the Javascript CSDL metamodel. It has to deal with
+- JSON members representing annotations
+- JSON members whose names are simple identifiers (hence do not start with `$`).
+  These have a `$Kind` property (or a default kind can be derived) and represent
+  an instance of a class whose name equals the kind. (All these classes are combined
+  in the `closure` object and hence addressable as `closure[kind]`.)
+- JSON members defined by this specification (whose names start with `$`).
+  If these have a primitive value, this is simply taken over, otherwise they
+  represent an instance of a class and are handled by the `fromJSON` implementation
+  in a subclass of `ModelElement`.
+
+Subclasses of `ModelElement` with their own implementation of `fromJSON` call
+`super.fromJSON` at the end, that's why the code below never overwrites an existing
+member of the current instance.
+:::
+
+@o@</git/oasis-tcs/odata-csdl-schemas/lib/metamodel.js@>@{
+@<Javascript CSDL metamodel@>
+const closure = (module.exports = {
+  @<Exports@>
+});
+@}
+
+@$@<ModelElement@>@{
 evaluationStart() {
   return this;
 }
 fromJSON(json, defaultKind) {
   const annotations = {};
-  for (const member in json) {
-    @<Deserialize an embedded annotation@>
-    else if (!member.startsWith("$")) {
-      if (json[member] instanceof Array) {
-        this.children[member] = [];
-        for (const item of json[member]) {
-          const memberItem = new closure[item.$Kind](this);
-          memberItem.fromJSON(item);
-          this.children[member].push(memberItem);
+  for (const member in json)
+    if (!this[member]) {
+      @<If the member is an annotation, deserialize it@>
+      else if (!member.startsWith("$")) {
+        if (json[member] instanceof Array)
+          @<Deserialize an array-valued member@>
+        else {
+          const kind =
+            json[member].$Kind ||
+            (typeof defaultKind === "function"
+              ? defaultKind(json[member])
+              : defaultKind);
+          if (kind)
+            new closure[kind](this, member).fromJSON(json[member]);
         }
-      } else {
-        const kind =
-          json[member].$Kind ||
-          (typeof defaultKind === "function"
-            ? defaultKind(json[member])
-            : defaultKind);
-        if (kind)
-          new closure[kind](this, member).fromJSON(json[member]);
-      }
-    } else @<String, number or Boolean values in fromJSON@>
-  }
+      } else @<String, number or Boolean values in fromJSON@>
+    }
   @<Inject the deserialized annotations@>
 }
 @}

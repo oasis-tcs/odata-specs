@@ -449,46 +449,49 @@ followed by the qualified name of a term, optionally followed by a hash
 
 @$@<Javascript CSDL metamodel@>@{
 class Annotation extends ModelElement {
-  #term;
-  #qualifier;
-  @<Internal value property@>
-  constructor(target, term, qualifier) {
-    super(target);
-    this.#term = new QualifiedNamePath(this, term, "term");
-    this.#qualifier = qualifier;
-  }
-  get termcast() {
-    return (
-      "@@" +
-      this.#term.toJSON() +
-      (this.#qualifier ? "#" + this.#qualifier : "")
-    );
-  }
-  evaluationStart() {
-    return this.parent.evaluationStart();
-  }
-  fromJSON(json) {
-    if (typeof json === "object") {
-      dynamic: {
-        for (const dynamicExpr in json)
-          switch (dynamicExpr) {
-            case "$Path":
-              this.value = new Path(this, json[dynamicExpr]);
-              break dynamic;
-          }
-        this.value = new (json instanceof Array ? Collection : Record)(this);
-      }
-      this.value.fromJSON(json);
-    } else this.value = json;
-  }
-  toJSON() {
-    return this.value.toJSON?.() || this.value;
-  }
+  @<Annotation@>
 }
 @}
 
 @$@<Exports@>@{
 Annotation,
+@}
+
+::: funnelweb
+The `target` of an annotation is either given as the embedding model element or
+as a path, whose target is then the annotation target.
+:::
+
+@$@<Annotation@>@{
+#term;
+#qualifier;
+@<Internal property@>@(target@,@)
+@<Internal value property@>
+constructor(host, target, term, qualifier) {
+  super(host);
+  this.#target = target;
+  this.#term = new QualifiedNamePath(this, term, "term");
+  this.#qualifier = qualifier;
+}
+evaluationStart() {
+  return this.parent.evaluationStart();
+}
+fromJSON(json) {
+  if (typeof json === "object") {
+    dynamic: {
+      for (const dynamicExpr in json)
+        switch (dynamicExpr) {
+          @<Cases for dynamic expressions@>
+          default:
+        }
+      @<Cases for dynamic expressions without a $-member@>
+    }
+    this.value.fromJSON(json);
+  } else this.value = json;
+}
+toJSON() {
+  return this.value.toJSON?.() || this.value;
+}
 @}
 
 ::: funnelweb
@@ -503,19 +506,88 @@ set value(value) {
 }
 @}
 
-@$@<Deserialize an embedded annotation@>@{
-const m = member.match(/^(.*)@@(.*?)(#(.*?))?$/);
+@$@<If the member is an annotation, deserialize it@>@{
+const m = member.match(/^([^@@]*)@@([^@@]*?)(#([^@@]*?))?$/);
 if (m) {
   const anno = new Annotation(
-    m[1] ? new RelativePath(this, m[1], this, "target") : this,
+    this,
+    new RelativePath(this, m[1] || "", this, "target"),
     m[2],
     m[4]
   );
   anno.fromJSON(json[member]);
+  Annotation.annotationsFromJSON(anno, anno.termcast, json);
   if (m[1]) {
     annotations[m[1]] ||= {};
     annotations[m[1]][anno.termcast] = anno;
   } else this[member] = anno;
+}
+@}
+
+@$@<Annotation@>@{
+get termcast() {
+  return (
+    "@@" +
+    this.#term.toJSON() +
+    (this.#qualifier ? "#" + this.#qualifier : "")
+  );
+}
+@}
+
+::: funnelweb
+Annotations can again have annotations, which appear next to
+them in the containing JSON object with the same prefix.
+:::
+
+@$@<Annotation@>@{
+static annotationsFromJSON(anno, prefix, json) {
+  for (const member in json)
+    if (member.startsWith(prefix + "@@")) {
+      const target = member.substring(prefix.length);
+      const m = target.match(/^@@([^@@]*?)(#([^@@]*?))?$/);
+      const subanno = new Annotation(
+        anno,
+        new RelativePath(anno, "", anno, "target"),
+        m[1],
+        m[3]
+      );
+      subanno.fromJSON(json[member]);
+      Annotation.annotationsFromJSON(subanno, prefix + target, json);
+      anno[target] = subanno;
+    }
+}
+@}
+
+::: funnelweb
+Annotations of a `NamedSubElement` are very similar to annotations of primitive-valued
+annotations in that they also appear next to their target prefixed with the
+target's name followed by `@`. They are deserialized by the `fromJSON` method, which looks
+only at members with this prefix (and does not call its super method). The target of
+such an annotation is represented as an empty path relative to the named subelement,
+because that seems the only way to address such subelements.
+:::
+
+@$@<NamedSubElement@>@{
+fromJSON(json) {
+  Annotation.annotationsFromJSON(this, this.name, json);
+}
+@}
+
+::: funnelweb
+Annotations of annotations must also be serialized.
+:::
+
+@$@<Serialize annotations of annotations@>@{
+this.annotationsOfAnnotations(json, "");
+@}
+
+@$@<ModelElement@>@{
+annotationsOfAnnotations(json, prefix) {
+  for (const anno in this)
+    if (anno.startsWith("@@")) {
+      this[anno].annotationsOfAnnotations(json, prefix + anno);
+      if (prefix) json[prefix + anno] = this[anno];
+    }
 }
 @}
 
@@ -1475,6 +1547,8 @@ toJSON() {
 ::: funnelweb
 Each segment of a path has a private `#target` attribute. When the getter for one
 of these is invoked, the entire path is evaluated.
+
+An empty path has one empty segment.
 :::
 
 @$@<Segment@>@{
@@ -1514,7 +1588,7 @@ constructor(host, path, relativeTo, attribute) {
       @<Types of path segment@>
       @<Default type of path segment@>
     }.bind(this));
-  @<Housekeeping for relative paths@>
+  @<Housekeeping for paths@>
 }
 @}
 
@@ -1602,6 +1676,18 @@ properties:
 -   `odata.mediaContentType`
 -   `odata.mediaEtag`
 
+@$@<Types of path segment@>@{
+if (segment.startsWith("@@")) return new TermCastSegment(this, segment);
+@}
+
+@$@<Javascript CSDL metamodel@>@{
+class TermCastSegment extends Segment {
+  evaluateRelativeTo(modelElement) {
+    return modelElement[this.segment];
+  }
+}
+@}
+
 ::: example
 Example ##ex: term-cast segments
 ```
@@ -1623,6 +1709,8 @@ Evaluating such a segment on a property calls `evaluateSegment` on the
 property (a `TypedModelElement`), which delegates to `evaluateSegment` on the
 `$Type` attribute (a `QualifiedNamePath`), which delegates to `evaluateSegment` on the
 property type (a `ModelElement`).
+
+An empty segment evaluated relative to a model element results in that model element.
 :::
 
 @$@<Default type of path segment@>@{
@@ -1632,7 +1720,7 @@ return new RelativeSegment(this, segment);
 @$@<Javascript CSDL metamodel@>@{
 class RelativeSegment extends Segment {
   evaluateRelativeTo(modelElement) {
-    return modelElement.evaluateSegment(this);
+    return this.segment ? modelElement.evaluateSegment(this) : modelElement;
   }
 }
 @}
@@ -1947,12 +2035,11 @@ type `self.A` named in the target expression.
 :::
 
 ::: funnelweb
-All paths that appear in a `CSDLDocument` are evaluated
-and their `target`s populated when the document has been completely parsed.
-In addition, paths that appear in a [`$Reference`](#Reference) are evaluated
+We want to evaluate all paths that appear in a `CSDLDocument` and populate
+their `target`s, but can do so only after these targets have been parsed, whether they occur
+in the current document or in a [`$Reference`](#Reference),
 after that reference has been resolved. Since this introduces asynchronousness into
-the process, some juggling with `Promise`s is necessary in the `finish` function
-that accomplishes that.
+the process, the `finish` method that accomplishes that involves some juggling with `Promise`s.
 
 `csdlDocuments` is a map from a document's URI to the `CSDLDocument` instance. By
 maintaining this, we need not resolve any document URI more than once.
@@ -1962,14 +2049,9 @@ maintaining this, we need not resolve any document URI more than once.
 const csdlDocuments = new Map();
 @}
 
-@$@<Finish the CSDL document@>@{
-csdlDocument.finish();
-@}
-
 @$@<CSDLDocument@>@{
 #uri;
 #finish;
-@<Internal property@>@(paths@,= []@)
 constructor(uri) {
   super();
   this.#uri = uri || "";
@@ -1985,8 +2067,7 @@ finish() {
       references.push(this.$Reference[uri].resolve());
     Promise.all(references).then(
       async function (uris) {
-        for (const path of this.paths) path.target;
-        this.#paths = undefined;
+        @<Evaluate all paths that appear in this CSDL document@>
         await Promise.all(
           uris
             .filter((uri) => uri > this.#uri)
@@ -2026,15 +2107,20 @@ async resolve() {
 
 ::: funnelweb
 The `paths` property in `CSDLDocument` collects all paths that are encountered during
-the parsing of the document.
+the parsing of the document. It is made undefined after all paths have been evaluated.
 :::
- 
-@$@<Housekeeping for qualified name paths@>@{
-this.csdlDocument.paths?.unshift(this);
+
+@$@<CSDLDocument@>@{
+@<Internal property@>@(paths@,= []@)
 @}
 
-@$@<Housekeeping for relative paths@>@{
+@$@<Housekeeping for paths@>@{
 this.csdlDocument.paths?.push(this);
+@}
+
+@$@<Evaluate all paths that appear in this CSDL document@>@{
+for (const path of this.paths) path.target;
+this.#paths = undefined;
 @}
 
 ::: funnelweb
@@ -2318,6 +2404,12 @@ class Path extends ModelElement {
 
 @$@<Exports@>@{
 Path,
+@}
+
+@$@<Cases for dynamic expressions@>@{
+case "$Path":
+  this.value = new Path(this, json[dynamicExpr]);
+  break dynamic;
 @}
 
 ::: {.varjson .example}
@@ -3151,6 +3243,16 @@ class Collection extends ModelElement {
 
 @$@<Exports@>@{
 Collection,
+@}
+
+::: funnelweb
+Unlike other dynamic expressions, which are represented by an object with a `$`-prefixed
+member, `Collection` and [`Record`](#Record) are represented as JSON arrays and
+objects, respectively.
+:::
+
+@$@<Cases for dynamic expressions without a $-member@>@{
+this.value = new (json instanceof Array ? Collection : Record)(this);
 @}
 
 ::: {.varjson .example}

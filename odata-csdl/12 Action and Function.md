@@ -52,6 +52,22 @@ It MAY contain the members
 :::
 
 ::: funnelweb
+Actions and functions are the only example of a named array that contains several instances
+of metamodel classes.
+:::
+
+@$@<Deserialize an array-valued member@>@{
+{
+  this.children[member] = [];
+  for (const item of json[member]) {
+    const memberItem = new closure[item.$Kind](this);
+    memberItem.fromJSON(item);
+    this.children[member].push(memberItem);
+  }
+}
+@}
+
+::: funnelweb
 Since actions and functions are so similar, their classes are derived from a
 common superclass `Operation`.
 :::

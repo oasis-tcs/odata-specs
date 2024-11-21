@@ -165,7 +165,7 @@ fromJSON(json) {
   super.fromJSON(json);
 }
 toJSON() {
-  @<Omit $Type if it is Edm.String@>@(this@)
+  @<Omit $Type if it is Edm.String@>@(super.toJSON()@)
 }
 @}
 
@@ -683,15 +683,19 @@ in the `children` property of its parent but as named member of a specially name
 
 @$@<Javascript CSDL metamodel@>@{
 class NamedSubElement extends NamedModelElement {
-  constructor(parent, sub, name) {
-    super(parent, name);
-    parent[sub] ||= {};
-    parent[sub][name] = this;
-  }
-  annotationsFromJSON(json) {
-    // TODO: Transfer annotations with this.name as prefix
-  }
+  @<NamedSubElement@>
 }
+@}
+
+@$@<NamedSubElement@>@{
+constructor(parent, sub, name) {
+  super(parent, name);
+  parent[sub] ||= {};
+  parent[sub][name] = this;
+}
+@}
+
+@$@<Javascript CSDL metamodel@>@{
 class ReferentialConstraint extends NamedSubElement {
   @<Internal property@>@(dependent@,@)
   @<Internal property@>@(principal@,@)
@@ -699,7 +703,6 @@ class ReferentialConstraint extends NamedSubElement {
     super(navigationProperty, "$ReferentialConstraint", prop);
   }
   fromJSON(json) {
-    this.annotationsFromJSON(json);
     this.#dependent = new RelativePath(
       this,
       this.name,
@@ -712,6 +715,7 @@ class ReferentialConstraint extends NamedSubElement {
       this.parent,
       "$ReferentialConstraint.Principal"
     );
+    super.fromJSON(json);
   }
   toJSON() {
     return this.principal.toJSON();
@@ -731,7 +735,8 @@ would be lost.
 
 @$@<Deserialize members contained in NavigationProperty@>@{
 for (const ref in json.$ReferentialConstraint)
-  new ReferentialConstraint(this, ref).fromJSON(json.$ReferentialConstraint);
+  if (!ref.includes("@@"))
+    new ReferentialConstraint(this, ref).fromJSON(json.$ReferentialConstraint);
 @}
 
 ::: funnelweb
