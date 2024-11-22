@@ -70,7 +70,7 @@ Property,
 
 @$@<TypedModelElement@>@{
 fromJSON(json) {
-  @<Qualified name in fromJSON@>@(Type@)
+  @<Deserialize qualified name@>@($Type@)
   super.fromJSON(json);
 }
 @}

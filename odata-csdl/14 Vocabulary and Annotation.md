@@ -303,7 +303,7 @@ The value of `$BaseTerm` is the qualified name of the base term.
 :::
 
 @$@<Deserialize members contained in Term@>@{
-@<Optional qualified name in fromJSON@>@(BaseTerm@)
+@<Deserialize optional qualified name@>@($BaseTerm@)
 @}
 
 ::: {.varxml .rep}
@@ -1592,6 +1592,15 @@ constructor(host, path, relativeTo, attribute) {
     }.bind(this));
   @<Housekeeping for paths@>
 }
+@}
+
+::: funnelweb
+We have already seen an example of relative paths in the code for [`PropertyRef`](#Key), they
+are relative to the entity type, which is the `PropertyRef`'s parent.
+:::
+
+@$@<Path to key property@>@(@1@)@{
+this.#path = new RelativePath(this, @1, this.parent, "$Key");
 @}
 
 ::: funnelweb

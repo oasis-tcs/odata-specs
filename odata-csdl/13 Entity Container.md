@@ -258,7 +258,7 @@ entity container located in `SomeOtherSchema`
 :::
 
 @$@<Deserialize members contained in EntityContainer@>@{
-@<Optional qualified name in fromJSON@>@(Extends@)
+@<Deserialize optional qualified name@>@($Extends@)
 @}
 
 ::: {.varxml .rep}
@@ -732,7 +732,7 @@ class OperationImport extends NamedModelElement {
 }
 class ActionImport extends OperationImport {
   fromJSON(json) {
-    @<Qualified name in fromJSON@>@(Action@)
+    @<Deserialize qualified name@>@($Action@)
     super.fromJSON(json);
   }
 }
@@ -822,7 +822,7 @@ The value of `$IncludeInServiceDocument` is one of the Boolean literals
 @$@<Javascript CSDL metamodel@>@{
 class FunctionImport extends OperationImport {
   fromJSON(json) {
-    @<Qualified name in fromJSON@>@(Function@)
+    @<Deserialize qualified name@>@($Function@)
     super.fromJSON(json);
   }
 }

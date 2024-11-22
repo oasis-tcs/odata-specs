@@ -441,7 +441,7 @@ effectiveType() {
   return effectiveType;
 }
 fromJSON(json) {
-  @<Optional qualified name in fromJSON@>@(BaseType@)
+  @<Deserialize optional qualified name@>@($BaseType@)
   @<JSON members without kind are properties@>
 }
 @}
@@ -664,62 +664,40 @@ member whose name is the key alias and whose value is a string
 containing the path to the property.
 :::
 
+::: funnelweb
+We use the name `PropertyRef` of the CSDL XML element here, even though it does not
+appear in the CSDL JSON format.
+:::
+
 @$@<Javascript CSDL metamodel@>@{
-class Key extends ModelElement {
-  #entityType;
-  #propertyRefs = [];
-  constructor(entityType) {
-    super(entityType);
-    this.#entityType = entityType;
-    entityType.$Key = this;
-  }
-  fromJSON(json) {
-    for (const prop of json) {
-      let propRef;
-      if (typeof prop === "string")
-        propRef = new PropertyRef(
-          this,
-          prop,
-          new RelativePath(this, prop, this.#entityType, "$Key")
-        );
-      else
-        for (const name in prop)
-          propRef = new PropertyRef(
-            this,
-            name,
-            new RelativePath(this, prop[name], this.#entityType, "$Key"),
-            true
-          );
-      this.#propertyRefs.push(propRef);
-    }
-  }
-  toJSON() {
-    return this.#propertyRefs;
-  }
-}
-class PropertyRef extends NamedModelElement {
+class PropertyRef extends ListedModelElement {
   #path;
   #alias;
-  constructor(key, name, path, alias) {
-    super(key, name);
-    this.#path = path;
-    this.#alias = alias;
+  constructor(entityType) {
+    super(entityType, "$Key");
   }
   get target() {
     return this.#path.target;
   }
+  fromJSON(json) {
+    if (typeof json === "string") @<Path to key property@>@(json@)
+    else
+      for (const name in json) {
+        this.#alias = name;
+        @<Path to key property@>@(json[name]@)
+      }
+  }
   toJSON() {
     if (this.#alias) {
       const propRef = {};
-      propRef[this.name] = this.#path;
+      propRef[this.#alias] = this.#path;
       return propRef;
-    } else return this.name;
+    } else return this.#path.toJSON();
   }
 }
 @}
 
 @$@<Exports@>@{
-Key,
 PropertyRef,
 @}
 
@@ -735,7 +713,8 @@ effectiveType() {
   return effectiveType;
 }
 fromJSON(json) {
-  if (json.$Key) new Key(this).fromJSON(json.$Key);
+  for (const propRef of json.$Key)
+    new PropertyRef(this).fromJSON(propRef);
   super.fromJSON(json);
 }
 @}

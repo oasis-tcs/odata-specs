@@ -569,7 +569,7 @@ and it MAY contain [annotations](#Annotation).
 @$@<Javascript CSDL metamodel@>@{
 class TypeDefinition extends NamedModelElement {
   fromJSON(json) {
-    @<Qualified name in fromJSON@>@(UnderlyingType@)
+    @<Deserialize qualified name@>@($UnderlyingType@)
     super.fromJSON(json);
   }
 }

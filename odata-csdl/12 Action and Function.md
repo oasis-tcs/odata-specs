@@ -343,7 +343,7 @@ fail with an error response if it cannot compute a result.
 class ReturnType extends ModelElement {
   fromJSON(json) {
     @<Absence of $Type means Edm.String@>
-    @<Qualified name in fromJSON@>@(Type@)
+    @<Deserialize qualified name@>@($Type@)
     super.fromJSON(json);
   }
   toJSON() {
@@ -488,7 +488,7 @@ class Parameter extends ListedModelElement {
   }
   fromJSON(json) {
     @<Absence of $Type means Edm.String@>
-    @<Qualified name in fromJSON@>@(Type@)
+    @<Deserialize qualified name@>@($Type@)
     super.fromJSON(json);
   }
   toJSON() {

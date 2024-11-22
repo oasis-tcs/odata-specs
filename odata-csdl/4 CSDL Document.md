@@ -110,17 +110,17 @@ the restriction of `$EntityContainer` to _namespace_-qualified names.)
 if (typeof json[member] !== "object") this[member] = json[member];
 @}
 
-@$@<Qualified name in fromJSON@>@(@1@)@{
-this.$@1 = new QualifiedNamePath(this, json.$@1, "$@1");
+@$@<Deserialize qualified name@>@(@1@)@{
+this.@1 = new QualifiedNamePath(this, json.@1, "@1");
 @}
 
-@$@<Optional qualified name in fromJSON@>@(@1@)@{
-if (json.$@1) @<Qualified name in fromJSON@>@(@1@)
+@$@<Deserialize optional qualified name@>@(@1@)@{
+if (json.@1) @<Deserialize qualified name@>@(@1@)
 @}
 
 @$@<CSDLDocument@>@{
 fromJSON(json) {
-  @<Optional qualified name in fromJSON@>@(EntityContainer@)
+  @<Deserialize optional qualified name@>@(EntityContainer@)
   @<Deserialize members contained in CSDLDocument@>
   super.fromJSON(json, "Schema");
 }
@@ -312,9 +312,14 @@ declared in more than one referenced document.
 
 @$@<Reference@>@{
 fromJSON(json) {
-  if (json.$Include)
-    for (const include of json.$Include) new Include(this).fromJSON(include);
+  @<Deserialize members contained in Reference@>
   super.fromJSON(json);
+}
+@}
+
+@$@<Deserialize members contained in Reference@>@{
+if (json.$Include)
+  for (const include of json.$Include) new Include(this).fromJSON(include);
 @}
 
 When including a schema, a [simple identifier](#SimpleIdentifier) value
@@ -532,11 +537,10 @@ Annotations are selectively included by specifying the
 to inspect the referenced document if none of the term namespaces is of
 interest for the consumer.
 
-@$@<Reference@>@{
-  if (json.$IncludeAnnotations)
-    for (const include of json.$IncludeAnnotations)
-      new IncludeAnnotations(this).fromJSON(include);
-}
+@$@<Deserialize members contained in Reference@>@{
+if (json.$IncludeAnnotations)
+  for (const include of json.$IncludeAnnotations)
+    new IncludeAnnotations(this).fromJSON(include);
 @}
 
 In addition, the [qualifier](#Qualifier) of annotations to be included
