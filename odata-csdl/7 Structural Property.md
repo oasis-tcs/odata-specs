@@ -266,7 +266,7 @@ If no value is specified, the client SHOULD NOT assume a default value.
 
 The value of `$DefaultValue` is the type-specific JSON representation of
 the default value of the property, see
-[OData-JSON](#ODataJSON). For properties of type
+[#OData-JSON#PrimitiveValue]. For properties of type
 `Edm.Decimal` and `Edm.Int64` the representation depends on the media
 type parameter
 [`IEEE754Compatible`](#ControllingtheRepresentationofNumbers).
@@ -570,7 +570,7 @@ the entities referenced by the containment navigation property. The
 canonical URL for contained entities is the canonical URL of the
 containing instance, followed by the path segment of the navigation
 property and the key of the contained entity, see
-[OData-URL](#ODataURL).
+[#OData-URL#CanonicalURLforContainedEntities].
 
 Entity types used in collection-valued containment navigation properties
 MUST have a [key](#Key) defined.

@@ -3,7 +3,7 @@
     var page = location.href.match(/:\/\/.*?(\/.*?)(#|$)/)[1];
     var folding = JSON.parse(localStorage.getItem(page) || "{}");
     for (var id in folding) {
-      var target = document.getElementById(id).parentElement.parentElement;
+      var target = document.getElementById(id)?.parentElement.parentElement;
       if (target) {
         if (folding[id]) target.removeAttribute("open");
         else target.setAttribute("open", "");
