@@ -56,6 +56,12 @@ a[href^="#XML-"]::after {
   color: green;
 }
 
+.funnelweb a[name] ~ a::after {
+  content: attr(href);
+  margin-left: 0.5em;
+  font-size: xx-small;
+}
+
 .rep {
   border-left: solid windowtext 1pt;
   padding-left: 8pt;
