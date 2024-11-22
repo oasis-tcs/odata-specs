@@ -338,11 +338,6 @@ class NavigationProperty extends AbstractProperty {
 NavigationProperty,
 @}
 
-::: funnelweb
-We set specific attributes _before_ calling `super.fromJSON` to avoid
-overwriting them with a model element after they have already been set to a string, say.
-:::
-
 @$@<NavigationProperty@>@{
 fromJSON(json) {
   @<Deserialize members contained in NavigationProperty@>

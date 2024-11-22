@@ -312,9 +312,9 @@ declared in more than one referenced document.
 
 @$@<Reference@>@{
 fromJSON(json) {
-  super.fromJSON(json);
   if (json.$Include)
     for (const include of json.$Include) new Include(this).fromJSON(include);
+  super.fromJSON(json);
 @}
 
 When including a schema, a [simple identifier](#SimpleIdentifier) value
