@@ -419,25 +419,36 @@ base type.
 The value of `$BaseType` is the qualified name of the base type.
 :::
 
+::: funnelweb
+The effective type is constructed as child of a new model element so that it does not
+appear in the JSON serialization of the current CSDL document.
+:::
+
 @$@<Common parts of complex and entity type@>@{
-evaluateSegment(segment) {
-  return (
-    super.evaluateSegment(segment) ||
-    this.$BaseType?.target.evaluateSegment(segment)
-  );
+#effectiveType;
+get effectiveType() {
+  return this.#effectiveType ||= this.computeEffectiveType();
 }
-effectiveType() {
+computeEffectiveType() {
   if (!this.$BaseType) return this;
-  const props = { ...this.$BaseType.effectiveType() };
-  for (const prop in this.children)
-    if (prop in props) {
-      // TODO: Merge this.children[prop] into props[prop]
-    } else props[prop] = this.children[prop];
   const effectiveType = new this.constructor(
     new ModelElement(this),
-    this.name,
+    this.name + "<effective>"
   );
-  for (const prop in props) effectiveType.children[prop] = props[prop];
+  for (const prop in this.$BaseType.target.effectiveType.children)
+    effectiveType.children[prop] = this.$BaseType.target.effectiveType.children[prop];
+  for (const prop in this.children)
+    if (prop in effectiveType.children) {
+      effectiveType.children[prop] = new this.children[prop].constructor(
+        effectiveType,
+        prop
+      );
+      Object.assign(
+        effectiveType.children[prop],
+        this.$BaseType.target.effectiveType.children[prop],
+        this.children[prop]
+      );
+    } else effectiveType.children[prop] = this.children[prop];
   return effectiveType;
 }
 fromJSON(json) {
@@ -702,8 +713,8 @@ PropertyRef,
 @}
 
 @$@<EntityType@>@{
-effectiveType() {
-  const effectiveType = super.effectiveType();
+computeEffectiveType() {
+  const effectiveType = super.computeEffectiveType();
   if (effectiveType !== this)
     for (let t = this; t; t = t.$BaseType?.target)
       if (t.$Key) {
@@ -713,7 +724,7 @@ effectiveType() {
   return effectiveType;
 }
 fromJSON(json) {
-  for (const propRef of json.$Key)
+  if (json.$Key) for (const propRef of json.$Key)
     new PropertyRef(this).fromJSON(propRef);
   super.fromJSON(json);
 }

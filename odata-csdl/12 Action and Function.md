@@ -75,7 +75,7 @@ common superclass `Operation`.
 @$@<Javascript CSDL metamodel@>@{
 class Operation extends ModelElement {
   fromJSON(json) {
-    @<Deserialize members contained in Operation@>
+    @<Deserialize members of Operation@>
     super.fromJSON(json);
   }
 }
@@ -356,7 +356,7 @@ class ReturnType extends ModelElement {
 ReturnType,
 @}
 
-@$@<Deserialize members contained in Operation@>@{
+@$@<Deserialize members of Operation@>@{
 if (json.$ReturnType) {
   this.$ReturnType = new ReturnType(this);
   this.$ReturnType.fromJSON(json.$ReturnType);
@@ -501,7 +501,7 @@ class Parameter extends ListedModelElement {
 Parameter,
 @}
 
-@$@<Deserialize members contained in Operation@>@{
+@$@<Deserialize members of Operation@>@{
 if (json.$Parameter) {
   for (const param of json.$Parameter) new Parameter(this).fromJSON(param);
 }

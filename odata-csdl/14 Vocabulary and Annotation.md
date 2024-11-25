@@ -209,7 +209,7 @@ CSDL JSON documents MUST always specify an explicit value.
 @$@<Javascript CSDL metamodel@>@{
 class Term extends Property {
   fromJSON(json) {
-    @<Deserialize members contained in Term@>
+    @<Deserialize members of Term@>
     super.fromJSON(json);
   }
 }
@@ -302,7 +302,7 @@ reached.
 The value of `$BaseTerm` is the qualified name of the base term.
 :::
 
-@$@<Deserialize members contained in Term@>@{
+@$@<Deserialize members of Term@>@{
 @<Deserialize optional qualified name@>@($BaseTerm@)
 @}
 
@@ -1753,6 +1753,17 @@ evaluateSegment(segment) {
 @$@<ModelElement@>@{
 evaluateSegment(segment) {
   return this.children[segment.segment];
+}
+@}
+
+::: funnelweb
+In model elements that can have a `$BaseType` the segment must be
+looked up among the children of the `effectiveType`.
+:::
+
+@$@<Common parts of complex and entity type@>@{
+evaluateSegment(segment) {
+  return this.effectiveType.children[segment.segment];
 }
 @}
 

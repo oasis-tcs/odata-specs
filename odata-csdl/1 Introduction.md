@@ -188,13 +188,6 @@ Subclasses of `ModelElement` with their own implementation of `fromJSON` call
 member of the current instance.
 :::
 
-@o@</git/oasis-tcs/odata-csdl-schemas/lib/metamodel.js@>@{
-@<Javascript CSDL metamodel@>
-const closure = (module.exports = {
-  @<Exports@>
-});
-@}
-
 @$@<ModelElement@>@{
 evaluationStart() {
   return this;
@@ -220,6 +213,13 @@ fromJSON(json, defaultKind) {
     }
   @<Inject the deserialized annotations@>
 }
+@}
+
+@o@</git/oasis-tcs/odata-csdl-schemas/lib/metamodel.js@>@{
+@<Javascript CSDL metamodel@>
+const closure = (module.exports = {
+  @<Exports@>
+});
 @}
 
 -------

@@ -57,7 +57,7 @@ function CSDLReviver(key, value) {
 }
 @}
 
-:::funnelweb
+::: funnelweb
 Some classes defined in this document are only needed by other classes. Classes
 that are needed by an external consumer of the Javascript CSDL metamodel are "exported"
 and can then be used, for example, to create a `CSDLDocument` while parsing a CSDL XML
@@ -121,7 +121,7 @@ if (json.@1) @<Deserialize qualified name@>@(@1@)
 @$@<CSDLDocument@>@{
 fromJSON(json) {
   @<Deserialize optional qualified name@>@(EntityContainer@)
-  @<Deserialize members contained in CSDLDocument@>
+  @<Deserialize members of CSDLDocument@>
   super.fromJSON(json, "Schema");
 }
 @}
@@ -206,7 +206,7 @@ The reference object MAY contain the members
 [annotations](#Annotation).
 :::
 
-@$@<Deserialize members contained in CSDLDocument@>@{
+@$@<Deserialize members of CSDLDocument@>@{
 for (const uri in json.$Reference)
   new Reference(this, uri).fromJSON(json.$Reference[uri]);
 @}
@@ -232,6 +232,10 @@ constructor(csdlDocument, uri) {
 }
 toString() {
   return "$Reference<" + this.uri + ">";
+}
+fromJSON(json) {
+  @<Deserialize members of Reference@>
+  super.fromJSON(json);
 }
 @}
 
@@ -310,14 +314,7 @@ The included schemas are identified via their [namespace](#Namespace).
 The same namespace MUST NOT be included more than once, even if it is
 declared in more than one referenced document.
 
-@$@<Reference@>@{
-fromJSON(json) {
-  @<Deserialize members contained in Reference@>
-  super.fromJSON(json);
-}
-@}
-
-@$@<Deserialize members contained in Reference@>@{
+@$@<Deserialize members of Reference@>@{
 if (json.$Include)
   for (const include of json.$Include) new Include(this).fromJSON(include);
 @}
@@ -537,7 +534,7 @@ Annotations are selectively included by specifying the
 to inspect the referenced document if none of the term namespaces is of
 interest for the consumer.
 
-@$@<Deserialize members contained in Reference@>@{
+@$@<Deserialize members of Reference@>@{
 if (json.$IncludeAnnotations)
   for (const include of json.$IncludeAnnotations)
     new IncludeAnnotations(this).fromJSON(include);

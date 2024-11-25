@@ -340,7 +340,7 @@ NavigationProperty,
 
 @$@<NavigationProperty@>@{
 fromJSON(json) {
-  @<Deserialize members contained in NavigationProperty@>
+  @<Deserialize members of NavigationProperty@>
   super.fromJSON(json);
 }
 @}
@@ -511,7 +511,7 @@ The type of the partner navigation property MUST be the declaring entity
 type of the current navigation property or one of its parent entity
 types.
 
-@$@<Deserialize members contained in NavigationProperty@>@{
+@$@<Deserialize members of NavigationProperty@>@{
 if (json.$Partner)
   this.$Partner = new RelativePath(this, json.$Partner, this, "$Partner");
 @}
@@ -728,7 +728,7 @@ with the entire `$ReferentialConstraint` object, because otherwise the annotatio
 would be lost.
 :::
 
-@$@<Deserialize members contained in NavigationProperty@>@{
+@$@<Deserialize members of NavigationProperty@>@{
 for (const ref in json.$ReferentialConstraint)
   if (!ref.includes("@@"))
     new ReferentialConstraint(this, ref).fromJSON(json.$ReferentialConstraint);
