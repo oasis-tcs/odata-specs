@@ -74,16 +74,20 @@ common superclass `Operation`.
 
 @$@<Javascript CSDL metamodel@>@{
 class Operation extends ModelElement {
-  fromJSON(json) {
-    @<Deserialize members of Operation@>
-    super.fromJSON(json);
-  }
+  @<Operation@>
 }
 class Action extends Operation {}
 @}
 
 @$@<Exports@>@{
 Action,
+@}
+
+@$@<Operation@>@{
+fromJSON(json) {
+  @<Deserialize members of Operation@>
+  super.fromJSON(json);
+}
 @}
 
 ::: {.varxml .rep}

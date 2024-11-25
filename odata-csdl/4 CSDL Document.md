@@ -120,7 +120,7 @@ if (json.@1) @<Deserialize qualified name@>@(@1@)
 
 @$@<CSDLDocument@>@{
 fromJSON(json) {
-  @<Deserialize optional qualified name@>@(EntityContainer@)
+  @<Deserialize optional qualified name@>@($EntityContainer@)
   @<Deserialize members of CSDLDocument@>
   super.fromJSON(json, "Schema");
 }

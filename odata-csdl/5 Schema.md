@@ -131,7 +131,6 @@ class QualifiedNameSegment extends Segment {
       this.#namespace,
       this.#name
     );
-    // TODO: Address operation overloads, check type cast
     @<Housekeeping during path evaluation@>
     return (this.target = target);
   }

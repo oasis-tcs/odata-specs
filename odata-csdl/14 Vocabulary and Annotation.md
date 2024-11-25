@@ -864,6 +864,11 @@ properties of singletons or entities in a particular entity set. These
 annotations override annotations on the properties or navigation
 properties targeted via the declaring structured type.
 
+@$@<Types of path segment@>@{
+case segment.includes(".") && segment.includes("("):
+  return new OverloadSegment(this, segment);
+@}
+
 ## ##subsec Constant Expression
 
 Constant expressions allow assigning a constant value to an applied
@@ -1516,11 +1521,6 @@ from the path expression syntax of URLs, see [#OData-URL#PathExpressions].
 A path MUST be composed of zero or more path segments joined together by
 forward slashes (`/`).
 
-Paths starting with a forward slash (`/`) are absolute paths, and the
-first path segment MUST be the qualified name of a model element, e.g.
-an entity container. The remaining path after the second forward slash
-is interpreted relative to that model element.
-
 ::: funnelweb
 A path is a `ModelElement` whose parent is the model element that "hosts" the path.
 For example, the `$Type` of a property is constructed with the property as `host`
@@ -1578,10 +1578,15 @@ class RelativePath extends AbstractPath {
 }
 @}
 
+@$@<Exports@>@{
+RelativePath,
+@}
+
 @$@<RelativePath@>@{
 #relativeTo;
 constructor(host, path, relativeTo, attribute) {
   super(host, attribute);
+  @<Treat absolute paths like relative paths@>
   this.#relativeTo = relativeTo;
   this.segments = path
     .split("/")
@@ -1603,10 +1608,37 @@ are relative to the entity type, which is the `PropertyRef`'s parent.
 this.#path = new RelativePath(this, @1, this.parent, "$Key");
 @}
 
+Paths starting with a forward slash (`/`) are absolute paths, and the
+first path segment MUST be the qualified name of a model element, e.g.
+an entity container. The remaining path after the second forward slash
+is interpreted relative to that model element.
+
+::: funnelweb
+This allows us to treat absolute paths like relative paths where the `relativeTo`
+does not matter, because the first segment is a [`QualifiedNameSegment`](#Schema).
+:::
+
+@$@<Treat absolute paths like relative paths@>@{
+if (path.startsWith("/")) {
+  path = path.substring(1);
+  relativeTo = this.csdlDocument;
+}
+@}
+
+::: example
+Example ##ex: absolute path to an entity set
+```
+/My.Schema.MyEntityContainer/MyEntitySet
+```
+:::
+
+Paths not starting with a forward slash are interpreted relative to the
+annotation target, following the rules specified in [section ##PathEvaluation].
+
 ::: funnelweb
 Path evaluation relative to a model element moves from
 one model element to the next by invoking each
-segment's `evaluateRelativeTo` method in turn and storing the `target` of each segment.
+segment's `evaluateRelativeTo` method in turn and storing the `target` in each segment.
 :::
 
 @$@<RelativePath@>@{
@@ -1624,8 +1656,8 @@ evaluate() {
 
 ::: funnelweb
 The `target` getter of a path can then simply call the
-`target` getter of the last path segment. Note that a path is evaluated and its
-`#target` set only once.
+`target` getter of the last path segment. Note that repeated calls to the getter
+evaluate the path only once.
 :::
 
 @$@<AbstractPath@>@{
@@ -1633,16 +1665,6 @@ get target() {
   return this.segments[this.segments.length - 1].target;
 }
 @}
-
-::: example
-Example ##ex: absolute path to an entity set
-```
-/My.Schema.MyEntityContainer/MyEntitySet
-```
-:::
-
-Paths not starting with a forward slash are interpreted relative to the
-annotation target, following the rules specified in [section ##PathEvaluation].
 
 ::: example
 Example ##ex: relative path to a property
@@ -1902,6 +1924,14 @@ For annotations hosted by an action, action import, function, function
 import, parameter, or return type, the first segment of the path MUST be the
 name of a parameter of the action or function or `$ReturnType`.
 
+@$@<Operation@>@{
+evaluateSegment(segment) {
+  return segment.segment === "$ReturnType" ?
+    this.$ReturnType :
+    this.$Parameters?.find?.((p) => p.name === segment.segment);
+}
+@}
+
 For annotations hosted by a structural or navigation property, the path
 evaluation rules additionally depend upon how the annotation target is
 specified, as follows:
@@ -2147,6 +2177,9 @@ async resolve() {
   if (this.$Include)
     for (const include of this.$Include)
       include.schema = csdl.children[include.$Namespace];
+  if (this.$IncludeAnnotations)
+    for (const include of this.$IncludeAnnotations)
+      include.schema = csdl.children[include.$TermNamespace];
   return this.uri;
 }
 @}
@@ -2194,7 +2227,7 @@ no `targetingPaths`.
 
 @$@<Housekeeping during path evaluation@>@{
 if (!target) throw new InvalidPathError(this);
-target.targetingPaths?.add(this);
+target.targetingPaths?.add(this.path);
 @}
 
 @$@<Javascript CSDL metamodel@>@{
