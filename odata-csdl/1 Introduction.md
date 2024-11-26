@@ -150,6 +150,17 @@ constructor(parent) {
 @}
 
 ::: funnelweb
+Following the `parent` attribute, we can determine whether one model element is a
+descendant of another.
+:::
+
+@$@<ModelElement@>@{
+descendantOf(anc) {
+  return this.parent === anc || this.parent?.descendantOf?.(anc);
+}
+@}
+
+::: funnelweb
 The `parent` is also used to construct a path representation for every model element
 out of the string representation of itself and its ancestors. The string representation
 of last resort is the class name.
@@ -189,9 +200,6 @@ member of the current instance.
 :::
 
 @$@<ModelElement@>@{
-evaluationStart() {
-  return this;
-}
 fromJSON(json, defaultKind) {
   const annotations = {};
   for (const member in json)

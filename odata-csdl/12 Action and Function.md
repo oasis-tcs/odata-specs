@@ -84,6 +84,10 @@ Action,
 @}
 
 @$@<Operation@>@{
+constructor(parent) {
+  super(parent);
+  this.$Kind = this.constructor.name;
+}
 fromJSON(json) {
   @<Deserialize members of Operation@>
   super.fromJSON(json);

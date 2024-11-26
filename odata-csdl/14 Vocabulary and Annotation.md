@@ -463,18 +463,15 @@ as a path, whose target is then the annotation target.
 :::
 
 @$@<Annotation@>@{
-#term;
-#qualifier;
 @<Internal property@>@(target@,@)
+@<Internal property@>@(term@,@)
+@<Internal property@>@(qualifier@,@)
 @<Internal value property@>
 constructor(host, target, term, qualifier) {
   super(host);
   this.#target = target;
   this.#term = new QualifiedNamePath(this, term, "term");
   this.#qualifier = qualifier;
-}
-evaluationStart() {
-  return this.parent.evaluationStart();
 }
 fromJSON(json) {
   if (typeof json === "object") {
@@ -521,16 +518,6 @@ if (m) {
     annotations[m[1]] ||= {};
     annotations[m[1]][anno.termcast] = anno;
   } else this[member] = anno;
-}
-@}
-
-@$@<Annotation@>@{
-get termcast() {
-  return (
-    "@@" +
-    this.#term.toJSON() +
-    (this.#qualifier ? "#" + this.#qualifier : "")
-  );
 }
 @}
 
@@ -1561,7 +1548,10 @@ constructor(path, segment) {
   this.#segment = segment;
 }
 get target() {
-  if (!this.#target) this.path.evaluate();
+  if (!this.#target) {
+    @<Ready for path evaluation?@>
+    this.path.evaluate();
+  }
   return this.#target;
 }
 set target(target) {
@@ -1582,8 +1572,14 @@ class RelativePath extends AbstractPath {
 RelativePath,
 @}
 
+::: funnelweb
+The `relativeTo` parameter of a `RelativePath` is retrieved not with a getter, but
+with a special method that can be redefined (see `Value Path`).
+:::
+
 @$@<RelativePath@>@{
 #relativeTo;
+#absolute = "";
 constructor(host, path, relativeTo, attribute) {
   super(host, attribute);
   @<Treat absolute paths like relative paths@>
@@ -1596,6 +1592,12 @@ constructor(host, path, relativeTo, attribute) {
       }
     }.bind(this));
   @<Housekeeping for paths@>
+}
+relativeTo() {
+  return this.#relativeTo;
+}
+toJSON() {
+  return this.#absolute + super.toJSON();
 }
 @}
 
@@ -1620,6 +1622,7 @@ does not matter, because the first segment is a [`QualifiedNameSegment`](#Schema
 
 @$@<Treat absolute paths like relative paths@>@{
 if (path.startsWith("/")) {
+  this.#absolute = "/";
   path = path.substring(1);
   relativeTo = this.csdlDocument;
 }
@@ -1643,7 +1646,7 @@ segment's `evaluateRelativeTo` method in turn and storing the `target` in each s
 
 @$@<RelativePath@>@{
 evaluate() {
-  let target = this.#relativeTo;
+  let target = this.relativeTo();
   for (let i = 0; i < this.segments.length; i++) {
     target = this.segments[i].target =
       this.segments[i].evaluateRelativeTo(target);
@@ -1651,6 +1654,16 @@ evaluate() {
   }
   @<Housekeeping during path evaluation@>
   return target;
+}
+@}
+
+::: funnelweb
+The same algorithm is used to address elements in a CSDL document by their path.
+:::
+
+@$@<CSDLDocument@>@{
+get(path) {
+  return new RelativePath(this, path, this).evaluate();
 }
 @}
 
@@ -1899,6 +1912,41 @@ unless that target is another annotation or a model element (collection,
 record or property value) directly or indirectly embedded within another
 annotation, in which case the host is the host of that other annotation.
 
+::: funnelweb
+The `target` of an `Annotation` is a `RelativePath` whose `target` is the annotation
+target.
+:::
+
+@$@<Annotation@>@{
+get host() {
+  return this.target.target.host;
+}
+@}
+
+::: funnelweb
+A model element is its own `host`, unless it is a [dynamic expression](#DynamicExpression),
+whose `host` is the `host` of the annotation that contains it. (The getter for
+`annotation` is analogous to the getter for [`csdlDocument`](#DocumentObject).)
+:::
+
+@$@<Dynamic expression@>@{
+get annotation() {
+  return this.parent.annotation;
+}
+@}
+
+@$@<Annotation@>@{
+get annotation() {
+  return this;
+}
+@}
+
+@$@<ModelElement@>@{
+get host() {
+  return this.annotation?.host || this;
+}
+@}
+
 If the value of an annotation is expressed dynamically with a path
 expression, the path evaluation rules for this expression depend upon the
 model element by which the annotation is hosted.
@@ -1923,6 +1971,12 @@ property of the type, a [type cast](#TypeCast), or a [term cast](#TermCast).
 For annotations hosted by an action, action import, function, function
 import, parameter, or return type, the first segment of the path MUST be the
 name of a parameter of the action or function or `$ReturnType`.
+
+@$@<ModelElement@>@{
+evaluationStart(anno) {
+  return this;
+}
+@}
 
 @$@<Operation@>@{
 evaluateSegment(segment) {
@@ -1962,6 +2016,12 @@ specified, as follows:
    the outermost type, and the first segment of a non-empty path MUST be a
    structural or navigation property of the outermost type, a [type cast](#TypeCast),
    or a [term cast](#TermCast).
+
+@$@<AbstractProperty@>@{
+evaluationStart(anno) {
+  if (anno.descendantOf(this)) return this.parent;
+}
+@}
 
 ::: example
 Example ##ex: Annotations hosted by property `A2` in various modes
@@ -2106,6 +2166,7 @@ const csdlDocuments = new Map();
 @$@<CSDLDocument@>@{
 #uri;
 #finish;
+@<Internal property@>@(finished@,@)
 constructor(uri) {
   super();
   this.#uri = uri || "";
@@ -2122,9 +2183,14 @@ finish() {
         @<Resolve this.#finish after all referenced CSDL documents are finished@>
       }.bind(this)
     );
+    this.#finished = true;
   }
   return this.#finish;
 }
+@}
+
+@$@<Ready for path evaluation?@>@{
+if (!this.path.csdlDocument.finished) return "CSDL document not finished";
 @}
 
 @$@<Make this.#finish a promise that resolves when all paths have been evaluated@>@{
@@ -2198,15 +2264,18 @@ this.csdlDocument.paths?.push(this);
 @}
 
 @$@<Evaluate all paths that appear in this CSDL document@>@{
-for (const path of this.paths) path.target;
+for (const path of this.paths) path.evaluate();
 this.#paths = undefined;
 @}
 
 ::: funnelweb
 During the path evaluation (which happens once in the path's lifetime as explained
-[here](#PathSyntax)), all model elements traversed by any segment are collected
-into `targetingSegments`, except for the last segment, which is collected into
-`targetingPaths`.
+[here](#PathSyntax)), all model elements traversed by any segment have that segment
+collected into `targetingSegments`, except for the last segment, when the path
+is collected into `targetingPaths`.
+
+No further housekeeping takes place after the `paths` property in the `CSDLDocument`
+has been set to `undefined`.
 :::
 
 @$@<ModelElement@>@{
@@ -2216,7 +2285,7 @@ into `targetingSegments`, except for the last segment, which is collected into
 
 @$@<Housekeeping during segment evaluation@>@{
 if (!target) throw new InvalidPathError(this);
-if (i < this.segments.length - 1)
+if (this.csdlDocument.paths && i < this.segments.length - 1)
   target.targetingSegments.add(this.segments[i]);
 @}
 
@@ -2227,7 +2296,7 @@ no `targetingPaths`.
 
 @$@<Housekeeping during path evaluation@>@{
 if (!target) throw new InvalidPathError(this);
-target.targetingPaths?.add(this.path);
+if (this.csdlDocument.paths) target.targetingPaths?.add(this);
 @}
 
 @$@<Javascript CSDL metamodel@>@{
@@ -2240,6 +2309,49 @@ class InvalidPathError extends Error {
 
 @$@<Exports@>@{
 InvalidPathError,
+@}
+
+::: funnelweb
+The types of path in the following sections are derived from a
+common superclass `PathExpression`.
+
+The `$Path` in this class uses a subclass of `RelativePath`, because its
+`relativeTo()` method performs a determination according to [section ##PathEvaluation],
+which cannot be done until all annotation targets can be resolved.
+:::
+
+@$@<Javascript CSDL metamodel@>@{
+class ValuePath extends RelativePath {
+  constructor(pathExpression, path) {
+    super(pathExpression, path, undefined, "$Path");
+  }
+  relativeTo() {
+    const anno = this.parent.annotation;
+    return anno.host.evaluationStart(anno);
+  }
+}
+class PathExpression extends ModelElement {
+  constructor(parent, path) {
+    super(parent);
+    this.$Path = new ValuePath(this, path);
+  }
+  @<Dynamic expression@>
+}
+@}
+
+::: funnelweb
+The following method performs a callback for the annotation of each `ValuePath` in the
+[`targetingPaths`](#PathEvaluation) of a model element and returns true if any callback
+returns true. This can be used to detect currency properties with an expression like
+`p.annotates(anno => anno.term.target === Measures.ISOCurrency)`.
+
+@$@<ModelElement@>@{
+annotates(callback) {
+  for (const p of this.targetingPaths) {
+    const anno = p.parent.annotation;
+    if (anno && callback(anno)) return true;
+  }
+}
 @}
 
 #### ##subsubsubsec Annotation Path
@@ -2263,6 +2375,26 @@ annotation path that ends in a term cast with one of the listed terms.
 Annotation path expressions are represented as a string containing a
 path.
 :::
+
+::: funnelweb
+Instances of `AnnotationPath` will never be created through JSON parsing, because annotations paths
+(and paths introduced in the following sections) are indistinguishable from strings in CSDL JSON.
+They can only be constructed programmatically, for example, when parsing a CSDL XML document.
+During JSON serialization, they then become strings again.
+:::
+
+@$@<Javascript CSDL metamodel@>@{
+class ModelElementPathExpression extends PathExpression {
+  toJSON() {
+    return this.$Path.toJSON();
+  }
+}
+class AnnotationPath extends ModelElementPathExpression {}
+@}
+
+@$@<Exports@>@{
+AnnotationPath,
+@}
 
 ::: {.varjson .example}
 Example ##ex:
@@ -2311,6 +2443,14 @@ the instance(s) identified by the path.
 Model element path expressions are represented as a string containing a
 path.
 :::
+
+@$@<Javascript CSDL metamodel@>@{
+class ModelElementPath extends ModelElementPathExpression {}
+@}
+
+@$@<Exports@>@{
+ModelElementPath,
+@}
 
 ::: {.varjson .example}
 Example ##ex:
@@ -2371,6 +2511,14 @@ Example ##ex:
 ```
 :::
 
+@$@<Javascript CSDL metamodel@>@{
+class NavigationPropertyPath extends ModelElementPathExpression {}
+@}
+
+@$@<Exports@>@{
+NavigationPropertyPath,
+@}
+
 ::: {.varxml .rep}
 ### ##isec Expression `edm:NavigationPropertyPath`
 
@@ -2415,6 +2563,14 @@ identified by the path.
 ::: {.varjson .rep}
 Property path expressions are represented as a string containing a path.
 :::
+
+@$@<Javascript CSDL metamodel@>@{
+class PropertyPath extends ModelElementPathExpression {}
+@}
+
+@$@<Exports@>@{
+PropertyPath,
+@}
 
 ::: {.varjson .example}
 Example ##ex:
@@ -2473,12 +2629,7 @@ Path expressions are represented as an object with a single member
 :::
 
 @$@<Javascript CSDL metamodel@>@{
-class Path extends ModelElement {
-  constructor(host, path) {
-    super(host);
-    this.$Path = new RelativePath(this, path, host.evaluationStart(), "$Path");
-  }
-}
+class Path extends PathExpression {}
 @}
 
 @$@<Exports@>@{
@@ -3303,25 +3454,27 @@ item expression within the collection expression.
 @$@<Javascript CSDL metamodel@>@{
 class Collection extends ModelElement {
   @<Internal value property@>
-  evaluationStart() {
-    return this.parent.evaluationStart();
-  }
-  fromJSON(json) {
-    const value = [];
-    for (const item of json) {
-      Annotation.prototype.fromJSON.call(this, item);
-      value.push(this.value);
-    }
-    this.value = value;
-  }
-  toJSON() {
-    return this.value.map((item) => item.toJSON?.() || item);
-  }
+  @<Dynamic expression@>
+  @<Collection@>
 }
 @}
 
 @$@<Exports@>@{
 Collection,
+@}
+
+@$@<Collection@>@{
+fromJSON(json) {
+  const value = [];
+  for (const item of json) {
+    Annotation.prototype.fromJSON.call(this, item);
+    value.push(this.value);
+  }
+  this.value = value;
+}
+toJSON() {
+  return this.value.map((item) => item.toJSON?.() || item);
+}
 @}
 
 ::: funnelweb
@@ -3775,30 +3928,34 @@ Annotations for record members are prefixed with the member name.
 
 @$@<Javascript CSDL metamodel@>@{
 class Record extends ModelElement {
-  evaluationStart() {
-    return this.parent.evaluationStart();
-  }
-  fromJSON(json) {
-    super.fromJSON(json, "PropertyValue");
-  }
+  @<Dynamic expression@>
+  @<Record@>
 }
 class PropertyValue extends NamedModelElement {
   @<Internal value property@>
-  evaluationStart() {
-    return this.parent.evaluationStart();
-  }
-  fromJSON(json) {
-    Annotation.prototype.fromJSON.call(this, json);
-  }
-  toJSON() {
-    return Annotation.prototype.toJSON.call(this.value);
-  }
+  @<Dynamic expression@>
+  @<PropertyValue@>
 }
 @}
 
 @$@<Exports@>@{
 Record,
 PropertyValue,
+@}
+
+@$@<Record@>@{
+fromJSON(json) {
+  super.fromJSON(json, "PropertyValue");
+}
+@}
+
+@$@<PropertyValue@>@{
+fromJSON(json) {
+  Annotation.prototype.fromJSON.call(this, json);
+}
+toJSON() {
+  return Annotation.prototype.toJSON.call(this.value);
+}
 @}
 
 ::: {.varjson .example}

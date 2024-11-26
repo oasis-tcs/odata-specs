@@ -48,6 +48,10 @@ The schema is the first of many model elements that appear as members
 with an unqualified name. They are represented as subclasses of `NamedModelElement`
 whose constructor ensures that they are appended to the children list of their parent.
 Note the analogy with the [`ListedModelElement`](#IncludedSchema) constructor.
+
+In a `NamedModelElement`, the `$Kind` is set in the constructor and
+need not be set explicitly even if `fromJSON` is not used. But `Schema` is already
+the first exception to this rule.
 :::
 
 @$@<Javascript CSDL metamodel@>@{
@@ -57,16 +61,26 @@ class NamedModelElement extends ModelElement {
     super(parent);
     this.#name = name;
     parent.children[name] = this;
+    this.$Kind = this.constructor.name;
   }
   toString() {
     return this.name;
   }
 }
-class Schema extends NamedModelElement {}
+class Schema extends NamedModelElement {
+  @<Construct without $Kind@>
+}
 @}
 
 @$@<Exports@>@{
 Schema,
+@}
+
+@$@<Construct without $Kind@>@{
+constructor(parent, name) {
+  super(parent, name);
+  delete this.$Kind;
+}
 @}
 
 ::: funnelweb
@@ -127,12 +141,10 @@ class QualifiedNameSegment extends Segment {
   }
   evaluateRelativeTo(modelElement) {
     if (@<namespace is reserved@>) return this;
-    let target = this.path.csdlDocument.byQualifiedName(
+    return (this.target = this.path.csdlDocument.byQualifiedName(
       this.#namespace,
       this.#name
-    );
-    @<Housekeeping during path evaluation@>
-    return (this.target = target);
+    ));
   }
 }
 @}
@@ -420,7 +432,9 @@ The value of `$BaseType` is the qualified name of the base type.
 
 ::: funnelweb
 The effective type is constructed as child of a new model element so that it does not
-appear in the JSON serialization of the current CSDL document.
+appear in the JSON serialization of the current CSDL document. It contains the properties
+of the derived type, the inherited properties and "merged" properties, for example
+if the derived type specializes the inherited type or adds an annotation.
 :::
 
 @$@<Common parts of complex and entity type@>@{
@@ -431,7 +445,7 @@ get effectiveType() {
 computeEffectiveType() {
   if (!this.$BaseType) return this;
   const effectiveType = new this.constructor(
-    new ModelElement(this),
+    new ModelElement(),
     this.name + "<effective>"
   );
   for (const prop in this.$BaseType.target.effectiveType.children)

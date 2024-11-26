@@ -55,11 +55,10 @@ class TypedModelElement extends NamedModelElement {
   @<TypedModelElement@>
 }
 class AbstractProperty extends TypedModelElement {
-  evaluationStart() {
-    return this.parent;
-  }
+  @<AbstractProperty@>
 }
 class Property extends AbstractProperty {
+  @<Construct without $Kind@>
   @<Property@>
 }
 @}
@@ -687,6 +686,7 @@ constructor(parent, sub, name) {
   super(parent, name);
   parent[sub] ||= {};
   parent[sub][name] = this;
+  delete this.$Kind;
 }
 @}
 

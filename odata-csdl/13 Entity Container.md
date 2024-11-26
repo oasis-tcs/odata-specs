@@ -333,6 +333,7 @@ only in their `$Collection` value. They are represented by the same class.
 
 @$@<Javascript CSDL metamodel@>@{
 class EntitySetOrSingleton extends TypedModelElement {
+  @<Construct without $Kind@>
   fromJSON(json) {
     @<Deserialize members of EntitySetOrSingleton@>
     super.fromJSON(json);
@@ -719,6 +720,7 @@ Action and function imports are derived from a common superclass.
 
 @$@<Javascript CSDL metamodel@>@{
 class OperationImport extends NamedModelElement {
+  @<Construct without $Kind@>
   fromJSON(json) {
     if (json.$EntitySet)
       this.$EntitySet = new RelativePath(
