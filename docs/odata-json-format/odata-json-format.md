@@ -218,6 +218,7 @@ Section | Feature / Change | Issue
 --------|------------------|------
 [Section 4.6.1](#ControlInformationcontextodatacontext)| Fragment portion of Context URL is not percent-encoded| [368](https://github.com/oasis-tcs/odata-specs/issues/368)
 [Section 4.6.8](#ControlInformationidodataid)| Transient entities can be identifiable| [1928](https://github.com/oasis-tcs/odata-specs/issues/1928)
+[Section 4.6.10](#ControlInformationetagodataetag)| Control information `"@etag": ""` to prevent updates| [2021](https://github.com/oasis-tcs/odata-specs/issues/2021)
 [Section 4.6.12](#ControlInformationmediaodatamedia)| `mediaContentType` can be `null`| [536](https://github.com/oasis-tcs/odata-specs/issues/536)
 [Section 7](#StructuralProperty), [Section A.2](#InformativeReferences)| Removed reference to obsolete version of GeoJSON| [456](https://github.com/oasis-tcs/odata-specs/issues/456)
 [Section 15.3](#DeletedEntity) | `type` control information, if present, must come immediately after `removed` |
@@ -1047,7 +1048,8 @@ opaque string value that can be used in a subsequent request to
 determine if the value of the entity or collection has changed.
 
 For details on how ETags are used, see [OData-Protocol, section 11.4.1.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UseofETagsforAvoidingUpdateConflicts).
-The special value `"@etag": ""` is equivalent to the header `If-None-Match: *`,
+The special value `"@etag": "*"` is equivalent to the header `If-Match: *`,
+and the special value `"@etag": ""` is equivalent to the header `If-None-Match: *`,
 see [OData-Protocol, section 11.4.12](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UpdateaCollectionofEntities).
 
 The `etag` control information is ignored in request payloads for

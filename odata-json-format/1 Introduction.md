@@ -27,6 +27,9 @@ Fragment portion of Context URL is not percent-encoded|
 [Section ##ControlInformationidodataid]| 
 Transient entities can be identifiable| 
 [1928](https://github.com/oasis-tcs/odata-specs/issues/1928)
+[Section ##ControlInformationetagodataetag]| 
+Control information `"@etag": ""` to prevent updates| 
+[2021](https://github.com/oasis-tcs/odata-specs/issues/2021)
 [Section ##ControlInformationmediaodatamedia]| 
 `mediaContentType` can be `null`| 
 [536](https://github.com/oasis-tcs/odata-specs/issues/536)
