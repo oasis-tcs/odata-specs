@@ -599,14 +599,14 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/455">455</a></td>
 </tr>
 <tr class="even">
-<td><a href="#UpsertanEntity">Section 11.4.4</a></td>
-<td>Empty <code>@etag</code> to prevent inserts</td>
-<td><a href="https://github.com/oasis-tcs/odata-specs/issues/2021">2021</a></td>
-</tr>
-<tr class="odd">
 <td><a href="#UpdateaComplexProperty">Section 11.4.9.3</a></td>
 <td>Setting a complex property to a different type</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/534">534</a></td>
+</tr>
+<tr class="odd">
+<td><a href="#UpdateaCollectionofEntities">Section 11.4.12</a></td>
+<td>Control information to prevent updates</td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/2021">2021</a></td>
 </tr>
 <tr class="even">
 <td><a href="#ReplaceaCollectionofEntities">Section 11.4.13</a></td>
@@ -2568,7 +2568,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Singleton entities can be upserted if they are nullable. Services supporting this SHOULD advertise it by annotating the singleton with the term <code>Capabilities.UpdateRestrictions</code> (nested property <code>Upsertable</code> with value <code>true</code>) defined in <a href="#ODataVocCap">OData-VocCap</a>.</p>
 <p>A key property whose value is provided in the request URL SHOULD be omitted from the request body. If key properties are provided in the request URL and the request body with different values, services MUST either fail the request or ignore the value in the request body.</p>
 <p>To ensure that an update request is not treated as an insert, the client MAY specify an <a href="#HeaderIfMatch"><code>If-Match</code></a> header in the update request. The service MUST NOT treat an update request containing an <code>If-Match</code> header as an insert.</p>
-<p>A <code>PUT</code> or <code>PATCH</code> request MUST NOT be treated as an update if an <a href="#HeaderIfNoneMatch"><code>If-None-Match</code></a> header is specified with a value of <code>*</code> or the <code>@etag</code> control information <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformationetagodataetag">OData-JSON, section 4.6.10</a> is specified with an empty string as value.</p>
+<p>A <code>PUT</code> or <code>PATCH</code> request MUST NOT be treated as an update if an <a href="#HeaderIfNoneMatch"><code>If-None-Match</code></a> header is specified with a value of <code>*</code>.</p>
 </details>
 <details open><summary>
 <h3 id="1145-delete-an-entity"><a id="DeleteanEntity" href="#DeleteanEntity">11.4.5 Delete an Entity</a></h3>
@@ -2764,6 +2764,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Clients MAY associate an id with individual nested entities in the request by using the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a> term defined in <a href="#ODataVocCore">OData-VocCore</a>. Services that respond with <a href="#ResponseCode200OK"><code>200 OK</code></a> SHOULD annotate the entities in the response using the same <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a> value as specified in the request.</p>
 <p>Services SHOULD advertise support for updating a collection using a delta payload through the <code>DeltaUpdateSupported</code> property of the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#UpdateRestrictionsType"><code>Capabilities.UpdateRestrictions</code></a> term, and SHOULD advertise support for returning the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a> through the <code>ContentIDSupported</code> property of the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#DeepUpdateSupportType"><code>Capabilities.DeepUpdateSupport</code></a> term, both defined in <a href="#ODataVocCap">OData-VocCap</a>.</p>
 <p>For each entity being updated or removed, clients MAY specify an <a href="#UseofETagsforAvoidingUpdateConflicts">ETag</a> value obtained from a previous request. If an ETag is provided that does not match the ETag value of the entity being updated or removed, or if an ETag is provided when adding or updating an entity that does not currently exist, then services that support ETags MUST NOT apply the change and instead <a href="#ErrorHandlingwhenUpdatingaCollectionofEntities">report</a> a <code>412 Precondition Failed</code> error. The special value <code>*</code> can be used to match any existing entity but fail if the entity does not already exist.</p>
+<p>Added/changed entities that specify format-specific control information equivalent to an <code>If-Match-None: *</code> header <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformationetagodataetag">OData-JSON, section 4.6.10</a> MUST NOT be treated as an update.</p>
 <p>The response, if requested, is a delta payload, in the same structure and order as the request payload, representing the applied changes.</p>
 <details open><summary>
 <h4 id="114121-error-handling-when-updating-a-collection-of-entities"><a id="ErrorHandlingwhenUpdatingaCollectionofEntities" href="#ErrorHandlingwhenUpdatingaCollectionofEntities">11.4.12.1 Error Handling when Updating a Collection of Entities</a></h4>

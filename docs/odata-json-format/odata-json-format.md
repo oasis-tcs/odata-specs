@@ -1047,8 +1047,8 @@ opaque string value that can be used in a subsequent request to
 determine if the value of the entity or collection has changed.
 
 For details on how ETags are used, see [OData-Protocol, section 11.4.1.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UseofETagsforAvoidingUpdateConflicts).
-The special value `"@etag": ""` has the same meaning as the header `If-None-Match: *`,
-see [OData-Protocol, section 11.4.4](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UpsertanEntity).
+The special value `"@etag": ""` is equivalent to the header `If-None-Match: *`,
+see [OData-Protocol, section 11.4.12](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UpdateaCollectionofEntities).
 
 The `etag` control information is ignored in request payloads for
 single entities and not written in responses if
