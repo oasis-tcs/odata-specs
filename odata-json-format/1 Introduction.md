@@ -37,7 +37,7 @@ Control information `"@etag": ""` to prevent updates|
 Removed reference to obsolete version of GeoJSON| 
 [456](https://github.com/oasis-tcs/odata-specs/issues/456)
 [Section ##DeletedEntity] | 
-`type` control information, if present, must come immediately after `removed` |
+`type` control information, if present, must come immediately after `removed`| 
 [1985](https://github.com/oasis-tcs/odata-specs/issues/1985)
 [Section ##ActionInvocation]| 
 Allow common expressions in action payloads| 

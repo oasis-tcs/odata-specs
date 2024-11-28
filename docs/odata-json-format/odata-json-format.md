@@ -221,8 +221,7 @@ Section | Feature / Change | Issue
 [Section 4.6.10](#ControlInformationetagodataetag)| Control information `"@etag": ""` to prevent updates| [2021](https://github.com/oasis-tcs/odata-specs/issues/2021)
 [Section 4.6.12](#ControlInformationmediaodatamedia)| `mediaContentType` can be `null`| [536](https://github.com/oasis-tcs/odata-specs/issues/536)
 [Section 7](#StructuralProperty), [Section A.2](#InformativeReferences)| Removed reference to obsolete version of GeoJSON| [456](https://github.com/oasis-tcs/odata-specs/issues/456)
-[Section 15.3](#DeletedEntity) | `type` control information, if present, must come immediately after `removed` |
-[1985](https://github.com/oasis-tcs/odata-specs/issues/1985)
+[Section 15.3](#DeletedEntity) | `type` control information, if present, must come immediately after `removed`| [1985](https://github.com/oasis-tcs/odata-specs/issues/1985)
 [Section 18](#ActionInvocation)| Allow common expressions in action payloads| [341](https://github.com/oasis-tcs/odata-specs/issues/341)
 
 ## <a id="Glossary" href="#Glossary">1.2 Glossary</a>
