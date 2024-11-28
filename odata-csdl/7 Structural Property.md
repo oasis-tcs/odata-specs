@@ -50,6 +50,11 @@ It also MAY contain [annotations](#Annotation).
 super.fromJSON(json, "Property");
 @}
 
+::: funnelweb
+In a `NamedModelElement`, the `$Kind` is set in the constructor and
+need not be set explicitly even if `fromJSON` is not used.
+:::
+
 @$@<Javascript CSDL metamodel@>@{
 class TypedModelElement extends NamedModelElement {
   @<TypedModelElement@>
@@ -65,6 +70,13 @@ class Property extends AbstractProperty {
 
 @$@<Exports@>@{
 Property,
+@}
+
+@$@<Construct without $Kind@>@{
+constructor(parent, name) {
+  super(parent, name);
+  delete this.$Kind;
+}
 @}
 
 @$@<TypedModelElement@>@{

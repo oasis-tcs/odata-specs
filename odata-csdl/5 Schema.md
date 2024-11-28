@@ -48,10 +48,6 @@ The schema is the first of many model elements that appear as members
 with an unqualified name. They are represented as subclasses of `NamedModelElement`
 whose constructor ensures that they are appended to the children list of their parent.
 Note the analogy with the [`ListedModelElement`](#IncludedSchema) constructor.
-
-In a `NamedModelElement`, the `$Kind` is set in the constructor and
-need not be set explicitly even if `fromJSON` is not used. But `Schema` is already
-the first exception to this rule.
 :::
 
 @$@<Javascript CSDL metamodel@>@{
@@ -68,19 +64,15 @@ class NamedModelElement extends ModelElement {
   }
 }
 class Schema extends NamedModelElement {
-  @<Construct without $Kind@>
+  constructor(csdlDocument, name) {
+    super(csdlDocument, name);
+    delete this.$Kind;
+  }
 }
 @}
 
 @$@<Exports@>@{
 Schema,
-@}
-
-@$@<Construct without $Kind@>@{
-constructor(parent, name) {
-  super(parent, name);
-  delete this.$Kind;
-}
 @}
 
 ::: funnelweb
@@ -114,7 +106,9 @@ class QualifiedNamePath extends AbstractPath {
     @<Housekeeping for paths@>
   }
   evaluate() {
-    return this.segments[0].evaluateRelativeTo();
+    const target = this.segments[0].evaluateRelativeTo();
+    @<Housekeeping during path evaluation@>
+    return target;
   }
 }
 @}

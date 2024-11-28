@@ -503,6 +503,13 @@ set value(value) {
 }
 @}
 
+::: funnelweb
+The target of the annotation is passed in the second argument to the constructor
+as a relative path. This allows us to specify a property as annotation target while
+parsing a member like `Description@Core.IsLanguageDependent` even before the `Description`
+property itself has been parsed.
+:::
+
 @$@<If the member is an annotation, deserialize it@>@{
 const m = member.match(/^([^@@]*)@@([^@@]*?)(#([^@@]*?))?$/);
 if (m) {
@@ -2148,6 +2155,10 @@ type `self.A` named in the target expression.
 
 :::
 
+: funnelweb
+##### ##subsubsubsubsec Path Evaluation in CSDL metamodel
+:
+
 ::: funnelweb
 We want to evaluate all paths that appear in a `CSDLDocument` and populate
 their `target`s, but can do so only after these targets have been parsed, whether they occur
@@ -2157,6 +2168,9 @@ the process, the `finish` method that accomplishes that involves some juggling w
 
 `csdlDocuments` is a map from a document's URI to the `CSDLDocument` instance. By
 maintaining this, we need not resolve any document URI more than once.
+
+The schemas of all referenced CSDL documents are mapped into the `schemas` property
+of the current CSDL document, which is also shared with all referenced ones.
 :::
 
 @$@<Javascript CSDL metamodel@>@{
@@ -2167,12 +2181,16 @@ const csdlDocuments = new Map();
 #uri;
 #finish;
 @<Internal property@>@(finished@,@)
-constructor(uri) {
+@<Internal property@>@(schemas@,@)
+constructor(uri, schemas) {
   super();
   this.#uri = uri || "";
+  this.#schemas = schemas;
 }
 finish() {
   if (!this.#finish) {
+    this.#schemas ||= new CSDLDocument();
+    Object.assign(this.schemas.children, this.children);
     @<Make this.#finish a promise that resolves when all paths have been evaluated@>
     const references = [];
     for (const uri in this.$Reference)
@@ -2233,7 +2251,7 @@ async resolve() {
       this.uri,
       (csdl = new Promise(
         async function (resolve, reject) {
-          const csdl = new CSDLDocument(this.uri);
+          const csdl = new CSDLDocument(this.uri, this.csdlDocument.schemas);
           csdl.fromJSON(await (await fetch(this.uri)).json());
           resolve(csdl);
         }.bind(this),
@@ -2295,7 +2313,6 @@ no `targetingPaths`.
 :::
 
 @$@<Housekeeping during path evaluation@>@{
-if (!target) throw new InvalidPathError(this);
 if (this.csdlDocument.paths) target.targetingPaths?.add(this);
 @}
 
@@ -2343,10 +2360,10 @@ class PathExpression extends ModelElement {
 The following method performs a callback for the annotation of each `ValuePath` in the
 [`targetingPaths`](#PathEvaluation) of a model element and returns true if any callback
 returns true. This can be used to detect currency properties with an expression like
-`p.annotates(anno => anno.term.target === Measures.ISOCurrency)`.
+`p.isAnnotation(anno => anno.term.target === Measures.ISOCurrency)`.
 
 @$@<ModelElement@>@{
-annotates(callback) {
+isAnnotation(callback) {
   for (const p of this.targetingPaths) {
     const anno = p.parent.annotation;
     if (anno && callback(anno)) return true;
