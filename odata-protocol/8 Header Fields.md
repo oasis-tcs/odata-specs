@@ -27,7 +27,7 @@ ignored. Custom format parameters MUST NOT start with `odata` and
 services MUST NOT require generic OData consumers to understand custom
 format parameters in order to correctly interpret the payload.
 
-See [OData-JSON](#ODataJSON) for format-specific details about format
+See [#OData-JSON#HeaderContentType] for format-specific details about format
 parameters within the `Content-Type` header.
 
 ### ##subsubsec Header `Content-Encoding`
@@ -838,7 +838,7 @@ HTTP/2).
 
 The value of this trailing header is a standard OData error response
 according to the OData response format, encoded suitably for transport
-in a header, see e.g. [OData-JSON](#ODataJSON).
+in a header, see e.g. [#OData-JSON#InStreamError].
 
 ### ##subsubsec Header `Preference-Applied`
 

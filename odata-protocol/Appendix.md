@@ -19,10 +19,11 @@ See link in "[Related work](#RelatedWork)" section on cover page.
 _OData Extension for Data Aggregation Version 4.02._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### [OData-CSDL]{id=ODataCSDL}
+###### [OData-CSDLJSON]{id=ODataCSDL}
 _OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
+###### [OData-CSDLXML]{id=ODataCSDLXML}
 _OData Common Schema Definition Language (CSDL) XML Representation Version 4.02._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 

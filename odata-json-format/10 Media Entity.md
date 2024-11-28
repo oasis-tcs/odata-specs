@@ -34,7 +34,7 @@ object.
 
 A single-valued property or operation response that has the
 `null` value does not have a representation; see
-[OData-Protocol](#ODataProtocol).
+[#OData-Protocol#ResponseCode204NoContent].
 
 A property or operation response that is of a primitive type is
 represented as an object with a name/value pair whose name is
@@ -194,7 +194,7 @@ Example ##ex:
 
 # ##sec Entity Reference
 
-An entity reference (see [OData-Protocol](#ODataProtocol)) MAY take the
+An entity reference (see [#OData-Protocol#EntityIdsandEntityReferences]) MAY take the
 place of an entity in a JSON payload, based on the client request. It
 is serialized as a JSON object that MUST contain the [id](#ControlInformationidodataid) of the referenced
 entity and MAY contain the [`type`](#ControlInformationtypeodatatype)
