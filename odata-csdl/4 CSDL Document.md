@@ -368,9 +368,6 @@ as follows:
     }
   return result;
 }
-unalias(namespace) {
-  return this.#findSchema(namespace, (schema) => schema.name);
-}
 byQualifiedName(namespace, name) {
   return this.#findSchema(namespace, (schema) => schema.children[name]);
 }
@@ -427,10 +424,7 @@ class ListedModelElement extends ModelElement {
   }
 }
 class Include extends ListedModelElement {
-  @<Internal property@>@(schema@,@)
-  set schema(schema) {
-    this.#schema = schema;
-  }
+  @<Internal property with setter@>@(schema@)
   constructor(reference) {
     super(reference, "$Include");
   }
@@ -439,6 +433,13 @@ class Include extends ListedModelElement {
 
 @$@<Exports@>@{
 Include,
+@}
+
+@$@<Internal property with setter@>@(@1@)@{
+@<Internal property@>@(@1@,@)
+set @1(@1) {
+  this.#@1 = @1;
+}
 @}
 
 ::: {.varjson .example}

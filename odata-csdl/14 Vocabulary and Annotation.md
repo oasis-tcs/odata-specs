@@ -466,7 +466,7 @@ as a path, whose target is then the annotation target.
 @<Internal property@>@(target@,@)
 @<Internal property@>@(term@,@)
 @<Internal property@>@(qualifier@,@)
-@<Internal value property@>
+@<Internal property with setter@>@(value@)
 constructor(host, target, term, qualifier) {
   super(host);
   this.#target = target;
@@ -488,18 +488,6 @@ fromJSON(json) {
 }
 toJSON() {
   return this.value.toJSON?.() || this.value;
-}
-@}
-
-::: funnelweb
-The `Annotation` class and many classes in the following sections have an
-internal `value` property with a setter.
-:::
-
-@$@<Internal value property@>@{
-@<Internal property@>@(value@,@)
-set value(value) {
-  this.#value = value;
 }
 @}
 
@@ -540,18 +528,18 @@ static annotationsFromJSON(host, prefix, json) {
     if (member.startsWith(prefix + "@@")) {
       const target = member.substring(prefix.length);
       const m = target.match(/^@@([^@@]*?)(#([^@@]*?))?$/);
-      if (m) {
-        const anno = new Annotation(
-          host,
-          new RelativePath(host, "", host, "target"),
-          m[1],
-          m[3]
-        );
-        anno.fromJSON(json[member]);
+    if (m) {
+      const anno = new Annotation(
+        host,
+        new RelativePath(host, "", host, "target"),
+        m[1],
+        m[3]
+      );
+      anno.fromJSON(json[member]);
         Annotation.annotationsFromJSON(anno, prefix + target, json);
         host[target] = anno;
-      }
     }
+  }
 }
 @}
 
@@ -1522,14 +1510,11 @@ and `$Type` as `attribute`.
 :::
 
 @$@<AbstractPath@>@{
-@<Internal property@>@(segments@,@)
+@<Internal property with setter@>@(segments@)
 @<Internal property@>@(attribute@,@)
 constructor(host, attribute) {
   super(host);
   this.#attribute = attribute;
-}
-set segments(segments) {
-  this.#segments = segments;
 }
 toString() {
   return this.attribute || super.toString();
@@ -2364,7 +2349,7 @@ returns true. This can be used to detect currency properties with an expression 
 
 @$@<ModelElement@>@{
 isAnnotation(callback) {
-  for (const p of this.targetingPaths) {
+  for (const p of this.targetingPaths) if (p.attribute === "$Path") {
     const anno = p.parent.annotation;
     if (anno && callback(anno)) return true;
   }
@@ -3470,7 +3455,7 @@ item expression within the collection expression.
 
 @$@<Javascript CSDL metamodel@>@{
 class Collection extends ModelElement {
-  @<Internal value property@>
+  @<Internal property with setter@>@(value@)
   @<Dynamic expression@>
   @<Collection@>
 }
@@ -3949,7 +3934,7 @@ class Record extends ModelElement {
   @<Record@>
 }
 class PropertyValue extends NamedModelElement {
-  @<Internal value property@>
+  @<Internal property with setter@>@(value@)
   @<Dynamic expression@>
   @<PropertyValue@>
 }

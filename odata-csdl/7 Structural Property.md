@@ -704,19 +704,19 @@ constructor(parent, sub, name) {
 
 @$@<Javascript CSDL metamodel@>@{
 class ReferentialConstraint extends NamedSubElement {
-  @<Internal property@>@(dependent@,@)
-  @<Internal property@>@(principal@,@)
+  @<Internal property with setter@>@(dependent@)
+  @<Internal property with setter@>@(principal@)
   constructor(navigationProperty, prop) {
     super(navigationProperty, "$ReferentialConstraint", prop);
   }
   fromJSON(json) {
-    this.#dependent = new RelativePath(
+    this.dependent = new RelativePath(
       this,
       this.name,
       this.parent.parent,
       "$ReferentialConstraint.Dependent"
     );
-    this.#principal = new RelativePath(
+    this.principal = new RelativePath(
       this,
       json[this.name],
       this.parent,

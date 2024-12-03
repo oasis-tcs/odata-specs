@@ -534,19 +534,19 @@ for (const prop in json.$NavigationPropertyBinding)
 
 @$@<Javascript CSDL metamodel@>@{
 class NavigationPropertyBinding extends NamedSubElement {
-  @<Internal property@>@(navigationProperty@,@);
-  @<Internal property@>@(entitySet@,@);
+  @<Internal property with setter@>@(navigationProperty@);
+  @<Internal property with setter@>@(entitySet@);
   constructor(entitySetOrSingleton, prop) {
     super(entitySetOrSingleton, "$NavigationPropertyBinding", prop);
   }
   fromJSON(json) {
-    this.#navigationProperty = new RelativePath(
+    this.navigationProperty = new RelativePath(
       this,
       this.name,
       @<Relative to entity set or singleton@>,
       "$NavigationPropertyBinding"
     );
-    this.#entitySet = new RelativePath(
+    this.entitySet = new RelativePath(
       this,
       json[this.name],
       @<Absolute or relative to this entity container@>,

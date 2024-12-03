@@ -45,6 +45,15 @@ this.#namespace = segment.substring(0, i);
 this.#name = segment.substring(i + 1);
 @}
 
+@$@<CSDLDocument@>@{
+unalias(qname) {
+  const i = qname.lastIndexOf(".");
+  const namespace = qname.substring(0, i);
+  const name = qname.substring(i + 1);
+  return this.#findSchema(namespace, (schema) => schema.name) + "." + name;
+}
+@}
+
 For built-in [primitive types](#PrimitiveTypes): the name of the type,
 prefixed with `Edm` followed by a dot.
 
