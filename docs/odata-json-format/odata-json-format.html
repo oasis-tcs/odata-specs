@@ -389,23 +389,32 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/1928">1928</a></td>
 </tr>
 <tr class="odd">
+<td><a href="#ControlInformationetagodataetag">Section 4.6.10</a></td>
+<td>Control information <code>"@etag": ""</code> to prevent updates</td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/2021">2021</a></td>
+</tr>
+<tr class="even">
 <td><a href="#ControlInformationmediaodatamedia">Section 4.6.12</a></td>
 <td><code>mediaContentType</code> can be <code>null</code></td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/536">536</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#StructuralProperty">Section 7</a>, <a href="#InformativeReferences">Section A.2</a></td>
 <td>Removed reference to obsolete version of GeoJSON</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/456">456</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#DeletedEntity">Section 15.3</a></td>
 <td><code>type</code> control information, if present, must come immediately after <code>removed</code></td>
-<td></td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/1985">1985</a></td>
+</tr>
+<tr class="odd">
+<td><a href="#ActionInvocation">Section 18</a></td>
+<td>Allow common expressions in action payloads</td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/341">341</a></td>
 </tr>
 </tbody>
 </table>
-<p><a href="https://github.com/oasis-tcs/odata-specs/issues/1985">1985</a> <a href="#ActionInvocation">Section 18</a>| Allow common expressions in action payloads| <a href="https://github.com/oasis-tcs/odata-specs/issues/341">341</a></p>
 </details>
 <details open><summary>
 <h2 id="12-glossary"><a id="Glossary" href="#Glossary">1.2 Glossary</a></h2>
@@ -778,7 +787,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <h3 id="4610-control-information-etag-odataetag"><a id="ControlInformationetagodataetag" href="#ControlInformationetagodataetag">4.6.10 Control Information: <code>etag</code> (<code>odata.etag</code>)</a></h3>
 </summary>
 <p>The <code>etag</code> control information MAY be applied to an <a href="#Entity">entity</a> or collection in a response. The value of the control information is an entity tag (ETag) which is an opaque string value that can be used in a subsequent request to determine if the value of the entity or collection has changed.</p>
-<p>For details on how ETags are used, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UseofETagsforAvoidingUpdateConflicts">OData-Protocol, section 11.4.1.1</a>.</p>
+<p>For details on how ETags are used, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UseofETagsforAvoidingUpdateConflicts">OData-Protocol, section 11.4.1.1</a>. The special value <code>"@etag": "*"</code> is equivalent to the header <code>If-Match: *</code>, and the special value <code>"@etag": ""</code> is equivalent to the header <code>If-None-Match: *</code>, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UpdateaCollectionofEntities">OData-Protocol, section 11.4.12</a>.</p>
 <p>The <code>etag</code> control information is ignored in request payloads for single entities and not written in responses if <a href="#metadatanoneodatametadatanone"><code>metadata=none</code></a> is requested.</p>
 </details>
 <details open><summary>
