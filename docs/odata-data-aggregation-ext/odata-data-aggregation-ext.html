@@ -1981,7 +1981,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <ul>
 <li>If <span class="math inline">\(u\)</span> has a subtype of the type addressed by <span class="math inline">\(p\)</span> and <span class="math inline">\(q\)</span> is only declared on that subtype, let <span class="math inline">\(p&#39;=p/p&#39;&#39;/q\)</span> where <span class="math inline">\(p&#39;&#39;\)</span> is a type-cast to the subtype, otherwise let <span class="math inline">\(p&#39;=p/q\)</span>.</li>
 <li>If <span class="math inline">\(p&#39;\)</span> occurs in <span class="math inline">\(G\)</span>, let <span class="math inline">\(v[q]=u[q]\)</span>.</li>
-<li>Otherwise, if <span class="math inline">\(p&#39;\)</span> is a prefix of a path in <span class="math inline">\(G\)</span>, let <span class="math inline">\(v[q]=s_G(u[q],p&#39;)\)</span>.</li>
+<li>Otherwise, if <span class="math inline">\(p&#39;\)</span> is a prefix of a path in <span class="math inline">\(G\)</span> and <span class="math inline">\(u[q]\)</span> has a structured type, let <span class="math inline">\(v[q]=s_G(u[q],p&#39;)\)</span>.</li>
 </ul></li>
 <li>Return <span class="math inline">\(v\)</span>.</li>
 </ul></li>
