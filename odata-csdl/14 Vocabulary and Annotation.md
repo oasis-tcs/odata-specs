@@ -499,75 +499,105 @@ property itself has been parsed.
 :::
 
 @$@<If the member is an annotation, deserialize it@>@{
-const m = member.match(/^([^@@]*)@@([^@@]*?)(#([^@@]*?))?$/);
-if (m) {
-  const anno = new Annotation(
-    this,
-    new RelativePath(this, m[1] || "", this, "target"),
-    m[2],
-    m[4]
-  );
-  anno.fromJSON(json[member]);
-  Annotation.annotationsFromJSON(anno, anno.termcast, json);
-  if (m[1]) {
-    annotations[m[1]] ||= {};
-    annotations[m[1]][anno.termcast] = anno;
-  } else this[member] = anno;
-}
+if (this.annotationFromJSON(json, member, json[member]))
+  hasAnnotations = true;
 @}
 
-::: funnelweb
-Annotations can again host annotations, which appear next to
-them in the containing JSON object with the same prefix. The targets of
-such annotations are represented as empty paths relative to the hosting annotation.
-:::
-
-@$@<Annotation@>@{
-static annotationsFromJSON(host, prefix, json) {
-  for (const member in json)
-    if (member.startsWith(prefix + "@@")) {
-      const target = member.substring(prefix.length);
-      const m = target.match(/^@@([^@@]*?)(#([^@@]*?))?$/);
-    if (m) {
-      const anno = new Annotation(
-        host,
-        new RelativePath(host, "", host, "target"),
-        m[1],
-        m[3]
-      );
-      anno.fromJSON(json[member]);
-        Annotation.annotationsFromJSON(anno, prefix + target, json);
-        host[target] = anno;
-    }
-  }
+@$@<ModelElement@>@{
+@<Internal property@>@(annotations@,= {}@)
+finishAnnotations() {
+  this.#annotations = undefined;
+}
+annotationFromJSON(json, member, value) {
+  const m = member.match(/^([^@@]*)(@@.*)?@@([^@@]*?)(#([^@@]*?))?$/);
+  if (m) {
+    const path = m[1] || "";
+    const anno = new Annotation(
+      this,
+      new RelativePath(this, path, this, "target"),
+      m[3],
+      m[5]
+    );
+    anno.fromJSON(value);
+    this.annotations[path] ||= {};
+    this.annotations[path][`${m[2] || ""}@@${m[3]}${m[5] ? "#" + m[5] : ""}`] = anno;
+    return true;
+  } else return false;
 }
 @}
 
 ::: funnelweb
 A `NamedSubElement` can also be host of annotations that also appear next to their target
-prefixed with the target's name followed by `@`. (That's the reason we made `annotationsFromJSON`
-a static function with `host` as first argument.)
+prefixed with the target's name followed by `@`.
 :::
 
 @$@<NamedSubElement@>@{
 fromJSON(json) {
-  Annotation.annotationsFromJSON(this, this.name, json);
+  let hasAnnotations = false;
+  for (const member in json)
+    if (member.startsWith(this.name + "@@"))
+      if (this.annotationFromJSON(
+        json,
+        member.substring(this.name.length),
+        json[member]
+      ))
+        hasAnnotations = true;
+  @<Housekeeping for annotations@>
 }
 @}
 
 ::: funnelweb
-An `Annotation` that targets a model element becomes its child even if in JSON
-it appears next to its target rather than nested (for example, an
-[enumeration type member](#EnumerationTypeMember)).
+So far we collect all `Annotation`s of a model element in the `annotations` property
+where an `Annotation` that targets another annotation appears next to its target.
+Eventually, we want such an annotation to be a child of its target, but determining the target involves
+unaliasing the annotation terms, which can be done only after the entire CSDL document
+and all included schemas have been parsed. Only at this point (cf. [section ##PathEvaluationinCSDLmetamodel])
+can we replace the `annotations` properties with nested model elements.
 :::
 
-@$@<Inject the deserialized annotations@>@{
-for (const member in annotations)
-  for (const a in annotations[member]) {
-    const target = this[member] || this.children[member];
-    if (typeof target === "object") target[a] = annotations[member][a];
-    else this[member + a] = annotations[member][a];
+@$@<CSDLDocument@>@{
+@<Internal property@>@(annotationTargets@,= []@)
+@}
+
+@$@<Housekeeping for annotations@>@{
+if (hasAnnotations) this.csdlDocument.annotationTargets.push(this);
+@}
+
+@$@<Embed annotations in their target@>@{
+for (const target of this.annotationTargets) {
+  for (const path in target.annotations) {
+    const t = path ? target.children[path] : target;
+    for (const member in target.annotations[path])
+    if (!/@@.*@@/.test(member))
+      t.nestAnnotations(
+        target.annotations[path],
+        member,
+        target.annotations[path][member]
+      );
   }
+  target.finishAnnotations();
+}
+this.#annotationTargets = undefined;
+@}
+
+@$@<ModelElement@>@{
+nestAnnotations(annos, member, anno) {
+  const termcast = member.replace(/(?<=@@).*?(?=#|$)/, function(m) {
+    return this.csdlDocument.unalias(m);
+  }.bind(this));
+  this[termcast] = anno;
+  for (const mem in annos) {
+    const m = mem.replace(/(?<=@@).*?(?=#|@@|$)/g, function(m) {
+      return this.csdlDocument.unalias(m);
+    }.bind(this));
+    if (m.startsWith(termcast + "@@"))
+      this[termcast].nestAnnotations(
+        annos,
+        m.substring(termcast.length),
+        annos[mem]
+      );
+  }
+}
 @}
 
 ::: funnelweb
@@ -1719,10 +1749,17 @@ case segment.startsWith("@@"):
   return new TermCastSegment(this, segment);
 @}
 
+::: funnelweb
+Evaluating a `TermCastSegment` involves unaliasing the annotation term.
+:::
+
 @$@<Javascript CSDL metamodel@>@{
 class TermCastSegment extends Segment {
   evaluateRelativeTo(modelElement) {
-    return modelElement[this.segment];
+    const termcast = this.segment.replace(/(?<=@@).*?(?=#|$)/, function(m) {
+      return this.path.csdlDocument.unalias(m);
+    }.bind(this));
+    return modelElement[termcast];
   }
 }
 @}
@@ -2182,6 +2219,7 @@ finish() {
       references.push(this.$Reference[uri].resolve());
     Promise.all(references).then(
       async function (uris) {
+        @<Embed annotations in their target@>
         @<Evaluate all paths that appear in this CSDL document@>
         @<Resolve this.#finish after all referenced CSDL documents are finished@>
       }.bind(this)

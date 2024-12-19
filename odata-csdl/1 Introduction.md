@@ -201,7 +201,7 @@ member of the current instance.
 
 @$@<ModelElement@>@{
 fromJSON(json, defaultKind) {
-  const annotations = {};
+  let hasAnnotations = false;
   for (const member in json)
     if (!this[member]) {
       @<If the member is an annotation, deserialize it@>
@@ -219,7 +219,7 @@ fromJSON(json, defaultKind) {
         }
       } else @<String, number or Boolean values in fromJSON@>
     }
-  @<Inject the deserialized annotations@>
+  @<Housekeeping for annotations@>
 }
 @}
 
