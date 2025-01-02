@@ -474,20 +474,27 @@ constructor(host, target, term, qualifier) {
   this.#qualifier = qualifier;
 }
 fromJSON(json) {
+  this.value = this.dynamicExprFromJSON(json);
+}
+toJSON() {
+  return this.value.toJSON?.() || this.value;
+}
+@}
+
+@$@<ModelElement@>@{
+dynamicExprFromJSON(json) {
   if (typeof json === "object") {
+    let value;
     dynamic: {
       for (const dynamicExpr in json)
         switch (dynamicExpr) {
           @<Cases for dynamic expressions@>
-          default:
         }
       @<Cases for dynamic expressions without a $-member@>
     }
-    this.value.fromJSON(json);
-  } else this.value = json;
-}
-toJSON() {
-  return this.value.toJSON?.() || this.value;
+    value.fromJSON(json);
+    return value;
+  } else return json;
 }
 @}
 
@@ -499,8 +506,7 @@ property itself has been parsed.
 :::
 
 @$@<If the member is an annotation, deserialize it@>@{
-if (this.annotationFromJSON(json, member, json[member]))
-  hasAnnotations = true;
+if (this.annotationFromJSON(json, member, json[member])) hasAnnotations = true;
 @}
 
 @$@<ModelElement@>@{
@@ -568,12 +574,12 @@ for (const target of this.annotationTargets) {
   for (const path in target.annotations) {
     const t = path ? target.children[path] : target;
     for (const member in target.annotations[path])
-    if (!/@@.*@@/.test(member))
-      t.nestAnnotations(
-        target.annotations[path],
-        member,
-        target.annotations[path][member]
-      );
+      if (!/@@.*@@/.test(member))
+        t.nestAnnotations(
+          target.annotations[path],
+          member,
+          target.annotations[path][member]
+        );
   }
   target.finishAnnotations();
 }
@@ -1756,9 +1762,12 @@ Evaluating a `TermCastSegment` involves unaliasing the annotation term.
 @$@<Javascript CSDL metamodel@>@{
 class TermCastSegment extends Segment {
   evaluateRelativeTo(modelElement) {
-    const termcast = this.segment.replace(/(?<=@@).*?(?=#|$)/, function(m) {
-      return this.path.csdlDocument.unalias(m);
-    }.bind(this));
+    const termcast = this.segment.replace(
+      /(?<=@@).*?(?=#|$)/,
+      function (m) {
+        return this.path.csdlDocument.unalias(m);
+      }.bind(this)
+    );
     return modelElement[termcast];
   }
 }
@@ -2678,7 +2687,7 @@ Path,
 
 @$@<Cases for dynamic expressions@>@{
 case "$Path":
-  this.value = new Path(this, json[dynamicExpr]);
+  value = new Path(this, json[dynamicExpr]);
   break dynamic;
 @}
 
@@ -2776,6 +2785,38 @@ or `$In`.
 
 They MAY contain [annotations](#Annotation).
 :::
+
+@$@<Javascript CSDL metamodel@>@{
+class BinaryExpression extends ModelElement {
+  @<Internal property@>@(left@,@)
+  @<Internal property@>@(right@,@)
+  @<Dynamic expression@>
+  fromJSON(json) {
+    this.#left = this.dynamicExprFromJSON(json[0]);
+    this.#right = this.dynamicExprFromJSON(json[1]);
+  }
+  toJSON() {
+    return [this.#left, this.#right];
+  }
+}
+@}
+
+@$@<Cases for dynamic expressions@>@{
+case "$And":
+case "$Or":
+  value = new closure[dynamicExpr.substring(1)](this).fromJSON(json[dynamicExpr]);
+  break dynamic;
+@}
+
+@$@<Javascript CSDL metamodel@>@{
+class And extends BinaryExpression {}
+class Or extends BinaryExpression {}
+@}
+
+@$@<Exports@>@{
+And,
+Or,
+@}
 
 ::: {.varjson .example}
 Example ##ex_disambiguate:
@@ -3505,12 +3546,7 @@ Collection,
 
 @$@<Collection@>@{
 fromJSON(json) {
-  const value = [];
-  for (const item of json) {
-    Annotation.prototype.fromJSON.call(this, item);
-    value.push(this.value);
-  }
-  this.value = value;
+  this.value = json.map((item) => this.dynamicExprFromJSON(item));
 }
 toJSON() {
   return this.value.map((item) => item.toJSON?.() || item);
@@ -3524,7 +3560,7 @@ objects, respectively.
 :::
 
 @$@<Cases for dynamic expressions without a $-member@>@{
-this.value = new (json instanceof Array ? Collection : Record)(this);
+value = new (json instanceof Array ? Collection : Record)(this);
 @}
 
 ::: {.varjson .example}
