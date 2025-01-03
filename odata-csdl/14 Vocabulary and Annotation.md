@@ -489,6 +489,7 @@ dynamicExprFromJSON(json) {
       for (const dynamicExpr in json)
         switch (dynamicExpr) {
           @<Cases for dynamic expressions@>
+          default:
         }
       @<Cases for dynamic expressions without a $-member@>
     }
@@ -586,7 +587,7 @@ for (const target of this.annotationTargets) {
 this.#annotationTargets = undefined;
 @}
 
-@$@<ModelElement@>@{
+@$@<ModelElement@>@{@!{"trailingComma": "all"}
 nestAnnotations(annos, member, anno) {
   const termcast = member.replace(
     /(?<=@@).*?(?=#|$)/,
@@ -619,10 +620,10 @@ becomes its sibling when they are serialized.
 
 @$@<ModelElement@>@{
 annotationsOfAnnotations(json, prefix) {
-  for (const anno in this)
-    if (anno.startsWith("@@")) {
-      this[anno].annotationsOfAnnotations(json, prefix + anno);
-      if (prefix) json[prefix + anno] = this[anno];
+  for (const member in this)
+    if (member.startsWith("@@")) {
+      this[member].annotationsOfAnnotations(json, prefix + member);
+      if (prefix) json[prefix + member] = this[member];
     }
 }
 @}
@@ -1761,7 +1762,7 @@ case segment.startsWith("@@"):
 Evaluating a `TermCastSegment` involves unaliasing the annotation term.
 :::
 
-@$@<Javascript CSDL metamodel@>@{
+@$@<Javascript CSDL metamodel@>@{@!{"trailingComma": "all"}
 class TermCastSegment extends Segment {
   evaluateRelativeTo(modelElement) {
     const termcast = this.segment.replace(
