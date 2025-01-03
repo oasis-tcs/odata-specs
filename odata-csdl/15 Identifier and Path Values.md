@@ -54,6 +54,12 @@ unalias(qname) {
 }
 @}
 
+@$@<Unalias the qualified term name@>@(@1@)@{
+function (m) {
+  return @1.csdlDocument.unalias(m);
+}.bind(this)
+@}
+
 For built-in [primitive types](#PrimitiveTypes): the name of the type,
 prefixed with `Edm` followed by a dot.
 

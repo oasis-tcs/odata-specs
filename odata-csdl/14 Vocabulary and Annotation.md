@@ -569,7 +569,7 @@ can we replace the `annotations` properties with nested model elements.
 if (hasAnnotations) this.csdlDocument.annotationTargets.push(this);
 @}
 
-@$@<Embed annotations in their target@>@{
+@$@<Embed all annotations in their targets@>@{
 for (const target of this.annotationTargets) {
   for (const path in target.annotations) {
     const t = path ? target.children[path] : target;
@@ -588,14 +588,16 @@ this.#annotationTargets = undefined;
 
 @$@<ModelElement@>@{
 nestAnnotations(annos, member, anno) {
-  const termcast = member.replace(/(?<=@@).*?(?=#|$)/, function(m) {
-    return this.csdlDocument.unalias(m);
-  }.bind(this));
+  const termcast = member.replace(
+    /(?<=@@).*?(?=#|$)/,
+    @<Unalias the qualified term name@>@(this@)
+  );
   this[termcast] = anno;
   for (const mem in annos) {
-    const m = mem.replace(/(?<=@@).*?(?=#|@@|$)/g, function(m) {
-      return this.csdlDocument.unalias(m);
-    }.bind(this));
+    const m = mem.replace(
+      /(?<=@@).*?(?=#|@@|$)/g,
+      @<Unalias the qualified term name@>@(this@)
+    );
     if (m.startsWith(termcast + "@@"))
       this[termcast].nestAnnotations(
         annos,
@@ -1764,9 +1766,7 @@ class TermCastSegment extends Segment {
   evaluateRelativeTo(modelElement) {
     const termcast = this.segment.replace(
       /(?<=@@).*?(?=#|$)/,
-      function (m) {
-        return this.path.csdlDocument.unalias(m);
-      }.bind(this)
+      @<Unalias the qualified term name@>@(this.path@)
     );
     return modelElement[termcast];
   }
@@ -2228,7 +2228,7 @@ finish() {
       references.push(this.$Reference[uri].resolve());
     Promise.all(references).then(
       async function (uris) {
-        @<Embed annotations in their target@>
+        @<Embed all annotations in their targets@>
         @<Evaluate all paths that appear in this CSDL document@>
         @<Resolve this.#finish after all referenced CSDL documents are finished@>
       }.bind(this)
