@@ -474,14 +474,14 @@ constructor(host, target, term, qualifier) {
   this.#qualifier = qualifier;
 }
 fromJSON(json) {
-  this.value = this.dynamicExprFromJSON(json);
+  this.value = DynamicExpression.prototype.dynamicExprFromJSON.call(this, json);
 }
 toJSON() {
   return this.value.toJSON?.() || this.value;
 }
 @}
 
-@$@<ModelElement@>@{
+@$@<DynamicExpression@>@{
 dynamicExprFromJSON(json) {
   if (typeof json === "object") {
     let value;
@@ -586,6 +586,12 @@ for (const target of this.annotationTargets) {
 }
 this.#annotationTargets = undefined;
 @}
+
+::: funnelweb
+The first regular expression in the following code matches the term name of a single
+annotation whereas the second matches all term names in a member that describes an
+annotation of an annotation (of an ...).
+:::
 
 @$@<ModelElement@>@{@!{"trailingComma": "all"}
 nestAnnotations(annos, member, anno) {
@@ -1968,7 +1974,7 @@ whose `host` is the `host` of the annotation that contains it. (The getter for
 `annotation` is analogous to the getter for [`csdlDocument`](#DocumentObject).)
 :::
 
-@$@<Dynamic expression@>@{
+@$@<DynamicExpression@>@{
 get annotation() {
   return this.parent.annotation;
 }
@@ -2380,12 +2386,14 @@ class ValuePath extends RelativePath {
     return anno.host.evaluationStart(anno);
   }
 }
-class PathExpression extends ModelElement {
+class DynamicExpression extends ModelElement {
+  @<DynamicExpression@>
+}
+class PathExpression extends DynamicExpression {
   constructor(parent, path) {
     super(parent);
     this.$Path = new ValuePath(this, path);
   }
-  @<Dynamic expression@>
 }
 @}
 
@@ -2788,10 +2796,9 @@ They MAY contain [annotations](#Annotation).
 :::
 
 @$@<Javascript CSDL metamodel@>@{
-class BinaryExpression extends ModelElement {
+class BinaryExpression extends DynamicExpression {
   @<Internal property@>@(left@,@)
   @<Internal property@>@(right@,@)
-  @<Dynamic expression@>
   fromJSON(json) {
     this.#left = this.dynamicExprFromJSON(json[0]);
     this.#right = this.dynamicExprFromJSON(json[1]);
@@ -3534,9 +3541,8 @@ item expression within the collection expression.
 :::
 
 @$@<Javascript CSDL metamodel@>@{
-class Collection extends ModelElement {
+class Collection extends DynamicExpression {
   @<Internal property with setter@>@(value@)
-  @<Dynamic expression@>
   @<Collection@>
 }
 @}
@@ -4004,13 +4010,11 @@ Annotations for record members are prefixed with the member name.
 :::
 
 @$@<Javascript CSDL metamodel@>@{
-class Record extends ModelElement {
-  @<Dynamic expression@>
+class Record extends DynamicExpression {
   @<Record@>
 }
 class PropertyValue extends NamedModelElement {
   @<Internal property with setter@>@(value@)
-  @<Dynamic expression@>
   @<PropertyValue@>
 }
 @}
@@ -4027,6 +4031,9 @@ fromJSON(json) {
 @}
 
 @$@<PropertyValue@>@{
+get annotation() {
+  return this.parent.annotation;
+}
 fromJSON(json) {
   Annotation.prototype.fromJSON.call(this, json);
 }
