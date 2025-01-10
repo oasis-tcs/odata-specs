@@ -329,11 +329,24 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
 This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 -->
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------
+
 <!-- These source files can be used to produce the JSON variant or the XML variant,
      by using either new Number("...", "json") or new Number("...", "xml").
      Lines between the next and the closing : belong to the JSON variant only. -->
-
--------
 
 # <a id="JSONRepresentation" href="#JSONRepresentation">2 JSON Representation</a>
 
@@ -959,6 +972,14 @@ made with an `OData-MaxVersion` header with a value of `4.0`.
 The value of `$EntityContainer` is the namespace-qualified name of the entity container of that service. This is the only place where a model element MUST be referenced with its namespace-qualified name and use of the alias-qualified name is not allowed.
 :::
 
+
+
+
+
+
+
+
+
 ::: {.varjson .example}
 Example 7:
 ```json
@@ -969,6 +990,11 @@ Example 7:
 }
 ```
 :::
+
+
+
+
+
 
 <!-- Lines from here to the closing ::: belong to the XML variant only. -->
 
@@ -1014,6 +1040,11 @@ The reference object MAY contain the members
 [annotations](#Annotation).
 :::
 
+
+
+
+
+
 ::: {.varjson .example}
 Example 8: references to other CSDL documents
 ```json
@@ -1046,6 +1077,7 @@ The included schemas are identified via their [namespace](#Namespace).
 The same namespace MUST NOT be included more than once, even if it is
 declared in more than one referenced document.
 
+
 When including a schema, a [simple identifier](#SimpleIdentifier) value
 MAY be specified as an alias for the schema that is used in qualified
 names instead of the namespace. For example, an alias of `display` might
@@ -1066,8 +1098,11 @@ into a document MUST have different aliases, and aliases MUST differ
 from the namespaces of all schemas defined within or included into a
 document.
 
+
+
 The alias MUST NOT be one of the reserved values `Edm`, `odata`,
 `System`, or `Transient`.
+
 
 An alias is only valid within the document in which it is declared; a
 referencing document may define its own aliases for included schemas.
@@ -1090,6 +1125,10 @@ included schema.
 The value of `$Alias` is a string containing the alias for the included
 schema.
 :::
+
+
+
+
 
 ::: {.varjson .example}
 Example 9: references to entity models containing definitions of
@@ -1141,6 +1180,7 @@ Annotations are selectively included by specifying the
 to inspect the referenced document if none of the term namespaces is of
 interest for the consumer.
 
+
 In addition, the [qualifier](#Qualifier) of annotations to be included
 MAY be specified. For instance, a service author might want to supply a
 different set of annotations for various device form factors. If a
@@ -1188,6 +1228,8 @@ The value of `$Qualifier` is a simple identifier.
 
 The value of `$TargetNamespace` is a namespace.
 :::
+
+
 
 ::: {.varjson .example}
 Example 10: reference documents that contain annotations
@@ -1282,6 +1324,16 @@ types](#EnumerationType), [type definitions](#TypeDefinition),
 The schema object MAY also contain [annotations](#Annotation) that apply
 to the schema itself.
 :::
+
+
+
+
+
+
+
+
+
+
 
 
 ## <a id="Alias" href="#Alias">5.1 Alias</a>
@@ -1401,6 +1453,9 @@ properties](#StructuralProperty) and [navigation
 properties](#NavigationProperty) as well as [annotations](#Annotation).
 :::
 
+
+
+
 ::: {.varjson .example}
 Example <a id="entitytype" href="#entitytype">13</a>: a simple entity type
 ```json
@@ -1439,6 +1494,8 @@ base type.
 
 The value of `$BaseType` is the qualified name of the base type.
 :::
+
+
 
 ::: {.varjson .example}
 Example 14: a derived entity type based on the previous example
@@ -1626,6 +1683,10 @@ member whose name is the key alias and whose value is a string
 containing the path to the property.
 :::
 
+
+
+
+
 ::: {.varjson .example}
 Example 15: entity type with a simple key
 ```json
@@ -1763,6 +1824,12 @@ It MAY contain the members [`$Type`](#Type), [`$Collection`](#Type),
 It also MAY contain [annotations](#Annotation).
 :::
 
+
+
+
+
+
+
 ::: {.varjson .example}
 Example 20: complex type with two properties `Dimension` and `Length`
 ```json
@@ -1819,6 +1886,9 @@ present with the literal value `true`.
 Absence of the `$Type` member means the type is `Edm.String`. This
 member SHOULD be omitted for string properties to reduce document size.
 :::
+
+
+
 
 ::: {.varjson .example}
 Example 21: property `Units` that can have zero or more strings as its
@@ -1917,6 +1987,9 @@ MAY contain the members [`$Collection`](#NavigationPropertyType),
 
 It also MAY contain [annotations](#Annotation).
 :::
+
+
+
 
 ::: {.varjson .example}
 Example 22: the `Product` entity type has a navigation property to a
@@ -2029,6 +2102,7 @@ derived complex types, but MUST NOT traverse any navigation properties.
 The type of the partner navigation property MUST be the declaring entity
 type of the current navigation property or one of its parent entity
 types.
+
 
 If the partner navigation property is single-valued, it MUST lead back
 to the source entity from all related entities. If the partner
@@ -2171,6 +2245,16 @@ It also MAY contain [annotations](#Annotation). These are prefixed with
 the path of the dependent property of the annotated referential
 constraint.
 :::
+
+
+
+
+
+
+
+
+
+
 
 ::: {.varjson .example}
 Example 23: the category must exist for a product in that category to
@@ -2444,6 +2528,9 @@ enumeration type members](#EnumerationTypeMember).
 The enumeration type object MAY contain [annotations](#Annotation).
 :::
 
+
+
+
 ::: {.varjson .example}
 Example 26: a simple flags-enabled enumeration
 ```json
@@ -2554,6 +2641,13 @@ Annotations for enumeration members are prefixed with the enumeration
 member name.
 :::
 
+
+
+
+
+
+
+
 ::: {.varjson .example}
 Example 28: `FirstClass` has a value of 0, `TwoDay` a value of 1, and
 `Overnight` a value of 2.
@@ -2607,6 +2701,8 @@ members [`$MaxLength`](#MaxLength), [`$Unicode`](#Unicode),
 [`$Precision`](#Precision), [`$Scale`](#Scale), and [`$SRID`](#SRID),
 and it MAY contain [annotations](#Annotation).
 :::
+
+
 
 ::: {.varjson .example}
 Example 29:
@@ -2723,6 +2819,12 @@ It MAY contain the members
 :::
 
 
+
+
+
+
+
+
 ## <a id="Function" href="#Function">12.3 Function</a>
 
 Functions are service-defined operations that MUST NOT have observable
@@ -2788,6 +2890,8 @@ and it MAY contain [annotations](#Annotation).
 :::
 
 
+
+
 ## <a id="BoundorUnboundActionorFunctionOverloads" href="#BoundorUnboundActionorFunctionOverloads">12.5 Bound or Unbound Action or Function Overloads</a>
 
 An action or function overload MAY indicate that it is bound. If not
@@ -2837,6 +2941,7 @@ entity type that should be returned from the type cast.
 The value of `$EntitySetPath` is a string containing the entity set
 path.
 :::
+
 
 
 ## <a id="ComposableFunction" href="#ComposableFunction">12.7 Composable Function</a>
@@ -2907,6 +3012,10 @@ function MAY return a single `null` value. The value `false` means that
 the action or function will never return a `null` value and instead will
 fail with an error response if it cannot compute a result.
 :::
+
+
+
+
 
 
 ### <a id="AnnotationCoreIsDelta.13.8" href="#AnnotationCoreIsDelta.13.8">Annotation `Core.IsDelta`</a>
@@ -2984,6 +3093,10 @@ collection that MAY be empty. In this case `$Nullable` applies to items
 of the collection and specifies whether the collection MAY contain
 `null` values.
 :::
+
+
+
+
 
 
 ### <a id="AnnotationCoreOptionalParameter.14.5" href="#AnnotationCoreOptionalParameter.14.5">Annotation `Core.OptionalParameter`</a>
@@ -3125,6 +3238,9 @@ imports](#ActionImport), and [function imports](#FunctionImport), as
 well as [annotations](#Annotation).
 :::
 
+
+
+
 ::: {.varjson .example}
 Example 33: An entity container aggregates entity sets, singletons,
 action imports, and function imports.
@@ -3211,6 +3327,7 @@ entity container located in `SomeOtherSchema`
 
 
 
+
 ## <a id="EntitySet" href="#EntitySet">13.2 Entity Set</a>
 
 Entity sets are top-level collection-valued resources.
@@ -3257,6 +3374,9 @@ The value of `$Type` is the qualified name of an entity type.
 The value of `$IncludeInServiceDocument` is one of the Boolean literals
 `true` or `false`. Absence of the member means `true`.
 :::
+
+
+
 
 
 ## <a id="Singleton" href="#Singleton">13.3 Singleton</a>
@@ -3377,6 +3497,13 @@ the target is in the same entity container, the target MUST NOT be
 prefixed with the qualified entity container name.
 :::
 
+
+
+
+
+
+
+
 ::: {.varjson .example}
 Example 35: for an entity set in the same container as the enclosing
 entity set `Categories`
@@ -3467,6 +3594,9 @@ entity set in a different entity container.
 :::
 
 
+
+
+
 ## <a id="FunctionImport" href="#FunctionImport">13.6 Function Import</a>
 
 Function imports sets are top-level resources.
@@ -3520,6 +3650,8 @@ entity set in a different entity container.
 The value of `$IncludeInServiceDocument` is one of the Boolean literals
 `true` or `false`. Absence of the member means `false`.
 :::
+
+
 
 
 
@@ -3692,6 +3824,9 @@ CSDL JSON documents MUST always specify an explicit value.
 :::
 
 
+
+
+
 ### <a id="SpecializedTerm" href="#SpecializedTerm">14.1.1 Specialized Term</a>
 
 A term MAY specialize another term in scope by specifying it as its base
@@ -3706,6 +3841,7 @@ reached.
 
 The value of `$BaseTerm` is the qualified name of the base term.
 :::
+
 
 
 ### <a id="Applicability" href="#Applicability">14.1.2 Applicability</a>
@@ -3819,6 +3955,25 @@ represented as a member whose name consists of the annotation name
 followed by the qualified name of a term, optionally followed by a hash
 (`#`) and a [qualifier](#Qualifier).
 :::
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ::: {.varjson .example}
 Example 40: term `Measures.ISOCurrency`, once applied with a constant
@@ -3943,6 +4098,7 @@ External targeting is possible for properties and navigation
 properties of singletons or entities in a particular entity set. These
 annotations override annotations on the properties or navigation
 properties targeted via the declaring structured type.
+
 
 ## <a id="ConstantExpression" href="#ConstantExpression">14.3 Constant Expression</a>
 
@@ -4272,10 +4428,22 @@ from the path expression syntax of URLs, see [OData-URL, section 5.1.1.15](https
 A path MUST be composed of zero or more path segments joined together by
 forward slashes (`/`).
 
+
+
+
+
+
+
+
+
+
+
 Paths starting with a forward slash (`/`) are absolute paths, and the
 first path segment MUST be the qualified name of a model element, e.g.
 an entity container. The remaining path after the second forward slash
 is interpreted relative to that model element.
+
+
 
 ::: example
 Example 60: absolute path to an entity set
@@ -4286,6 +4454,12 @@ Example 60: absolute path to an entity set
 
 Paths not starting with a forward slash are interpreted relative to the
 annotation target, following the rules specified in [section 14.4.1.2](#PathEvaluation).
+
+
+
+
+
+
 
 ::: example
 Example 61: relative path to a property
@@ -4299,6 +4473,7 @@ If a path segment is a [qualified name](#QualifiedName), it represents a
 in scope. If the type or instance identified by the preceding path part
 cannot be cast to the specified type, the path expression evaluates to
 the null value.
+
 
 ::: example
 Example 62: type-cast segment
@@ -4325,6 +4500,9 @@ properties:
 -   `odata.mediaContentType`
 -   `odata.mediaEtag`
 
+
+
+
 ::: example
 Example 63: term-cast segments
 ```
@@ -4340,6 +4518,14 @@ segments can traverse multiple CSDL documents. The document containing
 the path expression only needs to reference the next traversed document
 to bring the navigation target type into scope, and each traversed
 document in turn needs to reference only its next document.
+
+
+
+
+
+
+
+
 
 A model path MAY contain any number of segments representing
 collection-valued structural or navigation properties. The result of the
@@ -4451,6 +4637,12 @@ unless that target is another annotation or a model element (collection,
 record or property value) directly or indirectly embedded within another
 annotation, in which case the host is the host of that other annotation.
 
+
+
+
+
+
+
 If the value of an annotation is expressed dynamically with a path
 expression, the path evaluation rules for this expression depend upon the
 model element by which the annotation is hosted.
@@ -4475,6 +4667,8 @@ property of the type, a [type cast](#TypeCast), or a [term cast](#TermCast).
 For annotations hosted by an action, action import, function, function
 import, parameter, or return type, the first segment of the path MUST be the
 name of a parameter of the action or function or `$ReturnType`.
+
+
 
 For annotations hosted by a structural or navigation property, the path
 evaluation rules additionally depend upon how the annotation target is
@@ -4506,6 +4700,7 @@ specified, as follows:
    the outermost type, and the first segment of a non-empty path MUST be a
    structural or navigation property of the outermost type, a [type cast](#TypeCast),
    or a [term cast](#TermCast).
+
 
 ::: example
 Example 69: Annotations hosted by property `A2` in various modes
@@ -4588,6 +4783,36 @@ type `self.A` named in the target expression.
 
 :::
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #### <a id="AnnotationPath" href="#AnnotationPath">14.4.1.3 Annotation Path</a>
 
 The annotation path expression provides a value for terms or term
@@ -4609,6 +4834,9 @@ annotation path that ends in a term cast with one of the listed terms.
 Annotation path expressions are represented as a string containing a
 path.
 :::
+
+
+
 
 ::: {.varjson .example}
 Example 70:
@@ -4637,6 +4865,8 @@ the instance(s) identified by the path.
 Model element path expressions are represented as a string containing a
 path.
 :::
+
+
 
 ::: {.varjson .example}
 Example 71:
@@ -4682,6 +4912,8 @@ Example 72:
 
 
 
+
+
 #### <a id="PropertyPath" href="#PropertyPath">14.4.1.6 Property Path</a>
 
 The property path expression provides a value for terms or term
@@ -4701,6 +4933,8 @@ identified by the path.
 ::: {.varjson .rep}
 Property path expressions are represented as a string containing a path.
 :::
+
+
 
 ::: {.varjson .example}
 Example 73:
@@ -4734,6 +4968,9 @@ instances identified by the path.
 Path expressions are represented as an object with a single member
 `$Path` whose value is a string containing a path.
 :::
+
+
+
 
 ::: {.varjson .example}
 Example 74:
@@ -4805,6 +5042,10 @@ or `$In`.
 
 They MAY contain [annotations](#Annotation).
 :::
+
+
+
+
 
 ::: {.varjson .example}
 Example <a id="disambiguate" href="#disambiguate">75</a>:
@@ -5278,6 +5519,11 @@ Collection expressions are represented as arrays with one array item per
 item expression within the collection expression.
 :::
 
+
+
+
+
+
 ::: {.varjson .example}
 Example 82:
 ```json
@@ -5565,6 +5811,10 @@ It MAY contain [annotations](#Annotation) for itself and its members.
 Annotations for record members are prefixed with the member name.
 :::
 
+
+
+
+
 ::: {.varjson .example}
 Example 90: this annotation "morphs" the entity type from [example 13](#entitytype) into
 a structured type with two structural properties `GivenName` and
@@ -5706,6 +5956,9 @@ For model elements that are direct children of a schema: the namespace
 or alias of the schema that defines the model element, followed by a dot
 and the name of the model element, see rule `qualifiedTypeName` in
 [OData‑ABNF](#ODataABNF).
+
+
+
 
 For built-in [primitive types](#PrimitiveTypes): the name of the type,
 prefixed with `Edm` followed by a dot.
@@ -6309,6 +6562,7 @@ https://openui5.hana.ondemand.com/topic/87aac894a40640f89920d7b2a414499b.
   - [`$Null`](#Null.21.27)
   - [`$UrlRef`](#UrlRef.21.28)
 :::
+
 
 -------
 

@@ -2368,6 +2368,18 @@ InvalidPathError,
 @}
 
 ::: funnelweb
+After all paths have been evaluated, we can create adhoc paths and evaluate them
+in order to address an element in the metamodel.
+:::
+
+@$@<ModelElement@>@{
+evalPath(path) {
+  if (!this.csdlDocument.paths)
+    return new RelativePath(this, path, this).evaluate();
+}
+@}
+
+::: funnelweb
 The types of path in the following sections are derived from a
 common superclass `PathExpression`.
 
@@ -2390,10 +2402,14 @@ class DynamicExpression extends ModelElement {
   @<DynamicExpression@>
 }
 class PathExpression extends DynamicExpression {
-  constructor(parent, path) {
-    super(parent);
-    this.$Path = new ValuePath(this, path);
-  }
+  @<PathExpression@>
+}
+@}
+
+@$@<PathExpression@>@{
+constructor(parent, path) {
+  super(parent);
+  this.$Path = new ValuePath(this, path);
 }
 @}
 
@@ -2410,6 +2426,29 @@ isAnnotation(callback) {
     if (anno && callback(anno)) return true;
   }
 }
+@}
+
+::: funnelweb
+Dynamic expressions can be evaluated in Javascript if a callback function is provided that
+resolves the paths that appear in it. The simplest such callback function is
+`PathCallback.bind(obj)` if `obj` is a Javascript object representing a structured
+instance.
+:::
+
+@$@<PathExpression@>@{
+evalExpr(callback) {
+  return callback(this.$Path.toJSON());
+}
+@}
+
+@$@<Javascript CSDL metamodel@>@{
+function PathCallback(path) {
+  return this[path];
+}
+@}
+
+@$@<Exports@>@{
+PathCallback,
 @}
 
 #### ##subsubsubsec Annotation Path
@@ -2797,14 +2836,14 @@ They MAY contain [annotations](#Annotation).
 
 @$@<Javascript CSDL metamodel@>@{
 class BinaryExpression extends DynamicExpression {
-  @<Internal property@>@(left@,@)
-  @<Internal property@>@(right@,@)
+  @<Internal property with setter@>@(left@)
+  @<Internal property with setter@>@(right@)
   fromJSON(json) {
-    this.#left = this.dynamicExprFromJSON(json[0]);
-    this.#right = this.dynamicExprFromJSON(json[1]);
+    this.left = this.dynamicExprFromJSON(json[0]);
+    this.right = this.dynamicExprFromJSON(json[1]);
   }
   toJSON() {
-    return [this.#left, this.#right];
+    return [this.left, this.right];
   }
 }
 @}
@@ -2817,8 +2856,16 @@ case "$Or":
 @}
 
 @$@<Javascript CSDL metamodel@>@{
-class And extends BinaryExpression {}
-class Or extends BinaryExpression {}
+class And extends BinaryExpression {
+  evalExpr(callback) {
+    return this.left.evalExpr(callback) && this.right.evalExpr(callback);
+  }
+}
+class Or extends BinaryExpression {
+  evalExpr(callback) {
+    return this.left.evalExpr(callback) || this.right.evalExpr(callback);
+  }
+}
 @}
 
 @$@<Exports@>@{
