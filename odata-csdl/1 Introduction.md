@@ -49,6 +49,8 @@ All children of `edm:EntityContainer` are optional|
 [Section ##Target]| 
 External targeting of bound action/function overloads via container or structured type| 
 [393](https://github.com/oasis-tcs/odata-specs/issues/393)
+[Section ##ActionandFunction] | Actions and functions can take, and return, delta payloads | [348](https://github.com/oasis-tcs/odata-specs/issues/348)
+[Section ##ReturnType] | Returned collections of entities may contain `null` values | [1983](https://github.com/oasis-tcs/odata-specs/issues/1983)
 [Section ##GeoValues] | Constant Geo values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
 [Section ##StreamValues] | Constant Stream values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
 [Section ##PathEvaluation]| 
@@ -57,6 +59,7 @@ New path evaluation rules for annotations targeting annotations and external tar
 [Section ##IfThenElse]| 
 Nested `If` without else part in collections| 
 [326](https://github.com/oasis-tcs/odata-specs/issues/326)
+[Section ##SimpleIdentifier] | Prefer identifiers consisting only of latin letters, the underscore, and decimal numbers | [375](https://github.com/oasis-tcs/odata-specs/issues/375)
 [Section ##Conformance] | Additional conformance clauses for version 4.02 |
 
 ## ##subsec Glossary
@@ -69,7 +72,7 @@ Nested `If` without else part in collections|
 
 ### ##subsubsec Document Conventions
 
-Keywords defined by this specification use `this  monospaced  font`.
+Keywords defined by this specification use `this monospaced font`.
 
 Some sections of this specification are illustrated with non-normative examples.
 
@@ -528,8 +531,7 @@ parameter or return type of an [action](#Action) or
 `Edm.Stream`, or a type definition whose
 underlying type is `Edm.Stream`, cannot be used in collections.
 
-Some of these types allow facets, defined in section
-"[Type Facets](#TypeFacets)".
+Some of these types allow facets, defined in [section ##TypeFacets].
 
 Representation of primitive type values within a URL is defined by the rule `primitiveLiteral` in [OData-ABNF](#ODataABNF).
 Representation within request and response bodies is format specific.
@@ -562,7 +564,7 @@ length.
 
 The value of `$MaxLength` is a positive integer.
 
-Note: [OData-CSDL-XML](#ODataCSDL) defines a symbolic
+Note: [#OData-CSDLXML#MaxLength] defines a symbolic
 value `max` that is only allowed in OData 4.0 responses. This symbolic
 value is not allowed in CDSL JSON documents at all. Services MAY instead
 specify the concrete maximum length supported for the type by the
@@ -891,7 +893,7 @@ be used anywhere a corresponding concrete type can be used, except:
 
 as the type of a primitive term, or the type of a property of a complex
 type (recursively) that is exclusively used as the type of a term. See
-section "[Path Expressions](#PathExpressions)" for details.
+[section ##PathExpressions] for details.
 
 ## ##subsec Annotations
 

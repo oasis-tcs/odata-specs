@@ -386,7 +386,7 @@ Note: structural and navigation properties MAY be returned by the
 service on instances of any structured type, whether or not the type is
 marked as open. Clients MUST always be prepared to deal with additional
 properties on instances of any structured type, see
-[OData-Protocol](#ODataProtocol).
+[#OData-Protocol#DataModel].
 
 ::: {.varjson .rep}
 ### ##subisec `$OpenType`
@@ -413,14 +413,14 @@ entity with one or more properties of type `Edm.Stream` if the
 structured data of the entity is the main topic of interest and the
 stream data is just additional information attached to the structured
 data. For more information on media entities see
-[OData-Protocol](#ODataProtocol).
+[#OData-Protocol#RequestingtheMediaStreamofaMediaEntityusingvalue].
 
 An entity type derived from a media entity type MUST indicate that it is
 also a media entity type.
 
 Media entity types MAY specify a list of acceptable media types using an
 annotation with term
-[`Core.AcceptableMediaTypes`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AcceptableMediaTypes),
+[`Core.AcceptableMediaTypes`]($$$OData-VocCore$$$#AcceptableMediaTypes),
 see [OData-VocCore](#ODataVocCore).
 
 ::: {.varjson .rep}
@@ -480,7 +480,7 @@ on one of these primitive types:
 
 Key property values MAY be language-dependent, but their values MUST be
 unique across all languages and the entity-ids (defined in
-[OData-Protocol](#ODataProtocol)) MUST be language independent.
+[#OData-Protocol#EntityIdsandEntityReferences]) MUST be language independent.
 
 A key property MUST be a non-nullable primitive property of the entity
 type itself, including non-nullable primitive properties of non-nullable

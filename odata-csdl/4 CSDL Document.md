@@ -100,12 +100,12 @@ in a format-specific way.
 A reference MAY be annotated.
 
 The
-[`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
+[`Core.SchemaVersion`]($$$OData-VocCore$$$#SchemaVersion)
 annotation, defined in [OData-VocCore](#ODataVocCore), MAY be used to
 indicate a particular version of the referenced document. If the
-[`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
-annotation is present, the `$schemaversion` system query option, defined
-[OData-Protocol](#ODataProtocol), SHOULD be used when retrieving the
+[`Core.SchemaVersion`]($$$OData-VocCore$$$#SchemaVersion)
+annotation is present, the `$schemaversion` system query option, defined in
+[#OData-Protocol#SystemQueryOptionschemaversion], SHOULD be used when retrieving the
 referenced schema document.
 
 ::: {.varjson .rep}

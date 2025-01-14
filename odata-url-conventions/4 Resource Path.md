@@ -12,7 +12,7 @@ libraries.
 Services that do not follow the resource path conventions for entity
 container children are strongly encouraged to document their resource
 paths by annotating entity container children with the term
-[`Core.ResourcePath`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ResourcePath)
+[`Core.ResourcePath`]($$$OData-VocCore$$$#ResourcePath)
 defined in [OData-VocCore](#ODataVocCore). The annotation value is the
 URL of the annotated resource and may be relative to `xml:base` (if
 present), otherwise the request URL.
@@ -33,7 +33,7 @@ An OData service MAY respond with `301 Moved Permanently` or
 ## ##subsec Addressing the Model for a Service
 
 OData services expose their entity model according to
-[OData-CSDLJSON](#ODataCSDL) or [OData-CSDLXML](#ODataCSDL) at the
+[OData-CSDL](#ODataCSDL) at the
 metadata URL, formed by appending `$metadata` to the [service root
 URL](#ServiceRootURL).
 
@@ -270,8 +270,7 @@ http://host/service/Products(1)
 ### ##subsubsec Canonical URL for Contained Entities
 
 For contained entities (i.e. related via a containment navigation
-property, see [OData-CSDLJSON](#ODataCSDL) or
-[OData-CSDLXML](#ODataCSDL)) the canonical URL is the canonical URL of
+property, see [OData-CSDLJSON](#ODataCSDL)) the canonical URL is the canonical URL of
 the containing entity followed by:
 - A [type-cast segment](#AddressingDerivedTypes) if the navigation
 property is defined on a type derived from the entity type declared for
@@ -333,15 +332,14 @@ http://host/service/$entity?$id=Products(0)
 ```
 :::
 
-The semantics of `$entity` are covered in the [OData-Protocol](#ODataProtocol)
-document.
+The semantics of `$entity` are covered in [#OData-Protocol#ContextURL].
 
 ### ##subsubsec Alternate Keys
 
 In addition to the canonical (primary) key an entity set or entity type
 can specify one or more alternate keys with the
-[`Core.AlternateKeys`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AlternateKeys)
-term (see [OData-VocCore](#ODataVocCore)). 
+[`Core.AlternateKeys`]($$$OData-VocCore$$$#AlternateKeys)
+term (see [OData-VocCore](#ODataVocCore)).
 
 Alternate keys can be used by the client to address entities anywhere the canonical key
 can be used; for example, within entity sets, collection-valued navigation properties,
@@ -452,7 +450,7 @@ such
 2. matches a qualified bound function, bound action, or type name,
 treat it as such
 3. matches an unqualified bound function, bound action, or type name
-defined in a default namespace (see [OData-Protocol](#ODataProtocol)) treat it
+defined in a default namespace (see [#OData-Protocol#DefaultNamespaces]) treat it
 as such
 4. treat as a key value
 
@@ -494,7 +492,7 @@ addressing a collection of references MUST be followed by the system
 query option `$id` in order to identify a single entity reference within
 the collection to be removed. The entity-id specified by `$id` may be
 expressed absolute or relative to the request URL. For details see
-[OData-Protocol](#ODataProtocol).
+[#OData-Protocol#EntityIdsandEntityReferences].
 
 ::: example
 Example ##ex: three ways of unrelating `Categories(1)` and
@@ -515,14 +513,14 @@ DELETE http://host/service/Products(0)/Category/$ref
 ## ##subsec Addressing Operations
 
 The semantic rules for addressing and invoking actions and functions are
-defined in the [OData-Protocol](#ODataProtocol) document.
+defined in [#OData-Protocol#Operations].
 
 Services MAY additionally support the use of the unqualified name of an
 action or function in a URL by defining one or more default namespaces
 through the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) term
+[`Core.DefaultNamespace`]($$$OData-VocCore$$$#DefaultNamespace) term
 defined in [OData-VocCore](#ODataVocCore). For more information on
-default namespaces, see Default Namespaces in [OData-Protocol](#ODataProtocol).
+default namespaces, see [#OData-Protocol#DefaultNamespaces].
 
 ### ##subsubsec Addressing Actions
 
@@ -569,7 +567,7 @@ syntax rule define the grammar for invoking functions, for example to help filte
 and order resources identified by the `resourcePath` of the URL.
 - The `aliasAndValue` syntax rule defines
 the grammar for providing function parameter values using Parameter
-Alias Syntax, see [OData-Protocol](#ODataProtocol).
+Alias Syntax, see [#OData-Protocol#ParameterAliases].
 
 Note: there is no literal representation for `Edm.Stream` values in URLs,
 so it is not possible to pass `Edm.Stream` values to parameters of function imports or
@@ -581,7 +579,7 @@ these MAY contain [path expressions](#PathExpressions), which
 the service evaluates on the binding parameter value.
 
 ::: example
-Example ##ex: An employee's leave requests for the next two weeks
+Example ##ex_funcexpr: An employee's leave requests for the next two weeks
 pending their manager's approval:
 ```
 http://host/service/Employees(23)/self.PendingLeaveRequests(StartDate=@start,
@@ -699,14 +697,14 @@ appended to the collection URL before appending the key segment.
 
 Note: entity sets or collection-valued navigation properties annotated
 with the term
-[`Capabilities.IndexableByKey`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#IndexableByKey)
+[`Capabilities.IndexableByKey`]($$$OData-VocCap$$$#IndexableByKey)
 defined in [OData-VocCap](#ODataVocCap) and a value of `false` do not
 support addressing their members by key.
 
 ## ##subsec Addressing a Member of an Ordered Collection
 
 Collections can be annotated as ordered using the
-[`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered)
+[`Core.Ordered`]($$$OData-VocCore$$$#Ordered)
 term (see [OData-VocCore](#ODataVocCore)). Individual items within an
 ordered collection of primitive or complex types can be addressed by
 appending a segment containing the zero-based ordinal to the URL of the
@@ -744,9 +742,9 @@ the type cast will evaluate to `null`.
 Services MAY additionally support the use of the unqualified name of a
 derived type in a URL by defining one or more default namespaces through
 the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace)
+[`Core.DefaultNamespace`]($$$OData-VocCore$$$#DefaultNamespace)
 term defined in [OData-VocCore](#ODataVocCore). For more information on
-default namespaces, see Default Namespaces in [OData-Protocol](#ODataProtocol).
+default namespaces, see [#OData-Protocol#DefaultNamespaces].
 
 Services MAY also support treating an instance as a type outside of the
 type hierarchy using the same syntax and semantics as when addressing a
@@ -754,7 +752,7 @@ derived type. In this case, the set and values of properties of the
 addressed type may be different than the properties of the source type.
 The set of such possible target types outside of the type hierarchy
 SHOULD be called out using the
-[`Core.MayImplement`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#MayImplement)
+[`Core.MayImplement`]($$$OData-VocCore$$$#MayImplement)
 annotation term, defined in [OData-VocCore](#ODataVocCore).
 
 ::: example
@@ -1013,7 +1011,8 @@ Requests to paths ending in `/$query` MUST use the `POST` verb. Query
 options specified in the request body and query options specified in the
 request URL are processed together.
 
-The request body MUST use a `Content-Type` of `text/plain` or `application/x-www-form-urlencoded`.
+The request body MUST use a `Content-Type` of `text/plain`, `application/x-www-form-urlencoded`,
+or `application/json`.
 
 For `Content-Type: text/plain`, the individual query options MUST be separated by `&`
 and MUST use the same percent-encoding as in URLs (especially: no spaces, tabs, or line breaks allowed)
@@ -1060,4 +1059,56 @@ This POST request would result from submitting the HTML form
 ```
 which encodes spaces and ampersands (and more characters for which encoding is
 optional).
+:::
+
+With `Content-Type: application/json` query options and function parameters are
+encoded in a request body that represents a JSON object. Its members include the
+individual query options. The name of a system query option MUST have the `$` prefix.
+The value MUST be
+* a JSON number for `$top` and `$skip`, and
+* a JSON string without percent-encoding for all other query options.
+
+::: example
+Example ##ex: The same request as in [example ##postquery] can be sent with
+`application/json` encoding using the following payload:
+```json
+POST http://host/service/People/$query
+Content-Type: application/json
+
+{
+  "$filter": "LastName eq 'P&G'",
+  "$select": "FirstName,LastName"
+}
+```
+:::
+
+Members of the JSON object also include parameters
+if the resource path is a function invocation or function import. In this case
+parameters MUST be represented like parameters in an action invocation [#OData-JSON#ActionInvocation],
+and in the resource path parentheses after the function name MUST be omitted.
+
+::: example
+Example ##ex: An employee's top ten leave requests from now to the end of the year
+pending their manager's approval.
+```json
+POST http://host/service/Employees(23)/self.PendingLeaveRequests/$query
+Content-Type: application/json
+
+{
+  "StartDate@expression": "now()",
+  "EndDate": "2024-12-31",
+  "Approver@expression": "Manager",
+  "$top": 10
+}
+```
+
+The previous request looks analogous to a bound function invocation with expressions (like in [example ##funcexpr])
+if it is written using implicit parameter aliases (see [#OData-Protocol#InlineParameterSyntax]).
+```
+GET http://host/service/Employees(23)/self.PendingLeaveRequests
+  ?StartDate=now()
+  &EndDate=2024-12-31
+  &Approver=Manager
+  &$top=10
+```
 :::

@@ -1,7 +1,10 @@
-a:target {
+a:target,
+span:target {
   background-color: yellow;
 }
 
+h6 span[id],
+a[href^="https://docs.oasis-open.org"][href*="#"],
 a[href^="#_"],
 a[href^="#OData"]:not(a[href^="#OData4"]),
 a[href^="#rfc"],
@@ -9,6 +12,8 @@ a[href^="#XML-"] {
   font-weight: bold;
 }
 
+h6 span[id]::before,
+a[href^="https://docs.oasis-open.org"][href*="#"]::before,
 a[href^="#_"]::before,
 a[href^="#OData"]:not(a[href^="#OData4"])::before,
 a[href^="#rfc"]::before,
@@ -17,6 +22,8 @@ a[href^="#XML-"]::before {
   font-weight: bold;
 }
 
+h6 span[id]::after,
+a[href^="https://docs.oasis-open.org"][href*="#"]::after,
 a[href^="#_"]::after,
 a[href^="#OData"]:not(a[href^="#OData4"])::after,
 a[href^="#rfc"]::after,
@@ -149,16 +156,9 @@ table {
 
 p code,
 li code,
-h1 code,
-h2 code,
-h3 code,
-h4 code,
-h5 code,
-h6 code,
 td > code {
-  font-family: MJXZERO, MJXTEX-T;
   font-size: 1em;
-  line-height: 0;
+  font-weight: bold;
 }
 
 .example p code,
@@ -198,13 +198,6 @@ mjx-container[display="true"] {
   margin-left: 40px !important;
 }
 
-/* The following rule enables typewriter single quotes in maths, like $\hbox{\tt{'$Q$'}}$ */
-mjx-c.mjx-c2019::before {
-  content: "\27" !important;
-  padding-right: 0.525em !important;
-  font-family: MJXZERO, MJXTEX-T;
-}
-
 code .er {
   color: unset !important;
   font-weight: unset !important;
@@ -215,6 +208,17 @@ hr:first-of-type {
 }
 
 @media screen {
+  #darkmode {
+    position: fixed;
+    top: 0;
+    right: 0;
+  }
+
+  html.darkmode {
+    background-color: #f2eee8;
+    filter: invert(100%);
+  }
+
   details:not([open]) > summary {
     list-style: disclosure-closed;
   }
@@ -225,6 +229,10 @@ hr:first-of-type {
 }
 
 @media print {
+  #darkmode {
+    display: none;
+  }
+
   details > summary {
     list-style: none;
   }

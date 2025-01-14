@@ -40,7 +40,7 @@ Ralf Handl (ralf.handl@sap.com), [SAP SE](http://www.sap.com/) \
 Michael Pizzo (mikep@microsoft.com), [Microsoft](http://www.microsoft.com/) \
 Heiko Theißen (heiko.theissen@sap.com), [SAP SE](http://www.sap.com/)
 
-#### <a name="RelatedWork">Related work:</a>
+#### [Related work:]{id=RelatedWork}
 This specification is related to:
 * _OData Version 4.02_. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. A multi-part Work Product that includes:
   * _OData Version 4.02 Part 1: Protocol_. Latest stage. https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html
@@ -114,7 +114,7 @@ For complete copyright information please see the full Notices section in an App
 
 -------
 
-# <a name="Introduction" href="#Introduction">1 Introduction</a>
+# <a id="Introduction" href="#Introduction">1 Introduction</a>
 
 OData provides the ability to decorate model elements of a schema and instances of data with descriptive elements called annotations. Annotations can be used to specify additional facts about an element, such as whether it is read-only, or to define a common concept, such as a person or a movie. Annotations consist of a term (the namespace-qualified name of the annotation being applied), a target (the element to which the term is applied), and a value. A set of related annotation terms with a common namespace comprises a Vocabulary. Shared vocabularies provide a powerful extensibility point for OData. Refer to the [OData-Protocol](#ODataProtocol) and [OData-CSDL](#ODataCSDL) specifications for more information on the use of vocabularies.
 
@@ -134,7 +134,7 @@ Section | Feature / Change | Issue
 
 -------
 
-# <a name="CoreVocabulary" href="#CoreVocabulary">2 Core Vocabulary</a>
+# <a id="CoreVocabulary" href="#CoreVocabulary">2 Core Vocabulary</a>
 
 **Namespace: [Org.OData.Core.V1](Org.OData.Core.V1.xml)**
 
@@ -464,7 +464,7 @@ Property|Type|Description
 
 -------
 
-# <a name="CapabilitiesVocabulary" href="#CapabilitiesVocabulary">3 Capabilities Vocabulary</a>
+# <a id="CapabilitiesVocabulary" href="#CapabilitiesVocabulary">3 Capabilities Vocabulary</a>
 
 **Namespace: [Org.OData.Capabilities.V1](Org.OData.Capabilities.V1.xml)**
 
@@ -1178,7 +1178,7 @@ Property|Type|Description
 
 -------
 
-# <a name="MeasuresVocabulary" href="#MeasuresVocabulary">4 Measures Vocabulary</a>
+# <a id="MeasuresVocabulary" href="#MeasuresVocabulary">4 Measures Vocabulary</a>
 
 **Namespace: [Org.OData.Measures.V1](Org.OData.Measures.V1.xml)**
 
@@ -1209,7 +1209,7 @@ Allowed Value|Description
 
 -------
 
-# <a name="ValidationVocabulary" href="#ValidationVocabulary">5 Validation Vocabulary</a>
+# <a id="ValidationVocabulary" href="#ValidationVocabulary">5 Validation Vocabulary</a>
 
 **Namespace: [Org.OData.Validation.V1](Org.OData.Validation.V1.xml)**
 
@@ -1273,7 +1273,7 @@ The qualified name of a type in scope, optionally wrapped in `Collection()` to d
 
 -------
 
-# <a name="AggregationVocabulary" href="#AggregationVocabulary">6 Aggregation Vocabulary</a>
+# <a id="AggregationVocabulary" href="#AggregationVocabulary">6 Aggregation Vocabulary</a>
 
 **Namespace: [Org.OData.Aggregation.V1](Org.OData.Aggregation.V1.xml)**
 
@@ -1556,7 +1556,7 @@ Deprecated since [`NavigationPropertyAggregationCapabilities`](#NavigationProper
 
 -------
 
-# <a name="AuthorizationVocabulary" href="#AuthorizationVocabulary">7 Authorization Vocabulary</a>
+# <a id="AuthorizationVocabulary" href="#AuthorizationVocabulary">7 Authorization Vocabulary</a>
 
 **Namespace: [Org.OData.Authorization.V1](Org.OData.Authorization.V1.xml)**
 
@@ -1724,7 +1724,7 @@ The name of the authorization scheme.
 
 -------
 
-# <a name="JSONVocabulary" href="#JSONVocabulary">8 JSON Vocabulary</a>
+# <a id="JSONVocabulary" href="#JSONVocabulary">8 JSON Vocabulary</a>
 
 **Namespace: [Org.OData.JSON.V1](Org.OData.JSON.V1.xml)**
 
@@ -1745,7 +1745,7 @@ Textual data of media type `application/json`
 
 -------
 
-# <a name="RepeatabilityVocabulary" href="#RepeatabilityVocabulary">9 Repeatability Vocabulary</a>
+# <a id="RepeatabilityVocabulary" href="#RepeatabilityVocabulary">9 Repeatability Vocabulary</a>
 
 **Namespace: [Org.OData.Repeatability.V1](Org.OData.Repeatability.V1.xml)**
 
@@ -1762,7 +1762,7 @@ Term|Type|Description
 
 -------
 
-# <a name="TemporalVocabulary" href="#TemporalVocabulary">10 Temporal Vocabulary</a>
+# <a id="TemporalVocabulary" href="#TemporalVocabulary">10 Temporal Vocabulary</a>
 
 **Namespace: [Org.OData.Temporal.V1](Org.OData.Temporal.V1.xml)**
 
@@ -1913,38 +1913,38 @@ Property|Type|Description
 
 -------
 
-# <a name="References" href="#References">Appendix A. References</a>
+# <a id="References" href="#References">Appendix A. References</a>
 
 This appendix contains the normative and informative references that are used in this document.
 
 While any hyperlinks included in this appendix were valid at the time of publication, OASIS cannot guarantee their long-term validity.
 
-## <a name="NormativeReferences" href="#NormativeReferences">A.1 Normative References</a>
+## <a id="NormativeReferences" href="#NormativeReferences">A.1 Normative References</a>
 
 The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.
 
-###### <a name="ODataProtocol">[OData-Protocol]</a>
+###### [OData-Protocol]{id=ODataProtocol}
 _OData Version 4.02. Part 1: Protocol._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataCSDL">[OData-CSDL]</a>
+###### [OData-CSDL]{id=ODataCSDL}
 _OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
 _OData Common Schema Definition Language (CSDL) XML Representation Version 4.02._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="rfc2119">[RFC2119]</a>
+###### [RFC2119]{id=rfc2119}
 _Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_.
 https://www.rfc-editor.org/info/rfc2119.
 
-###### <a name="rfc8174">[RFC8174]</a>
+###### [RFC8174]{id=rfc8174}
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_.
 https://www.rfc-editor.org/info/rfc8174.
 
-## <a name="NonNormativeReferences" href="#NonNormativeReferences">A.2 Non-Normative References</a>
+## <a id="NonNormativeReferences" href="#NonNormativeReferences">A.2 Non-Normative References</a>
 
-###### <a name="ODataVocabs">[OData-Vocabs]</a>
+###### [OData-Vocabs]{id=ODataVocabs}
 _odata-vocabularies OASIS TC GitHub repository_.
 https://github.com/oasis-tcs/odata-vocabularies.
 
@@ -1958,13 +1958,13 @@ do we have considerations specific to URLs, for example length, encoding, privac
 
 -------
 
-# <a name="Acknowledgments" href="#Acknowledgments">Appendix B. Acknowledgments</a>
+# <a id="Acknowledgments" href="#Acknowledgments">Appendix B. Acknowledgments</a>
 
-## <a name="SpecialThanks" href="#SpecialThanks">B.1 Special Thanks</a>
+## <a id="SpecialThanks" href="#SpecialThanks">B.1 Special Thanks</a>
 
 The contributions of the OASIS OData Technical Committee members, enumerated in [OData-Protocol](#ODataProtocol), are gratefully acknowledged.
 
-## <a name="Participants" href="#Participants">B.2 Participants</a>
+## <a id="Participants" href="#Participants">B.2 Participants</a>
 
 **OData TC Members:**
 
@@ -1983,7 +1983,7 @@ The contributions of the OASIS OData Technical Committee members, enumerated in 
 
 -------
 
-# <a name="RevisionHistory" href="#RevisionHistory">Appendix C. Revision History</a>
+# <a id="RevisionHistory" href="#RevisionHistory">Appendix C. Revision History</a>
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
@@ -1992,7 +1992,7 @@ The contributions of the OASIS OData Technical Committee members, enumerated in 
 
 -------
 
-# <a name="Notices" href="#Notices">Appendix D. Notices</a>
+# <a id="Notices" href="#Notices">Appendix D. Notices</a>
 
 <!-- Required section. Do not modify. -->
 

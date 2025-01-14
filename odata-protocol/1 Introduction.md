@@ -16,7 +16,7 @@ service as well as a set of reserved URL query options.
 The [OData-CSDLJSON](#ODataCSDL) specification defines a JSON
 representation of the entity data model exposed by an OData service.
 
-The [OData-CSDLXML](#ODataCSDL) specification defines an XML
+The [OData-CSDLXML](#ODataCSDLXML) specification defines an XML
 representation of the entity data model exposed by an OData service.
 
 The [OData-JSON](#ODataJSON) document specifies the JSON format of the
@@ -26,19 +26,29 @@ resource representations that are exchanged using OData.
 
 Section | Feature / Change | Issue
 --------|------------------|------
-[Section ##Preferencecontinueonerrorodatacontinueonerror] | Responses that include errors MUST include the Preference-Applied header `with continue-on-error` set to `true` | [1965](https://github.com/oasis-tcs/odata-specs/issues/1965)
+[Section ##Preferencecontinueonerrorodatacontinueonerror] | Responses that include errors MUST include the `Preference-Applied` header with `continue-on-error` set to `true` | [1965](https://github.com/oasis-tcs/odata-specs/issues/1965)
 [Section ##CollectionofEntities]| 
 Context URLs use parentheses-style keys without percent-encoding| 
 [368](https://github.com/oasis-tcs/odata-specs/issues/368)
 [Section ##DataModification]| 
 Response code `204 No Content` after successful data modification if requested response could not be constructed| 
 [443](https://github.com/oasis-tcs/odata-specs/issues/443)
+[Section ##CreateanEntity]| 
+Services can validate non-insertable property values in insert payloads| 
+[356](https://github.com/oasis-tcs/odata-specs/issues/356)
+|Section ##CreateRelatedEntitiesWhenCreatinganEntity] 
+Deep-insert response includes at least the properties present in the request| 
+[363](https://github.com/oasis-tcs/odata-specs/issues/363)
+[Section ##UpdateanEntity]| 
+Services can validate non-updatable property values in update payloads| 
+[356](https://github.com/oasis-tcs/odata-specs/issues/356)
 [Section ##UpsertanEntity]| 
 Upserts to single-valued non-containment navigation properties| 
 [455](https://github.com/oasis-tcs/odata-specs/issues/455)
 [Section ##UpdateaComplexProperty]| 
 Setting a complex property to a different type| 
 [534](https://github.com/oasis-tcs/odata-specs/issues/534)
+[Section ##ReplaceaCollectionofEntities]| Semantics of `continue-on-error` when replacing a collection of entities | [358](https://github.com/oasis-tcs/odata-specs/issues/358)
 [Section ##Conformance] | Allow `400 Bad Request` in addition to `501 Not Implemented` for unsupported functionality| [391](https://github.com/oasis-tcs/odata-specs/issues/391)
 [Section ##InteroperableODataClients] | Encoding of plus character in URLs | [485](https://github.com/oasis-tcs/odata-specs/issues/485)
 
@@ -52,7 +62,7 @@ Setting a complex property to a different type|
 
 ### ##subsubsec Document Conventions
 
-Keywords defined by this specification use `this  monospaced  font`.
+Keywords defined by this specification use `this monospaced font`.
 
 Some sections of this specification are illustrated with non-normative examples.
 
@@ -203,7 +213,7 @@ set.
 An OData *resource* is anything in the model that can be addressed (an
 entity set, entity, property, or operation).
 
-Refer to [OData-CSDLJSON](#ODataCSDL) or [OData-CSDLXML](#ODataCSDL) for
+Refer to [OData-CSDLJSON](#ODataCSDL) or [OData-CSDLXML](#ODataCSDLXML) for
 more information on the OData entity data model.
 
 ## ##subsec Annotations
@@ -262,9 +272,9 @@ of the specification since there is currently no lossless representation
 of an IRI in the [`EntityId`](#HeaderODataEntityId) header.
 
 Services are strongly encouraged to use the canonical URL for an entity
-as defined in [OData-URL](#ODataURL) as its entity-id, but clients cannot assume
+as defined in [#OData-URL#CanonicalURL] as its entity-id, but clients cannot assume
 the entity-id can be used to locate the entity unless the
-[`Core.DereferenceableIDs`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DereferenceableIDs)
+[`Core.DereferenceableIDs`]($$$OData-VocCore$$$#DereferenceableIDs)
 term is applied to the entity container, nor can the client assume any
 semantics from the structure of the entity-id. The canonical resource
 `$entity` provides a general mechanism for
@@ -272,7 +282,7 @@ semantics from the structure of the entity-id. The canonical resource
 
 Services that use the standard URL conventions for entity-ids annotate
 their entity container with the term
-[`Core.ConventionalIDs`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ConventionalIDs),
+[`Core.ConventionalIDs`]($$$OData-VocCore$$$#ConventionalIDs),
 see [OData-VocCore](#ODataVocCore).
 
 *Entity references* refer to an entity using the entity's entity-id.
@@ -289,7 +299,7 @@ The edit URL of a property is the edit URL of the entity with appended
 segment(s) containing the path to the property.
 
 Services are strongly encouraged to use the canonical URL for an entity
-as defined in [OData-URL](#ODataURL) for both the read URL and the edit URL of an
+as defined in [#OData-URL#CanonicalURL] for both the read URL and the edit URL of an
 entity, with a cast segment to the type of the entity appended to the
 canonical URL if the type of the entity is derived from the declared
 type of the entity set. However, clients cannot assume this convention
@@ -301,8 +311,9 @@ one or both of them may differ from convention.
 
 Transient entities are instances of an entity type that are
 dynamically generated on request and only exist within a response payload.
-They do not possess an entity-id or an update URL and consequently cannot be updated.
-A transient entity may have a read URL, which generates a new transient entity using the same algorithm.
+They do not possess an update URL and consequently cannot be updated.
+A transient entity may have a read URL, which generates a new transient entity using the same algorithm,
+and they may have an entity id if a repeated occurrence in a response needs to be replaced with an entity reference.
 
 ## ##subsec Default Namespaces
 
@@ -314,7 +325,7 @@ or between properties and bound functions, actions, or types with the
 same name.
 
 Services MAY define one or more default namespaces through the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) term
+[`Core.DefaultNamespace`]($$$OData-VocCore$$$#DefaultNamespace) term
 defined in [OData-VocCore](#ODataVocCore). Functions, actions and types
 in a default namespace can be referenced in URLs with or without
 namespace or alias qualification.
@@ -364,7 +375,7 @@ of the `OData-Version` and `OData-MaxVersion` header fields is defined
 in [OData-ABNF](#ODataABNF).
 
 Services SHOULD advertise supported versions of OData through the
-[`Core.ODataVersions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ODataVersions)
+[`Core.ODataVersions`]($$$OData-VocCore$$$#ODataVersions)
 term, defined in [OData-VocCore](#ODataVocCore).
 
 This version of the specification defines OData version values `4.0` and
@@ -381,7 +392,7 @@ type of existing properties, adding or removing key properties, or
 reordering action or function parameters, require that a new service
 version is provided at a different service root URL for the new model,
 or that the service version its metadata using the
-[`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
+[`Core.SchemaVersion`]($$$OData-VocCore$$$#SchemaVersion)
 annotation, defined in [OData-VocCore](#ODataVocCore).
 
 Services that version their metadata MUST support version-specific
@@ -407,7 +418,7 @@ import, or function import
 nullable after existing parameters
 - Adding an action or function parameter
 that is annotated with
-[`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter)
+[`Core.OptionalParameter`]($$$OData-VocCore$$$#OptionalParameter)
 after existing parameters
 - Adding a type definition or enumeration
 - Adding a new term
@@ -552,13 +563,12 @@ If the service does not support the requested format, it replies with a
 
 Services SHOULD advertise their supported formats in the metadata
 document by annotating their entity container with the term
-[`Capabilities.SupportedFormats`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#SupportedFormats),
+[`Capabilities.SupportedFormats`]($$$OData-VocCap$$$#SupportedFormats),
 as defined in [OData-VocCap](#ODataVocCap), listing all available
 formats and combinations of supported format parameters.
 
 The media types for the JSON and XML representation of the metadata
-document are described in section "[Metadata Document
-Request](#MetadataDocumentRequest)".
+document are described in [section ##MetadataDocumentRequest].
 
 The format specification [OData-JSON](#ODataJSON) describes the media
 type and the format parameters for non-metadata requests and responses.

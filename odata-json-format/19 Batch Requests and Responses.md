@@ -20,13 +20,13 @@ name/value pairs `atomicityGroup`, `dependsOn`, `if`, `headers`, and `body`.
 
 The value of `id` is a string containing the request
 identifier of the individual request, see
-[OData-Protocol](#ODataProtocol). It MUST NOT be identical to the value
+[#OData-Protocol#IdentifyingIndividualRequests]. It MUST NOT be identical to the value
 of any other request identifier nor any `atomicityGroup`
 within the batch request.
 
 Note: the `id` name/value pair corresponds to the
 `Content-ID` header in the multipart batch format specified
-in [OData-Protocol](#ODataProtocol).
+in [#OData-Protocol#MultipartBatchRequestBody].
 
 The value of `method` is a string that MUST contain one of
 the literals `delete`, `get`, `patch`, `post`, or `put`.
@@ -61,7 +61,7 @@ request, and which MUST satisfy the rule `request-id` in
 operation and MUST either all succeed, or all fail.
 
 Note: the atomicity group is a generalization of the change set in the
-multipart batch format specified in [OData-Protocol](#ODataProtocol).
+multipart batch format specified in [#OData-Protocol#MultipartBatchRequestBody].
 
 The value of `dependsOn` is an array of strings whose values
 MUST be values of either `id` or `atomicityGroup`
@@ -77,7 +77,7 @@ dependent request is not executed and a response with status code of
 
 The `if` member can specify an alternative condition for
 executing the dependent request. Its value MUST be URL expression (see
-[OData-URL](#ODataURL)) that evaluates to a Boolean value.
+[#OData-URL#CommonExpressionSyntax]) that evaluates to a Boolean value.
 The URL expression syntax is extended and additionally allows
 
 - `$<content-id>/$succeeded`
@@ -90,7 +90,7 @@ The URL expression syntax is extended and additionally allows
 Services SHOULD advertise support of the `if` member by
 specifying the property
 `RequestDependencyConditionsSupported` in the
-[`Capabilities.BatchSupport`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#BatchSupport)
+[`Capabilities.BatchSupport`]($$$OData-VocCap$$$#BatchSupport)
 term applied to the entity container, see
 [OData-VocCap](#ODataVocCap). If a service does not
 support request dependencies, the dependent request MUST fail with
@@ -348,7 +348,7 @@ processing the remaining individual requests while waiting for the
 client to fire a `GET` request to the next link.
 
 In a response to a batch request using the multipart format defined in
-[OData-Protocol](#ODataProtocol) the response objects
+[#OData-Protocol#MultipartBatchFormat] the response objects
 MUST appear in the same order as required for multipart batch responses
 because the `Content-ID` header is not required outside of change sets. Response objects
 corresponding to requests that specify a `Content-ID` header MUST contain the
@@ -442,8 +442,7 @@ preference does not automatically cascade down to the individual
 requests within the batch. After successful execution of the batch
 request the response to the batch request is returned in the body of a
 response to an interrogation request against the status monitor resource
-URL, see section "Asynchronous Requests" in
-[OData-Protocol](#ODataProtocol).
+URL, see [#OData-Protocol#AsynchronousRequests].
 
 A service MAY return interim results to an asynchronously executing
 batch. It does this by responding with `200 OK` to a
