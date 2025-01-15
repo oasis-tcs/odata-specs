@@ -448,8 +448,11 @@ using an annotation with term
 [`Capabilities.BatchContinueOnErrorSupported`]($$$OData-VocCap$$$#BatchContinueOnErrorSupported),
 see [OData-VocCap](#ODataVocCap).
 
-The `continue-on-error` preference SHOULD NOT be applied to individual
-requests within a batch.
+The `continue-on-error` preference on a batch request refers to whether individual
+requests within a batch should be executed if others have failed. Whether an
+individual request that represents multiple operations should continue on error can
+instead be expressed through a `continue-on-error` preference on that individual
+request.
 
 Note: The `continue-on-error` preference was named
 `odata.continue-on-error` in OData version 4.0. Services that support
