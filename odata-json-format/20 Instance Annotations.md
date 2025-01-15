@@ -13,7 +13,7 @@ dot (`.`) as part of the name. The part after the "at" sign
 namespace or alias of the schema that defines the term, followed by a
 dot (`.`), followed by the name of the term, optionally
 followed by a hash (`#`) and a qualifier. The namespace or alias MUST be defined in the
-metadata document, see [OData-CSDLJSON](#ODataCSDL) or [OData-CSDLXML](#ODataCSDL)
+metadata document, see [OData-CSDL](#ODataCSDL).
 
 The annotation identifier `odata` is reserved for future
 extensions of the protocol and format. Instance annotations MUST have a
@@ -179,7 +179,7 @@ JSON object in the response.
 Services MAY include the header `OData-Error` as a trailing
 header if supported by the transport protocol (e.g. with HTTP/1.1 and
 chunked transfer encoding, or with HTTP/2), see
-[OData-Protocol](#ODataProtocol).
+[#OData-Protocol#HeaderODataError].
 
 The value of the `OData-Error` trailing header is an OData
 error object as defined in the preceding chapter, represented in a

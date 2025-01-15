@@ -51,7 +51,7 @@ order of objects within an array in JSON responses.
 ## ##subsec URLs in Message Bodies
 
 URLs represented as a string within a JSON payload, including [batch
-requests](#BatchRequest), must follow standard OData encoding rules as defined in [OData-URL](#ODataURL).
+requests](#BatchRequest), must follow standard OData encoding rules as defined in [#OData-URL#URLParsing].
 
 For [relative URLs](#RelativeURLs) this means that colons (`:`) in the path part, especially
 within key values, MUST be percent-encoded to avoid confusion with the
@@ -164,6 +164,8 @@ constraints have to be met:
 
 - If present, the `context` control information MUST be the first
   property in the JSON object.
+- For 4.01 deleted entities, the `removed` control information MUST appear 
+  after `context`, if present, and before any other property or control information.
 - The
   `type` control information, if present, MUST appear next in
   the JSON object.
@@ -210,7 +212,7 @@ stop processing and MUST NOT signal an error.
 ### ##subsubsec Control Information: `context` (`odata.context`)
 
 The `context` control information
-returns the context URL (see [OData-Protocol](#ODataProtocol)) for the
+returns the context URL (see [#OData-Protocol#ContextURL]) for the
 payload. This URL can be absolute or [relative](#RelativeURLs).
 The fragment portion of the context URL MUST NOT be percent-encoded.
 
@@ -224,7 +226,7 @@ entity set cannot be determined from the context URL of
 the collection.
 
 For more information on the format of the context URL, see
-[OData-Protocol](#ODataProtocol).
+[#OData-Protocol#ContextURL].
 
 Request payloads MAY include a context URL as a base URL for [relative
 URLs](#RelativeURLs) in the request payload.
@@ -255,7 +257,7 @@ If no ETag is returned when requesting the metadata document, then the
 service SHOULD NOT set the `metadataEtag` control information
 in any responses.
 
-For details on how ETags are used, see [OData-Protocol](#ODataProtocol).
+For details on how ETags are used, see [#OData-Protocol#UseofETagsforAvoidingUpdateConflicts].
 
 ### ##subsubsec Control Information: `type` (`odata.type`)
 
@@ -276,7 +278,7 @@ The root `type` may be absolute or relative to the root
 If the URI references a metadata document (that is, it's not just a
 fragment), it MAY refer to a specific version of that metadata document
 using the `$schemaversion` system query option
-defined in [OData-Protocol](#ODataProtocol).
+defined in [#OData-Protocol#SystemQueryOptionschemaversion].
 
 For non-built in primitive types, the URI contains the
 namespace-qualified or alias-qualified type, specified as a URI
@@ -285,8 +287,7 @@ fragment is the namespace-qualified or alias-qualified element type
 enclosed in parentheses and prefixed with `Collection`. The
 namespace or alias MUST be defined or the namespace referenced in the
 metadata document of the service, see
-[OData-CSDLJSON](#ODataCSDL) or
-[OData-CSDLXML](#ODataCSDL).
+[OData-CSDL](#ODataCSDL).
 
 The `type` control information MUST appear in requests and in
 responses with [minimal](#metadataminimalodatametadataminimal) or
@@ -328,8 +329,7 @@ The `type` control information can be absent in properties nested in an instance
 In particular, individual primitive values within a collection cannot have `type` control information.
 
 For more information on namespace- and alias-qualified names, see
-[OData-CSDLJSON](#ODataCSDL) or
-[OData-CSDLXML](#ODataCSDL).
+[OData-CSDL](#ODataCSDL).
 
 ::: example
 Example ##ex: entity of type
@@ -376,7 +376,9 @@ is only a subset of the requested collection. It contains a [URL](URLsinMessageB
 allows retrieving the next subset of the requested collection.
 
 This control information can also be applied to [expanded to-many
-navigation properties](#ExpandedNavigationProperty).
+navigation properties](#ExpandedNavigationProperty) and to collections of
+[primitive](#CollectionofPrimitiveValues) or [complex](#CollectionofComplexValues)
+values.
 
 ### ##subsubsec Control Information: `delta` (`odata.delta`)
 
@@ -398,9 +400,9 @@ control information.
 ### ##subsubsec Control Information: `id` (`odata.id`)
 
 The `id` control information contains the entity-id, see
-[OData-Protocol](#ODataProtocol). By convention the entity-id is
+[#OData-Protocol#EntityIdsandEntityReferences]. By convention the entity-id is
 identical to the canonical URL of the entity, as defined in
-[OData-URL](#ODataURL).
+[#OData-URL#CanonicalURL].
 
 The `id` control information MUST appear in responses if
 [`metadata=full`](#metadatafullodatametadatafull)
@@ -420,7 +422,7 @@ if it does not match convention for the localized key values. If the
 `id` is represented, it MAY be a [relative
 URL](#RelativeURLs).
 
-If the entity is transient (see [OData-Protocol](#ODataProtocol)), the
+If the entity is transient (see [#OData-Protocol#TransientEntities]), the
 `id` control information MUST appear in OData 4.0 payloads
 and have the `null` value. In 4.01 or greater payloads transient
 entities need not have the `id` control information, and
@@ -439,10 +441,10 @@ of this specification.
 ### ##subsubsec Control Information: `editLink` and `readLink` (`odata.editLink` and `odata.readLink`)
 
 The `editLink` control information contains
-the edit [URL](URLsinMessageBodies) of the entity; see [OData-Protocol](#ODataProtocol).
+the edit [URL](URLsinMessageBodies) of the entity; see [#OData-Protocol#ReadURLsandEditURLs].
 
 The `readLink` control information contains the read URL of
-the entity or collection; see [OData-Protocol](#ODataProtocol).
+the entity or collection; see [#OData-Protocol#ReadURLsandEditURLs].
 
 The `editLink` and `readLink` control information
 is ignored in request payloads and not written in responses if
@@ -496,7 +498,7 @@ value of the control information is an entity tag (ETag) which is an
 opaque string value that can be used in a subsequent request to
 determine if the value of the entity or collection has changed.
 
-For details on how ETags are used, see [OData-Protocol](#ODataProtocol).
+For details on how ETags are used, see [#OData-Protocol#UseofETagsforAvoidingUpdateConflicts].
 
 The `etag` control information is ignored in request payloads for
 single entities and not written in responses if

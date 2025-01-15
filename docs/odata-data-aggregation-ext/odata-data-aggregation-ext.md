@@ -1463,7 +1463,7 @@ The output set of the `groupby` transformation is constructed in five steps.
    - For each structural or navigation property $q$ of $u$:
      - If $u$ has a subtype of the type addressed by $p$ and $q$ is only declared on that subtype, let $p'=p/p''/q$ where $p''$ is a type-cast to the subtype, otherwise let $p'=p/q$.
      - If $p'$ occurs in $G$, let $v[q]=u[q]$.
-     - Otherwise, if $p'$ is a prefix of a path in $G$, let $v[q]=s_G(u[q],p')$.
+     - Otherwise, if $p'$ is a prefix of a path in $G$ and $u[q]$ has a structured type, let $v[q]=s_G(u[q],p')$.
    - Return $v$.
 2. The input set is split into subsets where two instances are in the same subset if their projections are [the same](#SamenessandOrder). If [representations of the same non-transient entity](#SamenessandOrder) are encountered during the comparison of two projections, the service MUST assign them to one subset with the merged representation if they are complementary and MUST reject the request if they are contradictory.
 3. The set transformations from the second parameter are applied to each subset, resulting in a new set of potentially different structure and cardinality. Associated with each resulting set is the common projection of the instances in the subset from which the resulting set was computed.
@@ -2236,7 +2236,7 @@ The normative ABNF construction rules for this specification are defined in [ODa
 
 OData supports querying related entities through defining navigation properties in the data model. These navigation paths help guide simple consumers in understanding and navigating relationships.
 
-In some cases, however, requests need to span entity sets with no predefined associations. Such requests can be sent to the special resource `$crossjoin` instead of an individual entity set. The cross join of a list of entity sets is the Cartesian product of the listed entity sets, represented as a collection of complex type instances that have a navigation property with cardinality to-one for each participating entity set, and queries across entity sets can be formulated using these navigation properties. See [OData-URL](#ODataURL) for details.
+In some cases, however, requests need to span entity sets with no predefined associations. Such requests can be sent to the special resource `$crossjoin` instead of an individual entity set. The cross join of a list of entity sets is the Cartesian product of the listed entity sets, represented as a collection of complex type instances that have a navigation property with cardinality to-one for each participating entity set, and queries across entity sets can be formulated using these navigation properties. See [OData-URL, section 4.15](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingtheCrossJoinofEntitySets) for details.
 
 Where useful navigations exist it is beneficial to expose those as explicit navigation properties in the model, but the ability to pose queries that span entity sets not related by an association provides a mechanism for advanced consumers to use more flexible join conditions.
 
@@ -2295,7 +2295,7 @@ The following terms are defined in the vocabulary for data aggregation [OData-Vo
 
 ## <a id="AggregationCapabilities" href="#AggregationCapabilities">5.1 Aggregation Capabilities</a>
 
-The term `ApplySupported` can be applied to an entity set, an entity type, or a collection if the target expression of the annotation starts with an entity container (see [example 50](#containerrooted)). It describes the aggregation capabilities of the annotated target. If present, it implies that instances of the annotated target can contain dynamic properties as an effect of `$apply` even if they do not specify the `OpenType` attribute, see [OData-CSDL](#ODataCSDL). The term has a complex type with the following properties:
+The term `ApplySupported` can be applied to an entity set, an entity type, or a collection if the target expression of the annotation starts with an entity container (see [example 50](#containerrooted)). It describes the aggregation capabilities of the annotated target. If present, it implies that instances of the annotated target can contain dynamic properties as an effect of `$apply` even if they do not specify the `OpenType` attribute, see [OData-CSDL, section 6.3](https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#OpenEntityType). The term has a complex type with the following properties:
 - The `Transformations` collection lists all supported set transformations. Allowed values are the names of the standard transformations introduced in sections 3 and 6, and namespace-qualified names identifying a service-defined bindable function. If `Transformations` is omitted the server supports all transformations defined by this specification.
 - The `CustomAggregationMethods` collection lists supported custom aggregation methods. Allowed values are namespace-qualified names identifying service-specific aggregation methods. If omitted, no custom aggregation methods are supported.
 - `Rollup` specifies whether the service supports no rollup, only a single rollup hierarchy, or multiple rollup hierarchies in a [`groupby`](#Transformationgroupby) transformation. If omitted, multiple rollup hierarchies are supported.
@@ -3473,14 +3473,12 @@ results in
     { "ID": "P3", "Name": "Paper",  "Color": "White", "TaxRate": 0.14,
       "Total@type": "Decimal", "Total":  8 },
     { "ID": "P4", "Name": "Pencil", "Color": "Black", "TaxRate": 0.14,
-                                     "Total": null },
+                               "Total": null },
     { "ID": "P1", "Name": "Sugar",  "Color": "White", "TaxRate": 0.06,
       "Total@type": "Decimal", "Total":  4 }
   ]
 }
 ```
-
-The expression `$it/Sales` refers to the sales of the current product. Without `$it`, all sales of all products would be aggregated, because the input collection for the `aggregate` function consists of all products.
 :::
 
 ::: example
@@ -5014,7 +5012,7 @@ https://www.rfc-editor.org/info/rfc8174.
 
 ## <a id="SpecialThanks" href="#SpecialThanks">B.1 Special Thanks</a>
 
-The contributions of the OASIS OData Technical Committee members, enumerated in [OData-Protocol](#ODataProtocol), are gratefully acknowledged.
+The contributions of the OASIS OData Technical Committee members, enumerated in [OData-Protocol, section C.2](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#Participants), are gratefully acknowledged.
 
 ## <a id="Participants" href="#Participants">B.2 Participants</a>
 

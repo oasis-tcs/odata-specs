@@ -441,6 +441,11 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/441">441</a></td>
 </tr>
 <tr class="odd">
+<td><a href="#SystemQueryOptionexpand">Section 5.1.3</a></td>
+<td>Nested query options can only appear once per expand item</td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/2004">2004</a></td>
+</tr>
+<tr class="even">
 <td><a href="#SystemQueryOptionsearch">Section 5.1.8</a></td>
 <td>Allow alternative <code>$search</code> syntax</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/293">293</a></td>
@@ -554,7 +559,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <details open><summary>
 <h1 id="3-service-root-url"><a id="ServiceRootURL" href="#ServiceRootURL">3 Service Root URL</a></h1>
 </summary>
-<p>The service root URL identifies the root of an OData service. A <code>GET</code> request to this URL returns the format-specific service document, see <a href="#ODataJSON">OData-JSON</a>.</p>
+<p>The service root URL identifies the root of an OData service. A <code>GET</code> request to this URL returns the format-specific service document, see <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ServiceDocument">OData-JSON, section 5</a>.</p>
 <p>The service root URL MUST terminate in a forward slash.</p>
 <p>The service document enables simple hypermedia-driven clients to enumerate and explore the resources published by the OData service.</p>
 </details>
@@ -570,7 +575,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <details open><summary>
 <h2 id="41-addressing-the-model-for-a-service"><a id="AddressingtheModelforaService" href="#AddressingtheModelforaService">4.1 Addressing the Model for a Service</a></h2>
 </summary>
-<p>OData services expose their entity model according to <a href="#ODataCSDL">OData-CSDLJSON</a> or <a href="#ODataCSDL">OData-CSDLXML</a> at the metadata URL, formed by appending <code>$metadata</code> to the <a href="#ServiceRootURL">service root URL</a>.</p>
+<p>OData services expose their entity model according to <a href="#ODataCSDL">OData-CSDL</a> at the metadata URL, formed by appending <code>$metadata</code> to the <a href="#ServiceRootURL">service root URL</a>.</p>
 <div class="example">
 <p>Example 5: Metadata document URL</p>
 <pre><code>http://host/service/$metadata</code></pre>
@@ -716,7 +721,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <details open><summary>
 <h3 id="432-canonical-url-for-contained-entities"><a id="CanonicalURLforContainedEntities" href="#CanonicalURLforContainedEntities">4.3.2 Canonical URL for Contained Entities</a></h3>
 </summary>
-<p>For contained entities (i.e. related via a containment navigation property, see <a href="#ODataCSDL">OData-CSDLJSON</a> or <a href="#ODataCSDL">OData-CSDLXML</a>) the canonical URL is the canonical URL of the containing entity followed by:</p>
+<p>For contained entities (i.e. related via a containment navigation property, see <a href="#ODataCSDL">OData-CSDLJSON</a>) the canonical URL is the canonical URL of the containing entity followed by:</p>
 <ul>
 <li>A <a href="#AddressingDerivedTypes">type-cast segment</a> if the navigation property is defined on a type derived from the entity type declared for the entity set,</li>
 <li>A path segment for the containment navigation property, and</li>
@@ -747,7 +752,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>Example 23: request the entity representation for an entity-id</p>
 <pre><code>http://host/service/$entity?$id=Products(0)</code></pre>
 </div>
-<p>The semantics of <code>$entity</code> are covered in the <a href="#ODataProtocol">OData-Protocol</a> document.</p>
+<p>The semantics of <code>$entity</code> are covered in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ContextURL">OData-Protocol, section 10</a>.</p>
 </details>
 <details open><summary>
 <h3 id="435-alternate-keys"><a id="AlternateKeys" href="#AlternateKeys">4.3.5 Alternate Keys</a></h3>
@@ -792,7 +797,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <ol type="1">
 <li>matches a defined OData segment (starting with “<code>$</code>”), treat it as such</li>
 <li>matches a qualified bound function, bound action, or type name, treat it as such</li>
-<li>matches an unqualified bound function, bound action, or type name defined in a default namespace (see <a href="#ODataProtocol">OData-Protocol</a>) treat it as such</li>
+<li>matches an unqualified bound function, bound action, or type name defined in a default namespace (see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#DefaultNamespaces">OData-Protocol, section 4.4</a>) treat it as such</li>
 <li>treat as a key value</li>
 </ol>
 <p>For maximum interoperability, services that support the key-as-segment convention SHOULD also support the canonical <a href="#CanonicalURL">parentheses-style convention</a> for addressing an entity within a collection, otherwise they MUST specify the URL for each returned entity in a response, as specified by the particular format.</p>
@@ -808,7 +813,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>Example 28: URL addressing the references between <code>Categories(1)</code> and <code>Products</code></p>
 <pre><code>http://host/service/Categories(1)/Products/$ref</code></pre>
 </div>
-<p>Resource paths addressing a single related entity reference can be used in <code>DELETE</code> requests to unrelate two entities. In OData 4.01, this includes resource paths that identify an individual entity reference within a related collection by key. In OData 4.0, resource paths addressing a collection of references MUST be followed by the system query option <code>$id</code> in order to identify a single entity reference within the collection to be removed. The entity-id specified by <code>$id</code> may be expressed absolute or relative to the request URL. For details see <a href="#ODataProtocol">OData-Protocol</a>.</p>
+<p>Resource paths addressing a single related entity reference can be used in <code>DELETE</code> requests to unrelate two entities. In OData 4.01, this includes resource paths that identify an individual entity reference within a related collection by key. In OData 4.0, resource paths addressing a collection of references MUST be followed by the system query option <code>$id</code> in order to identify a single entity reference within the collection to be removed. The entity-id specified by <code>$id</code> may be expressed absolute or relative to the request URL. For details see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#EntityIdsandEntityReferences">OData-Protocol, section 4.1</a>.</p>
 <div class="example">
 <p>Example 29: three ways of unrelating <code>Categories(1)</code> and <code>Products(0)</code>; the second option is supported only in OData 4.01</p>
 <pre><code>DELETE http://host/service/Categories(1)/Products/$ref?$id=../../Products(0)</code></pre>
@@ -819,8 +824,8 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <details open><summary>
 <h2 id="45-addressing-operations"><a id="AddressingOperations" href="#AddressingOperations">4.5 Addressing Operations</a></h2>
 </summary>
-<p>The semantic rules for addressing and invoking actions and functions are defined in the <a href="#ODataProtocol">OData-Protocol</a> document.</p>
-<p>Services MAY additionally support the use of the unqualified name of an action or function in a URL by defining one or more default namespaces through the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a> term defined in <a href="#ODataVocCore">OData-VocCore</a>. For more information on default namespaces, see Default Namespaces in <a href="#ODataProtocol">OData-Protocol</a>.</p>
+<p>The semantic rules for addressing and invoking actions and functions are defined in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#Operations">OData-Protocol, section 11.5</a>.</p>
+<p>Services MAY additionally support the use of the unqualified name of an action or function in a URL by defining one or more default namespaces through the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a> term defined in <a href="#ODataVocCore">OData-VocCore</a>. For more information on default namespaces, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#DefaultNamespaces">OData-Protocol, section 4.4</a>.</p>
 <details open><summary>
 <h3 id="451-addressing-actions"><a id="AddressingActions" href="#AddressingActions">4.5.1 Addressing Actions</a></h3>
 </summary>
@@ -840,7 +845,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <li>The bound function call syntax rules <code>boundComplexFunctionCall</code>, <code>boundComplexColFunctionCall</code>, <code>boundEntityFunctionCall</code>, <code>boundEntityColFunctionCall</code>, <code>boundPrimitiveFunctionCall</code> and <code>boundPrimitiveColFunctionCall</code> define the grammar in the <code>resourcePath</code> for addressing and providing parameters for a function that is appended to a <code>resourcePath</code> that identifies some resources that can be used as the binding parameter value when invoking the function.</li>
 <li>The <code>boundOperation</code> syntax rule (which encompasses the bound function call syntax rules), when used by the <code>resourcePath</code> syntax rule, illustrates how a bound function call can be appended to a <code>resourcePath</code>.</li>
 <li>The <code>functionExpr</code> and <code>boundFunctionExpr</code> syntax rules as used by the <code>commonExpr</code> syntax rule define the grammar for invoking functions, for example to help filter and order resources identified by the <code>resourcePath</code> of the URL.</li>
-<li>The <code>aliasAndValue</code> syntax rule defines the grammar for providing function parameter values using Parameter Alias Syntax, see <a href="#ODataProtocol">OData-Protocol</a>.</li>
+<li>The <code>aliasAndValue</code> syntax rule defines the grammar for providing function parameter values using Parameter Alias Syntax, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ParameterAliases">OData-Protocol, section 11.2.6.1.3</a>.</li>
 </ul>
 <p>Note: there is no literal representation for <code>Edm.Stream</code> values in URLs, so it is not possible to pass <code>Edm.Stream</code> values to parameters of function imports or to non-binding parameters of bound functions used in the resource path. Function expressions within query options can use <a href="#PathExpressions">path expressions</a> of type <code>Edm.Stream</code> as values of non-binding function parameters. The aliases can contain <a href="#CommonExpressionSyntax">common expressions</a>. In the case of a bound function these MAY contain <a href="#PathExpressions">path expressions</a>, which the service evaluates on the binding parameter value.</p>
 <div class="example">
@@ -922,7 +927,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </summary>
 <p>Any resource path or path expression identifying a collection of entities or complex type instances can be appended with a <em>type-cast segment</em>, that is a path segment containing the qualified name of a type derived from the declared item type of the collection. The result will be restricted to instances of the derived type and may be empty.</p>
 <p>Any resource path or path expression identifying a single entity or complex type instance can be appended with a type-cast segment containing the qualified name of a type derived from the declared type of the identified resource. If used in a resource path and the identified resource is not an instance of the derived type, the request will result in a <code>404 Not Found</code> response. If used in a path expression, the type cast will evaluate to <code>null</code>.</p>
-<p>Services MAY additionally support the use of the unqualified name of a derived type in a URL by defining one or more default namespaces through the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a> term defined in <a href="#ODataVocCore">OData-VocCore</a>. For more information on default namespaces, see Default Namespaces in <a href="#ODataProtocol">OData-Protocol</a>.</p>
+<p>Services MAY additionally support the use of the unqualified name of a derived type in a URL by defining one or more default namespaces through the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a> term defined in <a href="#ODataVocCore">OData-VocCore</a>. For more information on default namespaces, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#DefaultNamespaces">OData-Protocol, section 4.4</a>.</p>
 <p>Services MAY also support treating an instance as a type outside of the type hierarchy using the same syntax and semantics as when addressing a derived type. In this case, the set and values of properties of the addressed type may be different than the properties of the source type. The set of such possible target types outside of the type hierarchy SHOULD be called out using the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#MayImplement"><code>Core.MayImplement</code></a> annotation term, defined in <a href="#ODataVocCore">OData-VocCore</a>.</p>
 <div class="example">
 <p>Example 37: entity set restricted to <code>VipCustomer</code> instances</p>
@@ -1123,7 +1128,7 @@ Content-Type: application/x-www-form-urlencoded
 <p>System query options SHOULD NOT be applied to a <code>DELETE</code> request.</p>
 <p>An OData service may support some or all of the system query options defined. If a data service does not support a system query option, it MUST reject any request that contains the unsupported option.</p>
 <p>The same system query option, irrespective of casing or whether or not it is prefixed with a <code>$</code>, MUST NOT be specified more than once for any resource.</p>
-<p>The semantics of all system query options are defined in the <a href="#ODataProtocol">OData-Protocol</a> document.</p>
+<p>The semantics of all system query options are defined in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptions">OData-Protocol, section 11.2.1</a>.</p>
 <p>The grammar and syntax rules for system query options are defined in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>Dynamic properties can be used in the same way as declared properties. If they are not defined on an instance, they evaluate to <code>null</code>.</p>
 <details open><summary>
@@ -2055,7 +2060,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>Example 121: Return Employees that have any error messages in the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Messages"><code>Core.Messages</code></a> annotation</p>
 <pre><code>http://host/service/Employees?$filter=@Core.Messages/any(m:m/severity eq &#39;error&#39;)</code></pre>
 </div>
-<p>Services MAY additionally support the use of the unqualified term name by defining one or more default namespaces through the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a> annotation term defined in <a href="#ODataVocCore">OData-VocCore</a>. For more information on default namespaces, see Default Namespaces in <a href="#ODataProtocol">OData-Protocol</a>. This short notation however uses the same name pattern as parameter aliases. If a query option is specified as a <a href="#ParameterAliases">parameter alias</a>, then any occurrence of the parameter alias name in an expression MUST evaluate to the parameter alias value and MUST NOT evaluate to the annotation value of an identical unqualified term name.</p>
+<p>Services MAY additionally support the use of the unqualified term name by defining one or more default namespaces through the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a> annotation term defined in <a href="#ODataVocCore">OData-VocCore</a>. For more information on default namespaces, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#DefaultNamespaces">OData-Protocol, section 4.4</a>. This short notation however uses the same name pattern as parameter aliases. If a query option is specified as a <a href="#ParameterAliases">parameter alias</a>, then any occurrence of the parameter alias name in an expression MUST evaluate to the parameter alias value and MUST NOT evaluate to the annotation value of an identical unqualified term name.</p>
 </details>
 <details open><summary>
 <h4 id="51117-operator-precedence"><a id="OperatorPrecedence" href="#OperatorPrecedence">5.1.1.17 Operator Precedence</a></h4>
@@ -2259,7 +2264,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <pre><code>http://host/service/Customers?$expand=Addresses/Country</code></pre>
 </div>
 <p>A path MUST NOT appear in more than one expand item.</p>
-<p>Query options can be applied to an expanded navigation property by appending a semicolon-separated list of query options, enclosed in parentheses, to the navigation property name. Allowed system query options are <a href="#SystemQueryOptioncompute"><code>$compute</code></a>, <a href="#SystemQueryOptionselect"><code>$select</code></a>, <code>$expand</code>, and <a href="#ExpandOptionlevels"><code>$levels</code></a> for all navigation properties, plus <a href="#SystemQueryOptionfilter"><code>$filter</code></a>, <a href="#SystemQueryOptionorderby"><code>$orderby</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$skip</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$top</code></a>, <a href="#SystemQueryOptioncount"><code>$count</code></a>, and <a href="#SystemQueryOptionsearch"><code>$search</code></a> for collection-valued navigation properties.</p>
+<p>Query options can be applied to an expanded navigation property by appending a semicolon-separated list of query options, enclosed in parentheses, to the navigation property name. The system query option, irrespective of casing or whether or not it is prefixed with a <code>$</code>, MUST NOT be specified more than once in the list. Allowed system query options are <a href="#SystemQueryOptioncompute"><code>$compute</code></a>, <a href="#SystemQueryOptionselect"><code>$select</code></a>, <code>$expand</code>, and <a href="#ExpandOptionlevels"><code>$levels</code></a> for all navigation properties, plus <a href="#SystemQueryOptionfilter"><code>$filter</code></a>, <a href="#SystemQueryOptionorderby"><code>$orderby</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$skip</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$top</code></a>, <a href="#SystemQueryOptioncount"><code>$count</code></a>, and <a href="#SystemQueryOptionsearch"><code>$search</code></a> for collection-valued navigation properties.</p>
 <div class="example">
 <p>Example 124: all categories and for each category all related products with a discontinued date equal to <code>null</code></p>
 <pre><code>http://host/service/Categories?$expand=Products($filter=DiscontinuedDate eq null)</code></pre>
@@ -2369,7 +2374,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
   &amp;$expand=Addresses/Country</code></pre>
 </div>
 <p>Any structural property, non-expanded navigation property, or operation not requested as a select item (explicitly or via a star) SHOULD be omitted from the response.</p>
-<p>Annotations requested in <code>$select</code> MUST be included in the response; <code>$select</code> overrules the <code>include-annotations</code> preference (see <a href="#ODataProtocol">OData-Protocol</a>) for the explicitly requested annotations. Additional annotations matching the preference can be included even if not requested via <code>$select</code>. The <code>Preference-Applied</code> response header only reflects the set of annotations included due to the <code>include-annotations</code> preference and not those only included due to <code>$select</code>.</p>
+<p>Annotations requested in <code>$select</code> MUST be included in the response; <code>$select</code> overrules the <code>include-annotations</code> preference (see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#Preferenceincludeannotationsodataincludeannotations">OData-Protocol, section 8.2.8.4</a>) for the explicitly requested annotations. Additional annotations matching the preference can be included even if not requested via <code>$select</code>. The <code>Preference-Applied</code> response header only reflects the set of annotations included due to the <code>include-annotations</code> preference and not those only included due to <code>$select</code>.</p>
 <p>If any select item (including a star) is specified, actions and functions SHOULD be omitted unless explicitly requested.</p>
 <p>If an action or function is requested as a select item, either explicitly by using its qualified name, or implicitly by requesting all operations in a schema, then the service includes information about how to invoke that operation for each entity identified by the last path segment in the request URL for which the operation can be bound.</p>
 <p>If an action or function is requested in a select item using its qualified name and that operation cannot be bound to the entities requested, the service MUST ignore the select item.</p>
@@ -2383,20 +2388,20 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <h3 id="515-system-query-option-orderby"><a id="SystemQueryOptionorderby" href="#SystemQueryOptionorderby">5.1.5 System Query Option <code>$orderby</code></a></h3>
 </summary>
 <p>The <code>$orderby</code> system query option allows clients to request resources in a particular order.</p>
-<p>The semantics of <code>$orderby</code> are covered in the <a href="#ODataProtocol">OData-Protocol</a> document.</p>
+<p>The semantics of <code>$orderby</code> are covered in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptionorderby">OData-Protocol, section 11.2.6.2</a>.</p>
 <p>The <a href="#ODataABNF">OData-ABNF</a> <code>orderby</code> syntax rule defines the formal grammar of the <code>$orderby</code> query option.</p>
 </details>
 <details open><summary>
 <h3 id="516-system-query-options-top-and-skip"><a id="SystemQueryOptionstopandskip" href="#SystemQueryOptionstopandskip">5.1.6 System Query Options <code>$top</code> and <code>$skip</code></a></h3>
 </summary>
 <p>The <code>$top</code> system query option requests the number of items in the queried collection to be included in the result. The <code>$skip</code> query option requests the number of items in the queried collection that are to be skipped and not included in the result. A client can request a particular page of items by combining <code>$top</code> and <code>$skip</code>.</p>
-<p>The semantics of <code>$top</code> and <code>$skip</code> are covered in the <a href="#ODataProtocol">OData-Protocol</a> document. The <a href="#ODataABNF">OData-ABNF</a> <code>top</code> and <code>skip</code> syntax rules define the formal grammar of the <code>$top</code> and <code>$skip</code> query options respectively.</p>
+<p>The semantics of <code>$top</code> and <code>$skip</code> are covered in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptiontop">OData-Protocol, section 11.2.6.3</a> and <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptionskip">OData-Protocol, section 11.2.6.4</a>. The <a href="#ODataABNF">OData-ABNF</a> <code>top</code> and <code>skip</code> syntax rules define the formal grammar of the <code>$top</code> and <code>$skip</code> query options respectively.</p>
 </details>
 <details open><summary>
 <h3 id="517-system-query-option-count"><a id="SystemQueryOptioncount" href="#SystemQueryOptioncount">5.1.7 System Query Option <code>$count</code></a></h3>
 </summary>
 <p>The <code>$count</code> system query option allows clients to request a count of the matching resources included with the resources in the response. The <code>$count</code> query option has a Boolean value of <code>true</code> or <code>false</code>.</p>
-<p>The semantics of <code>$count</code> is covered in the <a href="#ODataProtocol">OData-Protocol</a> document.</p>
+<p>The semantics of <code>$count</code> is covered in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptioncount">OData-Protocol, section 11.2.6.5</a>.</p>
 </details>
 <details open><summary>
 <h3 id="518-system-query-option-search"><a id="SystemQueryOptionsearch" href="#SystemQueryOptionsearch">5.1.8 System Query Option <code>$search</code></a></h3>
@@ -2430,7 +2435,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <h3 id="519-system-query-option-format"><a id="SystemQueryOptionformat" href="#SystemQueryOptionformat">5.1.9 System Query Option <code>$format</code></a></h3>
 </summary>
 <p>The <code>$format</code> system query option allows clients to request a response in a particular format and is useful for clients without access to request headers for standard content-type negotiation. Where present <code>$format</code> takes precedence over standard content-type negotiation.</p>
-<p>The semantics of <code>$format</code> is covered in the <a href="#ODataProtocol">OData-Protocol</a> document.</p>
+<p>The semantics of <code>$format</code> is covered in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptionformat">OData-Protocol, section 11.2.11</a>.</p>
 <p>The <a href="#ODataABNF">OData-ABNF</a> <code>format</code> syntax rule defines the formal grammar of the <code>$format</code> query option.</p>
 </details>
 <details open><summary>
@@ -2459,7 +2464,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <details open><summary>
 <h3 id="5112-system-query-option-schemaversion"><a id="SystemQueryOptionschemaversion" href="#SystemQueryOptionschemaversion">5.1.12 System Query Option <code>$schemaversion</code></a></h3>
 </summary>
-<p>The <code>$schemaversion</code> system query option allows clients to specify the version of the schema against which the request is made. The semantics of <code>$schemaversion</code> is covered in the <a href="#ODataProtocol">OData-Protocol</a> document.</p>
+<p>The <code>$schemaversion</code> system query option allows clients to specify the version of the schema against which the request is made. The semantics of <code>$schemaversion</code> is covered in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptionschemaversion">OData-Protocol, section 11.2.12</a>.</p>
 <p>The <a href="#ODataABNF">OData-ABNF</a> <code>schemaversion</code> syntax rule defines the formal grammar of the <code>$schemaversion</code> query option</p>
 </details>
 </details>
@@ -2478,7 +2483,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 </summary>
 <p>Parameter aliases can be used in place of literal values in entity keys, <a href="#AddressingFunctions">function</a> parameters, or within a <a href="#SystemQueryOptionfilter"><code>$filter</code></a> or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> expression.</p>
 <p>Parameter aliases MUST start with an <code>@</code> character, see rule <code>parameterAlias</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
-<p>The semantics of parameter aliases are covered in <a href="#ODataProtocol">OData-Protocol</a>. The <a href="#ODataABNF">OData-ABNF</a> rule <code>aliasAndValue</code> defines the formal grammar for passing parameter alias values as query options.</p>
+<p>The semantics of parameter aliases are covered in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ParameterAliases">OData-Protocol, section 11.2.6.1.3</a>. The <a href="#ODataABNF">OData-ABNF</a> rule <code>aliasAndValue</code> defines the formal grammar for passing parameter alias values as query options.</p>
 <div class="example">
 <p>Example 144:</p>
 <pre><code>http://host/service/Movies?$filter=contains(@word,Title)&amp;@word=&#39;Black&#39;</code></pre>
@@ -2498,7 +2503,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <details open><summary>
 <h1 id="6-conformance"><a id="Conformance" href="#Conformance">6 Conformance</a></h1>
 </summary>
-<p>The conformance requirements for OData clients and services are described in <a href="#ODataProtocol">OData-Protocol</a>.</p>
+<p>The conformance requirements for OData clients and services are described in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#Conformance">OData-Protocol, section 12</a>.</p>
 </details>
 <hr />
 <details open><summary>

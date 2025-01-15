@@ -195,8 +195,8 @@ For complete copyright information please see the full Notices section in an App
   - [10.14 Collection of Complex or Primitive Types](#CollectionofComplexorPrimitiveTypes)
   - [10.15 Complex or Primitive Type](#ComplexorPrimitiveType)
   - [10.16 Operation Result](#OperationResult)
-  - [10.17 Delta Payload Response](#DeltaPayloadResponse)
-  - [10.18 Item in a Delta Payload Response](#IteminaDeltaPayloadResponse)
+  - [10.17 Delta Payload](#DeltaPayload)
+  - [10.18 Item in a Delta Payload](#IteminaDeltaPayload)
   - [10.19 `$all` Response](#allResponse)
   - [10.20 `$crossjoin` Response](#crossjoinResponse)
 - [11 Data Service Requests](#DataServiceRequests)
@@ -344,7 +344,7 @@ service as well as a set of reserved URL query options.
 The [OData-CSDLJSON](#ODataCSDL) specification defines a JSON
 representation of the entity data model exposed by an OData service.
 
-The [OData-CSDLXML](#ODataCSDL) specification defines an XML
+The [OData-CSDLXML](#ODataCSDLXML) specification defines an XML
 representation of the entity data model exposed by an OData service.
 
 The [OData-JSON](#ODataJSON) document specifies the JSON format of the
@@ -358,6 +358,7 @@ Section | Feature / Change | Issue
 [Section 10.2](#CollectionofEntities)| Context URLs use parentheses-style keys without percent-encoding| [368](https://github.com/oasis-tcs/odata-specs/issues/368)
 [Section 11.4](#DataModification)| Response code `204 No Content` after successful data modification if requested response could not be constructed| [443](https://github.com/oasis-tcs/odata-specs/issues/443)
 [Section 11.4.2](#CreateanEntity)| Services can validate non-insertable property values in insert payloads| [356](https://github.com/oasis-tcs/odata-specs/issues/356)
+|Section 11.4.2.2](#CreateRelatedEntitiesWhenCreatinganEntity) Deep-insert response includes at least the properties present in the request| [363](https://github.com/oasis-tcs/odata-specs/issues/363)
 [Section 11.4.3](#UpdateanEntity)| Services can validate non-updatable property values in update payloads| [356](https://github.com/oasis-tcs/odata-specs/issues/356)
 [Section 11.4.4](#UpsertanEntity)| Upserts to single-valued non-containment navigation properties| [455](https://github.com/oasis-tcs/odata-specs/issues/455)
 [Section 11.4.9.3](#UpdateaComplexProperty)| Setting a complex property to a different type| [534](https://github.com/oasis-tcs/odata-specs/issues/534)
@@ -526,7 +527,7 @@ set.
 An OData *resource* is anything in the model that can be addressed (an
 entity set, entity, property, or operation).
 
-Refer to [OData-CSDLJSON](#ODataCSDL) or [OData-CSDLXML](#ODataCSDL) for
+Refer to [OData-CSDLJSON](#ODataCSDL) or [OData-CSDLXML](#ODataCSDLXML) for
 more information on the OData entity data model.
 
 ## <a id="Annotations" href="#Annotations">3.1 Annotations</a>
@@ -585,7 +586,7 @@ of the specification since there is currently no lossless representation
 of an IRI in the [`EntityId`](#HeaderODataEntityId) header.
 
 Services are strongly encouraged to use the canonical URL for an entity
-as defined in [OData-URL](#ODataURL) as its entity-id, but clients cannot assume
+as defined in [OData-URL, section 4.3.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalURL) as its entity-id, but clients cannot assume
 the entity-id can be used to locate the entity unless the
 [`Core.DereferenceableIDs`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DereferenceableIDs)
 term is applied to the entity container, nor can the client assume any
@@ -612,7 +613,7 @@ The edit URL of a property is the edit URL of the entity with appended
 segment(s) containing the path to the property.
 
 Services are strongly encouraged to use the canonical URL for an entity
-as defined in [OData-URL](#ODataURL) for both the read URL and the edit URL of an
+as defined in [OData-URL, section 4.3.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalURL) for both the read URL and the edit URL of an
 entity, with a cast segment to the type of the entity appended to the
 canonical URL if the type of the entity is derived from the declared
 type of the entity set. However, clients cannot assume this convention
@@ -923,7 +924,7 @@ ignored. Custom format parameters MUST NOT start with `odata` and
 services MUST NOT require generic OData consumers to understand custom
 format parameters in order to correctly interpret the payload.
 
-See [OData-JSON](#ODataJSON) for format-specific details about format
+See [OData-JSON, section 4.1](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#HeaderContentType) for format-specific details about format
 parameters within the `Content-Type` header.
 
 ### <a id="HeaderContentEncoding" href="#HeaderContentEncoding">8.1.2 Header `Content-Encoding`</a>
@@ -1734,7 +1735,7 @@ HTTP/2).
 
 The value of this trailing header is a standard OData error response
 according to the OData response format, encoded suitably for transport
-in a header, see e.g. [OData-JSON](#ODataJSON).
+in a header, see e.g. [OData-JSON, section 21.2](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#InStreamError).
 
 ### <a id="HeaderPreferenceApplied" href="#HeaderPreferenceApplied">8.3.6 Header `Preference-Applied`</a>
 
@@ -1998,22 +1999,32 @@ The following subsections describe how the context URL is constructed
 for each category of payload by providing a *context URL template*. The
 context URL template uses the following terms:
 - `{context-url}` is the canonical
-resource path to the `$metadata` document,
-- `{entity-set}` is the name of an entity
-set or path to a containment navigation property,
-- `{entity}` is the canonical URL for an
-entity,
-- `{singleton}` is the canonical URL for a
-singleton entity,
+resource path to the `$metadata` document.
+- A _canonical collection_ is an entity set [OData-CSDL, section 13.2](https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#EntitySet)
+or a collection addressed by a containment navigation property
+[OData-CSDL, section 8.4](https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#ContainmentNavigationProperty).
+We denote by `{canonical-collection}` the canonical URL [OData-URL, section 4.3.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalURL)
+that addresses a canonical collection relative to the service root.
+- A _canonical singleton_ is a singleton [OData-CSDL, section 13.3](https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#Singleton)
+or an entity addressed by a single-valued containment
+navigation property.
+We denote by `{canonical-singleton}` the canonical URL
+that addresses a canonical singleton relative to the service root.
+- A _canonical member_ is an entity within a canonical collection.
+We denote by `{canonical-member}` the canonical URL
+that addresses a canonical member relative to the service root.
 - `{select-list}` is an optional
 parenthesized comma-separated list of selected properties, instance
-annotations, functions, and actions,
+annotations, functions, and actions.
 - `{property-path}` is the
-path to a structural property of the entity,
-- `{type-name}` is a qualified type name,
+path to a structural property of the entity.
+- `{type-name}` is a qualified type name.
 - `{/type-name}` is an optional type-cast
 segment containing the qualified name of a derived or implemented type
 prefixed with a forward slash.
+
+Key values in `{canonical-collection}`, `{canonical-singleton}`, and `{canonical-member}` are represented in canonical form
+(parentheses-style) without percent-encoding.
 
 The full grammar for the context URL is defined in
 [OData-ABNF](#ODataABNF). Note that the syntax of the context URL is
@@ -2041,11 +2052,12 @@ http://host/service/$metadata
 
 Context URL template:
 
-    {context-url}#{entity-set}
+    {context-url}#{canonical-collection}
     {context-url}#Collection({type-name})
 
-If all entities in the collection are members of one entity set, its
-name is the context URL fragment.
+If all entities in the response or a response part are members of a single
+canonical collection,
+the context URL fragment is the `{canonical-collection}`.
 
 ::: example
 Example 11: resource URL and corresponding context URL
@@ -2054,11 +2066,6 @@ http://host/service/Customers
 http://host/service/$metadata#Customers
 ```
 :::
-
-If the entities are contained, then `entity-set` is the top-level entity
-set or singleton followed by the canonical path to the containment navigation
-property of the containing entity.
-Key values in that path are represented in canonical form (parentheses-style) without percent-encoding.
 
 ::: example
 Example 12: resource URL and corresponding context URL for contained
@@ -2069,8 +2076,8 @@ http://host/service/$metadata#Orders(4711)/Items
 ```
 :::
 
-If the entities in the response are not bound to a single entity set,
-such as from a function or action with no entity set path, a function
+If the entities are not members of a single
+canonical collection, such as entities from a function or action with no entity set path, a function
 import or action import with no specified entity set, or a navigation
 property with no navigation property binding, the context URL fragment specifies
 the type of the returned entity collection.
@@ -2079,24 +2086,21 @@ the type of the returned entity collection.
 
 Context URL template:
 
-    {context-url}#{entity-set}/$entity
+    {context-url}#{canonical-collection}/$entity
     {context-url}#{type-name}
 
-If a response or response part is a single entity of the declared type
-of an entity set, the context URL fragment is the entity set's
-name with `/$entity` appended.
+If a response or response part is an entity within in a canonical collection,
+the context URL fragment is the
+`{canonical-collection}` with `/$entity` appended.
 
 ::: example
-Example 13: resource URL and corresponding context URL
+Example 13: resource URL and corresponding context URL for named entity set.
+Note the absence of the key predicate `(1)` in the context URL.
 ```
 http://host/service/Customers(1)
 http://host/service/$metadata#Customers/$entity
 ```
 :::
-
-If the entity is contained, then `entity-set` is the  top-level entity
-set or singleton followed by the path to the containment navigation
-property of the containing entity.
 
 ::: example
 Example 14: resource URL and corresponding context URL for contained
@@ -2107,20 +2111,21 @@ http://host/service/$metadata#Orders(4711)/Items/$entity
 ```
 :::
 
-If the entity is not bound to an entity set, such as an entity
+If the entity is within a collection, but a canonical collection
+cannot be determined, such as for an entity
 returned from a function or action with no entity set path, a function
 import or action import with no specified entity set, or a navigation
 property with no navigation property binding, the context URL fragment specifies
-the type of the returned entity.
+the `{type-name}` of the returned entity.
 
 ## <a id="Singleton" href="#Singleton">10.4 Singleton</a>
 
 Context URL template:
 
-    {context-url}#{singleton}
+    {context-url}#{canonical-singleton}
 
-If a response or response part is a singleton, its name is the context
-URL fragment.
+If a response or response part is a canonical singleton, the context
+URL fragment is the `{canonical-singleton}` without `/$entity` appended.
 
 ::: example
 Example 15: resource URL and corresponding context URL
@@ -2130,17 +2135,27 @@ http://host/service/$metadata#MainSupplier
 ```
 :::
 
+::: example
+Example 16: resource URL and corresponding context URL for
+entity targeted by a single-valued containment navigation property
+```
+http://host/service/Orders(4711)/DeliveryAddress
+http://host/service/$metadata#Orders(4711)/DeliveryAddress
+```
+:::
+
 ## <a id="CollectionofDerivedEntities" href="#CollectionofDerivedEntities">10.5 Collection of Derived Entities</a>
 
 Context URL template:
 
-    {context-url}#{entity-set}{/type-name}
+    {context-url}#{canonical-collection}{/type-name}
 
-If an entity set consists exclusively of derived entities, a type-cast
-segment is added to the context URL.
+If a response or response part is a collection filtered by a type cast segment
+in the resource URL [OData-URL, section 4.11](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingDerivedTypes),
+the type-cast segment is added to the context URL.
 
 ::: example
-Example 16: resource URL and corresponding context URL
+Example 17: resource URL and corresponding context URL
 ```
 http://host/service/Customers/Model.VipCustomer
 http://host/service/$metadata#Customers/Model.VipCustomer
@@ -2151,17 +2166,27 @@ http://host/service/$metadata#Customers/Model.VipCustomer
 
 Context URL template:
 
-    {context-url}#{entity-set}{/type-name}/$entity
+    {context-url}#{canonical-collection}{/type-name}/$entity
+    {context-url}#{canonical-singleton}{/type-name}
 
-If a response or response part is a single entity of a type derived from
-the declared type of an entity set, a type-cast segment is appended to
-the entity set name.
+If a response or response part is an entity filtered by a type cast segment
+in the resource URL [OData-URL, section 4.11](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingDerivedTypes),
+the type-cast segment is appended to the `{canonical-collection}` or `{canonical-singleton}`
+and prior to appending `/$entity`, if any.
 
 ::: example
-Example 17: resource URL and corresponding context URL
+Example 18: resource URL with key predicate and corresponding context URL
 ```
 http://host/service/Customers(2)/Model.VipCustomer
 http://host/service/$metadata#Customers/Model.VipCustomer/$entity
+```
+:::
+
+::: example
+Example 19: resource URL for singleton and corresponding context URL
+```
+http://host/service/MainSupplier/Model.PreferredVendor
+http://host/service/$metadata#MainSupplier/Model.PreferredVendor
 ```
 :::
 
@@ -2169,10 +2194,10 @@ http://host/service/$metadata#Customers/Model.VipCustomer/$entity
 
 Context URL templates:
 
-    {context-url}#{entity-set}{/type-name}{select-list}
+    {context-url}#{canonical-collection}{/type-name}{select-list}
     {context-url}#Collection({type-name}){select-list}
 
-If a result contains only a subset of properties, the parenthesized
+If a response or response part contains only a subset of properties, the parenthesized
 comma-separated list of the selected defined or dynamic properties,
 instance annotations, navigation properties, functions, and actions is
 appended to the context URL representing the [collection of
@@ -2207,7 +2232,7 @@ entities in the collection, see system query option
 [`$select`](#SystemQueryOptionselect).
 
 ::: example
-Example 18: resource URL and corresponding context URL
+Example 20: resource URL and corresponding context URL
 ```
 http://host/service/Customers?$select=Address,Orders,Model.VipCustomer/PreferredContact
 http://host/service/$metadata#Customers(Address,Orders,Model.VipCustomer/PreferredContact)
@@ -2218,17 +2243,16 @@ http://host/service/$metadata#Customers(Address,Orders,Model.VipCustomer/Preferr
 
 Context URL templates:
 
-    {context-url}#{entity-set}{/type-name}{select-list}/$entity
-    {context-url}#{singleton}{select-list}
+    {context-url}#{canonical-collection}{/type-name}{select-list}/$entity
+    {context-url}#{canonical-singleton}{/type-name}{select-list}
     {context-url}#{type-name}{select-list}
 
-If a single entity contains a subset of properties, the parenthesized
+If a response or response part is an entity that
+contains a subset of properties, the parenthesized
 comma-separated list of the selected defined or dynamic properties,
 instance annotations, navigation properties, functions, and actions is
-appended to the `{entity-set}` after an optional type-cast segment and
-prior to appending `/$entity`. If the response is not a subset of a
-single entity set, the `{select-list}` is instead appended to the
-`{type-name}` of the returned entity.
+appended to the `{canonical-collection}` or `{canonical-singleton}`
+after an optional type-cast segment and prior to appending `/$entity`, if any.
 
 Regardless of how contained structural properties are represented in the
 request URL (as paths or as select options) they are represented in the
@@ -2260,7 +2284,7 @@ returned entity, see system query option
 [`$select`](#SystemQueryOptionselect).
 
 ::: example
-Example 19: resource URL and corresponding context URL
+Example 21: resource URL and corresponding context URL
 ```
 http://host/service/Customers(1)?$select=Name,Rating
 http://host/service/$metadata#Customers(Name,Rating)/$entity
@@ -2271,7 +2295,7 @@ http://host/service/$metadata#Customers(Name,Rating)/$entity
 
 Context URL template:
 
-    {context-url}#{entity-set}{/type-name}{select-list}
+    {context-url}#{canonical-collection}{/type-name}{select-list}
     {context-url}#Collection({type-name}){select-list}
 
 For a 4.01 response, if a navigation property is explicitly expanded,
@@ -2302,7 +2326,7 @@ Navigation properties with expanded references are not represented in
 the context URL.
 
 ::: example
-Example 20: resource URL and corresponding context URL --- select and
+Example 22: resource URL and corresponding context URL --- select and
 expand
 ```
 http://host/service/Customers?$select=Name&$expand=Address/Country
@@ -2311,7 +2335,7 @@ http://host/service/$metadata#Customers(Name,Address/Country())
 :::
 
 ::: example
-Example 21: resource URL and corresponding context URL --- expand `$ref`
+Example 23: resource URL and corresponding context URL --- expand `$ref`
 ```
 http://host/service/Customers?$expand=Orders/$ref
 http://host/service/$metadata#Customers
@@ -2319,7 +2343,7 @@ http://host/service/$metadata#Customers
 :::
 
 ::: example
-Example 22: resource URL and corresponding context URL --- expand with
+Example 24: resource URL and corresponding context URL --- expand with
 `$levels`
 ```
 http://host/service/Employees/Sales.Manager?$select=DirectReports
@@ -2333,8 +2357,8 @@ http://host/service/$metadata
 
 Context URL template:
 
-    {context-url}#{entity-set}{/type-name}{select-list}/$entity
-    {context-url}#{singleton}{select-list}
+    {context-url}#{canonical-collection}{/type-name}{select-list}/$entity
+    {context-url}#{canonical-singleton}{/type-name}{select-list}
     {context-url}#{type-name}{select-list}
 
 For a 4.01 response, if a navigation property is explicitly expanded,
@@ -2362,7 +2386,7 @@ Navigation properties with expanded references are not represented in
 the context URL.
 
 ::: example
-Example 23: resource URL and corresponding context URL
+Example 25: resource URL and corresponding context URL
 ```
 http://host/service/Employees(1)/Sales.Manager?
         $expand=DirectReports($select=FirstName,LastName;$levels=4)
@@ -2381,7 +2405,7 @@ If a response is a collection of entity references, the context URL does
 not contain the type of the referenced entities.
 
 ::: example
-Example 24: resource URL and corresponding context URL for a collection
+Example 26: resource URL and corresponding context URL for a collection
 of entity references
 ```
 http://host/service/Customers('ALFKI')/Orders/$ref
@@ -2399,7 +2423,7 @@ If a response is a single entity reference, `$ref` is the context URL
 fragment.
 
 ::: example
-Example 25: resource URL and corresponding context URL for a single
+Example 27: resource URL and corresponding context URL for a single
 entity reference
 ```
 http://host/service/Orders(10643)/Customer/$ref
@@ -2411,13 +2435,13 @@ http://host/service/$metadata#$ref
 
 Context URL templates:
 
-    {context-url}#{entity}/{property-path}{select-list}
+    {context-url}#{canonical-member}/{property-path}{select-list}
     {context-url}#{type-name}{select-list}
 
 If a response represents an [individual
-property](#RequestingIndividualProperties) of an entity with a canonical
-URL, the context URL specifies the canonical URL of the entity and the
-path to the structural property of that entity. The path MUST include
+property](#RequestingIndividualProperties) of a canonical member,
+the context URL specifies the `{canonical-member}` and the
+path to the structural property. The path MUST include
 cast segments for properties defined on types derived from the expected
 type of the previous segment.
 
@@ -2426,7 +2450,7 @@ navigation properties or operations, OData 4.01 responses MAY use the
 less specific second template.
 
 ::: example
-Example 26: resource URL and corresponding context URL
+Example 28: resource URL and corresponding context URL
 ```
 http://host/service/Customers(1)/Addresses
 http://host/service/$metadata#Customers(1)/Addresses
@@ -2440,12 +2464,12 @@ Context URL template:
     {context-url}#Collection({type-name}){select-list}
 
 If a response is a collection of complex types or primitive types that
-do not represent an individual property of an entity with a canonical
-URL, the context URL specifies the fully qualified type of the
+do not represent an individual property of a canonical member,
+the context URL specifies the fully qualified type of the
 collection.
 
 ::: example
-Example 27: resource URL and corresponding context URL
+Example 29: resource URL and corresponding context URL
 ```
 http://host/service/TopFiveHobbies()
 http://host/service/$metadata#Collection(Edm.String)
@@ -2459,11 +2483,11 @@ Context URL template:
     {context-url}#{type-name}{select-list}
 
 If a response is a complex type or primitive type that does not
-represent an individual property of an entity with a canonical URL, the
+represent an individual property of a canonical member, the
 context URL specifies the fully qualified type of the result.
 
 ::: example
-Example 28: resource URL and corresponding context URL
+Example 30: resource URL and corresponding context URL
 ```
 http://host/service/MostPopularName()
 http://host/service/$metadata#Edm.String
@@ -2472,37 +2496,25 @@ http://host/service/$metadata#Edm.String
 
 ## <a id="OperationResult" href="#OperationResult">10.16 Operation Result</a>
 
-Context URL templates:
-
-    {context-url}#{entity-set}{/type-name}{select-list}
-    {context-url}#{entity-set}{/type-name}{select-list}/$entity
-    {context-url}#{entity}/{property-path}{select-list}
-    {context-url}#Collection({type-name}){select-list}
-    {context-url}#{type-name}{select-list}
-
-If the response from an action or function is a collection of entities
-or a single entity that is a member of an entity set, the context URL
-identifies the entity set. If the response from an action or function is
-a property of a single entity, the context URL identifies the entity and
-property. Otherwise, the context URL identifies the type returned by the
-operation. The context URL will correspond to one of the former
-examples.
+The context URL in a response from an action or function has one of the formats
+described so far (except the [service document](#ServiceDocument) format).
+It does not mention the name of the invoked action or function.
 
 ::: example
-Example 29: resource URL and corresponding context URL
+Example 31: resource URL and corresponding context URL
 ```
 http://host/service/TopFiveCustomers()
 http://host/service/$metadata#Customers
 ```
 :::
 
-## <a id="DeltaPayloadResponse" href="#DeltaPayloadResponse">10.17 Delta Payload Response</a>
+## <a id="DeltaPayload" href="#DeltaPayload">10.17 Delta Payload</a>
 
 Context URL template:
 
-    {context-url}#{entity-set}{/type-name}{select-list}/$delta
-    {context-url}#{entity}{select-list}/$delta
-    {context-url}#{entity}/{property-path}{select-list}/$delta
+    {context-url}#{canonical-collection}{/type-name}{select-list}/$delta
+    {context-url}#{canonical-member}{select-list}/$delta
+    {context-url}#{canonical-member}/{property-path}{select-list}/$delta
     #$delta
 
 The context URL of a [delta response](#RequestingChanges) is the context
@@ -2510,33 +2522,33 @@ URL of the response to the defining query, followed by `/$delta`. This
 includes singletons, single-valued navigation properties, and
 collection-valued navigation properties.
 
-If the entities are contained, then `{entity-set}` is the top-level
+If the entities are contained, then `{canonical-collection}` is the top-level
 entity set followed by the path to the containment navigation property
 of the containing entity.
 
 ::: example
-Example 30: resource URL and corresponding context URL
+Example 32: resource URL and corresponding context URL
 ```
 http://host/service/Customers?$deltatoken=1234
 http://host/service/$metadata#Customers/$delta
 ```
 :::
 
-The context URL of an update request body for a collection of entities
+The context URL of an [update request body for a collection of entities](#UpdateaCollectionofEntities)
 is simply the fragment `#$delta`.
 
-## <a id="IteminaDeltaPayloadResponse" href="#IteminaDeltaPayloadResponse">10.18 Item in a Delta Payload Response</a>
+## <a id="IteminaDeltaPayload" href="#IteminaDeltaPayload">10.18 Item in a Delta Payload</a>
 
 Context URL templates:
 
-    {context-url}#{entity-set}/$deletedEntity
-    {context-url}#{entity-set}/$link
-    {context-url}#{entity-set}/$deletedLink
+    {context-url}#{canonical-collection}/$deletedEntity
+    {context-url}#{canonical-collection}/$link
+    {context-url}#{canonical-collection}/$deletedLink
 
 In addition to new or changed entities which have the canonical context
 URL for an entity, a delta response can contain deleted entities, new
 links, and deleted links. They are identified by the corresponding
-context URL fragment. `{entity-set}` corresponds to the set of the
+context URL fragment. `{canonical-collection}` corresponds to the set of the
 deleted entity, or source entity for an added or deleted link.
 
 ## <a id="allResponse" href="#allResponse">10.19 `$all` Response</a>
@@ -2546,7 +2558,7 @@ Context URL template:
     {context-url}#Collection(Edm.EntityType)
 
 Responses to requests to the virtual collection `$all` (see
-[OData-URL](#ODataURL)) use the built-in abstract entity type. Each
+[OData-URL, section 4.16](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingAllEntitiesinaService)) use the built-in abstract entity type. Each
 single entity in such a response has its individual context URL that
 identifies the entity set or singleton.
 
@@ -2557,7 +2569,7 @@ Context URL template:
     {context-url}#Collection(Edm.ComplexType)
 
 Responses to requests to the virtual collections `$crossjoin(…)` (see
-[OData-URL](#ODataURL)) use the built-in abstract complex type. Single
+[OData-URL, section 4.15](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingtheCrossJoinofEntitySets)) use the built-in abstract complex type. Single
 instances in these responses do not have a context URL.
 
 
@@ -2629,7 +2641,7 @@ metadata documents and provides a JSON schema to validate their
 contents. The media type of the JSON representation of an OData metadata
 document is `application/json`.
 
-[OData-CSDLXML](#ODataCSDL) describes an XML representation for OData
+[OData-CSDLXML](#ODataCSDLXML) describes an XML representation for OData
 metadata documents and provides an XML schema to validate their
 contents. The media type of the XML representation of an OData metadata
 document is `application/xml`.
@@ -2713,9 +2725,9 @@ URL that identifies the entity, e.g. its read URL.
 
 The read URL can be obtained from a response payload containing that
 instance, for example as a `readLink` or `editLink` in an
-[OData-JSON](#ODataJSON) payload. In addition, services
+[OData-JSON, section 4.6.9](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink) payload. In addition, services
 MAY support conventions for constructing a read URL using the entity's
-key value(s), as described in [OData-URL](#ODataURL).
+key value(s), as described in [OData-URL, section 4.3.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalURL).
 
 The set of structural or navigation properties to return may be
 specified through [`$select`](#SystemQueryOptionselect) or
@@ -2775,7 +2787,7 @@ the property name appended.
 For complex typed properties, the path can be further extended with the
 name of an individual property of the complex type.
 
-See [OData-URL](#ODataURL) for details.
+See [OData-URL, section 4.6](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingaProperty) for details.
 
 If the property is single-valued and has the `null` value, the service
 responds with [`204 No Content`](#ResponseCode204NoContent).
@@ -2784,7 +2796,7 @@ If the property is not available, for example due to permissions, the
 service responds with [`404 Not Found`](#ResponseCode404NotFound).
 
 ::: example
-Example 31:
+Example 33:
 ```
 GET http://host/service/Products(1)/Name
 ```
@@ -2805,7 +2817,7 @@ system query option.
 #### <a id="RequestingaRawValueusingvalue" href="#RequestingaRawValueusingvalue">11.2.4.2 Requesting a Raw Value using `$value`</a>
 
 To retrieve the raw value of a primitive property or operation result, the client sends
-a `GET` request to the raw value URL. See the [OData-URL](#ODataURL) document for details.
+a `GET` request to the raw value URL. See [OData-URL, section 4.7](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingaRawValue) for details.
 
 The `Content-Type` of the response is determined using the `Accept`
 header and the [`$format`](#SystemQueryOptionformat) system query
@@ -2844,7 +2856,7 @@ If the property or operation result is not available, for example due to permiss
 service responds with [`404 Not Found`](#ResponseCode404NotFound).
 
 ::: example
-Example 32:
+Example 34:
 ```
 GET http://host/service/Products(1)/Name/$value
 ```
@@ -2878,7 +2890,7 @@ schema. Only aliases defined in the metadata document of the service can
 be used in URLs.
 
 ::: example
-Example 33: request only the `Rating` and `ReleaseDate` for the matching
+Example 35: request only the `Rating` and `ReleaseDate` for the matching
 Products
 ```
 GET http://host/service/Products?$select=Rating,ReleaseDate
@@ -2891,7 +2903,7 @@ NOT introduce navigation properties, actions or functions not otherwise
 requested.
 
 ::: example
-Example 34:
+Example 36:
 ```
 GET http://host/service/Products?$select=*
 ```
@@ -2901,7 +2913,7 @@ Properties of related entities can be specified by including the
 `$select` query option within the `$expand`.
 
 ::: example
-Example 35:
+Example 37:
 ```
 GET http://host/service/Products?$expand=Category($select=Name)
 ```
@@ -2915,7 +2927,7 @@ an [`$expand`](#SystemQueryOptionexpand) query option, then it is
 additionally represented as inline content.
 
 ::: example
-Example 36: for each category, return the `CategoryName` and the
+Example 38: for each category, return the `CategoryName` and the
 `Products` navigation link
 ```
 GET http://host/service/Categories?$select=CategoryName,Products
@@ -2926,7 +2938,7 @@ It is also possible to request all actions or functions available for
 each returned entity.
 
 ::: example
-Example 37:
+Example 39:
 ```
 GET http://host/service/Products?$select=DemoService.*
 ```
@@ -2946,7 +2958,7 @@ for collection-valued properties. A property MUST NOT have select
 options specified in more than one place in a request and MUST NOT have
 both select options and expand options specified.
 
-If the `$select` query option is not specified, [the service returns
+If the `$select` query option is not specified, the service returns
 the full set of properties or a default set of properties. The default
 set of properties MUST include all key properties.
 Services may change the default set of properties returned. This
@@ -2976,7 +2988,7 @@ For a full description of the syntax used when building requests, see
 [OData-URL, section 5.1.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#SystemQueryOptionexpand).
 
 ::: example
-Example 38: for each customer entity within the Customers entity set the
+Example 40: for each customer entity within the Customers entity set the
 value of all related Orders will be represented inline
 ```
 GET http://host/service.svc/Customers?$expand=Orders
@@ -2984,7 +2996,7 @@ GET http://host/service.svc/Customers?$expand=Orders
 :::
 
 ::: example
-Example 39: for each customer entity within the Customers entity set the
+Example 41: for each customer entity within the Customers entity set the
 references to the related Orders will be represented inline
 ```
 GET http://host/service.svc/Customers?$expand=Orders/$ref
@@ -2992,7 +3004,7 @@ GET http://host/service.svc/Customers?$expand=Orders/$ref
 :::
 
 ::: example
-Example 40: for each customer entity within the Customers entity set the
+Example 42: for each customer entity within the Customers entity set the
 media stream representing the customer photo will be represented inline
 ```
 GET http://host/service.svc/Customers?$expand=Photo
@@ -3004,7 +3016,7 @@ GET http://host/service.svc/Customers?$expand=Photo
 The set of expanded entities can be further refined through the
 application of expand options, expressed as a semicolon-separated list
 of system query options, enclosed in parentheses, see
-[OData-URL](#ODataURL).
+[OData-URL, section 5.1.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#SystemQueryOptionexpand).
 
 Allowed system query options are
 [`$compute`](#SystemQueryOptioncompute),
@@ -3020,7 +3032,7 @@ Allowed system query options are
  for collection-valued navigation properties.
 
 ::: example
-Example 41: for each customer entity within the `Customers` entity set,
+Example 43: for each customer entity within the `Customers` entity set,
 the value of those related `Orders` whose `Amount` is greater than 100
 will be represented inline
 ```
@@ -3029,7 +3041,7 @@ GET http://host/service.svc/Customers?$expand=Orders($filter=Amount gt 100)
 :::
 
 ::: example
-Example 42: for each order within the `Orders` entity set, the following
+Example 44: for each order within the `Orders` entity set, the following
 will be represented inline:
 - The `Items` related to
 the `Orders` identified by the resource path section of the URL and the
@@ -3041,7 +3053,7 @@ GET http://host/service.svc/Orders?$expand=Items($expand=Product),Customer
 :::
 
 ::: example
-Example 43: for each customer entity in the Customers entity set, the
+Example 45: for each customer entity in the Customers entity set, the
 value of all related InHouseStaff will be represented inline if the
 entity is of type VipCustomer or a subtype of that. For entities that
 are not of type `VipCustomer`, or any of its subtypes, that entity may
@@ -3071,7 +3083,7 @@ in cases were a circular reference would occur otherwise.
 manner. Clients that want to work with 4.0 services MUST use lower case.
 
 ::: example
-Example 44: return each employee from the Employees entity set and, for
+Example 46: return each employee from the Employees entity set and, for
 each employee that is a manager, return all direct reports, recursively
 to four levels
 ```
@@ -3091,7 +3103,7 @@ result and MUST be included if `$select` is specified with the computed
 property name, or star (`*`).
 
 ::: example
-Example 45: compute total price for order items (line breaks only for
+Example 47: compute total price for order items (line breaks only for
 readability)
 ```
 GET http://host/service/Customers
@@ -3127,7 +3139,7 @@ return [`501 Not Implemented`](#ResponseCode501NotImplemented).
 The `$filter` system query option restricts the set of items returned.
 
 ::: example
-Example 46: return all Products whose `Price` is less than $10.00
+Example 48: return all Products whose `Price` is less than $10.00
 ```
 GET http://host/service/Products?$filter=Price lt 10.00
 ```
@@ -3138,7 +3150,7 @@ The [`$count`](#SystemQueryOptioncount) segment may be used within a
 count of related entities or items within a collection-valued property.
 
 ::: example
-Example 47: return all Categories with less than 10 products
+Example 49: return all Categories with less than 10 products
 ```
 GET http://host/service/Categories?$filter=Products/$count lt 10
 ```
@@ -3262,7 +3274,7 @@ alias, and the query option value is the value to be used for the
 specified parameter alias.
 
 ::: example
-Example 48: returns all employees whose Region property matches the
+Example 50: returns all employees whose Region property matches the
 string parameter value `WA`
 ```
 GET http://host/service.svc/Employees?$filter=Region eq @p1&@p1='WA'
@@ -3289,7 +3301,7 @@ MAY be nested within `$expand` and
 `$select`, in which case they are evaluated relative to the resource context of the `$expand` or `$select`.
 
 ::: example
-Example 49: returns all employees, expands their manager, and expands
+Example 51: returns all employees, expands their manager, and expands
 all direct reports with the same first name as the manager, using a
 parameter alias for `$this` to pass the manager into the filter on the
 expanded direct reports
@@ -3336,7 +3348,7 @@ see [OData-VocCore](#ODataVocCore).
 Values of type `Edm.Stream` or any of the `Geo` types cannot be sorted.
 
 ::: example
-Example 50: return all Products ordered by release date in ascending
+Example 52: return all Products ordered by release date in ascending
 order, then by rating in descending order
 ```
 GET http://host/service/Products?$orderby=ReleaseDate asc, Rating desc
@@ -3347,7 +3359,7 @@ Related entities may be ordered by specifying `$orderby` within the
 `$expand` clause.
 
 ::: example
-Example 51: return all Categories, and their Products ordered according
+Example 53: return all Categories, and their Products ordered according
 to release date and in descending order of rating
 ```
 GET http://host/service/Categories?$expand=Products($orderby=ReleaseDate asc, Rating desc)
@@ -3359,7 +3371,7 @@ returned items according to the exact count of related entities or items
 within a collection-valued property.
 
 ::: example
-Example 52: return all Categories ordered by the number of Products
+Example 54: return all Categories ordered by the number of Products
 within each category
 ```
 GET http://host/service/Categories?$orderby=Products/$count
@@ -3382,7 +3394,7 @@ consists of the first $n$ instances in $A$. Otherwise, the result equals $A$.
 The instances in the result are in the same order as they occur in $A$.
 
 ::: example
-Example 53: return only the first five products of the Products entity
+Example 55: return only the first five products of the Products entity
 set
 ```
 GET http://host/service/Products?$top=5
@@ -3406,7 +3418,7 @@ from the result and all remaining instances are kept in the same order as
 they occur in $A$.
 
 ::: example
-Example 54: return products starting with the 6th product of the
+Example 56: return products starting with the 6th product of the
 `Products` entity set
 ```
 GET http://host/service/Products?$skip=5
@@ -3418,7 +3430,7 @@ Where [`$top`](#SystemQueryOptiontop) and `$skip` are used together,
 they appear in the request.
 
 ::: example
-Example 55: return the third through seventh products of the `Products`
+Example 57: return the third through seventh products of the `Products`
 entity set
 ```
 GET http://host/service/Products?$top=5&$skip=2
@@ -3436,7 +3448,7 @@ the total count of items within a collection matching the request be
 returned along with the result.
 
 ::: example
-Example 56: return, along with the results, the total number of products
+Example 58: return, along with the results, the total number of products
 in the collection
 ```
 GET http://host/service/Products?$count=true
@@ -3447,7 +3459,7 @@ The count of related entities can be requested by specifying
 the `$count` query option within the `$expand` clause.
 
 ::: example
-Example 57:
+Example 59:
 ```
 GET http://host/service/Categories?$expand=Products($count=true)
 ```
@@ -3479,7 +3491,7 @@ those items *matching* the specified search expression. The definition
 of what it means to match is dependent upon the implementation.
 
 ::: example
-Example 58: return all Products that match the search term `bike`
+Example 60: return all Products that match the search term `bike`
 ```
 GET http://host/service/Products?$search=bike
 ```
@@ -3488,7 +3500,7 @@ GET http://host/service/Products?$search=bike
 The search expression can contain phrases, enclosed in double-quotes.
 
 ::: example
-Example 59: return all Products that match the phrase `mountain bike`
+Example 61: return all Products that match the phrase `mountain bike`
 ```
 GET http://host/service/Products?$search="mountain bike"
 ```
@@ -3498,7 +3510,7 @@ The upper-case keyword `NOT` restricts the set of entities to those that
 do not match the specified term.
 
 ::: example
-Example 60: return all Products that do not match `clothing`
+Example 62: return all Products that do not match `clothing`
 ```
 GET http://host/service/Products?$search=NOT clothing
 ```
@@ -3509,7 +3521,7 @@ Multiple terms within a search expression are separated by a space
 such terms must be matched.
 
 ::: example
-Example 61: return all Products that match both `mountain` and
+Example 63: return all Products that match both `mountain` and
 `bike`
 ```
 GET http://host/service/Products?$search=mountain AND bike
@@ -3520,7 +3532,7 @@ The upper-case keyword `OR` is used to return entities that satisfy
 either the immediately preceding or subsequent expression.
 
 ::: example
-Example 62: return all Products that match `mountain` or
+Example 64: return all Products that match `mountain` or
 `bike`
 ```
 GET http://host/service/Products?$search=mountain OR bike
@@ -3531,7 +3543,7 @@ Parentheses within the search expression group together multiple
 expressions.
 
 ::: example
-Example 63: return all Products that match `mountain` or
+Example 65: return all Products that match `mountain` or
 `bike` and do not match clothing
 ```
 GET http://host/service/Products?$search=(mountain OR bike) AND NOT clothing
@@ -3555,7 +3567,8 @@ Responses that include only a partial set of the items identified by the
 request URL MUST contain a link that allows retrieving the next partial
 set of items. This link is called a *next link*; its representation is
 format-specific. The final partial set of items MUST NOT contain a next
-link.
+link. Clients MUST check for next links before assuming to have received
+all items within a collection, including expanded and nested collections.
 
 The client can request a maximum page size through the
 [`maxpagesize`](#Preferencemaxpagesizeodatamaxpagesize) preference. The
@@ -3586,7 +3599,7 @@ Entities are stably addressable using their canonical URL and are not
 accessible using an ordinal index.
 
 ::: example
-Example 64: the first address in a list of addresses for `MainSupplier`
+Example 66: the first address in a list of addresses for `MainSupplier`
 ```
 GET http://host/service/MainSupplier/Addresses/0
 ```
@@ -3614,7 +3627,7 @@ entity is related, the service returns
 [`204 No Content`](#ResponseCode204NoContent).
 
 ::: example
-Example 65: return the supplier of the product with `ID=1` in the
+Example 67: return the supplier of the product with `ID=1` in the
 Products entity set
 ```
 GET http://host/service/Products(1)/Supplier
@@ -3653,7 +3666,7 @@ exists, the service returns either
 [`404 Not Found`](#ResponseCode404NotFound).
 
 ::: example
-Example 66: collection with an entity reference for each Order related
+Example 68: collection with an entity reference for each Order related
 to the Product with `ID=0`
 ```
 GET http://host/service/Products(0)/Orders/$ref
@@ -3669,7 +3682,7 @@ the URL `$entity` relative to the service root. The entity-id MUST be
 specified using the system query option `$id`.
 
 ::: example
-Example 67: return the entity representation for a given entity-id
+Example 69: return the entity representation for a given entity-id
 ```
 GET http://host/service/$entity?$id=http://host/service/Products(0)
 ```
@@ -3686,7 +3699,7 @@ system query options [`$select`](#SystemQueryOptionselect) and
 to the `$entity` resource.
 
 ::: example
-Example 68: return the entity representation for a given entity-id and
+Example 70: return the entity representation for a given entity-id and
 specify properties to return
 ```
 GET http://host/service/$entity/Model.Customer
@@ -3716,7 +3729,7 @@ SHOULD NOT combine the system query options
 The result of such a request is undefined.
 
 ::: example
-Example 69: return the number of products in the Products entity set
+Example 71: return the number of products in the Products entity set
 ```
 GET http://host/service/Products/$count
 ```
@@ -3727,7 +3740,7 @@ the `/$filter` path segment to count the items in the filtered
 collection.
 
 ::: example
-Example 70: return the number of products whose `Price` is less than
+Example 72: return the number of products whose `Price` is less than
 $10.00
 ```
 GET http://host/service/Products/$filter(@foo)/$count?@foo=Price lt 10.00
@@ -3739,7 +3752,7 @@ combination with the [`$filter`](#SystemQueryOptionfilter) system query
 option.
 
 ::: example
-Example 71: return the number of products whose `Price` is less than
+Example 73: return the number of products whose `Price` is less than
 $10.00
 ```
 GET http://host/service/Products/$count?$filter=Price lt 10.00
@@ -3754,14 +3767,14 @@ The `/$count` suffix can also be used in path expressions within system
 query options, e.g. [`$filter`](#SystemQueryOptionfilter).
 
 ::: example
-Example 72: return all customers with more than five interests
+Example 74: return all customers with more than five interests
 ```
 GET http://host/service/Customers?$filter=Interests/$count gt 5
 ```
 :::
 
 ::: example
-Example 73: return all categories with more than one product over $5.00
+Example 75: return all categories with more than one product over $5.00
 ```
 GET http://host/service/Categories?$filter=Products/$filter(Price gt 5.0)/$count gt 1
 ```
@@ -3784,7 +3797,7 @@ In addition, format-specific abbreviations may be used, e.g. `json` for
 MUST NOT be appended to the format abbreviations.
 
 ::: example
-Example 74: the request
+Example 76: the request
 ```
 GET http://host/service/Orders?$format=application/json;metadata=full
 ```
@@ -3793,10 +3806,10 @@ GET http://host/service/Orders?$format=application/json;metadata=full
 is equivalent to a request with an `Accept` header using the same media
 type; it requests the set of Order entities represented using the JSON
 media type including full metadata, as defined in
-[OData-JSON](#ODataJSON).
+[OData-JSON, section 3.1.2](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#metadatafullodatametadatafull).
 
 ::: example
-Example 75: the request
+Example 77: the request
 ```
 GET http://host/service/Orders?$format=json
 ```
@@ -3805,7 +3818,7 @@ GET http://host/service/Orders?$format=json
 is equivalent to a request with the `Accept` header set to
 `application/json`; it requests the set of Order entities represented
 using the JSON media type with minimal metadata, as defined in
-[OData-JSON](#ODataJSON).
+[OData-JSON, section 3.1.1](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#metadataminimalodatametadataminimal).
 
 In [metadata document requests](#MetadataDocumentRequest), the values
 `application/xml` and `application/json`, along with their subtypes and
@@ -4222,7 +4235,7 @@ request body.
 The representation for referencing related entities is format-specific.
 
 ::: example
-Example 76: using the JSON format, 4.0 clients can create a new manager
+Example 78: using the JSON format, 4.0 clients can create a new manager
 entity with links to an existing manager (of managers) and to two existing employees by applying the `odata.bind`
 annotation to the `Manager` and `DirectReports` navigation properties
 
@@ -4243,7 +4256,7 @@ annotation to the `Manager` and `DirectReports` navigation properties
 :::
 
 ::: example
-Example 77: using the JSON format, 4.01 clients can create a new manager
+Example 79: using the JSON format, 4.01 clients can create a new manager
 entity with links to an existing manager (of managers) and to two existing employees by including the entity-ids
 within the `Manager` and `DirectReports` navigation properties
 
@@ -4288,8 +4301,7 @@ original target URL extended with the navigation path to this related
 entity.
 
 On success, the service MUST create all entities and relate them. If the
-service responds with [`201 Created`](#ResponseCode201Created), the response MUST be expanded to at
-least the level that was present in the deep-insert request.
+service responds with [`201 Created`](#ResponseCode201Created), the response MUST be expanded to include at least the entities and properties that were specified in the deep-insert request.
 
 Clients MAY associate an id with individual nested entities in the
 request by applying the
@@ -4452,8 +4464,11 @@ references specified in a successful update request represents the full
 set of entities to be related according to that relationship and MUST
 NOT include added links, deleted links, or deleted entities.
 
+If a navigation property is absent from a `PUT` or `PATCH` request payload, the referenced
+or contained entity, or the collection thereof, remains unchanged by a successful update.
+
 ::: example
-Example 78: using the JSON format, a 4.01 `PATCH` request can update a
+Example 80: using the JSON format, a 4.01 `PATCH` request can update a
 manager entity. Following the update, the manager has three direct
 reports; two existing employees and one new employee named
 `Suzanne Brown`. The `LastName` of employee 6 is updated to `Smith`.
@@ -4503,7 +4518,7 @@ entity is to be created. If any nested entities contain both id and key
 fields, they MUST identify the same entity, or the request is invalid.
 
 ::: example
-Example 79: using the JSON format, a 4.01 `PATCH` request can specify a
+Example 81: using the JSON format, a 4.01 `PATCH` request can specify a
 nested delta representation to:
 
 - delete employee 3 and
@@ -4548,7 +4563,90 @@ nested delta representation to:
   ]
 }
 ```
+:::
 
+::: example
+Example 82: When updating an entity with a 4.01 `PUT` request, the target of a
+non-containment navigation property can be replaced if the targeted entity is specified
+by an entity reference (see [OData-JSON, section 14](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#EntityReference)), without specifying all
+its structural properties in `PUT` semantics.
+
+The following JSON payload changes the name of a category and the products belonging
+to it. (Compare this to [OData-JSON, example 22](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#deepupdate).)
+The effect would be the same if the `@context` was omitted from the request.
+:::: side-by-side
+::::: caption
+Request
+```json
+PUT http://host/service/Categories(6)?$expand=Products
+Content-Type: application/json
+
+{
+  "Name": "UpdatedCategory",
+  "Products": [
+    {
+      "@context": "$metadata#$ref",
+      "@id": "Products(57)"
+    }
+  ]
+}
+```
+:::::
+::::: caption
+Response
+```json
+{
+  "@context": "$metadata#Categories/$entity",
+  "CategoryID": 6,
+  "Name": "UpdatedCategory",
+  "Products": [
+    {
+      "ProductID": 57,
+      "Name": "Widgets"
+    }
+  ]
+}
+```
+:::::
+::::
+
+If `Products` was a containment navigation property, the request and response
+would be the same, except that the `@id` would likely be relative to the category,
+for example, `Categories(6)/Products(57)`.
+
+If the targeted entity in the payload contains some structural properties,
+`PUT` resets all its other structural properties. The following alternative
+payload resets the product name.
+The effect would be the same if the `@id` was omitted from the request.
+:::: side-by-side
+```json
+PUT http://host/service/Categories(6)?$expand=Products
+Content-Type: application/json
+
+{
+  "Name": "UpdatedCategory",
+  "Products": [
+    {
+      "@id": "Products(57)",
+      "ProductID": 57
+    }
+  ]
+}
+```
+```json
+{
+  "@context": "$metadata#Categories/$entity",
+  "CategoryID": 6,
+  "Name": "UpdatedCategory",
+  "Products": [
+    {
+      "ProductID": 57,
+      "Name": null
+    }
+  ]
+}
+```
+::::
 :::
 
 Clients MAY associate an id with individual nested entities in the
@@ -4650,7 +4748,7 @@ deleted, the dependent entity is also deleted.
 
 Relationships between entities are represented by navigation properties
 as described in [Data Model](#DataModel). URL conventions for navigation
-properties are described in [OData-URL](#ODataURL).
+properties are described in [OData-URL, section 4.3.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#URLsforRelatedEntitieswithReferentialConstraints).
 
 #### <a id="AddaReferencetoaCollectionValuedNavigationProperty" href="#AddaReferencetoaCollectionValuedNavigationProperty">11.4.6.1 Add a Reference to a Collection-Valued Navigation Property</a>
 
@@ -4676,7 +4774,7 @@ collection of related references, with the reference to be removed
 identified by the [`$id`](#ResolvinganEntityId) query option. OData 4.01
 services additionally support using the URL that represents the
 reference of the collection member to be removed, identified by key, as
-described in [OData-URL](#ODataURL).
+described in [OData-URL, section 4.4](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingReferencesbetweenEntities).
 
 For single-valued navigation properties, the
 [`$id`](#ResolvinganEntityId) query option MUST NOT be specified.
@@ -4700,7 +4798,7 @@ On successful completion, the response MUST be
 Alternatively, a relationship MAY be updated as part of an update to the
 source entity by including the required binding information for the new
 target entity. This binding information is format-specific, see
-[OData-JSON](#ODataJSON) for details.
+[OData-JSON, section 15.4](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#RelatedEntities) for details.
 
 If the single-valued navigation property is used in the key definition
 of an entity type, it cannot be changed and the request MUST fail with
@@ -4795,7 +4893,7 @@ payload unless explicitly requested with [`$expand`](#SystemQueryOptionexpand).
 Instead, the values are generally read or written through URLs.
 
 ::: example
-Example <a id="entityWithStreamProperty" href="#entityWithStreamProperty">80</a>: read an entity and select a stream property
+Example <a id="entityWithStreamProperty" href="#entityWithStreamProperty">83</a>: read an entity and select a stream property
 
 ```
 GET http://host/service/Products(1)?$select=Thumbnail
@@ -4826,7 +4924,7 @@ The response MAY be a redirect to the media read link of the stream property
 if the media read link is different from the canonical URL.
 
 ::: example
-Example 81: directly read a stream property of an entity
+Example 84: directly read a stream property of an entity
 
 ```
 GET http://host/service/Products(1)/Thumbnail
@@ -4877,7 +4975,7 @@ attempts to set the property to null and results in an error if the
 property is non-nullable.
 
 ::: example
-Example 82: delete the stream value using the media edit link retrieved in [example 80](#entityWithStreamProperty)
+Example 85: delete the stream value using the media edit link retrieved in [example 83](#entityWithStreamProperty)
 
 ```
 DELETE http://server/uploads/Thumbnail546.jpg
@@ -4893,7 +4991,7 @@ Attempting to request a stream property whose value is null results in
 Values and properties can be explicitly addressed with URLs. The edit
 URL of a property is the edit URL of the entity appended with the path
 segment(s) specifying the individual property. The edit URL allows
-properties to be individually modified. See [OData-URL](#ODataURL) for
+properties to be individually modified. See [OData-URL, section 4.6](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingaProperty) for
 details on addressing individual properties.
 
 #### <a id="UpdateaPrimitiveProperty" href="#UpdateaPrimitiveProperty">11.4.9.1 Update a Primitive Property</a>
@@ -5031,7 +5129,7 @@ ordinal number indexes from the end of the collection, with -1
 representing an insert as the last item in the collection.
 
 ::: example
-Example 83: Insert a new email address at the second position
+Example 86: Insert a new email address at the second position
 
 ```json
 POST /service/Customers('ALFKI')/EmailAddresses?$index=1
@@ -5178,7 +5276,8 @@ describes an update to each member of the collection, not an update to
 the collection itself.
 
 The resource path of the collection MAY contain type-cast or filter
-segments to subset the collection, see [OData-URL](#ODataURL).
+segments to subset the collection, see [OData-URL, section 4.11](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingDerivedTypes) and
+[OData-URL, section 4.12](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingaSubsetofaCollection).
 
 For primitive-typed collections the body of the request MUST be a
 primitive value. Each member of the potentially filtered collection is
@@ -5193,7 +5292,7 @@ semantics described in [Update a Collection of
 Entities](#UpdateaCollectionofEntities) applies.
 
 ::: example
-Example 84: change the color of all beige-brown products
+Example 87: change the color of all beige-brown products
 
 ```json
 PATCH /service/Products/$filter(@bar)/$each?@bar=Color eq 'beige-brown'
@@ -5239,7 +5338,7 @@ The request resource path of the collection MAY contain type-cast or
 filter segments to subset the collection.
 
 ::: example
-Example 85: delete all products older than 3
+Example 88: delete all products older than 3
 
 ```
 DELETE /service/Products/$filter(Age gt 3)/$each
@@ -5275,7 +5374,7 @@ Custom operations ([Actions](#Actions) and [Functions](#Functions))
 allow encapsulating logic for modifying or requesting data that goes
 beyond simple CRUD described in the preceding sections of this chapter.
 See `Action`, `ActionImport`, `Function`, and `FunctionImport` in
-[OData-CSDLJSON](#ODataCSDL) or [OData-CSDLXML](#ODataCSDL).
+[OData-CSDLJSON](#ODataCSDL) or [OData-CSDLXML](#ODataCSDLXML).
 
 ### <a id="BindinganOperationtoaResource" href="#BindinganOperationtoaResource">11.5.1 Binding an Operation to a Resource</a>
 
@@ -5291,7 +5390,7 @@ by that URL is used as the *binding parameter value*. Only aliases
 defined in the metadata document of the service can be used in URLs.
 
 ::: example
-Example 86: the function `MostRecentOrder` can be bound to any URL that
+Example 89: the function `MostRecentOrder` can be bound to any URL that
 identifies a `SampleModel.Customer`
 ```xml
 <Function Name="MostRecentOrder" IsBound="true">
@@ -5302,7 +5401,7 @@ identifies a `SampleModel.Customer`
 :::
 
 ::: example
-Example 87: invoke the `MostRecentOrder` function with the value of the
+Example 90: invoke the `MostRecentOrder` function with the value of the
 binding parameter `customer` being the entity identified by
 `http://host/service/Customers(6)`
 ```
@@ -5311,7 +5410,7 @@ GET http://host/service/Customers(6)/SampleModel.MostRecentOrder()
 :::
 
 ::: example
-Example 88: the function `Comparison` can be bound to any URL that
+Example 91: the function `Comparison` can be bound to any URL that
 identifies a collection of entities
 ```xml
 <Function Name="Comparison" IsBound="true">
@@ -5322,7 +5421,7 @@ identifies a collection of entities
 :::
 
 ::: example
-Example 89: invoke the `Comparison` function on the set of red products
+Example 92: invoke the `Comparison` function on the set of red products
 ```
 GET http://host/service/Products/$filter(Color eq 'Red')/Diff.Comparison()
 ```
@@ -5345,7 +5444,7 @@ result type of the bound operation. If the bound operation returns a
 collection, the response is a collection of collections.
 
 ::: example
-Example 90: invoke the `MostRecentOrder` function on each entity in the
+Example 93: invoke the `MostRecentOrder` function on each entity in the
 entity set `Customers`
 ```
 GET http://host/service/Customers/$each/SampleModel.MostRecentOrder()
@@ -5373,7 +5472,7 @@ or entity collection within the payload. The representation of an action
 or function depends on the [format](#Formats).
 
 ::: example
-Example 91: given a `GET` request to
+Example 94: given a `GET` request to
 `http://host/service/Customers('ALFKI')`, the service might respond with
 a Customer that includes the `SampleEntities.MostRecentOrder` function
 bound to the entity
@@ -5394,13 +5493,13 @@ bound to the entity
 An efficient format that assumes client knowledge of metadata may omit
 actions and functions from the payload  whose target URL can be computed
 via metadata following standard conventions defined in
-[OData-URL](#ODataURL).
+[OData-URL, section 4.5](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingOperations).
 
 Services can advertise that a function or action is not available for a
 particular instance by setting its value to null.
 
 ::: example
-Example 92: the `SampleEntities.MostRecentOrder` function is not
+Example 95: the `SampleEntities.MostRecentOrder` function is not
 available for customer `ALFKI`
 ```json
 {
@@ -5484,7 +5583,7 @@ segment is a multi-valued navigation property, a `POST` request may be
 used to create a new entity in the identified collection.
 
 ::: example
-Example 93: add a new item to the list of items of the shopping cart
+Example 96: add a new item to the list of items of the shopping cart
 returned by the composable `MyShoppingCart` function import
 ```
 POST http://host/service/MyShoppingCart()/Items
@@ -5521,7 +5620,7 @@ result requires a `4xx` response, and continues otherwise.
 Function imports preceded by the `$root` literal MAY be used in the
 [`$filter`](#SystemQueryOptionfilter) or
 [`$orderby`](#SystemQueryOptionorderby) system query options, see
-[OData-URL](#ODataURL).
+[OData-URL, section 5.1.2](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#SystemQueryOptionfilter) and [OData-URL, section 5.1.5](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#SystemQueryOptionorderby).
 
 ##### <a id="InlineParameterSyntax" href="#InlineParameterSyntax">11.5.4.1.1 Inline Parameter Syntax</a>
 
@@ -5533,7 +5632,7 @@ Each parameter value is represented as a name/value pair in the format
 and `Value` is the parameter value.
 
 ::: example
-Example 94: invoke a `Sales.EmployeesByManager` function which takes a
+Example 97: invoke a `Sales.EmployeesByManager` function which takes a
 single `ManagerID` parameter via the function import
 `EmployeesByManager`
 ```
@@ -5542,7 +5641,7 @@ GET http://host/service/EmployeesByManager(ManagerID=3)
 :::
 
 ::: example
-Example 95: return all Customers whose `City` property returns
+Example 98: return all Customers whose `City` property returns
 `Western` when passed to the `Sales.SalesRegion` function
 ```
 GET http://host/service/Customers?
@@ -5555,7 +5654,7 @@ parameter value. The value for the alias is specified as a separate
 query option using the name of the parameter alias.
 
 ::: example
-Example 96: invoke a `Sales.EmployeesByManager` function via the
+Example 99: invoke a `Sales.EmployeesByManager` function via the
 function import `EmployeesByManager`, passing 3 for the `ManagerID`
 parameter
 ```
@@ -5575,7 +5674,7 @@ optional `$` prefix), the parameter name MUST be prefixed with an at
 (`@`) sign.
 
 ::: example
-Example 97: invoke a `Sales.EmployeesByManager` function via the
+Example 100: invoke a `Sales.EmployeesByManager` function via the
 function import `EmployeesByManager`, passing 3 for the `ManagerID`
 parameter using the implicit parameter alias
 ```
@@ -5609,7 +5708,7 @@ If the function is bound and the binding parameter type is part of an
 inheritance hierarchy, the function overload is selected based on the
 type of the URL segment preceding the function name. A type-cast segment
 can be used to select a function defined on a particular type in the
-hierarchy, see [OData-URL](#ODataURL).
+hierarchy, see [OData-URL, section 4.11](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingDerivedTypes).
 
 Non-binding parameters MAY be marked as optional by annotating them with
 the term
@@ -5715,7 +5814,7 @@ collection as a whole is transported in the [`ETag`](#HeaderETag) header of a
 collection response.
 
 ::: example
-Example 98: invoke the `SampleEntities.CreateOrder` action using
+Example 101: invoke the `SampleEntities.CreateOrder` action using
 `Customers('ALFKI')` as the customer (or binding parameter). The values
 `2` for the `quantity` parameter and `BLACKFRIDAY` for the
 `discountCode` parameter are passed in the body of the request. Invoke
@@ -5745,7 +5844,7 @@ If the action is bound and the binding parameter type is part of an
 inheritance hierarchy, the action overload is selected based on the type
 of the URL segment preceding the action name. A type-cast segment can be
 used to select an action defined on a particular type in the hierarchy,
-see [OData-URL](#ODataURL).
+see [OData-URL, section 4.11](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingDerivedTypes).
 
 ## <a id="AsynchronousRequests" href="#AsynchronousRequests">11.6 Asynchronous Requests</a>
 
@@ -5776,11 +5875,13 @@ and MAY include a [`Retry-After`](#HeaderRetryAfter) header to be used for a sub
 `Location` header and optional `Retry-After` header may or may not
 contain the same values as returned by the previous request.
 
-A `GET` request to the status monitor resource returns [`200 OK`](#ResponseCode200OK) once the
-asynchronous processing has completed. For OData 4.01 or greater
-responses, or OData 4.0 requests that include an `Accept` header that
+Once the asynchronous processing has completed, a `GET` request to the status monitor resource returns [`200 OK`](#ResponseCode200OK),
+or [`204 No Content`](#ResponseCode204NoContent) if the request included a `Prefer` header with a value of `return=minimal` that was applied by the service.
+For OData 4.01 or greater responses, or OData 4.0 requests that include an `Accept` header that
 does not specify `application/http`, the response MUST include the
-[`AsyncResult`](#HeaderAsyncResult) response header. Any other headers,
+[`AsyncResult`](#HeaderAsyncResult) response header.
+A `204 No Content` response MUST include a `Location` header that contains the status monitor resource URL that can be used to request the result of the completed asynchronous operation. This may or may not be the current request's URL.
+In a `200 OK` response any other headers,
 along with the response body, represent the result of the completed
 asynchronous operation. If the `GET` request to the status monitor
 includes an `OData-MaxVersion` header with a value of `4.0` and no
@@ -5791,11 +5892,11 @@ HTTP response to the completed asynchronous operation.
 
 A `DELETE` request sent to the status monitor resource requests that the
 asynchronous processing be canceled. A `200 OK` or a
-[`204 No Content`](#ResponseCode204NoContent) response indicates that the asynchronous processing has
+`204 No Content` response indicates that the asynchronous processing has
 been successfully canceled. A client can request that the `DELETE`
 should be executed asynchronously. A `202 Accepted` response indicates
 that the cancellation is being processed asynchronously; the client can
-use the returned [`Location`](#HeaderLocation) header (which MUST be
+use the returned `Location` header (which MUST be
 different from the status monitor resource of the initial request) to
 query for the status of the cancellation. If a delete request is not
 supported by the service, the service returns
@@ -5840,7 +5941,7 @@ a batch request.
 
 A batch request is represented using either the [multipart batch
 format](#MultipartBatchFormat) defined in this document or the JSON
-batch format defined in [OData-JSON](#ODataJSON).
+batch format defined in [OData-JSON, section 19](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#BatchRequestsandResponses).
 
 If the set of request headers of a batch request are valid the service
 MUST return a [`200 OK`](#ResponseCode200OK) HTTP response code to
@@ -5862,7 +5963,7 @@ format](#MultipartBatchFormat) MUST contain a
 [RFC2046](#rfc2046).
 
 ::: example
-Example 99: multipart batch request
+Example 102: multipart batch request
 ```
 POST /service/$batch HTTP/1.1
 Host: odata.org
@@ -5877,7 +5978,7 @@ A batch request using the JSON batch format MUST contain a
 `Content-Type` header specifying a content type of `application/json`.
 
 ::: example
-Example 100: JSON batch request
+Example 103: JSON batch request
 ```
 POST /service/$batch HTTP/1.1
 Host: odata.org
@@ -5932,7 +6033,7 @@ the request URL. Services MUST treat this segment like the URL in the
 [`Location`](#HeaderLocation) header of the response to the request identified by the segment.
 If the `Location` header in the response to the subsequent request contains a relative URL,
 clients MUST be able to resolve it relative to the request's URL even if
-that contains such a reference. See [example 105](#batchcontentid).
+that contains such a reference. See [example 108](#batchcontentid).
 
 If the `$`-prefixed request identifier is identical to the name of a
 top-level system resource (`$batch`, `$crossjoin`, `$all`, `$entity`,
@@ -6033,7 +6134,7 @@ set can use one of the following three formats:
 - Absolute URI with schema, host, port, and absolute resource path.
 
 ::: example
-Example 101:
+Example 104:
 ```
 GET https://host:1234/path/service/People(1) HTTP/1.1
 ```
@@ -6042,7 +6143,7 @@ GET https://host:1234/path/service/People(1) HTTP/1.1
 - Absolute resource path and separate `Host` header
 
 ::: example
-Example <a id="batchhost" href="#batchhost">102</a>:
+Example <a id="batchhost" href="#batchhost">105</a>:
 ```json
 PATCH /path/service/People(1) HTTP/1.1
 Host: myserver.mydomain.org:1234
@@ -6055,7 +6156,7 @@ Content-Type: application/json
 - Resource path relative to the batch request URI.
 
 ::: example
-Example 103:
+Example 106:
 ```
 DELETE People(1) HTTP/1.1
 ```
@@ -6080,7 +6181,7 @@ processor may choose to disallow chunked encoding to be used by such
 HTTP requests.
 
 ::: example
-Example <a id="batchRequest" href="#batchRequest">104</a>: a batch request that contains the following individual
+Example <a id="batchRequest" href="#batchRequest">107</a>: a batch request that contains the following individual
 requests in the order listed
 
   1. A query request
@@ -6159,7 +6260,7 @@ which case they SHOULD advertise this support by specifying the
 term applied to the entity container, see [OData-VocCap](#ODataVocCap).
 
 ::: example
-Example <a id="batchcontentid" href="#batchcontentid">105</a>: a batch request that contains the following operations in
+Example <a id="batchcontentid" href="#batchcontentid">108</a>: a batch request that contains the following operations in
 the order listed:
 
 A change set that contains the following requests:
@@ -6231,7 +6332,7 @@ request URL `$1/Orders`. To get an absolute base URI, the client must replace th
 resulting URL `Customers('ALFKI')/Orders(1)` relative to its base URI, which is
 `http://host/service/Customers` (determined from the
 first request URL `/service/Customers` and the `Host: host` header
-as in [example 102](#batchhost)). This gives the effective second request URL
+as in [example 105](#batchhost)). This gives the effective second request URL
 `http://host/service/Customers('ALFKI')/Orders` as base URI for the second `Location`
 URL, which therefore resolves to `http://host/service/Customers('ALFKI')/Orders(1)`.
 :::
@@ -6239,7 +6340,7 @@ URL, which therefore resolves to `http://host/service/Customers('ALFKI')/Orders(
 #### <a id="ReferencinganETag" href="#ReferencinganETag">11.7.7.3 Referencing an ETag</a>
 
 ::: example
-Example 106: a batch request that contains the following operations in
+Example 109: a batch request that contains the following operations in
 the order listed:
 
 - Get an employee (with `Content-ID = 1`)
@@ -6280,7 +6381,7 @@ If-Match: $1
 #### <a id="ReferencingResponseBodyValues" href="#ReferencingResponseBodyValues">11.7.7.4 Referencing Response Body Values</a>
 
 ::: example
-Example 107: a batch request that contains the following operations in
+Example 110: a batch request that contains the following operations in
 the order listed:
 
 - Get an employee (with `Content-ID = 1`)
@@ -6373,11 +6474,11 @@ A response to an operation in a batch MUST be formatted exactly as it
 would have appeared outside of a batch as described in the corresponding
 subsections of chapter [Data Service Requests](#DataServiceRequests).
 Relative URLs in each individual response are relative to the request
-URL of the corresponding individual request (see [example 105](#batchcontentid)).
+URL of the corresponding individual request (see [example 108](#batchcontentid)).
 URLs in responses MUST NOT contain `$`-prefixed request identifiers.
 
 ::: example
-Example 108: referencing the batch request [example 104](#batchRequest) above, assume all
+Example 111: referencing the batch request [example 107](#batchRequest) above, assume all
 the requests except the final query request succeed. In this case the
 response would be
 ```
@@ -6453,7 +6554,7 @@ Since a change set is executed atomically,
 a change set.
 
 ::: example
-Example 109: referencing the [example 104](#batchRequest) above again, assume that
+Example 112: referencing the [example 107](#batchRequest) above again, assume that
 ```
 HTTP/1.1 202 Accepted
 Location: http://service-root/async-monitor-0
@@ -6599,7 +6700,7 @@ request
 7. MUST successfully parse the request according to
 [OData-ABNF](#ODataABNF) for any supported system query options and
 follow the specification or fail the request
-8. MUST expose only data types defined in [OData-CSDLXML](#ODataCSDL)
+8. MUST expose only data types defined in [OData-CSDLXML](#ODataCSDLXML)
 9. MUST NOT require clients to understand any metadata or instance
 annotations ([section 6.4](#VocabularyExtensibility)), custom headers ([section 6.5](#HeaderFieldExtensibility)), or custom
 content ([section 6.2](#PayloadExtensibility)) in the payload in order to correctly consume the
@@ -6609,7 +6710,7 @@ service
 11. MUST NOT violate any other OData-defined semantics
 12. SHOULD support `$expand` ([section 11.2.5.2](#SystemQueryOptionexpand))
 13. SHOULD publish metadata at `$metadata` according to
-[OData-CSDLXML](#ODataCSDL) and MAY publish metadata according to
+[OData-CSDLXML](#ODataCSDLXML) and MAY publish metadata according to
 [OData-CSDLJSON](#ODataCSDL) ([section 11.1.2](#MetadataDocumentRequest))
 14. MUST support prefixed variants of supported headers and preference
 values
@@ -6627,7 +6728,7 @@ final response to an asynchronous request
 To be considered an *Updatable OData Service*, the service additionally:
 
 18. MUST include edit links (explicitly or implicitly) for all
-updatable or deletable resources according to [OData-JSON](#ODataJSON)
+updatable or deletable resources according to [OData-JSON, section 4.6.9](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink)
 19. MUST support `POST` of new entities to insertable entity sets
 ([section 11.4.1.5](#ReturningResultsfromDataModificationRequests))
 20. MUST support `POST` of new related entities to updatable navigation
@@ -6668,7 +6769,7 @@ Level](#OData40MinimalConformanceLevel)
 follow the specification or fail the request
 3. MUST support `$select` ([section 11.2.5.1](#SystemQueryOptionselect))
 4. MUST support casting to a derived type according to
-[OData-URL](#ODataURL) if derived types are present in the model
+[OData-URL, section 4.11](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingDerivedTypes) if derived types are present in the model
 5. MUST support `$top` ([section 11.2.6.3](#SystemQueryOptiontop))
 6. MUST support `/$value` on media entities ([section 11.1.2](#MetadataDocumentRequest)) and individual properties ([section 11.2.4.2](#RequestingaRawValueusingvalue))
 7. MUST support `$filter` ([section 11.2.6.1](#SystemQueryOptionfilter))
@@ -6682,7 +6783,7 @@ operations
 MUST fail the request for any unsupported canonical functions
    5. SHOULD support `$filter` on expanded entities ([section 11.2.5.2.1](#ExpandOptions))
 8. SHOULD publish metadata at `$metadata` according to
-[OData-CSDLXML](#ODataCSDL) ([section 11.1.2](#MetadataDocumentRequest))
+[OData-CSDLXML](#ODataCSDLXML) ([section 11.1.2](#MetadataDocumentRequest))
 9. SHOULD support the [OData-JSON](#ODataJSON) format
 10. SHOULD consider supporting basic authentication as defined in
 [RFC7617](#rfc7617) over HTTPS for the highest level of interoperability
@@ -6705,7 +6806,7 @@ In order to conform to the OData Advanced Conformance Level, a service:
 1. MUST conform to at least the [OData 4.0 Intermediate Conformance
 Level](#OData40IntermediateConformanceLevel)
 2. MUST publish metadata at `$metadata` according to
-[OData-CSDLXML](#ODataCSDL) ([section 11.1.2](#MetadataDocumentRequest))
+[OData-CSDLXML](#ODataCSDLXML) ([section 11.1.2](#MetadataDocumentRequest))
 3. MUST support the [OData-JSON](#ODataJSON) format
 4. MUST support the `/$count` segment on navigation and collection
 properties ([section 11.2.10](#RequestingtheNumberofItemsinaCollection))
@@ -6730,13 +6831,13 @@ properties
 10. MUST support the `$search` system query option ([section 11.2.6.6](#SystemQueryOptionsearch))
 11. MUST support batch requests according to the multipart format
 ([section 11.7](#BatchRequests) and all subsections) and MAY support batch requests
-according to the JSON Batch format defined in [OData-JSON](#ODataJSON)
+according to the JSON Batch format defined in [OData-JSON, section 19](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#BatchRequestsandResponses)
 12. MUST support the resource path conventions defined in
-[OData-URL](#ODataURL)
+[OData-URL, section 4](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#ResourcePath)
 13. SHOULD support asynchronous requests
 ([section 11.6](#AsynchronousRequests))
 14. SHOULD support Delta change tracking ([section 11.3](#RequestingChanges))
-15. SHOULD support cross-join queries defined in [OData-URL](#ODataURL)
+15. SHOULD support cross-join queries defined in [OData-URL, section 4.15](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingtheCrossJoinofEntitySets)
 16. MAY support the `$compute` system query option ([section 11.2.5.3](#SystemQueryOptioncompute))
 
 ## <a id="OData401ServiceConformanceLevels" href="#OData401ServiceConformanceLevels">12.2 OData 4.01 Service Conformance Levels</a>
@@ -6797,12 +6898,12 @@ with a maximum cardinality of one
    11. SHOULD support negative indexes for the substring function
    12. MAY support Key-As-Segment URL convention
        1. MUST also support canonical URL conventions (described in
-[OData-URL](#ODataURL)) or include URLs in payload
+[OData-URL, section 4.3.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalURL)) or include URLs in payload
    13. MAY support the count of a filtered collection in a common
 expression
    14. MAY support equal and non-equal structural comparison
 10. SHOULD publish metadata at `$metadata` according to both
-[OData-CSDLXML](#ODataCSDL) and [OData-CSDLJSON](#ODataCSDL) ([section 11.1.2](#MetadataDocumentRequest))
+[OData-CSDLXML](#ODataCSDLXML) and [OData-CSDLJSON](#ODataCSDL) ([section 11.1.2](#MetadataDocumentRequest))
 11. SHOULD NOT have identifiers within a uniqueness scope (e.g. a
 schema, a structural type, or an entity container) that differ only by
 case
@@ -6884,7 +6985,7 @@ properties
 [OData-CSDLJSON](#ODataCSDL) ([section 11.1.2](#MetadataDocumentRequest))
 7. MUST support batch requests according both to the multipart format
 ([section 11.7](#BatchRequests) and all subsections) and the JSON Batch format defined in
-[OData-JSON](#ODataJSON)
+[OData-JSON, section 19](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#BatchRequestsandResponses)
 8. SHOULD support filtering a collection using a `/$filter` path
 segment
 9. SHOULD support nested parameter alias assignments in
@@ -6907,7 +7008,7 @@ To be generally interoperable, OData clients
 2. MUST specify `OData-Version` ([section 8.1.5](#HeaderODataVersion)) and `Content-Type`
 ([section 8.1.1](#HeaderContentType)) in any request with a payload
 3. MUST be a conforming consumer of OData as defined in
-[OData-JSON](#ODataJSON)
+[OData-JSON, section 23](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#Conformance)
 4. MUST follow redirects ([section 9.1.5](#ResponseCode3xxRedirection))
 5. MUST correctly handle next links ([section 11.2.6.7](#ServerDrivenPaging))
 6. MUST support instances returning properties and navigation
@@ -6927,9 +7028,9 @@ returned in the response ([section 11.2.8](#RequestingEntityReferences))
 in a delta response ([section 11.3](#RequestingChanges))
 14. MAY support asynchronous responses ([section 11.6](#AsynchronousRequests))
 15. MAY support `metadata=minimal` in a JSON response (see
-[OData-JSON](#ODataJSON))
+[OData-JSON, section 3.1.1](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#metadataminimalodatametadataminimal))
 16. MAY support `streaming` in a JSON response (see
-[OData-JSON](#ODataJSON))
+[OData-JSON, section 4.5](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#PayloadOrderingConstraints))
 
 In addition, interoperable OData 4.01 clients
 
@@ -6967,10 +7068,11 @@ See link in "[Related work](#RelatedWork)" section on cover page.
 _OData Extension for Data Aggregation Version 4.02._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### [OData-CSDL]{id=ODataCSDL}
+###### [OData-CSDLJSON]{id=ODataCSDL}
 _OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
+###### [OData-CSDLXML]{id=ODataCSDLXML}
 _OData Common Schema Definition Language (CSDL) XML Representation Version 4.02._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 

@@ -268,10 +268,13 @@ Section | Feature / Change | Issue
 [Section 3.4.5](#SRID)| SRID value `variable` is deprecated| [1935](https://github.com/oasis-tcs/odata-specs/issues/1935)
 [Section 4](#CSDLXMLDocument) | Additional `Version` value `4.02` |
 [Section 13](#EntityContainer)| All children of `edm:EntityContainer` are optional| [464](https://github.com/oasis-tcs/odata-specs/issues/464)
+[Section 12](#ActionandFunction) | Actions and functions can take, and return, delta payloads | [348](https://github.com/oasis-tcs/odata-specs/issues/348)
+[Section 12.8](#ReturnType) | Returned collections of entities may contain `null` values | [1983](https://github.com/oasis-tcs/odata-specs/issues/1983)
 [Section 14.3.13](#GeoValues) | Constant Geo values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
 [Section 14.3.14](#StreamValues) | Constant Stream values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
 [Section 14.4.1.2](#PathEvaluation)| New path evaluation rules for annotations targeting annotations and external targeting via container| [575](https://github.com/oasis-tcs/odata-specs/issues/575)
 [Section 14.4.7](#IfThenElse)| Nested `If` without else part in collections| [326](https://github.com/oasis-tcs/odata-specs/issues/326)
+[Section 15.2](#SimpleIdentifier) | Prefer identifiers consisting only of latin letters, the underscore, and decimal numbers | [375](https://github.com/oasis-tcs/odata-specs/issues/375)
 [Section 17](#Conformance) | Additional conformance clauses for version 4.02 |
 
 ## <a id="Glossary" href="#Glossary">1.2 Glossary</a>
@@ -926,8 +929,8 @@ The
 annotation, defined in [OData-VocCore](#ODataVocCore), MAY be used to
 indicate a particular version of the referenced document. If the
 [`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
-annotation is present, the `$schemaversion` system query option, defined
-[OData-Protocol](#ODataProtocol), SHOULD be used when retrieving the
+annotation is present, the `$schemaversion` system query option, defined in
+[OData-Protocol, section 11.2.12](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptionschemaversion), SHOULD be used when retrieving the
 referenced schema document.
 
 
@@ -1416,7 +1419,7 @@ Note: structural and navigation properties MAY be returned by the
 service on instances of any structured type, whether or not the type is
 marked as open. Clients MUST always be prepared to deal with additional
 properties on instances of any structured type, see
-[OData-Protocol](#ODataProtocol).
+[OData-Protocol, section 3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#DataModel).
 
 
 ::: {.varxml .rep}
@@ -1437,7 +1440,7 @@ entity with one or more properties of type `Edm.Stream` if the
 structured data of the entity is the main topic of interest and the
 stream data is just additional information attached to the structured
 data. For more information on media entities see
-[OData-Protocol](#ODataProtocol).
+[OData-Protocol, section 11.2.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#RequestingtheMediaStreamofaMediaEntityusingvalue).
 
 An entity type derived from a media entity type MUST indicate that it is
 also a media entity type.
@@ -1498,7 +1501,7 @@ on one of these primitive types:
 
 Key property values MAY be language-dependent, but their values MUST be
 unique across all languages and the entity-ids (defined in
-[OData-Protocol](#ODataProtocol)) MUST be language independent.
+[OData-Protocol, section 4.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#EntityIdsandEntityReferences)) MUST be language independent.
 
 A key property MUST be a non-nullable primitive property of the entity
 type itself, including non-nullable primitive properties of non-nullable
@@ -1954,7 +1957,7 @@ the entities referenced by the containment navigation property. The
 canonical URL for contained entities is the canonical URL of the
 containing instance, followed by the path segment of the navigation
 property and the key of the contained entity, see
-[OData-URL](#ODataURL).
+[OData-URL, section 4.3.2](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalURLforContainedEntities).
 
 Entity types used in collection-valued containment navigation properties
 MUST have a [key](#Key) defined.
@@ -2270,7 +2273,7 @@ Note: structural and navigation properties MAY be returned by the
 service on instances of any structured type, whether or not the type is
 marked as open. Clients MUST always be prepared to deal with additional
 properties on instances of any structured type, see
-[OData‑Protocol](#ODataProtocol).
+[OData-Protocol, section 3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#DataModel).
 
 
 ::: {.varxml .rep}
@@ -2771,10 +2774,7 @@ type, followed by a closing parenthesis `)`.
 The value of `Nullable` is one of the Boolean literals `true` or
 `false`. Absence of the attribute means `true`.
 
-If the return type is a collection of entity types, the `Nullable`
-attribute has no meaning and MUST NOT be specified.
-
-For other collection-valued return types the result will always be a
+For collection-valued return types the result will always be a
 collection that MAY be empty. In this case the `Nullable` attribute
 applies to items of the collection and specifies whether the collection
 MAY contain `null` values.
@@ -2784,6 +2784,14 @@ function MAY return a single `null` value. The value `false` means that
 the action or function will never return a `null` value and instead will
 fail with an error response if it cannot compute a result.
 :::
+
+### <a id="AnnotationCoreIsDelta.22.3" href="#AnnotationCoreIsDelta.22.3">Annotation `Core.IsDelta`</a>
+
+An action or function that returns a single entity or a collection of entities MAY return results as a delta payload.
+This is indicated by annotating the return type with the term [`Core.IsDelta`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsDelta).
+
+Delta payloads represent changes between two versions of data and, in addition
+to current values, MAY include deleted entities as well as changes to related entities and relationships, according to the format-specific delta representation.
 
 ## <a id="Parameter" href="#Parameter">12.9 Parameter</a>
 
@@ -2808,7 +2816,6 @@ specify value restrictions of the parameter, as well as the
 For single-valued parameters the facets apply to the parameter value. If
 the parameter value is a collection, the facets apply to the items in
 the collection.
-
 
 
 ::: {.varxml .rep}
@@ -2842,6 +2849,13 @@ The value of `Nullable` is one of the Boolean literals `true` or
 The value `true` means that the parameter accepts a `null` value.
 :::
 
+### <a id="AnnotationCoreOptionalParameter.23.4" href="#AnnotationCoreOptionalParameter.23.4">Annotation `Core.OptionalParameter`</a>
+
+A parameter that is annotated with the term [`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter) MAY be omitted when invoking the function or action.
+
+All parameters marked as optional MUST come after any parameters not marked as optional. 
+The binding parameter MUST NOT be marked as optional.
+
 ::: {.varxml .example}
 Example 30: a function returning the top-selling products for a given
 year. In this case the year must be specified as a parameter of the
@@ -2853,6 +2867,14 @@ function with the `edm:Parameter` element.
 </Function>
 ```
 :::
+
+### <a id="AnnotationCoreIsDelta.23.5" href="#AnnotationCoreIsDelta.23.5">Annotation `Core.IsDelta`</a>
+
+A parameter that accepts a single entity or a collection of entities MAY accept a delta representation.
+This is indicated by annotating the parameter with the term [`Core.IsDelta`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsDelta).
+
+Deltas represent changes between two versions of data and, in addition
+to current values, MAY include deleted entities as well as changes to related entities and relationships, according to the format-specific delta representation.
 
 
 -------
@@ -3326,7 +3348,7 @@ Metadata annotations are applied in CSDL documents describing or
 referencing an entity model.
 
 *Instance annotations* are terms applied to a particular instance within
-an OData payload, such as described in [OData-JSON](#ODataJSON). An
+an OData payload, such as described in [OData-JSON, section 20](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#InstanceAnnotations). An
 instance annotation can be used to define additional information
 associated with a particular result, entity, property, or error. For
 example, whether a property is read-only for a particular instance.
@@ -3524,7 +3546,7 @@ Symbolic Value|Model Element
 `NavigationProperty`      |Navigation Property
 `Null`                    |Null annotation expression
 `OnDelete`                |On-Delete Action of a navigation property
-`Parameter`               |Action of Function Parameter
+`Parameter`               |Action or Function Parameter
 `Property`                |Structural Property
 `PropertyValue`           |Property value of a Record annotation expression
 `Record`                  |Record annotation expression
@@ -4176,7 +4198,7 @@ than the `Edm.*Path` types.
 #### <a id="PathSyntax" href="#PathSyntax">14.4.1.1 Path Syntax</a>
 
 Model paths and instance paths share a common syntax which is derived
-from the path expression syntax of URLs, see [OData-URL](#ODataURL).
+from the path expression syntax of URLs, see [OData-URL, section 5.1.1.15](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#PathExpressions).
 
 A path MUST be composed of zero or more path segments joined together by
 forward slashes (`/`).
@@ -4312,7 +4334,7 @@ vs. term cast addressing an annotation on the resource addressed by the navigati
 An instance path MAY contain path segments starting with an entity set
 or a collection-valued navigation property, then followed by a key
 predicate using parentheses-style convention, see
-[OData-URL](#ODataURL). The key values are either primitive literals or
+[OData-URL, section 4.3.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalURL). The key values are either primitive literals or
 instance paths. If the key value is a relative instance path, it is
 interpreted according to the same rule below as the instance path it is
 part of, *not* relative to the instance identified by the preceding path
@@ -4691,7 +4713,7 @@ they MAY be used anywhere instead of a Boolean expression.
 The `And` and `Or` operators require two operand expressions that
 evaluate to Boolean values. The `Not` operator requires a single operand
 expression that evaluates to a Boolean value. For details on null
-handling for comparison operators see [OData-URL](#ODataURL).
+handling for comparison operators see [OData-URL, section 5.1.1.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#LogicalOperators).
 
 The other comparison operators require two operand expressions that
 evaluate to comparable values.
@@ -4780,7 +4802,7 @@ to a numeric value. These expressions MAY be combined, and they MAY be
 used anywhere instead of a numeric expression of the appropriate type.
 The semantics and evaluation rules for each arithmetic expression is
 identical to the corresponding arithmetic operator defined in
-[OData-URL](#ODataURL).
+[OData-URL, section 5.1.1.2](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#ArithmeticOperators).
 
 Operator|Description
 --------|-----------
@@ -4876,10 +4898,10 @@ specification and its future versions.
 
 #### <a id="CanonicalFunctions" href="#CanonicalFunctions">14.4.4.1 Canonical Functions</a>
 
-All canonical functions defined in [OData-URL](#ODataURL) can be used as
+All canonical functions defined in [OData-URL, section 5.1.1.4](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalFunctions) can be used as
 client-side functions, qualified with the namespace `odata`. The
 semantics of these client-side functions is identical to their
-counterpart function defined in [OData-URL](#ODataURL).
+counterpart function defined in [OData-URL, section 5.1.1.4](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalFunctions).
 
 For example, the `odata.concat` client-side function takes two
 expressions as arguments. Each argument MUST evaluate to a primitive or
@@ -5017,7 +5039,7 @@ Example 80:
 The cast expression casts the value obtained from its single child
 expression to the specified type. The cast expression follows the same
 rules as the `cast` canonical function defined in
-[OData-URL](#ODataURL).
+[OData-URL, section 5.1.1.10.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#cast).
 
 
 
@@ -5474,6 +5496,10 @@ restrictions:
 Non-normatively speaking it starts with a letter or underscore, followed
 by at most 127 letters, underscores or digits.
 
+For maximum interoperability services SHOULD use simple identifiers
+that additionally only consist of characters from the Basic Latin code block
+and match the pattern `^[_A-Za-z][_A-Za-z0-9]*$`.
+
 ## <a id="QualifiedName" href="#QualifiedName">15.3 Qualified Name</a>
 
 For model elements that are direct children of a schema: the namespace
@@ -5732,9 +5758,10 @@ In addition, OData 4.01 or greater services:
 schema, a structural type, or an entity container) that differ only by
 case
 
-In addition, OData 4.01 services:
+In addition, OData 4.02 or greater services:
 
 15. SHOULD NOT include constant [Geo](#GeoValues) or [Stream values](#StreamValues) in annotations
+16. SHOULD use [simple identifiers](#SimpleIdentifier) matching the pattern `^[_A-Za-z][_A-Za-z0-9]*$`
 
 Conforming clients MUST be prepared to consume a model that uses any or
 all constructs defined in this specification, including custom
@@ -5920,10 +5947,13 @@ https://www.ogc.org/standard/sfa/.
 - [Element `edm:ReturnType`](#ElementedmReturnType.22)
   - [Attribute `Type`](#AttributeType.22.1)
   - [Attribute `Nullable`](#AttributeNullable.22.2)
+  - [Annotation `Core.IsDelta`](#AnnotationCoreIsDelta.22.3)
 - [Element `edm:Parameter`](#ElementedmParameter.23)
   - [Attribute `Name`](#AttributeName.23.1)
   - [Attribute `Type`](#AttributeType.23.2)
   - [Attribute `Nullable`](#AttributeNullable.23.3)
+  - [Annotation `Core.OptionalParameter`](#AnnotationCoreOptionalParameter.23.4)
+  - [Annotation `Core.IsDelta`](#AnnotationCoreIsDelta.23.5)
 - [Element `edm:EntityContainer`](#ElementedmEntityContainer.24)
   - [Attribute `Name`](#AttributeName.24.1)
   - [Attribute `Extends`](#AttributeExtends.24.2)
@@ -6018,7 +6048,7 @@ https://www.ogc.org/standard/sfa/.
 
 
 The contributions of the OASIS OData Technical Committee members,
-enumerated in [ODataProtocol](#ODataProtocol), are gratefully
+enumerated in [OData-Protocol, section C.2](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#Participants), are gratefully
 acknowledged.
 
 ## <a id="Participants" href="#Participants">C.2 Participants</a>

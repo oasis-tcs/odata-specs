@@ -220,6 +220,8 @@ Section | Feature / Change | Issue
 [Section 4.6.8](#ControlInformationidodataid)| Transient entities can be identifiable| [1928](https://github.com/oasis-tcs/odata-specs/issues/1928)
 [Section 4.6.12](#ControlInformationmediaodatamedia)| `mediaContentType` can be `null`| [536](https://github.com/oasis-tcs/odata-specs/issues/536)
 [Section 7](#StructuralProperty), [Section A.2](#InformativeReferences)| Removed reference to obsolete version of GeoJSON| [456](https://github.com/oasis-tcs/odata-specs/issues/456)
+[Section 15.3](#DeletedEntity) | `type` control information, if present, must come immediately after `removed` |
+[1985](https://github.com/oasis-tcs/odata-specs/issues/1985)
 [Section 18](#ActionInvocation)| Allow common expressions in action payloads| [341](https://github.com/oasis-tcs/odata-specs/issues/341)
 
 ## <a id="Glossary" href="#Glossary">1.2 Glossary</a>
@@ -598,7 +600,7 @@ order of objects within an array in JSON responses.
 ## <a id="URLsinMessageBodies" href="#URLsinMessageBodies">4.3 URLs in Message Bodies</a>
 
 URLs represented as a string within a JSON payload, including [batch
-requests](#BatchRequest), must follow standard OData encoding rules as defined in [OData-URL](#ODataURL).
+requests](#BatchRequest), must follow standard OData encoding rules as defined in [OData-URL, section 2.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#URLParsing).
 
 For [relative URLs](#RelativeURLs) this means that colons (`:`) in the path part, especially
 within key values, MUST be percent-encoded to avoid confusion with the
@@ -711,6 +713,7 @@ constraints have to be met:
 
 - If present, the `context` control information MUST be the first
   property in the JSON object.
+- For 4.01 deleted entities, the `removed` control information MUST appear   after `context`, if present, and before any other property or control information.
 - The
   `type` control information, if present, MUST appear next in
   the JSON object.
@@ -757,7 +760,7 @@ stop processing and MUST NOT signal an error.
 ### <a id="ControlInformationcontextodatacontext" href="#ControlInformationcontextodatacontext">4.6.1 Control Information: `context` (`odata.context`)</a>
 
 The `context` control information
-returns the context URL (see [OData-Protocol](#ODataProtocol)) for the
+returns the context URL (see [OData-Protocol, section 10](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ContextURL)) for the
 payload. This URL can be absolute or [relative](#RelativeURLs).
 The fragment portion of the context URL MUST NOT be percent-encoded.
 
@@ -771,7 +774,7 @@ entity set cannot be determined from the context URL of
 the collection.
 
 For more information on the format of the context URL, see
-[OData-Protocol](#ODataProtocol).
+[OData-Protocol, section 10](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ContextURL).
 
 Request payloads MAY include a context URL as a base URL for [relative
 URLs](#RelativeURLs) in the request payload.
@@ -802,7 +805,7 @@ If no ETag is returned when requesting the metadata document, then the
 service SHOULD NOT set the `metadataEtag` control information
 in any responses.
 
-For details on how ETags are used, see [OData-Protocol](#ODataProtocol).
+For details on how ETags are used, see [OData-Protocol, section 11.4.1.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UseofETagsforAvoidingUpdateConflicts).
 
 ### <a id="ControlInformationtypeodatatype" href="#ControlInformationtypeodatatype">4.6.3 Control Information: `type` (`odata.type`)</a>
 
@@ -823,7 +826,7 @@ The root `type` may be absolute or relative to the root
 If the URI references a metadata document (that is, it's not just a
 fragment), it MAY refer to a specific version of that metadata document
 using the `$schemaversion` system query option
-defined in [OData-Protocol](#ODataProtocol).
+defined in [OData-Protocol, section 11.2.12](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptionschemaversion).
 
 For non-built in primitive types, the URI contains the
 namespace-qualified or alias-qualified type, specified as a URI
@@ -832,8 +835,7 @@ fragment is the namespace-qualified or alias-qualified element type
 enclosed in parentheses and prefixed with `Collection`. The
 namespace or alias MUST be defined or the namespace referenced in the
 metadata document of the service, see
-[OData-CSDLJSON](#ODataCSDL) or
-[OData-CSDLXML](#ODataCSDL).
+[OData-CSDL](#ODataCSDL).
 
 The `type` control information MUST appear in requests and in
 responses with [minimal](#metadataminimalodatametadataminimal) or
@@ -875,8 +877,7 @@ The `type` control information can be absent in properties nested in an instance
 In particular, individual primitive values within a collection cannot have `type` control information.
 
 For more information on namespace- and alias-qualified names, see
-[OData-CSDLJSON](#ODataCSDL) or
-[OData-CSDLXML](#ODataCSDL).
+[OData-CSDL](#ODataCSDL).
 
 ::: example
 Example 5: entity of type
@@ -923,7 +924,9 @@ is only a subset of the requested collection. It contains a [URL](URLsinMessageB
 allows retrieving the next subset of the requested collection.
 
 This control information can also be applied to [expanded to-many
-navigation properties](#ExpandedNavigationProperty).
+navigation properties](#ExpandedNavigationProperty) and to collections of
+[primitive](#CollectionofPrimitiveValues) or [complex](#CollectionofComplexValues)
+values.
 
 ### <a id="ControlInformationdeltaodatadelta" href="#ControlInformationdeltaodatadelta">4.6.6 Control Information: `delta` (`odata.delta`)</a>
 
@@ -945,9 +948,9 @@ control information.
 ### <a id="ControlInformationidodataid" href="#ControlInformationidodataid">4.6.8 Control Information: `id` (`odata.id`)</a>
 
 The `id` control information contains the entity-id, see
-[OData-Protocol](#ODataProtocol). By convention the entity-id is
+[OData-Protocol, section 4.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#EntityIdsandEntityReferences). By convention the entity-id is
 identical to the canonical URL of the entity, as defined in
-[OData-URL](#ODataURL).
+[OData-URL, section 4.3.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalURL).
 
 The `id` control information MUST appear in responses if
 [`metadata=full`](#metadatafullodatametadatafull)
@@ -967,7 +970,7 @@ if it does not match convention for the localized key values. If the
 `id` is represented, it MAY be a [relative
 URL](#RelativeURLs).
 
-If the entity is transient (see [OData-Protocol](#ODataProtocol)), the
+If the entity is transient (see [OData-Protocol, section 4.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#TransientEntities)), the
 `id` control information MUST appear in OData 4.0 payloads
 and have the `null` value. In 4.01 or greater payloads transient
 entities need not have the `id` control information, and
@@ -986,10 +989,10 @@ of this specification.
 ### <a id="ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink" href="#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink">4.6.9 Control Information: `editLink` and `readLink` (`odata.editLink` and `odata.readLink`)</a>
 
 The `editLink` control information contains
-the edit [URL](URLsinMessageBodies) of the entity; see [OData-Protocol](#ODataProtocol).
+the edit [URL](URLsinMessageBodies) of the entity; see [OData-Protocol, section 4.2](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ReadURLsandEditURLs).
 
 The `readLink` control information contains the read URL of
-the entity or collection; see [OData-Protocol](#ODataProtocol).
+the entity or collection; see [OData-Protocol, section 4.2](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ReadURLsandEditURLs).
 
 The `editLink` and `readLink` control information
 is ignored in request payloads and not written in responses if
@@ -1043,7 +1046,7 @@ value of the control information is an entity tag (ETag) which is an
 opaque string value that can be used in a subsequent request to
 determine if the value of the entity or collection has changed.
 
-For details on how ETags are used, see [OData-Protocol](#ODataProtocol).
+For details on how ETags are used, see [OData-Protocol, section 11.4.1.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UseofETagsforAvoidingUpdateConflicts).
 
 The `etag` control information is ignored in request payloads for
 single entities and not written in responses if
@@ -1206,7 +1209,7 @@ The value of the `value` property MUST be a JSON array
 containing one element for each entity set and function import with an
 explicit or default value of `true` for the attribute
 `IncludeInServiceDocument` and each singleton exposed by the
-service, see [OData-CSDLJSON](#ODataCSDL) or [OData-CSDLXML](#ODataCSDL).
+service, see [OData-CSDL](#ODataCSDL).
 
 Each element MUST be a JSON object with at least two name/value pairs,
 one with name `name` containing the name of the entity set,
@@ -1295,9 +1298,8 @@ represented as a name/value pair within the object. The order properties
 appear within the object is considered insignificant.
 
 An entity in a payload may be a complete entity, a projected entity (see
-_System Query Option_ `$select` in
-[OData-Protocol](#ODataProtocol)), or a partial entity update (see
-_Update an Entity_ in [OData-Protocol](#ODataProtocol)).
+[OData-Protocol, section 11.2.5.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptionselect)), or a partial entity update (see
+[OData-Protocol, section 11.4.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UpdateanEntity)).
 
 An entity representation can be (modified and) round-tripped to the
 service directly. The [context
@@ -1552,6 +1554,7 @@ A primitive value within an untyped collection is interpreted as an `Edm.Boolean
 depending on the JavaScript type.
 
 Collections directly contained within an untyped collection are themselves untyped.
+
 -------
 
 # <a id="NavigationProperty" href="#NavigationProperty">8 Navigation Property</a>
@@ -1732,7 +1735,7 @@ Content-Type: application/json
 :::
 
 ::: example
-Example 22: submit a partial update request to:
+Example <a id="deepupdate" href="#deepupdate">22</a>: submit a partial update request to:
 - modify the name of an existing category
 - assign an existing product with the id 42 to the category
 - assign an existing product 57 to the category and update its name
@@ -1818,7 +1821,7 @@ Instead stream property data is generally read and edited via URLs.
 [`media*`](#ControlInformationmediaodatamedia) control information.
 - Stream properties requested with `$expand` or implicitly expanded are represented as a property with its value.
 
-See [OData-Protocol](#ODataProtocol) for details on the system query options `$select` and `$expand`.
+See [OData-Protocol, section 11.2.5.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptionselect) for details on the system query options `$select` and `$expand`.
 
 Depending on the [metadata level](#ControllingtheAmountofControlInformationinResponses),
 the stream property MAY be annotated to provide the read link, edit
@@ -1893,7 +1896,7 @@ object.
 
 A single-valued property or operation response that has the
 `null` value does not have a representation; see
-[OData-Protocol](#ODataProtocol).
+[OData-Protocol, section 9.1.4](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ResponseCode204NoContent).
 
 A property or operation response that is of a primitive type is
 represented as an object with a single name/value pair, whose name is
@@ -2053,7 +2056,7 @@ Example 31:
 
 # <a id="EntityReference" href="#EntityReference">14 Entity Reference</a>
 
-An entity reference (see [OData-Protocol](#ODataProtocol)) MAY take the
+An entity reference (see [OData-Protocol, section 4.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#EntityIdsandEntityReferences)) MAY take the
 place of an entity in a JSON payload, based on the client request. It
 is serialized as a JSON object that MUST contain the [id](#ControlInformationidodataid) of the referenced
 entity and MAY contain the [`type`](#ControlInformationtypeodatatype)
@@ -2198,7 +2201,7 @@ Added or changed entities within a delta payload are represented as
 the control information [`id`](#ControlInformationidodataid) or all of the
 entity's primary key fields. The `id` control information MUST appear if any of the entity's primary key fields are omitted from the response _or_ the entity-id is not identical to the canonical URL of the entity.
 
-When using a delta payload in an [update request](#UpdateaCollectionofEntities), an [alternate key](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AlternateKeys) (see _Alternate Keys_ in [OData-URL](#ODataURL))
+When using a delta payload in an [update request](#UpdateaCollectionofEntities), an [alternate key](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AlternateKeys) (see [OData-URL, section 4.3.5](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AlternateKeys))
 MAY be used in place of the entity's primary key. A delta response from an update request using alternate keys SHOULD include
 all fields of the alternate key used in the request, in which case it
 MAY omit the `id` control information and other primary key fields.
@@ -2269,7 +2272,8 @@ a property, not control information
 
 In OData 4.01 payloads the deleted-entity object MUST include the
 following properties, regardless of the specified
-[`metadata`](#ControllingtheAmountofControlInformationinResponses) value:
+[`metadata`](#ControllingtheAmountofControlInformationinResponses) value.
+For ordered payloads, this control information MUST follow the [payload ordering constraints](#PayloadOrderingConstraints).
 
 - Control information
   [`removed`](#ControlInformationremovedodataremoved),
@@ -2282,25 +2286,16 @@ following properties, regardless of the specified
   collection. The object MAY include
   [annotations](#InstanceAnnotations), and clients SHOULD NOT error
   due to the presence of additional properties that MAY be defined by
-  future versions of this specification. For [ordered
-  payloads](#PayloadOrderingConstraints), the control information
-  [`removed`](#ControlInformationremovedodataremoved) MUST immediately
-  follow the [`context`](#ControlInformationcontextodatacontext) control
-  information, if present, otherwise it MUST be the first property in the
-  deleted entity.
+  future versions of this specification.
 
 - Control information
   [`id`](#ControlInformationidodataid)
   or all of the entity's primary key fields. The `id` control
   information MUST appear if any of the entity's primary key fields are omitted
   from the response _or_ the entity-id is not identical to the canonical
-  URL of the entity. When using a delta payload in an   [update request](#UpdateaCollectionofEntities), an [alternate key](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AlternateKeys) (see _Alternate Keys_ in [OData-URL](#ODataURL))
+  URL of the entity. When using a delta payload in an   [update request](#UpdateaCollectionofEntities), an [alternate key](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AlternateKeys) (see [OData-URL, section 4.3.5](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AlternateKeys))
   MAY be used in place of the entity's primary key. A delta response from an update request using alternate keys SHOULD include all fields of the alternate key used in the request, in which case it
-  MAY omit the `id` control information and other primary key fields. For [ordered
-  payloads](#PayloadOrderingConstraints), the control information
-  `id`, if present, MUST immediately follow the control
-  information
-  [`removed`](#ControlInformationremovedodataremoved).
+  MAY omit the `id` control information and other primary key fields.
 
 For full metadata the
 [`context`](#ControlInformationcontextodatacontext)
@@ -2832,8 +2827,7 @@ A bound function is advertised via a name/value pair where the name is a
 hash (`#`) character followed by the namespace- or
 alias-qualified name of the function. The namespace or alias MUST be
 defined or the namespace referenced in the metadata document of the
-service, see [OData-CSDLJSON](#ODataCSDL) or
-[OData-CSDLXML](#ODataCSDL) A
+service, see [OData-CSDL](#ODataCSDL). A
 specific function overload can be advertised by appending the
 parentheses-enclosed, comma-separated list of non-binding parameter
 names to the qualified function name, see rule
@@ -2950,8 +2944,7 @@ A bound action is advertised via a name/value pair where the name is a
 hash (`#`) character followed by the namespace- or
 alias-qualified name of the action. The namespace or alias MUST be
 defined or the namespace referenced in the metadata document of the
-service, see [OData-CSDLJSON](#ODataCSDL) or
-[OData-CSDLXML](#ODataCSDL)
+service, see [OData-CSDL](#ODataCSDL).
 
 An action that is bound to a single structured type is advertised within
 the JSON object representing that structured type.
@@ -3206,13 +3199,13 @@ name/value pairs `atomicityGroup`, `dependsOn`, `if`, `headers`, and `body`.
 
 The value of `id` is a string containing the request
 identifier of the individual request, see
-[OData-Protocol](#ODataProtocol). It MUST NOT be identical to the value
+[OData-Protocol, section 11.7.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#IdentifyingIndividualRequests). It MUST NOT be identical to the value
 of any other request identifier nor any `atomicityGroup`
 within the batch request.
 
 Note: the `id` name/value pair corresponds to the
 `Content-ID` header in the multipart batch format specified
-in [OData-Protocol](#ODataProtocol).
+in [OData-Protocol, section 11.7.7.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#MultipartBatchRequestBody).
 
 The value of `method` is a string that MUST contain one of
 the literals `delete`, `get`, `patch`, `post`, or `put`.
@@ -3247,7 +3240,7 @@ request, and which MUST satisfy the rule `request-id` in
 operation and MUST either all succeed, or all fail.
 
 Note: the atomicity group is a generalization of the change set in the
-multipart batch format specified in [OData-Protocol](#ODataProtocol).
+multipart batch format specified in [OData-Protocol, section 11.7.7.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#MultipartBatchRequestBody).
 
 The value of `dependsOn` is an array of strings whose values
 MUST be values of either `id` or `atomicityGroup`
@@ -3263,7 +3256,7 @@ dependent request is not executed and a response with status code of
 
 The `if` member can specify an alternative condition for
 executing the dependent request. Its value MUST be URL expression (see
-[OData-URL](#ODataURL)) that evaluates to a Boolean value.
+[OData-URL, section 5.1.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CommonExpressionSyntax)) that evaluates to a Boolean value.
 The URL expression syntax is extended and additionally allows
 
 - `$<content-id>/$succeeded`
@@ -3534,7 +3527,7 @@ processing the remaining individual requests while waiting for the
 client to fire a `GET` request to the next link.
 
 In a response to a batch request using the multipart format defined in
-[OData-Protocol](#ODataProtocol) the response objects
+[OData-Protocol, section 11.7.7](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#MultipartBatchFormat) the response objects
 MUST appear in the same order as required for multipart batch responses
 because the `Content-ID` header is not required outside of change sets. Response objects
 corresponding to requests that specify a `Content-ID` header MUST contain the
@@ -3771,7 +3764,7 @@ dot (`.`) as part of the name. The part after the "at" sign
 namespace or alias of the schema that defines the term, followed by a
 dot (`.`), followed by the name of the term, optionally
 followed by a hash (`#`) and a qualifier. The namespace or alias MUST be defined in the
-metadata document, see [OData-CSDLJSON](#ODataCSDL) or [OData-CSDLXML](#ODataCSDL)
+metadata document, see [OData-CSDL](#ODataCSDL).
 
 The annotation identifier `odata` is reserved for future
 extensions of the protocol and format. Instance annotations MUST have a
@@ -3937,7 +3930,7 @@ JSON object in the response.
 Services MAY include the header `OData-Error` as a trailing
 header if supported by the transport protocol (e.g. with HTTP/1.1 and
 chunked transfer encoding, or with HTTP/2), see
-[OData-Protocol](#ODataProtocol).
+[OData-Protocol, section 8.3.5](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#HeaderODataError).
 
 The value of the `OData-Error` trailing header is an OData
 error object as defined in the preceding chapter, represented in a
@@ -4076,7 +4069,7 @@ In order to be a conforming producer of the OData JSON format, a client or servi
 
 In addition, in order to conform to the OData JSON format, a service:
 
-11. MUST comply with one of the conformance levels defined in [OData-Protocol](#ODataProtocol)
+11. MUST comply with one of the conformance levels defined in [OData-Protocol, section 12](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#Conformance)
 12. MUST support the `application/json` media type in the `Accept` header ([section 3](#RequestingtheJSONFormat))
 13. MUST return well-formed JSON payloads
 14. MUST support `odata.metadata=full` ([section 3.1.2](#metadatafullodatametadatafull))
@@ -4197,7 +4190,7 @@ For JSON-relevant security implications please cf. at least the relevant subsect
 
 ## <a id="SpecialThanks" href="#SpecialThanks">C.1 Special Thanks</a>
 
-The contributions of the OASIS OData Technical Committee members, enumerated in [OData-Protocol](#ODataProtocol) are gratefully acknowledged.
+The contributions of the OASIS OData Technical Committee members, enumerated in [OData-Protocol, section C.2](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#Participants), are gratefully acknowledged.
 
 ## <a id="Participants" href="#Participants">C.2 Participants</a>
 

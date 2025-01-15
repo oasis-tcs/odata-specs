@@ -272,6 +272,7 @@ Section | Feature / Change | Issue
 --------|------------------|------
 [Section 4.17](#PassingQueryOptionsintheRequestBody)| `POST ~/$query` with `Content-Type: application/x-www-form-urlencoded` or `application/json`| [320](https://github.com/oasis-tcs/odata-specs/issues/320), [371](https://github.com/oasis-tcs/odata-specs/issues/371)
 [Section 5.1.1.7.1](#matchespattern)| New overload for function `matchespattern` with flags| [441](https://github.com/oasis-tcs/odata-specs/issues/441)
+[Section 5.1.3](#SystemQueryOptionexpand)| Nested query options can only appear once per expand item| [2004](https://github.com/oasis-tcs/odata-specs/issues/2004)
 [Section 5.1.8](#SystemQueryOptionsearch)| Allow alternative `$search` syntax| [293](https://github.com/oasis-tcs/odata-specs/issues/293)
 
 ## <a id="Glossary" href="#Glossary">1.2 Glossary</a>
@@ -447,7 +448,7 @@ path segment, nor is `Tablet')`.
 
 The service root URL identifies the root of an OData service. A `GET`
 request to this URL returns the format-specific service document, see
-[OData-JSON](#ODataJSON).
+[OData-JSON, section 5](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ServiceDocument).
 
 The service root URL MUST terminate in a forward slash.
 
@@ -489,7 +490,7 @@ An OData service MAY respond with `301 Moved Permanently` or
 ## <a id="AddressingtheModelforaService" href="#AddressingtheModelforaService">4.1 Addressing the Model for a Service</a>
 
 OData services expose their entity model according to
-[OData-CSDLJSON](#ODataCSDL) or [OData-CSDLXML](#ODataCSDL) at the
+[OData-CSDL](#ODataCSDL) at the
 metadata URL, formed by appending `$metadata` to the [service root
 URL](#ServiceRootURL).
 
@@ -726,8 +727,7 @@ http://host/service/Products(1)
 ### <a id="CanonicalURLforContainedEntities" href="#CanonicalURLforContainedEntities">4.3.2 Canonical URL for Contained Entities</a>
 
 For contained entities (i.e. related via a containment navigation
-property, see [OData-CSDLJSON](#ODataCSDL) or
-[OData-CSDLXML](#ODataCSDL)) the canonical URL is the canonical URL of
+property, see [OData-CSDLJSON](#ODataCSDL)) the canonical URL is the canonical URL of
 the containing entity followed by:
 - A [type-cast segment](#AddressingDerivedTypes) if the navigation
 property is defined on a type derived from the entity type declared for
@@ -789,8 +789,7 @@ http://host/service/$entity?$id=Products(0)
 ```
 :::
 
-The semantics of `$entity` are covered in the [OData-Protocol](#ODataProtocol)
-document.
+The semantics of `$entity` are covered in [OData-Protocol, section 10](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ContextURL).
 
 ### <a id="AlternateKeys" href="#AlternateKeys">4.3.5 Alternate Keys</a>
 
@@ -908,7 +907,7 @@ such
 2. matches a qualified bound function, bound action, or type name,
 treat it as such
 3. matches an unqualified bound function, bound action, or type name
-defined in a default namespace (see [OData-Protocol](#ODataProtocol)) treat it
+defined in a default namespace (see [OData-Protocol, section 4.4](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#DefaultNamespaces)) treat it
 as such
 4. treat as a key value
 
@@ -950,7 +949,7 @@ addressing a collection of references MUST be followed by the system
 query option `$id` in order to identify a single entity reference within
 the collection to be removed. The entity-id specified by `$id` may be
 expressed absolute or relative to the request URL. For details see
-[OData-Protocol](#ODataProtocol).
+[OData-Protocol, section 4.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#EntityIdsandEntityReferences).
 
 ::: example
 Example 29: three ways of unrelating `Categories(1)` and
@@ -971,14 +970,14 @@ DELETE http://host/service/Products(0)/Category/$ref
 ## <a id="AddressingOperations" href="#AddressingOperations">4.5 Addressing Operations</a>
 
 The semantic rules for addressing and invoking actions and functions are
-defined in the [OData-Protocol](#ODataProtocol) document.
+defined in [OData-Protocol, section 11.5](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#Operations).
 
 Services MAY additionally support the use of the unqualified name of an
 action or function in a URL by defining one or more default namespaces
 through the
 [`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) term
 defined in [OData-VocCore](#ODataVocCore). For more information on
-default namespaces, see Default Namespaces in [OData-Protocol](#ODataProtocol).
+default namespaces, see [OData-Protocol, section 4.4](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#DefaultNamespaces).
 
 ### <a id="AddressingActions" href="#AddressingActions">4.5.1 Addressing Actions</a>
 
@@ -1025,7 +1024,7 @@ syntax rule define the grammar for invoking functions, for example to help filte
 and order resources identified by the `resourcePath` of the URL.
 - The `aliasAndValue` syntax rule defines
 the grammar for providing function parameter values using Parameter
-Alias Syntax, see [OData-Protocol](#ODataProtocol).
+Alias Syntax, see [OData-Protocol, section 11.2.6.1.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ParameterAliases).
 
 Note: there is no literal representation for `Edm.Stream` values in URLs,
 so it is not possible to pass `Edm.Stream` values to parameters of function imports or
@@ -1202,7 +1201,7 @@ derived type in a URL by defining one or more default namespaces through
 the
 [`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace)
 term defined in [OData-VocCore](#ODataVocCore). For more information on
-default namespaces, see Default Namespaces in [OData-Protocol](#ODataProtocol).
+default namespaces, see [OData-Protocol, section 4.4](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#DefaultNamespaces).
 
 Services MAY also support treating an instance as a type outside of the
 type hierarchy using the same syntax and semantics as when addressing a
@@ -1630,8 +1629,8 @@ The same system query option, irrespective of casing or whether or not
 it is prefixed with a `$`, MUST NOT be specified more than once for any
 resource.
 
-The semantics of all system query options are defined in the
-[OData-Protocol](#ODataProtocol) document.
+The semantics of all system query options are defined in
+[OData-Protocol, section 11.2.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptions).
 
 The grammar and syntax rules for system query options are defined in
 [OData-ABNF](#ODataABNF).
@@ -3482,7 +3481,7 @@ Services MAY additionally support the use of the unqualified term name
 by defining one or more default namespaces through the
 [`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) annotation
 term defined in [OData-VocCore](#ODataVocCore). For more information on
-default namespaces, see Default Namespaces in [OData-Protocol](#ODataProtocol).
+default namespaces, see [OData-Protocol, section 4.4](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#DefaultNamespaces).
 This short notation however uses the same name pattern as parameter
 aliases. If a query option is specified as a [parameter
 alias](#ParameterAliases), then any occurrence of the parameter alias
@@ -3623,6 +3622,8 @@ A path MUST NOT appear in more than one expand item.
 Query options can be applied to an expanded navigation property by
 appending a semicolon-separated list of query options, enclosed in
 parentheses, to the navigation property name.
+The system query option, irrespective of casing or whether or not it is prefixed with a `$`,
+MUST NOT be specified more than once in the list.
 Allowed system query options are
 [`$compute`](#SystemQueryOptioncompute),
 [`$select`](#SystemQueryOptionselect),
@@ -3907,7 +3908,7 @@ omitted from the response.
 
 Annotations requested in `$select` MUST be included in the response;
 `$select` overrules the `include-annotations` preference (see
-[OData-Protocol](#ODataProtocol)) for the explicitly requested annotations.
+[OData-Protocol, section 8.2.8.4](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#Preferenceincludeannotationsodataincludeannotations)) for the explicitly requested annotations.
 Additional annotations matching the preference can be included even if
 not requested via `$select`. The `Preference-Applied` response header
 only reflects the set of annotations included due to the
@@ -3946,8 +3947,7 @@ identified by each select item.
 The `$orderby` system query option allows clients to request resources
 in a particular order.
 
-The semantics of `$orderby` are covered in the [OData-Protocol](#ODataProtocol)
-document.
+The semantics of `$orderby` are covered in [OData-Protocol, section 11.2.6.2](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptionorderby).
 
 The [OData-ABNF](#ODataABNF) `orderby` syntax rule defines the formal
 grammar of the `$orderby` query option.
@@ -3960,8 +3960,9 @@ option requests the number of items in the queried collection that are
 to be skipped and not included in the result. A client can request a
 particular page of items by combining `$top` and `$skip`.
 
-The semantics of `$top` and `$skip` are covered in the
-[OData-Protocol](#ODataProtocol) document. The [OData-ABNF](#ODataABNF) `top`
+The semantics of `$top` and `$skip` are covered in
+[OData-Protocol, section 11.2.6.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptiontop) and [OData-Protocol, section 11.2.6.4](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptionskip).
+The [OData-ABNF](#ODataABNF) `top`
 and `skip` syntax rules define the formal grammar of the `$top` and
 `$skip` query options respectively.
 
@@ -3971,8 +3972,7 @@ The `$count` system query option allows clients to request a count of
 the matching resources included with the resources in the response. The
 `$count` query option has a Boolean value of `true` or `false`.
 
-The semantics of `$count` is covered in the [OData-Protocol](#ODataProtocol)
-document.
+The semantics of `$count` is covered in [OData-Protocol, section 11.2.6.5](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptioncount).
 
 ### <a id="SystemQueryOptionsearch" href="#SystemQueryOptionsearch">5.1.8 System Query Option `$search`</a>
 
@@ -4054,8 +4054,7 @@ in a particular format and is useful for clients without access to
 request headers for standard content-type negotiation. Where present
 `$format` takes precedence over standard content-type negotiation.
 
-The semantics of `$format` is covered in the [OData-Protocol](#ODataProtocol)
-document.
+The semantics of `$format` is covered in [OData-Protocol, section 11.2.11](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptionformat).
 
 The [OData-ABNF](#ODataABNF) `format` syntax rule defines the formal
 grammar of the `$format` query option.
@@ -4118,7 +4117,7 @@ grammar of the `$index` query option.
 
 The `$schemaversion` system query option allows clients to specify the
 version of the schema against which the request is made. The semantics
-of `$schemaversion` is covered in the [OData-Protocol](#ODataProtocol) document.
+of `$schemaversion` is covered in [OData-Protocol, section 11.2.12](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptionschemaversion).
 
 The [OData-ABNF](#ODataABNF) `schemaversion` syntax rule defines the
 formal grammar of the `$schemaversion` query option
@@ -4150,7 +4149,7 @@ Parameter aliases MUST start with an `@` character, see rule
 `parameterAlias` in [OData-ABNF](#ODataABNF).
 
 The semantics of parameter aliases are covered in
-[OData-Protocol](#ODataProtocol). The [OData-ABNF](#ODataABNF) rule
+[OData-Protocol, section 11.2.6.1.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ParameterAliases). The [OData-ABNF](#ODataABNF) rule
 `aliasAndValue` defines the formal grammar for passing parameter alias
 values as query options.
 
@@ -4183,7 +4182,7 @@ http://host/service/Products/Model.WithIngredients(Ingredients=@i)
 # <a id="Conformance" href="#Conformance">6 Conformance</a>
 
 The conformance requirements for OData clients and services are
-described in [OData-Protocol](#ODataProtocol).
+described in [OData-Protocol, section 12](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#Conformance).
 
 
 -------
