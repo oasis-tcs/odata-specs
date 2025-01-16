@@ -91,6 +91,33 @@ toJSON() {
 @}
 
 ::: funnelweb
+Besides JSON serialization, we also support YAML serialization. And like many model element
+classes have a special `toJSON` method, some also have a special implementation of a
+`toYAML` method that is called by a `YAMLResolver`.
+:::
+
+@$@<Javascript CSDL metamodel@>@{
+function YAMLResolver(key) {
+  if (this[key] instanceof ModelElement) return this[key].toYAML(key);
+  else return this[key];
+}
+@}
+
+@$@<Exports@>@{
+YAMLResolver,
+@}
+
+::: funnelweb
+The default implementation of `toYAML` simply returns the current object.
+:::
+
+@$@<ModelElement@>@{
+toYAML(key) {
+  return this;
+}
+@}
+
+::: funnelweb
 Addressing a schema member by its qualified name is a special case
 of evaluating a path consisting of one segment that starts with a namespace or alias.
 :::
@@ -689,34 +716,46 @@ appear in the CSDL JSON format.
 
 @$@<Javascript CSDL metamodel@>@{
 class PropertyRef extends ListedModelElement {
-  #path;
-  #alias;
-  constructor(entityType) {
-    super(entityType, "$Key");
-  }
-  get target() {
-    return this.#path.target;
-  }
-  fromJSON(json) {
-    if (typeof json === "string") @<Path to key property@>@(json@)
-    else
-      for (const name in json) {
-        this.#alias = name;
-        @<Path to key property@>@(json[name]@)
-      }
-  }
-  toJSON() {
-    if (this.#alias) {
-      const propRef = {};
-      propRef[this.#alias] = this.#path;
-      return propRef;
-    } else return this.#path.toJSON();
-  }
+  @<PropertyRef@>
 }
 @}
 
 @$@<Exports@>@{
 PropertyRef,
+@}
+
+@$@<PropertyRef@>@{
+@<Internal property@>@(path@,@)
+@<Internal property@>@(alias@,@)
+constructor(entityType) {
+  super(entityType, "$Key");
+}
+get target() {
+  return this.path.target;
+}
+fromJSON(json) {
+  if (typeof json === "string") @<Path to key property@>@(json@)
+  else
+    for (const name in json) {
+      this.#alias = name;
+      @<Path to key property@>@(json[name]@)
+    }
+}
+toJSON() {
+  if (this.alias) {
+    const propRef = {};
+    propRef[this.alias] = this.path;
+    return propRef;
+  } else return this.path.toJSON();
+}
+toYAML() {
+  if (this.alias) return this.toJSON();
+  else {
+    const propRef = {};
+    propRef[this.path.toJSON()] = this.path;
+    return propRef;
+  }
+}
 @}
 
 @$@<EntityType@>@{

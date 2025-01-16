@@ -727,6 +727,13 @@ class ReferentialConstraint extends NamedSubElement {
   toJSON() {
     return this.principal.toJSON();
   }
+  toYAML(key) {
+    return {
+      $dependent: this.dependent,
+      $principal: this.principal,
+      ...this
+    };
+  }
 }
 @}
 
@@ -767,10 +774,7 @@ toJSONWithAnnotations(sub, json) {
 
 @$@<NavigationProperty@>@{
 toJSON() {
-  return this.toJSONWithAnnotations(
-    "$ReferentialConstraint",
-    super.toJSON()
-  );
+  return this.toJSONWithAnnotations("$ReferentialConstraint", super.toJSON());
 }
 @}
 

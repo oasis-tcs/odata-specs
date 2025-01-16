@@ -203,14 +203,14 @@ CSDL JSON documents MUST always specify an explicit value.
 :::
 
 ::: funnelweb
-`Term` inherits from `Property` the omission of `Edm.String` as default [`$Type`](#Type).
+`Term` borrows from `Property` the omission of `Edm.String` as default [`$Type`](#Type).
 :::
 
 @$@<Javascript CSDL metamodel@>@{
-class Term extends Property {
+class Term extends ModelElement {
   fromJSON(json) {
     @<Deserialize members of Term@>
-    super.fromJSON(json);
+    Property.prototype.fromJSON.call(this, json);
   }
 }
 @}
@@ -479,6 +479,9 @@ fromJSON(json) {
 toJSON() {
   return this.value.toJSON?.() || this.value;
 }
+toString() {
+  return "@@" + this.term.toJSON();
+}
 @}
 
 @$@<DynamicExpression@>@{
@@ -543,11 +546,13 @@ fromJSON(json) {
   let hasAnnotations = false;
   for (const member in json)
     if (member.startsWith(this.name + "@@"))
-      if (this.annotationFromJSON(
-        json,
-        member.substring(this.name.length),
-        json[member]
-      ))
+      if (
+        this.annotationFromJSON(
+          json,
+          member.substring(this.name.length),
+          json[member]
+        )
+      )
         hasAnnotations = true;
   @<Housekeeping for annotations@>
 }
@@ -609,7 +614,7 @@ nestAnnotations(annos, member, anno) {
       this[termcast].nestAnnotations(
         annos,
         m.substring(termcast.length),
-        annos[mem]
+        annos[mem],
       );
   }
 }
@@ -631,6 +636,28 @@ annotationsOfAnnotations(json, prefix) {
       this[member].annotationsOfAnnotations(json, prefix + member);
       if (prefix) json[prefix + member] = this[member];
     }
+}
+@}
+
+::: funnelweb
+During YAML serialization, members representing annotations have the qualified name of the term
+as the key, this must be inserted into the member's value (as a reference to the vocabulary document)
+so that it can become a YAML alias. The inclusion of `...this` in the return value ensures
+the treatment of nested annotations, this is similar to the treatment of annotations
+of [referential constraints](#ReferentialConstraint) or [navigation property bindings](#NavigationPropertyBinding).
+
+And since, unlike in JSON, all annotations are nested in YAML, the members whose key
+contains an inner `@@` must be ignored.
+:::
+
+@$@<Annotation@>@{
+toYAML(key) {
+  if (!/.@@/.test(key))
+    return {
+      $value: this.value,
+      $term: this.term.target,
+      ...this
+    };
 }
 @}
 
@@ -1564,6 +1591,9 @@ constructor(host, attribute) {
 toString() {
   return this.attribute || super.toString();
 }
+path() {
+  return this.parent.path() + "#" + this.toString();
+}
 toJSON() {
   return this.segments.map((segment) => segment.toJSON()).join("/");
 }
@@ -1596,6 +1626,19 @@ set target(target) {
 }
 toJSON() {
   return this.#segment;
+}
+@}
+
+::: funnelweb
+When an instance of `CSDLDocument` is converted into a YAML representation, `AbstractPath`s
+translate naturally into YAML aliases if the path is replaced in the Javascript object with
+the `target`s of its segments.
+:::
+
+@$@<AbstractPath@>@{
+toYAML(key) {
+  const segments = this.segments.map((s) => s.target || s.segment);
+  return segments.length === 1 ? segments[0] : segments;
 }
 @}
 
@@ -2025,9 +2068,9 @@ evaluationStart(anno) {
 
 @$@<Operation@>@{
 evaluateSegment(segment) {
-  return segment.segment === "$ReturnType" ?
-    this.$ReturnType :
-    this.$Parameters?.find?.((p) => p.name === segment.segment);
+  return segment.segment === "$ReturnType"
+    ? this.$ReturnType
+    : this.$Parameters?.find?.((p) => p.name === segment.segment);
 }
 @}
 
@@ -2209,6 +2252,7 @@ maintaining this, we need not resolve any document URI more than once.
 
 The schemas of all referenced CSDL documents are mapped into the `schemas` property
 of the current CSDL document, which is also shared with all referenced ones.
+The `modelElements` property is likewise shared.
 :::
 
 @$@<Javascript CSDL metamodel@>@{
@@ -2220,10 +2264,11 @@ const csdlDocuments = new Map();
 #finish;
 @<Internal property@>@(finished@,@)
 @<Internal property@>@(schemas@,@)
-constructor(uri, schemas) {
+constructor(uri, shared) {
   super();
   this.#uri = uri || "";
-  this.#schemas = schemas;
+  @<Share property between CSDL documents@>@(schemas@)
+  @<Share property between CSDL documents@>@(modelElements@)
 }
 finish() {
   if (!this.#finish) {
@@ -2238,22 +2283,32 @@ finish() {
         @<Embed all annotations in their targets@>
         @<Evaluate all paths that appear in this CSDL document@>
         @<Resolve this.#finish after all referenced CSDL documents are finished@>
-      }.bind(this)
-    );
+      }.bind(this),
+    ).catch(errorCaught);
     this.#finished = true;
   }
   return this.#finish;
 }
 @}
 
+@$@<Share property between CSDL documents@>@(@1@)@{
+if (shared?.@1) this.#@1 = shared.@1;
+@}
+
 @$@<Ready for path evaluation?@>@{
 if (!this.path.csdlDocument.finished) return "CSDL document not finished";
 @}
 
+::: funnelweb
+Although the description does not mention it, the promise can also be rejected if an
+error occurs during asynchronous processing.
+:::
+
 @$@<Make this.#finish a promise that resolves when all paths have been evaluated@>@{
-let finished;
+let finished, errorCaught;
 this.#finish = new Promise(function (resolve, reject) {
   finished = resolve;
+  errorCaught = reject;
 });
 @}
 
@@ -2290,11 +2345,11 @@ async resolve() {
       this.uri,
       (csdl = new Promise(
         async function (resolve, reject) {
-          const csdl = new CSDLDocument(this.uri, this.csdlDocument.schemas);
+          const csdl = new CSDLDocument(this.uri, this.csdlDocument);
           csdl.fromJSON(await (await fetch(this.uri)).json());
           resolve(csdl);
-        }.bind(this),
-      )),
+        }.bind(this)
+      ))
     );
   csdl = await csdl;
   if (this.$Include)
@@ -2321,7 +2376,13 @@ this.csdlDocument.paths?.push(this);
 @}
 
 @$@<Evaluate all paths that appear in this CSDL document@>@{
-for (const path of this.paths) path.evaluate();
+for (const path of this.paths) {
+  try {
+    path.evaluate();
+  } catch (e) {
+    console.error(e);
+  }
+}
 this.#paths = undefined;
 @}
 
@@ -2352,13 +2413,13 @@ no `targetingPaths`.
 :::
 
 @$@<Housekeeping during path evaluation@>@{
-if (this.csdlDocument.paths) target.targetingPaths?.add(this);
+if (target && this.csdlDocument.paths) target.targetingPaths?.add(this);
 @}
 
 @$@<Javascript CSDL metamodel@>@{
 class InvalidPathError extends Error {
   constructor(path) {
-    super("Invalid path " + path.toJSON());
+    super("Invalid path " + path.toJSON() + " at " + path.path());
   }
 }
 @}
@@ -2421,10 +2482,11 @@ returns true. This can be used to detect currency properties with an expression 
 
 @$@<ModelElement@>@{
 isAnnotation(callback) {
-  for (const p of this.targetingPaths) if (p.attribute === "$Path") {
-    const anno = p.parent.annotation;
-    if (anno && callback(anno)) return true;
-  }
+  for (const p of this.targetingPaths)
+    if (p.attribute === "$Path") {
+      const anno = p.parent.annotation;
+      if (anno && callback(anno)) return true;
+    }
 }
 @}
 

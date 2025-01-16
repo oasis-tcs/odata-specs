@@ -87,6 +87,23 @@ get csdlDocument() {
 }
 @}
 
+::: funnelweb
+Collecting all model elements in one array is useful for producing diagrams that
+visualize them.
+
+But the `modelElements` getter in the `CSDLDocument` class can access the private member
+only after the constructor has run its course. Therefore, the following code does
+nothing if it runs in the `CSDLDocument` constructor.
+:::
+
+@$@<Collect all ModelElements per CSDLDocument@>@{
+if (!(this instanceof CSDLDocument)) this.csdlDocument.modelElements.push(this);
+@}
+
+@$@<CSDLDocument@>@{
+@<Internal property@>@(modelElements@,= []@)
+@}
+
 ::: {.varjson .example}
 Example ##ex:
 ```json

@@ -146,6 +146,7 @@ get @1() {
 @<Internal property@>@(children@,= {}@)
 constructor(parent) {
   this.#parent = parent;
+  @<Collect all ModelElements per CSDLDocument@>
 }
 @}
 
