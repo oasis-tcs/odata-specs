@@ -2568,7 +2568,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <details open><summary>
 <h3 id="1145-delete-an-entity"><a id="DeleteanEntity" href="#DeleteanEntity">11.4.5 Delete an Entity</a></h3>
 </summary>
-<p>To delete an individual entity, the client makes a <code>DELETE</code> request to a URL that identifies the entity. Services MAY restrict deletes only to requests addressing the <a href="#ReadURLsandEditURLs">edit URL</a> of the entity.</p>
+<p>To delete an individual entity, the client makes a <code>DELETE</code> request to a URL that identifies the entity. The <a href="#ReadURLsandEditURLs">edit URL</a> MAY differ from the canonical URL defined in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalURL">OData-URL, section 4.3.1</a>, in which case clients SHOULD use the edit URL when deleting the entity.</p>
 <p>The request body SHOULD be empty. Top-level singleton entities can be deleted if they are nullable. Services supporting this MAY advertise it by annotating the singleton with the term <code>Capabilities.DeleteRestrictions</code> (nested property <code>Deletable</code> with value <code>true</code>) defined in <a href="#ODataVocCap">OData-VocCap</a>.</p>
 <p>On successful completion of the delete, the response MUST either be <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> and contain an empty body, or <a href="#ResponseCode200OK"><code>200 OK</code></a> and contain a representation of a deleted entity according to the specified format.</p>
 <p>Services MUST implicitly remove relations to and from an entity when deleting it; clients need not delete the relations explicitly.</p>
