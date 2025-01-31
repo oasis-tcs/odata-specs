@@ -770,8 +770,8 @@ computeEffectiveType() {
   return effectiveType;
 }
 fromJSON(json) {
-  if (json.$Key) for (const propRef of json.$Key)
-    new PropertyRef(this).fromJSON(propRef);
+  if (json.$Key)
+    for (const propRef of json.$Key) new PropertyRef(this).fromJSON(propRef);
   super.fromJSON(json);
 }
 @}

@@ -60,9 +60,11 @@ of metamodel classes.
 {
   this.children[member] = [];
   for (const item of json[member]) {
-    const memberItem = new closure[item.$Kind](this);
-    memberItem.fromJSON(item);
-    this.children[member].push(memberItem);
+    if (item.$Kind) {
+      const memberItem = new closure[item.$Kind](this);
+      memberItem.fromJSON(item);
+      this.children[member].push(memberItem);
+    } else this.children[member].push(item);
   }
 }
 @}

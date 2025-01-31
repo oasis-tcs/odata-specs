@@ -207,7 +207,7 @@ CSDL JSON documents MUST always specify an explicit value.
 :::
 
 @$@<Javascript CSDL metamodel@>@{
-class Term extends ModelElement {
+class Term extends TypedModelElement {
   fromJSON(json) {
     @<Deserialize members of Term@>
     Property.prototype.fromJSON.call(this, json);
@@ -514,7 +514,7 @@ if (this.annotationFromJSON(json, member, json[member])) hasAnnotations = true;
 @}
 
 @$@<ModelElement@>@{
-@<Internal property@>@(annotations@,= {}@)
+@<Internal property@>@(annotations@,@)
 finishAnnotations() {
   this.#annotations = undefined;
 }
@@ -529,6 +529,7 @@ annotationFromJSON(json, member, value) {
       m[5]
     );
     anno.fromJSON(value);
+    this.annotations ||= {};
     this.annotations[path] ||= {};
     this.annotations[path][`${m[2] || ""}@@${m[3]}${m[5] ? "#" + m[5] : ""}`] = anno;
     return true;
@@ -2346,8 +2347,12 @@ async resolve() {
       (csdl = new Promise(
         async function (resolve, reject) {
           const csdl = new CSDLDocument(this.uri, this.csdlDocument);
-          csdl.fromJSON(await (await fetch(this.uri)).json());
-          resolve(csdl);
+          try {
+            csdl.fromJSON(await (await fetch(this.uri)).json());
+            resolve(csdl);
+          } catch (e) {
+            reject(e);
+          }
         }.bind(this)
       ))
     );
@@ -2375,12 +2380,19 @@ the parsing of the document. It is made undefined after all paths have been eval
 this.csdlDocument.paths?.push(this);
 @}
 
+::: funnelweb
+In certain circumstances path evaluation errors are tolerated and only logged.
+One example for this are included OData vocabularies that may contain `@Core.Example`s with
+paths, which cannot of course point to something in the vocabulary.
+:::
+
 @$@<Evaluate all paths that appear in this CSDL document@>@{
 for (const path of this.paths) {
   try {
     path.evaluate();
   } catch (e) {
-    console.error(e);
+    if (this.#uri.includes("/odata-vocabularies/")) console.error(e);
+    else throw e;
   }
 }
 this.#paths = undefined;
