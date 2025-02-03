@@ -681,27 +681,6 @@ the path of the dependent property of the annotated referential
 constraint.
 :::
 
-::: funnelweb
-`ReferentialConstraint` is the first example of a model element that appears not
-in the `children` property of its parent but as named member of a specially named `sub`-property
-(`$ReferentialConstraint` in this case).
-:::
-
-@$@<Javascript CSDL metamodel@>@{
-class NamedSubElement extends NamedModelElement {
-  @<NamedSubElement@>
-}
-@}
-
-@$@<NamedSubElement@>@{
-constructor(parent, sub, name) {
-  super(parent, name);
-  parent[sub] ||= {};
-  parent[sub][name] = this;
-  delete this.$Kind;
-}
-@}
-
 @$@<Javascript CSDL metamodel@>@{
 class ReferentialConstraint extends NamedSubElement {
   @<Internal property with setter@>@(dependent@)

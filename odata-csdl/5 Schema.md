@@ -64,15 +64,19 @@ class NamedModelElement extends ModelElement {
   }
 }
 class Schema extends NamedModelElement {
-  constructor(csdlDocument, name) {
-    super(csdlDocument, name);
-    delete this.$Kind;
-  }
+  @<Schema@>
 }
 @}
 
 @$@<Exports@>@{
 Schema,
+@}
+
+@$@<Schema@>@{
+constructor(csdlDocument, name) {
+  super(csdlDocument, name);
+  delete this.$Kind;
+}
 @}
 
 ::: funnelweb
@@ -270,6 +274,63 @@ The member name is an expression identifying the [annotation target](#Target).
 It MUST resolve to a model element in scope.
 The member value is an object containing [annotations](#Annotation) for that target.
 :::
+
+::: funnelweb
+`Annotations` is the first example of a model element that appears not
+in the `children` property of its parent but as named member of a specially named `sub`-property
+(`$Annotations` in this case).
+:::
+
+@$@<Javascript CSDL metamodel@>@{
+class NamedSubElement extends ModelElement {
+  @<NamedSubElement@>
+}
+@}
+
+@$@<NamedSubElement@>@{
+@<Internal property@>@(name@,@)
+#sub;
+constructor(parent, sub, name) {
+  super(parent);
+  this.#sub = sub;
+  this.#name = name;
+  parent[sub] ||= {};
+  parent[sub][name] = this;
+}
+toString() {
+  return this.#sub + "/" + this.name;
+}
+@}
+
+
+@$@<Javascript CSDL metamodel@>@{
+class Annotations extends NamedSubElement {
+  @<Annotations@>
+}
+@}
+
+@$@<Exports@>@{
+Annotations,
+@}
+
+@$@<Annotations@>@{
+@<Internal property@>@(target@,@)
+constructor(schema, target) {
+  super(schema, "$Annotations", target);
+  this.#target = new RelativePath(this, target, this.parent, "externalTarget");
+}
+annotationTarget(prefix) {
+  return this.#target;
+}
+@}
+
+@$@<Schema@>@{
+fromJSON(json) {
+  for (const target in json.$Annotations)
+    new Annotations(this, target).fromJSON(json.$Annotations[target]);
+  super.fromJSON(json);
+}
+@}
 
 ::: {.varjson .example}
 Example ##ex: annotations targeting the `Person` type with qualifier

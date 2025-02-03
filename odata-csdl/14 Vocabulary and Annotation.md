@@ -458,8 +458,7 @@ Annotation,
 @}
 
 ::: funnelweb
-The `target` of an annotation is either given as the embedding model element or
-as a path, whose target is then the annotation target.
+The `target` of an annotation is given as a path, whose target is then the annotation target.
 :::
 
 @$@<Annotation@>@{
@@ -504,9 +503,10 @@ dynamicExprFromJSON(json) {
 
 ::: funnelweb
 The target of the annotation is passed in the second argument to the constructor
-as a relative path. This allows us to specify a property as annotation target while
+as a relative path. This allows us to specify a property `prop` as annotation target while
 parsing a member like `Description@Core.IsLanguageDependent` even before the `Description`
-property itself has been parsed.
+property itself has been parsed. Between the property and the annotation term there
+can even be further `termcast`s.
 :::
 
 @$@<If the member is an annotation, deserialize it@>@{
@@ -521,19 +521,33 @@ finishAnnotations() {
 annotationFromJSON(json, member, value) {
   const m = member.match(/^([^@@]*)(@@.*)?@@([^@@]*?)(#([^@@]*?))?$/);
   if (m) {
-    const path = m[1] || "";
+    const prop = m[1] || "";
+    const termcast = m[2] || "";
     const anno = new Annotation(
       this,
-      new RelativePath(this, path, this, "target"),
+      this.annotationTarget((prop + termcast).split(/(?<!^)@@/)?.join("/@@")),
       m[3],
       m[5]
     );
     anno.fromJSON(value);
-    this.annotations ||= {};
-    this.annotations[path] ||= {};
-    this.annotations[path][`${m[2] || ""}@@${m[3]}${m[5] ? "#" + m[5] : ""}`] = anno;
+    this.#annotations ||= {};
+    this.#annotations[prop] ||= {};
+    this.#annotations[prop][`${termcast}@@${m[3]}${m[5] ? "#" + m[5] : ""}`] =
+      anno;
     return true;
   } else return false;
+}
+@}
+
+::: funnelweb
+Remember that in [section ##AnnotationswithExternalTargeting] the following method
+is redefined for externally targeted annotations, because their target is already contained
+in the `Annotations` object.
+:::
+
+@$@<ModelElement@>@{
+annotationTarget(prefix) {
+  return new RelativePath(this, prefix, this, "target");
 }
 @}
 
@@ -543,19 +557,33 @@ prefixed with the target's name followed by `@`.
 :::
 
 @$@<NamedSubElement@>@{
+get prefix() {
+  return this.name;
+}
 fromJSON(json) {
   let hasAnnotations = false;
   for (const member in json)
-    if (member.startsWith(this.name + "@@"))
+    if (member.startsWith(this.prefix + "@@"))
       if (
         this.annotationFromJSON(
           json,
-          member.substring(this.name.length),
+          member.substring(this.prefix.length),
           json[member]
         )
       )
         hasAnnotations = true;
   @<Housekeeping for annotations@>
+}
+@}
+
+::: funnelweb
+External annotations are also represented as `NamedSubElement`s, but do not use the
+prefix.
+:::
+
+@$@<Annotations@>@{
+get prefix() {
+  return "";
 }
 @}
 
@@ -2015,7 +2043,7 @@ get host() {
 ::: funnelweb
 A model element is its own `host`, unless it is a [dynamic expression](#DynamicExpression),
 whose `host` is the `host` of the annotation that contains it. (The getter for
-`annotation` is analogous to the getter for [`csdlDocument`](#DocumentObject).)
+`annotation` is analogous to the getter for [`csdlDocument`](#CSDLJSONDocument).)
 :::
 
 @$@<DynamicExpression@>@{
