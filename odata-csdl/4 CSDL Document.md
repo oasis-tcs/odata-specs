@@ -96,7 +96,7 @@ only after the constructor has run its course. Therefore, the following code doe
 nothing if it runs in the `CSDLDocument` constructor.
 :::
 
-@$@<Collect all ModelElements per CSDLDocument@>@{
+@$@<Collect all ModelElements@>@{
 if (!(this instanceof CSDLDocument)) this.csdlDocument.modelElements.push(this);
 @}
 
