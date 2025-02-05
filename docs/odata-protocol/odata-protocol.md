@@ -4333,9 +4333,9 @@ On failure, the service MUST NOT create any of the entities.
 ### <a id="UpdateanEntity" href="#UpdateanEntity">11.4.3 Update an Entity</a>
 
 To update an individual entity, the client makes a `PATCH` or `PUT`
-request to a URL that identifies the entity. Services MAY restrict
-updates only to requests addressing the [edit URL](#ReadURLsandEditURLs)
-of the entity.
+request to a URL that identifies the entity. The [edit URL](#ReadURLsandEditURLs)
+MAY differ from the canonical URL defined in [OData-URL, section 4.3.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalURL),
+in which case clients SHOULD use the edit URL when making changes to the entity.
 
 The body of the request MUST be a valid representation of the
 declared target entity type, or one of its derived types.
@@ -4719,8 +4719,9 @@ of `*`.
 ### <a id="DeleteanEntity" href="#DeleteanEntity">11.4.5 Delete an Entity</a>
 
 To delete an individual entity, the client makes a `DELETE` request to a
-URL that identifies the entity. Services MAY restrict deletes only to
-requests addressing the [edit URL](#ReadURLsandEditURLs) of the entity.
+URL that identifies the entity. The [edit URL](#ReadURLsandEditURLs)
+MAY differ from the canonical URL defined in [OData-URL, section 4.3.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalURL),
+in which case clients SHOULD use the edit URL when deleting the entity.
 
 The request body SHOULD be empty. Top-level singleton entities can be deleted if
 they are nullable. Services supporting this MAY advertise it by
