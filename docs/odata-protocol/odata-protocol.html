@@ -584,9 +584,9 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/356">356</a></td>
 </tr>
 <tr class="odd">
-<td>Section 11.4.2.2](#CreateRelatedEntitiesWhenCreatinganEntity) Deep-insert response includes at least the properties present in the request</td>
+<td><a href="#CreateRelatedEntitiesWhenCreatinganEntity">Section 11.4.2.2</a></td>
+<td>Deep-insert response includes at least the properties present in the request</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/363">363</a></td>
-<td></td>
 </tr>
 <tr class="even">
 <td><a href="#UpdateanEntity">Section 11.4.3</a></td>
@@ -604,16 +604,21 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/534">534</a></td>
 </tr>
 <tr class="odd">
+<td><a href="#UpdateaCollectionofEntities">Section 11.4.12</a></td>
+<td>Control information to prevent updates</td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/2021">2021</a></td>
+</tr>
+<tr class="even">
 <td><a href="#ReplaceaCollectionofEntities">Section 11.4.13</a></td>
 <td>Semantics of <code>continue-on-error</code> when replacing a collection of entities</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/358">358</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#Conformance">Section 12</a></td>
 <td>Allow <code>400 Bad Request</code> in addition to <code>501 Not Implemented</code> for unsupported functionality</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/391">391</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#InteroperableODataClients">Section 12.3</a></td>
 <td>Encoding of plus character in URLs</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/485">485</a></td>
@@ -2759,6 +2764,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Clients MAY associate an id with individual nested entities in the request by using the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a> term defined in <a href="#ODataVocCore">OData-VocCore</a>. Services that respond with <a href="#ResponseCode200OK"><code>200 OK</code></a> SHOULD annotate the entities in the response using the same <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a> value as specified in the request.</p>
 <p>Services SHOULD advertise support for updating a collection using a delta payload through the <code>DeltaUpdateSupported</code> property of the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#UpdateRestrictionsType"><code>Capabilities.UpdateRestrictions</code></a> term, and SHOULD advertise support for returning the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a> through the <code>ContentIDSupported</code> property of the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#DeepUpdateSupportType"><code>Capabilities.DeepUpdateSupport</code></a> term, both defined in <a href="#ODataVocCap">OData-VocCap</a>.</p>
 <p>For each entity being updated or removed, clients MAY specify an <a href="#UseofETagsforAvoidingUpdateConflicts">ETag</a> value obtained from a previous request. If an ETag is provided that does not match the ETag value of the entity being updated or removed, or if an ETag is provided when adding or updating an entity that does not currently exist, then services that support ETags MUST NOT apply the change and instead <a href="#ErrorHandlingwhenUpdatingaCollectionofEntities">report</a> a <code>412 Precondition Failed</code> error. The special value <code>*</code> can be used to match any existing entity but fail if the entity does not already exist.</p>
+<p>Added/changed entities that specify format-specific control information equivalent to an <code>If-Match-None: *</code> header <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformationetagodataetag">OData-JSON, section 4.6.10</a> MUST NOT be treated as an update.</p>
 <p>The response, if requested, is a delta payload, in the same structure and order as the request payload, representing the applied changes.</p>
 <details open><summary>
 <h4 id="114121-error-handling-when-updating-a-collection-of-entities"><a id="ErrorHandlingwhenUpdatingaCollectionofEntities" href="#ErrorHandlingwhenUpdatingaCollectionofEntities">11.4.12.1 Error Handling when Updating a Collection of Entities</a></h4>
