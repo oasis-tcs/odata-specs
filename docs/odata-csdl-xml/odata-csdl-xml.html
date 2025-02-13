@@ -1934,7 +1934,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>For collection-valued parameters the value of <code>Type</code> is the character sequence <code>Collection(</code> followed by the qualified name of the parameter’s type, followed by a closing parenthesis <code>)</code>.</p>
 <h3><a id="AttributeNullable.23.3" href="#AttributeNullable.23.3">Attribute <code>Nullable</code></a></h3>
 <p>The value of <code>Nullable</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the attribute means <code>true</code>.</p>
-<p>The value <code>true</code> means that the parameter accepts a <code>null</code> value.</p>
+<p>For single-valued parameters the value <code>true</code> means that the parameter accepts a <code>null</code> value.</p>
+<p>For collection-valued parameters the parameter value will always be a collection that MAY be empty. In this case <code>Nullable</code> applies to items of the collection and specifies whether the collection MAY contain <code>null</code> values.</p>
 </div>
 <h3><a id="AnnotationCoreOptionalParameter.23.4" href="#AnnotationCoreOptionalParameter.23.4">Annotation <code>Core.OptionalParameter</code></a></h3>
 <p>A parameter that is annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter"><code>Core.OptionalParameter</code></a> MAY be omitted when invoking the function or action.</p>
