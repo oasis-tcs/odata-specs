@@ -196,30 +196,32 @@ representation into the Javascript CSDL metamodel. It has to deal with
   in a subclass of `ModelElement`.
 
 Subclasses of `ModelElement` with their own implementation of `fromJSON` call
-`super.fromJSON` at the end, that's why the code below never overwrites an existing
-member of the current instance.
+`super.fromJSON` at the end. The code below never overwrites an existing
+member of the current instance whose name starts with `$` because it may already have
+been set by the super method.
 :::
 
 @$@<ModelElement@>@{
 fromJSON(json, defaultKind) {
   let hasAnnotations = false;
-  for (const member in json)
-    if (!this[member]) {
-      @<If the member is an annotation, deserialize it@>
-      else if (!member.startsWith("$")) {
-        if (json[member] instanceof Array)
-          @<Deserialize an array-valued member@>
-        else {
-          const kind =
-            json[member].$Kind ||
-            (typeof defaultKind === "function"
-              ? defaultKind(json[member])
-              : defaultKind);
-          if (kind)
-            new closure[kind](this, member).fromJSON(json[member]);
-        }
-      } else @<String, number or Boolean values in fromJSON@>
+  for (const member in json) {
+    @<If the member is an annotation, deserialize it@>
+    else if (!member.startsWith("$")) {
+      if (json[member] instanceof Array)
+        @<Deserialize an array-valued member@>
+      else {
+        const kind =
+          json[member].$Kind ||
+          (typeof defaultKind === "function"
+            ? defaultKind(json[member])
+            : defaultKind);
+        if (kind)
+          new closure[kind](this, member).fromJSON(json[member]);
+      }
+    } else if (!this[member]) {
+      @<String, number or Boolean values in fromJSON@>
     }
+  }
   @<Housekeeping for annotations@>
 }
 @}

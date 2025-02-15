@@ -97,7 +97,13 @@ nothing if it runs in the `CSDLDocument` constructor.
 :::
 
 @$@<Collect all ModelElements@>@{
-if (!(this instanceof CSDLDocument)) this.csdlDocument.modelElements.push(this);
+if (!(this instanceof CSDLDocument)) {
+  @<Collect all ModelElements in modelElements@>
+}
+@}
+
+@$@<Collect all ModelElements in modelElements@>@{
+this.csdlDocument.modelElements.push(this);
 @}
 
 @$@<CSDLDocument@>@{

@@ -1754,20 +1754,44 @@ segment's `evaluateRelativeTo` method in turn and storing the `target` in each s
 :::
 
 @$@<RelativePath@>@{
+#pathID;
 evaluate() {
+  const pathID = [];
   let target = this.relativeTo();
   for (let i = 0; i < this.segments.length; i++) {
     target = this.segments[i].target =
       this.segments[i].evaluateRelativeTo(target);
     @<Housekeeping during segment evaluation@>
+    pathID.push(target.ID);
   }
   @<Housekeeping during path evaluation@>
+  this.#pathID = pathID.join(" ");
   return target;
+}
+get pathID() {
+  if (!this.#pathID) {
+    if (!this.csdlDocument.finished) return "CSDL document not finished";
+    this.evaluate();
+  }
+  return this.#pathID;
 }
 @}
 
 ::: funnelweb
-The same algorithm is used to address elements in a CSDL document by their path.
+The model element IDs of the targets are joined to form a unique identifier of the
+path.
+:::
+
+@$@<ModelElement@>@{
+@<Internal property@>@(ID@,@)
+@}
+
+@$@<Collect all ModelElements in modelElements@>@{
+this.#ID = this.csdlDocument.modelElements.length;
+@}
+
+::: funnelweb
+The `evaluate` algorithm is used to address elements in a CSDL document by their path.
 :::
 
 @$@<CSDLDocument@>@{
