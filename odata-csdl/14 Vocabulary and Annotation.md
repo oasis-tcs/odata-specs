@@ -1751,29 +1751,28 @@ annotation target, following the rules specified in [section ##PathEvaluation].
 Path evaluation relative to a model element moves from
 one model element to the next by invoking each
 segment's `evaluateRelativeTo` method in turn and storing the `target` in each segment.
+The targets which the path visits are also collected into the path's `visits` property.
 :::
 
 @$@<RelativePath@>@{
-#pathID;
+#visits = [];
 evaluate() {
-  const pathID = [];
   let target = this.relativeTo();
   for (let i = 0; i < this.segments.length; i++) {
     target = this.segments[i].target =
       this.segments[i].evaluateRelativeTo(target);
     @<Housekeeping during segment evaluation@>
-    pathID.push(target.ID);
+    this.#visits.push(target);
   }
   @<Housekeeping during path evaluation@>
-  this.#pathID = pathID.join(" ");
   return target;
 }
-get pathID() {
-  if (!this.#pathID) {
+get visits() {
+  if (!this.#visits) {
     if (!this.csdlDocument.finished) return "CSDL document not finished";
     this.evaluate();
   }
-  return this.#pathID;
+  return this.#visits;
 }
 @}
 
@@ -1788,6 +1787,12 @@ path.
 
 @$@<Collect all ModelElements in modelElements@>@{
 this.#ID = this.csdlDocument.modelElements.length;
+@}
+
+@$@<RelativePath@>@{
+get pathID() {
+  return this.#visits?.map(t => t.ID)?.join(" ");
+}
 @}
 
 ::: funnelweb
