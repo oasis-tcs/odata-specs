@@ -379,8 +379,14 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><a href="#NumericPromotion">5.1.1.18 Numeric Promotion</a></li>
 </ul></li>
 <li><a href="#SystemQueryOptionfilter">5.1.2 System Query Option <code>$filter</code></a></li>
-<li><a href="#SystemQueryOptionexpand">5.1.3 System Query Option <code>$expand</code></a></li>
-<li><a href="#SystemQueryOptionselect">5.1.4 System Query Option <code>$select</code></a></li>
+<li><a href="#SystemQueryOptionexpand">5.1.3 System Query Option <code>$expand</code></a>
+<ul>
+<li><a href="#ExpandOptions">5.1.3.1 Expand Options</a></li>
+</ul></li>
+<li><a href="#SystemQueryOptionselect">5.1.4 System Query Option <code>$select</code></a>
+<ul>
+<li><a href="#SelectOptions">5.1.4.1 SelectOptions</a></li>
+</ul></li>
 <li><a href="#SystemQueryOptionorderby">5.1.5 System Query Option <code>$orderby</code></a></li>
 <li><a href="#SystemQueryOptionstopandskip">5.1.6 System Query Options <code>$top</code> and <code>$skip</code></a></li>
 <li><a href="#SystemQueryOptioncount">5.1.7 System Query Option <code>$count</code></a></li>
@@ -2251,7 +2257,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <ul>
 <li>the name of a stream property to include that stream property,</li>
 <li>a star (<code>*</code>) to expand all navigation properties of the identified instances of a structured type, optionally followed by <code>/$ref</code> to expand only entity references, or</li>
-<li>a navigation property to expand the related entity or entities, optionally followed by a <a href="#AddressingDerivedTypes">type-cast segment</a> to expand only related entities of that derived type or one of its sub-types, optionally followed by <code>/$ref</code> to expand only entity references.</li>
+<li>a navigation property to expand the related entity or entities, optionally followed by a <a href="#AddressingDerivedTypes">type-cast segment</a> to expand only related entities of that derived type or one of its sub-types, optionally followed by <code>/$ref</code> to expand only entity references, or <code>/$count</code>, optionally with expand options, to return only the count of matching entities.</li>
 <li>an entity-valued instance annotation to expand the related entity or entities, optionally followed by a <a href="#AddressingDerivedTypes">type-cast segment</a> to expand only related entities of that derived type or one of its sub-types.</li>
 </ul>
 <p>If a structured type traversed by the path supports neither dynamic properties nor instance annotations, then a corresponding property segment MUST specify a declared property of that structured type. Otherwise, if a traversed type does support dynamic navigation properties or instance annotations and the corresponding property segment does not specify a declared property, then the expanded property appears only for those instances on which it has a value.</p>
@@ -2264,59 +2270,63 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <pre><code>http://host/service/Customers?$expand=Addresses/Country</code></pre>
 </div>
 <p>A path MUST NOT appear in more than one expand item.</p>
-<p>Query options can be applied to an expanded navigation property by appending a semicolon-separated list of query options, enclosed in parentheses, to the navigation property name. The system query option, irrespective of casing or whether or not it is prefixed with a <code>$</code>, MUST NOT be specified more than once in the list. Allowed system query options are <a href="#SystemQueryOptioncompute"><code>$compute</code></a>, <a href="#SystemQueryOptionselect"><code>$select</code></a>, <code>$expand</code>, and <a href="#ExpandOptionlevels"><code>$levels</code></a> for all navigation properties, plus <a href="#SystemQueryOptionfilter"><code>$filter</code></a>, <a href="#SystemQueryOptionorderby"><code>$orderby</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$skip</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$top</code></a>, <a href="#SystemQueryOptioncount"><code>$count</code></a>, and <a href="#SystemQueryOptionsearch"><code>$search</code></a> for collection-valued navigation properties.</p>
+<p>The <code>$count</code> segment can be appended to a navigation property name or <a href="#AddressingDerivedTypes">type-cast segment</a> following a collection-valued navigation property name to return just the count of the related entities. The <a href="#SystemQueryOptionfilter"><code>$filter</code></a> and <a href="#SystemQueryOptionsearch"><code>$search</code></a> <a href="#ExpandOptions">Expand Options</a> can be used to limit the number of related entities included in the count.</p>
 <div class="example">
-<p>Example 124: all categories and for each category all related products with a discontinued date equal to <code>null</code></p>
-<pre><code>http://host/service/Categories?$expand=Products($filter=DiscontinuedDate eq null)</code></pre>
-</div>
-<p>The <code>$count</code> segment can be appended to a navigation property name or <a href="#AddressingDerivedTypes">type-cast segment</a> following a navigation property name to return just the count of the related entities. The <code>$filter</code> and <code>$search</code> system query options can be used to limit the number of related entities included in the count.</p>
-<div class="example">
-<p>Example 125: all categories and for each category the number of all related products</p>
+<p>Example 124: all categories and for each category the number of all related products</p>
 <pre><code>http://host/service/Categories?$expand=Products/$count</code></pre>
 </div>
 <div class="example">
-<p>Example 126: all categories and for each category the number of all related blue products</p>
+<p>Example 125: all categories and for each category the number of all related blue products</p>
 <pre><code>http://host/service/Categories?$expand=Products/$count($search=blue)</code></pre>
 </div>
-<p>To retrieve entity references instead of the related entities, append <code>/$ref</code> to the navigation property name or <a href="#AddressingDerivedTypes">type-cast segment</a> following a navigation property name. The system query options <a href="#SystemQueryOptionfilter"><code>$filter</code></a>, <a href="#SystemQueryOptionsearch"><code>$search</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$skip</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$top</code></a>, and <a href="#SystemQueryOptioncount"><code>$count</code></a> can be used to limit the number of expanded entity references.</p>
+<p>To retrieve entity references instead of the related entities, append <code>/$ref</code> to the navigation property name or <a href="#AddressingDerivedTypes">type-cast segment</a> following a navigation property name. The <a href="#ExpandOptions">Expand Options</a> <a href="#SystemQueryOptionfilter"><code>$filter</code></a>, <a href="#SystemQueryOptionsearch"><code>$search</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$skip</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$top</code></a>, and <a href="#SystemQueryOptioncount"><code>$count</code></a> can be used to include the count of expanded entity references.</p>
 <div class="example">
-<p>Example 127: all categories and for each category the references of all related products</p>
+<p>Example 126: all categories and for each category the references of all related products</p>
 <pre><code>http://host/service/Categories?$expand=Products/$ref</code></pre>
 </div>
 <div class="example">
-<p>Example 128: all categories and for each category the references of all related products of the derived type <code>Sales.PremierProduct</code></p>
+<p>Example 127: all categories and for each category the references of all related products of the derived type <code>Sales.PremierProduct</code></p>
 <pre><code>http://host/service/Categories?$expand=Products/Sales.PremierProduct/$ref</code></pre>
 </div>
 <div class="example">
-<p>Example 129: all categories and for each category the references of all related premier products with a current promotion equal to <code>null</code></p>
+<p>Example 128: all categories and for each category the references of all related premier products with a current promotion equal to <code>null</code></p>
 <pre><code>http://host/service/Categories
   ?$expand=Products/Sales.PremierProduct/$ref($filter=CurrentPromotion eq null)</code></pre>
 </div>
-<p><span id="ExpandOptionlevels">Cyclic navigation properties</span> (whose target type is identical or can be cast to its source type) can be recursively expanded using the special <code>$levels</code> option. The value of the <code>$levels</code> option is either a positive integer to specify the number of levels to expand, or the literal string <code>max</code> to specify the maximum expansion level supported by that service. A <code>$levels</code> option with a value of 1 specifies a single expand with no recursion.</p>
-<div class="example">
-<p>Example 130: all employees with their manager, manager’s manager, and manager’s manager’s manager</p>
-<pre><code>http://host/service/Employees?$expand=ReportsTo($levels=3)</code></pre>
-</div>
-<p>It is also possible to expand all declared and dynamic navigation properties using a star (<code>*</code>). To retrieve references to all related entities use <code>*/$ref</code>, and to expand all related entities with a certain distance use the star operator with the <code>$levels</code> option. The star operator can be combined with explicitly named navigation properties, which take precedence over the star operator.</p>
+<p>It is also possible to expand all declared and dynamic navigation properties using a star (<code>*</code>). To retrieve references to all related entities use <code>*/$ref</code>, and to expand all related entities with a certain distance use the star operator with the <code>$levels</code> <a href="#ExpandOptionlevels">Expand Option</a>. The star operator can be combined with explicitly named navigation properties, which take precedence over the star operator.</p>
 <p>The star operator does not implicitly include stream properties.</p>
 <div class="example">
-<p>Example 131: expand <code>Supplier</code> and include references for all other related entities</p>
+<p>Example 129: expand <code>Supplier</code> and include references for all other related entities</p>
 <pre><code>http://host/service/Categories?$expand=*/$ref,Supplier</code></pre>
-</div>
-<div class="example">
-<p>Example 132: expand all related entities and their related entities</p>
-<pre><code>http://host/service/Categories?$expand=*($levels=2)</code></pre>
 </div>
 <p>Specifying a stream property includes the media stream inline according to the specified format.</p>
 <div class="example">
-<p>Example 133: include Employee’s <code>Photo</code> stream property along with other properties of the customer</p>
+<p>Example 130: include Employee’s <code>Photo</code> stream property along with other properties of the customer</p>
 <pre><code>http://host/service/Employees?$expand=Photo</code></pre>
 </div>
 <p>Specifying <code>$value</code> for a media entity includes the media entity’s stream value inline according to the specified format.</p>
 <div class="example">
-<p>Example 134: Include the Product’s media stream along with other properties of the product</p>
+<p>Example 131: Include the Product’s media stream along with other properties of the product</p>
 <pre><code>http://host/service/Products?$expand=$value</code></pre>
 </div>
+<details open><summary>
+<h4 id="5131-expand-options"><a id="ExpandOptions" href="#ExpandOptions">5.1.3.1 Expand Options</a></h4>
+</summary>
+<p>Query options can be applied to an expanded navigation property by appending a semicolon-separated list of query options, enclosed in parentheses, to the navigation property name. The system query option, irrespective of casing or whether or not it is prefixed with a <code>$</code>, MUST NOT be specified more than once in the list. Allowed system query options are <a href="#SystemQueryOptioncompute"><code>$compute</code></a>, <a href="#SystemQueryOptionselect"><code>$select</code></a>, <code>$expand</code>, and <a href="#ExpandOptionlevels"><code>$levels</code></a> for all navigation properties, plus <a href="#SystemQueryOptionfilter"><code>$filter</code></a>, <a href="#SystemQueryOptionorderby"><code>$orderby</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$skip</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$top</code></a>, <a href="#SystemQueryOptioncount"><code>$count</code></a>, and <a href="#SystemQueryOptionsearch"><code>$search</code></a> for collection-valued navigation properties.</p>
+<div class="example">
+<p>Example 132: all categories and for each category all related products with a discontinued date equal to <code>null</code></p>
+<pre><code>http://host/service/Categories?$expand=Products($filter=DiscontinuedDate eq null)</code></pre>
+</div>
+<p><span id="ExpandOptionlevels">Cyclic navigation properties</span> (whose target type is identical or can be cast to its source type) can be recursively expanded using the special <code>$levels</code> expand option. The value of the <code>$levels</code> expand option is either a positive integer to specify the number of levels to expand, or the literal string <code>max</code> to specify the maximum expansion level supported by that service. A <code>$levels</code> option with a value of 1 specifies a single expand with no recursion.</p>
+<div class="example">
+<p>Example 133: all employees with their manager, manager’s manager, and manager’s manager’s manager</p>
+<pre><code>http://host/service/Employees?$expand=ReportsTo($levels=3)</code></pre>
+</div>
+<div class="example">
+<p>Example 134: expand all related entities and their related entities</p>
+<pre><code>http://host/service/Categories?$expand=*($levels=2)</code></pre>
+</div>
+</details>
 </details>
 <details open><summary>
 <h3 id="514-system-query-option-select"><a id="SystemQueryOptionselect" href="#SystemQueryOptionselect">5.1.4 System Query Option <code>$select</code></a></h3>
@@ -2326,14 +2336,14 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>The <a href="#ODataABNF">OData-ABNF</a> <code>select</code> syntax rule defines the formal grammar of the <code>$select</code> query option.</p>
 <p>The value of <code>$select</code> is a comma-separated list of select items. Each select item is one of the following:</p>
 <ul>
-<li>a path, to include a property,</li>
+<li>a path, optionally followed by a count segment or select options</li>
 <li>a star (<code>*</code>), to include all declared or dynamic properties of the type, or</li>
 <li>a qualified schema name followed by a dot (<code>.</code>) followed by a star (<code>*</code>) to request all applicable actions or functions from that schema</li>
 </ul>
 <p>A path consists of segments separated by a forward slash (<code>/</code>). Segments are either names of single- or collection-valued complex properties, <a href="#AnnotationValuesinExpressions">instance annotations</a>, or <a href="#AddressingDerivedTypes">type-cast segments</a> consisting of the qualified name of a structured type that is derived from the type identified by the preceding path segment to reach properties defined on the derived type.</p>
 <p>A path can end with</p>
 <ul>
-<li>the name of a property or non-entity-valued instance annotation of the identified instance of a structured type,</li>
+<li>the name of a property or non-entity-valued instance annotation of the identified instance of a structured type</li>
 <li>the qualified name of a bound action,</li>
 <li>the qualified name of a bound function to include all matching overloads, or</li>
 <li>the qualified name of a bound function followed by parentheses containing the comma-separated lists of non-binding parameters identifying a single overload.</li>
@@ -2365,13 +2375,14 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
   ?$select=Namespace.PreferredSupplier/AccountRepresentative,
            Address/Street,Address/Namespace.AddressWithLocation/Location</code></pre>
 </div>
-<p>Query options can be applied to a select item that is a path to a single complex value or a collection of primitive or complex values by appending a semicolon-separated list of query options, enclosed in parentheses, to the select item. The allowed system query options depend on the type of the resource identified by the select item, see section <a href="#SystemQueryOptions">System Query Options</a>, with the exception of <a href="#SystemQueryOptionexpand"><code>$expand</code></a>. The same property MUST NOT have select options specified in more than one place in a request and MUST NOT be specified in more than one expand.</p>
+<p>If the path ends in a collection of primitive or complex values, then the count segment (<code>/$count</code>), optionally followed by the <a href="#SelectOptions">Select Options</a> <a href="#SystemQueryOptionfilter"><code>$filter</code></a> and/or <a href="#SystemQueryOptionsearch"><code>$search</code></a>, can be appended to the path in order to return only the count of the matching items.</p>
 <div class="example">
-<p>Example 139: select up to five addresses whose <code>City</code> starts with an <code>H</code>, sorted, and with the <code>Country</code> expanded</p>
-<pre><code>http://host/service/Customers
-  ?$select=Addresses($filter=startswith(City,&#39;H&#39;);$top=5;
-                     $orderby=Country/Name,City,Street)
-  &amp;$expand=Addresses/Country</code></pre>
+<p>Example 139: for each <code>Customer</code>, return the <code>ID</code> and the count of <code>Addresses</code></p>
+<pre><code>http://host/service/Customers?$select=ID,Addresses/$count</code></pre>
+</div>
+<div class="example">
+<p>Example 140: for each <code>Customer</code>, return the <code>ID</code> and the count of <code>Addresses</code> whose <code>City</code> starts with ‘H’</p>
+<pre><code>http://host/service/Customers?$select=ID,Addresses/$count($filter=startswith(City,&#39;H&#39;))</code></pre>
 </div>
 <p>Any structural property, non-expanded navigation property, or operation not requested as a select item (explicitly or via a star) SHOULD be omitted from the response.</p>
 <p>Annotations requested in <code>$select</code> MUST be included in the response; <code>$select</code> overrules the <code>include-annotations</code> preference (see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#Preferenceincludeannotationsodataincludeannotations">OData-Protocol, section 8.2.8.4</a>) for the explicitly requested annotations. Additional annotations matching the preference can be included even if not requested via <code>$select</code>. The <code>Preference-Applied</code> response header only reflects the set of annotations included due to the <code>include-annotations</code> preference and not those only included due to <code>$select</code>.</p>
@@ -2379,10 +2390,27 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>If an action or function is requested as a select item, either explicitly by using its qualified name, or implicitly by requesting all operations in a schema, then the service includes information about how to invoke that operation for each entity identified by the last path segment in the request URL for which the operation can be bound.</p>
 <p>If an action or function is requested in a select item using its qualified name and that operation cannot be bound to the entities requested, the service MUST ignore the select item.</p>
 <div class="example">
-<p>Example 140: the <code>ID</code> property, the <code>ActionName</code> action defined in <code>Model</code> and all actions and functions defined in the <code>Model2</code> for each product if those actions and functions can be bound to that product</p>
+<p>Example 141: the <code>ID</code> property, the <code>ActionName</code> action defined in <code>Model</code> and all actions and functions defined in the <code>Model2</code> for each product if those actions and functions can be bound to that product</p>
 <pre><code>http://host/service/Products?$select=ID,Model.ActionName,Model2.*</code></pre>
 </div>
 <p>When multiple select item exist in a <code>$select</code> clause, then the total set of properties, open properties, navigation properties, actions and functions to be returned is equal to the union of the set of those identified by each select item.</p>
+<details open><summary>
+<h4 id="5141-selectoptions"><a id="SelectOptions" href="#SelectOptions">5.1.4.1 SelectOptions</a></h4>
+</summary>
+<p>Query options can be applied to a select item that is a path to a single complex value or a collection of primitive or complex values by appending a semicolon-separated list of query options, enclosed in parentheses, to the select item. The allowed system query options depend on the type of the resource identified by the select item, see section <a href="#SystemQueryOptions">System Query Options</a>, with the exception of <a href="#SystemQueryOptionexpand"><code>$expand</code></a>. The same property MUST NOT have select options specified in more than one place in a request and MUST NOT be specified in more than one expand.</p>
+<p>If the select item is a complex type, or collection of complex types, then it can include a nested select.</p>
+<div class="example">
+<p>Example 142: return the City from the Address complex type</p>
+<pre><code>http://host/service/Customers?$select=Address($select=City)</code></pre>
+</div>
+<div class="example">
+<p>Example 143: select up to five addresses whose <code>City</code> starts with an <code>H</code>, sorted, and with the <code>Country</code> expanded</p>
+<pre><code>http://host/service/Customers
+  ?$select=Addresses($filter=startswith(City,&#39;H&#39;);$top=5;
+                     $orderby=Country/Name,City,Street)
+  &amp;$expand=Addresses/Country</code></pre>
+</div>
+</details>
 </details>
 <details open><summary>
 <h3 id="515-system-query-option-orderby"><a id="SystemQueryOptionorderby" href="#SystemQueryOptionorderby">5.1.5 System Query Option <code>$orderby</code></a></h3>
@@ -2411,7 +2439,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>If both <code>$search</code> and <a href="#SystemQueryOptionfilter"><code>$filter</code></a> are applied to the same request, the results include only those items that match both criteria.</p>
 <p>The <a href="#ODataABNF">OData-ABNF</a> <code>search</code> syntax rule defines the formal grammar of the <code>$search</code> query option.</p>
 <div class="example">
-<p>Example 141: all products that are blue or green. It is up to the service to decide what makes a product blue or green.</p>
+<p>Example 144: all products that are blue or green. It is up to the service to decide what makes a product blue or green.</p>
 <pre><code>http://host/service/Products?$search=blue OR green</code></pre>
 </div>
 <p>Clients should be aware that services MAY implement search based on a different syntax provided they advertise this with the annotation <code>SearchRestrictions/SearchSyntax</code> defined in <a href="#ODataVocCap">OData-VocCap</a>. Services MAY treat keywords defined in the standard <a href="#ODataABNF">OData-ABNF</a> <code>$search</code> syntax as terms to be matched if they are listed in <code>SearchRestrictions/UnsupportedExpressions</code>.</p>
@@ -2447,7 +2475,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>The <a href="#ODataABNF">OData-ABNF</a> <code>compute</code> syntax rule defines the formal grammar of the <code>$compute</code> query option.</p>
 <p>Computed properties SHOULD be included as dynamic properties in the result and MUST be included if <code>$select</code> is specified with the computed property name, or star (<code>*</code>).</p>
 <div class="example">
-<p>Example 142: compute total price for order items</p>
+<p>Example 145: compute total price for order items</p>
 <pre><code>http://host/service/Orders(10)/Items
   ?$select=Product/Description,Total
   &amp;$filter=Total gt 100
@@ -2474,7 +2502,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>Custom query options provide an extensible mechanism for service-specific information to be placed in a URL query string. A custom query option is any query option of the form shown by the rule <code>customQueryOption</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>Custom query options MUST NOT begin with a <code>$</code> or <code>@</code> character.</p>
 <div class="example">
-<p>Example 143: service-specific custom query option <code>debug-mode</code></p>
+<p>Example 146: service-specific custom query option <code>debug-mode</code></p>
 <pre><code>http://host/service/Products?debug-mode=true</code></pre>
 </div>
 </details>
@@ -2485,15 +2513,15 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>Parameter aliases MUST start with an <code>@</code> character, see rule <code>parameterAlias</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>The semantics of parameter aliases are covered in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ParameterAliases">OData-Protocol, section 11.2.6.1.3</a>. The <a href="#ODataABNF">OData-ABNF</a> rule <code>aliasAndValue</code> defines the formal grammar for passing parameter alias values as query options.</p>
 <div class="example">
-<p>Example 144:</p>
+<p>Example 147:</p>
 <pre><code>http://host/service/Movies?$filter=contains(@word,Title)&amp;@word=&#39;Black&#39;</code></pre>
 </div>
 <div class="example">
-<p>Example 145:</p>
+<p>Example 148:</p>
 <pre><code>http://host/service/Movies?$filter=Title eq @title&amp;@title=&#39;Wizard of Oz&#39;</code></pre>
 </div>
 <div class="example">
-<p>Example 146: JSON array of strings as parameter alias value — note that <code>[</code>, <code>]</code>, and <code>"</code> need to be percent-encoded in real URLs, the clear-text representation used here is just for readability</p>
+<p>Example 149: JSON array of strings as parameter alias value — note that <code>[</code>, <code>]</code>, and <code>"</code> need to be percent-encoded in real URLs, the clear-text representation used here is just for readability</p>
 <pre><code>http://host/service/Products/Model.WithIngredients(Ingredients=@i)
   ?@i=[&quot;Carrots&quot;,&quot;Ginger&quot;,&quot;Oranges&quot;]</code></pre>
 </div>
