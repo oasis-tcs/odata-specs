@@ -223,6 +223,7 @@ Section | Feature / Change | Issue
 [Section 7](#StructuralProperty), [Section A.2](#InformativeReferences)| Removed reference to obsolete version of GeoJSON| [456](https://github.com/oasis-tcs/odata-specs/issues/456)
 [Section 15.3](#DeletedEntity)| `type` control information, if present, must come immediately after `removed`| [1985](https://github.com/oasis-tcs/odata-specs/issues/1985)
 [Section 18](#ActionInvocation)| Allow common expressions in action payloads| [341](https://github.com/oasis-tcs/odata-specs/issues/341)
+[Section 18](#ActionInvocation)| Omission of collection-valued action parameters| [2045](https://github.com/oasis-tcs/odata-specs/issues/2045)
 
 ## <a id="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -3161,7 +3162,7 @@ parameter is equivalent to being annotated as optional with a default
 value of `null`.
 
 Non-binding collection-valued parameters MAY be omitted from the request body regardless
-of nullability or optionality. Unless a `Core.OptionalValue` with `DefaultValue` is annotated,
+of nullability or optionality. Unless a `Core.OptionalValue` with `NonPrimitiveDefaultValue` is annotated,
 the interpretation of such an omitted parameter is up to the service,
 this includes assuming an empty collection or reporting an error.
 

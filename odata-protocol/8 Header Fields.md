@@ -604,7 +604,7 @@ null values from the response, in which case it MUST specify the
 `Preference-Applied` response header with `omit-values=nulls`.
 
 If `defaults` is specified, then the service MAY omit single-valued properties
-containing default values from the response, including nulls for
+having default values from the response, including nulls for
 properties that have no other defined default value. Nulls MUST be
 included for properties that have a non-null default value defined. If
 the service omits default values, it MUST specify the

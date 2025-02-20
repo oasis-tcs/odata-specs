@@ -338,7 +338,7 @@ parameter is equivalent to being annotated as optional with a default
 value of `null`.
 
 Non-binding collection-valued parameters MAY be omitted from the request body regardless
-of nullability or optionality. Unless a `Core.OptionalValue` with `DefaultValue` is annotated,
+of nullability or optionality. Unless a `Core.OptionalValue` with `NonPrimitiveDefaultValue` is annotated,
 the interpretation of such an omitted parameter is up to the service,
 this includes assuming an empty collection or reporting an error.
 
