@@ -1397,7 +1397,9 @@ JSON strings whose content satisfies the rules `binaryValue`,
 `dateValue`, `dateTimeOffsetValue`,
 `durationValue`, `guidValue`, and
 `timeOfDayValue` respectively, in
-[OData-ABNF](#ODataABNF).
+[OData-ABNF](#ODataABNF). If the `second` in a `timeOfDayValue` is omitted, the
+value's `secondFrag` (as defined in [XML-Schema-2](#XML-Schema2), sections 3.3.7 and 3.3.8)
+is 0.
 
 Primitive values that cannot be represented, for example due to server
 conversion issues or IEEE754 limitations on the size of an `Edm.Int64` or `Edm.Decimal` value, are
@@ -4176,6 +4178,10 @@ https://www.rfc-editor.org/info/rfc8259.
 ###### [ECMAScript]{id=_ECMAScript}
 _ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262.
 https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
+
+###### [XML-Schema-2]{id=XML-Schema2}
+_W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes_. D. Peterson, S. Gao, C. M. Sperberg-McQueen, H. S. Thompson, P. V. Biron, A. Malhotra, Editors, W3C Recommendation, 5 April 2012.  
+http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/. Latest version available at http://www.w3.org/TR/xmlschema11-2/.
 
 -------
 
