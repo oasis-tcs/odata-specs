@@ -2117,8 +2117,10 @@ http://host/service/Products?$filter=(4 add 5) mod (4 sub 1) eq 0
 In addition to operators, a set of functions is also defined for use
 with the [`$compute`](#SystemQueryOptioncompute), `$filter` or
 [`$orderby`](#SystemQueryOptionorderby) system query options, or in
-[parameter alias](#ParameterAliases) values. The following sections
-describe the available functions.
+[parameter alias](#ParameterAliases) values. The following [sections 5.1.1.5.1](#concat)
+up to [section 5.1.1.11.3](#geolength) describe the available functions. The [`case`](#case)
+function and the [lambda operators](#LambdaOperators) have a slightly different
+syntax.
 
 Note: ISNULL or COALESCE operators are
 not defined. Instead, OData defines a [`null`](#null) literal that can
