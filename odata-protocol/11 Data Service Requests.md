@@ -463,7 +463,7 @@ return only the count of matching items.
 Example ##ex: for each Category, return the `Name` and the count of `Products` 
 starting with the letter 'H'.
 ```
-GET http://host/service/Categories?$select=Name&$expand=Products/$count(startswith(Name,'H'))
+GET http://host/service/Categories?$select=Name&$expand=Products/$count($filter=startswith(Name,'H'))
 ```
 :::
 
