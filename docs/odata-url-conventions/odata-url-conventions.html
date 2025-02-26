@@ -355,7 +355,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><a href="#geointersects">5.1.1.11.2 <code>geo.intersects</code></a></li>
 <li><a href="#geolength">5.1.1.11.3 <code>geo.length</code></a></li>
 </ul></li>
-<li><a href="#ConditionalFunctions">5.1.1.12 Conditional Functions</a>
+<li><a href="#ConditionalOperators">5.1.1.12 Conditional Operators</a>
 <ul>
 <li><a href="#case">5.1.1.12.1 <code>case</code></a></li>
 </ul></li>
@@ -1395,7 +1395,7 @@ Content-Type: application/x-www-form-urlencoded
 <details open><summary>
 <h4 id="5114-canonical-functions"><a id="CanonicalFunctions" href="#CanonicalFunctions">5.1.1.4 Canonical Functions</a></h4>
 </summary>
-<p>In addition to operators, a set of functions is also defined for use with the <a href="#SystemQueryOptioncompute"><code>$compute</code></a>, <code>$filter</code> or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> system query options, or in <a href="#ParameterAliases">parameter alias</a> values. The following <a href="#concat">sections 5.1.1.5.1</a> <a href="#geolength">to 5.1.1.11.3</a> describe the available functions. The <a href="#case"><code>case</code></a> operator and the <a href="#LambdaOperators">lambda operators</a> have a slightly different syntax.</p>
+<p>In addition to operators, a set of functions is also defined for use with the <a href="#SystemQueryOptioncompute"><code>$compute</code></a>, <code>$filter</code> or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> system query options, or in <a href="#ParameterAliases">parameter alias</a> values. The following <a href="#concat">sections 5.1.1.5.1</a> to <a href="#geolength">5.1.1.11.3</a> describe the available functions. The <a href="#case"><code>case</code></a> operator and the <a href="#LambdaOperators">lambda operators</a> have a slightly different syntax.</p>
 <p>Note: ISNULL or COALESCE operators are not defined. Instead, OData defines a <a href="#null"><code>null</code></a> literal that can be used in comparisons.</p>
 <p>If a parameter of a canonical function is <code>null</code>, the function returns <code>null</code>. If the types of parameters do not match the function signature, the function also returns <code>null</code>.</p>
 <p>The syntax rules for all functions are defined in <a href="#ODataABNF">OData-ABNF</a>. 4.01 Services MUST support case-insensitive canonical function names. Clients that want to work with 4.0 services MUST use lower case canonical function names.</p>
@@ -1868,7 +1868,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 </details>
 </details>
 <details open><summary>
-<h4 id="51112-conditional-functions"><a id="ConditionalFunctions" href="#ConditionalFunctions">5.1.1.12 Conditional Functions</a></h4>
+<h4 id="51112-conditional-operators"><a id="ConditionalOperators" href="#ConditionalOperators">5.1.1.12 Conditional Operators</a></h4>
 </summary>
 <details open><summary>
 <h5 id="511121-case"><a id="case" href="#case">5.1.1.12.1 <code>case</code></a></h5>

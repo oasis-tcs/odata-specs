@@ -202,7 +202,7 @@ For complete copyright information please see the full Notices section in an App
         - [5.1.1.11.1 `geo.distance`](#geodistance)
         - [5.1.1.11.2 `geo.intersects`](#geointersects)
         - [5.1.1.11.3 `geo.length`](#geolength)
-      - [5.1.1.12 Conditional Functions](#ConditionalFunctions)
+      - [5.1.1.12 Conditional Operators](#ConditionalOperators)
         - [5.1.1.12.1 `case`](#case)
       - [5.1.1.13 Lambda Operators](#LambdaOperators)
         - [5.1.1.13.1 `any`](#any)
@@ -2118,7 +2118,7 @@ In addition to operators, a set of functions is also defined for use
 with the [`$compute`](#SystemQueryOptioncompute), `$filter` or
 [`$orderby`](#SystemQueryOptionorderby) system query options, or in
 [parameter alias](#ParameterAliases) values. The following [sections 5.1.1.5.1](#concat)
-[to 5.1.1.11.3](#geolength) describe the available functions. The [`case`](#case)
+to [5.1.1.11.3](#geolength) describe the available functions. The [`case`](#case)
 operator and the [lambda operators](#LambdaOperators) have a slightly different
 syntax.
 
@@ -3028,7 +3028,7 @@ Edm.Double geo.length(Edm.GeometryLineString)
 The `geo.length` function returns the total length of its line string
 parameter in the coordinate reference system signified by its SRID.
 
-#### <a id="ConditionalFunctions" href="#ConditionalFunctions">5.1.1.12 Conditional Functions</a>
+#### <a id="ConditionalOperators" href="#ConditionalOperators">5.1.1.12 Conditional Operators</a>
 
 ##### <a id="case" href="#case">5.1.1.12.1 `case`</a>
 

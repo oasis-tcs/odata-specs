@@ -546,7 +546,7 @@ In addition to operators, a set of functions is also defined for use
 with the [`$compute`](#SystemQueryOptioncompute), `$filter` or
 [`$orderby`](#SystemQueryOptionorderby) system query options, or in
 [parameter alias](#ParameterAliases) values. The following [sections ##concat]
-[to ##geolength] describe the available functions. The [`case`](#case)
+to [##geolength] describe the available functions. The [`case`](#case)
 operator and the [lambda operators](#LambdaOperators) have a slightly different
 syntax.
 
@@ -1456,7 +1456,7 @@ Edm.Double geo.length(Edm.GeometryLineString)
 The `geo.length` function returns the total length of its line string
 parameter in the coordinate reference system signified by its SRID.
 
-#### ##subsubsubsec Conditional Functions
+#### ##subsubsubsec Conditional Operators
 
 ##### ##subsubsubsubsec `case`
 
