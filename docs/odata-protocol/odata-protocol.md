@@ -2954,7 +2954,7 @@ If the selected property represents a collection of primitive or complex values,
 ::: example
 Example 40: for each customer, return the ID and the count of addresses starting with the letter 'H'.
 ```
-GET http://host/service/Customers?$select=ID,Addresses/$count(startswith(City,'H'))
+GET http://host/service/Customers?$select=ID,Addresses/$count($filter=startswith(City,'H'))
 ```
 :::
 
