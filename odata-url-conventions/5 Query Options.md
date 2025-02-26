@@ -2017,12 +2017,13 @@ properties of the identified instances of a structured type, optionally followed
 related entity or entities, optionally followed by a [type-cast segment](#AddressingDerivedTypes)
 to expand only related entities of that derived type or one of its
 sub-types, optionally followed by `/$ref` to expand only entity
-references, or `/$count`, optionally with expand options, to return only the count of 
-matching entities.
+references, or `/$count`, optionally with [`$filter`](#SystemQueryOptionfilter) and/or [`$search`](#SystemQueryOptionsearch) [expand options](#ExpandOptions), to return only the count of matching entities.
 - an entity-valued instance annotation to
 expand the related entity or entities, optionally followed by a
 [type-cast segment](#AddressingDerivedTypes) to expand only related entities of that derived type
 or one of its sub-types.
+
+A path MUST NOT appear in more than one expand item.
 
 If a structured type traversed by the path supports neither dynamic
 properties nor instance annotations, then a corresponding property
@@ -2046,15 +2047,6 @@ http://host/service/Customers?$expand=Addresses/Country
 ```
 :::
 
-A path MUST NOT appear in more than one expand item.
-
-The `$count` segment can be appended to a navigation property name or
-[type-cast segment](#AddressingDerivedTypes) following a collection-valued navigation
-property name to return just the count of the related entities. The
-[`$filter`](#SystemQueryOptionfilter) and [`$search`](#SystemQueryOptionsearch) 
-[Expand Options](#ExpandOptions)
-can be used to limit the number of related entities included in the count.
-
 ::: example
 Example ##ex: all categories and for each category the number of all
 related products
@@ -2075,8 +2067,8 @@ To retrieve entity references instead of the related entities, append
 `/$ref` to the navigation property name or [type-cast segment](#AddressingDerivedTypes) following a navigation property name.
 The [Expand Options](#ExpandOptions) [`$filter`](#SystemQueryOptionfilter),
 [`$search`](#SystemQueryOptionsearch),
-[`$skip`](#SystemQueryOptionstopandskip),
-[`$top`](#SystemQueryOptionstopandskip), and
+[`$skip`](#SystemQueryOptionstopandskip), and
+[`$top`](#SystemQueryOptionstopandskip) can be used to limit the collection of expanded entity references, and
 [`$count`](#SystemQueryOptioncount) can be used to include the count of
 expanded entity references.
 
@@ -2211,7 +2203,7 @@ grammar of the `$select` query option.
 
 The value of `$select` is a comma-separated list of select items. Each
 select item is one of the following:
-- a path, optionally followed by a count segment or select options
+- a path, optionally followed by a [count segment](#AddressingtheCountofaCollection) or [select options](#SelectOptions)
 - a star (`*`), to include all declared or
 dynamic properties of the type, or
 - a qualified schema name followed by a
@@ -2228,7 +2220,7 @@ properties defined on the derived type.
 A path can end with
 - the name of a property or
 non-entity-valued instance annotation of the identified
-instance of a structured type
+instance of a structured type,
 - the qualified name of a bound action,
 - the qualified name of a bound function
 to include all matching overloads, or
@@ -2314,7 +2306,8 @@ http://host/service/Suppliers
 :::
 
 If the path ends in a collection of primitive or complex values, 
-then the count segment (`/$count`), optionally followed by the 
+then the [count segment](#AddressingtheCountofaCollection) (`/$count`),
+optionally followed by the 
 [Select Options](#SelectOptions) [`$filter`](#SystemQueryOptionfilter)
 and/or [`$search`](#SystemQueryOptionsearch), can be 
 appended to the path in order to return only the count of the matching items.
@@ -2373,17 +2366,21 @@ of properties, open properties, navigation properties, actions and
 functions to be returned is equal to the union of the set of those
 identified by each select item.
 
-#### ##subsubsubsec SelectOptions
+#### ##subsubsubsec Select Options
 
 Query options can be applied to a select item that is a path to a single
 complex value or a collection of primitive or complex values by
 appending a semicolon-separated list of query options, enclosed in
-parentheses, to the select item. The allowed system query options depend
-on the type of the resource identified by the select item, see section
-[System Query Options](#SystemQueryOptions), with the exception of
-[`$expand`](#SystemQueryOptionexpand). The same property MUST NOT have
-select options specified in more than one place in a request and MUST
-NOT be specified in more than one expand.
+parentheses, to the select item. The allowed sytem query options are
+[`$compute`](#SystemQueryOptioncompute) and
+[`$select`](#SystemQueryOptionselect) for all complex-typed properties, plus
+[`$filter`](#SystemQueryOptionfilter),
+[`$orderby`](#SystemQueryOptionorderby),
+[`$skip`](#SystemQueryOptionstopandskip), [`$top`](#SystemQueryOptionstopandskip),
+[`$count`](#SystemQueryOptioncount), and
+[`$search`](#SystemQueryOptionsearch)
+for collection-valued properties. The same property MUST NOT have
+select options specified in more than one place in a request.
 
 If the select item is a complex type, or collection of complex types, then
 it can include a nested select.

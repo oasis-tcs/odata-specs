@@ -385,7 +385,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </ul></li>
 <li><a href="#SystemQueryOptionselect">5.1.4 System Query Option <code>$select</code></a>
 <ul>
-<li><a href="#SelectOptions">5.1.4.1 SelectOptions</a></li>
+<li><a href="#SelectOptions">5.1.4.1 Select Options</a></li>
 </ul></li>
 <li><a href="#SystemQueryOptionorderby">5.1.5 System Query Option <code>$orderby</code></a></li>
 <li><a href="#SystemQueryOptionstopandskip">5.1.6 System Query Options <code>$top</code> and <code>$skip</code></a></li>
@@ -2257,9 +2257,10 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <ul>
 <li>the name of a stream property to include that stream property,</li>
 <li>a star (<code>*</code>) to expand all navigation properties of the identified instances of a structured type, optionally followed by <code>/$ref</code> to expand only entity references, or</li>
-<li>a navigation property to expand the related entity or entities, optionally followed by a <a href="#AddressingDerivedTypes">type-cast segment</a> to expand only related entities of that derived type or one of its sub-types, optionally followed by <code>/$ref</code> to expand only entity references, or <code>/$count</code>, optionally with expand options, to return only the count of matching entities.</li>
+<li>a navigation property to expand the related entity or entities, optionally followed by a <a href="#AddressingDerivedTypes">type-cast segment</a> to expand only related entities of that derived type or one of its sub-types, optionally followed by <code>/$ref</code> to expand only entity references, or <code>/$count</code>, optionally with <a href="#SystemQueryOptionfilter"><code>$filter</code></a> and/or <a href="#SystemQueryOptionsearch"><code>$search</code></a> <a href="#ExpandOptions">expand options</a>, to return only the count of matching entities.</li>
 <li>an entity-valued instance annotation to expand the related entity or entities, optionally followed by a <a href="#AddressingDerivedTypes">type-cast segment</a> to expand only related entities of that derived type or one of its sub-types.</li>
 </ul>
+<p>A path MUST NOT appear in more than one expand item.</p>
 <p>If a structured type traversed by the path supports neither dynamic properties nor instance annotations, then a corresponding property segment MUST specify a declared property of that structured type. Otherwise, if a traversed type does support dynamic navigation properties or instance annotations and the corresponding property segment does not specify a declared property, then the expanded property appears only for those instances on which it has a value.</p>
 <div class="example">
 <p>Example 122: expand a navigation property of an entity type</p>
@@ -2269,8 +2270,6 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>Example 123: expand a navigation property of a complex type</p>
 <pre><code>http://host/service/Customers?$expand=Addresses/Country</code></pre>
 </div>
-<p>A path MUST NOT appear in more than one expand item.</p>
-<p>The <code>$count</code> segment can be appended to a navigation property name or <a href="#AddressingDerivedTypes">type-cast segment</a> following a collection-valued navigation property name to return just the count of the related entities. The <a href="#SystemQueryOptionfilter"><code>$filter</code></a> and <a href="#SystemQueryOptionsearch"><code>$search</code></a> <a href="#ExpandOptions">Expand Options</a> can be used to limit the number of related entities included in the count.</p>
 <div class="example">
 <p>Example 124: all categories and for each category the number of all related products</p>
 <pre><code>http://host/service/Categories?$expand=Products/$count</code></pre>
@@ -2279,7 +2278,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>Example 125: all categories and for each category the number of all related blue products</p>
 <pre><code>http://host/service/Categories?$expand=Products/$count($search=blue)</code></pre>
 </div>
-<p>To retrieve entity references instead of the related entities, append <code>/$ref</code> to the navigation property name or <a href="#AddressingDerivedTypes">type-cast segment</a> following a navigation property name. The <a href="#ExpandOptions">Expand Options</a> <a href="#SystemQueryOptionfilter"><code>$filter</code></a>, <a href="#SystemQueryOptionsearch"><code>$search</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$skip</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$top</code></a>, and <a href="#SystemQueryOptioncount"><code>$count</code></a> can be used to include the count of expanded entity references.</p>
+<p>To retrieve entity references instead of the related entities, append <code>/$ref</code> to the navigation property name or <a href="#AddressingDerivedTypes">type-cast segment</a> following a navigation property name. The <a href="#ExpandOptions">Expand Options</a> <a href="#SystemQueryOptionfilter"><code>$filter</code></a>, <a href="#SystemQueryOptionsearch"><code>$search</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$skip</code></a>, and <a href="#SystemQueryOptionstopandskip"><code>$top</code></a> can be used to limit the collection of expanded entity references, and <a href="#SystemQueryOptioncount"><code>$count</code></a> can be used to include the count of expanded entity references.</p>
 <div class="example">
 <p>Example 126: all categories and for each category the references of all related products</p>
 <pre><code>http://host/service/Categories?$expand=Products/$ref</code></pre>
@@ -2336,14 +2335,14 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>The <a href="#ODataABNF">OData-ABNF</a> <code>select</code> syntax rule defines the formal grammar of the <code>$select</code> query option.</p>
 <p>The value of <code>$select</code> is a comma-separated list of select items. Each select item is one of the following:</p>
 <ul>
-<li>a path, optionally followed by a count segment or select options</li>
+<li>a path, optionally followed by a <a href="#AddressingtheCountofaCollection">count segment</a> or <a href="#SelectOptions">select options</a></li>
 <li>a star (<code>*</code>), to include all declared or dynamic properties of the type, or</li>
 <li>a qualified schema name followed by a dot (<code>.</code>) followed by a star (<code>*</code>) to request all applicable actions or functions from that schema</li>
 </ul>
 <p>A path consists of segments separated by a forward slash (<code>/</code>). Segments are either names of single- or collection-valued complex properties, <a href="#AnnotationValuesinExpressions">instance annotations</a>, or <a href="#AddressingDerivedTypes">type-cast segments</a> consisting of the qualified name of a structured type that is derived from the type identified by the preceding path segment to reach properties defined on the derived type.</p>
 <p>A path can end with</p>
 <ul>
-<li>the name of a property or non-entity-valued instance annotation of the identified instance of a structured type</li>
+<li>the name of a property or non-entity-valued instance annotation of the identified instance of a structured type,</li>
 <li>the qualified name of a bound action,</li>
 <li>the qualified name of a bound function to include all matching overloads, or</li>
 <li>the qualified name of a bound function followed by parentheses containing the comma-separated lists of non-binding parameters identifying a single overload.</li>
@@ -2375,7 +2374,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
   ?$select=Namespace.PreferredSupplier/AccountRepresentative,
            Address/Street,Address/Namespace.AddressWithLocation/Location</code></pre>
 </div>
-<p>If the path ends in a collection of primitive or complex values, then the count segment (<code>/$count</code>), optionally followed by the <a href="#SelectOptions">Select Options</a> <a href="#SystemQueryOptionfilter"><code>$filter</code></a> and/or <a href="#SystemQueryOptionsearch"><code>$search</code></a>, can be appended to the path in order to return only the count of the matching items.</p>
+<p>If the path ends in a collection of primitive or complex values, then the <a href="#AddressingtheCountofaCollection">count segment</a> (<code>/$count</code>), optionally followed by the <a href="#SelectOptions">Select Options</a> <a href="#SystemQueryOptionfilter"><code>$filter</code></a> and/or <a href="#SystemQueryOptionsearch"><code>$search</code></a>, can be appended to the path in order to return only the count of the matching items.</p>
 <div class="example">
 <p>Example 139: for each <code>Customer</code>, return the <code>ID</code> and the count of <code>Addresses</code></p>
 <pre><code>http://host/service/Customers?$select=ID,Addresses/$count</code></pre>
@@ -2395,9 +2394,9 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 </div>
 <p>When multiple select item exist in a <code>$select</code> clause, then the total set of properties, open properties, navigation properties, actions and functions to be returned is equal to the union of the set of those identified by each select item.</p>
 <details open><summary>
-<h4 id="5141-selectoptions"><a id="SelectOptions" href="#SelectOptions">5.1.4.1 SelectOptions</a></h4>
+<h4 id="5141-select-options"><a id="SelectOptions" href="#SelectOptions">5.1.4.1 Select Options</a></h4>
 </summary>
-<p>Query options can be applied to a select item that is a path to a single complex value or a collection of primitive or complex values by appending a semicolon-separated list of query options, enclosed in parentheses, to the select item. The allowed system query options depend on the type of the resource identified by the select item, see section <a href="#SystemQueryOptions">System Query Options</a>, with the exception of <a href="#SystemQueryOptionexpand"><code>$expand</code></a>. The same property MUST NOT have select options specified in more than one place in a request and MUST NOT be specified in more than one expand.</p>
+<p>Query options can be applied to a select item that is a path to a single complex value or a collection of primitive or complex values by appending a semicolon-separated list of query options, enclosed in parentheses, to the select item. The allowed sytem query options are <a href="#SystemQueryOptioncompute"><code>$compute</code></a> and <a href="#SystemQueryOptionselect"><code>$select</code></a> for all complex-typed properties, plus <a href="#SystemQueryOptionfilter"><code>$filter</code></a>, <a href="#SystemQueryOptionorderby"><code>$orderby</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$skip</code></a>, <a href="#SystemQueryOptionstopandskip"><code>$top</code></a>, <a href="#SystemQueryOptioncount"><code>$count</code></a>, and <a href="#SystemQueryOptionsearch"><code>$search</code></a> for collection-valued properties. The same property MUST NOT have select options specified in more than one place in a request.</p>
 <p>If the select item is a complex type, or collection of complex types, then it can include a nested select.</p>
 <div class="example">
 <p>Example 142: return the City from the Address complex type</p>
