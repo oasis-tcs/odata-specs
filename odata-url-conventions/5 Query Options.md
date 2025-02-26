@@ -547,7 +547,7 @@ with the [`$compute`](#SystemQueryOptioncompute), `$filter` or
 [`$orderby`](#SystemQueryOptionorderby) system query options, or in
 [parameter alias](#ParameterAliases) values. The following [sections ##concat]
 to [##geolength] describe the available functions. The [`case`](#case)
-operator and the [lambda operators](#LambdaOperators) have a slightly different
+and [lambda operators](#LambdaOperators) have a slightly different
 syntax.
 
 Note: ISNULL or COALESCE operators are
