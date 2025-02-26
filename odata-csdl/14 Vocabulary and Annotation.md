@@ -198,7 +198,7 @@ the default value of the term, see
 [#OData-JSON#PrimitiveValue].
 
 Note: the `$DefaultValue` member is purely for documentation and
-isomorphy to [#OData-CSDLXML#DefaultValue]. Annotations in
+isomorphy to [#OData-CSDLXML#Term]. Annotations in
 CSDL JSON documents MUST always specify an explicit value.
 :::
 
