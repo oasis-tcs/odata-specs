@@ -220,7 +220,9 @@ For complete copyright information please see the full Notices section in an App
       - [5.1.1.18 Numeric Promotion](#NumericPromotion)
     - [5.1.2 System Query Option `$filter`](#SystemQueryOptionfilter)
     - [5.1.3 System Query Option `$expand`](#SystemQueryOptionexpand)
+      - [5.1.3.1 Expand Options](#ExpandOptions)
     - [5.1.4 System Query Option `$select`](#SystemQueryOptionselect)
+      - [5.1.4.1 Select Options](#SelectOptions)
     - [5.1.5 System Query Option `$orderby`](#SystemQueryOptionorderby)
     - [5.1.6 System Query Options `$top` and `$skip`](#SystemQueryOptionstopandskip)
     - [5.1.7 System Query Option `$count`](#SystemQueryOptioncount)
@@ -3589,11 +3591,13 @@ properties of the identified instances of a structured type, optionally followed
 related entity or entities, optionally followed by a [type-cast segment](#AddressingDerivedTypes)
 to expand only related entities of that derived type or one of its
 sub-types, optionally followed by `/$ref` to expand only entity
-references.
+references, or `/$count`, optionally with [`$filter`](#SystemQueryOptionfilter) and/or [`$search`](#SystemQueryOptionsearch) [expand options](#ExpandOptions), to return only the count of matching entities.
 - an entity-valued instance annotation to
 expand the related entity or entities, optionally followed by a
 [type-cast segment](#AddressingDerivedTypes) to expand only related entities of that derived type
 or one of its sub-types.
+
+A path MUST NOT appear in more than one expand item.
 
 If a structured type traversed by the path supports neither dynamic
 properties nor instance annotations, then a corresponding property
@@ -3617,7 +3621,95 @@ http://host/service/Customers?$expand=Addresses/Country
 ```
 :::
 
-A path MUST NOT appear in more than one expand item.
+::: example
+Example 124: all categories and for each category the number of all
+related products
+```
+http://host/service/Categories?$expand=Products/$count
+```
+:::
+
+::: example
+Example 125: all categories and for each category the number of all
+related blue products
+```
+http://host/service/Categories?$expand=Products/$count($search=blue)
+```
+:::
+
+To retrieve entity references instead of the related entities, append
+`/$ref` to the navigation property name or [type-cast segment](#AddressingDerivedTypes) following a navigation property name.
+The [Expand Options](#ExpandOptions) [`$filter`](#SystemQueryOptionfilter),
+[`$search`](#SystemQueryOptionsearch),
+[`$skip`](#SystemQueryOptionstopandskip), and
+[`$top`](#SystemQueryOptionstopandskip) can be used to limit the collection of expanded entity references, and
+[`$count`](#SystemQueryOptioncount) can be used to include the count of
+expanded entity references.
+
+::: example
+Example 126: all categories and for each category the references of all
+related products
+```
+http://host/service/Categories?$expand=Products/$ref
+```
+:::
+
+::: example
+Example 127: all categories and for each category the references of all
+related products of the derived type `Sales.PremierProduct`
+```
+http://host/service/Categories?$expand=Products/Sales.PremierProduct/$ref
+```
+:::
+
+::: example
+Example 128: all categories and for each category the references of all
+related premier products with a current promotion equal to `null`
+```
+http://host/service/Categories
+  ?$expand=Products/Sales.PremierProduct/$ref($filter=CurrentPromotion eq null)
+```
+:::
+
+It is also possible to expand all declared and dynamic navigation
+properties using a star (`*`). To retrieve references to all related
+entities use `*/$ref`, and to expand all related entities with a certain
+distance use the star operator with the `$levels` [Expand Option](#ExpandOptionlevels). The star operator can be combined with explicitly named navigation properties,
+which take precedence over the star operator.
+
+The star operator does not implicitly include stream properties.
+
+::: example
+Example 129: expand `Supplier` and include references for all other
+related entities
+```
+http://host/service/Categories?$expand=*/$ref,Supplier
+```
+:::
+
+Specifying a stream property includes the media stream inline according
+to the specified format.
+
+::: example
+Example 130: include Employee's `Photo` stream property along with other
+properties of the customer
+```
+http://host/service/Employees?$expand=Photo
+```
+:::
+
+Specifying `$value` for a media entity includes the media entity's
+stream value inline according to the specified format.
+
+::: example
+Example 131: Include the Product's media stream along with other
+properties of the product
+```
+http://host/service/Products?$expand=$value
+```
+:::
+
+#### <a id="ExpandOptions" href="#ExpandOptions">5.1.3.1 Expand Options</a>
 
 Query options can be applied to an expanded navigation property by
 appending a semicolon-separated list of query options, enclosed in
@@ -3637,128 +3729,33 @@ Allowed system query options are
 for collection-valued navigation properties.
 
 ::: example
-Example 124: all categories and for each category all related products
+Example 132: all categories and for each category all related products
 with a discontinued date equal to `null`
 ```
 http://host/service/Categories?$expand=Products($filter=DiscontinuedDate eq null)
 ```
 :::
 
-The `$count` segment can be appended to a navigation property name or
-[type-cast segment](#AddressingDerivedTypes) following a navigation
-property name to return just the count of the related entities. The
-`$filter` and `$search` system query options can be used to limit the
-number of related entities included in the count.
-
-::: example
-Example 125: all categories and for each category the number of all
-related products
-```
-http://host/service/Categories?$expand=Products/$count
-```
-:::
-
-::: example
-Example 126: all categories and for each category the number of all
-related blue products
-```
-http://host/service/Categories?$expand=Products/$count($search=blue)
-```
-:::
-
-To retrieve entity references instead of the related entities, append
-`/$ref` to the navigation property name or [type-cast segment](#AddressingDerivedTypes) following a navigation property name.
-The system query options [`$filter`](#SystemQueryOptionfilter),
-[`$search`](#SystemQueryOptionsearch),
-[`$skip`](#SystemQueryOptionstopandskip),
-[`$top`](#SystemQueryOptionstopandskip), and
-[`$count`](#SystemQueryOptioncount) can be used to limit the number of
-expanded entity references.
-
-::: example
-Example 127: all categories and for each category the references of all
-related products
-```
-http://host/service/Categories?$expand=Products/$ref
-```
-:::
-
-::: example
-Example 128: all categories and for each category the references of all
-related products of the derived type `Sales.PremierProduct`
-```
-http://host/service/Categories?$expand=Products/Sales.PremierProduct/$ref
-```
-:::
-
-::: example
-Example 129: all categories and for each category the references of all
-related premier products with a current promotion equal to `null`
-```
-http://host/service/Categories
-  ?$expand=Products/Sales.PremierProduct/$ref($filter=CurrentPromotion eq null)
-```
-:::
-
 [Cyclic navigation properties]{id=ExpandOptionlevels} (whose target type is identical or can be
 cast to its source type) can be recursively expanded using the special
-`$levels` option. The value of the `$levels` option is either a positive
+`$levels` expand option. The value of the `$levels` expand option is either a positive
 integer to specify the number of levels to expand, or the literal string
 `max` to specify the maximum expansion level supported by that service.
 A `$levels` option with a value of 1 specifies a single expand with no
 recursion.
 
 ::: example
-Example 130: all employees with their manager, manager's manager, and
+Example 133: all employees with their manager, manager's manager, and
 manager's manager's manager
 ```
 http://host/service/Employees?$expand=ReportsTo($levels=3)
 ```
 :::
 
-It is also possible to expand all declared and dynamic navigation
-properties using a star (`*`). To retrieve references to all related
-entities use `*/$ref`, and to expand all related entities with a certain
-distance use the star operator with the `$levels` option. The star
-operator can be combined with explicitly named navigation properties,
-which take precedence over the star operator.
-
-The star operator does not implicitly include stream properties.
-
 ::: example
-Example 131: expand `Supplier` and include references for all other
-related entities
-```
-http://host/service/Categories?$expand=*/$ref,Supplier
-```
-:::
-
-::: example
-Example 132: expand all related entities and their related entities
+Example 134: expand all related entities and their related entities
 ```
 http://host/service/Categories?$expand=*($levels=2)
-```
-:::
-
-Specifying a stream property includes the media stream inline according
-to the specified format.
-
-::: example
-Example 133: include Employee's `Photo` stream property along with other
-properties of the customer
-```
-http://host/service/Employees?$expand=Photo
-```
-:::
-
-Specifying `$value` for a media entity includes the media entity's
-stream value inline according to the specified format.
-
-::: example
-Example 134: Include the Product's media stream along with other
-properties of the product
-```
-http://host/service/Products?$expand=$value
 ```
 :::
 
@@ -3779,7 +3776,7 @@ grammar of the `$select` query option.
 
 The value of `$select` is a comma-separated list of select items. Each
 select item is one of the following:
-- a path, to include a property,
+- a path, optionally followed by a [count segment](#AddressingtheCountofaCollection) or [select options](#SelectOptions)
 - a star (`*`), to include all declared or
 dynamic properties of the type, or
 - a qualified schema name followed by a
@@ -3866,8 +3863,8 @@ in order to select a property defined on a type derived from the type of
 the resource segment.
 
 A select item that is a complex type or collection of complex type can
-be followed by a forward slash, an optional [type-cast segment](#AddressingDerivedTypes), and the name of a property of the
-complex type (and so on for nested complex types).
+be followed by a forward slash, an optional [type-cast segment](#AddressingDerivedTypes),
+and the name of a property of the complex type (and so on for nested complex types).
 
 ::: example
 Example 138: the `AccountRepresentative` property of any supplier that
@@ -3881,24 +3878,21 @@ http://host/service/Suppliers
 ```
 :::
 
-Query options can be applied to a select item that is a path to a single
-complex value or a collection of primitive or complex values by
-appending a semicolon-separated list of query options, enclosed in
-parentheses, to the select item. The allowed system query options depend
-on the type of the resource identified by the select item, see section
-[System Query Options](#SystemQueryOptions), with the exception of
-[`$expand`](#SystemQueryOptionexpand). The same property MUST NOT have
-select options specified in more than one place in a request and MUST
-NOT be specified in more than one expand.
+If the path ends in a collection of primitive or complex values, then the [count segment](#AddressingtheCountofaCollection) (`/$count`),
+optionally followed by the [Select Options](#SelectOptions) [`$filter`](#SystemQueryOptionfilter)
+and/or [`$search`](#SystemQueryOptionsearch), can be appended to the path in order to return only the count of the matching items.
 
 ::: example
-Example 139: select up to five addresses whose `City` starts with an
-`H`, sorted, and with the `Country` expanded
+Example 139: for each `Customer`, return the `ID` and the count of `Addresses`
 ```
-http://host/service/Customers
-  ?$select=Addresses($filter=startswith(City,'H');$top=5;
-                     $orderby=Country/Name,City,Street)
-  &$expand=Addresses/Country
+http://host/service/Customers?$select=ID,Addresses/$count
+```
+:::
+
+::: example
+Example 140: for each `Customer`, return the `ID` and the count of `Addresses` whose `City` starts with 'H'
+```
+http://host/service/Customers?$select=ID,Addresses/$count($filter=startswith(City,'H'))
 ```
 :::
 
@@ -3929,7 +3923,7 @@ qualified name and that operation cannot be bound to the entities
 requested, the service MUST ignore the select item.
 
 ::: example
-Example 140: the `ID` property, the `ActionName` action defined in
+Example 141: the `ID` property, the `ActionName` action defined in
 `Model` and all actions and functions defined in the `Model2` for each
 product if those actions and functions can be bound to that product
 ```
@@ -3941,6 +3935,43 @@ When multiple select item exist in a `$select` clause, then the total set
 of properties, open properties, navigation properties, actions and
 functions to be returned is equal to the union of the set of those
 identified by each select item.
+
+#### <a id="SelectOptions" href="#SelectOptions">5.1.4.1 Select Options</a>
+
+Query options can be applied to a select item that is a path to a single
+complex value or a collection of primitive or complex values by
+appending a semicolon-separated list of query options, enclosed in
+parentheses, to the select item. The allowed sytem query options are
+[`$compute`](#SystemQueryOptioncompute) and
+[`$select`](#SystemQueryOptionselect) for all complex-typed properties, plus
+[`$filter`](#SystemQueryOptionfilter),
+[`$orderby`](#SystemQueryOptionorderby),
+[`$skip`](#SystemQueryOptionstopandskip), [`$top`](#SystemQueryOptionstopandskip),
+[`$count`](#SystemQueryOptioncount), and
+[`$search`](#SystemQueryOptionsearch)
+for collection-valued properties. The same property MUST NOT have
+select options specified in more than one place in a request.
+
+If the select item is a complex type, or collection of complex types, then
+it can include a nested select.
+
+::: example
+Example 142: return the City from the Address complex type
+```
+http://host/service/Customers?$select=Address($select=City)
+```
+:::
+
+::: example
+Example 143: select up to five addresses whose `City` starts with an
+`H`, sorted, and with the `Country` expanded
+```
+http://host/service/Customers
+  ?$select=Addresses($filter=startswith(City,'H');$top=5;
+                     $orderby=Country/Name,City,Street)
+  &$expand=Addresses/Country
+```
+:::
 
 ### <a id="SystemQueryOptionorderby" href="#SystemQueryOptionorderby">5.1.5 System Query Option `$orderby`</a>
 
@@ -3994,7 +4025,7 @@ The [OData-ABNF](#ODataABNF) `search` syntax rule defines the formal
 grammar of the `$search` query option.
 
 ::: example
-Example 141: all products that are blue or green. It is up to the
+Example 144: all products that are blue or green. It is up to the
 service to decide what makes a product blue or green.
 ```
 http://host/service/Products?$search=blue OR green
@@ -4088,7 +4119,7 @@ result and MUST be included if `$select` is specified with the computed
 property name, or star (`*`).
 
 ::: example
-Example 142: compute total price for order items
+Example 145: compute total price for order items
 ```
 http://host/service/Orders(10)/Items
   ?$select=Product/Description,Total
@@ -4132,7 +4163,7 @@ custom query option is any query option of the form shown by the rule
 Custom query options MUST NOT begin with a `$` or `@` character.
 
 ::: example
-Example 143: service-specific custom query option `debug-mode`
+Example 146: service-specific custom query option `debug-mode`
 ```
 http://host/service/Products?debug-mode=true
 ```
@@ -4154,21 +4185,21 @@ The semantics of parameter aliases are covered in
 values as query options.
 
 ::: example
-Example 144:
+Example 147:
 ```
 http://host/service/Movies?$filter=contains(@word,Title)&@word='Black'
 ```
 :::
 
 ::: example
-Example 145:
+Example 148:
 ```
 http://host/service/Movies?$filter=Title eq @title&@title='Wizard of Oz'
 ```
 :::
 
 ::: example
-Example 146: JSON array of strings as parameter alias value --- note that
+Example 149: JSON array of strings as parameter alias value --- note that
 `[`, `]`, and `"` need to be percent-encoded in real URLs, the
 clear-text representation used here is just for readability
 ```
