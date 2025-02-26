@@ -3032,7 +3032,7 @@ If the expand item represents a collection of entities, then the [count segment]
 ::: example
 Example 44: for each Category, return the `Name` and the count of `Products` starting with the letter 'H'.
 ```
-GET http://host/service/Categories?$select=Name&$expand=Products/$count(startswith(Name,'H'))
+GET http://host/service/Categories?$select=Name&$expand=Products/$count($filter=startswith(Name,'H'))
 ```
 :::
 

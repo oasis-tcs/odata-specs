@@ -1838,7 +1838,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>If the expand item represents a collection of entities, then the <a href="#RequestingtheNumberofItemsinaCollection">count segment</a> (<code>/$count</code>), optionally followed by the <a href="#ExpandOptions">Expand Options</a> <a href="#SystemQueryOptionfilter"><code>$filter</code></a> and/or <a href="#SystemQueryOptionsearch"><code>$search</code></a>, can be appended to the expand item in order to return only the count of matching items.</p>
 <div class="example">
 <p>Example 44: for each Category, return the <code>Name</code> and the count of <code>Products</code> starting with the letter ‘H’.</p>
-<pre><code>GET http://host/service/Categories?$select=Name&amp;$expand=Products/$count(startswith(Name,&#39;H&#39;))</code></pre>
+<pre><code>GET http://host/service/Categories?$select=Name&amp;$expand=Products/$count($filter=startswith(Name,&#39;H&#39;))</code></pre>
 </div>
 <details open><summary>
 <h5 id="112521-expand-options"><a id="ExpandOptions" href="#ExpandOptions">11.2.5.2.1 Expand Options</a></h5>
