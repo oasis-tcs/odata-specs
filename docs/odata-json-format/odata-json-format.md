@@ -3162,9 +3162,9 @@ parameter is equivalent to being annotated as optional with a default
 value of `null`.
 
 Non-binding collection-valued parameters MAY be omitted from the request body regardless
-of nullability or optionality. Unless a `Core.OptionalValue` is annotated with `DefaultsToEmptyCollection` as true,
-the interpretation of such an omitted parameter is up to the service,
-possible interpretations include assuming an empty collection or reporting an error.
+of nullability or optionality. The interpretation of such an omitted parameter is up to the service,
+possible interpretations include assuming an empty collection or,
+for parameters not annotated as `Core.OptionalParameter`, reporting an error.
 
 ::: example
 Example 54:
