@@ -355,7 +355,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><a href="#geointersects">5.1.1.11.2 <code>geo.intersects</code></a></li>
 <li><a href="#geolength">5.1.1.11.3 <code>geo.length</code></a></li>
 </ul></li>
-<li><a href="#ConditionalFunctions">5.1.1.12 Conditional Functions</a>
+<li><a href="#ConditionalOperators">5.1.1.12 Conditional Operators</a>
 <ul>
 <li><a href="#case">5.1.1.12.1 <code>case</code></a></li>
 </ul></li>
@@ -1401,7 +1401,7 @@ Content-Type: application/x-www-form-urlencoded
 <details open><summary>
 <h4 id="5114-canonical-functions"><a id="CanonicalFunctions" href="#CanonicalFunctions">5.1.1.4 Canonical Functions</a></h4>
 </summary>
-<p>In addition to operators, a set of functions is also defined for use with the <a href="#SystemQueryOptioncompute"><code>$compute</code></a>, <code>$filter</code> or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> system query options, or in <a href="#ParameterAliases">parameter alias</a> values. The following sections describe the available functions.</p>
+<p>In addition to operators, a set of functions is also defined for use with the <a href="#SystemQueryOptioncompute"><code>$compute</code></a>, <code>$filter</code> or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> system query options, or in <a href="#ParameterAliases">parameter alias</a> values. The following <a href="#concat">sections 5.1.1.5.1</a> to <a href="#geolength">5.1.1.11.3</a> describe the available functions. The <a href="#case"><code>case</code></a> and <a href="#LambdaOperators">lambda operators</a> have a slightly different syntax.</p>
 <p>Note: ISNULL or COALESCE operators are not defined. Instead, OData defines a <a href="#null"><code>null</code></a> literal that can be used in comparisons.</p>
 <p>If a parameter of a canonical function is <code>null</code>, the function returns <code>null</code>. If the types of parameters do not match the function signature, the function also returns <code>null</code>.</p>
 <p>The syntax rules for all functions are defined in <a href="#ODataABNF">OData-ABNF</a>. 4.01 Services MUST support case-insensitive canonical function names. Clients that want to work with 4.0 services MUST use lower case canonical function names.</p>
@@ -1874,15 +1874,15 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 </details>
 </details>
 <details open><summary>
-<h4 id="51112-conditional-functions"><a id="ConditionalFunctions" href="#ConditionalFunctions">5.1.1.12 Conditional Functions</a></h4>
+<h4 id="51112-conditional-operators"><a id="ConditionalOperators" href="#ConditionalOperators">5.1.1.12 Conditional Operators</a></h4>
 </summary>
 <details open><summary>
 <h5 id="511121-case"><a id="case" href="#case">5.1.1.12.1 <code>case</code></a></h5>
 </summary>
-<p>The <code>case</code> function has the following signature:</p>
+<p>The <code>case</code> operator has a comma-separated lists of arguments:</p>
 <pre><code>expression case(Edm.Boolean:expression, …, Edm.Boolean:expression)</code></pre>
-<p>Each parameter is a pair of expressions separated by a colon (<code>:</code>), where the first expression — the condition — MUST be a Boolean expression, and the second expression — the result — may evaluate to any type.</p>
-<p>The case function evaluates the condition in each pair, starting with the leftmost pair, and stops as soon as a condition evaluates to <code>true</code>. It then returns the value of the result of this pair. It returns <code>null</code> if none of the conditions in any pair evaluates to <code>true</code>. Clients can specify a last pair whose condition is <code>true</code> to get a non-<code>null</code> “default/else/otherwise” result.</p>
+<p>Each argument is a pair of expressions separated by a colon (<code>:</code>), where the first expression — the condition — MUST be a Boolean expression, and the second expression — the result — may evaluate to any type.</p>
+<p>The <code>case</code> operator evaluates the condition in each pair, starting with the leftmost pair, and stops as soon as a condition evaluates to <code>true</code>. It then returns the value of the result of this pair. It returns <code>null</code> if none of the conditions in any pair evaluates to <code>true</code>. Clients can specify a last pair whose condition is <code>true</code> to get a non-<code>null</code> “default/else/otherwise” result.</p>
 <p>Boolean expressions containing <code>DateTimeOffset</code> or <code>TimeOfDay</code> literals without the optional seconds part will introduce ambiguity for parsers. Clients SHOULD use whitespace or parentheses to avoid ambiguity.</p>
 <p>Clients SHOULD ensure that the results in all pairs are compatible. If all results are of the same type, the type of the <code>case</code> expression is of that type. If all results are of numeric type, then the type of the <code>case</code> expression is a numeric type capable of representing any of these expressions according to standard type promotion rules.</p>
 <p>Services MAY support <code>case</code> expressions containing parameters of incompatible types, in which case the case expression is treated as <code>Edm.Untyped</code> and its value has the type of the parameter expression selected by the case statement.</p>
