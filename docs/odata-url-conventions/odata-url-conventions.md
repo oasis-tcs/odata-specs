@@ -3032,18 +3032,18 @@ parameter in the coordinate reference system signified by its SRID.
 
 ##### <a id="case" href="#case">5.1.1.12.1 `case`</a>
 
-The `case` function has the following signature:
+The `case` operator has a comma-separated lists of arguments:
 
 ```
 expression case(Edm.Boolean:expression, …, Edm.Boolean:expression)
 ```
 
-Each parameter is a pair of expressions separated by a colon (`:`),
+Each argument is a pair of expressions separated by a colon (`:`),
 where the first expression --- the condition --- MUST be a Boolean
 expression, and the second expression --- the result --- may evaluate to
 any type.
 
-The case function evaluates the condition in each pair, starting with
+The `case` operator evaluates the condition in each pair, starting with
 the leftmost pair, and stops as soon as a condition evaluates to `true`.
 It then returns the value of the result of this pair. It returns `null`
 if none of the conditions in any pair evaluates to `true`. Clients can
