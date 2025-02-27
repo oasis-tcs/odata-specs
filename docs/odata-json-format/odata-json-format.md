@@ -1397,9 +1397,9 @@ JSON strings whose content satisfies the rules `binaryValue`,
 `dateValue`, `dateTimeOffsetValue`,
 `durationValue`, `guidValue`, and
 `timeOfDayValue` respectively, in
-[OData-ABNF](#ODataABNF). If the `second` in a `timeOfDayValue` is omitted, the
-value's `secondFrag` (as defined in [XML-Schema-2](#XML-Schema2), sections 3.3.7 and 3.3.8)
-is 0.
+[OData-ABNF](#ODataABNF). The interpretation of a `timeOfDayValue` in which the `second` is omitted
+is not defined by this specification. For maximum interoperability, clients and servers
+SHOULD always include the `second`.
 
 Primitive values that cannot be represented, for example due to server
 conversion issues or IEEE754 limitations on the size of an `Edm.Int64` or `Edm.Decimal` value, are
@@ -4172,10 +4172,6 @@ https://www.rfc-editor.org/info/rfc8174.
 ###### [RFC8259]{id=rfc8259}
 _Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", STD 90, RFC 8259, DOI 10.17487/RFC8259, December 2017_.
 https://www.rfc-editor.org/info/rfc8259.
-
-###### [XML-Schema-2]{id=XML-Schema2}
-_W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes_. D. Peterson, S. Gao, C. M. Sperberg-McQueen, H. S. Thompson, P. V. Biron, A. Malhotra, Editors, W3C Recommendation, 5 April 2012.  
-http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/. Latest version available at http://www.w3.org/TR/xmlschema11-2/.
 
 ## <a id="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a>
 
