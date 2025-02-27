@@ -223,6 +223,7 @@ Section | Feature / Change | Issue
 [Section 7](#StructuralProperty), [Section A.2](#InformativeReferences)| Removed reference to obsolete version of GeoJSON| [456](https://github.com/oasis-tcs/odata-specs/issues/456)
 [Section 15.3](#DeletedEntity)| `type` control information, if present, must come immediately after `removed`| [1985](https://github.com/oasis-tcs/odata-specs/issues/1985)
 [Section 18](#ActionInvocation)| Allow common expressions in action payloads| [341](https://github.com/oasis-tcs/odata-specs/issues/341)
+[Section 18](#ActionInvocation)| Omission of collection-valued action parameters| [2045](https://github.com/oasis-tcs/odata-specs/issues/2045)
 
 ## <a id="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -3148,10 +3149,10 @@ Content-Type: application/json
 Inside a batch request the common expressions can also be value references
 starting with `$`, as introduced in [OData-Protocol, section 11.7.6](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ReferencingValuesfromResponseBodies).
 
-Non-binding parameters that are nullable or annotated with the term
+Non-binding single-valued parameters that are nullable or annotated with the term
 [`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter) defined in
 [OData-VocCore](#ODataVocCore) MAY be omitted from the request body.
-If an omitted parameter is not annotated (and thus nullable), it MUST be
+If an omitted single-valued parameter is not annotated (and thus nullable), it MUST be
 interpreted as having the `null` value. If it is annotated
 and the annotation specifies a `DefaultValue`, the omitted
 parameter is interpreted as having that default value. If omitted and
@@ -3159,6 +3160,11 @@ the annotation does not specify a default value, the service is free on
 how to interpret the omitted parameter. Note: a nullable non-binding
 parameter is equivalent to being annotated as optional with a default
 value of `null`.
+
+Non-binding collection-valued parameters MAY be omitted from the request body regardless
+of nullability or optionality. The interpretation of such an omitted parameter is up to the service,
+possible interpretations include assuming an empty collection or,
+for parameters not annotated as `Core.OptionalParameter`, reporting an error.
 
 ::: example
 Example 54:
