@@ -3687,7 +3687,7 @@ the default value of the term, see
 [OData-JSON, section 7.1](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#PrimitiveValue).
 
 Note: the `$DefaultValue` member is purely for documentation and
-isomorphy to [OData-CSDLXML, section 7.3](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/odata-csdl-xml-v4.02.html#DefaultValue). Annotations in
+isomorphy to [OData-CSDLXML, section 14.1](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/odata-csdl-xml-v4.02.html#Term). Annotations in
 CSDL JSON documents MUST always specify an explicit value.
 :::
 
