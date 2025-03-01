@@ -3117,11 +3117,11 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </div>
 <div class="varxml example">
 <p>Example <a id="termdefault" href="#termdefault">75</a>: The first name of a bot cannot be changed after creation.</p>
-<div class="sourceCode" id="cb80"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;Property</span> <span class="er">Name=&quot;IsBot&quot;</span> <span class="er">Type=&quot;Edm.Boolean&quot;</span> <span class="er">/&gt;</span></span>
-<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;Property</span> <span class="er">Name=&quot;FirstName&quot;</span> <span class="er">Type=&quot;Edm.String&quot;</span> <span class="er">Nullable=&quot;false&quot;&gt;</span></span>
-<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>  <span class="er">&lt;Annotation</span> <span class="er">Term=&quot;Core.Immutable&quot;</span> <span class="er">Path=&quot;IsBot&quot;</span> <span class="er">/&gt;</span></span>
-<span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;/Property&gt;</span></span></code></pre></div>
-<p>If <code>IsBot</code> is <code>null</code> the <code>Core.Immutable</code> term is effectively not applied. Note that its <code>DefaultValue</code> of <code>true</code> does not apply in this case, so that the <code>FirstName</code> can be changed after creation.</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;IsBot&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.Boolean&quot;</span><span class="ot"> Nullable=</span><span class="st">&quot;true&quot;</span> /&gt;</span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;FirstName&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span><span class="ot"> Nullable=</span><span class="st">&quot;false&quot;</span>&gt;</span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.Immutable&quot;</span><span class="ot"> Path=</span><span class="st">&quot;IsBot&quot;</span> /&gt;</span>
+<span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Property</span>&gt;</span></code></pre></div>
+<p>If <code>IsBot</code> is <code>null</code> the <code>Core.Immutable</code> term is effectively not applied. Note that the term’s <code>DefaultValue</code> of <code>true</code> does not apply in this case, so that the <code>FirstName</code> can be changed after creation.</p>
 </div>
 </details>
 </details>

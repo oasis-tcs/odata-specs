@@ -4697,14 +4697,14 @@ Example 74:
 
 ::: {.varxml .example}
 Example <a id="termdefault" href="#termdefault">75</a>: The first name of a bot cannot be changed after creation.
-```json
-<Property Name="IsBot" Type="Edm.Boolean" />
+```xml
+<Property Name="IsBot" Type="Edm.Boolean" Nullable="true" />
 <Property Name="FirstName" Type="Edm.String" Nullable="false">
   <Annotation Term="Core.Immutable" Path="IsBot" />
 </Property>
 ```
 If `IsBot` is `null` the `Core.Immutable` term is effectively not applied.
-Note that its `DefaultValue` of `true` does not apply in this case, so that the
+Note that the term's `DefaultValue` of `true` does not apply in this case, so that the
 `FirstName` can be changed after creation.
 :::
 
