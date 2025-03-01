@@ -2774,7 +2774,7 @@ compatible.
 If the value of a dynamic child expression is not acceptable for the type of the collection or
 its [facets](#TypeFacets), is null for a non-[nullable](#Nullable) collection
 or does not meet the constraints imposed by
-annotations from the Validation vocabulary [OData-VocValidation](#ODataVocValidation),
+its annotations from the Validation vocabulary [OData-VocValidation](#ODataVocValidation),
 the value is effectively omitted from the collection.
 
 ::: {.varjson .rep}
@@ -3212,7 +3212,7 @@ expression is equivalent to specifying an empty collection as its value.
 If a dynamically provided property value is not acceptable for the type of the property or
 its [facets](#TypeFacets), does not meet the constraints imposed by
 its [nullability](#Nullable) or by
-annotations from the Validation vocabulary [OData-VocValidation](#ODataVocValidation),
+its annotations from the Validation vocabulary [OData-VocValidation](#ODataVocValidation),
 no value is effectively provided for the property.
 In this case the rules for absent properties apply:
 a single-valued property takes its default value
