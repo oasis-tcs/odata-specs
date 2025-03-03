@@ -555,9 +555,9 @@ properties that can be used in a [`$select`](#SystemQueryOptionselect)
 or within a [`$filter`](#SystemQueryOptionfilter) or
 [`$orderby`](#SystemQueryOptionorderby) expression.
 
-Computed properties SHOULD be included as dynamic properties in the
-result and MUST be included if `$select` is specified with the computed
-property name, or star (`*`).
+Computed properties SHOULD be included as dynamic properties in the result.
+Computed properties whose value is a stream, an entity, or a collection of entities MUST be included if `$expand` is specified with the computed property name or star (`*`).
+Computed properties with other values MUST be included if `$select` is specified with the computed property name or star (`*`).
 
 ::: example
 Example ##ex: compute total price for order items (line breaks only for
