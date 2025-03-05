@@ -4200,7 +4200,10 @@ related entity, those related entities MUST be included either as
 references to existing entities or as content for new related entities.
 
 An entity may also be created as the result of an
-[Upsert](#UpsertanEntity) operation.
+[Upsert](#UpsertanEntity) operation, which is then said to be "treated as an insert".
+This includes the case where a nullable singleton
+or single-valued navigation property is changed from null to any value
+(even the redundant change from null to null).
 
 If the target URL for the collection is a navigation link, the new
 entity is automatically linked to the entity containing the navigation

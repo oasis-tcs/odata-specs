@@ -1587,6 +1587,9 @@ Primitive literals can appear in the resource path as key property
 values, and in the query part, for example, as operands in
 [`$filter`](#SystemQueryOptionfilter) expressions. They are represented
 according to the `primitiveLiteral` rule in [OData-ABNF](#ODataABNF).
+The interpretation of a `timeOfDayLiteral` in which the `second` is omitted
+is not defined by this specification. For maximum interoperability, senders
+SHOULD always include the `second`.
 
 ::: example
 Example ##ex: expressions using primitive literals
