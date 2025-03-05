@@ -337,9 +337,9 @@ how to interpret the omitted parameter. Note: a nullable non-binding
 parameter is equivalent to being annotated as optional with a default
 value of `null`.
 
-Non-binding collection-valued parameters MAY be omitted from the request body regardless
-of nullability or optionality. The interpretation of such an omitted parameter is up to the service,
-possible interpretations include assuming an empty collection or,
+The interpretation of an omitted non-binding collection-valued parameter
+is up to the service regardless of its nullability or optionality.
+Possible interpretations include assuming an empty collection or,
 for parameters not annotated as `Core.OptionalParameter`, reporting an error.
 
 ::: example
