@@ -2846,7 +2846,13 @@ type, followed by a closing parenthesis `)`.
 The value of `Nullable` is one of the Boolean literals `true` or
 `false`. Absence of the attribute means `true`.
 
-The value `true` means that the parameter accepts a `null` value.
+For single-valued parameters the value `true` means that the parameter
+accepts a `null` value.
+
+For collection-valued parameters the parameter value will always be a
+collection that MAY be empty. In this case `Nullable` applies to items
+of the collection and specifies whether the collection MAY contain
+`null` values.
 :::
 
 ### <a id="AnnotationCoreOptionalParameter.23.4" href="#AnnotationCoreOptionalParameter.23.4">Annotation `Core.OptionalParameter`</a>
