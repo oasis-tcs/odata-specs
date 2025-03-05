@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
 <head>
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
@@ -123,7 +123,7 @@
 
       const darkmode_query = matchMedia("(prefers-color-scheme: dark)");
       darkmode_query.addEventListener("change", darkmode_auto);
-      const darkmode_switch = document.getElementById("darkmode");
+      const darkmode_switch = document.querySelector("#darkmode select");
       darkmode_switch.value =
         localStorage.getItem("odata-specs/darkmode") || "off";
       darkmode_switch.addEventListener("change", darkmode_manual);
@@ -134,11 +134,13 @@
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 </head>
 <body>
-<select id="darkmode">
-  <option value="off" title="Light mode">&#x263C;</option>
-  <option value="on" title="Dark mode">&#x263D;</option>
-  <option value="auto" title="Follow device mode">&#x25D1;</option>
-</select>
+<aside id="darkmode">
+  <select aria-label="Switch light/dark mode">
+    <option value="off" title="Light mode">&#x263C;</option>
+    <option value="on" title="Dark mode">&#x263D;</option>
+    <option value="auto" title="Follow device mode">&#x25D1;</option>
+  </select>
+</aside>
 <p><img src="https://docs.oasis-open.org/templates/OASISLogo-v3.0.png" alt="OASIS Logo" /></p>
 <hr />
 <details open><summary>
