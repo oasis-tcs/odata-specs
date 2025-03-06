@@ -5109,7 +5109,7 @@ If the value of a dynamic child expression is not acceptable for the type of the
 its [facets](#TypeFacets), is null for a non-[nullable](#Nullable) collection
 or does not meet the constraints imposed by
 its annotations from the Validation vocabulary [OData-VocValidation](#ODataVocValidation),
-the value is effectively omitted from the collection.
+the client MAY effectively omit the value from the collection.
 
 
 
@@ -5383,7 +5383,7 @@ its [facets](#TypeFacets), does not meet the constraints imposed by
 its [nullability](#Nullable) or by
 its annotations from the Validation vocabulary [OData-VocValidation](#ODataVocValidation),
 no value is effectively provided for the property.
-In this case the rules for absent properties apply:
+In this case the client MAY apply the rules for absent properties:
 a single-valued property takes its default value
 or null if possible, and a collection-valued property takes an empty collection.
 
