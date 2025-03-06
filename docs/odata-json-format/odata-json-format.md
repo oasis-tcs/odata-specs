@@ -1398,7 +1398,9 @@ JSON strings whose content satisfies the rules `binaryValue`,
 `dateValue`, `dateTimeOffsetValue`,
 `durationValue`, `guidValue`, and
 `timeOfDayValue` respectively, in
-[OData-ABNF](#ODataABNF).
+[OData-ABNF](#ODataABNF). The interpretation of a `timeOfDayValue` in which the `second` is omitted
+is not defined by this specification. For maximum interoperability, senders
+SHOULD always include the `second`.
 
 Primitive values that cannot be represented, for example due to server
 conversion issues or IEEE754 limitations on the size of an `Edm.Int64` or `Edm.Decimal` value, are
