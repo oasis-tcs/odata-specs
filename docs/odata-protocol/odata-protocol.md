@@ -4407,7 +4407,11 @@ property `$value`.
 Updating a dependent property that is tied to a key property of the
 principal entity through a referential constraint updates the
 relationship to point to the entity with the specified key value. If
-there is no such entity, the update fails.
+the entity set for that entity cannot be determined or does not contain
+such an entity, the update fails. The entity set can be determined, among
+other possibilities, by containment navigation properties or navigation property bindings in the
+service metadata, or by `@context` or `@id` control information in the request
+payload.
 
 Updating a principal property that is tied to a dependent entity through
 a referential constraint on the dependent entity updates the dependent
