@@ -3126,7 +3126,8 @@ or within a [`$filter`](#SystemQueryOptionfilter) or
 [`$orderby`](#SystemQueryOptionorderby) expression.
 
 Computed properties SHOULD be included as dynamic properties in the result.
-Computed properties whose value is a stream, an entity, or a collection of entities MUST be included if `$expand` is specified with the computed property name or star (`*`).
+Computed properties whose value is a stream, an entity, or a collection of entities MUST be included if `$expand` is specified with the computed property name.
+Computed properties whose value is an entity or a collection of entities MUST be included if `$expand` is specified with star (`*`).
 Computed properties with other values MUST be included if `$select` is specified with the computed property name or star (`*`).
 
 ::: example
