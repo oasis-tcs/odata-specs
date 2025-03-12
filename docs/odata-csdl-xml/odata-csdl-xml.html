@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
 <head>
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
@@ -123,7 +123,7 @@
 
       const darkmode_query = matchMedia("(prefers-color-scheme: dark)");
       darkmode_query.addEventListener("change", darkmode_auto);
-      const darkmode_switch = document.getElementById("darkmode");
+      const darkmode_switch = document.querySelector("#darkmode select");
       darkmode_switch.value =
         localStorage.getItem("odata-specs/darkmode") || "off";
       darkmode_switch.addEventListener("change", darkmode_manual);
@@ -134,11 +134,13 @@
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 </head>
 <body>
-<select id="darkmode">
-  <option value="off" title="Light mode">&#x263C;</option>
-  <option value="on" title="Dark mode">&#x263D;</option>
-  <option value="auto" title="Follow device mode">&#x25D1;</option>
-</select>
+<aside id="darkmode">
+  <select aria-label="Switch light/dark mode">
+    <option value="off" title="Light mode">&#x263C;</option>
+    <option value="on" title="Dark mode">&#x263D;</option>
+    <option value="auto" title="Follow device mode">&#x25D1;</option>
+  </select>
+</aside>
 <p><img src="https://docs.oasis-open.org/templates/OASISLogo-v3.0.png" alt="OASIS Logo" /></p>
 <hr />
 <details open><summary>
@@ -1934,7 +1936,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>For collection-valued parameters the value of <code>Type</code> is the character sequence <code>Collection(</code> followed by the qualified name of the parameter’s type, followed by a closing parenthesis <code>)</code>.</p>
 <h3><a id="AttributeNullable.23.3" href="#AttributeNullable.23.3">Attribute <code>Nullable</code></a></h3>
 <p>The value of <code>Nullable</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the attribute means <code>true</code>.</p>
-<p>The value <code>true</code> means that the parameter accepts a <code>null</code> value.</p>
+<p>For single-valued parameters the value <code>true</code> means that the parameter accepts a <code>null</code> value.</p>
+<p>For collection-valued parameters the parameter value will always be a collection that MAY be empty. In this case <code>Nullable</code> applies to items of the collection and specifies whether the collection MAY contain <code>null</code> values.</p>
 </div>
 <h3><a id="AnnotationCoreOptionalParameter.23.4" href="#AnnotationCoreOptionalParameter.23.4">Annotation <code>Core.OptionalParameter</code></a></h3>
 <p>A parameter that is annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter"><code>Core.OptionalParameter</code></a> MAY be omitted when invoking the function or action.</p>

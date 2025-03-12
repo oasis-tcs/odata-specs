@@ -202,7 +202,7 @@ For complete copyright information please see the full Notices section in an App
         - [5.1.1.11.1 `geo.distance`](#geodistance)
         - [5.1.1.11.2 `geo.intersects`](#geointersects)
         - [5.1.1.11.3 `geo.length`](#geolength)
-      - [5.1.1.12 Conditional Functions](#ConditionalFunctions)
+      - [5.1.1.12 Conditional Operators](#ConditionalOperators)
         - [5.1.1.12.1 `case`](#case)
       - [5.1.1.13 Lambda Operators](#LambdaOperators)
         - [5.1.1.13.1 `any`](#any)
@@ -2119,8 +2119,10 @@ http://host/service/Products?$filter=(4 add 5) mod (4 sub 1) eq 0
 In addition to operators, a set of functions is also defined for use
 with the [`$compute`](#SystemQueryOptioncompute), `$filter` or
 [`$orderby`](#SystemQueryOptionorderby) system query options, or in
-[parameter alias](#ParameterAliases) values. The following sections
-describe the available functions.
+[parameter alias](#ParameterAliases) values. The following [sections 5.1.1.5.1](#concat)
+to [5.1.1.11.3](#geolength) describe the available functions. The [`case`](#case)
+and [lambda operators](#LambdaOperators) have a slightly different
+syntax.
 
 Note: ISNULL or COALESCE operators are
 not defined. Instead, OData defines a [`null`](#null) literal that can
@@ -3028,22 +3030,22 @@ Edm.Double geo.length(Edm.GeometryLineString)
 The `geo.length` function returns the total length of its line string
 parameter in the coordinate reference system signified by its SRID.
 
-#### <a id="ConditionalFunctions" href="#ConditionalFunctions">5.1.1.12 Conditional Functions</a>
+#### <a id="ConditionalOperators" href="#ConditionalOperators">5.1.1.12 Conditional Operators</a>
 
 ##### <a id="case" href="#case">5.1.1.12.1 `case`</a>
 
-The `case` function has the following signature:
+The `case` operator has a comma-separated lists of arguments:
 
 ```
 expression case(Edm.Boolean:expression, …, Edm.Boolean:expression)
 ```
 
-Each parameter is a pair of expressions separated by a colon (`:`),
+Each argument is a pair of expressions separated by a colon (`:`),
 where the first expression --- the condition --- MUST be a Boolean
 expression, and the second expression --- the result --- may evaluate to
 any type.
 
-The case function evaluates the condition in each pair, starting with
+The `case` operator evaluates the condition in each pair, starting with
 the leftmost pair, and stops as soon as a condition evaluates to `true`.
 It then returns the value of the result of this pair. It returns `null`
 if none of the conditions in any pair evaluates to `true`. Clients can
@@ -3159,6 +3161,9 @@ Primitive literals can appear in the resource path as key property
 values, and in the query part, for example, as operands in
 [`$filter`](#SystemQueryOptionfilter) expressions. They are represented
 according to the `primitiveLiteral` rule in [OData-ABNF](#ODataABNF).
+The interpretation of a `timeOfDayLiteral` in which the `second` is omitted
+is not defined by this specification. For maximum interoperability, senders
+SHOULD always include the `second`.
 
 ::: example
 Example 108: expressions using primitive literals
