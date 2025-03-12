@@ -42,6 +42,9 @@ Removed reference to obsolete version of GeoJSON|
 [Section ##ActionInvocation]| 
 Allow common expressions in action payloads| 
 [341](https://github.com/oasis-tcs/odata-specs/issues/341)
+[Section ##ActionInvocation]| 
+Omission of collection-valued action parameters| 
+[2045](https://github.com/oasis-tcs/odata-specs/issues/2045)
 
 ## ##subsec Glossary
 
