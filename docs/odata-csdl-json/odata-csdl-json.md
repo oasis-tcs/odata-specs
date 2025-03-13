@@ -4249,7 +4249,7 @@ term.
 
 If a calculated value is not acceptable for the type of the term or
 its [facets](#TypeFacets), does not meet the constraints imposed by its
-`$Nullable` property
+`$Nullable` member
 or by its
 annotations from the Validation vocabulary [OData-VocValidation](#ODataVocValidation),
 the client SHOULD NOT make any assumptions about the application of the term

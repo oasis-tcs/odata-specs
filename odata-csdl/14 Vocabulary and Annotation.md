@@ -1312,7 +1312,7 @@ term.
 If a calculated value is not acceptable for the type of the term or
 its [facets](#TypeFacets), does not meet the constraints imposed by its
 : varjson
-`$Nullable` property
+`$Nullable` member
 :
 : varxml
 `Nullable` attribute
