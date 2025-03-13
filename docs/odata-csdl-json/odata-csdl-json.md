@@ -4252,7 +4252,8 @@ its [facets](#TypeFacets), does not meet the constraints imposed by its
 `$Nullable` property
 or by its
 annotations from the Validation vocabulary [OData-VocValidation](#ODataVocValidation),
-then the term is effectively not applied (see [example 75](#termdefault)).
+the client SHOULD NOT make any assumptions about the application of the term
+(see [example 75](#termdefault)).
 
 ### <a id="PathExpressions" href="#PathExpressions">14.4.1 Path Expressions</a>
 
@@ -4754,8 +4755,11 @@ Example 74:
 ```
 :::
 
-::: {.varjson .example}
+
+
+::: example
 Example <a id="termdefault" href="#termdefault">75</a>: The first name of a bot cannot be changed after creation.
+:::: varjson
 ```json
 "IsBot": {
   "$Type": "Edm.Boolean",
@@ -4767,12 +4771,11 @@ Example <a id="termdefault" href="#termdefault">75</a>: The first name of a bot 
   }
 }
 ```
-If `IsBot` is `null` the `Core.Immutable` term is effectively not applied
-and the `FirstName` can be changed after creation.
+::::
+If `IsBot` is `null` the client makes no assumption about the immutability of
+the `FirstName`. It can try to change it after creation while being prepared for an
+error response.
 :::
-
-
-
 
 ### <a id="ComparisonandLogicalOperators" href="#ComparisonandLogicalOperators">14.4.2 Comparison and Logical Operators</a>
 
@@ -5302,7 +5305,8 @@ If the value of a dynamic child expression is not acceptable for the type of the
 its [facets](#TypeFacets), is null for a non-[nullable](#Nullable) collection
 or does not meet the constraints imposed by
 its annotations from the Validation vocabulary [OData-VocValidation](#ODataVocValidation),
-the client MAY effectively omit the value from the collection.
+the client SHOULD NOT make any assumptions about the application of the term
+that rely on the value.
 
 ::: {.varjson .rep}
 Collection expressions are represented as arrays with one array item per
@@ -5588,10 +5592,8 @@ If a dynamically provided property value is not acceptable for the type of the p
 its [facets](#TypeFacets), does not meet the constraints imposed by
 its [nullability](#Nullable) or by
 its annotations from the Validation vocabulary [OData-VocValidation](#ODataVocValidation),
-no value is effectively provided for the property.
-In this case the client MAY apply the rules for absent properties:
-a single-valued property takes its default value
-or null if possible, and a collection-valued property takes an empty collection.
+the client SHOULD NOT make any assumptions about the application of the term that rely on the
+property value.
 
 ::: {.varjson .rep}
 Record expressions are represented as objects with one member per

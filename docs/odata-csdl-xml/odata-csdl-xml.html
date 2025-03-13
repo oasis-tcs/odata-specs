@@ -2864,7 +2864,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h2 id="144-dynamic-expression"><a id="DynamicExpression" href="#DynamicExpression">14.4 Dynamic Expression</a></h2>
 </summary>
 <p>Dynamic expressions allow assigning a calculated value to an applied term.</p>
-<p>If a calculated value is not acceptable for the type of the term or its <a href="#TypeFacets">facets</a>, does not meet the constraints imposed by its <code>Nullable</code> attribute or by its annotations from the Validation vocabulary <a href="#ODataVocValidation">OData-VocValidation</a>, then the term is effectively not applied (see <a href="#termdefault">example 75</a>).</p>
+<p>If a calculated value is not acceptable for the type of the term or its <a href="#TypeFacets">facets</a>, does not meet the constraints imposed by its <code>Nullable</code> attribute or by its annotations from the Validation vocabulary <a href="#ODataVocValidation">OData-VocValidation</a>, the client SHOULD NOT make any assumptions about the application of the term (see <a href="#termdefault">example 75</a>).</p>
 <details open><summary>
 <h3 id="1441-path-expressions"><a id="PathExpressions" href="#PathExpressions">14.4.1 Path Expressions</a></h3>
 </summary>
@@ -3115,13 +3115,15 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Path</span>&gt;@vCard.Address#work/FullName&lt;/<span class="kw">Path</span>&gt;</span>
 <span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Annotation</span>&gt;</span></code></pre></div>
 </div>
-<div class="varxml example">
+<div class="example">
 <p>Example <a id="termdefault" href="#termdefault">75</a>: The first name of a bot cannot be changed after creation.</p>
+<div class="varxml">
 <div class="sourceCode" id="cb80"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;IsBot&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.Boolean&quot;</span><span class="ot"> Nullable=</span><span class="st">&quot;true&quot;</span> /&gt;</span>
 <span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;FirstName&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span><span class="ot"> Nullable=</span><span class="st">&quot;false&quot;</span>&gt;</span>
 <span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.Immutable&quot;</span><span class="ot"> Path=</span><span class="st">&quot;IsBot&quot;</span> /&gt;</span>
 <span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Property</span>&gt;</span></code></pre></div>
-<p>If <code>IsBot</code> is <code>null</code> the <code>Core.Immutable</code> term is effectively not applied. Note that the term’s <code>DefaultValue</code> of <code>true</code> does not apply in this case, so that the <code>FirstName</code> can be changed after creation.</p>
+</div>
+<p>If <code>IsBot</code> is <code>null</code> the client makes no assumption about the immutability of the <code>FirstName</code>. It can try to change it after creation while being prepared for an error response.</p>
 </div>
 </details>
 </details>
@@ -3407,7 +3409,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h3 id="1446-collection"><a id="Collection" href="#Collection">14.4.6 Collection</a></h3>
 </summary>
 <p>The collection expression enables a value to be obtained from zero or more item expressions. The value calculated by the collection expression is the collection of the values calculated by each of the item expressions. The values of the child expressions MUST all be type compatible.</p>
-<p>If the value of a dynamic child expression is not acceptable for the type of the collection or its <a href="#TypeFacets">facets</a>, is null for a non-<a href="#Nullable">nullable</a> collection or does not meet the constraints imposed by its annotations from the Validation vocabulary <a href="#ODataVocValidation">OData-VocValidation</a>, the client MAY effectively omit the value from the collection.</p>
+<p>If the value of a dynamic child expression is not acceptable for the type of the collection or its <a href="#TypeFacets">facets</a>, is null for a non-<a href="#Nullable">nullable</a> collection or does not meet the constraints imposed by its annotations from the Validation vocabulary <a href="#ODataVocValidation">OData-VocValidation</a>, the client SHOULD NOT make any assumptions about the application of the term that rely on the value.</p>
 <section class="varxml rep">
 <h3><a id="ExpressionedmCollection.56" href="#ExpressionedmCollection.56">Expression <code>edm:Collection</code></a></h3>
 <p>The <code>edm:Collection</code> element contains zero or more child expressions.</p>
@@ -3565,7 +3567,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>A record expression MAY specify the structured type of its result, which MUST be an entity type or complex type in scope. If not explicitly specified, the type is derived from the expression’s context.</p>
 <p>A record expression contains zero or more property value expressions. For each single-valued structural or navigation property of the record expression’s type that is neither nullable nor specifies a default value a property value expression MUST be provided. The only exception is if the record expression is the value of an annotation for a term that has a <a href="#SpecializedTerm">base term</a> whose type is structured and directly or indirectly inherits from the type of its base term. In this case, property values that already have been specified in the annotation for the base term or its base term etc. need not be specified again.</p>
 <p>For collection-valued properties the absence of a property value expression is equivalent to specifying an empty collection as its value.</p>
-<p>If a dynamically provided property value is not acceptable for the type of the property or its <a href="#TypeFacets">facets</a>, does not meet the constraints imposed by its <a href="#Nullable">nullability</a> or by its annotations from the Validation vocabulary <a href="#ODataVocValidation">OData-VocValidation</a>, no value is effectively provided for the property. In this case the client MAY apply the rules for absent properties: a single-valued property takes its default value or null if possible, and a collection-valued property takes an empty collection.</p>
+<p>If a dynamically provided property value is not acceptable for the type of the property or its <a href="#TypeFacets">facets</a>, does not meet the constraints imposed by its <a href="#Nullable">nullability</a> or by its annotations from the Validation vocabulary <a href="#ODataVocValidation">OData-VocValidation</a>, the client SHOULD NOT make any assumptions about the application of the term that rely on the property value.</p>
 <div class="varxml rep">
 <h3><a id="ExpressionedmRecord.62" href="#ExpressionedmRecord.62">Expression <code>edm:Record</code></a></h3>
 <p>The <code>edm:Record</code> element MAY contain the <code>Type</code> attribute and MAY contain <code>edm:PropertyValue</code> elements.</p>
