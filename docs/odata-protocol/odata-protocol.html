@@ -2593,13 +2593,18 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <li>contains an <a href="#HeaderIfNoneMatch"><code>If-None-Match: *</code></a> header, the service MUST fail the request if it would update an existing entity in the absence of the header.</li>
 </ul>
 <p>In other words, the <code>If-</code>(<code>None-</code>)<code>Match</code> header distinguishes between update and upsert in these cases.</p>
-<p>If the URL of an update request does not fall into case 1, 2, or 3 given above, it ends with a non-containment navigation property, optionally followed by a key predicate. In this case, the <code>If-</code>(<code>None-</code>)<code>Match</code> header distinguishes between cases where the entity addressed by the navigation property exists and where not, but this is not the same as the distinction between update and upsert. If the request</p>
+<p>If the URL of an update request does not fall into case 1, 2, or 3 given above, it ends with a non-containment navigation property, optionally followed by a key predicate. In this case, the <code>If-</code>(<code>None-</code>)<code>Match</code> header distinguishes between cases where the entity addressed by the navigation property exists and where not, but this is not necessarily equivalent to the distinction between update and upsert (see also <a href="#specialization">example 85</a>). If the request</p>
 <ul>
 <li>contains an <code>If-Match: *</code> header, the service MUST fail the request if the navigation property is null</li>
 <li>contains an <code>If-Match</code> header with an etag as value, the service fails the request if the navigation property is null because the etag does not match</li>
 <li>contains an <code>If-None-Match: *</code> header, the service MUST fail the request if the navigation property is not null.</li>
 </ul>
 <p>Note that if the service does not fail here, it may update the navigation property to point to an existing or a newly-created entity (that is, perform an update or an upsert), independently of the <code>If-</code>(<code>None-</code>)<code>Match</code> header. To rule out an upsert in this case, the client MAY send a request payload consisting of an entity reference <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#EntityReference">OData-JSON, section 14</a> or use a bind operation <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#BindOperation">OData-JSON, section 8.5</a>.</p>
+<div class="example">
+<p>Example <a id="specialization" href="#specialization">85</a>: <code>Orders</code> have a containment navigation property <code>InvolvedParties</code> (with roles like supplier, customer, payer) and a nullable non-containment navigation property <code>Customer</code> pointing to the involved party with the customer role. Then the resource path</p>
+<pre><code>http://server/Orders(23)/Customer</code></pre>
+<p>has value <code>null</code> if and only if there is no entity in <code>InvolvedParties</code> with the customer role or, equivalently, if a PATCH request to that URL is an upsert. In this case, the <code>If-</code>(<code>None-</code>)<code>Match</code> header distinguishes between update and upsert although the URL falls into case 4 given above.</p>
+</div>
 </details>
 <details open><summary>
 <h3 id="1145-delete-an-entity"><a id="DeleteanEntity" href="#DeleteanEntity">11.4.5 Delete an Entity</a></h3>
@@ -2681,22 +2686,22 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>An entity may have one or more <em>stream properties</em>. Stream properties are properties of type <code>Edm.Stream</code>.</p>
 <p>The values for stream properties do not usually appear in the entity payload unless explicitly requested with <a href="#SystemQueryOptionexpand"><code>$expand</code></a>. Instead, the values are generally read or written through URLs.</p>
 <div class="example">
-<p>Example <a id="entityWithStreamProperty" href="#entityWithStreamProperty">85</a>: read an entity and select a stream property</p>
+<p>Example <a id="entityWithStreamProperty" href="#entityWithStreamProperty">86</a>: read an entity and select a stream property</p>
 <pre><code>GET http://host/service/Products(1)?$select=Thumbnail</code></pre>
 <p>would only include control information for the stream property, not the stream data itself</p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Products/$entity&quot;</span><span class="fu">,</span></span>
-<span id="cb107-3"><a href="#cb107-3" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
-<span id="cb107-4"><a href="#cb107-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Thumbnail@mediaReadLink&quot;</span><span class="fu">:</span> <span class="st">&quot;http://server/Thumbnail546.jpg&quot;</span><span class="fu">,</span></span>
-<span id="cb107-5"><a href="#cb107-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Thumbnail@mediaEditLink&quot;</span><span class="fu">:</span> <span class="st">&quot;http://server/uploads/Thumbnail546.jpg&quot;</span><span class="fu">,</span></span>
-<span id="cb107-6"><a href="#cb107-6" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
-<span id="cb107-7"><a href="#cb107-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Products/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb108-3"><a href="#cb108-3" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
+<span id="cb108-4"><a href="#cb108-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Thumbnail@mediaReadLink&quot;</span><span class="fu">:</span> <span class="st">&quot;http://server/Thumbnail546.jpg&quot;</span><span class="fu">,</span></span>
+<span id="cb108-5"><a href="#cb108-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Thumbnail@mediaEditLink&quot;</span><span class="fu">:</span> <span class="st">&quot;http://server/uploads/Thumbnail546.jpg&quot;</span><span class="fu">,</span></span>
+<span id="cb108-6"><a href="#cb108-6" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
+<span id="cb108-7"><a href="#cb108-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <p>The stream data can then be requested using the media read link:</p>
 <pre><code>GET http://server/Thumbnail546.jpg</code></pre>
 </div>
 <p>Services SHOULD support direct property access to a stream property’s canonical URL. The response MAY be a redirect to the media read link of the stream property if the media read link is different from the canonical URL.</p>
 <div class="example">
-<p>Example 86: directly read a stream property of an entity</p>
+<p>Example 87: directly read a stream property of an entity</p>
 <pre><code>GET http://host/service/Products(1)/Thumbnail</code></pre>
 <p>can return <a href="#ResponseCode200OK"><code>200 OK</code></a> and the stream data (see <a href="#RequestingStreamProperties">section 11.2.4.1</a>), or a <a href="#ResponseCode3xxRedirection"><code>3xx Redirect</code></a> to the media read link of the stream property.</p>
 </div>
@@ -2716,7 +2721,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 </summary>
 <p>A successful <code>DELETE</code> request to the edit URL of a stream property attempts to set the property to null and results in an error if the property is non-nullable.</p>
 <div class="example">
-<p>Example 87: delete the stream value using the media edit link retrieved in <a href="#entityWithStreamProperty">example 85</a></p>
+<p>Example 88: delete the stream value using the media edit link retrieved in <a href="#entityWithStreamProperty">example 86</a></p>
 <pre><code>DELETE http://server/uploads/Thumbnail546.jpg</code></pre>
 </div>
 <p>Attempting to request a stream property whose value is null results in <a href="#ResponseCode204NoContent"><code>204 No Content</code></a>.</p>
@@ -2778,13 +2783,13 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 </summary>
 <p>Collections of entity, complex, or primitive types annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#PositionalInsert"><code>Core.PositionalInsert</code></a> term (see <a href="#ODataVocCore">OData-VocCore</a>) support inserting items at a specific location via <code>POST</code> requests to the collection URL using the <code>$index</code> system query option. The value of the <code>$index</code> system query option is the zero-based ordinal position where the item is to be inserted. The ordinal positions of items within the collection greater than or equal to the inserted position are increased by one. A negative ordinal number indexes from the end of the collection, with -1 representing an insert as the last item in the collection.</p>
 <div class="example">
-<p>Example 88: Insert a new email address at the second position</p>
-<div class="sourceCode" id="cb111"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/service/Customers(&#39;ALFKI&#39;)/EmailAddresses?$index=1</span></span>
-<span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
-<span id="cb111-3"><a href="#cb111-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-4"><a href="#cb111-4" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb111-5"><a href="#cb111-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="st">&quot;alfred@futterkiste.de&quot;</span></span>
-<span id="cb111-6"><a href="#cb111-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>Example 89: Insert a new email address at the second position</p>
+<div class="sourceCode" id="cb112"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/service/Customers(&#39;ALFKI&#39;)/EmailAddresses?$index=1</span></span>
+<span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
+<span id="cb112-3"><a href="#cb112-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb112-4"><a href="#cb112-4" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb112-5"><a href="#cb112-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="st">&quot;alfred@futterkiste.de&quot;</span></span>
+<span id="cb112-6"><a href="#cb112-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 </details>
 <details open><summary>
@@ -2840,13 +2845,13 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>For primitive-typed collections the body of the request MUST be a primitive value. Each member of the potentially filtered collection is updated to the specified primitive value.</p>
 <p>For collections of structured type, the body of the request MUST be a full or partial representation of an instance of the collection’s structured type. Each member of the potentially filtered collection is <a href="#UpdateanEntity">updated</a> using <code>PATCH</code> semantics. Structured types MAY include nested collections or delta collections, in which case the semantics described in <a href="#UpdateaCollectionofEntities">Update a Collection of Entities</a> applies.</p>
 <div class="example">
-<p>Example 89: change the color of all beige-brown products</p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="er">PATCH</span> <span class="er">/service/Products/$filter(@bar)/$each?@bar=Color</span> <span class="er">eq</span> <span class="er">&#39;beige-brown&#39;</span></span>
-<span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
-<span id="cb112-3"><a href="#cb112-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb112-4"><a href="#cb112-4" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb112-5"><a href="#cb112-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Color&quot;</span><span class="fu">:</span> <span class="st">&quot;taupe&quot;</span></span>
-<span id="cb112-6"><a href="#cb112-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>Example 90: change the color of all beige-brown products</p>
+<div class="sourceCode" id="cb113"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="er">PATCH</span> <span class="er">/service/Products/$filter(@bar)/$each?@bar=Color</span> <span class="er">eq</span> <span class="er">&#39;beige-brown&#39;</span></span>
+<span id="cb113-2"><a href="#cb113-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
+<span id="cb113-3"><a href="#cb113-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-4"><a href="#cb113-4" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb113-5"><a href="#cb113-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Color&quot;</span><span class="fu">:</span> <span class="st">&quot;taupe&quot;</span></span>
+<span id="cb113-6"><a href="#cb113-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <p>The response, if requested, is a collection payload containing the updated representation of each member identified by the request. If the update payload includes nested collections or nested delta collections, then they MUST be included in the response, as described in <a href="#UpdateaCollectionofEntities">Update a Collection of Entities</a>.</p>
 <p>Clients should note that requesting a response may be expensive for services that could otherwise efficiently apply updates to a (possibly filtered) collection.</p>
@@ -2859,7 +2864,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Members of a collection can be deleted by submitting a <code>DELETE</code> request to the URL constructed by appending <code>/$each</code> to the resource path of the collection. The additional path segment expresses that the collection itself is not deleted.</p>
 <p>The request resource path of the collection MAY contain type-cast or filter segments to subset the collection.</p>
 <div class="example">
-<p>Example 90: delete all products older than 3</p>
+<p>Example 91: delete all products older than 3</p>
 <pre><code>DELETE /service/Products/$filter(Age gt 3)/$each</code></pre>
 </div>
 <p>If the path identifies a collection of entities and if the service returns a representation, then the response is a delta response containing a representation of a deleted entity for each deleted member.</p>
@@ -2878,25 +2883,25 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p><a href="#Actions">Actions</a> and <a href="#Functions">Functions</a> MAY be bound to any type or collection, similar to defining a method in a class in object-oriented programming. The first parameter of a bound operation is the <em>binding parameter</em>.</p>
 <p>The namespace- or alias-qualified name of a bound operation may be appended to any URL that identifies a resource whose type matches, or is derived from, the type of the binding parameter. The resource identified by that URL is used as the <em>binding parameter value</em>. Only aliases defined in the metadata document of the service can be used in URLs.</p>
 <div class="example">
-<p>Example 91: the function <code>MostRecentOrder</code> can be bound to any URL that identifies a <code>SampleModel.Customer</code></p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Function</span><span class="ot"> Name=</span><span class="st">&quot;MostRecentOrder&quot;</span><span class="ot"> IsBound=</span><span class="st">&quot;true&quot;</span>&gt;</span>
-<span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Parameter</span><span class="ot"> Name=</span><span class="st">&quot;customer&quot;</span><span class="ot"> Type=</span><span class="st">&quot;SampleModel.Customer&quot;</span> /&gt;</span>
-<span id="cb114-3"><a href="#cb114-3" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">ReturnType</span><span class="ot"> Type=</span><span class="st">&quot;SampleModel.Order&quot;</span> /&gt;</span>
-<span id="cb114-4"><a href="#cb114-4" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Function</span>&gt;</span></code></pre></div>
+<p>Example 92: the function <code>MostRecentOrder</code> can be bound to any URL that identifies a <code>SampleModel.Customer</code></p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Function</span><span class="ot"> Name=</span><span class="st">&quot;MostRecentOrder&quot;</span><span class="ot"> IsBound=</span><span class="st">&quot;true&quot;</span>&gt;</span>
+<span id="cb115-2"><a href="#cb115-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Parameter</span><span class="ot"> Name=</span><span class="st">&quot;customer&quot;</span><span class="ot"> Type=</span><span class="st">&quot;SampleModel.Customer&quot;</span> /&gt;</span>
+<span id="cb115-3"><a href="#cb115-3" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">ReturnType</span><span class="ot"> Type=</span><span class="st">&quot;SampleModel.Order&quot;</span> /&gt;</span>
+<span id="cb115-4"><a href="#cb115-4" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Function</span>&gt;</span></code></pre></div>
 </div>
 <div class="example">
-<p>Example 92: invoke the <code>MostRecentOrder</code> function with the value of the binding parameter <code>customer</code> being the entity identified by <code>http://host/service/Customers(6)</code></p>
+<p>Example 93: invoke the <code>MostRecentOrder</code> function with the value of the binding parameter <code>customer</code> being the entity identified by <code>http://host/service/Customers(6)</code></p>
 <pre><code>GET http://host/service/Customers(6)/SampleModel.MostRecentOrder()</code></pre>
 </div>
 <div class="example">
-<p>Example 93: the function <code>Comparison</code> can be bound to any URL that identifies a collection of entities</p>
-<div class="sourceCode" id="cb116"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Function</span><span class="ot"> Name=</span><span class="st">&quot;Comparison&quot;</span><span class="ot"> IsBound=</span><span class="st">&quot;true&quot;</span>&gt;</span>
-<span id="cb116-2"><a href="#cb116-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Parameter</span><span class="ot"> Name=</span><span class="st">&quot;in&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Collection(Edm.EntityType)&quot;</span> /&gt;</span>
-<span id="cb116-3"><a href="#cb116-3" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">ReturnType</span><span class="ot"> Type=</span><span class="st">&quot;Diff.Overview&quot;</span> /&gt;</span>
-<span id="cb116-4"><a href="#cb116-4" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Function</span>&gt;</span></code></pre></div>
+<p>Example 94: the function <code>Comparison</code> can be bound to any URL that identifies a collection of entities</p>
+<div class="sourceCode" id="cb117"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Function</span><span class="ot"> Name=</span><span class="st">&quot;Comparison&quot;</span><span class="ot"> IsBound=</span><span class="st">&quot;true&quot;</span>&gt;</span>
+<span id="cb117-2"><a href="#cb117-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Parameter</span><span class="ot"> Name=</span><span class="st">&quot;in&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Collection(Edm.EntityType)&quot;</span> /&gt;</span>
+<span id="cb117-3"><a href="#cb117-3" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">ReturnType</span><span class="ot"> Type=</span><span class="st">&quot;Diff.Overview&quot;</span> /&gt;</span>
+<span id="cb117-4"><a href="#cb117-4" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Function</span>&gt;</span></code></pre></div>
 </div>
 <div class="example">
-<p>Example 94: invoke the <code>Comparison</code> function on the set of red products</p>
+<p>Example 95: invoke the <code>Comparison</code> function on the set of red products</p>
 <pre><code>GET http://host/service/Products/$filter(Color eq &#39;Red&#39;)/Diff.Comparison()</code></pre>
 </div>
 </details>
@@ -2907,7 +2912,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>The resource path of the collection MAY contain type-cast or filter segments to subset the collection.</p>
 <p>The response is a collection with members that are instances of the result type of the bound operation. If the bound operation returns a collection, the response is a collection of collections.</p>
 <div class="example">
-<p>Example 95: invoke the <code>MostRecentOrder</code> function on each entity in the entity set <code>Customers</code></p>
+<p>Example 96: invoke the <code>MostRecentOrder</code> function on each entity in the entity set <code>Customers</code></p>
 <pre><code>GET http://host/service/Customers/$each/SampleModel.MostRecentOrder()</code></pre>
 </div>
 <p>The client MAY specify the <code>continue-on-error</code> preference, in which case the service MAY continue processing actions after a failure. In this case, the service MUST, regardless of the <code>return</code> preference, return a response containing at least the members identified by the request for which the action failed. Such members MUST be annotated with the term <code>Core.DataModificationException</code> with a <code>failedOperation</code> value of <code>invoke</code>.</p>
@@ -2918,29 +2923,29 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 </summary>
 <p>Services MAY return actions and/or functions bound to a particular entity or entity collection as part of the representation of the entity or entity collection within the payload. The representation of an action or function depends on the <a href="#Formats">format</a>.</p>
 <div class="example">
-<p>Example 96: given a <code>GET</code> request to <code>http://host/service/Customers('ALFKI')</code>, the service might respond with a Customer that includes the <code>SampleEntities.MostRecentOrder</code> function bound to the entity</p>
-<div class="sourceCode" id="cb119"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb119-2"><a href="#cb119-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="er">…</span><span class="fu">,</span></span>
-<span id="cb119-3"><a href="#cb119-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;CustomerID&quot;</span><span class="fu">:</span> <span class="st">&quot;ALFKI&quot;</span><span class="fu">,</span></span>
-<span id="cb119-4"><a href="#cb119-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;CompanyName&quot;</span><span class="fu">:</span> <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="fu">,</span></span>
-<span id="cb119-5"><a href="#cb119-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;#SampleEntities.MostRecentOrder&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb119-6"><a href="#cb119-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;title&quot;</span><span class="fu">:</span> <span class="st">&quot;Most Recent Order&quot;</span><span class="fu">,</span></span>
-<span id="cb119-7"><a href="#cb119-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;target&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ALFKI&#39;)/SampleEntities.MostRecentOrder()&quot;</span></span>
-<span id="cb119-8"><a href="#cb119-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
-<span id="cb119-9"><a href="#cb119-9" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
-<span id="cb119-10"><a href="#cb119-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
-</div>
-<p>An efficient format that assumes client knowledge of metadata may omit actions and functions from the payload whose target URL can be computed via metadata following standard conventions defined in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingOperations">OData-URL, section 4.5</a>.</p>
-<p>Services can advertise that a function or action is not available for a particular instance by setting its value to null.</p>
-<div class="example">
-<p>Example 97: the <code>SampleEntities.MostRecentOrder</code> function is not available for customer <code>ALFKI</code></p>
+<p>Example 97: given a <code>GET</code> request to <code>http://host/service/Customers('ALFKI')</code>, the service might respond with a Customer that includes the <code>SampleEntities.MostRecentOrder</code> function bound to the entity</p>
 <div class="sourceCode" id="cb120"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb120-2"><a href="#cb120-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="er">…</span><span class="fu">,</span></span>
 <span id="cb120-3"><a href="#cb120-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;CustomerID&quot;</span><span class="fu">:</span> <span class="st">&quot;ALFKI&quot;</span><span class="fu">,</span></span>
 <span id="cb120-4"><a href="#cb120-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;CompanyName&quot;</span><span class="fu">:</span> <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="fu">,</span></span>
-<span id="cb120-5"><a href="#cb120-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;#SampleEntities.MostRecentOrder&quot;</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
-<span id="cb120-6"><a href="#cb120-6" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
-<span id="cb120-7"><a href="#cb120-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<span id="cb120-5"><a href="#cb120-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;#SampleEntities.MostRecentOrder&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb120-6"><a href="#cb120-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;title&quot;</span><span class="fu">:</span> <span class="st">&quot;Most Recent Order&quot;</span><span class="fu">,</span></span>
+<span id="cb120-7"><a href="#cb120-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;target&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ALFKI&#39;)/SampleEntities.MostRecentOrder()&quot;</span></span>
+<span id="cb120-8"><a href="#cb120-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb120-9"><a href="#cb120-9" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
+<span id="cb120-10"><a href="#cb120-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
+<p>An efficient format that assumes client knowledge of metadata may omit actions and functions from the payload whose target URL can be computed via metadata following standard conventions defined in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingOperations">OData-URL, section 4.5</a>.</p>
+<p>Services can advertise that a function or action is not available for a particular instance by setting its value to null.</p>
+<div class="example">
+<p>Example 98: the <code>SampleEntities.MostRecentOrder</code> function is not available for customer <code>ALFKI</code></p>
+<div class="sourceCode" id="cb121"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb121-2"><a href="#cb121-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="er">…</span><span class="fu">,</span></span>
+<span id="cb121-3"><a href="#cb121-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;CustomerID&quot;</span><span class="fu">:</span> <span class="st">&quot;ALFKI&quot;</span><span class="fu">,</span></span>
+<span id="cb121-4"><a href="#cb121-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;CompanyName&quot;</span><span class="fu">:</span> <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="fu">,</span></span>
+<span id="cb121-5"><a href="#cb121-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;#SampleEntities.MostRecentOrder&quot;</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb121-6"><a href="#cb121-6" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span></span>
+<span id="cb121-7"><a href="#cb121-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 </details>
 <details open><summary>
@@ -2958,7 +2963,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>To invoke a function through a function import the client issues a <code>GET</code> request to a URL identifying the function import and passing parameter values using <a href="#InlineParameterSyntax">inline parameter syntax</a>. The canonical URL for a function import is the service root, followed by the name of the function import. Services MAY support omitting the parentheses when invoking a function import with no parameters, but for maximum interoperability MUST also support invoking the function import with empty parentheses.</p>
 <p>If the function is composable, additional path segments may be appended to the URL that identifies the composable function (or function import) as appropriate for the type returned by the function (or function import). The last path segment determines the system query options and HTTP verbs that can be used with this this URL, e.g. if the last path segment is a multi-valued navigation property, a <code>POST</code> request may be used to create a new entity in the identified collection.</p>
 <div class="example">
-<p>Example 98: add a new item to the list of items of the shopping cart returned by the composable <code>MyShoppingCart</code> function import</p>
+<p>Example 99: add a new item to the list of items of the shopping cart returned by the composable <code>MyShoppingCart</code> function import</p>
 <pre><code>POST http://host/service/MyShoppingCart()/Items
 
 …</code></pre>
@@ -2975,22 +2980,22 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Parameter values are specified inline by appending a comma-separated list of parameter values, enclosed by parenthesis to the function name.</p>
 <p>Each parameter value is represented as a name/value pair in the format <code>Name=Value</code>, where <code>Name</code> is the name of the parameter to the function and <code>Value</code> is the parameter value.</p>
 <div class="example">
-<p>Example 99: invoke a <code>Sales.EmployeesByManager</code> function which takes a single <code>ManagerID</code> parameter via the function import <code>EmployeesByManager</code></p>
+<p>Example 100: invoke a <code>Sales.EmployeesByManager</code> function which takes a single <code>ManagerID</code> parameter via the function import <code>EmployeesByManager</code></p>
 <pre><code>GET http://host/service/EmployeesByManager(ManagerID=3)</code></pre>
 </div>
 <div class="example">
-<p>Example 100: return all Customers whose <code>City</code> property returns <code>Western</code> when passed to the <code>Sales.SalesRegion</code> function</p>
+<p>Example 101: return all Customers whose <code>City</code> property returns <code>Western</code> when passed to the <code>Sales.SalesRegion</code> function</p>
 <pre><code>GET http://host/service/Customers?
       $filter=Sales.SalesRegion(City=$it/City) eq &#39;Western&#39;</code></pre>
 </div>
 <p>A <a href="#ParameterAliases">parameter alias</a> can be used in place of an inline parameter value. The value for the alias is specified as a separate query option using the name of the parameter alias.</p>
 <div class="example">
-<p>Example 101: invoke a <code>Sales.EmployeesByManager</code> function via the function import <code>EmployeesByManager</code>, passing 3 for the <code>ManagerID</code> parameter</p>
+<p>Example 102: invoke a <code>Sales.EmployeesByManager</code> function via the function import <code>EmployeesByManager</code>, passing 3 for the <code>ManagerID</code> parameter</p>
 <pre><code>GET http://host/service/EmployeesByManager(ManagerID=@p1)?@p1=3</code></pre>
 </div>
 <p>Services MAY in addition allow implicit <a href="#ParameterAliases">parameter aliases</a> for function imports and for functions that are the last path segment of the URL. An implicit parameter alias is the parameter name, optionally preceded by an at (<code>@</code>) sign. When using implicit parameter aliases, parentheses MUST NOT be appended to the function (import) name. The value for each parameter MUST be specified as a separate query option with the name of the parameter alias. If a parameter name is identical to a system query option name (without the optional <code>$</code> prefix), the parameter name MUST be prefixed with an at (<code>@</code>) sign.</p>
 <div class="example">
-<p>Example 102: invoke a <code>Sales.EmployeesByManager</code> function via the function import <code>EmployeesByManager</code>, passing 3 for the <code>ManagerID</code> parameter using the implicit parameter alias</p>
+<p>Example 103: invoke a <code>Sales.EmployeesByManager</code> function via the function import <code>EmployeesByManager</code>, passing 3 for the <code>ManagerID</code> parameter using the implicit parameter alias</p>
 <pre><code>GET http://host/service/EmployeesByManager?ManagerID=3</code></pre>
 </div>
 <p>Non-binding parameters annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter"><code>Core.OptionalParameter</code></a> defined in <a href="#ODataVocCore">OData-VocCore</a> MAY be omitted. If it is annotated and the annotation specifies a <code>DefaultValue</code>, the omitted parameter is interpreted as having that default value. If omitted and the annotation does not specify a default value, the service is free on how to interpret the omitted parameter.</p>
@@ -3030,18 +3035,18 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Actions without a return type respond with <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> on success.</p>
 <p>To request processing of the action only if the binding parameter value, an entity or collection of entities, is unmodified, the client includes the <a href="#HeaderIfMatch"><code>If-Match</code></a> header with the latest known ETag value for the entity or collection of entities. The ETag value for a collection as a whole is transported in the <a href="#HeaderETag"><code>ETag</code></a> header of a collection response.</p>
 <div class="example">
-<p>Example 103: invoke the <code>SampleEntities.CreateOrder</code> action using <code>Customers('ALFKI')</code> as the customer (or binding parameter). The values <code>2</code> for the <code>quantity</code> parameter and <code>BLACKFRIDAY</code> for the <code>discountCode</code> parameter are passed in the body of the request. Invoke the action only if the customer’s ETag still matches.</p>
-<div class="sourceCode" id="cb126"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">http://host/service/Customers(&#39;ALFKI&#39;)/SampleEntities.CreateOrder</span></span>
-<span id="cb126-2"><a href="#cb126-2" aria-hidden="true" tabindex="-1"></a><span class="er">If-Match:</span> <span class="er">W/&quot;MjAxOS0wMy0yMVQxMzowNVo=&quot;</span></span>
-<span id="cb126-3"><a href="#cb126-3" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
-<span id="cb126-4"><a href="#cb126-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb126-5"><a href="#cb126-5" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb126-6"><a href="#cb126-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;items&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb126-7"><a href="#cb126-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;product&quot;</span><span class="fu">:</span> <span class="dv">4001</span><span class="fu">,</span> <span class="dt">&quot;quantity&quot;</span><span class="fu">:</span> <span class="dv">2</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb126-8"><a href="#cb126-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;product&quot;</span><span class="fu">:</span> <span class="dv">7062</span><span class="fu">,</span> <span class="dt">&quot;quantity&quot;</span><span class="fu">:</span> <span class="dv">1</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb126-9"><a href="#cb126-9" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb126-10"><a href="#cb126-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;discountCode&quot;</span><span class="fu">:</span> <span class="st">&quot;BLACKFRIDAY&quot;</span></span>
-<span id="cb126-11"><a href="#cb126-11" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>Example 104: invoke the <code>SampleEntities.CreateOrder</code> action using <code>Customers('ALFKI')</code> as the customer (or binding parameter). The values <code>2</code> for the <code>quantity</code> parameter and <code>BLACKFRIDAY</code> for the <code>discountCode</code> parameter are passed in the body of the request. Invoke the action only if the customer’s ETag still matches.</p>
+<div class="sourceCode" id="cb127"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb127-1"><a href="#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">http://host/service/Customers(&#39;ALFKI&#39;)/SampleEntities.CreateOrder</span></span>
+<span id="cb127-2"><a href="#cb127-2" aria-hidden="true" tabindex="-1"></a><span class="er">If-Match:</span> <span class="er">W/&quot;MjAxOS0wMy0yMVQxMzowNVo=&quot;</span></span>
+<span id="cb127-3"><a href="#cb127-3" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
+<span id="cb127-4"><a href="#cb127-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb127-5"><a href="#cb127-5" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb127-6"><a href="#cb127-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;items&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb127-7"><a href="#cb127-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;product&quot;</span><span class="fu">:</span> <span class="dv">4001</span><span class="fu">,</span> <span class="dt">&quot;quantity&quot;</span><span class="fu">:</span> <span class="dv">2</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb127-8"><a href="#cb127-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;product&quot;</span><span class="fu">:</span> <span class="dv">7062</span><span class="fu">,</span> <span class="dt">&quot;quantity&quot;</span><span class="fu">:</span> <span class="dv">1</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb127-9"><a href="#cb127-9" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb127-10"><a href="#cb127-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;discountCode&quot;</span><span class="fu">:</span> <span class="st">&quot;BLACKFRIDAY&quot;</span></span>
+<span id="cb127-11"><a href="#cb127-11" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 </details>
 <details open><summary>
@@ -3081,7 +3086,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 </summary>
 <p>A batch request using the <a href="#MultipartBatchFormat">multipart batch format</a> MUST contain a <a href="#HeaderContentType"><code>Content-Type</code></a> header specifying a content type of <code>multipart/mixed</code> and a <code>boundary</code> parameter as defined in <a href="#rfc2046">RFC2046</a>.</p>
 <div class="example">
-<p>Example 104: multipart batch request</p>
+<p>Example 105: multipart batch request</p>
 <pre><code>POST /service/$batch HTTP/1.1
 Host: odata.org
 OData-Version: 4.0
@@ -3091,7 +3096,7 @@ Content-Type: multipart/mixed; boundary=batch_36522ad7-fc75-4b56-8c71-56071383e7
 </div>
 <p>A batch request using the JSON batch format MUST contain a <code>Content-Type</code> header specifying a content type of <code>application/json</code>.</p>
 <div class="example">
-<p>Example 105: JSON batch request</p>
+<p>Example 106: JSON batch request</p>
 <pre><code>POST /service/$batch HTTP/1.1
 Host: odata.org
 OData-Version: 4.01
@@ -3118,7 +3123,7 @@ Content-Type: application/json
 <details open><summary>
 <h3 id="1174-referencing-returned-entities"><a id="ReferencingReturnedEntities" href="#ReferencingReturnedEntities">11.7.4 Referencing Returned Entities</a></h3>
 </summary>
-<p>Entities created by an <a href="#CreateanEntity">insert</a> request or an <a href="#InvokinganAction">action</a> can be referenced in the request URL of subsequent requests by using the request identifier prefixed with a <code>$</code> character as the first segment of the request URL. Services MUST treat this segment like the URL in the <a href="#HeaderLocation"><code>Location</code></a> header of the response to the request identified by the segment. If the <code>Location</code> header in the response to the subsequent request contains a relative URL, clients MUST be able to resolve it relative to the request’s URL even if that contains such a reference. See <a href="#batchcontentid">example 110</a>.</p>
+<p>Entities created by an <a href="#CreateanEntity">insert</a> request or an <a href="#InvokinganAction">action</a> can be referenced in the request URL of subsequent requests by using the request identifier prefixed with a <code>$</code> character as the first segment of the request URL. Services MUST treat this segment like the URL in the <a href="#HeaderLocation"><code>Location</code></a> header of the response to the request identified by the segment. If the <code>Location</code> header in the response to the subsequent request contains a relative URL, clients MUST be able to resolve it relative to the request’s URL even if that contains such a reference. See <a href="#batchcontentid">example 111</a>.</p>
 <p>If the <code>$</code>-prefixed request identifier is identical to the name of a top-level system resource (<code>$batch</code>, <code>$crossjoin</code>, <code>$all</code>, <code>$entity</code>, <code>$root</code>, <code>$id</code>, <code>$metadata</code>, or other system resources defined according to the <a href="#HeaderODataVersion"><code>OData-Version</code></a> of the protocol specified in the request), then the reference to the top-level system resource is used. This collision can be avoided by e.g. using only numeric request identifiers.</p>
 <p>Services MAY also support referencing within request bodies, in which case they SHOULD advertise this support by specifying the <code>ReferencesInRequestBodiesSupported</code> property in the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#BatchSupport"><code>Capabilities.BatchSupport</code></a> term applied to the entity container, see <a href="#ODataVocCap">OData-VocCap</a>.</p>
 </details>
@@ -3152,25 +3157,25 @@ Content-Type: application/json
 <li>Absolute URI with schema, host, port, and absolute resource path.</li>
 </ul>
 <div class="example">
-<p>Example 106:</p>
+<p>Example 107:</p>
 <pre><code>GET https://host:1234/path/service/People(1) HTTP/1.1</code></pre>
 </div>
 <ul>
 <li>Absolute resource path and separate <code>Host</code> header</li>
 </ul>
 <div class="example">
-<p>Example <a id="batchhost" href="#batchhost">107</a>:</p>
-<div class="sourceCode" id="cb130"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="er">PATCH</span> <span class="er">/path/service/People(1) HTTP/1.1</span></span>
-<span id="cb130-2"><a href="#cb130-2" aria-hidden="true" tabindex="-1"></a><span class="er">Host:</span> <span class="er">myserver.mydomain.org:1234</span></span>
-<span id="cb130-3"><a href="#cb130-3" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
-<span id="cb130-4"><a href="#cb130-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-5"><a href="#cb130-5" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Peter&quot;</span> <span class="fu">}</span></span></code></pre></div>
+<p>Example <a id="batchhost" href="#batchhost">108</a>:</p>
+<div class="sourceCode" id="cb131"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb131-1"><a href="#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="er">PATCH</span> <span class="er">/path/service/People(1) HTTP/1.1</span></span>
+<span id="cb131-2"><a href="#cb131-2" aria-hidden="true" tabindex="-1"></a><span class="er">Host:</span> <span class="er">myserver.mydomain.org:1234</span></span>
+<span id="cb131-3"><a href="#cb131-3" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
+<span id="cb131-4"><a href="#cb131-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb131-5"><a href="#cb131-5" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Peter&quot;</span> <span class="fu">}</span></span></code></pre></div>
 </div>
 <ul>
 <li>Resource path relative to the batch request URI.</li>
 </ul>
 <div class="example">
-<p>Example 108:</p>
+<p>Example 109:</p>
 <pre><code>DELETE People(1) HTTP/1.1</code></pre>
 </div>
 <p>Services MUST support all three formats for URLs of individual requests.</p>
@@ -3182,7 +3187,7 @@ Content-Type: application/json
 </ul>
 <p>Processors of batch requests MAY choose to disallow additional HTTP constructs in HTTP requests serialized within body parts. For example, a processor may choose to disallow chunked encoding to be used by such HTTP requests.</p>
 <div class="example">
-<p>Example <a id="batchRequest" href="#batchRequest">109</a>: a batch request that contains the following individual requests in the order listed</p>
+<p>Example <a id="batchRequest" href="#batchRequest">110</a>: a batch request that contains the following individual requests in the order listed</p>
 <ol type="1">
 <li>A query request</li>
 <li>A change set that contains the following requests:
@@ -3248,7 +3253,7 @@ Host: host
 </summary>
 <p>Entities created by an <a href="#CreateanEntity">insert</a> request or an <a href="#InvokinganAction">action</a> can be referenced in the request URL of subsequent requests within the same change set. Services MAY also support referencing across change sets, in which case they SHOULD advertise this support by specifying the <code>ReferencesAcrossChangeSetsSupported</code> property in the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#BatchSupport"><code>Capabilities.BatchSupport</code></a> term applied to the entity container, see <a href="#ODataVocCap">OData-VocCap</a>.</p>
 <div class="example">
-<p>Example <a id="batchcontentid" href="#batchcontentid">110</a>: a batch request that contains the following operations in the order listed:</p>
+<p>Example <a id="batchcontentid" href="#batchcontentid">111</a>: a batch request that contains the following operations in the order listed:</p>
 <p>A change set that contains the following requests:</p>
 <ul>
 <li>Insert a new entity (with <code>Content-ID = 1</code>)</li>
@@ -3308,54 +3313,54 @@ Location: Orders(1)
 …
 --changeset_77162fcd-b8da-41ac-a9f8-9357efbbe--
 --batch_36522ad7-fc75-4b56-8c71-56071383e77a--</code></pre>
-<p>The second <code>Location</code> URL <code>Orders(1)</code> is relative with its base URI being the second request URL <code>$1/Orders</code>. To get an absolute base URI, the client must replace the <code>$1</code> with the first <code>Location</code> URL <code>Customers('ALFKI')</code> and resolve the resulting URL <code>Customers('ALFKI')/Orders(1)</code> relative to its base URI, which is <code>http://host/service/Customers</code> (determined from the first request URL <code>/service/Customers</code> and the <code>Host: host</code> header as in <a href="#batchhost">example 107</a>). This gives the effective second request URL <code>http://host/service/Customers('ALFKI')/Orders</code> as base URI for the second <code>Location</code> URL, which therefore resolves to <code>http://host/service/Customers('ALFKI')/Orders(1)</code>.</p>
+<p>The second <code>Location</code> URL <code>Orders(1)</code> is relative with its base URI being the second request URL <code>$1/Orders</code>. To get an absolute base URI, the client must replace the <code>$1</code> with the first <code>Location</code> URL <code>Customers('ALFKI')</code> and resolve the resulting URL <code>Customers('ALFKI')/Orders(1)</code> relative to its base URI, which is <code>http://host/service/Customers</code> (determined from the first request URL <code>/service/Customers</code> and the <code>Host: host</code> header as in <a href="#batchhost">example 108</a>). This gives the effective second request URL <code>http://host/service/Customers('ALFKI')/Orders</code> as base URI for the second <code>Location</code> URL, which therefore resolves to <code>http://host/service/Customers('ALFKI')/Orders(1)</code>.</p>
 </div>
 </details>
 <details open><summary>
 <h4 id="11773-referencing-an-etag"><a id="ReferencinganETag" href="#ReferencinganETag">11.7.7.3 Referencing an ETag</a></h4>
 </summary>
 <div class="example">
-<p>Example 111: a batch request that contains the following operations in the order listed:</p>
+<p>Example 112: a batch request that contains the following operations in the order listed:</p>
 <ul>
 <li>Get an employee (with <code>Content-ID = 1</code>)</li>
 <li>Update the salary only if the employee has not changed</li>
 </ul>
-<div class="sourceCode" id="cb135"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb135-1"><a href="#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/service/$batch</span> <span class="er">HTTP/1.1</span></span>
-<span id="cb135-2"><a href="#cb135-2" aria-hidden="true" tabindex="-1"></a><span class="er">Host:</span> <span class="er">host</span></span>
-<span id="cb135-3"><a href="#cb135-3" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="er">4.0</span></span>
-<span id="cb135-4"><a href="#cb135-4" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">multipart/mixed;</span> <span class="er">boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b</span></span>
-<span id="cb135-5"><a href="#cb135-5" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Length:</span> <span class="er">###</span></span>
-<span id="cb135-6"><a href="#cb135-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb135-7"><a href="#cb135-7" aria-hidden="true" tabindex="-1"></a><span class="er">--batch_36522ad7-fc75-4b56-8c71-56071383e77b</span></span>
-<span id="cb135-8"><a href="#cb135-8" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/http</span></span>
-<span id="cb135-9"><a href="#cb135-9" aria-hidden="true" tabindex="-1"></a><span class="er">Content-ID:</span> <span class="er">1</span></span>
-<span id="cb135-10"><a href="#cb135-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb135-11"><a href="#cb135-11" aria-hidden="true" tabindex="-1"></a><span class="er">GET</span> <span class="er">/service/Employees(0)</span> <span class="er">HTTP/1.1</span></span>
-<span id="cb135-12"><a href="#cb135-12" aria-hidden="true" tabindex="-1"></a><span class="er">Host:</span> <span class="er">host</span></span>
-<span id="cb135-13"><a href="#cb135-13" aria-hidden="true" tabindex="-1"></a><span class="er">Accept:</span> <span class="er">application/json</span></span>
-<span id="cb135-14"><a href="#cb135-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb135-15"><a href="#cb135-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb135-16"><a href="#cb135-16" aria-hidden="true" tabindex="-1"></a><span class="er">--batch_36522ad7-fc75-4b56-8c71-56071383e77b</span></span>
-<span id="cb135-17"><a href="#cb135-17" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/http</span></span>
-<span id="cb135-18"><a href="#cb135-18" aria-hidden="true" tabindex="-1"></a><span class="er">Content-ID:</span> <span class="er">2</span></span>
-<span id="cb135-19"><a href="#cb135-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb135-20"><a href="#cb135-20" aria-hidden="true" tabindex="-1"></a><span class="er">PATCH</span> <span class="er">/service/Employees(0)</span> <span class="er">HTTP/1.1</span></span>
-<span id="cb135-21"><a href="#cb135-21" aria-hidden="true" tabindex="-1"></a><span class="er">Host:</span> <span class="er">host</span></span>
-<span id="cb135-22"><a href="#cb135-22" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
-<span id="cb135-23"><a href="#cb135-23" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Length:</span> <span class="er">###</span></span>
-<span id="cb135-24"><a href="#cb135-24" aria-hidden="true" tabindex="-1"></a><span class="er">If-Match:</span> <span class="er">$1</span></span>
-<span id="cb135-25"><a href="#cb135-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb135-26"><a href="#cb135-26" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb135-27"><a href="#cb135-27" aria-hidden="true" tabindex="-1"></a>   <span class="dt">&quot;Salary&quot;</span><span class="fu">:</span> <span class="dv">75000</span></span>
-<span id="cb135-28"><a href="#cb135-28" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span>
-<span id="cb135-29"><a href="#cb135-29" aria-hidden="true" tabindex="-1"></a><span class="er">--batch_36522ad7-fc75-4b56-8c71-56071383e77b--</span></span></code></pre></div>
+<div class="sourceCode" id="cb136"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb136-1"><a href="#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/service/$batch</span> <span class="er">HTTP/1.1</span></span>
+<span id="cb136-2"><a href="#cb136-2" aria-hidden="true" tabindex="-1"></a><span class="er">Host:</span> <span class="er">host</span></span>
+<span id="cb136-3"><a href="#cb136-3" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="er">4.0</span></span>
+<span id="cb136-4"><a href="#cb136-4" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">multipart/mixed;</span> <span class="er">boundary=batch_36522ad7-fc75-4b56-8c71-56071383e77b</span></span>
+<span id="cb136-5"><a href="#cb136-5" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Length:</span> <span class="er">###</span></span>
+<span id="cb136-6"><a href="#cb136-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-7"><a href="#cb136-7" aria-hidden="true" tabindex="-1"></a><span class="er">--batch_36522ad7-fc75-4b56-8c71-56071383e77b</span></span>
+<span id="cb136-8"><a href="#cb136-8" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/http</span></span>
+<span id="cb136-9"><a href="#cb136-9" aria-hidden="true" tabindex="-1"></a><span class="er">Content-ID:</span> <span class="er">1</span></span>
+<span id="cb136-10"><a href="#cb136-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-11"><a href="#cb136-11" aria-hidden="true" tabindex="-1"></a><span class="er">GET</span> <span class="er">/service/Employees(0)</span> <span class="er">HTTP/1.1</span></span>
+<span id="cb136-12"><a href="#cb136-12" aria-hidden="true" tabindex="-1"></a><span class="er">Host:</span> <span class="er">host</span></span>
+<span id="cb136-13"><a href="#cb136-13" aria-hidden="true" tabindex="-1"></a><span class="er">Accept:</span> <span class="er">application/json</span></span>
+<span id="cb136-14"><a href="#cb136-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-15"><a href="#cb136-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-16"><a href="#cb136-16" aria-hidden="true" tabindex="-1"></a><span class="er">--batch_36522ad7-fc75-4b56-8c71-56071383e77b</span></span>
+<span id="cb136-17"><a href="#cb136-17" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/http</span></span>
+<span id="cb136-18"><a href="#cb136-18" aria-hidden="true" tabindex="-1"></a><span class="er">Content-ID:</span> <span class="er">2</span></span>
+<span id="cb136-19"><a href="#cb136-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-20"><a href="#cb136-20" aria-hidden="true" tabindex="-1"></a><span class="er">PATCH</span> <span class="er">/service/Employees(0)</span> <span class="er">HTTP/1.1</span></span>
+<span id="cb136-21"><a href="#cb136-21" aria-hidden="true" tabindex="-1"></a><span class="er">Host:</span> <span class="er">host</span></span>
+<span id="cb136-22"><a href="#cb136-22" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
+<span id="cb136-23"><a href="#cb136-23" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Length:</span> <span class="er">###</span></span>
+<span id="cb136-24"><a href="#cb136-24" aria-hidden="true" tabindex="-1"></a><span class="er">If-Match:</span> <span class="er">$1</span></span>
+<span id="cb136-25"><a href="#cb136-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-26"><a href="#cb136-26" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb136-27"><a href="#cb136-27" aria-hidden="true" tabindex="-1"></a>   <span class="dt">&quot;Salary&quot;</span><span class="fu">:</span> <span class="dv">75000</span></span>
+<span id="cb136-28"><a href="#cb136-28" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span>
+<span id="cb136-29"><a href="#cb136-29" aria-hidden="true" tabindex="-1"></a><span class="er">--batch_36522ad7-fc75-4b56-8c71-56071383e77b--</span></span></code></pre></div>
 </div>
 </details>
 <details open><summary>
 <h4 id="11774-referencing-response-body-values"><a id="ReferencingResponseBodyValues" href="#ReferencingResponseBodyValues">11.7.7.4 Referencing Response Body Values</a></h4>
 </summary>
 <div class="example">
-<p>Example 112: a batch request that contains the following operations in the order listed:</p>
+<p>Example 113: a batch request that contains the following operations in the order listed:</p>
 <ul>
 <li>Get an employee (with <code>Content-ID = 1</code>)</li>
 <li>Get all employees residing in the same building</li>
@@ -3404,9 +3409,9 @@ Accept: application/json
 <li><a href="#AsynchronousBatchRequests">Asynchronously processed batch requests</a> can return interim results and end with a <code>202 Accepted</code> as the last part of the multipart response. Therefore, the <a href="#Preferencerespondasync"><code>respond-async</code></a> preference MUST NOT be applied to individual requests within a batch if the batch response is a multipart response.</li>
 </ul>
 <p>The body of a multipart response to a JSON batch request contains one body part for each processed or accepted request. The order of the body parts is insignificant as each body part MUST contain the <code>Content-ID</code> header with the value of the <code>id</code> name/value pair of the corresponding request object.</p>
-<p>A response to an operation in a batch MUST be formatted exactly as it would have appeared outside of a batch as described in the corresponding subsections of chapter <a href="#DataServiceRequests">Data Service Requests</a>. Relative URLs in each individual response are relative to the request URL of the corresponding individual request (see <a href="#batchcontentid">example 110</a>). URLs in responses MUST NOT contain <code>$</code>-prefixed request identifiers.</p>
+<p>A response to an operation in a batch MUST be formatted exactly as it would have appeared outside of a batch as described in the corresponding subsections of chapter <a href="#DataServiceRequests">Data Service Requests</a>. Relative URLs in each individual response are relative to the request URL of the corresponding individual request (see <a href="#batchcontentid">example 111</a>). URLs in responses MUST NOT contain <code>$</code>-prefixed request identifiers.</p>
 <div class="example">
-<p>Example 113: referencing the batch request <a href="#batchRequest">example 109</a> above, assume all the requests except the final query request succeed. In this case the response would be</p>
+<p>Example 114: referencing the batch request <a href="#batchRequest">example 110</a> above, assume all the requests except the final query request succeed. In this case the response would be</p>
 <pre><code>HTTP/1.1 200 OK
 OData-Version: 4.0
 Content-Length: ####
@@ -3460,7 +3465,7 @@ Content-Length: ###
 <p>A service MAY return interim results to an asynchronously executing batch. It does this by responding with <a href="#ResponseCode200OK"><code>200 OK</code></a> to a <code>GET</code> request to the monitor resource and including a <a href="#ResponseCode202Accepted"><code>202 Accepted</code></a> response as the last part of the multipart response. The client can use the monitor URL returned in this <code>202 Accepted</code> response to continue processing the batch response.</p>
 <p>Since a change set is executed atomically, <code>202 Accepted</code> MUST NOT be returned within a change set.</p>
 <div class="example">
-<p>Example 114: referencing the <a href="#batchRequest">example 109</a> above again, assume that</p>
+<p>Example 115: referencing the <a href="#batchRequest">example 110</a> above again, assume that</p>
 <pre><code>HTTP/1.1 202 Accepted
 Location: http://service-root/async-monitor-0
 Retry-After: ###
