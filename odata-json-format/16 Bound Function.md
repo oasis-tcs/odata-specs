@@ -325,10 +325,10 @@ Content-Type: application/json
 Inside a batch request the common expressions can also be value references
 starting with `$`, as introduced in [#OData-Protocol#ReferencingValuesfromResponseBodies].
 
-Non-binding parameters that are nullable or annotated with the term
+Non-binding single-valued parameters that are nullable or annotated with the term
 [`Core.OptionalParameter`]($$$OData-VocCore$$$#OptionalParameter) defined in
 [OData-VocCore](#ODataVocCore) MAY be omitted from the request body.
-If an omitted parameter is not annotated (and thus nullable), it MUST be
+If an omitted single-valued parameter is not annotated (and thus nullable), it MUST be
 interpreted as having the `null` value. If it is annotated
 and the annotation specifies a `DefaultValue`, the omitted
 parameter is interpreted as having that default value. If omitted and
@@ -336,6 +336,11 @@ the annotation does not specify a default value, the service is free on
 how to interpret the omitted parameter. Note: a nullable non-binding
 parameter is equivalent to being annotated as optional with a default
 value of `null`.
+
+The interpretation of an omitted non-binding collection-valued parameter
+is up to the service regardless of its nullability or optionality.
+Possible interpretations include assuming an empty collection or,
+for parameters not annotated as `Core.OptionalParameter`, reporting an error.
 
 ::: example
 Example ##ex:
