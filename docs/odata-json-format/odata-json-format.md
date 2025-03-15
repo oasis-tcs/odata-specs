@@ -1905,15 +1905,15 @@ A single-valued property or operation response that has the
 [OData-Protocol, section 9.1.4](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ResponseCode204NoContent).
 
 A property or operation response that is of a primitive type is
-represented as an object with a single name/value pair, whose name is
+represented as an object with a name/value pair whose name is
 `value` and whose value is a [primitive
-value](#PrimitiveValue).
+value](#PrimitiveValue) or `null`.
 
 A property or operation response that is of complex type is represented
 as a [complex value](#ComplexValue).
 
 A property or operation response that is of a collection type is
-represented as an object with a single name/value pair whose name is
+represented as an object with a name/value pair whose name is
 `value`. Its value is the JSON representation of a
 [collection of complex type values](#CollectionofComplexValues) or
 [collection of primitive values](#CollectionofPrimitiveValues).
