@@ -2592,14 +2592,14 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>If the URL of an update request falls into case 1, 2, or 3 given above and the request</p>
 <ul>
 <li>contains an <a href="#HeaderIfMatch"><code>If-Match: *</code></a> header, the service MUST fail the request if it would newly create the addressed entity in the absence of the header</li>
-<li>contains an <code>If-Match</code> header with an etag as value, the service fails the request instead of newly creating the addressed entity because the <a href="#UseofETagsforAvoidingUpdateConflicts">etag</a> does not match</li>
+<li>contains an <code>If-Match</code> header with an ETag as value, the service fails the request instead of newly creating the addressed entity because the <a href="#UseofETagsforAvoidingUpdateConflicts">ETag</a> does not match</li>
 <li>contains an <a href="#HeaderIfNoneMatch"><code>If-None-Match: *</code></a> header, the service MUST fail the request if it would update an existing entity in the absence of the header.</li>
 </ul>
 <p>In other words, the <code>If-</code>(<code>None-</code>)<code>Match</code> header distinguishes between update and upsert in these cases.</p>
 <p>If the URL of an update request does not fall into case 1, 2, or 3 given above, it ends with a non-containment navigation property, optionally followed by a key predicate. In this case, the <code>If-</code>(<code>None-</code>)<code>Match</code> header distinguishes between cases where the entity addressed by the navigation property exists and where not, but this is not necessarily equivalent to the distinction between update and upsert (see also <a href="#specialization">example 85</a>). If the request</p>
 <ul>
 <li>contains an <code>If-Match: *</code> header, the service MUST fail the request if the navigation property is null</li>
-<li>contains an <code>If-Match</code> header with an etag as value, the service fails the request if the navigation property is null because the etag does not match</li>
+<li>contains an <code>If-Match</code> header with an ETag as value, the service fails the request if the navigation property is null because the ETag does not match</li>
 <li>contains an <code>If-None-Match: *</code> header, the service MUST fail the request if the navigation property is not null.</li>
 </ul>
 <p>Note that if the service does not fail here, it may update the navigation property to point to an existing or a newly-created entity (that is, perform an update or an upsert), independently of the <code>If-</code>(<code>None-</code>)<code>Match</code> header. To rule out an upsert in this case, the client MAY send a request payload consisting of an entity reference <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#EntityReference">OData-JSON, section 14</a> or use a bind operation <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#BindOperation">OData-JSON, section 8.5</a>.</p>

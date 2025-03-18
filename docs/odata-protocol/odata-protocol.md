@@ -4743,8 +4743,8 @@ services MUST either fail the request or ignore the value in the request body.
 If the URL of an update request falls into case 1, 2, or 3 given above and the request
 - contains an [`If-Match: *`](#HeaderIfMatch) header, the service MUST fail the request
   if it would newly create the addressed entity in the absence of the header
-- contains an `If-Match` header with an etag as value, the service fails the request
-  instead of newly creating the addressed entity because the [etag](#UseofETagsforAvoidingUpdateConflicts)
+- contains an `If-Match` header with an ETag as value, the service fails the request
+  instead of newly creating the addressed entity because the [ETag](#UseofETagsforAvoidingUpdateConflicts)
   does not match
 - contains an [`If-None-Match: *`](#HeaderIfNoneMatch) header, the service MUST fail the request
   if it would update an existing entity in the absence of the header.
@@ -4760,8 +4760,8 @@ necessarily equivalent to the distinction between update and upsert (see also
 [example 85](#specialization)). If the request
 - contains an `If-Match: *` header, the service MUST fail the request
   if the navigation property is null
-- contains an `If-Match` header with an etag as value, the service fails the request
-  if the navigation property is null because the etag does not match
+- contains an `If-Match` header with an ETag as value, the service fails the request
+  if the navigation property is null because the ETag does not match
 - contains an `If-None-Match: *` header, the service MUST fail the request
   if the navigation property is not null.
 
