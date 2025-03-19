@@ -1309,6 +1309,19 @@ Example ##ex:
 Dynamic expressions allow assigning a calculated value to an applied
 term.
 
+If a calculated value is not acceptable for the type of the term or
+its [facets](#TypeFacets), does not meet the constraints imposed by its
+: varjson
+`$Nullable` member
+:
+: varxml
+`Nullable` attribute
+:
+or by its
+annotations from the Validation vocabulary [OData-VocValidation](#ODataVocValidation),
+the client SHOULD NOT make any assumptions about the application of the term
+(see [example ##termdefault]).
+
 ### ##subsubsec Path Expressions
 
 Path expressions allow assigning a value to an applied term or term
@@ -1953,6 +1966,34 @@ Example ##ex:
   <Path>@vCard.Address#work/FullName</Path>
 </Annotation>
 ```
+:::
+
+::: example
+Example ##ex_termdefault: The first name of a bot cannot be changed after creation.
+:::: varxml
+```xml
+<Property Name="IsBot" Type="Edm.Boolean" Nullable="true" />
+<Property Name="FirstName" Type="Edm.String" Nullable="false">
+  <Annotation Term="Core.Immutable" Path="IsBot" />
+</Property>
+```
+::::
+:::: varjson
+```json
+"IsBot": {
+  "$Type": "Edm.Boolean",
+  "$Nullable": true
+},
+"FirstName": {
+  "@Core.Immutable": {
+    "$Path": "IsBot"
+  }
+}
+```
+::::
+If `IsBot` is `null` the client makes no assumption about the immutability of
+the `FirstName`. It can try to change it after creation while being prepared for an
+error response.
 :::
 
 ### ##subsubsec Comparison and Logical Operators
@@ -2729,6 +2770,13 @@ is the collection of the values calculated by each of the item
 expressions. The values of the child expressions MUST all be type
 compatible.
 
+If the value of a dynamic child expression is not acceptable for the type of the collection or
+its [facets](#TypeFacets), is null for a non-[nullable](#Nullable) collection
+or does not meet the constraints imposed by
+its annotations from the Validation vocabulary [OData-VocValidation](#ODataVocValidation),
+the client SHOULD NOT make any assumptions about the application of the term
+that rely on the value.
+
 ::: {.varjson .rep}
 Collection expressions are represented as arrays with one array item per
 item expression within the collection expression.
@@ -3160,6 +3208,13 @@ the base term or its base term etc. need not be specified again.
 
 For collection-valued properties the absence of a property value
 expression is equivalent to specifying an empty collection as its value.
+
+If a dynamically provided property value is not acceptable for the type of the property or
+its [facets](#TypeFacets), does not meet the constraints imposed by
+its [nullability](#Nullable) or by
+its annotations from the Validation vocabulary [OData-VocValidation](#ODataVocValidation),
+the client SHOULD NOT make any assumptions about the application of the term that rely on the
+property value.
 
 ::: {.varjson .rep}
 Record expressions are represented as objects with one member per
