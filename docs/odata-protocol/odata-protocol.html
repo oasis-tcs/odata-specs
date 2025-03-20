@@ -2347,7 +2347,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <h3 id="1142-create-an-entity"><a id="CreateanEntity" href="#CreateanEntity">11.4.2 Create an Entity</a></h3>
 </summary>
 <p>To create an entity in a collection, the client sends a <code>POST</code> request to that collection’s URL. The <code>POST</code> body MUST contain a single valid representation of an entity of the declared target entity type, or one of its derived types.</p>
-<p>If the service is unable to determine the canonical collection (as defined in <a href="#ContextURL">section 10</a>) for the entity, it MUST fail the request. Among other possibilities, this determination is possible if the resource path in the collection’s URL</p>
+<p>If the service is unable to determine the canonical collection (as defined in <a href="#ContextURL">section 10</a>) for the entity, it MUST fail the request. This determination is possible, for example, if the resource path in the collection’s URL</p>
 <ul>
 <li>consists of an entity set</li>
 <li>ends with a containment navigation property</li>
@@ -2584,7 +2584,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <h4 id="11432-upsert-an-entity"><a id="UpsertanEntity" href="#UpsertanEntity">11.4.3.2 Upsert an Entity</a></h4>
 </summary>
 <p>An upsert occurs when an <a href="#UpdateanEntity">update request</a> newly creates the addressed entity.</p>
-<p>If the service is unable to determine the canonical collection or canonical singleton (as defined in <a href="#ContextURL">section 10</a>) for the newly-created entity, if MUST fail the update request altogether. Among other possibilities, this determination is possible if the resource path of the request</p>
+<p>If the service is unable to determine the canonical collection or canonical singleton (as defined in <a href="#ContextURL">section 10</a>) for the newly-created entity, if MUST fail the update request altogether. This determination is possible, for example, if the resource path of the request</p>
 <ol type="1">
 <li>consists of an entity set followed by a key predicate</li>
 <li>consists of a singleton</li>

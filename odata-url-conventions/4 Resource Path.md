@@ -148,10 +148,10 @@ for example by:
   entity (see rules: `collectionNavigation` and `keyPredicate`).
   This is only allowed if the service can determine the canonical collection the canonical collection (as defined in [#OData-Protocol#ContextURL])
   from the resource path up to the `keyPredicate`.
-  Among other possibilities, this determination is possible if the resource path up to the `keyPredicate`
-  - consists of an entity set
-  - ends with a containment navigation property
-  - ends with a non-containment navigation property with a navigation property binding.
+  This determination is possible, for example, if the resource path segment before the `keyPredicate` is
+  - an entity set
+  - a containment navigation property
+  - a non-containment navigation property with a navigation property binding.
 
 ::: example
 Example ##ex:

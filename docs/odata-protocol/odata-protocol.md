@@ -4193,7 +4193,7 @@ or one of its derived types.
 
 If the service is unable to determine the canonical collection (as defined in [section 10](#ContextURL))
 for the entity, it MUST fail the request.
-Among other possibilities, this determination is possible if the resource path in the collection's URL
+This determination is possible, for example, if the resource path in the collection's URL
 - consists of an entity set
 - ends with a containment navigation property
 - ends with a non-containment navigation property with a navigation property binding
@@ -4721,7 +4721,7 @@ An upsert occurs when an [update request](#UpdateanEntity) newly creates the add
 If the service is unable to determine the
 canonical collection or canonical singleton (as defined in [section 10](#ContextURL)) for the newly-created entity,
 if MUST fail the update request altogether.
-Among other possibilities, this determination is possible if the resource path of the request
+This determination is possible, for example, if the resource path of the request
 1. consists of an entity set followed by a key predicate
 2. consists of a singleton
 3. ends with a containment navigation property,
