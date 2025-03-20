@@ -251,33 +251,33 @@ For complete copyright information please see the full Notices section in an App
       - [11.4.2.2 Create Related Entities When Creating an Entity](#CreateRelatedEntitiesWhenCreatinganEntity)
     - [11.4.3 Update an Entity](#UpdateanEntity)
       - [11.4.3.1 Update Related Entities When Updating an Entity](#UpdateRelatedEntitiesWhenUpdatinganEntity)
-    - [11.4.4 Upsert an Entity](#UpsertanEntity)
-    - [11.4.5 Delete an Entity](#DeleteanEntity)
-    - [11.4.6 Modifying Relationships between Entities](#ModifyingRelationshipsbetweenEntities)
-      - [11.4.6.1 Add a Reference to a Collection-Valued Navigation Property](#AddaReferencetoaCollectionValuedNavigationProperty)
-      - [11.4.6.2 Remove a Reference to an Entity](#RemoveaReferencetoanEntity)
-      - [11.4.6.3 Change the Reference in a Single-Valued Navigation Property](#ChangetheReferenceinaSingleValuedNavigationProperty)
-      - [11.4.6.4 Replace all References in a Collection-Valued Navigation Property](#ReplaceallReferencesinaCollectionValuedNavigationProperty)
-    - [11.4.7 Managing Media Entities](#ManagingMediaEntities)
-      - [11.4.7.1 Create a Media Entity](#CreateaMediaEntity)
-      - [11.4.7.2 Update a Media Entity Stream](#UpdateaMediaEntityStream)
-      - [11.4.7.3 Delete a Media Entity](#DeleteaMediaEntity)
-    - [11.4.8 Managing Stream Properties](#ManagingStreamProperties)
-      - [11.4.8.1 Update Stream Values](#UpdateStreamValues)
-      - [11.4.8.2 Delete Stream Values](#DeleteStreamValues)
-    - [11.4.9 Managing Values and Properties Directly](#ManagingValuesandPropertiesDirectly)
-      - [11.4.9.1 Update a Primitive Property](#UpdateaPrimitiveProperty)
-      - [11.4.9.2 Set a Value to Null](#SetaValuetoNull)
-      - [11.4.9.3 Update a Complex Property](#UpdateaComplexProperty)
-      - [11.4.9.4 Update a Collection Property](#UpdateaCollectionProperty)
-    - [11.4.10 Managing Members of an Ordered Collection](#ManagingMembersofanOrderedCollection)
-    - [11.4.11 Positional Inserts](#PositionalInserts)
-    - [11.4.12 Update a Collection of Entities](#UpdateaCollectionofEntities)
-      - [11.4.12.1 Error Handling when Updating a Collection of Entities](#ErrorHandlingwhenUpdatingaCollectionofEntities)
-    - [11.4.13 Replace a Collection of Entities](#ReplaceaCollectionofEntities)
-      - [11.4.13.1 Error Handling when Replacing a Collection of Entities](#ErrorHandlingwhenReplacingaCollectionofEntities)
-    - [11.4.14 Update Members of a Collection](#UpdateMembersofaCollection)
-    - [11.4.15 Delete Members of a Collection](#DeleteMembersofaCollection)
+      - [11.4.3.2 Upsert an Entity](#UpsertanEntity)
+    - [11.4.4 Delete an Entity](#DeleteanEntity)
+    - [11.4.5 Modifying Relationships between Entities](#ModifyingRelationshipsbetweenEntities)
+      - [11.4.5.1 Add a Reference to a Collection-Valued Navigation Property](#AddaReferencetoaCollectionValuedNavigationProperty)
+      - [11.4.5.2 Remove a Reference to an Entity](#RemoveaReferencetoanEntity)
+      - [11.4.5.3 Change the Reference in a Single-Valued Navigation Property](#ChangetheReferenceinaSingleValuedNavigationProperty)
+      - [11.4.5.4 Replace all References in a Collection-Valued Navigation Property](#ReplaceallReferencesinaCollectionValuedNavigationProperty)
+    - [11.4.6 Managing Media Entities](#ManagingMediaEntities)
+      - [11.4.6.1 Create a Media Entity](#CreateaMediaEntity)
+      - [11.4.6.2 Update a Media Entity Stream](#UpdateaMediaEntityStream)
+      - [11.4.6.3 Delete a Media Entity](#DeleteaMediaEntity)
+    - [11.4.7 Managing Stream Properties](#ManagingStreamProperties)
+      - [11.4.7.1 Update Stream Values](#UpdateStreamValues)
+      - [11.4.7.2 Delete Stream Values](#DeleteStreamValues)
+    - [11.4.8 Managing Values and Properties Directly](#ManagingValuesandPropertiesDirectly)
+      - [11.4.8.1 Update a Primitive Property](#UpdateaPrimitiveProperty)
+      - [11.4.8.2 Set a Value to Null](#SetaValuetoNull)
+      - [11.4.8.3 Update a Complex Property](#UpdateaComplexProperty)
+      - [11.4.8.4 Update a Collection Property](#UpdateaCollectionProperty)
+    - [11.4.9 Managing Members of an Ordered Collection](#ManagingMembersofanOrderedCollection)
+    - [11.4.10 Positional Inserts](#PositionalInserts)
+    - [11.4.11 Update a Collection of Entities](#UpdateaCollectionofEntities)
+      - [11.4.11.1 Error Handling when Updating a Collection of Entities](#ErrorHandlingwhenUpdatingaCollectionofEntities)
+    - [11.4.12 Replace a Collection of Entities](#ReplaceaCollectionofEntities)
+      - [11.4.12.1 Error Handling when Replacing a Collection of Entities](#ErrorHandlingwhenReplacingaCollectionofEntities)
+    - [11.4.13 Update Members of a Collection](#UpdateMembersofaCollection)
+    - [11.4.14 Delete Members of a Collection](#DeleteMembersofaCollection)
   - [11.5 Operations](#Operations)
     - [11.5.1 Binding an Operation to a Resource](#BindinganOperationtoaResource)
     - [11.5.2 Applying an Operation to Members of a Collection](#ApplyinganOperationtoMembersofaCollection)
@@ -361,10 +361,10 @@ Section | Feature / Change | Issue
 [Section 11.4.2](#CreateanEntity)| Services can validate non-insertable property values in insert payloads| [356](https://github.com/oasis-tcs/odata-specs/issues/356)
 [Section 11.4.2.2](#CreateRelatedEntitiesWhenCreatinganEntity)| Deep-insert response includes at least the properties present in the request| [363](https://github.com/oasis-tcs/odata-specs/issues/363)
 [Section 11.4.3](#UpdateanEntity)| Services can validate non-updatable property values in update payloads| [356](https://github.com/oasis-tcs/odata-specs/issues/356)
-[Section 11.4.4](#UpsertanEntity)| Upserts to single-valued non-containment navigation properties| [455](https://github.com/oasis-tcs/odata-specs/issues/455)
-[Section 11.4.9.3](#UpdateaComplexProperty)| Setting a complex property to a different type| [534](https://github.com/oasis-tcs/odata-specs/issues/534)
-[Section 11.4.12](#UpdateaCollectionofEntities)| Control information to prevent updates| [2021](https://github.com/oasis-tcs/odata-specs/issues/2021)
-[Section 11.4.13](#ReplaceaCollectionofEntities)| Semantics of `continue-on-error` when replacing a collection of entities | [358](https://github.com/oasis-tcs/odata-specs/issues/358)
+[Section 11.4.3.2](#UpsertanEntity)| Upserts to single-valued non-containment navigation properties| [455](https://github.com/oasis-tcs/odata-specs/issues/455)
+[Section 11.4.8.3](#UpdateaComplexProperty)| Setting a complex property to a different type| [534](https://github.com/oasis-tcs/odata-specs/issues/534)
+[Section 11.4.11](#UpdateaCollectionofEntities)| Control information to prevent updates| [2021](https://github.com/oasis-tcs/odata-specs/issues/2021)
+[Section 11.4.12](#ReplaceaCollectionofEntities)| Semantics of `continue-on-error` when replacing a collection of entities | [358](https://github.com/oasis-tcs/odata-specs/issues/358)
 [Section 12](#Conformance) | Allow `400 Bad Request` in addition to `501 Not Implemented` for unsupported functionality| [391](https://github.com/oasis-tcs/odata-specs/issues/391)
 [Section 12.3](#InteroperableODataClients) | Encoding of plus character in URLs | [485](https://github.com/oasis-tcs/odata-specs/issues/485)
 
@@ -4191,6 +4191,21 @@ to that collection's URL. The `POST` body MUST contain a single valid
 representation of an entity of the declared target entity type,
 or one of its derived types.
 
+If the service is unable to determine the canonical collection (as defined in [section 10](#ContextURL))
+for the entity, it MUST fail the request.
+Among other possibilities, this determination is possible if the resource path in the collection's URL
+- consists of an entity set
+- ends with a containment navigation property
+- ends with a non-containment navigation property with a navigation property binding
+
+or the payload contains a context URL.
+
+If the resource path ends with a non-containment navigation property,
+the service MUST fail the request if the
+entity represented in the payload exists already
+and otherwise create the entity in the determined canonical collection and
+add a reference to the collection given in the resource path.
+
 The entity representation MAY include [references to existing
 entities](#LinktoRelatedEntitiesWhenCreatinganEntity) as well as content for
 [new related entities](#CreateRelatedEntitiesWhenCreatinganEntity), but MUST
@@ -4375,7 +4390,7 @@ body. Collection properties and primitive properties provided in the
 payload corresponding to updatable properties MUST replace the value of
 the corresponding property in the entity or complex type.
 Complex properties are updated by applying `PATCH` semantics recursively,
-see also [section 11.4.9.3](#UpdateaComplexProperty).
+see also [section 11.4.8.3](#UpdateaComplexProperty).
 Omitted properties of the containing entity or complex property, including
 dynamic properties, MUST NOT be directly altered unless as a side effect
 of changes resulting from the provided properties.
@@ -4699,21 +4714,17 @@ operations.
 On failure, the service MUST NOT apply any of the changes specified in
 the request.
 
-### <a id="UpsertanEntity" href="#UpsertanEntity">11.4.4 Upsert an Entity</a>
+#### <a id="UpsertanEntity" href="#UpsertanEntity">11.4.3.2 Upsert an Entity</a>
 
-An upsert occurs when the client sends an [update
-request](#UpdateanEntity) to a valid URL for addressing a single entity [OData-URL, section 4.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingEntities)
-and the requested update newly creates the addressed entity.
-In this case the service MUST handle the
-request as a [create entity request](#CreateanEntity) or fail the
-request altogether.
+An upsert occurs when an [update request](#UpdateanEntity) newly creates the addressed entity.
 
-Upserts are possible if the canonical collection or canonical singleton
-(as defined in [section 10](#ContextURL)) can be determined for the newly-created entity.
-Among other possibilities, this is the case if the resource path in the URL
+If the service cannot determine the
+canonical collection or canonical singleton (as defined in [section 10](#ContextURL)) for the newly-created entity,
+if MUST fail the update request altogether.
+Among other possibilities, this determination is possible if the resource path of the request
 1. consists of an entity set followed by a key predicate
 2. consists of a singleton
-3. ends with a containment navigation property segment,
+3. ends with a containment navigation property,
    followed by a key predicate if this is collection-valued
 4. ends with a non-containment navigation property with a navigation property binding,
    followed by a key predicate if this is collection-valued
@@ -4742,21 +4753,21 @@ services MUST either fail the request or ignore the value in the request body.
 
 If the URL of an update request falls into case 1, 2, or 3 given above and the request
 - contains an [`If-Match: *`](#HeaderIfMatch) header, the service MUST fail the request
-  if it would newly create the addressed entity in the absence of the header
+  if an upsert would occur
 - contains an `If-Match` header with an ETag as value, the service fails the request
-  instead of newly creating the addressed entity because the [ETag](#UseofETagsforAvoidingUpdateConflicts)
+  instead of performing an upsert because the [ETag](#UseofETagsforAvoidingUpdateConflicts)
   does not match
 - contains an [`If-None-Match: *`](#HeaderIfNoneMatch) header, the service MUST fail the request
-  if it would update an existing entity in the absence of the header.
+  if no upsert would occur.
 
-In other words, the `If-`(`None-`)`Match` header distinguishes between update and upsert
-in these cases.
+In other words, the `If-`(`None-`)`Match` header distinguishes between upsert
+and no upsert in these cases.
 
 If the URL of an update request does not fall into case 1, 2, or 3 given above, it ends
 with a non-containment navigation property, optionally followed by a key predicate.
 In this case, the `If-`(`None-`)`Match` header distinguishes between cases where
-the entity addressed by the navigation property exists and where not, but this is not
-necessarily equivalent to the distinction between update and upsert (see also
+the related entity exists and where not, but this is not
+necessarily equivalent to the upsert distinction (see also
 [example 85](#specialization)). If the request
 - contains an `If-Match: *` header, the service MUST fail the request
   if the navigation property is null
@@ -4765,8 +4776,8 @@ necessarily equivalent to the distinction between update and upsert (see also
 - contains an `If-None-Match: *` header, the service MUST fail the request
   if the navigation property is not null.
 
-Note that if the service does not fail here, it may update the navigation property to point to an existing
-or a newly-created entity (that is, perform an update or an upsert), independently of
+Note that if the service does not fail here, it may update the navigation property to point to
+a newly-created or an existing entity (that is, perform an upsert or not), independently of
 the `If-`(`None-`)`Match` header. To rule out an upsert in this case,
 the client MAY send a request
 payload consisting of an entity reference [OData-JSON, section 14](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#EntityReference) or use
@@ -4781,11 +4792,11 @@ http://server/Orders(23)/Customer
 ```
 has value `null` if and only if there is no entity in `InvolvedParties` with the customer role
 or, equivalently, if a PATCH request to that URL is an upsert. In this case, the
-`If-`(`None-`)`Match` header distinguishes between update and upsert although the URL
+`If-`(`None-`)`Match` header distinguishes between upsert and no upsert although the URL
 falls into case 4 given above.
 :::
 
-### <a id="DeleteanEntity" href="#DeleteanEntity">11.4.5 Delete an Entity</a>
+### <a id="DeleteanEntity" href="#DeleteanEntity">11.4.4 Delete an Entity</a>
 
 To delete an individual entity, the client makes a `DELETE` request to a
 URL that identifies the entity. The [edit URL](#ReadURLsandEditURLs)
@@ -4817,13 +4828,13 @@ One such integrity constraint results from using a navigation property
 in a key definition of an entity type. If the related "key" entity is
 deleted, the dependent entity is also deleted.
 
-### <a id="ModifyingRelationshipsbetweenEntities" href="#ModifyingRelationshipsbetweenEntities">11.4.6 Modifying Relationships between Entities</a>
+### <a id="ModifyingRelationshipsbetweenEntities" href="#ModifyingRelationshipsbetweenEntities">11.4.5 Modifying Relationships between Entities</a>
 
 Relationships between entities are represented by navigation properties
 as described in [Data Model](#DataModel). URL conventions for navigation
 properties are described in [OData-URL, section 4.3.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#URLsforRelatedEntitieswithReferentialConstraints).
 
-#### <a id="AddaReferencetoaCollectionValuedNavigationProperty" href="#AddaReferencetoaCollectionValuedNavigationProperty">11.4.6.1 Add a Reference to a Collection-Valued Navigation Property</a>
+#### <a id="AddaReferencetoaCollectionValuedNavigationProperty" href="#AddaReferencetoaCollectionValuedNavigationProperty">11.4.5.1 Add a Reference to a Collection-Valued Navigation Property</a>
 
 A successful `POST` request to a navigation property's references
 collection adds a relationship to an existing entity. The request body
@@ -4836,7 +4847,7 @@ On successful completion, the response MUST be
 Note that if the two entities are already related prior to the request,
 the request is completed successfully.
 
-#### <a id="RemoveaReferencetoanEntity" href="#RemoveaReferencetoanEntity">11.4.6.2 Remove a Reference to an Entity</a>
+#### <a id="RemoveaReferencetoanEntity" href="#RemoveaReferencetoanEntity">11.4.5.2 Remove a Reference to an Entity</a>
 
 A successful `DELETE` request to the URL that represents a reference to
 a related entity removes the relationship to that entity.
@@ -4858,7 +4869,7 @@ constraints](#HandlingofIntegrityConstraints) in the data model.
 On successful completion, the response MUST be
 [`204 No Content`](#ResponseCode204NoContent) and contain an empty body.
 
-#### <a id="ChangetheReferenceinaSingleValuedNavigationProperty" href="#ChangetheReferenceinaSingleValuedNavigationProperty">11.4.6.3 Change the Reference in a Single-Valued Navigation Property</a>
+#### <a id="ChangetheReferenceinaSingleValuedNavigationProperty" href="#ChangetheReferenceinaSingleValuedNavigationProperty">11.4.5.3 Change the Reference in a Single-Valued Navigation Property</a>
 
 A successful `PUT` request to a single-valued navigation property's
 reference resource changes the related entity. The request body MUST
@@ -4878,7 +4889,7 @@ of an entity type, it cannot be changed and the request MUST fail with
 [`405 Method Not Allowed`](#ResponseCode405MethodNotAllowed) or an other
 appropriate error.
 
-#### <a id="ReplaceallReferencesinaCollectionValuedNavigationProperty" href="#ReplaceallReferencesinaCollectionValuedNavigationProperty">11.4.6.4 Replace all References in a Collection-Valued Navigation Property</a>
+#### <a id="ReplaceallReferencesinaCollectionValuedNavigationProperty" href="#ReplaceallReferencesinaCollectionValuedNavigationProperty">11.4.5.4 Replace all References in a Collection-Valued Navigation Property</a>
 
 A successful `PUT` request to a collection-valued navigation property's
 reference resource replaces the set of related entities. The request
@@ -4890,7 +4901,7 @@ A successful `DELETE` request to a collection-valued navigation
 property's reference resource removes all related references from the
 collection.
 
-### <a id="ManagingMediaEntities" href="#ManagingMediaEntities">11.4.7 Managing Media Entities</a>
+### <a id="ManagingMediaEntities" href="#ManagingMediaEntities">11.4.6 Managing Media Entities</a>
 
 A [media entity](#RequestingtheMediaStreamofaMediaEntityusingvalue) MUST have a
 source URL that can be used to read the media stream, and MAY have a
@@ -4899,7 +4910,7 @@ media edit URL that can be used to write to the media stream.
 Because a media entity has both a media stream and standard entity
 properties special handling is required.
 
-#### <a id="CreateaMediaEntity" href="#CreateaMediaEntity">11.4.7.1 Create a Media Entity</a>
+#### <a id="CreateaMediaEntity" href="#CreateaMediaEntity">11.4.6.1 Create a Media Entity</a>
 
 A `PUT` request to the media edit URL of a null-valued singleton media entity
 (by convention, the resource path of the media entity URL appended with `/$value`),
@@ -4922,7 +4933,7 @@ Upon successful completion the service responds with either
 [`204 No Content`](#ResponseCode204NoContent) if the request included a
 [`return=minimal`](#Preferencereturnrepresentationandreturnminimal) preference.
 
-#### <a id="UpdateaMediaEntityStream" href="#UpdateaMediaEntityStream">11.4.7.2 Update a Media Entity Stream</a>
+#### <a id="UpdateaMediaEntityStream" href="#UpdateaMediaEntityStream">11.4.6.2 Update a Media Entity Stream</a>
 
 A successful `PUT` request to the media edit URL of an existing media entity
 changes the media stream of the entity.
@@ -4947,7 +4958,7 @@ On success, the service MUST respond with either
 [`return=representation`](#Preferencereturnrepresentationandreturnminimal), in
 which case the response body MUST contain the updated media entity.
 
-#### <a id="DeleteaMediaEntity" href="#DeleteaMediaEntity">11.4.7.3 Delete a Media Entity</a>
+#### <a id="DeleteaMediaEntity" href="#DeleteaMediaEntity">11.4.6.3 Delete a Media Entity</a>
 
 A successful `DELETE` request to the entity's edit URL or to the edit
 URL of its media stream deletes the media entity as described in [Delete
@@ -4956,7 +4967,7 @@ an Entity](#DeleteanEntity).
 Deleting a media entity also deletes the media associated with the
 entity.
 
-### <a id="ManagingStreamProperties" href="#ManagingStreamProperties">11.4.8 Managing Stream Properties</a>
+### <a id="ManagingStreamProperties" href="#ManagingStreamProperties">11.4.7 Managing Stream Properties</a>
 
 An entity may have one or more _stream properties_. Stream properties
 are properties of type `Edm.Stream`.
@@ -5010,7 +5021,7 @@ or a [`3xx Redirect`](#ResponseCode3xxRedirection) to the media read link of the
 Note: for scenarios in which the media value can only be inlined,
 the property should instead be modeled with type `Edm.Binary`.
 
-#### <a id="UpdateStreamValues" href="#UpdateStreamValues">11.4.8.1 Update Stream Values</a>
+#### <a id="UpdateStreamValues" href="#UpdateStreamValues">11.4.7.1 Update Stream Values</a>
 
 A successful `PUT` request to the edit URL of a stream property changes
 the media stream associated with that property.
@@ -5041,7 +5052,7 @@ Services supporting this SHOULD advertise it by annotating the stream
 property with the term `Capabilities.MediaLocationUpdateSupported`
 defined in [OData-VocCap](#ODataVocCap).
 
-#### <a id="DeleteStreamValues" href="#DeleteStreamValues">11.4.8.2 Delete Stream Values</a>
+#### <a id="DeleteStreamValues" href="#DeleteStreamValues">11.4.7.2 Delete Stream Values</a>
 
 A successful `DELETE` request to the edit URL of a stream property
 attempts to set the property to null and results in an error if the
@@ -5059,7 +5070,7 @@ DELETE http://server/uploads/Thumbnail546.jpg
 Attempting to request a stream property whose value is null results in
 [`204 No Content`](#ResponseCode204NoContent).
 
-### <a id="ManagingValuesandPropertiesDirectly" href="#ManagingValuesandPropertiesDirectly">11.4.9 Managing Values and Properties Directly</a>
+### <a id="ManagingValuesandPropertiesDirectly" href="#ManagingValuesandPropertiesDirectly">11.4.8 Managing Values and Properties Directly</a>
 
 Values and properties can be explicitly addressed with URLs. The edit
 URL of a property is the edit URL of the entity appended with the path
@@ -5067,7 +5078,7 @@ segment(s) specifying the individual property. The edit URL allows
 properties to be individually modified. See [OData-URL, section 4.6](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingaProperty) for
 details on addressing individual properties.
 
-#### <a id="UpdateaPrimitiveProperty" href="#UpdateaPrimitiveProperty">11.4.9.1 Update a Primitive Property</a>
+#### <a id="UpdateaPrimitiveProperty" href="#UpdateaPrimitiveProperty">11.4.8.1 Update a Primitive Property</a>
 
 A successful `PUT` request to the edit URL for a primitive property
 updates the value of the property. The message body MUST contain the new
@@ -5090,7 +5101,7 @@ that the response SHOULD include a body by specifying a
 
 Services MUST return an error if the property is not updatable.
 
-#### <a id="SetaValuetoNull" href="#SetaValuetoNull">11.4.9.2 Set a Value to Null</a>
+#### <a id="SetaValuetoNull" href="#SetaValuetoNull">11.4.8.2 Set a Value to Null</a>
 
 A successful `DELETE` request to the edit URL for a structural property,
 or to the edit URL of the [raw
@@ -5115,7 +5126,7 @@ Services MUST return an error if the property is not updatable.
 property](#UpdateaComplexProperty) with a null value also sets the
 property to null.
 
-#### <a id="UpdateaComplexProperty" href="#UpdateaComplexProperty">11.4.9.3 Update a Complex Property</a>
+#### <a id="UpdateaComplexProperty" href="#UpdateaComplexProperty">11.4.8.3 Update a Complex Property</a>
 
 A successful `PATCH` request to the edit URL for a complex typed
 property updates that property. The request body MUST contain a single
@@ -5142,7 +5153,7 @@ that the response SHOULD include a body by specifying a
 
 Services MUST return an error if the property is not updatable.
 
-#### <a id="UpdateaCollectionProperty" href="#UpdateaCollectionProperty">11.4.9.4 Update a Collection Property</a>
+#### <a id="UpdateaCollectionProperty" href="#UpdateaCollectionProperty">11.4.8.4 Update a Collection Property</a>
 
 A successful `PUT` request to the edit URL of a collection property
 updates that collection. The message body MUST contain the desired new
@@ -5173,7 +5184,7 @@ that the response SHOULD include a body by specifying a
 
 Services MUST return an error if the property is not updatable.
 
-### <a id="ManagingMembersofanOrderedCollection" href="#ManagingMembersofanOrderedCollection">11.4.10 Managing Members of an Ordered Collection</a>
+### <a id="ManagingMembersofanOrderedCollection" href="#ManagingMembersofanOrderedCollection">11.4.9 Managing Members of an Ordered Collection</a>
 
 Collections annotated with the
 [`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered)
@@ -5188,7 +5199,7 @@ last item in the collection.
 Entities can be updated using their edit URL and SHOULD NOT be addressed
 using an index.
 
-### <a id="PositionalInserts" href="#PositionalInserts">11.4.11 Positional Inserts</a>
+### <a id="PositionalInserts" href="#PositionalInserts">11.4.10 Positional Inserts</a>
 
 Collections of entity, complex, or primitive types annotated with the
 [`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
@@ -5215,7 +5226,7 @@ Content-Type: application/json
 
 :::
 
-### <a id="UpdateaCollectionofEntities" href="#UpdateaCollectionofEntities">11.4.12 Update a Collection of Entities</a>
+### <a id="UpdateaCollectionofEntities" href="#UpdateaCollectionofEntities">11.4.11 Update a Collection of Entities</a>
 
 Collections of entities can be updated by submitting a `PATCH` request
 to the resource path of the collection. The body of the request MUST be
@@ -5262,7 +5273,7 @@ MUST NOT be treated as an update.
 The response, if requested, is a delta payload, in the same structure
 and order as the request payload, representing the applied changes.
 
-#### <a id="ErrorHandlingwhenUpdatingaCollectionofEntities" href="#ErrorHandlingwhenUpdatingaCollectionofEntities">11.4.12.1 Error Handling when Updating a Collection of Entities</a>
+#### <a id="ErrorHandlingwhenUpdatingaCollectionofEntities" href="#ErrorHandlingwhenUpdatingaCollectionofEntities">11.4.11.1 Error Handling when Updating a Collection of Entities</a>
 
 If the `continue-on-error` preference has not been applied, and the
 service is unable to apply all of the changes in the request, then it
@@ -5301,7 +5312,7 @@ If an individual change fails due to a failed dependency, it MUST be
 annotated with the term [`Core.DataModificationException`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DataModificationException) and SHOULD specify
 a `responseCode` of `424` ([Failed Dependency](#ResponseCode424FailedDependency)).
 
-### <a id="ReplaceaCollectionofEntities" href="#ReplaceaCollectionofEntities">11.4.13 Replace a Collection of Entities</a>
+### <a id="ReplaceaCollectionofEntities" href="#ReplaceaCollectionofEntities">11.4.12 Replace a Collection of Entities</a>
 
 Collections of entities can be replaced by submitting a `PUT` request
 to the resource path of the collection. The body of the request MUST be
@@ -5318,7 +5329,7 @@ change and instead [report](#ErrorHandlingwhenReplacingaCollectionofEntities)
 a `412 Precondition Failed`. The special ETag value `*` can be used to match any existing entity
 but fail if the entity does not already exist.
 
-#### <a id="ErrorHandlingwhenReplacingaCollectionofEntities" href="#ErrorHandlingwhenReplacingaCollectionofEntities">11.4.13.1 Error Handling when Replacing a Collection of Entities</a>
+#### <a id="ErrorHandlingwhenReplacingaCollectionofEntities" href="#ErrorHandlingwhenReplacingaCollectionofEntities">11.4.12.1 Error Handling when Replacing a Collection of Entities</a>
 
 If the `continue-on-error` preference has not been applied, and the
 service is unable to apply all of the changes in the request, then it
@@ -5344,7 +5355,7 @@ the service, as follows:
 - Collections within the request MUST also be represented in the response
   following these same rules.
 
-### <a id="UpdateMembersofaCollection" href="#UpdateMembersofaCollection">11.4.14 Update Members of a Collection</a>
+### <a id="UpdateMembersofaCollection" href="#UpdateMembersofaCollection">11.4.13 Update Members of a Collection</a>
 
 Members of a collection can be updated by submitting a `PATCH` request
 to the URL constructed by appending `/$each` to the resource path of the
@@ -5404,7 +5415,7 @@ service is unable to update all of the members identified by the
 request, then it MUST return an error response and MUST NOT apply any
 updates.
 
-### <a id="DeleteMembersofaCollection" href="#DeleteMembersofaCollection">11.4.15 Delete Members of a Collection</a>
+### <a id="DeleteMembersofaCollection" href="#DeleteMembersofaCollection">11.4.14 Delete Members of a Collection</a>
 
 Members of a collection can be deleted by submitting a `DELETE` request
 to the URL constructed by appending `/$each` to the resource path of the
@@ -6811,29 +6822,29 @@ updatable or deletable resources according to [OData-JSON, section 4.6.9](https:
 20. MUST support `POST` of new related entities to updatable navigation
 properties ([section 11.4.2](#CreateanEntity))
 21. MUST support `POST` to `$ref` to add an existing entity to an
-updatable related collection ([section 11.4.6.1](#AddaReferencetoaCollectionValuedNavigationProperty))
+updatable related collection ([section 11.4.5.1](#AddaReferencetoaCollectionValuedNavigationProperty))
 22. MUST support `PUT` to `$ref` to set an existing single updatable
-related entity ([section 11.4.6.3](#ChangetheReferenceinaSingleValuedNavigationProperty))
+related entity ([section 11.4.5.3](#ChangetheReferenceinaSingleValuedNavigationProperty))
 23. MUST support `PATCH` to all edit URLs for updatable resources
 ([section 11.4.3](#UpdateanEntity))
 24. MUST support `DELETE` to all edit URLs for deletable resources
-([section 11.4.5](#DeleteanEntity))
+([section 11.4.4](#DeleteanEntity))
 25. MUST support `DELETE` to `$ref` to remove a reference to an entity
-from an updatable navigation property ([section 11.4.6.2](#RemoveaReferencetoanEntity))
+from an updatable navigation property ([section 11.4.5.2](#RemoveaReferencetoanEntity))
 26. MUST support `If-Match` header in update/delete of any resources
 returned with an ETag ([section 11.4.1.1](#UseofETagsforAvoidingUpdateConflicts))
 27. MUST return a `Location` header with the edit URL or read URL of a
 created resource ([section 11.4.2](#CreateanEntity))
 28. MUST include the `OData-EntityId` header in response to any create
 or upsert operation that returns `204 No Content` ([section 8.3.4](#HeaderODataEntityId))
-29. MUST support Upserts ([section 11.4.4](#UpsertanEntity))
+29. MUST support Upserts ([section 11.4.3.2](#UpsertanEntity))
 30. SHOULD support `PUT` and `PATCH` to an individual primitive
-([section 11.4.9.1](#UpdateaPrimitiveProperty)) or complex ([section 11.4.9.3](#UpdateaComplexProperty)) property (respectively)
+([section 11.4.8.1](#UpdateaPrimitiveProperty)) or complex ([section 11.4.8.3](#UpdateaComplexProperty)) property (respectively)
 31. SHOULD support `DELETE` to set an individual property to null
-([section 11.4.9.2](#SetaValuetoNull))
+([section 11.4.8.2](#SetaValuetoNull))
 32. SHOULD support deep inserts ([section 11.4.2.2](#CreateRelatedEntitiesWhenCreatinganEntity))
-33. MAY support set-based updates ([section 11.4.14](#UpdateMembersofaCollection)) or deletes
-([section 11.4.15](#DeleteMembersofaCollection)) to members of a collection
+33. MAY support set-based updates ([section 11.4.13](#UpdateMembersofaCollection)) or deletes
+([section 11.4.14](#DeleteMembersofaCollection)) to members of a collection
 
 ### <a id="OData40IntermediateConformanceLevel" href="#OData40IntermediateConformanceLevel">12.1.2 OData 4.0 Intermediate Conformance Level</a>
 
@@ -7001,7 +7012,7 @@ service:
 18. MUST conform to the [OData 4.0 Minimal Conformance
 Level](#OData40MinimalConformanceLevel) for an Updateable service.
 19. MUST support `DELETE` to the reference of a collection member to be
-removed, identified by key ([section 11.4.6.2](#RemoveaReferencetoanEntity))
+removed, identified by key ([section 11.4.5.2](#RemoveaReferencetoanEntity))
 20. SHOULD support `PUT` against single entity with nested content
 21. SHOULD support deep updates ([section 11.4.3.1](#UpdateRelatedEntitiesWhenUpdatinganEntity)) and deep inserts
 ([section 11.4.2.2](#CreateRelatedEntitiesWhenCreatinganEntity))

@@ -656,7 +656,12 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </div>
 <p>Often however a single entity is accessed by composing more path segments to a <code>resourcePath</code> that identifies a collection of entities, for example by:</p>
 <ul>
-<li>Using an entity key to select a single entity (see rules: <code>collectionNavigation</code> and <code>keyPredicate</code>)</li>
+<li>Using an entity key to select a single entity (see rules: <code>collectionNavigation</code> and <code>keyPredicate</code>). This is only allowed if the service can determine the canonical collection the canonical collection (as defined in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ContextURL">OData-Protocol, section 10</a>) from the resource path up to the <code>keyPredicate</code>. Among other possibilities, this determination is possible if the resource path up to the <code>keyPredicate</code>
+<ul>
+<li>consists of an entity set</li>
+<li>ends with a containment navigation property</li>
+<li>ends with a non-containment navigation property with a navigation property binding.</li>
+</ul></li>
 </ul>
 <div class="example">
 <p>Example 12:</p>

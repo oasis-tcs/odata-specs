@@ -604,7 +604,13 @@ Often however a single entity is accessed by composing more path
 segments to a `resourcePath` that identifies a collection of entities,
 for example by:
 - Using an entity key to select a single
-entity (see rules: `collectionNavigation` and `keyPredicate`)
+  entity (see rules: `collectionNavigation` and `keyPredicate`).
+  This is only allowed if the service can determine the canonical collection the canonical collection (as defined in [OData-Protocol, section 10](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ContextURL))
+  from the resource path up to the `keyPredicate`.
+  Among other possibilities, this determination is possible if the resource path up to the `keyPredicate`
+  - consists of an entity set
+  - ends with a containment navigation property
+  - ends with a non-containment navigation property with a navigation property binding.
 
 ::: example
 Example 12:

@@ -2398,7 +2398,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <li>The “delta time slices” in <code>deltaTimeslices</code> are processed in the order of the collection.</li>
 <li>For each delta time slice all time slices from the bound collection are selected whose temporal object key values are identical to the values of corresponding properties present in the delta time slice, and whose application-time period overlaps with the period of the delta time slice.</li>
 <li>Selected time slices whose period is not fully included in the period of the delta time slice are split into two consecutive time slices, one with non-overlapping, and one with fully included period.</li>
-<li>Then all fully included time slices (including ones created in the previous step) are deleted following the rules for deleting entities specified in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#DeleteanEntity">OData-Protocol, section 11.4.5</a>.</li>
+<li>Then all fully included time slices (including ones created in the previous step) are deleted following the rules for deleting entities specified in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#DeleteanEntity">OData-Protocol, section 11.4.4</a>.</li>
 </ol>
 <p>On success it returns the deleted time slices.</p>
 </details>
