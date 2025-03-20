@@ -4201,10 +4201,10 @@ Among other possibilities, this determination is possible if the resource path i
 or the payload contains a context URL.
 
 The service MUST fail the request if the
-entity represented in the payload exists already.
-Otherwise, if the resource path ends with a non-containment navigation property
-the entity is created in the determined canonical collection and
-a reference added to the collection given in the resource path.
+entity represented in the payload exists already in the determined canonical collection.
+Otherwise the entity is created in the determined canonical collection and,
+if the resource path ends with a non-containment navigation property,
+a reference is added to the collection given in the resource path.
 
 The entity representation MAY include [references to existing
 entities](#LinktoRelatedEntitiesWhenCreatinganEntity) as well as content for
