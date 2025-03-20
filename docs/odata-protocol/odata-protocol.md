@@ -4717,15 +4717,20 @@ the request.
 #### <a id="UpsertanEntity" href="#UpsertanEntity">11.4.3.2 Upsert an Entity</a>
 
 An upsert occurs when an [update request](#UpdateanEntity) newly creates the addressed entity.
+Services that support this capability (instead of failing update requests for non-existing
+entities) SHOULD advertise it by an annotation with the
+term `Capabilities.UpdateRestrictions` (nested property `Upsertable`
+with value `true`) defined in [OData-VocCap](#ODataVocCap).
 
 If the service is unable to determine the
 canonical collection or canonical singleton (as defined in [section 10](#ContextURL)) for the newly-created entity,
 if MUST fail the update request altogether.
 This determination is possible, for example, if the resource path of the request
 1. consists of an entity set followed by a key predicate
-2. consists of a singleton
+2. consists of a singleton (which must be nullable for an upsert to occur)
 3. ends with a containment navigation property,
    followed by a key predicate if this is collection-valued
+   (and which must be nullable otherwise for an upsert to occur)
 4. ends with a non-containment navigation property with a navigation property binding,
    followed by a key predicate if this is collection-valued
 
@@ -4741,11 +4746,6 @@ semantics, in that the media entity is [created](#CreateaMediaEntity)
 with the specified media stream if it does not already exist, otherwise the
 media stream of the existing media entity is
 [updated](#UpdateaMediaEntityStream).
-
-Singletons and single-valued containment navigation properties can be upserted if they are nullable. Services
-supporting this SHOULD advertise it by an annotation with the
-term `Capabilities.UpdateRestrictions` (nested property `Upsertable`
-with value `true`) defined in [OData-VocCap](#ODataVocCap).
 
 A key property whose value is provided in the request URL SHOULD be omitted from the request body.
 If key properties are provided in the request URL and the request body with different values,
