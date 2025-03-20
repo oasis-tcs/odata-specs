@@ -2347,14 +2347,14 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <h3 id="1142-create-an-entity"><a id="CreateanEntity" href="#CreateanEntity">11.4.2 Create an Entity</a></h3>
 </summary>
 <p>To create an entity in a collection, the client sends a <code>POST</code> request to that collection’s URL. The <code>POST</code> body MUST contain a single valid representation of an entity of the declared target entity type, or one of its derived types.</p>
-<p>If the service is unable to determine the canonical collection (as defined in <a href="#ContextURL">section 10</a>) for the entity, it MUST fail the request. This determination is possible, for example, if the resource path in the collection’s URL</p>
+<p>If the service is unable to determine the canonical collection (as defined in <a href="#ContextURL">section 10</a>) for the entity, it MUST fail the request. This determination is possible, for example, if the collection’s URL</p>
 <ul>
 <li>consists of an entity set</li>
 <li>ends with a containment navigation property</li>
 <li>ends with a non-containment navigation property with a navigation property binding</li>
 </ul>
 <p>or the payload contains a context URL.</p>
-<p>The service MUST fail the request if the entity represented in the payload exists already in the determined collection. Otherwise the entity is created in the determined collection and, if the resource path ends with a non-containment navigation property, also linked to the entity containing the navigation property.</p>
+<p>The service MUST fail the request if the entity represented in the payload exists already in the determined collection. Otherwise the entity is created in the determined collection and, if the collection’s URL ends with a non-containment navigation property, also linked to the entity containing the navigation property.</p>
 <p>The entity representation MAY include <a href="#LinktoRelatedEntitiesWhenCreatinganEntity">references to existing entities</a> as well as content for <a href="#CreateRelatedEntitiesWhenCreatinganEntity">new related entities</a>, but MUST NOT contain content for existing related entities. The result of the operation is the entity with relationships to all included references to existing entities as well as all related entities created inline. If the key properties for an entity include key properties of a directly related entity, those related entities MUST be included either as references to existing entities or as content for new related entities.</p>
 <p>An entity may also be created as the result of an <a href="#UpsertanEntity">Upsert</a> operation.</p>
 <p>If the collection’s URL terminates in a type cast segment, then the segment MUST specify the type of, or a type derived from, the type of the collection, and the entity MUST be created as that specified type.</p>
