@@ -2584,7 +2584,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <h4 id="11432-upsert-an-entity"><a id="UpsertanEntity" href="#UpsertanEntity">11.4.3.2 Upsert an Entity</a></h4>
 </summary>
 <p>An upsert occurs when an <a href="#UpdateanEntity">update request</a> newly creates the addressed entity.</p>
-<p>If the service cannot determine the canonical collection or canonical singleton (as defined in <a href="#ContextURL">section 10</a>) for the newly-created entity, if MUST fail the update request altogether. Among other possibilities, this determination is possible if the resource path of the request</p>
+<p>If the service is unable to determine the canonical collection or canonical singleton (as defined in <a href="#ContextURL">section 10</a>) for the newly-created entity, if MUST fail the update request altogether. Among other possibilities, this determination is possible if the resource path of the request</p>
 <ol type="1">
 <li>consists of an entity set followed by a key predicate</li>
 <li>consists of a singleton</li>
@@ -2603,7 +2603,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <li>contains an <a href="#HeaderIfNoneMatch"><code>If-None-Match: *</code></a> header, the service MUST fail the request if no upsert would occur.</li>
 </ul>
 <p>In other words, the <code>If-</code>(<code>None-</code>)<code>Match</code> header distinguishes between upsert and no upsert in these cases.</p>
-<p>If the URL of an update request does not fall into case 1, 2, or 3 given above, it ends with a non-containment navigation property, optionally followed by a key predicate. In this case, the <code>If-</code>(<code>None-</code>)<code>Match</code> header distinguishes between cases where the related entity exists and where not, but this is not necessarily equivalent to the upsert distinction (see also <a href="#specialization">example 85</a>). If the request</p>
+<p>Alternatively, the URL of an update request ends with a non-containment navigation property, optionally followed by a key predicate. In this case, the <code>If-</code>(<code>None-</code>)<code>Match</code> header distinguishes between cases where the related entity exists and where not, but this is not necessarily equivalent to the upsert distinction (see also <a href="#specialization">example 85</a>). If the request</p>
 <ul>
 <li>contains an <code>If-Match: *</code> header, the service MUST fail the request if the navigation property is null</li>
 <li>contains an <code>If-Match</code> header with an ETag as value, the service fails the request if the navigation property is null because the ETag does not match</li>
@@ -2611,9 +2611,9 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 </ul>
 <p>Note that if the service does not fail here, it may update the navigation property to point to a newly-created or an existing entity (that is, perform an upsert or not), independently of the <code>If-</code>(<code>None-</code>)<code>Match</code> header. To rule out an upsert in this case, the client MAY send a request payload consisting of an entity reference <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#EntityReference">OData-JSON, section 14</a> or use a bind operation <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#BindOperation">OData-JSON, section 8.5</a>.</p>
 <div class="example">
-<p>Example <a id="specialization" href="#specialization">85</a>: <code>Orders</code> have a containment navigation property <code>InvolvedParties</code> (with roles like supplier, customer, payer) and a nullable non-containment navigation property <code>Customer</code> pointing to the involved party with the customer role. Then the resource path</p>
+<p>Example <a id="specialization" href="#specialization">85</a>: <code>Orders</code> have a containment navigation property <code>InvolvedParties</code> (with roles like supplier, customer, payer) and a nullable non-containment navigation property <code>Customer</code> which always points to the involved party with the customer role (this is service-specific knowledge). Then the resource path</p>
 <pre><code>http://server/Orders(23)/Customer</code></pre>
-<p>has value <code>null</code> if and only if there is no entity in <code>InvolvedParties</code> with the customer role or, equivalently, if a PATCH request to that URL is an upsert. In this case, the <code>If-</code>(<code>None-</code>)<code>Match</code> header distinguishes between upsert and no upsert although the URL falls into case 4 given above.</p>
+<p>has value <code>null</code> if and only if there is no entity in <code>InvolvedParties</code> with the customer role or, equivalently, if an upsert occurs for a PATCH request to that URL. In this case, the <code>If-</code>(<code>None-</code>)<code>Match</code> header makes the upsert distinction although the URL ends with a non-containment navigation property.</p>
 </div>
 </details>
 </details>

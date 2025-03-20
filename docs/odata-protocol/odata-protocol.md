@@ -4718,7 +4718,7 @@ the request.
 
 An upsert occurs when an [update request](#UpdateanEntity) newly creates the addressed entity.
 
-If the service cannot determine the
+If the service is unable to determine the
 canonical collection or canonical singleton (as defined in [section 10](#ContextURL)) for the newly-created entity,
 if MUST fail the update request altogether.
 Among other possibilities, this determination is possible if the resource path of the request
@@ -4763,7 +4763,7 @@ If the URL of an update request falls into case 1, 2, or 3 given above and the r
 In other words, the `If-`(`None-`)`Match` header distinguishes between upsert
 and no upsert in these cases.
 
-If the URL of an update request does not fall into case 1, 2, or 3 given above, it ends
+Alternatively, the URL of an update request ends
 with a non-containment navigation property, optionally followed by a key predicate.
 In this case, the `If-`(`None-`)`Match` header distinguishes between cases where
 the related entity exists and where not, but this is not
@@ -4786,14 +4786,15 @@ a bind operation [OData-JSON, section 8.5](https://docs.oasis-open.org/odata/oda
 ::: example
 Example <a id="specialization" href="#specialization">85</a>: `Orders` have a containment navigation property `InvolvedParties`
 (with roles like supplier, customer, payer) and a nullable non-containment navigation property `Customer`
-pointing to the involved party with the customer role. Then the resource path
+which always points to the involved party with the customer role (this is service-specific knowledge).
+Then the resource path
 ```
 http://server/Orders(23)/Customer
 ```
 has value `null` if and only if there is no entity in `InvolvedParties` with the customer role
-or, equivalently, if a PATCH request to that URL is an upsert. In this case, the
-`If-`(`None-`)`Match` header distinguishes between upsert and no upsert although the URL
-falls into case 4 given above.
+or, equivalently, if an upsert occurs for a PATCH request to that URL. In this case, the
+`If-`(`None-`)`Match` header makes the upsert distinction although the URL ends with
+a non-containment navigation property.
 :::
 
 ### <a id="DeleteanEntity" href="#DeleteanEntity">11.4.4 Delete an Entity</a>
