@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
 <head>
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
@@ -59,7 +59,7 @@
 
       const darkmode_query = matchMedia("(prefers-color-scheme: dark)");
       darkmode_query.addEventListener("change", darkmode_auto);
-      const darkmode_switch = document.getElementById("darkmode");
+      const darkmode_switch = document.querySelector("#darkmode select");
       darkmode_switch.value =
         localStorage.getItem("odata-specs/darkmode") || "off";
       darkmode_switch.addEventListener("change", darkmode_manual);
@@ -70,11 +70,13 @@
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 </head>
 <body>
-<select id="darkmode">
-  <option value="off" title="Light mode">&#x263C;</option>
-  <option value="on" title="Dark mode">&#x263D;</option>
-  <option value="auto" title="Follow device mode">&#x25D1;</option>
-</select>
+<aside id="darkmode">
+  <select aria-label="Switch light/dark mode">
+    <option value="off" title="Light mode">&#x263C;</option>
+    <option value="on" title="Dark mode">&#x263D;</option>
+    <option value="auto" title="Follow device mode">&#x25D1;</option>
+  </select>
+</aside>
 <p><img src="https://docs.oasis-open.org/templates/OASISLogo-v3.0.png" alt="OASIS Logo" /></p>
 <hr />
 <details open><summary>
@@ -419,6 +421,11 @@ Section | Feature / Change | Issue
 <td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L561">AnyStructure</a></td>
 <td style="text-align: left;"><a href="#Tag">Tag</a></td>
 <td style="text-align: left;"><a name="AnyStructure"></a>Instances of a type are annotated with this tag if they have no common structure in a given response payload<br>The select-list of a context URL MUST be <code>(@Core.AnyStructure)</code> if it would otherwise be empty, but this instance annotation SHOULD be omitted from the response value.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L569">IsDelta</a></td>
+<td style="text-align: left;"><a href="#Tag">Tag</a></td>
+<td style="text-align: left;"><a name="IsDelta"></a>The annotated Action or Function Parameter or Return Type is represented as a Delta payload<br>The parameter or result is represented as a delta payload, which may include deleted entries as well as changes to related entities and relationships, according to the format-specific delta representation.</td>
 </tr>
 </tbody>
 </table>
@@ -955,7 +962,7 @@ Section | Feature / Change | Issue
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L491">Alias</a></td>
-<td style="text-align: left;">String</td>
+<td style="text-align: left;">String?</td>
 <td style="text-align: left;">A SimpleIdentifier that MUST be unique within the set of aliases, structural and navigation properties of the containing entity type that MUST be used in the key predicate of URLs</td>
 </tr>
 </tbody>
@@ -1179,97 +1186,97 @@ Section | Feature / Change | Issue
 <td style="text-align: left;"><a name="FilterRestrictions"></a>Restrictions on filter expressions</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L506">SortRestrictions</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L511">SortRestrictions</a></td>
 <td style="text-align: left;"><a href="#SortRestrictionsType">SortRestrictionsType</a></td>
 <td style="text-align: left;"><a name="SortRestrictions"></a>Restrictions on orderby expressions</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L532">ExpandRestrictions</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L537">ExpandRestrictions</a></td>
 <td style="text-align: left;"><a href="#ExpandRestrictionsType">ExpandRestrictionsType</a></td>
 <td style="text-align: left;"><a name="ExpandRestrictions"></a>Restrictions on expand expressions</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L562">SearchRestrictions</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L567">SearchRestrictions</a></td>
 <td style="text-align: left;"><a href="#SearchRestrictionsType">SearchRestrictionsType</a></td>
 <td style="text-align: left;"><a name="SearchRestrictions"></a>Restrictions on search expressions</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L600">KeyAsSegmentSupported</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L605">KeyAsSegmentSupported</a></td>
 <td style="text-align: left;"><a href="#Core-Tag">Tag</a></td>
 <td style="text-align: left;"><a name="KeyAsSegmentSupported"></a>Supports <a href="http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part2-url-conventions.html#sec_KeyasSegmentConvention">key-as-segment convention</a> for addressing entities within a collection</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L604">QuerySegmentSupported</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L609">QuerySegmentSupported</a></td>
 <td style="text-align: left;"><a href="#Core-Tag">Tag</a></td>
 <td style="text-align: left;"><a name="QuerySegmentSupported"></a>Supports <a href="http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part2-url-conventions.html#sec_PassingQueryOptionsintheRequestBody">passing query options in the request body</a></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L610">InsertRestrictions</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L615">InsertRestrictions</a></td>
 <td style="text-align: left;"><a href="#InsertRestrictionsType">InsertRestrictionsType</a></td>
 <td style="text-align: left;"><a name="InsertRestrictions"></a>Restrictions on insert operations</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L689">DeepInsertSupport</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L694">DeepInsertSupport</a></td>
 <td style="text-align: left;"><a href="#DeepInsertSupportType">DeepInsertSupportType?</a></td>
 <td style="text-align: left;"><a name="DeepInsertSupport"></a>Deep Insert Support of the annotated resource (the whole service, an entity set, or a collection-valued resource)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L702">UpdateRestrictions</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L707">UpdateRestrictions</a></td>
 <td style="text-align: left;"><a href="#UpdateRestrictionsType">UpdateRestrictionsType</a></td>
 <td style="text-align: left;"><a name="UpdateRestrictions"></a>Restrictions on update operations</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L788">DeepUpdateSupport</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L793">DeepUpdateSupport</a></td>
 <td style="text-align: left;"><a href="#DeepUpdateSupportType">DeepUpdateSupportType</a></td>
 <td style="text-align: left;"><a name="DeepUpdateSupport"></a>Deep Update Support of the annotated resource (the whole service, an entity set, or a collection-valued resource)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L801">DeleteRestrictions</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L806">DeleteRestrictions</a></td>
 <td style="text-align: left;"><a href="#DeleteRestrictionsType">DeleteRestrictionsType</a></td>
 <td style="text-align: left;"><a name="DeleteRestrictions"></a>Restrictions on delete operations</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L845">CollectionPropertyRestrictions</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L850">CollectionPropertyRestrictions</a></td>
 <td style="text-align: left;">[<a href="#CollectionPropertyRestrictionsType">CollectionPropertyRestrictionsType</a>]</td>
 <td style="text-align: left;"><a name="CollectionPropertyRestrictions"></a>Describes restrictions on operations applied to collection-valued structural properties</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L886">OperationRestrictions</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L891">OperationRestrictions</a></td>
 <td style="text-align: left;"><a href="#OperationRestrictionsType">OperationRestrictionsType</a></td>
 <td style="text-align: left;"><a name="OperationRestrictions"></a>Restrictions for function or action operation</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L906">AnnotationValuesInQuerySupported</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L911">AnnotationValuesInQuerySupported</a></td>
 <td style="text-align: left;"><a href="#Core-Tag">Tag</a></td>
 <td style="text-align: left;"><a name="AnnotationValuesInQuerySupported"></a>Supports annotation values within system query options</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L910">ModificationQueryOptions</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L915">ModificationQueryOptions</a></td>
 <td style="text-align: left;"><a href="#ModificationQueryOptionsType">ModificationQueryOptionsType</a></td>
 <td style="text-align: left;"><a name="ModificationQueryOptions"></a>Support for query options with modification requests (insert, update, action invocation)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L934">ReadRestrictions</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L939">ReadRestrictions</a></td>
 <td style="text-align: left;"><a href="#ReadRestrictionsType">ReadRestrictionsType</a></td>
 <td style="text-align: left;"><a name="ReadRestrictions"></a>Restrictions for retrieving a collection of entities, retrieving a singleton instance.</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L976">CustomHeaders</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L981">CustomHeaders</a></td>
 <td style="text-align: left;">[<a href="#CustomParameter">CustomParameter</a>]</td>
-<td style="text-align: left;"><a name="CustomHeaders"></a>Custom headers that are supported/required for the annotated resource (<a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L978">Example</a>)</td>
+<td style="text-align: left;"><a name="CustomHeaders"></a>Custom headers that are supported/required for the annotated resource (<a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L983">Example</a>)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1002">CustomQueryOptions</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1007">CustomQueryOptions</a></td>
 <td style="text-align: left;">[<a href="#CustomParameter">CustomParameter</a>]</td>
-<td style="text-align: left;"><a name="CustomQueryOptions"></a>Custom query options that are supported/required for the annotated resource (<a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1005">Example</a>)<br>If the entity container is annotated, the query option is supported/required by all resources in that container.</td>
+<td style="text-align: left;"><a name="CustomQueryOptions"></a>Custom query options that are supported/required for the annotated resource (<a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1010">Example</a>)<br>If the entity container is annotated, the query option is supported/required by all resources in that container.</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1054">MediaLocationUpdateSupported</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1059">MediaLocationUpdateSupported</a></td>
 <td style="text-align: left;"><a href="#Core-Tag">Tag</a></td>
 <td style="text-align: left;"><a name="MediaLocationUpdateSupported"></a>Stream property or media stream supports update of its media edit URL and/or media read URL</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1059">DefaultCapabilities</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1064">DefaultCapabilities</a></td>
 <td style="text-align: left;"><a href="#DefaultCapabilitiesType">DefaultCapabilitiesType</a></td>
 <td style="text-align: left;"><a name="DefaultCapabilities"></a>Default capability settings for all collection-valued resources in the container<br><p>Annotating a specific capability term, which is included as property in <code>DefaultCapabilitiesType</code>, for a specific collection-valued resource overrides the default capability with the specified properties using PATCH semantics:</p> <ul> <li>Primitive or collection-valued properties specified in the specific capability term replace the corresponding properties specified in <code>DefaultCapabilities</code></li> <li>Complex-valued properties specified in the specific capability term override the corresponding properties specified in <code>DefaultCapabilities</code> using PATCH semantics recursively</li> <li>Properties specified neither in the specific term nor in <code>DefaultCapabilities</code> have their default value</li> </ul></td>
 </tr>
@@ -1725,7 +1732,7 @@ Section | Feature / Change | Issue
 <tr class="odd">
 <td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L410">SupportedFormats</a></td>
 <td style="text-align: left;">[MediaType]</td>
-<td style="text-align: left;">Media types of supported formats for $batch<dl>Allowed values:<dt><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L415">multipart/mixed</a><dd><a href="http://docs.oasis-open.org/odata/odata/v4.01/cs01/part1-protocol/odata-v4.01-cs01-part1-protocol.html#sec_MultipartBatchFormat">Multipart Batch Format</a><dt><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L419">application/json</a><dd><a href="http://docs.oasis-open.org/odata/odata-json-format/v4.01/cs01/odata-json-format-v4.01-cs01.html#sec_BatchRequestsandResponses">JSON Batch Format</a></dl></td>
+<td style="text-align: left;">Media types of supported formats for $batch<br>Allowed Values:<dl><dt><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L415">multipart/mixed</a><dd><a href="http://docs.oasis-open.org/odata/odata/v4.01/cs01/part1-protocol/odata-v4.01-cs01-part1-protocol.html#sec_MultipartBatchFormat">Multipart Batch Format</a><dt><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L419">application/json</a><dd><a href="http://docs.oasis-open.org/odata/odata-json-format/v4.01/cs01/odata-json-format-v4.01-cs01.html#sec_BatchRequestsandResponses">JSON Batch Format</a></dl></td>
 </tr>
 </tbody>
 </table>
@@ -1861,24 +1868,24 @@ Section | Feature / Change | Issue
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L484">SingleRange</a></td>
-<td style="text-align: left;">Property can be used in at most one <code>ge</code> and/or one <code>le</code> clause, separated by <code>and</code></td>
+<td style="text-align: left;">Property can be compared to a single closed, half-open, or open interval<br>The filter expression for this property consists of a single interval expression, which is either a single comparison of the property and a literal value with <code>eq</code>, <code>le</code>, <code>lt</code>, <code>ge</code>, or <code>gt</code>, or a pair of boundaries combined by <code>and</code>. The lower boundary is either <code>ge</code> or <code>gt</code>, the upper boundary either <code>le</code> or <code>lt</code>.</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L488">MultiRange</a></td>
-<td style="text-align: left;">Property can be compared to a union of one or more closed, half-open, or open intervals<br>The filter expression for this property consists of one or more interval expressions combined by <code>or</code>. A single interval expression is either a single comparison of the property and a literal value with <code>eq</code>, <code>le</code>, <code>lt</code>, <code>ge</code>, or <code>gt</code>, or pair of boundaries combined by <code>and</code> and enclosed in parentheses. The lower boundary is either <code>ge</code> or <code>gt</code>, the upper boundary either <code>le</code> or <code>lt</code>.</td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L489">MultiRange</a></td>
+<td style="text-align: left;">Property can be compared to a union of one or more closed, half-open, or open intervals<br>The filter expression for this property consists of one or more interval expressions, combined by <code>or</code>. See SingleRange for the definition of an interval expression.<br> Alternatively the filter expression can consist of one or more <code>ne</code> expressions combined by <code>and</code>, which is roughly equivalent to the union of the complementing open intervals. Roughly equivalent because <code>null</code> is allowed as a right-side operand of an <code>ne</code> expression.</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L493">SearchExpression</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L498">SearchExpression</a></td>
 <td style="text-align: left;">String property can be used as first operand in <code>startswith</code>, <code>endswith</code>, and <code>contains</code> clauses</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L497">MultiRangeOrSearchExpression</a></td>
-<td style="text-align: left;">Property can be compared to a union of zero or more closed, half-open, or open intervals plus zero or more simple string patterns<br>The filter expression for this property consists of one or more interval expressions or string comparison functions combined by <code>or</code>. See MultiRange for a definition of an interval expression. See SearchExpression for the allowed string comparison functions.</td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L502">MultiRangeOrSearchExpression</a></td>
+<td style="text-align: left;">Property can be compared to a union of zero or more closed, half-open, or open intervals plus zero or more simple string patterns<br>The filter expression for this property consists of one or more interval expressions or string comparison functions combined by <code>or</code>. See SingleRange for the definition of an interval expression. See SearchExpression for the allowed string comparison functions.</td>
 </tr>
 </tbody>
 </table>
 <p><a name="SortRestrictionsBase"></a></p>
-<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L510">SortRestrictionsBase</a></h2>
+<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L515">SortRestrictionsBase</a></h2>
 <p><strong>Derived Types:</strong></p>
 <ul>
 <li><a href="#SortRestrictionsType">SortRestrictionsType</a></li>
@@ -1893,7 +1900,7 @@ Section | Feature / Change | Issue
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L516">Sortable</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L521">Sortable</a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">$orderby is supported</td>
 </tr>
@@ -1904,7 +1911,7 @@ Section | Feature / Change | Issue
 <li><a href="#Core-Description">Description</a></li>
 </ul>
 <p><a name="SortRestrictionsType"></a></p>
-<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L520">SortRestrictionsType</a>: <a href="#SortRestrictionsBase">SortRestrictionsBase</a></h2>
+<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L525">SortRestrictionsType</a>: <a href="#SortRestrictionsBase">SortRestrictionsBase</a></h2>
 <table>
 <thead>
 <tr class="header">
@@ -1915,22 +1922,22 @@ Section | Feature / Change | Issue
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L516"><em>Sortable</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L521"><em>Sortable</em></a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">$orderby is supported</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L521">AscendingOnlyProperties</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L526">AscendingOnlyProperties</a></td>
 <td style="text-align: left;">[PropertyPath]</td>
 <td style="text-align: left;">These properties can only be used for sorting in Ascending order</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L524">DescendingOnlyProperties</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L529">DescendingOnlyProperties</a></td>
 <td style="text-align: left;">[PropertyPath]</td>
 <td style="text-align: left;">These properties can only be used for sorting in Descending order</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L527">NonSortableProperties</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L532">NonSortableProperties</a></td>
 <td style="text-align: left;">[PropertyPath]</td>
 <td style="text-align: left;">These structural properties cannot be used in orderby expressions</td>
 </tr>
@@ -1941,7 +1948,7 @@ Section | Feature / Change | Issue
 <li><a href="#Core-Description">Description</a></li>
 </ul>
 <p><a name="ExpandRestrictionsBase"></a></p>
-<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L536">ExpandRestrictionsBase</a></h2>
+<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L541">ExpandRestrictionsBase</a></h2>
 <p><strong>Derived Types:</strong></p>
 <ul>
 <li><a href="#ExpandRestrictionsType">ExpandRestrictionsType</a></li>
@@ -1956,17 +1963,17 @@ Section | Feature / Change | Issue
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L542">Expandable</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L547">Expandable</a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">$expand is supported</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L545">StreamsExpandable</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L550">StreamsExpandable</a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">$expand is supported for stream properties and media streams</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L548">MaxLevels</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L553">MaxLevels</a></td>
 <td style="text-align: left;">Int32</td>
 <td style="text-align: left;">The maximum number of levels that can be expanded in a expand expression. A value of -1 indicates there is no restriction.</td>
 </tr>
@@ -1977,7 +1984,7 @@ Section | Feature / Change | Issue
 <li><a href="#Core-Description">Description</a></li>
 </ul>
 <p><a name="ExpandRestrictionsType"></a></p>
-<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L552">ExpandRestrictionsType</a>: <a href="#ExpandRestrictionsBase">ExpandRestrictionsBase</a></h2>
+<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L557">ExpandRestrictionsType</a>: <a href="#ExpandRestrictionsBase">ExpandRestrictionsBase</a></h2>
 <table>
 <thead>
 <tr class="header">
@@ -1988,27 +1995,27 @@ Section | Feature / Change | Issue
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L542"><em>Expandable</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L547"><em>Expandable</em></a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">$expand is supported</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L545"><em>StreamsExpandable</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L550"><em>StreamsExpandable</em></a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">$expand is supported for stream properties and media streams</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L548"><em>MaxLevels</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L553"><em>MaxLevels</em></a></td>
 <td style="text-align: left;">Int32</td>
 <td style="text-align: left;">The maximum number of levels that can be expanded in a expand expression. A value of -1 indicates there is no restriction.</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L553">NonExpandableProperties</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L558">NonExpandableProperties</a></td>
 <td style="text-align: left;">[NavigationPropertyPath]</td>
 <td style="text-align: left;">These properties cannot be used in expand expressions</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L556">NonExpandableStreamProperties</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L561">NonExpandableStreamProperties</a></td>
 <td style="text-align: left;">[PropertyPath]</td>
 <td style="text-align: left;">These stream properties cannot be used in expand expressions</td>
 </tr>
@@ -2019,7 +2026,7 @@ Section | Feature / Change | Issue
 <li><a href="#Core-Description">Description</a></li>
 </ul>
 <p><a name="SearchRestrictionsType"></a></p>
-<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L566">SearchRestrictionsType</a></h2>
+<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L571">SearchRestrictionsType</a></h2>
 <table>
 <thead>
 <tr class="header">
@@ -2030,12 +2037,12 @@ Section | Feature / Change | Issue
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L572">Searchable</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L577">Searchable</a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">$search is supported</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L575">UnsupportedExpressions</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L580">UnsupportedExpressions</a></td>
 <td style="text-align: left;"><a href="#SearchExpressions">SearchExpressions</a></td>
 <td style="text-align: left;">Expressions not supported in $search</td>
 </tr>
@@ -2046,7 +2053,7 @@ Section | Feature / Change | Issue
 <li><a href="#Core-Description">Description</a></li>
 </ul>
 <p><a name="SearchExpressions"></a></p>
-<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L579">SearchExpressions</a></h2>
+<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L584">SearchExpressions</a></h2>
 <table>
 <thead>
 <tr class="header">
@@ -2057,39 +2064,39 @@ Section | Feature / Change | Issue
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L580">none</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L585">none</a></td>
 <td style="text-align: right;">0</td>
 <td style="text-align: left;">Single search term</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L583">AND</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L588">AND</a></td>
 <td style="text-align: right;">1</td>
 <td style="text-align: left;">Multiple search terms, optionally separated by <code>AND</code></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L586">OR</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L591">OR</a></td>
 <td style="text-align: right;">2</td>
 <td style="text-align: left;">Multiple search terms separated by <code>OR</code></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L589">NOT</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L594">NOT</a></td>
 <td style="text-align: right;">4</td>
 <td style="text-align: left;">Search terms preceded by <code>NOT</code></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L592">phrase</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L597">phrase</a></td>
 <td style="text-align: right;">8</td>
 <td style="text-align: left;">Search phrases enclosed in double quotes</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L595">group</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L600">group</a></td>
 <td style="text-align: right;">16</td>
 <td style="text-align: left;">Precedence grouping of search expressions with parentheses</td>
 </tr>
 </tbody>
 </table>
 <p><a name="InsertRestrictionsBase"></a></p>
-<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L614">InsertRestrictionsBase</a></h2>
+<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L619">InsertRestrictionsBase</a></h2>
 <p><strong>Derived Types:</strong></p>
 <ul>
 <li><a href="#InsertRestrictionsType">InsertRestrictionsType</a></li>
@@ -2104,54 +2111,54 @@ Section | Feature / Change | Issue
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L615">Insertable</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L620">Insertable</a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">Entities can be inserted</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L618">MaxLevels</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L623">MaxLevels</a></td>
 <td style="text-align: left;">Int32</td>
 <td style="text-align: left;">The maximum number of navigation properties that can be traversed when addressing the collection to insert into. A value of -1 indicates there is no restriction.</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L621">TypecastSegmentSupported</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L626">TypecastSegmentSupported</a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">Entities of a specific derived type can be created by specifying a type-cast segment</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L624">QueryOptions</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L629">QueryOptions</a></td>
 <td style="text-align: left;"><a href="#ModificationQueryOptionsType">ModificationQueryOptionsType?</a></td>
 <td style="text-align: left;">Support for query options with insert requests</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L627">CustomHeaders</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L632">CustomHeaders</a></td>
 <td style="text-align: left;">[<a href="#CustomParameter">CustomParameter</a>]</td>
 <td style="text-align: left;">Supported or required custom headers</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L630">CustomQueryOptions</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L635">CustomQueryOptions</a></td>
 <td style="text-align: left;">[<a href="#CustomParameter">CustomParameter</a>]</td>
 <td style="text-align: left;">Supported or required custom query options</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L633">Description</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L638">Description</a></td>
 <td style="text-align: left;">String?</td>
 <td style="text-align: left;">A brief description of the request</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L637">LongDescription</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L642">LongDescription</a></td>
 <td style="text-align: left;">String?</td>
 <td style="text-align: left;">A long description of the request</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L641">ErrorResponses</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L646">ErrorResponses</a></td>
 <td style="text-align: left;">[<a href="#HttpResponse">HttpResponse</a>]</td>
 <td style="text-align: left;">Possible error responses returned by the request.</td>
 </tr>
 </tbody>
 </table>
 <p><a name="InsertRestrictionsType"></a></p>
-<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L645">InsertRestrictionsType</a>: <a href="#InsertRestrictionsBase">InsertRestrictionsBase</a></h2>
+<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L650">InsertRestrictionsType</a>: <a href="#InsertRestrictionsBase">InsertRestrictionsBase</a></h2>
 <table>
 <thead>
 <tr class="header">
@@ -2162,74 +2169,74 @@ Section | Feature / Change | Issue
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L615"><em>Insertable</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L620"><em>Insertable</em></a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">Entities can be inserted</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L618"><em>MaxLevels</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L623"><em>MaxLevels</em></a></td>
 <td style="text-align: left;">Int32</td>
 <td style="text-align: left;">The maximum number of navigation properties that can be traversed when addressing the collection to insert into. A value of -1 indicates there is no restriction.</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L621"><em>TypecastSegmentSupported</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L626"><em>TypecastSegmentSupported</em></a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">Entities of a specific derived type can be created by specifying a type-cast segment</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L624"><em>QueryOptions</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L629"><em>QueryOptions</em></a></td>
 <td style="text-align: left;"><a href="#ModificationQueryOptionsType">ModificationQueryOptionsType?</a></td>
 <td style="text-align: left;">Support for query options with insert requests</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L627"><em>CustomHeaders</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L632"><em>CustomHeaders</em></a></td>
 <td style="text-align: left;">[<a href="#CustomParameter">CustomParameter</a>]</td>
 <td style="text-align: left;">Supported or required custom headers</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L630"><em>CustomQueryOptions</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L635"><em>CustomQueryOptions</em></a></td>
 <td style="text-align: left;">[<a href="#CustomParameter">CustomParameter</a>]</td>
 <td style="text-align: left;">Supported or required custom query options</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L633"><em>Description</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L638"><em>Description</em></a></td>
 <td style="text-align: left;">String?</td>
 <td style="text-align: left;">A brief description of the request</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L637"><em>LongDescription</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L642"><em>LongDescription</em></a></td>
 <td style="text-align: left;">String?</td>
 <td style="text-align: left;">A long description of the request</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L641"><em>ErrorResponses</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L646"><em>ErrorResponses</em></a></td>
 <td style="text-align: left;">[<a href="#HttpResponse">HttpResponse</a>]</td>
 <td style="text-align: left;">Possible error responses returned by the request.</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L646">NonInsertableProperties</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L651">NonInsertableProperties</a></td>
 <td style="text-align: left;">[PropertyPath]</td>
 <td style="text-align: left;">These structural properties cannot be specified on insert</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L649">NonInsertableNavigationProperties</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L654">NonInsertableNavigationProperties</a></td>
 <td style="text-align: left;">[NavigationPropertyPath]</td>
 <td style="text-align: left;">These navigation properties do not allow deep inserts</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L652">RequiredProperties</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L657">RequiredProperties</a></td>
 <td style="text-align: left;">[PropertyPath]</td>
 <td style="text-align: left;">These structural properties must be specified on insert</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L655">Permissions</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L660">Permissions</a></td>
 <td style="text-align: left;">[<a href="#PermissionType">PermissionType?</a>]</td>
 <td style="text-align: left;">Required permissions. One of the specified sets of scopes is required to perform the insert.</td>
 </tr>
 </tbody>
 </table>
 <p><a name="PermissionType"></a></p>
-<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L660">PermissionType</a></h2>
+<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L665">PermissionType</a></h2>
 <table>
 <thead>
 <tr class="header">
@@ -2240,19 +2247,19 @@ Section | Feature / Change | Issue
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L661">SchemeName</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L666">SchemeName</a></td>
 <td style="text-align: left;"><a href="#Authorization-SchemeName">SchemeName</a></td>
 <td style="text-align: left;">Authorization flow scheme name</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L664">Scopes</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L669">Scopes</a></td>
 <td style="text-align: left;">[<a href="#ScopeType">ScopeType</a>]</td>
 <td style="text-align: left;">List of scopes that can provide access to the resource</td>
 </tr>
 </tbody>
 </table>
 <p><a name="ScopeType"></a></p>
-<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L669">ScopeType</a></h2>
+<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L674">ScopeType</a></h2>
 <table>
 <thead>
 <tr class="header">
@@ -2263,19 +2270,19 @@ Section | Feature / Change | Issue
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L670">Scope</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L675">Scope</a></td>
 <td style="text-align: left;">String</td>
 <td style="text-align: left;">Name of the scope.</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L673">RestrictedProperties</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L678">RestrictedProperties</a></td>
 <td style="text-align: left;">String?</td>
-<td style="text-align: left;">Comma-separated string value of all properties that will be included or excluded when using the scope.<br>Possible string value identifiers when specifying properties are <code>*</code>, <em>PropertyName</em>, <code>-</code><em>PropertyName</em>.<br/><code>*</code> denotes all properties are accessible.<br/><code>-</code><em>PropertyName</em> excludes that specific property.<br/><em>PropertyName</em> explicitly provides access to the specific property.<br/>The absence of <code>RestrictedProperties</code> denotes all properties are accessible using that scope.</td>
+<td style="text-align: left;">Comma-separated string value of all properties that will be included or excluded when using the scope.<br>Possible string value identifiers when specifying properties are <code>*</code>, <em>PropertyName</em>, <code>-</code><em>PropertyName</em>.<br><code>*</code> denotes all properties are accessible.<br><code>-</code><em>PropertyName</em> excludes that specific property.<br><em>PropertyName</em> explicitly provides access to the specific property.<br>The absence of <code>RestrictedProperties</code> denotes all properties are accessible using that scope.</td>
 </tr>
 </tbody>
 </table>
 <p><a name="DeepInsertSupportType"></a></p>
-<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L693">DeepInsertSupportType</a></h2>
+<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L698">DeepInsertSupportType</a></h2>
 <table>
 <thead>
 <tr class="header">
@@ -2286,19 +2293,19 @@ Section | Feature / Change | Issue
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L694">Supported</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L699">Supported</a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">Annotation target supports deep inserts</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L697">ContentIDSupported</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L702">ContentIDSupported</a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">Annotation target supports accepting and returning nested entities annotated with the <code>Core.ContentID</code> instance annotation.</td>
 </tr>
 </tbody>
 </table>
 <p><a name="UpdateRestrictionsBase"></a></p>
-<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L706">UpdateRestrictionsBase</a></h2>
+<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L711">UpdateRestrictionsBase</a></h2>
 <p><strong>Derived Types:</strong></p>
 <ul>
 <li><a href="#UpdateRestrictionsType">UpdateRestrictionsType</a></li>
@@ -2313,79 +2320,79 @@ Section | Feature / Change | Issue
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L707">Updatable</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L712">Updatable</a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">Entities can be updated</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L710">Upsertable</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L715">Upsertable</a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">Entities can be upserted</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L713">DeltaUpdateSupported</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L718">DeltaUpdateSupported</a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">Entities can be inserted, updated, and deleted via a PATCH request with a delta payload</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L716">UpdateMethod</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L721">UpdateMethod</a></td>
 <td style="text-align: left;"><a href="#HttpMethod">HttpMethod?</a></td>
 <td style="text-align: left;">Supported HTTP Methods (PUT or PATCH) for updating an entity. If null, PATCH SHOULD be supported and PUT MAY be supported.</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L719">FilterSegmentSupported</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L724">FilterSegmentSupported</a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">Members of collections can be updated via a PATCH request with a <code>/$filter(...)/$each</code> segment</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L722">TypecastSegmentSupported</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L727">TypecastSegmentSupported</a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">Members of collections can be updated via a PATCH request with a type-cast segment and a <code>/$each</code> segment</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L725">MaxLevels</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L730">MaxLevels</a></td>
 <td style="text-align: left;">Int32</td>
 <td style="text-align: left;">The maximum number of navigation properties that can be traversed when addressing the collection or entity to update. A value of -1 indicates there is no restriction.</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L728">Permissions</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L733">Permissions</a></td>
 <td style="text-align: left;">[<a href="#PermissionType">PermissionType?</a>]</td>
 <td style="text-align: left;">Required permissions. One of the specified sets of scopes is required to perform the update.</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L731">QueryOptions</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L736">QueryOptions</a></td>
 <td style="text-align: left;"><a href="#ModificationQueryOptionsType">ModificationQueryOptionsType?</a></td>
 <td style="text-align: left;">Support for query options with update requests</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L734">CustomHeaders</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L739">CustomHeaders</a></td>
 <td style="text-align: left;">[<a href="#CustomParameter">CustomParameter</a>]</td>
 <td style="text-align: left;">Supported or required custom headers</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L737">CustomQueryOptions</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L742">CustomQueryOptions</a></td>
 <td style="text-align: left;">[<a href="#CustomParameter">CustomParameter</a>]</td>
 <td style="text-align: left;">Supported or required custom query options</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L740">Description</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L745">Description</a></td>
 <td style="text-align: left;">String?</td>
 <td style="text-align: left;">A brief description of the request</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L744">LongDescription</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L749">LongDescription</a></td>
 <td style="text-align: left;">String?</td>
 <td style="text-align: left;">A long description of the request</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L748">ErrorResponses</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L753">ErrorResponses</a></td>
 <td style="text-align: left;">[<a href="#HttpResponse">HttpResponse</a>]</td>
 <td style="text-align: left;">Possible error responses returned by the request.</td>
 </tr>
 </tbody>
 </table>
 <p><a name="UpdateRestrictionsType"></a></p>
-<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L752">UpdateRestrictionsType</a>: <a href="#UpdateRestrictionsBase">UpdateRestrictionsBase</a></h2>
+<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L757">UpdateRestrictionsType</a>: <a href="#UpdateRestrictionsBase">UpdateRestrictionsBase</a></h2>
 <table>
 <thead>
 <tr class="header">
@@ -2396,94 +2403,94 @@ Section | Feature / Change | Issue
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L707"><em>Updatable</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L712"><em>Updatable</em></a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">Entities can be updated</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L710"><em>Upsertable</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L715"><em>Upsertable</em></a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">Entities can be upserted</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L713"><em>DeltaUpdateSupported</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L718"><em>DeltaUpdateSupported</em></a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">Entities can be inserted, updated, and deleted via a PATCH request with a delta payload</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L716"><em>UpdateMethod</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L721"><em>UpdateMethod</em></a></td>
 <td style="text-align: left;"><a href="#HttpMethod">HttpMethod?</a></td>
 <td style="text-align: left;">Supported HTTP Methods (PUT or PATCH) for updating an entity. If null, PATCH SHOULD be supported and PUT MAY be supported.</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L719"><em>FilterSegmentSupported</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L724"><em>FilterSegmentSupported</em></a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">Members of collections can be updated via a PATCH request with a <code>/$filter(...)/$each</code> segment</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L722"><em>TypecastSegmentSupported</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L727"><em>TypecastSegmentSupported</em></a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">Members of collections can be updated via a PATCH request with a type-cast segment and a <code>/$each</code> segment</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L725"><em>MaxLevels</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L730"><em>MaxLevels</em></a></td>
 <td style="text-align: left;">Int32</td>
 <td style="text-align: left;">The maximum number of navigation properties that can be traversed when addressing the collection or entity to update. A value of -1 indicates there is no restriction.</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L728"><em>Permissions</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L733"><em>Permissions</em></a></td>
 <td style="text-align: left;">[<a href="#PermissionType">PermissionType?</a>]</td>
 <td style="text-align: left;">Required permissions. One of the specified sets of scopes is required to perform the update.</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L731"><em>QueryOptions</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L736"><em>QueryOptions</em></a></td>
 <td style="text-align: left;"><a href="#ModificationQueryOptionsType">ModificationQueryOptionsType?</a></td>
 <td style="text-align: left;">Support for query options with update requests</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L734"><em>CustomHeaders</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L739"><em>CustomHeaders</em></a></td>
 <td style="text-align: left;">[<a href="#CustomParameter">CustomParameter</a>]</td>
 <td style="text-align: left;">Supported or required custom headers</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L737"><em>CustomQueryOptions</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L742"><em>CustomQueryOptions</em></a></td>
 <td style="text-align: left;">[<a href="#CustomParameter">CustomParameter</a>]</td>
 <td style="text-align: left;">Supported or required custom query options</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L740"><em>Description</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L745"><em>Description</em></a></td>
 <td style="text-align: left;">String?</td>
 <td style="text-align: left;">A brief description of the request</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L744"><em>LongDescription</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L749"><em>LongDescription</em></a></td>
 <td style="text-align: left;">String?</td>
 <td style="text-align: left;">A long description of the request</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L748"><em>ErrorResponses</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L753"><em>ErrorResponses</em></a></td>
 <td style="text-align: left;">[<a href="#HttpResponse">HttpResponse</a>]</td>
 <td style="text-align: left;">Possible error responses returned by the request.</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L753">NonUpdatableProperties</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L758">NonUpdatableProperties</a></td>
 <td style="text-align: left;">[PropertyPath]</td>
 <td style="text-align: left;">These structural properties cannot be specified on update</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L756">NonUpdatableNavigationProperties</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L761">NonUpdatableNavigationProperties</a></td>
 <td style="text-align: left;">[NavigationPropertyPath]</td>
 <td style="text-align: left;">These navigation properties do not allow rebinding</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L759">RequiredProperties</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L764">RequiredProperties</a></td>
 <td style="text-align: left;">[PropertyPath]</td>
 <td style="text-align: left;">These structural properties must be specified on update</td>
 </tr>
 </tbody>
 </table>
 <p><a name="HttpMethod"></a></p>
-<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L764">HttpMethod</a></h2>
+<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L769">HttpMethod</a></h2>
 <table>
 <thead>
 <tr class="header">
@@ -2494,44 +2501,44 @@ Section | Feature / Change | Issue
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L765">GET</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L770">GET</a></td>
 <td style="text-align: right;">1</td>
 <td style="text-align: left;">The HTTP GET Method</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L768">PATCH</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L773">PATCH</a></td>
 <td style="text-align: right;">2</td>
 <td style="text-align: left;">The HTTP PATCH Method</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L771">PUT</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L776">PUT</a></td>
 <td style="text-align: right;">4</td>
 <td style="text-align: left;">The HTTP PUT Method</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L774">POST</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L779">POST</a></td>
 <td style="text-align: right;">8</td>
 <td style="text-align: left;">The HTTP POST Method</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L777">DELETE</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L782">DELETE</a></td>
 <td style="text-align: right;">16</td>
 <td style="text-align: left;">The HTTP DELETE Method</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L780">OPTIONS</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L785">OPTIONS</a></td>
 <td style="text-align: right;">32</td>
 <td style="text-align: left;">The HTTP OPTIONS Method</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L783">HEAD</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L788">HEAD</a></td>
 <td style="text-align: right;">64</td>
 <td style="text-align: left;">The HTTP HEAD Method</td>
 </tr>
 </tbody>
 </table>
 <p><a name="DeepUpdateSupportType"></a></p>
-<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L792">DeepUpdateSupportType</a></h2>
+<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L797">DeepUpdateSupportType</a></h2>
 <table>
 <thead>
 <tr class="header">
@@ -2542,19 +2549,19 @@ Section | Feature / Change | Issue
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L793">Supported</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L798">Supported</a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">Annotation target supports deep updates</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L796">ContentIDSupported</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L801">ContentIDSupported</a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">Annotation target supports accepting and returning nested entities annotated with the <code>Core.ContentID</code> instance annotation.</td>
 </tr>
 </tbody>
 </table>
 <p><a name="DeleteRestrictionsBase"></a></p>
-<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L805">DeleteRestrictionsBase</a></h2>
+<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L810">DeleteRestrictionsBase</a></h2>
 <p><strong>Derived Types:</strong></p>
 <ul>
 <li><a href="#DeleteRestrictionsType">DeleteRestrictionsType</a></li>
@@ -2569,59 +2576,59 @@ Section | Feature / Change | Issue
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L806">Deletable</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L811">Deletable</a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">Entities can be deleted</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L809">MaxLevels</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L814">MaxLevels</a></td>
 <td style="text-align: left;">Int32</td>
 <td style="text-align: left;">The maximum number of navigation properties that can be traversed when addressing the collection to delete from or the entity to delete. A value of -1 indicates there is no restriction.</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L812">FilterSegmentSupported</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L817">FilterSegmentSupported</a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">Members of collections can be deleted via a DELETE request with a <code>/$filter(...)/$each</code> segment</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L815">TypecastSegmentSupported</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L820">TypecastSegmentSupported</a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">Members of collections can be deleted via a DELETE request with a type-cast segment and a <code>/$each</code> segment</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L818">Permissions</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L823">Permissions</a></td>
 <td style="text-align: left;">[<a href="#PermissionType">PermissionType?</a>]</td>
 <td style="text-align: left;">Required permissions. One of the specified sets of scopes is required to perform the delete.</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L821">CustomHeaders</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L826">CustomHeaders</a></td>
 <td style="text-align: left;">[<a href="#CustomParameter">CustomParameter</a>]</td>
 <td style="text-align: left;">Supported or required custom headers</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L824">CustomQueryOptions</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L829">CustomQueryOptions</a></td>
 <td style="text-align: left;">[<a href="#CustomParameter">CustomParameter</a>]</td>
 <td style="text-align: left;">Supported or required custom query options</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L827">Description</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L832">Description</a></td>
 <td style="text-align: left;">String?</td>
 <td style="text-align: left;">A brief description of the request</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L831">LongDescription</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L836">LongDescription</a></td>
 <td style="text-align: left;">String?</td>
 <td style="text-align: left;">A long description of the request</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L835">ErrorResponses</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L840">ErrorResponses</a></td>
 <td style="text-align: left;">[<a href="#HttpResponse">HttpResponse</a>]</td>
 <td style="text-align: left;">Possible error responses returned by the request.</td>
 </tr>
 </tbody>
 </table>
 <p><a name="DeleteRestrictionsType"></a></p>
-<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L839">DeleteRestrictionsType</a>: <a href="#DeleteRestrictionsBase">DeleteRestrictionsBase</a></h2>
+<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L844">DeleteRestrictionsType</a>: <a href="#DeleteRestrictionsBase">DeleteRestrictionsBase</a></h2>
 <table>
 <thead>
 <tr class="header">
@@ -2632,64 +2639,64 @@ Section | Feature / Change | Issue
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L806"><em>Deletable</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L811"><em>Deletable</em></a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">Entities can be deleted</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L809"><em>MaxLevels</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L814"><em>MaxLevels</em></a></td>
 <td style="text-align: left;">Int32</td>
 <td style="text-align: left;">The maximum number of navigation properties that can be traversed when addressing the collection to delete from or the entity to delete. A value of -1 indicates there is no restriction.</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L812"><em>FilterSegmentSupported</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L817"><em>FilterSegmentSupported</em></a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">Members of collections can be deleted via a DELETE request with a <code>/$filter(...)/$each</code> segment</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L815"><em>TypecastSegmentSupported</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L820"><em>TypecastSegmentSupported</em></a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">Members of collections can be deleted via a DELETE request with a type-cast segment and a <code>/$each</code> segment</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L818"><em>Permissions</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L823"><em>Permissions</em></a></td>
 <td style="text-align: left;">[<a href="#PermissionType">PermissionType?</a>]</td>
 <td style="text-align: left;">Required permissions. One of the specified sets of scopes is required to perform the delete.</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L821"><em>CustomHeaders</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L826"><em>CustomHeaders</em></a></td>
 <td style="text-align: left;">[<a href="#CustomParameter">CustomParameter</a>]</td>
 <td style="text-align: left;">Supported or required custom headers</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L824"><em>CustomQueryOptions</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L829"><em>CustomQueryOptions</em></a></td>
 <td style="text-align: left;">[<a href="#CustomParameter">CustomParameter</a>]</td>
 <td style="text-align: left;">Supported or required custom query options</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L827"><em>Description</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L832"><em>Description</em></a></td>
 <td style="text-align: left;">String?</td>
 <td style="text-align: left;">A brief description of the request</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L831"><em>LongDescription</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L836"><em>LongDescription</em></a></td>
 <td style="text-align: left;">String?</td>
 <td style="text-align: left;">A long description of the request</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L835"><em>ErrorResponses</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L840"><em>ErrorResponses</em></a></td>
 <td style="text-align: left;">[<a href="#HttpResponse">HttpResponse</a>]</td>
 <td style="text-align: left;">Possible error responses returned by the request.</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L840">NonDeletableNavigationProperties</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L845">NonDeletableNavigationProperties</a></td>
 <td style="text-align: left;">[NavigationPropertyPath]</td>
 <td style="text-align: left;">These navigation properties do not allow DeleteLink requests</td>
 </tr>
 </tbody>
 </table>
 <p><a name="CollectionPropertyRestrictionsType"></a></p>
-<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L848">CollectionPropertyRestrictionsType</a></h2>
+<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L853">CollectionPropertyRestrictionsType</a></h2>
 <table>
 <thead>
 <tr class="header">
@@ -2700,64 +2707,64 @@ Section | Feature / Change | Issue
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L849">CollectionProperty</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L854">CollectionProperty</a></td>
 <td style="text-align: left;">PropertyPath?</td>
 <td style="text-align: left;">Restricted Collection-valued property</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L852">FilterFunctions</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L857">FilterFunctions</a></td>
 <td style="text-align: left;">[String]</td>
 <td style="text-align: left;">List of functions and operators supported in filter expressions<br>If not specified, null, or empty, all functions and operators may be attempted.</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L856">FilterRestrictions</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L861">FilterRestrictions</a></td>
 <td style="text-align: left;"><a href="#FilterRestrictionsType">FilterRestrictionsType?</a></td>
 <td style="text-align: left;">Restrictions on filter expressions</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L859">SearchRestrictions</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L864">SearchRestrictions</a></td>
 <td style="text-align: left;"><a href="#SearchRestrictionsType">SearchRestrictionsType?</a></td>
 <td style="text-align: left;">Restrictions on search expressions</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L862">SortRestrictions</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L867">SortRestrictions</a></td>
 <td style="text-align: left;"><a href="#SortRestrictionsType">SortRestrictionsType?</a></td>
 <td style="text-align: left;">Restrictions on orderby expressions</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L865">TopSupported</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L870">TopSupported</a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">Supports $top</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L868">SkipSupported</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L873">SkipSupported</a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">Supports $skip</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L871">SelectSupport</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L876">SelectSupport</a></td>
 <td style="text-align: left;"><a href="#SelectSupportType">SelectSupportType?</a></td>
 <td style="text-align: left;">Support for $select</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L874">Insertable</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L879">Insertable</a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">Members can be inserted into this collection<br>If additionally annotated with <a href="#Core-PositionalInsert">Core.PositionalInsert</a>, members can be inserted at a specific position</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L878">Updatable</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L883">Updatable</a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">Members of this ordered collection can be updated by ordinal</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L881">Deletable</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L886">Deletable</a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">Members of this ordered collection can be deleted by ordinal</td>
 </tr>
 </tbody>
 </table>
 <p><a name="OperationRestrictionsType"></a></p>
-<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L889">OperationRestrictionsType</a></h2>
+<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L894">OperationRestrictionsType</a></h2>
 <table>
 <thead>
 <tr class="header">
@@ -2768,34 +2775,34 @@ Section | Feature / Change | Issue
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L890">FilterSegmentSupported</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L895">FilterSegmentSupported</a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">Bound action or function can be invoked on a collection-valued binding parameter path with a <code>/$filter(...)</code> segment</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L893">Permissions</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L898">Permissions</a></td>
 <td style="text-align: left;">[<a href="#PermissionType">PermissionType?</a>]</td>
 <td style="text-align: left;">Required permissions. One of the specified sets of scopes is required to invoke an action or function</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L896">CustomHeaders</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L901">CustomHeaders</a></td>
 <td style="text-align: left;">[<a href="#CustomParameter">CustomParameter</a>]</td>
 <td style="text-align: left;">Supported or required custom headers</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L899">CustomQueryOptions</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L904">CustomQueryOptions</a></td>
 <td style="text-align: left;">[<a href="#CustomParameter">CustomParameter</a>]</td>
 <td style="text-align: left;">Supported or required custom query options</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L902">ErrorResponses</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L907">ErrorResponses</a></td>
 <td style="text-align: left;">[<a href="#HttpResponse">HttpResponse</a>]</td>
 <td style="text-align: left;">Possible error responses returned by the request.</td>
 </tr>
 </tbody>
 </table>
 <p><a name="ModificationQueryOptionsType"></a></p>
-<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L913">ModificationQueryOptionsType</a></h2>
+<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L918">ModificationQueryOptionsType</a></h2>
 <table>
 <thead>
 <tr class="header">
@@ -2806,39 +2813,39 @@ Section | Feature / Change | Issue
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L914">ExpandSupported</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L919">ExpandSupported</a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">Supports $expand with modification requests</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L917">SelectSupported</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L922">SelectSupported</a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">Supports $select with modification requests</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L920">ComputeSupported</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L925">ComputeSupported</a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">Supports $compute with modification requests</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L923">FilterSupported</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L928">FilterSupported</a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">Supports $filter with modification requests</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L926">SearchSupported</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L931">SearchSupported</a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">Supports $search with modification requests</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L929">SortSupported</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L934">SortSupported</a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">Supports $orderby with modification requests</td>
 </tr>
 </tbody>
 </table>
 <p><a name="ReadRestrictionsBase"></a></p>
-<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L938"><em>ReadRestrictionsBase</em></a></h2>
+<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L943"><em>ReadRestrictionsBase</em></a></h2>
 <p><strong>Derived Types:</strong></p>
 <ul>
 <li><a href="#ReadByKeyRestrictionsType">ReadByKeyRestrictionsType</a></li>
@@ -2854,44 +2861,44 @@ Section | Feature / Change | Issue
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L939">Readable</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L944">Readable</a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">Entities can be retrieved</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L942">Permissions</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L947">Permissions</a></td>
 <td style="text-align: left;">[<a href="#PermissionType">PermissionType?</a>]</td>
 <td style="text-align: left;">Required permissions. One of the specified sets of scopes is required to read.</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L945">CustomHeaders</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L950">CustomHeaders</a></td>
 <td style="text-align: left;">[<a href="#CustomParameter">CustomParameter</a>]</td>
 <td style="text-align: left;">Supported or required custom headers</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L948">CustomQueryOptions</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L953">CustomQueryOptions</a></td>
 <td style="text-align: left;">[<a href="#CustomParameter">CustomParameter</a>]</td>
 <td style="text-align: left;">Supported or required custom query options</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L951">Description</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L956">Description</a></td>
 <td style="text-align: left;">String?</td>
 <td style="text-align: left;">A brief description of the request</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L955">LongDescription</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L960">LongDescription</a></td>
 <td style="text-align: left;">String?</td>
 <td style="text-align: left;">A long description of the request</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L959">ErrorResponses</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L964">ErrorResponses</a></td>
 <td style="text-align: left;">[<a href="#HttpResponse">HttpResponse</a>]</td>
 <td style="text-align: left;">Possible error responses returned by the request.</td>
 </tr>
 </tbody>
 </table>
 <p><a name="ReadByKeyRestrictionsType"></a></p>
-<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L963">ReadByKeyRestrictionsType</a>: <a href="#ReadRestrictionsBase">ReadRestrictionsBase</a></h2>
+<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L968">ReadByKeyRestrictionsType</a>: <a href="#ReadRestrictionsBase">ReadRestrictionsBase</a></h2>
 <p>Restrictions for retrieving an entity by key</p>
 <table>
 <thead>
@@ -2903,44 +2910,44 @@ Section | Feature / Change | Issue
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L939"><em>Readable</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L944"><em>Readable</em></a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">Entities can be retrieved</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L942"><em>Permissions</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L947"><em>Permissions</em></a></td>
 <td style="text-align: left;">[<a href="#PermissionType">PermissionType?</a>]</td>
 <td style="text-align: left;">Required permissions. One of the specified sets of scopes is required to read.</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L945"><em>CustomHeaders</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L950"><em>CustomHeaders</em></a></td>
 <td style="text-align: left;">[<a href="#CustomParameter">CustomParameter</a>]</td>
 <td style="text-align: left;">Supported or required custom headers</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L948"><em>CustomQueryOptions</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L953"><em>CustomQueryOptions</em></a></td>
 <td style="text-align: left;">[<a href="#CustomParameter">CustomParameter</a>]</td>
 <td style="text-align: left;">Supported or required custom query options</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L951"><em>Description</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L956"><em>Description</em></a></td>
 <td style="text-align: left;">String?</td>
 <td style="text-align: left;">A brief description of the request</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L955"><em>LongDescription</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L960"><em>LongDescription</em></a></td>
 <td style="text-align: left;">String?</td>
 <td style="text-align: left;">A long description of the request</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L959"><em>ErrorResponses</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L964"><em>ErrorResponses</em></a></td>
 <td style="text-align: left;">[<a href="#HttpResponse">HttpResponse</a>]</td>
 <td style="text-align: left;">Possible error responses returned by the request.</td>
 </tr>
 </tbody>
 </table>
 <p><a name="ReadRestrictionsType"></a></p>
-<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L966">ReadRestrictionsType</a>: <a href="#ReadRestrictionsBase">ReadRestrictionsBase</a></h2>
+<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L971">ReadRestrictionsType</a>: <a href="#ReadRestrictionsBase">ReadRestrictionsBase</a></h2>
 <table>
 <thead>
 <tr class="header">
@@ -2951,54 +2958,54 @@ Section | Feature / Change | Issue
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L939"><em>Readable</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L944"><em>Readable</em></a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">Entities can be retrieved</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L942"><em>Permissions</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L947"><em>Permissions</em></a></td>
 <td style="text-align: left;">[<a href="#PermissionType">PermissionType?</a>]</td>
 <td style="text-align: left;">Required permissions. One of the specified sets of scopes is required to read.</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L945"><em>CustomHeaders</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L950"><em>CustomHeaders</em></a></td>
 <td style="text-align: left;">[<a href="#CustomParameter">CustomParameter</a>]</td>
 <td style="text-align: left;">Supported or required custom headers</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L948"><em>CustomQueryOptions</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L953"><em>CustomQueryOptions</em></a></td>
 <td style="text-align: left;">[<a href="#CustomParameter">CustomParameter</a>]</td>
 <td style="text-align: left;">Supported or required custom query options</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L951"><em>Description</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L956"><em>Description</em></a></td>
 <td style="text-align: left;">String?</td>
 <td style="text-align: left;">A brief description of the request</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L955"><em>LongDescription</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L960"><em>LongDescription</em></a></td>
 <td style="text-align: left;">String?</td>
 <td style="text-align: left;">A long description of the request</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L959"><em>ErrorResponses</em></a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L964"><em>ErrorResponses</em></a></td>
 <td style="text-align: left;">[<a href="#HttpResponse">HttpResponse</a>]</td>
 <td style="text-align: left;">Possible error responses returned by the request.</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L967">TypecastSegmentSupported</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L972">TypecastSegmentSupported</a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">Entities of a specific derived type can be read by specifying a type-cast segment</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L970">ReadByKeyRestrictions</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L975">ReadByKeyRestrictions</a></td>
 <td style="text-align: left;"><a href="#ReadByKeyRestrictionsType">ReadByKeyRestrictionsType?</a></td>
 <td style="text-align: left;">Restrictions for retrieving an entity by key<br>Only valid when applied to a collection. If a property of <code>ReadByKeyRestrictions</code> is not specified, the corresponding property value of <code>ReadRestrictions</code> applies.</td>
 </tr>
 </tbody>
 </table>
 <p><a name="CustomParameter"></a></p>
-<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1033">CustomParameter</a></h2>
+<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1038">CustomParameter</a></h2>
 <p>A custom parameter is either a header or a query option</p>
 <p>The type of a custom parameter is always a string. Restrictions on the parameter values can be expressed by annotating the record expression describing the parameter with terms from the Validation vocabulary, e.g. Validation.Pattern or Validation.AllowedValues.</p>
 <table>
@@ -3011,34 +3018,34 @@ Section | Feature / Change | Issue
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1036">Name</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1041">Name</a></td>
 <td style="text-align: left;">String</td>
 <td style="text-align: left;">Name of the custom parameter</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1039">Description</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1044">Description</a></td>
 <td style="text-align: left;">String?</td>
 <td style="text-align: left;">Description of the custom parameter</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1042">DocumentationURL</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1047">DocumentationURL</a></td>
 <td style="text-align: left;">URL?</td>
 <td style="text-align: left;">URL of related documentation</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1046">Required</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1051">Required</a></td>
 <td style="text-align: left;">Boolean</td>
 <td style="text-align: left;">true: parameter is required, false or not specified: parameter is optional</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1049">ExampleValues</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1054">ExampleValues</a></td>
 <td style="text-align: left;">[<a href="#Core-PrimitiveExampleValue">PrimitiveExampleValue</a>]</td>
 <td style="text-align: left;">Example values for the custom parameter</td>
 </tr>
 </tbody>
 </table>
 <p><a name="DefaultCapabilitiesType"></a></p>
-<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1068">DefaultCapabilitiesType</a></h2>
+<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1073">DefaultCapabilitiesType</a></h2>
 <table>
 <thead>
 <tr class="header">
@@ -3049,89 +3056,89 @@ Section | Feature / Change | Issue
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1069">ChangeTracking</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1074">ChangeTracking</a></td>
 <td style="text-align: left;"><a href="#ChangeTrackingBase">ChangeTrackingBase?</a></td>
 <td style="text-align: left;">Change tracking capabilities</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1072">CountRestrictions</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1077">CountRestrictions</a></td>
 <td style="text-align: left;"><a href="#CountRestrictionsBase">CountRestrictionsBase?</a></td>
 <td style="text-align: left;">Restrictions on /$count path suffix and $count=true system query option</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1075">IndexableByKey</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1080">IndexableByKey</a></td>
 <td style="text-align: left;"><a href="#Core-Tag">Tag?</a></td>
 <td style="text-align: left;">Supports key values according to OData URL conventions</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1078">TopSupported</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1083">TopSupported</a></td>
 <td style="text-align: left;"><a href="#Core-Tag">Tag?</a></td>
 <td style="text-align: left;">Supports $top</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1081">SkipSupported</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1086">SkipSupported</a></td>
 <td style="text-align: left;"><a href="#Core-Tag">Tag?</a></td>
 <td style="text-align: left;">Supports $skip</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1084">ComputeSupported</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1089">ComputeSupported</a></td>
 <td style="text-align: left;"><a href="#Core-Tag">Tag?</a></td>
 <td style="text-align: left;">Supports $compute</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1087">SelectSupport</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1092">SelectSupport</a></td>
 <td style="text-align: left;"><a href="#SelectSupportType">SelectSupportType?</a></td>
 <td style="text-align: left;">Support for $select and nested query options within $select</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1090">FilterRestrictions</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1095">FilterRestrictions</a></td>
 <td style="text-align: left;"><a href="#FilterRestrictionsBase">FilterRestrictionsBase?</a></td>
 <td style="text-align: left;">Restrictions on filter expressions</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1093">SortRestrictions</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1098">SortRestrictions</a></td>
 <td style="text-align: left;"><a href="#SortRestrictionsBase">SortRestrictionsBase?</a></td>
 <td style="text-align: left;">Restrictions on orderby expressions</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1096">ExpandRestrictions</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1101">ExpandRestrictions</a></td>
 <td style="text-align: left;"><a href="#ExpandRestrictionsBase">ExpandRestrictionsBase?</a></td>
 <td style="text-align: left;">Restrictions on expand expressions</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1099">SearchRestrictions</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1104">SearchRestrictions</a></td>
 <td style="text-align: left;"><a href="#SearchRestrictionsType">SearchRestrictionsType?</a></td>
 <td style="text-align: left;">Restrictions on search expressions</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1102">InsertRestrictions</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1107">InsertRestrictions</a></td>
 <td style="text-align: left;"><a href="#InsertRestrictionsBase">InsertRestrictionsBase?</a></td>
 <td style="text-align: left;">Restrictions on insert operations</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1105">UpdateRestrictions</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1110">UpdateRestrictions</a></td>
 <td style="text-align: left;"><a href="#UpdateRestrictionsBase">UpdateRestrictionsBase?</a></td>
 <td style="text-align: left;">Restrictions on update operations</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1108">DeleteRestrictions</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1113">DeleteRestrictions</a></td>
 <td style="text-align: left;"><a href="#DeleteRestrictionsBase">DeleteRestrictionsBase?</a></td>
 <td style="text-align: left;">Restrictions on delete operations</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1111">OperationRestrictions</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1116">OperationRestrictions</a></td>
 <td style="text-align: left;"><a href="#OperationRestrictionsType">OperationRestrictionsType?</a></td>
 <td style="text-align: left;">Restrictions for function or action operations</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1114">ReadRestrictions</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1119">ReadRestrictions</a></td>
 <td style="text-align: left;"><a href="#ReadRestrictionsType">ReadRestrictionsType?</a></td>
 <td style="text-align: left;">Restrictions for retrieving a collection of entities, retrieving a singleton instance</td>
 </tr>
 </tbody>
 </table>
 <p><a name="HttpResponse"></a></p>
-<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1119">HttpResponse</a></h2>
+<h2><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1124">HttpResponse</a></h2>
 <table>
 <thead>
 <tr class="header">
@@ -3142,12 +3149,12 @@ Section | Feature / Change | Issue
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1120">StatusCode</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1125">StatusCode</a></td>
 <td style="text-align: left;">String</td>
 <td style="text-align: left;">HTTP response status code, for example 400, 403, 501</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1123">Description</a></td>
+<td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.xml#L1128">Description</a></td>
 <td style="text-align: left;">String</td>
 <td style="text-align: left;">Human-readable description of the response</td>
 </tr>
@@ -3247,12 +3254,12 @@ Section | Feature / Change | Issue
 <tr class="even">
 <td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Validation.V1.xml#L72">Minimum</a></td>
 <td style="text-align: left;">PrimitiveType</td>
-<td style="text-align: left;"><a name="Minimum"></a>Minimum value that a property, parameter, or term can have.<br>Can be annotated with:<ul><li><a href="#Exclusive">Exclusive</a></li></ul></td>
+<td style="text-align: left;"><a name="Minimum"></a>Minimum value that a property, parameter, or term can have.<br>Applicable Annotation Terms:<ul><li><a href="#Exclusive">Exclusive</a></li></ul></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Validation.V1.xml#L81">Maximum</a></td>
 <td style="text-align: left;">PrimitiveType</td>
-<td style="text-align: left;"><a name="Maximum"></a>Maximum value that a property, parameter, or term can have.<br>Can be annotated with:<ul><li><a href="#Exclusive">Exclusive</a></li></ul></td>
+<td style="text-align: left;"><a name="Maximum"></a>Maximum value that a property, parameter, or term can have.<br>Applicable Annotation Terms:<ul><li><a href="#Exclusive">Exclusive</a></li></ul></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Validation.V1.xml#L90">Exclusive</a></td>
@@ -3287,7 +3294,7 @@ Section | Feature / Change | Issue
 <tr class="even">
 <td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Validation.V1.xml#L147">DerivedTypeConstraint</a></td>
 <td style="text-align: left;">[<a href="#SingleOrCollectionType">SingleOrCollectionType</a>]</td>
-<td style="text-align: left;"><a name="DerivedTypeConstraint"></a>Values are restricted to types that are both identical to or derived from the declared type and a type listed in this collection.<br>This allows restricting values to certain sub-trees of an inheritance hierarchy, including hierarchies starting at the <a href="https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.01.html#sec_BuiltInAbstractTypes">Built-In Abstract Types</a>. Types listed in this collection are ignored if they are not derived from the declared type of the annotated model element or would not be allowed as declared type of the annotated model element.<br/> When applied to a collection-valued element, this annotation specifies the types allowed for members of the collection without mentioning the <code>Collection()</code> wrapper. The SingleOrCollectionType may only include the <code>Collection()</code> wrapper if the annotation is applied to an element with declared type <code>Edm.Untyped</code>.</td>
+<td style="text-align: left;"><a name="DerivedTypeConstraint"></a>Values are restricted to types that are both identical to or derived from the declared type and a type listed in this collection.<br>This allows restricting values to certain sub-trees of an inheritance hierarchy, including hierarchies starting at the <a href="https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.01.html#sec_BuiltInAbstractTypes">Built-In Abstract Types</a>. Types listed in this collection are ignored if they are not derived from the declared type of the annotated model element or would not be allowed as declared type of the annotated model element.<br> When applied to a collection-valued element, this annotation specifies the types allowed for members of the collection without mentioning the <code>Collection()</code> wrapper. The SingleOrCollectionType may only include the <code>Collection()</code> wrapper if the annotation is applied to an element with declared type <code>Edm.Untyped</code>.</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Validation.V1.xml#L166">AllowedTerms</a></td>
@@ -4562,12 +4569,12 @@ Section | Feature / Change | Issue
 <tr class="even">
 <td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Repeatability.V1.xml#L74">DeleteWithClientIDSupported</a></td>
 <td style="text-align: left;"><a href="#Core-Tag">Tag</a></td>
-<td style="text-align: left;"><a name="DeleteWithClientIDSupported"></a>Deletion of remembered requests by client ID is supported<br>Clients that specify a <code>RepeatabilityClientID</code> header can delete all remembered requests for that client ID by sending a<br/><code>DELETE $RepeatableRequestsWithClientID/{Repeatability-Client-ID}</code><br/>request to the service root.</td>
+<td style="text-align: left;"><a name="DeleteWithClientIDSupported"></a>Deletion of remembered requests by client ID is supported<br>Clients that specify a <code>RepeatabilityClientID</code> header can delete all remembered requests for that client ID by sending a<br><code>DELETE $RepeatableRequestsWithClientID/{Repeatability-Client-ID}</code><br>request to the service root.</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Repeatability.V1.xml#L85">DeleteWithRequestIDSupported</a></td>
 <td style="text-align: left;"><a href="#Core-Tag">Tag</a></td>
-<td style="text-align: left;"><a name="DeleteWithRequestIDSupported"></a>Deletion of remembered requests by request ID is supported<br>Clients can delete a single remembered request by sending a<br/><code>DELETE $RepeatableRequestWithRequestID/{Repeatability-Request-ID}</code><br/>request to the service root.</td>
+<td style="text-align: left;"><a name="DeleteWithRequestIDSupported"></a>Deletion of remembered requests by request ID is supported<br>Clients can delete a single remembered request by sending a<br><code>DELETE $RepeatableRequestWithRequestID/{Repeatability-Request-ID}</code><br>request to the service root.</td>
 </tr>
 </tbody>
 </table>
@@ -4879,7 +4886,7 @@ do we have considerations specific to URLs, for example length, encoding, privac
 <details open><summary>
 <h2 id="b1-special-thanks"><a id="SpecialThanks" href="#SpecialThanks">B.1 Special Thanks</a></h2>
 </summary>
-<p>The contributions of the OASIS OData Technical Committee members, enumerated in <a href="#ODataProtocol">OData-Protocol</a>, are gratefully acknowledged.</p>
+<p>The contributions of the OASIS OData Technical Committee members, enumerated in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#Participants">OData-Protocol, section C.2</a>, are gratefully acknowledged.</p>
 </details>
 <details open><summary>
 <h2 id="b2-participants"><a id="Participants" href="#Participants">B.2 Participants</a></h2>
