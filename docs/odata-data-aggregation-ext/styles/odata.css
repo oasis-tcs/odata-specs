@@ -158,6 +158,10 @@ table {
   stroke-width: 2;
 }
 
+pre {
+  background-color: #f8f8f8;
+}
+
 p code,
 li code,
 td > code {
