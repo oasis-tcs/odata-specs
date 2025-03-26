@@ -4467,9 +4467,10 @@ request that the response SHOULD include a body by specifying a
 [`return=representation`](#Preferencereturnrepresentationandreturnminimal) preference, or by
 specifying the system query options
 [`$select`](#SystemQueryOptionselect) or
-[`$expand`](#SystemQueryOptionexpand). If the service uses ETags for
-optimistic concurrency control, the entities in the response MUST
-include ETags. If a representation of the updated entity could not be constructed,
+[`$expand`](#SystemQueryOptionexpand).
+An entity that requires concurrency control
+and is included in the response MUST include an ETag.
+If a representation of the updated entity could not be constructed,
 the service MAY ignore the system query options and respond with `204 No Content`.
 
 #### <a id="UpdateRelatedEntitiesWhenUpdatinganEntity" href="#UpdateRelatedEntitiesWhenUpdatinganEntity">11.4.3.1 Update Related Entities When Updating an Entity</a>
