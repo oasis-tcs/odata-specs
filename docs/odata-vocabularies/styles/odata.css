@@ -1,3 +1,7 @@
+:root {
+  --indent: 40px;
+}
+
 a:target,
 span:target {
   background-color: yellow;
@@ -154,6 +158,10 @@ table {
   stroke-width: 2;
 }
 
+pre {
+  background-color: #f8f8f8;
+}
+
 p code,
 li code,
 td > code {
@@ -168,11 +176,31 @@ td > code {
 
 .example pre,
 .rep {
-  margin-left: 40px;
+  margin-left: var(--indent);
+}
+
+.caption p {
+  margin-left: var(--indent);
+  margin-bottom: -1em;
+}
+
+.side-by-side {
+  margin: -1em 0;
+}
+
+.side-by-side:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.side-by-side > div {
+  width: 50%;
+  float: left;
 }
 
 .indent {
-  margin-left: 40px;
+  margin-left: var(--indent);
 }
 
 td pre {
@@ -195,7 +223,7 @@ mjx-container {
 
 mjx-container[display="true"] {
   text-align: left !important;
-  margin-left: 40px !important;
+  margin-left: var(--indent) !important;
 }
 
 code .er {
@@ -247,6 +275,7 @@ h6 {
   page-break-after: avoid;
 }
 
+.side-by-side,
 td {
   page-break-inside: avoid;
 }
