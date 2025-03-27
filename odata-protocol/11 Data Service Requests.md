@@ -556,6 +556,10 @@ properties that can be used in [`$expand`](#SystemQueryOptionexpand),
 [`$filter`](#SystemQueryOptionfilter), or
 [`$orderby`](#SystemQueryOptionorderby).
 They are treated according to their instance-specific type, with the addition that they are silently ignored in `$expand` if the instance-specific value is neither a stream, an entity, or a collection of entities.
+But if the service can infer the that a computed property's type makes it unsuitable for `$expand` independently of the underlying data, it MUST reject the request
+The inferral can be based on, for example, the
+declared type of a property or the type of a literal value that occurs in the
+expression in the compute instruction.
 
 Computed properties SHOULD be included as dynamic properties in the result without being explicitly mentioned in `$expand`or `$select`, or implied by star (`*`).
 
