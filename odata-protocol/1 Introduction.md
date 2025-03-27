@@ -174,6 +174,12 @@ additional undeclared *dynamic properties*. A dynamic property cannot
 have the same name as a declared property. Entity or complex types which
 allow clients to persist additional undeclared properties are called
 *open types*.
+A dynamic property need not exist on all instances of a structured type,
+and it can have values of different types on different instances.
+It can be specified in both [`$expand`](#SystemQueryOptionexpand) and [`$select`](#SystemQueryOptionselect),
+and it is interpreted per instance according to its instance-specific type,
+with the addition that it is silently ignored in `$expand` if the instance-specific value is neither a stream,
+an entity, or a collection of entities.
 
 Relationships from one entity to another are represented as *navigation
 properties.* Navigation properties are generally defined as part of an
