@@ -4113,7 +4113,7 @@ requests.
 
 For requests including an [`OData-Version`](#HeaderODataVersion) header
 value of `4.01`, any ETag values specified in the request body of an
-[update request](#UpdateanEntity) MUST be `*` or match the current value
+[upsert request](#UpdateanEntity) MUST be `*` or match the current value
 for the record being updated.
 
 #### <a id="HandlingofDateTimeOffsetValues" href="#HandlingofDateTimeOffsetValues">11.4.1.2 Handling of DateTimeOffset Values</a>
@@ -4133,7 +4133,7 @@ Clients MUST be prepared to receive additional properties in an entity
 or complex type instance that are not advertised in metadata, even for
 types not marked as open. By using `PATCH` when [updating
 entities](#UpdateanEntity), clients can ensure that such properties
-values are not lost if omitted from the update request.
+values are not lost if omitted from the upsert request.
 
 #### <a id="HandlingofIntegrityConstraints" href="#HandlingofIntegrityConstraints">11.4.1.4 Handling of Integrity Constraints</a>
 
@@ -4216,8 +4216,8 @@ key properties for an entity include key properties of a directly
 related entity, those related entities MUST be included either as
 references to existing entities or as content for new related entities.
 
-An entity may also be created as the result of an
-[Upsert](#UpsertanEntity) operation.
+An entity may also be created as the result of an [upsert request](#UpdateanEntity)
+that is [treated as an insert](#UpsertanEntity).
 
 If the collection's URL terminates in a type cast segment, then the segment
 MUST specify the type of, or a type derived from, the type of the
@@ -4367,8 +4367,8 @@ On failure, the service MUST NOT create any of the entities.
 
 ### <a id="UpdateanEntity" href="#UpdateanEntity">11.4.3 Update an Entity</a>
 
-To update an individual entity, the client makes a `PATCH` or `PUT`
-request to a URL that identifies the entity. The [edit URL](#ReadURLsandEditURLs)
+To make changes to an entity, the client makes `PATCH` or `PUT`
+request (a so-called _upsert request_) to a URL that identifies the entity. The [edit URL](#ReadURLsandEditURLs)
 MAY differ from the canonical URL defined in [OData-URL, section 4.3.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalURL),
 in which case clients SHOULD use the edit URL when making changes to the entity.
 
@@ -4488,7 +4488,7 @@ the service MAY ignore the system query options and respond with `204 No Content
 
 #### <a id="UpdateRelatedEntitiesWhenUpdatinganEntity" href="#UpdateRelatedEntitiesWhenUpdatinganEntity">11.4.3.1 Update Related Entities When Updating an Entity</a>
 
-Update requests with an OData-Version header with a value of `4.0` MUST
+Upsert requests with an OData-Version header with a value of `4.0` MUST
 NOT contain related entities as inline content. Such requests MAY
 contain binding information for navigation properties. For single-valued
 navigation properties this replaces the relationship. For
@@ -4501,7 +4501,7 @@ payload](#DeltaPayloads) representing the related entities that have
 been added, removed, or changed. Such a request is referred to as a
 "deep update". If the nested collection is represented identical to an
 expanded navigation property, then the set of nested entities and entity
-references specified in a successful update request represents the full
+references specified in a successful upsert request represents the full
 set of entities to be related according to that relationship and MUST
 NOT include added links, deleted links, or deleted entities.
 
@@ -4712,15 +4712,17 @@ the request.
 
 #### <a id="UpsertanEntity" href="#UpsertanEntity">11.4.3.2 Upsert an Entity</a>
 
-An upsert occurs when an [update request](#UpdateanEntity) newly creates the addressed entity.
-Services that support this capability (instead of failing update requests for non-existing
-entities) SHOULD advertise it by an annotation with the
+Services MAY treat an [upsert request](#UpdateanEntity) like a [create entity request](#CreateanEntity)
+if it requires the addressed entity to be newly created. The request is then said to be
+"treated as an insert", otherwise "treated as an update".
+Services that support this capability (instead of failing upsert requests that require
+entity creation) SHOULD advertise it by an annotation with the
 term `Capabilities.UpdateRestrictions` (nested property `Upsertable`
 with value `true`) defined in [OData-VocCap](#ODataVocCap).
 
 If the service is unable to determine the
 canonical collection or canonical singleton (as defined in [section 10](#ContextURL)) for the newly-created entity,
-if MUST fail the update request altogether.
+if MUST fail the upsert request.
 This determination is possible, for example, if the resource path of the request
 1. consists of an entity set followed by a key predicate
 2. consists of a singleton (which must be nullable for an upsert to occur)
@@ -4733,10 +4735,10 @@ This determination is possible, for example, if the resource path of the request
 or the payload includes a context URL.
 
 Upserts are not supported against entities whose keys' values are
-generated by the service. Services MUST fail an update request to a URL
+generated by the service. Services MUST fail an upsert request to a URL
 that would identify such an entity and the entity does not yet exist.
 
-Similarly, services MUST fail an update request to the URL of a [media entity](#RequestingtheMediaStreamofaMediaEntityusingvalue) that does not yet exist.
+Similarly, services MUST fail an upsert request to the URL of a [media entity](#RequestingtheMediaStreamofaMediaEntityusingvalue) that does not yet exist.
 However, a `PUT` request to the _media edit URL_ of a media entity does have Upsert
 semantics, in that the media entity is [created](#CreateaMediaEntity)
 with the specified media stream if it does not already exist, otherwise the
@@ -4747,50 +4749,33 @@ A key property whose value is provided in the request URL SHOULD be omitted from
 If key properties are provided in the request URL and the request body with different values,
 services MUST either fail the request or ignore the value in the request body.
 
-If the URL of an update request falls into case 1, 2, or 3 given above and the request
+If the URL of an upsert request falls into case 1, 2, or 3 given above and the request
 - contains an [`If-Match: *`](#HeaderIfMatch) header, the service MUST fail the request
-  if an upsert would occur
+  if it would be treated as an insert
 - contains an `If-Match` header with an ETag as value, the service fails the request
-  instead of performing an upsert because the [ETag](#UseofETagsforAvoidingUpdateConflicts)
+  instead of treating it as an insert because the [ETag](#UseofETagsforAvoidingUpdateConflicts)
   does not match
 - contains an [`If-None-Match: *`](#HeaderIfNoneMatch) header, the service MUST fail the request
-  if no upsert would occur.
+  if it would be treated as an update.
 
-In other words, the `If-`(`None-`)`Match` header distinguishes between upsert
-and no upsert in these cases.
+In other words, the `If-`(`None-`)`Match` header distinguishes between insert
+and update in these cases.
 
-Alternatively, the URL of an update request ends
-with a non-containment navigation property, optionally followed by a key predicate.
-In this case, the `If-`(`None-`)`Match` header distinguishes between cases where
-the related entity exists and where not, but this is not
-necessarily equivalent to the upsert distinction (see also
-[example 85](#specialization)). If the request
-- contains an `If-Match: *` header, the service MUST fail the request
-  if the navigation property is null
-- contains an `If-Match` header with an ETag as value, the service fails the request
-  if the navigation property is null because the ETag does not match
-- contains an `If-None-Match: *` header, the service MUST fail the request
-  if the navigation property is not null.
-
-Note that if the service does not fail here, it may update the navigation property to point to
-a newly-created or an existing entity (that is, perform an upsert or not), independently of
-the `If-`(`None-`)`Match` header. To rule out an upsert in this case,
-the client MAY send a request
-payload consisting of an entity reference [OData-JSON, section 14](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#EntityReference) or use
-a bind operation [OData-JSON, section 8.5](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#BindOperation).
+Note that outside of these cases it can happen that an upsert request does not address an existing entity with its URL
+but identifies one in its payload. Such a request may update the identified entity and
+link it to another entity, but it does not lead to a create entity request.
 
 ::: example
-Example <a id="specialization" href="#specialization">85</a>: `Orders` have a containment navigation property `InvolvedParties`
-(with roles like supplier, customer, payer) and a nullable non-containment navigation property `Customer`
-which always points to the involved party with the customer role (this is service-specific knowledge).
-Then the resource path
+Example 85: `Category` is a single-valued nullable non-containment navigation property
+on the product entity type. Even if
 ```
-http://server/Orders(23)/Customer
+GET http://host/service/Products(57)/Category
 ```
-has value `null` if and only if there is no entity in `InvolvedParties` with the customer role
-or, equivalently, if an upsert occurs for a PATCH request to that URL. In this case, the
-`If-`(`None-`)`Match` header makes the upsert distinction although the URL ends with
-a non-containment navigation property.
+returns `404 Not Found`, the upsert request
+```
+PATCH http://host/service/Products(57)/Category
+```
+is treated like an update not an insert if its payload identifies an existing category.
 :::
 
 ### <a id="DeleteanEntity" href="#DeleteanEntity">11.4.4 Delete an Entity</a>
