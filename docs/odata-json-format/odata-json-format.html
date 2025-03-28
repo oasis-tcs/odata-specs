@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
 <head>
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
@@ -59,7 +59,7 @@
     code span.al { color: #ff0000; font-weight: bold; } /* Alert */
     code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
     code span.at { color: #7d9029; } /* Attribute */
-    code span.bn { color: #40a070; } /* BaseN */
+    code span.bn { color: #337f59; } /* BaseN */
     code span.bu { color: #008000; } /* BuiltIn */
     code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
     code span.ch { color: #4070a0; } /* Char */
@@ -68,10 +68,10 @@
     code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
     code span.do { color: #ba2121; font-style: italic; } /* Documentation */
     code span.dt { color: #902000; } /* DataType */
-    code span.dv { color: #40a070; } /* DecVal */
+    code span.dv { color: #337f59; } /* DecVal */
     code span.er { color: #ff0000; font-weight: bold; } /* Error */
     code span.ex { } /* Extension */
-    code span.fl { color: #40a070; } /* Float */
+    code span.fl { color: #337f59; } /* Float */
     code span.fu { color: #06287e; } /* Function */
     code span.im { color: #008000; font-weight: bold; } /* Import */
     code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
@@ -123,7 +123,7 @@
 
       const darkmode_query = matchMedia("(prefers-color-scheme: dark)");
       darkmode_query.addEventListener("change", darkmode_auto);
-      const darkmode_switch = document.getElementById("darkmode");
+      const darkmode_switch = document.querySelector("#darkmode select");
       darkmode_switch.value =
         localStorage.getItem("odata-specs/darkmode") || "off";
       darkmode_switch.addEventListener("change", darkmode_manual);
@@ -134,11 +134,13 @@
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 </head>
 <body>
-<select id="darkmode">
-  <option value="off" title="Light mode">&#x263C;</option>
-  <option value="on" title="Dark mode">&#x263D;</option>
-  <option value="auto" title="Follow device mode">&#x25D1;</option>
-</select>
+<aside id="darkmode">
+  <select aria-label="Switch light/dark mode">
+    <option value="off" title="Light mode">&#x263C;</option>
+    <option value="on" title="Dark mode">&#x263D;</option>
+    <option value="auto" title="Follow device mode">&#x25D1;</option>
+  </select>
+</aside>
 <p><img src="https://docs.oasis-open.org/templates/OASISLogo-v3.0.png" alt="OASIS Logo" /></p>
 <hr />
 <details open><summary>
@@ -389,23 +391,37 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/1928">1928</a></td>
 </tr>
 <tr class="odd">
+<td><a href="#ControlInformationetagodataetag">Section 4.6.10</a></td>
+<td>Control information <code>"@etag": ""</code> to prevent updates</td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/2021">2021</a></td>
+</tr>
+<tr class="even">
 <td><a href="#ControlInformationmediaodatamedia">Section 4.6.12</a></td>
 <td><code>mediaContentType</code> can be <code>null</code></td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/536">536</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#StructuralProperty">Section 7</a>, <a href="#InformativeReferences">Section A.2</a></td>
 <td>Removed reference to obsolete version of GeoJSON</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/456">456</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#DeletedEntity">Section 15.3</a></td>
 <td><code>type</code> control information, if present, must come immediately after <code>removed</code></td>
-<td></td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/1985">1985</a></td>
+</tr>
+<tr class="odd">
+<td><a href="#ActionInvocation">Section 18</a></td>
+<td>Allow common expressions in action payloads</td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/341">341</a></td>
+</tr>
+<tr class="even">
+<td><a href="#ActionInvocation">Section 18</a></td>
+<td>Omission of collection-valued action parameters</td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/2045">2045</a></td>
 </tr>
 </tbody>
 </table>
-<p><a href="https://github.com/oasis-tcs/odata-specs/issues/1985">1985</a> <a href="#ActionInvocation">Section 18</a>| Allow common expressions in action payloads| <a href="https://github.com/oasis-tcs/odata-specs/issues/341">341</a></p>
 </details>
 <details open><summary>
 <h2 id="12-glossary"><a id="Glossary" href="#Glossary">1.2 Glossary</a></h2>
@@ -778,7 +794,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <h3 id="4610-control-information-etag-odataetag"><a id="ControlInformationetagodataetag" href="#ControlInformationetagodataetag">4.6.10 Control Information: <code>etag</code> (<code>odata.etag</code>)</a></h3>
 </summary>
 <p>The <code>etag</code> control information MAY be applied to an <a href="#Entity">entity</a> or collection in a response. The value of the control information is an entity tag (ETag) which is an opaque string value that can be used in a subsequent request to determine if the value of the entity or collection has changed.</p>
-<p>For details on how ETags are used, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UseofETagsforAvoidingUpdateConflicts">OData-Protocol, section 11.4.1.1</a>.</p>
+<p>For details on how ETags are used, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UseofETagsforAvoidingUpdateConflicts">OData-Protocol, section 11.4.1.1</a>. The special value <code>"@etag": "*"</code> is equivalent to the header <code>If-Match: *</code>, and the special value <code>"@etag": ""</code> is equivalent to the header <code>If-None-Match: *</code>, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UpdateaCollectionofEntities">OData-Protocol, section 11.4.12</a>.</p>
 <p>The <code>etag</code> control information is ignored in request payloads for single entities and not written in responses if <a href="#metadatanoneodatametadatanone"><code>metadata=none</code></a> is requested.</p>
 </details>
 <details open><summary>
@@ -961,7 +977,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <p>Values of type <code>Edm.Boolean</code> are represented as the JSON literals <code>true</code> and <code>false</code></p>
 <p>Values of types <code>Edm.Byte</code>, <code>Edm.SByte</code>, <code>Edm.Int16</code>, <code>Edm.Int32</code>, <code>Edm.Int64</code>, <code>Edm.Single</code>, <code>Edm.Double</code>, and <code>Edm.Decimal</code> are represented as JSON numbers, except for <code>-INF</code>, <code>INF</code>, and <code>NaN</code> which are represented as strings, and except when the <a href="#ControllingtheRepresentationofNumbers"><code>IEEE754Compatible</code></a> format parameter demands representation of <code>Edm.Int64</code> and <code>Edm.Decimal</code> as strings.</p>
 <p>Values of type <code>Edm.String</code> are represented as JSON strings, using the JSON string escaping rules.</p>
-<p>Values of type <code>Edm.Binary</code>, <code>Edm.Date</code>, <code>Edm.DateTimeOffset</code>, <code>Edm.Duration</code>, <code>Edm.Guid</code>, and <code>Edm.TimeOfDay</code> are represented as JSON strings whose content satisfies the rules <code>binaryValue</code>, <code>dateValue</code>, <code>dateTimeOffsetValue</code>, <code>durationValue</code>, <code>guidValue</code>, and <code>timeOfDayValue</code> respectively, in <a href="#ODataABNF">OData-ABNF</a>.</p>
+<p>Values of type <code>Edm.Binary</code>, <code>Edm.Date</code>, <code>Edm.DateTimeOffset</code>, <code>Edm.Duration</code>, <code>Edm.Guid</code>, and <code>Edm.TimeOfDay</code> are represented as JSON strings whose content satisfies the rules <code>binaryValue</code>, <code>dateValue</code>, <code>dateTimeOffsetValue</code>, <code>durationValue</code>, <code>guidValue</code>, and <code>timeOfDayValue</code> respectively, in <a href="#ODataABNF">OData-ABNF</a>. The interpretation of a <code>timeOfDayValue</code> in which the <code>second</code> is omitted is not defined by this specification. For maximum interoperability, senders SHOULD always include the <code>second</code>.</p>
 <p>Primitive values that cannot be represented, for example due to server conversion issues or IEEE754 limitations on the size of an <code>Edm.Int64</code> or <code>Edm.Decimal</code> value, are annotated with the <code>Core.ValueException</code> term. In this case, the payload MAY include an approximation of the value and MAY specify a string representation of the exact value in the <code>value</code> property of the annotation.</p>
 <p>Enumeration values are represented as JSON strings whose content satisfies the rule <code>enumValue</code> in <a href="#ODataABNF">OData-ABNF</a>. The preferred representation is the <code>enumerationMember</code>. If no <code>enumerationMember</code> (or combination of named enumeration members) is available, the <code>enumMemberValue</code> representation may be used.</p>
 <p>Geography and geometry values are represented as geometry types as defined in <a href="#rfc7946">RFC7946</a>.</p>
@@ -2089,7 +2105,8 @@ Preference-Applied: return=minimal, continue-on-error
 <span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <p>Inside a batch request the common expressions can also be value references starting with <code>$</code>, as introduced in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ReferencingValuesfromResponseBodies">OData-Protocol, section 11.7.6</a>.</p>
-<p>Non-binding parameters that are nullable or annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter"><code>Core.OptionalParameter</code></a> defined in <a href="#ODataVocCore">OData-VocCore</a> MAY be omitted from the request body. If an omitted parameter is not annotated (and thus nullable), it MUST be interpreted as having the <code>null</code> value. If it is annotated and the annotation specifies a <code>DefaultValue</code>, the omitted parameter is interpreted as having that default value. If omitted and the annotation does not specify a default value, the service is free on how to interpret the omitted parameter. Note: a nullable non-binding parameter is equivalent to being annotated as optional with a default value of <code>null</code>.</p>
+<p>Non-binding single-valued parameters that are nullable or annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter"><code>Core.OptionalParameter</code></a> defined in <a href="#ODataVocCore">OData-VocCore</a> MAY be omitted from the request body. If an omitted single-valued parameter is not annotated (and thus nullable), it MUST be interpreted as having the <code>null</code> value. If it is annotated and the annotation specifies a <code>DefaultValue</code>, the omitted parameter is interpreted as having that default value. If omitted and the annotation does not specify a default value, the service is free on how to interpret the omitted parameter. Note: a nullable non-binding parameter is equivalent to being annotated as optional with a default value of <code>null</code>.</p>
+<p>The interpretation of an omitted non-binding collection-valued parameter is up to the service regardless of its nullability or optionality. Possible interpretations include assuming an empty collection or, for parameters not annotated as <code>Core.OptionalParameter</code>, reporting an error.</p>
 <div class="example">
 <p>Example 54:</p>
 <div class="sourceCode" id="cb61"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
