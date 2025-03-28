@@ -2846,7 +2846,13 @@ type, followed by a closing parenthesis `)`.
 The value of `Nullable` is one of the Boolean literals `true` or
 `false`. Absence of the attribute means `true`.
 
-The value `true` means that the parameter accepts a `null` value.
+For single-valued parameters the value `true` means that the parameter
+accepts a `null` value.
+
+For collection-valued parameters the parameter value will always be a
+collection that MAY be empty. In this case `Nullable` applies to items
+of the collection and specifies whether the collection MAY contain
+`null` values.
 :::
 
 ### <a id="AnnotationCoreOptionalParameter.23.4" href="#AnnotationCoreOptionalParameter.23.4">Annotation `Core.OptionalParameter`</a>
@@ -4178,6 +4184,14 @@ Example 59:
 Dynamic expressions allow assigning a calculated value to an applied
 term.
 
+If a calculated value is not acceptable for the type of the term or
+its [facets](#TypeFacets), does not meet the constraints imposed by its
+`Nullable` attribute
+or by its
+annotations from the Validation vocabulary [OData-VocValidation](#ODataVocValidation),
+the client SHOULD NOT make any assumptions about the application of the term
+(see [example 75](#termdefault)).
+
 ### <a id="PathExpressions" href="#PathExpressions">14.4.1 Path Expressions</a>
 
 Path expressions allow assigning a value to an applied term or term
@@ -4687,6 +4701,21 @@ Example 74:
 ```
 :::
 
+::: example
+Example <a id="termdefault" href="#termdefault">75</a>: The first name of a bot cannot be changed after creation.
+:::: varxml
+```xml
+<Property Name="IsBot" Type="Edm.Boolean" Nullable="true" />
+<Property Name="FirstName" Type="Edm.String" Nullable="false">
+  <Annotation Term="Core.Immutable" Path="IsBot" />
+</Property>
+```
+::::
+If `IsBot` is `null` the client makes no assumption about the immutability of
+the `FirstName`. It can try to change it after creation while being prepared for an
+error response.
+:::
+
 ### <a id="ComparisonandLogicalOperators" href="#ComparisonandLogicalOperators">14.4.2 Comparison and Logical Operators</a>
 
 Annotations MAY use the following logical and comparison expressions
@@ -4744,7 +4773,7 @@ They MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
 ::: {.varxml .example}
-Example 75:
+Example 76:
 ```xml
 <And>
   <Path>IsMale</Path>
@@ -4837,7 +4866,7 @@ They MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
 ::: {.varxml .example}
-Example 76:
+Example 77:
 ```xml
 <Add>
   <Path>StartDate</Path>
@@ -4914,7 +4943,7 @@ are represented according to the appropriate alternative in the
 
 
 ::: {.varxml .example}
-Example 77:
+Example 78:
 ```xml
 <Annotation Term="org.example.display.DisplayName">
   <Apply Function="odata.concat">
@@ -4976,7 +5005,7 @@ first property is used as key, the second property as value.
 
 
 ::: {.varxml .example}
-Example 78: assuming there are no special characters in values of the
+Example 79: assuming there are no special characters in values of the
 Name property of the Actor entity
 ```xml
 <Apply Function="odata.fillUriTemplate">
@@ -5000,7 +5029,7 @@ expression, using syntax and semantics of
 
 
 ::: {.varxml .example}
-Example 79: all non-empty `FirstName` values not containing the letters
+Example 80: all non-empty `FirstName` values not containing the letters
 `b`, `c`, or `d` evaluate to `true`
 ```xml
 <Apply Function="odata.matchesPattern">
@@ -5021,7 +5050,7 @@ parentheses-style key syntax.
 
 
 ::: {.varxml .example}
-Example 80:
+Example 81:
 ```xml
 <Apply Function="odata.fillUriTemplate">
   <String>http://host/service/Genres({genreName})</String>
@@ -5066,7 +5095,7 @@ are considered unspecified.
 :::
 
 ::: {.varxml .example}
-Example 81:
+Example 82:
 ```xml
 <Annotation Term="org.example.display.Threshold">
   <Cast Type="Edm.Decimal">
@@ -5084,6 +5113,13 @@ is the collection of the values calculated by each of the item
 expressions. The values of the child expressions MUST all be type
 compatible.
 
+If the value of a dynamic child expression is not acceptable for the type of the collection or
+its [facets](#TypeFacets), is null for a non-[nullable](#Nullable) collection
+or does not meet the constraints imposed by
+its annotations from the Validation vocabulary [OData-VocValidation](#ODataVocValidation),
+the client SHOULD NOT make any assumptions about the application of the term
+that rely on the value.
+
 
 
 ::: {.varxml .rep}
@@ -5093,7 +5129,7 @@ The `edm:Collection` element contains zero or more child expressions.
 :::
 
 ::: {.varxml .example}
-Example 82:
+Example 83:
 ```xml
 <Annotation Term="org.example.seo.SeoTerms">
   <Collection>
@@ -5148,7 +5184,7 @@ It MAY contain [`edm:Annotation`](#Annotation) elements.
 :::
 
 ::: {.varxml .example}
-Example 83: the condition is a [value path expression](#ValuePath)
+Example 84: the condition is a [value path expression](#ValuePath)
 referencing the Boolean property `IsFemale`, whose value then determines
 the value of the `edm:If` expression
 ```xml
@@ -5163,7 +5199,7 @@ the value of the `edm:If` expression
 :::
 
 ::: {.varxml .example}
-Example 84: pronouns based on a person's `IdentifiesAsFemale` and `IdentifiesAsMale` attributes
+Example 85: pronouns based on a person's `IdentifiesAsFemale` and `IdentifiesAsMale` attributes
 ```xml
 <Annotation Term="org.example.person.Pronouns">
   <Collection>
@@ -5211,7 +5247,7 @@ elements.
 :::
 
 ::: {.varxml .example}
-Example 85:
+Example 86:
 ```xml
 <Annotation Term="self.IsPreferredCustomer">
   <IsOf Type="self.PreferredCustomer">
@@ -5254,7 +5290,7 @@ The value of `Name` is the labeled element's name.
 :::
 
 ::: {.varxml .example}
-Example 86:
+Example 87:
 ```xml
 <Annotation Term="org.example.display.DisplayName">
   <LabeledElement Name="CustomerFirstName" Path="FirstName" />
@@ -5285,7 +5321,7 @@ of a labeled element expression in its body.
 :::
 
 ::: {.varxml .example}
-Example 87:
+Example 88:
 ```xml
 <Annotation Term="org.example.display.DisplayName">
   <LabeledElementReference>Model.CustomerFirstName</LabeledElementReference>
@@ -5310,7 +5346,7 @@ elements.
 :::
 
 ::: {.varxml .example}
-Example 88:
+Example 89:
 ```xml
 <Annotation Term="org.example.display.DisplayName">
   <Null/>
@@ -5319,7 +5355,7 @@ Example 88:
 :::
 
 ::: {.varxml .example}
-Example 89:
+Example 90:
 ```xml
 <Annotation Term="@UI.Address">
   <Null>
@@ -5351,6 +5387,13 @@ the base term or its base term etc. need not be specified again.
 For collection-valued properties the absence of a property value
 expression is equivalent to specifying an empty collection as its value.
 
+If a dynamically provided property value is not acceptable for the type of the property or
+its [facets](#TypeFacets), does not meet the constraints imposed by
+its [nullability](#Nullable) or by
+its annotations from the Validation vocabulary [OData-VocValidation](#ODataVocValidation),
+the client SHOULD NOT make any assumptions about the application of the term that rely on the
+property value.
+
 
 
 ::: {.varxml .rep}
@@ -5380,7 +5423,7 @@ enclosing `edm:Record` expression.
 :::
 
 ::: {.varxml .example}
-Example 90: this annotation "morphs" the entity type from [example 13](#entitytype) into
+Example 91: this annotation "morphs" the entity type from [example 13](#entitytype) into
 a structured type with two structural properties `GivenName` and
 `Surname` and two navigation properties `DirectSupervisor` and
 `CostCenter`. The first three properties simply rename properties of the
@@ -5443,7 +5486,7 @@ elements.
 :::
 
 ::: {.varxml .example}
-Example 91:
+Example 92:
 ```xml
 <Annotation Term="org.example.person.Supplier">
   <UrlRef>
@@ -5524,7 +5567,7 @@ forward-slash separated property, navigation property, or type-cast
 segments
 
 ::: example
-Example 92: Target paths
+Example 93: Target paths
 ```
 MySchema.MyEntityContainer/MyEntitySet
 ```
@@ -5558,7 +5601,7 @@ CSDL. These examples demonstrate many of the topics covered above.
 
 
 ::: {.varxml .example}
-Example 93:
+Example 94:
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
@@ -5677,7 +5720,7 @@ Example 93:
 
 
 ::: {.varxml .example}
-Example 94:
+Example 95:
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"

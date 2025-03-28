@@ -545,8 +545,10 @@ http://host/service/Products?$filter=(4 add 5) mod (4 sub 1) eq 0
 In addition to operators, a set of functions is also defined for use
 with the [`$compute`](#SystemQueryOptioncompute), `$filter` or
 [`$orderby`](#SystemQueryOptionorderby) system query options, or in
-[parameter alias](#ParameterAliases) values. The following sections
-describe the available functions.
+[parameter alias](#ParameterAliases) values. The following [sections ##concat]
+to [##geolength] describe the available functions. The [`case`](#case)
+and [lambda operators](#LambdaOperators) have a slightly different
+syntax.
 
 Note: ISNULL or COALESCE operators are
 not defined. Instead, OData defines a [`null`](#null) literal that can
@@ -1454,22 +1456,22 @@ Edm.Double geo.length(Edm.GeometryLineString)
 The `geo.length` function returns the total length of its line string
 parameter in the coordinate reference system signified by its SRID.
 
-#### ##subsubsubsec Conditional Functions
+#### ##subsubsubsec Conditional Operators
 
 ##### ##subsubsubsubsec `case`
 
-The `case` function has the following signature:
+The `case` operator has a comma-separated lists of arguments:
 
 ```
 expression case(Edm.Boolean:expression, …, Edm.Boolean:expression)
 ```
 
-Each parameter is a pair of expressions separated by a colon (`:`),
+Each argument is a pair of expressions separated by a colon (`:`),
 where the first expression --- the condition --- MUST be a Boolean
 expression, and the second expression --- the result --- may evaluate to
 any type.
 
-The case function evaluates the condition in each pair, starting with
+The `case` operator evaluates the condition in each pair, starting with
 the leftmost pair, and stops as soon as a condition evaluates to `true`.
 It then returns the value of the result of this pair. It returns `null`
 if none of the conditions in any pair evaluates to `true`. Clients can
@@ -1585,6 +1587,9 @@ Primitive literals can appear in the resource path as key property
 values, and in the query part, for example, as operands in
 [`$filter`](#SystemQueryOptionfilter) expressions. They are represented
 according to the `primitiveLiteral` rule in [OData-ABNF](#ODataABNF).
+The interpretation of a `timeOfDayLiteral` in which the `second` is omitted
+is not defined by this specification. For maximum interoperability, senders
+SHOULD always include the `second`.
 
 ::: example
 Example ##ex: expressions using primitive literals
@@ -2017,11 +2022,13 @@ properties of the identified instances of a structured type, optionally followed
 related entity or entities, optionally followed by a [type-cast segment](#AddressingDerivedTypes)
 to expand only related entities of that derived type or one of its
 sub-types, optionally followed by `/$ref` to expand only entity
-references.
+references, or `/$count`, optionally with [`$filter`](#SystemQueryOptionfilter) and/or [`$search`](#SystemQueryOptionsearch) [expand options](#ExpandOptions), to return only the count of matching entities.
 - an entity-valued instance annotation to
 expand the related entity or entities, optionally followed by a
 [type-cast segment](#AddressingDerivedTypes) to expand only related entities of that derived type
 or one of its sub-types.
+
+A path MUST NOT appear in more than one expand item.
 
 If a structured type traversed by the path supports neither dynamic
 properties nor instance annotations, then a corresponding property
@@ -2045,39 +2052,6 @@ http://host/service/Customers?$expand=Addresses/Country
 ```
 :::
 
-A path MUST NOT appear in more than one expand item.
-
-Query options can be applied to an expanded navigation property by
-appending a semicolon-separated list of query options, enclosed in
-parentheses, to the navigation property name.
-The system query option, irrespective of casing or whether or not it is prefixed with a `$`,
-MUST NOT be specified more than once in the list.
-Allowed system query options are
-[`$compute`](#SystemQueryOptioncompute),
-[`$select`](#SystemQueryOptionselect),
-`$expand`, and
-[`$levels`](#ExpandOptionlevels) for all navigation properties, plus
-[`$filter`](#SystemQueryOptionfilter),
-[`$orderby`](#SystemQueryOptionorderby),
-[`$skip`](#SystemQueryOptionstopandskip), [`$top`](#SystemQueryOptionstopandskip),
-[`$count`](#SystemQueryOptioncount), and
-[`$search`](#SystemQueryOptionsearch)
-for collection-valued navigation properties.
-
-::: example
-Example ##ex: all categories and for each category all related products
-with a discontinued date equal to `null`
-```
-http://host/service/Categories?$expand=Products($filter=DiscontinuedDate eq null)
-```
-:::
-
-The `$count` segment can be appended to a navigation property name or
-[type-cast segment](#AddressingDerivedTypes) following a navigation
-property name to return just the count of the related entities. The
-`$filter` and `$search` system query options can be used to limit the
-number of related entities included in the count.
-
 ::: example
 Example ##ex: all categories and for each category the number of all
 related products
@@ -2096,11 +2070,11 @@ http://host/service/Categories?$expand=Products/$count($search=blue)
 
 To retrieve entity references instead of the related entities, append
 `/$ref` to the navigation property name or [type-cast segment](#AddressingDerivedTypes) following a navigation property name.
-The system query options [`$filter`](#SystemQueryOptionfilter),
+The [Expand Options](#ExpandOptions) [`$filter`](#SystemQueryOptionfilter),
 [`$search`](#SystemQueryOptionsearch),
-[`$skip`](#SystemQueryOptionstopandskip),
-[`$top`](#SystemQueryOptionstopandskip), and
-[`$count`](#SystemQueryOptioncount) can be used to limit the number of
+[`$skip`](#SystemQueryOptionstopandskip), and
+[`$top`](#SystemQueryOptionstopandskip) can be used to limit the collection of expanded entity references, and
+[`$count`](#SystemQueryOptioncount) can be used to include the count of
 expanded entity references.
 
 ::: example
@@ -2128,27 +2102,11 @@ http://host/service/Categories
 ```
 :::
 
-[Cyclic navigation properties]{id=ExpandOptionlevels} (whose target type is identical or can be
-cast to its source type) can be recursively expanded using the special
-`$levels` option. The value of the `$levels` option is either a positive
-integer to specify the number of levels to expand, or the literal string
-`max` to specify the maximum expansion level supported by that service.
-A `$levels` option with a value of 1 specifies a single expand with no
-recursion.
-
-::: example
-Example ##ex: all employees with their manager, manager's manager, and
-manager's manager's manager
-```
-http://host/service/Employees?$expand=ReportsTo($levels=3)
-```
-:::
-
 It is also possible to expand all declared and dynamic navigation
 properties using a star (`*`). To retrieve references to all related
 entities use `*/$ref`, and to expand all related entities with a certain
-distance use the star operator with the `$levels` option. The star
-operator can be combined with explicitly named navigation properties,
+distance use the star operator with the `$levels` [Expand Option](#ExpandOptionlevels). 
+The star operator can be combined with explicitly named navigation properties,
 which take precedence over the star operator.
 
 The star operator does not implicitly include stream properties.
@@ -2158,13 +2116,6 @@ Example ##ex: expand `Supplier` and include references for all other
 related entities
 ```
 http://host/service/Categories?$expand=*/$ref,Supplier
-```
-:::
-
-::: example
-Example ##ex: expand all related entities and their related entities
-```
-http://host/service/Categories?$expand=*($levels=2)
 ```
 :::
 
@@ -2190,6 +2141,56 @@ http://host/service/Products?$expand=$value
 ```
 :::
 
+#### ##subsubsubsec Expand Options
+
+Query options can be applied to an expanded navigation property by
+appending a semicolon-separated list of query options, enclosed in
+parentheses, to the navigation property name.
+The system query option, irrespective of casing or whether or not it is prefixed with a `$`,
+MUST NOT be specified more than once in the list.
+Allowed system query options are
+[`$compute`](#SystemQueryOptioncompute),
+[`$select`](#SystemQueryOptionselect),
+`$expand`, and
+[`$levels`](#ExpandOptionlevels) for all navigation properties, plus
+[`$filter`](#SystemQueryOptionfilter),
+[`$orderby`](#SystemQueryOptionorderby),
+[`$skip`](#SystemQueryOptionstopandskip), [`$top`](#SystemQueryOptionstopandskip),
+[`$count`](#SystemQueryOptioncount), and
+[`$search`](#SystemQueryOptionsearch)
+for collection-valued navigation properties.
+
+::: example
+Example ##ex: all categories and for each category all related products
+with a discontinued date equal to `null`
+```
+http://host/service/Categories?$expand=Products($filter=DiscontinuedDate eq null)
+```
+:::
+
+[Cyclic navigation properties]{id=ExpandOptionlevels} (whose target type is identical or can be
+cast to its source type) can be recursively expanded using the special
+`$levels` expand option. The value of the `$levels` expand option is either a positive
+integer to specify the number of levels to expand, or the literal string
+`max` to specify the maximum expansion level supported by that service.
+A `$levels` option with a value of 1 specifies a single expand with no
+recursion.
+
+::: example
+Example ##ex: all employees with their manager, manager's manager, and
+manager's manager's manager
+```
+http://host/service/Employees?$expand=ReportsTo($levels=3)
+```
+:::
+
+::: example
+Example ##ex: expand all related entities and their related entities
+```
+http://host/service/Categories?$expand=*($levels=2)
+```
+:::
+
 ### ##subsubsec System Query Option `$select`
 
 The `$select` system query option allows clients to request a specific
@@ -2207,7 +2208,7 @@ grammar of the `$select` query option.
 
 The value of `$select` is a comma-separated list of select items. Each
 select item is one of the following:
-- a path, to include a property,
+- a path, optionally followed by a [count segment](#AddressingtheCountofaCollection) or [select options](#SelectOptions)
 - a star (`*`), to include all declared or
 dynamic properties of the type, or
 - a qualified schema name followed by a
@@ -2294,8 +2295,8 @@ in order to select a property defined on a type derived from the type of
 the resource segment.
 
 A select item that is a complex type or collection of complex type can
-be followed by a forward slash, an optional [type-cast segment](#AddressingDerivedTypes), and the name of a property of the
-complex type (and so on for nested complex types).
+be followed by a forward slash, an optional [type-cast segment](#AddressingDerivedTypes),
+and the name of a property of the complex type (and so on for nested complex types).
 
 ::: example
 Example ##ex: the `AccountRepresentative` property of any supplier that
@@ -2309,24 +2310,24 @@ http://host/service/Suppliers
 ```
 :::
 
-Query options can be applied to a select item that is a path to a single
-complex value or a collection of primitive or complex values by
-appending a semicolon-separated list of query options, enclosed in
-parentheses, to the select item. The allowed system query options depend
-on the type of the resource identified by the select item, see section
-[System Query Options](#SystemQueryOptions), with the exception of
-[`$expand`](#SystemQueryOptionexpand). The same property MUST NOT have
-select options specified in more than one place in a request and MUST
-NOT be specified in more than one expand.
+If the path ends in a collection of primitive or complex values, 
+then the [count segment](#AddressingtheCountofaCollection) (`/$count`),
+optionally followed by the 
+[Select Options](#SelectOptions) [`$filter`](#SystemQueryOptionfilter)
+and/or [`$search`](#SystemQueryOptionsearch), can be 
+appended to the path in order to return only the count of the matching items.
 
 ::: example
-Example ##ex: select up to five addresses whose `City` starts with an
-`H`, sorted, and with the `Country` expanded
+Example ##ex: for each `Customer`, return the `ID` and the count of `Addresses`
 ```
-http://host/service/Customers
-  ?$select=Addresses($filter=startswith(City,'H');$top=5;
-                     $orderby=Country/Name,City,Street)
-  &$expand=Addresses/Country
+http://host/service/Customers?$select=ID,Addresses/$count
+```
+:::
+
+::: example
+Example ##ex: for each `Customer`, return the `ID` and the count of `Addresses` whose `City` starts with 'H'
+```
+http://host/service/Customers?$select=ID,Addresses/$count($filter=startswith(City,'H'))
 ```
 :::
 
@@ -2369,6 +2370,43 @@ When multiple select item exist in a `$select` clause, then the total set
 of properties, open properties, navigation properties, actions and
 functions to be returned is equal to the union of the set of those
 identified by each select item.
+
+#### ##subsubsubsec Select Options
+
+Query options can be applied to a select item that is a path to a single
+complex value or a collection of primitive or complex values by
+appending a semicolon-separated list of query options, enclosed in
+parentheses, to the select item. The allowed sytem query options are
+[`$compute`](#SystemQueryOptioncompute) and
+[`$select`](#SystemQueryOptionselect) for all complex-typed properties, plus
+[`$filter`](#SystemQueryOptionfilter),
+[`$orderby`](#SystemQueryOptionorderby),
+[`$skip`](#SystemQueryOptionstopandskip), [`$top`](#SystemQueryOptionstopandskip),
+[`$count`](#SystemQueryOptioncount), and
+[`$search`](#SystemQueryOptionsearch)
+for collection-valued properties. The same property MUST NOT have
+select options specified in more than one place in a request.
+
+If the select item is a complex type, or collection of complex types, then
+it can include a nested select.
+
+::: example
+Example ##ex: return the City from the Address complex type
+```
+http://host/service/Customers?$select=Address($select=City)
+```
+:::
+
+::: example
+Example ##ex: select up to five addresses whose `City` starts with an
+`H`, sorted, and with the `Country` expanded
+```
+http://host/service/Customers
+  ?$select=Addresses($filter=startswith(City,'H');$top=5;
+                     $orderby=Country/Name,City,Street)
+  &$expand=Addresses/Country
+```
+:::
 
 ### ##subsubsec System Query Option `$orderby`
 
