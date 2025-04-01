@@ -154,6 +154,15 @@ http://host/service/Categories(1)
 ```
 :::
 
+If the declared entity type of the collection does not define a key (for example, Edm.EntityType), then a cast segment to a type defining a key MUST follow the collection, before appending the key.
+
+::: example
+Example ##ex:
+```
+http://host/service/Categories(1)/Children/myNs.Product(7)
+```
+:::
+
 - Invoking an action bound to a collection
 of entities that returns a single entity (see rule: `boundOperation`)
 - Invoking an function bound to a
@@ -373,7 +382,9 @@ http://host/service/Employees('A1245')
 
 Services MAY support an alternate convention for addressing entities by
 appending a segment containing the unprefixed and unquoted key value to the URL of the
-collection containing the entity. Forward-slashes in key value segments
+collection containing the entity. If the declared entity type of the collection does not 
+define a key (for example, Edm.EntityType), then a cast segment to a type defining a key 
+MUST follow the collection, before appending the key value segment. Forward-slashes in key value segments
 MUST be percent-encoded; single quotes within key value segments are
 treated as part of the key value and do not need to be doubled or
 percent encoded.
