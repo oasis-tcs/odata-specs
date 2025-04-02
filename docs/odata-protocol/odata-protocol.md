@@ -4712,7 +4712,7 @@ the request.
 
 #### <a id="UpsertanEntity" href="#UpsertanEntity">11.4.3.2 Upsert an Entity</a>
 
-Services MAY treat an [upsert request](#UpdateanEntity) like a [create entity request](#CreateanEntity)
+Services MAY treat an upsert request like a [create entity request](#CreateanEntity)
 if it requires the addressed entity to be newly created. The request is then said to be
 "treated as an insert", otherwise "treated as an update".
 Services that support this capability (instead of failing upsert requests that require

@@ -2582,7 +2582,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <details open><summary>
 <h4 id="11432-upsert-an-entity"><a id="UpsertanEntity" href="#UpsertanEntity">11.4.3.2 Upsert an Entity</a></h4>
 </summary>
-<p>Services MAY treat an <a href="#UpdateanEntity">upsert request</a> like a <a href="#CreateanEntity">create entity request</a> if it requires the addressed entity to be newly created. The request is then said to be “treated as an insert”, otherwise “treated as an update”. Services that support this capability (instead of failing upsert requests that require entity creation) SHOULD advertise it by an annotation with the term <code>Capabilities.UpdateRestrictions</code> (nested property <code>Upsertable</code> with value <code>true</code>) defined in <a href="#ODataVocCap">OData-VocCap</a>.</p>
+<p>Services MAY treat an upsert request like a <a href="#CreateanEntity">create entity request</a> if it requires the addressed entity to be newly created. The request is then said to be “treated as an insert”, otherwise “treated as an update”. Services that support this capability (instead of failing upsert requests that require entity creation) SHOULD advertise it by an annotation with the term <code>Capabilities.UpdateRestrictions</code> (nested property <code>Upsertable</code> with value <code>true</code>) defined in <a href="#ODataVocCap">OData-VocCap</a>.</p>
 <p>If the service is unable to determine the canonical collection or canonical singleton (as defined in <a href="#ContextURL">section 10</a>) for the newly-created entity, it MUST fail the upsert request. This determination is possible, for example, if the resource path of the request</p>
 <ol type="1">
 <li>consists of an entity set followed by a key predicate</li>
