@@ -2583,7 +2583,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <h4 id="11432-upsert-an-entity"><a id="UpsertanEntity" href="#UpsertanEntity">11.4.3.2 Upsert an Entity</a></h4>
 </summary>
 <p>Services MAY treat an <a href="#UpdateanEntity">upsert request</a> like a <a href="#CreateanEntity">create entity request</a> if it requires the addressed entity to be newly created. The request is then said to be “treated as an insert”, otherwise “treated as an update”. Services that support this capability (instead of failing upsert requests that require entity creation) SHOULD advertise it by an annotation with the term <code>Capabilities.UpdateRestrictions</code> (nested property <code>Upsertable</code> with value <code>true</code>) defined in <a href="#ODataVocCap">OData-VocCap</a>.</p>
-<p>If the service is unable to determine the canonical collection or canonical singleton (as defined in <a href="#ContextURL">section 10</a>) for the newly-created entity, if MUST fail the upsert request. This determination is possible, for example, if the resource path of the request</p>
+<p>If the service is unable to determine the canonical collection or canonical singleton (as defined in <a href="#ContextURL">section 10</a>) for the newly-created entity, it MUST fail the upsert request. This determination is possible, for example, if the resource path of the request</p>
 <ol type="1">
 <li>consists of an entity set followed by a key predicate</li>
 <li>consists of a singleton (which must be nullable for an upsert to occur)</li>
@@ -2601,7 +2601,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <li>contains an <a href="#HeaderIfNoneMatch"><code>If-None-Match: *</code></a> header, the service MUST fail the request if it would be treated as an update.</li>
 </ul>
 <p>In other words, the <code>If-</code>(<code>None-</code>)<code>Match</code> header distinguishes between insert and update in these cases.</p>
-<p>Note that outside of these cases it can happen that an upsert request does not address an existing entity with its URL but identifies one in its payload. Such a request may update the identified entity and link it to another entity, but it does not lead to a create entity request.</p>
+<p>Note outside of these cases it can happen that an upsert request does not address an existing entity with its URL but identifies one in its payload. Such a request may update the identified entity and link it to another entity, but it does not lead to a create entity request.</p>
 <div class="example">
 <p>Example 85: <code>Category</code> is a single-valued nullable non-containment navigation property on the product entity type. Even if</p>
 <pre><code>GET http://host/service/Products(57)/Category</code></pre>
