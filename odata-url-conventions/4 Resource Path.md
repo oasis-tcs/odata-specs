@@ -151,7 +151,7 @@ for example by:
   This determination is possible, for example, if the resource path up to the `keyPredicate`
   - consists of an entity set
   - ends with a containment navigation property
-  - ends with a navigation property path with a binding [#OData-CSDL#NavigationPropertyPathBinding]
+  - matches a navigation property path binding [#OData-CSDL#NavigationPropertyPathBinding]
 
 ::: example
 Example ##ex:
