@@ -4196,7 +4196,7 @@ for the entity, it MUST fail the request.
 This determination is possible, for example, if the collection's URL
 - consists of an entity set
 - ends with a containment navigation property
-- ends with a non-containment navigation property with a navigation property binding
+- ends with a navigation property path with a binding [OData-CSDL, section 13.4.1](https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#NavigationPropertyPathBinding)
 
 or the payload contains a context URL.
 
@@ -4729,7 +4729,7 @@ This determination is possible, for example, if the resource path of the request
 3. ends with a containment navigation property,
    followed by a key predicate if this is collection-valued
    (and which must be nullable otherwise for an upsert to occur)
-4. ends with a non-containment navigation property with a navigation property binding,
+4. ends with a navigation property path with a binding [OData-CSDL, section 13.4.1](https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#NavigationPropertyPathBinding),
    followed by a key predicate if this is collection-valued
 
 or the payload includes a context URL.

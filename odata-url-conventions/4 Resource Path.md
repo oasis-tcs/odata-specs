@@ -146,12 +146,12 @@ segments to a `resourcePath` that identifies a collection of entities,
 for example by:
 - Using an entity key to select a single
   entity (see rules: `collectionNavigation` and `keyPredicate`).
-  If the service cannot determine the canonical collection the canonical collection (as defined in [#OData-Protocol#ContextURL])
+  If the service cannot determine the canonical collection (as defined in [#OData-Protocol#ContextURL])
   from the resource path up to the `keyPredicate`, it MUST reject the request.
-  This determination is possible, for example, if the resource path segment before the `keyPredicate` is
-  - an entity set
-  - a containment navigation property
-  - a non-containment navigation property with a navigation property binding.
+  This determination is possible, for example, if the resource path up to the `keyPredicate`
+  - consists of an entity set
+  - ends with a containment navigation property
+  - ends with a navigation property path with a binding [#OData-CSDL#NavigationPropertyPathBinding]
 
 ::: example
 Example ##ex:
