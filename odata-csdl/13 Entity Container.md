@@ -502,14 +502,15 @@ Example ##ex: for an entity set in any container in scope
 :::
 
 ::: {.varjson .example}
-Example ##ex: binding `Supplier` on `Products` contained within
-`Categories` – binding applies to all suppliers of all products of all categories
+Example ##ex: If `Subcategories` is a containment navigation property on the
+category entity type, the following binding applies to all products of all subcategories
+of all categories
 ```json
 "Categories": {
   "$Collection": true,
   "$Type": "self.Category",
   "$NavigationPropertyBinding": {
-    "Products/Supplier": "Suppliers"
+    "Subcategories/Products": "Products"
   }
 }
 ```
@@ -552,12 +553,13 @@ Example ##ex: for an entity set in any container in scope
 :::
 
 ::: {.varxml .example}
-Example ##ex: binding `Supplier` on `Products` contained within
-`Categories` – binding applies to all suppliers of all products of all categories
+Example ##ex: If `Subcategories` is a containment navigation property on the
+category entity type, the following binding applies to all products of all subcategories
+of all categories
 ```xml
 <EntitySet Name="Categories" EntityType="self.Category">
-  <NavigationPropertyBinding Path="Products/Supplier"
-                             Target="Suppliers" />
+  <NavigationPropertyBinding Path="Subcategories/Products"
+                             Target="Products" />
 </EntitySet>
 ```
 :::
