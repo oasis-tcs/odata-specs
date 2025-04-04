@@ -2115,7 +2115,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">EntitySet</span>&gt;</span></code></pre></div>
 </div>
 <div class="varxml example">
-<p>Example 37: If <code>Subcategories</code> are a containment navigation property on the category entity type, the following binding applies to all products of all subcategories of all categories</p>
+<p>Example 37: If <code>Subcategories</code> is a containment navigation property on the category entity type, the following binding applies to all products of all subcategories of all categories</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">EntitySet</span><span class="ot"> Name=</span><span class="st">&quot;Categories&quot;</span><span class="ot"> EntityType=</span><span class="st">&quot;self.Category&quot;</span>&gt;</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">NavigationPropertyBinding</span><span class="ot"> Path=</span><span class="st">&quot;Subcategories/Products&quot;</span></span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="ot">                             Target=</span><span class="st">&quot;Products&quot;</span> /&gt;</span>

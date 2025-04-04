@@ -3227,7 +3227,7 @@ Example 36: for an entity set in any container in scope
 :::
 
 ::: {.varxml .example}
-Example 37: If `Subcategories` are a containment navigation property on the
+Example 37: If `Subcategories` is a containment navigation property on the
 category entity type, the following binding applies to all products of all subcategories
 of all categories
 ```xml

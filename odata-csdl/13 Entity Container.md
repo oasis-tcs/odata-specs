@@ -502,7 +502,7 @@ Example ##ex: for an entity set in any container in scope
 :::
 
 ::: {.varjson .example}
-Example ##ex: If `Subcategories` are a containment navigation property on the
+Example ##ex: If `Subcategories` is a containment navigation property on the
 category entity type, the following binding applies to all products of all subcategories
 of all categories
 ```json
@@ -553,7 +553,7 @@ Example ##ex: for an entity set in any container in scope
 :::
 
 ::: {.varxml .example}
-Example ##ex: If `Subcategories` are a containment navigation property on the
+Example ##ex: If `Subcategories` is a containment navigation property on the
 category entity type, the following binding applies to all products of all subcategories
 of all categories
 ```xml
