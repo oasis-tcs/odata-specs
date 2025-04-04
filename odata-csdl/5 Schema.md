@@ -428,6 +428,7 @@ its class is derived from the other one.
 @$@<Javascript CSDL metamodel@>@{
 class ComplexType extends NamedModelElement {
   @<Common parts of complex and entity type@>
+  @<ComplexType@>
 }
 class EntityType extends ComplexType {
   @<EntityType@>

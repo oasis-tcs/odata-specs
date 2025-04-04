@@ -345,6 +345,37 @@ class EntitySetOrSingleton extends TypedModelElement {
 EntitySetOrSingleton,
 @}
 
+@$@<EntityType@>@{
+resourcePaths(suffix = []) {
+  const paths = [];
+  for (const p of this.targetingPaths)
+    if (p.attribute === "$Type") {
+      if (p.parent instanceof EntitySetOrSingleton)
+        paths.push([p.parent.parent, p.parent, ...suffix]);
+      else if (
+        p.parent instanceof NavigationProperty &&
+        !suffix.includes(p.parent)
+      )
+        paths.push(...p.parent.parent.resourcePaths([p.parent, ...suffix]));
+    }
+  return paths;
+}
+@}
+
+@$@<ComplexType@>@{
+resourcePaths(suffix = []) {
+  const paths = [];
+  for (const p of this.targetingPaths)
+    if (
+      p.attribute === "$Type" &&
+      p.parent instanceof Property &&
+      !suffix.includes(p.parent)
+    )
+      paths.push(...p.parent.parent.resourcePaths([p.parent, ...suffix]));
+  return paths;
+}
+@}
+
 ::: {.varxml .rep}
 ### ##isec Element `edm:EntitySet`
 
@@ -751,6 +782,18 @@ class ActionImport extends OperationImport {
 ActionImport,
 @}
 
+@$@<Action@>@{
+resourcePaths(suffix = []) {
+  if (this.$IsBound)
+    return this.$Parameters[0].$Type.target.resourcePaths([this, ...suffix]);
+  const paths = [];
+  for (const p of this.targetingPaths)
+    if (p.attribute === "$Action" && p.parent instanceof ActionImport)
+      paths.push([p.parent.parent, p.parent, ...suffix]);
+  return paths;
+}
+@}
+
 ::: {.varxml .rep}
 ### ##isec Element `edm:ActionImport`
 
@@ -839,6 +882,18 @@ class FunctionImport extends OperationImport {
 
 @$@<Exports@>@{
 FunctionImport,
+@}
+
+@$@<Function@>@{
+resourcePaths(suffix = []) {
+  if (this.$IsBound)
+    return this.$Parameters[0].$Type.target.resourcePaths([this, ...suffix]);
+  const paths = [];
+  for (const p of this.targetingPaths)
+    if (p.attribute === "$Function" && p.parent instanceof FunctionImport)
+      paths.push([p.parent.parent, p.parent, ...suffix]);
+  return paths;
+}
 @}
 
 ::: {.varxml .rep}

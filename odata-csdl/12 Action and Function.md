@@ -78,7 +78,9 @@ common superclass `Operation`.
 class Operation extends ModelElement {
   @<Operation@>
 }
-class Action extends Operation {}
+class Action extends Operation {
+  @<Action@>
+}
 @}
 
 @$@<Exports@>@{
@@ -178,7 +180,9 @@ and it MAY contain [annotations](#Annotation).
 :::
 
 @$@<Javascript CSDL metamodel@>@{
-class Function extends Operation {}
+class Function extends Operation {
+  @<Function@>
+}
 @}
 
 @$@<Exports@>@{
