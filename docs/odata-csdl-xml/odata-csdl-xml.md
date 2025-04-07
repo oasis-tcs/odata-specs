@@ -3157,7 +3157,7 @@ collection-valued containment navigation properties, the binding applies
 to all items of these collections.
 
 If the path contains a recursive sub-path (i.e. a path leading back to
-the same structured type, the binding applies recursively to any
+the same structured type), the binding applies recursively to any
 positive number of cycles through that sub-path.
 
 The same navigation property path MUST NOT be specified in more than one
