@@ -446,7 +446,8 @@ that differ only in a type-cast segment, allowing to bind instances of
 different sub-types to different targets. If paths differ only in
 type-cast segments, the most specific path applies.
 
-Elsewhere in this specification, an [instance path](#PathExpressions) that starts
+Elsewhere in this specification ([#OData-Protocol#CreateanEntity], [#OData-Protocol#UpsertanEntity],
+[#OData-URL#AddressingEntities]) an [instance path](#PathExpressions) that starts
 with an entity container is said to _match_ a navigation property path binding
 if the binding applies to all instances that the instance path addresses.
 
