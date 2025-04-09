@@ -3131,13 +3131,12 @@ properties that can be used in [`$expand`](#SystemQueryOptionexpand),
 [`$select`](#SystemQueryOptionselect),
 [`$filter`](#SystemQueryOptionfilter), or
 [`$orderby`](#SystemQueryOptionorderby).
-They are treated according to their instance-specific type, with the addition that they are silently ignored in `$expand` if the instance-specific value is neither a stream, an entity, or a collection of entities.
-If the service can infer that a computed property's type makes it unsuitable for `$expand` independently of the underlying data, it MUST reject the request.
-The inferral can be based on, for example, the
-declared type of a property or the type of a literal value that occurs in the
-compute instruction.
+The `$compute` system query option allows clients to define computed properties that can be used in [`$expand`](#SystemQueryOptionexpand),
+[`$select`](#SystemQueryOptionselect),
+[`$filter`](#SystemQueryOptionfilter), or
+[`$orderby`](#SystemQueryOptionorderby). Computed properties are expanded or selected according to their instance-specific type. A computed property is ignored by `$expand` if its instance-specific value is neither a stream, an entity, nor a collection of entities, and the service cannot determine this based on the compute expression.
 
-Computed properties SHOULD be included as dynamic properties in the result without being explicitly mentioned in `$expand`or `$select`, or implied by star (`*`).
+Computed properties SHOULD be included as dynamic properties in the result without being explicitly mentioned in `$expand` or `$select`, or implied by star (`*`).
 
 ::: example
 Example 49: compute total price for order items (line breaks only for
