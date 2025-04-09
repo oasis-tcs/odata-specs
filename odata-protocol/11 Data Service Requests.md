@@ -551,13 +551,16 @@ GET http://host/service/Employees?$expand=Model.Manager/DirectReports($levels=4)
 #### ##subsubsubsec System Query Option `$compute`
 
 The `$compute` system query option allows clients to define computed
-properties that can be used in a [`$select`](#SystemQueryOptionselect)
-or within a [`$filter`](#SystemQueryOptionfilter) or
-[`$orderby`](#SystemQueryOptionorderby) expression.
+properties that can be used in [`$expand`](#SystemQueryOptionexpand),
+[`$select`](#SystemQueryOptionselect),
+[`$filter`](#SystemQueryOptionfilter), or
+[`$orderby`](#SystemQueryOptionorderby).
+The `$compute` system query option allows clients to define computed properties that can be used in [`$expand`](#SystemQueryOptionexpand),
+[`$select`](#SystemQueryOptionselect),
+[`$filter`](#SystemQueryOptionfilter), or
+[`$orderby`](#SystemQueryOptionorderby). Computed properties are expanded or selected according to their instance-specific type. A computed property is ignored by `$expand` if its instance-specific value is neither a stream, an entity, nor a collection of entities, and the service cannot determine this based on the compute expression.
 
-Computed properties SHOULD be included as dynamic properties in the
-result and MUST be included if `$select` is specified with the computed
-property name, or star (`*`).
+Computed properties SHOULD be included as dynamic properties in the result without being explicitly mentioned in `$expand` or `$select`, or implied by star (`*`).
 
 ::: example
 Example ##ex: compute total price for order items (line breaks only for
