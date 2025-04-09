@@ -487,6 +487,12 @@ additional undeclared *dynamic properties*. A dynamic property cannot
 have the same name as a declared property. Entity or complex types which
 allow clients to persist additional undeclared properties are called
 *open types*.
+A dynamic property need not exist on all instances of a structured type,
+and it can have values of different types on different instances.
+It can be specified in both [`$expand`](#SystemQueryOptionexpand) and [`$select`](#SystemQueryOptionselect),
+and it is interpreted per instance according to its instance-specific type,
+with the addition that it is silently ignored in `$expand` if the instance-specific value is neither a stream,
+an entity, or a collection of entities.
 
 Relationships from one entity to another are represented as *navigation
 properties.* Navigation properties are generally defined as part of an
@@ -3121,13 +3127,16 @@ GET http://host/service/Employees?$expand=Model.Manager/DirectReports($levels=4)
 #### <a id="SystemQueryOptioncompute" href="#SystemQueryOptioncompute">11.2.5.3 System Query Option `$compute`</a>
 
 The `$compute` system query option allows clients to define computed
-properties that can be used in a [`$select`](#SystemQueryOptionselect)
-or within a [`$filter`](#SystemQueryOptionfilter) or
-[`$orderby`](#SystemQueryOptionorderby) expression.
+properties that can be used in [`$expand`](#SystemQueryOptionexpand),
+[`$select`](#SystemQueryOptionselect),
+[`$filter`](#SystemQueryOptionfilter), or
+[`$orderby`](#SystemQueryOptionorderby).
+The `$compute` system query option allows clients to define computed properties that can be used in [`$expand`](#SystemQueryOptionexpand),
+[`$select`](#SystemQueryOptionselect),
+[`$filter`](#SystemQueryOptionfilter), or
+[`$orderby`](#SystemQueryOptionorderby). Computed properties are expanded or selected according to their instance-specific type. A computed property is ignored by `$expand` if its instance-specific value is neither a stream, an entity, nor a collection of entities, and the service cannot determine this based on the compute expression.
 
-Computed properties SHOULD be included as dynamic properties in the
-result and MUST be included if `$select` is specified with the computed
-property name, or star (`*`).
+Computed properties SHOULD be included as dynamic properties in the result without being explicitly mentioned in `$expand` or `$select`, or implied by star (`*`).
 
 ::: example
 Example 49: compute total price for order items (line breaks only for
