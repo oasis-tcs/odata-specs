@@ -1144,7 +1144,7 @@ Content-Type: application/x-www-form-urlencoded
 </summary>
 <p>The following operators, functions, and literals can be used in <code>$filter</code>, <code>$orderby</code>, and <code>$compute</code> expressions.</p>
 <p>The <a href="#ODataABNF">OData-ABNF</a> <code>commonExpr</code> syntax rule defines the formal grammar of common expressions.</p>
-<p>The following subsections specify situations in which expressions evaluate to <code>null</code> if operands or parameters do not have the types expected by an operator or function. Notwithstanding these rules, if a service can infer such a type discrepancy for an expression that appears in a request independently of the underlying data, it MUST reject the request with an error message explaining the discrepancy. The inferral can be based on, for example, the declared type of a property or the type of a literal value that occurs in the expression.</p>
+<p>The following subsections specify situations in which expressions evaluate to <code>null</code> if operands or parameters do not have the types expected by an operator or function. Notwithstanding these rules, if a service can determine such a type discrepancy for an expression that appears in a request independently of the underlying data, it MUST reject the request with an error message explaining the discrepancy. The determination can be based on, for example, the declared type of a property or the type of a literal value that occurs in the expression.</p>
 <div class="example">
 <p>Example 54: In a search for people above a certain age</p>
 <pre><code>http://host/service/People?$filter=Age gt &#39;50&#39;</code></pre>

@@ -1650,10 +1650,10 @@ grammar of common expressions.
 
 The following subsections specify situations in which expressions evaluate to `null`
 if operands or parameters do not have the types expected by an operator or function.
-Notwithstanding these rules, if a service can infer such a type discrepancy for an expression
+Notwithstanding these rules, if a service can determine such a type discrepancy for an expression
 that appears in a request independently of the underlying data,
 it MUST reject the request with an error message
-explaining the discrepancy. The inferral can be based on, for example, the
+explaining the discrepancy. The determination can be based on, for example, the
 declared type of a property or the type of a literal value that occurs in the
 expression.
 
