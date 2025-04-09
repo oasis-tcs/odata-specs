@@ -3227,12 +3227,13 @@ Example 36: for an entity set in any container in scope
 :::
 
 ::: {.varxml .example}
-Example 37: binding `Supplier` on `Products` contained within
-`Categories` – binding applies to all suppliers of all products of all categories
+Example 37: If `Subcategories` is a containment navigation property on the
+category entity type, the following binding applies to all products of all subcategories
+of all categories
 ```xml
 <EntitySet Name="Categories" EntityType="self.Category">
-  <NavigationPropertyBinding Path="Products/Supplier"
-                             Target="Suppliers" />
+  <NavigationPropertyBinding Path="Subcategories/Products"
+                             Target="Products" />
 </EntitySet>
 ```
 :::
