@@ -365,6 +365,7 @@ Section | Feature / Change | Issue
 [Section 11.4.9.3](#UpdateaComplexProperty)| Setting a complex property to a different type| [534](https://github.com/oasis-tcs/odata-specs/issues/534)
 [Section 11.4.12](#UpdateaCollectionofEntities)| Control information to prevent updates| [2021](https://github.com/oasis-tcs/odata-specs/issues/2021)
 [Section 11.4.13](#ReplaceaCollectionofEntities)| Semantics of `continue-on-error` when replacing a collection of entities | [358](https://github.com/oasis-tcs/odata-specs/issues/358)
+[Section 11.5.5.1](#InvokinganAction)| Omission of collection-valued action parameters| [2045](https://github.com/oasis-tcs/odata-specs/issues/2045)
 [Section 12](#Conformance) | Allow `400 Bad Request` in addition to `501 Not Implemented` for unsupported functionality| [391](https://github.com/oasis-tcs/odata-specs/issues/391)
 [Section 12.3](#InteroperableODataClients) | Encoding of plus character in URLs | [485](https://github.com/oasis-tcs/odata-specs/issues/485)
 
