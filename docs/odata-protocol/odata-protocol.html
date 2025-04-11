@@ -619,11 +619,16 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/358">358</a></td>
 </tr>
 <tr class="odd">
+<td><a href="#InvokinganAction">Section 11.5.5.1</a></td>
+<td>Omission of collection-valued action parameters</td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/2045">2045</a></td>
+</tr>
+<tr class="even">
 <td><a href="#Conformance">Section 12</a></td>
 <td>Allow <code>400 Bad Request</code> in addition to <code>501 Not Implemented</code> for unsupported functionality</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/391">391</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#InteroperableODataClients">Section 12.3</a></td>
 <td>Encoding of plus character in URLs</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/485">485</a></td>
@@ -3010,7 +3015,8 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>To invoke an action bound to a resource, the client issues a <code>POST</code> request to an action URL. An action URL may be <a href="#AdvertisingAvailableOperationswithinaPayload">obtained</a> from a previously returned entity representation or constructed by appending the namespace- or alias-qualified action name to a URL that identifies a resource whose type is the same as, or derives from, the type of the binding parameter of the action. The value for the binding parameter is the resource identified by the URL preceding the action name, and only the non-binding parameter values are passed in the request body according to the particular format. In parameters containing complex instances or transient entities, properties with a defined default value, nullable properties, and collection-valued properties that are omitted from the request are interpreted as the default value, null, or an empty collection, respectively.</p>
 <p>Services MAY additionally support invoking actions using the unqualified action name by defining one or more <a href="#DefaultNamespaces">default namespaces</a> through the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a> term defined in <a href="#ODataVocCore">OData-VocCore</a>.</p>
 <p>To invoke an action through an action import, the client issues a <code>POST</code> request to a URL identifying the action import. The canonical URL for an action import is the service root, followed by the name of the action import. When invoking an action through an action import all parameter values MUST be passed in the request body according to the particular format.</p>
-<p>Non-binding parameters that are nullable or annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter"><code>Core.OptionalParameter</code></a> defined in <a href="#ODataVocCore">OData-VocCore</a> MAY be omitted from the request body. If an omitted parameter is not annotated (and thus nullable), it MUST be interpreted as having the <code>null</code> value. If it is annotated and the annotation specifies a <code>DefaultValue</code>, the omitted parameter is interpreted as having that default value. If omitted and the annotation does not specify a default value, the service is free on how to interpret the omitted parameter. Note: a nullable non-binding parameter is equivalent to being annotated as optional with a default value of <code>null</code>.</p>
+<p>Non-binding single-valued parameters that are nullable or annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter"><code>Core.OptionalParameter</code></a> defined in <a href="#ODataVocCore">OData-VocCore</a> MAY be omitted from the request body. If an omitted single-valued parameter is not annotated (and thus nullable), it MUST be interpreted as having the <code>null</code> value. If it is annotated and the annotation specifies a <code>DefaultValue</code>, the omitted parameter is interpreted as having that default value. If omitted and the annotation does not specify a default value, the service is free on how to interpret the omitted parameter. Note: a nullable non-binding parameter is equivalent to being annotated as optional with a default value of <code>null</code>.</p>
+<p>The interpretation of an omitted non-binding collection-valued parameter is up to the service regardless of its nullability or optionality. Possible interpretations include assuming an empty collection or, for parameters not annotated as <code>Core.OptionalParameter</code>, reporting an error.</p>
 <p>4.01 services MUST support invoking actions with no non-binding parameters and parameterless action imports both without a request body and with a request body representing no parameters, according to the particular format. Interoperable clients SHOULD always include a request body, even when invoking actions with no non-binding parameters and parameterless action imports.</p>
 <p>If the action returns results, the client SHOULD use content type negotiation to request the results in the desired format, otherwise the default content type will be used.</p>
 <p>The client can request whether any results from the action be returned using the <a href="#Preferencereturnrepresentationandreturnminimal"><code>return</code></a> preference.</p>

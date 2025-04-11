@@ -365,6 +365,7 @@ Section | Feature / Change | Issue
 [Section 11.4.9.3](#UpdateaComplexProperty)| Setting a complex property to a different type| [534](https://github.com/oasis-tcs/odata-specs/issues/534)
 [Section 11.4.12](#UpdateaCollectionofEntities)| Control information to prevent updates| [2021](https://github.com/oasis-tcs/odata-specs/issues/2021)
 [Section 11.4.13](#ReplaceaCollectionofEntities)| Semantics of `continue-on-error` when replacing a collection of entities | [358](https://github.com/oasis-tcs/odata-specs/issues/358)
+[Section 11.5.5.1](#InvokinganAction)| Omission of collection-valued action parameters| [2045](https://github.com/oasis-tcs/odata-specs/issues/2045)
 [Section 12](#Conformance) | Allow `400 Bad Request` in addition to `501 Not Implemented` for unsupported functionality| [391](https://github.com/oasis-tcs/odata-specs/issues/391)
 [Section 12.3](#InteroperableODataClients) | Encoding of plus character in URLs | [485](https://github.com/oasis-tcs/odata-specs/issues/485)
 
@@ -5809,17 +5810,22 @@ import. When invoking an action through an action import all parameter
 values MUST be passed in the request body according to the particular
 format.
 
-Non-binding parameters that are nullable or annotated with the term
-[`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter) defined
-in [OData-VocCore](#ODataVocCore) MAY be omitted from the request body.
-If an omitted parameter is not annotated (and thus nullable), it MUST be
-interpreted as having the `null` value. If it is annotated and the
-annotation specifies a `DefaultValue`, the omitted parameter is
-interpreted as having that default value. If omitted and the annotation
-does not specify a default value, the service is free on how to
-interpret the omitted parameter. Note: a nullable non-binding parameter
-is equivalent to being annotated as optional with a default value of
-`null`.
+Non-binding single-valued parameters that are nullable or annotated with the term
+[`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter) defined in
+[OData-VocCore](#ODataVocCore) MAY be omitted from the request body.
+If an omitted single-valued parameter is not annotated (and thus nullable), it MUST be
+interpreted as having the `null` value. If it is annotated
+and the annotation specifies a `DefaultValue`, the omitted
+parameter is interpreted as having that default value. If omitted and
+the annotation does not specify a default value, the service is free on
+how to interpret the omitted parameter. Note: a nullable non-binding
+parameter is equivalent to being annotated as optional with a default
+value of `null`.
+
+The interpretation of an omitted non-binding collection-valued parameter
+is up to the service regardless of its nullability or optionality.
+Possible interpretations include assuming an empty collection or,
+for parameters not annotated as `Core.OptionalParameter`, reporting an error.
 
 4.01 services MUST support invoking actions with no non-binding
 parameters and parameterless action imports both without a request body
