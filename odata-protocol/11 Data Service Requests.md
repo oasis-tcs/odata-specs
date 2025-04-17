@@ -155,6 +155,17 @@ instance, for example as a `readLink` or `editLink` in an
 MAY support conventions for constructing a read URL using the entity's
 key value(s), as described in [#OData-URL#CanonicalURL].
 
+::: example
+Example ##ex: Consider two distinct entities `Users(5)` and `Avatars(5)` with the same
+entity type that is also used by the non-containment navigation property `EndorsedBy`
+defined on the product entity type. Then the following URL identifies a collection of entities followed by
+an entity key to select a single entity (like in [#OData-URL#AddressingEntities])
+but might identify either of the two entities under consideration:
+```
+GET http://host/service/Products(1)/EndorsedBy(5)
+```
+:::
+
 The set of structural or navigation properties to return may be
 specified through [`$select`](#SystemQueryOptionselect) or
 [`$expand`](#SystemQueryOptionexpand) system query options.
