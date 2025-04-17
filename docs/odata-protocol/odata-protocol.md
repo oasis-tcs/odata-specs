@@ -2736,6 +2736,17 @@ instance, for example as a `readLink` or `editLink` in an
 MAY support conventions for constructing a read URL using the entity's
 key value(s), as described in [OData-URL, section 4.3.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalURL).
 
+::: example
+Example 33: Consider two distinct entities `Users(5)` and `Avatars(5)` with the same
+entity type that is also used by the non-containment navigation property `EndorsedBy`
+defined on the product entity type. Then the following URL identifies a collection of entities followed by
+an entity key to select a single entity (like in [OData-URL, section 4.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingEntities))
+but might identify either of the two entities under consideration:
+```
+GET http://host/service/Products(1)/EndorsedBy(5)
+```
+:::
+
 The set of structural or navigation properties to return may be
 specified through [`$select`](#SystemQueryOptionselect) or
 [`$expand`](#SystemQueryOptionexpand) system query options.
@@ -2803,7 +2814,7 @@ If the property is not available, for example due to permissions, the
 service responds with [`404 Not Found`](#ResponseCode404NotFound).
 
 ::: example
-Example 33:
+Example 34:
 ```
 GET http://host/service/Products(1)/Name
 ```
@@ -2863,7 +2874,7 @@ If the property or operation result is not available, for example due to permiss
 service responds with [`404 Not Found`](#ResponseCode404NotFound).
 
 ::: example
-Example 34:
+Example 35:
 ```
 GET http://host/service/Products(1)/Name/$value
 ```
@@ -2897,7 +2908,7 @@ schema. Only aliases defined in the metadata document of the service can
 be used in URLs.
 
 ::: example
-Example 35: request only the `Rating` and `ReleaseDate` for the matching
+Example 36: request only the `Rating` and `ReleaseDate` for the matching
 Products
 ```
 GET http://host/service/Products?$select=Rating,ReleaseDate
@@ -2910,7 +2921,7 @@ NOT introduce navigation properties, actions or functions not otherwise
 requested.
 
 ::: example
-Example 36:
+Example 37:
 ```
 GET http://host/service/Products?$select=*
 ```
@@ -2920,7 +2931,7 @@ Properties of related entities can be specified by including the
 `$select` [option](#ExpandOptions) within the `$expand`.
 
 ::: example
-Example 37:
+Example 38:
 ```
 GET http://host/service/Products?$expand=Category($select=Name)
 ```
@@ -2934,7 +2945,7 @@ an [`$expand`](#SystemQueryOptionexpand) query option, then it is
 additionally represented as inline content.
 
 ::: example
-Example 38: for each category, return the `CategoryName` and the
+Example 39: for each category, return the `CategoryName` and the
 `Products` navigation link
 ```
 GET http://host/service/Categories?$select=CategoryName,Products
@@ -2945,7 +2956,7 @@ It is also possible to request all actions or functions available for
 each returned entity.
 
 ::: example
-Example 39:
+Example 40:
 ```
 GET http://host/service/Products?$select=DemoService.*
 ```
@@ -2954,7 +2965,7 @@ GET http://host/service/Products?$select=DemoService.*
 If the selected property represents a collection of primitive or complex values, then the [count segment](#RequestingtheNumberofItemsinaCollection) (`/$count`), optionally followed by the [Select Options](#SelectOptions) [`$filter`](#SystemQueryOptionfilter) and/or [`$search`](#SystemQueryOptionsearch), can be appended to the path in order to return only the count of the matching items.
 
 ::: example
-Example 40: for each customer, return the ID and the count of addresses starting with the letter 'H'.
+Example 41: for each customer, return the ID and the count of addresses starting with the letter 'H'.
 ```
 GET http://host/service/Customers?$select=ID,Addresses/$count($filter=startswith(City,'H'))
 ```
@@ -3006,7 +3017,7 @@ For a full description of the syntax used when building requests, see
 [OData-URL, section 5.1.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#SystemQueryOptionexpand).
 
 ::: example
-Example 41: for each customer entity within the Customers entity set the
+Example 42: for each customer entity within the Customers entity set the
 value of all related Orders will be represented inline
 ```
 GET http://host/service.svc/Customers?$expand=Orders
@@ -3014,7 +3025,7 @@ GET http://host/service.svc/Customers?$expand=Orders
 :::
 
 ::: example
-Example 42: for each customer entity within the Customers entity set the
+Example 43: for each customer entity within the Customers entity set the
 references to the related Orders will be represented inline
 ```
 GET http://host/service.svc/Customers?$expand=Orders/$ref
@@ -3022,7 +3033,7 @@ GET http://host/service.svc/Customers?$expand=Orders/$ref
 :::
 
 ::: example
-Example 43: for each customer entity within the Customers entity set the
+Example 44: for each customer entity within the Customers entity set the
 media stream representing the customer photo will be represented inline
 ```
 GET http://host/service.svc/Customers?$expand=Photo
@@ -3032,7 +3043,7 @@ GET http://host/service.svc/Customers?$expand=Photo
 If the expand item represents a collection of entities, then the [count segment](#RequestingtheNumberofItemsinaCollection) (`/$count`), optionally followed by the [Expand Options](#ExpandOptions) [`$filter`](#SystemQueryOptionfilter) and/or [`$search`](#SystemQueryOptionsearch), can be appended to the expand item in order to return only the count of matching items.
 
 ::: example
-Example 44: for each Category, return the `Name` and the count of `Products` starting with the letter 'H'.
+Example 45: for each Category, return the `Name` and the count of `Products` starting with the letter 'H'.
 ```
 GET http://host/service/Categories?$select=Name&$expand=Products/$count($filter=startswith(Name,'H'))
 ```
@@ -3059,7 +3070,7 @@ Allowed system query options are
  for collection-valued navigation properties.
 
 ::: example
-Example 45: for each customer entity within the `Customers` entity set,
+Example 46: for each customer entity within the `Customers` entity set,
 the value of those related `Orders` whose `Amount` is greater than 100
 will be represented inline
 ```
@@ -3068,7 +3079,7 @@ GET http://host/service.svc/Customers?$expand=Orders($filter=Amount gt 100)
 :::
 
 ::: example
-Example 46: for each order within the `Orders` entity set, the following
+Example 47: for each order within the `Orders` entity set, the following
 will be represented inline:
 - The `Items` related to
 the `Orders` identified by the resource path section of the URL and the
@@ -3080,7 +3091,7 @@ GET http://host/service.svc/Orders?$expand=Items($expand=Product),Customer
 :::
 
 ::: example
-Example 47: for each customer entity in the Customers entity set, the
+Example 48: for each customer entity in the Customers entity set, the
 value of all related InHouseStaff will be represented inline if the
 entity is of type VipCustomer or a subtype of that. For entities that
 are not of type `VipCustomer`, or any of its subtypes, that entity may
@@ -3110,7 +3121,7 @@ in cases were a circular reference would occur otherwise.
 manner. Clients that want to work with 4.0 services MUST use lower case.
 
 ::: example
-Example 48: return each employee from the Employees entity set and, for
+Example 49: return each employee from the Employees entity set and, for
 each employee that is a manager, return all direct reports, recursively
 to four levels
 ```
@@ -3130,7 +3141,7 @@ result and MUST be included if `$select` is specified with the computed
 property name, or star (`*`).
 
 ::: example
-Example 49: compute total price for order items (line breaks only for
+Example 50: compute total price for order items (line breaks only for
 readability)
 ```
 GET http://host/service/Customers
@@ -3166,7 +3177,7 @@ return [`501 Not Implemented`](#ResponseCode501NotImplemented).
 The `$filter` system query option restricts the set of items returned.
 
 ::: example
-Example 50: return all Products whose `Price` is less than $10.00
+Example 51: return all Products whose `Price` is less than $10.00
 ```
 GET http://host/service/Products?$filter=Price lt 10.00
 ```
@@ -3177,7 +3188,7 @@ The [`$count`](#SystemQueryOptioncount) segment may be used within a
 count of related entities or items within a collection-valued property.
 
 ::: example
-Example 51: return all Categories with less than 10 products
+Example 52: return all Categories with less than 10 products
 ```
 GET http://host/service/Categories?$filter=Products/$count lt 10
 ```
@@ -3301,7 +3312,7 @@ alias, and the query option value is the value to be used for the
 specified parameter alias.
 
 ::: example
-Example 52: returns all employees whose Region property matches the
+Example 53: returns all employees whose Region property matches the
 string parameter value `WA`
 ```
 GET http://host/service.svc/Employees?$filter=Region eq @p1&@p1='WA'
@@ -3328,7 +3339,7 @@ MAY be nested within `$expand` and
 `$select`, in which case they are evaluated relative to the resource context of the `$expand` or `$select`.
 
 ::: example
-Example 53: returns all employees, expands their manager, and expands
+Example 54: returns all employees, expands their manager, and expands
 all direct reports with the same first name as the manager, using a
 parameter alias for `$this` to pass the manager into the filter on the
 expanded direct reports
@@ -3375,7 +3386,7 @@ see [OData-VocCore](#ODataVocCore).
 Values of type `Edm.Stream` or any of the `Geo` types cannot be sorted.
 
 ::: example
-Example 54: return all Products ordered by release date in ascending
+Example 55: return all Products ordered by release date in ascending
 order, then by rating in descending order
 ```
 GET http://host/service/Products?$orderby=ReleaseDate asc, Rating desc
@@ -3386,7 +3397,7 @@ Related entities may be ordered by specifying `$orderby` within the
 `$expand` clause.
 
 ::: example
-Example 55: return all Categories, and their Products ordered according
+Example 56: return all Categories, and their Products ordered according
 to release date and in descending order of rating
 ```
 GET http://host/service/Categories?$expand=Products($orderby=ReleaseDate asc, Rating desc)
@@ -3398,7 +3409,7 @@ returned items according to the exact count of related entities or items
 within a collection-valued property.
 
 ::: example
-Example 56: return all Categories ordered by the number of Products
+Example 57: return all Categories ordered by the number of Products
 within each category
 ```
 GET http://host/service/Categories?$orderby=Products/$count
@@ -3421,7 +3432,7 @@ consists of the first $n$ instances in $A$. Otherwise, the result equals $A$.
 The instances in the result are in the same order as they occur in $A$.
 
 ::: example
-Example 57: return only the first five products of the Products entity
+Example 58: return only the first five products of the Products entity
 set
 ```
 GET http://host/service/Products?$top=5
@@ -3445,7 +3456,7 @@ from the result and all remaining instances are kept in the same order as
 they occur in $A$.
 
 ::: example
-Example 58: return products starting with the 6th product of the
+Example 59: return products starting with the 6th product of the
 `Products` entity set
 ```
 GET http://host/service/Products?$skip=5
@@ -3457,7 +3468,7 @@ Where [`$top`](#SystemQueryOptiontop) and `$skip` are used together,
 they appear in the request.
 
 ::: example
-Example 59: return the third through seventh products of the `Products`
+Example 60: return the third through seventh products of the `Products`
 entity set
 ```
 GET http://host/service/Products?$top=5&$skip=2
@@ -3475,7 +3486,7 @@ the total count of items within a collection matching the request be
 returned along with the result.
 
 ::: example
-Example 60: return, along with the results, the total number of products
+Example 61: return, along with the results, the total number of products
 in the collection
 ```
 GET http://host/service/Products?$count=true
@@ -3486,7 +3497,7 @@ The count of related entities can be requested by specifying
 the `$count` query option within the `$expand` clause.
 
 ::: example
-Example 61:
+Example 62:
 ```
 GET http://host/service/Categories?$expand=Products($count=true)
 ```
@@ -3518,7 +3529,7 @@ those items *matching* the specified search expression. The definition
 of what it means to match is dependent upon the implementation.
 
 ::: example
-Example 62: return all Products that match the search term `bike`
+Example 63: return all Products that match the search term `bike`
 ```
 GET http://host/service/Products?$search=bike
 ```
@@ -3527,7 +3538,7 @@ GET http://host/service/Products?$search=bike
 The search expression can contain phrases, enclosed in double-quotes.
 
 ::: example
-Example 63: return all Products that match the phrase `mountain bike`
+Example 64: return all Products that match the phrase `mountain bike`
 ```
 GET http://host/service/Products?$search="mountain bike"
 ```
@@ -3537,7 +3548,7 @@ The upper-case keyword `NOT` restricts the set of entities to those that
 do not match the specified term.
 
 ::: example
-Example 64: return all Products that do not match `clothing`
+Example 65: return all Products that do not match `clothing`
 ```
 GET http://host/service/Products?$search=NOT clothing
 ```
@@ -3548,7 +3559,7 @@ Multiple terms within a search expression are separated by a space
 such terms must be matched.
 
 ::: example
-Example 65: return all Products that match both `mountain` and
+Example 66: return all Products that match both `mountain` and
 `bike`
 ```
 GET http://host/service/Products?$search=mountain AND bike
@@ -3559,7 +3570,7 @@ The upper-case keyword `OR` is used to return entities that satisfy
 either the immediately preceding or subsequent expression.
 
 ::: example
-Example 66: return all Products that match `mountain` or
+Example 67: return all Products that match `mountain` or
 `bike`
 ```
 GET http://host/service/Products?$search=mountain OR bike
@@ -3570,7 +3581,7 @@ Parentheses within the search expression group together multiple
 expressions.
 
 ::: example
-Example 67: return all Products that match `mountain` or
+Example 68: return all Products that match `mountain` or
 `bike` and do not match clothing
 ```
 GET http://host/service/Products?$search=(mountain OR bike) AND NOT clothing
@@ -3626,7 +3637,7 @@ Entities are stably addressable using their canonical URL and are not
 accessible using an ordinal index.
 
 ::: example
-Example 68: the first address in a list of addresses for `MainSupplier`
+Example 69: the first address in a list of addresses for `MainSupplier`
 ```
 GET http://host/service/MainSupplier/Addresses/0
 ```
@@ -3654,7 +3665,7 @@ entity is related, the service returns
 [`204 No Content`](#ResponseCode204NoContent).
 
 ::: example
-Example 69: return the supplier of the product with `ID=1` in the
+Example 70: return the supplier of the product with `ID=1` in the
 Products entity set
 ```
 GET http://host/service/Products(1)/Supplier
@@ -3693,7 +3704,7 @@ exists, the service returns either
 [`404 Not Found`](#ResponseCode404NotFound).
 
 ::: example
-Example 70: collection with an entity reference for each Order related
+Example 71: collection with an entity reference for each Order related
 to the Product with `ID=0`
 ```
 GET http://host/service/Products(0)/Orders/$ref
@@ -3709,7 +3720,7 @@ the URL `$entity` relative to the service root. The entity-id MUST be
 specified using the system query option `$id`.
 
 ::: example
-Example 71: return the entity representation for a given entity-id
+Example 72: return the entity representation for a given entity-id
 ```
 GET http://host/service/$entity?$id=http://host/service/Products(0)
 ```
@@ -3726,7 +3737,7 @@ system query options [`$select`](#SystemQueryOptionselect) and
 to the `$entity` resource.
 
 ::: example
-Example 72: return the entity representation for a given entity-id and
+Example 73: return the entity representation for a given entity-id and
 specify properties to return
 ```
 GET http://host/service/$entity/Model.Customer
@@ -3756,7 +3767,7 @@ SHOULD NOT combine the system query options
 The result of such a request is undefined.
 
 ::: example
-Example 73: return the number of products in the Products entity set
+Example 74: return the number of products in the Products entity set
 ```
 GET http://host/service/Products/$count
 ```
@@ -3767,7 +3778,7 @@ the `/$filter` path segment to count the items in the filtered
 collection.
 
 ::: example
-Example 74: return the number of products whose `Price` is less than
+Example 75: return the number of products whose `Price` is less than
 $10.00
 ```
 GET http://host/service/Products/$filter(@foo)/$count?@foo=Price lt 10.00
@@ -3779,7 +3790,7 @@ combination with the [`$filter`](#SystemQueryOptionfilter) system query
 option.
 
 ::: example
-Example 75: return the number of products whose `Price` is less than
+Example 76: return the number of products whose `Price` is less than
 $10.00
 ```
 GET http://host/service/Products/$count?$filter=Price lt 10.00
@@ -3794,14 +3805,14 @@ The `/$count` suffix can also be used in path expressions within system
 query options, e.g. [`$filter`](#SystemQueryOptionfilter).
 
 ::: example
-Example 76: return all customers with more than five interests
+Example 77: return all customers with more than five interests
 ```
 GET http://host/service/Customers?$filter=Interests/$count gt 5
 ```
 :::
 
 ::: example
-Example 77: return all categories with more than one product over $5.00
+Example 78: return all categories with more than one product over $5.00
 ```
 GET http://host/service/Categories?$filter=Products/$filter(Price gt 5.0)/$count gt 1
 ```
@@ -3824,7 +3835,7 @@ In addition, format-specific abbreviations may be used, e.g. `json` for
 MUST NOT be appended to the format abbreviations.
 
 ::: example
-Example 78: the request
+Example 79: the request
 ```
 GET http://host/service/Orders?$format=application/json;metadata=full
 ```
@@ -3836,7 +3847,7 @@ media type including full metadata, as defined in
 [OData-JSON, section 3.1.2](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#metadatafullodatametadatafull).
 
 ::: example
-Example 79: the request
+Example 80: the request
 ```
 GET http://host/service/Orders?$format=json
 ```
@@ -4112,9 +4123,24 @@ specifying `If-Match` with a value of `*`. Services MAY reject such
 requests.
 
 For requests including an [`OData-Version`](#HeaderODataVersion) header
-value of `4.01`, any ETag values specified in the request body of an
-[upsert request](#UpdateanEntity) MUST be `*` or match the current value
+value of `4.01`, any ETag values specified in the request body of a
+[request for modifying an entity](#UpdateanEntity) MUST be `*` or match the current value
 for the record being updated.
+
+::: example
+Example <a id="antietag" href="#antietag">81</a>: `Category` is a single-valued nullable non-containment navigation property
+on the product entity type. An `If-Match` header in the request
+```
+PATCH http://host/service/Products(57)/Category
+
+{"CategoryID": 5}
+```
+makes no sense, because the request would relate product 57 to category 5 if the
+header value matches the current ETag value of that category,
+regardless of the current ETag value of that product. But changing the relation
+effectively updates the product, and the `If-Match` header provides no protection
+against conflicting updates.
+:::
 
 #### <a id="HandlingofDateTimeOffsetValues" href="#HandlingofDateTimeOffsetValues">11.4.1.2 Handling of DateTimeOffset Values</a>
 
@@ -4133,7 +4159,7 @@ Clients MUST be prepared to receive additional properties in an entity
 or complex type instance that are not advertised in metadata, even for
 types not marked as open. By using `PATCH` when [updating
 entities](#UpdateanEntity), clients can ensure that such properties
-values are not lost if omitted from the upsert request.
+values are not lost if omitted from the request.
 
 #### <a id="HandlingofIntegrityConstraints" href="#HandlingofIntegrityConstraints">11.4.1.4 Handling of Integrity Constraints</a>
 
@@ -4187,23 +4213,22 @@ of these query options and instead MUST return [`204 No Content`](#ResponseCode2
 ### <a id="CreateanEntity" href="#CreateanEntity">11.4.2 Create an Entity</a>
 
 To create an entity in a collection, the client sends a `POST` request
-to that collection's URL. The `POST` body MUST contain a single valid
+to a resource path addressing that collection. The `POST` body MUST contain a single valid
 representation of an entity of the declared target entity type,
 or one of its derived types.
 
-If the service is unable to determine the canonical collection (as defined in [section 10](#ContextURL))
-for the entity, it MUST fail the request.
-This determination is possible, for example, if the collection's URL
-- consists of an entity set
-- ends with a containment navigation property
-- matches a navigation property path binding [OData-CSDL, section 13.4.1](https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#NavigationPropertyPathBinding)
-
-or the payload contains a context URL.
+The resource path need not be the canonical URL for the collection; for example,
+it could represent a non-contained navigation property.
+In such a case, the service can determine the canonical collection (as defined in [section 10](#ContextURL))
+through a navigation property path binding [OData-CSDL, section 13.4.1](https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#NavigationPropertyPathBinding)
+that applies to all instances addressed by the resource path
+or through the presence of a context URL within the payload.
+If the service is unable to determine the canonical collection for the entity, it MUST fail the request.
 
 The service MUST fail the request if the
 entity represented in the payload exists already in the determined collection.
 Otherwise the entity is created in the determined collection and,
-if the collection's URL ends with a non-containment navigation property,
+if the resource path ends with a non-containment navigation property,
 also linked to the entity containing the navigation property.
 
 The entity representation MAY include [references to existing
@@ -4216,10 +4241,10 @@ key properties for an entity include key properties of a directly
 related entity, those related entities MUST be included either as
 references to existing entities or as content for new related entities.
 
-An entity may also be created as the result of an [upsert request](#UpdateanEntity)
+An entity may also be created as the result of a [request for changing an entity](#UpdateanEntity)
 that is [treated as an insert](#UpsertanEntity).
 
-If the collection's URL terminates in a type cast segment, then the segment
+If the resource path terminates in a type cast segment, then the segment
 MUST specify the type of, or a type derived from, the type of the
 collection, and the entity MUST be created as that specified type.
 
@@ -4273,7 +4298,7 @@ request body.
 The representation for referencing related entities is format-specific.
 
 ::: example
-Example 80: using the JSON format, 4.0 clients can create a new manager
+Example 82: using the JSON format, 4.0 clients can create a new manager
 entity with links to an existing manager (of managers) and to two existing employees by applying the `odata.bind`
 annotation to the `Manager` and `DirectReports` navigation properties
 
@@ -4294,7 +4319,7 @@ annotation to the `Manager` and `DirectReports` navigation properties
 :::
 
 ::: example
-Example 81: using the JSON format, 4.01 clients can create a new manager
+Example 83: using the JSON format, 4.01 clients can create a new manager
 entity with links to an existing manager (of managers) and to two existing employees by including the entity-ids
 within the `Manager` and `DirectReports` navigation properties
 
@@ -4368,7 +4393,7 @@ On failure, the service MUST NOT create any of the entities.
 ### <a id="UpdateanEntity" href="#UpdateanEntity">11.4.3 Update an Entity</a>
 
 To make changes to an entity, the client makes `PATCH` or `PUT`
-request (a so-called _upsert request_) to a URL that identifies the entity. The [edit URL](#ReadURLsandEditURLs)
+request to a URL that identifies the entity. The [edit URL](#ReadURLsandEditURLs)
 MAY differ from the canonical URL defined in [OData-URL, section 4.3.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalURL),
 in which case clients SHOULD use the edit URL when making changes to the entity.
 
@@ -4417,8 +4442,8 @@ property `$value`.
 Updating a dependent property that is tied to a key property of the
 principal entity through a referential constraint updates the
 relationship to point to the entity with the specified key value. If
-the entity set for that entity cannot be determined or does not contain
-such an entity, the update fails. The entity set can be determined, among
+the canonical collection (as defined in [section 10](#ContextURL)) for that entity cannot be determined or does not contain
+such an entity, the update fails. The canonical collection can be determined, among
 other possibilities, by containment navigation properties or navigation property bindings
 or by a context URL in the request payload.
 
@@ -4488,7 +4513,7 @@ the service MAY ignore the system query options and respond with `204 No Content
 
 #### <a id="UpdateRelatedEntitiesWhenUpdatinganEntity" href="#UpdateRelatedEntitiesWhenUpdatinganEntity">11.4.3.1 Update Related Entities When Updating an Entity</a>
 
-Upsert requests with an OData-Version header with a value of `4.0` MUST
+Requests for changing an entity with an OData-Version header with a value of `4.0` MUST
 NOT contain related entities as inline content. Such requests MAY
 contain binding information for navigation properties. For single-valued
 navigation properties this replaces the relationship. For
@@ -4501,7 +4526,7 @@ payload](#DeltaPayloads) representing the related entities that have
 been added, removed, or changed. Such a request is referred to as a
 "deep update". If the nested collection is represented identical to an
 expanded navigation property, then the set of nested entities and entity
-references specified in a successful upsert request represents the full
+references specified in a successful request represents the full
 set of entities to be related according to that relationship and MUST
 NOT include added links, deleted links, or deleted entities.
 
@@ -4509,7 +4534,7 @@ If a navigation property is absent from a `PUT` or `PATCH` request payload, the 
 or contained entity, or the collection thereof, remains unchanged by a successful update.
 
 ::: example
-Example 82: using the JSON format, a 4.01 `PATCH` request can update a
+Example 84: using the JSON format, a 4.01 `PATCH` request can update a
 manager entity. Following the update, the manager has three direct
 reports; two existing employees and one new employee named
 `Suzanne Brown`. The `LastName` of employee 6 is updated to `Smith`.
@@ -4559,7 +4584,7 @@ entity is to be created. If any nested entities contain both id and key
 fields, they MUST identify the same entity, or the request is invalid.
 
 ::: example
-Example 83: using the JSON format, a 4.01 `PATCH` request can specify a
+Example 85: using the JSON format, a 4.01 `PATCH` request can specify a
 nested delta representation to:
 
 - delete employee 3 and
@@ -4607,7 +4632,7 @@ nested delta representation to:
 :::
 
 ::: example
-Example 84: When updating an entity with a 4.01 `PUT` request, the target of a
+Example 86: When updating an entity with a 4.01 `PUT` request, the target of a
 non-containment navigation property can be replaced if the targeted entity is specified
 by an entity reference (see [OData-JSON, section 14](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#EntityReference)), without specifying all
 its structural properties in `PUT` semantics.
@@ -4712,26 +4737,20 @@ the request.
 
 #### <a id="UpsertanEntity" href="#UpsertanEntity">11.4.3.2 Upsert an Entity</a>
 
-Services MAY treat an upsert request like a [create entity request](#CreateanEntity)
+Services MAY treat a request for changing an entity like a [create entity request](#CreateanEntity)
 if it requires the addressed entity to be newly created. The request is then said to be
 "treated as an insert", otherwise "treated as an update".
-Services that support this capability (instead of failing upsert requests that require
+Services that support this "upsert" capability (instead of failing such requests that require
 entity creation) SHOULD advertise it by an annotation with the
 term `Capabilities.UpdateRestrictions` (nested property `Upsertable`
 with value `true`) defined in [OData-VocCap](#ODataVocCap).
 
-If the service is unable to determine the
-canonical collection or canonical singleton (as defined in [section 10](#ContextURL)) for the newly-created entity,
-it MUST fail the upsert request.
-This determination is possible, for example, if the resource path of the request
-1. consists of an entity set followed by a key predicate
-2. consists of a singleton (which must be nullable if the request can be treated as an insert)
-3. ends with a containment navigation property,
-   followed by a key predicate if this is collection-valued
-   (and which must be nullable otherwise if the request can be treated as an insert)
-4. matches a navigation property path binding [OData-CSDL, section 13.4.1](https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#NavigationPropertyPathBinding)
-
-or the payload includes a context URL.
+If resource path is not a canonical URL and the request is treated as an insert,
+the service can determine the canonical collection or canonical singleton (as defined in [section 10](#ContextURL)) for the newly-created entity
+through a navigation property path binding [OData-CSDL, section 13.4.1](https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#NavigationPropertyPathBinding)
+that applies to the instance addressed by the resource path
+or through the presence of a context URL within the payload;
+if the service is unable to determine the canonical collection, it MUST fail the request.
 
 Upserts are not supported against entities whose keys' values are
 generated by the service. Services MUST fail an upsert request to a URL
@@ -4748,34 +4767,19 @@ A key property whose value is provided in the request URL SHOULD be omitted from
 If key properties are provided in the request URL and the request body with different values,
 services MUST either fail the request or ignore the value in the request body.
 
-If the URL of an upsert request falls into case 1, 2, or 3 given above and the request
+If the resource path is a canonical URL and the request
 - contains an [`If-Match: *`](#HeaderIfMatch) header, the service MUST fail the request
   if it would be treated as an insert
-- contains an `If-Match` header with an ETag as value, the service fails the request
-  instead of treating it as an insert because the [ETag](#UseofETagsforAvoidingUpdateConflicts)
-  does not match
+- contains an `If-Match` header with an ETag as value, the service treats the request as
+  an update if the [ETag](#UseofETagsforAvoidingUpdateConflicts) matches the addressed entity
+  or fails the request, but never treats it as an insert
 - contains an [`If-None-Match: *`](#HeaderIfNoneMatch) header, the service MUST fail the request
   if it would be treated as an update.
 
 In other words, the `If-`(`None-`)`Match` header distinguishes between insert
-and update in these cases.
-
-Note outside of these cases it can happen that an upsert request does not address an existing entity with its URL
-but identifies one in its payload. Such a request may update the identified entity and
-link it to another entity, but it does not lead to a create entity request.
-
-::: example
-Example 85: `Category` is a single-valued nullable non-containment navigation property
-on the product entity type. Even if
-```
-GET http://host/service/Products(57)/Category
-```
-returns `404 Not Found`, the upsert request
-```
-PATCH http://host/service/Products(57)/Category
-```
-is treated like an update not an insert if its payload identifies an existing category.
-:::
+and update in this case. Otherwise the resource path ends with a
+non-containment navigation property and an `If-`(`None-`)`Match` header makes no
+sense (see [example 81](#antietag)).
 
 ### <a id="DeleteanEntity" href="#DeleteanEntity">11.4.4 Delete an Entity</a>
 
@@ -4958,7 +4962,7 @@ payload unless explicitly requested with [`$expand`](#SystemQueryOptionexpand).
 Instead, the values are generally read or written through URLs.
 
 ::: example
-Example <a id="entityWithStreamProperty" href="#entityWithStreamProperty">86</a>: read an entity and select a stream property
+Example <a id="entityWithStreamProperty" href="#entityWithStreamProperty">87</a>: read an entity and select a stream property
 
 ```
 GET http://host/service/Products(1)?$select=Thumbnail
@@ -4989,7 +4993,7 @@ The response MAY be a redirect to the media read link of the stream property
 if the media read link is different from the canonical URL.
 
 ::: example
-Example 87: directly read a stream property of an entity
+Example 88: directly read a stream property of an entity
 
 ```
 GET http://host/service/Products(1)/Thumbnail
@@ -5040,7 +5044,7 @@ attempts to set the property to null and results in an error if the
 property is non-nullable.
 
 ::: example
-Example 88: delete the stream value using the media edit link retrieved in [example 86](#entityWithStreamProperty)
+Example 89: delete the stream value using the media edit link retrieved in [example 87](#entityWithStreamProperty)
 
 ```
 DELETE http://server/uploads/Thumbnail546.jpg
@@ -5194,7 +5198,7 @@ ordinal number indexes from the end of the collection, with -1
 representing an insert as the last item in the collection.
 
 ::: example
-Example 89: Insert a new email address at the second position
+Example 90: Insert a new email address at the second position
 
 ```json
 POST /service/Customers('ALFKI')/EmailAddresses?$index=1
@@ -5361,7 +5365,7 @@ semantics described in [Update a Collection of
 Entities](#UpdateaCollectionofEntities) applies.
 
 ::: example
-Example 90: change the color of all beige-brown products
+Example 91: change the color of all beige-brown products
 
 ```json
 PATCH /service/Products/$filter(@bar)/$each?@bar=Color eq 'beige-brown'
@@ -5407,7 +5411,7 @@ The request resource path of the collection MAY contain type-cast or
 filter segments to subset the collection.
 
 ::: example
-Example 91: delete all products older than 3
+Example 92: delete all products older than 3
 
 ```
 DELETE /service/Products/$filter(Age gt 3)/$each
@@ -5459,7 +5463,7 @@ by that URL is used as the *binding parameter value*. Only aliases
 defined in the metadata document of the service can be used in URLs.
 
 ::: example
-Example 92: the function `MostRecentOrder` can be bound to any URL that
+Example 93: the function `MostRecentOrder` can be bound to any URL that
 identifies a `SampleModel.Customer`
 ```xml
 <Function Name="MostRecentOrder" IsBound="true">
@@ -5470,7 +5474,7 @@ identifies a `SampleModel.Customer`
 :::
 
 ::: example
-Example 93: invoke the `MostRecentOrder` function with the value of the
+Example 94: invoke the `MostRecentOrder` function with the value of the
 binding parameter `customer` being the entity identified by
 `http://host/service/Customers(6)`
 ```
@@ -5479,7 +5483,7 @@ GET http://host/service/Customers(6)/SampleModel.MostRecentOrder()
 :::
 
 ::: example
-Example 94: the function `Comparison` can be bound to any URL that
+Example 95: the function `Comparison` can be bound to any URL that
 identifies a collection of entities
 ```xml
 <Function Name="Comparison" IsBound="true">
@@ -5490,7 +5494,7 @@ identifies a collection of entities
 :::
 
 ::: example
-Example 95: invoke the `Comparison` function on the set of red products
+Example 96: invoke the `Comparison` function on the set of red products
 ```
 GET http://host/service/Products/$filter(Color eq 'Red')/Diff.Comparison()
 ```
@@ -5513,7 +5517,7 @@ result type of the bound operation. If the bound operation returns a
 collection, the response is a collection of collections.
 
 ::: example
-Example 96: invoke the `MostRecentOrder` function on each entity in the
+Example 97: invoke the `MostRecentOrder` function on each entity in the
 entity set `Customers`
 ```
 GET http://host/service/Customers/$each/SampleModel.MostRecentOrder()
@@ -5541,7 +5545,7 @@ or entity collection within the payload. The representation of an action
 or function depends on the [format](#Formats).
 
 ::: example
-Example 97: given a `GET` request to
+Example 98: given a `GET` request to
 `http://host/service/Customers('ALFKI')`, the service might respond with
 a Customer that includes the `SampleEntities.MostRecentOrder` function
 bound to the entity
@@ -5568,7 +5572,7 @@ Services can advertise that a function or action is not available for a
 particular instance by setting its value to null.
 
 ::: example
-Example 98: the `SampleEntities.MostRecentOrder` function is not
+Example 99: the `SampleEntities.MostRecentOrder` function is not
 available for customer `ALFKI`
 ```json
 {
@@ -5652,7 +5656,7 @@ segment is a multi-valued navigation property, a `POST` request may be
 used to create a new entity in the identified collection.
 
 ::: example
-Example 99: add a new item to the list of items of the shopping cart
+Example 100: add a new item to the list of items of the shopping cart
 returned by the composable `MyShoppingCart` function import
 ```
 POST http://host/service/MyShoppingCart()/Items
@@ -5701,7 +5705,7 @@ Each parameter value is represented as a name/value pair in the format
 and `Value` is the parameter value.
 
 ::: example
-Example 100: invoke a `Sales.EmployeesByManager` function which takes a
+Example 101: invoke a `Sales.EmployeesByManager` function which takes a
 single `ManagerID` parameter via the function import
 `EmployeesByManager`
 ```
@@ -5710,7 +5714,7 @@ GET http://host/service/EmployeesByManager(ManagerID=3)
 :::
 
 ::: example
-Example 101: return all Customers whose `City` property returns
+Example 102: return all Customers whose `City` property returns
 `Western` when passed to the `Sales.SalesRegion` function
 ```
 GET http://host/service/Customers?
@@ -5723,7 +5727,7 @@ parameter value. The value for the alias is specified as a separate
 query option using the name of the parameter alias.
 
 ::: example
-Example 102: invoke a `Sales.EmployeesByManager` function via the
+Example 103: invoke a `Sales.EmployeesByManager` function via the
 function import `EmployeesByManager`, passing 3 for the `ManagerID`
 parameter
 ```
@@ -5743,7 +5747,7 @@ optional `$` prefix), the parameter name MUST be prefixed with an at
 (`@`) sign.
 
 ::: example
-Example 103: invoke a `Sales.EmployeesByManager` function via the
+Example 104: invoke a `Sales.EmployeesByManager` function via the
 function import `EmployeesByManager`, passing 3 for the `ManagerID`
 parameter using the implicit parameter alias
 ```
@@ -5883,7 +5887,7 @@ collection as a whole is transported in the [`ETag`](#HeaderETag) header of a
 collection response.
 
 ::: example
-Example 104: invoke the `SampleEntities.CreateOrder` action using
+Example 105: invoke the `SampleEntities.CreateOrder` action using
 `Customers('ALFKI')` as the customer (or binding parameter). The values
 `2` for the `quantity` parameter and `BLACKFRIDAY` for the
 `discountCode` parameter are passed in the body of the request. Invoke
@@ -6032,7 +6036,7 @@ format](#MultipartBatchFormat) MUST contain a
 [RFC2046](#rfc2046).
 
 ::: example
-Example 105: multipart batch request
+Example 106: multipart batch request
 ```
 POST /service/$batch HTTP/1.1
 Host: odata.org
@@ -6047,7 +6051,7 @@ A batch request using the JSON batch format MUST contain a
 `Content-Type` header specifying a content type of `application/json`.
 
 ::: example
-Example 106: JSON batch request
+Example 107: JSON batch request
 ```
 POST /service/$batch HTTP/1.1
 Host: odata.org
@@ -6102,7 +6106,7 @@ the request URL. Services MUST treat this segment like the URL in the
 [`Location`](#HeaderLocation) header of the response to the request identified by the segment.
 If the `Location` header in the response to the subsequent request contains a relative URL,
 clients MUST be able to resolve it relative to the request's URL even if
-that contains such a reference. See [example 111](#batchcontentid).
+that contains such a reference. See [example 112](#batchcontentid).
 
 If the `$`-prefixed request identifier is identical to the name of a
 top-level system resource (`$batch`, `$crossjoin`, `$all`, `$entity`,
@@ -6203,7 +6207,7 @@ set can use one of the following three formats:
 - Absolute URI with schema, host, port, and absolute resource path.
 
 ::: example
-Example 107:
+Example 108:
 ```
 GET https://host:1234/path/service/People(1) HTTP/1.1
 ```
@@ -6212,7 +6216,7 @@ GET https://host:1234/path/service/People(1) HTTP/1.1
 - Absolute resource path and separate `Host` header
 
 ::: example
-Example <a id="batchhost" href="#batchhost">108</a>:
+Example <a id="batchhost" href="#batchhost">109</a>:
 ```json
 PATCH /path/service/People(1) HTTP/1.1
 Host: myserver.mydomain.org:1234
@@ -6225,7 +6229,7 @@ Content-Type: application/json
 - Resource path relative to the batch request URI.
 
 ::: example
-Example 109:
+Example 110:
 ```
 DELETE People(1) HTTP/1.1
 ```
@@ -6250,7 +6254,7 @@ processor may choose to disallow chunked encoding to be used by such
 HTTP requests.
 
 ::: example
-Example <a id="batchRequest" href="#batchRequest">110</a>: a batch request that contains the following individual
+Example <a id="batchRequest" href="#batchRequest">111</a>: a batch request that contains the following individual
 requests in the order listed
 
   1. A query request
@@ -6329,7 +6333,7 @@ which case they SHOULD advertise this support by specifying the
 term applied to the entity container, see [OData-VocCap](#ODataVocCap).
 
 ::: example
-Example <a id="batchcontentid" href="#batchcontentid">111</a>: a batch request that contains the following operations in
+Example <a id="batchcontentid" href="#batchcontentid">112</a>: a batch request that contains the following operations in
 the order listed:
 
 A change set that contains the following requests:
@@ -6401,7 +6405,7 @@ request URL `$1/Orders`. To get an absolute base URI, the client must replace th
 resulting URL `Customers('ALFKI')/Orders(1)` relative to its base URI, which is
 `http://host/service/Customers` (determined from the
 first request URL `/service/Customers` and the `Host: host` header
-as in [example 108](#batchhost)). This gives the effective second request URL
+as in [example 109](#batchhost)). This gives the effective second request URL
 `http://host/service/Customers('ALFKI')/Orders` as base URI for the second `Location`
 URL, which therefore resolves to `http://host/service/Customers('ALFKI')/Orders(1)`.
 :::
@@ -6409,7 +6413,7 @@ URL, which therefore resolves to `http://host/service/Customers('ALFKI')/Orders(
 #### <a id="ReferencinganETag" href="#ReferencinganETag">11.7.7.3 Referencing an ETag</a>
 
 ::: example
-Example 112: a batch request that contains the following operations in
+Example 113: a batch request that contains the following operations in
 the order listed:
 
 - Get an employee (with `Content-ID = 1`)
@@ -6450,7 +6454,7 @@ If-Match: $1
 #### <a id="ReferencingResponseBodyValues" href="#ReferencingResponseBodyValues">11.7.7.4 Referencing Response Body Values</a>
 
 ::: example
-Example 113: a batch request that contains the following operations in
+Example 114: a batch request that contains the following operations in
 the order listed:
 
 - Get an employee (with `Content-ID = 1`)
@@ -6543,11 +6547,11 @@ A response to an operation in a batch MUST be formatted exactly as it
 would have appeared outside of a batch as described in the corresponding
 subsections of chapter [Data Service Requests](#DataServiceRequests).
 Relative URLs in each individual response are relative to the request
-URL of the corresponding individual request (see [example 111](#batchcontentid)).
+URL of the corresponding individual request (see [example 112](#batchcontentid)).
 URLs in responses MUST NOT contain `$`-prefixed request identifiers.
 
 ::: example
-Example 114: referencing the batch request [example 110](#batchRequest) above, assume all
+Example 115: referencing the batch request [example 111](#batchRequest) above, assume all
 the requests except the final query request succeed. In this case the
 response would be
 ```
@@ -6623,7 +6627,7 @@ Since a change set is executed atomically,
 a change set.
 
 ::: example
-Example 115: referencing the [example 110](#batchRequest) above again, assume that
+Example 116: referencing the [example 111](#batchRequest) above again, assume that
 ```
 HTTP/1.1 202 Accepted
 Location: http://service-root/async-monitor-0

@@ -3349,11 +3349,6 @@ that differ only in a type-cast segment, allowing to bind instances of
 different sub-types to different targets. If paths differ only in
 type-cast segments, the most specific path applies.
 
-Elsewhere in this specification ([OData-Protocol, section 11.4.2](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#CreateanEntity), [OData-Protocol, section 11.4.3.2](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UpsertanEntity),
-[OData-URL, section 4.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingEntities)) an [instance path](#PathExpressions) that starts
-with an entity container is said to _match_ a navigation property path binding
-if the binding applies to all instances that the instance path addresses.
-
 ### <a id="BindingTarget" href="#BindingTarget">13.4.2 Binding Target</a>
 
 A navigation property binding MUST specify a target via a [simple
