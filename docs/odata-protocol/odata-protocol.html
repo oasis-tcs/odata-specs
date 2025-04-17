@@ -59,7 +59,7 @@
     code span.al { color: #ff0000; font-weight: bold; } /* Alert */
     code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
     code span.at { color: #7d9029; } /* Attribute */
-    code span.bn { color: #40a070; } /* BaseN */
+    code span.bn { color: #337f59; } /* BaseN */
     code span.bu { color: #008000; } /* BuiltIn */
     code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
     code span.ch { color: #4070a0; } /* Char */
@@ -68,10 +68,10 @@
     code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
     code span.do { color: #ba2121; font-style: italic; } /* Documentation */
     code span.dt { color: #902000; } /* DataType */
-    code span.dv { color: #40a070; } /* DecVal */
+    code span.dv { color: #337f59; } /* DecVal */
     code span.er { color: #ff0000; font-weight: bold; } /* Error */
     code span.ex { } /* Extension */
-    code span.fl { color: #40a070; } /* Float */
+    code span.fl { color: #337f59; } /* Float */
     code span.fu { color: #06287e; } /* Function */
     code span.im { color: #008000; font-weight: bold; } /* Import */
     code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
@@ -619,11 +619,16 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/358">358</a></td>
 </tr>
 <tr class="odd">
+<td><a href="#InvokinganAction">Section 11.5.5.1</a></td>
+<td>Omission of collection-valued action parameters</td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/2045">2045</a></td>
+</tr>
+<tr class="even">
 <td><a href="#Conformance">Section 12</a></td>
 <td>Allow <code>400 Bad Request</code> in addition to <code>501 Not Implemented</code> for unsupported functionality</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/391">391</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#InteroperableODataClients">Section 12.3</a></td>
 <td>Encoding of plus character in URLs</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/485">485</a></td>
@@ -711,7 +716,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p><em>Entity types</em> are named structured types with a key. They define the named properties and relationships of an entity. Entity types may derive by single inheritance from other entity types.</p>
 <p>The <em>key</em> of an entity type is formed from a subset of the primitive properties (e.g. <code>CustomerId</code>, <code>OrderId</code>, <code>LineId</code>, etc.) of the entity type.</p>
 <p><em>Complex types</em> are keyless named structured types consisting of a set of properties. These are value types whose instances cannot be referenced outside of their containing entity. Complex types are commonly used as property values in an entity or as parameters to operations.</p>
-<p>Properties declared as part of a structured type’s definition are called <em>declared properties</em>. Instances of structured types may contain additional undeclared <em>dynamic properties</em>. A dynamic property cannot have the same name as a declared property. Entity or complex types which allow clients to persist additional undeclared properties are called <em>open types</em>.</p>
+<p>Properties declared as part of a structured type’s definition are called <em>declared properties</em>. Instances of structured types may contain additional undeclared <em>dynamic properties</em>. A dynamic property cannot have the same name as a declared property. Entity or complex types which allow clients to persist additional undeclared properties are called <em>open types</em>. A dynamic property need not exist on all instances of a structured type, and it can have values of different types on different instances. It can be specified in both <a href="#SystemQueryOptionexpand"><code>$expand</code></a> and <a href="#SystemQueryOptionselect"><code>$select</code></a>, and it is interpreted per instance according to its instance-specific type, with the addition that it is silently ignored in <code>$expand</code> if the instance-specific value is neither a stream, an entity, or a collection of entities.</p>
 <p>Relationships from one entity to another are represented as <em>navigation properties.</em> Navigation properties are generally defined as part of an entity type, but can also appear on entity instances as undeclared <em>dynamic navigation properties</em>. Each relationship has a cardinality.</p>
 <p><em>Enumeration types</em> are named primitive types whose values are named constants with underlying integer values.</p>
 <p><em>Type definitions</em> are named primitive types with fixed facet values such as maximum length or precision. Type definitions can be used in place of primitive typed properties, for example, within property definitions.</p>
@@ -1885,8 +1890,8 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <details open><summary>
 <h4 id="11253-system-query-option-compute"><a id="SystemQueryOptioncompute" href="#SystemQueryOptioncompute">11.2.5.3 System Query Option <code>$compute</code></a></h4>
 </summary>
-<p>The <code>$compute</code> system query option allows clients to define computed properties that can be used in a <a href="#SystemQueryOptionselect"><code>$select</code></a> or within a <a href="#SystemQueryOptionfilter"><code>$filter</code></a> or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> expression.</p>
-<p>Computed properties SHOULD be included as dynamic properties in the result and MUST be included if <code>$select</code> is specified with the computed property name, or star (<code>*</code>).</p>
+<p>The <code>$compute</code> system query option allows clients to define computed properties that can be used in <a href="#SystemQueryOptionexpand"><code>$expand</code></a>, <a href="#SystemQueryOptionselect"><code>$select</code></a>, <a href="#SystemQueryOptionfilter"><code>$filter</code></a>, or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a>. The <code>$compute</code> system query option allows clients to define computed properties that can be used in <a href="#SystemQueryOptionexpand"><code>$expand</code></a>, <a href="#SystemQueryOptionselect"><code>$select</code></a>, <a href="#SystemQueryOptionfilter"><code>$filter</code></a>, or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a>. Computed properties are expanded or selected according to their instance-specific type. A computed property is ignored by <code>$expand</code> if its instance-specific value is neither a stream, an entity, nor a collection of entities, and the service cannot determine this based on the compute expression.</p>
+<p>Computed properties SHOULD be included as dynamic properties in the result without being explicitly mentioned in <code>$expand</code> or <code>$select</code>, or implied by star (<code>*</code>).</p>
 <div class="example">
 <p>Example 50: compute total price for order items (line breaks only for readability)</p>
 <pre><code>GET http://host/service/Customers
@@ -2450,7 +2455,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>If an update specifies both a binding to a single-valued navigation property and a dependent property that is tied to a key property of the principal entity according to the same navigation property, then the dependent property is ignored, and the relationship is updated according to the value specified in the binding.</p>
 <p>If the entity being updated is open, then additional values for properties beyond those specified in the metadata or returned in a previous request MAY be sent in the request body. The service MUST treat these as dynamic properties.</p>
 <p>If the entity being updated is not open, then additional values for properties beyond those specified in the metadata or returned in a previous request SHOULD NOT be sent in the request body. The service MUST fail if it is unable to persist all updatable property values specified in the request.</p>
-<p>Upon successful completion of the update, the service responds with either <a href="#ResponseCode200OK"><code>200 OK</code></a> and a representation of the updated entity, or <a href="#ResponseCode204NoContent"><code>204 No Content</code></a>. The client may request that the response SHOULD include a body by specifying a <a href="#Preferencereturnrepresentationandreturnminimal"><code>return=representation</code></a> preference, or by specifying the system query options <a href="#SystemQueryOptionselect"><code>$select</code></a> or <a href="#SystemQueryOptionexpand"><code>$expand</code></a>. If the service uses ETags for optimistic concurrency control, the entities in the response MUST include ETags. If a representation of the updated entity could not be constructed, the service MAY ignore the system query options and respond with <code>204 No Content</code>.</p>
+<p>Upon successful completion of the update, the service responds with either <a href="#ResponseCode200OK"><code>200 OK</code></a> and a representation of the updated entity, or <a href="#ResponseCode204NoContent"><code>204 No Content</code></a>. The client may request that the response SHOULD include a body by specifying a <a href="#Preferencereturnrepresentationandreturnminimal"><code>return=representation</code></a> preference, or by specifying the system query options <a href="#SystemQueryOptionselect"><code>$select</code></a> or <a href="#SystemQueryOptionexpand"><code>$expand</code></a>. An entity that requires concurrency control and is included in the response MUST include an ETag. If a representation of the updated entity could not be constructed, the service MAY ignore the system query options and respond with <code>204 No Content</code>.</p>
 <details open><summary>
 <h4 id="11431-update-related-entities-when-updating-an-entity"><a id="UpdateRelatedEntitiesWhenUpdatinganEntity" href="#UpdateRelatedEntitiesWhenUpdatinganEntity">11.4.3.1 Update Related Entities When Updating an Entity</a></h4>
 </summary>
@@ -3021,7 +3026,8 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>To invoke an action bound to a resource, the client issues a <code>POST</code> request to an action URL. An action URL may be <a href="#AdvertisingAvailableOperationswithinaPayload">obtained</a> from a previously returned entity representation or constructed by appending the namespace- or alias-qualified action name to a URL that identifies a resource whose type is the same as, or derives from, the type of the binding parameter of the action. The value for the binding parameter is the resource identified by the URL preceding the action name, and only the non-binding parameter values are passed in the request body according to the particular format. In parameters containing complex instances or transient entities, properties with a defined default value, nullable properties, and collection-valued properties that are omitted from the request are interpreted as the default value, null, or an empty collection, respectively.</p>
 <p>Services MAY additionally support invoking actions using the unqualified action name by defining one or more <a href="#DefaultNamespaces">default namespaces</a> through the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a> term defined in <a href="#ODataVocCore">OData-VocCore</a>.</p>
 <p>To invoke an action through an action import, the client issues a <code>POST</code> request to a URL identifying the action import. The canonical URL for an action import is the service root, followed by the name of the action import. When invoking an action through an action import all parameter values MUST be passed in the request body according to the particular format.</p>
-<p>Non-binding parameters that are nullable or annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter"><code>Core.OptionalParameter</code></a> defined in <a href="#ODataVocCore">OData-VocCore</a> MAY be omitted from the request body. If an omitted parameter is not annotated (and thus nullable), it MUST be interpreted as having the <code>null</code> value. If it is annotated and the annotation specifies a <code>DefaultValue</code>, the omitted parameter is interpreted as having that default value. If omitted and the annotation does not specify a default value, the service is free on how to interpret the omitted parameter. Note: a nullable non-binding parameter is equivalent to being annotated as optional with a default value of <code>null</code>.</p>
+<p>Non-binding single-valued parameters that are nullable or annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter"><code>Core.OptionalParameter</code></a> defined in <a href="#ODataVocCore">OData-VocCore</a> MAY be omitted from the request body. If an omitted single-valued parameter is not annotated (and thus nullable), it MUST be interpreted as having the <code>null</code> value. If it is annotated and the annotation specifies a <code>DefaultValue</code>, the omitted parameter is interpreted as having that default value. If omitted and the annotation does not specify a default value, the service is free on how to interpret the omitted parameter. Note: a nullable non-binding parameter is equivalent to being annotated as optional with a default value of <code>null</code>.</p>
+<p>The interpretation of an omitted non-binding collection-valued parameter is up to the service regardless of its nullability or optionality. Possible interpretations include assuming an empty collection or, for parameters not annotated as <code>Core.OptionalParameter</code>, reporting an error.</p>
 <p>4.01 services MUST support invoking actions with no non-binding parameters and parameterless action imports both without a request body and with a request body representing no parameters, according to the particular format. Interoperable clients SHOULD always include a request body, even when invoking actions with no non-binding parameters and parameterless action imports.</p>
 <p>If the action returns results, the client SHOULD use content type negotiation to request the results in the desired format, otherwise the default content type will be used.</p>
 <p>The client can request whether any results from the action be returned using the <a href="#Preferencereturnrepresentationandreturnminimal"><code>return</code></a> preference.</p>

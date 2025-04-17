@@ -365,6 +365,7 @@ Section | Feature / Change | Issue
 [Section 11.4.8.3](#UpdateaComplexProperty)| Setting a complex property to a different type| [534](https://github.com/oasis-tcs/odata-specs/issues/534)
 [Section 11.4.11](#UpdateaCollectionofEntities)| Control information to prevent updates| [2021](https://github.com/oasis-tcs/odata-specs/issues/2021)
 [Section 11.4.12](#ReplaceaCollectionofEntities)| Semantics of `continue-on-error` when replacing a collection of entities | [358](https://github.com/oasis-tcs/odata-specs/issues/358)
+[Section 11.5.5.1](#InvokinganAction)| Omission of collection-valued action parameters| [2045](https://github.com/oasis-tcs/odata-specs/issues/2045)
 [Section 12](#Conformance) | Allow `400 Bad Request` in addition to `501 Not Implemented` for unsupported functionality| [391](https://github.com/oasis-tcs/odata-specs/issues/391)
 [Section 12.3](#InteroperableODataClients) | Encoding of plus character in URLs | [485](https://github.com/oasis-tcs/odata-specs/issues/485)
 
@@ -487,6 +488,12 @@ additional undeclared *dynamic properties*. A dynamic property cannot
 have the same name as a declared property. Entity or complex types which
 allow clients to persist additional undeclared properties are called
 *open types*.
+A dynamic property need not exist on all instances of a structured type,
+and it can have values of different types on different instances.
+It can be specified in both [`$expand`](#SystemQueryOptionexpand) and [`$select`](#SystemQueryOptionselect),
+and it is interpreted per instance according to its instance-specific type,
+with the addition that it is silently ignored in `$expand` if the instance-specific value is neither a stream,
+an entity, or a collection of entities.
 
 Relationships from one entity to another are represented as *navigation
 properties.* Navigation properties are generally defined as part of an
@@ -3132,13 +3139,16 @@ GET http://host/service/Employees?$expand=Model.Manager/DirectReports($levels=4)
 #### <a id="SystemQueryOptioncompute" href="#SystemQueryOptioncompute">11.2.5.3 System Query Option `$compute`</a>
 
 The `$compute` system query option allows clients to define computed
-properties that can be used in a [`$select`](#SystemQueryOptionselect)
-or within a [`$filter`](#SystemQueryOptionfilter) or
-[`$orderby`](#SystemQueryOptionorderby) expression.
+properties that can be used in [`$expand`](#SystemQueryOptionexpand),
+[`$select`](#SystemQueryOptionselect),
+[`$filter`](#SystemQueryOptionfilter), or
+[`$orderby`](#SystemQueryOptionorderby).
+The `$compute` system query option allows clients to define computed properties that can be used in [`$expand`](#SystemQueryOptionexpand),
+[`$select`](#SystemQueryOptionselect),
+[`$filter`](#SystemQueryOptionfilter), or
+[`$orderby`](#SystemQueryOptionorderby). Computed properties are expanded or selected according to their instance-specific type. A computed property is ignored by `$expand` if its instance-specific value is neither a stream, an entity, nor a collection of entities, and the service cannot determine this based on the compute expression.
 
-Computed properties SHOULD be included as dynamic properties in the
-result and MUST be included if `$select` is specified with the computed
-property name, or star (`*`).
+Computed properties SHOULD be included as dynamic properties in the result without being explicitly mentioned in `$expand` or `$select`, or implied by star (`*`).
 
 ::: example
 Example 50: compute total price for order items (line breaks only for
@@ -4506,9 +4516,10 @@ request that the response SHOULD include a body by specifying a
 [`return=representation`](#Preferencereturnrepresentationandreturnminimal) preference, or by
 specifying the system query options
 [`$select`](#SystemQueryOptionselect) or
-[`$expand`](#SystemQueryOptionexpand). If the service uses ETags for
-optimistic concurrency control, the entities in the response MUST
-include ETags. If a representation of the updated entity could not be constructed,
+[`$expand`](#SystemQueryOptionexpand).
+An entity that requires concurrency control
+and is included in the response MUST include an ETag.
+If a representation of the updated entity could not be constructed,
 the service MAY ignore the system query options and respond with `204 No Content`.
 
 #### <a id="UpdateRelatedEntitiesWhenUpdatinganEntity" href="#UpdateRelatedEntitiesWhenUpdatinganEntity">11.4.3.1 Update Related Entities When Updating an Entity</a>
@@ -5840,17 +5851,22 @@ import. When invoking an action through an action import all parameter
 values MUST be passed in the request body according to the particular
 format.
 
-Non-binding parameters that are nullable or annotated with the term
-[`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter) defined
-in [OData-VocCore](#ODataVocCore) MAY be omitted from the request body.
-If an omitted parameter is not annotated (and thus nullable), it MUST be
-interpreted as having the `null` value. If it is annotated and the
-annotation specifies a `DefaultValue`, the omitted parameter is
-interpreted as having that default value. If omitted and the annotation
-does not specify a default value, the service is free on how to
-interpret the omitted parameter. Note: a nullable non-binding parameter
-is equivalent to being annotated as optional with a default value of
-`null`.
+Non-binding single-valued parameters that are nullable or annotated with the term
+[`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter) defined in
+[OData-VocCore](#ODataVocCore) MAY be omitted from the request body.
+If an omitted single-valued parameter is not annotated (and thus nullable), it MUST be
+interpreted as having the `null` value. If it is annotated
+and the annotation specifies a `DefaultValue`, the omitted
+parameter is interpreted as having that default value. If omitted and
+the annotation does not specify a default value, the service is free on
+how to interpret the omitted parameter. Note: a nullable non-binding
+parameter is equivalent to being annotated as optional with a default
+value of `null`.
+
+The interpretation of an omitted non-binding collection-valued parameter
+is up to the service regardless of its nullability or optionality.
+Possible interpretations include assuming an empty collection or,
+for parameters not annotated as `Core.OptionalParameter`, reporting an error.
 
 4.01 services MUST support invoking actions with no non-binding
 parameters and parameterless action imports both without a request body
