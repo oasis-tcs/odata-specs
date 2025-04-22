@@ -2744,13 +2744,14 @@ MAY support conventions for constructing a read URL using the entity's
 key value(s), as described in [OData-URL, section 4.3.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalURL).
 
 ::: example
-Example 33: Consider two distinct entities `Users(5)` and `Avatars(5)` with the same
-entity type that is also used by the non-containment navigation property `EndorsedBy`
+Example 33: Products can be sourced from a supplier (like `Suppliers(5)`)
+as well as from a subsidiary (like `Subsidiaries(5)`). These two entities have the same
+entity type that is also used by the non-containment navigation property `SourcedFrom`
 defined on the product entity type. Then the following URL identifies a collection of entities followed by
 an entity key to select a single entity (like in [OData-URL, section 4.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingEntities))
-but might identify either of the two entities under consideration:
+but might identify either of the two entities:
 ```
-GET http://host/service/Products(1)/EndorsedBy(5)
+GET http://host/service/Products(1)/SourcedFrom(5)
 ```
 :::
 
