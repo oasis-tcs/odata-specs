@@ -520,7 +520,7 @@ finishAnnotations() {
 }
 annotationFromJSON(json, member, value) {
   const m = member.match(/^([^@@]*)(@@.*)?@@([^@@]*?)(#([^@@]*?))?$/);
-  if (m) {
+  if (m && m[3].includes(".") && !m[3].startsWith("odata.")) {
     const prop = m[1] || "";
     const termcast = m[2] || "";
     const anno = new Annotation(
