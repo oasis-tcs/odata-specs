@@ -520,20 +520,22 @@ finishAnnotations() {
 }
 annotationFromJSON(json, member, value) {
   const m = member.match(/^([^@@]*)(@@.*)?@@([^@@]*?)(#([^@@]*?))?$/);
-  if (m && m[3].includes(".") && !m[3].startsWith("odata.")) {
-    const prop = m[1] || "";
-    const termcast = m[2] || "";
-    const anno = new Annotation(
-      this,
-      this.annotationTarget((prop + termcast).split(/(?<!^)@@/)?.join("/@@")),
-      m[3],
-      m[5]
-    );
-    anno.fromJSON(value);
-    this.#annotations ||= {};
-    this.#annotations[prop] ||= {};
-    this.#annotations[prop][`${termcast}@@${m[3]}${m[5] ? "#" + m[5] : ""}`] =
-      anno;
+  if (m) {
+    if (m[3].includes(".") && !m[3].startsWith("odata.")) {
+      const prop = m[1] || "";
+      const termcast = m[2] || "";
+      const anno = new Annotation(
+        this,
+        this.annotationTarget((prop + termcast).split(/(?<!^)@@/)?.join("/@@")),
+        m[3],
+        m[5]
+      );
+      anno.fromJSON(value);
+      this.#annotations ||= {};
+      this.#annotations[prop] ||= {};
+      this.#annotations[prop][`${termcast}@@${m[3]}${m[5] ? "#" + m[5] : ""}`] =
+        anno;
+    }
     return true;
   } else return false;
 }
@@ -4205,6 +4207,16 @@ PropertyValue,
 @$@<Record@>@{
 fromJSON(json) {
   super.fromJSON(json, "PropertyValue");
+  const type = json["@@odata.type"] || json["@@type"];
+  if (type) {
+    const typename = type.split("#", 2)[1];
+    if (typename.startsWith("Collection(")) {
+      typename = typename.substring(11, typename.length - 1);
+      this.$Collection = true;
+    }
+    this["@@type"] = new QualifiedNamePath(this, typename, "@@type");
+    delete this["@@odata.type"];
+  }
 }
 @}
 
@@ -4216,7 +4228,7 @@ fromJSON(json) {
   Annotation.prototype.fromJSON.call(this, json);
 }
 toJSON() {
-  return Annotation.prototype.toJSON.call(this.value);
+  return Annotation.prototype.toJSON.call(this);
 }
 @}
 
