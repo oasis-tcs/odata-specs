@@ -2743,13 +2743,19 @@ instance, for example as a `readLink` or `editLink` in an
 MAY support conventions for constructing a read URL using the entity's
 key value(s), as described in [OData-URL, section 4.3.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalURL).
 
+Borderline cases are possible in which two or more entity sets with the same entity type
+use overlapping keys and a non-containment navigation property [OData-CSDL, section 8.4](https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#ContainmentNavigationProperty)
+with that entity type does not have a unique navigation property binding [OData-CSDL, section 13.4](https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#NavigationPropertyBinding).
+In such cases, a URL that identifies a collection of entities followed by
+an entity key to select a single entity (like in [OData-URL, section 4.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingEntities))
+may not identity a unique entity, and the behavior of the service is undefined.
+
 ::: example
 Example 33: Products can be sourced from a supplier (like `Suppliers(5)`)
 as well as from a subsidiary (like `Subsidiaries(5)`). These two entities have the same
 entity type that is also used by the non-containment navigation property `SourcedFrom`
-defined on the product entity type. Then the following URL identifies a collection of entities followed by
-an entity key to select a single entity (like in [OData-URL, section 4.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingEntities))
-but might identify either of the two entities:
+defined on the product entity type. Then the following URL
+might identify either of the two entities:
 ```
 GET http://host/service/Products(1)/SourcedFrom(5)
 ```
@@ -4140,17 +4146,21 @@ for the record being updated.
 
 ::: example
 Example <a id="antietag" href="#antietag">81</a>: `Category` is a single-valued nullable non-containment navigation property
-on the product entity type. An `If-Match` header in the request
-```
+on the product entity type. Note that an ETag used in an `If-`(`None-`)`Match` header in the request
+```json
 PATCH http://host/service/Products(57)/Category
+If-Match: "<ETag>"
 
 {"CategoryID": 5}
 ```
-makes no sense, because the request would relate product 57 to category 5 if the
-header value matches the current ETag value of that category,
-regardless of the current ETag value of that product. But changing the relation
-effectively updates the product, and the `If-Match` header provides no protection
-against conflicting updates.
+applies to the category currently associated with the product. To make the category
+update conditional on the ETag of the product, the following request could be made instead:
+```json
+PATCH http://host/service/Products(57)
+If-Match: "<ETag>"
+
+{"Category": {"CategoryID": 5}}
+```
 :::
 
 #### <a id="HandlingofDateTimeOffsetValues" href="#HandlingofDateTimeOffsetValues">11.4.1.2 Handling of DateTimeOffset Values</a>
@@ -4229,15 +4239,14 @@ representation of an entity of the declared target entity type,
 or one of its derived types.
 
 The resource path need not be the canonical URL for the collection; for example,
-it could represent a non-contained navigation property.
-In such a case, the service can determine the canonical collection (as defined in [section 10](#ContextURL))
+it could represent a non-containment navigation property.
+In such a case, the service may be able to determine the canonical collection (as defined in [section 10](#ContextURL))
 through a navigation property path binding [OData-CSDL, section 13.4.1](https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#NavigationPropertyPathBinding)
-that applies to all instances addressed by the resource path
 or through the presence of a context URL within the payload.
 If the service is unable to determine the canonical collection for the entity, it MUST fail the request.
 
 The service MUST fail the request if the
-entity represented in the payload exists already in the determined collection.
+entity represented in the payload already exists in the determined collection.
 Otherwise the entity is created in the determined collection and,
 if the resource path ends with a non-containment navigation property,
 also linked to the entity containing the navigation property.
@@ -4252,7 +4261,7 @@ key properties for an entity include key properties of a directly
 related entity, those related entities MUST be included either as
 references to existing entities or as content for new related entities.
 
-An entity may also be created as the result of a [request for changing an entity](#UpdateanEntity)
+An entity may also be created as the result of a [request to change an entity](#UpdateanEntity)
 that is [treated as an insert](#UpsertanEntity).
 
 If the resource path terminates in a type cast segment, then the segment
@@ -4403,7 +4412,7 @@ On failure, the service MUST NOT create any of the entities.
 
 ### <a id="UpdateanEntity" href="#UpdateanEntity">11.4.3 Update an Entity</a>
 
-To make changes to an entity, the client makes `PATCH` or `PUT`
+To make changes to an entity, the client makes a `PATCH` or `PUT`
 request to a URL that identifies the entity. The [edit URL](#ReadURLsandEditURLs)
 MAY differ from the canonical URL defined in [OData-URL, section 4.3.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalURL),
 in which case clients SHOULD use the edit URL when making changes to the entity.
@@ -4454,9 +4463,9 @@ Updating a dependent property that is tied to a key property of the
 principal entity through a referential constraint updates the
 relationship to point to the entity with the specified key value. If
 the canonical collection (as defined in [section 10](#ContextURL)) for that entity cannot be determined or does not contain
-such an entity, the update fails. The canonical collection can be determined, among
-other possibilities, by containment navigation properties or navigation property bindings
-or by a context URL in the request payload.
+such an entity, the update fails. The canonical collection is known for referential constraints on
+containment navigation properties, and can be determined in the presence of navigation property
+bindings or a context URL in the request payload, or through service specific knowledge.
 
 Updating a principal property that is tied to a dependent entity through
 a referential constraint on the dependent entity updates the dependent
@@ -4525,7 +4534,7 @@ the service MAY ignore the system query options and respond with `204 No Content
 
 #### <a id="UpdateRelatedEntitiesWhenUpdatinganEntity" href="#UpdateRelatedEntitiesWhenUpdatinganEntity">11.4.3.1 Update Related Entities When Updating an Entity</a>
 
-Requests for changing an entity with an OData-Version header with a value of `4.0` MUST
+Requests to change an entity with an OData-Version header with a value of `4.0` MUST
 NOT contain related entities as inline content. Such requests MAY
 contain binding information for navigation properties. For single-valued
 navigation properties this replaces the relationship. For
@@ -4749,7 +4758,7 @@ the request.
 
 #### <a id="UpsertanEntity" href="#UpsertanEntity">11.4.3.2 Upsert an Entity</a>
 
-Services MAY treat a request for changing an entity like a [create entity request](#CreateanEntity)
+Services MAY treat a request to change an entity as a [create entity request](#CreateanEntity)
 if it requires the addressed entity to be newly created. The request is then said to be
 "treated as an insert", otherwise "treated as an update".
 Services that support this "upsert" capability (instead of failing such requests that require
@@ -4757,18 +4766,17 @@ entity creation) SHOULD advertise it by an annotation with the
 term `Capabilities.UpdateRestrictions` (nested property `Upsertable`
 with value `true`) defined in [OData-VocCap](#ODataVocCap).
 
-If resource path is not a canonical URL and the request is treated as an insert,
-the service can determine the canonical collection or canonical singleton (as defined in [section 10](#ContextURL)) for the newly-created entity
+If the resource path is not a canonical URL and the request is treated as an insert,
+the service may be able to determine the canonical collection or canonical singleton (as defined in [section 10](#ContextURL)) for the newly-created entity
 through a navigation property path binding [OData-CSDL, section 13.4.1](https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#NavigationPropertyPathBinding)
-that applies to the instance addressed by the resource path
 or through the presence of a context URL within the payload;
-if the service is unable to determine the canonical collection, it MUST fail the request.
+if the service is unable to determine it, it MUST fail the request.
 
 Upserts are not supported against entities whose keys' values are
 generated by the service. Services MUST fail a request to a URL
 that would identify such an entity and the entity does not yet exist.
 
-Similarly, services MUST fail a `PATCH` request to the URL of a [media entity](#RequestingtheMediaStreamofaMediaEntityusingvalue) that does not yet exist.
+Similarly, services MUST fail an update request to the URL of a [media entity](#RequestingtheMediaStreamofaMediaEntityusingvalue) that does not yet exist.
 However, a `PUT` request to the _media edit URL_ of a media entity does have upsert
 semantics, in that the media entity is [created](#CreateaMediaEntity)
 with the specified media stream if it does not already exist, otherwise the
@@ -4790,8 +4798,8 @@ If the resource path is a canonical URL and the request
 
 In other words, the `If-`(`None-`)`Match` header distinguishes between insert
 and update in this case. Otherwise the resource path ends with a
-non-containment navigation property and an `If-`(`None-`)`Match` header makes no
-sense (see [example 81](#antietag)).
+non-containment navigation property and an `If-`(`None-`)`Match` header applies to
+the current related entity addressed by it (see [example 81](#antietag)).
 
 ### <a id="DeleteanEntity" href="#DeleteanEntity">11.4.4 Delete an Entity</a>
 
