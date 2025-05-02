@@ -73,11 +73,14 @@ CSDLReviver,
 The CSDL document is the root of a hierarchy of model elements, and every
 model element has a `csdlDocument` property. Its getter delegates to
 the parent until the root is reached, which returns itself.
+
+Model elements can be created without a `csdlDocument`, in which case the code below
+returns undefined.
 :::
 
 @$@<ModelElement@>@{
 get csdlDocument() {
-  return this.parent.csdlDocument;
+  return this.parent?.csdlDocument;
 }
 @}
 
@@ -103,7 +106,7 @@ if (!(this instanceof CSDLDocument)) {
 @}
 
 @$@<Collect all ModelElements in modelElements@>@{
-this.csdlDocument.modelElements.push(this);
+this.csdlDocument?.modelElements.push(this);
 @}
 
 @$@<CSDLDocument@>@{

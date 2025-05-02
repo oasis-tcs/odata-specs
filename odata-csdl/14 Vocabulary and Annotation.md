@@ -478,6 +478,10 @@ fromJSON(json) {
 toJSON() {
   return this.value.toJSON?.() || this.value;
 }
+type() {
+  const type = this.term.target.$Type;
+  return type.target?.effectiveType || type.target || type.toJSON();
+}
 toString() {
   return "@@" + this.term.toJSON();
 }
@@ -1788,7 +1792,7 @@ path.
 @}
 
 @$@<Collect all ModelElements in modelElements@>@{
-this.#ID = this.csdlDocument.modelElements.length;
+this.#ID = this.csdlDocument?.modelElements.length;
 @}
 
 @$@<RelativePath@>@{
@@ -2301,6 +2305,31 @@ type `self.A` named in the target expression.
 :
 
 ::: funnelweb
+The rules of the last section allow us to evaluate the value of an annotation as a path.
+The following redefinition of the `value` getter works only after all paths
+have been evaluated.
+:::
+
+@$@<Annotation@>@{
+get value() {
+  return this.valueGetter();
+}
+valueGetter() {
+  if (typeof this.#value === "string") {
+    const type = this.type();
+    if (typeof type === "string" && type.endsWith("Path"))
+      this.#value = new RelativePath(this, this.#value, this.annotation.evaluationStart(), type);
+  }
+  return this.#value;
+}
+@}
+
+@$@<PropertyValue@>@{
+get value() {
+  return Annotation.prototype.valueGetter.call(this);
+}
+@}
+
 We want to evaluate all paths that appear in a `CSDLDocument` and populate
 their `target`s, but can do so only after these targets have been parsed, whether they occur
 in the current document or in a [`$Reference`](#Reference),
@@ -4225,6 +4254,9 @@ fromJSON(json) {
     delete this["@@odata.type"];
   }
 }
+type() {
+  return this["@@type"]?.target.effectiveType || this.parent.type();
+}
 @}
 
 @$@<PropertyValue@>@{
@@ -4236,6 +4268,10 @@ fromJSON(json) {
 }
 toJSON() {
   return Annotation.prototype.toJSON.call(this);
+}
+type() {
+  const type = this.parent.type().children[this.name].$Type;
+  return type.target?.effectiveType || type.target || type.toJSON();
 }
 @}
 
