@@ -2407,7 +2407,14 @@ async resolve() {
         async function (resolve, reject) {
           const csdl = new CSDLDocument(this.uri, this.csdlDocument);
           try {
-            csdl.fromJSON(await (await fetch(this.uri)).json());
+            var m = this.uri.match(
+              /^https:\/\/(sap|oasis-tcs).github.io\/(.*)$/
+            );
+            csdl.fromJSON(
+              m
+                ? JSON.parse(fs.readFileSync(`C:/git/${m[1]}/${m[2]}`))
+                : await (await fetch(this.uri)).json()
+            );
             resolve(csdl);
           } catch (e) {
             reject(e);
