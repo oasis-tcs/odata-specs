@@ -2717,8 +2717,9 @@ If $k=0$, all returned entities MUST belong to the same canonical collection as 
 Otherwise, $s_1,…,s_{k-1}$ MUST name single-value navigation properties and
 $s_k$ MUST name a collection-valued navigation property.
 In this case, all returned entities MUST belong to the canonical collection $C(v,s_1/t_1/…/s_{k-1}/t_{k-1},s_k,t_k)$
-where the function $C(v,q,s_k,t_k)$ is defined recursively as follows:
-- Let $α(a)/β$ be the canonical URL of $v$ where $α$ is an entity set, $a$ a key predicate, and $β$
+where $v$ is the binding parameter value and the function $C(v,q,s_k,t_k)$ is defined recursively as follows:
+- The canonical URL of $v$ has the form $α(κ)/β$ (this includes the form $α(κ)$
+  if $β$ is the empty path). Here $α$ is an entity set, $(κ)$ a key predicate, and $β$
   a concatenation of containment navigation properties, type casts and key predicates.
   Let $\hat β$ be $β$ with key predicates omitted.
 - If $q$ is empty and $s_k$ names a containment navigation property, return the implicit
@@ -2727,11 +2728,11 @@ where the function $C(v,q,s_k,t_k)$ is defined recursively as follows:
   define a [navigation property binding](#NavigationPropertyBinding) on the entity set $α$
   whose path matches $\hat β/s_k/t_k$. Return the binding target of that navigation property binding.
 - Otherwise, the non-empty $q$ is of the form $s_i/t_i/q'$ for some $i≥1$ and a possibly empty $q'$.
-- If $s_i$ names a containment navigation property, return $C(α(a)/β/s_i,q',s_k,t_k)$.
+- If $s_i$ names a containment navigation property, return $C(α(κ)/β/s_i,q',s_k,t_k)$.
 - If $s_i$ names a non-containment navigation property, the service MUST
   define a navigation property binding on the entity set $α$
-  whose path matches $\hat β/s_i/t_i$. This defines a canonical URL $α'(a')/β'$ for $v/s_i$.
-  Return $C(α'(a')/β',q',s_k,t_k)$.
+  whose path matches $\hat β/s_i/t_i$. This defines the canonical URL $α'(κ')/β'$ of $v/s_i$.
+  Return $C(α'(κ')/β',q',s_k,t_k)$.
 
 
 ::: {.varxml .rep}
