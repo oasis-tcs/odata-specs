@@ -2694,21 +2694,44 @@ Absence of the attribute means `false`.
 ## <a id="EntitySetPath" href="#EntitySetPath">12.6 Entity Set Path</a>
 
 Bound actions and functions that return an entity or a collection of
-entities MAY specify an entity set path if the entity set of the
-returned entities depends on the entity set of the binding parameter
+entities MAY specify an entity set path that defines the canonical collection
+(as defined in [OData-Protocol, section 10](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ContextURL)) of the
+returned entities in terms of the canonical collection of the binding parameter
 value.
 
 The entity set path consists of a series of segments joined together
 with forward slashes.
 
-The first segment of the entity set path MUST be the name of the binding
+The first segment $p$ of the entity set path MUST be the name of the binding
 parameter. The remaining segments of the entity set path MUST represent
-navigation segments or type casts.
+navigation segments $s_i$ or type casts $t_i$.
 
 A navigation segment names the [simple identifier](#SimpleIdentifier) of
 the [navigation property](#NavigationProperty) to be traversed. A
 type-cast segment names the [qualified name](#QualifiedName) of the
 entity type that should be returned from the type cast.
+The entity set path then has the form
+$p/s_1/t_1/…/s_k/t_k$ where $k≥0$ and the $t_i$ may be absent.
+
+If $k=0$, all returned entities MUST belong to the same canonical collection as the binding parameter value.
+Otherwise, $s_1,…,s_{k-1}$ MUST name single-value navigation properties and
+$s_k$ MUST name a collection-valued navigation property.
+In this case, all returned entities MUST belong to the canonical collection $C(v,s_1/t_1/…/s_{k-1}/t_{k-1},s_k,t_k)$
+where the function $C(v,q,s_k,t_k)$ is defined recursively as follows:
+- Let $α(a)/β$ be the canonical URL of $v$ where $α$ is an entity set, $a$ a key predicate, and $β$
+  a concatenation of containment navigation properties, type casts and key predicates.
+  Let $\hat β$ be $β$ with key predicates omitted.
+- If $q$ is empty and $s_k$ names a containment navigation property, return the implicit
+  entity set defined by $s_k$ for $v$ (as explained in [section 8.4](#ContainmentNavigationProperty)).
+- If $q$ is empty and $s_k$ names a non-containment navigation property, the service MUST
+  define a [navigation property binding](#NavigationPropertyBinding) on the entity set $α$
+  whose path matches $\hat β/s_k/t_k$. Return the binding target of that navigation property binding.
+- Otherwise, the non-empty $q$ is of the form $s_i/t_i/q'$ for some $i≥1$ and a possibly empty $q'$.
+- If $s_i$ names a containment navigation property, return $C(α(a)/β/s_i,q',s_k,t_k)$.
+- If $s_i$ names a non-containment navigation property, the service MUST
+  define a navigation property binding on the entity set $α$
+  whose path matches $\hat β/s_i/t_i$. This defines a canonical URL $α'(a')/β'$ for $v/s_i$.
+  Return $C(α'(a')/β',q',s_k,t_k)$.
 
 
 ::: {.varxml .rep}
