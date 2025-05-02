@@ -3300,6 +3300,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h3 id="1444-apply-client-side-functions"><a id="ApplyClientSideFunctions" href="#ApplyClientSideFunctions">14.4.4 Apply Client-Side Functions</a></h3>
 </summary>
 <p>The apply expression enables a value to be obtained by applying a client-side function. The apply expression MAY have operand expressions. The operand expressions are used as parameters to the client-side function.</p>
+<p>If the value of an operand expression is not acceptable for function, the client SHOULD NOT make any assumptions about the application of the term that rely on the operand.</p>
 <div class="varxml rep">
 <h3><a id="ExpressionedmApply.54" href="#ExpressionedmApply.54">Expression <code>edm:Apply</code></a></h3>
 <p>The <code>edm:Apply</code> element MUST contain the <code>Function</code> attribute and MAY contain annotation expressions as operands for the applied function.</p>
@@ -3437,9 +3438,10 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <li>it is the second or third child of a collection-if-then-else expression.</li>
 </ul>
 <p>An if-then-else expression MUST contain exactly three child expressions. There is one exception to this rule: if and only if the if-then-else expression is a collection-if-then-else expression, the third child expression MAY be omitted, reducing it to an if-then expression. This can be used to conditionally add an element to a collection.</p>
-<p>The first child expression is the condition and MUST evaluate to a Boolean result, e.g. the <a href="#ComparisonandLogicalOperators">comparison and logical operators</a> can be used.</p>
+<p>The first child expression is the condition and MUST evaluate to a Boolean result or <code>null</code>, e.g. the <a href="#ComparisonandLogicalOperators">comparison and logical operators</a> can be used.</p>
 <p>The second and third child expressions are evaluated conditionally. The result MUST be type compatible with the type expected by the surrounding expression.</p>
-<p>If the first expression evaluates to <code>true</code>, the second expression MUST be evaluated and its value MUST be returned as the result of the if-then-else expression. If the first expression evaluates to <code>false</code> and a third child element is present, it MUST be evaluated and its value MUST be returned as the result of the if-then-else expression. If no third expression is present, nothing is added to the surrounding collection.</p>
+<p>If the value of a child expression does not meet these conditions, the client SHOULD NOT make any assumptions about the application of the term that rely on the condition expression.</p>
+<p>If the first expression evaluates to <code>true</code>, the second expression MUST be evaluated and its value MUST be returned as the result of the if-then-else expression. If the first expression evaluates to <code>false</code> or <code>null</code> and a third child element is present, it MUST be evaluated and its value MUST be returned as the result of the if-then-else expression. If no third expression is present, nothing is added to the surrounding collection.</p>
 <section class="varxml rep">
 <h3><a id="ExpressionedmIf.57" href="#ExpressionedmIf.57">Expression <code>edm:If</code></a></h3>
 <p>The <code>edm:If</code> element MUST contain two or three child expressions that MUST use element notation.</p>
