@@ -1797,7 +1797,7 @@ this.#ID = this.csdlDocument?.modelElements.length;
 
 @$@<RelativePath@>@{
 get pathID() {
-  return this.#visits?.map(t => t.ID)?.join(" ");
+  return this.#visits?.map((t) => t.ID)?.join(" ");
 }
 @}
 
@@ -2319,13 +2319,18 @@ have been evaluated.
 
 @$@<Annotation@>@{
 get value() {
-  return this.#value = this.valueGetter(this.#value);
+  return (this.#value = this.valueGetter(this.#value));
 }
 valueGetter(value) {
   if (typeof value === "string") {
     const type = this.type();
     if (typeof type === "string" && type.endsWith("Path")) {
-      const path = new RelativePath(this, value, this.annotation.evaluationStart(), type);
+      const path = new RelativePath(
+        this,
+        value,
+        this.annotation.evaluationStart(),
+        type
+      );
       path.target;
       return path;
     }
@@ -2336,7 +2341,10 @@ valueGetter(value) {
 
 @$@<PropertyValue@>@{
 get value() {
-  return this.#value = Annotation.prototype.valueGetter.call(this, this.#value);
+  return (this.#value = Annotation.prototype.valueGetter.call(
+    this,
+    this.#value
+  ));
 }
 @}
 
