@@ -1873,6 +1873,8 @@ case segment.startsWith("@@"):
 
 ::: funnelweb
 Evaluating a `TermCastSegment` involves unaliasing the annotation term.
+The annotation is either embedded in the `modelElement` or externally
+targets it.
 :::
 
 @$@<Javascript CSDL metamodel@>@{@!{"trailingComma": "all"}
@@ -1882,7 +1884,11 @@ class TermCastSegment extends Segment {
       /(?<=@@).*?(?=#|$)/,
       @<Unalias the qualified term name@>@(this.path@)
     );
-    return modelElement[termcast];
+    const result = modelElement[termcast];
+    if (result) return result;
+    for (const target of modelElement.targetingPaths.values())
+      if (target.attribute === "externalTarget" && target.parent[termcast])
+        return target.parent[termcast];
   }
 }
 @}
@@ -2305,28 +2311,32 @@ type `self.A` named in the target expression.
 :
 
 ::: funnelweb
-The rules of the last section allow us to evaluate the value of an annotation as a path.
+The rules of the last section allow us to evaluate the value of an annotation as a path
+and evaluate it directly.
 The following redefinition of the `value` getter works only after all paths
 have been evaluated.
 :::
 
 @$@<Annotation@>@{
 get value() {
-  return this.valueGetter();
+  return this.#value = this.valueGetter(this.#value);
 }
-valueGetter() {
-  if (typeof this.#value === "string") {
+valueGetter(value) {
+  if (typeof value === "string") {
     const type = this.type();
-    if (typeof type === "string" && type.endsWith("Path"))
-      this.#value = new RelativePath(this, this.#value, this.annotation.evaluationStart(), type);
+    if (typeof type === "string" && type.endsWith("Path")) {
+      const path = new RelativePath(this, value, this.annotation.evaluationStart(), type);
+      path.target;
+      return path;
+    }
   }
-  return this.#value;
+  return value;
 }
 @}
 
 @$@<PropertyValue@>@{
 get value() {
-  return Annotation.prototype.valueGetter.call(this);
+  return this.#value = Annotation.prototype.valueGetter.call(this, this.#value);
 }
 @}
 
