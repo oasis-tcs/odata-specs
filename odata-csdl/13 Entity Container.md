@@ -603,7 +603,7 @@ class NavigationPropertyBinding extends NamedSubElement {
 NavigationPropertyBinding,
 @}
 
-@$@<Relative to entity set or singleton@>@{@!false
+@$@<Relative to entity set or singleton@>@{@+@!false
 this.parent
 @}
 
@@ -614,7 +614,7 @@ contains a qualified entity container name (and hence a dot), and relative to
 the entity container (the grandparent of the current `NavigationPropertyBinding`) otherwise.
 :::
 
-@$@<Absolute or relative to this entity container@>@{@!false
+@$@<Absolute or relative to this entity container@>@{@+@!false
 json[this.name].includes(".")
 ? this.csdlDocument
 : this.parent.parent

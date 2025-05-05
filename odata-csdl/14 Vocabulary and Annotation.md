@@ -633,7 +633,7 @@ annotation whereas the second matches all term names in a member that describes 
 annotation of an annotation (of an ...).
 :::
 
-@$@<ModelElement@>@{@!{"trailingComma": "all"}
+@$@<ModelElement@>@{@+@!{"trailingComma": "all"}
 nestAnnotations(annos, member, anno) {
   const termcast = member.replace(
     /(?<=@@).*?(?=#|$)/,
@@ -1877,7 +1877,7 @@ The annotation is either embedded in the `modelElement` or externally
 targets it.
 :::
 
-@$@<Javascript CSDL metamodel@>@{@!{"trailingComma": "all"}
+@$@<Javascript CSDL metamodel@>@{@+@!{"trailingComma": "all"}
 class TermCastSegment extends Segment {
   evaluateRelativeTo(modelElement) {
     const termcast = this.segment.replace(
@@ -1934,6 +1934,12 @@ class RelativeSegment extends Segment {
 @$@<TypedModelElement@>@{
 evaluateSegment(segment) {
   return this.$Type.evaluateSegment(segment);
+}
+@}
+
+@$@<Parameter and ReturnType inherit from TypedModelElement@>@{
+evaluateSegment(segment) {
+  return TypedModelElement.prototype.evaluateSegment.call(this, segment);
 }
 @}
 
@@ -2140,7 +2146,7 @@ evaluationStart(anno) {
 evaluateSegment(segment) {
   return segment.segment === "$ReturnType"
     ? this.$ReturnType
-    : this.$Parameters?.find?.((p) => p.name === segment.segment);
+    : this.$Parameter?.find((p) => p.$Name === segment.segment);
 }
 @}
 
@@ -2307,46 +2313,8 @@ type `self.A` named in the target expression.
 :::
 
 : funnelweb
-##### ##subsubsubsubsec Path Evaluation in CSDL metamodel
+##### ##subsubsubsubsec Path Evaluation in CSDL Metamodel
 :
-
-::: funnelweb
-The rules of the last section allow us to evaluate the value of an annotation as a path
-and evaluate it directly.
-The following redefinition of the `value` getter works only after all paths
-have been evaluated.
-:::
-
-@$@<Annotation@>@{
-get value() {
-  return (this.#value = this.valueGetter(this.#value));
-}
-valueGetter(value) {
-  if (typeof value === "string") {
-    const type = this.type();
-    if (typeof type === "string" && type.endsWith("Path")) {
-      const path = new RelativePath(
-        this,
-        value,
-        this.annotation.evaluationStart(),
-        type
-      );
-      path.target;
-      return path;
-    }
-  }
-  return value;
-}
-@}
-
-@$@<PropertyValue@>@{
-get value() {
-  return (this.#value = Annotation.prototype.valueGetter.call(
-    this,
-    this.#value
-  ));
-}
-@}
 
 We want to evaluate all paths that appear in a `CSDLDocument` and populate
 their `target`s, but can do so only after these targets have been parsed, whether they occur
@@ -2604,6 +2572,7 @@ The following method performs a callback for the annotation of each `ValuePath` 
 [`targetingPaths`](#PathEvaluation) of a model element and returns true if any callback
 returns true. This can be used to detect currency properties with an expression like
 `p.isAnnotation(anno => anno.term.target === Measures.ISOCurrency)`.
+:::
 
 @$@<ModelElement@>@{
 isAnnotation(callback) {
@@ -2677,6 +2646,7 @@ class AnnotationPath extends ModelElementPathExpression {}
 @}
 
 @$@<Exports@>@{
+ModelElementPathExpression,
 AnnotationPath,
 @}
 
@@ -2690,6 +2660,44 @@ Example ##ex:
 ]
 ```
 :::
+
+::: funnelweb
+Even though the dynamic expression in the example above is parsed as a string,
+we can detect whether it really represents a `ModelElementPathExpression`
+by consulting the `type` method of the dynamic expression.
+The following redefinition of the `value` getter does this. It works only after all paths
+have been evaluated as described in [section ##PathEvaluationinCSDLMetamodel],
+therefore the target of the newly detected `path.$Path` must be evaluated in the code below.
+:::
+
+@$@<Annotation@>@{
+get value() {
+  return (this.#value = this.valueGetter(this.#value));
+}
+valueGetter(value) {
+  if (typeof value === "string") {
+    const type = this.type();
+    if (typeof type === "string") {
+      const m = type.match(/^Edm\.(.*Path)$/);
+      if (m) {
+        const path = new closure[m[1]](this, value);
+        path.$Path.target;
+        return path;
+      }
+    }
+  }
+  return value;
+}
+@}
+
+@$@<PropertyValue@>@{
+get value() {
+  return (this.#value = Annotation.prototype.valueGetter.call(
+    this,
+    this.#value
+  ));
+}
+@}
 
 ::: {.varxml .rep}
 ### ##isec Expression `edm:AnnotationPath`

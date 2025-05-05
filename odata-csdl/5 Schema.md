@@ -166,10 +166,12 @@ class QualifiedNameSegment extends Segment {
   }
   evaluateRelativeTo(modelElement) {
     if (@<namespace is reserved@>) return this;
-    return (this.target = this.path.csdlDocument.byQualifiedName(
+    this.target = this.path.csdlDocument.byQualifiedName(
       this.#namespace,
       this.#name
-    ));
+    );
+    @<Special treatment if target is an operation@>
+    return this.target;
   }
 }
 @}

@@ -402,7 +402,7 @@ byQualifiedName(namespace, name) {
 The alias MUST NOT be one of the reserved values `Edm`, `odata`,
 `System`, or `Transient`.
 
-@$@<namespace is reserved@>@{@!false
+@$@<namespace is reserved@>@{@+@!false
 ["Edm", "odata", "System", "Transient"].includes(this.#namespace)
 @}
 

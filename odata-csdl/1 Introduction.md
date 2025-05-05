@@ -157,7 +157,7 @@ descendant of another.
 
 @$@<ModelElement@>@{
 descendantOf(anc) {
-  return this.parent === anc || this.parent?.descendantOf?.(anc);
+  return this.parent === anc || this.parent?.descendantOf(anc);
 }
 @}
 

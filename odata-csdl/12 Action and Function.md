@@ -61,7 +61,7 @@ of metamodel classes.
   this.children[member] = [];
   for (const item of json[member]) {
     if (item.$Kind) {
-      const memberItem = new closure[item.$Kind](this);
+      const memberItem = new closure[item.$Kind](this, member);
       memberItem.fromJSON(item);
       this.children[member].push(memberItem);
     } else this.children[member].push(item);
@@ -87,15 +87,30 @@ class Action extends Operation {
 Action,
 @}
 
+::: funnelweb
+Operation is not a `NamedModelElement`, because the named member in its parent is not
+the operation, but an array of operations. It cannot therefore inherit its `name`
+property from `NamedModelElement`.
+:::
+
 @$@<Operation@>@{
-constructor(parent) {
+@<Internal property@>@(name@,@)
+constructor(parent, name) {
   super(parent);
+  this.#name = name;
   this.$Kind = this.constructor.name;
 }
 fromJSON(json) {
   @<Deserialize members of Operation@>
   super.fromJSON(json);
 }
+toString() {
+  return this.name;
+}
+@}
+
+@$@<Special treatment if target is an operation@>@{
+if (this.target instanceof Array) this.target = this.target[0];
 @}
 
 ::: {.varxml .rep}
@@ -363,6 +378,7 @@ class ReturnType extends ModelElement {
   toJSON() {
     @<Omit $Type if it is Edm.String@>@(this@)
   }
+  @<Parameter and ReturnType inherit from TypedModelElement@>
 }
 @}
 
@@ -508,6 +524,10 @@ class Parameter extends ListedModelElement {
   toJSON() {
     @<Omit $Type if it is Edm.String@>@(this@)
   }
+  toString() {
+    return this.$Name;
+  }
+  @<Parameter and ReturnType inherit from TypedModelElement@>
 }
 @}
 
