@@ -609,7 +609,7 @@ So far we collect all `Annotation`s of a model element in the `annotations` prop
 where an `Annotation` that targets another annotation appears next to its target.
 Eventually, we want such an annotation to be a child of its target, but determining the target involves
 unaliasing the annotation terms, which can be done only after the entire CSDL document
-and all included schemas have been parsed. Only at this point (cf. [section ##PathEvaluationinCSDLmetamodel])
+and all included schemas have been parsed. Only at this point (cf. [section ##PathEvaluationinCSDLMetamodel])
 can we replace the `annotations` properties with nested model elements.
 :::
 
@@ -2329,6 +2329,7 @@ type `self.A` named in the target expression.
 ##### ##subsubsubsubsec Path Evaluation in CSDL Metamodel
 :
 
+::: funnelweb
 We want to evaluate all paths that appear in a `CSDLDocument` and populate
 their `target`s, but can do so only after these targets have been parsed, whether they occur
 in the current document or in a [`$Reference`](#Reference),
