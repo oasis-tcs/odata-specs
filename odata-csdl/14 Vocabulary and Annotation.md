@@ -465,7 +465,7 @@ The `target` of an annotation is given as a path, whose target is then the annot
 @<Internal property@>@(target@,@)
 @<Internal property@>@(term@,@)
 @<Internal property@>@(qualifier@,@)
-@<Internal property with setter@>@(value@)
+@<Internal value property@>
 constructor(host, target, term, qualifier) {
   super(host);
   this.#target = target;
@@ -484,6 +484,17 @@ type() {
 }
 toString() {
   return "@@" + this.term.toJSON();
+}
+@}
+
+::: funnelweb
+The `value` property has the standard setter, but a special getter that will be defined later.
+:::
+
+@$@<Internal value property@>@{
+#value;
+set value(value) {
+  this.#value = value;
 }
 @}
 
@@ -2184,6 +2195,8 @@ specified, as follows:
 @$@<AbstractProperty@>@{
 evaluationStart(anno) {
   if (anno.descendantOf(this)) return this.parent;
+  if (anno.target.segments[0].target instanceof EntityContainer)
+    return anno.target.target;
 }
 @}
 
@@ -2696,6 +2709,26 @@ get value() {
     this,
     this.#value
   ));
+}
+@}
+
+@$@<Collection@>@{
+get value() {
+  if (this.#value.every((item) => typeof item === "string")) {
+    const type = this.parent.type();
+    if (typeof type === "string") {
+      const m = type.match(/^Edm\.(.*Path)$/);
+      if (m)
+        this.#value = this.#value.map(
+          function (item) {
+            const path = new closure[m[1]](this, item);
+            path.$Path.target;
+            return path;
+          }.bind(this)
+        );
+    }
+  }
+  return this.#value;
 }
 @}
 
@@ -3784,7 +3817,7 @@ item expression within the collection expression.
 
 @$@<Javascript CSDL metamodel@>@{
 class Collection extends DynamicExpression {
-  @<Internal property with setter@>@(value@)
+  @<Internal value property@>
   @<Collection@>
 }
 @}
@@ -4256,7 +4289,7 @@ class Record extends DynamicExpression {
   @<Record@>
 }
 class PropertyValue extends NamedModelElement {
-  @<Internal property with setter@>@(value@)
+  @<Internal value property@>
   @<PropertyValue@>
 }
 @}

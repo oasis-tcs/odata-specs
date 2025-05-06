@@ -110,7 +110,7 @@ toString() {
 @}
 
 @$@<Special treatment if target is an operation@>@{
-if (this.target instanceof Array) this.target = this.target[0];
+if (target instanceof Array) target = target[0];
 @}
 
 ::: {.varxml .rep}
