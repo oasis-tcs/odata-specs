@@ -227,7 +227,6 @@ fromJSON(json, defaultKind) {
 @}
 
 @o@</git/oasis-tcs/odata-csdl-schemas/lib/metamodel.js@>@{
-const fs = require("fs");
 @<Javascript CSDL metamodel@>
 const closure = (module.exports = {
   @<Exports@>

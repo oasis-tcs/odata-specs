@@ -2436,13 +2436,15 @@ async resolve() {
         async function (resolve, reject) {
           const csdl = new CSDLDocument(this.uri, this.csdlDocument);
           try {
-            var m = this.uri.match(
-              /^https:\/\/(sap|oasis-tcs).github.io\/(.*)$/
-            );
             csdl.fromJSON(
-              m
-                ? JSON.parse(fs.readFileSync(`C:/git/${m[1]}/${m[2]}`))
-                : await (await fetch(this.uri)).json()
+              await (
+                await fetch(
+                  this.uri.replace(
+                    /^https:\/\/(sap|oasis-tcs).github.io\/(.*)$/,
+                    "http://localhost:8080/$1/$2"
+                  )
+                )
+              ).json()
             );
             resolve(csdl);
           } catch (e) {
@@ -2660,7 +2662,6 @@ class AnnotationPath extends ModelElementPathExpression {}
 @}
 
 @$@<Exports@>@{
-ModelElementPathExpression,
 AnnotationPath,
 @}
 
@@ -2679,7 +2680,7 @@ Example ##ex:
 Even though the dynamic expression in the example above is parsed as a string,
 we can detect whether it really represents a `ModelElementPathExpression`
 by consulting the `type` method of the dynamic expression.
-The following redefinition of the `value` getter does this. It works only after all paths
+The following definition of the `value` getter does this. It works only after all paths
 have been evaluated as described in [section ##PathEvaluationinCSDLMetamodel],
 therefore the target of the newly detected `path.$Path` must be evaluated in the code below.
 :::
