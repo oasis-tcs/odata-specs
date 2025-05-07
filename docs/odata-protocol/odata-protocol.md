@@ -2748,7 +2748,8 @@ use overlapping keys and a non-containment navigation property [OData-CSDL, sect
 with that entity type does not have a unique navigation property binding [OData-CSDL, section 13.4](https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#NavigationPropertyBinding).
 In such cases, a URL that identifies a collection of entities followed by
 an entity key to select a single entity (like in [OData-URL, section 4.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingEntities))
-may not identity a unique entity, and the behavior of the service is undefined.
+may not identify a unique entity. Services SHOULD avoid such cases, since the
+behavior is undefined for them.
 
 ::: example
 Example 33: Products can be sourced from a supplier (like `Suppliers(5)`)
@@ -4141,12 +4142,12 @@ requests.
 
 For requests including an [`OData-Version`](#HeaderODataVersion) header
 value of `4.01`, any ETag values specified in the request body of a
-[request for modifying an entity](#UpdateanEntity) MUST be `*` or match the current value
+[request to modify an entity](#UpdateanEntity) MUST be `*` or match the current value
 for the record being updated.
 
 ::: example
 Example <a id="antietag" href="#antietag">81</a>: `Category` is a single-valued nullable non-containment navigation property
-on the product entity type. Note that an ETag used in an `If-`(`None-`)`Match` header in the request
+on the product entity type. Note that an ETag used in the `If-Match` header in the request
 ```json
 PATCH http://host/service/Products(57)/Category
 If-Match: "<ETag>"
@@ -4246,7 +4247,7 @@ or through the presence of a context URL within the payload.
 If the service is unable to determine the canonical collection for the entity, it MUST fail the request.
 
 The service MUST fail the request if the
-entity represented in the payload already exists in the determined collection.
+body of the request specifies a key that already exists in the determined collection.
 Otherwise the entity is created in the determined collection and,
 if the resource path ends with a non-containment navigation property,
 also linked to the entity containing the navigation property.
@@ -4261,7 +4262,7 @@ key properties for an entity include key properties of a directly
 related entity, those related entities MUST be included either as
 references to existing entities or as content for new related entities.
 
-An entity may also be created as the result of a [request to change an entity](#UpdateanEntity)
+An entity may also be created as the result of a `PATCH` or `PUT` request
 that is [treated as an insert](#UpsertanEntity).
 
 If the resource path terminates in a type cast segment, then the segment

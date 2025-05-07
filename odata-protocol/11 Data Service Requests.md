@@ -160,7 +160,8 @@ use overlapping keys and a non-containment navigation property [#OData-CSDL#Cont
 with that entity type does not have a unique navigation property binding [#OData-CSDL#NavigationPropertyBinding].
 In such cases, a URL that identifies a collection of entities followed by
 an entity key to select a single entity (like in [#OData-URL#AddressingEntities])
-may not identity a unique entity, and the behavior of the service is undefined.
+may not identify a unique entity. Services SHOULD avoid such cases, since the
+behavior is undefined for them.
 
 ::: example
 Example ##ex: Products can be sourced from a supplier (like `Suppliers(5)`)
