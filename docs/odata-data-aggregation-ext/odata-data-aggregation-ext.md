@@ -1058,7 +1058,7 @@ If the first input set is a collection of entities from a given entity set, then
 
 Input sets and output sets are not sets of instances in the mathematical sense but collections, because the same instance can occur multiple times in them. In other words: A collection contains values (which can be instances of structured types or primitive values), possibly with repetitions. The occurrences of the values in the collection form a set in the mathematical sense. The _cardinality_ of a collection is the total number of occurrences in it. When this text describes a transformation algorithmically and stipulates that certain steps are carried out _for each occurrence_ in a collection, this means that the steps are carried out multiple times for the same value if it occurs multiple times in the collection.
 
-A collection addressed by the resource path is returned by the service either as an ordered collection [OData-Protocol, section 11.4.10](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ManagingMembersofanOrderedCollection) or as an unordered collection. The same applies to collections that are nested in or related to the addressed resource as well as to collections that are the result of evaluating an expression starting with `$root`, which occur, for example, as the first parameter of a [hierarchical transformation](#HierarchicalTransformations).
+A collection addressed by the resource path is returned by the service either as an ordered collection [OData-Protocol, section 11.4.9](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ManagingMembersofanOrderedCollection) or as an unordered collection. The same applies to collections that are nested in or related to the addressed resource as well as to collections that are the result of evaluating an expression starting with `$root`, which occur, for example, as the first parameter of a [hierarchical transformation](#HierarchicalTransformations).
 
 But when such a collection is transformed by the `$apply` system query option, additional cases can arise that are neither ordered nor totally unordered. For example, the [`groupby`](#Transformationgroupby) transformation retains any order within a group but not between groups.
 
@@ -4624,7 +4624,7 @@ Example <a id="refconstr" href="#refconstr">116</a>: If the parent navigation pr
   </NavigationProperty>
 </EntityType>
 ```
-then alternatively the property taking part in the referential constraint [OData-Protocol, section 11.4.9.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UpdateaPrimitiveProperty) could be changed to EMEA Central:
+then alternatively the property taking part in the referential constraint [OData-Protocol, section 11.4.8.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UpdateaPrimitiveProperty) could be changed to EMEA Central:
 ```json
 PATCH /service/SalesOrganizations('Switzerland')
 Content-Type: application/json
