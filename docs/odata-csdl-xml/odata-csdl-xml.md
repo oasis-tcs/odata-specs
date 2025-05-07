@@ -4906,7 +4906,7 @@ client-side function. The apply expression MAY have operand expressions.
 The operand expressions are used as parameters to the client-side
 function.
 
-If the value of an operand expression is not acceptable for function,
+If the value of an operand expression is not acceptable for the function,
 the client SHOULD NOT make any assumptions about the application of the term
 that rely on the operand.
 

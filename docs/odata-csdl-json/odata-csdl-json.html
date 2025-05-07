@@ -3493,7 +3493,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h3 id="1444-apply-client-side-functions"><a id="ApplyClientSideFunctions" href="#ApplyClientSideFunctions">14.4.4 Apply Client-Side Functions</a></h3>
 </summary>
 <p>The apply expression enables a value to be obtained by applying a client-side function. The apply expression MAY have operand expressions. The operand expressions are used as parameters to the client-side function.</p>
-<p>If the value of an operand expression is not acceptable for function, the client SHOULD NOT make any assumptions about the application of the term that rely on the operand.</p>
+<p>If the value of an operand expression is not acceptable for the function, the client SHOULD NOT make any assumptions about the application of the term that rely on the operand.</p>
 <section class="varjson rep">
 <h3><a id="Apply.21.20" href="#Apply.21.20"><code>$Apply</code></a> and <a id="Function.21.21" href="#Function.21.21"><code>$Function</code></a></h3>
 <p>Apply expressions are represented as an object with a member <code>$Apply</code> whose value is an array of annotation expressions, and a member <code>$Function</code> whose value is a string containing the <a href="#QualifiedName">qualified name</a> of the client-side function to be applied.</p>
