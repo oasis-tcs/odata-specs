@@ -935,9 +935,19 @@ Requests](#AsynchronousBatchRequests).
 ### ##subsubsec Response Code `204 No Content`
 
 A request returns `204 No Content` if the requested resource has the
-`null` value, or if the service applies a
+`null` value and carries no control information [#OData-JSON#ControlInformation]
+other than what the minimal metadata format [#OData-JSON#metadataminimalodatametadataminimal]
+demands and no [instance annotations](#VocabularyExtensibility).
+
+If the requested resource has the `null` value but carries additional control information
+or instance annotations, the request returns [`200 OK`](#ResponseCode200OK) instead but
+omits the [context URL](#ContextURL) from the representation of the response,
+which then consists of the other control information and instance annotations only.
+
+A request always returns `204 No Content` if the service applies a
 [`return=minimal`](#Preferencereturnrepresentationandreturnminimal) preference.
-In this case, the response body MUST be empty.
+
+With response code `204`, the response body MUST be empty.
 
 As defined in [RFC9110](#rfc9110), a [Data Modification
 Request](#DataModification) that responds with
