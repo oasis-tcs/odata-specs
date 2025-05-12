@@ -2842,7 +2842,7 @@ computed by the following algorithm:
    a possibly empty concatenation of containment navigation properties, type casts and key predicates.
    Remove the key predicates from $β$.
 2. Let $i=1$.
-3. If $i≥k$, go to step 6.
+3. If $i≥k$, go to step 7.
 4. If $s_i$ names a containment navigation property, set $v=v/s_i$ and $β=β/s_i$.
 5. If $s_i$ names a non-containment navigation property, set $v=v/s_i$. The service MUST
    define a navigation property binding on the entity set $α$
