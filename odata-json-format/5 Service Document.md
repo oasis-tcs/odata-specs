@@ -105,7 +105,7 @@ appear within the object is considered insignificant.
 
 An entity in a payload may be a complete entity, a projected entity (see
 [#OData-Protocol#SystemQueryOptionselect]), or a partial entity update (see
-[#OData-Protocol#UpdateanEntity]).
+[#OData-Protocol#UpsertanEntity]).
 
 An entity representation can be (modified and) round-tripped to the
 service directly. The [context

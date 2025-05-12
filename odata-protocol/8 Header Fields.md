@@ -195,7 +195,7 @@ not exist the provided ETag value is considered not to match.
 
 The precondition `If-Match: *` is fulfilled if a current representation of the resource exists, a `PUT` or `PATCH` request with that header
 results in an [upsert request](#UpsertanEntity) being processed as an
-[update](#UpdateanEntity) and not an [insert](#CreateanEntity),
+[update](#UpsertanEntity) and not an [insert](#CreateanEntity),
 independent of whether the resource requires an ETag.
 
 The `If-Match` header MUST NOT be specified on a batch request, but MAY
@@ -221,7 +221,7 @@ ensure that no observable change occurs as a result of the request.
 
 The precondition `If-None-Match: *` is fulfilled if there is no current representation of the resource, a `PUT` or `PATCH` request with that header
 request results in an [upsert request](#UpsertanEntity) being processed
-as an [insert](#CreateanEntity) and not an [update](#UpdateanEntity),
+as an [insert](#CreateanEntity) and not an [update](#UpsertanEntity),
 independent of whether the resource requires an ETag.
 
 The `If-None-Match` header MUST NOT be specified on a batch request, but

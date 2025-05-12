@@ -20,7 +20,7 @@ This chapter describes the semantics of the HTTP verbs `GET`, `POST`,
 - [Batch Requests](#BatchRequests) and subsections
 
 `PATCH` and `PUT` requests:
-- [Update an Entity](#UpdateanEntity) and subsections
+- [Update an Entity](#UpsertanEntity) and subsections
 - [Upsert an Entity](#UpsertanEntity)
 - [Modifying Relationships between Entities](#ModifyingRelationshipsbetweenEntities) and subsections
 - [Update a Media Entity Stream](#UpdateaMediaEntityStream)

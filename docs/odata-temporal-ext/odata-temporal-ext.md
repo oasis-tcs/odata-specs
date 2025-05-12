@@ -2062,7 +2062,7 @@ This works identical to the SQL statement UPDATE FOR PORTION OF:
    slice's period.
 4. Then all fully included time slices (including ones created in the
    previous step) are updated following the rules for updating entities
-   specified in [OData-Protocol, section 11.4.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UpdateanEntity).
+   specified in [OData-Protocol, section 11.4.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UpsertanEntity).
 5. Gaps between selected time slices in the period to update are not affected.
 
 On success it returns the created or updated time slices.
@@ -2255,7 +2255,7 @@ Step 5 is
       (except for computed properties),
    2. setting the period boundaries to close the gap, and then
    3. updating the new time slice following the rules for updating
-      entities specified in [OData-Protocol, section 11.4.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UpdateanEntity).
+      entities specified in [OData-Protocol, section 11.4.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UpsertanEntity).
 
    If no preceding time slice exists, the time slice is created following
    the rules for creating entities specified in [OData-Protocol, section 11.4.2](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#CreateanEntity).
