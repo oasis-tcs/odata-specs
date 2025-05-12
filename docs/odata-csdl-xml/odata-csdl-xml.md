@@ -2726,7 +2726,7 @@ computed by the following algorithm:
 5. If $s_i$ names a non-containment navigation property, set $v=v/s_i$. The service MUST
    define a navigation property binding on the entity set $α$
    whose path matches $β/s_i$. This defines the canonical URL $α'(κ')/β'$ of $v$.
-   Set $α=α'$ and $β=β'$ with key predicates omitted.
+   Set $α=α'$ and $β=β'$ with key predicates removed.
 6. Set $i=i+1$ and go back to step 3.
 7. If $s_k$ names a containment navigation property, let $C$ be the implicit
    entity set defined by $s_k$ for $v$ (as explained in [section 8.4](#ContainmentNavigationProperty)).
