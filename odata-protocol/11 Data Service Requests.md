@@ -155,6 +155,25 @@ instance, for example as a `readLink` or `editLink` in an
 MAY support conventions for constructing a read URL using the entity's
 key value(s), as described in [#OData-URL#CanonicalURL].
 
+Borderline cases are possible in which two or more entity sets with the same entity type
+use overlapping keys and a non-containment navigation property [#OData-CSDL#ContainmentNavigationProperty]
+with that entity type does not have a unique navigation property binding [#OData-CSDL#NavigationPropertyBinding].
+In such cases, a URL that identifies a collection of entities followed by
+an entity key to select a single entity (like in [#OData-URL#AddressingEntities])
+may not identify a unique entity. Services SHOULD avoid such cases, since the
+behavior is undefined for them.
+
+::: example
+Example ##ex: Products can be sourced from a supplier (like `Suppliers(5)`)
+as well as from a subsidiary (like `Subsidiaries(5)`). These two entities have the same
+entity type that is also used by the non-containment navigation property `SourcedFrom`
+defined on the product entity type. Then the following URL
+might identify either of the two entities:
+```
+GET http://host/service/Products(1)/SourcedFrom(5)
+```
+:::
+
 The set of structural or navigation properties to return may be
 specified through [`$select`](#SystemQueryOptionselect) or
 [`$expand`](#SystemQueryOptionexpand) system query options.
