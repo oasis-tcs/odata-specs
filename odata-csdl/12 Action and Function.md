@@ -189,16 +189,14 @@ value.
 
 The entity set path has the form $p/s_1/…/s_k$ with $k≥0$.
 The first segment $p$ of the entity set path MUST be the name of the binding
-parameter.
-
-Only if the binding parameter is single-valued, there MAY be additional segments
-$s_i$ of the entity set path. These additional segments are paths that could occur in an expand item [#OData-URL#SystemQueryOptionexpand]
+parameter. If the binding parameter is single-valued, there MAY be additional segments
+$s_1,…,s_k$ of the entity set path. These additional segments are paths that could occur in an expand item [#OData-URL#SystemQueryOptionexpand]
 and that end with the name of a [navigation property](#NavigationProperty),
 optionally followed by the [qualified name](#QualifiedName) of a type cast.
 
-If $k=0$, all returned entities MUST belong to the canonical collection that would appear
-in the context URL [#OData-Protocol#ContextURL] of the response to a GET request
-at the resource path that identifies the binding parameter value.
+If $k=0$, the resource to which the action or function is bound MUST be an entity or a collection of entities,
+and all returned entities MUST belong to the canonical collection that would appear
+in the context URL [#OData-Protocol#ContextURL] when retrieving that resource.
 
 If $k>0$, the binding parameter MUST be single-valued. In this case $s_1,…,s_{k-1}$ MUST be single-valued, and
 $s_k$ MUST name a collection-valued navigation property.
@@ -209,17 +207,17 @@ computed by the following algorithm:
    a possibly empty concatenation of containment navigation properties, type casts and key predicates.
    Remove the key predicates from $β$.
 2. Let $i=1$.
-3. If $i≥k$, go to step 7.
+3. If $i=k$, go to step 7.
 4. If $s_i$ names a containment navigation property, set $v=v/s_i$ and $β=β/s_i$.
 5. If $s_i$ names a non-containment navigation property, set $v=v/s_i$. The service MUST
-   define a navigation property binding on the entity set $α$
+   define a [navigation property binding](#NavigationPropertyBinding) on the entity set $α$
    whose path matches $β/s_i$. This defines the canonical URL $α'(κ')/β'$ of $v$.
    Set $α=α'$ and $β=β'$ with key predicates removed.
 6. Set $i=i+1$ and go back to step 3.
 7. If $s_k$ names a containment navigation property, let $C$ be the implicit
    entity set defined by $s_k$ for $v$ (as explained in [section ##ContainmentNavigationProperty]).
 8. If $s_k$ names a non-containment navigation property, the service MUST
-   define a [navigation property binding](#NavigationPropertyBinding) on the entity set $α$
+   define a navigation property binding on the entity set $α$
    whose path matches $β/s_k$. Let $C$ be the binding target of that navigation property binding.
 
 ::: {.varjson .rep}
