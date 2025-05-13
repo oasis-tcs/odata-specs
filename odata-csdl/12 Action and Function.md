@@ -207,16 +207,17 @@ computed by the following algorithm:
    a possibly empty concatenation of containment navigation properties, type casts and key predicates.
    Remove the key predicates from $β$.
 2. Let $i=1$.
-3. If $i=k$, go to step 7.
-4. If $s_i$ names a containment navigation property, set $v=v/s_i$ and $β=β/s_i$.
-5. If $s_i$ names a non-containment navigation property, set $v=v/s_i$. The service MUST
+3. If $i=k$, go to step 8.
+4. Set $v$ to the result of evaluating the [instance path](#PathExpressions) $s_i$ on the instance $v$.
+5. If $s_i$ names a containment navigation property, set $β=β/s_i$.
+6. If $s_i$ names a non-containment navigation property, the service MUST
    define a [navigation property binding](#NavigationPropertyBinding) on the entity set $α$
    whose path matches $β/s_i$. This defines the canonical URL $α'(κ')/β'$ of $v$.
    Set $α=α'$ and $β=β'$ with key predicates removed.
-6. Set $i=i+1$ and go back to step 3.
-7. If $s_k$ names a containment navigation property, let $C$ be the implicit
+7. Set $i=i+1$ and go back to step 3.
+8. If $s_k$ names a containment navigation property, let $C$ be the implicit
    entity set defined by $s_k$ for $v$ (as explained in [section ##ContainmentNavigationProperty]).
-8. If $s_k$ names a non-containment navigation property, the service MUST
+9. If $s_k$ names a non-containment navigation property, the service MUST
    define a navigation property binding on the entity set $α$
    whose path matches $β/s_k$. Let $C$ be the binding target of that navigation property binding.
 
