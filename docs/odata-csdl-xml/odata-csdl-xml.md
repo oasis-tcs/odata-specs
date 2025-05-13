@@ -2699,10 +2699,11 @@ entities MAY specify an entity set path that defines the canonical collection
 returned entities in terms of the canonical collection of the binding parameter
 value.
 
-The entity set path has the form $p/s_1/…/s_k$ with $k≥0$.
+The entity set path consists of a series of segments joined together
+with forward slashes. It has the form $p/s_1/…/s_k$ with $k≥0$.
 The first segment $p$ of the entity set path MUST be the name of the binding
 parameter. If the binding parameter is single-valued, there MAY be additional segments
-$s_1,…,s_k$ of the entity set path. These additional segments are paths that could occur in an expand item [OData-URL, section 5.1.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#SystemQueryOptionexpand)
+$s_1,…,s_k$ of the entity set path. These additional segments MUST be paths that could occur in an expand item [OData-URL, section 5.1.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#SystemQueryOptionexpand)
 and that end with the name of a [navigation property](#NavigationProperty),
 optionally followed by the [qualified name](#QualifiedName) of a type cast.
 
