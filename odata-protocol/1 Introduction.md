@@ -39,7 +39,7 @@ Services can validate non-insertable property values in insert payloads|
 [Section ##CreateRelatedEntitiesWhenCreatinganEntity]| 
 Deep-insert response includes at least the properties present in the request| 
 [363](https://github.com/oasis-tcs/odata-specs/issues/363)
-[Section ##UpdateanEntity]| 
+[Section ##UpsertanEntity]| 
 Services can validate non-updatable property values in update payloads| 
 [356](https://github.com/oasis-tcs/odata-specs/issues/356)
 [Section ##UpsertanEntity]| 

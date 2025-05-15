@@ -915,7 +915,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 </summary>
 <p>An entity is serialized as a JSON object. It MAY contain <a href="#ControlInformationcontextodatacontext"><code>context</code></a>, <a href="#ControlInformationtypeodatatype"><code>type</code></a>, or <a href="#ControlInformationdeltaLinkodatadeltaLink"><code>deltaLink</code></a> control information.</p>
 <p>Each <a href="#StructuralProperty">property</a> to be transmitted is represented as a name/value pair within the object. The order properties appear within the object is considered insignificant.</p>
-<p>An entity in a payload may be a complete entity, a projected entity (see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptionselect">OData-Protocol, section 11.2.5.1</a>), or a partial entity update (see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UpdateanEntity">OData-Protocol, section 11.4.3</a>).</p>
+<p>An entity in a payload may be a complete entity, a projected entity (see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptionselect">OData-Protocol, section 11.2.5.1</a>), or a partial entity update (see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UpsertanEntity">OData-Protocol, section 11.4.3</a>).</p>
 <p>An entity representation can be (modified and) round-tripped to the service directly. The <a href="#ControlInformationcontextodatacontext">context URL</a> is used in requests only as a base for <a href="#RelativeURLs">relative URLs</a>.</p>
 <div class="example">
 <p>Example 10: entity with <code>metadata=minimal</code></p>
