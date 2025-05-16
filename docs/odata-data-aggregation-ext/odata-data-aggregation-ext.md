@@ -1410,6 +1410,8 @@ The output set of the transformation $\Pi_G(s)$ is in one-to-one correspondence 
    - Otherwise, the behavior is undefined. (Such cases never occur when $\Pi_G(s)$ is used in this document.)
 3. Return $u$.
 
+Instances in the output set of $\Pi_G(s)$ that contain the key of an entity MAY retain that entity's applicable control information [OData-JSON, section 4.6](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformation).
+
 ::: example
 Example 17:
 ```
