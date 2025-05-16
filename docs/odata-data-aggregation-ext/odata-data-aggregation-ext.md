@@ -1042,6 +1042,7 @@ The _structure_ of an instance that occurs in an input or output set is defined 
 - Single- or collection-valued primitive properties addressed by a property path starting at a non-transient entity MUST keep their values from the addressed resource path collection throughout the transformation sequence. Likewise, single- or collection-valued navigation property paths starting at a non-transient entity MUST keep addressing the same non-transient entities as in the addressed resource path collection.
 - Instances in an output set need not have all declared or dynamic properties that occurred in the input set.
 - Instances in an output set can have dynamic properties that did not occur in the input set. The name for such a dynamic property is called an _alias_, it is a simple identifier (see [OData-CSDL, section 15.2](https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#SimpleIdentifier)). Aliases MUST differ from names of declared properties in the input type, from names of properties in the first input set, and from names of properties in the current input set. Aliases in one collection MUST also differ from each other.
+- Instances in an output set can have applicable control information [OData-JSON, section 4.6](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformation).
 
 Here is an overview of the structural changes made by different transformations:
 - During [aggregation](#BasicAggregation) or [nest](#Transformationnest), many instances are replaced by one instance, properties that represent the aggregation level are retained, and others are replaced by dynamic properties holding the aggregate value of the many instances or a transformed copy of them.
@@ -1453,7 +1454,7 @@ The `groupby` transformation takes one or two parameters where the second is a l
 
 #### <a id="SimpleGrouping" href="#SimpleGrouping">3.2.3.1 Simple Grouping</a>
 
-In its simplest form the first parameter of `groupby` specifies the _grouping properties_, a comma-separated parenthesized list $G$ of one or more [data aggregation paths](#DataAggregationPath) with single-valued segments. The same path SHOULD NOT appear more than once; redundant property paths MAY be considered valid, but MUST NOT alter the meaning of the request. Navigation properties and stream properties specified in grouping properties are expanded by default (see [example 72](#groupbynav)).
+In its simplest form the `groupby` transformation partitions the input set by the values of certain "grouping properties" and applies the given set transformations to each partition. In this form the first parameter of `groupby` specifies the _grouping properties_, a comma-separated parenthesized list $G$ of one or more [data aggregation paths](#DataAggregationPath) with single-valued segments. The same path SHOULD NOT appear more than once; redundant property paths MAY be considered valid, but MUST NOT alter the meaning of the request. Navigation properties and stream properties specified in grouping properties are expanded by default (see [example 72](#groupbynav)).
 
 The algorithmic description of this transformation makes use of the following definitions: Let $u[q]$ denote the value of a structural or navigation property $q$ in an instance $u$. A path $p_1$ is called a _prefix_ of a path $p$ if there is a non-empty path $p_2$ such that $p$ equals the concatenated path $p_1/p_2$. Let $e$ denote the empty path.
 
@@ -1482,6 +1483,8 @@ The output set of the transformation $\Pi_G(s)$ is in one-to-one correspondence 
    - Otherwise, if $q$ is single-valued, let $u[q]=a_G(u[q],s[q],p')$.
    - Otherwise, the behavior is undefined. (Such cases never occur when $\Pi_G(s)$ is used in this document.)
 3. Return $u$.
+
+Instances in the output set of $\Pi_G(s)$ that contain the key of an entity MAY retain that entity's applicable control information [OData-JSON, section 4.6](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformation).
 
 ::: example
 Example 20:
