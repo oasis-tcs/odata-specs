@@ -1883,7 +1883,8 @@ case segment.startsWith("@@"):
 @}
 
 ::: funnelweb
-Evaluating a `TermCastSegment` involves unaliasing the annotation term.
+Evaluating a `TermCastSegment` involves unaliasing the annotation term (which may fail,
+in which case nothing is returned).
 The annotation is either embedded in the `modelElement` or externally
 targets it.
 :::
@@ -1895,6 +1896,7 @@ class TermCastSegment extends Segment {
       /(?<=@@).*?(?=#|$)/,
       @<Unalias the qualified term name@>@(this.path@)
     );
+    if (!termcast) return;
     const result = modelElement[termcast];
     if (result) return result;
     for (const target of modelElement.targetingPaths.values())
@@ -2373,7 +2375,7 @@ finish() {
         @<Evaluate all paths that appear in this CSDL document@>
         @<Resolve this.#finish after all referenced CSDL documents are finished@>
       }.bind(this),
-    ).catch(errorCaught);
+    );
     this.#finished = true;
   }
   return this.#finish;
@@ -2388,16 +2390,10 @@ if (shared?.@1) this.#@1 = shared.@1;
 if (!this.path.csdlDocument.finished) return "CSDL document not finished";
 @}
 
-::: funnelweb
-Although the description does not mention it, the promise can also be rejected if an
-error occurs during asynchronous processing.
-:::
-
 @$@<Make this.#finish a promise that resolves when all paths have been evaluated@>@{
-let finished, errorCaught;
+let finished;
 this.#finish = new Promise(function (resolve, reject) {
   finished = resolve;
-  errorCaught = reject;
 });
 @}
 
@@ -2415,7 +2411,7 @@ The main CSDL document has an empty URI, so its waits for all others to `finish(
 await Promise.all(
   uris
     .filter((uri) => uri > this.#uri)
-    .map((uri) => csdlDocuments.get(uri).then((csdl) => csdl.finish()))
+    .map((uri) => csdlDocuments.get(uri).then((csdl) => csdl?.finish()))
 );
 finished();
 @}
@@ -2424,6 +2420,10 @@ finished();
 The map `csdlDocuments` does not contain the `CSDLDocument`s themselves but promises
 that resolve to them. This makes it possible find a URI in this map even while the
 CSDL document is still being loaded and thus avoid several parallel loading attempts.
+
+If a URI cannot be loaded or its CSDL document not constructed for other reasons,
+the promise resolves to undefined. That's why the previous
+code block says `csdl?.finish()`.
 :::
 
 @$@<Reference@>@{
@@ -2440,26 +2440,29 @@ async resolve() {
               await (
                 await fetch(
                   this.uri.replace(
-                    /^https:\/\/(sap|oasis-tcs).github.io\/(.*)$/,
-                    "http://localhost:8080/$1/$2"
+                    /^https:\/\/(sap|oasis-tcs)\.github\.io\//,
+                    "http://localhost:8080/$1/"
                   )
                 )
               ).json()
             );
             resolve(csdl);
           } catch (e) {
-            reject(e);
+            console.error(this.uri, e);
+            resolve();
           }
         }.bind(this)
       ))
     );
   csdl = await csdl;
-  if (this.$Include)
-    for (const include of this.$Include)
-      include.schema = csdl.children[include.$Namespace];
-  if (this.$IncludeAnnotations)
-    for (const include of this.$IncludeAnnotations)
-      include.schema = csdl.children[include.$TermNamespace];
+  if (csdl) {
+    if (this.$Include)
+      for (const include of this.$Include)
+        include.schema = csdl.children[include.$Namespace];
+    if (this.$IncludeAnnotations)
+      for (const include of this.$IncludeAnnotations)
+        include.schema = csdl.children[include.$TermNamespace];
+  }
   return this.uri;
 }
 @}
