@@ -388,8 +388,10 @@ as follows:
     reference: {
       for (const uri in this.$Reference)
         for (const include of this.$Reference[uri].$Include)
-          if ([include.$Alias, include.$Namespace].includes(namespace) &&
-              include.schema)
+          if (
+            [include.$Alias, include.$Namespace].includes(namespace) &&
+            include.schema
+          )
             result = callback(include.schema);
       if (result) break reference;
     }
