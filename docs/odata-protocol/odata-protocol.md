@@ -4147,14 +4147,15 @@ for the record being updated.
 
 ::: example
 Example <a id="antietag" href="#antietag">81</a>: `Category` is a single-valued nullable non-containment navigation property
-on the product entity type. Note that an ETag used in the `If-Match` header in the request
+on the product entity type. Note that an ETag used in the `If-Match` header in the following request
+applies to the category currently associated with the product.
 ```json
 PATCH http://host/service/Products(57)/Category
 If-Match: "<ETag>"
 
 {"CategoryID": 5}
 ```
-applies to the category currently associated with the product. To make the category
+To make the category
 update conditional on the ETag of the product, the following request could be made instead:
 ```json
 PATCH http://host/service/Products(57)
