@@ -3329,17 +3329,17 @@ the last navigation property segment MUST be a non-containment
 navigation property and there MUST NOT be any non-containment navigation
 properties prior to the final navigation property segment.
 
+OData 4.01 services MAY have a type-cast segment as the last path
+segment, allowing to bind instances of different sub-types to different
+targets.
+
 If the path traverses collection-valued complex properties or
 collection-valued containment navigation properties, the binding applies
 to all items of these collections.
 
 If the path contains a recursive sub-path (i.e. a path leading back to
-the same structured type, the binding applies recursively to any
+the same structured type), the binding applies recursively to any
 positive number of cycles through that sub-path.
-
-OData 4.01 services MAY have a type-cast segment as the last path
-segment, allowing to bind instances of different sub-types to different
-targets.
 
 The same navigation property path MUST NOT be specified in more than one
 navigation property binding; navigation property bindings are only used
