@@ -4906,6 +4906,10 @@ client-side function. The apply expression MAY have operand expressions.
 The operand expressions are used as parameters to the client-side
 function.
 
+If the value of an operand expression is not acceptable for the function,
+the client SHOULD NOT make any assumptions about the application of the term
+that rely on the operand.
+
 
 ::: {.varxml .rep}
 ### <a id="ExpressionedmApply.54" href="#ExpressionedmApply.54">Expression `edm:Apply`</a>
@@ -5157,16 +5161,20 @@ child expression MAY be omitted, reducing it to an if-then expression.
 This can be used to conditionally add an element to a collection.
 
 The first child expression is the condition and MUST evaluate to a
-Boolean result, e.g. the [comparison and logical
+Boolean result or `null`, e.g. the [comparison and logical
 operators](#ComparisonandLogicalOperators) can be used.
 
 The second and third child expressions are evaluated conditionally. The
 result MUST be type compatible with the type expected by the surrounding
 expression.
 
+If the value of a child expression does not meet these conditions,
+the client SHOULD NOT make any assumptions about the application of the term
+that rely on the condition expression.
+
 If the first expression evaluates to `true`, the second expression MUST
 be evaluated and its value MUST be returned as the result of the
-if-then-else expression. If the first expression evaluates to `false`
+if-then-else expression. If the first expression evaluates to `false` or `null`
 and a third child element is present, it MUST be evaluated and its value
 MUST be returned as the result of the if-then-else expression. If no
 third expression is present, nothing is added to the surrounding
