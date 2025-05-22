@@ -3358,17 +3358,17 @@ the last navigation property segment MUST be a non-containment
 navigation property and there MUST NOT be any non-containment navigation
 properties prior to the final navigation property segment.
 
+OData 4.01 services MAY have a type-cast segment as the last path
+segment, allowing to bind instances of different sub-types to different
+targets.
+
 If the path traverses collection-valued complex properties or
 collection-valued containment navigation properties, the binding applies
 to all items of these collections.
 
 If the path contains a recursive sub-path (i.e. a path leading back to
-the same structured type, the binding applies recursively to any
+the same structured type), the binding applies recursively to any
 positive number of cycles through that sub-path.
-
-OData 4.01 services MAY have a type-cast segment as the last path
-segment, allowing to bind instances of different sub-types to different
-targets.
 
 The same navigation property path MUST NOT be specified in more than one
 navigation property binding; navigation property bindings are only used
@@ -5085,6 +5085,10 @@ client-side function. The apply expression MAY have operand expressions.
 The operand expressions are used as parameters to the client-side
 function.
 
+If the value of an operand expression is not acceptable for the function,
+the client SHOULD NOT make any assumptions about the application of the term
+that rely on the operand.
+
 ::: {.varjson .rep}
 ### <a id="Apply.21.20" href="#Apply.21.20">`$Apply`</a> and <a id="Function.21.21" href="#Function.21.21">`$Function`</a>
 
@@ -5371,16 +5375,20 @@ child expression MAY be omitted, reducing it to an if-then expression.
 This can be used to conditionally add an element to a collection.
 
 The first child expression is the condition and MUST evaluate to a
-Boolean result, e.g. the [comparison and logical
+Boolean result or `null`, e.g. the [comparison and logical
 operators](#ComparisonandLogicalOperators) can be used.
 
 The second and third child expressions are evaluated conditionally. The
 result MUST be type compatible with the type expected by the surrounding
 expression.
 
+If the value of a child expression does not meet these conditions,
+the client SHOULD NOT make any assumptions about the application of the term
+that rely on the condition expression.
+
 If the first expression evaluates to `true`, the second expression MUST
 be evaluated and its value MUST be returned as the result of the
-if-then-else expression. If the first expression evaluates to `false`
+if-then-else expression. If the first expression evaluates to `false` or `null`
 and a third child element is present, it MUST be evaluated and its value
 MUST be returned as the result of the if-then-else expression. If no
 third expression is present, nothing is added to the surrounding
