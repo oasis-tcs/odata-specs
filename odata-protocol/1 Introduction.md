@@ -16,7 +16,7 @@ service as well as a set of reserved URL query options.
 The [OData-CSDLJSON](#ODataCSDL) specification defines a JSON
 representation of the entity data model exposed by an OData service.
 
-The [OData-CSDLXML](#ODataCSDL) specification defines an XML
+The [OData-CSDLXML](#ODataCSDLXML) specification defines an XML
 representation of the entity data model exposed by an OData service.
 
 The [OData-JSON](#ODataJSON) document specifies the JSON format of the
@@ -36,6 +36,9 @@ Response code `204 No Content` after successful data modification if requested r
 [Section ##CreateanEntity]| 
 Services can validate non-insertable property values in insert payloads| 
 [356](https://github.com/oasis-tcs/odata-specs/issues/356)
+[Section ##CreateRelatedEntitiesWhenCreatinganEntity]| 
+Deep-insert response includes at least the properties present in the request| 
+[363](https://github.com/oasis-tcs/odata-specs/issues/363)
 [Section ##UpdateanEntity]| 
 Services can validate non-updatable property values in update payloads| 
 [356](https://github.com/oasis-tcs/odata-specs/issues/356)
@@ -45,7 +48,13 @@ Upserts to single-valued non-containment navigation properties|
 [Section ##UpdateaComplexProperty]| 
 Setting a complex property to a different type| 
 [534](https://github.com/oasis-tcs/odata-specs/issues/534)
+[Section ##UpdateaCollectionofEntities]| 
+Control information to prevent updates| 
+[2021](https://github.com/oasis-tcs/odata-specs/issues/2021)
 [Section ##ReplaceaCollectionofEntities]| Semantics of `continue-on-error` when replacing a collection of entities | [358](https://github.com/oasis-tcs/odata-specs/issues/358)
+[Section ##InvokinganAction]| 
+Omission of collection-valued action parameters| 
+[2045](https://github.com/oasis-tcs/odata-specs/issues/2045)
 [Section ##Conformance] | Allow `400 Bad Request` in addition to `501 Not Implemented` for unsupported functionality| [391](https://github.com/oasis-tcs/odata-specs/issues/391)
 [Section ##InteroperableODataClients] | Encoding of plus character in URLs | [485](https://github.com/oasis-tcs/odata-specs/issues/485)
 
@@ -168,6 +177,12 @@ additional undeclared *dynamic properties*. A dynamic property cannot
 have the same name as a declared property. Entity or complex types which
 allow clients to persist additional undeclared properties are called
 *open types*.
+A dynamic property need not exist on all instances of a structured type,
+and it can have values of different types on different instances.
+It can be specified in both [`$expand`](#SystemQueryOptionexpand) and [`$select`](#SystemQueryOptionselect),
+and it is interpreted per instance according to its instance-specific type,
+with the addition that it is silently ignored in `$expand` if the instance-specific value is neither a stream,
+an entity, or a collection of entities.
 
 Relationships from one entity to another are represented as *navigation
 properties.* Navigation properties are generally defined as part of an
@@ -210,7 +225,7 @@ set.
 An OData *resource* is anything in the model that can be addressed (an
 entity set, entity, property, or operation).
 
-Refer to [OData-CSDLJSON](#ODataCSDL) or [OData-CSDLXML](#ODataCSDL) for
+Refer to [OData-CSDLJSON](#ODataCSDL) or [OData-CSDLXML](#ODataCSDLXML) for
 more information on the OData entity data model.
 
 ## ##subsec Annotations
@@ -269,7 +284,7 @@ of the specification since there is currently no lossless representation
 of an IRI in the [`EntityId`](#HeaderODataEntityId) header.
 
 Services are strongly encouraged to use the canonical URL for an entity
-as defined in [OData-URL](#ODataURL) as its entity-id, but clients cannot assume
+as defined in [#OData-URL#CanonicalURL] as its entity-id, but clients cannot assume
 the entity-id can be used to locate the entity unless the
 [`Core.DereferenceableIDs`]($$$OData-VocCore$$$#DereferenceableIDs)
 term is applied to the entity container, nor can the client assume any
@@ -296,7 +311,7 @@ The edit URL of a property is the edit URL of the entity with appended
 segment(s) containing the path to the property.
 
 Services are strongly encouraged to use the canonical URL for an entity
-as defined in [OData-URL](#ODataURL) for both the read URL and the edit URL of an
+as defined in [#OData-URL#CanonicalURL] for both the read URL and the edit URL of an
 entity, with a cast segment to the type of the entity appended to the
 canonical URL if the type of the entity is derived from the declared
 type of the entity set. However, clients cannot assume this convention

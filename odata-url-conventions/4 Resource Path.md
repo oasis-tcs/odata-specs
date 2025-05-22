@@ -33,7 +33,7 @@ An OData service MAY respond with `301 Moved Permanently` or
 ## ##subsec Addressing the Model for a Service
 
 OData services expose their entity model according to
-[OData-CSDLJSON](#ODataCSDL) or [OData-CSDLXML](#ODataCSDL) at the
+[OData-CSDL](#ODataCSDL) at the
 metadata URL, formed by appending `$metadata` to the [service root
 URL](#ServiceRootURL).
 
@@ -154,6 +154,15 @@ http://host/service/Categories(1)
 ```
 :::
 
+If the declared entity type of the collection does not define a key (for example, Edm.EntityType), then a cast segment to a type defining a key MUST follow the collection, before appending the key.
+
+::: example
+Example ##ex:
+```
+http://host/service/Categories(1)/Children/myNs.Product(7)
+```
+:::
+
 - Invoking an action bound to a collection
 of entities that returns a single entity (see rule: `boundOperation`)
 - Invoking an function bound to a
@@ -270,8 +279,7 @@ http://host/service/Products(1)
 ### ##subsubsec Canonical URL for Contained Entities
 
 For contained entities (i.e. related via a containment navigation
-property, see [OData-CSDLJSON](#ODataCSDL) or
-[OData-CSDLXML](#ODataCSDL)) the canonical URL is the canonical URL of
+property, see [OData-CSDLJSON](#ODataCSDL)) the canonical URL is the canonical URL of
 the containing entity followed by:
 - A [type-cast segment](#AddressingDerivedTypes) if the navigation
 property is defined on a type derived from the entity type declared for
@@ -333,8 +341,7 @@ http://host/service/$entity?$id=Products(0)
 ```
 :::
 
-The semantics of `$entity` are covered in the [OData-Protocol](#ODataProtocol)
-document.
+The semantics of `$entity` are covered in [#OData-Protocol#ContextURL].
 
 ### ##subsubsec Alternate Keys
 
@@ -375,7 +382,9 @@ http://host/service/Employees('A1245')
 
 Services MAY support an alternate convention for addressing entities by
 appending a segment containing the unprefixed and unquoted key value to the URL of the
-collection containing the entity. Forward-slashes in key value segments
+collection containing the entity. If the declared entity type of the collection does not 
+define a key (for example, Edm.EntityType), then a cast segment to a type defining a key 
+MUST follow the collection, before appending the key value segment. Forward-slashes in key value segments
 MUST be percent-encoded; single quotes within key value segments are
 treated as part of the key value and do not need to be doubled or
 percent encoded.
@@ -452,7 +461,7 @@ such
 2. matches a qualified bound function, bound action, or type name,
 treat it as such
 3. matches an unqualified bound function, bound action, or type name
-defined in a default namespace (see [OData-Protocol](#ODataProtocol)) treat it
+defined in a default namespace (see [#OData-Protocol#DefaultNamespaces]) treat it
 as such
 4. treat as a key value
 
@@ -494,7 +503,7 @@ addressing a collection of references MUST be followed by the system
 query option `$id` in order to identify a single entity reference within
 the collection to be removed. The entity-id specified by `$id` may be
 expressed absolute or relative to the request URL. For details see
-[OData-Protocol](#ODataProtocol).
+[#OData-Protocol#EntityIdsandEntityReferences].
 
 ::: example
 Example ##ex: three ways of unrelating `Categories(1)` and
@@ -515,14 +524,14 @@ DELETE http://host/service/Products(0)/Category/$ref
 ## ##subsec Addressing Operations
 
 The semantic rules for addressing and invoking actions and functions are
-defined in the [OData-Protocol](#ODataProtocol) document.
+defined in [#OData-Protocol#Operations].
 
 Services MAY additionally support the use of the unqualified name of an
 action or function in a URL by defining one or more default namespaces
 through the
 [`Core.DefaultNamespace`]($$$OData-VocCore$$$#DefaultNamespace) term
 defined in [OData-VocCore](#ODataVocCore). For more information on
-default namespaces, see Default Namespaces in [OData-Protocol](#ODataProtocol).
+default namespaces, see [#OData-Protocol#DefaultNamespaces].
 
 ### ##subsubsec Addressing Actions
 
@@ -569,7 +578,7 @@ syntax rule define the grammar for invoking functions, for example to help filte
 and order resources identified by the `resourcePath` of the URL.
 - The `aliasAndValue` syntax rule defines
 the grammar for providing function parameter values using Parameter
-Alias Syntax, see [OData-Protocol](#ODataProtocol).
+Alias Syntax, see [#OData-Protocol#ParameterAliases].
 
 Note: there is no literal representation for `Edm.Stream` values in URLs,
 so it is not possible to pass `Edm.Stream` values to parameters of function imports or
@@ -746,7 +755,7 @@ derived type in a URL by defining one or more default namespaces through
 the
 [`Core.DefaultNamespace`]($$$OData-VocCore$$$#DefaultNamespace)
 term defined in [OData-VocCore](#ODataVocCore). For more information on
-default namespaces, see Default Namespaces in [OData-Protocol](#ODataProtocol).
+default namespaces, see [#OData-Protocol#DefaultNamespaces].
 
 Services MAY also support treating an instance as a type outside of the
 type hierarchy using the same syntax and semantics as when addressing a

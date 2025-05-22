@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
 <head>
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
@@ -59,7 +59,7 @@
     code span.al { color: #ff0000; font-weight: bold; } /* Alert */
     code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
     code span.at { color: #7d9029; } /* Attribute */
-    code span.bn { color: #40a070; } /* BaseN */
+    code span.bn { color: #337f59; } /* BaseN */
     code span.bu { color: #008000; } /* BuiltIn */
     code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
     code span.ch { color: #4070a0; } /* Char */
@@ -68,10 +68,10 @@
     code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
     code span.do { color: #ba2121; font-style: italic; } /* Documentation */
     code span.dt { color: #902000; } /* DataType */
-    code span.dv { color: #40a070; } /* DecVal */
+    code span.dv { color: #337f59; } /* DecVal */
     code span.er { color: #ff0000; font-weight: bold; } /* Error */
     code span.ex { } /* Extension */
-    code span.fl { color: #40a070; } /* Float */
+    code span.fl { color: #337f59; } /* Float */
     code span.fu { color: #06287e; } /* Function */
     code span.im { color: #008000; font-weight: bold; } /* Import */
     code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
@@ -123,7 +123,7 @@
 
       const darkmode_query = matchMedia("(prefers-color-scheme: dark)");
       darkmode_query.addEventListener("change", darkmode_auto);
-      const darkmode_switch = document.getElementById("darkmode");
+      const darkmode_switch = document.querySelector("#darkmode select");
       darkmode_switch.value =
         localStorage.getItem("odata-specs/darkmode") || "off";
       darkmode_switch.addEventListener("change", darkmode_manual);
@@ -134,11 +134,13 @@
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 </head>
 <body>
-<select id="darkmode">
-  <option value="off" title="Light mode">&#x263C;</option>
-  <option value="on" title="Dark mode">&#x263D;</option>
-  <option value="auto" title="Follow device mode">&#x25D1;</option>
-</select>
+<aside id="darkmode">
+  <select aria-label="Switch light/dark mode">
+    <option value="off" title="Light mode">&#x263C;</option>
+    <option value="on" title="Dark mode">&#x263D;</option>
+    <option value="auto" title="Follow device mode">&#x25D1;</option>
+  </select>
+</aside>
 <p><img src="https://docs.oasis-open.org/templates/OASISLogo-v3.0.png" alt="OASIS Logo" /></p>
 <hr />
 <details open><summary>
@@ -1929,7 +1931,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </summary>
 <p>Changes to a temporal object over a period of application time can affect multiple time slices. For timeline entity sets this can in principle be achieved by constructing batch requests with multiple operations on individual time slices. This puts burden on the client, and it also makes it harder for services to check whether the request represents a consistent change of the temporal data.</p>
 <p>Both can be avoided by providing convenience operations expressing the intent of the modification and leaving the actual time slice manipulation to the service. These operations can then also be used with snapshot entity sets that do not allow direct manipulation of time slices.</p>
-<p>These convenience operations are modeled as bound actions and defined in the vocabulary for temporal data <a href="#ODataVocTemporal">OData-VocTemporal</a>. Implementations SHOULD consider the preferences <code>return=representation</code> and <code>return=minimal</code> as specified inv<a href="#ODataProtocol">OData-Protocol</a>. The convenience operations are atomic (all or nothing): they either succeed and produce the result described below, or they fail and do not change the temporal objects.</p>
+<p>These convenience operations are modeled as bound actions and defined in the vocabulary for temporal data <a href="#ODataVocTemporal">OData-VocTemporal</a>. Implementations SHOULD consider the preferences <code>return=representation</code> and <code>return=minimal</code> as specified in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#Preferencereturnrepresentationandreturnminimal">OData-Protocol, section 8.2.8.7</a>. The convenience operations are atomic (all or nothing): they either succeed and produce the result described below, or they fail and do not change the temporal objects.</p>
 <p>All actions define a collection of entities as their binding parameter. This collection can be</p>
 <ul>
 <li>A snapshot entity set</li>
@@ -1949,7 +1951,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <li>The “delta time slices” in <code>deltaTimeslices</code> are processed in the order of the collection.</li>
 <li>For each delta time slice all time slices from the bound collection are selected whose temporal object key values are identical to the values of corresponding properties present in the delta time slice, and whose application-time period overlaps with the period of the delta time slice.</li>
 <li>Selected time slices whose period is not fully included in the period of the delta time slice are split into two or three consecutive time slices, one with fully included period, and one or two with a non-overlapping period immediately before or after the delta time slice’s period.</li>
-<li>Then all fully included time slices (including ones created in the previous step) are updated following the rules for updating entities specified in <a href="#ODataProtocol">OData-Protocol</a>.</li>
+<li>Then all fully included time slices (including ones created in the previous step) are updated following the rules for updating entities specified in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UpdateanEntity">OData-Protocol, section 11.4.3</a>.</li>
 <li>Gaps between selected time slices in the period to update are not affected.</li>
 </ol>
 <p>On success it returns the created or updated time slices.</p>
@@ -2215,9 +2217,9 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <ol type="1">
 <li>copying the property values of the preceding time slice (except for computed properties),</li>
 <li>setting the period boundaries to close the gap, and then</li>
-<li>updating the new time slice following the rules for updating entities specified in <a href="#ODataProtocol">OData-Protocol</a>.</li>
+<li>updating the new time slice following the rules for updating entities specified in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UpdateanEntity">OData-Protocol, section 11.4.3</a>.</li>
 </ol>
-<p>If no preceding time slice exists, the time slice is created following the rules for creating entities specified in <a href="#ODataProtocol">OData-Protocol</a>.</p></li>
+<p>If no preceding time slice exists, the time slice is created following the rules for creating entities specified in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#CreateanEntity">OData-Protocol, section 11.4.2</a>.</p></li>
 </ol>
 <p>On success it returns the created or updated time slices.</p>
 <div class="example">
@@ -2396,7 +2398,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <li>The “delta time slices” in <code>deltaTimeslices</code> are processed in the order of the collection.</li>
 <li>For each delta time slice all time slices from the bound collection are selected whose temporal object key values are identical to the values of corresponding properties present in the delta time slice, and whose application-time period overlaps with the period of the delta time slice.</li>
 <li>Selected time slices whose period is not fully included in the period of the delta time slice are split into two consecutive time slices, one with non-overlapping, and one with fully included period.</li>
-<li>Then all fully included time slices (including ones created in the previous step) are deleted following the rules for deleting entities specified in <a href="#ODataProtocol">OData-Protocol</a>.</li>
+<li>Then all fully included time slices (including ones created in the previous step) are deleted following the rules for deleting entities specified in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#DeleteanEntity">OData-Protocol, section 11.4.4</a>.</li>
 </ol>
 <p>On success it returns the deleted time slices.</p>
 </details>
@@ -2488,7 +2490,7 @@ See link in “<a href="#AdditionalArtifacts">Additional artifacts</a>” sectio
 <details open><summary>
 <h2 id="b1-special-thanks"><a id="SpecialThanks" href="#SpecialThanks">B.1 Special Thanks</a></h2>
 </summary>
-<p>The contributions of the OASIS OData Technical Committee members, enumerated in <a href="#ODataProtocol">OData-Protocol</a> are gratefully acknowledged.</p>
+<p>The contributions of the OASIS OData Technical Committee members, enumerated in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#Participants">OData-Protocol, section C.2</a>, are gratefully acknowledged.</p>
 <p>Special thanks to Andrew Eisenberg, whose contributions in the early stages of the OData TC were invaluable to getting this extension specification on track.</p>
 </details>
 <details open><summary>

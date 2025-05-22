@@ -2008,7 +2008,7 @@ slices.
 These convenience operations are modeled as bound actions and defined in
 the vocabulary for temporal data [OData-VocTemporal](#ODataVocTemporal).
 Implementations SHOULD consider the preferences `return=representation`
-and `return=minimal` as specified inv[OData-Protocol](#ODataProtocol).
+and `return=minimal` as specified in [OData-Protocol, section 8.2.8.7](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#Preferencereturnrepresentationandreturnminimal).
 The convenience operations are atomic (all or nothing): they either
 succeed and produce the result described below, or they fail and do not
 change the temporal objects.
@@ -2062,7 +2062,7 @@ This works identical to the SQL statement UPDATE FOR PORTION OF:
    slice's period.
 4. Then all fully included time slices (including ones created in the
    previous step) are updated following the rules for updating entities
-   specified in [OData-Protocol](#ODataProtocol).
+   specified in [OData-Protocol, section 11.4.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UpdateanEntity).
 5. Gaps between selected time slices in the period to update are not affected.
 
 On success it returns the created or updated time slices.
@@ -2255,10 +2255,10 @@ Step 5 is
       (except for computed properties),
    2. setting the period boundaries to close the gap, and then
    3. updating the new time slice following the rules for updating
-      entities specified in [OData-Protocol](#ODataProtocol).
+      entities specified in [OData-Protocol, section 11.4.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UpdateanEntity).
 
    If no preceding time slice exists, the time slice is created following
-   the rules for creating entities specified in [OData-Protocol](#ODataProtocol).
+   the rules for creating entities specified in [OData-Protocol, section 11.4.2](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#CreateanEntity).
 
 On success it returns the created or updated time slices.
 
@@ -2404,7 +2404,7 @@ This works identical to the SQL statement DELETE FOR PORTION OF:
    slices, one with non-overlapping, and one with fully included period.
 4. Then all fully included time slices (including ones created in the
    previous step) are deleted following the rules for deleting entities
-   specified in [OData-Protocol](#ODataProtocol).
+   specified in [OData-Protocol, section 11.4.4](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#DeleteanEntity).
 
 On success it returns the deleted time slices.
 
@@ -2519,7 +2519,7 @@ _ISO/IEC 9075-2:2011 Information technology - Database languages - SQL - Part 2:
 
 ## <a id="SpecialThanks" href="#SpecialThanks">B.1 Special Thanks</a>
 
-The contributions of the OASIS OData Technical Committee members, enumerated in [OData-Protocol](#ODataProtocol) are gratefully acknowledged.
+The contributions of the OASIS OData Technical Committee members, enumerated in [OData-Protocol, section C.2](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#Participants), are gratefully acknowledged.
 
 Special thanks to Andrew Eisenberg, whose contributions in the early stages of the OData TC were invaluable to getting this extension specification on track.
 

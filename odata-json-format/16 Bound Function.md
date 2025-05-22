@@ -7,8 +7,7 @@ A bound function is advertised via a name/value pair where the name is a
 hash (`#`) character followed by the namespace- or
 alias-qualified name of the function. The namespace or alias MUST be
 defined or the namespace referenced in the metadata document of the
-service, see [OData-CSDLJSON](#ODataCSDL) or
-[OData-CSDLXML](#ODataCSDL) A
+service, see [OData-CSDL](#ODataCSDL). A
 specific function overload can be advertised by appending the
 parentheses-enclosed, comma-separated list of non-binding parameter
 names to the qualified function name, see rule
@@ -125,8 +124,7 @@ A bound action is advertised via a name/value pair where the name is a
 hash (`#`) character followed by the namespace- or
 alias-qualified name of the action. The namespace or alias MUST be
 defined or the namespace referenced in the metadata document of the
-service, see [OData-CSDLJSON](#ODataCSDL) or
-[OData-CSDLXML](#ODataCSDL)
+service, see [OData-CSDL](#ODataCSDL).
 
 An action that is bound to a single structured type is advertised within
 the JSON object representing that structured type.
@@ -326,18 +324,6 @@ Content-Type: application/json
 
 Inside a batch request the common expressions can also be value references
 starting with `$`, as introduced in [#OData-Protocol#ReferencingValuesfromResponseBodies].
-
-Non-binding parameters that are nullable or annotated with the term
-[`Core.OptionalParameter`]($$$OData-VocCore$$$#OptionalParameter) defined in
-[OData-VocCore](#ODataVocCore) MAY be omitted from the request body.
-If an omitted parameter is not annotated (and thus nullable), it MUST be
-interpreted as having the `null` value. If it is annotated
-and the annotation specifies a `DefaultValue`, the omitted
-parameter is interpreted as having that default value. If omitted and
-the annotation does not specify a default value, the service is free on
-how to interpret the omitted parameter. Note: a nullable non-binding
-parameter is equivalent to being annotated as optional with a default
-value of `null`.
 
 ::: example
 Example ##ex:

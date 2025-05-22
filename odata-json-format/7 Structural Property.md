@@ -39,7 +39,9 @@ JSON strings whose content satisfies the rules `binaryValue`,
 `dateValue`, `dateTimeOffsetValue`,
 `durationValue`, `guidValue`, and
 `timeOfDayValue` respectively, in
-[OData-ABNF](#ODataABNF).
+[OData-ABNF](#ODataABNF). The interpretation of a `timeOfDayValue` in which the `second` is omitted
+is not defined by this specification. For maximum interoperability, senders
+SHOULD always include the `second`.
 
 Primitive values that cannot be represented, for example due to server
 conversion issues or IEEE754 limitations on the size of an `Edm.Int64` or `Edm.Decimal` value, are
@@ -201,6 +203,7 @@ an `Edm.Boolean`, `Edm.String`, or `Edm.Decimal` value,
 depending on the JavaScript type.
 
 Collections directly contained within an untyped collection are themselves untyped.
+
 -------
 
 # ##sec Navigation Property
@@ -467,7 +470,7 @@ Instead stream property data is generally read and edited via URLs.
 [`media*`](#ControlInformationmediaodatamedia) control information.
 - Stream properties requested with `$expand` or implicitly expanded are represented as a property with its value.
 
-See [OData-Protocol](#ODataProtocol) for details on the system query options `$select` and `$expand`.
+See [#OData-Protocol#SystemQueryOptionselect] for details on the system query options `$select` and `$expand`.
 
 Depending on the [metadata level](#ControllingtheAmountofControlInformationinResponses),
 the stream property MAY be annotated to provide the read link, edit
