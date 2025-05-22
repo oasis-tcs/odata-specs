@@ -453,10 +453,7 @@ class ListedModelElement extends ModelElement {
   }
 }
 class Include extends ListedModelElement {
-  @<Internal property with setter@>@(schema@)
-  constructor(reference) {
-    super(reference, "$Include");
-  }
+  @<Include@>
 }
 @}
 
@@ -464,10 +461,34 @@ class Include extends ListedModelElement {
 Include,
 @}
 
+@$@<Include@>@{
+@<Internal property with setter@>@(schema@)
+constructor(reference) {
+  super(reference, "$Include");
+}
+@}
+
 @$@<Internal property with setter@>@(@1@)@{
 @<Internal property@>@(@1@,@)
 set @1(@1) {
   this.#@1 = @1;
+}
+@}
+
+::: funnelweb
+A CSDL document maintains a map from namespaces and aliases to the `Include`s that
+include them.
+:::
+
+@$@<CSDLDocument@>@{
+@<Internal property@>@(includes@,= new Map()@)
+@}
+
+@$@<Include@>@{
+fromJSON(json) {
+  super.fromJSON(json);
+  this.csdlDocument.includes.set(this.$Namespace, this);
+  this.csdlDocument.includes.set(this.$Alias, this);
 }
 @}
 

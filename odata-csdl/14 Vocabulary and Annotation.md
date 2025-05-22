@@ -2367,14 +2367,16 @@ finish() {
     Object.assign(this.schemas.children, this.children);
     @<Make this.#finish a promise that resolves when all paths have been evaluated@>
     const references = [];
-    for (const uri in this.$Reference)
+    for (const uri in this.$Reference) {
+      @<If the reference is needed in this CSDL document@>
       references.push(this.$Reference[uri].resolve());
+    }
     Promise.all(references).then(
       async function (uris) {
         @<Embed all annotations in their targets@>
         @<Evaluate all paths that appear in this CSDL document@>
         @<Resolve this.#finish after all referenced CSDL documents are finished@>
-      }.bind(this),
+      }.bind(this)
     );
     this.#finished = true;
   }

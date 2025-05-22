@@ -163,6 +163,7 @@ class QualifiedNameSegment extends Segment {
   constructor(path, segment) {
     super(path, segment);
     @<Determine namespace and name of segment@>
+    @<The namespace is used by this path@>
   }
   evaluateRelativeTo(modelElement) {
     if (@<namespace is reserved@>) return this;
@@ -175,6 +176,23 @@ class QualifiedNameSegment extends Segment {
     return (this.target = target);
   }
 }
+@}
+
+::: funnelweb
+When a namespace is used, its [`Reference`](#Reference) is needed.
+:::
+
+@$@<Reference@>@{
+@<Internal property with setter@>@(needed@)
+@}
+
+@$@<The namespace is used by this path@>@{
+const reference = path.csdlDocument.includes.get(this.#namespace)?.parent;
+if (reference) reference.needed = true;
+@}
+
+@$@<If the reference is needed in this CSDL document@>@{
+if (this.$Reference[uri].needed)
 @}
 
 ::: {.varxml .rep}
