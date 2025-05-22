@@ -1036,7 +1036,7 @@ The _structure_ of an instance that occurs in an input or output set is defined 
 - Single- or collection-valued primitive properties addressed by a property path starting at a non-transient entity MUST keep their values from the addressed resource path collection throughout the transformation sequence. Likewise, single- or collection-valued navigation property paths starting at a non-transient entity MUST keep addressing the same non-transient entities as in the addressed resource path collection.
 - Instances in an output set need not have all declared or dynamic properties that occurred in the input set.
 - Instances in an output set can have dynamic properties that did not occur in the input set. The name for such a dynamic property is called an _alias_, it is a simple identifier (see [OData-CSDL, section 15.2](https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#SimpleIdentifier)). Aliases MUST differ from names of declared properties in the input type, from names of properties in the first input set, and from names of properties in the current input set. Aliases in one collection MUST also differ from each other.
-- Instances in an output set can have applicable control information [OData-JSON, section 4.6](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformation).
+- Instances in an output set that have all key properties of an entity also have the metadata associated with that entity, such as entity-id, read and edit URL (defined in [OData-Protocol, section 4](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ServiceModel)) and ETag (defined in [OData-Protocol, section 11.4.1.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UseofETagsforAvoidingUpdateConflicts)).
 
 Here is an overview of the structural changes made by different transformations:
 - During [aggregation](#BasicAggregation), many instances are replaced by one instance, properties that represent the aggregation level are retained, and others are replaced by dynamic properties holding the aggregate value of the many instances or a transformed copy of them.
@@ -1409,8 +1409,6 @@ The output set of the transformation $\Pi_G(s)$ is in one-to-one correspondence 
    - Otherwise, if $q$ is single-valued, let $u[q]=a_G(u[q],s[q],p')$.
    - Otherwise, the behavior is undefined. (Such cases never occur when $\Pi_G(s)$ is used in this document.)
 3. Return $u$.
-
-Instances in the output set of $\Pi_G(s)$ that contain the key of an entity MAY retain that entity's applicable control information [OData-JSON, section 4.6](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformation).
 
 ::: example
 Example 17:
