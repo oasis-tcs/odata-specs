@@ -1021,6 +1021,8 @@ The allowed set transformations are defined in this section as well as in the se
 
 Service-defined bound functions that take a collection of instances of a structured type as their binding parameter and return a collection of instances of a structured type MAY be used as set transformations within `$apply`. Further transformations can follow the bound function. The parameter syntax for bound function segments is identical to the parameter syntax for bound functions in resource path segments or `$filter` expressions. See [section 7.7](#ModelFunctionsasSetTransformations) for an example.
 
+Parameter aliases [OData-URL, section 5.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#ParameterAliases) can be used inside the value of `$apply` wherever the ABNF rule `applyTrafo` [OData-ABNF](#ODataABNF) is reduced to a `commonExpr` [OData-URL, section 5.1.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CommonExpressionSyntax) or a `collectionExpr` ([section 3.6](#ExpressionsEvaluableonaCollection)).
+
 If a data service that supports `$apply` does not support it on the collection identified by the request resource path, it MUST fail with `501 Not Implemented` and a meaningful human-readable error message.
 
 On resource paths ending in `/$count` the system query option `$apply` is evaluated on the set identified by the resource path without the `/$count` segment, the result is the plain-text number of items in the result of `$apply`. This is similar to the combination of `/$count` and `$filter`.
@@ -1056,7 +1058,7 @@ If the first input set is a collection of entities from a given entity set, then
 
 Input sets and output sets are not sets of instances in the mathematical sense but collections, because the same instance can occur multiple times in them. In other words: A collection contains values (which can be instances of structured types or primitive values), possibly with repetitions. The occurrences of the values in the collection form a set in the mathematical sense. The _cardinality_ of a collection is the total number of occurrences in it. When this text describes a transformation algorithmically and stipulates that certain steps are carried out _for each occurrence_ in a collection, this means that the steps are carried out multiple times for the same value if it occurs multiple times in the collection.
 
-A collection addressed by the resource path is returned by the service either as an ordered collection [OData-Protocol, section 11.4.10](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ManagingMembersofanOrderedCollection) or as an unordered collection. The same applies to collections that are nested in or related to the addressed resource as well as to collections that are the result of evaluating an expression starting with `$root`, which occur, for example, as the first parameter of a [hierarchical transformation](#HierarchicalTransformations).
+A collection addressed by the resource path is returned by the service either as an ordered collection [OData-Protocol, section 11.4.9](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ManagingMembersofanOrderedCollection) or as an unordered collection. The same applies to collections that are nested in or related to the addressed resource as well as to collections that are the result of evaluating an expression starting with `$root`, which occur, for example, as the first parameter of a [hierarchical transformation](#HierarchicalTransformations).
 
 But when such a collection is transformed by the `$apply` system query option, additional cases can arise that are neither ordered nor totally unordered. For example, the [`groupby`](#Transformationgroupby) transformation retains any order within a group but not between groups.
 
@@ -1461,7 +1463,7 @@ The output set of the `groupby` transformation is constructed in five steps.
    - For each structural or navigation property $q$ of $u$:
      - If $u$ has a subtype of the type addressed by $p$ and $q$ is only declared on that subtype, let $p'=p/p''/q$ where $p''$ is a type-cast to the subtype, otherwise let $p'=p/q$.
      - If $p'$ occurs in $G$, let $v[q]=u[q]$.
-     - Otherwise, if $p'$ is a prefix of a path in $G$, let $v[q]=s_G(u[q],p')$.
+     - Otherwise, if $p'$ is a prefix of a path in $G$ and $u[q]$ has a structured type, let $v[q]=s_G(u[q],p')$.
    - Return $v$.
 2. The input set is split into subsets where two instances are in the same subset if their projections are [the same](#SamenessandOrder). If [representations of the same non-transient entity](#SamenessandOrder) are encountered during the comparison of two projections, the service MUST assign them to one subset with the merged representation if they are complementary and MUST reject the request if they are contradictory.
 3. The set transformations from the second parameter are applied to each subset, resulting in a new set of potentially different structure and cardinality. Associated with each resulting set is the common projection of the instances in the subset from which the resulting set was computed.
@@ -4622,7 +4624,7 @@ Example <a id="refconstr" href="#refconstr">116</a>: If the parent navigation pr
   </NavigationProperty>
 </EntityType>
 ```
-then alternatively the property taking part in the referential constraint [OData-Protocol, section 11.4.9.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UpdateaPrimitiveProperty) could be changed to EMEA Central:
+then alternatively the property taking part in the referential constraint [OData-Protocol, section 11.4.8.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UpdateaPrimitiveProperty) could be changed to EMEA Central:
 ```json
 PATCH /service/SalesOrganizations('Switzerland')
 Content-Type: application/json

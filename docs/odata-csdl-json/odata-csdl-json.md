@@ -3449,17 +3449,17 @@ the last navigation property segment MUST be a non-containment
 navigation property and there MUST NOT be any non-containment navigation
 properties prior to the final navigation property segment.
 
+OData 4.01 services MAY have a type-cast segment as the last path
+segment, allowing to bind instances of different sub-types to different
+targets.
+
 If the path traverses collection-valued complex properties or
 collection-valued containment navigation properties, the binding applies
 to all items of these collections.
 
 If the path contains a recursive sub-path (i.e. a path leading back to
-the same structured type, the binding applies recursively to any
+the same structured type), the binding applies recursively to any
 positive number of cycles through that sub-path.
-
-OData 4.01 services MAY have a type-cast segment as the last path
-segment, allowing to bind instances of different sub-types to different
-targets.
 
 The same navigation property path MUST NOT be specified in more than one
 navigation property binding; navigation property bindings are only used
@@ -3532,14 +3532,15 @@ Example 36: for an entity set in any container in scope
 :::
 
 ::: {.varjson .example}
-Example 37: binding `Supplier` on `Products` contained within
-`Categories` – binding applies to all suppliers of all products of all categories
+Example 37: If `Subcategories` is a containment navigation property on the
+category entity type, the following binding applies to all products of all subcategories
+of all categories
 ```json
 "Categories": {
   "$Collection": true,
   "$Type": "self.Category",
   "$NavigationPropertyBinding": {
-    "Products/Supplier": "Suppliers"
+    "Subcategories/Products": "Products"
   }
 }
 ```
@@ -3819,7 +3820,7 @@ the default value of the term, see
 [OData-JSON, section 7.1](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#PrimitiveValue).
 
 Note: the `$DefaultValue` member is purely for documentation and
-isomorphy to [OData-CSDLXML, section 7.3](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/odata-csdl-xml-v4.02.html#DefaultValue). Annotations in
+isomorphy to [OData-CSDLXML, section 14.1](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/odata-csdl-xml-v4.02.html#Term). Annotations in
 CSDL JSON documents MUST always specify an explicit value.
 :::
 
@@ -4110,7 +4111,7 @@ cannot be inferred from the constant expression alone. If such
 an ambiguous constant expression is an operand of a larger expression, clients MUST assume
 that the operand has the type demanded by the larger expression, for example, in a
 client-side function or in a comparison with another operand of known type.
-(In the `$Le` comparison in [example 75](#disambiguate) `Duration` is of type
+(In the `$Le` comparison in [example 76](#disambiguate) `Duration` is of type
 `Edm.Duration`, therefore the constant expression `"PT1H"` is a duration, not a string.)
 
 ### <a id="Binary" href="#Binary">14.3.1 Binary</a>
@@ -4402,6 +4403,14 @@ Example 59:
 
 Dynamic expressions allow assigning a calculated value to an applied
 term.
+
+If a calculated value is not acceptable for the type of the term or
+its [facets](#TypeFacets), does not meet the constraints imposed by its
+`$Nullable` member
+or by its
+annotations from the Validation vocabulary [OData-VocValidation](#ODataVocValidation),
+the client SHOULD NOT make any assumptions about the application of the term
+(see [example 75](#termdefault)).
 
 ### <a id="PathExpressions" href="#PathExpressions">14.4.1 Path Expressions</a>
 
@@ -4986,6 +4995,26 @@ Example 74:
 
 
 
+::: example
+Example <a id="termdefault" href="#termdefault">75</a>: The first name of a bot cannot be changed after creation.
+:::: varjson
+```json
+"IsBot": {
+  "$Type": "Edm.Boolean",
+  "$Nullable": true
+},
+"FirstName": {
+  "@Core.Immutable": {
+    "$Path": "IsBot"
+  }
+}
+```
+::::
+If `IsBot` is `null` the client makes no assumption about the immutability of
+the `FirstName`. It can try to change it after creation while being prepared for an
+error response.
+:::
+
 ### <a id="ComparisonandLogicalOperators" href="#ComparisonandLogicalOperators">14.4.2 Comparison and Logical Operators</a>
 
 Annotations MAY use the following logical and comparison expressions
@@ -5048,7 +5077,7 @@ They MAY contain [annotations](#Annotation).
 
 
 ::: {.varjson .example}
-Example <a id="disambiguate" href="#disambiguate">75</a>:
+Example <a id="disambiguate" href="#disambiguate">76</a>:
 ```json
 {
   "$And": [
@@ -5189,7 +5218,7 @@ They MAY contain [annotations](#Annotation).
 :::
 
 ::: {.varjson .example}
-Example 76:
+Example 77:
 ```json
 {
   "$Add": [
@@ -5268,6 +5297,10 @@ client-side function. The apply expression MAY have operand expressions.
 The operand expressions are used as parameters to the client-side
 function.
 
+If the value of an operand expression is not acceptable for the function,
+the client SHOULD NOT make any assumptions about the application of the term
+that rely on the operand.
+
 ::: {.varjson .rep}
 ### <a id="Apply.21.20" href="#Apply.21.20">`$Apply`</a> and <a id="Function.21.21" href="#Function.21.21">`$Function`</a>
 
@@ -5302,7 +5335,7 @@ are represented according to the appropriate alternative in the
 `binaryValue`, `Edm.Boolean` as `booleanValue` etc.
 
 ::: {.varjson .example}
-Example 77:
+Example 78:
 ```json
 "@UI.DisplayName": {
   "$Apply": [
@@ -5386,7 +5419,7 @@ types with two properties that are used in lexicographic order. The
 first property is used as key, the second property as value.
 
 ::: {.varjson .example}
-Example 78: assuming there are no special characters in values of the
+Example 79: assuming there are no special characters in values of the
 Name property of the Actor entity
 ```json
 {
@@ -5418,7 +5451,7 @@ expression, using syntax and semantics of
 [ECMAScript](#_ECMAScript) regular expressions.
 
 ::: {.varjson .example}
-Example 79: all non-empty `FirstName` values not containing the letters
+Example 80: all non-empty `FirstName` values not containing the letters
 `b`, `c`, or `d` evaluate to `true`
 ```json
 {
@@ -5444,7 +5477,7 @@ Note: string literals are surrounded by single quotes as required by the
 parentheses-style key syntax.
 
 ::: {.varjson .example}
-Example 80:
+Example 81:
 ```json
 {
   "$Apply": [
@@ -5493,7 +5526,7 @@ considered unspecified.
 :::
 
 ::: {.varjson .example}
-Example 81:
+Example 82:
 ```json
 "@UI.Threshold": {
   "$Cast": {
@@ -5514,6 +5547,13 @@ is the collection of the values calculated by each of the item
 expressions. The values of the child expressions MUST all be type
 compatible.
 
+If the value of a dynamic child expression is not acceptable for the type of the collection or
+its [facets](#TypeFacets), is null for a non-[nullable](#Nullable) collection
+or does not meet the constraints imposed by
+its annotations from the Validation vocabulary [OData-VocValidation](#ODataVocValidation),
+the client SHOULD NOT make any assumptions about the application of the term
+that rely on the value.
+
 ::: {.varjson .rep}
 Collection expressions are represented as arrays with one array item per
 item expression within the collection expression.
@@ -5525,7 +5565,7 @@ item expression within the collection expression.
 
 
 ::: {.varjson .example}
-Example 82:
+Example 83:
 ```json
 "@seo.SeoTerms": [
   "Product",
@@ -5552,16 +5592,20 @@ child expression MAY be omitted, reducing it to an if-then expression.
 This can be used to conditionally add an element to a collection.
 
 The first child expression is the condition and MUST evaluate to a
-Boolean result, e.g. the [comparison and logical
+Boolean result or `null`, e.g. the [comparison and logical
 operators](#ComparisonandLogicalOperators) can be used.
 
 The second and third child expressions are evaluated conditionally. The
 result MUST be type compatible with the type expected by the surrounding
 expression.
 
+If the value of a child expression does not meet these conditions,
+the client SHOULD NOT make any assumptions about the application of the term
+that rely on the condition expression.
+
 If the first expression evaluates to `true`, the second expression MUST
 be evaluated and its value MUST be returned as the result of the
-if-then-else expression. If the first expression evaluates to `false`
+if-then-else expression. If the first expression evaluates to `false` or `null`
 and a third child element is present, it MUST be evaluated and its value
 MUST be returned as the result of the if-then-else expression. If no
 third expression is present, nothing is added to the surrounding
@@ -5577,7 +5621,7 @@ It MAY contain [annotations](#Annotation).
 :::
 
 ::: {.varjson .example}
-Example 83: the condition is a [value path expression](#ValuePath)
+Example 84: the condition is a [value path expression](#ValuePath)
 referencing the Boolean property `IsFemale`, whose value then determines
 the value of the `$If` expression
 ```json
@@ -5594,7 +5638,7 @@ the value of the `$If` expression
 :::
 
 ::: {.varjson .example}
-Example 84: pronouns based on a person's `IdentifiesAsFemale` and `IdentifiesAsMale` attributes
+Example 85: pronouns based on a person's `IdentifiesAsFemale` and `IdentifiesAsMale` attributes
 ```json
 "@org.example.person.Pronouns": [
   {
@@ -5662,7 +5706,7 @@ considered unspecified.
 :::
 
 ::: {.varjson .example}
-Example 85:
+Example 86:
 ```json
 "@Self.IsPreferredCustomer": {
   "$IsOf": {
@@ -5701,7 +5745,7 @@ It MAY contain [annotations](#Annotation).
 :::
 
 ::: {.varjson .example}
-Example 86:
+Example 87:
 ```json
 "@UI.DisplayName": {
   "$LabeledElement": {
@@ -5730,7 +5774,7 @@ an qualified name.
 :::
 
 ::: {.varjson .example}
-Example 87:
+Example 88:
 ```json
 "@UI.DisplayName": {
   "$LabeledElementReference": "self.CustomerFirstName"
@@ -5751,7 +5795,7 @@ literal `null`.
 :::
 
 ::: {.varjson .example}
-Example 88:
+Example 89:
 ```json
 "@UI.DisplayName": null,
 ```
@@ -5765,7 +5809,7 @@ as an object with a member `$Null` whose value is the literal `null`.
 :::
 
 ::: {.varjson .example}
-Example 89:
+Example 90:
 ```json
 "@UI.Address": {
   "$Null": null,
@@ -5799,6 +5843,13 @@ the base term or its base term etc. need not be specified again.
 For collection-valued properties the absence of a property value
 expression is equivalent to specifying an empty collection as its value.
 
+If a dynamically provided property value is not acceptable for the type of the property or
+its [facets](#TypeFacets), does not meet the constraints imposed by
+its [nullability](#Nullable) or by
+its annotations from the Validation vocabulary [OData-VocValidation](#ODataVocValidation),
+the client SHOULD NOT make any assumptions about the application of the term that rely on the
+property value.
+
 ::: {.varjson .rep}
 Record expressions are represented as objects with one member per
 property value expression. The member name is the property name, and the
@@ -5816,7 +5867,7 @@ Annotations for record members are prefixed with the member name.
 
 
 ::: {.varjson .example}
-Example 90: this annotation "morphs" the entity type from [example 13](#entitytype) into
+Example 91: this annotation "morphs" the entity type from [example 13](#entitytype) into
 a structured type with two structural properties `GivenName` and
 `Surname` and two navigation properties `DirectSupervisor` and
 `CostCenter`. The first three properties simply rename properties of the
@@ -5886,7 +5937,7 @@ It MAY contain [annotations](#Annotation).
 :::
 
 ::: {.varjson .example}
-Example 91:
+Example 92:
 ```json
 "@org.example.person.Supplier": {
   "$UrlRef": {
@@ -5977,7 +6028,7 @@ forward-slash separated property, navigation property, or type-cast
 segments
 
 ::: example
-Example 92: Target paths
+Example 93: Target paths
 ```
 MySchema.MyEntityContainer/MyEntitySet
 ```
@@ -6010,7 +6061,7 @@ CSDL JSON. These examples demonstrate many of the topics covered above.
 ## <a id="ProductsandCategoriesExample" href="#ProductsandCategoriesExample">16.1 Products and Categories Example</a>
 
 ::: {.varjson .example}
-Example 93:
+Example 94:
 ```json
 {
   "$Version": "4.0",
@@ -6231,7 +6282,7 @@ Example 93:
 ## <a id="AnnotationsforProductsandCategoriesExample" href="#AnnotationsforProductsandCategoriesExample">16.2 Annotations for Products and Categories Example</a>
 
 ::: {.varjson .example}
-Example 94:
+Example 95:
 ```json
 {
   "$Version": "4.01",

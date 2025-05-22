@@ -218,10 +218,10 @@ Section | Feature / Change | Issue
 --------|------------------|------
 [Section 4.6.1](#ControlInformationcontextodatacontext)| Fragment portion of Context URL is not percent-encoded| [368](https://github.com/oasis-tcs/odata-specs/issues/368)
 [Section 4.6.8](#ControlInformationidodataid)| Transient entities can be identifiable| [1928](https://github.com/oasis-tcs/odata-specs/issues/1928)
+[Section 4.6.10](#ControlInformationetagodataetag)| Control information `"@etag": ""` to prevent updates| [2021](https://github.com/oasis-tcs/odata-specs/issues/2021)
 [Section 4.6.12](#ControlInformationmediaodatamedia)| `mediaContentType` can be `null`| [536](https://github.com/oasis-tcs/odata-specs/issues/536)
 [Section 7](#StructuralProperty), [Section A.2](#InformativeReferences)| Removed reference to obsolete version of GeoJSON| [456](https://github.com/oasis-tcs/odata-specs/issues/456)
-[Section 15.3](#DeletedEntity) | `type` control information, if present, must come immediately after `removed` |
-[1985](https://github.com/oasis-tcs/odata-specs/issues/1985)
+[Section 15.3](#DeletedEntity)| `type` control information, if present, must come immediately after `removed`| [1985](https://github.com/oasis-tcs/odata-specs/issues/1985)
 [Section 18](#ActionInvocation)| Allow common expressions in action payloads| [341](https://github.com/oasis-tcs/odata-specs/issues/341)
 
 ## <a id="Glossary" href="#Glossary">1.2 Glossary</a>
@@ -1047,6 +1047,9 @@ opaque string value that can be used in a subsequent request to
 determine if the value of the entity or collection has changed.
 
 For details on how ETags are used, see [OData-Protocol, section 11.4.1.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UseofETagsforAvoidingUpdateConflicts).
+The special value `"@etag": "*"` is equivalent to the header `If-Match: *`,
+and the special value `"@etag": ""` is equivalent to the header `If-None-Match: *`,
+see [OData-Protocol, section 11.4.11](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UpdateaCollectionofEntities).
 
 The `etag` control information is ignored in request payloads for
 single entities and not written in responses if
@@ -1394,7 +1397,9 @@ JSON strings whose content satisfies the rules `binaryValue`,
 `dateValue`, `dateTimeOffsetValue`,
 `durationValue`, `guidValue`, and
 `timeOfDayValue` respectively, in
-[OData-ABNF](#ODataABNF).
+[OData-ABNF](#ODataABNF). The interpretation of a `timeOfDayValue` in which the `second` is omitted
+is not defined by this specification. For maximum interoperability, senders
+SHOULD always include the `second`.
 
 Primitive values that cannot be represented, for example due to server
 conversion issues or IEEE754 limitations on the size of an `Edm.Int64` or `Edm.Decimal` value, are
@@ -3144,18 +3149,6 @@ Content-Type: application/json
 
 Inside a batch request the common expressions can also be value references
 starting with `$`, as introduced in [OData-Protocol, section 11.7.6](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ReferencingValuesfromResponseBodies).
-
-Non-binding parameters that are nullable or annotated with the term
-[`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter) defined in
-[OData-VocCore](#ODataVocCore) MAY be omitted from the request body.
-If an omitted parameter is not annotated (and thus nullable), it MUST be
-interpreted as having the `null` value. If it is annotated
-and the annotation specifies a `DefaultValue`, the omitted
-parameter is interpreted as having that default value. If omitted and
-the annotation does not specify a default value, the service is free on
-how to interpret the omitted parameter. Note: a nullable non-binding
-parameter is equivalent to being annotated as optional with a default
-value of `null`.
 
 ::: example
 Example 54:

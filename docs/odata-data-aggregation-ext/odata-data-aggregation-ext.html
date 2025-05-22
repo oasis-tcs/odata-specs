@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
 <head>
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
@@ -59,7 +59,7 @@
     code span.al { color: #ff0000; font-weight: bold; } /* Alert */
     code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
     code span.at { color: #7d9029; } /* Attribute */
-    code span.bn { color: #40a070; } /* BaseN */
+    code span.bn { color: #337f59; } /* BaseN */
     code span.bu { color: #008000; } /* BuiltIn */
     code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
     code span.ch { color: #4070a0; } /* Char */
@@ -68,10 +68,10 @@
     code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
     code span.do { color: #ba2121; font-style: italic; } /* Documentation */
     code span.dt { color: #902000; } /* DataType */
-    code span.dv { color: #40a070; } /* DecVal */
+    code span.dv { color: #337f59; } /* DecVal */
     code span.er { color: #ff0000; font-weight: bold; } /* Error */
     code span.ex { } /* Extension */
-    code span.fl { color: #40a070; } /* Float */
+    code span.fl { color: #337f59; } /* Float */
     code span.fu { color: #06287e; } /* Function */
     code span.im { color: #008000; font-weight: bold; } /* Import */
     code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
@@ -123,7 +123,7 @@
 
       const darkmode_query = matchMedia("(prefers-color-scheme: dark)");
       darkmode_query.addEventListener("change", darkmode_auto);
-      const darkmode_switch = document.getElementById("darkmode");
+      const darkmode_switch = document.querySelector("#darkmode select");
       darkmode_switch.value =
         localStorage.getItem("odata-specs/darkmode") || "off";
       darkmode_switch.addEventListener("change", darkmode_manual);
@@ -134,11 +134,13 @@
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 </head>
 <body>
-<select id="darkmode">
-  <option value="off" title="Light mode">&#x263C;</option>
-  <option value="on" title="Dark mode">&#x263D;</option>
-  <option value="auto" title="Follow device mode">&#x25D1;</option>
-</select>
+<aside id="darkmode">
+  <select aria-label="Switch light/dark mode">
+    <option value="off" title="Light mode">&#x263C;</option>
+    <option value="on" title="Dark mode">&#x263D;</option>
+    <option value="auto" title="Follow device mode">&#x25D1;</option>
+  </select>
+</aside>
 <p><img src="https://docs.oasis-open.org/templates/OASISLogo-v3.0.png" alt="OASIS Logo" /></p>
 <hr />
 <details open><summary>
@@ -1612,6 +1614,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>Instances of an output set can contain structural and navigation properties, which can be declared or dynamic, as well as instance annotations.</p>
 <p>The allowed set transformations are defined in this section as well as in the section on <a href="#HierarchicalTransformations">Hierarchical Transformations</a>.</p>
 <p>Service-defined bound functions that take a collection of instances of a structured type as their binding parameter and return a collection of instances of a structured type MAY be used as set transformations within <code>$apply</code>. Further transformations can follow the bound function. The parameter syntax for bound function segments is identical to the parameter syntax for bound functions in resource path segments or <code>$filter</code> expressions. See <a href="#ModelFunctionsasSetTransformations">section 7.7</a> for an example.</p>
+<p>Parameter aliases <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#ParameterAliases">OData-URL, section 5.3</a> can be used inside the value of <code>$apply</code> wherever the ABNF rule <code>applyTrafo</code> <a href="#ODataABNF">OData-ABNF</a> is reduced to a <code>commonExpr</code> <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CommonExpressionSyntax">OData-URL, section 5.1.1</a> or a <code>collectionExpr</code> (<a href="#ExpressionsEvaluableonaCollection">section 3.6</a>).</p>
 <p>If a data service that supports <code>$apply</code> does not support it on the collection identified by the request resource path, it MUST fail with <code>501 Not Implemented</code> and a meaningful human-readable error message.</p>
 <p>On resource paths ending in <code>/$count</code> the system query option <code>$apply</code> is evaluated on the set identified by the resource path without the <code>/$count</code> segment, the result is the plain-text number of items in the result of <code>$apply</code>. This is similar to the combination of <code>/$count</code> and <code>$filter</code>.</p>
 <p>During serialization of the result of <code>$apply</code> declared properties and dynamic properties are represented as defined by the response format. Other properties have been aggregated away and are not represented in the response. The entities returned in the request examples in the following sections that involve aggregation are therefore transient.</p>
@@ -1645,7 +1648,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <h3 id="312-sameness-and-order"><a id="SamenessandOrder" href="#SamenessandOrder">3.1.2 Sameness and Order</a></h3>
 </summary>
 <p>Input sets and output sets are not sets of instances in the mathematical sense but collections, because the same instance can occur multiple times in them. In other words: A collection contains values (which can be instances of structured types or primitive values), possibly with repetitions. The occurrences of the values in the collection form a set in the mathematical sense. The <em>cardinality</em> of a collection is the total number of occurrences in it. When this text describes a transformation algorithmically and stipulates that certain steps are carried out <em>for each occurrence</em> in a collection, this means that the steps are carried out multiple times for the same value if it occurs multiple times in the collection.</p>
-<p>A collection addressed by the resource path is returned by the service either as an ordered collection <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ManagingMembersofanOrderedCollection">OData-Protocol, section 11.4.10</a> or as an unordered collection. The same applies to collections that are nested in or related to the addressed resource as well as to collections that are the result of evaluating an expression starting with <code>$root</code>, which occur, for example, as the first parameter of a <a href="#HierarchicalTransformations">hierarchical transformation</a>.</p>
+<p>A collection addressed by the resource path is returned by the service either as an ordered collection <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ManagingMembersofanOrderedCollection">OData-Protocol, section 11.4.9</a> or as an unordered collection. The same applies to collections that are nested in or related to the addressed resource as well as to collections that are the result of evaluating an expression starting with <code>$root</code>, which occur, for example, as the first parameter of a <a href="#HierarchicalTransformations">hierarchical transformation</a>.</p>
 <p>But when such a collection is transformed by the <code>$apply</code> system query option, additional cases can arise that are neither ordered nor totally unordered. For example, the <a href="#Transformationgroupby"><code>groupby</code></a> transformation retains any order within a group but not between groups.</p>
 <div class="example">
 <p>⚠ Example 6: Request the top 10 sales per customer. The processing of the request can be parallelized per customer and the responses per customer can be interleaved in the overall response. This means that for any given customer, their top 10 sales appear in the desired order, though not consecutively.</p>
@@ -1981,7 +1984,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <ul>
 <li>If <span class="math inline">\(u\)</span> has a subtype of the type addressed by <span class="math inline">\(p\)</span> and <span class="math inline">\(q\)</span> is only declared on that subtype, let <span class="math inline">\(p&#39;=p/p&#39;&#39;/q\)</span> where <span class="math inline">\(p&#39;&#39;\)</span> is a type-cast to the subtype, otherwise let <span class="math inline">\(p&#39;=p/q\)</span>.</li>
 <li>If <span class="math inline">\(p&#39;\)</span> occurs in <span class="math inline">\(G\)</span>, let <span class="math inline">\(v[q]=u[q]\)</span>.</li>
-<li>Otherwise, if <span class="math inline">\(p&#39;\)</span> is a prefix of a path in <span class="math inline">\(G\)</span>, let <span class="math inline">\(v[q]=s_G(u[q],p&#39;)\)</span>.</li>
+<li>Otherwise, if <span class="math inline">\(p&#39;\)</span> is a prefix of a path in <span class="math inline">\(G\)</span> and <span class="math inline">\(u[q]\)</span> has a structured type, let <span class="math inline">\(v[q]=s_G(u[q],p&#39;)\)</span>.</li>
 </ul></li>
 <li>Return <span class="math inline">\(v\)</span>.</li>
 </ul></li>
@@ -4586,7 +4589,7 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 <span id="cb224-11"><a href="#cb224-11" aria-hidden="true" tabindex="-1"></a><span class="ot">                           ReferencedProperty=</span><span class="st">&quot;ID&quot;</span> /&gt;</span>
 <span id="cb224-12"><a href="#cb224-12" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">NavigationProperty</span>&gt;</span>
 <span id="cb224-13"><a href="#cb224-13" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">EntityType</span>&gt;</span></code></pre></div>
-<p>then alternatively the property taking part in the referential constraint <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UpdateaPrimitiveProperty">OData-Protocol, section 11.4.9.1</a> could be changed to EMEA Central:</p>
+<p>then alternatively the property taking part in the referential constraint <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UpdateaPrimitiveProperty">OData-Protocol, section 11.4.8.1</a> could be changed to EMEA Central:</p>
 <div class="sourceCode" id="cb225"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb225-1"><a href="#cb225-1" aria-hidden="true" tabindex="-1"></a><span class="er">PATCH</span> <span class="er">/service/SalesOrganizations(&#39;Switzerland&#39;)</span></span>
 <span id="cb225-2"><a href="#cb225-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb225-3"><a href="#cb225-3" aria-hidden="true" tabindex="-1"></a></span>

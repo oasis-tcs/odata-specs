@@ -448,8 +448,11 @@ using an annotation with term
 [`Capabilities.BatchContinueOnErrorSupported`]($$$OData-VocCap$$$#BatchContinueOnErrorSupported),
 see [OData-VocCap](#ODataVocCap).
 
-The `continue-on-error` preference SHOULD NOT be applied to individual
-requests within a batch.
+The `continue-on-error` preference on a batch request refers to whether individual
+requests within a batch should be executed if others have failed. Whether an
+individual request that represents multiple operations should continue on error can
+instead be expressed through a `continue-on-error` preference on that individual
+request.
 
 Note: The `continue-on-error` preference was named
 `odata.continue-on-error` in OData version 4.0. Services that support
@@ -596,16 +599,18 @@ SHOULD be used.
 The `omit-values` preference specifies values that MAY be omitted from a
 response payload. Valid values are `nulls` or `defaults`.
 
-If `nulls` is specified, then the service MAY omit properties containing
+If `nulls` is specified, then the service MAY omit single-valued properties having
 null values from the response, in which case it MUST specify the
 `Preference-Applied` response header with `omit-values=nulls`.
 
-If `defaults` is specified, then the service MAY omit properties
-containing default values from the response, including nulls for
+If `defaults` is specified, then the service MAY omit single-valued properties
+having default values from the response, including nulls for
 properties that have no other defined default value. Nulls MUST be
 included for properties that have a non-null default value defined. If
 the service omits default values, it MUST specify the
 `Preference-Applied` response header with `omit-values=defaults`.
+
+Collection-valued properties cannot be omitted in this way.
 
 Properties with instance annotations are not affected by this preference
 and MUST be included in the payload if they would be included without

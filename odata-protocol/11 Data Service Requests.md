@@ -155,6 +155,25 @@ instance, for example as a `readLink` or `editLink` in an
 MAY support conventions for constructing a read URL using the entity's
 key value(s), as described in [#OData-URL#CanonicalURL].
 
+Borderline cases are possible in which two or more entity sets with the same entity type
+use overlapping keys and a non-containment navigation property [#OData-CSDL#ContainmentNavigationProperty]
+with that entity type does not have a unique navigation property binding [#OData-CSDL#NavigationPropertyBinding].
+In such cases, a URL that identifies a collection of entities followed by
+an entity key to select a single entity (like in [#OData-URL#AddressingEntities])
+may not identify a unique entity. Services SHOULD avoid such cases, since the
+behavior is undefined for them.
+
+::: example
+Example ##ex: Products can be sourced from a supplier (like `Suppliers(5)`)
+as well as from a subsidiary (like `Subsidiaries(5)`). These two entities have the same
+entity type that is also used by the non-containment navigation property `SourcedFrom`
+defined on the product entity type. Then the following URL
+might identify either of the two entities:
+```
+GET http://host/service/Products(1)/SourcedFrom(5)
+```
+:::
+
 The set of structural or navigation properties to return may be
 specified through [`$select`](#SystemQueryOptionselect) or
 [`$expand`](#SystemQueryOptionexpand) system query options.
@@ -336,7 +355,7 @@ GET http://host/service/Products?$select=*
 :::
 
 Properties of related entities can be specified by including the
-`$select` query option within the `$expand`.
+`$select` [option](#ExpandOptions) within the `$expand`.
 
 ::: example
 Example ##ex:
@@ -370,19 +389,19 @@ GET http://host/service/Products?$select=DemoService.*
 ```
 :::
 
-Query options can be applied to a selected property by appending a
-semicolon-separated list of query options, enclosed in parentheses, to
-the property. Allowed system query options are
-[`$select`](#SystemQueryOptionselect) and
-[`$compute`](#SystemQueryOptioncompute) for complex properties, plus
-[`$filter`](#SystemQueryOptionfilter),
-[`$search`](#SystemQueryOptionsearch),
-[`$count`](#SystemQueryOptioncount),
-[`$orderby`](#SystemQueryOptionorderby),
-[`$skip`](#SystemQueryOptionskip), and [`$top`](#SystemQueryOptiontop)
-for collection-valued properties. A property MUST NOT have select
-options specified in more than one place in a request and MUST NOT have
-both select options and expand options specified.
+If the selected property represents a collection of primitive or complex values, 
+then the [count segment](#RequestingtheNumberofItemsinaCollection) (`/$count`), 
+optionally followed by the [Select Options](#SelectOptions) [`$filter`](#SystemQueryOptionfilter) 
+and/or [`$search`](#SystemQueryOptionsearch), can be appended to the path in order 
+to return only the count of the matching items.
+
+::: example
+Example ##ex: for each customer, return the ID and the count of addresses 
+starting with the letter 'H'.
+```
+GET http://host/service/Customers?$select=ID,Addresses/$count($filter=startswith(City,'H'))
+```
+:::
 
 If the `$select` query option is not specified, the service returns
 the full set of properties or a default set of properties. The default
@@ -399,6 +418,22 @@ the service returned a subset of properties in the absence of a select,
 the [context URL](#ContextURL) MUST reflect the set of selected
 properties and projected [expanded](#SystemQueryOptionexpand) navigation
 properties.
+
+##### ##subsubsubsubsec Select Options
+
+Query options can be applied to a selected property by appending a
+semicolon-separated list of query options, enclosed in parentheses, to
+the property. Allowed system query options are
+[`$select`](#SystemQueryOptionselect) and
+[`$compute`](#SystemQueryOptioncompute) for complex properties, plus
+[`$filter`](#SystemQueryOptionfilter),
+[`$search`](#SystemQueryOptionsearch),
+[`$count`](#SystemQueryOptioncount),
+[`$orderby`](#SystemQueryOptionorderby),
+[`$skip`](#SystemQueryOptionskip), and [`$top`](#SystemQueryOptiontop)
+for collection-valued properties. A property MUST NOT have select
+options specified in more than one place in a request and MUST NOT have
+both select options and expand options specified.
 
 #### ##subsubsubsec System Query Option `$expand`
 
@@ -437,6 +472,20 @@ GET http://host/service.svc/Customers?$expand=Photo
 ```
 :::
 
+If the expand item represents a collection of entities, then the 
+[count segment](#RequestingtheNumberofItemsinaCollection) (`/$count`), optionally followed by 
+the [Expand Options](#ExpandOptions) [`$filter`](#SystemQueryOptionfilter) and/or 
+[`$search`](#SystemQueryOptionsearch), can be appended to the expand item in order to 
+return only the count of matching items.
+
+::: example
+Example ##ex: for each Category, return the `Name` and the count of `Products` 
+starting with the letter 'H'.
+```
+GET http://host/service/Categories?$select=Name&$expand=Products/$count($filter=startswith(Name,'H'))
+```
+:::
+
 ##### ##subsubsubsubsec Expand Options
 
 The set of expanded entities can be further refined through the
@@ -452,7 +501,8 @@ Allowed system query options are
  for all navigation properties, plus
 [`$filter`](#SystemQueryOptionfilter),
 [`$orderby`](#SystemQueryOptionorderby),
-[`$skip`](#SystemQueryOptionskip), [`$top`](#SystemQueryOptiontop),
+[`$skip`](#SystemQueryOptionskip), 
+[`$top`](#SystemQueryOptiontop),
 [`$count`](#SystemQueryOptioncount), and
 [`$search`](#SystemQueryOptionsearch)
  for collection-valued navigation properties.
@@ -520,13 +570,16 @@ GET http://host/service/Employees?$expand=Model.Manager/DirectReports($levels=4)
 #### ##subsubsubsec System Query Option `$compute`
 
 The `$compute` system query option allows clients to define computed
-properties that can be used in a [`$select`](#SystemQueryOptionselect)
-or within a [`$filter`](#SystemQueryOptionfilter) or
-[`$orderby`](#SystemQueryOptionorderby) expression.
+properties that can be used in [`$expand`](#SystemQueryOptionexpand),
+[`$select`](#SystemQueryOptionselect),
+[`$filter`](#SystemQueryOptionfilter), or
+[`$orderby`](#SystemQueryOptionorderby).
+The `$compute` system query option allows clients to define computed properties that can be used in [`$expand`](#SystemQueryOptionexpand),
+[`$select`](#SystemQueryOptionselect),
+[`$filter`](#SystemQueryOptionfilter), or
+[`$orderby`](#SystemQueryOptionorderby). Computed properties are expanded or selected according to their instance-specific type. A computed property is ignored by `$expand` if its instance-specific value is neither a stream, an entity, nor a collection of entities, and the service cannot determine this based on the compute expression.
 
-Computed properties SHOULD be included as dynamic properties in the
-result and MUST be included if `$select` is specified with the computed
-property name, or star (`*`).
+Computed properties SHOULD be included as dynamic properties in the result without being explicitly mentioned in `$expand` or `$select`, or implied by star (`*`).
 
 ::: example
 Example ##ex: compute total price for order items (line breaks only for

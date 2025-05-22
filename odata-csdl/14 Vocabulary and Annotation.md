@@ -198,7 +198,7 @@ the default value of the term, see
 [#OData-JSON#PrimitiveValue].
 
 Note: the `$DefaultValue` member is purely for documentation and
-isomorphy to [#OData-CSDLXML#DefaultValue]. Annotations in
+isomorphy to [#OData-CSDLXML#Term]. Annotations in
 CSDL JSON documents MUST always specify an explicit value.
 :::
 
@@ -1594,6 +1594,19 @@ Example ##ex:
 
 Dynamic expressions allow assigning a calculated value to an applied
 term.
+
+If a calculated value is not acceptable for the type of the term or
+its [facets](#TypeFacets), does not meet the constraints imposed by its
+: varjson
+`$Nullable` member
+:
+: varxml
+`Nullable` attribute
+:
+or by its
+annotations from the Validation vocabulary [OData-VocValidation](#ODataVocValidation),
+the client SHOULD NOT make any assumptions about the application of the term
+(see [example ##termdefault]).
 
 ### ##subsubsec Path Expressions
 
@@ -3004,6 +3017,34 @@ Example ##ex:
 ```
 :::
 
+::: example
+Example ##ex_termdefault: The first name of a bot cannot be changed after creation.
+:::: varxml
+```xml
+<Property Name="IsBot" Type="Edm.Boolean" Nullable="true" />
+<Property Name="FirstName" Type="Edm.String" Nullable="false">
+  <Annotation Term="Core.Immutable" Path="IsBot" />
+</Property>
+```
+::::
+:::: varjson
+```json
+"IsBot": {
+  "$Type": "Edm.Boolean",
+  "$Nullable": true
+},
+"FirstName": {
+  "@Core.Immutable": {
+    "$Path": "IsBot"
+  }
+}
+```
+::::
+If `IsBot` is `null` the client makes no assumption about the immutability of
+the `FirstName`. It can try to change it after creation while being prepared for an
+error response.
+:::
+
 ### ##subsubsec Comparison and Logical Operators
 
 Annotations MAY use the following logical and comparison expressions
@@ -3467,6 +3508,10 @@ client-side function. The apply expression MAY have operand expressions.
 The operand expressions are used as parameters to the client-side
 function.
 
+If the value of an operand expression is not acceptable for the function,
+the client SHOULD NOT make any assumptions about the application of the term
+that rely on the operand.
+
 ::: {.varjson .rep}
 ### ##subisec `$Apply` 
 and ##subisec `$Function`
@@ -3817,6 +3862,13 @@ is the collection of the values calculated by each of the item
 expressions. The values of the child expressions MUST all be type
 compatible.
 
+If the value of a dynamic child expression is not acceptable for the type of the collection or
+its [facets](#TypeFacets), is null for a non-[nullable](#Nullable) collection
+or does not meet the constraints imposed by
+its annotations from the Validation vocabulary [OData-VocValidation](#ODataVocValidation),
+the client SHOULD NOT make any assumptions about the application of the term
+that rely on the value.
+
 ::: {.varjson .rep}
 Collection expressions are represented as arrays with one array item per
 item expression within the collection expression.
@@ -3897,16 +3949,20 @@ child expression MAY be omitted, reducing it to an if-then expression.
 This can be used to conditionally add an element to a collection.
 
 The first child expression is the condition and MUST evaluate to a
-Boolean result, e.g. the [comparison and logical
+Boolean result or `null`, e.g. the [comparison and logical
 operators](#ComparisonandLogicalOperators) can be used.
 
 The second and third child expressions are evaluated conditionally. The
 result MUST be type compatible with the type expected by the surrounding
 expression.
 
+If the value of a child expression does not meet these conditions,
+the client SHOULD NOT make any assumptions about the application of the term
+that rely on the condition expression.
+
 If the first expression evaluates to `true`, the second expression MUST
 be evaluated and its value MUST be returned as the result of the
-if-then-else expression. If the first expression evaluates to `false`
+if-then-else expression. If the first expression evaluates to `false` or `null`
 and a third child element is present, it MUST be evaluated and its value
 MUST be returned as the result of the if-then-else expression. If no
 third expression is present, nothing is added to the surrounding
@@ -4278,6 +4334,13 @@ the base term or its base term etc. need not be specified again.
 
 For collection-valued properties the absence of a property value
 expression is equivalent to specifying an empty collection as its value.
+
+If a dynamically provided property value is not acceptable for the type of the property or
+its [facets](#TypeFacets), does not meet the constraints imposed by
+its [nullability](#Nullable) or by
+its annotations from the Validation vocabulary [OData-VocValidation](#ODataVocValidation),
+the client SHOULD NOT make any assumptions about the application of the term that rely on the
+property value.
 
 ::: {.varjson .rep}
 Record expressions are represented as objects with one member per
