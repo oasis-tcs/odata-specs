@@ -98,7 +98,7 @@ updatable related collection ([section ##AddaReferencetoaCollectionValuedNavigat
 22. MUST support `PUT` to `$ref` to set an existing single updatable
 related entity ([section ##ChangetheReferenceinaSingleValuedNavigationProperty])
 23. MUST support `PATCH` to all edit URLs for updatable resources
-([section ##UpdateanEntity])
+([section ##UpsertanEntity])
 24. MUST support `DELETE` to all edit URLs for deletable resources
 ([section ##DeleteanEntity])
 25. MUST support `DELETE` to `$ref` to remove a reference to an entity
@@ -286,7 +286,7 @@ Level](#OData40MinimalConformanceLevel) for an Updateable service.
 19. MUST support `DELETE` to the reference of a collection member to be
 removed, identified by key ([section ##RemoveaReferencetoanEntity])
 20. SHOULD support `PUT` against single entity with nested content
-21. SHOULD support deep updates ([section ##UpdateRelatedEntitiesWhenUpdatinganEntity]) and deep inserts
+21. SHOULD support deep updates ([section ##UpsertRelatedEntitiesWhenUpsertinganEntity]) and deep inserts
 ([section ##CreateRelatedEntitiesWhenCreatinganEntity])
 22. SHOULD support `PUT` or `DELETE` to `$ref` of a collection-valued
 nav prop
@@ -374,7 +374,7 @@ To be generally interoperable, OData clients
 6. MUST support instances returning properties and navigation
 properties not specified in metadata ([section ##RequestingData])
 7. MUST generate `PATCH` requests for updates, if the client supports
-updates ([section ##UpdateanEntity])
+updates ([section ##UpsertanEntity])
 8. MUST include the `$` prefix when specifying OData-defined system
 query options
 9. MUST use case-sensitive query options, operators, and canonical
