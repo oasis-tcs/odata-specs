@@ -384,17 +384,10 @@ as follows:
   for (const schema in this.children)
     if ([this.children[schema].$Alias, schema].includes(namespace))
       result = callback(this.children[schema]);
-  if (!result)
-    reference: {
-      for (const uri in this.$Reference)
-        for (const include of this.$Reference[uri].$Include)
-          if (
-            [include.$Alias, include.$Namespace].includes(namespace) &&
-            include.schema
-          )
-            result = callback(include.schema);
-      if (result) break reference;
-    }
+  if (!result) {
+    @<Look up included schema by namespace@>
+    if (schema) result = callback(schema);
+  }
   return result;
 }
 byQualifiedName(namespace, name) {
@@ -490,6 +483,10 @@ fromJSON(json) {
   this.csdlDocument.includes.set(this.$Namespace, this);
   this.csdlDocument.includes.set(this.$Alias, this);
 }
+@}
+
+@$@<Look up included schema by namespace@>@{
+const schema = this.includes.get(namespace)?.schema;
 @}
 
 ::: {.varjson .example}
