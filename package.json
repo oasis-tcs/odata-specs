@@ -8,6 +8,7 @@
     "pdf": "node lib/build-pdf.js",
     "zip": "node lib/zip.js",
     "start": "node lib/server",
+    "minutes": "node lib/minutes.mjs",
     "select": "node lib/selector.mjs",
     "test": "c8 -r html -r text mocha",
     "clean-xxx": "node lib/clean.mjs odata-xxx/temp odata-xxx-v4.0"
