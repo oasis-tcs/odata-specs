@@ -2814,11 +2814,10 @@ The value of `$IsBound` is one of the Boolean literals `true` or
 
 ## <a id="EntitySetPath" href="#EntitySetPath">12.6 Entity Set Path</a>
 
-Actions and functions that return an entity or a collection of
+Bound actions and functions that return an entity or a collection of
 entities MAY specify an entity set path. The entity set path specifies the canonical collection
 (as defined in [OData-Protocol, section 10](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ContextURL)) of the
-returned entities in terms of the canonical collection of the binding parameter
-value.
+returned entities in terms of the binding parameter value.
 
 The entity set path consists of a series of segments joined together
 with forward slashes.
@@ -2836,7 +2835,7 @@ and they MUST end with the name of a [navigation property](#NavigationProperty),
 optionally followed by the [qualified name](#QualifiedName) of a type cast.
 Furthermore, $s_1,…,s_{k-1}$ MUST be single-valued, and
 $s_k$ MUST name a collection-valued navigation property.
-In this case all returned entities MUST then belong to the canonical collection $C$ of the final navigation
+In this case all returned entities MUST belong to the canonical collection $C$ of the final navigation
 property, if this can be determined by the following algorithm:
 1. Let $v$ be the binding parameter value, and let $α/β$ be the canonical URL of $v$
    where $α$ is either an entity set followed by a key predicate or a singleton, and $β$
@@ -2850,7 +2849,7 @@ property, if this can be determined by the following algorithm:
    the [navigation property binding](#NavigationPropertyBinding) defined by the service
    on the entity set or singleton $α$ whose path matches $β/s_i$;
    if it does not exist, then $C$ cannot be determined.
-   The binding target of that navigation proerty binding is either an entity set $α'$ or has the form $α'/β'$ where $α'$ is a singleton.
+   The binding target of that navigation property binding is either an entity set $α'$ or has the form $α'/β'$ where $α'$ is a singleton.
    Update $α=α'$ and $β=β'$.
 7. Update $i=i+1$ and go back to step 3.
 8. If $s_k$ names a containment navigation property, let $C$ be the implicit
