@@ -207,7 +207,7 @@ property, if this can be determined by the following algorithm:
 1. Let $v$ be the binding parameter value, and let $α/β$ be the canonical URL of $v$
    where $α$ is either an entity set followed by a key predicate or a singleton, and $β$
    is a possibly empty concatenation of containment navigation properties, type casts and key predicates.
-   Remove the key predicates from $β$.
+   Remove any key predicates from $α$ and $β$.
 2. Let $i=1$.
 3. If $i=k$, go to step 8.
 4. Update $v$ to the result of evaluating the [instance path](#PathExpressions) $s_i$ on the instance $v$.
