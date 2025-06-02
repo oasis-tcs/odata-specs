@@ -1,7 +1,7 @@
 node_modules
 coverage
 .DS_Store
-/minutes/*.pdf
+/minutes
 /zip/*
 !/zip/*.docx
 !/zip/*.zip
