@@ -249,9 +249,9 @@ For complete copyright information please see the full Notices section in an App
     - [11.4.2 Create an Entity](#CreateanEntity)
       - [11.4.2.1 Link to Related Entities When Creating an Entity](#LinktoRelatedEntitiesWhenCreatinganEntity)
       - [11.4.2.2 Create Related Entities When Creating an Entity](#CreateRelatedEntitiesWhenCreatinganEntity)
-    - [11.4.3 Update an Entity](#UpdateanEntity)
-      - [11.4.3.1 Update Related Entities When Updating an Entity](#UpdateRelatedEntitiesWhenUpdatinganEntity)
-      - [11.4.3.2 Upsert an Entity](#UpsertanEntity)
+    - [11.4.3 Upsert an Entity](#UpsertanEntity)
+      - [11.4.3.1 Upsert Related Entities When Upserting an Entity](#UpsertRelatedEntitiesWhenUpsertinganEntity)
+      - [11.4.3.2 Treat Upsert as Insert](#TreatUpsertasInsert)
     - [11.4.4 Delete an Entity](#DeleteanEntity)
     - [11.4.5 Modifying Relationships between Entities](#ModifyingRelationshipsbetweenEntities)
       - [11.4.5.1 Add a Reference to a Collection-Valued Navigation Property](#AddaReferencetoaCollectionValuedNavigationProperty)
@@ -360,8 +360,8 @@ Section | Feature / Change | Issue
 [Section 11.4](#DataModification)| Response code `204 No Content` after successful data modification if requested response could not be constructed| [443](https://github.com/oasis-tcs/odata-specs/issues/443)
 [Section 11.4.2](#CreateanEntity)| Services can validate non-insertable property values in insert payloads| [356](https://github.com/oasis-tcs/odata-specs/issues/356)
 [Section 11.4.2.2](#CreateRelatedEntitiesWhenCreatinganEntity)| Deep-insert response includes at least the properties present in the request| [363](https://github.com/oasis-tcs/odata-specs/issues/363)
-[Section 11.4.3](#UpdateanEntity)| Services can validate non-updatable property values in update payloads| [356](https://github.com/oasis-tcs/odata-specs/issues/356)
-[Section 11.4.3.2](#UpsertanEntity)| Upserts to single-valued non-containment navigation properties| [455](https://github.com/oasis-tcs/odata-specs/issues/455)
+[Section 11.4.3](#UpsertanEntity)| Services can validate non-updatable property values in update payloads| [356](https://github.com/oasis-tcs/odata-specs/issues/356)
+[Section 11.4.3](#UpsertanEntity)| Upserts to single-valued non-containment navigation properties| [455](https://github.com/oasis-tcs/odata-specs/issues/455)
 [Section 11.4.8.3](#UpdateaComplexProperty)| Setting a complex property to a different type| [534](https://github.com/oasis-tcs/odata-specs/issues/534)
 [Section 11.4.11](#UpdateaCollectionofEntities)| Control information to prevent updates| [2021](https://github.com/oasis-tcs/odata-specs/issues/2021)
 [Section 11.4.12](#ReplaceaCollectionofEntities)| Semantics of `continue-on-error` when replacing a collection of entities | [358](https://github.com/oasis-tcs/odata-specs/issues/358)
@@ -1101,7 +1101,7 @@ not exist the provided ETag value is considered not to match.
 
 The precondition `If-Match: *` is fulfilled if a current representation of the resource exists, a `PUT` or `PATCH` request with that header
 results in an [upsert request](#UpsertanEntity) being processed as an
-[update](#UpdateanEntity) and not an [insert](#CreateanEntity),
+[update](#UpsertanEntity) and not an [insert](#CreateanEntity),
 independent of whether the resource requires an ETag.
 
 The `If-Match` header MUST NOT be specified on a batch request, but MAY
@@ -1127,7 +1127,7 @@ ensure that no observable change occurs as a result of the request.
 
 The precondition `If-None-Match: *` is fulfilled if there is no current representation of the resource, a `PUT` or `PATCH` request with that header
 request results in an [upsert request](#UpsertanEntity) being processed
-as an [insert](#CreateanEntity) and not an [update](#UpdateanEntity),
+as an [insert](#CreateanEntity) and not an [update](#UpsertanEntity),
 independent of whether the resource requires an ETag.
 
 The `If-None-Match` header MUST NOT be specified on a batch request, but
@@ -2608,7 +2608,7 @@ This chapter describes the semantics of the HTTP verbs `GET`, `POST`,
 - [Batch Requests](#BatchRequests) and subsections
 
 `PATCH` and `PUT` requests:
-- [Update an Entity](#UpdateanEntity) and subsections
+- [Update an Entity](#UpsertanEntity) and subsections
 - [Upsert an Entity](#UpsertanEntity)
 - [Modifying Relationships between Entities](#ModifyingRelationshipsbetweenEntities) and subsections
 - [Update a Media Entity Stream](#UpdateaMediaEntityStream)
@@ -4072,7 +4072,7 @@ using a delta link or provided as updates to the service.
 
 ## <a id="DataModification" href="#DataModification">11.4 Data Modification</a>
 
-Updatable OData services support Create, Update, and Delete operations
+Updatable OData services support Create, Upsert, and Delete operations
 for some or all exposed entities. Additionally, [Actions](#Actions)
 supported by a service can affect the state of the system.
 
@@ -4080,7 +4080,7 @@ A successfully completed [Data Modification Request](#DataModification)
 must not violate the integrity of the data.
 
 The client may request whether content be returned from a Create,
-Update, or Delete request, or the invocation of an Action, by specifying
+Upsert, or Delete request, or the invocation of an Action, by specifying
 the [`return`](#Preferencereturnrepresentationandreturnminimal) preference.
 A [success response](#SuccessResponses) indicates that data have been modified,
 regardless of whether the requested content could be returned.
@@ -4141,8 +4141,8 @@ specifying `If-Match` with a value of `*`. Services MAY reject such
 requests.
 
 For requests including an [`OData-Version`](#HeaderODataVersion) header
-value of `4.01`, any ETag values specified in the request body of a
-[request to modify an entity](#UpdateanEntity) MUST be `*` or match the current value
+value of `4.01`, any ETag values specified in the request body of an
+[upsert request](#UpsertanEntity) MUST be `*` or match the current value
 for the record being updated.
 
 ::: example
@@ -4180,8 +4180,8 @@ zone of the normalized values.
 
 Clients MUST be prepared to receive additional properties in an entity
 or complex type instance that are not advertised in metadata, even for
-types not marked as open. By using `PATCH` when [updating
-entities](#UpdateanEntity), clients can ensure that such properties
+types not marked as open. By using `PATCH` when [upserting
+entities](#UpsertanEntity), clients can ensure that such properties
 values are not lost if omitted from the request.
 
 #### <a id="HandlingofIntegrityConstraints" href="#HandlingofIntegrityConstraints">11.4.1.4 Handling of Integrity Constraints</a>
@@ -4197,8 +4197,7 @@ be processed in an all-or-nothing fashion.
 #### <a id="ReturningResultsfromDataModificationRequests" href="#ReturningResultsfromDataModificationRequests">11.4.1.5 Returning Results from Data Modification Requests</a>
 
 Clients can request whether created or modified resources are returned
-from [create](#CreateanEntity), [update](#UpdateanEntity), and
-[upsert](#UpsertanEntity) operations using the
+from [create](#CreateanEntity) and [upsert](#UpsertanEntity) operations using the
 [`return`](#Preferencereturnrepresentationandreturnminimal) preference header. In
 the absence of such a header, services SHOULD return the created or
 modified content unless the resource is a stream property value.
@@ -4264,7 +4263,7 @@ related entity, those related entities MUST be included either as
 references to existing entities or as content for new related entities.
 
 An entity may also be created as the result of a `PATCH` or `PUT` request
-that is [treated as an insert](#UpsertanEntity).
+that is [treated as an insert](#TreatUpsertasInsert).
 
 If the resource path terminates in a type cast segment, then the segment
 MUST specify the type of, or a type derived from, the type of the
@@ -4412,23 +4411,24 @@ operations.
 
 On failure, the service MUST NOT create any of the entities.
 
-### <a id="UpdateanEntity" href="#UpdateanEntity">11.4.3 Update an Entity</a>
+### <a id="UpsertanEntity" href="#UpsertanEntity">11.4.3 Upsert an Entity</a>
 
-To make changes to an entity, the client makes a `PATCH` or `PUT`
+Upserting an entity means either updating an existing entity or creating a new one.
+To upsert an entity, the client makes a `PATCH` or `PUT`
 request to a URL that identifies the entity. The [edit URL](#ReadURLsandEditURLs)
 MAY differ from the canonical URL defined in [OData-URL, section 4.3.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalURL),
-in which case clients SHOULD use the edit URL when making changes to the entity.
+in which case clients SHOULD use the edit URL when upserting an entity.
 
 The body of the request MUST be a valid representation of the
 declared target entity type, or one of its derived types.
 
-Services SHOULD support `PATCH` as the preferred means of updating an
+Services SHOULD support `PATCH` as the preferred means of upserting an
 entity. `PATCH` provides more resiliency between clients and services by
 directly modifying only those values specified by the client.
 
 The semantics of `PATCH`, as defined in [RFC5789](#rfc5789), is to merge
 the content in the request payload with the entity's current state,
-applying the update only to those components specified in the request
+applying the upsert only to those components specified in the request
 body. Collection properties and primitive properties provided in the
 payload corresponding to updatable properties MUST replace the value of
 the corresponding property in the entity or complex type.
@@ -4439,7 +4439,7 @@ dynamic properties, MUST NOT be directly altered unless as a side effect
 of changes resulting from the provided properties.
 
 If the type of the entity in a `PATCH` request differs from the type
-of the entity being updated (i.e., a different derived type of the
+of the entity being upserted (i.e., a different derived type of the
 declared target type), then properties shared through inheritance,
 as well as dynamic properties, are retained (unless overwritten by
 new values in the payload). Other properties of the original type are discarded.
@@ -4465,7 +4465,7 @@ Updating a dependent property that is tied to a key property of the
 principal entity through a referential constraint updates the
 relationship to point to the entity with the specified key value. If
 the canonical collection (as defined in [section 10](#ContextURL)) for that entity cannot be determined or does not contain
-such an entity, the update fails. The canonical collection is known for referential constraints on
+such an entity, the upsert fails. The canonical collection is known for referential constraints on
 containment navigation properties, and can be determined in the presence of navigation property
 bindings or a context URL in the request payload, or through service specific knowledge.
 
@@ -4487,7 +4487,7 @@ Non-updatable properties include (and are not limited to)
   [`Core.Permissions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Permissions), see [OData-VocCore](#ODataVocCore), where the annotation value does not have the `Write` flag.
 
 Services MUST return an error if the request body contains a value for a
-property that in principle can be specified on update but the request cannot currently be executed respecting the specified value, for example, due to permissions or state of the object.
+property that in principle can be specified on upsert but the request cannot currently be executed respecting the specified value, for example, due to permissions or state of the object.
 
 Clients SHOULD use `PATCH` and specify only those properties intended to be changed.
 
@@ -4503,24 +4503,24 @@ supplied ETag value is not `*` and does not match the current ETag value
 for the entity. ETag values in request bodies MUST be ignored for
 requests containing an OData-Version header with a value of `4.0`.
 
-If an update specifies both a binding to a single-valued navigation
+If an upsert specifies both a binding to a single-valued navigation
 property and a dependent property that is tied to a key property of the
 principal entity according to the same navigation property, then the
 dependent property is ignored, and the relationship is updated according
 to the value specified in the binding.
 
-If the entity being updated is open, then additional values for
+If the entity being upserted is open, then additional values for
 properties beyond those specified in the metadata or returned in a
 previous request MAY be sent in the request body. The service MUST treat
 these as dynamic properties.
 
-If the entity being updated is not open, then additional values for
+If the entity being upserted is not open, then additional values for
 properties beyond those specified in the metadata or returned in a
 previous request SHOULD NOT be sent in the request body. The service
 MUST fail if it is unable to persist all updatable property values
 specified in the request.
 
-Upon successful completion of the update, the service responds with either
+Upon successful completion of the update of an existing entity, the service responds with either
 [`200 OK`](#ResponseCode200OK) and a representation of the updated
 entity, or [`204 No Content`](#ResponseCode204NoContent).
 The client may
@@ -4534,9 +4534,9 @@ and is included in the response MUST include an ETag.
 If a representation of the updated entity could not be constructed,
 the service MAY ignore the system query options and respond with `204 No Content`.
 
-#### <a id="UpdateRelatedEntitiesWhenUpdatinganEntity" href="#UpdateRelatedEntitiesWhenUpdatinganEntity">11.4.3.1 Update Related Entities When Updating an Entity</a>
+#### <a id="UpsertRelatedEntitiesWhenUpsertinganEntity" href="#UpsertRelatedEntitiesWhenUpsertinganEntity">11.4.3.1 Upsert Related Entities When Upserting an Entity</a>
 
-Requests to change an entity with an OData-Version header with a value of `4.0` MUST
+Upsert requests with an OData-Version header with a value of `4.0` MUST
 NOT contain related entities as inline content. Such requests MAY
 contain binding information for navigation properties. For single-valued
 navigation properties this replaces the relationship. For
@@ -4547,14 +4547,14 @@ greater MAY include nested entities and entity references that specify
 the full set of to be related entities, or a nested [delta
 payload](#DeltaPayloads) representing the related entities that have
 been added, removed, or changed. Such a request is referred to as a
-"deep update". If the nested collection is represented identical to an
+"deep upsert". If the nested collection is represented identical to an
 expanded navigation property, then the set of nested entities and entity
 references specified in a successful request represents the full
 set of entities to be related according to that relationship and MUST
 NOT include added links, deleted links, or deleted entities.
 
 If a navigation property is absent from a `PUT` or `PATCH` request payload, the referenced
-or contained entity, or the collection thereof, remains unchanged by a successful update.
+or contained entity, or the collection thereof, remains unchanged by a successful upsert.
 
 ::: example
 Example 84: using the JSON format, a 4.01 `PATCH` request can update a
@@ -4744,24 +4744,24 @@ with [`200 OK`](#ResponseCode200OK) SHOULD annotate the entities in the response
 same
 [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID)
 value as specified in the request. Services SHOULD advertise support for
-deep updates, including support for returning the
+deep upserts, including support for returning the
 [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID),
 through the
 [`Capabilities.DeepUpdateSupport`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#DeepUpdateSupport)
 term, defined in [OData-VocCap](#ODataVocCap).
 
-The `continue-on-error` preference is not supported for deep update
+The `continue-on-error` preference is not supported for deep upsert
 operations.
 
 On failure, the service MUST NOT apply any of the changes specified in
 the request.
 
-#### <a id="UpsertanEntity" href="#UpsertanEntity">11.4.3.2 Upsert an Entity</a>
+#### <a id="TreatUpsertasInsert" href="#TreatUpsertasInsert">11.4.3.2 Treat Upsert as Insert</a>
 
-Services MAY treat a request to change an entity as a [create entity request](#CreateanEntity)
+Services MAY treat an upsert request as a [create entity request](#CreateanEntity)
 if it requires the addressed entity to be newly created. The request is then said to be
 "treated as an insert", otherwise "treated as an update".
-Services that support this "upsert" capability (instead of failing such requests that require
+Services that support this capability (instead of failing upsert requests that require
 entity creation) SHOULD advertise it by an annotation with the
 term `Capabilities.UpdateRestrictions` (nested property `Upsertable`
 with value `true`) defined in [OData-VocCap](#ODataVocCap).
@@ -4772,7 +4772,7 @@ through a navigation property path binding [OData-CSDL, section 13.4.1](https://
 or through the presence of a context URL within the payload;
 if the service is unable to determine it, it MUST fail the request.
 
-Upserts are not supported against entities whose keys' values are
+Upsert requests MUST NOT be treated as inserts of entities whose keys' values are
 generated by the service. Services MUST fail a request to a URL
 that would identify such an entity and the entity does not yet exist.
 
@@ -5243,8 +5243,8 @@ Added/changed entities are applied as [upserts](#UpsertanEntity), and
 deleted entities as [deletions](#DeleteanEntity). Non-key properties of
 deleted entities are ignored. The top-level collection may include added
 and deleted links, and related entities represented inline are updated
-according to the rules for [treating related entities when updating an
-entity](#UpdateRelatedEntitiesWhenUpdatinganEntity).
+according to the rules for [treating related entities when upserting an
+entity](#UpsertRelatedEntitiesWhenUpsertinganEntity).
 
 Clients MAY associate an id with individual nested entities in the
 request by using the
@@ -5379,7 +5379,7 @@ updated to the specified primitive value.
 For collections of structured type, the body of the request MUST be a
 full or partial representation of an instance of the collection's
 structured type. Each member of the potentially filtered collection is
-[updated](#UpdateanEntity) using `PATCH` semantics. Structured types MAY
+[upserted](#UpsertanEntity) using `PATCH` semantics. Structured types MAY
 include nested collections or delta collections, in which case the
 semantics described in [Update a Collection of
 Entities](#UpdateaCollectionofEntities) applies.
@@ -6173,7 +6173,7 @@ reference can consist of a `$` character followed by the value of an instance an
 [`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID)
 (see [OData-VocCore](#ODataVocCore)) that occurs in the payload of the preceding request
 as described in [section 11.4.2.2](#CreateRelatedEntitiesWhenCreatinganEntity) and
-[section 11.4.3.1](#UpdateRelatedEntitiesWhenUpdatinganEntity),
+[section 11.4.3.1](#UpsertRelatedEntitiesWhenUpsertinganEntity),
 then the referenced value is the corresponding value in the response,
 which the service SHOULD annotate with the same `Core.ContentID` value.
 
@@ -6836,7 +6836,7 @@ updatable related collection ([section 11.4.5.1](#AddaReferencetoaCollectionValu
 22. MUST support `PUT` to `$ref` to set an existing single updatable
 related entity ([section 11.4.5.3](#ChangetheReferenceinaSingleValuedNavigationProperty))
 23. MUST support `PATCH` to all edit URLs for updatable resources
-([section 11.4.3](#UpdateanEntity))
+([section 11.4.3](#UpsertanEntity))
 24. MUST support `DELETE` to all edit URLs for deletable resources
 ([section 11.4.4](#DeleteanEntity))
 25. MUST support `DELETE` to `$ref` to remove a reference to an entity
@@ -6847,7 +6847,7 @@ returned with an ETag ([section 11.4.1.1](#UseofETagsforAvoidingUpdateConflicts)
 created resource ([section 11.4.2](#CreateanEntity))
 28. MUST include the `OData-EntityId` header in response to any create
 or upsert operation that returns `204 No Content` ([section 8.3.4](#HeaderODataEntityId))
-29. MUST support Upserts ([section 11.4.3.2](#UpsertanEntity))
+29. MUST support Upserts ([section 11.4.3](#UpsertanEntity))
 30. SHOULD support `PUT` and `PATCH` to an individual primitive
 ([section 11.4.8.1](#UpdateaPrimitiveProperty)) or complex ([section 11.4.8.3](#UpdateaComplexProperty)) property (respectively)
 31. SHOULD support `DELETE` to set an individual property to null
@@ -7024,7 +7024,7 @@ Level](#OData40MinimalConformanceLevel) for an Updateable service.
 19. MUST support `DELETE` to the reference of a collection member to be
 removed, identified by key ([section 11.4.5.2](#RemoveaReferencetoanEntity))
 20. SHOULD support `PUT` against single entity with nested content
-21. SHOULD support deep updates ([section 11.4.3.1](#UpdateRelatedEntitiesWhenUpdatinganEntity)) and deep inserts
+21. SHOULD support deep updates ([section 11.4.3.1](#UpsertRelatedEntitiesWhenUpsertinganEntity)) and deep inserts
 ([section 11.4.2.2](#CreateRelatedEntitiesWhenCreatinganEntity))
 22. SHOULD support `PUT` or `DELETE` to `$ref` of a collection-valued
 nav prop
@@ -7112,7 +7112,7 @@ To be generally interoperable, OData clients
 6. MUST support instances returning properties and navigation
 properties not specified in metadata ([section 11.2](#RequestingData))
 7. MUST generate `PATCH` requests for updates, if the client supports
-updates ([section 11.4.3](#UpdateanEntity))
+updates ([section 11.4.3](#UpsertanEntity))
 8. MUST include the `$` prefix when specifying OData-defined system
 query options
 9. MUST use case-sensitive query options, operators, and canonical
