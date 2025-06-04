@@ -100,3 +100,7 @@ Mermaid has not been used, instead the diagrams in section 2 of [`odata-data-agg
 - in sections 2.2 and 2.3 with Markdown tables and CSS-positioned SVG.
 
 See the source Markdown [here](../odata-data-aggregation-ext/1%20Introduction.md).
+
+# OData TC meeting minutes
+
+Minutes of OData TC meetings are created as [discussions](../../../../discussions/categories/minutes). A PDF version can be created in the `minutes` folder with the command [`npm run minutes <number of discussion>`](minutes.mjs).

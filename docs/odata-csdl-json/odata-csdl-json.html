@@ -97,39 +97,6 @@
       }
     }};
   </script>
-  <script type="text/javascript">
-    document.addEventListener("DOMContentLoaded", function () {
-      function darkmode_auto() {
-        if (darkmode_switch.value === "auto") {
-          if (darkmode_query.matches) document.documentElement.classList.add("darkmode");
-          else document.documentElement.classList.remove("darkmode");
-        }
-      }
-
-      function darkmode_manual() {
-        localStorage.setItem("odata-specs/darkmode", darkmode_switch.value);
-        switch (darkmode_switch.value) {
-          case "off":
-            document.documentElement.classList.remove("darkmode");
-            break;
-          case "on":
-            document.documentElement.classList.add("darkmode");
-            break;
-          case "auto":
-            darkmode_auto();
-            break;
-        }
-      }
-
-      const darkmode_query = matchMedia("(prefers-color-scheme: dark)");
-      darkmode_query.addEventListener("change", darkmode_auto);
-      const darkmode_switch = document.querySelector("#darkmode select");
-      darkmode_switch.value =
-        localStorage.getItem("odata-specs/darkmode") || "off";
-      darkmode_switch.addEventListener("change", darkmode_manual);
-      darkmode_manual();
-    });
-  </script>
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 </head>
@@ -4633,5 +4600,36 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <p>[OASIS invites any party to contact the OASIS TC Administrator if it is aware of a claim of ownership of any patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable by a patent holder that is not willing to provide a license to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this OASIS Standards Final Deliverable. OASIS may include such claims on its website, but disclaims any obligation to do so.]</p>
 <p>[OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this OASIS Standards Final Deliverable or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS’ procedures with respect to rights in any document or deliverable produced by an OASIS Technical Committee can be found on the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this OASIS Standards Final Deliverable, can be obtained from the OASIS TC Administrator. OASIS makes no representation that any information or list of intellectual property rights will at any time be complete, or that any claims in such list are, in fact, Essential Claims.]</p>
 <p>The name “OASIS” is a trademark of <a href="https://www.oasis-open.org/">OASIS</a>, the owner and developer of this specification, and should be used only to refer to the organization and its official outputs. OASIS welcomes reference to, and implementation and use of, specifications, while reserving the right to enforce its marks against misleading uses. Please see <a href="https://www.oasis-open.org/policies-guidelines/trademark/">https://www.oasis-open.org/policies-guidelines/trademark/</a> for above guidance.</p>
+<script type="text/javascript">
+  function darkmode_auto() {
+    if (darkmode_switch.value === "auto") {
+      if (darkmode_query.matches)
+        document.documentElement.classList.add("darkmode");
+      else document.documentElement.classList.remove("darkmode");
+    }
+  }
+
+  function darkmode_manual() {
+    localStorage.setItem("odata-specs/darkmode", darkmode_switch.value);
+    switch (darkmode_switch.value) {
+      case "off":
+        document.documentElement.classList.remove("darkmode");
+        break;
+      case "on":
+        document.documentElement.classList.add("darkmode");
+        break;
+      case "auto":
+        darkmode_auto();
+        break;
+    }
+  }
+
+  const darkmode_query = matchMedia("(prefers-color-scheme: dark)");
+  darkmode_query.addEventListener("change", darkmode_auto);
+  const darkmode_switch = document.querySelector("#darkmode select");
+  darkmode_switch.value = localStorage.getItem("odata-specs/darkmode") || "off";
+  darkmode_switch.addEventListener("change", darkmode_manual);
+  darkmode_manual();
+</script>
 </body>
 </html>
