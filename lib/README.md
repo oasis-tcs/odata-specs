@@ -103,4 +103,4 @@ See the source Markdown [here](../odata-data-aggregation-ext/1%20Introduction.md
 
 # OData TC meeting minutes
 
-Minutes of OData TC meetings are created as [discussions](/oasis-tcs/odata-specs/discussions/categories/minutes). A PDF version can be created in the `minutes` folder with the command [`npm run minutes <number of discussion>`](minutes.mjs).
+Minutes of OData TC meetings are created as [discussions](https://github.com/oasis-tcs/odata-specs/discussions/categories/minutes). A PDF version can be created in the `minutes` folder with the command [`npm run minutes <number of discussion>`](minutes.mjs).
