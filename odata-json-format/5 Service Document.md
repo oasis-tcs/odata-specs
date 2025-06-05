@@ -99,8 +99,10 @@ An entity is serialized as a JSON object. It MAY contain
 or [`deltaLink`](#ControlInformationdeltaLinkodatadeltaLink)
 control information.
 
-Each [property](#StructuralProperty) to be transmitted is
-represented as a name/value pair within the object. The order properties
+Related entities MAY be included in the serialization as values of [navigation properties](#NavigationProperty)
+or their [navigation](#NavigationLink) or [association](#AssociationLink) links.
+Each [structural](#StructuralProperty) or related entity to be transmitted is
+represented as a name/value pair within the object. The order in which the pairs
 appear within the object is considered insignificant.
 
 An entity in a payload may be a complete entity, a projected entity (see

@@ -1296,8 +1296,10 @@ An entity is serialized as a JSON object. It MAY contain
 or [`deltaLink`](#ControlInformationdeltaLinkodatadeltaLink)
 control information.
 
-Each [property](#StructuralProperty) to be transmitted is
-represented as a name/value pair within the object. The order properties
+Related entities MAY be included in the serialization as values of [navigation properties](#NavigationProperty)
+or their [navigation](#NavigationLink) or [association](#AssociationLink) links.
+Each [structural](#StructuralProperty) or related entity to be transmitted is
+represented as a name/value pair within the object. The order in which the pairs
 appear within the object is considered insignificant.
 
 An entity in a payload may be a complete entity, a projected entity (see
@@ -1457,7 +1459,11 @@ A complex value is represented as a single JSON object containing one
 name/value pair for each property that makes up the complex type. Each
 property value is formatted as appropriate for the type of the property.
 
-It MAY have name/value pairs for [instance annotations](#InstanceAnnotations) and control information.
+Related entities MAY be included in the serialization as name/value pairs
+for [navigation properties](#NavigationProperty)
+or their [navigation](#NavigationLink) or [association](#AssociationLink) links.
+
+The serialization MAY have name/value pairs for [instance annotations](#InstanceAnnotations) and control information.
 
 ::: example
 Example 13:
