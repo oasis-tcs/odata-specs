@@ -2819,6 +2819,9 @@ entities MAY specify an entity set path. The entity set path specifies the canon
 (as defined in [OData-Protocol, section 10](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ContextURL)) of the
 returned entities in terms of the binding parameter value.
 
+If no entity set path is specified or the canonical collection cannot be determined
+by the following rules, the service SHOULD include a context URL [OData-Protocol, section 10](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ContextURL) in the response.
+
 The entity set path consists of a series of segments joined together
 with forward slashes.
 The first segment of the entity set path MUST be the name of the binding
