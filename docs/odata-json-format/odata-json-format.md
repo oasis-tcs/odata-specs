@@ -1302,7 +1302,7 @@ appear within the object is considered insignificant.
 
 An entity in a payload may be a complete entity, a projected entity (see
 [OData-Protocol, section 11.2.5.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptionselect)), or a partial entity update (see
-[OData-Protocol, section 11.4.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UpdateanEntity)).
+[OData-Protocol, section 11.4.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UpsertanEntity)).
 
 An entity representation can be (modified and) round-tripped to the
 service directly. The [context
