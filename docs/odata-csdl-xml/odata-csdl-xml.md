@@ -895,6 +895,10 @@ combination of term and qualifier.
 
 
 
+
+
+
+
 <!-- Lines from here to the closing ::: belong to the XML variant only. -->
 ::: {.varxml .rep}
 ### <a id="ElementedmxEdmx.2" href="#ElementedmxEdmx.2">Element `edmx:Edmx`</a>
@@ -1051,6 +1055,11 @@ The alias MUST NOT be one of the reserved values `Edm`, `odata`,
 
 An alias is only valid within the document in which it is declared; a
 referencing document may define its own aliases for included schemas.
+
+
+
+
+
 
 
 
@@ -1246,6 +1255,16 @@ The namespace MUST NOT be one of the reserved values `Edm`, `odata`,
 
 
 
+
+
+
+
+
+
+
+
+
+
 ::: {.varxml .rep}
 ### <a id="ElementedmSchema.7" href="#ElementedmSchema.7">Element `edm:Schema`</a>
 
@@ -1309,6 +1328,14 @@ schema
 :::
 
 ## <a id="AnnotationswithExternalTargeting" href="#AnnotationswithExternalTargeting">5.2 Annotations with External Targeting</a>
+
+
+
+
+
+
+
+
 
 
 
@@ -1587,6 +1614,7 @@ forward slash separating segments of the path to the property would make
 URL construction and parsing rather complicated. The alias MUST NOT be
 used in the query part of URLs, where paths to properties don't require
 special encoding and are a standard constituent of expressions anyway.
+
 
 
 
@@ -2114,9 +2142,6 @@ defined is nullable, or the principal property is nullable, then the
 dependent property MUST also be nullable. If both the navigation
 property and the principal property are not nullable, then the dependent
 property MUST NOT be nullable.
-
-
-
 
 
 
@@ -2686,6 +2711,8 @@ An unbound action MAY have the same name as a bound action.
 
 
 
+
+
 ::: {.varxml .rep}
 ### <a id="ElementedmAction.20" href="#ElementedmAction.20">Element `edm:Action`</a>
 
@@ -3165,6 +3192,8 @@ options SHOULD NOT be included in the service document.
 
 
 
+
+
 ::: {.varxml .rep}
 ### <a id="ElementedmEntitySet.25" href="#ElementedmEntitySet.25">Element `edm:EntitySet`</a>
 
@@ -3388,6 +3417,7 @@ to an entity set in scope.
 
 
 
+
 ::: {.varxml .rep}
 ### <a id="ElementedmActionImport.28" href="#ElementedmActionImport.28">Element `edm:ActionImport`</a>
 
@@ -3434,6 +3464,7 @@ to an entity set in scope.
 A function import for a parameterless function MAY indicate whether it
 is included in the service document. If not explicitly indicated, it is
 not included.
+
 
 
 
@@ -3742,6 +3773,14 @@ representing a constant value, or a [dynamic
 expression](#DynamicExpression). The most common construct for assigning
 an annotation value is a [path expression](#ValuePath) that refers to a
 property of the same or a related structured type.
+
+
+
+
+
+
+
+
 
 
 
@@ -4384,6 +4423,8 @@ forward slashes (`/`).
 
 
 
+
+
 Paths starting with a forward slash (`/`) are absolute paths, and the
 first path segment MUST be the qualified name of a model element, e.g.
 an entity container. The remaining path after the second forward slash
@@ -4400,6 +4441,10 @@ Example 60: absolute path to an entity set
 
 Paths not starting with a forward slash are interpreted relative to the
 annotation target, following the rules specified in [section 14.4.1.2](#PathEvaluation).
+
+
+
+
 
 
 
@@ -4464,6 +4509,7 @@ segments can traverse multiple CSDL documents. The document containing
 the path expression only needs to reference the next traversed document
 to bring the navigation target type into scope, and each traversed
 document in turn needs to reference only its next document.
+
 
 
 
@@ -4739,6 +4785,10 @@ type `self.A` named in the target expression.
 
 
 
+
+
+
+
 #### <a id="AnnotationPath" href="#AnnotationPath">14.4.1.3 Annotation Path</a>
 
 The annotation path expression provides a value for terms or term
@@ -4755,6 +4805,10 @@ A term or term property of type `Edm.AnnotationPath` can be annotated
 with the term `Validation.AllowedTerms` (see
 [OData-VocValidation](#ODataVocValidation)) if its intended value is an
 annotation path that ends in a term cast with one of the listed terms.
+
+
+
+
 
 
 

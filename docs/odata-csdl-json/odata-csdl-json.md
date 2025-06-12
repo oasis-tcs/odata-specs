@@ -103,6 +103,7 @@ For complete copyright information please see the full Notices section in an App
     - [1.2.1 Definitions of Terms](#DefinitionsofTerms)
     - [1.2.2 Acronyms and Abbreviations](#AcronymsandAbbreviations)
     - [1.2.3 Document Conventions](#DocumentConventions)
+  - [1.3 Javascript CSDL metamodel](#JavascriptCSDLmetamodel)
 - [2 JSON Representation](#JSONRepresentation)
   - [2.1 Requesting the JSON Representation](#RequestingtheJSONRepresentation)
     - [2.1.1 Controlling the Representation of Numbers](#ControllingtheRepresentationofNumbers)
@@ -204,6 +205,7 @@ For complete copyright information please see the full Notices section in an App
     - [14.4.1 Path Expressions](#PathExpressions)
       - [14.4.1.1 Path Syntax](#PathSyntax)
       - [14.4.1.2 Path Evaluation](#PathEvaluation)
+        - [14.4.1.2.1 Path Evaluation in CSDL Metamodel](#PathEvaluationinCSDLMetamodel)
       - [14.4.1.3 Annotation Path](#AnnotationPath)
       - [14.4.1.4 Model Element Path](#ModelElementPath)
       - [14.4.1.5 Navigation Property Path](#NavigationPropertyPath)
@@ -329,18 +331,194 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
 This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 -->
 
+## <a id="JavascriptCSDLmetamodel" href="#JavascriptCSDLmetamodel">1.3 Javascript CSDL metamodel</a>
 
+::: funnelweb
+All model elements defined in this document are represented by Javascript classes
+derived from the class `ModelElement`.
+:::
 
+::: funnelweb
+<P><A NAME="1"></A>1. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;ModelElement&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#3">ModelElement</A><TT><BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+The JSON serialization of these classes produces the CSDL format specified by this document.
+Therefore, properties that shall not be part of the JSON format are defined as "internal".
+They have a getter, but not necessarily a setter. The second macro parameter is an
+optional initialization.
+:::
 
+::: funnelweb
+<P><A NAME="2"></A>2. <A HREF="#3">Internal property</A>(<B>2</B>)[<B>M</B>]={<TT><BR>
+#</TT>
+<B>1</B></FONT><B>2</B></FONT><TT>;<BR>
+get&nbsp;</TT>
+<B>1</B></FONT><TT>()&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;this.#</TT>
+<B>1</B></FONT><TT>;<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definitions <A HREF="#3">3</A>, <A HREF="#3">3</A>, <A HREF="#15">15</A>, <A HREF="#23">23</A>, <A HREF="#30">30</A>, <A HREF="#31">31</A>, <A HREF="#37">37</A>, <A HREF="#51">51</A>, <A HREF="#54">54</A>, <A HREF="#61">61</A>, <A HREF="#61">61</A>, <A HREF="#85">85</A>, <A HREF="#93">93</A>, <A HREF="#126">126</A>, <A HREF="#126">126</A>, <A HREF="#126">126</A>, <A HREF="#130">130</A>, <A HREF="#134">134</A>, <A HREF="#142">142</A>, <A HREF="#143">143</A>, <A HREF="#143">143</A>, <A HREF="#151">151</A>, <A HREF="#174">174</A>, <A HREF="#174">174</A>, <A HREF="#180">180</A>, <A HREF="#183">183</A> and <A HREF="#183">183</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+<P><A NAME="3"></A>3. <A HREF="#1">ModelElement</A>+={<TT><BR>
+</TT>
+<A HREF="#2">Internal property</A>(</FONT>"</FONT><TT>parent</TT>
+"</FONT>,</FONT>"</FONT>"</FONT>)</FONT><TT><BR>
+</TT>
+<A HREF="#2">Internal property</A>(</FONT>"</FONT><TT>children</TT>
+"</FONT>,</FONT>"</FONT><TT>=&nbsp;{}</TT>
+"</FONT>)</FONT><TT><BR>
+constructor(parent)&nbsp;{<BR>
+&nbsp;&nbsp;this.#parent&nbsp;=&nbsp;parent;<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#13">Collect all ModelElements</A><TT><BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#130">130</A>, <A HREF="#131">131</A>, <A HREF="#137">137</A>, <A HREF="#139">139</A>, <A HREF="#151">151</A>, <A HREF="#164">164</A>, <A HREF="#169">169</A>, <A HREF="#170">170</A>, <A HREF="#183">183</A>, <A HREF="#188">188</A> and <A HREF="#191">191</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#1">1</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+Following the `parent` attribute, we can determine whether one model element is a
+descendant of another.
+:::
 
+::: funnelweb
+<P><A NAME="4"></A>4. <A HREF="#1">ModelElement</A>+={<TT><BR>
+descendantOf(anc)&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;this.parent&nbsp;===&nbsp;anc&nbsp;||&nbsp;this.parent?.descendantOf(anc);<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#130">130</A>, <A HREF="#131">131</A>, <A HREF="#137">137</A>, <A HREF="#139">139</A>, <A HREF="#151">151</A>, <A HREF="#164">164</A>, <A HREF="#169">169</A>, <A HREF="#170">170</A>, <A HREF="#183">183</A>, <A HREF="#188">188</A> and <A HREF="#191">191</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#1">1</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+The `parent` is also used to construct a path representation for every model element
+out of the string representation of itself and its ancestors. The string representation
+of last resort is the class name.
+:::
+
+::: funnelweb
+<P><A NAME="5"></A>5. <A HREF="#1">ModelElement</A>+={<TT><BR>
+path()&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;(<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;(this.parent&nbsp;instanceof&nbsp;Schema<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?&nbsp;this.parent.path()&nbsp;+&nbsp;"."<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;this.parent<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?&nbsp;this.parent.path()&nbsp;+&nbsp;"/"<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;"")&nbsp;+&nbsp;this.toString()<BR>
+&nbsp;&nbsp;);<BR>
+}<BR>
+toString()&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;this.constructor.name;<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#130">130</A>, <A HREF="#131">131</A>, <A HREF="#137">137</A>, <A HREF="#139">139</A>, <A HREF="#151">151</A>, <A HREF="#164">164</A>, <A HREF="#169">169</A>, <A HREF="#170">170</A>, <A HREF="#183">183</A>, <A HREF="#188">188</A> and <A HREF="#191">191</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#1">1</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+The most important method of a model element is `fromJSON`, which deserializes the CSDL JSON
+representation into the Javascript CSDL metamodel. It has to deal with
+- JSON members representing annotations
+- JSON members whose names are simple identifiers (hence do not start with `$`).
+  These have a `$Kind` property (or a default kind can be derived) and represent
+  an instance of a class whose name equals the kind. (All these classes are combined
+  in the `closure` object and hence addressable as `closure[kind]`.)
+- JSON members defined by this specification (whose names start with `$`).
+  If these have a primitive value, this is simply taken over, otherwise they
+  represent an instance of a class and are handled by the `fromJSON` implementation
+  in a subclass of `ModelElement`.
+
+Subclasses of `ModelElement` with their own implementation of `fromJSON` call
+`super.fromJSON` at the end. The code below never overwrites an existing
+member of the current instance whose name starts with `$` because it may already have
+been set by the super method.
+:::
+
+::: funnelweb
+<P><A NAME="6"></A>6. <A HREF="#1">ModelElement</A>+={<TT><BR>
+fromJSON(json,&nbsp;defaultKind)&nbsp;{<BR>
+&nbsp;&nbsp;let&nbsp;hasAnnotations&nbsp;=&nbsp;false;<BR>
+&nbsp;&nbsp;for&nbsp;(const&nbsp;member&nbsp;in&nbsp;json)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</TT>
+<A HREF="#129">If the member is an annotation, deserialize it</A><TT><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;else&nbsp;if&nbsp;(!member.startsWith("$"))&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(json[member]&nbsp;instanceof&nbsp;Array)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>
+<A HREF="#90">Deserialize an array-valued member</A><TT><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const&nbsp;kind&nbsp;=<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;json[member].$Kind&nbsp;||<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(typeof&nbsp;defaultKind&nbsp;===&nbsp;"function"<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?&nbsp;defaultKind(json[member])<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;defaultKind);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(kind)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new&nbsp;closure[kind](this,&nbsp;member).fromJSON(json[member]);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;else&nbsp;if&nbsp;(!this[member])&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>
+<A HREF="#16">String, number or Boolean values in fromJSON</A><TT><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#135">Housekeeping for annotations</A><TT><BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#130">130</A>, <A HREF="#131">131</A>, <A HREF="#137">137</A>, <A HREF="#139">139</A>, <A HREF="#151">151</A>, <A HREF="#164">164</A>, <A HREF="#169">169</A>, <A HREF="#170">170</A>, <A HREF="#183">183</A>, <A HREF="#188">188</A> and <A HREF="#191">191</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#1">1</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="7"></A><B>7. File:</B> /git/oasis-tcs/odata-csdl-schemas/lib/metamodel.js={<TT><BR>
+</TT>
+<A HREF="#1">Javascript CSDL metamodel</A><TT><BR>
+const&nbsp;closure&nbsp;=&nbsp;(module.exports&nbsp;=&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#10">Exports</A><TT><BR>
+});<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is attached to an output file.</FONT>
+
+</P>
+:::
 
 -------
 
@@ -972,13 +1150,153 @@ made with an `OData-MaxVersion` header with a value of `4.0`.
 The value of `$EntityContainer` is the namespace-qualified name of the entity container of that service. This is the only place where a model element MUST be referenced with its namespace-qualified name and use of the alias-qualified name is not allowed.
 :::
 
+::: funnelweb
+<P><A NAME="8"></A>8. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;CSDLDocument&nbsp;extends&nbsp;ModelElement&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#12">CSDLDocument</A><TT><BR>
+&nbsp;&nbsp;toString()&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;"";<BR>
+&nbsp;&nbsp;}<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+The following reviver function can be passed to `JSON.parse` in order to parse a
+CSDL JSON document into an instance of `CSDLDocument`.
+:::
 
+::: funnelweb
+<P><A NAME="9"></A>9. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+function&nbsp;CSDLReviver(key,&nbsp;value)&nbsp;{<BR>
+&nbsp;&nbsp;if&nbsp;(key&nbsp;===&nbsp;"")&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;const&nbsp;csdlDocument&nbsp;=&nbsp;new&nbsp;CSDLDocument();<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;csdlDocument.fromJSON(value);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;csdlDocument;<BR>
+&nbsp;&nbsp;}&nbsp;else&nbsp;return&nbsp;value;<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+Some classes defined in this document are only needed by other classes. Classes
+that are needed by an external consumer of the Javascript CSDL metamodel are "exported"
+and can then be used, for example, to create a `CSDLDocument` while parsing a CSDL XML
+document.
+:::
 
+::: funnelweb
+<P><A NAME="10"></A>10. <A HREF="#7">Exports</A>+={<TT><BR>
+CSDLDocument,<BR>
+CSDLReviver,<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
+
+::: funnelweb
+The CSDL document is the root of a hierarchy of model elements, and every
+model element has a `csdlDocument` property. Its getter delegates to
+the parent until the root is reached, which returns itself.
+
+Model elements can be created without a `csdlDocument`, in which case the code below
+returns undefined.
+:::
+
+::: funnelweb
+<P><A NAME="11"></A>11. <A HREF="#1">ModelElement</A>+={<TT><BR>
+get&nbsp;csdlDocument()&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;this.parent?.csdlDocument;<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#130">130</A>, <A HREF="#131">131</A>, <A HREF="#137">137</A>, <A HREF="#139">139</A>, <A HREF="#151">151</A>, <A HREF="#164">164</A>, <A HREF="#169">169</A>, <A HREF="#170">170</A>, <A HREF="#183">183</A>, <A HREF="#188">188</A> and <A HREF="#191">191</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#1">1</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="12"></A>12. <A HREF="#8">CSDLDocument</A>+={<TT><BR>
+get&nbsp;csdlDocument()&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;this;<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#12">12</A>, <A HREF="#15">15</A>, <A HREF="#19">19</A>, <A HREF="#25">25</A>, <A HREF="#31">31</A>, <A HREF="#134">134</A>, <A HREF="#154">154</A>, <A HREF="#174">174</A>, <A HREF="#180">180</A> and <A HREF="#222">222</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#8">8</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+Collecting all model elements in one array is useful for producing diagrams that
+visualize them.
+
+But the `modelElements` getter in the `CSDLDocument` class can access the private member
+only after the constructor has run its course. Therefore, the following code does
+nothing if it runs in the `CSDLDocument` constructor.
+:::
+
+::: funnelweb
+<P><A NAME="13"></A>13. <A HREF="#3">Collect all ModelElements</A>={<TT><BR>
+if&nbsp;(!(this&nbsp;instanceof&nbsp;CSDLDocument))&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#14">Collect all ModelElements in modelElements</A><TT><BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#3">3</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="14"></A>14. <A HREF="#13">Collect all ModelElements in modelElements</A>+={<TT><BR>
+this.csdlDocument?.modelElements.push(this);<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#14">14</A> and <A HREF="#152">152</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#13">13</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="15"></A>15. <A HREF="#8">CSDLDocument</A>+={<TT><BR>
+</TT>
+<A HREF="#2">Internal property</A>(</FONT>"</FONT><TT>modelElements</TT>
+"</FONT>,</FONT>"</FONT><TT>=&nbsp;[]</TT>
+"</FONT>)</FONT><TT><BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#12">12</A>, <A HREF="#15">15</A>, <A HREF="#19">19</A>, <A HREF="#25">25</A>, <A HREF="#31">31</A>, <A HREF="#134">134</A>, <A HREF="#154">154</A>, <A HREF="#174">174</A>, <A HREF="#180">180</A> and <A HREF="#222">222</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#8">8</A>.</FONT><BR>
+
+</P>
+:::
 
 ::: {.varjson .example}
 Example 7:
@@ -991,10 +1309,70 @@ Example 7:
 ```
 :::
 
+::: funnelweb
+Values like `$Version` that have a string, numeric or Boolean value
+have the same representation in the Javascript object model as in JSON.
+But paths or qualified names (like `$EntityContainer`) are represented
+by separate classes. ([`QualifiedNamePath`](#Schema) also handles aliases and does not enforce
+the restriction of `$EntityContainer` to _namespace_-qualified names.)
+:::
 
+::: funnelweb
+<P><A NAME="16"></A>16. <A HREF="#6">String, number or Boolean values in fromJSON</A>={<TT><BR>
+if&nbsp;(typeof&nbsp;json[member]&nbsp;!==&nbsp;"object")&nbsp;this[member]&nbsp;=&nbsp;json[member];<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#6">6</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+<P><A NAME="17"></A>17. <A HREF="#18">Deserialize qualified name</A>(<B>1</B>)[<B>M</B>]={<TT><BR>
+this.</TT>
+<B>1</B></FONT><TT>&nbsp;=&nbsp;new&nbsp;QualifiedNamePath(this,&nbsp;json.</TT>
+<B>1</B></FONT><TT>,&nbsp;"</TT>
+<B>1</B></FONT><TT>");<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definitions <A HREF="#18">18</A>, <A HREF="#67">67</A>, <A HREF="#88">88</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#115">115</A> and <A HREF="#118">118</A>.</FONT><BR>
 
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="18"></A>18. <A HREF="#19">Deserialize optional qualified name</A>(<B>1</B>)[<B>M</B>]={<TT><BR>
+if&nbsp;(json.</TT>
+<B>1</B></FONT><TT>)&nbsp;</TT>
+<A HREF="#17">Deserialize qualified name</A>(</FONT>"</FONT><B>1</B></FONT>"</FONT>)</FONT><TT><BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definitions <A HREF="#19">19</A>, <A HREF="#58">58</A>, <A HREF="#105">105</A> and <A HREF="#123">123</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="19"></A>19. <A HREF="#8">CSDLDocument</A>+={<TT><BR>
+fromJSON(json)&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#18">Deserialize optional qualified name</A>(</FONT>"</FONT><TT>$EntityContainer</TT>
+"</FONT>)</FONT><TT><BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#20">Deserialize members of CSDLDocument</A><TT><BR>
+&nbsp;&nbsp;super.fromJSON(json,&nbsp;"Schema");<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#12">12</A>, <A HREF="#15">15</A>, <A HREF="#19">19</A>, <A HREF="#25">25</A>, <A HREF="#31">31</A>, <A HREF="#134">134</A>, <A HREF="#154">154</A>, <A HREF="#174">174</A>, <A HREF="#180">180</A> and <A HREF="#222">222</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#8">8</A>.</FONT><BR>
+
+</P>
+:::
 
 <!-- Lines from here to the closing ::: belong to the XML variant only. -->
 
@@ -1040,10 +1418,73 @@ The reference object MAY contain the members
 [annotations](#Annotation).
 :::
 
+::: funnelweb
+<P><A NAME="20"></A>20. <A HREF="#19">Deserialize members of CSDLDocument</A>={<TT><BR>
+for&nbsp;(const&nbsp;uri&nbsp;in&nbsp;json.$Reference)<BR>
+&nbsp;&nbsp;new&nbsp;Reference(this,&nbsp;uri).fromJSON(json.$Reference[uri]);<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#19">19</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="21"></A>21. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;Reference&nbsp;extends&nbsp;ModelElement&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#23">Reference</A><TT><BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="22"></A>22. <A HREF="#7">Exports</A>+={<TT><BR>
+Reference,<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
 
 
+::: funnelweb
+<P><A NAME="23"></A>23. <A HREF="#21">Reference</A>+={<TT><BR>
+</TT>
+<A HREF="#2">Internal property</A>(</FONT>"</FONT><TT>uri</TT>
+"</FONT>,</FONT>"</FONT>"</FONT>)</FONT><TT><BR>
+constructor(csdlDocument,&nbsp;uri)&nbsp;{<BR>
+&nbsp;&nbsp;super(csdlDocument);<BR>
+&nbsp;&nbsp;this.#uri&nbsp;=&nbsp;uri;<BR>
+&nbsp;&nbsp;csdlDocument.$Reference&nbsp;||=&nbsp;{};<BR>
+&nbsp;&nbsp;csdlDocument.$Reference[uri]&nbsp;=&nbsp;this;<BR>
+}<BR>
+toString()&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;"$Reference&lt;"&nbsp;+&nbsp;this.uri&nbsp;+&nbsp;"&gt;";<BR>
+}<BR>
+fromJSON(json)&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#24">Deserialize members of Reference</A><TT><BR>
+&nbsp;&nbsp;super.fromJSON(json);<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#23">23</A>, <A HREF="#47">47</A> and <A HREF="#179">179</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#21">21</A>.</FONT><BR>
 
-
+</P>
+:::
 
 ::: {.varjson .example}
 Example 8: references to other CSDL documents
@@ -1077,6 +1518,18 @@ The included schemas are identified via their [namespace](#Namespace).
 The same namespace MUST NOT be included more than once, even if it is
 declared in more than one referenced document.
 
+::: funnelweb
+<P><A NAME="24"></A>24. <A HREF="#23">Deserialize members of Reference</A>+={<TT><BR>
+if&nbsp;(json.$Include)<BR>
+&nbsp;&nbsp;for&nbsp;(const&nbsp;include&nbsp;of&nbsp;json.$Include)&nbsp;new&nbsp;Include(this).fromJSON(include);<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#24">24</A> and <A HREF="#34">34</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#23">23</A>.</FONT><BR>
+
+</P>
+:::
 
 When including a schema, a [simple identifier](#SimpleIdentifier) value
 MAY be specified as an alias for the schema that is used in qualified
@@ -1098,11 +1551,50 @@ into a document MUST have different aliases, and aliases MUST differ
 from the namespaces of all schemas defined within or included into a
 document.
 
+::: funnelweb
+Because of this globality condition, we can implement the namespace resolution
+as follows:
+:::
 
+::: funnelweb
+<P><A NAME="25"></A>25. <A HREF="#8">CSDLDocument</A>+={<TT><BR>
+#findSchema(namespace,&nbsp;callback)&nbsp;{<BR>
+&nbsp;&nbsp;let&nbsp;result;<BR>
+&nbsp;&nbsp;for&nbsp;(const&nbsp;schema&nbsp;in&nbsp;this.children)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;([this.children[schema].$Alias,&nbsp;schema].includes(namespace))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;=&nbsp;callback(this.children[schema]);<BR>
+&nbsp;&nbsp;if&nbsp;(!result)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</TT>
+<A HREF="#33">Look up included schema by namespace</A><TT><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(schema)&nbsp;result&nbsp;=&nbsp;callback(schema);<BR>
+&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;return&nbsp;result;<BR>
+}<BR>
+byQualifiedName(namespace,&nbsp;name)&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;this.#findSchema(namespace,&nbsp;(schema)&nbsp;=&gt;&nbsp;schema.children[name]);<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#12">12</A>, <A HREF="#15">15</A>, <A HREF="#19">19</A>, <A HREF="#25">25</A>, <A HREF="#31">31</A>, <A HREF="#134">134</A>, <A HREF="#154">154</A>, <A HREF="#174">174</A>, <A HREF="#180">180</A> and <A HREF="#222">222</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#8">8</A>.</FONT><BR>
+
+</P>
+:::
 
 The alias MUST NOT be one of the reserved values `Edm`, `odata`,
 `System`, or `Transient`.
 
+::: funnelweb
+<P><A NAME="26"></A>26. <A HREF="#46">namespace is reserved</A>={<TT><BR>
+["Edm",&nbsp;"odata",&nbsp;"System",&nbsp;"Transient"].includes(this.#namespace)<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#46">46</A>.</FONT><BR>
+
+</P>
+:::
 
 An alias is only valid within the document in which it is declared; a
 referencing document may define its own aliases for included schemas.
@@ -1126,9 +1618,135 @@ The value of `$Alias` is a string containing the alias for the included
 schema.
 :::
 
+::: funnelweb
+Array-valued properties like `$Include` are represented by an array of instances of a
+model element class. The constructor of such a `ListedModelElement` takes care to add the instance to
+the array in the parent. Note the analogy to the [`Reference`](#Reference) constructor.
+:::
 
+::: funnelweb
+<P><A NAME="27"></A>27. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;ListedModelElement&nbsp;extends&nbsp;ModelElement&nbsp;{<BR>
+&nbsp;&nbsp;#list;<BR>
+&nbsp;&nbsp;#index;<BR>
+&nbsp;&nbsp;constructor(parent,&nbsp;list)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;super(parent);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;parent[list]&nbsp;||=&nbsp;[];<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;parent[list].push(this);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;this.#list&nbsp;=&nbsp;list;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;this.#index&nbsp;=&nbsp;parent[list].length&nbsp;-&nbsp;1;<BR>
+&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;toString()&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;this.#list&nbsp;+&nbsp;"/"&nbsp;+&nbsp;this.#index;<BR>
+&nbsp;&nbsp;}<BR>
+}<BR>
+class&nbsp;Include&nbsp;extends&nbsp;ListedModelElement&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#29">Include</A><TT><BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+<P><A NAME="28"></A>28. <A HREF="#7">Exports</A>+={<TT><BR>
+Include,<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="29"></A>29. <A HREF="#27">Include</A>+={<TT><BR>
+</TT>
+<A HREF="#30">Internal property with setter</A>(</FONT>"</FONT><TT>schema</TT>
+"</FONT>)</FONT><TT><BR>
+constructor(reference)&nbsp;{<BR>
+&nbsp;&nbsp;super(reference,&nbsp;"$Include");<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#29">29</A> and <A HREF="#32">32</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#27">27</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="30"></A>30. <A HREF="#29">Internal property with setter</A>(<B>1</B>)[<B>M</B>]={<TT><BR>
+</TT>
+<A HREF="#2">Internal property</A>(</FONT>"</FONT><B>1</B></FONT>"</FONT>,</FONT>"</FONT>"</FONT>)</FONT><TT><BR>
+set&nbsp;</TT>
+<B>1</B></FONT><TT>(</TT>
+<B>1</B></FONT><TT>)&nbsp;{<BR>
+&nbsp;&nbsp;this.#</TT>
+<B>1</B></FONT><TT>&nbsp;=&nbsp;</TT>
+<B>1</B></FONT><TT>;<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definitions <A HREF="#29">29</A>, <A HREF="#47">47</A>, <A HREF="#75">75</A>, <A HREF="#75">75</A>, <A HREF="#111">111</A>, <A HREF="#111">111</A>, <A HREF="#142">142</A>, <A HREF="#209">209</A> and <A HREF="#209">209</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+A CSDL document maintains a map from namespaces and aliases to the `Include`s that
+include them.
+:::
+
+::: funnelweb
+<P><A NAME="31"></A>31. <A HREF="#8">CSDLDocument</A>+={<TT><BR>
+</TT>
+<A HREF="#2">Internal property</A>(</FONT>"</FONT><TT>includes</TT>
+"</FONT>,</FONT>"</FONT><TT>=&nbsp;new&nbsp;Map()</TT>
+"</FONT>)</FONT><TT><BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#12">12</A>, <A HREF="#15">15</A>, <A HREF="#19">19</A>, <A HREF="#25">25</A>, <A HREF="#31">31</A>, <A HREF="#134">134</A>, <A HREF="#154">154</A>, <A HREF="#174">174</A>, <A HREF="#180">180</A> and <A HREF="#222">222</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#8">8</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="32"></A>32. <A HREF="#27">Include</A>+={<TT><BR>
+fromJSON(json)&nbsp;{<BR>
+&nbsp;&nbsp;super.fromJSON(json);<BR>
+&nbsp;&nbsp;this.csdlDocument.includes.set(this.$Namespace,&nbsp;this);<BR>
+&nbsp;&nbsp;this.csdlDocument.includes.set(this.$Alias,&nbsp;this);<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#29">29</A> and <A HREF="#32">32</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#27">27</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="33"></A>33. <A HREF="#25">Look up included schema by namespace</A>={<TT><BR>
+const&nbsp;schema&nbsp;=&nbsp;this.includes.get(namespace)?.schema;<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#25">25</A>.</FONT><BR>
+
+</P>
+:::
 
 ::: {.varjson .example}
 Example 9: references to entity models containing definitions of
@@ -1180,6 +1798,19 @@ Annotations are selectively included by specifying the
 to inspect the referenced document if none of the term namespaces is of
 interest for the consumer.
 
+::: funnelweb
+<P><A NAME="34"></A>34. <A HREF="#23">Deserialize members of Reference</A>+={<TT><BR>
+if&nbsp;(json.$IncludeAnnotations)<BR>
+&nbsp;&nbsp;for&nbsp;(const&nbsp;include&nbsp;of&nbsp;json.$IncludeAnnotations)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;new&nbsp;IncludeAnnotations(this).fromJSON(include);<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#24">24</A> and <A HREF="#34">34</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#23">23</A>.</FONT><BR>
+
+</P>
+:::
 
 In addition, the [qualifier](#Qualifier) of annotations to be included
 MAY be specified. For instance, a service author might want to supply a
@@ -1229,7 +1860,33 @@ The value of `$Qualifier` is a simple identifier.
 The value of `$TargetNamespace` is a namespace.
 :::
 
+::: funnelweb
+<P><A NAME="35"></A>35. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;IncludeAnnotations&nbsp;extends&nbsp;ListedModelElement&nbsp;{<BR>
+&nbsp;&nbsp;constructor(reference)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;super(reference,&nbsp;"$IncludeAnnotations");<BR>
+&nbsp;&nbsp;}<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="36"></A>36. <A HREF="#7">Exports</A>+={<TT><BR>
+IncludeAnnotations,<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
 
 ::: {.varjson .example}
 Example 10: reference documents that contain annotations
@@ -1325,15 +1982,276 @@ The schema object MAY also contain [annotations](#Annotation) that apply
 to the schema itself.
 :::
 
+::: funnelweb
+The schema is the first of many model elements that appear as members
+with an unqualified name. They are represented as subclasses of `NamedModelElement`
+whose constructor ensures that they are appended to the children list of their parent.
+Note the analogy with the [`ListedModelElement`](#IncludedSchema) constructor.
+:::
 
+::: funnelweb
+<P><A NAME="37"></A>37. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;NamedModelElement&nbsp;extends&nbsp;ModelElement&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#2">Internal property</A>(</FONT>"</FONT><TT>name</TT>
+"</FONT>,</FONT>"</FONT>"</FONT>)</FONT><TT><BR>
+&nbsp;&nbsp;constructor(parent,&nbsp;name)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;super(parent);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;this.#name&nbsp;=&nbsp;name;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;parent.children[name]&nbsp;=&nbsp;this;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;this.$Kind&nbsp;=&nbsp;this.constructor.name;<BR>
+&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;toString()&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;this.name;<BR>
+&nbsp;&nbsp;}<BR>
+}<BR>
+class&nbsp;Schema&nbsp;extends&nbsp;NamedModelElement&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#39">Schema</A><TT><BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+<P><A NAME="38"></A>38. <A HREF="#7">Exports</A>+={<TT><BR>
+Schema,<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+<P><A NAME="39"></A>39. <A HREF="#37">Schema</A>+={<TT><BR>
+constructor(csdlDocument,&nbsp;name)&nbsp;{<BR>
+&nbsp;&nbsp;super(csdlDocument,&nbsp;name);<BR>
+&nbsp;&nbsp;delete&nbsp;this.$Kind;<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#39">39</A> and <A HREF="#55">55</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#37">37</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+We cannot simply say `parent[name] = this`, because `name` may be a reserved name,
+like the `toJSON` method that every model element has. The `children` property is
+introduced for this reason, but during JSON serialization the `children` are treated
+like other object members.
+:::
 
+::: funnelweb
+<P><A NAME="40"></A>40. <A HREF="#1">ModelElement</A>+={<TT><BR>
+toJSON()&nbsp;{<BR>
+&nbsp;&nbsp;const&nbsp;json&nbsp;=&nbsp;{&nbsp;...this,&nbsp;...this.children&nbsp;};<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#138">Serialize annotations of annotations</A>(</FONT>"</FONT><TT>this</TT>
+"</FONT>,</FONT>"</FONT><TT>json</TT>
+"</FONT>,</FONT>"</FONT><TT>""</TT>
+"</FONT>)</FONT><TT><BR>
+&nbsp;&nbsp;return&nbsp;json;<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#130">130</A>, <A HREF="#131">131</A>, <A HREF="#137">137</A>, <A HREF="#139">139</A>, <A HREF="#151">151</A>, <A HREF="#164">164</A>, <A HREF="#169">169</A>, <A HREF="#170">170</A>, <A HREF="#183">183</A>, <A HREF="#188">188</A> and <A HREF="#191">191</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#1">1</A>.</FONT><BR>
 
+</P>
+:::
+
+::: funnelweb
+Besides JSON serialization, we also support YAML serialization. And like many model element
+classes have a special `toJSON` method, some also have a special implementation of a
+`toYAML` method that is called by a `YAMLResolver`.
+:::
+
+::: funnelweb
+<P><A NAME="41"></A>41. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+function&nbsp;YAMLResolver(key)&nbsp;{<BR>
+&nbsp;&nbsp;if&nbsp;(this[key]&nbsp;instanceof&nbsp;ModelElement)&nbsp;return&nbsp;this[key].toYAML(key);<BR>
+&nbsp;&nbsp;else&nbsp;return&nbsp;this[key];<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="42"></A>42. <A HREF="#7">Exports</A>+={<TT><BR>
+YAMLResolver,<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+The default implementation of `toYAML` simply returns the current object.
+:::
+
+::: funnelweb
+<P><A NAME="43"></A>43. <A HREF="#1">ModelElement</A>+={<TT><BR>
+toYAML(key)&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;this;<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#130">130</A>, <A HREF="#131">131</A>, <A HREF="#137">137</A>, <A HREF="#139">139</A>, <A HREF="#151">151</A>, <A HREF="#164">164</A>, <A HREF="#169">169</A>, <A HREF="#170">170</A>, <A HREF="#183">183</A>, <A HREF="#188">188</A> and <A HREF="#191">191</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#1">1</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+Addressing a schema member by its qualified name is a special case
+of evaluating a path consisting of one segment that starts with a namespace or alias.
+:::
+
+::: funnelweb
+<P><A NAME="44"></A>44. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;AbstractPath&nbsp;extends&nbsp;ModelElement&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#142">AbstractPath</A><TT><BR>
+}<BR>
+class&nbsp;QualifiedNamePath&nbsp;extends&nbsp;AbstractPath&nbsp;{<BR>
+&nbsp;&nbsp;constructor(host,&nbsp;qname,&nbsp;attribute)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;super(host,&nbsp;attribute);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;this.segments&nbsp;=&nbsp;[new&nbsp;QualifiedNameSegment(this,&nbsp;qname)];<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</TT>
+<A HREF="#181">Housekeeping for paths</A><TT><BR>
+&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;evaluate()&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;const&nbsp;target&nbsp;=&nbsp;this.segments[0].evaluateRelativeTo();<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</TT>
+<A HREF="#185">Housekeeping during path evaluation</A><TT><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;target;<BR>
+&nbsp;&nbsp;}<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="45"></A>45. <A HREF="#7">Exports</A>+={<TT><BR>
+QualifiedNamePath,<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+The `evaluateRelativeTo` method of the segment accepts an optional `modelElement`
+that is set if the segment represents a type cast.
+:::
+
+::: funnelweb
+<P><A NAME="46"></A>46. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;Segment&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#143">Segment</A><TT><BR>
+}<BR>
+class&nbsp;QualifiedNameSegment&nbsp;extends&nbsp;Segment&nbsp;{<BR>
+&nbsp;&nbsp;#namespace;<BR>
+&nbsp;&nbsp;#name;<BR>
+&nbsp;&nbsp;constructor(path,&nbsp;segment)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;super(path,&nbsp;segment);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</TT>
+<A HREF="#221">Determine namespace and name of segment</A><TT><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</TT>
+<A HREF="#48">The namespace is used by this path</A><TT><BR>
+&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;evaluateRelativeTo(modelElement)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</TT>
+<A HREF="#26">namespace is reserved</A><TT>)&nbsp;return&nbsp;this;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;target&nbsp;=&nbsp;this.path.csdlDocument.byQualifiedName(<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.#namespace,<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.#name<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(!target)&nbsp;throw&nbsp;new&nbsp;InvalidPathError(this.path);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</TT>
+<A HREF="#94">Special treatment if target is an operation</A><TT><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;(this.target&nbsp;=&nbsp;target);<BR>
+&nbsp;&nbsp;}<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+When a namespace is used, its [`Reference`](#Reference) is needed.
+:::
+
+::: funnelweb
+<P><A NAME="47"></A>47. <A HREF="#21">Reference</A>+={<TT><BR>
+</TT>
+<A HREF="#30">Internal property with setter</A>(</FONT>"</FONT><TT>needed</TT>
+"</FONT>)</FONT><TT><BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#23">23</A>, <A HREF="#47">47</A> and <A HREF="#179">179</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#21">21</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="48"></A>48. <A HREF="#46">The namespace is used by this path</A>={<TT><BR>
+const&nbsp;reference&nbsp;=&nbsp;path.csdlDocument.includes.get(this.#namespace)?.parent;<BR>
+if&nbsp;(reference)&nbsp;reference.needed&nbsp;=&nbsp;true;<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#46">46</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="49"></A>49. <A HREF="#174">If the reference is needed in this CSDL document</A>={<TT><BR>
+if&nbsp;(this.$Reference[uri].needed)<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#174">174</A>.</FONT><BR>
+
+</P>
+:::
 
 
 ## <a id="Alias" href="#Alias">5.1 Alias</a>
@@ -1390,6 +2308,117 @@ The value of `$Annotations` is an object with one member per [annotation target]
 The member name is an expression identifying the [annotation target](#Target).
 It MUST resolve to a model element in scope.
 The member value is an object containing [annotations](#Annotation) for that target.
+:::
+
+::: funnelweb
+`Annotations` is the first example of a model element that appears not
+in the `children` property of its parent but as named member of a specially named `sub`-property
+(`$Annotations` in this case).
+:::
+
+::: funnelweb
+<P><A NAME="50"></A>50. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;NamedSubElement&nbsp;extends&nbsp;ModelElement&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#51">NamedSubElement</A><TT><BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="51"></A>51. <A HREF="#50">NamedSubElement</A>+={<TT><BR>
+</TT>
+<A HREF="#2">Internal property</A>(</FONT>"</FONT><TT>name</TT>
+"</FONT>,</FONT>"</FONT>"</FONT>)</FONT><TT><BR>
+#sub;<BR>
+constructor(parent,&nbsp;sub,&nbsp;name)&nbsp;{<BR>
+&nbsp;&nbsp;super(parent);<BR>
+&nbsp;&nbsp;this.#sub&nbsp;=&nbsp;sub;<BR>
+&nbsp;&nbsp;this.#name&nbsp;=&nbsp;name;<BR>
+&nbsp;&nbsp;parent[sub]&nbsp;||=&nbsp;{};<BR>
+&nbsp;&nbsp;parent[sub][name]&nbsp;=&nbsp;this;<BR>
+}<BR>
+toString()&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;this.#sub&nbsp;+&nbsp;"/"&nbsp;+&nbsp;this.name;<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#51">51</A> and <A HREF="#132">132</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#50">50</A>.</FONT><BR>
+
+</P>
+:::
+
+
+::: funnelweb
+<P><A NAME="52"></A>52. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;Annotations&nbsp;extends&nbsp;NamedSubElement&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#54">Annotations</A><TT><BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="53"></A>53. <A HREF="#7">Exports</A>+={<TT><BR>
+Annotations,<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="54"></A>54. <A HREF="#52">Annotations</A>+={<TT><BR>
+</TT>
+<A HREF="#2">Internal property</A>(</FONT>"</FONT><TT>target</TT>
+"</FONT>,</FONT>"</FONT>"</FONT>)</FONT><TT><BR>
+constructor(schema,&nbsp;target)&nbsp;{<BR>
+&nbsp;&nbsp;super(schema,&nbsp;"$Annotations",&nbsp;target);<BR>
+&nbsp;&nbsp;this.#target&nbsp;=&nbsp;new&nbsp;RelativePath(this,&nbsp;target,&nbsp;this.parent,&nbsp;"externalTarget");<BR>
+}<BR>
+annotationTarget(prefix)&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;this.#target;<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#54">54</A> and <A HREF="#133">133</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#52">52</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="55"></A>55. <A HREF="#37">Schema</A>+={<TT><BR>
+fromJSON(json)&nbsp;{<BR>
+&nbsp;&nbsp;for&nbsp;(const&nbsp;target&nbsp;in&nbsp;json.$Annotations)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;new&nbsp;Annotations(this,&nbsp;target).fromJSON(json.$Annotations[target]);<BR>
+&nbsp;&nbsp;super.fromJSON(json);<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#39">39</A> and <A HREF="#55">55</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#37">37</A>.</FONT><BR>
+
+</P>
 :::
 
 ::: {.varjson .example}
@@ -1453,8 +2482,44 @@ properties](#StructuralProperty) and [navigation
 properties](#NavigationProperty) as well as [annotations](#Annotation).
 :::
 
+::: funnelweb
+Since the entity type has much in common with the [complex type](#ComplexType),
+its class is derived from the other one.
+:::
 
+::: funnelweb
+<P><A NAME="56"></A>56. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;ComplexType&nbsp;extends&nbsp;NamedModelElement&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#58">Common parts of complex and entity type</A><TT><BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#109">ComplexType</A><TT><BR>
+}<BR>
+class&nbsp;EntityType&nbsp;extends&nbsp;ComplexType&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#62">EntityType</A><TT><BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="57"></A>57. <A HREF="#7">Exports</A>+={<TT><BR>
+ComplexType,<BR>
+EntityType,<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
 
 ::: {.varjson .example}
 Example <a id="entitytype" href="#entitytype">13</a>: a simple entity type
@@ -1495,7 +2560,56 @@ base type.
 The value of `$BaseType` is the qualified name of the base type.
 :::
 
+::: funnelweb
+The effective type is constructed as child of a new model element so that it does not
+appear in the JSON serialization of the current CSDL document. It contains the properties
+of the derived type, the inherited properties and "merged" properties, for example
+if the derived type specializes the inherited type or adds an annotation.
+:::
 
+::: funnelweb
+<P><A NAME="58"></A>58. <A HREF="#56">Common parts of complex and entity type</A>+={<TT><BR>
+#effectiveType;<BR>
+get&nbsp;effectiveType()&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;this.#effectiveType&nbsp;||=&nbsp;this.computeEffectiveType();<BR>
+}<BR>
+computeEffectiveType()&nbsp;{<BR>
+&nbsp;&nbsp;if&nbsp;(!this.$BaseType)&nbsp;return&nbsp;this;<BR>
+&nbsp;&nbsp;const&nbsp;effectiveType&nbsp;=&nbsp;new&nbsp;this.constructor(<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;new&nbsp;ModelElement(),<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;this.name&nbsp;+&nbsp;"&lt;effective&gt;"<BR>
+&nbsp;&nbsp;);<BR>
+&nbsp;&nbsp;for&nbsp;(const&nbsp;prop&nbsp;in&nbsp;this.$BaseType.target.effectiveType.children)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;effectiveType.children[prop]&nbsp;=&nbsp;this.$BaseType.target.effectiveType.children[prop];<BR>
+&nbsp;&nbsp;for&nbsp;(const&nbsp;prop&nbsp;in&nbsp;this.children)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(prop&nbsp;in&nbsp;effectiveType.children)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;effectiveType.children[prop]&nbsp;=&nbsp;new&nbsp;this.children[prop].constructor(<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;effectiveType,<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prop<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Object.assign(<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;effectiveType.children[prop],<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.$BaseType.target.effectiveType.children[prop],<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.children[prop]<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;else&nbsp;effectiveType.children[prop]&nbsp;=&nbsp;this.children[prop];<BR>
+&nbsp;&nbsp;return&nbsp;effectiveType;<BR>
+}<BR>
+fromJSON(json)&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#18">Deserialize optional qualified name</A>(</FONT>"</FONT><TT>$BaseType</TT>
+"</FONT>)</FONT><TT><BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#63">JSON members without kind are properties</A><TT><BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#58">58</A> and <A HREF="#165">165</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#56">56</A>.</FONT><BR>
+
+</P>
+:::
 
 ::: {.varjson .example}
 Example 14: a derived entity type based on the previous example
@@ -1683,9 +2797,112 @@ member whose name is the key alias and whose value is a string
 containing the path to the property.
 :::
 
+::: funnelweb
+We use the name `PropertyRef` of the CSDL XML element here, even though it does not
+appear in the CSDL JSON format.
+:::
 
+::: funnelweb
+<P><A NAME="59"></A>59. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;PropertyRef&nbsp;extends&nbsp;ListedModelElement&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#61">PropertyRef</A><TT><BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+<P><A NAME="60"></A>60. <A HREF="#7">Exports</A>+={<TT><BR>
+PropertyRef,<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="61"></A>61. <A HREF="#59">PropertyRef</A>={<TT><BR>
+</TT>
+<A HREF="#2">Internal property</A>(</FONT>"</FONT><TT>path</TT>
+"</FONT>,</FONT>"</FONT>"</FONT>)</FONT><TT><BR>
+</TT>
+<A HREF="#2">Internal property</A>(</FONT>"</FONT><TT>alias</TT>
+"</FONT>,</FONT>"</FONT>"</FONT>)</FONT><TT><BR>
+constructor(entityType)&nbsp;{<BR>
+&nbsp;&nbsp;super(entityType,&nbsp;"$Key");<BR>
+}<BR>
+get&nbsp;target()&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;this.path.target;<BR>
+}<BR>
+fromJSON(json)&nbsp;{<BR>
+&nbsp;&nbsp;if&nbsp;(typeof&nbsp;json&nbsp;===&nbsp;"string")&nbsp;</TT>
+<A HREF="#148">Path to key property</A>(</FONT>"</FONT><TT>json</TT>
+"</FONT>)</FONT><TT><BR>
+&nbsp;&nbsp;else<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;(const&nbsp;name&nbsp;in&nbsp;json)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.#alias&nbsp;=&nbsp;name;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>
+<A HREF="#148">Path to key property</A>(</FONT>"</FONT><TT>json[name]</TT>
+"</FONT>)</FONT><TT><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;}<BR>
+}<BR>
+toJSON()&nbsp;{<BR>
+&nbsp;&nbsp;if&nbsp;(this.alias)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;const&nbsp;propRef&nbsp;=&nbsp;{};<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;propRef[this.alias]&nbsp;=&nbsp;this.path;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;propRef;<BR>
+&nbsp;&nbsp;}&nbsp;else&nbsp;return&nbsp;this.path.toJSON();<BR>
+}<BR>
+toYAML()&nbsp;{<BR>
+&nbsp;&nbsp;if&nbsp;(this.alias)&nbsp;return&nbsp;this.toJSON();<BR>
+&nbsp;&nbsp;else&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;const&nbsp;propRef&nbsp;=&nbsp;{};<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;propRef[this.path.toJSON()]&nbsp;=&nbsp;this.path;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;propRef;<BR>
+&nbsp;&nbsp;}<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#59">59</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="62"></A>62. <A HREF="#56">EntityType</A>+={<TT><BR>
+computeEffectiveType()&nbsp;{<BR>
+&nbsp;&nbsp;const&nbsp;effectiveType&nbsp;=&nbsp;super.computeEffectiveType();<BR>
+&nbsp;&nbsp;if&nbsp;(effectiveType&nbsp;!==&nbsp;this)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;(let&nbsp;t&nbsp;=&nbsp;this;&nbsp;t;&nbsp;t&nbsp;=&nbsp;t.$BaseType?.target)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(t.$Key)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;effectiveType.$Key&nbsp;=&nbsp;t.$Key;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;return&nbsp;effectiveType;<BR>
+}<BR>
+fromJSON(json)&nbsp;{<BR>
+&nbsp;&nbsp;if&nbsp;(json.$Key)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;(const&nbsp;propRef&nbsp;of&nbsp;json.$Key)&nbsp;new&nbsp;PropertyRef(this).fromJSON(propRef);<BR>
+&nbsp;&nbsp;super.fromJSON(json);<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#62">62</A> and <A HREF="#108">108</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#56">56</A>.</FONT><BR>
+
+</P>
+:::
 
 ::: {.varjson .example}
 Example 15: entity type with a simple key
@@ -1824,11 +3041,89 @@ It MAY contain the members [`$Type`](#Type), [`$Collection`](#Type),
 It also MAY contain [annotations](#Annotation).
 :::
 
+::: funnelweb
+<P><A NAME="63"></A>63. <A HREF="#58">JSON members without kind are properties</A>={<TT><BR>
+super.fromJSON(json,&nbsp;"Property");<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#58">58</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+In a `NamedModelElement`, the `$Kind` is set in the constructor and
+need not be set explicitly even if `fromJSON` is not used.
+:::
 
+::: funnelweb
+<P><A NAME="64"></A>64. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;TypedModelElement&nbsp;extends&nbsp;NamedModelElement&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#67">TypedModelElement</A><TT><BR>
+}<BR>
+class&nbsp;AbstractProperty&nbsp;extends&nbsp;TypedModelElement&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#172">AbstractProperty</A><TT><BR>
+}<BR>
+class&nbsp;Property&nbsp;extends&nbsp;AbstractProperty&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#66">Construct without $Kind</A><TT><BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#68">Property</A><TT><BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+<P><A NAME="65"></A>65. <A HREF="#7">Exports</A>+={<TT><BR>
+Property,<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="66"></A>66. <A HREF="#64">Construct without $Kind</A>[<B>M</B>]={<TT><BR>
+constructor(parent,&nbsp;name)&nbsp;{<BR>
+&nbsp;&nbsp;super(parent,&nbsp;name);<BR>
+&nbsp;&nbsp;delete&nbsp;this.$Kind;<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definitions <A HREF="#64">64</A>, <A HREF="#106">106</A> and <A HREF="#115">115</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="67"></A>67. <A HREF="#64">TypedModelElement</A>+={<TT><BR>
+fromJSON(json)&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#17">Deserialize qualified name</A>(</FONT>"</FONT><TT>$Type</TT>
+"</FONT>)</FONT><TT><BR>
+&nbsp;&nbsp;super.fromJSON(json);<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#67">67</A> and <A HREF="#161">161</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#64">64</A>.</FONT><BR>
+
+</P>
+:::
 
 ::: {.varjson .example}
 Example 20: complex type with two properties `Dimension` and `Length`
@@ -1887,8 +3182,50 @@ Absence of the `$Type` member means the type is `Edm.String`. This
 member SHOULD be omitted for string properties to reduce document size.
 :::
 
+::: funnelweb
+<P><A NAME="68"></A>68. <A HREF="#64">Property</A>={<TT><BR>
+fromJSON(json)&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#69">Absence of $Type means Edm.String</A><TT><BR>
+&nbsp;&nbsp;super.fromJSON(json);<BR>
+}<BR>
+toJSON()&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#70">Omit $Type if it is Edm.String</A>(</FONT>"</FONT><TT>super.toJSON()</TT>
+"</FONT>)</FONT><TT><BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#64">64</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+<P><A NAME="69"></A>69. <A HREF="#68">Absence of $Type means Edm.String</A>[<B>M</B>]={<TT><BR>
+if&nbsp;(!json.$Type)&nbsp;json&nbsp;=&nbsp;{&nbsp;...json,&nbsp;$Type:&nbsp;"Edm.String"&nbsp;};<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definitions <A HREF="#68">68</A>, <A HREF="#97">97</A> and <A HREF="#100">100</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="70"></A>70. <A HREF="#68">Omit $Type if it is Edm.String</A>(<B>1</B>)[<B>M</B>]={<TT><BR>
+const&nbsp;json&nbsp;=&nbsp;{&nbsp;...</TT>
+<B>1</B></FONT><TT>&nbsp;};<BR>
+if&nbsp;(this.$Type.evaluate().toJSON()&nbsp;===&nbsp;"Edm.String")&nbsp;delete&nbsp;json.$Type;<BR>
+return&nbsp;json;<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definitions <A HREF="#68">68</A>, <A HREF="#97">97</A> and <A HREF="#100">100</A>.</FONT><BR>
+
+</P>
+:::
 
 ::: {.varjson .example}
 Example 21: property `Units` that can have zero or more strings as its
@@ -1988,8 +3325,48 @@ MAY contain the members [`$Collection`](#NavigationPropertyType),
 It also MAY contain [annotations](#Annotation).
 :::
 
+::: funnelweb
+<P><A NAME="71"></A>71. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;NavigationProperty&nbsp;extends&nbsp;AbstractProperty&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#73">NavigationProperty</A><TT><BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+<P><A NAME="72"></A>72. <A HREF="#7">Exports</A>+={<TT><BR>
+NavigationProperty,<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="73"></A>73. <A HREF="#71">NavigationProperty</A>+={<TT><BR>
+fromJSON(json)&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#74">Deserialize members of NavigationProperty</A><TT><BR>
+&nbsp;&nbsp;super.fromJSON(json);<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#73">73</A> and <A HREF="#79">79</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#71">71</A>.</FONT><BR>
+
+</P>
+:::
 
 ::: {.varjson .example}
 Example 22: the `Product` entity type has a navigation property to a
@@ -2103,6 +3480,18 @@ The type of the partner navigation property MUST be the declaring entity
 type of the current navigation property or one of its parent entity
 types.
 
+::: funnelweb
+<P><A NAME="74"></A>74. <A HREF="#73">Deserialize members of NavigationProperty</A>+={<TT><BR>
+if&nbsp;(json.$Partner)<BR>
+&nbsp;&nbsp;this.$Partner&nbsp;=&nbsp;new&nbsp;RelativePath(this,&nbsp;json.$Partner,&nbsp;this,&nbsp;"$Partner");<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#74">74</A> and <A HREF="#77">77</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#73">73</A>.</FONT><BR>
+
+</P>
+:::
 
 If the partner navigation property is single-valued, it MUST lead back
 to the source entity from all related entities. If the partner
@@ -2246,15 +3635,129 @@ the path of the dependent property of the annotated referential
 constraint.
 :::
 
+::: funnelweb
+<P><A NAME="75"></A>75. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;ReferentialConstraint&nbsp;extends&nbsp;NamedSubElement&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#30">Internal property with setter</A>(</FONT>"</FONT><TT>dependent</TT>
+"</FONT>)</FONT><TT><BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#30">Internal property with setter</A>(</FONT>"</FONT><TT>principal</TT>
+"</FONT>)</FONT><TT><BR>
+&nbsp;&nbsp;constructor(navigationProperty,&nbsp;prop)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;super(navigationProperty,&nbsp;"$ReferentialConstraint",&nbsp;prop);<BR>
+&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;fromJSON(json)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;this.dependent&nbsp;=&nbsp;new&nbsp;RelativePath(<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this,<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.name,<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.parent.parent,<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"$ReferentialConstraint.Dependent"<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;this.principal&nbsp;=&nbsp;new&nbsp;RelativePath(<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this,<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;json[this.name],<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.parent,<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"$ReferentialConstraint.Principal"<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;super.fromJSON(json);<BR>
+&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;toJSON()&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;this.principal.toJSON();<BR>
+&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;toYAML(key)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$dependent:&nbsp;this.dependent,<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$principal:&nbsp;this.principal,<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...this<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;};<BR>
+&nbsp;&nbsp;}<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+<P><A NAME="76"></A>76. <A HREF="#7">Exports</A>+={<TT><BR>
+ReferentialConstraint,<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+The `fromJSON` method must be called for each `ReferentialConstraint`
+with the entire `$ReferentialConstraint` object, because otherwise the annotations
+would be lost.
+:::
 
+::: funnelweb
+<P><A NAME="77"></A>77. <A HREF="#73">Deserialize members of NavigationProperty</A>+={<TT><BR>
+for&nbsp;(const&nbsp;ref&nbsp;in&nbsp;json.$ReferentialConstraint)<BR>
+&nbsp;&nbsp;if&nbsp;(!ref.includes("@"))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;new&nbsp;ReferentialConstraint(this,&nbsp;ref).fromJSON(json.$ReferentialConstraint);<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#74">74</A> and <A HREF="#77">77</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#73">73</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+The following function runs during JSON serialization of the navigation property
+and produces a name-prefixed annotation next to the targeted referential constraint.
+:::
 
+::: funnelweb
+<P><A NAME="78"></A>78. <A HREF="#1">ModelElement</A>+={<TT><BR>
+toJSONWithAnnotations(sub,&nbsp;json)&nbsp;{<BR>
+&nbsp;&nbsp;for&nbsp;(const&nbsp;member&nbsp;in&nbsp;this[sub])<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;(const&nbsp;anno&nbsp;in&nbsp;this[sub][member])<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(anno.startsWith("@"))&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;json[sub]&nbsp;||=&nbsp;{};<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;json[sub][member&nbsp;+&nbsp;anno]&nbsp;=&nbsp;this[sub][member][anno];<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>
+<A HREF="#138">Serialize annotations of annotations</A>(</FONT>"</FONT><TT>this[sub][member][anno]</TT>
+"</FONT>,</FONT>"</FONT><TT><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;json[sub]</TT>
+"</FONT>,</FONT>"</FONT><TT>member&nbsp;+&nbsp;anno</TT>
+"</FONT>)</FONT><TT><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;return&nbsp;json;<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#130">130</A>, <A HREF="#131">131</A>, <A HREF="#137">137</A>, <A HREF="#139">139</A>, <A HREF="#151">151</A>, <A HREF="#164">164</A>, <A HREF="#169">169</A>, <A HREF="#170">170</A>, <A HREF="#183">183</A>, <A HREF="#188">188</A> and <A HREF="#191">191</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#1">1</A>.</FONT><BR>
 
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="79"></A>79. <A HREF="#71">NavigationProperty</A>+={<TT><BR>
+toJSON()&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;this.toJSONWithAnnotations("$ReferentialConstraint",&nbsp;super.toJSON());<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#73">73</A> and <A HREF="#79">79</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#71">71</A>.</FONT><BR>
+
+</P>
+:::
 
 ::: {.varjson .example}
 Example 23: the category must exist for a product in that category to
@@ -2528,8 +4031,46 @@ enumeration type members](#EnumerationTypeMember).
 The enumeration type object MAY contain [annotations](#Annotation).
 :::
 
+::: funnelweb
+<P><A NAME="80"></A>80. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;EnumType&nbsp;extends&nbsp;NamedModelElement&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#82">EnumType</A><TT><BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+<P><A NAME="81"></A>81. <A HREF="#7">Exports</A>+={<TT><BR>
+EnumType,<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="82"></A>82. <A HREF="#80">EnumType</A>+={<TT><BR>
+fromJSON(json)&nbsp;{<BR>
+&nbsp;&nbsp;super.fromJSON(json,&nbsp;"Member");<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#82">82</A> and <A HREF="#87">87</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#80">80</A>.</FONT><BR>
+
+</P>
+:::
 
 ::: {.varjson .example}
 Example 26: a simple flags-enabled enumeration
@@ -2641,12 +4182,95 @@ Annotations for enumeration members are prefixed with the enumeration
 member name.
 :::
 
+::: funnelweb
+Enumeration type members are named model elements that "wrap" a primitive JSON value.
+:::
 
+::: funnelweb
+<P><A NAME="83"></A>83. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;NamedValue&nbsp;extends&nbsp;NamedModelElement&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#85">NamedValue</A><TT><BR>
+}<BR>
+class&nbsp;Member&nbsp;extends&nbsp;NamedValue&nbsp;{}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+<P><A NAME="84"></A>84. <A HREF="#7">Exports</A>+={<TT><BR>
+Member,<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+<P><A NAME="85"></A>85. <A HREF="#83">NamedValue</A>+={<TT><BR>
+</TT>
+<A HREF="#2">Internal property</A>(</FONT>"</FONT><TT>value</TT>
+"</FONT>,</FONT>"</FONT>"</FONT>)</FONT><TT><BR>
+fromJSON(json)&nbsp;{<BR>
+&nbsp;&nbsp;this.#value&nbsp;=&nbsp;json;<BR>
+}<BR>
+toJSON()&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;this.value;<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#85">85</A> and <A HREF="#86">86</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#83">83</A>.</FONT><BR>
 
+</P>
+:::
+
+::: funnelweb
+The following function runs during JSON serialization of the enumeration type
+and produces a name-prefixed annotation next to the targeted enumeration member.
+(Compare this to the JSON serialization of annotations of [referential constraints](#ReferentialConstraint).)
+:::
+
+::: funnelweb
+<P><A NAME="86"></A>86. <A HREF="#83">NamedValue</A>+={<TT><BR>
+static&nbsp;toJSONWithAnnotations(modelElement,&nbsp;json)&nbsp;{<BR>
+&nbsp;&nbsp;for&nbsp;(const&nbsp;member&nbsp;in&nbsp;modelElement.children)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;(const&nbsp;anno&nbsp;in&nbsp;modelElement.children[member])<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(anno.startsWith("@"))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;json[member&nbsp;+&nbsp;anno]&nbsp;=&nbsp;modelElement.children[member][anno];<BR>
+&nbsp;&nbsp;return&nbsp;json;<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#85">85</A> and <A HREF="#86">86</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#83">83</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="87"></A>87. <A HREF="#80">EnumType</A>+={<TT><BR>
+toJSON()&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;NamedValue.toJSONWithAnnotations(this,&nbsp;super.toJSON());<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#82">82</A> and <A HREF="#87">87</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#80">80</A>.</FONT><BR>
+
+</P>
+:::
 
 ::: {.varjson .example}
 Example 28: `FirstClass` has a value of 0, `TwoDay` a value of 1, and
@@ -2702,7 +4326,36 @@ members [`$MaxLength`](#MaxLength), [`$Unicode`](#Unicode),
 and it MAY contain [annotations](#Annotation).
 :::
 
+::: funnelweb
+<P><A NAME="88"></A>88. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;TypeDefinition&nbsp;extends&nbsp;NamedModelElement&nbsp;{<BR>
+&nbsp;&nbsp;fromJSON(json)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</TT>
+<A HREF="#17">Deserialize qualified name</A>(</FONT>"</FONT><TT>$UnderlyingType</TT>
+"</FONT>)</FONT><TT><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;super.fromJSON(json);<BR>
+&nbsp;&nbsp;}<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="89"></A>89. <A HREF="#7">Exports</A>+={<TT><BR>
+TypeDefinition,<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
 
 ::: {.varjson .example}
 Example 29:
@@ -2818,11 +4471,110 @@ It MAY contain the members
 [annotations](#Annotation).
 :::
 
+::: funnelweb
+Actions and functions are the only example of a named array that contains several instances
+of metamodel classes.
+:::
 
+::: funnelweb
+<P><A NAME="90"></A>90. <A HREF="#6">Deserialize an array-valued member</A>={<TT><BR>
+{<BR>
+&nbsp;&nbsp;this.children[member]&nbsp;=&nbsp;[];<BR>
+&nbsp;&nbsp;for&nbsp;(const&nbsp;item&nbsp;of&nbsp;json[member])&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(item.$Kind)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const&nbsp;memberItem&nbsp;=&nbsp;new&nbsp;closure[item.$Kind](this,&nbsp;member);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;memberItem.fromJSON(item);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.children[member].push(memberItem);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;else&nbsp;this.children[member].push(item);<BR>
+&nbsp;&nbsp;}<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#6">6</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+Since actions and functions are so similar, their classes are derived from a
+common superclass `Operation`.
+:::
 
+::: funnelweb
+<P><A NAME="91"></A>91. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;Operation&nbsp;extends&nbsp;ModelElement&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#93">Operation</A><TT><BR>
+}<BR>
+class&nbsp;Action&nbsp;extends&nbsp;Operation&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#117">Action</A><TT><BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="92"></A>92. <A HREF="#7">Exports</A>+={<TT><BR>
+Action,<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+Operation is not a `NamedModelElement`, because the named member in its parent is not
+the operation, but an array of operations. It cannot therefore inherit its `name`
+property from `NamedModelElement`.
+:::
+
+::: funnelweb
+<P><A NAME="93"></A>93. <A HREF="#91">Operation</A>+={<TT><BR>
+</TT>
+<A HREF="#2">Internal property</A>(</FONT>"</FONT><TT>name</TT>
+"</FONT>,</FONT>"</FONT>"</FONT>)</FONT><TT><BR>
+constructor(parent,&nbsp;name)&nbsp;{<BR>
+&nbsp;&nbsp;super(parent);<BR>
+&nbsp;&nbsp;this.#name&nbsp;=&nbsp;name;<BR>
+&nbsp;&nbsp;this.$Kind&nbsp;=&nbsp;this.constructor.name;<BR>
+}<BR>
+fromJSON(json)&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#99">Deserialize members of Operation</A><TT><BR>
+&nbsp;&nbsp;super.fromJSON(json);<BR>
+}<BR>
+toString()&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;this.name;<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#93">93</A> and <A HREF="#171">171</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#91">91</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="94"></A>94. <A HREF="#46">Special treatment if target is an operation</A>={<TT><BR>
+if&nbsp;(target&nbsp;instanceof&nbsp;Array)&nbsp;target&nbsp;=&nbsp;target[0];<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#46">46</A>.</FONT><BR>
+
+</P>
+:::
 
 
 ## <a id="Function" href="#Function">12.3 Function</a>
@@ -2889,7 +4641,32 @@ contain the members [`$IsBound`](#BoundorUnboundActionorFunctionOverloads),
 and it MAY contain [annotations](#Annotation).
 :::
 
+::: funnelweb
+<P><A NAME="95"></A>95. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;Function&nbsp;extends&nbsp;Operation&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#120">Function</A><TT><BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="96"></A>96. <A HREF="#7">Exports</A>+={<TT><BR>
+Function,<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
 
 
 ## <a id="BoundorUnboundActionorFunctionOverloads" href="#BoundorUnboundActionorFunctionOverloads">12.5 Bound or Unbound Action or Function Overloads</a>
@@ -2942,6 +4719,10 @@ The value of `$EntitySetPath` is a string containing the entity set
 path.
 :::
 
+::: funnelweb
+`$EntitySetPath` cannot be modeled as a `RelativePath`, because its `relativeTo`
+element is known only when the operation is invoked.
+:::
 
 
 ## <a id="ComposableFunction" href="#ComposableFunction">12.7 Composable Function</a>
@@ -3013,9 +4794,64 @@ the action or function will never return a `null` value and instead will
 fail with an error response if it cannot compute a result.
 :::
 
+::: funnelweb
+`ReturnType` is like a [`TypedModelElement`](#StructuralProperty), except that it is not named.
+:::
 
+::: funnelweb
+<P><A NAME="97"></A>97. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;ReturnType&nbsp;extends&nbsp;ModelElement&nbsp;{<BR>
+&nbsp;&nbsp;fromJSON(json)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</TT>
+<A HREF="#69">Absence of $Type means Edm.String</A><TT><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</TT>
+<A HREF="#17">Deserialize qualified name</A>(</FONT>"</FONT><TT>$Type</TT>
+"</FONT>)</FONT><TT><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;super.fromJSON(json);<BR>
+&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;toJSON()&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</TT>
+<A HREF="#70">Omit $Type if it is Edm.String</A>(</FONT>"</FONT><TT>this</TT>
+"</FONT>)</FONT><TT><BR>
+&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#162">Parameter and ReturnType inherit from TypedModelElement</A><TT><BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+<P><A NAME="98"></A>98. <A HREF="#7">Exports</A>+={<TT><BR>
+ReturnType,<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="99"></A>99. <A HREF="#93">Deserialize members of Operation</A>+={<TT><BR>
+if&nbsp;(json.$ReturnType)&nbsp;{<BR>
+&nbsp;&nbsp;this.$ReturnType&nbsp;=&nbsp;new&nbsp;ReturnType(this);<BR>
+&nbsp;&nbsp;this.$ReturnType.fromJSON(json.$ReturnType);<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#99">99</A> and <A HREF="#102">102</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#93">93</A>.</FONT><BR>
+
+</P>
+:::
 
 
 ### <a id="AnnotationCoreIsDelta.13.8" href="#AnnotationCoreIsDelta.13.8">Annotation `Core.IsDelta`</a>
@@ -3094,9 +4930,70 @@ of the collection and specifies whether the collection MAY contain
 `null` values.
 :::
 
+::: funnelweb
+`Parameter` is like a [`TypedModelElement`](#StructuralProperty),
+except that it is listed instead of named.
+:::
 
+::: funnelweb
+<P><A NAME="100"></A>100. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;Parameter&nbsp;extends&nbsp;ListedModelElement&nbsp;{<BR>
+&nbsp;&nbsp;constructor(operation)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;super(operation,&nbsp;"$Parameter");<BR>
+&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;fromJSON(json)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</TT>
+<A HREF="#69">Absence of $Type means Edm.String</A><TT><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</TT>
+<A HREF="#17">Deserialize qualified name</A>(</FONT>"</FONT><TT>$Type</TT>
+"</FONT>)</FONT><TT><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;super.fromJSON(json);<BR>
+&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;toJSON()&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</TT>
+<A HREF="#70">Omit $Type if it is Edm.String</A>(</FONT>"</FONT><TT>this</TT>
+"</FONT>)</FONT><TT><BR>
+&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;toString()&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;this.$Name;<BR>
+&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#162">Parameter and ReturnType inherit from TypedModelElement</A><TT><BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+<P><A NAME="101"></A>101. <A HREF="#7">Exports</A>+={<TT><BR>
+Parameter,<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="102"></A>102. <A HREF="#93">Deserialize members of Operation</A>+={<TT><BR>
+if&nbsp;(json.$Parameter)&nbsp;{<BR>
+&nbsp;&nbsp;for&nbsp;(const&nbsp;param&nbsp;of&nbsp;json.$Parameter)&nbsp;new&nbsp;Parameter(this).fromJSON(param);<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#99">99</A> and <A HREF="#102">102</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#93">93</A>.</FONT><BR>
+
+</P>
+:::
 
 
 ### <a id="AnnotationCoreOptionalParameter.14.5" href="#AnnotationCoreOptionalParameter.14.5">Annotation `Core.OptionalParameter`</a>
@@ -3238,8 +5135,44 @@ imports](#ActionImport), and [function imports](#FunctionImport), as
 well as [annotations](#Annotation).
 :::
 
+::: funnelweb
+The children of an `EntityContainer` have no `$Kind` property, instead their
+kind is determined according to which other properties they have.
+:::
 
+::: funnelweb
+<P><A NAME="103"></A>103. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;EntityContainer&nbsp;extends&nbsp;NamedModelElement&nbsp;{<BR>
+&nbsp;&nbsp;fromJSON(json)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</TT>
+<A HREF="#105">Deserialize members of EntityContainer</A><TT><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;super.fromJSON(json,&nbsp;function&nbsp;(json)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(json.$Type)&nbsp;return&nbsp;"EntitySetOrSingleton";<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(json.$Function)&nbsp;return&nbsp;"FunctionImport";<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(json.$Action)&nbsp;return&nbsp;"ActionImport";<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;});<BR>
+&nbsp;&nbsp;}<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="104"></A>104. <A HREF="#7">Exports</A>+={<TT><BR>
+EntityContainer,<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
 
 ::: {.varjson .example}
 Example 33: An entity container aggregates entity sets, singletons,
@@ -3325,6 +5258,18 @@ entity container located in `SomeOtherSchema`
 ```
 :::
 
+::: funnelweb
+<P><A NAME="105"></A>105. <A HREF="#103">Deserialize members of EntityContainer</A>={<TT><BR>
+</TT>
+<A HREF="#18">Deserialize optional qualified name</A>(</FONT>"</FONT><TT>$Extends</TT>
+"</FONT>)</FONT><TT><BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#103">103</A>.</FONT><BR>
+
+</P>
+:::
 
 
 
@@ -3375,8 +5320,88 @@ The value of `$IncludeInServiceDocument` is one of the Boolean literals
 `true` or `false`. Absence of the member means `true`.
 :::
 
+::: funnelweb
+Entity Set and Singleton have the same stucture in the CSDL metamodel, they differ
+only in their `$Collection` value. They are represented by the same class.
+:::
 
+::: funnelweb
+<P><A NAME="106"></A>106. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;EntitySetOrSingleton&nbsp;extends&nbsp;TypedModelElement&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#66">Construct without $Kind</A><TT><BR>
+&nbsp;&nbsp;fromJSON(json)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</TT>
+<A HREF="#110">Deserialize members of EntitySetOrSingleton</A><TT><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;super.fromJSON(json);<BR>
+&nbsp;&nbsp;}<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="107"></A>107. <A HREF="#7">Exports</A>+={<TT><BR>
+EntitySetOrSingleton,<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="108"></A>108. <A HREF="#56">EntityType</A>+={<TT><BR>
+resourcePaths(suffix&nbsp;=&nbsp;[])&nbsp;{<BR>
+&nbsp;&nbsp;const&nbsp;paths&nbsp;=&nbsp;[];<BR>
+&nbsp;&nbsp;for&nbsp;(const&nbsp;p&nbsp;of&nbsp;this.targetingPaths)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(p.attribute&nbsp;===&nbsp;"$Type")&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(p.parent&nbsp;instanceof&nbsp;EntitySetOrSingleton)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;paths.push([p.parent.parent,&nbsp;p.parent,&nbsp;...suffix]);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else&nbsp;if&nbsp;(<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p.parent&nbsp;instanceof&nbsp;NavigationProperty&nbsp;&amp;&amp;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;!suffix.includes(p.parent)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;paths.push(...p.parent.parent.resourcePaths([p.parent,&nbsp;...suffix]));<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;return&nbsp;paths;<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#62">62</A> and <A HREF="#108">108</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#56">56</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="109"></A>109. <A HREF="#56">ComplexType</A>={<TT><BR>
+resourcePaths(suffix&nbsp;=&nbsp;[])&nbsp;{<BR>
+&nbsp;&nbsp;const&nbsp;paths&nbsp;=&nbsp;[];<BR>
+&nbsp;&nbsp;for&nbsp;(const&nbsp;p&nbsp;of&nbsp;this.targetingPaths)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p.attribute&nbsp;===&nbsp;"$Type"&nbsp;&amp;&amp;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p.parent&nbsp;instanceof&nbsp;Property&nbsp;&amp;&amp;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;!suffix.includes(p.parent)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;paths.push(...p.parent.parent.resourcePaths([p.parent,&nbsp;...suffix]));<BR>
+&nbsp;&nbsp;return&nbsp;paths;<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#56">56</A>.</FONT><BR>
+
+</P>
+:::
 
 
 ## <a id="Singleton" href="#Singleton">13.3 Singleton</a>
@@ -3497,12 +5522,118 @@ the target is in the same entity container, the target MUST NOT be
 prefixed with the qualified entity container name.
 :::
 
+::: funnelweb
+The `$NavigationPropertyBinding` is a `NamedSubElement`, like the
+[`$ReferentialConstraint`](#ReferentialConstraint).
+:::
 
+::: funnelweb
+<P><A NAME="110"></A>110. <A HREF="#106">Deserialize members of EntitySetOrSingleton</A>={<TT><BR>
+for&nbsp;(const&nbsp;prop&nbsp;in&nbsp;json.$NavigationPropertyBinding)<BR>
+&nbsp;&nbsp;if&nbsp;(!prop.includes("@"))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;new&nbsp;NavigationPropertyBinding(this,&nbsp;prop).fromJSON(<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;json.$NavigationPropertyBinding<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;);<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#106">106</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+<P><A NAME="111"></A>111. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;NavigationPropertyBinding&nbsp;extends&nbsp;NamedSubElement&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#30">Internal property with setter</A>(</FONT>"</FONT><TT>navigationProperty</TT>
+"</FONT>)</FONT><TT>;<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#30">Internal property with setter</A>(</FONT>"</FONT><TT>target</TT>
+"</FONT>)</FONT><TT>;<BR>
+&nbsp;&nbsp;constructor(entitySetOrSingleton,&nbsp;prop)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;super(entitySetOrSingleton,&nbsp;"$NavigationPropertyBinding",&nbsp;prop);<BR>
+&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;fromJSON(json)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;this.navigationProperty&nbsp;=&nbsp;new&nbsp;RelativePath(<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this,<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.name,<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>
+<A HREF="#113">Relative to entity set or singleton</A><TT>,<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"$NavigationPropertyBinding.NavigationProperty"<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;this.target&nbsp;=&nbsp;new&nbsp;RelativePath(<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this,<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;json[this.name],<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>
+<A HREF="#114">Absolute or relative to this entity container</A><TT>,<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.parent.parent,<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"$NavigationPropertyBinding.Target"<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;super.fromJSON(json);<BR>
+&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;toJSON()&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;this.target.toJSON();<BR>
+&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;toYAML(key)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$path:&nbsp;this.navigationProperty,<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$target:&nbsp;this.target,<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...this<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;};<BR>
+&nbsp;&nbsp;}<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+<P><A NAME="112"></A>112. <A HREF="#7">Exports</A>+={<TT><BR>
+NavigationPropertyBinding,<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="113"></A>113. <A HREF="#111">Relative to entity set or singleton</A>={<TT><BR>
+this.parent<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#111">111</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+The navigation property binding target is absolute (which we treat as
+relative to the CSDL document) if it
+contains a qualified entity container name (and hence a dot), and relative to
+the entity container (the grandparent of the current `NavigationPropertyBinding`) otherwise.
+:::
+
+::: funnelweb
+<P><A NAME="114"></A>114. <A HREF="#111">Absolute or relative to this entity container</A>={<TT><BR>
+json[this.name].includes(".")<BR>
+?&nbsp;this.csdlDocument<BR>
+:&nbsp;this.parent.parent<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#111">111</A>.</FONT><BR>
+
+</P>
+:::
 
 ::: {.varjson .example}
 Example 35: for an entity set in the same container as the enclosing
@@ -3594,8 +5725,73 @@ name of an entity set in the same entity container or a path to an
 entity set in a different entity container.
 :::
 
+::: funnelweb
+Action and function imports are derived from a common superclass.
+:::
 
+::: funnelweb
+<P><A NAME="115"></A>115. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;OperationImport&nbsp;extends&nbsp;NamedModelElement&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#66">Construct without $Kind</A><TT><BR>
+&nbsp;&nbsp;fromJSON(json)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(json.$EntitySet)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.$EntitySet&nbsp;=&nbsp;new&nbsp;RelativePath(<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this,<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;json.$EntitySet,<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.parent,<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"$EntitySet"<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;super.fromJSON(json);<BR>
+&nbsp;&nbsp;}<BR>
+}<BR>
+class&nbsp;ActionImport&nbsp;extends&nbsp;OperationImport&nbsp;{<BR>
+&nbsp;&nbsp;fromJSON(json)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</TT>
+<A HREF="#17">Deserialize qualified name</A>(</FONT>"</FONT><TT>$Action</TT>
+"</FONT>)</FONT><TT><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;super.fromJSON(json);<BR>
+&nbsp;&nbsp;}<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="116"></A>116. <A HREF="#7">Exports</A>+={<TT><BR>
+ActionImport,<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="117"></A>117. <A HREF="#91">Action</A>={<TT><BR>
+resourcePaths(suffix&nbsp;=&nbsp;[])&nbsp;{<BR>
+&nbsp;&nbsp;if&nbsp;(this.$IsBound)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;this.$Parameters[0].$Type.target.resourcePaths([this,&nbsp;...suffix]);<BR>
+&nbsp;&nbsp;const&nbsp;paths&nbsp;=&nbsp;[];<BR>
+&nbsp;&nbsp;for&nbsp;(const&nbsp;p&nbsp;of&nbsp;this.targetingPaths)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(p.attribute&nbsp;===&nbsp;"$Action"&nbsp;&amp;&amp;&nbsp;p.parent&nbsp;instanceof&nbsp;ActionImport)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;paths.push([p.parent.parent,&nbsp;p.parent,&nbsp;...suffix]);<BR>
+&nbsp;&nbsp;return&nbsp;paths;<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#91">91</A>.</FONT><BR>
+
+</P>
+:::
 
 
 ## <a id="FunctionImport" href="#FunctionImport">13.6 Function Import</a>
@@ -3652,7 +5848,55 @@ The value of `$IncludeInServiceDocument` is one of the Boolean literals
 `true` or `false`. Absence of the member means `false`.
 :::
 
+::: funnelweb
+<P><A NAME="118"></A>118. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;FunctionImport&nbsp;extends&nbsp;OperationImport&nbsp;{<BR>
+&nbsp;&nbsp;fromJSON(json)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</TT>
+<A HREF="#17">Deserialize qualified name</A>(</FONT>"</FONT><TT>$Function</TT>
+"</FONT>)</FONT><TT><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;super.fromJSON(json);<BR>
+&nbsp;&nbsp;}<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="119"></A>119. <A HREF="#7">Exports</A>+={<TT><BR>
+FunctionImport,<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="120"></A>120. <A HREF="#95">Function</A>={<TT><BR>
+resourcePaths(suffix&nbsp;=&nbsp;[])&nbsp;{<BR>
+&nbsp;&nbsp;if&nbsp;(this.$IsBound)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;this.$Parameters[0].$Type.target.resourcePaths([this,&nbsp;...suffix]);<BR>
+&nbsp;&nbsp;const&nbsp;paths&nbsp;=&nbsp;[];<BR>
+&nbsp;&nbsp;for&nbsp;(const&nbsp;p&nbsp;of&nbsp;this.targetingPaths)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(p.attribute&nbsp;===&nbsp;"$Function"&nbsp;&amp;&amp;&nbsp;p.parent&nbsp;instanceof&nbsp;FunctionImport)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;paths.push([p.parent.parent,&nbsp;p.parent,&nbsp;...suffix]);<BR>
+&nbsp;&nbsp;return&nbsp;paths;<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#95">95</A>.</FONT><BR>
+
+</P>
+:::
 
 
 
@@ -3824,8 +6068,39 @@ isomorphy to [OData-CSDLXML, section 14.1](https://docs.oasis-open.org/odata/oda
 CSDL JSON documents MUST always specify an explicit value.
 :::
 
+::: funnelweb
+`Term` borrows from `Property` the omission of `Edm.String` as default [`$Type`](#Type).
+:::
 
+::: funnelweb
+<P><A NAME="121"></A>121. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;Term&nbsp;extends&nbsp;TypedModelElement&nbsp;{<BR>
+&nbsp;&nbsp;fromJSON(json)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</TT>
+<A HREF="#123">Deserialize members of Term</A><TT><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Property.prototype.fromJSON.call(this,&nbsp;json);<BR>
+&nbsp;&nbsp;}<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="122"></A>122. <A HREF="#7">Exports</A>+={<TT><BR>
+Term,<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
 
 
 ### <a id="SpecializedTerm" href="#SpecializedTerm">14.1.1 Specialized Term</a>
@@ -3843,6 +6118,18 @@ reached.
 The value of `$BaseTerm` is the qualified name of the base term.
 :::
 
+::: funnelweb
+<P><A NAME="123"></A>123. <A HREF="#121">Deserialize members of Term</A>={<TT><BR>
+</TT>
+<A HREF="#18">Deserialize optional qualified name</A>(</FONT>"</FONT><TT>$BaseTerm</TT>
+"</FONT>)</FONT><TT><BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#121">121</A>.</FONT><BR>
+
+</P>
+:::
 
 
 ### <a id="Applicability" href="#Applicability">14.1.2 Applicability</a>
@@ -3957,24 +6244,419 @@ followed by the qualified name of a term, optionally followed by a hash
 (`#`) and a [qualifier](#Qualifier).
 :::
 
+::: funnelweb
+<P><A NAME="124"></A>124. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;Annotation&nbsp;extends&nbsp;ModelElement&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#126">Annotation</A><TT><BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+<P><A NAME="125"></A>125. <A HREF="#7">Exports</A>+={<TT><BR>
+Annotation,<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+The `target` of an annotation is given as a path, whose target is then the annotation target.
+:::
 
+::: funnelweb
+<P><A NAME="126"></A>126. <A HREF="#124">Annotation</A>+={<TT><BR>
+</TT>
+<A HREF="#2">Internal property</A>(</FONT>"</FONT><TT>target</TT>
+"</FONT>,</FONT>"</FONT>"</FONT>)</FONT><TT><BR>
+</TT>
+<A HREF="#2">Internal property</A>(</FONT>"</FONT><TT>term</TT>
+"</FONT>,</FONT>"</FONT>"</FONT>)</FONT><TT><BR>
+</TT>
+<A HREF="#2">Internal property</A>(</FONT>"</FONT><TT>qualifier</TT>
+"</FONT>,</FONT>"</FONT>"</FONT>)</FONT><TT><BR>
+</TT>
+<A HREF="#127">Internal value property</A><TT><BR>
+constructor(host,&nbsp;target,&nbsp;term,&nbsp;qualifier)&nbsp;{<BR>
+&nbsp;&nbsp;super(host);<BR>
+&nbsp;&nbsp;this.#target&nbsp;=&nbsp;target;<BR>
+&nbsp;&nbsp;this.#term&nbsp;=&nbsp;new&nbsp;QualifiedNamePath(this,&nbsp;term,&nbsp;"term");<BR>
+&nbsp;&nbsp;this.#qualifier&nbsp;=&nbsp;qualifier;<BR>
+}<BR>
+fromJSON(json)&nbsp;{<BR>
+&nbsp;&nbsp;this.value&nbsp;=&nbsp;DynamicExpression.prototype.dynamicExprFromJSON.call(this,&nbsp;json);<BR>
+}<BR>
+toJSON()&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;this.value.toJSON?.()&nbsp;||&nbsp;this.value;<BR>
+}<BR>
+type()&nbsp;{<BR>
+&nbsp;&nbsp;const&nbsp;type&nbsp;=&nbsp;this.term.target.$Type;<BR>
+&nbsp;&nbsp;return&nbsp;type.target?.effectiveType&nbsp;||&nbsp;type.target&nbsp;||&nbsp;type.toJSON();<BR>
+}<BR>
+toString()&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;"@"&nbsp;+&nbsp;this.term.toJSON();<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#126">126</A>, <A HREF="#140">140</A>, <A HREF="#166">166</A>, <A HREF="#168">168</A> and <A HREF="#197">197</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#124">124</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+The `value` property has the standard setter, but a special getter that will be defined later.
+:::
 
+::: funnelweb
+<P><A NAME="127"></A>127. <A HREF="#126">Internal value property</A>[<B>M</B>]={<TT><BR>
+#value;<BR>
+set&nbsp;value(value)&nbsp;{<BR>
+&nbsp;&nbsp;this.#value&nbsp;=&nbsp;value;<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definitions <A HREF="#126">126</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+<P><A NAME="128"></A>128. <A HREF="#189">DynamicExpression</A>+={<TT><BR>
+dynamicExprFromJSON(json)&nbsp;{<BR>
+&nbsp;&nbsp;if&nbsp;(typeof&nbsp;json&nbsp;===&nbsp;"object")&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;value;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;dynamic:&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;(const&nbsp;dynamicExpr&nbsp;in&nbsp;json)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;switch&nbsp;(dynamicExpr)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>
+<A HREF="#208">Cases for dynamic expressions</A><TT><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;default:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>
+<A HREF="#216">Cases for dynamic expressions without a $-member</A><TT><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;value.fromJSON(json);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;value;<BR>
+&nbsp;&nbsp;}&nbsp;else&nbsp;return&nbsp;json;<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#128">128</A> and <A HREF="#167">167</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#189">189</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+The target of the annotation is passed in the second argument to the constructor
+as a relative path. This allows us to specify a property `prop` as annotation target while
+parsing a member like `Description@Core.IsLanguageDependent` even before the `Description`
+property itself has been parsed. Between the property and the annotation term there
+can even be further `termcast`s.
+:::
 
+::: funnelweb
+<P><A NAME="129"></A>129. <A HREF="#6">If the member is an annotation, deserialize it</A>={<TT><BR>
+if&nbsp;(this.annotationFromJSON(json,&nbsp;member,&nbsp;json[member]))&nbsp;hasAnnotations&nbsp;=&nbsp;true;<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#6">6</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+<P><A NAME="130"></A>130. <A HREF="#1">ModelElement</A>+={<TT><BR>
+</TT>
+<A HREF="#2">Internal property</A>(</FONT>"</FONT><TT>annotations</TT>
+"</FONT>,</FONT>"</FONT>"</FONT>)</FONT><TT><BR>
+finishAnnotations()&nbsp;{<BR>
+&nbsp;&nbsp;this.#annotations&nbsp;=&nbsp;undefined;<BR>
+}<BR>
+annotationFromJSON(json,&nbsp;member,&nbsp;value)&nbsp;{<BR>
+&nbsp;&nbsp;const&nbsp;m&nbsp;=&nbsp;member.match(/^([^@]*)(@.*)?@([^@]*?)(#([^@]*?))?$/);<BR>
+&nbsp;&nbsp;if&nbsp;(m)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(m[3].includes(".")&nbsp;&amp;&amp;&nbsp;!m[3].startsWith("odata."))&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const&nbsp;prop&nbsp;=&nbsp;m[1]&nbsp;||&nbsp;"";<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const&nbsp;termcast&nbsp;=&nbsp;m[2]&nbsp;||&nbsp;"";<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const&nbsp;anno&nbsp;=&nbsp;new&nbsp;Annotation(<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this,<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.annotationTarget((prop&nbsp;+&nbsp;termcast).split(/(?&lt;!^)@/)?.join("/@")),<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m[3],<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m[5]<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;anno.fromJSON(value);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.#annotations&nbsp;||=&nbsp;{};<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.#annotations[prop]&nbsp;||=&nbsp;{};<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.#annotations[prop][`${termcast}@${m[3]}${m[5]&nbsp;?&nbsp;"#"&nbsp;+&nbsp;m[5]&nbsp;:&nbsp;""}`]&nbsp;=<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;anno;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;true;<BR>
+&nbsp;&nbsp;}&nbsp;else&nbsp;return&nbsp;false;<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#130">130</A>, <A HREF="#131">131</A>, <A HREF="#137">137</A>, <A HREF="#139">139</A>, <A HREF="#151">151</A>, <A HREF="#164">164</A>, <A HREF="#169">169</A>, <A HREF="#170">170</A>, <A HREF="#183">183</A>, <A HREF="#188">188</A> and <A HREF="#191">191</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#1">1</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+Remember that in [section 5.2](#AnnotationswithExternalTargeting) the following method
+is redefined for externally targeted annotations, because their target is already contained
+in the `Annotations` object.
+:::
 
+::: funnelweb
+<P><A NAME="131"></A>131. <A HREF="#1">ModelElement</A>+={<TT><BR>
+annotationTarget(prefix)&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;new&nbsp;RelativePath(this,&nbsp;prefix,&nbsp;this,&nbsp;"target");<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#130">130</A>, <A HREF="#131">131</A>, <A HREF="#137">137</A>, <A HREF="#139">139</A>, <A HREF="#151">151</A>, <A HREF="#164">164</A>, <A HREF="#169">169</A>, <A HREF="#170">170</A>, <A HREF="#183">183</A>, <A HREF="#188">188</A> and <A HREF="#191">191</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#1">1</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+A `NamedSubElement` can also be host of annotations that also appear next to their target
+prefixed with the target's name followed by `@`.
+:::
+
+::: funnelweb
+<P><A NAME="132"></A>132. <A HREF="#50">NamedSubElement</A>+={<TT><BR>
+get&nbsp;prefix()&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;this.name;<BR>
+}<BR>
+fromJSON(json)&nbsp;{<BR>
+&nbsp;&nbsp;let&nbsp;hasAnnotations&nbsp;=&nbsp;false;<BR>
+&nbsp;&nbsp;for&nbsp;(const&nbsp;member&nbsp;in&nbsp;json)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(member.startsWith(this.prefix&nbsp;+&nbsp;"@"))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.annotationFromJSON(<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;json,<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;member.substring(this.prefix.length),<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;json[member]<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hasAnnotations&nbsp;=&nbsp;true;<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#135">Housekeeping for annotations</A><TT><BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#51">51</A> and <A HREF="#132">132</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#50">50</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+External annotations are also represented as `NamedSubElement`s, but do not use the
+prefix.
+:::
+
+::: funnelweb
+<P><A NAME="133"></A>133. <A HREF="#52">Annotations</A>+={<TT><BR>
+get&nbsp;prefix()&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;"";<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#54">54</A> and <A HREF="#133">133</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#52">52</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+So far we collect all `Annotation`s of a model element in the `annotations` property
+where an `Annotation` that targets another annotation appears next to its target.
+Eventually, we want such an annotation to be a child of its target, but determining the target involves
+unaliasing the annotation terms, which can be done only after the entire CSDL document
+and all included schemas have been parsed. Only at this point (cf. [section 14.4.1.2.1](#PathEvaluationinCSDLMetamodel))
+can we replace the `annotations` properties with nested model elements.
+:::
+
+::: funnelweb
+<P><A NAME="134"></A>134. <A HREF="#8">CSDLDocument</A>+={<TT><BR>
+</TT>
+<A HREF="#2">Internal property</A>(</FONT>"</FONT><TT>annotationTargets</TT>
+"</FONT>,</FONT>"</FONT><TT>=&nbsp;[]</TT>
+"</FONT>)</FONT><TT><BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#12">12</A>, <A HREF="#15">15</A>, <A HREF="#19">19</A>, <A HREF="#25">25</A>, <A HREF="#31">31</A>, <A HREF="#134">134</A>, <A HREF="#154">154</A>, <A HREF="#174">174</A>, <A HREF="#180">180</A> and <A HREF="#222">222</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#8">8</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="135"></A>135. <A HREF="#6">Housekeeping for annotations</A>[<B>M</B>]={<TT><BR>
+if&nbsp;(hasAnnotations)&nbsp;this.csdlDocument.annotationTargets.push(this);<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definitions <A HREF="#6">6</A> and <A HREF="#132">132</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="136"></A>136. <A HREF="#174">Embed all annotations in their targets</A>={<TT><BR>
+for&nbsp;(const&nbsp;target&nbsp;of&nbsp;this.annotationTargets)&nbsp;{<BR>
+&nbsp;&nbsp;for&nbsp;(const&nbsp;path&nbsp;in&nbsp;target.annotations)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;const&nbsp;t&nbsp;=&nbsp;path&nbsp;?&nbsp;target.children[path]&nbsp;:&nbsp;target;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;(const&nbsp;member&nbsp;in&nbsp;target.annotations[path])<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(!/@.*@/.test(member))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;t.nestAnnotations(<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;target.annotations[path],<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;member,<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;target.annotations[path][member]<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<BR>
+&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;target.finishAnnotations();<BR>
+}<BR>
+this.#annotationTargets&nbsp;=&nbsp;undefined;<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#174">174</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+The first regular expression in the following code matches the term name of a single
+annotation whereas the second matches all term names in a member that describes an
+annotation of an annotation (of an ...).
+:::
+
+::: funnelweb
+<P><A NAME="137"></A>137. <A HREF="#1">ModelElement</A>+={<TT><BR>
+nestAnnotations(annos,&nbsp;member,&nbsp;anno)&nbsp;{<BR>
+&nbsp;&nbsp;const&nbsp;termcast&nbsp;=&nbsp;member.replace(<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;/(?&lt;=@).*?(?=#|$)/,<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</TT>
+<A HREF="#223">Unalias the qualified term name</A>(</FONT>"</FONT><TT>this</TT>
+"</FONT>)</FONT><TT><BR>
+&nbsp;&nbsp;);<BR>
+&nbsp;&nbsp;this[termcast]&nbsp;=&nbsp;anno;<BR>
+&nbsp;&nbsp;for&nbsp;(const&nbsp;mem&nbsp;in&nbsp;annos)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;const&nbsp;m&nbsp;=&nbsp;mem.replace(<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/(?&lt;=@).*?(?=#|@|$)/g,<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>
+<A HREF="#223">Unalias the qualified term name</A>(</FONT>"</FONT><TT>this</TT>
+"</FONT>)</FONT><TT><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(m.startsWith(termcast&nbsp;+&nbsp;"@"))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this[termcast].nestAnnotations(<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;annos,<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m.substring(termcast.length),<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;annos[mem],<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<BR>
+&nbsp;&nbsp;}<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#130">130</A>, <A HREF="#131">131</A>, <A HREF="#137">137</A>, <A HREF="#139">139</A>, <A HREF="#151">151</A>, <A HREF="#164">164</A>, <A HREF="#169">169</A>, <A HREF="#170">170</A>, <A HREF="#183">183</A>, <A HREF="#188">188</A> and <A HREF="#191">191</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#1">1</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+Conversely, an `Annotation` that is a child (or descendant) of another `Annotation`
+becomes its sibling when they are serialized.
+:::
+
+::: funnelweb
+<P><A NAME="138"></A>138. <A HREF="#40">Serialize annotations of annotations</A>(<B>3</B>)[<B>M</B>]={<TT><BR>
+</TT>
+<B>1</B></FONT><TT>.annotationsOfAnnotations(</TT>
+<B>2</B></FONT><TT>,&nbsp;</TT>
+<B>3</B></FONT><TT>);<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definitions <A HREF="#40">40</A> and <A HREF="#78">78</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="139"></A>139. <A HREF="#1">ModelElement</A>+={<TT><BR>
+annotationsOfAnnotations(json,&nbsp;prefix)&nbsp;{<BR>
+&nbsp;&nbsp;for&nbsp;(const&nbsp;member&nbsp;in&nbsp;this)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(member.startsWith("@"))&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this[member].annotationsOfAnnotations(json,&nbsp;prefix&nbsp;+&nbsp;member);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(prefix)&nbsp;json[prefix&nbsp;+&nbsp;member]&nbsp;=&nbsp;this[member];<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;}<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#130">130</A>, <A HREF="#131">131</A>, <A HREF="#137">137</A>, <A HREF="#139">139</A>, <A HREF="#151">151</A>, <A HREF="#164">164</A>, <A HREF="#169">169</A>, <A HREF="#170">170</A>, <A HREF="#183">183</A>, <A HREF="#188">188</A> and <A HREF="#191">191</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#1">1</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+During YAML serialization, members representing annotations have the qualified name of the term
+as the key, this must be inserted into the member's value (as a reference to the vocabulary document)
+so that it can become a YAML alias. The inclusion of `...this` in the return value ensures
+the treatment of nested annotations, this is similar to the treatment of annotations
+of [referential constraints](#ReferentialConstraint) or [navigation property bindings](#NavigationPropertyBinding).
+
+And since, unlike in JSON, all annotations are nested in YAML, the members whose key
+contains an inner `@@` must be ignored.
+:::
+
+::: funnelweb
+<P><A NAME="140"></A>140. <A HREF="#124">Annotation</A>+={<TT><BR>
+toYAML(key)&nbsp;{<BR>
+&nbsp;&nbsp;if&nbsp;(!/.@/.test(key))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$value:&nbsp;this.value,<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$term:&nbsp;this.term.target,<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...this<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;};<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#126">126</A>, <A HREF="#140">140</A>, <A HREF="#166">166</A>, <A HREF="#168">168</A> and <A HREF="#197">197</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#124">124</A>.</FONT><BR>
+
+</P>
+:::
 
 ::: {.varjson .example}
 Example 40: term `Measures.ISOCurrency`, once applied with a constant
@@ -4100,6 +6782,18 @@ properties of singletons or entities in a particular entity set. These
 annotations override annotations on the properties or navigation
 properties targeted via the declaring structured type.
 
+::: funnelweb
+<P><A NAME="141"></A>141. <A HREF="#147">Types of path segment</A>+={<TT><BR>
+case&nbsp;segment.includes(".")&nbsp;&amp;&amp;&nbsp;segment.includes("("):<BR>
+&nbsp;&nbsp;return&nbsp;new&nbsp;OverloadSegment(this,&nbsp;segment);<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#141">141</A>, <A HREF="#156">156</A>, <A HREF="#157">157</A> and <A HREF="#159">159</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#147">147</A>.</FONT><BR>
+
+</P>
+:::
 
 ## <a id="ConstantExpression" href="#ConstantExpression">14.3 Constant Expression</a>
 
@@ -4437,22 +7131,213 @@ from the path expression syntax of URLs, see [OData-URL, section 5.1.1.15](https
 A path MUST be composed of zero or more path segments joined together by
 forward slashes (`/`).
 
+::: funnelweb
+A path is a `ModelElement` whose parent is the model element that "hosts" the path.
+For example, the `$Type` of a property is constructed with the property as `host`
+and `$Type` as `attribute`.
+:::
 
+::: funnelweb
+<P><A NAME="142"></A>142. <A HREF="#44">AbstractPath</A>+={<TT><BR>
+</TT>
+<A HREF="#30">Internal property with setter</A>(</FONT>"</FONT><TT>segments</TT>
+"</FONT>)</FONT><TT><BR>
+</TT>
+<A HREF="#2">Internal property</A>(</FONT>"</FONT><TT>attribute</TT>
+"</FONT>,</FONT>"</FONT>"</FONT>)</FONT><TT><BR>
+constructor(host,&nbsp;attribute)&nbsp;{<BR>
+&nbsp;&nbsp;super(host);<BR>
+&nbsp;&nbsp;this.#attribute&nbsp;=&nbsp;attribute;<BR>
+}<BR>
+toString()&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;this.attribute&nbsp;||&nbsp;super.toString();<BR>
+}<BR>
+path()&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;this.parent.path()&nbsp;+&nbsp;"#"&nbsp;+&nbsp;this.toString();<BR>
+}<BR>
+toJSON()&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;this.segments.map((segment)&nbsp;=&gt;&nbsp;segment.toJSON()).join("/");<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#142">142</A>, <A HREF="#144">144</A>, <A HREF="#155">155</A> and <A HREF="#163">163</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#44">44</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+Each segment of a path has a private `#target` attribute. When the getter for one
+of these is invoked, the entire path is evaluated.
 
+An empty path has one empty segment.
+:::
 
+::: funnelweb
+<P><A NAME="143"></A>143. <A HREF="#46">Segment</A>={<TT><BR>
+#target;<BR>
+</TT>
+<A HREF="#2">Internal property</A>(</FONT>"</FONT><TT>path</TT>
+"</FONT>,</FONT>"</FONT>"</FONT>)</FONT><TT><BR>
+</TT>
+<A HREF="#2">Internal property</A>(</FONT>"</FONT><TT>segment</TT>
+"</FONT>,</FONT>"</FONT>"</FONT>)</FONT><TT><BR>
+constructor(path,&nbsp;segment)&nbsp;{<BR>
+&nbsp;&nbsp;this.#path&nbsp;=&nbsp;path;<BR>
+&nbsp;&nbsp;this.#segment&nbsp;=&nbsp;segment;<BR>
+}<BR>
+get&nbsp;target()&nbsp;{<BR>
+&nbsp;&nbsp;if&nbsp;(!this.#target)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</TT>
+<A HREF="#176">Ready for path evaluation?</A><TT><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;this.path.evaluate();<BR>
+&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;return&nbsp;this.#target;<BR>
+}<BR>
+set&nbsp;target(target)&nbsp;{<BR>
+&nbsp;&nbsp;this.#target&nbsp;=&nbsp;target;<BR>
+}<BR>
+toJSON()&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;this.#segment;<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#46">46</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+When an instance of `CSDLDocument` is converted into a YAML representation, `AbstractPath`s
+translate naturally into YAML aliases if the path is replaced in the Javascript object with
+the `target`s of its segments.
+:::
 
+::: funnelweb
+<P><A NAME="144"></A>144. <A HREF="#44">AbstractPath</A>+={<TT><BR>
+toYAML(key)&nbsp;{<BR>
+&nbsp;&nbsp;const&nbsp;segments&nbsp;=&nbsp;this.segments.map((s)&nbsp;=&gt;&nbsp;s.target&nbsp;||&nbsp;s.segment);<BR>
+&nbsp;&nbsp;return&nbsp;segments.length&nbsp;===&nbsp;1&nbsp;?&nbsp;segments[0]&nbsp;:&nbsp;segments;<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#142">142</A>, <A HREF="#144">144</A>, <A HREF="#155">155</A> and <A HREF="#163">163</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#44">44</A>.</FONT><BR>
 
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="145"></A>145. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;RelativePath&nbsp;extends&nbsp;AbstractPath&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#147">RelativePath</A><TT><BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="146"></A>146. <A HREF="#7">Exports</A>+={<TT><BR>
+RelativePath,<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+The `relativeTo` parameter of a `RelativePath` is retrieved not with a getter, but
+with a special method that can be redefined (see `Value Path`).
+:::
+
+::: funnelweb
+<P><A NAME="147"></A>147. <A HREF="#145">RelativePath</A>+={<TT><BR>
+#relativeTo;<BR>
+#absolute&nbsp;=&nbsp;"";<BR>
+constructor(host,&nbsp;path,&nbsp;relativeTo,&nbsp;attribute)&nbsp;{<BR>
+&nbsp;&nbsp;super(host,&nbsp;attribute);<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#149">Treat absolute paths like relative paths</A><TT><BR>
+&nbsp;&nbsp;this.#relativeTo&nbsp;=&nbsp;relativeTo;<BR>
+&nbsp;&nbsp;this.segments&nbsp;=&nbsp;path<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;.split("/")<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;.map(function(segment)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;switch&nbsp;(true)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>
+<A HREF="#141">Types of path segment</A><TT><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;}.bind(this));<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#181">Housekeeping for paths</A><TT><BR>
+}<BR>
+relativeTo()&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;this.#relativeTo;<BR>
+}<BR>
+toJSON()&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;this.#absolute&nbsp;+&nbsp;super.toJSON();<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#147">147</A>, <A HREF="#150">150</A> and <A HREF="#153">153</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#145">145</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+We have already seen an example of relative paths in the code for [`PropertyRef`](#Key), they
+are relative to the entity type, which is the `PropertyRef`'s parent.
+:::
+
+::: funnelweb
+<P><A NAME="148"></A>148. <A HREF="#61">Path to key property</A>(<B>1</B>)[<B>M</B>]={<TT><BR>
+this.#path&nbsp;=&nbsp;new&nbsp;RelativePath(this,&nbsp;</TT>
+<B>1</B></FONT><TT>,&nbsp;this.parent,&nbsp;"$Key");<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definitions <A HREF="#61">61</A> and <A HREF="#61">61</A>.</FONT><BR>
+
+</P>
+:::
 
 Paths starting with a forward slash (`/`) are absolute paths, and the
 first path segment MUST be the qualified name of a model element, e.g.
 an entity container. The remaining path after the second forward slash
 is interpreted relative to that model element.
 
+::: funnelweb
+This allows us to treat absolute paths like relative paths where the `relativeTo`
+does not matter, because the first segment is a [`QualifiedNameSegment`](#Schema).
+:::
 
+::: funnelweb
+<P><A NAME="149"></A>149. <A HREF="#147">Treat absolute paths like relative paths</A>={<TT><BR>
+if&nbsp;(path.startsWith("/"))&nbsp;{<BR>
+&nbsp;&nbsp;this.#absolute&nbsp;=&nbsp;"/";<BR>
+&nbsp;&nbsp;path&nbsp;=&nbsp;path.substring(1);<BR>
+&nbsp;&nbsp;relativeTo&nbsp;=&nbsp;this.csdlDocument;<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#147">147</A>.</FONT><BR>
+
+</P>
+:::
 
 ::: example
 Example 60: absolute path to an entity set
@@ -4464,11 +7349,127 @@ Example 60: absolute path to an entity set
 Paths not starting with a forward slash are interpreted relative to the
 annotation target, following the rules specified in [section 14.4.1.2](#PathEvaluation).
 
+::: funnelweb
+Path evaluation relative to a model element moves from
+one model element to the next by invoking each
+segment's `evaluateRelativeTo` method in turn and storing the `target` in each segment.
+The targets which the path visits are also collected into the path's `visits` property.
+:::
 
+::: funnelweb
+<P><A NAME="150"></A>150. <A HREF="#145">RelativePath</A>+={<TT><BR>
+#visits&nbsp;=&nbsp;[];<BR>
+evaluate()&nbsp;{<BR>
+&nbsp;&nbsp;let&nbsp;target&nbsp;=&nbsp;this.relativeTo();<BR>
+&nbsp;&nbsp;for&nbsp;(let&nbsp;i&nbsp;=&nbsp;0;&nbsp;i&nbsp;&lt;&nbsp;this.segments.length;&nbsp;i++)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;target&nbsp;=&nbsp;this.segments[i].target&nbsp;=<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.segments[i].evaluateRelativeTo(target);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</TT>
+<A HREF="#184">Housekeeping during segment evaluation</A><TT><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;this.#visits.push(target);<BR>
+&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#185">Housekeeping during path evaluation</A><TT><BR>
+&nbsp;&nbsp;return&nbsp;target;<BR>
+}<BR>
+get&nbsp;visits()&nbsp;{<BR>
+&nbsp;&nbsp;if&nbsp;(!this.#visits)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(!this.csdlDocument.finished)&nbsp;return&nbsp;"CSDL&nbsp;document&nbsp;not&nbsp;finished";<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;this.evaluate();<BR>
+&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;return&nbsp;this.#visits;<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#147">147</A>, <A HREF="#150">150</A> and <A HREF="#153">153</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#145">145</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+The model element IDs of the targets are joined to form a unique identifier of the
+path.
+:::
 
+::: funnelweb
+<P><A NAME="151"></A>151. <A HREF="#1">ModelElement</A>+={<TT><BR>
+</TT>
+<A HREF="#2">Internal property</A>(</FONT>"</FONT><TT>ID</TT>
+"</FONT>,</FONT>"</FONT>"</FONT>)</FONT><TT><BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#130">130</A>, <A HREF="#131">131</A>, <A HREF="#137">137</A>, <A HREF="#139">139</A>, <A HREF="#151">151</A>, <A HREF="#164">164</A>, <A HREF="#169">169</A>, <A HREF="#170">170</A>, <A HREF="#183">183</A>, <A HREF="#188">188</A> and <A HREF="#191">191</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#1">1</A>.</FONT><BR>
 
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="152"></A>152. <A HREF="#13">Collect all ModelElements in modelElements</A>+={<TT><BR>
+this.#ID&nbsp;=&nbsp;this.csdlDocument?.modelElements.length;<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#14">14</A> and <A HREF="#152">152</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#13">13</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="153"></A>153. <A HREF="#145">RelativePath</A>+={<TT><BR>
+get&nbsp;pathID()&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;this.#visits?.map((t)&nbsp;=&gt;&nbsp;t.ID)?.join("&nbsp;");<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#147">147</A>, <A HREF="#150">150</A> and <A HREF="#153">153</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#145">145</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+The `evaluate` algorithm is used to address elements in a CSDL document by their path.
+:::
+
+::: funnelweb
+<P><A NAME="154"></A>154. <A HREF="#8">CSDLDocument</A>+={<TT><BR>
+get(path)&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;new&nbsp;RelativePath(this,&nbsp;path,&nbsp;this).evaluate();<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#12">12</A>, <A HREF="#15">15</A>, <A HREF="#19">19</A>, <A HREF="#25">25</A>, <A HREF="#31">31</A>, <A HREF="#134">134</A>, <A HREF="#154">154</A>, <A HREF="#174">174</A>, <A HREF="#180">180</A> and <A HREF="#222">222</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#8">8</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+The `target` getter of a path can then simply call the
+`target` getter of the last path segment. Note that repeated calls to the getter
+evaluate the path only once.
+:::
+
+::: funnelweb
+<P><A NAME="155"></A>155. <A HREF="#44">AbstractPath</A>+={<TT><BR>
+get&nbsp;target()&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;this.segments[this.segments.length&nbsp;-&nbsp;1].target;<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#142">142</A>, <A HREF="#144">144</A>, <A HREF="#155">155</A> and <A HREF="#163">163</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#44">44</A>.</FONT><BR>
+
+</P>
+:::
 
 ::: example
 Example 61: relative path to a property
@@ -4483,6 +7484,18 @@ in scope. If the type or instance identified by the preceding path part
 cannot be cast to the specified type, the path expression evaluates to
 the null value.
 
+::: funnelweb
+<P><A NAME="156"></A>156. <A HREF="#147">Types of path segment</A>+={<TT><BR>
+case&nbsp;!segment.startsWith("@")&nbsp;&amp;&amp;&nbsp;segment.includes("."):<BR>
+&nbsp;&nbsp;return&nbsp;new&nbsp;QualifiedNameSegment(this,&nbsp;segment);<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#141">141</A>, <A HREF="#156">156</A>, <A HREF="#157">157</A> and <A HREF="#159">159</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#147">147</A>.</FONT><BR>
+
+</P>
+:::
 
 ::: example
 Example 62: type-cast segment
@@ -4509,8 +7522,52 @@ properties:
 -   `odata.mediaContentType`
 -   `odata.mediaEtag`
 
+::: funnelweb
+<P><A NAME="157"></A>157. <A HREF="#147">Types of path segment</A>+={<TT><BR>
+case&nbsp;segment.startsWith("@"):<BR>
+&nbsp;&nbsp;return&nbsp;new&nbsp;TermCastSegment(this,&nbsp;segment);<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#141">141</A>, <A HREF="#156">156</A>, <A HREF="#157">157</A> and <A HREF="#159">159</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#147">147</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+Evaluating a `TermCastSegment` involves unaliasing the annotation term (which may fail,
+in which case nothing is returned).
+The annotation is either embedded in the `modelElement` or externally
+targets it.
+:::
+
+::: funnelweb
+<P><A NAME="158"></A>158. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;TermCastSegment&nbsp;extends&nbsp;Segment&nbsp;{<BR>
+&nbsp;&nbsp;evaluateRelativeTo(modelElement)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;const&nbsp;termcast&nbsp;=&nbsp;this.segment.replace(<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/(?&lt;=@).*?(?=#|$)/,<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>
+<A HREF="#223">Unalias the qualified term name</A>(</FONT>"</FONT><TT>this.path</TT>
+"</FONT>)</FONT><TT><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(!termcast)&nbsp;return;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;const&nbsp;result&nbsp;=&nbsp;modelElement[termcast];<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(result)&nbsp;return&nbsp;result;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;(const&nbsp;target&nbsp;of&nbsp;modelElement.targetingPaths.values())<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(target.attribute&nbsp;===&nbsp;"externalTarget"&nbsp;&amp;&amp;&nbsp;target.parent[termcast])<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;target.parent[termcast];<BR>
+&nbsp;&nbsp;}<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
 
 ::: example
 Example 63: term-cast segments
@@ -4528,13 +7585,117 @@ the path expression only needs to reference the next traversed document
 to bring the navigation target type into scope, and each traversed
 document in turn needs to reference only its next document.
 
+::: funnelweb
+Evaluating such a segment on a property calls `evaluateSegment` on the
+property (a `TypedModelElement`), which delegates to `evaluateSegment` on the
+`$Type` attribute (a `QualifiedNamePath`), which delegates to `evaluateSegment` on the
+property type (a `ModelElement`).
 
+An empty segment evaluated relative to a model element results in that model element.
+:::
 
+::: funnelweb
+<P><A NAME="159"></A>159. <A HREF="#147">Types of path segment</A>+={<TT><BR>
+default:<BR>
+&nbsp;&nbsp;return&nbsp;new&nbsp;RelativeSegment(this,&nbsp;segment);<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#141">141</A>, <A HREF="#156">156</A>, <A HREF="#157">157</A> and <A HREF="#159">159</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#147">147</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+<P><A NAME="160"></A>160. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;RelativeSegment&nbsp;extends&nbsp;Segment&nbsp;{<BR>
+&nbsp;&nbsp;evaluateRelativeTo(modelElement)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;this.segment&nbsp;?&nbsp;modelElement.evaluateSegment(this)&nbsp;:&nbsp;modelElement;<BR>
+&nbsp;&nbsp;}<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+<P><A NAME="161"></A>161. <A HREF="#64">TypedModelElement</A>+={<TT><BR>
+evaluateSegment(segment)&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;this.$Type.evaluateSegment(segment);<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#67">67</A> and <A HREF="#161">161</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#64">64</A>.</FONT><BR>
 
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="162"></A>162. <A HREF="#97">Parameter and ReturnType inherit from TypedModelElement</A>[<B>M</B>]={<TT><BR>
+evaluateSegment(segment)&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;TypedModelElement.prototype.evaluateSegment.call(this,&nbsp;segment);<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definitions <A HREF="#97">97</A> and <A HREF="#100">100</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="163"></A>163. <A HREF="#44">AbstractPath</A>+={<TT><BR>
+evaluateSegment(segment)&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;this.target.evaluateSegment(segment);<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#142">142</A>, <A HREF="#144">144</A>, <A HREF="#155">155</A> and <A HREF="#163">163</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#44">44</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="164"></A>164. <A HREF="#1">ModelElement</A>+={<TT><BR>
+evaluateSegment(segment)&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;this.children[segment.segment];<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#130">130</A>, <A HREF="#131">131</A>, <A HREF="#137">137</A>, <A HREF="#139">139</A>, <A HREF="#151">151</A>, <A HREF="#164">164</A>, <A HREF="#169">169</A>, <A HREF="#170">170</A>, <A HREF="#183">183</A>, <A HREF="#188">188</A> and <A HREF="#191">191</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#1">1</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+In model elements that can have a `$BaseType` the segment must be
+looked up among the children of the `effectiveType`.
+:::
+
+::: funnelweb
+<P><A NAME="165"></A>165. <A HREF="#56">Common parts of complex and entity type</A>+={<TT><BR>
+evaluateSegment(segment)&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;this.effectiveType.children[segment.segment];<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#58">58</A> and <A HREF="#165">165</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#56">56</A>.</FONT><BR>
+
+</P>
+:::
 
 A model path MAY contain any number of segments representing
 collection-valued structural or navigation properties. The result of the
@@ -4646,11 +7807,72 @@ unless that target is another annotation or a model element (collection,
 record or property value) directly or indirectly embedded within another
 annotation, in which case the host is the host of that other annotation.
 
+::: funnelweb
+The `target` of an `Annotation` is a `RelativePath` whose `target` is the annotation
+target.
+:::
 
+::: funnelweb
+<P><A NAME="166"></A>166. <A HREF="#124">Annotation</A>+={<TT><BR>
+get&nbsp;host()&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;this.target.target.host;<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#126">126</A>, <A HREF="#140">140</A>, <A HREF="#166">166</A>, <A HREF="#168">168</A> and <A HREF="#197">197</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#124">124</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+A model element is its own `host`, unless it is a [dynamic expression](#DynamicExpression),
+whose `host` is the `host` of the annotation that contains it. (The getter for
+`annotation` is analogous to the getter for [`csdlDocument`](#CSDLJSONDocument).)
+:::
 
+::: funnelweb
+<P><A NAME="167"></A>167. <A HREF="#189">DynamicExpression</A>+={<TT><BR>
+get&nbsp;annotation()&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;this.parent.annotation;<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#128">128</A> and <A HREF="#167">167</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#189">189</A>.</FONT><BR>
 
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="168"></A>168. <A HREF="#124">Annotation</A>+={<TT><BR>
+get&nbsp;annotation()&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;this;<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#126">126</A>, <A HREF="#140">140</A>, <A HREF="#166">166</A>, <A HREF="#168">168</A> and <A HREF="#197">197</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#124">124</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="169"></A>169. <A HREF="#1">ModelElement</A>+={<TT><BR>
+get&nbsp;host()&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;this.annotation?.host&nbsp;||&nbsp;this;<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#130">130</A>, <A HREF="#131">131</A>, <A HREF="#137">137</A>, <A HREF="#139">139</A>, <A HREF="#151">151</A>, <A HREF="#164">164</A>, <A HREF="#169">169</A>, <A HREF="#170">170</A>, <A HREF="#183">183</A>, <A HREF="#188">188</A> and <A HREF="#191">191</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#1">1</A>.</FONT><BR>
+
+</P>
+:::
 
 If the value of an annotation is expressed dynamically with a path
 expression, the path evaluation rules for this expression depend upon the
@@ -4677,7 +7899,35 @@ For annotations hosted by an action, action import, function, function
 import, parameter, or return type, the first segment of the path MUST be the
 name of a parameter of the action or function or `$ReturnType`.
 
+::: funnelweb
+<P><A NAME="170"></A>170. <A HREF="#1">ModelElement</A>+={<TT><BR>
+evaluationStart(anno)&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;this;<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#130">130</A>, <A HREF="#131">131</A>, <A HREF="#137">137</A>, <A HREF="#139">139</A>, <A HREF="#151">151</A>, <A HREF="#164">164</A>, <A HREF="#169">169</A>, <A HREF="#170">170</A>, <A HREF="#183">183</A>, <A HREF="#188">188</A> and <A HREF="#191">191</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#1">1</A>.</FONT><BR>
 
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="171"></A>171. <A HREF="#91">Operation</A>+={<TT><BR>
+evaluateSegment(segment)&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;segment.segment&nbsp;===&nbsp;"$ReturnType"<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;?&nbsp;this.$ReturnType<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;this.$Parameter?.find((p)&nbsp;=&gt;&nbsp;p.$Name&nbsp;===&nbsp;segment.segment);<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#93">93</A> and <A HREF="#171">171</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#91">91</A>.</FONT><BR>
+
+</P>
+:::
 
 For annotations hosted by a structural or navigation property, the path
 evaluation rules additionally depend upon how the annotation target is
@@ -4710,6 +7960,20 @@ specified, as follows:
    structural or navigation property of the outermost type, a [type cast](#TypeCast),
    or a [term cast](#TermCast).
 
+::: funnelweb
+<P><A NAME="172"></A>172. <A HREF="#64">AbstractProperty</A>={<TT><BR>
+evaluationStart(anno)&nbsp;{<BR>
+&nbsp;&nbsp;if&nbsp;(anno.descendantOf(this))&nbsp;return&nbsp;this.parent;<BR>
+&nbsp;&nbsp;if&nbsp;(anno.target.segments[0].target&nbsp;instanceof&nbsp;EntityContainer)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;anno.target.target;<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#64">64</A>.</FONT><BR>
+
+</P>
+:::
 
 ::: example
 Example 69: Annotations hosted by property `A2` in various modes
@@ -4792,35 +8056,499 @@ type `self.A` named in the target expression.
 
 :::
 
+##### <a id="PathEvaluationinCSDLMetamodel" href="#PathEvaluationinCSDLMetamodel">14.4.1.2.1 Path Evaluation in CSDL Metamodel</a>
 
+::: funnelweb
+We want to evaluate all paths that appear in a `CSDLDocument` and populate
+their `target`s, but can do so only after these targets have been parsed, whether they occur
+in the current document or in a [`$Reference`](#Reference),
+after that reference has been resolved. Since this introduces asynchronousness into
+the process, the `finish` method that accomplishes that involves some juggling with `Promise`s.
 
+`csdlDocuments` is a map from a document's URI to the `CSDLDocument` instance. By
+maintaining this, we need not resolve any document URI more than once.
 
+The schemas of all referenced CSDL documents are mapped into the `schemas` property
+of the current CSDL document, which is also shared with all referenced ones.
+The `modelElements` property is likewise shared.
+:::
 
+::: funnelweb
+<P><A NAME="173"></A>173. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+const&nbsp;csdlDocuments&nbsp;=&nbsp;new&nbsp;Map();<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+<P><A NAME="174"></A>174. <A HREF="#8">CSDLDocument</A>+={<TT><BR>
+#uri;<BR>
+#finish;<BR>
+</TT>
+<A HREF="#2">Internal property</A>(</FONT>"</FONT><TT>finished</TT>
+"</FONT>,</FONT>"</FONT>"</FONT>)</FONT><TT><BR>
+</TT>
+<A HREF="#2">Internal property</A>(</FONT>"</FONT><TT>schemas</TT>
+"</FONT>,</FONT>"</FONT>"</FONT>)</FONT><TT><BR>
+constructor(uri,&nbsp;shared)&nbsp;{<BR>
+&nbsp;&nbsp;super();<BR>
+&nbsp;&nbsp;this.#uri&nbsp;=&nbsp;uri&nbsp;||&nbsp;"";<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#175">Share property between CSDL documents</A>(</FONT>"</FONT><TT>schemas</TT>
+"</FONT>)</FONT><TT><BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#175">Share property between CSDL documents</A>(</FONT>"</FONT><TT>modelElements</TT>
+"</FONT>)</FONT><TT><BR>
+}<BR>
+finish()&nbsp;{<BR>
+&nbsp;&nbsp;if&nbsp;(!this.#finish)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;this.#schemas&nbsp;||=&nbsp;new&nbsp;CSDLDocument();<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Object.assign(this.schemas.children,&nbsp;this.children);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</TT>
+<A HREF="#177">Make this.#finish a promise that resolves when all paths have been evaluated</A><TT><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;const&nbsp;references&nbsp;=&nbsp;[];<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;(const&nbsp;uri&nbsp;in&nbsp;this.$Reference)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>
+<A HREF="#49">If the reference is needed in this CSDL document</A><TT><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;references.push(this.$Reference[uri].resolve());<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Promise.all(references).then(<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;async&nbsp;function&nbsp;(uris)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>
+<A HREF="#136">Embed all annotations in their targets</A><TT><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>
+<A HREF="#182">Evaluate all paths that appear in this CSDL document</A><TT><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>
+<A HREF="#178">Resolve this.#finish after all referenced CSDL documents are finished</A><TT><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}.bind(this)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;this.#finished&nbsp;=&nbsp;true;<BR>
+&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;return&nbsp;this.#finish;<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#12">12</A>, <A HREF="#15">15</A>, <A HREF="#19">19</A>, <A HREF="#25">25</A>, <A HREF="#31">31</A>, <A HREF="#134">134</A>, <A HREF="#154">154</A>, <A HREF="#174">174</A>, <A HREF="#180">180</A> and <A HREF="#222">222</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#8">8</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+<P><A NAME="175"></A>175. <A HREF="#174">Share property between CSDL documents</A>(<B>1</B>)[<B>M</B>]={<TT><BR>
+if&nbsp;(shared?.</TT>
+<B>1</B></FONT><TT>)&nbsp;this.#</TT>
+<B>1</B></FONT><TT>&nbsp;=&nbsp;shared.</TT>
+<B>1</B></FONT><TT>;<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definitions <A HREF="#174">174</A> and <A HREF="#174">174</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+<P><A NAME="176"></A>176. <A HREF="#143">Ready for path evaluation?</A>={<TT><BR>
+if&nbsp;(!this.path.csdlDocument.finished)&nbsp;return&nbsp;"CSDL&nbsp;document&nbsp;not&nbsp;finished";<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#143">143</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+<P><A NAME="177"></A>177. <A HREF="#174">Make this.#finish a promise that resolves when all paths have been evaluated</A>={<TT><BR>
+let&nbsp;finished;<BR>
+this.#finish&nbsp;=&nbsp;new&nbsp;Promise(function&nbsp;(resolve,&nbsp;reject)&nbsp;{<BR>
+&nbsp;&nbsp;finished&nbsp;=&nbsp;resolve;<BR>
+});<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#174">174</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+When the following code is reached, all referenced CSDL documents have been parsed and we can
+wait for them to `finish()`. But in order to avoid deadlocks if two documents
+reference each other, each document only
+awaits referenced documents with a lexicographically greater URI.
+The `uris` are (asynchronously) returned by the `resolve` method of the `Reference`s.
 
+The main CSDL document has an empty URI, so its waits for all others to `finish()`.
+:::
 
+::: funnelweb
+<P><A NAME="178"></A>178. <A HREF="#174">Resolve this.#finish after all referenced CSDL documents are finished</A>={<TT><BR>
+await&nbsp;Promise.all(<BR>
+&nbsp;&nbsp;uris<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;.filter((uri)&nbsp;=&gt;&nbsp;uri&nbsp;&gt;&nbsp;this.#uri)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;.map((uri)&nbsp;=&gt;&nbsp;csdlDocuments.get(uri).then((csdl)&nbsp;=&gt;&nbsp;csdl?.finish()))<BR>
+);<BR>
+finished();<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#174">174</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+The map `csdlDocuments` does not contain the `CSDLDocument`s themselves but promises
+that resolve to them. This makes it possible find a URI in this map even while the
+CSDL document is still being loaded and thus avoid several parallel loading attempts.
 
+If a URI cannot be loaded or its CSDL document not constructed for other reasons,
+the promise resolves to undefined. That's why the previous
+code block says `csdl?.finish()`.
+:::
 
+::: funnelweb
+<P><A NAME="179"></A>179. <A HREF="#21">Reference</A>+={<TT><BR>
+async&nbsp;resolve()&nbsp;{<BR>
+&nbsp;&nbsp;let&nbsp;csdl&nbsp;=&nbsp;csdlDocuments.get(this.uri);<BR>
+&nbsp;&nbsp;if&nbsp;(!csdl)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;csdlDocuments.set(<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.uri,<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(csdl&nbsp;=&nbsp;new&nbsp;Promise(<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;async&nbsp;function&nbsp;(resolve,&nbsp;reject)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const&nbsp;csdl&nbsp;=&nbsp;new&nbsp;CSDLDocument(this.uri,&nbsp;this.csdlDocument);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;csdl.fromJSON(<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;await&nbsp;(<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;await&nbsp;fetch(<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.uri.replace(<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/^https:\/\/(sap|oasis-tcs)\.github\.io\//,<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"http://localhost:8080/$1/"<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;).json()<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;resolve(csdl);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;catch&nbsp;(e)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;console.error(this.uri,&nbsp;e);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;resolve();<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}.bind(this)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;);<BR>
+&nbsp;&nbsp;csdl&nbsp;=&nbsp;await&nbsp;csdl;<BR>
+&nbsp;&nbsp;if&nbsp;(csdl)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(this.$Include)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;(const&nbsp;include&nbsp;of&nbsp;this.$Include)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;include.schema&nbsp;=&nbsp;csdl.children[include.$Namespace];<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(this.$IncludeAnnotations)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;(const&nbsp;include&nbsp;of&nbsp;this.$IncludeAnnotations)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;include.schema&nbsp;=&nbsp;csdl.children[include.$TermNamespace];<BR>
+&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;return&nbsp;this.uri;<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#23">23</A>, <A HREF="#47">47</A> and <A HREF="#179">179</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#21">21</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+The `paths` property in `CSDLDocument` collects all paths that are encountered during
+the parsing of the document. It is made undefined after all paths have been evaluated.
+:::
 
+::: funnelweb
+<P><A NAME="180"></A>180. <A HREF="#8">CSDLDocument</A>+={<TT><BR>
+</TT>
+<A HREF="#2">Internal property</A>(</FONT>"</FONT><TT>paths</TT>
+"</FONT>,</FONT>"</FONT><TT>=&nbsp;[]</TT>
+"</FONT>)</FONT><TT><BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#12">12</A>, <A HREF="#15">15</A>, <A HREF="#19">19</A>, <A HREF="#25">25</A>, <A HREF="#31">31</A>, <A HREF="#134">134</A>, <A HREF="#154">154</A>, <A HREF="#174">174</A>, <A HREF="#180">180</A> and <A HREF="#222">222</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#8">8</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+<P><A NAME="181"></A>181. <A HREF="#44">Housekeeping for paths</A>[<B>M</B>]={<TT><BR>
+this.csdlDocument.paths?.push(this);<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definitions <A HREF="#44">44</A> and <A HREF="#147">147</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+In certain circumstances path evaluation errors are tolerated and only logged.
+One example for this are included OData vocabularies that may contain `@Core.Example`s with
+paths, which cannot of course point to something in the vocabulary.
+:::
 
+::: funnelweb
+<P><A NAME="182"></A>182. <A HREF="#174">Evaluate all paths that appear in this CSDL document</A>={<TT><BR>
+for&nbsp;(const&nbsp;path&nbsp;of&nbsp;this.paths)&nbsp;{<BR>
+&nbsp;&nbsp;try&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;path.evaluate();<BR>
+&nbsp;&nbsp;}&nbsp;catch&nbsp;(e)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(this.#uri.includes("/odata-vocabularies/"))&nbsp;console.error(e);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;else&nbsp;throw&nbsp;e;<BR>
+&nbsp;&nbsp;}<BR>
+}<BR>
+this.#paths&nbsp;=&nbsp;undefined;<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#174">174</A>.</FONT><BR>
 
+</P>
+:::
+
+::: funnelweb
+During the path evaluation (which happens once in the path's lifetime as explained
+[here](#PathSyntax)), all model elements traversed by any segment have that segment
+collected into `targetingSegments`, except for the last segment, when the path
+is collected into `targetingPaths`.
+
+No further housekeeping takes place after the `paths` property in the `CSDLDocument`
+has been set to `undefined`.
+:::
+
+::: funnelweb
+<P><A NAME="183"></A>183. <A HREF="#1">ModelElement</A>+={<TT><BR>
+</TT>
+<A HREF="#2">Internal property</A>(</FONT>"</FONT><TT>targetingPaths</TT>
+"</FONT>,</FONT>"</FONT><TT>=&nbsp;new&nbsp;Set()</TT>
+"</FONT>)</FONT><TT><BR>
+</TT>
+<A HREF="#2">Internal property</A>(</FONT>"</FONT><TT>targetingSegments</TT>
+"</FONT>,</FONT>"</FONT><TT>=&nbsp;new&nbsp;Set()</TT>
+"</FONT>)</FONT><TT><BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#130">130</A>, <A HREF="#131">131</A>, <A HREF="#137">137</A>, <A HREF="#139">139</A>, <A HREF="#151">151</A>, <A HREF="#164">164</A>, <A HREF="#169">169</A>, <A HREF="#170">170</A>, <A HREF="#183">183</A>, <A HREF="#188">188</A> and <A HREF="#191">191</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#1">1</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="184"></A>184. <A HREF="#150">Housekeeping during segment evaluation</A>={<TT><BR>
+if&nbsp;(!target)&nbsp;throw&nbsp;new&nbsp;InvalidPathError(this);<BR>
+if&nbsp;(this.csdlDocument.paths&nbsp;&amp;&amp;&nbsp;i&nbsp;&lt;&nbsp;this.segments.length&nbsp;-&nbsp;1)<BR>
+&nbsp;&nbsp;target.targetingSegments.add(this.segments[i]);<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#150">150</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+At this point, `target` may be a primitive type like `Edm.String` and has then
+no `targetingPaths`.
+:::
+
+::: funnelweb
+<P><A NAME="185"></A>185. <A HREF="#44">Housekeeping during path evaluation</A>[<B>M</B>]={<TT><BR>
+if&nbsp;(target&nbsp;&amp;&amp;&nbsp;this.csdlDocument.paths)&nbsp;target.targetingPaths?.add(this);<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definitions <A HREF="#44">44</A> and <A HREF="#150">150</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="186"></A>186. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;InvalidPathError&nbsp;extends&nbsp;Error&nbsp;{<BR>
+&nbsp;&nbsp;constructor(path)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;super("Invalid&nbsp;path&nbsp;"&nbsp;+&nbsp;path.toJSON()&nbsp;+&nbsp;"&nbsp;at&nbsp;"&nbsp;+&nbsp;path.path());<BR>
+&nbsp;&nbsp;}<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="187"></A>187. <A HREF="#7">Exports</A>+={<TT><BR>
+InvalidPathError,<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+After all paths have been evaluated, we can create adhoc paths and evaluate them
+in order to address an element in the metamodel.
+:::
+
+::: funnelweb
+<P><A NAME="188"></A>188. <A HREF="#1">ModelElement</A>+={<TT><BR>
+evalPath(path)&nbsp;{<BR>
+&nbsp;&nbsp;if&nbsp;(!this.csdlDocument.paths)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;new&nbsp;RelativePath(this,&nbsp;path,&nbsp;this).evaluate();<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#130">130</A>, <A HREF="#131">131</A>, <A HREF="#137">137</A>, <A HREF="#139">139</A>, <A HREF="#151">151</A>, <A HREF="#164">164</A>, <A HREF="#169">169</A>, <A HREF="#170">170</A>, <A HREF="#183">183</A>, <A HREF="#188">188</A> and <A HREF="#191">191</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#1">1</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+The types of path in the following sections are derived from a
+common superclass `PathExpression`.
+
+The `$Path` in this class uses a subclass of `RelativePath`, because its
+`relativeTo()` method performs a determination according to [section 14.4.1.2](#PathEvaluation),
+which cannot be done until all annotation targets can be resolved.
+:::
+
+::: funnelweb
+<P><A NAME="189"></A>189. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;ValuePath&nbsp;extends&nbsp;RelativePath&nbsp;{<BR>
+&nbsp;&nbsp;constructor(pathExpression,&nbsp;path)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;super(pathExpression,&nbsp;path,&nbsp;undefined,&nbsp;"$Path");<BR>
+&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;relativeTo()&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;const&nbsp;anno&nbsp;=&nbsp;this.parent.annotation;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;anno.host.evaluationStart(anno);<BR>
+&nbsp;&nbsp;}<BR>
+}<BR>
+class&nbsp;DynamicExpression&nbsp;extends&nbsp;ModelElement&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#128">DynamicExpression</A><TT><BR>
+}<BR>
+class&nbsp;PathExpression&nbsp;extends&nbsp;DynamicExpression&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#190">PathExpression</A><TT><BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="190"></A>190. <A HREF="#189">PathExpression</A>+={<TT><BR>
+constructor(parent,&nbsp;path)&nbsp;{<BR>
+&nbsp;&nbsp;super(parent);<BR>
+&nbsp;&nbsp;this.$Path&nbsp;=&nbsp;new&nbsp;ValuePath(this,&nbsp;path);<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#190">190</A> and <A HREF="#192">192</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#189">189</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+The following method performs a callback for the annotation of each `ValuePath` in the
+[`targetingPaths`](#PathEvaluation) of a model element and returns true if any callback
+returns true. This can be used to detect currency properties with an expression like
+`p.isAnnotation(anno => anno.term.target === Measures.ISOCurrency)`.
+:::
+
+::: funnelweb
+<P><A NAME="191"></A>191. <A HREF="#1">ModelElement</A>+={<TT><BR>
+isAnnotation(callback)&nbsp;{<BR>
+&nbsp;&nbsp;for&nbsp;(const&nbsp;p&nbsp;of&nbsp;this.targetingPaths)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(p.attribute&nbsp;===&nbsp;"$Path")&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const&nbsp;anno&nbsp;=&nbsp;p.parent.annotation;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(anno&nbsp;&amp;&amp;&nbsp;callback(anno))&nbsp;return&nbsp;true;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;}<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#130">130</A>, <A HREF="#131">131</A>, <A HREF="#137">137</A>, <A HREF="#139">139</A>, <A HREF="#151">151</A>, <A HREF="#164">164</A>, <A HREF="#169">169</A>, <A HREF="#170">170</A>, <A HREF="#183">183</A>, <A HREF="#188">188</A> and <A HREF="#191">191</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#1">1</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+Dynamic expressions can be evaluated in Javascript if a callback function is provided that
+resolves the paths that appear in it. The simplest such callback function is
+`PathCallback.bind(obj)` if `obj` is a Javascript object representing a structured
+instance.
+:::
+
+::: funnelweb
+<P><A NAME="192"></A>192. <A HREF="#189">PathExpression</A>+={<TT><BR>
+evalExpr(callback)&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;callback(this.$Path.toJSON());<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#190">190</A> and <A HREF="#192">192</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#189">189</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="193"></A>193. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+function&nbsp;PathCallback(path)&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;this[path];<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="194"></A>194. <A HREF="#7">Exports</A>+={<TT><BR>
+PathCallback,<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
 
 #### <a id="AnnotationPath" href="#AnnotationPath">14.4.1.3 Annotation Path</a>
 
@@ -4844,8 +8572,41 @@ Annotation path expressions are represented as a string containing a
 path.
 :::
 
+::: funnelweb
+Instances of `AnnotationPath` will never be created through JSON parsing, because annotations paths
+(and paths introduced in the following sections) are indistinguishable from strings in CSDL JSON.
+They can only be constructed programmatically, for example, when parsing a CSDL XML document.
+During JSON serialization, they then become strings again.
+:::
 
+::: funnelweb
+<P><A NAME="195"></A>195. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;ModelElementPathExpression&nbsp;extends&nbsp;PathExpression&nbsp;{<BR>
+&nbsp;&nbsp;toJSON()&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;this.$Path.toJSON();<BR>
+&nbsp;&nbsp;}<BR>
+}<BR>
+class&nbsp;AnnotationPath&nbsp;extends&nbsp;ModelElementPathExpression&nbsp;{}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="196"></A>196. <A HREF="#7">Exports</A>+={<TT><BR>
+AnnotationPath,<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
 
 ::: {.varjson .example}
 Example 70:
@@ -4856,6 +8617,88 @@ Example 70:
   "Customer/@Communication.Contact"
 ]
 ```
+:::
+
+::: funnelweb
+Even though the dynamic expression in the example above is parsed as a string,
+we can detect whether it really represents a `ModelElementPathExpression`
+by consulting the `type` method of the dynamic expression.
+The following definition of the `value` getter does this. It works only after all paths
+have been evaluated as described in [section 14.4.1.2.1](#PathEvaluationinCSDLMetamodel),
+therefore the target of the newly detected `path.$Path` must be evaluated in the code below.
+:::
+
+::: funnelweb
+<P><A NAME="197"></A>197. <A HREF="#124">Annotation</A>+={<TT><BR>
+get&nbsp;value()&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;(this.#value&nbsp;=&nbsp;this.valueGetter(this.#value));<BR>
+}<BR>
+valueGetter(value)&nbsp;{<BR>
+&nbsp;&nbsp;if&nbsp;(typeof&nbsp;value&nbsp;===&nbsp;"string")&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;const&nbsp;type&nbsp;=&nbsp;this.type();<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(typeof&nbsp;type&nbsp;===&nbsp;"string")&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const&nbsp;m&nbsp;=&nbsp;type.match(/^Edm\.(.*Path)$/);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(m)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const&nbsp;path&nbsp;=&nbsp;new&nbsp;closure[m[1]](this,&nbsp;value);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path.$Path.target;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;path;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;return&nbsp;value;<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#126">126</A>, <A HREF="#140">140</A>, <A HREF="#166">166</A>, <A HREF="#168">168</A> and <A HREF="#197">197</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#124">124</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="198"></A>198. <A HREF="#217">PropertyValue</A>+={<TT><BR>
+get&nbsp;value()&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;(this.#value&nbsp;=&nbsp;Annotation.prototype.valueGetter.call(<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;this,<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;this.#value<BR>
+&nbsp;&nbsp;));<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#198">198</A> and <A HREF="#220">220</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#217">217</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="199"></A>199. <A HREF="#213">Collection</A>+={<TT><BR>
+get&nbsp;value()&nbsp;{<BR>
+&nbsp;&nbsp;if&nbsp;(this.#value.every((item)&nbsp;=&gt;&nbsp;typeof&nbsp;item&nbsp;===&nbsp;"string"))&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;const&nbsp;type&nbsp;=&nbsp;this.parent.type();<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(typeof&nbsp;type&nbsp;===&nbsp;"string")&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const&nbsp;m&nbsp;=&nbsp;type.match(/^Edm\.(.*Path)$/);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(m)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.#value&nbsp;=&nbsp;this.#value.map(<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;(item)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const&nbsp;path&nbsp;=&nbsp;new&nbsp;closure[m[1]](this,&nbsp;item);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path.$Path.target;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;path;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}.bind(this)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;return&nbsp;this.#value;<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#199">199</A> and <A HREF="#215">215</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#213">213</A>.</FONT><BR>
+
+</P>
 :::
 
 
@@ -4875,7 +8718,29 @@ Model element path expressions are represented as a string containing a
 path.
 :::
 
+::: funnelweb
+<P><A NAME="200"></A>200. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;ModelElementPath&nbsp;extends&nbsp;ModelElementPathExpression&nbsp;{}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="201"></A>201. <A HREF="#7">Exports</A>+={<TT><BR>
+ModelElementPath,<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
 
 ::: {.varjson .example}
 Example 71:
@@ -4919,7 +8784,29 @@ Example 72:
 ```
 :::
 
+::: funnelweb
+<P><A NAME="202"></A>202. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;NavigationPropertyPath&nbsp;extends&nbsp;ModelElementPathExpression&nbsp;{}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="203"></A>203. <A HREF="#7">Exports</A>+={<TT><BR>
+NavigationPropertyPath,<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
 
 
 
@@ -4943,7 +8830,29 @@ identified by the path.
 Property path expressions are represented as a string containing a path.
 :::
 
+::: funnelweb
+<P><A NAME="204"></A>204. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;PropertyPath&nbsp;extends&nbsp;ModelElementPathExpression&nbsp;{}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="205"></A>205. <A HREF="#7">Exports</A>+={<TT><BR>
+PropertyPath,<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
 
 ::: {.varjson .example}
 Example 73:
@@ -4978,8 +8887,43 @@ Path expressions are represented as an object with a single member
 `$Path` whose value is a string containing a path.
 :::
 
+::: funnelweb
+<P><A NAME="206"></A>206. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;Path&nbsp;extends&nbsp;PathExpression&nbsp;{}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+<P><A NAME="207"></A>207. <A HREF="#7">Exports</A>+={<TT><BR>
+Path,<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="208"></A>208. <A HREF="#128">Cases for dynamic expressions</A>+={<TT><BR>
+case&nbsp;"$Path":<BR>
+&nbsp;&nbsp;value&nbsp;=&nbsp;new&nbsp;Path(this,&nbsp;json[dynamicExpr]);<BR>
+&nbsp;&nbsp;break&nbsp;dynamic;<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#208">208</A> and <A HREF="#210">210</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#128">128</A>.</FONT><BR>
+
+</P>
+:::
 
 ::: {.varjson .example}
 Example 74:
@@ -5072,9 +9016,80 @@ or `$In`.
 They MAY contain [annotations](#Annotation).
 :::
 
+::: funnelweb
+<P><A NAME="209"></A>209. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;BinaryExpression&nbsp;extends&nbsp;DynamicExpression&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#30">Internal property with setter</A>(</FONT>"</FONT><TT>left</TT>
+"</FONT>)</FONT><TT><BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#30">Internal property with setter</A>(</FONT>"</FONT><TT>right</TT>
+"</FONT>)</FONT><TT><BR>
+&nbsp;&nbsp;fromJSON(json)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;this.left&nbsp;=&nbsp;this.dynamicExprFromJSON(json[0]);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;this.right&nbsp;=&nbsp;this.dynamicExprFromJSON(json[1]);<BR>
+&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;toJSON()&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;[this.left,&nbsp;this.right];<BR>
+&nbsp;&nbsp;}<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+<P><A NAME="210"></A>210. <A HREF="#128">Cases for dynamic expressions</A>+={<TT><BR>
+case&nbsp;"$And":<BR>
+case&nbsp;"$Or":<BR>
+&nbsp;&nbsp;value&nbsp;=&nbsp;new&nbsp;closure[dynamicExpr.substring(1)](this).fromJSON(json[dynamicExpr]);<BR>
+&nbsp;&nbsp;break&nbsp;dynamic;<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#208">208</A> and <A HREF="#210">210</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#128">128</A>.</FONT><BR>
 
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="211"></A>211. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;And&nbsp;extends&nbsp;BinaryExpression&nbsp;{<BR>
+&nbsp;&nbsp;evalExpr(callback)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;this.left.evalExpr(callback)&nbsp;&amp;&amp;&nbsp;this.right.evalExpr(callback);<BR>
+&nbsp;&nbsp;}<BR>
+}<BR>
+class&nbsp;Or&nbsp;extends&nbsp;BinaryExpression&nbsp;{<BR>
+&nbsp;&nbsp;evalExpr(callback)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;this.left.evalExpr(callback)&nbsp;||&nbsp;this.right.evalExpr(callback);<BR>
+&nbsp;&nbsp;}<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="212"></A>212. <A HREF="#7">Exports</A>+={<TT><BR>
+And,<BR>
+Or,<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
+
+</P>
+:::
 
 ::: {.varjson .example}
 Example <a id="disambiguate" href="#disambiguate">76</a>:
@@ -5559,10 +9574,68 @@ Collection expressions are represented as arrays with one array item per
 item expression within the collection expression.
 :::
 
+::: funnelweb
+<P><A NAME="213"></A>213. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;Collection&nbsp;extends&nbsp;DynamicExpression&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#127">Internal value property</A><TT><BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#199">Collection</A><TT><BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+<P><A NAME="214"></A>214. <A HREF="#7">Exports</A>+={<TT><BR>
+Collection,<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+<P><A NAME="215"></A>215. <A HREF="#213">Collection</A>+={<TT><BR>
+fromJSON(json)&nbsp;{<BR>
+&nbsp;&nbsp;this.value&nbsp;=&nbsp;json.map((item)&nbsp;=&gt;&nbsp;this.dynamicExprFromJSON(item));<BR>
+}<BR>
+toJSON()&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;this.value.map((item)&nbsp;=&gt;&nbsp;item.toJSON?.()&nbsp;||&nbsp;item);<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#199">199</A> and <A HREF="#215">215</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#213">213</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+Unlike other dynamic expressions, which are represented by an object with a `$`-prefixed
+member, `Collection` and [`Record`](#Record) are represented as JSON arrays and
+objects, respectively.
+:::
+
+::: funnelweb
+<P><A NAME="216"></A>216. <A HREF="#128">Cases for dynamic expressions without a $-member</A>={<TT><BR>
+value&nbsp;=&nbsp;new&nbsp;(json&nbsp;instanceof&nbsp;Array&nbsp;?&nbsp;Collection&nbsp;:&nbsp;Record)(this);<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#128">128</A>.</FONT><BR>
+
+</P>
+:::
 
 ::: {.varjson .example}
 Example 83:
@@ -5862,9 +9935,89 @@ It MAY contain [annotations](#Annotation) for itself and its members.
 Annotations for record members are prefixed with the member name.
 :::
 
+::: funnelweb
+<P><A NAME="217"></A>217. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+class&nbsp;Record&nbsp;extends&nbsp;DynamicExpression&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#219">Record</A><TT><BR>
+}<BR>
+class&nbsp;PropertyValue&nbsp;extends&nbsp;NamedModelElement&nbsp;{<BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#127">Internal value property</A><TT><BR>
+&nbsp;&nbsp;</TT>
+<A HREF="#198">PropertyValue</A><TT><BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+<P><A NAME="218"></A>218. <A HREF="#7">Exports</A>+={<TT><BR>
+Record,<BR>
+PropertyValue,<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="219"></A>219. <A HREF="#217">Record</A>={<TT><BR>
+fromJSON(json)&nbsp;{<BR>
+&nbsp;&nbsp;super.fromJSON(json,&nbsp;"PropertyValue");<BR>
+&nbsp;&nbsp;const&nbsp;type&nbsp;=&nbsp;json["@odata.type"]&nbsp;||&nbsp;json["@type"];<BR>
+&nbsp;&nbsp;if&nbsp;(type)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;const&nbsp;typename&nbsp;=&nbsp;type.split("#",&nbsp;2)[1];<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(typename.startsWith("Collection("))&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;typename&nbsp;=&nbsp;typename.substring(11,&nbsp;typename.length&nbsp;-&nbsp;1);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.$Collection&nbsp;=&nbsp;true;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;this["@type"]&nbsp;=&nbsp;new&nbsp;QualifiedNamePath(this,&nbsp;typename,&nbsp;"@type");<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;delete&nbsp;this["@odata.type"];<BR>
+&nbsp;&nbsp;}<BR>
+}<BR>
+type()&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;this["@type"]?.target.effectiveType&nbsp;||&nbsp;this.parent.type();<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#217">217</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="220"></A>220. <A HREF="#217">PropertyValue</A>+={<TT><BR>
+get&nbsp;annotation()&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;this.parent.annotation;<BR>
+}<BR>
+fromJSON(json)&nbsp;{<BR>
+&nbsp;&nbsp;Annotation.prototype.fromJSON.call(this,&nbsp;json);<BR>
+}<BR>
+toJSON()&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;Annotation.prototype.toJSON.call(this);<BR>
+}<BR>
+type()&nbsp;{<BR>
+&nbsp;&nbsp;const&nbsp;type&nbsp;=&nbsp;this.parent.type().children[this.name].$Type;<BR>
+&nbsp;&nbsp;return&nbsp;type.target?.effectiveType&nbsp;||&nbsp;type.target&nbsp;||&nbsp;type.toJSON();<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#198">198</A> and <A HREF="#220">220</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#217">217</A>.</FONT><BR>
+
+</P>
+:::
 
 ::: {.varjson .example}
 Example 91: this annotation "morphs" the entity type from [example 13](#entitytype) into
@@ -6008,8 +10161,48 @@ or alias of the schema that defines the model element, followed by a dot
 and the name of the model element, see rule `qualifiedTypeName` in
 [OData‑ABNF](#ODataABNF).
 
+::: funnelweb
+<P><A NAME="221"></A>221. <A HREF="#46">Determine namespace and name of segment</A>={<TT><BR>
+const&nbsp;i&nbsp;=&nbsp;segment.lastIndexOf(".");<BR>
+this.#namespace&nbsp;=&nbsp;segment.substring(0,&nbsp;i);<BR>
+this.#name&nbsp;=&nbsp;segment.substring(i&nbsp;+&nbsp;1);<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#46">46</A>.</FONT><BR>
 
+</P>
+:::
 
+::: funnelweb
+<P><A NAME="222"></A>222. <A HREF="#8">CSDLDocument</A>+={<TT><BR>
+unalias(qname)&nbsp;{<BR>
+&nbsp;&nbsp;const&nbsp;i&nbsp;=&nbsp;qname.lastIndexOf(".");<BR>
+&nbsp;&nbsp;const&nbsp;namespace&nbsp;=&nbsp;qname.substring(0,&nbsp;i);<BR>
+&nbsp;&nbsp;const&nbsp;name&nbsp;=&nbsp;qname.substring(i&nbsp;+&nbsp;1);<BR>
+&nbsp;&nbsp;return&nbsp;this.#findSchema(namespace,&nbsp;(schema)&nbsp;=&gt;&nbsp;schema.name)&nbsp;+&nbsp;"."&nbsp;+&nbsp;name;<BR>
+}<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#12">12</A>, <A HREF="#15">15</A>, <A HREF="#19">19</A>, <A HREF="#25">25</A>, <A HREF="#31">31</A>, <A HREF="#134">134</A>, <A HREF="#154">154</A>, <A HREF="#174">174</A>, <A HREF="#180">180</A> and <A HREF="#222">222</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#8">8</A>.</FONT><BR>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="223"></A>223. <A HREF="#137">Unalias the qualified term name</A>(<B>1</B>)[<B>M</B>]={<TT><BR>
+function&nbsp;(m)&nbsp;{<BR>
+&nbsp;&nbsp;return&nbsp;</TT>
+<B>1</B></FONT><TT>.csdlDocument.unalias(m);<BR>
+}.bind(this)<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is invoked in definitions <A HREF="#137">137</A>, <A HREF="#137">137</A> and <A HREF="#158">158</A>.</FONT><BR>
+</P>
+:::
 
 For built-in [primitive types](#PrimitiveTypes): the name of the type,
 prefixed with `Edm` followed by a dot.
@@ -6614,6 +10807,8 @@ https://openui5.hana.ondemand.com/topic/87aac894a40640f89920d7b2a414499b.
   - [`$UrlRef`](#UrlRef.21.28)
 :::
 
+::: toc
+:::
 
 -------
 
