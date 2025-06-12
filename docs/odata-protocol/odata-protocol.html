@@ -1300,6 +1300,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </ul>
 <p>Key values in <code>{canonical-collection}</code>, <code>{canonical-singleton}</code>, and <code>{canonical-member}</code> are represented in canonical form (parentheses-style) without percent-encoding.</p>
 <p>The full grammar for the context URL is defined in <a href="#ODataABNF">OData-ABNF</a>. Note that the syntax of the context URL is independent of whatever URL conventions the service uses for addressing individual entities.</p>
+<p>If the context URL in a response payload contains one of the <code>{canonical-*}</code>, the client knows the canonical collection or canonical singleton after it has received the response, even in cases where this cannot be determined in advance from the service metadata. Example of such cases are entities from a function or action with no entity set path, a function import or action import with no specified entity set, or a navigation property with no navigation property binding.</p>
 <details open><summary>
 <h2 id="101-service-document"><a id="ServiceDocument" href="#ServiceDocument">10.1 Service Document</a></h2>
 </summary>
@@ -1329,7 +1330,7 @@ http://host/service/$metadata#Customers</code></pre>
 <pre><code>http://host/service/Orders(4711)/Items
 http://host/service/$metadata#Orders(4711)/Items</code></pre>
 </div>
-<p>If the entities are not members of a single canonical collection, such as entities from a function or action with no entity set path, a function import or action import with no specified entity set, or a navigation property with no navigation property binding, the context URL fragment specifies the type of the returned entity collection.</p>
+<p>If the entities are not members of a single canonical collection, the context URL fragment specifies the type of the returned entity collection.</p>
 </details>
 <details open><summary>
 <h2 id="103-entity"><a id="Entity" href="#Entity">10.3 Entity</a></h2>
@@ -1348,7 +1349,7 @@ http://host/service/$metadata#Customers/$entity</code></pre>
 <pre><code>http://host/service/Orders(4711)/Items(1)
 http://host/service/$metadata#Orders(4711)/Items/$entity</code></pre>
 </div>
-<p>If the entity is within a collection, but a canonical collection cannot be determined, such as for an entity returned from a function or action with no entity set path, a function import or action import with no specified entity set, or a navigation property with no navigation property binding, the context URL fragment specifies the <code>{type-name}</code> of the returned entity.</p>
+<p>If the entity is within a collection, but a canonical collection cannot be determined, the context URL fragment specifies the <code>{type-name}</code> of the returned entity.</p>
 </details>
 <details open><summary>
 <h2 id="104-singleton"><a id="Singleton" href="#Singleton">10.4 Singleton</a></h2>
