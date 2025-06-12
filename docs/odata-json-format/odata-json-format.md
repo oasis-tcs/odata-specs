@@ -1457,11 +1457,7 @@ A complex value is represented as a single JSON object containing one
 name/value pair for each [structural property](#StructuralProperty) or [navigation property](#NavigationProperty) that makes up the complex type. Each
 property value is formatted as appropriate for the type of the property.
 
-Related entities MAY be included in the serialization as name/value pairs
-for [navigation properties](#NavigationProperty)
-or their [navigation](#NavigationLink) or [association](#AssociationLink) links.
-
-The serialization MAY have name/value pairs for [instance annotations](#InstanceAnnotations) and control information.
+It MAY have name/value pairs for [instance annotations](#InstanceAnnotations) and control information.
 
 ::: example
 Example 13:
