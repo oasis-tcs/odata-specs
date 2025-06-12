@@ -18,3 +18,4 @@ description:
   The Common Schema Definition Language (CSDL) defines specific representations
   of the entity data model exposed by an OData service, using XML, JSON, and other formats.
   This document (OData CSDL JSON Representation) specifically defines the JSON representation of CSDL.
+funnelweb: C:/git/D024504/odata-specs-fw/weave
