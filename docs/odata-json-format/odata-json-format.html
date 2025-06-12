@@ -881,7 +881,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <h1 id="6-entity"><a id="Entity" href="#Entity">6 Entity</a></h1>
 </summary>
 <p>An entity is serialized as a JSON object. It MAY contain <a href="#ControlInformationcontextodatacontext"><code>context</code></a>, <a href="#ControlInformationtypeodatatype"><code>type</code></a>, or <a href="#ControlInformationdeltaLinkodatadeltaLink"><code>deltaLink</code></a> control information.</p>
-<p>Related entities MAY be included in the serialization as values of <a href="#NavigationProperty">navigation properties</a> or their <a href="#NavigationLink">navigation</a> or <a href="#AssociationLink">association</a> links. Each <a href="#StructuralProperty">structural property</a> or related entity to be transmitted is represented as a name/value pair within the object. The order in which the pairs appear within the object is considered insignificant.</p>
+<p>Each <a href="#StructuralProperty">structural property</a> or <a href="#NavigationProperty">navigation property</a> to be transmitted is represented as a name/value pair within the object. The order in which the pairs appear within the object is considered insignificant.</p>
 <p>An entity in a payload may be a complete entity, a projected entity (see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptionselect">OData-Protocol, section 11.2.5.1</a>), or a partial entity update (see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UpdateanEntity">OData-Protocol, section 11.4.3</a>).</p>
 <p>An entity representation can be (modified and) round-tripped to the service directly. The <a href="#ControlInformationcontextodatacontext">context URL</a> is used in requests only as a base for <a href="#RelativeURLs">relative URLs</a>.</p>
 <div class="example">
@@ -970,7 +970,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <details open><summary>
 <h2 id="72-complex-value"><a id="ComplexValue" href="#ComplexValue">7.2 Complex Value</a></h2>
 </summary>
-<p>A complex value is represented as a single JSON object containing one name/value pair for each property that makes up the complex type. Each property value is formatted as appropriate for the type of the property.</p>
+<p>A complex value is represented as a single JSON object containing one name/value pair for each <a href="#StructuralProperty">structural property</a> or <a href="#NavigationProperty">navigation property</a> that makes up the complex type. Each property value is formatted as appropriate for the type of the property.</p>
 <p>Related entities MAY be included in the serialization as name/value pairs for <a href="#NavigationProperty">navigation properties</a> or their <a href="#NavigationLink">navigation</a> or <a href="#AssociationLink">association</a> links.</p>
 <p>The serialization MAY have name/value pairs for <a href="#InstanceAnnotations">instance annotations</a> and control information.</p>
 <div class="example">
