@@ -53,6 +53,8 @@ All examples in this document are non-normative and informative only. Examples l
 
 All other text is normative unless otherwise labeled.
 
+Paragraphs labeled 🚧 in this version of the specification contain restrictions that were not made in **[OData-Data-Agg-v4.0]** OASIS Committee Specification 03. Also, some sections of **[OData-Data-Agg-v4.0]** OASIS Committee Specification 03 are omitted from this version. In later OASIS standard versions these restrictions may be lifted again and the omitted sections reintroduced.
+
 <!--
 Here is a customized command line which will generate HTML from the markdown file (named `$$$filename$$$.md`). Line breaks are added for readability only:
 
@@ -585,8 +587,8 @@ Example ##ex: The following diagram depicts a simple model that is used througho
 
 The `Amount` property in the `Sale` entity type is an [aggregatable property](#AggregationCapabilities), and the properties of the related entity types are groupable. These can be arranged in hierarchies, for example:
 - Product hierarchy based on [groupable](#AggregationCapabilities) properties of the `Category` and `Product` entity types
-- Customer [hierarchy](#LeveledHierarchy) based on `Country` and `Customer`
-- Time [hierarchy](#LeveledHierarchy) based on `Year`, `Month`, and `Date`
+- Customer hierarchy based on `Country` and `Customer`
+- Time hierarchy based on `Year`, `Month`, and `Date`
 - SalesOrganization [hierarchy](#RecursiveHierarchy) based on the recursive association to itself
 
 In the context of Online Analytical Processing (OLAP), this model might be described in terms of a Sales "cube" with an Amount "measure" and three "dimensions". This document will avoid such terms, as they are heavily overloaded.

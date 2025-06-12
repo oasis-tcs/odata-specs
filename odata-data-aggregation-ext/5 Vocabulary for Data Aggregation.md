@@ -161,17 +161,9 @@ Example ##ex: This simplified `Sales` entity set has a single aggregatable prope
 
 ## ##subsec Hierarchies
 
-A hierarchy is an arrangement of entities whose values are represented as being "above", "below", or "at the same level as" one another. A hierarchy can be leveled or recursive.
+A hierarchy is an arrangement of entities whose values are represented as being "above", "below", or "at the same level as" one another.
 
-### ##subsubsec Leveled Hierarchy
-
-A _leveled hierarchy_ has a fixed number of levels each of which is represented by a [grouping property](#SimpleGrouping). The values of a lower-level property depend on the property value of the level above.
-
-A leveled hierarchy can be defined for a collection of instances of an entity or complex type and is described with the term `LeveledHierarchy` that lists the properties used to form the hierarchy.
-
-The order of the collection is significant: it lists paths from the entity or complex type where the term is applied to groupable properties representing the levels, starting with the root level (coarsest granularity) down to the lowest (finest-grained) level of the hierarchy.
-
-The term `LeveledHierarchy` MUST be applied with a qualifier that can be used to reference the hierarchy in [grouping with `rollup`](#Groupingwithrollup).
+🚧 Hierarchies are defined recursively as follows. Note that properties like year, quarter and month can have the semantics of a "leveled" hierarchy, but this is not made explicit in the OData service.
 
 ### ##subsubsec Recursive Hierarchy
 
@@ -183,7 +175,7 @@ The recursive hierarchy is described in the model by an annotation of the entity
 - The `NodeProperty` MUST be a path with single-valued segments ending in a primitive property. This property holds the node identifier of an entity that is a node in the hierarchy.
 - The `ParentNavigationProperty` MUST be a collection-valued or nullable single-valued navigation property path that addresses the entity type annotated with this term. It navigates from an entity that is a node in the hierarchy to its parent nodes.
 
-The term `RecursiveHierarchy` can only be applied to entity types, and MUST be applied with a qualifier, which is used to reference the hierarchy in transformations operating on recursive hierarchies, in [grouping with `rolluprecursive`](#Groupingwithrolluprecursive), and in [hierarchy functions](#HierarchyFunctions). The same entity can serve as nodes in different recursive hierarchies, given different qualifiers.
+The term `RecursiveHierarchy` can only be applied to entity types, and MUST be applied with a qualifier, which is used to reference the hierarchy in transformations operating on recursive hierarchies and in [hierarchy functions](#HierarchyFunctions). The same entity can serve as nodes in different recursive hierarchies, given different qualifiers.
 
 A _root node_ is a node without parent nodes. A recursive hierarchy can have one or more root nodes. A node is a _child node_ of its parent nodes, a node without child nodes is a _leaf node_. Two nodes with a common parent node are _sibling nodes_ and so are two root nodes.
 
@@ -209,8 +201,6 @@ The following functions are defined:
 - [`issibling`]($$$OData-VocAggr$$$#issibling) tests if the given entity and another entity (whose node identifier is given in a parameter `Other`) are sibling nodes.
 - [`isleaf`]($$$OData-VocAggr$$$#isleaf) tests if the given entity is a leaf node.
 
-Another function `rollupnode` is defined that can only be used in connection with [`rolluprecursive`](#Groupingwithrolluprecursive).
-
 ### ##subsubsec Hierarchy Examples
 
 The hierarchy terms can be applied to the [Example Data Model](#ExampleDataModel).
@@ -229,27 +219,6 @@ The hierarchy terms can be applied to the [Example Data Model](#ExampleDataModel
   <edmx:DataServices>
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm"
             Alias="SalesModel" Namespace="org.example.odata.salesservice">
-      <Annotations Target="SalesModel.Product">
-        <Annotation Term="Aggregation.LeveledHierarchy"
-                    Qualifier="ProductHierarchy">
-          <Collection>
-            <PropertyPath>Category/Name</PropertyPath>
-            <PropertyPath>Name</PropertyPath>
-          </Collection>
-        </Annotation>
-      </Annotations>
-
-      <Annotations Target="SalesModel.Time">
-        <Annotation Term="Aggregation.LeveledHierarchy"
-                    Qualifier="TimeHierarchy">
-          <Collection>
-            <PropertyPath>Year</PropertyPath>
-            <PropertyPath>Quarter</PropertyPath>
-            <PropertyPath>Month</PropertyPath>
-          </Collection>
-        </Annotation>
-      </Annotations>
-
       <Annotations Target="SalesModel.SalesOrganization">
         <Annotation Term="Aggregation.RecursiveHierarchy"
                     Qualifier="SalesOrgHierarchy">
