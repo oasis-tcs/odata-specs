@@ -220,7 +220,8 @@ Section | Feature / Change | Issue
 [Section 4.6.8](#ControlInformationidodataid)| Transient entities can be identifiable| [1928](https://github.com/oasis-tcs/odata-specs/issues/1928)
 [Section 4.6.10](#ControlInformationetagodataetag)| Control information `"@etag": ""` to prevent updates| [2021](https://github.com/oasis-tcs/odata-specs/issues/2021)
 [Section 4.6.12](#ControlInformationmediaodatamedia)| `mediaContentType` can be `null`| [536](https://github.com/oasis-tcs/odata-specs/issues/536)
-[Section 7](#StructuralProperty), [Section A.2](#InformativeReferences)| Removed reference to obsolete version of GeoJSON| [456](https://github.com/oasis-tcs/odata-specs/issues/456)
+[Section 7](#StructuralProperty), [Section A.2](#InformativeReferences)| Removed reference to obsolete version of GeoJSON| [352](https://github.com/oasis-tcs/odata-specs/issues/352)
+[Section 14](#EntityReference)| Entities can be referenced by id or full set of key properties| [456](https://github.com/oasis-tcs/odata-specs/issues/456)
 [Section 15.3](#DeletedEntity)| `type` control information, if present, must come immediately after `removed`| [1985](https://github.com/oasis-tcs/odata-specs/issues/1985)
 [Section 18](#ActionInvocation)| Allow common expressions in action payloads| [341](https://github.com/oasis-tcs/odata-specs/issues/341)
 
@@ -2063,8 +2064,7 @@ Example 31:
 
 An entity reference (see [OData-Protocol, section 4.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#EntityIdsandEntityReferences)) MAY take the
 place of an entity in a JSON payload, based on the client request. It
-is serialized as a JSON object that MUST contain the [id](#ControlInformationidodataid) of the referenced
-entity and MAY contain the [`type`](#ControlInformationtypeodatatype)
+is serialized as a JSON object that MUST contain either the [id](#ControlInformationidodataid) or the full set of key values of the referenced entity and MAY contain the [`type`](#ControlInformationtypeodatatype)
 control information and [instance annotations](#InstanceAnnotations), but no additional properties or
 control information.
 
@@ -2095,7 +2095,7 @@ Example 33: collection of entity references
   "@context": "http://host/service/$metadata#Collection($ref)",
   "value": [
     { "@id": "Orders(10643)" },
-    { "@id": "Orders(10759)" }
+    { "id": 10759)" }
   ]
 }
 ```
