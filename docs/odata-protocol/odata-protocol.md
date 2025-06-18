@@ -2045,11 +2045,11 @@ The full grammar for the context URL is defined in
 independent of whatever URL conventions the service uses for addressing
 individual entities.
 
-If the context URL in a response payload contains one of the `{canonical-*}`,
+If the context URL in a response payload contains a canonical URL,
 the client knows the canonical collection or canonical singleton
 after it has received the response,
 even in cases where this cannot be determined in advance from the service metadata.
-Example of such cases are entities from a function or action with no entity set path, a function
+Examples of such cases are entities from a function or action with no entity set path, a function
 import or action import with no specified entity set, or a navigation
 property with no navigation property binding.
 
