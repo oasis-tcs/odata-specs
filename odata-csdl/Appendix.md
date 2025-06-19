@@ -158,7 +158,7 @@ $$$isec$$$
 
 ## ##subasec Overview
 
-This appendix describes the model elements, their properties and relationships of the abstract OData model. The XSD schema is used as the source of truth for the model elements and their properties. Yet, because of the limitations of XSD schema, it does only contain the parent-child relationships of the model elements, not the richer relationships between them. For example the type of a property is represented as a string in XML and JSON, the qualified name of the type. And it represent a reference to this type. Something that can not be captured in XSD schema.
+This appendix describes the model elements, their properties and relationships of the abstract OData model. The XSD schema is the normative document for the model elements and their properties. Yet, because of the limitations of XSD schema, it only contains the parent-child relationships of the model elements. For example the type of a property is represented as a string in XML and JSON, a string of the qualified name of the type. In the abstract model, it is a reference to the element that is the type.
 
 ## ##subasec Model elements, properties and relationships
 
