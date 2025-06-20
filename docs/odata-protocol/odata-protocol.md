@@ -4076,8 +4076,17 @@ Updatable OData services support Create, Update, and Delete operations
 for some or all exposed entities. Additionally, [Actions](#Actions)
 supported by a service can affect the state of the system.
 
-A successfully completed [Data Modification Request](#DataModification)
-must not violate the integrity of the data.
+A client specifies its intent to update the state of the system by making data modification requests
+as described in the following subsections. To what extent a service
+follow the client's intent when successfully completing the data modification request
+is up to the service, provided that:
+- The service MUST reject data modification requests that violate constraints
+  expressed in the service metadata or annotations.
+- The following subsections contain rules for successful data modification requests
+  that MUST be obeyed by the service.
+- A successful data modification request MUST NOT violate the integrity of the data.
+- The service documentation MUST describe the service's behavior during successful
+  data modification requests.
 
 The client may request whether content be returned from a Create,
 Update, or Delete request, or the invocation of an Action, by specifying
@@ -4249,11 +4258,12 @@ If the service is unable to determine the canonical collection for the entity, i
 
 The service MUST fail the request if the
 body of the request specifies a key that already exists in the determined collection.
-Otherwise the entity is created in the determined collection and,
+Otherwise the entity MUST be created in the determined collection and,
 if the resource path ends with a non-containment navigation property,
 also linked to the entity containing the navigation property.
 
-The entity representation MAY include [references to existing
+In order to express the client's intent to relate the created entity to other entities,
+the entity representation MAY include [references to existing
 entities](#LinktoRelatedEntitiesWhenCreatinganEntity) as well as content for
 [new related entities](#CreateRelatedEntitiesWhenCreatinganEntity), but MUST
 NOT contain content for existing related entities. The result of the
@@ -4394,18 +4404,20 @@ request by applying the
 term using the namespace or alias defined for the [OData-VocCore](#ODataVocCore) vocabulary in the service's `$metadata` document. Services that respond
 with [`201 Created`](#ResponseCode201Created) SHOULD annotate the entities in the response using
 the same
-[`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID)
+`Core.ContentID`
 value as specified in the request. Services SHOULD advertise support for
 deep inserts, including support for returning the
-[`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID),
+`Core.ContentID`
 through the
 [`Capabilities.DeepInsertSupport`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#DeepInsertSupport)
 term, defined in [OData-VocCap](#ODataVocCap); services that advertise
 support through
-[`Capabilities.DeepInsertSupport`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#DeepInsertSupport)
+`Capabilities.DeepInsertSupport`
 MUST return the
-[`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID) for
-the inserted or updated entities.
+`Core.ContentID` for
+the inserted or updated entities. Services that do not advertise this support
+and do not return the `Core.ContentID` MUST fail requests that contain a
+[value reference](#ReferencingValuesfromResponseBodies) that uses this annotation value.
 
 The `continue-on-error` preference is not supported for deep insert
 operations.
