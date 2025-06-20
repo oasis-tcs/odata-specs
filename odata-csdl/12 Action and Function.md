@@ -182,21 +182,49 @@ Absence of the attribute means `false`.
 ## ##subsec Entity Set Path
 
 Bound actions and functions that return an entity or a collection of
-entities MAY specify an entity set path if the entity set of the
-returned entities depends on the entity set of the binding parameter
-value.
+entities MAY specify an entity set path. The entity set path specifies the canonical collection
+(as defined in [#OData-Protocol#ContextURL]) of the
+returned entities in terms of the binding parameter value.
 
 The entity set path consists of a series of segments joined together
 with forward slashes.
-
 The first segment of the entity set path MUST be the name of the binding
-parameter. The remaining segments of the entity set path MUST represent
-navigation segments or type casts.
+parameter.
+If the entity set path consists only of the name of the binding parameter,
+the binding parameter MUST be an entity or a collection of entities. In this case
+the returned entities MUST belong to the same canonical collection
+as the binding parameter.
 
-A navigation segment names the [simple identifier](#SimpleIdentifier) of
-the [navigation property](#NavigationProperty) to be traversed. A
-type-cast segment names the [qualified name](#QualifiedName) of the
-entity type that should be returned from the type cast.
+Otherwise the entity set path has the form $p/s_1/…/s_k$ with $k>0$, and
+the binding parameter MUST be single-valued.
+The additional segments $s_1,…,s_k$ MUST be paths that could occur in an expand item [#OData-URL#SystemQueryOptionexpand],
+and they MUST end with the name of a [navigation property](#NavigationProperty),
+optionally followed by the [qualified name](#QualifiedName) of a type cast.
+Furthermore, $s_1,…,s_{k-1}$ MUST be single-valued, and
+$s_k$ MUST name a collection-valued navigation property.
+In this case all returned entities MUST belong to the canonical collection $C$ of the final navigation
+property, if this can be determined by the following algorithm:
+1. Let $v$ be the binding parameter value, and let $α/β$ be the canonical URL of $v$
+   where $α$ is either an entity set followed by a key predicate or a singleton, and $β$
+   is a possibly empty concatenation of containment navigation properties, type casts and key predicates.
+   Remove any key predicates from $α$ and $β$.
+2. Let $i=1$.
+3. If $i=k$, go to step 8.
+4. Update $v$ to the result of evaluating the [instance path](#PathExpressions) $s_i$ on the instance $v$.
+5. If $s_i$ names a containment navigation property, update $β=β/s_i$.
+6. Otherwise $s_i$ names a non-containment navigation property. Determine
+   the [navigation property binding](#NavigationPropertyBinding) defined by the service
+   on the entity set or singleton $α$ whose path matches $β/s_i$;
+   if it does not exist, then $C$ cannot be determined.
+   The binding target of that navigation property binding is either an entity set $α'$ or has the form $α'/β'$ where $α'$ is a singleton.
+   Update $α=α'$ and $β=β'$.
+7. Update $i=i+1$ and go back to step 3.
+8. If $s_k$ names a containment navigation property, let $C$ be the implicit
+   entity set defined by $s_k$ for $v$ (as explained in [section ##ContainmentNavigationProperty]).
+9. Otherwise $s_k$ names a non-containment navigation property. Determine
+   the navigation property binding defined by the service on the entity set or singleton $α$
+   whose path matches $β/s_k$; if it does not exist, then $C$ cannot be determined.
+   Let $C$ be the binding target of that navigation property binding.
 
 ::: {.varjson .rep}
 ### ##subisec `$EntitySetPath`
