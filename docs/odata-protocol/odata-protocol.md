@@ -4077,13 +4077,15 @@ for some or all exposed entities. Additionally, [Actions](#Actions)
 supported by a service can affect the state of the system.
 
 A client specifies its intent to update the state of the system by making data modification requests
-as described in the following subsections. How a service may deviate
-from the client's intent when successfully completing a data modification request
-is up to the service, subject to the following rules:
+as described in the following subsections. Services MAY deviate
+from the client's intent when successfully completing a data modification request,
+subject to the following rules:
 - The service documentation MUST describe the allowed deviations.
 - The service MUST reject data modification requests that violate constraints
   expressed in the service metadata or annotations (for example,
   [`Capabilities.InsertRestrictions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#InsertRestrictions)).
+- A successfully completed data modification request
+  MUST NOT violate the integrity of the data.
 - The following subsections contain rules for successful data modification requests
   that MUST be obeyed by the service.
 
@@ -4415,8 +4417,7 @@ MUST return the
 `Core.ContentID` for
 the inserted or updated entities and MUST fail the request if an entity with associated
 id cannot be created as intended by the client.
-Services that do not advertise this support
-and do not return the `Core.ContentID` MUST fail requests that contain a
+Other services that do not return the `Core.ContentID` MUST fail requests that contain a
 [value reference](#ReferencingValuesfromResponseBodies) that uses this annotation value.
 
 The `continue-on-error` preference is not supported for deep insert
@@ -4481,7 +4482,7 @@ such an entity, the update MUST fail. The canonical collection is known for refe
 containment navigation properties, and can be determined in the presence of navigation property
 bindings or a context URL in the request payload, or through service specific knowledge.
 
-When the serivce updates a principal property that is tied to a dependent entity through
+When the service updates a principal property that is tied to a dependent entity through
 a referential constraint on the dependent entity, it updates the dependent
 property.
 
@@ -4563,7 +4564,7 @@ to update and entity together with related entities and is referred to as a
 "deep update". If the nested collection is represented identical to an
 expanded navigation property, then the set of nested entities and entity
 references specified in a successful request represents the full
-set of entities to be related according to that relationship and MUST
+set of entities întended to be related according to that relationship and MUST
 NOT include added links, deleted links, or deleted entities.
 
 If a navigation property is absent from a `PUT` or `PATCH` request payload, the referenced
@@ -4601,7 +4602,7 @@ If the nested collection is represented as a delta annotation on the
 navigation property, then the collection expresses the client's intent to
 have its members to be added or
 changed and MAY include deleted entities for entities that are no longer
-part of the collection, using the [delta payload](#DeltaPayloads)
+intended to be part of the collection, using the [delta payload](#DeltaPayloads)
 format. If the deleted entity specifies a `reason` as `deleted`, then
 the entity is intended to be both removed from the collection and deleted, otherwise it
 is intended to be removed from the collection and only deleted if the relationship is
@@ -4766,8 +4767,7 @@ term, defined in [OData-VocCap](#ODataVocCap); services that
 advertise this support MUST return the `Core.ContentID` for
 the entities in the response and MUST fail the request if an entity with associated
 id cannot be created as intended by the client.
-Services that do not advertise this support
-and do not return the `Core.ContentID` MUST fail requests that contain a
+Other services that do not return the `Core.ContentID` MUST fail requests that contain a
 [value reference](#ReferencingValuesfromResponseBodies) that uses this annotation value.
 
 The `continue-on-error` preference is not supported for deep update
