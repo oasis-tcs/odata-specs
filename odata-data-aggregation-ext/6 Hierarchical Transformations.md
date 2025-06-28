@@ -179,7 +179,7 @@ results in
 
 The `traverse` transformation returns instances of the input set that are or are related to nodes of a given recursive hierarchy in a specified tree order.
 
-🚧 It is only allowed in a recursive hierarchy where `RecursiveHierarchy/ParentNavigationProperty` is single-valued.
+🚧 This transformation is only allowed in a recursive hierarchy where `RecursiveHierarchy/ParentNavigationProperty` is single-valued.
 
 $H$, $Q$ and $p$ are the first three parameters defined [above](#CommonParametersforHierarchicalTransformations).
 

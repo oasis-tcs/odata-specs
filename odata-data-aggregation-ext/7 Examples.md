@@ -191,35 +191,7 @@ Note that the base set of the request is `Products`, so there is a result item f
 :::
 
 ::: example
-Example ##ex_nest: Alternatively, the request could ask for the aggregated amount to be nested inside a clone of Sales
-```
-GET /service/Products?$apply=addnested(Sales,
-    aggregate(Amount with sum as Total) as AggregatedSales)
-```
-results in
-```json
-{
-  "@context": "$metadata#Products(AggregatedSales())",
-  "value": [
-    { "ID": "P2", "Name": "Coffee", "Color": "Brown", "TaxRate": 0.06,
-      "AggregatedSales@context": "#Sales(Total)",
-      "AggregatedSales": [ { "Total@type": "Decimal", "Total": 12 } ] },
-    { "ID": "P3", "Name": "Paper",  "Color": "White", "TaxRate": 0.14,
-      "AggregatedSales@context": "#Sales(Total)",
-      "AggregatedSales": [ { "Total@type": "Decimal", "Total":  8 } ] },
-    { "ID": "P4", "Name": "Pencil", "Color": "Black", "TaxRate": 0.14,
-      "AggregatedSales@context": "#Sales(Total)",
-      "AggregatedSales": [ {                          "Total": null } ] },
-    { "ID": "P1", "Name": "Sugar",  "Color": "White", "TaxRate": 0.06,
-      "AggregatedSales@context": "#Sales(Total)",
-      "AggregatedSales": [ { "Total@type": "Decimal", "Total":  4 } ] }
-  ]
-}
-```
-:::
-
-::: example
-Example ##ex: To compute the aggregate as a property without nesting, use the aggregate function in `$compute` rather than the aggregate transformation in `$apply`:
+Example ##ex: Compute the aggregate as a property using the aggregate function in `$compute`:
 ```
 GET /service/Products?$compute=Sales/aggregate(Amount with sum) as Total
 ```
@@ -305,40 +277,6 @@ results in
     { "Name": "Paper",  "SalesCount@type": "Decimal", "SalesCount": 4 },
     { "Name": "Pencil", "SalesCount@type": "Decimal", "SalesCount": 0 },
     { "Name": "Sugar",  "SalesCount@type": "Decimal", "SalesCount": 2 }
-  ]
-}
-```
-:::
-
-To place the number of instances in a group next to other aggregated values, the aggregate expression [`$count`](#AggregateExpressioncount) can be used:
-
-::: example
-⚠ Example ##ex: The effect of the `groupby` is to create transient entities and avoid in the result structural properties other than `Name`.
-```
-GET /service/Products?$apply=groupby((Name),addnested(Sales,
-      aggregate($count as SalesCount,
-                Amount with sum as TotalAmount) as AggregatedSales))
-```
-results in
-```json
-{
-  "@context": "$metadata#Products(Name,AggregatedSales())",
-  "value": [
-    { "Name": "Coffee",
-      "AggregatedSales@context": "#Sales(SalesCount,TotalAmount)",
-      "AggregatedSales": [ { "SalesCount": 2,
-          "TotalAmount@type": "Decimal", "TotalAmount": 12 } ] },
-    { "Name": "Paper",
-      "AggregatedSales@context": "#Sales(SalesCount,TotalAmount)",
-      "AggregatedSales": [ { "SalesCount": 4,
-          "TotalAmount@type": "Decimal", "TotalAmount":  8 } ] },
-    { "Name": "Pencil",
-      "AggregatedSales@context": "#Sales(SalesCount,TotalAmount)",
-      "AggregatedSales": [ { "SalesCount": 0, "TotalAmount": null } ] },
-    { "Name": "Sugar",
-      "AggregatedSales@context": "#Sales(SalesCount,TotalAmount)",
-      "AggregatedSales": [ { "SalesCount": 2,
-          "TotalAmount@type": "Decimal",  "TotalAmount":  4 } ] }
   ]
 }
 ```
@@ -461,128 +399,6 @@ results in
 ## ##subsec Requesting Expanded Results
 
 ::: example
-Example ##ex: Assuming an extension of the data model where `Customer` contains an additional collection-valued complex property `Addresses` and these contain a single-valued navigation property `ResponsibleSalesOrganization`, `addnested` can be used to compute a nested dynamic property:
-```
-GET /service/Customers?$apply=
-    addnested(Addresses/ResponsibleSalesOrganization,
-              compute(Superordinate/Name as SalesRegion)
-              as AugmentedSalesOrganization)
-```
-results in
-```json
-{
-  "@context": "$metadata#Customers(Addresses(AugmentedSalesOrganization())",
-  "value": [
-    { "ID": "C1", "Name": "Joe", "Country": "US",
-      "Addresses": [
-        { "Locality": "Seattle",
-          "AugmentedSalesOrganization":
-          { "@context": "#SalesOrganizations/$entity",
-            "ID": "US West", "SalesRegion": "US" } },
-        { "Locality": "DC",
-          "AugmentedSalesOrganization":
-          { "@context": "#SalesOrganizations/$entity",
-            "ID": "US",      "SalesRegion": "Corporate Sales" } },
-      ]
-    }, …
-  ]
-}
-```
-:::
-
-`addnested` transformations can be nested.
-
-::: example
-Example ##ex: nested `addnested` transformations
-```
-GET /service/Categories?$apply=
-    addnested(Products,
-      addnested(Sales,filter(Amount gt 3) as FilteredSales)
-    as FilteredProducts)
-```
-results in
-```json
-{
-  "@context": "$metadata#Categories(FilteredProducts()",
-  "value": [
-    { "ID": "PG1", "Name": "Food",
-      "FilteredProducts@context": "#Products(FilteredSales())",
-      "FilteredProducts": [
-        { "ID": "P1", "Name": "Sugar",  "Color": "White",
-          "FilteredSales@context": "#Sales",
-          "FilteredSales": [] },
-        { "ID": "P2", "Name": "Coffee", "Color": "Brown",
-          "FilteredSales@context": "#Sales",
-          "FilteredSales": [ { "ID": 3, "Amount": 4 },
-                             { "ID": 4, "Amount": 8 } ] }
-      ]
-    },
-    { "ID": "PG2", "Name": "Non-Food",
-      "FilteredProducts@context": "#Products(FilteredSales())",
-      "FilteredProducts": [
-        { "ID": "P3", "Name": "Paper",  "Color": "White",
-          "FilteredSales@context": "#Sales",
-          "FilteredSales": [ { "ID": 5, "Amount": 4 } ] },
-        { "ID": "P4", "Name": "Pencil", "Color": "Black",
-          "FilteredSales@context": "#Sales",
-          "FilteredSales": [] }
-      ]
-    }
-  ]
-}
-```
-
-Instead of keeping all related entities from navigation properties that `addnested` expanded by default, an explicit `$expand` controls which of them to include in the response:
-```
-GET /service/Categories?$apply=
-    addnested(Products,
-      addnested(Sales,filter(Amount gt 3) as FilteredSales)
-    as FilteredProducts)
-  &$expand=FilteredProducts
-```
-results in the response before without the FilteredSales dynamic navigation properties expanded in the result.
-:::
-
-::: example
-Example ##ex: Here only the `GroupedSales` are expanded, because they are named in `$expand`, the related `Product` entity is not:
-```
-GET /service/Customers?$apply=addnested(Sales,
-    groupby((Product/Name)) as GroupedSales)
-  &$expand=GroupedSales
-```
-results in
-```json
-{
-  "@context": "$metadata#Customers(GroupedSales())",
-  "value": [
-    { "ID": "C1", "Name": "Joe", "Country": "USA",
-      "GroupedSales@context": "#Sales(@Core.AnyStructure)",
-      "GroupedSales": [
-        { },
-        { },
-        { }
-      ] },
-    { "ID": "C2", "Name": "Sue", "Country": "USA",
-      "GroupedSales@context": "#Sales(@Core.AnyStructure)",
-      "GroupedSales": [
-        { },
-        { }
-      ] },
-    { "ID": "C3", "Name": "Joe", "Country": "Netherlands",
-      "GroupedSales@context": "#Sales(@Core.AnyStructure)",
-      "GroupedSales": [
-        { },
-        { }
-      ] },
-    { "ID": "C4", "Name": "Luc", "Country": "France",
-      "GroupedSales@context": "#Sales(@Core.AnyStructure)",
-      "GroupedSales": [ ] }
-  ]
-}
-```
-:::
-
-::: example
 Example ##ex: use `outerjoin` to split up collection-valued navigation properties for grouping
 ```
 GET /service/Customers?$apply=outerjoin(Sales as ProductSales)
@@ -683,42 +499,6 @@ results in
     { "Customer": { "Country": "USA" },
       "Total@type": "Decimal", "Total": 19,
       "AvgAmt@type": "Decimal", "AvgAmt": 3.8 }
-  ]
-}
-```
-:::
-
-The introduced dynamic property is added to the context where the aggregate expression is applied to:
-
-::: example
-Example ##ex:
-```
-GET /service/Products?$apply=groupby((Name),
-                              aggregate(Sales/Amount with sum as Total))
-    /groupby((Name),
-     addnested(Sales,aggregate(Amount with average as AvgAmt)
-               as AggregatedSales))
-```
-results in
-```json
-{
-  "@context": "$metadata#Products(Name,Total,AggregatedSales())",
-  "value": [
-    { "Name": "Coffee", "Total":   12,
-      "AggregatedSales@context": "#Sales(AvgAmt)",
-      "AggregatedSales": [ { "AvgAmt@type": "Decimal",
-                             "AvgAmt": 6 } ] },
-    { "Name": "Paper",  "Total":    8,
-      "AggregatedSales@context": "#Sales(AvgAmt)",
-      "AggregatedSales": [ { "AvgAmt@type": "Decimal",
-                             "AvgAmt": 2 } ] },
-    { "Name": "Pencil", "Total": null,
-      "AggregatedSales@context": "#Sales(AvgAmt)",
-      "AggregatedSales": [ { "AvgAmt": null } ] },
-    { "Name": "Sugar",  "Total":    4,
-      "AggregatedSales@context": "#Sales(AvgAmt)",
-      "AggregatedSales": [ { "AvgAmt@type": "Decimal",
-                             "AvgAmt": 2 } ] }
   ]
 }
 ```
@@ -1191,9 +971,12 @@ or
 GET /service/Cities?$apply=groupby((Continent/Name,Country/Name),
                           aggregate(Population with sum as CountryPopulation))
                    /filter(CountryPopulation ge 10000000)
-                   /groupby((rollup(Continent/Name,Country/Name)),
+                   /concat(groupby((Continent/Name,Country/Name),
                              aggregate(CountryPopulation with sum
-                                       as TotalPopulation))
+                                       as TotalPopulation)),
+                           groupby((Continent/Name),
+                             aggregate(CountryPopulation with sum
+                                       as TotalPopulation)))
 ```
 :::
 
@@ -1210,58 +993,11 @@ GET /service/Cities?$apply=groupby((Continent/Name,Country/Name),
 :::
 
 ::: example
-Example ##ex: assuming the data model includes a sales order entity set with related sets for order items and customers, the base set as well as the related items can be filtered before aggregation
-```
-GET /service/SalesOrders?$apply=filter(Status eq 'incomplete')
-    /addnested(Items,filter(not Shipped) as FilteredItems)
-    /groupby((Customer/Country),
-     aggregate(FilteredItems/Amount with sum as ItemAmount))
-```
-:::
-
-::: example
 Example ##ex: assuming that `Amount` is a custom aggregate in addition to the property, determine the total for countries with an `Amount` greater than 1000
 ```
 GET /service/SalesOrders?$apply=
   groupby((Customer/Country),aggregate(Amount))
   /filter(Amount gt 1000)
   /aggregate(Amount)
-```
-:::
-
-::: example
-Example ##ex_aggrconflict: The output set of the `concat` transformation contains `Sales` entities multiple times with conflicting related `AugmentedProduct` entities that cannot be aggregated by the second transformation.
-```
-GET /service/Sales?$apply=
-  concat(addnested(Product,compute(0.1 as Discount) as AugmentedProduct),
-         addnested(Product,compute(0.2 as Discount) as AugmentedProduct))
-  /aggregate(AugmentedProduct/Discount with max as MaxDiscount)
-```
-results in an error.
-:::
-
-::: example
-Example ##ex: The `nest` transformation can be used inside `groupby` to produce one or more collection-valued properties per group.
-```
-GET /service/Sales?$apply=groupby((Product/Category/ID),
-                      nest(groupby((Customer/ID)) as Customers))
-```
-results in
-```json
-{
-  "@context": "$metadata#Sales(Product(Category(ID)),Customers())",
-  "value": [
-    { "Product": { "Category": { "ID": "PG1" } },
-      "Customers@context": "#Sales(Customer(ID))",
-      "Customers": [ { "Customer": { "ID": "C1" } },
-                     { "Customer": { "ID": "C2" } },
-                     { "Customer": { "ID": "C3" } } ] },
-    { "Product": { "Category": { "ID": "PG2" } },
-      "Customers@context": "#Sales(Customer(ID))",
-      "Customers": [ { "Customer": { "ID": "C1" } },
-                     { "Customer": { "ID": "C2" } },
-                     { "Customer": { "ID": "C3" } } ] }
-  ]
-}
 ```
 :::
