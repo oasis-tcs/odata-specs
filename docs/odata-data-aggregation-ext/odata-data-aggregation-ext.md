@@ -1080,7 +1080,7 @@ The output set of a [basic aggregation](#BasicAggregation) transformation can co
 - both are instances of entity types without entity-id (see [OData-Protocol, section 4.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#TransientEntities)) and both are null or both have the same structure and same values with null considered different from absent (informally speaking, they are compared like complex instances) or
 - (1) both are instances of the same entity type with the same entity-id (non-transient entities, see [OData-Protocol, section 4.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#EntityIdsandEntityReferences)) and (2) the structural and navigation properties contained in both have the same values (for non-primitive properties the sameness of values is decided by a recursive invocation of this definition).
   - If this is fulfilled, the instances are called _complementary representations of the same non-transient entity_. If this case is encountered at some recursion level while the sameness of non-transient entities $u_1$ and $u_2$ is established, a merged representation of the entity $u_1=u_2$ exists that contains all properties of $u_1$ and $u_2$. But if the instances both occur in the last output set, services MUST represent each with its own structure in the response payload.
-  - If the first condition is fulfilled but not the second, the instances are not the same and are called _contradictory representations of the same non-transient entity_. ([Example 87](#contradict) describes a use case for this.)
+  - If the first condition is fulfilled but not the second, the instances are not the same and are called _contradictory representations of the same non-transient entity_. ([Example 81](#contradict) describes a use case for this.)
 
 Collections are _the same_ if there is a one-to-one correspondence $f$ between them such that
 - corresponding occurrences are of the same value and
@@ -1134,7 +1134,7 @@ _Determination of $A$:_
 Let $I$ be the input set. If $p$ is absent, let $A=I$ with null values removed.
 
 Otherwise, let $q$ be the portion of $p$ up to and including the last navigation property, if any, and any type-cast segment that immediately follows, and let $r$ be the remainder, if any, of $p$ that contains no navigation properties, such that $p$ equals the concatenated path $q⁄r$. The aggregate transformation considers each entity reached via the path $q$ exactly once. To this end, using the [$\Gamma$ notation](#EvaluationofDataAggregationPaths):
-- If $q$ is non-empty, let $E=\Gamma(I,q)$ and remove duplicates from that entity collection: If [multiple representations of the same non-transient entity](#SamenessandOrder) are reached, the service MUST merge them into one occurrence in $E$ if they are complementary and MUST reject the request if they are contradictory. (See [example 103](#aggrconflict).) If [multiple occurrences of the same transient entity](#SamenessandOrder) are reached, the service MUST keep only one occurrence in $E$.
+- If $q$ is non-empty, let $E=\Gamma(I,q)$ and remove duplicates from that entity collection: If [multiple representations of the same non-transient entity](#SamenessandOrder) are reached, the service MUST merge them into one occurrence in $E$ if they are complementary and MUST reject the request if they are contradictory. If [multiple occurrences of the same transient entity](#SamenessandOrder) are reached, the service MUST keep only one occurrence in $E$.
 - If $q$ is empty, let $E=I$.
 
 Then, if $r$ is empty, let $A=E$, otherwise let $A=\Gamma(E,r)$, this consists of instances of structured types or primitive values, possibly with repetitions.
@@ -2063,13 +2063,13 @@ The following terms are defined in the vocabulary for data aggregation [OData-Vo
 The term `ApplySupported` can be applied to an entity set, an entity type, or a collection if the target expression of the annotation starts with an entity container (see [example 43](#containerrooted)). It describes the aggregation capabilities of the annotated target. If present, it implies that instances of the annotated target can contain dynamic properties as an effect of `$apply` even if they do not specify the `OpenType` attribute, see [OData-CSDL, section 6.3](https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#OpenEntityType). The term has a complex type with the following properties:
 - The `Transformations` collection lists all supported set transformations. Allowed values are the names of the standard transformations introduced in sections 3 and 6, and namespace-qualified names identifying a service-defined bindable function. If `Transformations` is omitted the server supports all transformations defined by this specification.
 - The `CustomAggregationMethods` collection lists supported custom aggregation methods. Allowed values are namespace-qualified names identifying service-specific aggregation methods. If omitted, no custom aggregation methods are supported.
-- `Rollup` specifies whether the service supports no rollup, only a single rollup hierarchy, or multiple rollup hierarchies in a [`groupby`](#Transformationgroupby) transformation. If omitted, multiple rollup hierarchies are supported.
+- 🚧 `Rollup` is reserved for later versions of this specifications.
 - A non-empty `GroupableProperties` indicates that only the listed properties of the annotated target can be used in `groupby`.
 - A non-empty `AggregatableProperties` indicates that only the listed properties of the annotated target can be used in [`aggregate`](#Transformationaggregate), optionally restricted to the specified aggregation methods.
 
 All properties of `ApplySupported` are optional, so it can be used as a tagging annotation to signal unlimited support of aggregation.
 
-The term `ApplySupportedDefaults` can be applied to an entity container. It allows to specify default support for aggregation capabilities `Transformations`, `CustomAggregationMethods` and `Rollup` that propagate to all collection-valued resources in the container. Annotating a specific collection-valued resource with the term `ApplySupported` overrides the default support with the specified properties using `PATCH` semantics:
+The term `ApplySupportedDefaults` can be applied to an entity container. It allows to specify default support for aggregation capabilities `Transformations` and `CustomAggregationMethods` that propagate to all collection-valued resources in the container. Annotating a specific collection-valued resource with the term `ApplySupported` overrides the default support with the specified properties using `PATCH` semantics:
 - Primitive or collection-valued properties specified in `ApplySupported` replace the corresponding properties specified in `ApplySupportedDefaults`.
 - Complex-valued properties specified in `ApplySupported` override the corresponding properties specified in ApplySupportedDefaults using `PATCH` semantics recursively.
 - Properties specified neither in `ApplySupported` nor in `ApplySupportedDefault` have their default value.
@@ -2216,7 +2216,7 @@ Example 45: This simplified `Sales` entity set has a single aggregatable propert
 
 A hierarchy is an arrangement of entities whose values are represented as being "above", "below", or "at the same level as" one another.
 
-🚧 Hierarchies are defined recursively as follows. Note that properties like year, quarter and month can have the semantics of a "leveled" hierarchy, but this is not made explicit in the OData service.
+🚧 Hierarchies are defined recursively in the following subsection. Any list of properties can be viewed as a leveled hierarchy with a fixed number of levels, for example, year, quarter and month, but this is not made explicit in the OData service.
 
 ### <a id="RecursiveHierarchy" href="#RecursiveHierarchy">5.5.1 Recursive Hierarchy</a>
 
@@ -2601,11 +2601,11 @@ results in
 
 The `traverse` transformation returns instances of the input set that are or are related to nodes of a given recursive hierarchy in a specified tree order.
 
-🚧 It is only allowed in a recursive hierarchy where `RecursiveHierarchy/ParentNavigationProperty` is single-valued.
+🚧 This transformation is only allowed in a recursive hierarchy where `RecursiveHierarchy/ParentNavigationProperty` is single-valued.
 
 $H$, $Q$ and $p$ are the first three parameters defined [above](#CommonParametersforHierarchicalTransformations).
 
-The fourth parameter $h$ of the `traverse` transformation is either `preorder` or `postorder`. Let $H'$ be the collection of root nodes in the recursive hierarchy $(H,Q)$. Nodes in $H'$ are called start nodes in this subsection (see [example 94](#weight)).
+The fourth parameter $h$ of the `traverse` transformation is either `preorder` or `postorder`. Let $H'$ be the collection of root nodes in the recursive hierarchy $(H,Q)$. Nodes in $H'$ are called start nodes in this subsection (see [example 88](#weight)).
 
 All following parameters are optional and form a list $o$ of expressions that could also be passed as a `$orderby` system query option. If $o$ is present, the transformation [stable-sorts](#SamenessandOrder) $H'$ by $o$.
 
@@ -2642,7 +2642,7 @@ The function $a(u,t,x)$ takes an instance, a path and another instance as argume
 7. If $t_1$ is collection-valued, let $u[t_1]$ be a collection consisting of one item $x'$.
 8. Return $u$.
 
-(See [example 91](#traversecoll).)
+(See [example 85](#traversecoll).)
 
 Since start nodes are root nodes, $σ(x)$ is computed exactly once for every node $x$, as part of the recursive formula for $R(x)$ given below.
 
@@ -2898,35 +2898,7 @@ Note that the base set of the request is `Products`, so there is a result item f
 :::
 
 ::: example
-Example <a id="nest" href="#nest">65</a>: Alternatively, the request could ask for the aggregated amount to be nested inside a clone of Sales
-```
-GET /service/Products?$apply=addnested(Sales,
-    aggregate(Amount with sum as Total) as AggregatedSales)
-```
-results in
-```json
-{
-  "@context": "$metadata#Products(AggregatedSales())",
-  "value": [
-    { "ID": "P2", "Name": "Coffee", "Color": "Brown", "TaxRate": 0.06,
-      "AggregatedSales@context": "#Sales(Total)",
-      "AggregatedSales": [ { "Total@type": "Decimal", "Total": 12 } ] },
-    { "ID": "P3", "Name": "Paper",  "Color": "White", "TaxRate": 0.14,
-      "AggregatedSales@context": "#Sales(Total)",
-      "AggregatedSales": [ { "Total@type": "Decimal", "Total":  8 } ] },
-    { "ID": "P4", "Name": "Pencil", "Color": "Black", "TaxRate": 0.14,
-      "AggregatedSales@context": "#Sales(Total)",
-      "AggregatedSales": [ {                          "Total": null } ] },
-    { "ID": "P1", "Name": "Sugar",  "Color": "White", "TaxRate": 0.06,
-      "AggregatedSales@context": "#Sales(Total)",
-      "AggregatedSales": [ { "Total@type": "Decimal", "Total":  4 } ] }
-  ]
-}
-```
-:::
-
-::: example
-Example 66: To compute the aggregate as a property without nesting, use the aggregate function in `$compute` rather than the aggregate transformation in `$apply`:
+Example 65: Compute the aggregate as a property using the aggregate function in `$compute`:
 ```
 GET /service/Products?$compute=Sales/aggregate(Amount with sum) as Total
 ```
@@ -2949,7 +2921,7 @@ results in
 :::
 
 ::: example
-Example 67: Alternatively, `join` could be applied to yield a flat structure:
+Example 66: Alternatively, `join` could be applied to yield a flat structure:
 ```
 GET /service/Products?$apply=
     join(Sales as TotalSales,aggregate(Amount with sum as Total))
@@ -2977,7 +2949,7 @@ Applying `outerjoin` instead would return an additional entity for product with 
 :::
 
 ::: example
-Example 68:
+Example 67:
 ```
 GET /service/Sales?$apply=groupby((Customer/Country),
                             aggregate(Amount with average as AverageAmount))
@@ -2998,7 +2970,7 @@ Here the `AverageAmount` is of type `Edm.Double`.
 :::
 
 ::: example
-Example 69: `$count` after navigation property
+Example 68: `$count` after navigation property
 ```
 GET /service/Products?$apply=groupby((Name),
                               aggregate(Sales/$count as SalesCount))
@@ -3017,44 +2989,10 @@ results in
 ```
 :::
 
-To place the number of instances in a group next to other aggregated values, the aggregate expression [`$count`](#AggregateExpressioncount) can be used:
-
-::: example
-⚠ Example 70: The effect of the `groupby` is to create transient entities and avoid in the result structural properties other than `Name`.
-```
-GET /service/Products?$apply=groupby((Name),addnested(Sales,
-      aggregate($count as SalesCount,
-                Amount with sum as TotalAmount) as AggregatedSales))
-```
-results in
-```json
-{
-  "@context": "$metadata#Products(Name,AggregatedSales())",
-  "value": [
-    { "Name": "Coffee",
-      "AggregatedSales@context": "#Sales(SalesCount,TotalAmount)",
-      "AggregatedSales": [ { "SalesCount": 2,
-          "TotalAmount@type": "Decimal", "TotalAmount": 12 } ] },
-    { "Name": "Paper",
-      "AggregatedSales@context": "#Sales(SalesCount,TotalAmount)",
-      "AggregatedSales": [ { "SalesCount": 4,
-          "TotalAmount@type": "Decimal", "TotalAmount":  8 } ] },
-    { "Name": "Pencil",
-      "AggregatedSales@context": "#Sales(SalesCount,TotalAmount)",
-      "AggregatedSales": [ { "SalesCount": 0, "TotalAmount": null } ] },
-    { "Name": "Sugar",
-      "AggregatedSales@context": "#Sales(SalesCount,TotalAmount)",
-      "AggregatedSales": [ { "SalesCount": 2,
-          "TotalAmount@type": "Decimal",  "TotalAmount":  4 } ] }
-  ]
-}
-```
-:::
-
 The `aggregate` function can not only be used in `$compute` but also in `$filter` and `$orderby`:
 
 ::: example
-Example 71: Products with an aggregated sales volume of ten or more
+Example 69: Products with an aggregated sales volume of ten or more
 ```
 GET /service/Products?$filter=Sales/aggregate(Amount with sum) ge 10
 ```
@@ -3071,7 +3009,7 @@ results in
 :::
 
 ::: example
-Example 72: Customers in descending order of their aggregated sales volume
+Example 70: Customers in descending order of their aggregated sales volume
 ```
 GET /service/Customers?$orderby=Sales/aggregate(Amount with sum) desc
 ```
@@ -3090,7 +3028,7 @@ results in
 :::
 
 ::: example
-Example 73: Contribution of each sales to grand total sales amount
+Example 71: Contribution of each sales to grand total sales amount
 ```
 GET /service/Sales?$compute=Amount divby $these/aggregate(Amount with sum)
                             as Contribution
@@ -3122,7 +3060,7 @@ results in
 :::
 
 ::: example
-Example 74: Product categories with at least one product having an aggregated sales amount greater than 10
+Example 72: Product categories with at least one product having an aggregated sales amount greater than 10
 ```
 GET /service/Categories?$filter=Products/any(
                                 p:p/Sales/aggregate(Amount with sum) gt 10)
@@ -3141,7 +3079,7 @@ results in
 The `aggregate` function can also be applied inside `$apply`:
 
 ::: example
-Example 75: Sales volume per customer in relation to total volume
+Example 73: Sales volume per customer in relation to total volume
 ```
 GET /service/Sales?$apply=
     groupby((Customer),aggregate(Amount with sum as CustomerAmount))
@@ -3168,129 +3106,7 @@ results in
 ## <a id="RequestingExpandedResults" href="#RequestingExpandedResults">7.3 Requesting Expanded Results</a>
 
 ::: example
-Example 76: Assuming an extension of the data model where `Customer` contains an additional collection-valued complex property `Addresses` and these contain a single-valued navigation property `ResponsibleSalesOrganization`, `addnested` can be used to compute a nested dynamic property:
-```
-GET /service/Customers?$apply=
-    addnested(Addresses/ResponsibleSalesOrganization,
-              compute(Superordinate/Name as SalesRegion)
-              as AugmentedSalesOrganization)
-```
-results in
-```json
-{
-  "@context": "$metadata#Customers(Addresses(AugmentedSalesOrganization())",
-  "value": [
-    { "ID": "C1", "Name": "Joe", "Country": "US",
-      "Addresses": [
-        { "Locality": "Seattle",
-          "AugmentedSalesOrganization":
-          { "@context": "#SalesOrganizations/$entity",
-            "ID": "US West", "SalesRegion": "US" } },
-        { "Locality": "DC",
-          "AugmentedSalesOrganization":
-          { "@context": "#SalesOrganizations/$entity",
-            "ID": "US",      "SalesRegion": "Corporate Sales" } },
-      ]
-    }, …
-  ]
-}
-```
-:::
-
-`addnested` transformations can be nested.
-
-::: example
-Example 77: nested `addnested` transformations
-```
-GET /service/Categories?$apply=
-    addnested(Products,
-      addnested(Sales,filter(Amount gt 3) as FilteredSales)
-    as FilteredProducts)
-```
-results in
-```json
-{
-  "@context": "$metadata#Categories(FilteredProducts()",
-  "value": [
-    { "ID": "PG1", "Name": "Food",
-      "FilteredProducts@context": "#Products(FilteredSales())",
-      "FilteredProducts": [
-        { "ID": "P1", "Name": "Sugar",  "Color": "White",
-          "FilteredSales@context": "#Sales",
-          "FilteredSales": [] },
-        { "ID": "P2", "Name": "Coffee", "Color": "Brown",
-          "FilteredSales@context": "#Sales",
-          "FilteredSales": [ { "ID": 3, "Amount": 4 },
-                             { "ID": 4, "Amount": 8 } ] }
-      ]
-    },
-    { "ID": "PG2", "Name": "Non-Food",
-      "FilteredProducts@context": "#Products(FilteredSales())",
-      "FilteredProducts": [
-        { "ID": "P3", "Name": "Paper",  "Color": "White",
-          "FilteredSales@context": "#Sales",
-          "FilteredSales": [ { "ID": 5, "Amount": 4 } ] },
-        { "ID": "P4", "Name": "Pencil", "Color": "Black",
-          "FilteredSales@context": "#Sales",
-          "FilteredSales": [] }
-      ]
-    }
-  ]
-}
-```
-
-Instead of keeping all related entities from navigation properties that `addnested` expanded by default, an explicit `$expand` controls which of them to include in the response:
-```
-GET /service/Categories?$apply=
-    addnested(Products,
-      addnested(Sales,filter(Amount gt 3) as FilteredSales)
-    as FilteredProducts)
-  &$expand=FilteredProducts
-```
-results in the response before without the FilteredSales dynamic navigation properties expanded in the result.
-:::
-
-::: example
-Example 78: Here only the `GroupedSales` are expanded, because they are named in `$expand`, the related `Product` entity is not:
-```
-GET /service/Customers?$apply=addnested(Sales,
-    groupby((Product/Name)) as GroupedSales)
-  &$expand=GroupedSales
-```
-results in
-```json
-{
-  "@context": "$metadata#Customers(GroupedSales())",
-  "value": [
-    { "ID": "C1", "Name": "Joe", "Country": "USA",
-      "GroupedSales@context": "#Sales(@Core.AnyStructure)",
-      "GroupedSales": [
-        { },
-        { },
-        { }
-      ] },
-    { "ID": "C2", "Name": "Sue", "Country": "USA",
-      "GroupedSales@context": "#Sales(@Core.AnyStructure)",
-      "GroupedSales": [
-        { },
-        { }
-      ] },
-    { "ID": "C3", "Name": "Joe", "Country": "Netherlands",
-      "GroupedSales@context": "#Sales(@Core.AnyStructure)",
-      "GroupedSales": [
-        { },
-        { }
-      ] },
-    { "ID": "C4", "Name": "Luc", "Country": "France",
-      "GroupedSales@context": "#Sales(@Core.AnyStructure)",
-      "GroupedSales": [ ] }
-  ]
-}
-```
-:::
-
-::: example
-Example 79: use `outerjoin` to split up collection-valued navigation properties for grouping
+Example 74: use `outerjoin` to split up collection-valued navigation properties for grouping
 ```
 GET /service/Customers?$apply=outerjoin(Sales as ProductSales)
                        /groupby((Country,ProductSales/Product/Name))
@@ -3328,7 +3144,7 @@ Custom aggregates are defined through the [`CustomAggregate`](#CustomAggregates)
 A custom aggregate can be used by specifying the name of the custom aggregate in the [`aggregate`](#Transformationaggregate) clause.
 
 ::: example
-Example 80:
+Example 75:
 ```
 GET /service/Sales?$apply=groupby((Customer/Country),
                            aggregate(Amount with sum as Actual,Forecast))
@@ -3352,7 +3168,7 @@ results in
 When associated with an entity set a custom aggregate MAY have the same name as a property of the underlying entity type with the same type as the type returned by the custom aggregate. This is typically done when the aggregate is used as a default aggregate for that property.
 
 ::: example
-Example 81: A custom aggregate can be defined with the same name as a property of the same type in order to define a default aggregate for that property.
+Example 76: A custom aggregate can be defined with the same name as a property of the same type in order to define a default aggregate for that property.
 ```
 GET /service/Sales?$apply=groupby((Customer/Country),aggregate(Amount))
 ```
@@ -3373,7 +3189,7 @@ results in
 A property can be aggregated in multiple ways, each with a different alias.
 
 ::: example
-Example 82:
+Example 77:
 ```
 GET /service/Sales?$apply=groupby((Customer/Country),
                            aggregate(Amount with sum as Total,
@@ -3395,46 +3211,10 @@ results in
 ```
 :::
 
-The introduced dynamic property is added to the context where the aggregate expression is applied to:
-
-::: example
-Example 83:
-```
-GET /service/Products?$apply=groupby((Name),
-                              aggregate(Sales/Amount with sum as Total))
-    /groupby((Name),
-     addnested(Sales,aggregate(Amount with average as AvgAmt)
-               as AggregatedSales))
-```
-results in
-```json
-{
-  "@context": "$metadata#Products(Name,Total,AggregatedSales())",
-  "value": [
-    { "Name": "Coffee", "Total":   12,
-      "AggregatedSales@context": "#Sales(AvgAmt)",
-      "AggregatedSales": [ { "AvgAmt@type": "Decimal",
-                             "AvgAmt": 6 } ] },
-    { "Name": "Paper",  "Total":    8,
-      "AggregatedSales@context": "#Sales(AvgAmt)",
-      "AggregatedSales": [ { "AvgAmt@type": "Decimal",
-                             "AvgAmt": 2 } ] },
-    { "Name": "Pencil", "Total": null,
-      "AggregatedSales@context": "#Sales(AvgAmt)",
-      "AggregatedSales": [ { "AvgAmt": null } ] },
-    { "Name": "Sugar",  "Total":    4,
-      "AggregatedSales@context": "#Sales(AvgAmt)",
-      "AggregatedSales": [ { "AvgAmt@type": "Decimal",
-                             "AvgAmt": 2 } ] }
-  ]
-}
-```
-:::
-
 There is no hard distinction between groupable and aggregatable properties: the same property can be aggregated and used to group the aggregated results.
 
 ::: example
-Example 84:
+Example 78:
 ```
 GET /service/Sales?$apply=groupby((Amount),aggregate(Amount with sum as Total))
 ```
@@ -3457,7 +3237,7 @@ will return all distinct amounts appearing in sales orders and how much money wa
 Dynamic property names may be reused in different transformation sequences passed to `concat`.
 
 ::: example
-Example <a id="bestselling" href="#bestselling">85</a>: to get the best-selling product per country with sub-totals for every country, the partial results of a transformation sequence and a `groupby` transformation are concatenated:
+Example <a id="bestselling" href="#bestselling">79</a>: to get the best-selling product per country with sub-totals for every country, the partial results of a transformation sequence and a `groupby` transformation are concatenated:
 ```
 GET /service/Sales?$apply=concat(
                      groupby((Customer/Country,Product/Name),
@@ -3489,7 +3269,7 @@ results in
 :::
 
 ::: example
-Example 86: transformation sequences are also useful inside `groupby`: Aggregate the amount by only considering the top two sales amounts per product and country:
+Example 80: transformation sequences are also useful inside `groupby`: Aggregate the amount by only considering the top two sales amounts per product and country:
 ```
 GET /service/Sales?$apply=groupby((Customer/Country,Product/Name),
                       topcount(2,Amount)/aggregate(Amount with sum as Total))
@@ -3520,7 +3300,7 @@ results in
 :::
 
 ::: example
-Example <a id="contradict" href="#contradict">87</a>: concatenation of two different groupings "biggest sale per customer" and "biggest sale per product", made distinguishable by a dynamic property:
+Example <a id="contradict" href="#contradict">81</a>: concatenation of two different groupings "biggest sale per customer" and "biggest sale per product", made distinguishable by a dynamic property:
 ```
 GET /service/Sales?$apply=concat(
     groupby((Customer),topcount(1,Amount))/compute('Customer' as per),
@@ -3552,7 +3332,7 @@ In the result, `Sales` entities 4 and 6 occur twice each with contradictory valu
 ## <a id="ModelFunctionsasSetTransformations" href="#ModelFunctionsasSetTransformations">7.7 Model Functions as Set Transformations</a>
 
 ::: example
-Example 88: As a variation of [example 85](#bestselling), a query for returning the best-selling product per country and the total amount of the remaining products can be formulated with the help of a model function.
+Example 82: As a variation of [example 79](#bestselling), a query for returning the best-selling product per country and the total amount of the remaining products can be formulated with the help of a model function.
 
 For this purpose, the model includes a definition of a `TopCountAndRemainder` function that accepts a count and a numeric property for the top entities:
 ```xml
@@ -3600,7 +3380,7 @@ Note that these two entities get their values for the Country property from the 
 For a leveled hierarchy, consumers may specify a different aggregation method per level as a hierarchy level below the root level.
 
 ::: example
-Example 89: get the average of the overall amount by month per product.
+Example 83: get the average of the overall amount by month per product.
 
 Using a transformation sequence:
 ```
@@ -3613,7 +3393,7 @@ GET /service/Sales?$apply=groupby((Product/ID,Product/Name,Time/Month),
 ## <a id="AggregationinRecursiveHierarchies" href="#AggregationinRecursiveHierarchies">7.9 Aggregation in Recursive Hierarchies</a>
 
 ::: example
-⚠ Example 90: The input set `Sales` is filtered along a hierarchy on a related entity (navigation property `SalesOrganization`) before an aggregation
+⚠ Example 84: The input set `Sales` is filtered along a hierarchy on a related entity (navigation property `SalesOrganization`) before an aggregation
 ```
 GET /service/Sales?$apply=
   descendants($root/SalesOrganizations,
@@ -3637,7 +3417,7 @@ GET /service/SalesOrganizations?$apply=
 :::
 
 ::: example
-Example <a id="traversecoll" href="#traversecoll">91</a>: Preorder traversal of a hierarchy with 1:N relationship with collection-valued segment $p_1={\tt Sales}$ and $r={\tt SalesOrganization}/{\tt ID}$.
+Example <a id="traversecoll" href="#traversecoll">85</a>: Preorder traversal of a hierarchy with 1:N relationship with collection-valued segment $p_1={\tt Sales}$ and $r={\tt SalesOrganization}/{\tt ID}$.
 ```
 GET /service/Products?$apply=traverse(
       $root/SalesOrganizations,
@@ -3681,7 +3461,7 @@ The result contains multiple instances of the same `Product` that differ in thei
 Besides changes to the structural properties of the entities in a hierarchical collection, hierarchy maintenance involves changes to the parent-child relationships.
 
 ::: example
-Example 92: Move a sales organization Switzerland under the parent EMEA Central by binding the parent navigation property to EMEA Central [OData-JSON, section 8.5](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#BindOperation):
+Example 86: Move a sales organization Switzerland under the parent EMEA Central by binding the parent navigation property to EMEA Central [OData-JSON, section 8.5](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#BindOperation):
 ```json
 PATCH /service/SalesOrganizations('Switzerland')
 Content-Type: application/json
@@ -3704,7 +3484,7 @@ DELETE /service/SalesOrganizations('Switzerland')/Superordinate/$ref
 :::
 
 ::: example
-Example <a id="refconstr" href="#refconstr">93</a>: If the parent navigation property contained a referential constraint for the key of the target [OData-CSDL, section 8.5](https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#ReferentialConstraint),
+Example <a id="refconstr" href="#refconstr">87</a>: If the parent navigation property contained a referential constraint for the key of the target [OData-CSDL, section 8.5](https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#ReferentialConstraint),
 ```xml
 <EntityType Name="SalesOrganization">
   <Key>
@@ -3732,7 +3512,7 @@ Content-Type: application/json
 If the parent-child relationship between sales organizations is maintained in a separate entity set, a node can have multiple parents, with additional information on each parent-child relationship.
 
 ::: example
-⚠ Example <a id="weight" href="#weight">94</a>: Assume the relation from a node to its parent nodes contains a weight:
+⚠ Example <a id="weight" href="#weight">88</a>: Assume the relation from a node to its parent nodes contains a weight:
 ```xml
 <EntityType Name="SalesOrganizationRelation">
   <Key>
@@ -3791,7 +3571,7 @@ Content-Type: application/json
 { "Superordinate": { "@id": "SalesOrganizations('Sales')" } }
 ```
 
-Since this example contains no referential constraint, there is no analogy to [example 93](#refconstr). The alias `SuperordinateID` cannot be used in the payload, the following request is invalid:
+Since this example contains no referential constraint, there is no analogy to [example 87](#refconstr). The alias `SuperordinateID` cannot be used in the payload, the following request is invalid:
 ```json
 POST /service/SalesOrganizations('Mars')/Relations
 Content-Type: application/json
@@ -3810,7 +3590,7 @@ DELETE /service/SalesOrganizations('Mars')/Relations('Sales')
 Applying aggregation first covers the most prominent use cases. The slightly more sophisticated question "how much money is earned with small sales" requires filtering the base set before applying the aggregation. To enable this type of question several transformations can be specified in `$apply` in the order they are to be applied, separated by a forward slash.
 
 ::: example
-Example 95:
+Example 89:
 ```
 GET /service/Sales?$apply=filter(Amount le 1)
     /aggregate(Amount with sum as Total)
@@ -3829,7 +3609,7 @@ means "filter first, then aggregate", and results in
 Using `filter` within `$apply` does not preclude using it as a normal system query option.
 
 ::: example
-Example 96:
+Example 90:
 ```
 GET /service/Sales?$apply=filter(Amount le 2)/groupby((Product/Name),
                                          aggregate(Amount with sum as Total))
@@ -3852,7 +3632,7 @@ results in
 For further examples, consider another data model containing entity sets for cities, countries and continents and the obvious associations between them.
 
 ::: example
-Example 97: getting the population per country with
+Example 91: getting the population per country with
 ```
 GET /service/Cities?$apply=groupby((Continent/Name,Country/Name),
                             aggregate(Population with sum as TotalPopulation))
@@ -3874,7 +3654,7 @@ results in
 :::
 
 ::: example
-Example 98: all countries with megacities and their continents
+Example 92: all countries with megacities and their continents
 ```
 GET /service/Cities?$apply=filter(Population ge 10000000)
                    /groupby((Continent/Name,Country/Name),
@@ -3883,7 +3663,7 @@ GET /service/Cities?$apply=filter(Population ge 10000000)
 :::
 
 ::: example
-Example 99: all countries with tens of millions of city dwellers and the continents only for these countries
+Example 93: all countries with tens of millions of city dwellers and the continents only for these countries
 ```
 GET /service/Cities?$apply=groupby((Continent/Name,Country/Name),
                           aggregate(Population with sum as CountryPopulation))
@@ -3898,14 +3678,17 @@ or
 GET /service/Cities?$apply=groupby((Continent/Name,Country/Name),
                           aggregate(Population with sum as CountryPopulation))
                    /filter(CountryPopulation ge 10000000)
-                   /groupby((rollup(Continent/Name,Country/Name)),
+                   /concat(groupby((Continent/Name,Country/Name),
                              aggregate(CountryPopulation with sum
-                                       as TotalPopulation))
+                                       as TotalPopulation)),
+                           groupby((Continent/Name),
+                             aggregate(CountryPopulation with sum
+                                       as TotalPopulation)))
 ```
 :::
 
 ::: example
-Example 100: all countries with tens of millions of city dwellers and all continents with cities independent of their size
+Example 94: all countries with tens of millions of city dwellers and all continents with cities independent of their size
 ```
 GET /service/Cities?$apply=groupby((Continent/Name,Country/Name),
                           aggregate(Population with sum as CountryPopulation))
@@ -3917,59 +3700,12 @@ GET /service/Cities?$apply=groupby((Continent/Name,Country/Name),
 :::
 
 ::: example
-Example 101: assuming the data model includes a sales order entity set with related sets for order items and customers, the base set as well as the related items can be filtered before aggregation
-```
-GET /service/SalesOrders?$apply=filter(Status eq 'incomplete')
-    /addnested(Items,filter(not Shipped) as FilteredItems)
-    /groupby((Customer/Country),
-     aggregate(FilteredItems/Amount with sum as ItemAmount))
-```
-:::
-
-::: example
-Example 102: assuming that `Amount` is a custom aggregate in addition to the property, determine the total for countries with an `Amount` greater than 1000
+Example 95: assuming that `Amount` is a custom aggregate in addition to the property, determine the total for countries with an `Amount` greater than 1000
 ```
 GET /service/SalesOrders?$apply=
   groupby((Customer/Country),aggregate(Amount))
   /filter(Amount gt 1000)
   /aggregate(Amount)
-```
-:::
-
-::: example
-Example <a id="aggrconflict" href="#aggrconflict">103</a>: The output set of the `concat` transformation contains `Sales` entities multiple times with conflicting related `AugmentedProduct` entities that cannot be aggregated by the second transformation.
-```
-GET /service/Sales?$apply=
-  concat(addnested(Product,compute(0.1 as Discount) as AugmentedProduct),
-         addnested(Product,compute(0.2 as Discount) as AugmentedProduct))
-  /aggregate(AugmentedProduct/Discount with max as MaxDiscount)
-```
-results in an error.
-:::
-
-::: example
-Example 104: The `nest` transformation can be used inside `groupby` to produce one or more collection-valued properties per group.
-```
-GET /service/Sales?$apply=groupby((Product/Category/ID),
-                      nest(groupby((Customer/ID)) as Customers))
-```
-results in
-```json
-{
-  "@context": "$metadata#Sales(Product(Category(ID)),Customers())",
-  "value": [
-    { "Product": { "Category": { "ID": "PG1" } },
-      "Customers@context": "#Sales(Customer(ID))",
-      "Customers": [ { "Customer": { "ID": "C1" } },
-                     { "Customer": { "ID": "C2" } },
-                     { "Customer": { "ID": "C3" } } ] },
-    { "Product": { "Category": { "ID": "PG2" } },
-      "Customers@context": "#Sales(Customer(ID))",
-      "Customers": [ { "Customer": { "ID": "C1" } },
-                     { "Customer": { "ID": "C2" } },
-                     { "Customer": { "ID": "C3" } } ] }
-  ]
-}
 ```
 :::
 
