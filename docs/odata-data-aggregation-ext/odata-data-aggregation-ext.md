@@ -2607,9 +2607,9 @@ $H$, $Q$ and $p$ are the first three parameters defined [above](#CommonParameter
 
 The fourth parameter $h$ of the `traverse` transformation is either `preorder` or `postorder`. Let $H'$ be the collection of root nodes in the recursive hierarchy $(H,Q)$. Nodes in $H'$ are called start nodes in this subsection (see [example 88](#weight)).
 
-All following parameters are optional and form a list $o$ of expressions that could also be passed as a `$orderby` system query option. If $o$ is present, the transformation [stable-sorts](#SamenessandOrder) $H'$ by $o$.
+Let $o$ be the list of all following parameters that are expressions which could also be passed as a `$orderby` system query option, if there are any. If $o$ is present, the transformation [stable-sorts](#SamenessandOrder) $H'$ by $o$.
 
-🚧 Future versions of this specification MAY allow an optional fifth parameter that is a non-empty sequence of transformations which change the definition of $H'$. Until then a fifth parameter that could not be passed as `$orderby` does not belong to the list $o$ and MUST be ignored by the service.
+🚧 Future versions of this specification MAY allow an optional fifth parameter that comes before the parameter list $o$.
 
 The instances in the input set are related to one node (if $p$ is single-valued) or multiple nodes (if $p$ is collection-valued) in the recursive hierarchy. Given a node $x$, denote by $\hat F(x)$ the collection of all instances in the input set that are related to $x$; these collections can overlap. For each $u$ in $\hat F(x)$, the output set contains one instance that comprises the properties of $u$ and additional properties that identify the node $x$. These additional properties are independent of $u$ and are bundled into an instance called $σ(x)$. For example, if a sale $u$ is related to two sales organizations and hence contained in both $\hat F(x_1)$ and $\hat F(x_2)$, the output set will contain two instances $(u,σ(x_1))$ and $(u,σ(x_2))$ and $σ(x_i)$ contributes a navigation property `SalesOrganization`.
 
