@@ -2102,7 +2102,7 @@ If the entities are not members of a single
 canonical collection, the context URL fragment specifies
 the type of the returned entity collection. In this case
 each entity for which a canonical collection can be determined
-SHOULD have has its own context URL with the template `{context-url}#{canonical-collection}/$entity`.
+SHOULD have its own context URL with the template `{context-url}#{canonical-collection}/$entity`.
 
 ## <a id="Entity" href="#Entity">10.3 Entity</a>
 
