@@ -191,7 +191,7 @@ Note that the base set of the request is `Products`, so there is a result item f
 :::
 
 ::: example
-Example ##ex: Compute the aggregate as a property using the aggregate function in `$compute`:
+Example ##ex: Compute the aggregate as a property using the `aggregate` function in `$compute`:
 ```
 GET /service/Products?$compute=Sales/aggregate(Amount with sum) as Total
 ```
