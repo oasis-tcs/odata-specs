@@ -3621,7 +3621,7 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 <span id="cb142-17"><a href="#cb142-17" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
-<p>Example 78: To compute the aggregate as a property without nesting, use the aggregate function in <code>$compute</code> rather than the aggregate transformation in <code>$apply</code>:</p>
+<p>Example 78: To compute the aggregate as a property without nesting, use the <code>aggregate</code> function in <code>$compute</code> rather than the aggregate transformation in <code>$apply</code>:</p>
 <pre><code>GET /service/Products?$compute=Sales/aggregate(Amount with sum) as Total</code></pre>
 <p>results in</p>
 <div class="sourceCode" id="cb144"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb144-1"><a href="#cb144-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>

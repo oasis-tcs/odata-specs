@@ -3460,7 +3460,7 @@ results in
 :::
 
 ::: example
-Example 78: To compute the aggregate as a property without nesting, use the aggregate function in `$compute` rather than the aggregate transformation in `$apply`:
+Example 78: To compute the aggregate as a property without nesting, use the `aggregate` function in `$compute` rather than the aggregate transformation in `$apply`:
 ```
 GET /service/Products?$compute=Sales/aggregate(Amount with sum) as Total
 ```
