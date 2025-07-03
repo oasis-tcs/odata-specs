@@ -848,21 +848,7 @@ Atlantis|US|0.6
 Atlantis|EMEA|0.4
 Phobos|Mars|1
 
-Then Atlantis is a node with two parents. The standard hierarchical transformations disregard the weight property and consider both parents equally valid.
-
-In a traversal with start node Sales only:
-```
-GET /service/SalesOrganizations?$apply=
-    traverse($root/SalesOrganizations,MultiParentHierarchy,ID,preorder,
-             filter(ID eq 'Sales'))
-```
-Mars and Phobos cannot be reached and hence are orphans. But they can be made descendants of the start node Sales by adding a relationship. Note the collection-valued segment of the `ParentNavigationProperty` appears at the end of the resource path and the subsequent single-valued segment appears in the payload:
-```json
-POST /service/SalesOrganizations('Mars')/Relations
-Content-Type: application/json
-
-{ "Superordinate": { "@id": "SalesOrganizations('Sales')" } }
-```
+Then Atlantis is a node with two parents. The standard hierarchical transformations `ancestors` and `descendants` disregard the weight property and consider both parents equally valid. Transformation `traverse` has no defined behavior.
 
 Since this example contains no referential constraint, there is no analogy to [example ##refconstr]. The alias `SuperordinateID` cannot be used in the payload, the following request is invalid:
 ```json

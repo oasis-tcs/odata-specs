@@ -8,6 +8,21 @@ This specification adds aggregation functionality to the Open Data Protocol (ODa
 - Results format for queries containing aggregated data,
 - Vocabulary terms to annotate what can be aggregated, and how.
 
+## ##subsec Changes from Earlier Versions
+
+Compared to the previous stage **[OData-Data-Agg-v4.0]** OASIS Committee Specification 03, this version makes the following restrictions.
+
+Section | Restriction
+--------|------------
+After [section ##AggregateExpressioncount]|Keyword `from` removed
+After [section ##SimpleGrouping]|Grouping with `rollup` removed
+After [section ##Transformationcompute]|Transformation `addnested` removed
+After [section ##Transformationsjoinandouterjoin]|Transformation `nest` removed
+Before [section ##RecursiveHierarchy]|Leveled Hierarchy removed
+[Section ##CommonParametersforHierarchicalTransformations]|Optional parameter $S$ removed
+[Section ##Transformationtraverse]|Restricted to single-valued `ParentNavigationProperty`
+After [section ##Transformationtraverse]|Grouping with `rolluprecursive` removed
+
 ## ##subsec Glossary
 
 ### ##subsubsec Definitions of Terms
@@ -29,7 +44,7 @@ The following non-exhaustive list contains variable names that are used througho
 - $u,v,w$ – instances in a collection
 - $x$ – an instance in a hierarchical collection, called a node
 - $p,q,r$ – paths
-- $S,T$ – transformation sequences
+- $T$ – transformation sequence
 - $α$ – [aggregate expression](#AggregateExpression), defined in [section ##AggregationAlgorithm]
 - $\Gamma(A,p)$ – the collection that results from evaluating a [data aggregation path](#DataAggregationPath) $p$ relative to a collection $A$, defined in [section ##EvaluationofDataAggregationPaths]
 - $γ(u,p)$ – the collection that results from evaluating a [data aggregation path](#DataAggregationPath) $p$ relative to an instance $u$, defined in [section ##EvaluationofDataAggregationPaths]

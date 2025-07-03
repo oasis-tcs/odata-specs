@@ -133,11 +133,15 @@ Added transformations for recursive hierarchies, updated related filter function
 Added functions evaluable on a collection, introduced keyword $these<br> 
 Merged section 4 "Representation of Aggregated Instances" into section 3<br> 
 Remove actions and functions (except set transformations) on aggregated entities, adapted section "Actions and Functions on Aggregated Entities"
-$$$subtitle$$$|$$$pubdateISO$$$| 
+Committee Specification 03|2023-09-19| 
 Ralf Handl<br> 
 Gerald Krause<br> 
 Heiko Theißen| 
 Non-material changes from public review feedback
+$$$subtitle$$$|$$$pubdateISO$$$| 
+Gerald Krause<br> 
+Heiko Theißen| 
+Remove sections not intended for OASIS Standard
 
 -------
 

@@ -200,15 +200,15 @@ The definition of $σ(x)$ makes use of a function $a(ε,t,x)$, which returns a s
 Three cases are distinguished:
 1. _Case where the recursive hierarchy is defined on the input set_  
    This case applies if the paths $p$ and $q$ are equal. Let $σ(x)=x$ and let $G$ be a list containing all structural and navigation properties of the entity type of $H$.  
-   In this case $\Pi_G(σ(x))$ injects all properties of $x$ into the instances of the output set.
+   In this case $\Pi_G(σ(x))$ injects all properties of $x$ into the instances of the output set. (See [example ##caseone].)
 2. _Case where the recursive hierarchy is defined on the related entity type addressed by a navigation property path_  
    This case applies if $p'$ is a non-empty navigation property path and $p''$ an optional type-cast segment such that $p$ equals the concatenated path $p'/p''/q$. Let $σ(x)=a(ε,p'/p'',x)$ and let $G=(p')$.  
-   In this case $\Pi_G(σ(x))$ injects the whole related entity $x$ into the instances of the output set. The navigation property path $p'$ is expanded by default.
+   In this case $\Pi_G(σ(x))$ injects the whole related entity $x$ into the instances of the output set. The navigation property path $p'$ is expanded by default. (See [example ##rollupnode].)
 3. _Case where the recursive hierarchy is related to the input set only through equality of node identifiers, not through navigation_  
    If neither case 1 nor case 2 applies, let $σ(x)=a(ε,p,x[q])$ and let $G=(p)$.  
    In this case $\Pi_G(σ(x))$ injects only the node identifier of $x$ into the instances of the output set.
 
-Here paths are considered equal if their non-type-cast segments refer to the same model elements when evaluated relative to the input set.
+Here paths are considered equal if their non-type-cast segments refer to the same model elements when evaluated relative to the input set (see [example ##pathequals]).
 
 The function $a(u,t,x)$ takes an instance, a path and another instance as arguments and is defined recursively as follows:
 1. If $u$ equals the special symbol $ε$, set $u$ to a new instance of the [input type](#TypeStructureandContextURL) without properties and without entity-id.
@@ -279,6 +279,88 @@ results in
     { "ID": "US East", "Name": "US East",
       "Superordinate": { "@id": "SalesOrganizations('US')" } }
   ]
+}
+```
+:::
+
+::: example
+Example ##ex_caseone: Postorder traversal of organizations in the hierarchy defined in [Hierarchy Examples](#HierarchyExamples) with $p=q={\tt ID}$ (case 1 of the [definition](#Transformationtraverse) of $σ(x)$). In this case $\Pi_G(σ(x))$ writes back the entire node into the output set of $T$.
+```
+GET /service/SalesOrganizations?$apply=
+    traverse($root/SalesOrganizations,SalesOrgHierarchy,ID,postorder)
+  &$select=ID,Name
+  &$expand=Superordinate($select=ID)
+```
+results in
+```json
+{
+  "@context":
+      "$metadata#SalesOrganizations(ID,Name,Superordinate(ID))",
+  "value": [
+    { "ID": "US West",      "Name": "US West",
+      "Superordinate": { "ID": "US" } },
+    { "ID": "US East",      "Name": "US East",
+      "Superordinate": { "ID": "US" } },
+    { "ID": "US",           "Name": "US",
+      "Superordinate": { "ID": "Sales" } },
+    { "ID": "EMEA Central", "Name": "EMEA Central",
+      "Superordinate": { "ID": "EMEA" } },
+    { "ID": "EMEA",         "Name": "EMEA",
+      "Superordinate": { "ID": "Sales" } },
+    { "ID": "Sales",        "Name": "Sales",
+      "Superordinate": null }
+  ]
+}
+```
+:::
+
+::: example
+⚠ Example ##ex_rollupnode: Postorder traversal of sales per organization in the hierarchy defined in [Hierarchy Examples](#HierarchyExamples) with $p=p'/q={\tt SalesOrganization}/{\tt ID}$ and $p'={\tt SalesOrganization}$ (case 2 of the [definition](#Transformationtraverse) of $σ(x)$).
+```
+GET /service/Sales?$apply=traverse(
+      $root/SalesOrganizations,
+      SalesOrgHierarchy,
+      SalesOrganization/ID,
+      postorder)
+  &$select=ID
+  &$expand=SalesOrganization($select=ID)
+```
+The result contains each sale once for every organization to which it belongs,
+directly or indirectly.
+```json
+{
+  "@context": "$metadata#Sales(ID,SalesOrganization(ID))",
+  "value": [
+    { "ID": 1, "SalesOrganization": { "ID": "US West" } },
+    { "ID": 2, "SalesOrganization": { "ID": "US West" } },
+    { "ID": 3, "SalesOrganization": { "ID": "US West" } },
+    { "ID": 4, "SalesOrganization": { "ID": "US East" } },
+    { "ID": 5, "SalesOrganization": { "ID": "US East" } },
+    { "ID": 1, "SalesOrganization": { "ID": "US" } },
+    { "ID": 2, "SalesOrganization": { "ID": "US" } },
+    { "ID": 3, "SalesOrganization": { "ID": "US" } },
+    { "ID": 4, "SalesOrganization": { "ID": "US" } },
+    { "ID": 5, "SalesOrganization": { "ID": "US" } },
+    …
+  ]
+}
+```
+:::
+
+::: example
+⚠ Example ##ex_pathequals: Although $p={\tt ID}$ and $q={\tt ID}$, they are not equal in the sense of case 1, because they are evaluated relative to different entity sets. Hence, this is an example of case 3 of the [definition](#Transformationtraverse) of $σ(x)$, where no `Sales/ID` matches a `SalesOrganizations/ID`, that is, all $F(x)$ have empty output sets.
+```
+GET /service/Sales?$apply=traverse(
+      $root/SalesOrganizations,
+      SalesOrgHierarchy,
+      ID,
+      postorder)
+```
+results in
+```json
+{
+  "@context": "$metadata#Sales(ID,SalesOrganization(ID))",
+  "value": []
 }
 ```
 :::
