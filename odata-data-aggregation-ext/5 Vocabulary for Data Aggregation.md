@@ -11,12 +11,13 @@ The term `ApplySupported` can be applied to an entity set, an entity type, or a 
 - The `Transformations` collection lists all supported set transformations. Allowed values are the names of the standard transformations introduced in sections 3 and 6, and namespace-qualified names identifying a service-defined bindable function. If `Transformations` is omitted the server supports all transformations defined by this specification.
 - The `CustomAggregationMethods` collection lists supported custom aggregation methods. Allowed values are namespace-qualified names identifying service-specific aggregation methods. If omitted, no custom aggregation methods are supported.
 - 🚧 `Rollup` is reserved for later versions of this specifications.
+  The functional scope of this version of the specification is expressed by giving `Rollup` the value `None`.
 - A non-empty `GroupableProperties` indicates that only the listed properties of the annotated target can be used in `groupby`.
 - A non-empty `AggregatableProperties` indicates that only the listed properties of the annotated target can be used in [`aggregate`](#Transformationaggregate), optionally restricted to the specified aggregation methods.
 
 All properties of `ApplySupported` are optional, so it can be used as a tagging annotation to signal unlimited support of aggregation.
 
-The term `ApplySupportedDefaults` can be applied to an entity container. It allows to specify default support for aggregation capabilities `Transformations` and `CustomAggregationMethods` that propagate to all collection-valued resources in the container. Annotating a specific collection-valued resource with the term `ApplySupported` overrides the default support with the specified properties using `PATCH` semantics:
+The term `ApplySupportedDefaults` can be applied to an entity container. It allows to specify default support for aggregation capabilities `Transformations`, `CustomAggregationMethods` and `Rollup` that propagate to all collection-valued resources in the container. Annotating a specific collection-valued resource with the term `ApplySupported` overrides the default support with the specified properties using `PATCH` semantics:
 - Primitive or collection-valued properties specified in `ApplySupported` replace the corresponding properties specified in `ApplySupportedDefaults`.
 - Complex-valued properties specified in `ApplySupported` override the corresponding properties specified in ApplySupportedDefaults using `PATCH` semantics recursively.
 - Properties specified neither in `ApplySupported` nor in `ApplySupportedDefault` have their default value.
@@ -163,7 +164,7 @@ Example ##ex: This simplified `Sales` entity set has a single aggregatable prope
 
 A hierarchy is an arrangement of entities whose values are represented as being "above", "below", or "at the same level as" one another.
 
-🚧 Hierarchies are defined recursively in the following subsection. Any list of properties can be viewed as a leveled hierarchy with a fixed number of levels, for example, year, quarter and month, but this is not made explicit in the OData service.
+🚧 Recursive hierarchies are defined in the following subsection. Any list of properties can be viewed as a leveled hierarchy with a fixed number of levels, for example, year, quarter and month, but this is not made explicit in the OData service.
 
 ### ##subsubsec Recursive Hierarchy
 

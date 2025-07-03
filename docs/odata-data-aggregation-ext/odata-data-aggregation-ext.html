@@ -1915,7 +1915,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <h3 id="323-transformation-groupby"><a id="Transformationgroupby" href="#Transformationgroupby">3.2.3 Transformation <code>groupby</code></a></h3>
 </summary>
 <p>The <code>groupby</code> transformation takes one or two parameters where the second is a list of set transformations, separated by forward slashes to express that they are consecutively applied. If the second parameter is not specified, it defaults to a single transformation whose output set consists of a single instance of the <a href="#TypeStructureandContextURL">input type</a> without properties and without entity-id.</p>
-<p>🚧 The <code>groupby</code> transformation partitions the input set by the values of certain “grouping properties” and applies the given set transformations to each partition, this is called “simple grouping”.</p>
+<p>The <code>groupby</code> transformation partitions the input set by the values of certain “grouping properties” and applies the given set transformations to each partition, this is called “simple grouping”.</p>
 <details open><summary>
 <h4 id="3231-simple-grouping"><a id="SimpleGrouping" href="#SimpleGrouping">3.2.3.1 Simple Grouping</a></h4>
 </summary>
@@ -2500,12 +2500,12 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <ul>
 <li>The <code>Transformations</code> collection lists all supported set transformations. Allowed values are the names of the standard transformations introduced in sections 3 and 6, and namespace-qualified names identifying a service-defined bindable function. If <code>Transformations</code> is omitted the server supports all transformations defined by this specification.</li>
 <li>The <code>CustomAggregationMethods</code> collection lists supported custom aggregation methods. Allowed values are namespace-qualified names identifying service-specific aggregation methods. If omitted, no custom aggregation methods are supported.</li>
-<li>🚧 <code>Rollup</code> is reserved for later versions of this specifications.</li>
+<li>🚧 <code>Rollup</code> is reserved for later versions of this specifications. The functional scope of this version of the specification is expressed by giving <code>Rollup</code> the value <code>None</code>.</li>
 <li>A non-empty <code>GroupableProperties</code> indicates that only the listed properties of the annotated target can be used in <code>groupby</code>.</li>
 <li>A non-empty <code>AggregatableProperties</code> indicates that only the listed properties of the annotated target can be used in <a href="#Transformationaggregate"><code>aggregate</code></a>, optionally restricted to the specified aggregation methods.</li>
 </ul>
 <p>All properties of <code>ApplySupported</code> are optional, so it can be used as a tagging annotation to signal unlimited support of aggregation.</p>
-<p>The term <code>ApplySupportedDefaults</code> can be applied to an entity container. It allows to specify default support for aggregation capabilities <code>Transformations</code> and <code>CustomAggregationMethods</code> that propagate to all collection-valued resources in the container. Annotating a specific collection-valued resource with the term <code>ApplySupported</code> overrides the default support with the specified properties using <code>PATCH</code> semantics:</p>
+<p>The term <code>ApplySupportedDefaults</code> can be applied to an entity container. It allows to specify default support for aggregation capabilities <code>Transformations</code>, <code>CustomAggregationMethods</code> and <code>Rollup</code> that propagate to all collection-valued resources in the container. Annotating a specific collection-valued resource with the term <code>ApplySupported</code> overrides the default support with the specified properties using <code>PATCH</code> semantics:</p>
 <ul>
 <li>Primitive or collection-valued properties specified in <code>ApplySupported</code> replace the corresponding properties specified in <code>ApplySupportedDefaults</code>.</li>
 <li>Complex-valued properties specified in <code>ApplySupported</code> override the corresponding properties specified in ApplySupportedDefaults using <code>PATCH</code> semantics recursively.</li>
@@ -2636,7 +2636,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <h2 id="55-hierarchies"><a id="Hierarchies" href="#Hierarchies">5.5 Hierarchies</a></h2>
 </summary>
 <p>A hierarchy is an arrangement of entities whose values are represented as being “above”, “below”, or “at the same level as” one another.</p>
-<p>🚧 Hierarchies are defined recursively in the following subsection. Any list of properties can be viewed as a leveled hierarchy with a fixed number of levels, for example, year, quarter and month, but this is not made explicit in the OData service.</p>
+<p>🚧 Recursive hierarchies are defined in the following subsection. Any list of properties can be viewed as a leveled hierarchy with a fixed number of levels, for example, year, quarter and month, but this is not made explicit in the OData service.</p>
 <details open><summary>
 <h3 id="551-recursive-hierarchy"><a id="RecursiveHierarchy" href="#RecursiveHierarchy">5.5.1 Recursive Hierarchy</a></h3>
 </summary>
@@ -2959,7 +2959,7 @@ G(n)={\tt filter}(\hfill\\
 <h3 id="622-transformation-traverse"><a id="Transformationtraverse" href="#Transformationtraverse">6.2.2 Transformation <code>traverse</code></a></h3>
 </summary>
 <p>The <code>traverse</code> transformation returns instances of the input set that are or are related to nodes of a given recursive hierarchy in a specified tree order.</p>
-<p>🚧 This transformation is only allowed in a recursive hierarchy where <code>RecursiveHierarchy/ParentNavigationProperty</code> is single-valued.</p>
+<p>🚧 This version of the specification defines the behavior of the <code>traverse</code> transformation only in recursive hierarchies where <code>RecursiveHierarchy/ParentNavigationProperty</code> is single-valued.</p>
 <p><span class="math inline">\(H\)</span>, <span class="math inline">\(Q\)</span> and <span class="math inline">\(p\)</span> are the first three parameters defined <a href="#CommonParametersforHierarchicalTransformations">above</a>.</p>
 <p>The fourth parameter <span class="math inline">\(h\)</span> of the <code>traverse</code> transformation is either <code>preorder</code> or <code>postorder</code>. Let <span class="math inline">\(H&#39;\)</span> be the collection of root nodes in the recursive hierarchy <span class="math inline">\((H,Q)\)</span>. Nodes in <span class="math inline">\(H&#39;\)</span> are called start nodes in this subsection (see <a href="#weight">example 88</a>).</p>
 <p>Let <span class="math inline">\(o\)</span> be the list of all following parameters that are expressions which could also be passed as a <code>$orderby</code> system query option, if there are any. If <span class="math inline">\(o\)</span> is present, the transformation <a href="#SamenessandOrder">stable-sorts</a> <span class="math inline">\(H&#39;\)</span> by <span class="math inline">\(o\)</span>.</p>
