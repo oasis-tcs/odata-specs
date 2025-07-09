@@ -4254,15 +4254,13 @@ Otherwise the entity is created in the determined collection and,
 if the resource path ends with a non-containment navigation property,
 also linked to the entity containing the navigation property.
 
-The entity representation MAY [reference existing
-entities](#LinktoRelatedEntitiesWhenCreatinganEntity) as well as define content for
-[new related entities](#CreateRelatedEntitiesWhenCreatinganEntity). The result of the
+The entity representation MAY reference existing
+entities as well as define content for new related entities. The result of the
 operation is the entity with relationships to all referenced existing
-entities as well as all related entities created inline. If a related
-entity supporting user-specified key values specifies key values that do not match an existing entity, then a new entity is created with those
-key values and associated with the target entity. If a related
-entity specifies the full set of key values of an existing entity, then a relationship
-is established to that existing entity. If additional updatable properties are included for existing entities, the those related entities MUST be updated with the specified value(s).
+entities as well as all related entities created inline.
+
+If the request includes a related entity type that supports user-specified key values, or server generated keys with user-specified alternate key values, and the request specifies the full set of primary or alternate key values that do not match an existing entity, then a [new entity is created](#CreateRelatedEntitiesWhenCreatinganEntity) with the provided values and associated with the target entity. If a related
+entity specifies the full set of (primary or alternate) key values of an existing entity, then [a relationship is established to that existing entity](#LinktoRelatedEntitiesWhenCreatinganEntity). If both primary and alternate key values are specified, they MUST identify the same entity.
 
 An entity may also be created as the result of a `PATCH` or `PUT` request
 that is [treated as an insert](#UpsertanEntity).
@@ -4417,7 +4415,8 @@ original target URL extended with the navigation path to this related
 entity.
 
 On success, the service MUST create all entities and relate them. If the
-service responds with [`201 Created`](#ResponseCode201Created), the response MUST be expanded to include at least the entities and properties that were specified in the deep-insert request.
+service responds with [`201 Created`](#ResponseCode201Created) then, in the absence of
+an explicit `$expand`, the response MUST be expanded to include at least the entities and properties that were specified in the deep-insert request.
 
 Clients MAY associate an id with individual nested entities in the
 request by applying the
@@ -4615,7 +4614,7 @@ reports; two existing employees and one new employee named
 
 :::
 
-If the nested collection is represented as a delta annotation on the
+If the nested collection is represented as delta control information on the
 navigation property, then the collection contains members to be added or
 changed and MAY include deleted entities for entities that are no longer
 part of the collection, using the [delta payload](#DeltaPayloads)
