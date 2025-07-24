@@ -4077,15 +4077,12 @@ for some or all exposed entities. Additionally, [Actions](#Actions)
 supported by a service can affect the state of the system.
 
 A client specifies its intent to update the state of the system by making data modification requests
-as described in the following subsections. Services MAY deviate
-from the client's intent when successfully completing a data modification request,
-subject to the following rules:
-- The service documentation MUST describe the allowed deviations.
+as described in the following subsections. The interpretation of
+the client's intent during a successful completion of a data modification request
+is up to the service, subject to the following rules:
 - The service MUST reject data modification requests that violate constraints
   expressed in the service metadata or annotations (for example,
   [`Capabilities.InsertRestrictions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#InsertRestrictions)).
-- A successfully completed data modification request
-  MUST NOT violate the integrity of the data.
 - The following subsections contain rules for successful data modification requests
   that MUST be obeyed by the service.
 
@@ -4370,6 +4367,9 @@ within the `Manager` and `DirectReports` navigation properties
 
 :::
 
+Upon successful completion of the operation, the service MUST create the
+requested entity and relate it to the requested existing entities.
+
 If the target URL for the collection the entity is created in and
 binding information provided in the `POST` body contradicts the implicit
 binding information provided by the request URL, the request MUST fail,
@@ -4396,7 +4396,8 @@ original target URL extended with the navigation path to this related
 entity.
 
 If the
-service responds with [`201 Created`](#ResponseCode201Created), the response MUST be expanded to include at least the entities and properties that were specified in the deep-insert request.
+service responds with [`201 Created`](#ResponseCode201Created), the response MUST be expanded to
+include at least the entities and properties that were specified in the deep-insert request.
 
 Clients MAY associate an id with individual nested entities in the
 request by applying the
@@ -4560,7 +4561,7 @@ greater MAY include nested entities and entity references that specify
 the full set of to be related entities, or a nested [delta
 payload](#DeltaPayloads) representing the related entities that have
 been added, removed, or changed. Such a request expresses the client's intent
-to update and entity together with related entities and is referred to as a
+to update an entity together with related entities and is referred to as a
 "deep update". If the nested collection is represented identical to an
 expanded navigation property, then the set of nested entities and entity
 references specified in a successful request represents the full
@@ -4600,7 +4601,7 @@ reports; two existing employees and one new employee named
 
 If the nested collection is represented as a delta annotation on the
 navigation property, then the collection expresses the client's intent to
-have its members to be added or
+have its members added or
 changed and MAY include deleted entities for entities that are no longer
 intended to be part of the collection, using the [delta payload](#DeltaPayloads)
 format. If the deleted entity specifies a `reason` as `deleted`, then
