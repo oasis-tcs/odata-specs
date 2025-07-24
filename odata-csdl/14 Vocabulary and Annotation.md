@@ -447,6 +447,13 @@ followed by the qualified name of a term, optionally followed by a hash
 (`#`) and a [qualifier](#Qualifier).
 :::
 
+@$@<Annotation.yaml@>@{
+$Term: string
+$Qualifier: string
+children:
+  @<may include annotations@>
+@}
+
 @$@<Javascript CSDL metamodel@>@{
 class Annotation extends ModelElement {
   @<Annotation@>

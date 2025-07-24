@@ -115,6 +115,15 @@ imports](#ActionImport), and [function imports](#FunctionImport), as
 well as [annotations](#Annotation).
 :::
 
+@$@<Metamodel.yaml@>@{
+EntityContainer: *EntityContainer
+@}
+
+@$@<EntityContainer.yaml@>@{
+$Extends:
+  path: *EntityContainer
+@}
+
 ::: funnelweb
 The children of an `EntityContainer` have no `$Kind` property, instead their
 kind is determined according to which other properties they have.

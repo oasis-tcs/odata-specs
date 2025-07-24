@@ -33,6 +33,32 @@ made with an `OData-MaxVersion` header with a value of `4.0`.
 The value of `$EntityContainer` is the namespace-qualified name of the entity container of that service. This is the only place where a model element MUST be referenced with its namespace-qualified name and use of the alias-qualified name is not allowed.
 :::
 
+@o@</git/oasis-tcs/odata-csdl-schemas/lib/metamodel.yaml@>@{
+@<Metamodel.yaml@>
+@}
+
+@$@<Metamodel.yaml@>@{
+Annotation: &Annotation
+  @<Annotation.yaml@>
+CSDLDocument:
+  $Version:
+    enum:
+      - "4.0"
+      - "4.01"
+      - "4.02"
+  $EntityContainer:
+    path: &EntityContainer
+      @<EntityContainer.yaml@>
+  $Reference:
+    map: &Reference
+      @<Reference.yaml@>
+  children:
+    - kind: Schema
+      cardinality: 0..*
+      type: &Schema
+        @<Schema.yaml@>
+@}
+
 @$@<Javascript CSDL metamodel@>@{
 class CSDLDocument extends ModelElement {
   @<CSDLDocument@>
@@ -232,6 +258,24 @@ The reference object MAY contain the members
 [annotations](#Annotation).
 :::
 
+@$@<Metamodel.yaml@>@{
+Reference: *Reference
+@}
+
+@$@<Reference.yaml@>@{
+$Include:
+  array: &Include
+    @<Include.yaml@>
+children:
+  @<may include annotations@>
+@}
+
+@$@<may include annotations@>@{
+- kind: Annotation
+  cardinality: 0..*
+  type: *Annotation
+@}
+
 @$@<Deserialize members of CSDLDocument@>@{
 for (const uri in json.$Reference)
   new Reference(this, uri).fromJSON(json.$Reference[uri]);
@@ -423,6 +467,17 @@ included schema.
 The value of `$Alias` is a string containing the alias for the included
 schema.
 :::
+
+@$@<Metamodel.yaml@>@{
+Include: *Include
+@}
+
+@$@<Include.yaml@>@{
+$Alias: string
+$Namespace: string
+children:
+  @<may include annotations@>
+@}
 
 ::: funnelweb
 Array-valued properties like `$Include` are represented by an array of instances of a
