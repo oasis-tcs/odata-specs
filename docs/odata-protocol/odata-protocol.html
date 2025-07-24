@@ -2283,6 +2283,8 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Updatable OData services support Create, Update, and Delete operations for some or all exposed entities. Additionally, <a href="#Actions">Actions</a> supported by a service can affect the state of the system.</p>
 <p>A successfully completed <a href="#DataModification">Data Modification Request</a> must not violate the integrity of the data.</p>
 <p>The client may request whether content be returned from a Create, Update, or Delete request, or the invocation of an Action, by specifying the <a href="#Preferencereturnrepresentationandreturnminimal"><code>return</code></a> preference. A <a href="#SuccessResponses">success response</a> indicates that data have been modified, regardless of whether the requested content could be returned.</p>
+<p>Data modification requests guarantee <em>atomicity</em> in the following sense: When the request completes successfully, every subsequent request observes a state of the system in which either all or none of the changes have been carried out. But depending on how a service makes this guarantee, clients MAY observe a state of the system where the changes have been carried out only partially while the data modification request is still being executed.</p>
+<p>A transactional service is a service that protects against seeing such partial changes. But for services that do not require this degree of transactional consistency, it is up to the service implementation to define rollback semantics to undo any changes that may have been applied before another change failed and thereby guarantee this all-or-nothing requirement.</p>
 <details open><summary>
 <h3 id="1141-common-data-modification-semantics"><a id="CommonDataModificationSemantics" href="#CommonDataModificationSemantics">11.4.1 Common Data Modification Semantics</a></h3>
 </summary>
@@ -2816,6 +2818,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <li>Collections within the request are represented as collections in the response according to the rules specified in <a href="#ErrorHandlingwhenReplacingaCollectionofEntities">Replace a Collection of Entities</a>.</li>
 </ul>
 <p>If an individual change fails due to a failed dependency, it MUST be annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DataModificationException"><code>Core.DataModificationException</code></a> and SHOULD specify a <code>responseCode</code> of <code>424</code> (<a href="#ResponseCode424FailedDependency">Failed Dependency</a>).</p>
+<p>Regardless of the <code>continue-on-error</code> preference, the collection update must happen in an atomic manner (in the sense of <a href="#DataModification">section 11.4</a>).</p>
 </details>
 </details>
 <details open><summary>
@@ -2834,6 +2837,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <li>Failed updates within the request MUST be represented in the response with their current values and SHOULD be annotated with the term <code>Core.DataModificationException</code> with a <code>failedOperation</code> value of <code>update</code>.</li>
 <li>Collections within the request MUST also be represented in the response following these same rules.</li>
 </ul>
+<p>Regardless of the <code>continue-on-error</code> preference, the collection update must happen in an atomic manner (in the sense of <a href="#DataModification">section 11.4</a>).</p>
 </details>
 </details>
 <details open><summary>
@@ -2856,6 +2860,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Clients should note that requesting a response may be expensive for services that could otherwise efficiently apply updates to a (possibly filtered) collection.</p>
 <p>If the <code>continue-on-error</code> preference has been specified, the service MAY continue processing updates after a failure. In this case, the service MUST return a response containing at least the members of the collection that failed to update, which MUST be annotated with the term <code>Core.DataModificationException</code> with a <code>failedOperation</code> value of <code>update</code>.</p>
 <p>If the <code>continue-on-error</code> preference has not been specified, and the service is unable to update all of the members identified by the request, then it MUST return an error response and MUST NOT apply any updates.</p>
+<p>Regardless of the <code>continue-on-error</code> preference, the collection update must happen in an atomic manner (in the sense of <a href="#DataModification">section 11.4</a>).</p>
 </details>
 <details open><summary>
 <h3 id="11414-delete-members-of-a-collection"><a id="DeleteMembersofaCollection" href="#DeleteMembersofaCollection">11.4.14 Delete Members of a Collection</a></h3>
@@ -2870,6 +2875,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>If the collection is a collection of entities, then the client MAY specify the <code>continue-on-error</code> preference, in which case the service MAY continue processing deletes after a failure. In this case, the service MUST return a response containing at least an entity or entity reference for each entity identified by the request that failed to delete, which MUST be annotated with the term <code>Core.DataModificationException</code> with a <code>failedOperation</code> value of <code>delete</code>.</p>
 <p>Clients should note that requesting a response may be expensive for services that could otherwise efficiently apply deletes to a (possibly filtered) collection.</p>
 <p>If the <code>continue-on-error</code> preference has not been specified, and the service is unable to delete all of the entities identified by the request, then it MUST return an error response and MUST NOT apply any changes.</p>
+<p>Regardless of the <code>continue-on-error</code> preference, the deletion must happen in an atomic manner (in the sense of <a href="#DataModification">section 11.4</a>).</p>
 </details>
 </details>
 <details open><summary>
@@ -3396,7 +3402,7 @@ Accept: application/json
 <h4 id="11775-processing-a-multipart-batch-request"><a id="ProcessingaMultipartBatchRequest" href="#ProcessingaMultipartBatchRequest">11.7.7.5 Processing a Multipart Batch Request</a></h4>
 </summary>
 <p>The service MUST process the individual requests and change sets within a multipart batch request in the order received. Processing stops on the first error unless the <a href="#Preferencecontinueonerrorodatacontinueonerror"><code>continue-on-error</code></a> preference is specified with an explicit or implicit value of <code>true</code>.</p>
-<p>All requests in a change set represent a single change unit so a service MUST successfully process and apply all the requests in the change set or else apply none of them. It is up to the service implementation to define rollback semantics to undo any requests within a change set that may have been applied before another request in that same change set failed and thereby apply this all-or-nothing requirement. The service MAY execute the requests within a change set in any order and MAY return the responses to the individual requests in any order. If a request specifies a request identifier, the service MUST include the <code>Content-ID</code> header with the request identifier in the corresponding response so clients can correlate requests and responses.</p>
+<p>All requests in a change set represent a single change unit so a service MUST successfully process and apply all the requests in the change set or else apply none of them (atomicity in the sense of <a href="#DataModification">section 11.4</a>). The service MAY execute the requests within a change set in any order and MAY return the responses to the individual requests in any order. If a request specifies a request identifier, the service MUST include the <code>Content-ID</code> header with the request identifier in the corresponding response so clients can correlate requests and responses.</p>
 </details>
 <details open><summary>
 <h4 id="11776-multipart-batch-response"><a id="MultipartBatchResponse" href="#MultipartBatchResponse">11.7.7.6 Multipart Batch Response</a></h4>

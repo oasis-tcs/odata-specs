@@ -4091,6 +4091,18 @@ the [`return`](#Preferencereturnrepresentationandreturnminimal) preference.
 A [success response](#SuccessResponses) indicates that data have been modified,
 regardless of whether the requested content could be returned.
 
+Data modification requests guarantee _atomicity_ in the following sense:
+When the request completes successfully, every subsequent request observes a state of the system
+in which either all or none of the changes have been carried out.
+But depending on how a service makes this guarantee, clients MAY observe
+a state of the system where the changes have been carried out only partially
+while the data modification request is still being executed.
+
+A transactional service is a service that protects against seeing such partial changes.
+But for services that do not require this degree of transactional consistency,
+it is up to the service implementation to define rollback semantics to undo any changes that
+may have been applied before another change failed and thereby guarantee this all-or-nothing requirement.
+
 ### <a id="CommonDataModificationSemantics" href="#CommonDataModificationSemantics">11.4.1 Common Data Modification Semantics</a>
 
 [Data Modification Requests](#DataModification) share the following
@@ -5352,6 +5364,9 @@ If an individual change fails due to a failed dependency, it MUST be
 annotated with the term [`Core.DataModificationException`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DataModificationException) and SHOULD specify
 a `responseCode` of `424` ([Failed Dependency](#ResponseCode424FailedDependency)).
 
+Regardless of the `continue-on-error` preference, the collection update must happen
+in an atomic manner (in the sense of [section 11.4](#DataModification)).
+
 ### <a id="ReplaceaCollectionofEntities" href="#ReplaceaCollectionofEntities">11.4.12 Replace a Collection of Entities</a>
 
 Collections of entities can be replaced by submitting a `PUT` request
@@ -5394,6 +5409,9 @@ the service, as follows:
   with a `failedOperation` value of `update`.
 - Collections within the request MUST also be represented in the response
   following these same rules.
+
+Regardless of the `continue-on-error` preference, the collection update must happen
+in an atomic manner (in the sense of [section 11.4](#DataModification)).
 
 ### <a id="UpdateMembersofaCollection" href="#UpdateMembersofaCollection">11.4.13 Update Members of a Collection</a>
 
@@ -5455,6 +5473,9 @@ service is unable to update all of the members identified by the
 request, then it MUST return an error response and MUST NOT apply any
 updates.
 
+Regardless of the `continue-on-error` preference, the collection update must happen
+in an atomic manner (in the sense of [section 11.4](#DataModification)).
+
 ### <a id="DeleteMembersofaCollection" href="#DeleteMembersofaCollection">11.4.14 Delete Members of a Collection</a>
 
 Members of a collection can be deleted by submitting a `DELETE` request
@@ -5495,6 +5516,9 @@ If the `continue-on-error` preference has not been specified, and the
 service is unable to delete all of the entities identified by the
 request, then it MUST return an error response and MUST NOT apply any
 changes.
+
+Regardless of the `continue-on-error` preference, the deletion must happen
+in an atomic manner (in the sense of [section 11.4](#DataModification)).
 
 ## <a id="Operations" href="#Operations">11.5 Operations</a>
 
@@ -6559,10 +6583,7 @@ is specified with an explicit or implicit value of `true`.
 
 All requests in a change set represent a single change unit so a service
 MUST successfully process and apply all the requests in the change set
-or else apply none of them. It is up to the service implementation to
-define rollback semantics to undo any requests within a change set that
-may have been applied before another request in that same change set
-failed and thereby apply this all-or-nothing requirement. The service
+or else apply none of them (atomicity in the sense of [section 11.4](#DataModification)). The service
 MAY execute the requests within a change set in any order and MAY return
 the responses to the individual requests in any order. If a request
 specifies a request identifier, the service MUST include the
