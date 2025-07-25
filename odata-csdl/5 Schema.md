@@ -51,8 +51,8 @@ Schema: *Schema
 $Annotations:
   map: &Annotations
     @<Annotations.yaml@>
-  children:
-    @<may include annotations@>
+children:
+  @<may include annotations@>
 @}
 
 ::: funnelweb
@@ -313,8 +313,8 @@ Annotations: *Annotations
 @}
 
 @$@<Annotations.yaml@>@{
-"#target":
-  path: {}
+children:
+  @<may include annotations@>
 @}
 
 ::: funnelweb
