@@ -6586,7 +6586,7 @@ is specified with an explicit or implicit value of `true`.
 
 All requests in a change set represent a single change unit so a service
 MUST successfully process and apply all the requests in the change set
-or else apply none of them (atomicity in the sense of [section 11.4](#DataModification)). The service
+or else apply none of them (atomicity in the sense of [section 11.4.1.1](#Atomicity)). The service
 MAY execute the requests within a change set in any order and MAY return
 the responses to the individual requests in any order. If a request
 specifies a request identifier, the service MUST include the
