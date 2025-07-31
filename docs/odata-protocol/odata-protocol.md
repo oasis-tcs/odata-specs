@@ -4083,9 +4083,8 @@ for some or all exposed entities. Additionally, [Actions](#Actions)
 supported by a service can affect the state of the system.
 
 A client specifies its intent to update the state of the system by making data modification requests
-as described in the following subsections. The interpretation of
-the client's intent during a successful completion of a data modification request
-is up to the service, subject to the following rules:
+as described in the following subsections. The service may choose how to
+apply the client's intent, subject to the following rules:
 - The service MUST reject data modification requests that violate constraints
   expressed in the service metadata or annotations (for example,
   [`Capabilities.InsertRestrictions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#InsertRestrictions)).
@@ -4442,7 +4441,7 @@ Each included related entity is processed observing the rules for
 original target URL extended with the navigation path to this related
 entity.
 
-On success, the service MUST create all entities and relate them. If the
+If the
 service responds with [`201 Created`](#ResponseCode201Created) then, in the absence of
 an explicit `$expand`, the response MUST be expanded to include at least the entities
 and properties that were specified in the deep-insert request.
@@ -4468,6 +4467,9 @@ the inserted or updated entities and MUST fail the request if an entity with ass
 id cannot be created as intended by the client.
 Other services that do not return the `Core.ContentID` MUST fail requests that contain a
 [value reference](#ReferencingValuesfromResponseBodies) that uses this annotation value.
+
+Services MUST also fail requests if a related entity whose key is fully specified in the
+payload cannot be created as intended by the client.
 
 The `continue-on-error` preference is not supported for deep insert
 operations.
@@ -4818,6 +4820,9 @@ the entities in the response and MUST fail the request if an entity with associa
 id cannot be created as intended by the client.
 Other services that do not return the `Core.ContentID` MUST fail requests that contain a
 [value reference](#ReferencingValuesfromResponseBodies) that uses this annotation value.
+
+Services MUST also fail requests if a related entity whose key is fully specified in the
+payload cannot be created as intended by the client.
 
 The `continue-on-error` preference is not supported for deep update
 operations.
