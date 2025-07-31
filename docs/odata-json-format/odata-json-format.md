@@ -806,7 +806,7 @@ If no ETag is returned when requesting the metadata document, then the
 service SHOULD NOT set the `metadataEtag` control information
 in any responses.
 
-For details on how ETags are used, see [OData-Protocol, section 11.4.1.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UseofETagsforAvoidingUpdateConflicts).
+For details on how ETags are used, see [OData-Protocol, section 11.4.1.2](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UseofETagsforAvoidingUpdateConflicts).
 
 ### <a id="ControlInformationtypeodatatype" href="#ControlInformationtypeodatatype">4.6.3 Control Information: `type` (`odata.type`)</a>
 
@@ -1047,7 +1047,7 @@ value of the control information is an entity tag (ETag) which is an
 opaque string value that can be used in a subsequent request to
 determine if the value of the entity or collection has changed.
 
-For details on how ETags are used, see [OData-Protocol, section 11.4.1.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UseofETagsforAvoidingUpdateConflicts).
+For details on how ETags are used, see [OData-Protocol, section 11.4.1.2](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UseofETagsforAvoidingUpdateConflicts).
 The special value `"@etag": "*"` is equivalent to the header `If-Match: *`,
 and the special value `"@etag": ""` is equivalent to the header `If-None-Match: *`,
 see [OData-Protocol, section 11.4.11](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UpdateaCollectionofEntities).

@@ -241,11 +241,12 @@ For complete copyright information please see the full Notices section in an App
     - [11.3.3 Delta Payloads](#DeltaPayloads)
   - [11.4 Data Modification](#DataModification)
     - [11.4.1 Common Data Modification Semantics](#CommonDataModificationSemantics)
-      - [11.4.1.1 Use of ETags for Avoiding Update Conflicts](#UseofETagsforAvoidingUpdateConflicts)
-      - [11.4.1.2 Handling of DateTimeOffset Values](#HandlingofDateTimeOffsetValues)
-      - [11.4.1.3 Handling of Properties Not Advertised in Metadata](#HandlingofPropertiesNotAdvertisedinMetadata)
-      - [11.4.1.4 Handling of Integrity Constraints](#HandlingofIntegrityConstraints)
-      - [11.4.1.5 Returning Results from Data Modification Requests](#ReturningResultsfromDataModificationRequests)
+      - [11.4.1.1 Atomicity](#Atomicity)
+      - [11.4.1.2 Use of ETags for Avoiding Update Conflicts](#UseofETagsforAvoidingUpdateConflicts)
+      - [11.4.1.3 Handling of DateTimeOffset Values](#HandlingofDateTimeOffsetValues)
+      - [11.4.1.4 Handling of Properties Not Advertised in Metadata](#HandlingofPropertiesNotAdvertisedinMetadata)
+      - [11.4.1.5 Handling of Integrity Constraints](#HandlingofIntegrityConstraints)
+      - [11.4.1.6 Returning Results from Data Modification Requests](#ReturningResultsfromDataModificationRequests)
     - [11.4.2 Create an Entity](#CreateanEntity)
       - [11.4.2.1 Link to Related Entities When Creating an Entity](#LinktoRelatedEntitiesWhenCreatinganEntity)
       - [11.4.2.2 Create Related Entities When Creating an Entity](#CreateRelatedEntitiesWhenCreatinganEntity)
@@ -4091,24 +4092,26 @@ the [`return`](#Preferencereturnrepresentationandreturnminimal) preference.
 A [success response](#SuccessResponses) indicates that data have been modified,
 regardless of whether the requested content could be returned.
 
-Data modification requests guarantee _atomicity_ in the following sense:
-When the request completes successfully, every subsequent request observes a state of the system
-in which either all or none of the changes have been carried out.
-But depending on how a service makes this guarantee, clients MAY observe
-a state of the system where the changes have been carried out only partially
-while the data modification request is still being executed.
-
-A transactional service is a service that protects against seeing such partial changes.
-But for services that do not require this degree of transactional consistency,
-it is up to the service implementation to define rollback semantics to undo any changes that
-may have been applied before another change failed and thereby guarantee this all-or-nothing requirement.
-
 ### <a id="CommonDataModificationSemantics" href="#CommonDataModificationSemantics">11.4.1 Common Data Modification Semantics</a>
 
 [Data Modification Requests](#DataModification) share the following
 semantics.
 
-#### <a id="UseofETagsforAvoidingUpdateConflicts" href="#UseofETagsforAvoidingUpdateConflicts">11.4.1.1 Use of ETags for Avoiding Update Conflicts</a>
+#### <a id="Atomicity" href="#Atomicity">11.4.1.1 Atomicity</a>
+
+Data modification requests guarantee _atomicity_ in the following sense:
+When the request completes, every subsequent request observes a state of the system
+in which either all or none of the changes have been carried out.
+But depending on how a service makes this guarantee, clients MAY observe
+a state of the system where the changes have been carried out only partially
+while the data modification request is still being executed.
+
+If required, services can offer an isolation level that protects against seeing such partial changes.
+For services that do not require this degree of transactional consistency,
+it is up to the service implementation to define rollback semantics to undo any changes that
+may have been applied before another change failed and thereby guarantee this all-or-nothing requirement.
+
+#### <a id="UseofETagsforAvoidingUpdateConflicts" href="#UseofETagsforAvoidingUpdateConflicts">11.4.1.2 Use of ETags for Avoiding Update Conflicts</a>
 
 Each entity has its own ETag value that MUST change when structural
 properties or links from that entity have changed. In addition,
@@ -4183,7 +4186,7 @@ If-Match: "<ETag>"
 ```
 :::
 
-#### <a id="HandlingofDateTimeOffsetValues" href="#HandlingofDateTimeOffsetValues">11.4.1.2 Handling of DateTimeOffset Values</a>
+#### <a id="HandlingofDateTimeOffsetValues" href="#HandlingofDateTimeOffsetValues">11.4.1.3 Handling of DateTimeOffset Values</a>
 
 Services SHOULD preserve the offset of `Edm.DateTimeOffset` values, if
 possible. However, where the underlying storage does not support offset
@@ -4194,7 +4197,7 @@ of the [query functions](#BuiltinQueryFunctions) `year`, `month`, `day`,
 `hour`, and `time` for literal values that are not stated in the time
 zone of the normalized values.
 
-#### <a id="HandlingofPropertiesNotAdvertisedinMetadata" href="#HandlingofPropertiesNotAdvertisedinMetadata">11.4.1.3 Handling of Properties Not Advertised in Metadata</a>
+#### <a id="HandlingofPropertiesNotAdvertisedinMetadata" href="#HandlingofPropertiesNotAdvertisedinMetadata">11.4.1.4 Handling of Properties Not Advertised in Metadata</a>
 
 Clients MUST be prepared to receive additional properties in an entity
 or complex type instance that are not advertised in metadata, even for
@@ -4202,7 +4205,7 @@ types not marked as open. By using `PATCH` when [updating
 entities](#UpdateanEntity), clients can ensure that such properties
 values are not lost if omitted from the request.
 
-#### <a id="HandlingofIntegrityConstraints" href="#HandlingofIntegrityConstraints">11.4.1.4 Handling of Integrity Constraints</a>
+#### <a id="HandlingofIntegrityConstraints" href="#HandlingofIntegrityConstraints">11.4.1.5 Handling of Integrity Constraints</a>
 
 Services may impose cross-entity integrity constraints. Certain
 referential constraints, such as requiring an entity to be created with
@@ -4212,7 +4215,7 @@ related entities can be satisfied through
 creating the entity. Other constraints might require multiple changes to
 be processed in an all-or-nothing fashion.
 
-#### <a id="ReturningResultsfromDataModificationRequests" href="#ReturningResultsfromDataModificationRequests">11.4.1.5 Returning Results from Data Modification Requests</a>
+#### <a id="ReturningResultsfromDataModificationRequests" href="#ReturningResultsfromDataModificationRequests">11.4.1.6 Returning Results from Data Modification Requests</a>
 
 Clients can request whether created or modified resources are returned
 from [create](#CreateanEntity), [update](#UpdateanEntity), and
@@ -5364,8 +5367,8 @@ If an individual change fails due to a failed dependency, it MUST be
 annotated with the term [`Core.DataModificationException`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DataModificationException) and SHOULD specify
 a `responseCode` of `424` ([Failed Dependency](#ResponseCode424FailedDependency)).
 
-Regardless of the `continue-on-error` preference, the collection update must happen
-in an atomic manner (in the sense of [section 11.4](#DataModification)).
+If no `continue-on-error` preference is applied, the collection update MUST happen
+in an [atomic](#Atomicity) manner.
 
 ### <a id="ReplaceaCollectionofEntities" href="#ReplaceaCollectionofEntities">11.4.12 Replace a Collection of Entities</a>
 
@@ -5410,8 +5413,8 @@ the service, as follows:
 - Collections within the request MUST also be represented in the response
   following these same rules.
 
-Regardless of the `continue-on-error` preference, the collection update must happen
-in an atomic manner (in the sense of [section 11.4](#DataModification)).
+If no `continue-on-error` preference is applied, the collection update MUST happen
+in an [atomic](#Atomicity) manner.
 
 ### <a id="UpdateMembersofaCollection" href="#UpdateMembersofaCollection">11.4.13 Update Members of a Collection</a>
 
@@ -5473,8 +5476,8 @@ service is unable to update all of the members identified by the
 request, then it MUST return an error response and MUST NOT apply any
 updates.
 
-Regardless of the `continue-on-error` preference, the collection update must happen
-in an atomic manner (in the sense of [section 11.4](#DataModification)).
+If no `continue-on-error` preference is applied, the collection update MUST happen
+in an [atomic](#Atomicity) manner.
 
 ### <a id="DeleteMembersofaCollection" href="#DeleteMembersofaCollection">11.4.14 Delete Members of a Collection</a>
 
@@ -5517,8 +5520,8 @@ service is unable to delete all of the entities identified by the
 request, then it MUST return an error response and MUST NOT apply any
 changes.
 
-Regardless of the `continue-on-error` preference, the deletion must happen
-in an atomic manner (in the sense of [section 11.4](#DataModification)).
+If no `continue-on-error` preference is applied, the deletion MUST happen
+in an [atomic](#Atomicity) manner.
 
 ## <a id="Operations" href="#Operations">11.5 Operations</a>
 
@@ -6884,7 +6887,7 @@ To be considered an *Updatable OData Service*, the service additionally:
 18. MUST include edit links (explicitly or implicitly) for all
 updatable or deletable resources according to [OData-JSON, section 4.6.9](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink)
 19. MUST support `POST` of new entities to insertable entity sets
-([section 11.4.1.5](#ReturningResultsfromDataModificationRequests))
+([section 11.4.1.6](#ReturningResultsfromDataModificationRequests))
 20. MUST support `POST` of new related entities to updatable navigation
 properties ([section 11.4.2](#CreateanEntity))
 21. MUST support `POST` to `$ref` to add an existing entity to an
@@ -6898,7 +6901,7 @@ related entity ([section 11.4.5.3](#ChangetheReferenceinaSingleValuedNavigationP
 25. MUST support `DELETE` to `$ref` to remove a reference to an entity
 from an updatable navigation property ([section 11.4.5.2](#RemoveaReferencetoanEntity))
 26. MUST support `If-Match` header in update/delete of any resources
-returned with an ETag ([section 11.4.1.1](#UseofETagsforAvoidingUpdateConflicts))
+returned with an ETag ([section 11.4.1.2](#UseofETagsforAvoidingUpdateConflicts))
 27. MUST return a `Location` header with the edit URL or read URL of a
 created resource ([section 11.4.2](#CreateanEntity))
 28. MUST include the `OData-EntityId` header in response to any create
