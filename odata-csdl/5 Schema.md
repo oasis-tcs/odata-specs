@@ -43,18 +43,6 @@ The schema object MAY also contain [annotations](#Annotation) that apply
 to the schema itself.
 :::
 
-@$@<Metamodel.yaml@>@{
-Schema: *Schema
-@}
-
-@$@<Schema.yaml@>@{
-$Annotations:
-  map: &Annotations
-    @<Annotations.yaml@>
-children:
-  @<may include annotations@>
-@}
-
 ::: funnelweb
 The schema is the first of many model elements that appear as members
 with an unqualified name. They are represented as subclasses of `NamedModelElement`
@@ -307,15 +295,6 @@ The member name is an expression identifying the [annotation target](#Target).
 It MUST resolve to a model element in scope.
 The member value is an object containing [annotations](#Annotation) for that target.
 :::
-
-@$@<Metamodel.yaml@>@{
-Annotations: *Annotations
-@}
-
-@$@<Annotations.yaml@>@{
-children:
-  @<may include annotations@>
-@}
 
 ::: funnelweb
 `Annotations` is the first example of a model element that appears not
