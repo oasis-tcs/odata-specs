@@ -1254,9 +1254,9 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 </summary>
 <p>An individual property or operation response is represented as a JSON object.</p>
 <p>A single-valued property or operation response that has the <code>null</code> value does not have a representation; see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ResponseCode204NoContent">OData-Protocol, section 9.1.4</a>.</p>
-<p>A property or operation response that is of a primitive type is represented as an object with a single name/value pair, whose name is <code>value</code> and whose value is a <a href="#PrimitiveValue">primitive value</a>.</p>
+<p>A property or operation response that is of a primitive type is represented as an object with a name/value pair whose name is <code>value</code> and whose value is a <a href="#PrimitiveValue">primitive value</a> or <code>null</code>.</p>
 <p>A property or operation response that is of complex type is represented as a <a href="#ComplexValue">complex value</a>.</p>
-<p>A property or operation response that is of a collection type is represented as an object with a single name/value pair whose name is <code>value</code>. Its value is the JSON representation of a <a href="#CollectionofComplexValues">collection of complex type values</a> or <a href="#CollectionofPrimitiveValues">collection of primitive values</a>.</p>
+<p>A property or operation response that is of a collection type is represented as an object with a name/value pair whose name is <code>value</code>. Its value is the JSON representation of a <a href="#CollectionofComplexValues">collection of complex type values</a> or <a href="#CollectionofPrimitiveValues">collection of primitive values</a>.</p>
 <div class="example">
 <p>Example 26: primitive value</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
