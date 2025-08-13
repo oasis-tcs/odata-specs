@@ -85,6 +85,10 @@ https://www.rfc-editor.org/info/rfc9110.
 _ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262.
 https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
 
+###### [SQL92]{id=_SQL92}
+_ISO/IEC 9075:1992, Database Language SQL_, July 30, 1992. Digital Equipment Corporation, Maynard, Massachusetts.
+http://www.contrib.andrew.cmu.edu/~shadow/sql/sql1992.txt.
+
 ###### [Well-Known Text]{id=_WKT}
 _OpenGIS Implementation Specification for Geographic information – Simple feature access – Part 1: Common architecture_, May 2011. Open Geospatial Consortium.
 https://www.ogc.org/standard/sfa/.

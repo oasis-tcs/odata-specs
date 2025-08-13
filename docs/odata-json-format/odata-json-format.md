@@ -3479,8 +3479,8 @@ Content-Length: ###
 
 All requests in an atomicity group represent a single change unit. A
 service MUST successfully process and apply all the requests in the
-atomicity group or else apply none of them (atomicity in the sense of
-[OData-Protocol, section 11.4.1.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#Atomicity)).
+atomicity group or else apply none of them.
+See [OData-Protocol, section 11.4.1.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#Atomicity) for details on visibility of atomic changes.
 
 The service MAY process the individual requests and atomicity groups
 within a batch request, or individual requests within an atomicity

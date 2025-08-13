@@ -2291,8 +2291,10 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <details open><summary>
 <h4 id="11411-atomicity"><a id="Atomicity" href="#Atomicity">11.4.1.1 Atomicity</a></h4>
 </summary>
-<p>Data modification requests guarantee <em>atomicity</em> in the following sense: When the request completes, every subsequent request observes a state of the system in which either all or none of the changes have been carried out. But depending on how a service makes this guarantee, clients MAY observe a state of the system where the changes have been carried out only partially while the data modification request is still being executed.</p>
-<p>If required, services can offer an isolation level that protects against seeing such partial changes. For services that do not require this degree of transactional consistency, it is up to the service implementation to define rollback semantics to undo any changes that may have been applied before another change failed and thereby guarantee this all-or-nothing requirement.</p>
+<p>Data modification requests guarantee <em>atomicity</em> in the following sense: When the request completes, every subsequent request observes a state of the system in which either all or none of the changes have been carried out. The experience of concurrent clients observing the state of the system can be described through isolation levels as defined in <a href="#_SQL92">SQL92, section 4.28</a>, even for services that do not use a transactional database.</p>
+<p>When a service operates at isolation level “read uncommitted”, concurrent clients MAY observe a state of the system where the changes have been carried out only partially while the data modification request is still being executed. During the execution, the service MUST roll back any changes that may have been applied (and seen by clients) before another change failed.</p>
+<p>When a service operates at an isolation level of “read committed” or higher, it protects against seeing such partial changes.</p>
+<p>When data modification requests apply the <a href="#Preferencecontinueonerrorodatacontinueonerror"><code>continue-on-error</code></a> preference, they do not always guarantee atomicity. See the sections below where this preference is mentioned.</p>
 </details>
 <details open><summary>
 <h4 id="11412-use-of-etags-for-avoiding-update-conflicts"><a id="UseofETagsforAvoidingUpdateConflicts" href="#UseofETagsforAvoidingUpdateConflicts">11.4.1.2 Use of ETags for Avoiding Update Conflicts</a></h4>
@@ -3407,7 +3409,7 @@ Accept: application/json
 <h4 id="11775-processing-a-multipart-batch-request"><a id="ProcessingaMultipartBatchRequest" href="#ProcessingaMultipartBatchRequest">11.7.7.5 Processing a Multipart Batch Request</a></h4>
 </summary>
 <p>The service MUST process the individual requests and change sets within a multipart batch request in the order received. Processing stops on the first error unless the <a href="#Preferencecontinueonerrorodatacontinueonerror"><code>continue-on-error</code></a> preference is specified with an explicit or implicit value of <code>true</code>.</p>
-<p>All requests in a change set represent a single change unit so a service MUST successfully process and apply all the requests in the change set or else apply none of them (atomicity in the sense of <a href="#Atomicity">section 11.4.1.1</a>). The service MAY execute the requests within a change set in any order and MAY return the responses to the individual requests in any order. If a request specifies a request identifier, the service MUST include the <code>Content-ID</code> header with the request identifier in the corresponding response so clients can correlate requests and responses.</p>
+<p>All requests in a change set represent a single change unit so a service MUST successfully process and apply all the requests in the change set or else apply none of them. See <a href="#Atomicity">section 11.4.1.1</a> for details on visibility of atomic changes. The service MAY execute the requests within a change set in any order and MAY return the responses to the individual requests in any order. If a request specifies a request identifier, the service MUST include the <code>Content-ID</code> header with the request identifier in the corresponding response so clients can correlate requests and responses.</p>
 </details>
 <details open><summary>
 <h4 id="11776-multipart-batch-response"><a id="MultipartBatchResponse" href="#MultipartBatchResponse">11.7.7.6 Multipart Batch Response</a></h4>
@@ -3873,6 +3875,8 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 </summary>
 <h6><span id="_ECMAScript">ECMAScript</span></h6>
 <p><em>ECMAScript 2023 Language Specification, 14th Edition</em>, June 2023. Standard ECMA-262. <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">https://www.ecma-international.org/publications-and-standards/standards/ecma-262/</a>.</p>
+<h6><span id="_SQL92">SQL92</span></h6>
+<p><em>ISO/IEC 9075:1992, Database Language SQL</em>, July 30, 1992. Digital Equipment Corporation, Maynard, Massachusetts. <a href="http://www.contrib.andrew.cmu.edu/~shadow/sql/sql1992.txt">http://www.contrib.andrew.cmu.edu/~shadow/sql/sql1992.txt</a>.</p>
 <h6><span id="_WKT">Well-Known Text</span></h6>
 <p><em>OpenGIS Implementation Specification for Geographic information – Simple feature access – Part 1: Common architecture</em>, May 2011. Open Geospatial Consortium. <a href="https://www.ogc.org/standard/sfa/">https://www.ogc.org/standard/sfa/</a>.</p>
 </details>

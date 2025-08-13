@@ -4102,14 +4102,22 @@ semantics.
 Data modification requests guarantee _atomicity_ in the following sense:
 When the request completes, every subsequent request observes a state of the system
 in which either all or none of the changes have been carried out.
-But depending on how a service makes this guarantee, clients MAY observe
-a state of the system where the changes have been carried out only partially
-while the data modification request is still being executed.
+The experience of concurrent clients observing the state of the system
+can be described through isolation levels as defined in [SQL92, section 4.28](#_SQL92),
+even for services that do not use a transactional database.
 
-If required, services can offer an isolation level that protects against seeing such partial changes.
-For services that do not require this degree of transactional consistency,
-it is up to the service implementation to define rollback semantics to undo any changes that
-may have been applied before another change failed and thereby guarantee this all-or-nothing requirement.
+When a service operates at isolation level "read uncommitted",
+concurrent clients MAY observe a state of the system where the changes have been carried out only partially
+while the data modification request is still being executed.
+During the execution, the service MUST roll back any changes that
+may have been applied (and seen by clients) before another change failed.
+
+When a service operates at an isolation level of "read committed" or higher,
+it protects against seeing such partial changes.
+
+When data modification requests apply the
+[`continue-on-error`](#Preferencecontinueonerrorodatacontinueonerror) preference,
+they do not always guarantee atomicity. See the sections below where this preference is mentioned.
 
 #### <a id="UseofETagsforAvoidingUpdateConflicts" href="#UseofETagsforAvoidingUpdateConflicts">11.4.1.2 Use of ETags for Avoiding Update Conflicts</a>
 
@@ -6586,7 +6594,8 @@ is specified with an explicit or implicit value of `true`.
 
 All requests in a change set represent a single change unit so a service
 MUST successfully process and apply all the requests in the change set
-or else apply none of them (atomicity in the sense of [section 11.4.1.1](#Atomicity)). The service
+or else apply none of them. See [section 11.4.1.1](#Atomicity) for details on visibility of atomic changes.
+The service
 MAY execute the requests within a change set in any order and MAY return
 the responses to the individual requests in any order. If a request
 specifies a request identifier, the service MUST include the
@@ -7290,6 +7299,10 @@ https://www.rfc-editor.org/info/rfc9110.
 ###### [ECMAScript]{id=_ECMAScript}
 _ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262.
 https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
+
+###### [SQL92]{id=_SQL92}
+_ISO/IEC 9075:1992, Database Language SQL_, July 30, 1992. Digital Equipment Corporation, Maynard, Massachusetts.
+http://www.contrib.andrew.cmu.edu/~shadow/sql/sql1992.txt.
 
 ###### [Well-Known Text]{id=_WKT}
 _OpenGIS Implementation Specification for Geographic information – Simple feature access – Part 1: Common architecture_, May 2011. Open Geospatial Consortium.
