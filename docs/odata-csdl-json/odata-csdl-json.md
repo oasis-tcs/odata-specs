@@ -736,8 +736,8 @@ decimal floating-point number $m$`e`$e=m\cdot 10^e$
 where the number of significant digits in $m$ is the
 value of the [`Precision`](#Precision) facet. Supported formats are:
 
-IEEE 754 format                |Precision|Supported exponents
--------------------------------|--------:|:-----------------:
+IEEE 754 format                |Precision|Allowed exponents
+-------------------------------|--------:|:---------------:
 decimal32 (rarely implemented) |        7|$-101\le e\le 96$
 decimal64                      |       16|$-398\le e\le 384$
 decimal128                     |       34|$-6143\le e\le 6144$
