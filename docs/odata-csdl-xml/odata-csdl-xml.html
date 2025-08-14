@@ -814,7 +814,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <h3 id="343-scale"><a id="Scale" href="#Scale">3.4.3 Scale</a></h3>
 </summary>
 <p>A non-negative integer value specifying the maximum number of digits allowed to the right of the decimal point, or one of the symbolic values <code>floating</code> or <code>variable</code>.</p>
-<p>The value <code>floating</code> means that the decimal value represents a decimal floating-point number <span class="math inline">\(m\)</span><code>e</code><span class="math inline">\(e=m\cdot 10^e\)</span> where the number of significant digits in <span class="math inline">\(m\)</span> is the value of the <a href="#Precision"><code>Precision</code></a> facet. Supported formats are:</p>
+<p>The value <code>floating</code> means that the decimal value represents a decimal floating-point number <span class="math inline">\(m\cdot 10^e\)</span> where the number of significant digits in <span class="math inline">\(m\)</span> is the value of the <a href="#Precision"><code>Precision</code></a> facet. Supported formats are:</p>
 <table>
 <thead>
 <tr class="header">
@@ -825,17 +825,17 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </thead>
 <tbody>
 <tr class="odd">
-<td>decimal32 (rarely implemented)</td>
+<td><a href="https://en.wikipedia.org/wiki/Decimal32_floating-point_format">decimal32</a> (rarely implemented)</td>
 <td style="text-align: right;">7</td>
 <td style="text-align: center;"><span class="math inline">\(-101\le e\le 96\)</span></td>
 </tr>
 <tr class="even">
-<td>decimal64</td>
+<td><a href="https://en.wikipedia.org/wiki/Decimal64_floating-point_format">decimal64</a></td>
 <td style="text-align: right;">16</td>
 <td style="text-align: center;"><span class="math inline">\(-398\le e\le 384\)</span></td>
 </tr>
 <tr class="odd">
-<td>decimal128</td>
+<td><a href="https://en.wikipedia.org/wiki/Decimal128_floating-point_format">decimal128</a></td>
 <td style="text-align: right;">34</td>
 <td style="text-align: center;"><span class="math inline">\(-6143\le e\le 6144\)</span></td>
 </tr>
