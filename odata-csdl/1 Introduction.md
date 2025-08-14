@@ -785,7 +785,7 @@ values: 12.34, 1234 and 123.4 due to the limited precision.
 ::: {.varxml .example}
 Example ##ex: `Precision=7` and a floating `Scale`.  
 Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values:
-1e-102 and 1e97 due to the limited precision.
+1e-102 and 1e97 because exponents are out of range.
 ```xml
 <Property Name="Amount7f" Type="Edm.Decimal" Nullable="false" Precision="7" Scale="floating" />
 ```

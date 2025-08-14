@@ -870,7 +870,7 @@ Allowed values: 0.123, 1.23, 0.23, 0.7, 123 and 12.3, not allowed values: 12.34,
 </div>
 <div class="varxml example">
 <p>Example 6: <code>Precision=7</code> and a floating <code>Scale</code>.<br />
-Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and 1e97 due to the limited precision.</p>
+Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and 1e97 because exponents are out of range.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;Amount7f&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.Decimal&quot;</span><span class="ot"> Nullable=</span><span class="st">&quot;false&quot;</span><span class="ot"> Precision=</span><span class="st">&quot;7&quot;</span><span class="ot"> Scale=</span><span class="st">&quot;floating&quot;</span> /&gt;</span></code></pre></div>
 </div>
 </details>
