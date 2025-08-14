@@ -679,9 +679,17 @@ allowed to the right of the decimal point, or one of the symbolic values
 `floating` or `variable`.
 
 The value `floating` means that the decimal value represents a
-decimal floating-point number whose number of significant digits is the
-value of the [`Precision`](#Precision) facet. OData 4.0 responses MUST
-NOT specify the value `floating`.
+decimal floating-point number $m$`e`$e=m\cdot 10^e$
+where the number of significant digits in $m$ is the
+value of the [`Precision`](#Precision) facet. Supported formats are:
+
+IEEE 754 format                |Precision|Supported exponents
+-------------------------------|--------:|:-----------------:
+decimal32 (rarely implemented) |        7|$-101\le e\le 96$
+decimal64                      |       16|$-398\le e\le 384$
+decimal128                     |       34|$-6143\le e\le 6144$
+
+OData 4.0 responses MUST NOT specify the value `floating`.
 
 The value `variable` means that the number of digits to the right of the
 decimal point can vary from zero to the value of the
