@@ -44,53 +44,53 @@ The fifth parameter $d$ is optional and takes an integer greater than or equal t
 The output set of the transformation ${\tt ancestors}(H,Q,p,T,d,{\tt keep\ start})$ or ${\tt descendants}(H,Q,p,T,d,{\tt keep\ start})$ is defined as the [union](#HierarchicalTransformations) of the output sets of transformations $F(u)$ applied to the input set for all $u$ in $A$. For a given instance $u$, the transformation $F(u)$ determines all instances of the input set whose node identifier is an ancestor or descendant of the node identifier of $u$:
 
 If $p$ contains only single-valued segments, then, for `ancestors`,
-$$\matrix{ 
-F(u)={\tt filter}(\hbox{\tt Aggregation.isancestor}(\hfill\\ 
-\quad {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ 
-\quad {\tt Node}=p,\;{\tt Descendant}=u[p],\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}))\hfill 
+$$\matrix{
+F(u)={\tt filter}(\hbox{\tt Aggregation.isancestor}(\hfill\\
+\quad {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\
+\quad {\tt Node}=p,\;{\tt Descendant}=u[p],\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}))\hfill
 }$$
 or, for `descendants`,
-$$\matrix{ 
-F(u)={\tt filter}(\hbox{\tt Aggregation.isdescendant}(\hfill\\ 
-\quad {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ 
-\quad {\tt Node}=p,\;{\tt Ancestor}=u[p],\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true})).\hfill 
+$$\matrix{
+F(u)={\tt filter}(\hbox{\tt Aggregation.isdescendant}(\hfill\\
+\quad {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\
+\quad {\tt Node}=p,\;{\tt Ancestor}=u[p],\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true})).\hfill
 }$$
 
 Otherwise $p=p_1/…/p_k/r$ with $k≥1$, in this case the output set of the transformation $F(u)$ is defined as the [union](#HierarchicalTransformations) of the output sets of transformations $G(n)$ applied to the input set for all $n$ in $γ(u,p)$. The output set of $G(n)$ consists of the instances of the input set whose node identifier is an ancestor or descendant of the node identifier $n$:
 
 For `ancestors`,
-$$\matrix{ 
-G(n)={\tt filter}(\hfill\\ 
-\hskip1pc p_1/{\tt any}(y_1:\hfill\\ 
-\hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\ 
-\hskip3pc ⋱\hfill\\ 
-\hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ 
-\hskip5pc \hbox{\tt Aggregation.isancestor}(\hfill\\ 
-\hskip6pc {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ 
-\hskip6pc {\tt Node}=y_k/r,\;{\tt Descendant}=n,\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}\hfill\\ 
-\hskip5pc )\hfill\\ 
-\hskip4pc )\hfill\\ 
-\hskip3pc ⋰\hfill\\ 
-\hskip2pc )\hfill\\ 
-\hskip1pc )\hfill\\ 
-)\hfill 
+$$\matrix{
+G(n)={\tt filter}(\hfill\\
+\hskip1pc p_1/{\tt any}(y_1:\hfill\\
+\hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\
+\hskip3pc ⋱\hfill\\
+\hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\
+\hskip5pc \hbox{\tt Aggregation.isancestor}(\hfill\\
+\hskip6pc {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\
+\hskip6pc {\tt Node}=y_k/r,\;{\tt Descendant}=n,\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}\hfill\\
+\hskip5pc )\hfill\\
+\hskip4pc )\hfill\\
+\hskip3pc ⋰\hfill\\
+\hskip2pc )\hfill\\
+\hskip1pc )\hfill\\
+)\hfill
 }$$
 or, for `descendants`,
-$$\matrix{ 
-G(n)={\tt filter}(\hfill\\ 
-\hskip1pc p_1/{\tt any}(y_1:\hfill\\ 
-\hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\ 
-\hskip3pc ⋱\hfill\\ 
-\hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ 
-\hskip5pc \hbox{\tt Aggregation.isdescendant}(\hfill\\ 
-\hskip6pc {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ 
-\hskip6pc {\tt Node}=y_k/r,\;{\tt Ancestor}=n,\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}\hfill\\ 
-\hskip5pc )\hfill\\ 
-\hskip4pc )\hfill\\ 
-\hskip3pc ⋰\hfill\\ 
-\hskip2pc )\hfill\\ 
-\hskip1pc )\hfill\\ 
-)\hfill 
+$$\matrix{
+G(n)={\tt filter}(\hfill\\
+\hskip1pc p_1/{\tt any}(y_1:\hfill\\
+\hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\
+\hskip3pc ⋱\hfill\\
+\hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\
+\hskip5pc \hbox{\tt Aggregation.isdescendant}(\hfill\\
+\hskip6pc {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\
+\hskip6pc {\tt Node}=y_k/r,\;{\tt Ancestor}=n,\;{\tt MaxDistance}=d,\;{\tt IncludeSelf}={\tt true}\hfill\\
+\hskip5pc )\hfill\\
+\hskip4pc )\hfill\\
+\hskip3pc ⋰\hfill\\
+\hskip2pc )\hfill\\
+\hskip1pc )\hfill\\
+)\hfill
 }$$
 where $y_1,…,y_k$ denote `lambdaVariableExpr`s as defined in [OData-ABNF](#ODataABNF) and ${}/r$ may be absent.
 
@@ -179,7 +179,7 @@ results in
 
 ### ##subsubsec Transformation `traverse`
 
-The traverse transformation returns instances of the input set that are or are related to nodes of a given recursive hierarchy in a specified tree order.
+The `traverse` transformation returns instances of the input set that are or are related to nodes of a given recursive hierarchy in a specified tree order.
 
 $H$, $Q$ and $p$ are the first three parameters defined [above](#CommonParametersforHierarchicalTransformations).
 
@@ -243,18 +243,18 @@ If $p$ contains only single-valued segments, then
 $$F(x)={\tt filter}(p{\tt\ eq\ }x[q]).$$
 
 Otherwise $p=p_1/…/p_k/r$ with $k≥1$ and
-$$\matrix{ 
-F(x)={\tt filter}(\hfill\\ 
-\hskip1pc p_1/{\tt any}(y_1:\hfill\\ 
-\hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\ 
-\hskip3pc ⋱\hfill\\ 
-\hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ 
-\hskip5pc y_k/r{\tt\ eq\ }x[q]\hfill\\ 
-\hskip4pc )\hfill\\ 
-\hskip3pc ⋰\hfill\\ 
-\hskip2pc )\hfill\\ 
-\hskip1pc )\hfill\\ 
-)\hfill 
+$$\matrix{
+F(x)={\tt filter}(\hfill\\
+\hskip1pc p_1/{\tt any}(y_1:\hfill\\
+\hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\
+\hskip3pc ⋱\hfill\\
+\hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\
+\hskip5pc y_k/r{\tt\ eq\ }x[q]\hfill\\
+\hskip4pc )\hfill\\
+\hskip3pc ⋰\hfill\\
+\hskip2pc )\hfill\\
+\hskip1pc )\hfill\\
+)\hfill
 }$$
 where $y_1,…,y_k$ denote `lambdaVariableExpr`s and ${}/r$ may be absent.
 
@@ -287,7 +287,7 @@ results in
 
 In the general case, the recursive algorithm can reach a node $x$ multiple times, via different parents or ancestors, or because $x$ is a start node and a descendant of another start node. Then the algorithm computes $R(x)$ and hence $σ(x)$ multiple times. In order to distinguish these computation results, information about the ancestors up to the start node is injected into each $σ(x)$ by annotating $x$ differently before each $σ(x)$ is computed. On the other hand, certain nodes can be unreachable from any start node, these are called orphans of the traversal (see [example ##weight]).
 
-More precisely, in the general case every node $y$ is annotated with the term `UpPath` from the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr). The annotation has $Q$ as qualifier and the annotation value is a collection of string values of node identifiers. The first member of that collection is the node identifier of the parent node $x$ such that $R(y)$ appears on the right-hand side of the recursive formula for $R(x)$. The following members are the members of the `Aggregation.UpPath` collection of $x$. Every instance in the output set of `traverse` is related to one node with `Aggregation.UpPath` annotation. Start nodes appear annotated with an empty collection.
+More precisely, in the general case every node $y$ is annotated with the term `UpPath` from the [`Aggregation` vocabulary]($$$OData-VocAggr$$$#UpPath). The annotation has $Q$ as qualifier and the annotation value is a collection of string values of node identifiers. The first member of that collection is the node identifier of the parent node $x$ such that $R(y)$ appears on the right-hand side of the recursive formula for $R(x)$. The following members are the members of the `Aggregation.UpPath` collection of $x$. Every instance in the output set of `traverse` is related to one node with `Aggregation.UpPath` annotation. Start nodes appear annotated with an empty collection.
 
 ::: example
 ⚠ Example ##ex: A sales organization [Atlantis](#weight) with two parents US and EMEA would occur twice in the result of a `traverse` transformation:
@@ -373,28 +373,28 @@ Otherwise if $P_1$ and $P_2$ are empty, then
 $$R(x)=F(x)/{\tt compute}(x{\tt\ as\ }χ_N)/T/Z_N/\Pi_G(σ(x)).$$
 
 $F(x)$ is defined as follows: If $p$ contains only single-valued segments, then
-$$\matrix{ 
-F(x)={\tt filter}(\hbox{\tt Aggregation.isdescendant}(\hfill\\ 
-\quad {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ 
-\quad {\tt Node}=p,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true})).\hfill 
+$$\matrix{
+F(x)={\tt filter}(\hbox{\tt Aggregation.isdescendant}(\hfill\\
+\quad {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\
+\quad {\tt Node}=p,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true})).\hfill
 }$$
 
 Otherwise $p=p_1/…/p_k/r$ with $k≥1$ and
-$$\matrix{ 
-F(x)={\tt filter}(\hfill\\ 
-\hskip1pc p_1/{\tt any}(y_1:\hfill\\ 
-\hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\ 
-\hskip3pc ⋱\hfill\\ 
-\hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\ 
-\hskip5pc \hbox{\tt Aggregation.isdescendant}(\hfill\\ 
-\hskip6pc {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\ 
-\hskip6pc {\tt Node}=y_k/r,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true}\hfill\\ 
-\hskip5pc )\hfill\\ 
-\hskip4pc )\hfill\\ 
-\hskip3pc ⋰\hfill\\ 
-\hskip2pc )\hfill\\ 
-\hskip1pc )\hfill\\ 
-)\hfill 
+$$\matrix{
+F(x)={\tt filter}(\hfill\\
+\hskip1pc p_1/{\tt any}(y_1:\hfill\\
+\hskip2pc y_1/p_2/{\tt any}(y_2:\hfill\\
+\hskip3pc ⋱\hfill\\
+\hskip4pc y_{k-1}/p_k/{\tt any}(y_k:\hfill\\
+\hskip5pc \hbox{\tt Aggregation.isdescendant}(\hfill\\
+\hskip6pc {\tt HierarchyNodes}=H,\;{\tt HierarchyQualifier}=\hbox{\tt{'$Q$'}},\hfill\\
+\hskip6pc {\tt Node}=y_k/r,\;{\tt Ancestor}=x[q],\;{\tt IncludeSelf}={\tt true}\hfill\\
+\hskip5pc )\hfill\\
+\hskip4pc )\hfill\\
+\hskip3pc ⋰\hfill\\
+\hskip2pc )\hfill\\
+\hskip1pc )\hfill\\
+)\hfill
 }$$
 where $y_1,…,y_k$ denote `lambdaVariableExpr`s and ${}/r$ may be absent. (See [example ##rollupcoll] for a case with $k=1$.)
 
@@ -433,7 +433,7 @@ results in
 ```
 :::
 
-The value of the property $χ_N$ in the `rolluprecursive` algorithm is the node $x$ at recursion level $N$. In a common expression, $χ_N$ cannot be accessed by its name, but can only be read as the return value of the unbound function ${\tt rollupnode}({\tt Position}=N)$ defined in the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr), with $1≤N≤M$, and only during the application of the transformation sequence $T$ in the formula for $R(x)$ above (the function is undefined otherwise). If $N=1$, the `Position` parameter can be omitted.
+The value of the property $χ_N$ in the `rolluprecursive` algorithm is the node $x$ at recursion level $N$. In a common expression, $χ_N$ cannot be accessed by its name, but can only be read as the return value of the unbound function ${\tt rollupnode}({\tt Position}=N)$ defined in the [`Aggregation` vocabulary]($$$OData-VocAggr$$$#rollupnode), with $1≤N≤M$, and only during the application of the transformation sequence $T$ in the formula for $R(x)$ above (the function is undefined otherwise). If $N=1$, the `Position` parameter can be omitted.
 
 ::: example
 ⚠ Example ##ex_rollupnode: Total sales amounts per organization, both including and excluding sub-organizations, in the US sub-hierarchy defined in [Hierarchy Examples](#HierarchyExamples) with $p=p'/q={\tt SalesOrganization}/{\tt ID}$ and $p'={\tt SalesOrganization}$ (case 2 of the [definition](#Transformationtraverse) of $σ(x)$). The Boolean expression $p'\hbox{\tt\ eq Aggregation.rollupnode}()$ is true for sales in the organization for which the aggregate is computed, but not for sales in sub-organizations.

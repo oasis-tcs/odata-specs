@@ -162,7 +162,7 @@ Unbound actions are invoked from the entity container through an [action
 import](#ActionImport).
 
 Unbound functions are invoked as static functions within a common expression
-(see [OData-URL](#ODataURL), section 5.1.1),
+(see [#OData-URL#CommonExpressionSyntax]),
 or from the entity container through a [function import](#FunctionImport).
 
 ::: {.varjson .rep}
@@ -182,21 +182,49 @@ Absence of the attribute means `false`.
 ## ##subsec Entity Set Path
 
 Bound actions and functions that return an entity or a collection of
-entities MAY specify an entity set path if the entity set of the
-returned entities depends on the entity set of the binding parameter
-value.
+entities MAY specify an entity set path. The entity set path specifies the canonical collection
+(as defined in [#OData-Protocol#ContextURL]) of the
+returned entities in terms of the binding parameter value.
 
 The entity set path consists of a series of segments joined together
 with forward slashes.
-
 The first segment of the entity set path MUST be the name of the binding
-parameter. The remaining segments of the entity set path MUST represent
-navigation segments or type casts.
+parameter.
+If the entity set path consists only of the name of the binding parameter,
+the binding parameter MUST be an entity or a collection of entities. In this case
+the returned entities MUST belong to the same canonical collection
+as the binding parameter.
 
-A navigation segment names the [simple identifier](#SimpleIdentifier) of
-the [navigation property](#NavigationProperty) to be traversed. A
-type-cast segment names the [qualified name](#QualifiedName) of the
-entity type that should be returned from the type cast.
+Otherwise the entity set path has the form $p/s_1/…/s_k$ with $k>0$, and
+the binding parameter MUST be single-valued.
+The additional segments $s_1,…,s_k$ MUST be paths that could occur in an expand item [#OData-URL#SystemQueryOptionexpand],
+and they MUST end with the name of a [navigation property](#NavigationProperty),
+optionally followed by the [qualified name](#QualifiedName) of a type cast.
+Furthermore, $s_1,…,s_{k-1}$ MUST be single-valued, and
+$s_k$ MUST name a collection-valued navigation property.
+In this case all returned entities MUST belong to the canonical collection $C$ of the final navigation
+property, if this can be determined by the following algorithm:
+1. Let $v$ be the binding parameter value, and let $α/β$ be the canonical URL of $v$
+   where $α$ is either an entity set followed by a key predicate or a singleton, and $β$
+   is a possibly empty concatenation of containment navigation properties, type casts and key predicates.
+   Remove any key predicates from $α$ and $β$.
+2. Let $i=1$.
+3. If $i=k$, go to step 8.
+4. Update $v$ to the result of evaluating the [instance path](#PathExpressions) $s_i$ on the instance $v$.
+5. If $s_i$ names a containment navigation property, update $β=β/s_i$.
+6. Otherwise $s_i$ names a non-containment navigation property. Determine
+   the [navigation property binding](#NavigationPropertyBinding) defined by the service
+   on the entity set or singleton $α$ whose path matches $β/s_i$;
+   if it does not exist, then $C$ cannot be determined.
+   The binding target of that navigation property binding is either an entity set $α'$ or has the form $α'/β'$ where $α'$ is a singleton.
+   Update $α=α'$ and $β=β'$.
+7. Update $i=i+1$ and go back to step 3.
+8. If $s_k$ names a containment navigation property, let $C$ be the implicit
+   entity set defined by $s_k$ for $v$ (as explained in [section ##ContainmentNavigationProperty]).
+9. Otherwise $s_k$ names a non-containment navigation property. Determine
+   the navigation property binding defined by the service on the entity set or singleton $α$
+   whose path matches $β/s_k$; if it does not exist, then $C$ cannot be determined.
+   Let $C$ be the binding target of that navigation property binding.
 
 ::: {.varjson .rep}
 ### ##subisec `$EntitySetPath`
@@ -276,10 +304,7 @@ Absence of the `$Type` member means the type is `Edm.String`.
 The value of `$Nullable` is one of the Boolean literals `true` or
 `false`. Absence of the member means `false`.
 
-If the return type is a collection of entity types, the `$Nullable`
-member has no meaning and MUST NOT be specified.
-
-For other collection-valued return types the result will always be a
+For collection-valued return types the result will always be a
 collection that MAY be empty. In this case `$Nullable` applies to items
 of the collection and specifies whether the collection MAY contain
 `null` values.
@@ -314,10 +339,7 @@ type, followed by a closing parenthesis `)`.
 The value of `Nullable` is one of the Boolean literals `true` or
 `false`. Absence of the attribute means `true`.
 
-If the return type is a collection of entity types, the `Nullable`
-attribute has no meaning and MUST NOT be specified.
-
-For other collection-valued return types the result will always be a
+For collection-valued return types the result will always be a
 collection that MAY be empty. In this case the `Nullable` attribute
 applies to items of the collection and specifies whether the collection
 MAY contain `null` values.
@@ -327,6 +349,15 @@ function MAY return a single `null` value. The value `false` means that
 the action or function will never return a `null` value and instead will
 fail with an error response if it cannot compute a result.
 :::
+
+### ##subisec Annotation `Core.IsDelta`
+
+An action or function that returns a single entity or a collection of entities MAY return results as a delta payload.
+This is indicated by annotating the return type with the term [`Core.IsDelta`]($$$OData-VocCore$$$#IsDelta).
+
+Delta payloads represent changes between two versions of data and, in addition
+to current values, MAY include deleted entities as well as changes to related 
+entities and relationships, according to the format-specific delta representation.
 
 ## ##subsec Parameter
 
@@ -397,32 +428,6 @@ of the collection and specifies whether the collection MAY contain
 `null` values.
 :::
 
-::: {.varjson .example}
-Example ##ex: a function returning the top-selling products for a given
-year. In this case the year must be specified as a parameter of the
-function with the `$Parameter` member.
-```json
-"TopSellingProducts": [
-  {
-    "$Kind": "Function",
-    "$Parameter": [
-      {
-        "$Name": "Year",
-        "$Nullable": true,
-        "$Type": "Edm.Decimal",
-        "$Precision": 4,
-        "$Scale": 0
-      }
-    ],
-    "$ReturnType": {
-      "$Collection": true,
-      "$Type": "self.Product"
-    }
-  }
-]
-```
-:::
-
 ::: {.varxml .rep}
 ### ##isec Element `edm:Parameter`
 
@@ -451,9 +456,50 @@ type, followed by a closing parenthesis `)`.
 The value of `Nullable` is one of the Boolean literals `true` or
 `false`. Absence of the attribute means `true`.
 
-The value `true` means that the parameter accepts a `null` value.
+For single-valued parameters the value `true` means that the parameter
+accepts a `null` value.
+
+For collection-valued parameters the parameter value will always be a
+collection that MAY be empty. In this case `Nullable` applies to items
+of the collection and specifies whether the collection MAY contain
+`null` values.
 :::
 
+### ##subisec Annotation `Core.OptionalParameter`
+
+A parameter that is annotated with the term 
+[`Core.OptionalParameter`]($$$OData-VocCore$$$#OptionalParameter) MAY be 
+omitted when invoking the function or action.
+
+All parameters marked as optional MUST come after any parameters not marked as optional. 
+
+The binding parameter MUST NOT be marked as optional.
+
+::: {.varjson .example}
+Example ##ex: a function returning the top-selling products for a given
+year. In this case the year must be specified as a parameter of the
+function with the `$Parameter` member.
+```json
+"TopSellingProducts": [
+  {
+    "$Kind": "Function",
+    "$Parameter": [
+      {
+        "$Name": "Year",
+        "$Nullable": true,
+        "$Type": "Edm.Decimal",
+        "$Precision": 4,
+        "$Scale": 0
+      }
+    ],
+    "$ReturnType": {
+      "$Collection": true,
+      "$Type": "self.Product"
+    }
+  }
+]
+```
+:::
 ::: {.varxml .example}
 Example ##ex: a function returning the top-selling products for a given
 year. In this case the year must be specified as a parameter of the
@@ -465,3 +511,12 @@ function with the `edm:Parameter` element.
 </Function>
 ```
 :::
+
+### ##subisec Annotation `Core.IsDelta`
+
+A parameter that accepts a single entity or a collection of entities MAY accept a delta representation.
+This is indicated by annotating the parameter with the term [`Core.IsDelta`]($$$OData-VocCore$$$#IsDelta).
+
+Deltas represent changes between two versions of data and, in addition
+to current values, MAY include deleted entities as well as changes to related 
+entities and relationships, according to the format-specific delta representation.

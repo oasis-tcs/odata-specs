@@ -18,7 +18,7 @@ Metadata annotations are applied in CSDL documents describing or
 referencing an entity model.
 
 *Instance annotations* are terms applied to a particular instance within
-an OData payload, such as described in [OData-JSON](#ODataJSON). An
+an OData payload, such as described in [#OData-JSON#InstanceAnnotations]. An
 instance annotation can be used to define additional information
 associated with a particular result, entity, property, or error. For
 example, whether a property is read-only for a particular instance.
@@ -195,10 +195,10 @@ of the collection and specifies whether the collection MAY contain
 
 The value of `$DefaultValue` is the type-specific JSON representation of
 the default value of the term, see
-[OData-JSON](#ODataJSON).
+[#OData-JSON#PrimitiveValue].
 
 Note: the `$DefaultValue` member is purely for documentation and
-isomorphy to [OData-CSDLXML](#ODataCSDL). Annotations in
+isomorphy to [#OData-CSDLXML#Term]. Annotations in
 CSDL JSON documents MUST always specify an explicit value.
 :::
 
@@ -324,7 +324,7 @@ Symbolic Value|Model Element
 `NavigationProperty`      |Navigation Property
 `Null`                    |Null annotation expression
 `OnDelete`                |On-Delete Action of a navigation property
-`Parameter`               |Action of Function Parameter
+`Parameter`               |Action or Function Parameter
 `Property`                |Structural Property
 `PropertyValue`           |Property value of a Record annotation expression
 `Record`                  |Record annotation expression
@@ -625,7 +625,7 @@ qualified name of function|
 <pre>`MySchema.MyFunction`</pre>
 [Function Import](#FunctionImport)| 
 qualified name of entity container followed by a segment containing the function import name| 
-<pre>`MySchema.MyEntityContainer/MyFunctionImport`
+<pre>`MySchema.MyEntityContainer/MyFunctionImport`</pre>
 [Navigation Property](#NavigationProperty) via container| 
 qualified name of entity container followed by a segment containing a singleton or entity set name and zero or more segments containing the name of a structural or navigation property, or a type-cast or term-cast| 
 <pre>`MySchema.MyEntityContainer/MyEntitySet` 
@@ -687,6 +687,16 @@ properties targeted via the declaring structured type.
 
 Constant expressions allow assigning a constant value to an applied
 term.
+
+: varjson
+Primitive values of various types are represented as strings, therefore their type
+cannot be inferred from the constant expression alone. If such
+an ambiguous constant expression is an operand of a larger expression, clients MUST assume
+that the operand has the type demanded by the larger expression, for example, in a
+client-side function or in a comparison with another operand of known type.
+(In the `$Le` comparison in [example ##disambiguate] `Duration` is of type
+`Edm.Duration`, therefore the constant expression `"PT1H"` is a duration, not a string.)
+:
 
 ### ##subsubsec Binary
 
@@ -1213,13 +1223,13 @@ Example ##ex:
 ### ##subsubsec Geo Values
 
 ::: {.varjson .rep}
-Values are represented as GeoJSON, see [OData-JSON](#ODataJSON).
+Values are represented as GeoJSON, see [RFC7946](#rfc7946).
 :::
 
 ::: {.varjson .example}
 Example ##ex:
 ```json
-"Location": {"type": "Point", "coordinates": [142.1,64.1]}
+"Location": { "type": "Point", "coordinates": [142.1,64.1] }
 ```
 :::
 
@@ -1242,7 +1252,7 @@ Example ##ex:
 ### ##subsubsec Stream Values
 
 ::: {.varjson .rep}
-Constant values of type `Edm.Stream` are represented according to [OData-JSON](#ODataJSON) and MUST be accompanied by 
+Constant values of type `Edm.Stream` are represented according to [#OData-JSON#StreamProperty] and MUST be accompanied by 
 the `mediaContentType` control information to indicate how the stream value is to be interpreted.
 :::
 
@@ -1257,13 +1267,13 @@ Constant values of type `Edm.Stream` with other media types are represented as [
 :::
 
 The annotation (property) being assigned a stream value MUST be annotated with term
-[`Core.MediaType`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#MediaType)
+[`Core.MediaType`]($$$OData-VocCore$$$#MediaType)
 and the media type of the stream as its value.
 
 ::: {.varjson .example}
 Example ##ex:
 ```json
-"JsonStream": {"foo":true,"bar":42},
+"JsonStream": { "foo":true,"bar":42 },
 "JsonStream@Core.MediaType": "application/json",
 
 "TextStream": "Hello World!",
@@ -1299,6 +1309,19 @@ Example ##ex:
 Dynamic expressions allow assigning a calculated value to an applied
 term.
 
+If a calculated value is not acceptable for the type of the term or
+its [facets](#TypeFacets), does not meet the constraints imposed by its
+: varjson
+`$Nullable` member
+:
+: varxml
+`Nullable` attribute
+:
+or by its
+annotations from the Validation vocabulary [OData-VocValidation](#ODataVocValidation),
+the client SHOULD NOT make any assumptions about the application of the term
+(see [example ##termdefault]).
+
 ### ##subsubsec Path Expressions
 
 Path expressions allow assigning a value to an applied term or term
@@ -1320,7 +1343,7 @@ than the `Edm.*Path` types.
 #### ##subsubsubsec Path Syntax
 
 Model paths and instance paths share a common syntax which is derived
-from the path expression syntax of URLs, see [OData-URL](#ODataURL).
+from the path expression syntax of URLs, see [#OData-URL#PathExpressions].
 
 A path MUST be composed of zero or more path segments joined together by
 forward slashes (`/`).
@@ -1338,8 +1361,7 @@ Example ##ex: absolute path to an entity set
 :::
 
 Paths not starting with a forward slash are interpreted relative to the
-annotation target, following the rules specified in section "[Path
-Evaluation](#PathEvaluation)".
+annotation target, following the rules specified in [section ##PathEvaluation].
 
 ::: example
 Example ##ex: relative path to a property
@@ -1349,7 +1371,7 @@ Address/City
 :::
 
 If a path segment is a [qualified name](#QualifiedName), it represents a
-<a name="TypeCast">*type cast*</a>, and the segment MUST be the name of a type
+[*type cast*]{id=TypeCast}, and the segment MUST be the name of a type
 in scope. If the type or instance identified by the preceding path part
 cannot be cast to the specified type, the path expression evaluates to
 the null value.
@@ -1362,7 +1384,7 @@ Example ##ex: type-cast segment
 :::
 
 If a path segment starts with an at (`@`) character, it represents a
-<a name="TermCast">*term cast*</a>. The at (`@`) character MUST be followed by
+[*term cast*]{id=TermCast}. The at (`@`) character MUST be followed by
 a [qualified name](#QualifiedName) that MAY be followed by a hash (`#`)
 character and a [simple identifier](#SimpleIdentifier). The [qualified
 name](#QualifiedName) preceding the hash character MUST resolve to a
@@ -1457,7 +1479,7 @@ vs. term cast addressing an annotation on the resource addressed by the navigati
 An instance path MAY contain path segments starting with an entity set
 or a collection-valued navigation property, then followed by a key
 predicate using parentheses-style convention, see
-[OData-URL](#ODataURL). The key values are either primitive literals or
+[#OData-URL#CanonicalURL]. The key values are either primitive literals or
 instance paths. If the key value is a relative instance path, it is
 interpreted according to the same rule below as the instance path it is
 part of, *not* relative to the instance identified by the preceding path
@@ -1946,6 +1968,34 @@ Example ##ex:
 ```
 :::
 
+::: example
+Example ##ex_termdefault: The first name of a bot cannot be changed after creation.
+:::: varxml
+```xml
+<Property Name="IsBot" Type="Edm.Boolean" Nullable="true" />
+<Property Name="FirstName" Type="Edm.String" Nullable="false">
+  <Annotation Term="Core.Immutable" Path="IsBot" />
+</Property>
+```
+::::
+:::: varjson
+```json
+"IsBot": {
+  "$Type": "Edm.Boolean",
+  "$Nullable": true
+},
+"FirstName": {
+  "@Core.Immutable": {
+    "$Path": "IsBot"
+  }
+}
+```
+::::
+If `IsBot` is `null` the client makes no assumption about the immutability of
+the `FirstName`. It can try to change it after creation while being prepared for an
+error response.
+:::
+
 ### ##subsubsec Comparison and Logical Operators
 
 Annotations MAY use the following logical and comparison expressions
@@ -1972,7 +2022,7 @@ they MAY be used anywhere instead of a Boolean expression.
 The `And` and `Or` operators require two operand expressions that
 evaluate to Boolean values. The `Not` operator requires a single operand
 expression that evaluates to a Boolean value. For details on null
-handling for comparison operators see [OData-URL](#ODataURL).
+handling for comparison operators see [#OData-URL#LogicalOperators].
 
 The other comparison operators require two operand expressions that
 evaluate to comparable values.
@@ -2012,7 +2062,7 @@ They MAY contain [annotations](#Annotation).
 :::
 
 ::: {.varjson .example}
-Example ##ex:
+Example ##ex_disambiguate:
 ```json
 {
   "$And": [
@@ -2082,9 +2132,9 @@ Example ##ex:
 {
   "$Le": [
     {
-      "$Path": "Price"
+      "$Path": "Duration"
     },
-    100
+    "PT1H"
   ]
 },
 {
@@ -2175,8 +2225,8 @@ Example ##ex:
   <Int>20</Int>
 </Lt>
 <Le>
-  <Path>Price</Path>
-  <Int>100</Int>
+  <Path>Duration</Path>
+  <Duration>PT1H</Duration>
 </Le>
 <Has>
   <Path>Fabric</Path>
@@ -2199,7 +2249,7 @@ to a numeric value. These expressions MAY be combined, and they MAY be
 used anywhere instead of a numeric expression of the appropriate type.
 The semantics and evaluation rules for each arithmetic expression is
 identical to the corresponding arithmetic operator defined in
-[OData-URL](#ODataURL).
+[#OData-URL#ArithmeticOperators].
 
 Operator|Description
 --------|-----------
@@ -2370,6 +2420,10 @@ client-side function. The apply expression MAY have operand expressions.
 The operand expressions are used as parameters to the client-side
 function.
 
+If the value of an operand expression is not acceptable for the function,
+the client SHOULD NOT make any assumptions about the application of the term
+that rely on the operand.
+
 ::: {.varjson .rep}
 ### ##subisec `$Apply` 
 and ##subisec `$Function`
@@ -2403,10 +2457,10 @@ specification and its future versions.
 
 #### ##subsubsubsec Canonical Functions
 
-All canonical functions defined in [OData-URL](#ODataURL) can be used as
+All canonical functions defined in [#OData-URL#CanonicalFunctions] can be used as
 client-side functions, qualified with the namespace `odata`. The
 semantics of these client-side functions is identical to their
-counterpart function defined in [OData-URL](#ODataURL).
+counterpart function defined in [#OData-URL#CanonicalFunctions].
 
 For example, the `odata.concat` client-side function takes two
 expressions as arguments. Each argument MUST evaluate to a primitive or
@@ -2561,7 +2615,7 @@ Name property of the Actor entity
 
 The `odata.matchesPattern` client-side function takes two string
 expressions as arguments and returns a Boolean value.
-It is the counterpart of the identically named URL function [OData-URL, section 5.1.1.7.1](#ODataURL).
+It is the counterpart of the identically named URL function [#OData-URL#matchespattern].
 
 The function returns true if the second expression evaluates to an
 [ECMAScript](#_ECMAScript) (JavaScript) regular expression and
@@ -2647,7 +2701,7 @@ Example ##ex:
 The cast expression casts the value obtained from its single child
 expression to the specified type. The cast expression follows the same
 rules as the `cast` canonical function defined in
-[OData-URL](#ODataURL).
+[#OData-URL#cast].
 
 ::: {.varjson .rep}
 ### ##subisec `$Cast`
@@ -2720,6 +2774,13 @@ is the collection of the values calculated by each of the item
 expressions. The values of the child expressions MUST all be type
 compatible.
 
+If the value of a dynamic child expression is not acceptable for the type of the collection or
+its [facets](#TypeFacets), is null for a non-[nullable](#Nullable) collection
+or does not meet the constraints imposed by
+its annotations from the Validation vocabulary [OData-VocValidation](#ODataVocValidation),
+the client SHOULD NOT make any assumptions about the application of the term
+that rely on the value.
+
 ::: {.varjson .rep}
 Collection expressions are represented as arrays with one array item per
 item expression within the collection expression.
@@ -2770,16 +2831,20 @@ child expression MAY be omitted, reducing it to an if-then expression.
 This can be used to conditionally add an element to a collection.
 
 The first child expression is the condition and MUST evaluate to a
-Boolean result, e.g. the [comparison and logical
+Boolean result or `null`, e.g. the [comparison and logical
 operators](#ComparisonandLogicalOperators) can be used.
 
 The second and third child expressions are evaluated conditionally. The
 result MUST be type compatible with the type expected by the surrounding
 expression.
 
+If the value of a child expression does not meet these conditions,
+the client SHOULD NOT make any assumptions about the application of the term
+that rely on the condition expression.
+
 If the first expression evaluates to `true`, the second expression MUST
 be evaluated and its value MUST be returned as the result of the
-if-then-else expression. If the first expression evaluates to `false`
+if-then-else expression. If the first expression evaluates to `false` or `null`
 and a third child element is present, it MUST be evaluated and its value
 MUST be returned as the result of the if-then-else expression. If no
 third expression is present, nothing is added to the surrounding
@@ -3152,13 +3217,20 @@ the base term or its base term etc. need not be specified again.
 For collection-valued properties the absence of a property value
 expression is equivalent to specifying an empty collection as its value.
 
+If a dynamically provided property value is not acceptable for the type of the property or
+its [facets](#TypeFacets), does not meet the constraints imposed by
+its [nullability](#Nullable) or by
+its annotations from the Validation vocabulary [OData-VocValidation](#ODataVocValidation),
+the client SHOULD NOT make any assumptions about the application of the term that rely on the
+property value.
+
 ::: {.varjson .rep}
 Record expressions are represented as objects with one member per
 property value expression. The member name is the property name, and the
 member value is the property value expression.
 
 The type of a record expression is represented as the `type` control
-information, see  [OData-JSON](#ODataJSON).
+information, see [#OData-JSON#ControlInformationtypeodatatype].
 
 It MAY contain [annotations](#Annotation) for itself and its members.
 Annotations for record members are prefixed with the member name.

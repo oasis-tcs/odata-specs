@@ -11,80 +11,81 @@ While any hyperlinks included in this appendix were valid at the time of publica
 
 The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.
 
-###### <a name="ODataABNF">[OData-ABNF]</a>
+###### [OData-ABNF]{id=ODataABNF}
 _ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataAggregation">[OData-Aggregation]</a>
+###### [OData-Aggregation]{id=ODataAggregation}
 _OData Extension for Data Aggregation Version 4.02._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataCSDL">[OData-CSDL]</a>
+###### [OData-CSDLJSON]{id=ODataCSDL}
 _OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
+###### [OData-CSDLXML]{id=ODataCSDLXML}
 _OData Common Schema Definition Language (CSDL) XML Representation Version 4.02._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataJSON">[OData-JSON]</a>
+###### [OData-JSON]{id=ODataJSON}
 _OData JSON Format Version 4.02._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataURL">[OData-URL]</a>
+###### [OData-URL]{id=ODataURL}
 _OData Version 4.02. Part 2: URL Conventions._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataVocCap">[OData-VocCap]</a>
+###### [OData-VocCap]{id=ODataVocCap}
 _OData Vocabularies Version 4.0: Capabilities Vocabulary._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataVocCore">[OData-VocCore]</a>
+###### [OData-VocCore]{id=ODataVocCore}
 _OData Vocabularies Version 4.0: Core Vocabulary._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="rfc2046">[RFC2046]</a>
+###### [RFC2046]{id=rfc2046}
 _Freed, N. and N. Borenstein, "Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types", RFC 2046, DOI 10.17487/RFC2046, November 1996_.
 https://www.rfc-editor.org/info/rfc2046.
 
-###### <a name="rfc2119">[RFC2119]</a>
+###### [RFC2119]{id=rfc2119}
 _Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_.
 https://www.rfc-editor.org/info/rfc2119.
 
-###### <a name="rfc3987">[RFC3987]</a>
+###### [RFC3987]{id=rfc3987}
 _Duerst, M. and M. Suignard, "Internationalized Resource Identifiers (IRIs)", RFC 3987, DOI 10.17487/RFC3987, January 2005_.
 https://www.rfc-editor.org/info/rfc3987.
 
-###### <a name="rfc5646">[RFC5646]</a>
+###### [RFC5646]{id=rfc5646}
 _Phillips, A., Ed., and M. Davis, Ed., "Tags for Identifying Languages", BCP 47, RFC 5646, DOI 10.17487/RFC5646, September 2009_.
 https://www.rfc-editor.org/info/rfc5646.
 
-###### <a name="rfc5789">[RFC5789]</a>
+###### [RFC5789]{id=rfc5789}
 _Dusseault, L. and J. Snell, "PATCH Method for HTTP", RFC 5789, DOI 10.17487/RFC5789, March 2010_.
 https://www.rfc-editor.org/info/rfc5789.
 
-###### <a name="rfc7240">[RFC7240]</a>
+###### [RFC7240]{id=rfc7240}
 _Snell, J., "Prefer Header for HTTP", RFC 7240, DOI 10.17487/RFC7240, June 2014_.
 https://www.rfc-editor.org/info/rfc7240.
 
-###### <a name="rfc7617">[RFC7617]</a>
+###### [RFC7617]{id=rfc7617}
 _Reschke, J., "The 'Basic' HTTP Authentication Scheme", RFC 7617, DOI 10.17487/RFC7617, September 2015_.
 https://www.rfc-editor.org/info/rfc7617.
 
-###### <a name="rfc8174">[RFC8174]</a>
+###### [RFC8174]{id=rfc8174}
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_.
 https://www.rfc-editor.org/info/rfc8174.
 
-###### <a name="rfc9110">[RFC9110]</a>
+###### [RFC9110]{id=rfc9110}
 _Fielding, R., Ed., M. Nottingham, Ed., and J. Reschke, Ed., "HTTP Semantics", RFC 9110, June 2022_  
 https://www.rfc-editor.org/info/rfc9110.
 
 ## ##subasec Informative References
 
-###### <a name="_ECMAScript">[ECMAScript]</a>
+###### [ECMAScript]{id=_ECMAScript}
 _ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262.
 https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
 
-###### <a name="_WKT">[Well-Known Text]</a>
+###### [Well-Known Text]{id=_WKT}
 _OpenGIS Implementation Specification for Geographic information – Simple feature access – Part 1: Common architecture_, May 2011. Open Geospatial Consortium.
 https://www.ogc.org/standard/sfa/.
 

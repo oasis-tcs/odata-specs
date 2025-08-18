@@ -28,6 +28,10 @@ restrictions:
 Non-normatively speaking it starts with a letter or underscore, followed
 by at most 127 letters, underscores or digits.
 
+For maximum interoperability services SHOULD use simple identifiers
+that additionally only consist of characters from the Basic Latin code block
+and match the pattern `^[_A-Za-z][_A-Za-z0-9]*$`.
+
 ## ##subsec Qualified Name
 
 For model elements that are direct children of a schema: the namespace
@@ -551,7 +555,7 @@ to complex types and navigation properties
 6. MUST NOT include a non-abstract entity type with no inherited or
 defined [entity key](#Key)
 7. MUST NOT include the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace)
+[`Core.DefaultNamespace`]($$$OData-VocCore$$$#DefaultNamespace)
 annotation on [included schemas](#IncludedSchema)
 8. MUST NOT return the Unicode facet for terms, parameters, and return
 types
@@ -574,9 +578,10 @@ In addition, OData 4.01 or greater services:
 schema, a structural type, or an entity container) that differ only by
 case
 
-In addition, OData 4.01 services:
+In addition, OData 4.02 or greater services:
 
 15. SHOULD NOT include constant [Geo](#GeoValues) or [Stream values](#StreamValues) in annotations
+16. SHOULD use [simple identifiers](#SimpleIdentifier) matching the pattern `^[_A-Za-z][_A-Za-z0-9]*$`
 
 Conforming clients MUST be prepared to consume a model that uses any or
 all constructs defined in this specification, including custom

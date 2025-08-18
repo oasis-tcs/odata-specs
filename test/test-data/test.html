@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
 <head>
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
@@ -58,7 +58,7 @@
     code span.al { color: #ff0000; font-weight: bold; } /* Alert */
     code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
     code span.at { color: #7d9029; } /* Attribute */
-    code span.bn { color: #40a070; } /* BaseN */
+    code span.bn { color: #337f59; } /* BaseN */
     code span.bu { color: #008000; } /* BuiltIn */
     code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
     code span.ch { color: #4070a0; } /* Char */
@@ -67,10 +67,10 @@
     code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
     code span.do { color: #ba2121; font-style: italic; } /* Documentation */
     code span.dt { color: #902000; } /* DataType */
-    code span.dv { color: #40a070; } /* DecVal */
+    code span.dv { color: #337f59; } /* DecVal */
     code span.er { color: #ff0000; font-weight: bold; } /* Error */
     code span.ex { } /* Extension */
-    code span.fl { color: #40a070; } /* Float */
+    code span.fl { color: #337f59; } /* Float */
     code span.fu { color: #06287e; } /* Function */
     code span.im { color: #008000; font-weight: bold; } /* Import */
     code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
@@ -87,10 +87,59 @@
   </style>
   <link rel="stylesheet" href="styles/markdown-styles-v1.7.3b.css" />
   <link rel="stylesheet" href="styles/odata.css" />
+  <script type="text/javascript">
+    MathJax = {startup: {
+      ready() {
+        MathJax.startup.defaultReady();
+        MathJax.startup.document.outputJax.font.variant.monospace.chars
+          [0x2019] = [.611, -.287, .525, {f: "T", c: "′"}];
+      }
+    }};
+  </script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+      function darkmode_auto() {
+        if (darkmode_switch.value === "auto") {
+          if (darkmode_query.matches) document.documentElement.classList.add("darkmode");
+          else document.documentElement.classList.remove("darkmode");
+        }
+      }
+
+      function darkmode_manual() {
+        localStorage.setItem("odata-specs/darkmode", darkmode_switch.value);
+        switch (darkmode_switch.value) {
+          case "off":
+            document.documentElement.classList.remove("darkmode");
+            break;
+          case "on":
+            document.documentElement.classList.add("darkmode");
+            break;
+          case "auto":
+            darkmode_auto();
+            break;
+        }
+      }
+
+      const darkmode_query = matchMedia("(prefers-color-scheme: dark)");
+      darkmode_query.addEventListener("change", darkmode_auto);
+      const darkmode_switch = document.querySelector("#darkmode select");
+      darkmode_switch.value =
+        localStorage.getItem("odata-specs/darkmode") || "off";
+      darkmode_switch.addEventListener("change", darkmode_manual);
+      darkmode_manual();
+    });
+  </script>
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 </head>
 <body>
+<aside id="darkmode">
+  <select aria-label="Switch light/dark mode">
+    <option value="off" title="Light mode">&#x263C;</option>
+    <option value="on" title="Dark mode">&#x263D;</option>
+    <option value="auto" title="Follow device mode">&#x25D1;</option>
+  </select>
+</aside>
 <p>Front matter</p>
 <details open><summary>
 <h1 id="table-of-contents">Table of Contents</h1>
@@ -105,17 +154,20 @@
 </div>
 </details>
 <details open><summary>
-<h1 id="1-first-section"><a name="Firstsection" href="#Firstsection">1 First section</a></h1>
+<h1 id="1-first-section"><a id="Firstsection" href="#Firstsection">1 First section</a></h1>
 </summary>
 <details open><summary>
-<h2 id="11-first-subsection"><a name="Firstsubsection" href="#Firstsubsection">1.1 First subsection</a></h2>
+<h2 id="11-first-subsection"><a id="Firstsubsection" href="#Firstsubsection">1.1 First subsection</a></h2>
 </summary>
 <p>Test document</p>
-<p>Example <a name="ref" href="#ref">1</a>: <a href="#Firstsubsection">Section 1.1</a> contains <a href="#ref">example 1</a>.</p>
+<p>Example <a id="ref" href="#ref">1</a>: <a href="#Firstsubsection">Section 1.1</a> contains <a href="#ref">example 1</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;Source code&quot;</span></span></code></pre></div>
-<h3 id="matrix"><a name="Matrix.1" href="#Matrix.1">Matrix</a></h3>
-<p><span class="math display">\[\matrix{ {\tt concat}(T,\hfill&amp;\tt (1)\\ \quad{\tt aggregate}(α{\tt\ as\ }D))\hfill&amp;\tt (2) }\]</span></p>
-<h3 id="table"><a name="Table.1.1" href="#Table.1.1">Table</a></h3>
+<h3><a id="Matrix.1" href="#Matrix.1">Matrix</a></h3>
+<p><span class="math display">\[\matrix{
+{\tt concat}(T,\hfill&amp;\tt (1)\\
+\quad{\tt aggregate}(α{\tt\ as\ }D))\hfill&amp;\tt (2)
+}\]</span></p>
+<h3><a id="Table.1.1" href="#Table.1.1">Table</a></h3>
 <table>
 <thead>
 <tr class="header">

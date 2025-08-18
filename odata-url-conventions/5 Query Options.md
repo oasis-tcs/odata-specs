@@ -57,8 +57,8 @@ The same system query option, irrespective of casing or whether or not
 it is prefixed with a `$`, MUST NOT be specified more than once for any
 resource.
 
-The semantics of all system query options are defined in the
-[OData-Protocol](#ODataProtocol) document.
+The semantics of all system query options are defined in
+[#OData-Protocol#SystemQueryOptions].
 
 The grammar and syntax rules for system query options are defined in
 [OData-ABNF](#ODataABNF).
@@ -74,9 +74,29 @@ The following operators, functions, and literals can be used in
 The [OData-ABNF](#ODataABNF) `commonExpr` syntax rule defines the formal
 grammar of common expressions.
 
+The following subsections specify situations in which expressions evaluate to `null`
+if operands or parameters do not have the types expected by an operator or function.
+Notwithstanding these rules, if a service can determine such a type discrepancy for an expression
+that appears in a request independently of the underlying data,
+it MUST reject the request with an error message
+explaining the discrepancy. The determination can be based on, for example, the
+declared type of a property or the type of a literal value that occurs in the
+expression.
+
+::: example
+Example ##ex: In a search for people above a certain age
+```
+http://host/service/People?$filter=Age gt '50'
+```
+the expression would always evaluate to `null` because the age 50 is erroneously
+given as a string and the [`$filter`](#SystemQueryOptionfilter) would return an empty result, although this is
+really the result of a typing error. That's why a "type mismatch" error must
+instead be returned in such a case.
+:::
+
 #### ##subsubsubsec Logical Operators
 
-OData defines a set of logical operators that evaluate to true or false
+OData defines a set of logical operators that evaluate to `true` or `false`
 (i.e. a `boolCommonExpr` as defined in [OData-ABNF](#ODataABNF)).
 Logical operators are typically used to filter a collection of
 resources.
@@ -99,25 +119,31 @@ The `eq`, `ne`, and `in` operators can be used with collection-valued
 operands, and the `eq` and `ne` operators can be used with operands of a
 structured type.
 
+If at least one operand of an `eq`, `ne`, `lt`, `le`, `gt`, or `ge` operator
+is non-numeric and the operands have different types, the operator returns `null`.
+
+The rules for the Boolean operators `and`, `or`, and `not` assume Boolean operands.
+If an operand of a Boolean operator is not Boolean, the operator returns `null`.
+
 ##### ##subsubsubsubsec Equals
 
-The `eq` operator returns true if the left operand is equal to the right
-operand, otherwise it returns false.
+The `eq` operator returns `true` if the left operand is equal to the right
+operand, otherwise it returns `false`.
 
-When applied to operands of entity types, the `eq` operator returns true
+When applied to operands of entity types, the `eq` operator returns `true`
 if both operands represent the same entity, or both operands represent
-null.
+`null`.
 
 When applied to operands of complex types, the `eq` operator returns
-true if both operands have the same structure and same values, or both
-operands represent null.
+`true` if both operands have the same structure and same values, or both
+operands represent `null`.
 
-When applied to ordered collections, the `eq` operator returns true if
+When applied to ordered collections, the `eq` operator returns `true` if
 both operands have the same cardinality and each member of the left
-operand is equal to the corresponding member of the right operand.
+operand is equal to the member of the right operand at the same index.
 
 For services that support comparing unordered collections, the `eq`
-operator returns true if both operands are equal after applying the same
+operator returns `true` if both operands are equal after applying the same
 ordering on both collections.
 
 Each of the special values `null`, `-INF`, and `INF` is equal to itself,
@@ -127,21 +153,21 @@ The special value `NaN` is not equal to anything, even to itself.
 
 ##### ##subsubsubsubsec Not Equals
 
-The `ne` operator returns true if the left operand is not equal to the
-right operand, otherwise it returns false.
+The `ne` operator returns `true` if the left operand is not equal to the
+right operand, otherwise it returns `false`.
 
-When applied to operands of entity types, the `ne` operator returns true
+When applied to operands of entity types, the `ne` operator returns `true`
 if the two operands do not represent the same entity.
 
 When applied to operands of complex types, the `ne` operator returns
-true if the operands do not have the same structure and same values.
+`true` if the operands do not have the same structure and same values.
 
-When applied to ordered collections, the `ne` operator returns true if
+When applied to ordered collections, the `ne` operator returns `true` if
 both operands do not have the same cardinality or any member of the left
 operand is not equal to the corresponding member of the right operand.
 
 For services that support comparing unordered collections, the `ne`
-operator returns true if both operands do not have the same cardinality
+operator returns `true` if both operands do not have the same cardinality
 or do not contain the same members, in any order.
 
 Each of the special values `null`, `-INF`, and `INF` is not equal to any
@@ -153,8 +179,8 @@ The `null` value is not equal to any value but itself.
 
 ##### ##subsubsubsubsec Greater Than
 
-The `gt` operator returns true if the left operand is greater than the
-right operand, otherwise it returns false.
+The `gt` operator returns `true` if the left operand is greater than the
+right operand, otherwise it returns `false`.
 
 The special value `INF` is greater than any number, and any number is
 greater than `-INF`.
@@ -164,22 +190,22 @@ The Boolean value `true` is greater than `false`.
 Services SHOULD order language-dependent strings according to the
 `Content-Language` of the response, and SHOULD annotate string properties
 with language-dependent order with the term
-[`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
+[`Core.IsLanguageDependent`]($$$OData-VocCore$$$#IsLanguageDependent),
 see [OData-VocCore](#ODataVocCore).
 
-If any operand is `null`, the operator returns false.
+If any operand is `null`, the operator returns `false`.
 
 ##### ##subsubsubsubsec Greater Than or Equal
 
-The `ge` operator returns true if the left operand is greater than or
-equal to the right operand, otherwise it returns false.
+The `ge` operator returns `true` if the left operand is greater than or
+equal to the right operand, otherwise it returns `false`.
 
 See rules for [`gt`](#GreaterThan) and [`eq`](#Equals) for details.
 
 ##### ##subsubsubsubsec Less Than
 
-The `lt` operator returns true if the left operand is less than the
-right operand, otherwise it returns false.
+The `lt` operator returns `true` if the left operand is less than the
+right operand, otherwise it returns `false`.
 
 The special value `-INF` is less than any number, and any number is less
 than `INF`.
@@ -189,46 +215,46 @@ The Boolean value `false` is less than `true`.
 Services SHOULD order language-dependent strings according to the
 `Content-Language` of the response, and SHOULD annotate string properties
 with language-dependent order with the term
-[`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
+[`Core.IsLanguageDependent`]($$$OData-VocCore$$$#IsLanguageDependent),
 see [OData-VocCore](#ODataVocCore).
 
-If any operand is `null`, the operator returns false.
+If any operand is `null`, the operator returns `false`.
 
 ##### ##subsubsubsubsec Less Than or Equal
 
-The `le` operator returns true if the left operand is less than or equal
-to the right operand, otherwise it returns false.
+The `le` operator returns `true` if the left operand is less than or equal
+to the right operand, otherwise it returns `false`.
 
 See rules for [`lt`](#LessThan) and [`eq`](#Equals) for details.
 
 ##### ##subsubsubsubsec And
 
-The `and` operator returns true if both the left and right operands
-evaluate to true, otherwise it returns false.
+The `and` operator returns `true` if both the left and right operands
+evaluate to `true`, otherwise it returns `false`.
 
 The `null` value is treated as unknown, so if one operand evaluates to
-`null` and the other operand to false, the `and` operator returns false.
+`null` and the other operand to `false`, the `and` operator returns `false`.
 All other combinations with `null` return `null`.
 
 ##### ##subsubsubsubsec Or
 
-The `or` operator returns false if both the left and right operands both
-evaluate to false, otherwise it returns true.
+The `or` operator returns `false` if both the left and right operands both
+evaluate to `false`, otherwise it returns `true`.
 
 The `null` value is treated as unknown, so if one operand evaluates to
-`null` and the other operand to true, the `or` operator returns true.
+`null` and the other operand to `true`, the `or` operator returns `true`.
 All other combinations with `null` return `null`.
 
 ##### ##subsubsubsubsec Not
 
-The `not` operator returns true if the operand returns false, otherwise
-it returns false.
+The `not` operator returns `true` if the operand returns `false`, otherwise
+it returns `false`.
 
 The `null` value is treated as unknown, so `not null` returns `null`.
 
 ##### ##subsubsubsubsec Has
 
-The `has` operator returns true if the right operand is an enumeration
+The `has` operator returns `true` if the right operand is an enumeration
 value whose flag(s) are set on the left operand.
 
 The `null` value is treated as unknown, so if one operand evaluates to
@@ -236,11 +262,12 @@ The `null` value is treated as unknown, so if one operand evaluates to
 
 ##### ##subsubsubsubsec In
 
-The `in` operator returns true if the left operand is a member of the
-right operand. The right operand MUST be either a comma-separated list
+The `in` operator returns `true` if the [equality](#Equals) comparison of the left
+operand with at least one member of the right operand returns `true`.
+The right operand MUST be either a comma-separated list
 of zero or more primitive values, enclosed in parentheses, or a single expression
 that resolves to a collection. If the right operand is an empty collection
-or list of values, the expression returns false.
+or list of values, the `in` operator returns `false`.
 
 ##### ##subsubsubsubsec Logical Operator Examples
 
@@ -334,7 +361,8 @@ filter a collection of resources. However, services MAY allow using
 arithmetic operators with the [`$orderby`](#SystemQueryOptionorderby)
 system query option.
 
-If an operand of an arithmetic operator is null, the result is null.
+If an operand of an arithmetic operator is `null` or has a non-allowed type,
+the result is `null`.
 
 The syntax rules for the arithmetic operators are defined in
 [OData-ABNF](#ODataABNF). 4.01 Services MUST support case-insensitive
@@ -517,15 +545,18 @@ http://host/service/Products?$filter=(4 add 5) mod (4 sub 1) eq 0
 In addition to operators, a set of functions is also defined for use
 with the [`$compute`](#SystemQueryOptioncompute), `$filter` or
 [`$orderby`](#SystemQueryOptionorderby) system query options, or in
-[parameter alias](#ParameterAliases) values. The following sections
-describe the available functions.
+[parameter alias](#ParameterAliases) values. The following [sections ##concat]
+to [##geolength] describe the available functions. The [`case`](#case)
+and [lambda operators](#LambdaOperators) have a slightly different
+syntax.
 
 Note: ISNULL or COALESCE operators are
 not defined. Instead, OData defines a [`null`](#null) literal that can
 be used in comparisons.
 
 If a parameter of a canonical function is `null`, the function returns
-`null`.
+`null`. If the types of parameters do not match the function signature,
+the function also returns `null`.
 
 The syntax rules for all functions are defined in
 [OData-ABNF](#ODataABNF). 4.01 Services MUST support case-insensitive
@@ -572,14 +603,14 @@ Edm.Boolean contains(Edm.String,Edm.String)
 Edm.Boolean contains(OrderedCollection,OrderedCollection)
 ```
 
-The `contains` function with string parameter values returns true if the
+The `contains` function with string parameter values returns `true` if the
 second string is a substring of the first string, otherwise it returns
-false. String comparison is case-sensitive, case-insensitive comparison
+`false`. String comparison is case-sensitive, case-insensitive comparison
 can be achieved in combination with [`tolower`](#tolower) or
 [`toupper`](#toupper).
 
 The `contains` function with ordered collection parameter values returns
-true if the first collection can be transformed into the second
+`true` if the first collection can be transformed into the second
 collection by removing zero or more items from the beginning or the end
 of the first collection.
 
@@ -603,14 +634,14 @@ Edm.Boolean endswith(Edm.String,Edm.String)
 Edm.Boolean endswith(OrderedCollection,OrderedCollection)
 ```
 
-The `endswith` function with string parameter values returns true if the
-first string ends with the second string, otherwise it returns false.
+The `endswith` function with string parameter values returns `true` if the
+first string ends with the second string, otherwise it returns `false`.
 String comparison is case-sensitive, case-insensitive comparison can be
 achieved in combination with [`tolower`](#tolower) or
 [`toupper`](#toupper).
 
 The `endswith` function with ordered collection parameter values returns
-true if the first collection can be transformed into the second
+`true` if the first collection can be transformed into the second
 collection by removing zero or more items from the beginning of the
 first collection.
 
@@ -693,14 +724,14 @@ Edm.Boolean startswith(Edm.String,Edm.String)
 Edm.Boolean startswith(Collection,Collection)
 ```
 
-The `startswith` function with string parameter values returns true if
+The `startswith` function with string parameter values returns `true` if
 the first string starts with the second string, otherwise it returns
-false. String comparison is case-sensitive, case-insensitive comparison
+`false`. String comparison is case-sensitive, case-insensitive comparison
 can be achieved in combination with [`tolower`](#tolower) or
 [`toupper`](#toupper).
 
 The `startswith` function with ordered collection parameter values
-returns true if the first collection can be transformed into the second
+returns `true` if the first collection can be transformed into the second
 collection by removing zero or more items from the end of the first
 collection.
 
@@ -787,13 +818,13 @@ The `hassubset` function has the following signature:
 Edm.Boolean hassubset(Collection, Collection)
 ```
 
-The `hassubset` function returns true if the first collection can be
+The `hassubset` function returns `true` if the first collection can be
 transformed into the second collection by reordering and/or removing
 zero or more items. The `hasSubsetMethodCallExpr` syntax rule defines
 how the `hassubset` function is invoked.
 
 ::: example
-Example ##ex: `hassubset` expressions that return true
+Example ##ex: `hassubset` expressions that return `true`
 ```
 hassubset([4,1,3],[4,1,3])
 ```
@@ -816,7 +847,7 @@ hassubset([4,1,3,1],[1,1])
 :::
 
 ::: example
-Example ##ex: `hassubset` expression that returns false: 1 appears only
+Example ##ex: `hassubset` expression that returns `false`: `1` appears only
 once in the left operand
 ```
 hassubset([1,2],[1,1,2])
@@ -831,13 +862,13 @@ The `hassubsequence` function has the following signature:
 Edm.Boolean hassubsequence(OrderedCollection,OrderedCollection)
 ```
 
-The `hassubsequence` function returns true if the first collection can
+The `hassubsequence` function returns `true` if the first collection can
 be transformed into the second collection by removing zero or more
 items. The `hasSubsequenceMethodCallExpr` syntax rule defines how the
 `hassubsequence` function is invoked.
 
 ::: example
-Example ##ex: `hassubsequence` expressions that return true
+Example ##ex: `hassubsequence` expressions that return `true`
 ```
 hassubsequence([4,1,3],[4,1,3])
 ```
@@ -856,7 +887,7 @@ hassubsequence([4,1,3,1],[1,1])
 :::
 
 ::: example
-Example ##ex: `hassubsequence` expressions that return false
+Example ##ex: `hassubsequence` expressions that return `false`
 ```
 hassubsequence([4,1,3],[1,3,4])
 ```
@@ -882,13 +913,15 @@ Edm.Boolean matchespattern(Edm.String,Edm.String,Edm.String)
 ```
 
 The second parameter MUST evaluate to a string containing an
-[ECMAScript](#_ECMAScript) (JavaScript) regular expression. The 
-`matchespattern` function returns true if the first parameter evaluates
+[ECMAScript](#_ECMAScript) (JavaScript) regular expression, otherwise the function
+returns `null`. The
+`matchespattern` function returns `true` if the first parameter evaluates
 to a string matching that regular expression, using syntax and semantics
 of ECMAScript regular expressions, otherwise it
-returns false.
+returns `false`.
 If the optional third parameter is provided, it MUST evaluate to a string
-consisting of ECMAScript regular expression flags to modify the match.
+consisting of ECMAScript regular expression flags to modify the match, otherwise
+the function returns `null`.
 
 ::: example
 Example ##ex: all customers with a `CompanyName` that match the
@@ -1343,9 +1376,6 @@ The `cast` function follows these assignment rules:
     [section 3.3.7 dateTime](https://www.w3.org/TR/xmlschema11-2/#dateTime), can be cast to `Edm.DateTimeOffset`.
     If the string value does not contain a time-zone offset, it is treated as UTC.
 
-The `cast` function is optional for primitive values (first five rules)
-and up-casts (seventh rule).
-
 If the cast fails, the `cast` function returns `null`.
 
 ##### ##subsubsubsubsec `isof`
@@ -1357,14 +1387,14 @@ Edm.Boolean isof(type)
 Edm.Boolean isof(expression,type)
 ```
 
-The single parameter `isof` function returns true if the current
+The single parameter `isof` function returns `true` if the current
 instance is assignable to the type specified, according to the
 assignment rules for the [`cast`](#cast) function, otherwise it returns
 `false`.
 
-The two parameter `isof` function returns true if the object referred to
+The two parameter `isof` function returns `true` if the object referred to
 by the expression is assignable to the type specified, according to the
-same rules, otherwise it returns false.
+same rules, otherwise it returns `false`.
 
 The `isofExpr` syntax rule defines how the `isof` function is invoked.
 
@@ -1410,9 +1440,9 @@ Edm.Boolean geo.intersects(Edm.GeographyPoint,Edm.GeographyPolygon)
 Edm.Boolean geo.intersects(Edm.GeometryPoint,Edm.GeometryPolygon)
 ```
 
-The `geo.intersects` function returns true if the specified point lies
+The `geo.intersects` function returns `true` if the specified point lies
 within the interior or on the boundary of the specified polygon,
-otherwise it returns false.
+otherwise it returns `false`.
 
 ##### ##subsubsubsubsec `geo.length`
 
@@ -1426,26 +1456,26 @@ Edm.Double geo.length(Edm.GeometryLineString)
 The `geo.length` function returns the total length of its line string
 parameter in the coordinate reference system signified by its SRID.
 
-#### ##subsubsubsec Conditional Functions
+#### ##subsubsubsec Conditional Operators
 
 ##### ##subsubsubsubsec `case`
 
-The `case` function has the following signature:
+The `case` operator has a comma-separated lists of arguments:
 
 ```
 expression case(Edm.Boolean:expression, …, Edm.Boolean:expression)
 ```
 
-Each parameter is a pair of expressions separated by a colon (`:`),
+Each argument is a pair of expressions separated by a colon (`:`),
 where the first expression --- the condition --- MUST be a Boolean
 expression, and the second expression --- the result --- may evaluate to
 any type.
 
-The case function evaluates the condition in each pair, starting with
+The `case` operator evaluates the condition in each pair, starting with
 the leftmost pair, and stops as soon as a condition evaluates to `true`.
 It then returns the value of the result of this pair. It returns `null`
 if none of the conditions in any pair evaluates to `true`. Clients can
-specify a last pair whose condition is `true` to get a non-null
+specify a last pair whose condition is `true` to get a non-`null`
 "default/else/otherwise" result.
 
 Boolean expressions containing `DateTimeOffset` or `TimeOfDay` literals without
@@ -1498,12 +1528,12 @@ the lambda operator.
 ##### ##subsubsubsubsec `any`
 
 The `any` operator applies a Boolean expression to each member of a
-collection and returns true if and only if the expression is true for
-any member of the collection, otherwise it returns false. This implies
-that the `any` operator always returns false for an empty collection.
+collection and returns `true` if and only if the expression is `true` for
+any member of the collection, otherwise it returns `false`. This implies
+that the `any` operator always returns `false` for an empty collection.
 
 The `any` operator can be used without an argument expression. This
-short form returns false if and only if the collection is empty.
+short form returns `false` if and only if the collection is empty.
 
 ::: example
 Example ##ex: all `Orders` that have any `Items` with a `Quantity` greater
@@ -1527,16 +1557,17 @@ Example ##ex: all categories along with their products used in some order
 with a deviating unit price. The unprefixed `UnitPrice` in the argument
 expression is evaluated in the scope of the expanded `Products`.
 ```
-http://host/service/Categories?$expand=Products($filter=OrderItems/any(oi:oi/UnitPrice ne UnitPrice))
+http://host/service/Categories?$expand=Products(
+  $filter=OrderItems/any(oi:oi/UnitPrice ne UnitPrice))
 ```
 :::
 
 ##### ##subsubsubsubsec `all`
 
 The `all` operator applies a Boolean expression to each member of a
-collection and returns true if the expression is true for all members of
-the collection, otherwise it returns false. This implies that the `all`
-operator always returns true for an empty collection.
+collection and returns `true` if the expression is `true` for all members of
+the collection, otherwise it returns `false`. This implies that the `all`
+operator always returns `true` for an empty collection.
 
 The `all` operator cannot be used without an argument expression.
 
@@ -1556,6 +1587,9 @@ Primitive literals can appear in the resource path as key property
 values, and in the query part, for example, as operands in
 [`$filter`](#SystemQueryOptionfilter) expressions. They are represented
 according to the `primitiveLiteral` rule in [OData-ABNF](#ODataABNF).
+The interpretation of a `timeOfDayLiteral` in which the `second` is omitted
+is not defined by this specification. For maximum interoperability, senders
+SHOULD always include the `second`.
 
 ::: example
 Example ##ex: expressions using primitive literals
@@ -1645,7 +1679,7 @@ with or without the type prefix. OData clients that want to operate
 across OData 4.0 and OData 4.01 services should always include the
 prefix for duration and enumeration types.
 
-##### ##subsubsubsubsec Complex and Collection Literals
+##### ##subsubsubsubsec Structured and Collection Literals
 
 Complex literals and collection literals in URLs are represented as JSON
 objects and arrays according to the `arrayOrObject` rule in
@@ -1674,6 +1708,16 @@ Example ##ex: check whether a pair of properties has one of several
 possible pair values
 ```
 $filter=[FirstName,LastName] in [["John","Doe"],["Jane","Smith"]]
+```
+:::
+
+Entities are represented as structured literals as described in [#OData-JSON#Entity].
+Non-transient entities can alternatively be represented through their [resource path](#ResourcePath).
+
+::: example
+Example ##ex: determine the price of an adhoc-defined product
+```
+http://host/service/Price(Product=@p)?@p={"Color":"red"}
 ```
 :::
 
@@ -1760,14 +1804,16 @@ Example ##ex: products ordered by a set of customers, where the set of
 customers is passed as a JSON array containing the resource paths from
 `$root` to each customer
 ```
-http://host/service/ProductsOrderedBy(Customers=@c)?@c=[$root/Customers('ALFKI'),$root/Customers('BLAUS')]
+http://host/service/ProductsOrderedBy(Customers=@c)
+  ?@c=[$root/Customers('ALFKI'),$root/Customers('BLAUS')]
 ```
 :::
 
 ::: example
 Example ##ex: function call returning the average rating of a given employee by their peers (employees in department D1)
 ```
-http://host/service/Employees('A1245')/self.AvgRating(RatedBy=@peers)?@peers=$root/Employees/$filter(Department eq 'D1')
+http://host/service/Employees('A1245')/self.AvgRating(RatedBy=@peers)
+  ?@peers=$root/Employees/$filter(Department eq 'D1')
 ```
 :::
 
@@ -1823,7 +1869,7 @@ of the specified derived type, the path expression returns `null`.
 
 If the property or navigation property is not defined for the type of
 the resource and that type supports dynamic properties or navigation
-properties, then the property or navigation property is treated as null
+properties, then the property or navigation property is treated as `null`
 for all instances on which it has no value.
 
 If the property or navigation property is not defined for the type of
@@ -1835,7 +1881,7 @@ navigation properties, then the request may be considered malformed.
 Services MAY support the use of annotation values as operands or
 function parameters, and they MAY advertise this by annotating the
 entity container with term
-[`Capabilities.AnnotationValuesInQuerySupported`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#AnnotationValuesInQuerySupported),
+[`Capabilities.AnnotationValuesInQuerySupported`]($$$OData-VocCap$$$#AnnotationValuesInQuerySupported),
 see [OData-VocCap](#ODataVocCap).
 
 Annotation values are referenced by the annotation name which consists
@@ -1857,7 +1903,7 @@ http://host/service/Products?$filter=Price/@Measures.Currency eq 'EUR'
 
 ::: example
 Example ##ex: Return Employees that have any error messages in the
-[`Core.Messages`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Messages)
+[`Core.Messages`]($$$OData-VocCore$$$#Messages)
 annotation
 ```
 http://host/service/Employees?$filter=@Core.Messages/any(m:m/severity eq 'error')
@@ -1866,9 +1912,9 @@ http://host/service/Employees?$filter=@Core.Messages/any(m:m/severity eq 'error'
 
 Services MAY additionally support the use of the unqualified term name
 by defining one or more default namespaces through the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) annotation
+[`Core.DefaultNamespace`]($$$OData-VocCore$$$#DefaultNamespace) annotation
 term defined in [OData-VocCore](#ODataVocCore). For more information on
-default namespaces, see Default Namespaces in [OData-Protocol](#ODataProtocol).
+default namespaces, see [#OData-Protocol#DefaultNamespaces].
 This short notation however uses the same name pattern as parameter
 aliases. If a query option is specified as a [parameter
 alias](#ParameterAliases), then any occurrence of the parameter alias
@@ -1938,9 +1984,9 @@ types.
 The `$filter` system query option allows clients to filter a collection
 of resources that are addressed by a request URL. The expression
 specified with `$filter` is evaluated for each resource in the
-collection, and only items where the expression evaluates to true are
+collection, and only items where the expression evaluates to `true` are
 included in the response. Resources for which the expression evaluates
-to false or to null, or which reference properties that are unavailable
+to `false` or to `null`, or which reference properties that are unavailable
 due to permissions, are omitted from the response.
 
 The [OData-ABNF](#ODataABNF) `filter` syntax rule defines the formal
@@ -1976,11 +2022,13 @@ properties of the identified instances of a structured type, optionally followed
 related entity or entities, optionally followed by a [type-cast segment](#AddressingDerivedTypes)
 to expand only related entities of that derived type or one of its
 sub-types, optionally followed by `/$ref` to expand only entity
-references.
+references, or `/$count`, optionally with [`$filter`](#SystemQueryOptionfilter) and/or [`$search`](#SystemQueryOptionsearch) [expand options](#ExpandOptions), to return only the count of matching entities.
 - an entity-valued instance annotation to
 expand the related entity or entities, optionally followed by a
 [type-cast segment](#AddressingDerivedTypes) to expand only related entities of that derived type
 or one of its sub-types.
+
+A path MUST NOT appear in more than one expand item.
 
 If a structured type traversed by the path supports neither dynamic
 properties nor instance annotations, then a corresponding property
@@ -2004,37 +2052,6 @@ http://host/service/Customers?$expand=Addresses/Country
 ```
 :::
 
-A path MUST NOT appear in more than one expand item.
-
-Query options can be applied to an expanded navigation property by
-appending a semicolon-separated list of query options, enclosed in
-parentheses, to the navigation property name.
-Allowed system query options are
-[`$compute`](#SystemQueryOptioncompute),
-[`$select`](#SystemQueryOptionselect),
-`$expand`, and
-[`$levels`](#ExpandOptionlevels) for all navigation properties, plus
-[`$filter`](#SystemQueryOptionfilter),
-[`$orderby`](#SystemQueryOptionorderby),
-[`$skip`](#SystemQueryOptionstopandskip), [`$top`](#SystemQueryOptionstopandskip),
-[`$count`](#SystemQueryOptioncount), and
-[`$search`](#SystemQueryOptionsearch)
-for collection-valued navigation properties.
-
-::: example
-Example ##ex: all categories and for each category all related products
-with a discontinued date equal to `null`
-```
-http://host/service/Categories?$expand=Products($filter=DiscontinuedDate eq null)
-```
-:::
-
-The `$count` segment can be appended to a navigation property name or
-[type-cast segment](#AddressingDerivedTypes) following a navigation
-property name to return just the count of the related entities. The
-`$filter` and `$search` system query options can be used to limit the
-number of related entities included in the count.
-
 ::: example
 Example ##ex: all categories and for each category the number of all
 related products
@@ -2053,11 +2070,11 @@ http://host/service/Categories?$expand=Products/$count($search=blue)
 
 To retrieve entity references instead of the related entities, append
 `/$ref` to the navigation property name or [type-cast segment](#AddressingDerivedTypes) following a navigation property name.
-The system query options [`$filter`](#SystemQueryOptionfilter),
+The [Expand Options](#ExpandOptions) [`$filter`](#SystemQueryOptionfilter),
 [`$search`](#SystemQueryOptionsearch),
-[`$skip`](#SystemQueryOptionstopandskip),
-[`$top`](#SystemQueryOptionstopandskip), and
-[`$count`](#SystemQueryOptioncount) can be used to limit the number of
+[`$skip`](#SystemQueryOptionstopandskip), and
+[`$top`](#SystemQueryOptionstopandskip) can be used to limit the collection of expanded entity references, and
+[`$count`](#SystemQueryOptioncount) can be used to include the count of
 expanded entity references.
 
 ::: example
@@ -2080,31 +2097,16 @@ http://host/service/Categories?$expand=Products/Sales.PremierProduct/$ref
 Example ##ex: all categories and for each category the references of all
 related premier products with a current promotion equal to `null`
 ```
-http://host/service/Categories?$expand=Products/Sales.PremierProduct/$ref($filter=CurrentPromotion eq null)
-```
-:::
-
-<a name="ExpandOptionlevels">Cyclic navigation properties (whose target type is identical or can be
-cast to its source type) can be recursively expanded using the special
-`$levels` option. The value of the `$levels` option is either a positive
-integer to specify the number of levels to expand, or the literal string
-`max` to specify the maximum expansion level supported by that service.
-A `$levels` option with a value of 1 specifies a single expand with no
-recursion.</a>
-
-::: example
-Example ##ex: all employees with their manager, manager's manager, and
-manager's manager's manager
-```
-http://host/service/Employees?$expand=ReportsTo($levels=3)
+http://host/service/Categories
+  ?$expand=Products/Sales.PremierProduct/$ref($filter=CurrentPromotion eq null)
 ```
 :::
 
 It is also possible to expand all declared and dynamic navigation
 properties using a star (`*`). To retrieve references to all related
 entities use `*/$ref`, and to expand all related entities with a certain
-distance use the star operator with the `$levels` option. The star
-operator can be combined with explicitly named navigation properties,
+distance use the star operator with the `$levels` [Expand Option](#ExpandOptionlevels). 
+The star operator can be combined with explicitly named navigation properties,
 which take precedence over the star operator.
 
 The star operator does not implicitly include stream properties.
@@ -2114,13 +2116,6 @@ Example ##ex: expand `Supplier` and include references for all other
 related entities
 ```
 http://host/service/Categories?$expand=*/$ref,Supplier
-```
-:::
-
-::: example
-Example ##ex: expand all related entities and their related entities
-```
-http://host/service/Categories?$expand=*($levels=2)
 ```
 :::
 
@@ -2146,6 +2141,56 @@ http://host/service/Products?$expand=$value
 ```
 :::
 
+#### ##subsubsubsec Expand Options
+
+Query options can be applied to an expanded navigation property by
+appending a semicolon-separated list of query options, enclosed in
+parentheses, to the navigation property name.
+The system query option, irrespective of casing or whether or not it is prefixed with a `$`,
+MUST NOT be specified more than once in the list.
+Allowed system query options are
+[`$compute`](#SystemQueryOptioncompute),
+[`$select`](#SystemQueryOptionselect),
+`$expand`, and
+[`$levels`](#ExpandOptionlevels) for all navigation properties, plus
+[`$filter`](#SystemQueryOptionfilter),
+[`$orderby`](#SystemQueryOptionorderby),
+[`$skip`](#SystemQueryOptionstopandskip), [`$top`](#SystemQueryOptionstopandskip),
+[`$count`](#SystemQueryOptioncount), and
+[`$search`](#SystemQueryOptionsearch)
+for collection-valued navigation properties.
+
+::: example
+Example ##ex: all categories and for each category all related products
+with a discontinued date equal to `null`
+```
+http://host/service/Categories?$expand=Products($filter=DiscontinuedDate eq null)
+```
+:::
+
+[Cyclic navigation properties]{id=ExpandOptionlevels} (whose target type is identical or can be
+cast to its source type) can be recursively expanded using the special
+`$levels` expand option. The value of the `$levels` expand option is either a positive
+integer to specify the number of levels to expand, or the literal string
+`max` to specify the maximum expansion level supported by that service.
+A `$levels` option with a value of 1 specifies a single expand with no
+recursion.
+
+::: example
+Example ##ex: all employees with their manager, manager's manager, and
+manager's manager's manager
+```
+http://host/service/Employees?$expand=ReportsTo($levels=3)
+```
+:::
+
+::: example
+Example ##ex: expand all related entities and their related entities
+```
+http://host/service/Categories?$expand=*($levels=2)
+```
+:::
+
 ### ##subsubsec System Query Option `$select`
 
 The `$select` system query option allows clients to request a specific
@@ -2163,7 +2208,7 @@ grammar of the `$select` query option.
 
 The value of `$select` is a comma-separated list of select items. Each
 select item is one of the following:
-- a path, to include a property,
+- a path, optionally followed by a [count segment](#AddressingtheCountofaCollection) or [select options](#SelectOptions)
 - a star (`*`), to include all declared or
 dynamic properties of the type, or
 - a qualified schema name followed by a
@@ -2172,7 +2217,7 @@ functions from that schema
 
 A path consists of segments separated by a forward slash (`/`). Segments
 are either names of single- or collection-valued complex properties,
-[instance annotations](#AnnotationValuesinExpressions), or 
+[instance annotations](#AnnotationValuesinExpressions), or
 [type-cast segments](#AddressingDerivedTypes) consisting of the qualified name of a structured type that is
 derived from the type identified by the preceding path segment to reach
 properties defined on the derived type.
@@ -2217,7 +2262,7 @@ http://host/service/Products?$select=*
 
 If the select item is not defined for the type of the resource, and that
 type supports dynamic properties or instance annotations, then the
-property is treated as null for all instances on which it is not
+property is treated as `null` for all instances on which it is not
 defined.
 
 If the select item is not defined for the type of the resource, and that
@@ -2240,7 +2285,8 @@ option, see [section ##SystemQueryOptionfilter].
 Example ##ex: name and description of all products, plus name of expanded
 category
 ```
-http://host/service/Products?$select=Name,Description&$expand=Category($select=Name)
+http://host/service/Products?$select=Name,Description
+  &$expand=Category($select=Name)
 ```
 :::
 
@@ -2249,8 +2295,8 @@ in order to select a property defined on a type derived from the type of
 the resource segment.
 
 A select item that is a complex type or collection of complex type can
-be followed by a forward slash, an optional [type-cast segment](#AddressingDerivedTypes), and the name of a property of the
-complex type (and so on for nested complex types).
+be followed by a forward slash, an optional [type-cast segment](#AddressingDerivedTypes),
+and the name of a property of the complex type (and so on for nested complex types).
 
 ::: example
 Example ##ex: the `AccountRepresentative` property of any supplier that
@@ -2258,25 +2304,30 @@ is of the derived type `Namespace.PreferredSupplier`, together with the
 `Street` property of the complex property
 `Address`, and the Location property of the derived complex type `Namespace.AddressWithLocation`
 ```
-http://host/service/Suppliers?$select=Namespace.PreferredSupplier/AccountRepresentative,Address/Street,Address/Namespace.AddressWithLocation/Location
+http://host/service/Suppliers
+  ?$select=Namespace.PreferredSupplier/AccountRepresentative,
+           Address/Street,Address/Namespace.AddressWithLocation/Location
 ```
 :::
 
-Query options can be applied to a select item that is a path to a single
-complex value or a collection of primitive or complex values by
-appending a semicolon-separated list of query options, enclosed in
-parentheses, to the select item. The allowed system query options depend
-on the type of the resource identified by the select item, see section
-[System Query Options](#SystemQueryOptions), with the exception of
-[`$expand`](#SystemQueryOptionexpand). The same property MUST NOT have
-select options specified in more than one place in a request and MUST
-NOT be specified in more than one expand.
+If the path ends in a collection of primitive or complex values, 
+then the [count segment](#AddressingtheCountofaCollection) (`/$count`),
+optionally followed by the 
+[Select Options](#SelectOptions) [`$filter`](#SystemQueryOptionfilter)
+and/or [`$search`](#SystemQueryOptionsearch), can be 
+appended to the path in order to return only the count of the matching items.
 
 ::: example
-Example ##ex: select up to five addresses whose `City` starts with an
-`H`, sorted, and with the `Country` expanded
+Example ##ex: for each `Customer`, return the `ID` and the count of `Addresses`
 ```
-http://host/service/Customers?$select=Addresses($filter=startswith(City,'H');$top=5;$orderby=Country/Name,City,Street)&$expand=Addresses/Country
+http://host/service/Customers?$select=ID,Addresses/$count
+```
+:::
+
+::: example
+Example ##ex: for each `Customer`, return the `ID` and the count of `Addresses` whose `City` starts with 'H'
+```
+http://host/service/Customers?$select=ID,Addresses/$count($filter=startswith(City,'H'))
 ```
 :::
 
@@ -2286,7 +2337,7 @@ omitted from the response.
 
 Annotations requested in `$select` MUST be included in the response;
 `$select` overrules the `include-annotations` preference (see
-[OData-Protocol](#ODataProtocol)) for the explicitly requested annotations.
+[#OData-Protocol#Preferenceincludeannotationsodataincludeannotations]) for the explicitly requested annotations.
 Additional annotations matching the preference can be included even if
 not requested via `$select`. The `Preference-Applied` response header
 only reflects the set of annotations included due to the
@@ -2320,13 +2371,49 @@ of properties, open properties, navigation properties, actions and
 functions to be returned is equal to the union of the set of those
 identified by each select item.
 
+#### ##subsubsubsec Select Options
+
+Query options can be applied to a select item that is a path to a single
+complex value or a collection of primitive or complex values by
+appending a semicolon-separated list of query options, enclosed in
+parentheses, to the select item. The allowed sytem query options are
+[`$compute`](#SystemQueryOptioncompute) and
+[`$select`](#SystemQueryOptionselect) for all complex-typed properties, plus
+[`$filter`](#SystemQueryOptionfilter),
+[`$orderby`](#SystemQueryOptionorderby),
+[`$skip`](#SystemQueryOptionstopandskip), [`$top`](#SystemQueryOptionstopandskip),
+[`$count`](#SystemQueryOptioncount), and
+[`$search`](#SystemQueryOptionsearch)
+for collection-valued properties. The same property MUST NOT have
+select options specified in more than one place in a request.
+
+If the select item is a complex type, or collection of complex types, then
+it can include a nested select.
+
+::: example
+Example ##ex: return the City from the Address complex type
+```
+http://host/service/Customers?$select=Address($select=City)
+```
+:::
+
+::: example
+Example ##ex: select up to five addresses whose `City` starts with an
+`H`, sorted, and with the `Country` expanded
+```
+http://host/service/Customers
+  ?$select=Addresses($filter=startswith(City,'H');$top=5;
+                     $orderby=Country/Name,City,Street)
+  &$expand=Addresses/Country
+```
+:::
+
 ### ##subsubsec System Query Option `$orderby`
 
 The `$orderby` system query option allows clients to request resources
 in a particular order.
 
-The semantics of `$orderby` are covered in the [OData-Protocol](#ODataProtocol)
-document.
+The semantics of `$orderby` are covered in [#OData-Protocol#SystemQueryOptionorderby].
 
 The [OData-ABNF](#ODataABNF) `orderby` syntax rule defines the formal
 grammar of the `$orderby` query option.
@@ -2339,8 +2426,9 @@ option requests the number of items in the queried collection that are
 to be skipped and not included in the result. A client can request a
 particular page of items by combining `$top` and `$skip`.
 
-The semantics of `$top` and `$skip` are covered in the
-[OData-Protocol](#ODataProtocol) document. The [OData-ABNF](#ODataABNF) `top`
+The semantics of `$top` and `$skip` are covered in
+[#OData-Protocol#SystemQueryOptiontop] and [#OData-Protocol#SystemQueryOptionskip].
+The [OData-ABNF](#ODataABNF) `top`
 and `skip` syntax rules define the formal grammar of the `$top` and
 `$skip` query options respectively.
 
@@ -2350,8 +2438,7 @@ The `$count` system query option allows clients to request a count of
 the matching resources included with the resources in the response. The
 `$count` query option has a Boolean value of `true` or `false`.
 
-The semantics of `$count` is covered in the [OData-Protocol](#ODataProtocol)
-document.
+The semantics of `$count` is covered in [#OData-Protocol#SystemQueryOptioncount].
 
 ### ##subsubsec System Query Option `$search`
 
@@ -2398,7 +2485,7 @@ Leading and trailing spaces are not considered part of the search expression.
 Terms enclosed in double-quotes comprise a *phrase*.
 
 Each individual term or phrase comprises a Boolean expression that
-returns true if the term or phrase is matched, otherwise false. The
+returns `true` if the term or phrase is matched, otherwise `false`. The
 semantics of what is considered a match is dependent upon the service.
 
 Expressions enclosed in parenthesis comprise a *group expression*.
@@ -2407,16 +2494,16 @@ The search expression can contain any number of terms, phrases, or group
 expressions, along with the case-sensitive keywords `NOT`, `AND`, and
 `OR`, evaluated in that order.
 
-Expressions prefaced with `NOT` evaluate to true if the expression is
-not matched, otherwise false.
+Expressions prefaced with `NOT` evaluate to `true` if the expression is
+not matched, otherwise `false`.
 
 Two expressions not enclosed in quotes and separated by a space are
 equivalent to the same two expressions separated by the `AND` keyword.
 Such expressions evaluate to `true` if both expressions evaluate to
-true, otherwise false.
+`true`, otherwise `false`.
 
-Expressions separated by an `OR` evaluate to true if either of the
-expressions evaluate to true, otherwise false.
+Expressions separated by an `OR` evaluate to `true` if either of the
+expressions evaluate to `true`, otherwise `false`.
 
 To support type-ahead use cases, incomplete search expressions can be
 sent as OData string literals enclosed in single-quotes, and
@@ -2433,8 +2520,7 @@ in a particular format and is useful for clients without access to
 request headers for standard content-type negotiation. Where present
 `$format` takes precedence over standard content-type negotiation.
 
-The semantics of `$format` is covered in the [OData-Protocol](#ODataProtocol)
-document.
+The semantics of `$format` is covered in [#OData-Protocol#SystemQueryOptionformat].
 
 The [OData-ABNF](#ODataABNF) `format` syntax rule defines the formal
 grammar of the `$format` query option.
@@ -2482,7 +2568,7 @@ http://host/service/Orders(10)/Items
 
 The `$index` system query option allows clients to do a positional
 insert into a collection annotated with the
-[`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
+[`Core.PositionalInsert`]($$$OData-VocCore$$$#PositionalInsert)
 term (see [OData-VocCore](#ODataVocCore)). The value of the `$index`
 system query option is the zero-based ordinal position where the item is
 to be inserted. The ordinal of items within the collection greater than
@@ -2497,7 +2583,7 @@ grammar of the `$index` query option.
 
 The `$schemaversion` system query option allows clients to specify the
 version of the schema against which the request is made. The semantics
-of `$schemaversion` is covered in the [OData-Protocol](#ODataProtocol) document.
+of `$schemaversion` is covered in [#OData-Protocol#SystemQueryOptionschemaversion].
 
 The [OData-ABNF](#ODataABNF) `schemaversion` syntax rule defines the
 formal grammar of the `$schemaversion` query option
@@ -2529,7 +2615,7 @@ Parameter aliases MUST start with an `@` character, see rule
 `parameterAlias` in [OData-ABNF](#ODataABNF).
 
 The semantics of parameter aliases are covered in
-[OData-Protocol](#ODataProtocol). The [OData-ABNF](#ODataABNF) rule
+[#OData-Protocol#ParameterAliases]. The [OData-ABNF](#ODataABNF) rule
 `aliasAndValue` defines the formal grammar for passing parameter alias
 values as query options.
 
@@ -2552,7 +2638,8 @@ Example ##ex: JSON array of strings as parameter alias value --- note that
 `[`, `]`, and `"` need to be percent-encoded in real URLs, the
 clear-text representation used here is just for readability
 ```
-http://host/service/Products/Model.WithIngredients(Ingredients=@i)?@i=["Carrots","Ginger","Oranges"]
+http://host/service/Products/Model.WithIngredients(Ingredients=@i)
+  ?@i=["Carrots","Ginger","Oranges"]
 ```
 :::
 
@@ -2561,4 +2648,4 @@ http://host/service/Products/Model.WithIngredients(Ingredients=@i)?@i=["Carrots"
 # ##sec Conformance
 
 The conformance requirements for OData clients and services are
-described in [OData-Protocol](#ODataProtocol).
+described in [#OData-Protocol#Conformance].

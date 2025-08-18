@@ -28,18 +28,7 @@ Documents are generated from Markdown sources using Node.js modules described [h
 3. Download and install [git](https://git-scm.com/), verify via `git -v`
 4. Optionally download and install [GitHub Desktop](https://desktop.github.com/)
 5. Clone this repository
-6. In the local repository folder run `npm install`, verify via `npm test`  
-   Repeat this step if the test fails with an error message like the following after upgrading to a new Chrome version:
-   ```
-     1 failing
-   
-     1) OASIS doc build
-          Puppeteer:
-        Error: Could not find Chrome (ver. 116.0.5845.96). This can occur if either
-    1. you did not perform an installation before running the script (e.g. `npm install`) or
-    2. your cache path is incorrectly configured (which is: C:\Users\D024504\.cache\puppeteer).
-   For (2), check out our guide on configuring puppeteer at https://pptr.dev/guides/configuration.
-   ```
+6. In the local repository folder run `npm install`, verify via `npm test`
 
 ### Document preparation
 
@@ -64,3 +53,4 @@ OData Version 4.02. Part 2: URL Conventions|Committee Specification Draft 01|[Sp
 OData JSON Format Version 4.02|Committee Specification Draft 01|[Specification](https://github.com/oasis-tcs/odata-specs/tree/core/V4.02_CSD01/docs/odata-json-format)|[OASIS](https://docs.oasis-open.org/odata/odata-json-format/v4.02/csd01/)
 OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02|Committee Specification Draft 01|[Specification](https://github.com/oasis-tcs/odata-specs/tree/core/V4.02_CSD01/docs/odata-csdl-json) [Schemas](https://github.com/oasis-tcs/odata-csdl-schemas/tree/core/V4.02_CSD01/schemas)|[OASIS](https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd01/)
 OData Common Schema Definition Language (CSDL) XML Representation Version 4.02|Committee Specification Draft 01|[Specification](https://github.com/oasis-tcs/odata-specs/tree/core/V4.02_CSD01/docs/odata-csdl-xml) [Schemas](https://github.com/oasis-tcs/odata-csdl-schemas/tree/core/V4.02_CSD01/schemas)|[OASIS](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/csd01/)
+OData Vocabularies Version 4.0|Committee Specification Draft 02|[Specification](https://github.com/oasis-tcs/odata-specs/tree/vocabularies/V4.0_CSD02/docs/odata-vocabularies) [Vocabularies](https://github.com/oasis-tcs/odata-vocabularies/tree/vocabularies/V4.0_CSD02/vocabularies)|[OASIS](https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/csd02/)

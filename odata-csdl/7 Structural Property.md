@@ -105,13 +105,13 @@ leading back to the property's declaring type, the finiteness condition for
 in this chain MUST be nullable or collection-valued.
 
 A collection-valued property MAY be annotated with the
-[`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered)
+[`Core.Ordered`]($$$OData-VocCore$$$#Ordered)
 term, defined in
 [OData-VocCore](#ODataVocCore), to specify that it supports a
 stable ordering.
 
 A collection-valued property MAY be annotated with the
-[`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
+[`Core.PositionalInsert`]($$$OData-VocCore$$$#PositionalInsert)
 term, defined in [OData-VocCore](#ODataVocCore), to specify that it
 supports inserting items into a specific ordinal position.
 
@@ -217,7 +217,7 @@ If no value is specified, the client SHOULD NOT assume a default value.
 
 The value of `$DefaultValue` is the type-specific JSON representation of
 the default value of the property, see
-[OData-JSON](#ODataJSON). For properties of type
+[#OData-JSON#PrimitiveValue]. For properties of type
 `Edm.Decimal` and `Edm.Int64` the representation depends on the media
 type parameter
 [`IEEE754Compatible`](#ControllingtheRepresentationofNumbers).
@@ -375,12 +375,12 @@ For a collection-valued containment navigation property the specified
 entity type MUST have a [key](#Key) defined.
 
 A collection-valued navigation property MAY be annotated with the
-[`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered)
+[`Core.Ordered`]($$$OData-VocCore$$$#Ordered)
 term, defined in [OData-VocCore](#ODataVocCore), to specify that it
 supports a stable ordering.
 
 A collection-valued navigation property MAY be annotated with the
-[`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
+[`Core.PositionalInsert`]($$$OData-VocCore$$$#PositionalInsert)
 term, defined in [OData-VocCore](#ODataVocCore), to specify that it
 supports inserting items into a specific ordinal position.
 
@@ -494,14 +494,14 @@ the entities referenced by the containment navigation property. The
 canonical URL for contained entities is the canonical URL of the
 containing instance, followed by the path segment of the navigation
 property and the key of the contained entity, see
-[OData-URL](#ODataURL).
+[#OData-URL#CanonicalURLforContainedEntities].
 
 Entity types used in collection-valued containment navigation properties
 MUST have a [key](#Key) defined.
 
 For items of an ordered collection of complex types (those annotated
 with the
-[`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered)
+[`Core.Ordered`]($$$OData-VocCore$$$#Ordered)
 term defined in [OData-VocCore](#ODataVocCore) the canonical URL
 of the item is the canonical URL of the collection appended with a
 segment containing the zero-based ordinal of the item. Items within in
@@ -565,6 +565,8 @@ property* (the property defined on the structured type declaring the
 navigation property) MUST have the same value as the *principal
 property* (the referenced property declared on the entity type that is
 the target of the navigation).
+Elsewhere this specification calls the dependent property and the principal property
+_tied to_ each other.
 
 The type of the dependent property MUST match the type of the principal
 property, or both types MUST be complex types.

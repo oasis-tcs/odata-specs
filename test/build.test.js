@@ -1,4 +1,5 @@
 const fs = require("fs");
+const yaml = require("js-yaml");
 const Number = require("../lib/number");
 const pandoc = require("../lib/pandoc");
 const { compareSectionNumbers } = require("../lib/utilities");
@@ -12,7 +13,11 @@ describe("OASIS doc build", function () {
 
   it("Markdown assembly", async function () {
     var md = new PassThrough();
-    new Number(`${__dirname}/test-data`).build(md);
+    new Number(
+      `${__dirname}/test-data`,
+      "meta",
+      yaml.load(fs.readFileSync(`${__dirname}/test-data/meta.yaml`)),
+    ).build(md);
     var markdown = "";
     for await (var chunk of md) markdown += chunk.toString();
     assert.deepStrictEqual(

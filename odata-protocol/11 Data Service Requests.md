@@ -67,7 +67,7 @@ metadata documents and provides a JSON schema to validate their
 contents. The media type of the JSON representation of an OData metadata
 document is `application/json`.
 
-[OData-CSDLXML](#ODataCSDL) describes an XML representation for OData
+[OData-CSDLXML](#ODataCSDLXML) describes an XML representation for OData
 metadata documents and provides an XML schema to validate their
 contents. The media type of the XML representation of an OData metadata
 document is `application/xml`.
@@ -151,9 +151,28 @@ URL that identifies the entity, e.g. its read URL.
 
 The read URL can be obtained from a response payload containing that
 instance, for example as a `readLink` or `editLink` in an
-[OData-JSON](#ODataJSON) payload. In addition, services
+[#OData-JSON#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink] payload. In addition, services
 MAY support conventions for constructing a read URL using the entity's
-key value(s), as described in [OData-URL](#ODataURL).
+key value(s), as described in [#OData-URL#CanonicalURL].
+
+Borderline cases are possible in which two or more entity sets with the same entity type
+use overlapping keys and a non-containment navigation property [#OData-CSDL#ContainmentNavigationProperty]
+with that entity type does not have a unique navigation property binding [#OData-CSDL#NavigationPropertyBinding].
+In such cases, a URL that identifies a collection of entities followed by
+an entity key to select a single entity (like in [#OData-URL#AddressingEntities])
+may not identify a unique entity. Services SHOULD avoid such cases, since the
+behavior is undefined for them.
+
+::: example
+Example ##ex: Products can be sourced from a supplier (like `Suppliers(5)`)
+as well as from a subsidiary (like `Subsidiaries(5)`). These two entities have the same
+entity type that is also used by the non-containment navigation property `SourcedFrom`
+defined on the product entity type. Then the following URL
+might identify either of the two entities:
+```
+GET http://host/service/Products(1)/SourcedFrom(5)
+```
+:::
 
 The set of structural or navigation properties to return may be
 specified through [`$select`](#SystemQueryOptionselect) or
@@ -165,7 +184,7 @@ types not marked as open.
 
 Properties that are not available are not returned. If their unavailability
 is due to permissions, the
-[`Core.Permissions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Permissions)
+[`Core.Permissions`]($$$OData-VocCore$$$#Permissions)
 annotation, defined in [OData-VocCore](#ODataVocCore) MUST be returned
 for the property with a value of `None`.
 If the [`omit-values`](#Preferenceomitvalues) preference is
@@ -213,7 +232,7 @@ the property name appended.
 For complex typed properties, the path can be further extended with the
 name of an individual property of the complex type.
 
-See [OData-URL](#ODataURL) for details.
+See [#OData-URL#AddressingaProperty] for details.
 
 If the property is single-valued and has the `null` value, the service
 responds with [`204 No Content`](#ResponseCode204NoContent).
@@ -231,7 +250,7 @@ GET http://host/service/Products(1)/Name
 #### ##subsubsubsec Requesting Stream Properties
 
 If the property being requested has type `Edm.Stream` (see
-[OData-URL, section 9](#ODataURL)), the media type of the response is the
+[#OData-URL#AddressingaProperty]), the media type of the response is the
 media type of the stream, subject to content type negotiation based on the
 [`Accept`](#HeaderAccept) header of the request.
 The response body is the octet-stream that represents the raw
@@ -243,14 +262,14 @@ system query option.
 #### ##subsubsubsec Requesting a Raw Value using `$value`
 
 To retrieve the raw value of a primitive property or operation result, the client sends
-a `GET` request to the raw value URL. See the [OData-URL](#ODataURL) document for details.
+a `GET` request to the raw value URL. See [#OData-URL#AddressingaRawValue] for details.
 
 The `Content-Type` of the response is determined using the `Accept`
 header and the [`$format`](#SystemQueryOptionformat) system query
 option.
 
 The default format for `Edm.Binary` is the format specified by the
-[`Core.MediaType`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#MediaType)
+[`Core.MediaType`]($$$OData-VocCore$$$#MediaType)
 annotation (see [OData-VocCore](#ODataVocCore)) if this
 annotation is present. If not annotated, the format cannot be predicted
 by the client.
@@ -336,7 +355,7 @@ GET http://host/service/Products?$select=*
 :::
 
 Properties of related entities can be specified by including the
-`$select` query option within the `$expand`.
+`$select` [option](#ExpandOptions) within the `$expand`.
 
 ::: example
 Example ##ex:
@@ -370,21 +389,21 @@ GET http://host/service/Products?$select=DemoService.*
 ```
 :::
 
-Query options can be applied to a selected property by appending a
-semicolon-separated list of query options, enclosed in parentheses, to
-the property. Allowed system query options are
-[`$select`](#SystemQueryOptionselect) and
-[`$compute`](#SystemQueryOptioncompute) for complex properties, plus
-[`$filter`](#SystemQueryOptionfilter),
-[`$search`](#SystemQueryOptionsearch),
-[`$count`](#SystemQueryOptioncount),
-[`$orderby`](#SystemQueryOptionorderby),
-[`$skip`](#SystemQueryOptionskip), and [`$top`](#SystemQueryOptiontop)
-for collection-valued properties. A property MUST NOT have select
-options specified in more than one place in a request and MUST NOT have
-both select options and expand options specified.
+If the selected property represents a collection of primitive or complex values, 
+then the [count segment](#RequestingtheNumberofItemsinaCollection) (`/$count`), 
+optionally followed by the [Select Options](#SelectOptions) [`$filter`](#SystemQueryOptionfilter) 
+and/or [`$search`](#SystemQueryOptionsearch), can be appended to the path in order 
+to return only the count of the matching items.
 
-If the `$select` query option is not specified, [the service returns
+::: example
+Example ##ex: for each customer, return the ID and the count of addresses 
+starting with the letter 'H'.
+```
+GET http://host/service/Customers?$select=ID,Addresses/$count($filter=startswith(City,'H'))
+```
+:::
+
+If the `$select` query option is not specified, the service returns
 the full set of properties or a default set of properties. The default
 set of properties MUST include all key properties.
 Services may change the default set of properties returned. This
@@ -400,6 +419,22 @@ the [context URL](#ContextURL) MUST reflect the set of selected
 properties and projected [expanded](#SystemQueryOptionexpand) navigation
 properties.
 
+##### ##subsubsubsubsec Select Options
+
+Query options can be applied to a selected property by appending a
+semicolon-separated list of query options, enclosed in parentheses, to
+the property. Allowed system query options are
+[`$select`](#SystemQueryOptionselect) and
+[`$compute`](#SystemQueryOptioncompute) for complex properties, plus
+[`$filter`](#SystemQueryOptionfilter),
+[`$search`](#SystemQueryOptionsearch),
+[`$count`](#SystemQueryOptioncount),
+[`$orderby`](#SystemQueryOptionorderby),
+[`$skip`](#SystemQueryOptionskip), and [`$top`](#SystemQueryOptiontop)
+for collection-valued properties. A property MUST NOT have select
+options specified in more than one place in a request and MUST NOT have
+both select options and expand options specified.
+
 #### ##subsubsubsec System Query Option `$expand`
 
 The `$expand` system query option indicates the related entities and
@@ -411,7 +446,7 @@ expand item is evaluated relative to the retrieved resource being
 expanded.
 
 For a full description of the syntax used when building requests, see
-[OData-URL](#ODataURL), section 5.1.3.
+[#OData-URL#SystemQueryOptionexpand].
 
 ::: example
 Example ##ex: for each customer entity within the Customers entity set the
@@ -437,12 +472,26 @@ GET http://host/service.svc/Customers?$expand=Photo
 ```
 :::
 
+If the expand item represents a collection of entities, then the 
+[count segment](#RequestingtheNumberofItemsinaCollection) (`/$count`), optionally followed by 
+the [Expand Options](#ExpandOptions) [`$filter`](#SystemQueryOptionfilter) and/or 
+[`$search`](#SystemQueryOptionsearch), can be appended to the expand item in order to 
+return only the count of matching items.
+
+::: example
+Example ##ex: for each Category, return the `Name` and the count of `Products` 
+starting with the letter 'H'.
+```
+GET http://host/service/Categories?$select=Name&$expand=Products/$count($filter=startswith(Name,'H'))
+```
+:::
+
 ##### ##subsubsubsubsec Expand Options
 
 The set of expanded entities can be further refined through the
 application of expand options, expressed as a semicolon-separated list
 of system query options, enclosed in parentheses, see
-[OData-URL](#ODataURL).
+[#OData-URL#SystemQueryOptionexpand].
 
 Allowed system query options are
 [`$compute`](#SystemQueryOptioncompute),
@@ -452,7 +501,8 @@ Allowed system query options are
  for all navigation properties, plus
 [`$filter`](#SystemQueryOptionfilter),
 [`$orderby`](#SystemQueryOptionorderby),
-[`$skip`](#SystemQueryOptionskip), [`$top`](#SystemQueryOptiontop),
+[`$skip`](#SystemQueryOptionskip), 
+[`$top`](#SystemQueryOptiontop),
 [`$count`](#SystemQueryOptioncount), and
 [`$search`](#SystemQueryOptionsearch)
  for collection-valued navigation properties.
@@ -520,13 +570,16 @@ GET http://host/service/Employees?$expand=Model.Manager/DirectReports($levels=4)
 #### ##subsubsubsec System Query Option `$compute`
 
 The `$compute` system query option allows clients to define computed
-properties that can be used in a [`$select`](#SystemQueryOptionselect)
-or within a [`$filter`](#SystemQueryOptionfilter) or
-[`$orderby`](#SystemQueryOptionorderby) expression.
+properties that can be used in [`$expand`](#SystemQueryOptionexpand),
+[`$select`](#SystemQueryOptionselect),
+[`$filter`](#SystemQueryOptionfilter), or
+[`$orderby`](#SystemQueryOptionorderby).
+The `$compute` system query option allows clients to define computed properties that can be used in [`$expand`](#SystemQueryOptionexpand),
+[`$select`](#SystemQueryOptionselect),
+[`$filter`](#SystemQueryOptionfilter), or
+[`$orderby`](#SystemQueryOptionorderby). Computed properties are expanded or selected according to their instance-specific type. A computed property is ignored by `$expand` if its instance-specific value is neither a stream, an entity, nor a collection of entities, and the service cannot determine this based on the compute expression.
 
-Computed properties SHOULD be included as dynamic properties in the
-result and MUST be included if `$select` is specified with the computed
-property name, or star (`*`).
+Computed properties SHOULD be included as dynamic properties in the result without being explicitly mentioned in `$expand` or `$select`, or implied by star (`*`).
 
 ::: example
 Example ##ex: compute total price for order items (line breaks only for
@@ -768,7 +821,7 @@ The Boolean value false comes before the value true in ascending order.
 Services SHOULD order language-dependent strings according to the
 [`Content-Language`](#HeaderContentLanguage) of the response, and SHOULD
 annotate string properties with language-dependent order with the term
-[`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
+[`Core.IsLanguageDependent`]($$$OData-VocCore$$$#IsLanguageDependent),
 see [OData-VocCore](#ODataVocCore).
 
 Values of type `Edm.Stream` or any of the `Geo` types cannot be sorted.
@@ -993,7 +1046,8 @@ Responses that include only a partial set of the items identified by the
 request URL MUST contain a link that allows retrieving the next partial
 set of items. This link is called a *next link*; its representation is
 format-specific. The final partial set of items MUST NOT contain a next
-link.
+link. Clients MUST check for next links before assuming to have received
+all items within a collection, including expanded and nested collections.
 
 The client can request a maximum page size through the
 [`maxpagesize`](#Preferencemaxpagesizeodatamaxpagesize) preference. The
@@ -1231,7 +1285,7 @@ GET http://host/service/Orders?$format=application/json;metadata=full
 is equivalent to a request with an `Accept` header using the same media
 type; it requests the set of Order entities represented using the JSON
 media type including full metadata, as defined in
-[OData-JSON](#ODataJSON).
+[#OData-JSON#metadatafullodatametadatafull].
 
 ::: example
 Example ##ex: the request
@@ -1243,7 +1297,7 @@ GET http://host/service/Orders?$format=json
 is equivalent to a request with the `Accept` header set to
 `application/json`; it requests the set of Order entities represented
 using the JSON media type with minimal metadata, as defined in
-[OData-JSON](#ODataJSON).
+[#OData-JSON#metadataminimalodatametadataminimal].
 
 In [metadata document requests](#MetadataDocumentRequest), the values
 `application/xml` and `application/json`, along with their subtypes and
@@ -1262,7 +1316,7 @@ the schema against which the request is made. The syntax of the
 
 The value of the `$schemaversion` system query option MUST be a version
 of the schema as returned in the
-[`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
+[`Core.SchemaVersion`]($$$OData-VocCore$$$#SchemaVersion)
 annotation, defined in [OData-VocCore](#ODataVocCore), of a previous
 request to the [metadata document](#MetadataDocumentRequest), or `*` in
 order to specify the current version of the metadata.
@@ -1274,7 +1328,7 @@ Clients can retrieve the current version of the metadata by making a
 [metadata document request](#MetadataDocumentRequest) with a
 `$schemaversion` system query option value of `*`, and SHOULD include
 the value from the returned
-[`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
+[`Core.SchemaVersion`]($$$OData-VocCore$$$#SchemaVersion)
 annotation in the `$schemaversion` system query option of subsequent
 requests.
 
@@ -1300,7 +1354,7 @@ body SHOULD provide additional information.
 
 Services advertise their change-tracking capabilities by annotating
 entity sets with the
-[`Capabilities.ChangeTracking`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#ChangeTracking)
+[`Capabilities.ChangeTracking`]($$$OData-VocCap$$$#ChangeTracking)
 term defined in [OData-VocCap](#ODataVocCap).
 
 Any `GET` request to retrieve one or more entities MAY allow
@@ -1433,6 +1487,10 @@ refetching the entire set in the `Location` header of the response.
 A delta payload represents changes to a known state. A delta payload
 includes added entities, changed entities, and deleted entities, as well
 as a representation of added and removed relationships.
+
+Services that support the use of [ETags](#UseofETagsforAvoidingUpdateConflicts) 
+for optimistic concurrency control SHOULD return ETag values for added or changed entities 
+within the delta payload.
 
 Delta payloads can be [requested](#RequestingChanges) from the service
 using a delta link or provided as updates to the service.

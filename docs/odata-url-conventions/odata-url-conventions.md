@@ -46,7 +46,7 @@ This prose specification is one component of a Work Product that also includes:
 * _OData Version 4.02 Part 2: URL Conventions_ (this document). https://docs.oasis-open.org/odata/odata/v4.02/csd02/part2-url-conventions/odata-v4.02-csd02-part2-url-conventions.html
 * ABNF components: _OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases Version 4.02_. https://docs.oasis-open.org/odata/odata/v4.02/csd02/abnf/.
 
-#### <a name="RelatedWork">Related work:</a>
+#### [Related work:]{id=RelatedWork}
 This specification replaces or supersedes:
 * _OData Version 4.01. Part 2: URL Conventions_. Edited by Michael Pizzo, Ralf Handl, and Martin Zurmuehl. OASIS Standard. Latest stage: https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part2-url-conventions.html.
 * _OData Version 4.0. Part 2: URL Conventions_. Edited by Michael Pizzo, Ralf Handl, and Martin Zurmuehl. OASIS Standard. Latest stage: http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html.
@@ -63,9 +63,9 @@ This specification is related to:
 The Open Data Protocol (OData) enables the creation of REST-based data services, which allow resources, identified using Uniform Resource Locators (URLs) and defined in an Entity Data Model (EDM), to be published and edited by Web clients using simple HTTP messages. This specification defines a set of recommended (but not required) rules for constructing URLs to identify the data and metadata exposed by an OData service as well as a set of reserved URL query string operators.
 
 #### Status:
-This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the "Latest stage" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata#technical.
+This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the "Latest stage" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at https://groups.oasis-open.org/communities/tc-community-home2?CommunityKey=e7cac2a9-2d18-4640-b94d-018dc7d3f0e2#technical.
 
-TC members should send comments on this specification to the TC's email list. Others should send comments to the TC's public comment list, after subscribing to it by following the instructions at the "<a href="https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=odata">Send A Comment</a>" button on the TC's web page at https://www.oasis-open.org/committees/odata/.
+TC members should send comments on this specification to the TC's email list. Any individual may submit comments to the TC by sending email to Technical-Committee-Comments@oasis-open.org. Please use a Subject line like "Comment on OData URL Conventions".
 
 This specification is provided under the [RF on RAND Terms Mode](https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode) of the [OASIS IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/), the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC's web page (https://www.oasis-open.org/committees/odata/ipr.php).
 
@@ -202,14 +202,14 @@ For complete copyright information please see the full Notices section in an App
         - [5.1.1.11.1 `geo.distance`](#geodistance)
         - [5.1.1.11.2 `geo.intersects`](#geointersects)
         - [5.1.1.11.3 `geo.length`](#geolength)
-      - [5.1.1.12 Conditional Functions](#ConditionalFunctions)
+      - [5.1.1.12 Conditional Operators](#ConditionalOperators)
         - [5.1.1.12.1 `case`](#case)
       - [5.1.1.13 Lambda Operators](#LambdaOperators)
         - [5.1.1.13.1 `any`](#any)
         - [5.1.1.13.2 `all`](#all)
       - [5.1.1.14 Literals](#Literals)
         - [5.1.1.14.1 Primitive Literals](#PrimitiveLiterals)
-        - [5.1.1.14.2 Complex and Collection Literals](#ComplexandCollectionLiterals)
+        - [5.1.1.14.2 Structured and Collection Literals](#StructuredandCollectionLiterals)
         - [5.1.1.14.3 `null`](#null)
         - [5.1.1.14.4 `$it`](#it)
         - [5.1.1.14.5 `$root`](#root)
@@ -220,7 +220,9 @@ For complete copyright information please see the full Notices section in an App
       - [5.1.1.18 Numeric Promotion](#NumericPromotion)
     - [5.1.2 System Query Option `$filter`](#SystemQueryOptionfilter)
     - [5.1.3 System Query Option `$expand`](#SystemQueryOptionexpand)
+      - [5.1.3.1 Expand Options](#ExpandOptions)
     - [5.1.4 System Query Option `$select`](#SystemQueryOptionselect)
+      - [5.1.4.1 Select Options](#SelectOptions)
     - [5.1.5 System Query Option `$orderby`](#SystemQueryOptionorderby)
     - [5.1.6 System Query Options `$top` and `$skip`](#SystemQueryOptionstopandskip)
     - [5.1.7 System Query Option `$count`](#SystemQueryOptioncount)
@@ -245,7 +247,7 @@ For complete copyright information please see the full Notices section in an App
 
 -------
 
-# <a name="Introduction" href="#Introduction">1 Introduction</a>
+# <a id="Introduction" href="#Introduction">1 Introduction</a>
 
 The Open Data Protocol (OData) enables the creation of REST-based data
 services, which allow resources, identified using Uniform Resource
@@ -266,24 +268,26 @@ Services are encouraged to follow the URL construction conventions
 defined in this specification when possible as consistency promotes an
 ecosystem of reusable client components and libraries.
 
-## <a name="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a>
+## <a id="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a>
 
 Section | Feature / Change | Issue
 --------|------------------|------
+[Section 4.17](#PassingQueryOptionsintheRequestBody)| `POST ~/$query` with `Content-Type: application/x-www-form-urlencoded` or `application/json`| [320](https://github.com/oasis-tcs/odata-specs/issues/320), [371](https://github.com/oasis-tcs/odata-specs/issues/371)
 [Section 5.1.1.7.1](#matchespattern)| New overload for function `matchespattern` with flags| [441](https://github.com/oasis-tcs/odata-specs/issues/441)
+[Section 5.1.3](#SystemQueryOptionexpand)| Nested query options can only appear once per expand item| [2004](https://github.com/oasis-tcs/odata-specs/issues/2004)
 [Section 5.1.8](#SystemQueryOptionsearch)| Allow alternative `$search` syntax| [293](https://github.com/oasis-tcs/odata-specs/issues/293)
 
-## <a name="Glossary" href="#Glossary">1.2 Glossary</a>
+## <a id="Glossary" href="#Glossary">1.2 Glossary</a>
 
-### <a name="DefinitionsofTerms" href="#DefinitionsofTerms">1.2.1 Definitions of Terms</a>
+### <a id="DefinitionsofTerms" href="#DefinitionsofTerms">1.2.1 Definitions of Terms</a>
 
-### <a name="AcronymsandAbbreviations" href="#AcronymsandAbbreviations">1.2.2 Acronyms and Abbreviations</a>
+### <a id="AcronymsandAbbreviations" href="#AcronymsandAbbreviations">1.2.2 Acronyms and Abbreviations</a>
 
 <!-- TODO -->
 
-### <a name="DocumentConventions" href="#DocumentConventions">1.2.3 Document Conventions</a>
+### <a id="DocumentConventions" href="#DocumentConventions">1.2.3 Document Conventions</a>
 
-Keywords defined by this specification use `this  monospaced  font`.
+Keywords defined by this specification use `this monospaced font`.
 
 Function signatures in this specification use the following paragraph style:
 ```
@@ -325,7 +329,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 
 -------
 
-# <a name="URLComponents" href="#URLComponents">2 URL Components</a>
+# <a id="URLComponents" href="#URLComponents">2 URL Components</a>
 
 A URL used by an OData service has at most three significant parts: the
 *service root URL*, the *resource path*, and *query options*. Additional
@@ -347,7 +351,7 @@ Mandated and suggested content of these three significant URL components
 used by an OData service are covered in sequence in the three following
 chapters.
 
-## <a name="URLParsing" href="#URLParsing">2.1 URL Parsing</a>
+## <a id="URLParsing" href="#URLParsing">2.1 URL Parsing</a>
 
 OData follows the URI syntax rules defined in [RFC3986](#rfc3986) and in
 addition assigns special meaning to several of the sub-delimiters
@@ -377,7 +381,7 @@ Some implementations decode "`+`" (octet `0x2B`) as space (octet `0x20`), others
 
 Clients SHOULD percent-encode space (octet `0x20`) as `%20` and "`+`" (octet `0x2B`) as `%2B` and avoid the ambiguous "`+`" (octet `0x2B`) in URLs.
 
-## <a name="URLSyntax" href="#URLSyntax">2.2 URL Syntax</a>
+## <a id="URLSyntax" href="#URLSyntax">2.2 URL Syntax</a>
 
 The OData syntax rules for URLs are defined in this document and the
 [OData-ABNF](#ODataABNF). Note that the ABNF is not expressive enough to
@@ -442,11 +446,11 @@ path segment, nor is `Tablet')`.
 
 -------
 
-# <a name="ServiceRootURL" href="#ServiceRootURL">3 Service Root URL</a>
+# <a id="ServiceRootURL" href="#ServiceRootURL">3 Service Root URL</a>
 
 The service root URL identifies the root of an OData service. A `GET`
 request to this URL returns the format-specific service document, see
-[OData-JSON](#ODataJSON).
+[OData-JSON, section 5](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ServiceDocument).
 
 The service root URL MUST terminate in a forward slash.
 
@@ -456,7 +460,7 @@ enumerate and explore the resources published by the OData service.
 
 -------
 
-# <a name="ResourcePath" href="#ResourcePath">4 Resource Path</a>
+# <a id="ResourcePath" href="#ResourcePath">4 Resource Path</a>
 
 The rules for resource path construction as defined in this section are
 optional. OData services SHOULD follow the subsequently described URL
@@ -485,10 +489,10 @@ properties, links, operations, and so on.
 An OData service MAY respond with `301 Moved Permanently` or
 `307 Temporary Redirect` from the canonical URL to the actual URL.
 
-## <a name="AddressingtheModelforaService" href="#AddressingtheModelforaService">4.1 Addressing the Model for a Service</a>
+## <a id="AddressingtheModelforaService" href="#AddressingtheModelforaService">4.1 Addressing the Model for a Service</a>
 
 OData services expose their entity model according to
-[OData-CSDLJSON](#ODataCSDL) or [OData-CSDLXML](#ODataCSDL) at the
+[OData-CSDL](#ODataCSDL) at the
 metadata URL, formed by appending `$metadata` to the [service root
 URL](#ServiceRootURL).
 
@@ -510,7 +514,7 @@ http://host/service/$metadata?$format=json
 ```
 :::
 
-## <a name="AddressingtheBatchEndpointforaService" href="#AddressingtheBatchEndpointforaService">4.2 Addressing the Batch Endpoint for a Service</a>
+## <a id="AddressingtheBatchEndpointforaService" href="#AddressingtheBatchEndpointforaService">4.2 Addressing the Batch Endpoint for a Service</a>
 
 OData services that support batch requests expose a batch URL formed by
 appending `$batch` to the [service root URL](#ServiceRootURL).
@@ -522,7 +526,7 @@ http://host/service/$batch
 ```
 :::
 
-## <a name="AddressingEntities" href="#AddressingEntities">4.3 Addressing Entities</a>
+## <a id="AddressingEntities" href="#AddressingEntities">4.3 Addressing Entities</a>
 
 The basic rules for addressing a collection (of entities), a single
 entity within a collection, a singleton, as well as a property of an
@@ -609,6 +613,15 @@ http://host/service/Categories(1)
 ```
 :::
 
+If the declared entity type of the collection does not define a key (for example, Edm.EntityType), then a cast segment to a type defining a key MUST follow the collection, before appending the key.
+
+::: example
+Example 13:
+```
+http://host/service/Categories(1)/Children/myNs.Product(7)
+```
+:::
+
 - Invoking an action bound to a collection
 of entities that returns a single entity (see rule: `boundOperation`)
 - Invoking an function bound to a
@@ -616,7 +629,7 @@ collection of entities that returns a single entity (see rule:
 `boundOperation`)
 
 ::: example
-Example 13:
+Example 14:
 ```
 http://host/service/Products/Model.MostExpensive()
 ```
@@ -629,7 +642,7 @@ collection via a collection; examples include, but are not limited to:
 entity to another related entity (see rule: `entityNavigationProperty`)
 
 ::: example
-Example 14:
+Example 15:
 ```
 http://host/service/Products(1)/Supplier
 ```
@@ -639,7 +652,7 @@ http://host/service/Products(1)/Supplier
 entity that returns a single entity (see rule: `boundOperation`)
 
 ::: example
-Example 15:
+Example 16:
 ```
 http://host/service/Products(1)/Model.MostRecentOrder()
 ```
@@ -652,7 +665,7 @@ entity to a related collection of entities (see rule:
 `entityColNavigationProperty`)
 
 ::: example
-Example 16:
+Example 17:
 ```
 http://host/service/Categories(1)/Products
 ```
@@ -663,7 +676,7 @@ entity that returns a collection of entities (see rule:
 `boundOperation`)
 
 ::: example
-Example 17:
+Example 18:
 ```
 http://host/service/Categories(1)/Model.TopTenProducts()
 ```
@@ -677,7 +690,7 @@ collection of entities that returns a collection of entities (see rule:
 `boundOperation`)
 
 ::: example
-Example 18:
+Example 19:
 ```
 http://host/service/Categories(1)/Products/Model.AllOrders()
 ```
@@ -692,7 +705,7 @@ that identifies a primitive, complex instance, collection of primitives
 or collection of complex instances and bind an action or function that
 returns an entity or collections of entities.
 
-### <a name="CanonicalURL" href="#CanonicalURL">4.3.1 Canonical URL</a>
+### <a id="CanonicalURL" href="#CanonicalURL">4.3.1 Canonical URL</a>
 
 For OData services conformant with the addressing conventions in this
 section, the canonical form of an absolute URL identifying a
@@ -709,24 +722,23 @@ the key properties appear in the same order they appear in the key
 definition in the service metadata.
 
 ::: example
-Example 19: Non-canonical URL
+Example 20: Non-canonical URL
 ```
 http://host/service/Categories(ID=1)/Products(ID=1)
 ```
 :::
 
 ::: example
-Example 20: Canonical URL for previous example:
+Example 21: Canonical URL for previous example:
 ```
 http://host/service/Products(1)
 ```
 :::
 
-### <a name="CanonicalURLforContainedEntities" href="#CanonicalURLforContainedEntities">4.3.2 Canonical URL for Contained Entities</a>
+### <a id="CanonicalURLforContainedEntities" href="#CanonicalURLforContainedEntities">4.3.2 Canonical URL for Contained Entities</a>
 
 For contained entities (i.e. related via a containment navigation
-property, see [OData-CSDLJSON](#ODataCSDL) or
-[OData-CSDLXML](#ODataCSDL)) the canonical URL is the canonical URL of
+property, see [OData-CSDLJSON](#ODataCSDL)) the canonical URL is the canonical URL of
 the containing entity followed by:
 - A [type-cast segment](#AddressingDerivedTypes) if the navigation
 property is defined on a type derived from the entity type declared for
@@ -743,7 +755,7 @@ is the canonical URL for the collection of complex types followed by a
 segment containing the zero-based ordinal of the complex typed instance
 within the collection.
 
-### <a name="URLsforRelatedEntitieswithReferentialConstraints" href="#URLsforRelatedEntitieswithReferentialConstraints">4.3.3 URLs for Related Entities with Referential Constraints</a>
+### <a id="URLsforRelatedEntitieswithReferentialConstraints" href="#URLsforRelatedEntitieswithReferentialConstraints">4.3.3 URLs for Related Entities with Referential Constraints</a>
 
 If a navigation property leading to a related entity type has a partner
 navigation property that specifies a referential constraint, then those
@@ -751,14 +763,14 @@ key properties of the related entity that take part in the referential
 constraint MAY be omitted from URLs.
 
 ::: example
-Example 21: full key predicate of related entity
+Example 22: full key predicate of related entity
 ```
 https://host/service/Orders(1)/Items(OrderID=1,ItemNo=2)
 ```
 :::
 
 ::: example
-Example 22: shortened key predicate of related entity
+Example 23: shortened key predicate of related entity
 ```
 https://host/service/Orders(1)/Items(2)
 ```
@@ -773,7 +785,7 @@ The shorter form that does not specify the constrained key parts
 redundantly is preferred. If the value of the constrained key is
 redundantly specified, then it MUST match the principal key value.
 
-### <a name="ResolvinganEntityId" href="#ResolvinganEntityId">4.3.4 Resolving an Entity-Id</a>
+### <a id="ResolvinganEntityId" href="#ResolvinganEntityId">4.3.4 Resolving an Entity-Id</a>
 
 To resolve an entity-id into a representation of the identified entity,
 the client issues a `GET` request to the `$entity` resource located at
@@ -782,21 +794,21 @@ be specified using the system query option `$id`. The entity-id may be
 expressed as an absolute IRI or relative to the request root URL.
 
 ::: example
-Example 23: request the entity representation for an entity-id
+Example 24: request the entity representation for an entity-id
 ```
 http://host/service/$entity?$id=Products(0)
 ```
 :::
 
-The semantics of `$entity` are covered in the [OData-Protocol](#ODataProtocol)
-document.
+The semantics of `$entity` are covered in [OData-Protocol, section 10](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ContextURL).
 
-### <a name="AlternateKeys" href="#AlternateKeys">4.3.5 Alternate Keys</a>
+### <a id="AlternateKeys" href="#AlternateKeys">4.3.5 Alternate Keys</a>
 
 In addition to the canonical (primary) key an entity set or entity type
 can specify one or more alternate keys with the
 [`Core.AlternateKeys`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AlternateKeys)
-term (see [OData-VocCore](#ODataVocCore)). 
+term (see [OData-VocCore](#ODataVocCore)).
+
 Alternate keys can be used by the client to address entities anywhere the canonical key
 can be used; for example, within entity sets, collection-valued navigation properties,
 collection-valued composable functions, and within delta payloads.
@@ -808,7 +820,7 @@ specify the key property name to unambiguously determine the alternate
 key.
 
 ::: example
-Example 24: the same employee identified via the alternate key SSN, the
+Example 25: the same employee identified via the alternate key SSN, the
 canonical (primary) key ID using the non-canonical long form with
 specified key property name, and the canonical short form without key
 property name
@@ -825,17 +837,17 @@ http://host/service/Employees('A1245')
 ```
 :::
 
-### <a name="KeyasSegmentConvention" href="#KeyasSegmentConvention">4.3.6 Key-as-Segment Convention</a>
+### <a id="KeyasSegmentConvention" href="#KeyasSegmentConvention">4.3.6 Key-as-Segment Convention</a>
 
 Services MAY support an alternate convention for addressing entities by
 appending a segment containing the unprefixed and unquoted key value to the URL of the
-collection containing the entity. Forward-slashes in key value segments
+collection containing the entity. If the declared entity type of the collection does not define a key (for example, Edm.EntityType), then a cast segment to a type defining a key MUST follow the collection, before appending the key value segment. Forward-slashes in key value segments
 MUST be percent-encoded; single quotes within key value segments are
 treated as part of the key value and do not need to be doubled or
 percent encoded.
 
 ::: example
-Example 25: valid OData URLs:
+Example 26: valid OData URLs:
 ```
 http://host/service/Employees/A1245
 ```
@@ -866,7 +878,7 @@ applied, one for each key value, in the order they appear in the
 metadata description of the entity key.
 
 ::: example
-Example 26: multi-part key predicate, parentheses-style and
+Example 27: multi-part key predicate, parentheses-style and
 key-as-segment
 ```
 https://host/service/OrderItems(OrderID=1,ItemNo=2)
@@ -883,7 +895,7 @@ key properties of the related entity that take part in the referential
 constraint MUST be omitted from URLs using key-as-segment convention.
 
 ::: example
-Example 27: key predicate of related entity --- no key segments for key
+Example 28: key predicate of related entity --- no key segments for key
 properties of related entity with a referential constraint to preceding
 key segments
 ```
@@ -906,7 +918,7 @@ such
 2. matches a qualified bound function, bound action, or type name,
 treat it as such
 3. matches an unqualified bound function, bound action, or type name
-defined in a default namespace (see [OData-Protocol](#ODataProtocol)) treat it
+defined in a default namespace (see [OData-Protocol, section 4.4](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#DefaultNamespaces)) treat it
 as such
 4. treat as a key value
 
@@ -921,7 +933,7 @@ Note: the key-as-segment convention can only be used with the canonical
 names are not present in the keys and an alternative key cannot be
 determined.
 
-## <a name="AddressingReferencesbetweenEntities" href="#AddressingReferencesbetweenEntities">4.4 Addressing References between Entities</a>
+## <a id="AddressingReferencesbetweenEntities" href="#AddressingReferencesbetweenEntities">4.4 Addressing References between Entities</a>
 
 OData services are based on a data model that supports relationships as
 first class constructs. For example, an OData service could expose a
@@ -933,7 +945,7 @@ themselves are (as described above) by appending a navigation property
 name followed by `/$ref` to the entity URL.
 
 ::: example
-Example 28: URL addressing the references between `Categories(1)` and
+Example 29: URL addressing the references between `Categories(1)` and
 `Products`
 ```
 http://host/service/Categories(1)/Products/$ref
@@ -948,10 +960,10 @@ addressing a collection of references MUST be followed by the system
 query option `$id` in order to identify a single entity reference within
 the collection to be removed. The entity-id specified by `$id` may be
 expressed absolute or relative to the request URL. For details see
-[OData-Protocol](#ODataProtocol).
+[OData-Protocol, section 4.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#EntityIdsandEntityReferences).
 
 ::: example
-Example 29: three ways of unrelating `Categories(1)` and
+Example 30: three ways of unrelating `Categories(1)` and
 `Products(0)`; the second option is supported only in OData 4.01
 ```
 DELETE http://host/service/Categories(1)/Products/$ref?$id=../../Products(0)
@@ -966,19 +978,19 @@ DELETE http://host/service/Products(0)/Category/$ref
 ```
 :::
 
-## <a name="AddressingOperations" href="#AddressingOperations">4.5 Addressing Operations</a>
+## <a id="AddressingOperations" href="#AddressingOperations">4.5 Addressing Operations</a>
 
 The semantic rules for addressing and invoking actions and functions are
-defined in the [OData-Protocol](#ODataProtocol) document.
+defined in [OData-Protocol, section 11.5](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#Operations).
 
 Services MAY additionally support the use of the unqualified name of an
 action or function in a URL by defining one or more default namespaces
 through the
 [`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) term
 defined in [OData-VocCore](#ODataVocCore). For more information on
-default namespaces, see Default Namespaces in [OData-Protocol](#ODataProtocol).
+default namespaces, see [OData-Protocol, section 4.4](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#DefaultNamespaces).
 
-### <a name="AddressingActions" href="#AddressingActions">4.5.1 Addressing Actions</a>
+### <a id="AddressingActions" href="#AddressingActions">4.5.1 Addressing Actions</a>
 
 The grammar for addressing and invoking actions is defined by the
 following syntax grammar rules in [OData-ABNF](#ODataABNF):
@@ -995,7 +1007,7 @@ encompasses the `boundActionCall` syntax rule), when used by the
 `resourcePath` syntax rule, illustrates how a `boundActionCall` can be
 appended to a `resourcePath`.
 
-### <a name="AddressingFunctions" href="#AddressingFunctions">4.5.2 Addressing Functions</a>
+### <a id="AddressingFunctions" href="#AddressingFunctions">4.5.2 Addressing Functions</a>
 
 The grammar for addressing and invoking functions is defined by
 syntax rules in [OData-ABNF](#ODataABNF), in particular:
@@ -1023,22 +1035,49 @@ syntax rule define the grammar for invoking functions, for example to help filte
 and order resources identified by the `resourcePath` of the URL.
 - The `aliasAndValue` syntax rule defines
 the grammar for providing function parameter values using Parameter
-Alias Syntax, see [OData-Protocol](#ODataProtocol).
+Alias Syntax, see [OData-Protocol, section 11.2.6.1.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ParameterAliases).
 
 Note: there is no literal representation for `Edm.Stream` values in URLs,
 so it is not possible to pass `Edm.Stream` values to parameters of function imports or
 to non-binding parameters of bound functions used in the resource path.
 Function expressions within query options can use [path expressions](#PathExpressions)
-of type `Edm.Stream` as values of non-binding function parameters.
+of type `Edm.Stream` as values of non-binding function parameters. The aliases can contain [common
+expressions](#CommonExpressionSyntax). In the case of a bound function
+these MAY contain [path expressions](#PathExpressions), which
+the service evaluates on the binding parameter value.
 
-## <a name="AddressingaProperty" href="#AddressingaProperty">4.6 Addressing a Property</a>
+::: example
+Example <a id="funcexpr" href="#funcexpr">31</a>: An employee's leave requests for the next two weeks
+pending their manager's approval:
+```
+http://host/service/Employees(23)/self.PendingLeaveRequests(StartDate=@start,
+  EndDate=@end,Approver=@approver)
+  ?@start=now()
+  &@end=now() add duration'P14D'
+  &@approver=Manager
+```
+The expression `Manager` is evaluated on the binding parameter value `Employees(23)`.
+
+When invoking an unbound function through a function import, expressions involving
+paths must start with `$root`:
+```
+http://host/service/PendingLeaveRequests(Requester=@requester,
+  StartDate=@start,EndDate=@end,Approver=@approver)
+  ?@requester=$root/services/Employee(23)
+  &@start=now()
+  &@end=now() add duration'P14D'
+  &@approver=$root/services/Employee(23)/Manager
+```
+:::
+
+## <a id="AddressingaProperty" href="#AddressingaProperty">4.6 Addressing a Property</a>
 
 To address an entity property clients append a path segment containing
 the property name to the URL of the entity. If the property has a
 complex type value, properties of that value can be addressed by further
 property name composition.
 
-## <a name="AddressingaRawValue" href="#AddressingaRawValue">4.7 Addressing a Raw Value</a>
+## <a id="AddressingaRawValue" href="#AddressingaRawValue">4.7 Addressing a Raw Value</a>
 
 To address the raw value of a primitive property or operation result, clients append the
 path segment `/$value` to the property or operation URL.
@@ -1046,7 +1085,7 @@ path segment `/$value` to the property or operation URL.
 Properties and operation results of type `Edm.Stream` already return the raw value of the
 media stream and do not support appending the `/$value` segment.
 
-## <a name="AddressingtheCountofaCollection" href="#AddressingtheCountofaCollection">4.8 Addressing the Count of a Collection</a>
+## <a id="AddressingtheCountofaCollection" href="#AddressingtheCountofaCollection">4.8 Addressing the Count of a Collection</a>
 
 To address the raw value of the number of items in a collection, clients
 append `/$count` to the resource path of the URL identifying the entity
@@ -1067,21 +1106,21 @@ The count is calculated after applying any
 [`$search`](#SystemQueryOptionsearch) system query options to the collection.
 
 ::: example
-Example 30: the number of related entities
+Example 32: the number of related entities
 ```
 http://host/service/Categories(1)/Products/$count
 ```
 :::
 
 ::: example
-Example 31: the number of entities in an entity set
+Example 33: the number of entities in an entity set
 ```
 http://host/service/Products/$count
 ```
 :::
 
 ::: example
-Example 32: entity count in a `$filter`
+Example 34: entity count in a `$filter`
 expression. Note that the spaces around `gt` are for readability of the
 example only; in real URLs they must be percent-encoded as `%20`.
 ```
@@ -1090,7 +1129,7 @@ http://host/service/Categories?$filter=Products/$count gt 0
 :::
 
 ::: example
-Example 33: count of a filtered collection in a
+Example 35: count of a filtered collection in a
 `$filter` expression; returns all Categories
 containing more than two products whose price is greater than 5.00.
 ```
@@ -1099,13 +1138,13 @@ http://host/service/Categories?$filter=Products/$count($filter=Price gt 5.00) gt
 :::
 
 ::: example
-Example 34: entity count in an `$orderby` expression
+Example 36: entity count in an `$orderby` expression
 ```
 http://host/service/Categories?$orderby=Products/$count
 ```
 :::
 
-## <a name="AddressingaMemberwithinanEntityCollection" href="#AddressingaMemberwithinanEntityCollection">4.9 Addressing a Member within an Entity Collection</a>
+## <a id="AddressingaMemberwithinanEntityCollection" href="#AddressingaMemberwithinanEntityCollection">4.9 Addressing a Member within an Entity Collection</a>
 
 Collections of entities are modeled as entity sets, collection-valued
 navigation properties, or operation results.
@@ -1130,7 +1169,7 @@ with the term
 defined in [OData-VocCap](#ODataVocCap) and a value of `false` do not
 support addressing their members by key.
 
-## <a name="AddressingaMemberofanOrderedCollection" href="#AddressingaMemberofanOrderedCollection">4.10 Addressing a Member of an Ordered Collection</a>
+## <a id="AddressingaMemberofanOrderedCollection" href="#AddressingaMemberofanOrderedCollection">4.10 Addressing a Member of an Ordered Collection</a>
 
 Collections can be annotated as ordered using the
 [`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered)
@@ -1146,13 +1185,13 @@ Entity types are stably addressable using their canonical URL and SHOULD
 NOT be accessed or accessible using an index.
 
 ::: example
-Example 35: the first address in a list of addresses for `MainSupplier`
+Example 37: the first address in a list of addresses for `MainSupplier`
 ```
 http://host/service/MainSupplier/Addresses/0
 ```
 :::
 
-## <a name="AddressingDerivedTypes" href="#AddressingDerivedTypes">4.11 Addressing Derived Types</a>
+## <a id="AddressingDerivedTypes" href="#AddressingDerivedTypes">4.11 Addressing Derived Types</a>
 
 Any resource path or path expression identifying a collection of
 entities or complex type instances can be appended with a  _type-cast segment_, that is a path segment
@@ -1173,7 +1212,7 @@ derived type in a URL by defining one or more default namespaces through
 the
 [`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace)
 term defined in [OData-VocCore](#ODataVocCore). For more information on
-default namespaces, see Default Namespaces in [OData-Protocol](#ODataProtocol).
+default namespaces, see [OData-Protocol, section 4.4](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#DefaultNamespaces).
 
 Services MAY also support treating an instance as a type outside of the
 type hierarchy using the same syntax and semantics as when addressing a
@@ -1185,14 +1224,14 @@ SHOULD be called out using the
 annotation term, defined in [OData-VocCore](#ODataVocCore).
 
 ::: example
-Example 36: entity set restricted to `VipCustomer` instances
+Example 38: entity set restricted to `VipCustomer` instances
 ```
 http://host/service/Customers/Model.VipCustomer
 ```
 :::
 
 ::: example
-Example 37: entity restricted to a `VipCustomer` instance, resulting in
+Example 39: entity restricted to a `VipCustomer` instance, resulting in
 `404 Not Found` if the customer with key `1` is not a `VipCustomer`
 ```
 http://host/service/Customers/Model.VipCustomer(1)
@@ -1204,7 +1243,7 @@ http://host/service/Customers(1)/Model.VipCustomer
 :::
 
 ::: example
-Example 38: cast the complex property `Address` to its derived type
+Example 40: cast the complex property `Address` to its derived type
 `DetailedAddress`, then get a property of the derived type
 ```
 http://host/service/Customers(1)/Address/Model.DetailedAddress/Location
@@ -1212,16 +1251,17 @@ http://host/service/Customers(1)/Address/Model.DetailedAddress/Location
 :::
 
 ::: example
-Example 39: filter expression with type cast; will evaluate to `null`
+Example 41: filter expression with type cast; will evaluate to `null`
 for all non-`VipCustomer` instances and thus return only instances of
 `VipCustomer`
 ```
-http://host/service/Customers?$filter=Model.VipCustomer/PercentageOfVipPromotionProductsOrdered gt 80
+http://host/service/Customers
+  ?$filter=Model.VipCustomer/PercentageOfVipPromotionProductsOrdered gt 80
 ```
 :::
 
 ::: example
-Example 40: expand the single related `Customer` only if it is an
+Example 42: expand the single related `Customer` only if it is an
 instance of `Model.VipCustomer`. For to-many relationships only
 `Model.VipCustomer` instances would be inlined,
 ```
@@ -1229,7 +1269,7 @@ http://host/service/Orders?$expand=Customer/Model.VipCustomer
 ```
 :::
 
-## <a name="AddressingaSubsetofaCollection" href="#AddressingaSubsetofaCollection">4.12 Addressing a Subset of a Collection</a>
+## <a id="AddressingaSubsetofaCollection" href="#AddressingaSubsetofaCollection">4.12 Addressing a Subset of a Collection</a>
 
 Any resource path or path expression identifying a collection can be
 appended with a filter path segment consisting of `/$filter` followed by
@@ -1249,7 +1289,7 @@ combined with the [`$filter`](#SystemQueryOptionfilter) system query
 option.
 
 ::: example
-Example 41: red products that cost less than 10  --- combining path
+Example 43: red products that cost less than 10  --- combining path
 segment and system query option
 ```
 GET Products/$filter(@foo)?@foo=Price lt 10&$filter=Color eq 'red'
@@ -1257,7 +1297,7 @@ GET Products/$filter(@foo)?@foo=Price lt 10&$filter=Color eq 'red'
 :::
 
 ::: example
-Example 42: red products that cost less than 10 --- combine two path
+Example 44: red products that cost less than 10 --- combine two path
 segments
 ```
 GET Products/$filter(@p)/$filter(@c)?@p=Price lt 10&@c=Color eq 'red'
@@ -1265,7 +1305,7 @@ GET Products/$filter(@p)/$filter(@c)?@p=Price lt 10&@c=Color eq 'red'
 :::
 
 ::: example
-Example 43: categories with less than ten products older than three
+Example 45: categories with less than ten products older than three
 ```
 GET Categories?$filter=Products/$filter(Age gt 3)/$count lt 10
 ```
@@ -1285,14 +1325,14 @@ identifying a [bound action](#AddressingActions) or [bound
 function](#AddressingFunctions) applicable to the collection.
 
 ::: example
-Example 44: invoke the `Special.Cluster` action on all products older
+Example 46: invoke the `Special.Cluster` action on all products older
 than 3
 ```
 POST /service/Products/$filter(@foo)/Special.Cluster?@foo=Age gt 3
 ```
 :::
 
-## <a name="AddressingEachMemberofaCollection" href="#AddressingEachMemberofaCollection">4.13 Addressing Each Member of a Collection</a>
+## <a id="AddressingEachMemberofaCollection" href="#AddressingEachMemberofaCollection">4.13 Addressing Each Member of a Collection</a>
 
 To apply a `PATCH` or `DELETE` request to each member of a collection,
 clients append the path segment `/$each` to a resource path identifying
@@ -1312,7 +1352,7 @@ The resource path of the collection preceding `/$each` MAY contain
 [type-cast segments](#AddressingDerivedTypes) or [filter path
 segments](#AddressingaSubsetofaCollection) to subset the collection.
 
-## <a name="AddressingtheMediaStreamofaMediaEntity" href="#AddressingtheMediaStreamofaMediaEntity">4.14 Addressing the Media Stream of a Media Entity</a>
+## <a id="AddressingtheMediaStreamofaMediaEntity" href="#AddressingtheMediaStreamofaMediaEntity">4.14 Addressing the Media Stream of a Media Entity</a>
 
 To address the media stream represented by a media entity, clients
 append `/$value` to the resource path of the media entity URL. Services
@@ -1320,14 +1360,14 @@ may redirect from this canonical URL to the source URL of the media
 stream.
 
 ::: example
-Example 45: request the media stream for the picture with the key value
+Example 47: request the media stream for the picture with the key value
 `Sunset4321299432`:
 ```
 http://host/service/Pictures('Sunset4321299432')/$value
 ```
 :::
 
-## <a name="AddressingtheCrossJoinofEntitySets" href="#AddressingtheCrossJoinofEntitySets">4.15 Addressing the Cross Join of Entity Sets</a>
+## <a id="AddressingtheCrossJoinofEntitySets" href="#AddressingtheCrossJoinofEntitySets">4.15 Addressing the Cross Join of Entity Sets</a>
 
 In addition to querying related entities through navigation properties
 defined in the entity model of a service, the cross join operator allows
@@ -1360,7 +1400,7 @@ The [`$count`](#SystemQueryOptioncount),
 with no special semantics.
 
 ::: example
-Example 46: if `Sales` had a structural property `ProductID` instead of
+Example 48: if `Sales` had a structural property `ProductID` instead of
 a navigation property `Product`, a "cross join" between `Sales` and
 `Products` could be addressed
 ```
@@ -1389,7 +1429,7 @@ and would result in
 ```
 :::
 
-## <a name="AddressingAllEntitiesinaService" href="#AddressingAllEntitiesinaService">4.16 Addressing All Entities in a Service</a>
+## <a id="AddressingAllEntitiesinaService" href="#AddressingAllEntitiesinaService">4.16 Addressing All Entities in a Service</a>
 
 The symbolic resource `$all`, located at the service root, identifies
 the collection of all entities in a service, i.e. the union of all
@@ -1409,21 +1449,21 @@ entities of that type. Query options such as
 restricted set according to the specified type.
 
 ::: example
-Example 47: all entities in a service that somehow match `red`
+Example 49: all entities in a service that somehow match `red`
 ```
 http://host/service/$all?$search=red
 ```
 :::
 
 ::: example
-Example 48: all `Customer` entities in a service whose name contains
+Example 50: all `Customer` entities in a service whose name contains
 `red`
 ```
 http://host/service/$all/Model.Customer?$filter=contains(Name,'red')
 ```
 :::
 
-## <a name="PassingQueryOptionsintheRequestBody" href="#PassingQueryOptionsintheRequestBody">4.17 Passing Query Options in the Request Body</a>
+## <a id="PassingQueryOptionsintheRequestBody" href="#PassingQueryOptionsintheRequestBody">4.17 Passing Query Options in the Request Body</a>
 
 The query options part of an OData URL can be quite long, potentially
 exceeding the maximum length of URLs supported by components involved in
@@ -1439,25 +1479,112 @@ Requests to paths ending in `/$query` MUST use the `POST` verb. Query
 options specified in the request body and query options specified in the
 request URL are processed together.
 
-The request body MUST use `Content-Type: text/plain`. It contains the
-query portion of the URL and MUST use the same percent-encoding as in
-URLs (especially: no spaces, tabs, or line breaks allowed) and MUST
-follow the syntax rules described in chapter Query Options.
+The request body MUST use a `Content-Type` of `text/plain`, `application/x-www-form-urlencoded`,
+or `application/json`.
+
+For `Content-Type: text/plain`, the individual query options MUST be separated by `&`
+and MUST use the same percent-encoding as in URLs (especially: no spaces, tabs, or line breaks allowed)
+and MUST follow the syntax rules described in [chapter 5](#QueryOptions).
 
 ::: example
-Example 49: passing a filter condition in the request body
+Example <a id="postquery" href="#postquery">51</a>: system query options in request body instead of URL
 ```
 POST http://host/service/People/$query
 Content-Type: text/plain
 
-$filter=[FirstName,LastName]%20in%20[["John","Doe"],["Jane","Smith"]]
+$filter=LastName%20eq%20'P%26G'&$select=FirstName,LastName
+```
+:::
+
+For `Content-Type: application/x-www-form-urlencoded`, the request body MUST be
+suitable _input_ for the [`application/x-www-form-urlencoded` parser](https://url.spec.whatwg.org/#urlencoded-parsing)
+in the [URL Living Standard](#_url), section 5.1 such that the _output_ of the parsing
+steps is the list of name/value pairs for the individual query options.
+
+To guarantee this, clients are advised to make the request body the value of
+_output_ after running the
+[`application/x-www-form-urlencoded` serializer](https://url.spec.whatwg.org/#concept-urlencoded-serializer)
+in the [URL Living Standard](#_url), section 5.2 with _tuples_ being the list
+of name/value pairs for the individual query options.
+
+::: example
+Example 52: The same payload as in [example 51](#postquery) can be sent with
+`application/x-www-form-urlencoded` encoding. But the the `application/x-www-form-urlencoded` parser
+also accepts a different encoding:
+```
+POST http://host/service/People/$query
+Content-Type: application/x-www-form-urlencoded
+
+%24filter=LastName+eq+%27P%26G%27&%24select=FirstName%2CLastName
+```
+This POST request would result from submitting the HTML form
+```html
+<form method="post" action="http://host/service/People/$query"
+      enctype="application/x-www-form-urlencoded">
+  <input name="$filter" value="LastName eq 'P&G'">
+  <input name="$select" value="FirstName,LastName">
+</form>
+```
+which encodes spaces and ampersands (and more characters for which encoding is
+optional).
+:::
+
+With `Content-Type: application/json` query options and function parameters are
+encoded in a request body that represents a JSON object. Its members include the
+individual query options. The name of a system query option MUST have the `$` prefix.
+The value MUST be
+* a JSON number for `$top` and `$skip`, and
+* a JSON string without percent-encoding for all other query options.
+
+::: example
+Example 53: The same request as in [example 51](#postquery) can be sent with
+`application/json` encoding using the following payload:
+```json
+POST http://host/service/People/$query
+Content-Type: application/json
+
+{
+  "$filter": "LastName eq 'P&G'",
+  "$select": "FirstName,LastName"
+}
+```
+:::
+
+Members of the JSON object also include parameters
+if the resource path is a function invocation or function import. In this case
+parameters MUST be represented like parameters in an action invocation [OData-JSON, section 18](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ActionInvocation),
+and in the resource path parentheses after the function name MUST be omitted.
+
+::: example
+Example 54: An employee's top ten leave requests from now to the end of the year
+pending their manager's approval.
+```json
+POST http://host/service/Employees(23)/self.PendingLeaveRequests/$query
+Content-Type: application/json
+
+{
+  "StartDate@expression": "now()",
+  "EndDate": "2024-12-31",
+  "Approver@expression": "Manager",
+  "$top": 10
+}
+```
+
+The previous request looks analogous to a bound function invocation with expressions (like in [example 31](#funcexpr))
+if it is written using implicit parameter aliases (see [OData-Protocol, section 11.5.4.1.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#InlineParameterSyntax)).
+```
+GET http://host/service/Employees(23)/self.PendingLeaveRequests
+  ?StartDate=now()
+  &EndDate=2024-12-31
+  &Approver=Manager
+  &$top=10
 ```
 :::
 
 
 -------
 
-# <a name="QueryOptions" href="#QueryOptions">5 Query Options</a>
+# <a id="QueryOptions" href="#QueryOptions">5 Query Options</a>
 
 The query options part of an OData URL specifies three types of
 information: [system query options](#SystemQueryOptions), [custom query
@@ -1466,7 +1593,7 @@ aliases](#ParameterAliases). All OData services MUST follow the query
 string parsing and construction rules defined in this section and its
 subsections.
 
-## <a name="SystemQueryOptions" href="#SystemQueryOptions">5.1 System Query Options</a>
+## <a id="SystemQueryOptions" href="#SystemQueryOptions">5.1 System Query Options</a>
 
 System query options are query string parameters that control the amount
 and order of the data returned for the resource identified by the URL.
@@ -1513,8 +1640,8 @@ The same system query option, irrespective of casing or whether or not
 it is prefixed with a `$`, MUST NOT be specified more than once for any
 resource.
 
-The semantics of all system query options are defined in the
-[OData-Protocol](#ODataProtocol) document.
+The semantics of all system query options are defined in
+[OData-Protocol, section 11.2.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptions).
 
 The grammar and syntax rules for system query options are defined in
 [OData-ABNF](#ODataABNF).
@@ -1522,7 +1649,7 @@ The grammar and syntax rules for system query options are defined in
 Dynamic properties can be used in the same way as declared properties.
 If they are not defined on an instance, they evaluate to `null`.
 
-### <a name="CommonExpressionSyntax" href="#CommonExpressionSyntax">5.1.1 Common Expression Syntax</a>
+### <a id="CommonExpressionSyntax" href="#CommonExpressionSyntax">5.1.1 Common Expression Syntax</a>
 
 The following operators, functions, and literals can be used in
 `$filter`, `$orderby`, and `$compute` expressions.
@@ -1530,9 +1657,29 @@ The following operators, functions, and literals can be used in
 The [OData-ABNF](#ODataABNF) `commonExpr` syntax rule defines the formal
 grammar of common expressions.
 
-#### <a name="LogicalOperators" href="#LogicalOperators">5.1.1.1 Logical Operators</a>
+The following subsections specify situations in which expressions evaluate to `null`
+if operands or parameters do not have the types expected by an operator or function.
+Notwithstanding these rules, if a service can determine such a type discrepancy for an expression
+that appears in a request independently of the underlying data,
+it MUST reject the request with an error message
+explaining the discrepancy. The determination can be based on, for example, the
+declared type of a property or the type of a literal value that occurs in the
+expression.
 
-OData defines a set of logical operators that evaluate to true or false
+::: example
+Example 55: In a search for people above a certain age
+```
+http://host/service/People?$filter=Age gt '50'
+```
+the expression would always evaluate to `null` because the age 50 is erroneously
+given as a string and the [`$filter`](#SystemQueryOptionfilter) would return an empty result, although this is
+really the result of a typing error. That's why a "type mismatch" error must
+instead be returned in such a case.
+:::
+
+#### <a id="LogicalOperators" href="#LogicalOperators">5.1.1.1 Logical Operators</a>
+
+OData defines a set of logical operators that evaluate to `true` or `false`
 (i.e. a `boolCommonExpr` as defined in [OData-ABNF](#ODataABNF)).
 Logical operators are typically used to filter a collection of
 resources.
@@ -1555,25 +1702,31 @@ The `eq`, `ne`, and `in` operators can be used with collection-valued
 operands, and the `eq` and `ne` operators can be used with operands of a
 structured type.
 
-##### <a name="Equals" href="#Equals">5.1.1.1.1 Equals</a>
+If at least one operand of an `eq`, `ne`, `lt`, `le`, `gt`, or `ge` operator
+is non-numeric and the operands have different types, the operator returns `null`.
 
-The `eq` operator returns true if the left operand is equal to the right
-operand, otherwise it returns false.
+The rules for the Boolean operators `and`, `or`, and `not` assume Boolean operands.
+If an operand of a Boolean operator is not Boolean, the operator returns `null`.
 
-When applied to operands of entity types, the `eq` operator returns true
+##### <a id="Equals" href="#Equals">5.1.1.1.1 Equals</a>
+
+The `eq` operator returns `true` if the left operand is equal to the right
+operand, otherwise it returns `false`.
+
+When applied to operands of entity types, the `eq` operator returns `true`
 if both operands represent the same entity, or both operands represent
-null.
+`null`.
 
 When applied to operands of complex types, the `eq` operator returns
-true if both operands have the same structure and same values, or both
-operands represent null.
+`true` if both operands have the same structure and same values, or both
+operands represent `null`.
 
-When applied to ordered collections, the `eq` operator returns true if
+When applied to ordered collections, the `eq` operator returns `true` if
 both operands have the same cardinality and each member of the left
-operand is equal to the corresponding member of the right operand.
+operand is equal to the member of the right operand at the same index.
 
 For services that support comparing unordered collections, the `eq`
-operator returns true if both operands are equal after applying the same
+operator returns `true` if both operands are equal after applying the same
 ordering on both collections.
 
 Each of the special values `null`, `-INF`, and `INF` is equal to itself,
@@ -1581,23 +1734,23 @@ and only to itself.
 
 The special value `NaN` is not equal to anything, even to itself.
 
-##### <a name="NotEquals" href="#NotEquals">5.1.1.1.2 Not Equals</a>
+##### <a id="NotEquals" href="#NotEquals">5.1.1.1.2 Not Equals</a>
 
-The `ne` operator returns true if the left operand is not equal to the
-right operand, otherwise it returns false.
+The `ne` operator returns `true` if the left operand is not equal to the
+right operand, otherwise it returns `false`.
 
-When applied to operands of entity types, the `ne` operator returns true
+When applied to operands of entity types, the `ne` operator returns `true`
 if the two operands do not represent the same entity.
 
 When applied to operands of complex types, the `ne` operator returns
-true if the operands do not have the same structure and same values.
+`true` if the operands do not have the same structure and same values.
 
-When applied to ordered collections, the `ne` operator returns true if
+When applied to ordered collections, the `ne` operator returns `true` if
 both operands do not have the same cardinality or any member of the left
 operand is not equal to the corresponding member of the right operand.
 
 For services that support comparing unordered collections, the `ne`
-operator returns true if both operands do not have the same cardinality
+operator returns `true` if both operands do not have the same cardinality
 or do not contain the same members, in any order.
 
 Each of the special values `null`, `-INF`, and `INF` is not equal to any
@@ -1607,10 +1760,10 @@ The special value `NaN` is not equal to anything, even to itself.
 
 The `null` value is not equal to any value but itself.
 
-##### <a name="GreaterThan" href="#GreaterThan">5.1.1.1.3 Greater Than</a>
+##### <a id="GreaterThan" href="#GreaterThan">5.1.1.1.3 Greater Than</a>
 
-The `gt` operator returns true if the left operand is greater than the
-right operand, otherwise it returns false.
+The `gt` operator returns `true` if the left operand is greater than the
+right operand, otherwise it returns `false`.
 
 The special value `INF` is greater than any number, and any number is
 greater than `-INF`.
@@ -1623,19 +1776,19 @@ with language-dependent order with the term
 [`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
 see [OData-VocCore](#ODataVocCore).
 
-If any operand is `null`, the operator returns false.
+If any operand is `null`, the operator returns `false`.
 
-##### <a name="GreaterThanorEqual" href="#GreaterThanorEqual">5.1.1.1.4 Greater Than or Equal</a>
+##### <a id="GreaterThanorEqual" href="#GreaterThanorEqual">5.1.1.1.4 Greater Than or Equal</a>
 
-The `ge` operator returns true if the left operand is greater than or
-equal to the right operand, otherwise it returns false.
+The `ge` operator returns `true` if the left operand is greater than or
+equal to the right operand, otherwise it returns `false`.
 
 See rules for [`gt`](#GreaterThan) and [`eq`](#Equals) for details.
 
-##### <a name="LessThan" href="#LessThan">5.1.1.1.5 Less Than</a>
+##### <a id="LessThan" href="#LessThan">5.1.1.1.5 Less Than</a>
 
-The `lt` operator returns true if the left operand is less than the
-right operand, otherwise it returns false.
+The `lt` operator returns `true` if the left operand is less than the
+right operand, otherwise it returns `false`.
 
 The special value `-INF` is less than any number, and any number is less
 than `INF`.
@@ -1648,105 +1801,106 @@ with language-dependent order with the term
 [`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
 see [OData-VocCore](#ODataVocCore).
 
-If any operand is `null`, the operator returns false.
+If any operand is `null`, the operator returns `false`.
 
-##### <a name="LessThanorEqual" href="#LessThanorEqual">5.1.1.1.6 Less Than or Equal</a>
+##### <a id="LessThanorEqual" href="#LessThanorEqual">5.1.1.1.6 Less Than or Equal</a>
 
-The `le` operator returns true if the left operand is less than or equal
-to the right operand, otherwise it returns false.
+The `le` operator returns `true` if the left operand is less than or equal
+to the right operand, otherwise it returns `false`.
 
 See rules for [`lt`](#LessThan) and [`eq`](#Equals) for details.
 
-##### <a name="And" href="#And">5.1.1.1.7 And</a>
+##### <a id="And" href="#And">5.1.1.1.7 And</a>
 
-The `and` operator returns true if both the left and right operands
-evaluate to true, otherwise it returns false.
-
-The `null` value is treated as unknown, so if one operand evaluates to
-`null` and the other operand to false, the `and` operator returns false.
-All other combinations with `null` return `null`.
-
-##### <a name="Or" href="#Or">5.1.1.1.8 Or</a>
-
-The `or` operator returns false if both the left and right operands both
-evaluate to false, otherwise it returns true.
+The `and` operator returns `true` if both the left and right operands
+evaluate to `true`, otherwise it returns `false`.
 
 The `null` value is treated as unknown, so if one operand evaluates to
-`null` and the other operand to true, the `or` operator returns true.
+`null` and the other operand to `false`, the `and` operator returns `false`.
 All other combinations with `null` return `null`.
 
-##### <a name="Not" href="#Not">5.1.1.1.9 Not</a>
+##### <a id="Or" href="#Or">5.1.1.1.8 Or</a>
 
-The `not` operator returns true if the operand returns false, otherwise
-it returns false.
+The `or` operator returns `false` if both the left and right operands both
+evaluate to `false`, otherwise it returns `true`.
+
+The `null` value is treated as unknown, so if one operand evaluates to
+`null` and the other operand to `true`, the `or` operator returns `true`.
+All other combinations with `null` return `null`.
+
+##### <a id="Not" href="#Not">5.1.1.1.9 Not</a>
+
+The `not` operator returns `true` if the operand returns `false`, otherwise
+it returns `false`.
 
 The `null` value is treated as unknown, so `not null` returns `null`.
 
-##### <a name="Has" href="#Has">5.1.1.1.10 Has</a>
+##### <a id="Has" href="#Has">5.1.1.1.10 Has</a>
 
-The `has` operator returns true if the right operand is an enumeration
+The `has` operator returns `true` if the right operand is an enumeration
 value whose flag(s) are set on the left operand.
 
 The `null` value is treated as unknown, so if one operand evaluates to
 `null`, the `has` operator returns `null`.
 
-##### <a name="In" href="#In">5.1.1.1.11 In</a>
+##### <a id="In" href="#In">5.1.1.1.11 In</a>
 
-The `in` operator returns true if the left operand is a member of the
-right operand. The right operand MUST be either a comma-separated list
+The `in` operator returns `true` if the [equality](#Equals) comparison of the left
+operand with at least one member of the right operand returns `true`.
+The right operand MUST be either a comma-separated list
 of zero or more primitive values, enclosed in parentheses, or a single expression
 that resolves to a collection. If the right operand is an empty collection
-or list of values, the expression returns false.
+or list of values, the `in` operator returns `false`.
 
-##### <a name="LogicalOperatorExamples" href="#LogicalOperatorExamples">5.1.1.1.12 Logical Operator Examples</a>
+##### <a id="LogicalOperatorExamples" href="#LogicalOperatorExamples">5.1.1.1.12 Logical Operator Examples</a>
 
 The following examples illustrate the use and semantics of each of the
 logical operators.
 
 ::: example
-Example 50: all products with a `Name` equal to `Milk`
+Example 56: all products with a `Name` equal to `Milk`
 ```
 http://host/service/Products?$filter=Name eq 'Milk'
 ```
 :::
 
 ::: example
-Example 51: all products with a `Name` not equal to `Milk`
+Example 57: all products with a `Name` not equal to `Milk`
 ```
 http://host/service/Products?$filter=Name ne 'Milk'
 ```
 :::
 
 ::: example
-Example 52: all products with a `Name` greater than `Milk`:
+Example 58: all products with a `Name` greater than `Milk`:
 ```
 http://host/service/Products?$filter=Name gt 'Milk'
 ```
 :::
 
 ::: example
-Example 53: all products with a `Name` greater than or equal to `Milk`:
+Example 59: all products with a `Name` greater than or equal to `Milk`:
 ```
 http://host/service/Products?$filter=Name ge 'Milk'
 ```
 :::
 
 ::: example
-Example 54: all products with a `Name` less than `Milk`:
+Example 60: all products with a `Name` less than `Milk`:
 ```
 http://host/service/Products?$filter=Name lt 'Milk'
 ```
 :::
 
 ::: example
-Example 55: all products with a `Name` less than or equal to `Milk`:
+Example 61: all products with a `Name` less than or equal to `Milk`:
 ```
 http://host/service/Products?$filter=Name le 'Milk'
 ```
 :::
 
 ::: example
-Example 56: all products with a `Name` equal to `Milk` that also have a `Price`
+Example 62: all products with a `Name` equal to `Milk` that also have a `Price`
 less than 2.55:
 ```
 http://host/service/Products?$filter=Name eq 'Milk' and Price lt 2.55
@@ -1754,7 +1908,7 @@ http://host/service/Products?$filter=Name eq 'Milk' and Price lt 2.55
 :::
 
 ::: example
-Example 57: all products that either have a `Name` equal to `Milk` or have a
+Example 63: all products that either have a `Name` equal to `Milk` or have a
 `Price` less than 2.55:
 ```
 http://host/service/Products?$filter=Name eq 'Milk' or Price lt 2.55
@@ -1762,27 +1916,27 @@ http://host/service/Products?$filter=Name eq 'Milk' or Price lt 2.55
 :::
 
 ::: example
-Example 58: all products that do not have a `Name` that ends with `ilk`:
+Example 64: all products that do not have a `Name` that ends with `ilk`:
 ```
 http://host/service/Products?$filter=not endswith(Name,'ilk')
 ```
 :::
 
 ::: example
-Example 59: all products whose `style` value includes `Yellow`:
+Example 65: all products whose `style` value includes `Yellow`:
 ```
 http://host/service/Products?$filter=style has Sales.Pattern'Yellow'
 ```
 :::
 
 ::: example
-Example 60: all products whose `Name` is `Milk` or `Cheese`:
+Example 66: all products whose `Name` is `Milk` or `Cheese`:
 ```
 http://host/service/Products?$filter=Name in ('Milk', 'Cheese')
 ```
 :::
 
-#### <a name="ArithmeticOperators" href="#ArithmeticOperators">5.1.1.2 Arithmetic Operators</a>
+#### <a id="ArithmeticOperators" href="#ArithmeticOperators">5.1.1.2 Arithmetic Operators</a>
 
 OData defines a set of arithmetic operators that require operands that
 evaluate to numeric types. Arithmetic operators are typically used to
@@ -1790,14 +1944,15 @@ filter a collection of resources. However, services MAY allow using
 arithmetic operators with the [`$orderby`](#SystemQueryOptionorderby)
 system query option.
 
-If an operand of an arithmetic operator is null, the result is null.
+If an operand of an arithmetic operator is `null` or has a non-allowed type,
+the result is `null`.
 
 The syntax rules for the arithmetic operators are defined in
 [OData-ABNF](#ODataABNF). 4.01 Services MUST support case-insensitive
 operator names. Clients that want to work with 4.0 services MUST use
 lower case operator names.
 
-##### <a name="Addition" href="#Addition">5.1.1.2.1 Addition</a>
+##### <a id="Addition" href="#Addition">5.1.1.2.1 Addition</a>
 
 The `add` operator adds the left and right numeric operands.
 
@@ -1823,7 +1978,7 @@ Specifically, for adding a duration to a date:
 Thus, today plus a positive duration smaller than one day is today;
 today minus a positive duration smaller than one day is yesterday.
 
-##### <a name="Subtraction" href="#Subtraction">5.1.1.2.2 Subtraction</a>
+##### <a id="Subtraction" href="#Subtraction">5.1.1.2.2 Subtraction</a>
 
 The `sub` operator subtracts the right numeric operand from the left
 numeric operand.
@@ -1848,12 +2003,12 @@ The rules for time-related operands are defined in
 Specifically for subtracting a duration from a date see the preceding
 [section](#Addition).
 
-##### <a name="Negation" href="#Negation">5.1.1.2.3 Negation</a>
+##### <a id="Negation" href="#Negation">5.1.1.2.3 Negation</a>
 
 The negation operator, represented by a minus (`-`) sign, changes the
 sign of its numeric or `Duration` operand.
 
-##### <a name="Multiplication" href="#Multiplication">5.1.1.2.4 Multiplication</a>
+##### <a id="Multiplication" href="#Multiplication">5.1.1.2.4 Multiplication</a>
 
 The `mul` operator multiplies the left and right numeric operands. The
 `mul` operator is also valid for multiplying a `Duration` value with a
@@ -1864,7 +2019,7 @@ ${\rm scaleof}(A {\ \tt mul\ } B) = {\rm scaleof}(A) + {\rm scaleof}(B)$,
 `floating` if any operand has floating
 scale, or else `variable` if any operand has variable scale.
 
-##### <a name="Division" href="#Division">5.1.1.2.5 Division</a>
+##### <a id="Division" href="#Division">5.1.1.2.5 Division</a>
 
 The `div` and` divby` operators divide the left numeric operand by the
 right numeric operand. They are also valid for dividing a `Duration`
@@ -1890,7 +2045,7 @@ operands to decimal before computing the result, may yield a fractional
 result, and does not fail for `divby` zero, returning `-INF`, `INF`, or
 `NaN` depending on the sign of the left operand.
 
-##### <a name="Modulo" href="#Modulo">5.1.1.2.6 Modulo</a>
+##### <a id="Modulo" href="#Modulo">5.1.1.2.6 Modulo</a>
 
 The `mod` operator returns the remainder when the left numeric operand
 is divided by the right numeric operand.  The sign of the result is the
@@ -1901,96 +2056,99 @@ For operands of type `Edm.Decimal` the scale of the result is
 ${\rm scaleof}(A {\ \tt mod\ } B) = \max({\rm scaleof}(A), {\rm scaleof}(B))$,
 or `variable` if any operand has variable scale.
 
-##### <a name="ArithmeticOperatorExamples" href="#ArithmeticOperatorExamples">5.1.1.2.7 Arithmetic Operator Examples</a>
+##### <a id="ArithmeticOperatorExamples" href="#ArithmeticOperatorExamples">5.1.1.2.7 Arithmetic Operator Examples</a>
 
 The following examples illustrate the use and semantics of each of the
 Arithmetic operators.
 
 ::: example
-Example 61: all products with a Price of 2.55:
+Example 67: all products with a Price of 2.55:
 ```
 http://host/service/Products?$filter=Price add 2.45 eq 5.00
 ```
 :::
 
 ::: example
-Example 62: all products with a Price of 2.55:
+Example 68: all products with a Price of 2.55:
 ```
 http://host/service/Products?$filter=Price sub 0.55 eq 2.00
 ```
 :::
 
 ::: example
-Example 63: all products with a Price of 2.55:
+Example 69: all products with a Price of 2.55:
 ```
 http://host/service/Products?$filter=Price mul 2.0 eq 5.10
 ```
 :::
 
 ::: example
-Example 64: all products with a Price of 2.55:
+Example 70: all products with a Price of 2.55:
 ```
 http://host/service/Products?$filter=Price div 2.55 eq 1
 ```
 :::
 
 ::: example
-Example 65: all products with an integer Rating value of 4 or 5:
+Example 71: all products with an integer Rating value of 4 or 5:
 ```
 http://host/service/Products?$filter=Rating div 2 eq 2
 ```
 :::
 
 ::: example
-Example 66: all products with an integer Rating value of 5:
+Example 72: all products with an integer Rating value of 5:
 ```
 http://host/service/Products?$filter=Rating divby 2 eq 2.5
 ```
 :::
 
 ::: example
-Example 67: all products with a Rating exactly divisible by 5:
+Example 73: all products with a Rating exactly divisible by 5:
 ```
 http://host/service/Products?$filter=Rating mod 5 eq 0
 ```
 :::
 
-#### <a name="Grouping" href="#Grouping">5.1.1.3 Grouping</a>
+#### <a id="Grouping" href="#Grouping">5.1.1.3 Grouping</a>
 
 The Grouping operator (open and close parenthesis "`( )`") controls the
 evaluation order of an expression. The Grouping operator returns the
 expression grouped inside the parenthesis.
 
 ::: example
-Example 68: all products because 9 mod 3 is 0
+Example 74: all products because 9 mod 3 is 0
 ```
 http://host/service/Products?$filter=(4 add 5) mod (4 sub 1) eq 0
 ```
 :::
 
-#### <a name="CanonicalFunctions" href="#CanonicalFunctions">5.1.1.4 Canonical Functions</a>
+#### <a id="CanonicalFunctions" href="#CanonicalFunctions">5.1.1.4 Canonical Functions</a>
 
 In addition to operators, a set of functions is also defined for use
 with the [`$compute`](#SystemQueryOptioncompute), `$filter` or
 [`$orderby`](#SystemQueryOptionorderby) system query options, or in
-[parameter alias](#ParameterAliases) values. The following sections
-describe the available functions.
+[parameter alias](#ParameterAliases) values. The following [sections 5.1.1.5.1](#concat)
+to [5.1.1.11.3](#geolength) describe the available functions. The [`case`](#case)
+and [lambda operators](#LambdaOperators) have a slightly different
+syntax.
 
 Note: ISNULL or COALESCE operators are
 not defined. Instead, OData defines a [`null`](#null) literal that can
 be used in comparisons.
 
 If a parameter of a canonical function is `null`, the function returns
-`null`.
+`null`. If the types of parameters do not match the function signature,
+the function also returns `null`.
 
 The syntax rules for all functions are defined in
 [OData-ABNF](#ODataABNF). 4.01 Services MUST support case-insensitive
 canonical function names. Clients that want to work with 4.0 services
 MUST use lower case canonical function names.
 
-#### <a name="StringandCollectionFunctions" href="#StringandCollectionFunctions">5.1.1.5 String and Collection Functions</a>
+#### <a id="StringandCollectionFunctions" href="#StringandCollectionFunctions">5.1.1.5 String and Collection Functions</a>
 
-##### <a name="concat" href="#concat">5.1.1.5.1 `concat`</a>
+##### <a id="concat" href="#concat">5.1.1.5.1 `concat`</a>
 
 The `concat` function has three overloads, with the following
 signatures:
@@ -2012,13 +2170,13 @@ The `concatMethodCallExpr` syntax rule defines how the `concat` function
 is invoked.
 
 ::: example
-Example 69: all customers from Berlin, Germany
+Example 75: all customers from Berlin, Germany
 ```
 http://host/service/Customers?$filter=concat(concat(City,', '),Country) eq 'Berlin, Germany'
 ```
 :::
 
-##### <a name="contains" href="#contains">5.1.1.5.2 `contains`</a>
+##### <a id="contains" href="#contains">5.1.1.5.2 `contains`</a>
 
 The `contains` function has two overloads, with the following
 signatures:
@@ -2028,14 +2186,14 @@ Edm.Boolean contains(Edm.String,Edm.String)
 Edm.Boolean contains(OrderedCollection,OrderedCollection)
 ```
 
-The `contains` function with string parameter values returns true if the
+The `contains` function with string parameter values returns `true` if the
 second string is a substring of the first string, otherwise it returns
-false. String comparison is case-sensitive, case-insensitive comparison
+`false`. String comparison is case-sensitive, case-insensitive comparison
 can be achieved in combination with [`tolower`](#tolower) or
 [`toupper`](#toupper).
 
 The `contains` function with ordered collection parameter values returns
-true if the first collection can be transformed into the second
+`true` if the first collection can be transformed into the second
 collection by removing zero or more items from the beginning or the end
 of the first collection.
 
@@ -2043,13 +2201,13 @@ The `containsMethodCallExpr` syntax rule defines how the `contains`
 function is invoked.
 
 ::: example
-Example 70: all customers with a `CompanyName` that contains `Alfreds`
+Example 76: all customers with a `CompanyName` that contains `Alfreds`
 ```
 http://host/service/Customers?$filter=contains(CompanyName,'Alfreds')
 ```
 :::
 
-##### <a name="endswith" href="#endswith">5.1.1.5.3 `endswith`</a>
+##### <a id="endswith" href="#endswith">5.1.1.5.3 `endswith`</a>
 
 The `endswith` function has two overloads, with the following
 signatures:
@@ -2059,14 +2217,14 @@ Edm.Boolean endswith(Edm.String,Edm.String)
 Edm.Boolean endswith(OrderedCollection,OrderedCollection)
 ```
 
-The `endswith` function with string parameter values returns true if the
-first string ends with the second string, otherwise it returns false.
+The `endswith` function with string parameter values returns `true` if the
+first string ends with the second string, otherwise it returns `false`.
 String comparison is case-sensitive, case-insensitive comparison can be
 achieved in combination with [`tolower`](#tolower) or
 [`toupper`](#toupper).
 
 The `endswith` function with ordered collection parameter values returns
-true if the first collection can be transformed into the second
+`true` if the first collection can be transformed into the second
 collection by removing zero or more items from the beginning of the
 first collection.
 
@@ -2074,14 +2232,14 @@ The `endsWithMethodCallExpr` syntax rule defines how the `endswith`
 function is invoked.
 
 ::: example
-Example 71: all customers with a `CompanyName` that ends with
+Example 77: all customers with a `CompanyName` that ends with
 `Futterkiste`
 ```
 http://host/service/Customers?$filter=endswith(CompanyName,'Futterkiste')
 ```
 :::
 
-##### <a name="indexof" href="#indexof">5.1.1.5.4 `indexof`</a>
+##### <a id="indexof" href="#indexof">5.1.1.5.4 `indexof`</a>
 
 The `indexof` function has two overloads, with the following signatures:
 
@@ -2106,14 +2264,14 @@ The `indexOfMethodCallExpr` syntax rule defines how the `indexof`
 function is invoked.
 
 ::: example
-Example 72: all customers with a `CompanyName` containing `lfreds`
+Example 78: all customers with a `CompanyName` containing `lfreds`
 starting at the second character
 ```
 http://host/service/Customers?$filter=indexof(CompanyName,'lfreds') eq 1
 ```
 :::
 
-##### <a name="length" href="#length">5.1.1.5.5 `length`</a>
+##### <a id="length" href="#length">5.1.1.5.5 `length`</a>
 
 The `length` function has two overloads, with the following signatures:
 
@@ -2132,14 +2290,14 @@ The `lengthMethodCallExpr` syntax rule defines how the `length` function
 is invoked.
 
 ::: example
-Example 73: all customers with a `CompanyName` that is 19 characters
+Example 79: all customers with a `CompanyName` that is 19 characters
 long
 ```
 http://host/service/Customers?$filter=length(CompanyName) eq 19
 ```
 :::
 
-##### <a name="startswith" href="#startswith">5.1.1.5.6 `startswith`</a>
+##### <a id="startswith" href="#startswith">5.1.1.5.6 `startswith`</a>
 
 The `startswith` function has two overloads, with the following
 signatures:
@@ -2149,14 +2307,14 @@ Edm.Boolean startswith(Edm.String,Edm.String)
 Edm.Boolean startswith(Collection,Collection)
 ```
 
-The `startswith` function with string parameter values returns true if
+The `startswith` function with string parameter values returns `true` if
 the first string starts with the second string, otherwise it returns
-false. String comparison is case-sensitive, case-insensitive comparison
+`false`. String comparison is case-sensitive, case-insensitive comparison
 can be achieved in combination with [`tolower`](#tolower) or
 [`toupper`](#toupper).
 
 The `startswith` function with ordered collection parameter values
-returns true if the first collection can be transformed into the second
+returns `true` if the first collection can be transformed into the second
 collection by removing zero or more items from the end of the first
 collection.
 
@@ -2164,13 +2322,13 @@ The `startsWithMethodCallExpr` syntax rule defines how the `startswith`
 function is invoked.
 
 ::: example
-Example 74: all customers with a `CompanyName` that starts with `Alfr`
+Example 80: all customers with a `CompanyName` that starts with `Alfr`
 ```
 http://host/service/Customers?$filter=startswith(CompanyName,'Alfr')
 ```
 :::
 
-##### <a name="substring" href="#substring">5.1.1.5.7 `substring`</a>
+##### <a id="substring" href="#substring">5.1.1.5.7 `substring`</a>
 
 The `substring` function has four overloads, with the following
 signatures:
@@ -2218,7 +2376,7 @@ The `substringMethodCallExpr` syntax rule defines how the `substring`
 function is invoked.
 
 ::: example
-Example 75: all customers with a `CompanyName` of `lfreds Futterkiste`
+Example 81: all customers with a `CompanyName` of `lfreds Futterkiste`
 once the first character has been removed
 ```
 http://host/service/Customers?$filter=substring(CompanyName,1) eq 'lfreds Futterkiste'
@@ -2226,16 +2384,16 @@ http://host/service/Customers?$filter=substring(CompanyName,1) eq 'lfreds Futter
 :::
 
 ::: example
-Example 76: all customers with a `CompanyName` that has `lf` as the
+Example 82: all customers with a `CompanyName` that has `lf` as the
 second and third characters, e.g, `Alfreds Futterkiste`
 ```
 http://host/service/Customers?$filter=substring(CompanyName,1,2) eq 'lf'
 ```
 :::
 
-#### <a name="CollectionFunctions" href="#CollectionFunctions">5.1.1.6 Collection Functions</a>
+#### <a id="CollectionFunctions" href="#CollectionFunctions">5.1.1.6 Collection Functions</a>
 
-##### <a name="hassubset" href="#hassubset">5.1.1.6.1 `hassubset`</a>
+##### <a id="hassubset" href="#hassubset">5.1.1.6.1 `hassubset`</a>
 
 The `hassubset` function has the following signature:
 
@@ -2243,13 +2401,13 @@ The `hassubset` function has the following signature:
 Edm.Boolean hassubset(Collection, Collection)
 ```
 
-The `hassubset` function returns true if the first collection can be
+The `hassubset` function returns `true` if the first collection can be
 transformed into the second collection by reordering and/or removing
 zero or more items. The `hasSubsetMethodCallExpr` syntax rule defines
 how the `hassubset` function is invoked.
 
 ::: example
-Example 77: `hassubset` expressions that return true
+Example 83: `hassubset` expressions that return `true`
 ```
 hassubset([4,1,3],[4,1,3])
 ```
@@ -2272,14 +2430,14 @@ hassubset([4,1,3,1],[1,1])
 :::
 
 ::: example
-Example 78: `hassubset` expression that returns false: 1 appears only
+Example 84: `hassubset` expression that returns `false`: `1` appears only
 once in the left operand
 ```
 hassubset([1,2],[1,1,2])
 ```
 :::
 
-##### <a name="hassubsequence" href="#hassubsequence">5.1.1.6.2 `hassubsequence`</a>
+##### <a id="hassubsequence" href="#hassubsequence">5.1.1.6.2 `hassubsequence`</a>
 
 The `hassubsequence` function has the following signature:
 
@@ -2287,13 +2445,13 @@ The `hassubsequence` function has the following signature:
 Edm.Boolean hassubsequence(OrderedCollection,OrderedCollection)
 ```
 
-The `hassubsequence` function returns true if the first collection can
+The `hassubsequence` function returns `true` if the first collection can
 be transformed into the second collection by removing zero or more
 items. The `hasSubsequenceMethodCallExpr` syntax rule defines how the
 `hassubsequence` function is invoked.
 
 ::: example
-Example 79: `hassubsequence` expressions that return true
+Example 85: `hassubsequence` expressions that return `true`
 ```
 hassubsequence([4,1,3],[4,1,3])
 ```
@@ -2312,7 +2470,7 @@ hassubsequence([4,1,3,1],[1,1])
 :::
 
 ::: example
-Example 80: `hassubsequence` expressions that return false
+Example 86: `hassubsequence` expressions that return `false`
 ```
 hassubsequence([4,1,3],[1,3,4])
 ```
@@ -2326,9 +2484,9 @@ hassubsequence([1,2],[1,1,2])
 ```
 :::
 
-#### <a name="StringFunctions" href="#StringFunctions">5.1.1.7 String Functions</a>
+#### <a id="StringFunctions" href="#StringFunctions">5.1.1.7 String Functions</a>
 
-##### <a name="matchespattern" href="#matchespattern">5.1.1.7.1 `matchespattern`</a>
+##### <a id="matchespattern" href="#matchespattern">5.1.1.7.1 `matchespattern`</a>
 
 The `matchespattern` function has the following signatures:
 
@@ -2338,15 +2496,18 @@ Edm.Boolean matchespattern(Edm.String,Edm.String,Edm.String)
 ```
 
 The second parameter MUST evaluate to a string containing an
-[ECMAScript](#_ECMAScript) (JavaScript) regular expression. The `matchespattern` function returns true if the first parameter evaluates
+[ECMAScript](#_ECMAScript) (JavaScript) regular expression, otherwise the function
+returns `null`. The
+`matchespattern` function returns `true` if the first parameter evaluates
 to a string matching that regular expression, using syntax and semantics
 of ECMAScript regular expressions, otherwise it
-returns false.
+returns `false`.
 If the optional third parameter is provided, it MUST evaluate to a string
-consisting of ECMAScript regular expression flags to modify the match.
+consisting of ECMAScript regular expression flags to modify the match, otherwise
+the function returns `null`.
 
 ::: example
-Example 81: all customers with a `CompanyName` that match the
+Example 87: all customers with a `CompanyName` that match the
 (percent-encoded) regular expression `^A.*e$`
 ```
 http://host/service/Customers?$filter=matchespattern(CompanyName,'%5EA.*e$')
@@ -2354,13 +2515,13 @@ http://host/service/Customers?$filter=matchespattern(CompanyName,'%5EA.*e$')
 :::
 
 ::: example
-Example 82: all customers with a `FormattedAddress` that contains a line ending with `berg` or ends with `berg`
+Example 88: all customers with a `FormattedAddress` that contains a line ending with `berg` or ends with `berg`
 ```
 http://host/service/Customers?$filter=matchespattern(FormattedAddress,'berg$','m')
 ```
 :::
 
-##### <a name="tolower" href="#tolower">5.1.1.7.2 `tolower`</a>
+##### <a id="tolower" href="#tolower">5.1.1.7.2 `tolower`</a>
 
 The `tolower` function has the following signature:
 
@@ -2374,7 +2535,7 @@ The `toLowerMethodCallExpr` syntax rule defines how the `tolower`
 function is invoked.
 
 ::: example
-Example 83: all customers with a `CompanyName` that equals
+Example 89: all customers with a `CompanyName` that equals
 `alfreds futterkiste` once any uppercase characters have been
 converted to lowercase
 ```
@@ -2382,7 +2543,7 @@ http://host/service/Customers?$filter=tolower(CompanyName) eq 'alfreds futterkis
 ```
 :::
 
-##### <a name="toupper" href="#toupper">5.1.1.7.3 `toupper`</a>
+##### <a id="toupper" href="#toupper">5.1.1.7.3 `toupper`</a>
 
 The `toupper` function has the following signature:
 
@@ -2396,7 +2557,7 @@ The `toUpperMethodCallExpr` syntax rule defines how the `toupper`
 function is invoked.
 
 ::: example
-Example 84: all customers with a `CompanyName` that equals
+Example 90: all customers with a `CompanyName` that equals
 `ALFREDS FUTTERKISTE` once any lowercase characters have been
 converted to uppercase
 ```
@@ -2404,7 +2565,7 @@ http://host/service/Customers?$filter=toupper(CompanyName) eq 'ALFREDS FUTTERKIS
 ```
 :::
 
-##### <a name="trim" href="#trim">5.1.1.7.4 `trim`</a>
+##### <a id="trim" href="#trim">5.1.1.7.4 `trim`</a>
 
 The `trim` function has the following signature:
 
@@ -2418,16 +2579,16 @@ removed. The `trimMethodCallExpr` syntax rule defines how the `trim`
 function is invoked.
 
 ::: example
-Example 85: all customers with a `CompanyName` without leading or
+Example 91: all customers with a `CompanyName` without leading or
 trailing whitespace characters
 ```
 http://host/service/Customers?$filter=trim(CompanyName) eq CompanyName
 ```
 :::
 
-#### <a name="DateandTimeFunctions" href="#DateandTimeFunctions">5.1.1.8 Date and Time Functions</a>
+#### <a id="DateandTimeFunctions" href="#DateandTimeFunctions">5.1.1.8 Date and Time Functions</a>
 
-##### <a name="date" href="#date">5.1.1.8.1 `date`</a>
+##### <a id="date" href="#date">5.1.1.8.1 `date`</a>
 
 The `date` function has the following signature:
 
@@ -2439,7 +2600,7 @@ The `date` function returns the date part of the `DateTimeOffset`
 parameter value, evaluated in the time zone of the `DateTimeOffset`
 parameter value.
 
-##### <a name="day" href="#day">5.1.1.8.2 `day`</a>
+##### <a id="day" href="#day">5.1.1.8.2 `day`</a>
 
 The `day` function has the following signatures:
 
@@ -2460,13 +2621,13 @@ UTC) MUST fail evaluation of the `day` function for literal
 normalized values.
 
 ::: example
-Example 86: all employees born on the 8th day of a month
+Example 92: all employees born on the 8th day of a month
 ```
 http://host/service/Employees?$filter=day(BirthDate) eq 8
 ```
 :::
 
-##### <a name="fractionalseconds" href="#fractionalseconds">5.1.1.8.3 `fractionalseconds`</a>
+##### <a id="fractionalseconds" href="#fractionalseconds">5.1.1.8.3 `fractionalseconds`</a>
 
 The `fractionalseconds` function has the following signatures:
 
@@ -2482,14 +2643,14 @@ non-negative decimal value less than 1. The
 `fractionalseconds` function is invoked.
 
 ::: example
-Example 87: all employees born less than 100 milliseconds after a full
+Example 93: all employees born less than 100 milliseconds after a full
 second of any minute of any hour on any day
 ```
 http://host/service/Employees?$filter=[fractionalseconds(BirthDate) lt 0.1
 ```
 :::
 
-##### <a name="hour" href="#hour">5.1.1.8.4 `hour`</a>
+##### <a id="hour" href="#hour">5.1.1.8.4 `hour`</a>
 
 The `hour` function has the following signatures:
 
@@ -2510,14 +2671,14 @@ UTC) MUST fail evaluation of the `hour` function for literal
 normalized values.
 
 ::: example
-Example 88: all employees born in hour 4, between 04:00 (inclusive) and
+Example 94: all employees born in hour 4, between 04:00 (inclusive) and
 05:00 (exclusive)
 ```
 http://host/service/Employees?$filter=hour(BirthDate) eq 4
 ```
 :::
 
-##### <a name="maxdatetime" href="#maxdatetime">5.1.1.8.5 `maxdatetime`</a>
+##### <a id="maxdatetime" href="#maxdatetime">5.1.1.8.5 `maxdatetime`</a>
 
 The `maxdatetime` function has the following signature:
 
@@ -2528,7 +2689,7 @@ Edm.DateTimeOffset maxdatetime()
 The `maxdatetime` function returns the latest possible point in time as
 a `DateTimeOffset` value.
 
-##### <a name="mindatetime" href="#mindatetime">5.1.1.8.6 `mindatetime`</a>
+##### <a id="mindatetime" href="#mindatetime">5.1.1.8.6 `mindatetime`</a>
 
 The `mindatetime` function has the following signature:
 
@@ -2539,7 +2700,7 @@ Edm.DateTimeOffset mindatetime()
 The `mindatetime` function returns the earliest possible point in time
 as a `DateTimeOffset` value.
 
-##### <a name="minute" href="#minute">5.1.1.8.7 `minute`</a>
+##### <a id="minute" href="#minute">5.1.1.8.7 `minute`</a>
 
 The `minute` function has the following signatures:
 
@@ -2554,13 +2715,13 @@ zone of the `DateTimeOffset` parameter value. The `minuteMethodCallExpr`
 syntax rule defines how the `minute` function is invoked.
 
 ::: example
-Example 89: all employees born in minute 40 of any hour on any day
+Example 95: all employees born in minute 40 of any hour on any day
 ```
 http://host/service/Employees?$filter=minute(BirthDate) eq 40
 ```
 :::
 
-##### <a name="month" href="#month">5.1.1.8.8 `month`</a>
+##### <a id="month" href="#month">5.1.1.8.8 `month`</a>
 
 The `month` function has the following signatures:
 
@@ -2581,13 +2742,13 @@ UTC) MUST fail evaluation of the `month` function for literal
 normalized values.
 
 ::: example
-Example 90: all employees born in May
+Example 96: all employees born in May
 ```
 http://host/service/Employees?$filter=month(BirthDate) eq 5
 ```
 :::
 
-##### <a name="now" href="#now">5.1.1.8.9 `now`</a>
+##### <a id="now" href="#now">5.1.1.8.9 `now`</a>
 
 The `now` function has the following signature:
 
@@ -2604,7 +2765,7 @@ UTC. Services that are unable to preserve the offset of
 common time zone SHOULD return a value in the normalized time zone
 (for example UTC).
 
-##### <a name="second" href="#second">5.1.1.8.10 `second`</a>
+##### <a id="second" href="#second">5.1.1.8.10 `second`</a>
 
 The `second` function has the following signatures:
 
@@ -2620,14 +2781,14 @@ of the `DateTimeOffset` or `TimeOfDay` parameter value. The
 invoked.
 
 ::: example
-Example 91: all employees born in second 40 of any minute of any hour on
+Example 97: all employees born in second 40 of any minute of any hour on
 any day
 ```
 http://host/service/Employees?$filter=second(BirthDate) eq 40
 ```
 :::
 
-##### <a name="time" href="#time">5.1.1.8.11 `time`</a>
+##### <a id="time" href="#time">5.1.1.8.11 `time`</a>
 
 The `time` function has the following signature:
 
@@ -2645,7 +2806,7 @@ UTC) MUST fail evaluation of the `time` function for literal
 `Edm.DateTimeOffset` values that are not stated in the time zone of the
 normalized values.
 
-##### <a name="totaloffsetminutes" href="#totaloffsetminutes">5.1.1.8.12 `totaloffsetminutes`</a>
+##### <a id="totaloffsetminutes" href="#totaloffsetminutes">5.1.1.8.12 `totaloffsetminutes`</a>
 
 The `totaloffsetminutes` function has the following signature:
 
@@ -2657,7 +2818,7 @@ The `totaloffsetminutes` function returns the signed number of minutes
 in the time zone offset part of the `DateTimeOffset` parameter value,
 evaluated in the time zone of the `DateTimeOffset` parameter value.
 
-##### <a name="totalseconds" href="#totalseconds">5.1.1.8.13 `totalseconds`</a>
+##### <a id="totalseconds" href="#totalseconds">5.1.1.8.13 `totalseconds`</a>
 
 The `totalseconds` function has the following signature:
 
@@ -2668,7 +2829,7 @@ Edm.Decimal totalseconds(Edm.Duration)
 The `totalseconds` function returns the duration of the value in total
 seconds, including fractional seconds.
 
-##### <a name="year" href="#year">5.1.1.8.14 `year`</a>
+##### <a id="year" href="#year">5.1.1.8.14 `year`</a>
 
 The `year` function has the following signatures:
 
@@ -2689,15 +2850,15 @@ UTC) MUST fail evaluation of the `year` function for literal
 normalized values.
 
 ::: example
-Example 92: all employees born in 1971
+Example 98: all employees born in 1971
 ```
 http://host/service/Employees?$filter=year(BirthDate) eq 1971
 ```
 :::
 
-#### <a name="ArithmeticFunctions" href="#ArithmeticFunctions">5.1.1.9 Arithmetic Functions</a>
+#### <a id="ArithmeticFunctions" href="#ArithmeticFunctions">5.1.1.9 Arithmetic Functions</a>
 
-##### <a name="ceiling" href="#ceiling">5.1.1.9.1 `ceiling`</a>
+##### <a id="ceiling" href="#ceiling">5.1.1.9.1 `ceiling`</a>
 
 The `ceiling` function has the following signatures
 
@@ -2712,13 +2873,13 @@ nearest numeric value with no decimal component. The
 is invoked.
 
 ::: example
-Example 93: all orders with freight costs that round up to 32
+Example 99: all orders with freight costs that round up to 32
 ```
 http://host/service/Orders?$filter=ceiling(Freight) eq 32
 ```
 :::
 
-##### <a name="floor" href="#floor">5.1.1.9.2 `floor`</a>
+##### <a id="floor" href="#floor">5.1.1.9.2 `floor`</a>
 
 The `floor` function has the following signatures
 
@@ -2733,13 +2894,13 @@ nearest numeric value with no decimal component. The
 invoked.
 
 ::: example
-Example 94: all orders with freight costs that round down to 32
+Example 100: all orders with freight costs that round down to 32
 ```
 http://host/service/Orders?$filter=floor(Freight) eq 32
 ```
 :::
 
-##### <a name="round" href="#round">5.1.1.9.3 `round`</a>
+##### <a id="round" href="#round">5.1.1.9.3 `round`</a>
 
 The `round` function has the following signatures
 
@@ -2755,15 +2916,15 @@ rounded to -1. The `roundMethodCallExpr` syntax rule defines how the
 `round` function is invoked.
 
 ::: example
-Example 95: all orders with freight costs that round to 32
+Example 101: all orders with freight costs that round to 32
 ```
 http://host/service/Orders?$filter=round(Freight) eq 32
 ```
 :::
 
-#### <a name="TypeFunctions" href="#TypeFunctions">5.1.1.10 Type Functions</a>
+#### <a id="TypeFunctions" href="#TypeFunctions">5.1.1.10 Type Functions</a>
 
-##### <a name="cast" href="#cast">5.1.1.10.1 `cast`</a>
+##### <a id="cast" href="#cast">5.1.1.10.1 `cast`</a>
 
 The `cast` function has the following signatures:
 
@@ -2798,12 +2959,9 @@ The `cast` function follows these assignment rules:
     [section 3.3.7 dateTime](https://www.w3.org/TR/xmlschema11-2/#dateTime), can be cast to `Edm.DateTimeOffset`.
     If the string value does not contain a time-zone offset, it is treated as UTC.
 
-The `cast` function is optional for primitive values (first five rules)
-and up-casts (seventh rule).
-
 If the cast fails, the `cast` function returns `null`.
 
-##### <a name="isof" href="#isof">5.1.1.10.2 `isof`</a>
+##### <a id="isof" href="#isof">5.1.1.10.2 `isof`</a>
 
 The `isof` function has the following signatures
 
@@ -2812,19 +2970,19 @@ Edm.Boolean isof(type)
 Edm.Boolean isof(expression,type)
 ```
 
-The single parameter `isof` function returns true if the current
+The single parameter `isof` function returns `true` if the current
 instance is assignable to the type specified, according to the
 assignment rules for the [`cast`](#cast) function, otherwise it returns
 `false`.
 
-The two parameter `isof` function returns true if the object referred to
+The two parameter `isof` function returns `true` if the object referred to
 by the expression is assignable to the type specified, according to the
-same rules, otherwise it returns false.
+same rules, otherwise it returns `false`.
 
 The `isofExpr` syntax rule defines how the `isof` function is invoked.
 
 ::: example
-Example 96: orders that are also `BigOrders`
+Example 102: orders that are also `BigOrders`
 ```
 http://host/service/Orders?$filter=isof(NorthwindModel.BigOrder)
 ```
@@ -2835,15 +2993,15 @@ http://host/service/Orders?$filter=isof($it,NorthwindModel.BigOrder)
 :::
 
 ::: example
-Example 97: orders of a customer that is a `VIPCustomer`
+Example 103: orders of a customer that is a `VIPCustomer`
 ```
 http://host/service/Orders?$filter=isof(Customer,NorthwindModel.VIPCustomer)
 ```
 :::
 
-#### <a name="GeoFunctions" href="#GeoFunctions">5.1.1.11 Geo Functions</a>
+#### <a id="GeoFunctions" href="#GeoFunctions">5.1.1.11 Geo Functions</a>
 
-##### <a name="geodistance" href="#geodistance">5.1.1.11.1 `geo.distance`</a>
+##### <a id="geodistance" href="#geodistance">5.1.1.11.1 `geo.distance`</a>
 
 The `geo.distance` function has the following signatures:
 
@@ -2856,7 +3014,7 @@ The `geo.distance` function returns the shortest distance between the
 two points in the coordinate reference system signified by the two
 points' SRIDs.
 
-##### <a name="geointersects" href="#geointersects">5.1.1.11.2 `geo.intersects`</a>
+##### <a id="geointersects" href="#geointersects">5.1.1.11.2 `geo.intersects`</a>
 
 The `geo.intersects` function has the following signatures:
 
@@ -2865,11 +3023,11 @@ Edm.Boolean geo.intersects(Edm.GeographyPoint,Edm.GeographyPolygon)
 Edm.Boolean geo.intersects(Edm.GeometryPoint,Edm.GeometryPolygon)
 ```
 
-The `geo.intersects` function returns true if the specified point lies
+The `geo.intersects` function returns `true` if the specified point lies
 within the interior or on the boundary of the specified polygon,
-otherwise it returns false.
+otherwise it returns `false`.
 
-##### <a name="geolength" href="#geolength">5.1.1.11.3 `geo.length`</a>
+##### <a id="geolength" href="#geolength">5.1.1.11.3 `geo.length`</a>
 
 The `geo.length` function has the following signatures:
 
@@ -2881,26 +3039,26 @@ Edm.Double geo.length(Edm.GeometryLineString)
 The `geo.length` function returns the total length of its line string
 parameter in the coordinate reference system signified by its SRID.
 
-#### <a name="ConditionalFunctions" href="#ConditionalFunctions">5.1.1.12 Conditional Functions</a>
+#### <a id="ConditionalOperators" href="#ConditionalOperators">5.1.1.12 Conditional Operators</a>
 
-##### <a name="case" href="#case">5.1.1.12.1 `case`</a>
+##### <a id="case" href="#case">5.1.1.12.1 `case`</a>
 
-The `case` function has the following signature:
+The `case` operator has a comma-separated lists of arguments:
 
 ```
 expression case(Edm.Boolean:expression, …, Edm.Boolean:expression)
 ```
 
-Each parameter is a pair of expressions separated by a colon (`:`),
+Each argument is a pair of expressions separated by a colon (`:`),
 where the first expression --- the condition --- MUST be a Boolean
 expression, and the second expression --- the result --- may evaluate to
 any type.
 
-The case function evaluates the condition in each pair, starting with
+The `case` operator evaluates the condition in each pair, starting with
 the leftmost pair, and stops as soon as a condition evaluates to `true`.
 It then returns the value of the result of this pair. It returns `null`
 if none of the conditions in any pair evaluates to `true`. Clients can
-specify a last pair whose condition is `true` to get a non-null
+specify a last pair whose condition is `true` to get a non-`null`
 "default/else/otherwise" result.
 
 Boolean expressions containing `DateTimeOffset` or `TimeOfDay` literals without
@@ -2919,13 +3077,13 @@ incompatible types, in which case the case expression is treated as
 selected by the case statement.
 
 ::: example
-Example 98: compute signum(X)
+Example 104: compute signum(X)
 ```
 $compute=case(X gt 0:1,X lt 0:-1,true:0) as SignumX
 ```
 :::
 
-#### <a name="LambdaOperators" href="#LambdaOperators">5.1.1.13 Lambda Operators</a>
+#### <a id="LambdaOperators" href="#LambdaOperators">5.1.1.13 Lambda Operators</a>
 
 OData defines two operators that evaluate a Boolean expression on a
 collection. Both must be prepended with a path expression that
@@ -2950,18 +3108,18 @@ the lambda variable nor `$it` are evaluated in the scope of the
 instance or of members of the collection at the origin of the path expression prepended to
 the lambda operator.
 
-##### <a name="any" href="#any">5.1.1.13.1 `any`</a>
+##### <a id="any" href="#any">5.1.1.13.1 `any`</a>
 
 The `any` operator applies a Boolean expression to each member of a
-collection and returns true if and only if the expression is true for
-any member of the collection, otherwise it returns false. This implies
-that the `any` operator always returns false for an empty collection.
+collection and returns `true` if and only if the expression is `true` for
+any member of the collection, otherwise it returns `false`. This implies
+that the `any` operator always returns `false` for an empty collection.
 
 The `any` operator can be used without an argument expression. This
-short form returns false if and only if the collection is empty.
+short form returns `false` if and only if the collection is empty.
 
 ::: example
-Example 99: all `Orders` that have any `Items` with a `Quantity` greater
+Example 105: all `Orders` that have any `Items` with a `Quantity` greater
 than `100`
 ```
 http://host/service/Orders?$filter=Items/any(d:d/Quantity gt 100)
@@ -2969,7 +3127,7 @@ http://host/service/Orders?$filter=Items/any(d:d/Quantity gt 100)
 :::
 
 ::: example
-Example 100: all customers having an order with a deviating shipping
+Example 106: all customers having an order with a deviating shipping
 address. The `Address` in the argument expression is evaluated in the
 scope of the `Customers` collection.
 ```
@@ -2978,42 +3136,46 @@ http://host/service/Customers?$filter=Orders/any(o:o/ShippingAddress ne Address)
 :::
 
 ::: example
-Example 101: all categories along with their products used in some order
+Example 107: all categories along with their products used in some order
 with a deviating unit price. The unprefixed `UnitPrice` in the argument
 expression is evaluated in the scope of the expanded `Products`.
 ```
-http://host/service/Categories?$expand=Products($filter=OrderItems/any(oi:oi/UnitPrice ne UnitPrice))
+http://host/service/Categories?$expand=Products(
+  $filter=OrderItems/any(oi:oi/UnitPrice ne UnitPrice))
 ```
 :::
 
-##### <a name="all" href="#all">5.1.1.13.2 `all`</a>
+##### <a id="all" href="#all">5.1.1.13.2 `all`</a>
 
 The `all` operator applies a Boolean expression to each member of a
-collection and returns true if the expression is true for all members of
-the collection, otherwise it returns false. This implies that the `all`
-operator always returns true for an empty collection.
+collection and returns `true` if the expression is `true` for all members of
+the collection, otherwise it returns `false`. This implies that the `all`
+operator always returns `true` for an empty collection.
 
 The `all` operator cannot be used without an argument expression.
 
 ::: example
-Example 102: all `Orders` that have only `Items` with a `Quantity`
+Example 108: all `Orders` that have only `Items` with a `Quantity`
 greater than `100`
 ```
 http://host/service/Orders?$filter=Items/all(d:d/Quantity gt 100)
 ```
 :::
 
-#### <a name="Literals" href="#Literals">5.1.1.14 Literals</a>
+#### <a id="Literals" href="#Literals">5.1.1.14 Literals</a>
 
-##### <a name="PrimitiveLiterals" href="#PrimitiveLiterals">5.1.1.14.1 Primitive Literals</a>
+##### <a id="PrimitiveLiterals" href="#PrimitiveLiterals">5.1.1.14.1 Primitive Literals</a>
 
 Primitive literals can appear in the resource path as key property
 values, and in the query part, for example, as operands in
 [`$filter`](#SystemQueryOptionfilter) expressions. They are represented
 according to the `primitiveLiteral` rule in [OData-ABNF](#ODataABNF).
+The interpretation of a `timeOfDayLiteral` in which the `second` is omitted
+is not defined by this specification. For maximum interoperability, senders
+SHOULD always include the `second`.
 
 ::: example
-Example 103: expressions using primitive literals
+Example 109: expressions using primitive literals
 ```
 NullValue eq null
 ```
@@ -3100,7 +3262,7 @@ with or without the type prefix. OData clients that want to operate
 across OData 4.0 and OData 4.01 services should always include the
 prefix for duration and enumeration types.
 
-##### <a name="ComplexandCollectionLiterals" href="#ComplexandCollectionLiterals">5.1.1.14.2 Complex and Collection Literals</a>
+##### <a id="StructuredandCollectionLiterals" href="#StructuredandCollectionLiterals">5.1.1.14.2 Structured and Collection Literals</a>
 
 Complex literals and collection literals in URLs are represented as JSON
 objects and arrays according to the `arrayOrObject` rule in
@@ -3118,26 +3280,36 @@ percent-encoded in URLs although some browsers will accept and pass them
 on unencoded.
 
 ::: example
-Example 104: collection of string literals
+Example 110: collection of string literals
 ```
 http://host/service/ProductsByColors(colors=@c)?@c=["red","green"]
 ```
 :::
 
 ::: example
-Example 105: check whether a pair of properties has one of several
+Example 111: check whether a pair of properties has one of several
 possible pair values
 ```
 $filter=[FirstName,LastName] in [["John","Doe"],["Jane","Smith"]]
 ```
 :::
 
-##### <a name="null" href="#null">5.1.1.14.3 `null`</a>
+Entities are represented as structured literals as described in [OData-JSON, section 6](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#Entity).
+Non-transient entities can alternatively be represented through their [resource path](#ResourcePath).
+
+::: example
+Example 112: determine the price of an adhoc-defined product
+```
+http://host/service/Price(Product=@p)?@p={"Color":"red"}
+```
+:::
+
+##### <a id="null" href="#null">5.1.1.14.3 `null`</a>
 
 The `null` literal can be used to compare a value to null, or to pass a
 null value to a function.
 
-##### <a name="it" href="#it">5.1.1.14.4 `$it`</a>
+##### <a id="it" href="#it">5.1.1.14.4 `$it`</a>
 
 The `$it` literal can be used in expressions to refer to the current
 instance of the resource identified by the resource path. For a
@@ -3171,7 +3343,7 @@ function overload on the current instance within an expression. Function
 names without a path prefix refer to an unbound function overload.
 
 ::: example
-Example 106: email addresses ending with `.com` assuming
+Example 113: email addresses ending with `.com` assuming
 `EmailAddresses` is a collection of strings
 ```
 http://host/service/Customers(1)/EmailAddresses?$filter=endswith($it,'.com')
@@ -3179,7 +3351,7 @@ http://host/service/Customers(1)/EmailAddresses?$filter=endswith($it,'.com')
 :::
 
 ::: example
-Example 107: customers along with their orders that shipped to the same
+Example 114: customers along with their orders that shipped to the same
 city as the customer's address. The nested filter expression is
 evaluated in the context of Orders; `$it` allows referring to values in
 the outer context of Customers.
@@ -3190,7 +3362,7 @@ http://host/service/Customers?$expand=Orders($filter=$it/Address/City eq ShipTo/
 :::
 
 ::: example
-Example 108: products with at least 10 positive reviews.
+Example 115: products with at least 10 positive reviews.
 `Model.PositiveReviews` is a function bound to `Model.Product` returning
 a collection of reviews.
 ```
@@ -3198,35 +3370,37 @@ http://host/service/Products?$filter=$it/Model.PositiveReviews()/$count ge 10
 ```
 :::
 
-##### <a name="root" href="#root">5.1.1.14.5 `$root`</a>
+##### <a id="root" href="#root">5.1.1.14.5 `$root`</a>
 
 The `$root` literal can be used in expressions to refer to resources of
 the same service.
 
 ::: example
-Example 109: all employees with the same last name as employee `A1235`
+Example 116: all employees with the same last name as employee `A1235`
 ```
 http://host/service/Employees?$filter=LastName eq $root/Employees('A1245')/LastName
 ```
 :::
 
 ::: example
-Example 110: products ordered by a set of customers, where the set of
+Example 117: products ordered by a set of customers, where the set of
 customers is passed as a JSON array containing the resource paths from
 `$root` to each customer
 ```
-http://host/service/ProductsOrderedBy(Customers=@c)?@c=[$root/Customers('ALFKI'),$root/Customers('BLAUS')]
+http://host/service/ProductsOrderedBy(Customers=@c)
+  ?@c=[$root/Customers('ALFKI'),$root/Customers('BLAUS')]
 ```
 :::
 
 ::: example
-Example 111: function call returning the average rating of a given employee by their peers (employees in department D1)
+Example 118: function call returning the average rating of a given employee by their peers (employees in department D1)
 ```
-http://host/service/Employees('A1245')/self.AvgRating(RatedBy=@peers)?@peers=$root/Employees/$filter(Department eq 'D1')
+http://host/service/Employees('A1245')/self.AvgRating(RatedBy=@peers)
+  ?@peers=$root/Employees/$filter(Department eq 'D1')
 ```
 :::
 
-##### <a name="this" href="#this">5.1.1.14.6 `$this`</a>
+##### <a id="this" href="#this">5.1.1.14.6 `$this`</a>
 
 The `$this` literal can be used in [`$filter`](#SystemQueryOptionfilter)
 and [`$orderby`](#SystemQueryOptionorderby) expressions nested within
@@ -3236,13 +3410,13 @@ and navigation properties. It refers to the current instance of the
 collection.
 
 ::: example
-Example 112: select only email addresses ending with `.com`
+Example 119: select only email addresses ending with `.com`
 ```
 http://host/service/Customers?$select=EmailAddresses($filter=endswith($this,'.com'))
 ```
 :::
 
-#### <a name="PathExpressions" href="#PathExpressions">5.1.1.15 Path Expressions</a>
+#### <a id="PathExpressions" href="#PathExpressions">5.1.1.15 Path Expressions</a>
 
 Properties and navigation properties of the structured type on which
 a common expression is evaluated can be used as operands
@@ -3263,7 +3437,7 @@ target cardinality 0..1), its value, and the values of its components,
 are treated as `null`.
 
 ::: example
-Example 113: similar behavior whether `HeadquarterAddress` is a nullable
+Example 120: similar behavior whether `HeadquarterAddress` is a nullable
 complex type or a nullable navigation property
 ```
 Companies(1)/HeadquarterAddress/Street
@@ -3278,14 +3452,14 @@ of the specified derived type, the path expression returns `null`.
 
 If the property or navigation property is not defined for the type of
 the resource and that type supports dynamic properties or navigation
-properties, then the property or navigation property is treated as null
+properties, then the property or navigation property is treated as `null`
 for all instances on which it has no value.
 
 If the property or navigation property is not defined for the type of
 the resource and that type does not support dynamic properties or
 navigation properties, then the request may be considered malformed.
 
-#### <a name="AnnotationValuesinExpressions" href="#AnnotationValuesinExpressions">5.1.1.16 Annotation Values in Expressions</a>
+#### <a id="AnnotationValuesinExpressions" href="#AnnotationValuesinExpressions">5.1.1.16 Annotation Values in Expressions</a>
 
 Services MAY support the use of annotation values as operands or
 function parameters, and they MAY advertise this by annotating the
@@ -3304,14 +3478,14 @@ If an annotation is not applied to the resource or property, then its
 value, and the values of its components, are treated as `null`.
 
 ::: example
-Example 114: Return Products that have prices in Euro
+Example 121: Return Products that have prices in Euro
 ```
 http://host/service/Products?$filter=Price/@Measures.Currency eq 'EUR'
 ```
 :::
 
 ::: example
-Example 115: Return Employees that have any error messages in the
+Example 122: Return Employees that have any error messages in the
 [`Core.Messages`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Messages)
 annotation
 ```
@@ -3323,7 +3497,7 @@ Services MAY additionally support the use of the unqualified term name
 by defining one or more default namespaces through the
 [`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) annotation
 term defined in [OData-VocCore](#ODataVocCore). For more information on
-default namespaces, see Default Namespaces in [OData-Protocol](#ODataProtocol).
+default namespaces, see [OData-Protocol, section 4.4](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#DefaultNamespaces).
 This short notation however uses the same name pattern as parameter
 aliases. If a query option is specified as a [parameter
 alias](#ParameterAliases), then any occurrence of the parameter alias
@@ -3331,7 +3505,7 @@ name in an expression MUST evaluate to the parameter alias value and
 MUST NOT evaluate to the annotation value of an identical unqualified
 term name.
 
-#### <a name="OperatorPrecedence" href="#OperatorPrecedence">5.1.1.17 Operator Precedence</a>
+#### <a id="OperatorPrecedence" href="#OperatorPrecedence">5.1.1.17 Operator Precedence</a>
 
 OData services MUST use the following operator precedence for supported
 operators when evaluating [`$filter`](#SystemQueryOptionfilter) and
@@ -3365,7 +3539,7 @@ Equality        | `eq`            | Equal           | `eqExpr`
 Conditional AND | `and`           | Logical And     | `andExpr`
 Conditional OR  | `or`            | Logical Or      | `orExpr`
 
-#### <a name="NumericPromotion" href="#NumericPromotion">5.1.1.18 Numeric Promotion</a>
+#### <a id="NumericPromotion" href="#NumericPromotion">5.1.1.18 Numeric Promotion</a>
 
 Services SHOULD NOT require explicit cast operations between numeric
 types used in comparison expressions. Wherever possible, such
@@ -3388,20 +3562,20 @@ to promote an operand to the target type.
 OData does not define an implicit conversion between string and numeric
 types.
 
-### <a name="SystemQueryOptionfilter" href="#SystemQueryOptionfilter">5.1.2 System Query Option `$filter`</a>
+### <a id="SystemQueryOptionfilter" href="#SystemQueryOptionfilter">5.1.2 System Query Option `$filter`</a>
 
 The `$filter` system query option allows clients to filter a collection
 of resources that are addressed by a request URL. The expression
 specified with `$filter` is evaluated for each resource in the
-collection, and only items where the expression evaluates to true are
+collection, and only items where the expression evaluates to `true` are
 included in the response. Resources for which the expression evaluates
-to false or to null, or which reference properties that are unavailable
+to `false` or to `null`, or which reference properties that are unavailable
 due to permissions, are omitted from the response.
 
 The [OData-ABNF](#ODataABNF) `filter` syntax rule defines the formal
 grammar of the `$filter` query option.
 
-### <a name="SystemQueryOptionexpand" href="#SystemQueryOptionexpand">5.1.3 System Query Option `$expand`</a>
+### <a id="SystemQueryOptionexpand" href="#SystemQueryOptionexpand">5.1.3 System Query Option `$expand`</a>
 
 The `$expand` system query option specifies the related resources or
 media streams to be included in line with retrieved resources.
@@ -3431,11 +3605,13 @@ properties of the identified instances of a structured type, optionally followed
 related entity or entities, optionally followed by a [type-cast segment](#AddressingDerivedTypes)
 to expand only related entities of that derived type or one of its
 sub-types, optionally followed by `/$ref` to expand only entity
-references.
+references, or `/$count`, optionally with [`$filter`](#SystemQueryOptionfilter) and/or [`$search`](#SystemQueryOptionsearch) [expand options](#ExpandOptions), to return only the count of matching entities.
 - an entity-valued instance annotation to
 expand the related entity or entities, optionally followed by a
 [type-cast segment](#AddressingDerivedTypes) to expand only related entities of that derived type
 or one of its sub-types.
+
+A path MUST NOT appear in more than one expand item.
 
 If a structured type traversed by the path supports neither dynamic
 properties nor instance annotations, then a corresponding property
@@ -3446,24 +3622,114 @@ segment does not specify a declared property, then the expanded property
 appears only for those instances on which it has a value.
 
 ::: example
-Example 116: expand a navigation property of an entity type
+Example 123: expand a navigation property of an entity type
 ```
 http://host/service/Products?$expand=Category
 ```
 :::
 
 ::: example
-Example 117: expand a navigation property of a complex type
+Example 124: expand a navigation property of a complex type
 ```
 http://host/service/Customers?$expand=Addresses/Country
 ```
 :::
 
-A path MUST NOT appear in more than one expand item.
+::: example
+Example 125: all categories and for each category the number of all
+related products
+```
+http://host/service/Categories?$expand=Products/$count
+```
+:::
+
+::: example
+Example 126: all categories and for each category the number of all
+related blue products
+```
+http://host/service/Categories?$expand=Products/$count($search=blue)
+```
+:::
+
+To retrieve entity references instead of the related entities, append
+`/$ref` to the navigation property name or [type-cast segment](#AddressingDerivedTypes) following a navigation property name.
+The [Expand Options](#ExpandOptions) [`$filter`](#SystemQueryOptionfilter),
+[`$search`](#SystemQueryOptionsearch),
+[`$skip`](#SystemQueryOptionstopandskip), and
+[`$top`](#SystemQueryOptionstopandskip) can be used to limit the collection of expanded entity references, and
+[`$count`](#SystemQueryOptioncount) can be used to include the count of
+expanded entity references.
+
+::: example
+Example 127: all categories and for each category the references of all
+related products
+```
+http://host/service/Categories?$expand=Products/$ref
+```
+:::
+
+::: example
+Example 128: all categories and for each category the references of all
+related products of the derived type `Sales.PremierProduct`
+```
+http://host/service/Categories?$expand=Products/Sales.PremierProduct/$ref
+```
+:::
+
+::: example
+Example 129: all categories and for each category the references of all
+related premier products with a current promotion equal to `null`
+```
+http://host/service/Categories
+  ?$expand=Products/Sales.PremierProduct/$ref($filter=CurrentPromotion eq null)
+```
+:::
+
+It is also possible to expand all declared and dynamic navigation
+properties using a star (`*`). To retrieve references to all related
+entities use `*/$ref`, and to expand all related entities with a certain
+distance use the star operator with the `$levels` [Expand Option](#ExpandOptionlevels). The star operator can be combined with explicitly named navigation properties,
+which take precedence over the star operator.
+
+The star operator does not implicitly include stream properties.
+
+::: example
+Example 130: expand `Supplier` and include references for all other
+related entities
+```
+http://host/service/Categories?$expand=*/$ref,Supplier
+```
+:::
+
+Specifying a stream property includes the media stream inline according
+to the specified format.
+
+::: example
+Example 131: include Employee's `Photo` stream property along with other
+properties of the customer
+```
+http://host/service/Employees?$expand=Photo
+```
+:::
+
+Specifying `$value` for a media entity includes the media entity's
+stream value inline according to the specified format.
+
+::: example
+Example 132: Include the Product's media stream along with other
+properties of the product
+```
+http://host/service/Products?$expand=$value
+```
+:::
+
+#### <a id="ExpandOptions" href="#ExpandOptions">5.1.3.1 Expand Options</a>
 
 Query options can be applied to an expanded navigation property by
 appending a semicolon-separated list of query options, enclosed in
 parentheses, to the navigation property name.
+The system query option, irrespective of casing or whether or not it is prefixed with a `$`,
+MUST NOT be specified more than once in the list.
 Allowed system query options are
 [`$compute`](#SystemQueryOptioncompute),
 [`$select`](#SystemQueryOptionselect),
@@ -3477,131 +3743,37 @@ Allowed system query options are
 for collection-valued navigation properties.
 
 ::: example
-Example 118: all categories and for each category all related products
+Example 133: all categories and for each category all related products
 with a discontinued date equal to `null`
 ```
 http://host/service/Categories?$expand=Products($filter=DiscontinuedDate eq null)
 ```
 :::
 
-The `$count` segment can be appended to a navigation property name or
-[type-cast segment](#AddressingDerivedTypes) following a navigation
-property name to return just the count of the related entities. The
-`$filter` and `$search` system query options can be used to limit the
-number of related entities included in the count.
-
-::: example
-Example 119: all categories and for each category the number of all
-related products
-```
-http://host/service/Categories?$expand=Products/$count
-```
-:::
-
-::: example
-Example 120: all categories and for each category the number of all
-related blue products
-```
-http://host/service/Categories?$expand=Products/$count($search=blue)
-```
-:::
-
-To retrieve entity references instead of the related entities, append
-`/$ref` to the navigation property name or [type-cast segment](#AddressingDerivedTypes) following a navigation property name.
-The system query options [`$filter`](#SystemQueryOptionfilter),
-[`$search`](#SystemQueryOptionsearch),
-[`$skip`](#SystemQueryOptionstopandskip),
-[`$top`](#SystemQueryOptionstopandskip), and
-[`$count`](#SystemQueryOptioncount) can be used to limit the number of
-expanded entity references.
-
-::: example
-Example 121: all categories and for each category the references of all
-related products
-```
-http://host/service/Categories?$expand=Products/$ref
-```
-:::
-
-::: example
-Example 122: all categories and for each category the references of all
-related products of the derived type `Sales.PremierProduct`
-```
-http://host/service/Categories?$expand=Products/Sales.PremierProduct/$ref
-```
-:::
-
-::: example
-Example 123: all categories and for each category the references of all
-related premier products with a current promotion equal to `null`
-```
-http://host/service/Categories?$expand=Products/Sales.PremierProduct/$ref($filter=CurrentPromotion eq null)
-```
-:::
-
-<a name="ExpandOptionlevels">Cyclic navigation properties (whose target type is identical or can be
+[Cyclic navigation properties]{id=ExpandOptionlevels} (whose target type is identical or can be
 cast to its source type) can be recursively expanded using the special
-`$levels` option. The value of the `$levels` option is either a positive
+`$levels` expand option. The value of the `$levels` expand option is either a positive
 integer to specify the number of levels to expand, or the literal string
 `max` to specify the maximum expansion level supported by that service.
 A `$levels` option with a value of 1 specifies a single expand with no
-recursion.</a>
+recursion.
 
 ::: example
-Example 124: all employees with their manager, manager's manager, and
+Example 134: all employees with their manager, manager's manager, and
 manager's manager's manager
 ```
 http://host/service/Employees?$expand=ReportsTo($levels=3)
 ```
 :::
 
-It is also possible to expand all declared and dynamic navigation
-properties using a star (`*`). To retrieve references to all related
-entities use `*/$ref`, and to expand all related entities with a certain
-distance use the star operator with the `$levels` option. The star
-operator can be combined with explicitly named navigation properties,
-which take precedence over the star operator.
-
-The star operator does not implicitly include stream properties.
-
 ::: example
-Example 125: expand `Supplier` and include references for all other
-related entities
-```
-http://host/service/Categories?$expand=*/$ref,Supplier
-```
-:::
-
-::: example
-Example 126: expand all related entities and their related entities
+Example 135: expand all related entities and their related entities
 ```
 http://host/service/Categories?$expand=*($levels=2)
 ```
 :::
 
-Specifying a stream property includes the media stream inline according
-to the specified format.
-
-::: example
-Example 127: include Employee's `Photo` stream property along with other
-properties of the customer
-```
-http://host/service/Employees?$expand=Photo
-```
-:::
-
-Specifying `$value` for a media entity includes the media entity's
-stream value inline according to the specified format.
-
-::: example
-Example 128: Include the Product's media stream along with other
-properties of the product
-```
-http://host/service/Products?$expand=$value
-```
-:::
-
-### <a name="SystemQueryOptionselect" href="#SystemQueryOptionselect">5.1.4 System Query Option `$select`</a>
+### <a id="SystemQueryOptionselect" href="#SystemQueryOptionselect">5.1.4 System Query Option `$select`</a>
 
 The `$select` system query option allows clients to request a specific
 set of properties for each entity or complex type.
@@ -3618,7 +3790,7 @@ grammar of the `$select` query option.
 
 The value of `$select` is a comma-separated list of select items. Each
 select item is one of the following:
-- a path, to include a property,
+- a path, optionally followed by a [count segment](#AddressingtheCountofaCollection) or [select options](#SelectOptions)
 - a star (`*`), to include all declared or
 dynamic properties of the type, or
 - a qualified schema name followed by a
@@ -3627,7 +3799,8 @@ functions from that schema
 
 A path consists of segments separated by a forward slash (`/`). Segments
 are either names of single- or collection-valued complex properties,
-[instance annotations](#AnnotationValuesinExpressions), or [type-cast segments](#AddressingDerivedTypes) consisting of the qualified name of a structured type that is
+[instance annotations](#AnnotationValuesinExpressions), or
+[type-cast segments](#AddressingDerivedTypes) consisting of the qualified name of a structured type that is
 derived from the type identified by the preceding path segment to reach
 properties defined on the derived type.
 
@@ -3653,7 +3826,7 @@ The simplest form of a select item explicitly requests a property defined on the
 type of the resources identified by the resource path section of the URL.
 
 ::: example
-Example 129: rating and release date of all products
+Example 136: rating and release date of all products
 ```
 http://host/service/Products?$select=Rating,ReleaseDate
 ```
@@ -3663,7 +3836,7 @@ It is also possible to request all declared and dynamic structural
 properties using a star (`*`).
 
 ::: example
-Example 130: all structural properties of all products
+Example 137: all structural properties of all products
 ```
 http://host/service/Products?$select=*
 ```
@@ -3671,7 +3844,7 @@ http://host/service/Products?$select=*
 
 If the select item is not defined for the type of the resource, and that
 type supports dynamic properties or instance annotations, then the
-property is treated as null for all instances on which it is not
+property is treated as `null` for all instances on which it is not
 defined.
 
 If the select item is not defined for the type of the resource, and that
@@ -3691,10 +3864,11 @@ inline content can itself be restricted with a nested `$select` query
 option, see [section 5.1.2](#SystemQueryOptionfilter).
 
 ::: example
-Example 131: name and description of all products, plus name of expanded
+Example 138: name and description of all products, plus name of expanded
 category
 ```
-http://host/service/Products?$select=Name,Description&$expand=Category($select=Name)
+http://host/service/Products?$select=Name,Description
+  &$expand=Category($select=Name)
 ```
 :::
 
@@ -3703,34 +3877,36 @@ in order to select a property defined on a type derived from the type of
 the resource segment.
 
 A select item that is a complex type or collection of complex type can
-be followed by a forward slash, an optional [type-cast segment](#AddressingDerivedTypes), and the name of a property of the
-complex type (and so on for nested complex types).
+be followed by a forward slash, an optional [type-cast segment](#AddressingDerivedTypes),
+and the name of a property of the complex type (and so on for nested complex types).
 
 ::: example
-Example 132: the `AccountRepresentative` property of any supplier that
+Example 139: the `AccountRepresentative` property of any supplier that
 is of the derived type `Namespace.PreferredSupplier`, together with the
 `Street` property of the complex property
 `Address`, and the Location property of the derived complex type `Namespace.AddressWithLocation`
 ```
-http://host/service/Suppliers?$select=Namespace.PreferredSupplier/AccountRepresentative,Address/Street,Address/Namespace.AddressWithLocation/Location
+http://host/service/Suppliers
+  ?$select=Namespace.PreferredSupplier/AccountRepresentative,
+           Address/Street,Address/Namespace.AddressWithLocation/Location
 ```
 :::
 
-Query options can be applied to a select item that is a path to a single
-complex value or a collection of primitive or complex values by
-appending a semicolon-separated list of query options, enclosed in
-parentheses, to the select item. The allowed system query options depend
-on the type of the resource identified by the select item, see section
-[System Query Options](#SystemQueryOptions), with the exception of
-[`$expand`](#SystemQueryOptionexpand). The same property MUST NOT have
-select options specified in more than one place in a request and MUST
-NOT be specified in more than one expand.
+If the path ends in a collection of primitive or complex values, then the [count segment](#AddressingtheCountofaCollection) (`/$count`),
+optionally followed by the [Select Options](#SelectOptions) [`$filter`](#SystemQueryOptionfilter)
+and/or [`$search`](#SystemQueryOptionsearch), can be appended to the path in order to return only the count of the matching items.
 
 ::: example
-Example 133: select up to five addresses whose `City` starts with an
-`H`, sorted, and with the `Country` expanded
+Example 140: for each `Customer`, return the `ID` and the count of `Addresses`
 ```
-http://host/service/Customers?$select=Addresses($filter=startswith(City,'H');$top=5;$orderby=Country/Name,City,Street)&$expand=Addresses/Country
+http://host/service/Customers?$select=ID,Addresses/$count
+```
+:::
+
+::: example
+Example 141: for each `Customer`, return the `ID` and the count of `Addresses` whose `City` starts with 'H'
+```
+http://host/service/Customers?$select=ID,Addresses/$count($filter=startswith(City,'H'))
 ```
 :::
 
@@ -3740,7 +3916,7 @@ omitted from the response.
 
 Annotations requested in `$select` MUST be included in the response;
 `$select` overrules the `include-annotations` preference (see
-[OData-Protocol](#ODataProtocol)) for the explicitly requested annotations.
+[OData-Protocol, section 8.2.8.4](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#Preferenceincludeannotationsodataincludeannotations)) for the explicitly requested annotations.
 Additional annotations matching the preference can be included even if
 not requested via `$select`. The `Preference-Applied` response header
 only reflects the set of annotations included due to the
@@ -3761,7 +3937,7 @@ qualified name and that operation cannot be bound to the entities
 requested, the service MUST ignore the select item.
 
 ::: example
-Example 134: the `ID` property, the `ActionName` action defined in
+Example 142: the `ID` property, the `ActionName` action defined in
 `Model` and all actions and functions defined in the `Model2` for each
 product if those actions and functions can be bound to that product
 ```
@@ -3774,18 +3950,54 @@ of properties, open properties, navigation properties, actions and
 functions to be returned is equal to the union of the set of those
 identified by each select item.
 
-### <a name="SystemQueryOptionorderby" href="#SystemQueryOptionorderby">5.1.5 System Query Option `$orderby`</a>
+#### <a id="SelectOptions" href="#SelectOptions">5.1.4.1 Select Options</a>
+
+Query options can be applied to a select item that is a path to a single
+complex value or a collection of primitive or complex values by
+appending a semicolon-separated list of query options, enclosed in
+parentheses, to the select item. The allowed sytem query options are
+[`$compute`](#SystemQueryOptioncompute) and
+[`$select`](#SystemQueryOptionselect) for all complex-typed properties, plus
+[`$filter`](#SystemQueryOptionfilter),
+[`$orderby`](#SystemQueryOptionorderby),
+[`$skip`](#SystemQueryOptionstopandskip), [`$top`](#SystemQueryOptionstopandskip),
+[`$count`](#SystemQueryOptioncount), and
+[`$search`](#SystemQueryOptionsearch)
+for collection-valued properties. The same property MUST NOT have
+select options specified in more than one place in a request.
+
+If the select item is a complex type, or collection of complex types, then
+it can include a nested select.
+
+::: example
+Example 143: return the City from the Address complex type
+```
+http://host/service/Customers?$select=Address($select=City)
+```
+:::
+
+::: example
+Example 144: select up to five addresses whose `City` starts with an
+`H`, sorted, and with the `Country` expanded
+```
+http://host/service/Customers
+  ?$select=Addresses($filter=startswith(City,'H');$top=5;
+                     $orderby=Country/Name,City,Street)
+  &$expand=Addresses/Country
+```
+:::
+
+### <a id="SystemQueryOptionorderby" href="#SystemQueryOptionorderby">5.1.5 System Query Option `$orderby`</a>
 
 The `$orderby` system query option allows clients to request resources
 in a particular order.
 
-The semantics of `$orderby` are covered in the [OData-Protocol](#ODataProtocol)
-document.
+The semantics of `$orderby` are covered in [OData-Protocol, section 11.2.6.2](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptionorderby).
 
 The [OData-ABNF](#ODataABNF) `orderby` syntax rule defines the formal
 grammar of the `$orderby` query option.
 
-### <a name="SystemQueryOptionstopandskip" href="#SystemQueryOptionstopandskip">5.1.6 System Query Options `$top` and `$skip`</a>
+### <a id="SystemQueryOptionstopandskip" href="#SystemQueryOptionstopandskip">5.1.6 System Query Options `$top` and `$skip`</a>
 
 The `$top` system query option requests the number of items in the
 queried collection to be included in the result. The `$skip` query
@@ -3793,21 +4005,21 @@ option requests the number of items in the queried collection that are
 to be skipped and not included in the result. A client can request a
 particular page of items by combining `$top` and `$skip`.
 
-The semantics of `$top` and `$skip` are covered in the
-[OData-Protocol](#ODataProtocol) document. The [OData-ABNF](#ODataABNF) `top`
+The semantics of `$top` and `$skip` are covered in
+[OData-Protocol, section 11.2.6.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptiontop) and [OData-Protocol, section 11.2.6.4](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptionskip).
+The [OData-ABNF](#ODataABNF) `top`
 and `skip` syntax rules define the formal grammar of the `$top` and
 `$skip` query options respectively.
 
-### <a name="SystemQueryOptioncount" href="#SystemQueryOptioncount">5.1.7 System Query Option `$count`</a>
+### <a id="SystemQueryOptioncount" href="#SystemQueryOptioncount">5.1.7 System Query Option `$count`</a>
 
 The `$count` system query option allows clients to request a count of
 the matching resources included with the resources in the response. The
 `$count` query option has a Boolean value of `true` or `false`.
 
-The semantics of `$count` is covered in the [OData-Protocol](#ODataProtocol)
-document.
+The semantics of `$count` is covered in [OData-Protocol, section 11.2.6.5](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptioncount).
 
-### <a name="SystemQueryOptionsearch" href="#SystemQueryOptionsearch">5.1.8 System Query Option `$search`</a>
+### <a id="SystemQueryOptionsearch" href="#SystemQueryOptionsearch">5.1.8 System Query Option `$search`</a>
 
 The `$search` system query option allows clients to request items within
 a collection matching a free-text [search
@@ -3827,7 +4039,7 @@ The [OData-ABNF](#ODataABNF) `search` syntax rule defines the formal
 grammar of the `$search` query option.
 
 ::: example
-Example 135: all products that are blue or green. It is up to the
+Example 145: all products that are blue or green. It is up to the
 service to decide what makes a product blue or green.
 ```
 http://host/service/Products?$search=blue OR green
@@ -3840,7 +4052,7 @@ syntax provided they advertise this with the annotation `SearchRestrictions/Sear
 [OData-ABNF](#ODataABNF) `$search` syntax as terms to be matched if they are
 listed in `SearchRestrictions/UnsupportedExpressions`.
 
-#### <a name="SearchExpressions" href="#SearchExpressions">5.1.8.1 Search Expressions</a>
+#### <a id="SearchExpressions" href="#SearchExpressions">5.1.8.1 Search Expressions</a>
 
 Search expressions are used within the
 [`$search`](#SystemQueryOptionsearch) system query option to request
@@ -3852,7 +4064,7 @@ Leading and trailing spaces are not considered part of the search expression.
 Terms enclosed in double-quotes comprise a *phrase*.
 
 Each individual term or phrase comprises a Boolean expression that
-returns true if the term or phrase is matched, otherwise false. The
+returns `true` if the term or phrase is matched, otherwise `false`. The
 semantics of what is considered a match is dependent upon the service.
 
 Expressions enclosed in parenthesis comprise a *group expression*.
@@ -3861,16 +4073,16 @@ The search expression can contain any number of terms, phrases, or group
 expressions, along with the case-sensitive keywords `NOT`, `AND`, and
 `OR`, evaluated in that order.
 
-Expressions prefaced with `NOT` evaluate to true if the expression is
-not matched, otherwise false.
+Expressions prefaced with `NOT` evaluate to `true` if the expression is
+not matched, otherwise `false`.
 
 Two expressions not enclosed in quotes and separated by a space are
 equivalent to the same two expressions separated by the `AND` keyword.
 Such expressions evaluate to `true` if both expressions evaluate to
-true, otherwise false.
+`true`, otherwise `false`.
 
-Expressions separated by an `OR` evaluate to true if either of the
-expressions evaluate to true, otherwise false.
+Expressions separated by an `OR` evaluate to `true` if either of the
+expressions evaluate to `true`, otherwise `false`.
 
 To support type-ahead use cases, incomplete search expressions can be
 sent as OData string literals enclosed in single-quotes, and
@@ -3880,20 +4092,19 @@ Such an expression can also be used to search for double quotes: `?$search='"'`.
 The [OData-ABNF](#ODataABNF) `searchExpr` syntax rule defines the formal
 grammar of the search expression.
 
-### <a name="SystemQueryOptionformat" href="#SystemQueryOptionformat">5.1.9 System Query Option `$format`</a>
+### <a id="SystemQueryOptionformat" href="#SystemQueryOptionformat">5.1.9 System Query Option `$format`</a>
 
 The `$format` system query option allows clients to request a response
 in a particular format and is useful for clients without access to
 request headers for standard content-type negotiation. Where present
 `$format` takes precedence over standard content-type negotiation.
 
-The semantics of `$format` is covered in the [OData-Protocol](#ODataProtocol)
-document.
+The semantics of `$format` is covered in [OData-Protocol, section 11.2.11](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptionformat).
 
 The [OData-ABNF](#ODataABNF) `format` syntax rule defines the formal
 grammar of the `$format` query option.
 
-### <a name="SystemQueryOptioncompute" href="#SystemQueryOptioncompute">5.1.10 System Query Option `$compute`</a>
+### <a id="SystemQueryOptioncompute" href="#SystemQueryOptioncompute">5.1.10 System Query Option `$compute`</a>
 
 The `$compute` system query option allows clients to define computed
 properties that can be used in a [`$select`](#SystemQueryOptionselect)
@@ -3922,7 +4133,7 @@ result and MUST be included if `$select` is specified with the computed
 property name, or star (`*`).
 
 ::: example
-Example 136: compute total price for order items
+Example 146: compute total price for order items
 ```
 http://host/service/Orders(10)/Items
   ?$select=Product/Description,Total
@@ -3932,7 +4143,7 @@ http://host/service/Orders(10)/Items
 ```
 :::
 
-### <a name="SystemQueryOptionindex" href="#SystemQueryOptionindex">5.1.11 System Query Option `$index`</a>
+### <a id="SystemQueryOptionindex" href="#SystemQueryOptionindex">5.1.11 System Query Option `$index`</a>
 
 The `$index` system query option allows clients to do a positional
 insert into a collection annotated with the
@@ -3947,16 +4158,16 @@ insert at the end of the collection.
 The [OData-ABNF](#ODataABNF) `index` syntax rule defines the formal
 grammar of the `$index` query option.
 
-### <a name="SystemQueryOptionschemaversion" href="#SystemQueryOptionschemaversion">5.1.12 System Query Option `$schemaversion`</a>
+### <a id="SystemQueryOptionschemaversion" href="#SystemQueryOptionschemaversion">5.1.12 System Query Option `$schemaversion`</a>
 
 The `$schemaversion` system query option allows clients to specify the
 version of the schema against which the request is made. The semantics
-of `$schemaversion` is covered in the [OData-Protocol](#ODataProtocol) document.
+of `$schemaversion` is covered in [OData-Protocol, section 11.2.12](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptionschemaversion).
 
 The [OData-ABNF](#ODataABNF) `schemaversion` syntax rule defines the
 formal grammar of the `$schemaversion` query option
 
-## <a name="CustomQueryOptions" href="#CustomQueryOptions">5.2 Custom Query Options</a>
+## <a id="CustomQueryOptions" href="#CustomQueryOptions">5.2 Custom Query Options</a>
 
 Custom query options provide an extensible mechanism for
 service-specific information to be placed in a URL query string. A
@@ -3966,13 +4177,13 @@ custom query option is any query option of the form shown by the rule
 Custom query options MUST NOT begin with a `$` or `@` character.
 
 ::: example
-Example 137: service-specific custom query option `debug-mode`
+Example 147: service-specific custom query option `debug-mode`
 ```
 http://host/service/Products?debug-mode=true
 ```
 :::
 
-## <a name="ParameterAliases" href="#ParameterAliases">5.3 Parameter Aliases</a>
+## <a id="ParameterAliases" href="#ParameterAliases">5.3 Parameter Aliases</a>
 
 Parameter aliases can be used in place of literal values in entity keys,
 [function](#AddressingFunctions) parameters, or within a
@@ -3983,103 +4194,108 @@ Parameter aliases MUST start with an `@` character, see rule
 `parameterAlias` in [OData-ABNF](#ODataABNF).
 
 The semantics of parameter aliases are covered in
-[OData-Protocol](#ODataProtocol). The [OData-ABNF](#ODataABNF) rule
+[OData-Protocol, section 11.2.6.1.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ParameterAliases). The [OData-ABNF](#ODataABNF) rule
 `aliasAndValue` defines the formal grammar for passing parameter alias
 values as query options.
 
 ::: example
-Example 138:
+Example 148:
 ```
 http://host/service/Movies?$filter=contains(@word,Title)&@word='Black'
 ```
 :::
 
 ::: example
-Example 139:
+Example 149:
 ```
 http://host/service/Movies?$filter=Title eq @title&@title='Wizard of Oz'
 ```
 :::
 
 ::: example
-Example 140: JSON array of strings as parameter alias value --- note that
+Example 150: JSON array of strings as parameter alias value --- note that
 `[`, `]`, and `"` need to be percent-encoded in real URLs, the
 clear-text representation used here is just for readability
 ```
-http://host/service/Products/Model.WithIngredients(Ingredients=@i)?@i=["Carrots","Ginger","Oranges"]
+http://host/service/Products/Model.WithIngredients(Ingredients=@i)
+  ?@i=["Carrots","Ginger","Oranges"]
 ```
 :::
 
 -------
 
-# <a name="Conformance" href="#Conformance">6 Conformance</a>
+# <a id="Conformance" href="#Conformance">6 Conformance</a>
 
 The conformance requirements for OData clients and services are
-described in [OData-Protocol](#ODataProtocol).
+described in [OData-Protocol, section 12](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#Conformance).
 
 
 -------
 
-# <a name="References" href="#References">Appendix A. References</a>
+# <a id="References" href="#References">Appendix A. References</a>
 
 This appendix contains the normative and informative references that are used in this document.
 
 While any hyperlinks included in this appendix were valid at the time of publication, OASIS cannot guarantee their long-term validity.
 
-## <a name="NormativeReferences" href="#NormativeReferences">A.1 Normative References</a>
+## <a id="NormativeReferences" href="#NormativeReferences">A.1 Normative References</a>
 
 The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.
 
-###### <a name="ODataABNF">[OData-ABNF]</a>
+###### [OData-ABNF]{id=ODataABNF}
 _ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataCSDL">[OData-CSDL]</a>
+###### [OData-CSDL]{id=ODataCSDL}
 _OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
 _OData Common Schema Definition Language (CSDL) XML Representation Version 4.02._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataJSON">[OData-JSON]</a>
+###### [OData-JSON]{id=ODataJSON}
 _OData JSON Format Version 4.02._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataProtocol">[OData-Protocol]</a>
+###### [OData-Protocol]{id=ODataProtocol}
 _OData Version 4.02. Part 1: Protocol._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataVocCap">[OData-VocCap]</a>
+###### [OData-VocCap]{id=ODataVocCap}
 _OData Vocabularies Version 4.0: Capabilities Vocabulary._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="ODataVocCore">[OData-VocCore]</a>
+###### [OData-VocCore]{id=ODataVocCore}
 _OData Vocabularies Version 4.0: Core Vocabulary._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
-###### <a name="rfc2119">[RFC2119]</a>
+###### [RFC2119]{id=rfc2119}
 _Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_.
 https://www.rfc-editor.org/info/rfc2119.
 
-###### <a name="rfc3986">[RFC3986]</a>
+###### [RFC3986]{id=rfc3986}
 _Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform Resource Identifier (URI): Generic Syntax", STD 66, RFC 3986, DOI 10.17487/RFC3986, January 2005_.
 https://www.rfc-editor.org/info/rfc3986.
 
-###### <a name="rfc8174">[RFC8174]</a>
+###### [RFC8174]{id=rfc8174}
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_.
 https://www.rfc-editor.org/info/rfc8174.
 
-###### <a name="XML-Schema2">[XML-Schema-2]</a>
+###### [URL]{id=_url}
+_URL Living Standard._  
+https://url.spec.whatwg.org/.
+
+###### [XML-Schema-2]{id=XML-Schema2}
 _W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes_. D. Peterson, S. Gao, C. M. Sperberg-McQueen, H. S. Thompson, P. V. Biron, A. Malhotra, Editors, W3C Recommendation, 5 April 2012.  
 http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/. Latest version available at http://www.w3.org/TR/xmlschema11-2/.
 
-## <a name="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a>
+## <a id="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a>
 
-###### <a name="_ECMAScript">[ECMAScript]</a>
+###### [ECMAScript]{id=_ECMAScript}
 _ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262.
 https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
 
-###### <a name="_WKT">[Well-Known Text]</a>
+###### [Well-Known Text]{id=_WKT}
 _OpenGIS Implementation Specification for Geographic information – Simple feature access – Part 1: Common architecture_, May 2011. Open Geospatial Consortium.
 https://www.ogc.org/standard/sfa/.
 
@@ -4093,9 +4309,9 @@ do we have considerations specific to URLs, for example length, encoding, privac
 
 -------
 
-# <a name="Acknowledgments" href="#Acknowledgments">Appendix B. Acknowledgments</a>
+# <a id="Acknowledgments" href="#Acknowledgments">Appendix B. Acknowledgments</a>
 
-## <a name="Participants" href="#Participants">B.1 Participants</a>
+## <a id="Participants" href="#Participants">B.1 Participants</a>
 
 **OData TC Members:**
 
@@ -4113,7 +4329,7 @@ do we have considerations specific to URLs, for example length, encoding, privac
 
 -------
 
-# <a name="RevisionHistory" href="#RevisionHistory">Appendix C. Revision History</a>
+# <a id="RevisionHistory" href="#RevisionHistory">Appendix C. Revision History</a>
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
@@ -4121,7 +4337,7 @@ do we have considerations specific to URLs, for example length, encoding, privac
 
 -------
 
-# <a name="Notices" href="#Notices">Appendix D. Notices</a>
+# <a id="Notices" href="#Notices">Appendix D. Notices</a>
 
 <!-- Required section. Do not modify. -->
 

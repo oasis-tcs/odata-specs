@@ -13,9 +13,12 @@ This folder contains several Node.js modules that generate OASIS specification d
   See [subsection ##SubsectionHeading]. Reference to a subsection showing its number.
   See [this example](#aggregation). Reference to an example.
   See [example ##aggregation]. Reference to an example showing its number.
+  See [#OData-Protocol#SectionHeading]. Cross-document section reference.
+  See [OData-Protocol, example #OData-Protocol#aggregation]. Other cross-document reference.
+  [This important sentence]{id=important} is referenced [elsewhere](#important).
   ```
-- Long MathJax formulas, especially multi-row ones such as `$$\matrix(...)$$`, can be typed on multiple lines, if each line except the last ends with a single space.
-- The same mechanism can be used to spread table lines over several source lines, see the "Revision History" table at the end of [this source file](../odata-data-aggregation-ext/8%20Conformance.md).
+- Lines ending with single space are joined with the next line.
+- This mechanism can be used to spread table lines over several source lines, see the "Revision History" table at the end of [this source file](../odata-data-aggregation-ext/8%20Conformance.md).
 
 The [`number.js`](number.js) module generates a single Markdown document by preprocessing all `.md` files in a given folder:
 
@@ -31,14 +34,7 @@ The single Markdown document is output into a writable stream:
 
 ```js
 import * as Number from './lib/number.js';
-new Number("odata-data-aggregation-ext").build(«writable stream»);
-```
-
-or, if variant `XXX` shall be produced:
-
-```js
-import * as Number from './lib/number.js';
-new Number("odata-data-aggregation-ext", "XXX").build(«writable stream»);
+new Number("odata-data-aggregation-ext", "meta", {...}).build(«writable stream»);
 ```
 
 The [`pandoc.js`](pandoc.js) module converts this single Markdown document to HTML with [MathJax](https://www.mathjax.org/). It expects a certain [pandoc release](https://github.com/jgm/pandoc/releases) to be set up, according to the GitHub Action [`nodejs.yml`](../.github/workflows/nodejs.yml) with the step
@@ -53,17 +49,12 @@ The [`pandoc.js`](pandoc.js) module converts this single Markdown document to HT
 and effectively executes
 
 ```
-pandoc -f gfm+tex_math_dollars+fenced_divs
-       -t html
-       -o odata-data-aggregation-ext.html
-       -c styles/markdown-styles-v1.7.3b.css
-       -c styles/odata.css
-       -s
-       --mathjax
-       --eol=lf
-       --metadata pagetitle="..."
+pandoc --metadata pagetitle="..."
+       <other options>
        odata-data-aggregation-ext.md
 ```
+
+where the other options are listed in the [`pandoc.js`](pandoc.js) module.
 
 The Markdown-to-HTML conversion happens in a child process into which the Markdown is written and from which the HTML is read:
 
@@ -72,17 +63,14 @@ import * as Number from './lib/number.js';
 import * as pandoc from './lib/pandoc.js';
 var proc = pandoc({"--metadata-file": "./odata-data-aggregation-ext/meta.yaml"});
 proc.stdout.pipe(«HTML file»);
-new Number("odata-data-aggregation-ext").build(proc.stdin);
+var meta = {
+  ...yaml.load(fs.readFileSync("./meta.yaml")),
+  ...yaml.load(fs.readFileSync("./odata-data-aggregation-ext/meta.yaml"))
+}
+new Number("odata-data-aggregation-ext", "meta", meta).build(proc.stdin);
 ```
 
-The HTML file uses CSS stylesheets contained in the [`docs/*/styles`](../docs/odata-data-aggregation-ext/styles) subfolder in order to render keywords in the same font (MathJax Typewriter) whether they occur standalone or in a formula:
-
-| Keyword occurs     | Markdown source                    | Rendered result                      |
-| ------------------ | ---------------------------------- | ------------------------------------ |
-| standalone         | ``The `aggregate` transformation`` | The ${\tt aggregate}$ transformation |
-| in MathJax formula | `${\tt aggregate}(α{\tt\ as\ }D)$` | ${\tt aggregate}(α{\tt\ as\ }D)$     |
-
-A monospaced font (Courier New) is used for OData requests and their JSON or XML responses.
+A monospaced font (Courier New) is used for keywords, OData requests and their JSON or XML responses.
 
 [`npm start`](server.js) starts a web server that serves such HTML files and the static `.css` files without writing intermediate files. This allows authors to see the effects of every change to the source folder in the working tree after saving the source files which triggers a browser auto-refresh.
 
@@ -112,3 +100,7 @@ Mermaid has not been used, instead the diagrams in section 2 of [`odata-data-agg
 - in sections 2.2 and 2.3 with Markdown tables and CSS-positioned SVG.
 
 See the source Markdown [here](../odata-data-aggregation-ext/1%20Introduction.md).
+
+# OData TC meeting minutes
+
+Minutes of OData TC meetings are created as [discussions](https://github.com/oasis-tcs/odata-specs/discussions/categories/minutes). A PDF version can be created in the `minutes` folder with the command [`npm run minutes <number of discussion>`](minutes.mjs).

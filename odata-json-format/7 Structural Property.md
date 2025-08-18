@@ -25,7 +25,9 @@ Values of types `Edm.Byte`, `Edm.SByte`,
 `Edm.Single`, `Edm.Double`, and
 `Edm.Decimal` are represented as JSON numbers, except for
 `-INF`, `INF`, and `NaN` which are
-represented as strings.
+represented as strings, and except when the [`IEEE754Compatible`](#ControllingtheRepresentationofNumbers)
+format parameter demands representation of `Edm.Int64` and `Edm.Decimal`
+as strings.
 
 Values of type `Edm.String` are represented as JSON strings,
 using the JSON string escaping rules.
@@ -37,7 +39,9 @@ JSON strings whose content satisfies the rules `binaryValue`,
 `dateValue`, `dateTimeOffsetValue`,
 `durationValue`, `guidValue`, and
 `timeOfDayValue` respectively, in
-[OData-ABNF](#ODataABNF).
+[OData-ABNF](#ODataABNF). The interpretation of a `timeOfDayValue` in which the `second` is omitted
+is not defined by this specification. For maximum interoperability, senders
+SHOULD always include the `second`.
 
 Primitive values that cannot be represented, for example due to server
 conversion issues or IEEE754 limitations on the size of an `Edm.Int64` or `Edm.Decimal` value, are
@@ -61,6 +65,8 @@ payload. Whether the value represents a geography type or geometry type
 is inferred from its usage or specified using the
 [`type`](#ControlInformationtypeodatatype)
 control information.
+[RFC7946](#rfc7946) does not define means for expressing instance-specific
+[Coordinate Reference Systems](https://datatracker.ietf.org/doc/html/rfc7946#section-4).
 
 ::: example
 Example ##ex:
@@ -82,7 +88,7 @@ Example ##ex:
   "GuidValue": "01234567-89ab-cdef-0123-456789abcdef",
   "Int64Value": 0,
   "ColorEnumValue": "Yellow",
-  "GeographyPoint": {"type": "Point", "coordinates": [142.1,64.1]}
+  "GeographyPoint": { "type": "Point", "coordinates": [142.1,64.1] }
 }
 ```
 :::
@@ -90,7 +96,7 @@ Example ##ex:
 ## ##subsec Complex Value
 
 A complex value is represented as a single JSON object containing one
-name/value pair for each property that makes up the complex type. Each
+name/value pair for each [structural property](#StructuralProperty) or [navigation property](#NavigationProperty) that makes up the complex type. Each
 property value is formatted as appropriate for the type of the property.
 
 It MAY have name/value pairs for [instance annotations](#InstanceAnnotations) and control information.
@@ -138,10 +144,6 @@ Example ##ex: partial collection of strings with next link
 ```
 :::
 
-A collection of primitive values that occurs in a property of type `Edm.Untyped`
-is interpreted as a collection of `Edm.Boolean`, `Edm.String`, and `Edm.Decimal` values,
-depending on the JavaScript type.
-
 ## ##subsec Collection of Complex Values
 
 A collection of complex values is represented as a JSON array; each
@@ -183,7 +185,8 @@ collections.
 
 The value of a property of type `Collection(Edm.Untyped)`MUST
 be a collection, and it MAY contain any combination of primitive values,
-structural values, and collections.
+structural values, and collections. Enumeration values within an untyped 
+collection SHOULD be represented as a string, using the `enumerationMember`.
 
 Untyped values are the only place where a collection can directly
 contain a collection, or a collection can contain a mix of primitive
@@ -194,6 +197,12 @@ they are annotated with the
 [`type`](#ControlInformationtypeodatatype)
 control information, in which case they MUST conform to the type
 described by the control information.
+
+A primitive value within an untyped collection is interpreted as 
+an `Edm.Boolean`, `Edm.String`, or `Edm.Decimal` value,
+depending on the JavaScript type.
+
+Collections directly contained within an untyped collection are themselves untyped.
 
 -------
 
@@ -369,13 +378,13 @@ PATCH http://host/service/Products(42) HTTP/1.1
 Content-Type: application/json
 
 {
-  "Category": {"@id": "Categories(6)"}
+  "Category": { "@id": "Categories(6)" }
 }
 ```
 :::
 
 ::: example
-Example ##ex: submit a partial update request to:
+Example ##ex_deepupdate: submit a partial update request to:
 - modify the name of an existing category
 - assign an existing product with the id 42 to the category
 - assign an existing product 57 to the category and update its name
@@ -461,7 +470,7 @@ Instead stream property data is generally read and edited via URLs.
 [`media*`](#ControlInformationmediaodatamedia) control information.
 - Stream properties requested with `$expand` or implicitly expanded are represented as a property with its value.
 
-See [OData-Protocol](#ODataProtocol) for details on the system query options `$select` and `$expand`.
+See [#OData-Protocol#SystemQueryOptionselect] for details on the system query options `$select` and `$expand`.
 
 Depending on the [metadata level](#ControllingtheAmountofControlInformationinResponses),
 the stream property MAY be annotated to provide the read link, edit

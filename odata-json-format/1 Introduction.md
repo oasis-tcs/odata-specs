@@ -24,9 +24,27 @@ Section | Feature / Change | Issue
 [Section ##ControlInformationcontextodatacontext]| 
 Fragment portion of Context URL is not percent-encoded| 
 [368](https://github.com/oasis-tcs/odata-specs/issues/368)
+[Section ##ControlInformationidodataid]| 
+Transient entities can be identifiable| 
+[1928](https://github.com/oasis-tcs/odata-specs/issues/1928)
+[Section ##ControlInformationetagodataetag]| 
+Control information `"@etag": ""` to prevent updates| 
+[2021](https://github.com/oasis-tcs/odata-specs/issues/2021)
 [Section ##ControlInformationmediaodatamedia]| 
- `mediaContentType` can be `null`| 
+`mediaContentType` can be `null`| 
 [536](https://github.com/oasis-tcs/odata-specs/issues/536)
+[Section ##StructuralProperty], [Section ##InformativeReferences]| 
+Removed reference to obsolete version of GeoJSON| 
+[352](https://github.com/oasis-tcs/odata-specs/issues/352)
+[Section ##EntityReference]| 
+Entities can be referenced by id or full set of key properties| 
+[456](https://github.com/oasis-tcs/odata-specs/issues/456)
+[Section ##DeletedEntity]| 
+`type` control information, if present, must come immediately after `removed`| 
+[1985](https://github.com/oasis-tcs/odata-specs/issues/1985)
+[Section ##ActionInvocation]| 
+Allow common expressions in action payloads| 
+[341](https://github.com/oasis-tcs/odata-specs/issues/341)
 
 ## ##subsec Glossary
 
@@ -38,7 +56,7 @@ Fragment portion of Context URL is not percent-encoded|
 
 ### ##subsubsec Document Conventions
 
-Keywords defined by this specification use `this  monospaced  font`.
+Keywords defined by this specification use `this monospaced font`.
 
 Some sections of this specification are illustrated with non-normative examples.
 

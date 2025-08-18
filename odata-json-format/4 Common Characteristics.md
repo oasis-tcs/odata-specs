@@ -29,8 +29,7 @@ parameter if `Edm.Int64` and `Edm.Decimal` numbers
 are represented as strings.
 
 Requests and responses MAY add the `streaming` parameter with
-a value of `true` or `false`, see section
-"[Payload Ordering Constraints](#PayloadOrderingConstraints)".
+a value of `true` or `false`, see [section ##PayloadOrderingConstraints].
 
 ## ##subsec Message Body
 
@@ -48,6 +47,16 @@ result](#DeltaPayload).
 
 Client libraries MUST retain the
 order of objects within an array in JSON responses.
+
+## ##subsec URLs in Message Bodies
+
+URLs represented as a string within a JSON payload, including [batch
+requests](#BatchRequest), must follow standard OData encoding rules as defined in [#OData-URL#URLParsing].
+
+For [relative URLs](#RelativeURLs) this means that colons (`:`) in the path part, especially
+within key values, MUST be percent-encoded to avoid confusion with the
+scheme separator. Colons within the query part, i.e. after the question
+mark character (`?`), need not be percent-encoded.
 
 ## ##subsec Relative URLs
 
@@ -89,13 +98,6 @@ same relative URLs, where appropriate, in request payloads (such as
 [bind operations](#BindOperation) and batch requests) and in system
 query options (such as `$id`).
 
-URLs represented as a string within a JSON payload, including [batch
-requests](#BatchRequest), must follow standard OData encoding rules.
-For relative URLs this means that colons in the path part, especially
-within key values, MUST be percent-encoded to avoid confusion with the
-scheme separator. Colons within the query part, i.e. after the question
-mark character (`?`), need not be percent-encoded.
-
 ::: example
 Example ##ex:
 ```json
@@ -108,11 +110,13 @@ Example ##ex:
   …
 }
 ```
-:::
 
 The resulting absolute URLs are
-`http://host/service/Customers('ALFKI')` and
-`http://host/service/Customers('ALFKI')/Orders`.
+```
+http://host/service/Customers('ALFKI')
+http://host/service/Customers('ALFKI')/Orders
+```
+:::
 
 ## ##subsec Payload Ordering Constraints
 
@@ -160,6 +164,8 @@ constraints have to be met:
 
 - If present, the `context` control information MUST be the first
   property in the JSON object.
+- For 4.01 deleted entities, the `removed` control information MUST appear 
+  after `context`, if present, and before any other property or control information.
 - The
   `type` control information, if present, MUST appear next in
   the JSON object.
@@ -206,7 +212,7 @@ stop processing and MUST NOT signal an error.
 ### ##subsubsec Control Information: `context` (`odata.context`)
 
 The `context` control information
-returns the context URL (see [OData-Protocol](#ODataProtocol)) for the
+returns the context URL (see [#OData-Protocol#ContextURL]) for the
 payload. This URL can be absolute or [relative](#RelativeURLs).
 The fragment portion of the context URL MUST NOT be percent-encoded.
 
@@ -220,7 +226,7 @@ entity set cannot be determined from the context URL of
 the collection.
 
 For more information on the format of the context URL, see
-[OData-Protocol](#ODataProtocol).
+[#OData-Protocol#ContextURL].
 
 Request payloads MAY include a context URL as a base URL for [relative
 URLs](#RelativeURLs) in the request payload.
@@ -243,7 +249,7 @@ response in order to specify the entity tag (ETag) that can be used to
 determine the version of the metadata of the response. If an ETag is
 returned when requesting the metadata document, then the service SHOULD
 set the `metadataEtag` control information to the metadata
-document\'s ETag in all responses when using
+document's ETag in all responses when using
 [`metadata=minimal`](#metadataminimalodatametadataminimal)
 or
 [`metadata=full`](#metadatafullodatametadatafull).
@@ -251,7 +257,7 @@ If no ETag is returned when requesting the metadata document, then the
 service SHOULD NOT set the `metadataEtag` control information
 in any responses.
 
-For details on how ETags are used, see [OData-Protocol](#ODataProtocol).
+For details on how ETags are used, see [#OData-Protocol#UseofETagsforAvoidingUpdateConflicts].
 
 ### ##subsubsec Control Information: `type` (`odata.type`)
 
@@ -272,7 +278,7 @@ The root `type` may be absolute or relative to the root
 If the URI references a metadata document (that is, it's not just a
 fragment), it MAY refer to a specific version of that metadata document
 using the `$schemaversion` system query option
-defined in [OData-Protocol](#ODataProtocol).
+defined in [#OData-Protocol#SystemQueryOptionschemaversion].
 
 For non-built in primitive types, the URI contains the
 namespace-qualified or alias-qualified type, specified as a URI
@@ -281,8 +287,7 @@ fragment is the namespace-qualified or alias-qualified element type
 enclosed in parentheses and prefixed with `Collection`. The
 namespace or alias MUST be defined or the namespace referenced in the
 metadata document of the service, see
-[OData-CSDLJSON](#ODataCSDL) or
-[OData-CSDLXML](#ODataCSDL).
+[OData-CSDL](#ODataCSDL).
 
 The `type` control information MUST appear in requests and in
 responses with [minimal](#metadataminimalodatametadataminimal) or
@@ -324,8 +329,7 @@ The `type` control information can be absent in properties nested in an instance
 In particular, individual primitive values within a collection cannot have `type` control information.
 
 For more information on namespace- and alias-qualified names, see
-[OData-CSDLJSON](#ODataCSDL) or
-[OData-CSDLXML](#ODataCSDL).
+[OData-CSDL](#ODataCSDL).
 
 ::: example
 Example ##ex: entity of type
@@ -360,20 +364,21 @@ metadata  document of a different service
 ### ##subsubsec Control Information: `count` (`odata.count`)
 
 The `count` control information occurs only in responses and
-can annotate any collection, see [OData-Protocol](#ODataProtocol)
-section 11.2.5.5 System Query Option
-`$count`. Its value is an
+can annotate any collection, see [#OData-Protocol#SystemQueryOptioncount].
+Its value is an
 `Edm.Int64` value corresponding to
 the total count of members in the collection represented by the request.
 
 ### ##subsubsec Control Information: `nextLink` (`odata.nextLink`)
 
 The `nextLink` control information indicates that a response
-is only a subset of the requested collection. It contains a URL that
+is only a subset of the requested collection. It contains a [URL](URLsinMessageBodies) that
 allows retrieving the next subset of the requested collection.
 
 This control information can also be applied to [expanded to-many
-navigation properties](#ExpandedNavigationProperty).
+navigation properties](#ExpandedNavigationProperty) and to collections of
+[primitive](#CollectionofPrimitiveValues) or [complex](#CollectionofComplexValues)
+values.
 
 ### ##subsubsec Control Information: `delta` (`odata.delta`)
 
@@ -384,7 +389,7 @@ in membership or value of nested entities.
 
 ### ##subsubsec Control Information: `deltaLink` (`odata.deltaLink`)
 
-The `deltaLink` control information contains a URL that can
+The `deltaLink` control information contains a [URL](URLsinMessageBodies) that can
 be used to retrieve changes to the current set of results. The
 `deltaLink` control information MUST only appear on the last
 page of results. A page of results MUST NOT have both a
@@ -395,9 +400,9 @@ control information.
 ### ##subsubsec Control Information: `id` (`odata.id`)
 
 The `id` control information contains the entity-id, see
-[OData-Protocol](#ODataProtocol). By convention the entity-id is
+[#OData-Protocol#EntityIdsandEntityReferences]. By convention the entity-id is
 identical to the canonical URL of the entity, as defined in
-[OData-URL](#ODataURL).
+[#OData-URL#CanonicalURL].
 
 The `id` control information MUST appear in responses if
 [`metadata=full`](#metadatafullodatametadatafull)
@@ -417,37 +422,36 @@ if it does not match convention for the localized key values. If the
 `id` is represented, it MAY be a [relative
 URL](#RelativeURLs).
 
-If the entity is transient (i.e. cannot be read or updated), the
+If the entity is transient (see [#OData-Protocol#TransientEntities]), the
 `id` control information MUST appear in OData 4.0 payloads
-and have the `null` value. In 4.01 payloads transient
-entities need not have the `id` control information, and 4.01
-clients MUST treat entities with neither `id` control
+and have the `null` value. In 4.01 or greater payloads transient
+entities need not have the `id` control information, and
+clients receiving such payloads MUST treat entities with neither `id` control
 information nor a full set of key properties as transient entities.
+In 4.02 payloads transient entities MAY have the `id` control information with a non-null URI value,
+for example to allow solving a circular dependency by injecting an
+[entity reference](#EntityReference) instead of repeating the transient entity.
+The URI value SHOULD follow the pattern `odata:transient:{some-generated-identifier-unique-within-the-response}`,
+and if the transient entity cannot be re-read its `readLink` control information SHOULD have the `null` value.
 
 The `id` control information MUST NOT appear for a
 collection. Its meaning in this context is reserved for future versions
 of this specification.
 
-Entities with `id` equal to `null` cannot be
-compared to other entities, reread, or updated. If
-[`metadata=minimal`](#metadataminimalodatametadataminimal)
-is specified and the `id` is not present in the entity, then
-the canonical URL MUST be used as the entity-id.
-
 ### ##subsubsec Control Information: `editLink` and `readLink` (`odata.editLink` and `odata.readLink`)
 
 The `editLink` control information contains
-the edit URL of the entity; see [OData-Protocol](#ODataProtocol).
+the edit [URL](URLsinMessageBodies) of the entity; see [#OData-Protocol#ReadURLsandEditURLs].
 
 The `readLink` control information contains the read URL of
-the entity or collection; see [OData-Protocol](#ODataProtocol).
+the entity or collection; see [#OData-Protocol#ReadURLsandEditURLs].
 
 The `editLink` and `readLink` control information
 is ignored in request payloads and not written in responses if
 [`metadata=none`](#metadatanoneodatametadatanone)
 is requested.
 
-The default value of both the edit URL and read URL is the entity\'s
+The default value of both the edit URL and read URL is the entity's
 [entity-id](#ControlInformationidodataid) appended with a cast
 segment to the type of the entity if its type is derived from the
 declared type of the entity set. If neither the `editLink`
@@ -494,7 +498,10 @@ value of the control information is an entity tag (ETag) which is an
 opaque string value that can be used in a subsequent request to
 determine if the value of the entity or collection has changed.
 
-For details on how ETags are used, see [OData-Protocol](#ODataProtocol).
+For details on how ETags are used, see [#OData-Protocol#UseofETagsforAvoidingUpdateConflicts].
+The special value `"@etag": "*"` is equivalent to the header `If-Match: *`,
+and the special value `"@etag": ""` is equivalent to the header `If-None-Match: *`,
+see [#OData-Protocol#UpdateaCollectionofEntities].
 
 The `etag` control information is ignored in request payloads for
 single entities and not written in responses if
@@ -503,7 +510,7 @@ single entities and not written in responses if
 ### ##subsubsec Control Information: `navigationLink` and `associationLink` (`odata.navigationLink` and `odata.associationLink`)
 
 The `navigationLink` control information in a
-response contains a _navigation URL_ that can be used to retrieve an
+response contains a _navigation [URL](URLsinMessageBodies)_ that can be used to retrieve an
 entity or collection of entities related to the current entity via a
 [navigation property](#NavigationProperty).
 
@@ -534,12 +541,13 @@ if [`metadata=none`](#metadatanoneodatametadatanone) is requested.
 For [media entities](#MediaEntity) and [stream
 properties](#StreamProperty) at least one of the control information
 `mediaEditLink` and `mediaReadLink` MUST be included
-in responses if they don\'t follow standard URL conventions as defined
-in [OData-URL](#ODataURL), sections 4.6 Addressing a property and 4.14 Addressing the Media Stream of a Media Entity, or if
+in responses if they don't follow standard URL conventions as defined
+in [#OData-URL#AddressingaProperty]
+and [#OData-URL#AddressingtheMediaStreamofaMediaEntity], or if
 [`metadata=full`](#metadatafullodatametadatafull)
 is requested.
 
-The `mediaEditLink` control information contains a URL that
+The `mediaEditLink` control information contains a [URL](URLsinMessageBodies) that
 can be used to update the binary stream associated with the media entity
 or stream property. It MUST be included for updatable streams if it
 differs from standard URL conventions relative to the edit link of the

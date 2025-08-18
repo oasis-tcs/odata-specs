@@ -26,9 +26,15 @@ ecosystem of reusable client components and libraries.
 
 Section | Feature / Change | Issue
 --------|------------------|------
+[Section ##PassingQueryOptionsintheRequestBody]| 
+`POST ~/$query` with `Content-Type: application/x-www-form-urlencoded` or `application/json`| 
+[320](https://github.com/oasis-tcs/odata-specs/issues/320), [371](https://github.com/oasis-tcs/odata-specs/issues/371)
 [Section ##matchespattern]| 
 New overload for function `matchespattern` with flags| 
 [441](https://github.com/oasis-tcs/odata-specs/issues/441)
+[Section ##SystemQueryOptionexpand]| 
+Nested query options can only appear once per expand item| 
+[2004](https://github.com/oasis-tcs/odata-specs/issues/2004)
 [Section ##SystemQueryOptionsearch]| 
 Allow alternative `$search` syntax| 
 [293](https://github.com/oasis-tcs/odata-specs/issues/293)
@@ -43,7 +49,7 @@ Allow alternative `$search` syntax|
 
 ### ##subsubsec Document Conventions
 
-Keywords defined by this specification use `this  monospaced  font`.
+Keywords defined by this specification use `this monospaced font`.
 
 Function signatures in this specification use the following paragraph style:
 ```
@@ -206,7 +212,7 @@ path segment, nor is `Tablet')`.
 
 The service root URL identifies the root of an OData service. A `GET`
 request to this URL returns the format-specific service document, see
-[OData-JSON](#ODataJSON).
+[#OData-JSON#ServiceDocument].
 
 The service root URL MUST terminate in a forward slash.
 

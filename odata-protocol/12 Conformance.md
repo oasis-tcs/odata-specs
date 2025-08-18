@@ -32,7 +32,7 @@ the most functionality against the broadest range of generic clients.
 
 Services can advertise their level of conformance by annotating their
 entity container with the term
-[`Capabilities.ConformanceLevel`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#ConformanceLevel)
+[`Capabilities.ConformanceLevel`]($$$OData-VocCap$$$#ConformanceLevel)
 defined in [OData-VocCap](#ODataVocCap).
 
 Note: Services are encouraged to support as much additional
@@ -60,7 +60,7 @@ request
 7. MUST successfully parse the request according to
 [OData-ABNF](#ODataABNF) for any supported system query options and
 follow the specification or fail the request
-8. MUST expose only data types defined in [OData-CSDLXML](#ODataCSDL)
+8. MUST expose only data types defined in [OData-CSDLXML](#ODataCSDLXML)
 9. MUST NOT require clients to understand any metadata or instance
 annotations ([section ##VocabularyExtensibility]), custom headers ([section ##HeaderFieldExtensibility]), or custom
 content ([section ##PayloadExtensibility]) in the payload in order to correctly consume the
@@ -70,7 +70,7 @@ service
 11. MUST NOT violate any other OData-defined semantics
 12. SHOULD support `$expand` ([section ##SystemQueryOptionexpand])
 13. SHOULD publish metadata at `$metadata` according to
-[OData-CSDLXML](#ODataCSDL) and MAY publish metadata according to
+[OData-CSDLXML](#ODataCSDLXML) and MAY publish metadata according to
 [OData-CSDLJSON](#ODataCSDL) ([section ##MetadataDocumentRequest])
 14. MUST support prefixed variants of supported headers and preference
 values
@@ -88,7 +88,7 @@ final response to an asynchronous request
 To be considered an *Updatable OData Service*, the service additionally:
 
 18. MUST include edit links (explicitly or implicitly) for all
-updatable or deletable resources according to [OData-JSON](#ODataJSON)
+updatable or deletable resources according to [#OData-JSON#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink]
 19. MUST support `POST` of new entities to insertable entity sets
 ([section ##ReturningResultsfromDataModificationRequests])
 20. MUST support `POST` of new related entities to updatable navigation
@@ -129,7 +129,7 @@ Level](#OData40MinimalConformanceLevel)
 follow the specification or fail the request
 3. MUST support `$select` ([section ##SystemQueryOptionselect])
 4. MUST support casting to a derived type according to
-[OData-URL](#ODataURL) if derived types are present in the model
+[#OData-URL#AddressingDerivedTypes] if derived types are present in the model
 5. MUST support `$top` ([section ##SystemQueryOptiontop])
 6. MUST support `/$value` on media entities ([section ##MetadataDocumentRequest]) and individual properties ([section ##RequestingaRawValueusingvalue])
 7. MUST support `$filter` ([section ##SystemQueryOptionfilter])
@@ -143,7 +143,7 @@ operations
 MUST fail the request for any unsupported canonical functions
    5. SHOULD support `$filter` on expanded entities ([section ##ExpandOptions])
 8. SHOULD publish metadata at `$metadata` according to
-[OData-CSDLXML](#ODataCSDL) ([section ##MetadataDocumentRequest])
+[OData-CSDLXML](#ODataCSDLXML) ([section ##MetadataDocumentRequest])
 9. SHOULD support the [OData-JSON](#ODataJSON) format
 10. SHOULD consider supporting basic authentication as defined in
 [RFC7617](#rfc7617) over HTTPS for the highest level of interoperability
@@ -153,8 +153,7 @@ with generic clients
 13. SHOULD support the `$count` system query option ([section ##SystemQueryOptioncount])
 14. SHOULD support `$expand` ([section ##SystemQueryOptionexpand])
 15. SHOULD support the lambda operators `any` and `all` on navigation-
-and collection-valued properties (section 5.1.1.10 in
-[OData-URL](#ODataURL))
+and collection-valued properties ([#OData-URL#LambdaOperators])
 16. SHOULD support the `/$count` segment on navigation and collection
 properties ([section ##RequestingtheNumberofItemsinaCollection])
 17. SHOULD support `$orderby asc` and `desc` on individual properties
@@ -167,13 +166,12 @@ In order to conform to the OData Advanced Conformance Level, a service:
 1. MUST conform to at least the [OData 4.0 Intermediate Conformance
 Level](#OData40IntermediateConformanceLevel)
 2. MUST publish metadata at `$metadata` according to
-[OData-CSDLXML](#ODataCSDL) ([section ##MetadataDocumentRequest])
+[OData-CSDLXML](#ODataCSDLXML) ([section ##MetadataDocumentRequest])
 3. MUST support the [OData-JSON](#ODataJSON) format
 4. MUST support the `/$count` segment on navigation and collection
 properties ([section ##RequestingtheNumberofItemsinaCollection])
 5. MUST support the lambda operators `any` and `all` on navigation- and
-collection-valued properties (section 5.1.1.10 in
-[OData-URL](#ODataURL))
+and collection-valued properties ([#OData-URL#LambdaOperators])
 6. MUST support the `$skip` system query option ([section ##SystemQueryOptionskip])
 7. MUST support the `$count` system query option ([section ##SystemQueryOptioncount])
 8. MUST support `$orderby` with `asc` and `desc` on individual properties
@@ -193,20 +191,20 @@ properties
 10. MUST support the `$search` system query option ([section ##SystemQueryOptionsearch])
 11. MUST support batch requests according to the multipart format
 ([section ##BatchRequests] and all subsections) and MAY support batch requests
-according to the JSON Batch format defined in [OData-JSON](#ODataJSON)
+according to the JSON Batch format defined in [#OData-JSON#BatchRequestsandResponses]
 12. MUST support the resource path conventions defined in
-[OData-URL](#ODataURL)
+[#OData-URL#ResourcePath]
 13. SHOULD support asynchronous requests
 ([section ##AsynchronousRequests])
 14. SHOULD support Delta change tracking ([section ##RequestingChanges])
-15. SHOULD support cross-join queries defined in [OData-URL](#ODataURL)
+15. SHOULD support cross-join queries defined in [#OData-URL#AddressingtheCrossJoinofEntitySets]
 16. MAY support the `$compute` system query option ([section ##SystemQueryOptioncompute])
 
 ## ##subsec OData 4.01 Service Conformance Levels
 
 OData services can report conformance to the OData 4.01 specification by
 including `4.01` in the list of supported protocol versions in the
-[`Core.ODataVersions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ODataVersions)
+[`Core.ODataVersions`]($$$OData-VocCore$$$#ODataVersions)
 annotation, as defined in [OData-VocCore](#ODataVocCore). As all OData
 4.01 compliant services must also be fully OData 4.0 compliant, OData
 4.01 services do not need to separately list `4.0` as a supported
@@ -229,7 +227,7 @@ headers and preference values
 5. MUST reject a request with an incompatible
 [`$schemaversion`](#SystemQueryOptionschemaversion) system query option
 if a
-[`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
+[`Core.SchemaVersion`]($$$OData-VocCore$$$#SchemaVersion)
 annotation is returned in `$metadata`
 6. MUST support specifying supported system query options with or
 without the `$` prefix
@@ -260,17 +258,17 @@ with a maximum cardinality of one
    11. SHOULD support negative indexes for the substring function
    12. MAY support Key-As-Segment URL convention
        1. MUST also support canonical URL conventions (described in
-[OData-URL](#ODataURL)) or include URLs in payload
+[#OData-URL#CanonicalURL]) or include URLs in payload
    13. MAY support the count of a filtered collection in a common
 expression
    14. MAY support equal and non-equal structural comparison
 10. SHOULD publish metadata at `$metadata` according to both
-[OData-CSDLXML](#ODataCSDL) and [OData-CSDLJSON](#ODataCSDL) ([section ##MetadataDocumentRequest])
+[OData-CSDLXML](#ODataCSDLXML) and [OData-CSDLJSON](#ODataCSDL) ([section ##MetadataDocumentRequest])
 11. SHOULD NOT have identifiers within a uniqueness scope (e.g. a
 schema, a structural type, or an entity container) that differ only by
 case
 12. SHOULD return the
-[`Core.ODataVersions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ODataVersions)
+[`Core.ODataVersions`]($$$OData-VocCore$$$#ODataVersions)
 annotation
 13. SHOULD report capabilities through the Capabilities vocabulary
 14. MAY support filtering on annotation values
@@ -347,7 +345,7 @@ properties
 [OData-CSDLJSON](#ODataCSDL) ([section ##MetadataDocumentRequest])
 7. MUST support batch requests according both to the multipart format
 ([section ##BatchRequests] and all subsections) and the JSON Batch format defined in
-[OData-JSON](#ODataJSON)
+[#OData-JSON#BatchRequestsandResponses]
 8. SHOULD support filtering a collection using a `/$filter` path
 segment
 9. SHOULD support nested parameter alias assignments in
@@ -370,7 +368,7 @@ To be generally interoperable, OData clients
 2. MUST specify `OData-Version` ([section ##HeaderODataVersion]) and `Content-Type`
 ([section ##HeaderContentType]) in any request with a payload
 3. MUST be a conforming consumer of OData as defined in
-[OData-JSON](#ODataJSON)
+[#OData-JSON#Conformance]
 4. MUST follow redirects ([section ##ResponseCode3xxRedirection])
 5. MUST correctly handle next links ([section ##ServerDrivenPaging])
 6. MUST support instances returning properties and navigation
@@ -390,15 +388,15 @@ returned in the response ([section ##RequestingEntityReferences])
 in a delta response ([section ##RequestingChanges])
 14. MAY support asynchronous responses ([section ##AsynchronousRequests])
 15. MAY support `metadata=minimal` in a JSON response (see
-[OData-JSON](#ODataJSON))
+[#OData-JSON#metadataminimalodatametadataminimal])
 16. MAY support `streaming` in a JSON response (see
-[OData-JSON](#ODataJSON))
+[#OData-JSON#PayloadOrderingConstraints])
 
 In addition, interoperable OData 4.01 clients
 
 17. MUST send OData 4.0-compliant payloads to services that don't
 advertise support for 4.01 or greater through the
-[`Core.ODataVersions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ODataVersions)
+[`Core.ODataVersions`]($$$OData-VocCore$$$#ODataVersions)
 metadata annotation (see [OData-VocCore](#ODataVocCore))
 18. MUST specify identifiers in payloads and URLs in the case they are
 specified in `$metadata`

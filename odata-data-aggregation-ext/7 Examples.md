@@ -233,14 +233,12 @@ results in
     { "ID": "P3", "Name": "Paper",  "Color": "White", "TaxRate": 0.14,
       "Total@type": "Decimal", "Total":  8 },
     { "ID": "P4", "Name": "Pencil", "Color": "Black", "TaxRate": 0.14,
-                                     "Total": null },
+                               "Total": null },
     { "ID": "P1", "Name": "Sugar",  "Color": "White", "TaxRate": 0.06,
       "Total@type": "Decimal", "Total":  4 }
   ]
 }
 ```
-
-The expression `$it/Sales` refers to the sales of the current product. Without `$it`, all sales of all products would be aggregated, because the input collection for the `aggregate` function consists of all products.
 :::
 
 ::: example
@@ -1347,7 +1345,7 @@ works differently: `descendants` is the parameter $T$ of `ancestors` and operate
 Besides changes to the structural properties of the entities in a hierarchical collection, hierarchy maintenance involves changes to the parent-child relationships.
 
 ::: example
-Example ##ex: Move a sales organization Switzerland under the parent EMEA Central by binding the parent navigation property to EMEA Central [OData-JSON, section 8.5](#ODataJSON):
+Example ##ex: Move a sales organization Switzerland under the parent EMEA Central by binding the parent navigation property to EMEA Central [#OData-JSON#BindOperation]:
 ```json
 PATCH /service/SalesOrganizations('Switzerland')
 Content-Type: application/json
@@ -1370,7 +1368,7 @@ DELETE /service/SalesOrganizations('Switzerland')/Superordinate/$ref
 :::
 
 ::: example
-Example ##ex_refconstr: If the parent navigation property contained a referential constraint for the key of the target [OData-CSDL, section 8.5](#ODataCSDL),
+Example ##ex_refconstr: If the parent navigation property contained a referential constraint for the key of the target [#OData-CSDL#ReferentialConstraint],
 ```xml
 <EntityType Name="SalesOrganization">
   <Key>
@@ -1386,7 +1384,7 @@ Example ##ex_refconstr: If the parent navigation property contained a referentia
   </NavigationProperty>
 </EntityType>
 ```
-then alternatively the property taking part in the referential constraint [OData-Protocol, section 11.4.9.1](#ODataProtocol) could be changed to EMEA Central:
+then alternatively the property taking part in the referential constraint [#OData-Protocol#UpdateaPrimitiveProperty] could be changed to EMEA Central:
 ```json
 PATCH /service/SalesOrganizations('Switzerland')
 Content-Type: application/json
