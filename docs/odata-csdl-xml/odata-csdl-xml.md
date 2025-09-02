@@ -330,11 +330,24 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
 This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 -->
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------
+
 <!-- These source files can be used to produce the JSON variant or the XML variant,
      by using either new Number("...", "json") or new Number("...", "xml").
      Lines between the next and the closing : belong to the JSON variant only. -->
-
--------
 
 
 <!-- Lines between the next and the closing : belong to the XML variant only. -->
@@ -869,6 +882,23 @@ combination of term and qualifier.
 <!-- Lines from here to the closing ::: belong to the JSON variant only. -->
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- Lines from here to the closing ::: belong to the XML variant only. -->
 ::: {.varxml .rep}
 ### <a id="ElementedmxEdmx.2" href="#ElementedmxEdmx.2">Element `edmx:Edmx`</a>
@@ -935,6 +965,11 @@ referenced schema document.
 
 
 
+
+
+
+
+
 ::: {.varxml .rep}
 ### <a id="ElementedmxReference.4" href="#ElementedmxReference.4">Element `edmx:Reference`</a>
 
@@ -989,6 +1024,7 @@ The included schemas are identified via their [namespace](#Namespace).
 The same namespace MUST NOT be included more than once, even if it is
 declared in more than one referenced document.
 
+
 When including a schema, a [simple identifier](#SimpleIdentifier) value
 MAY be specified as an alias for the schema that is used in qualified
 names instead of the namespace. For example, an alias of `display` might
@@ -1011,11 +1047,23 @@ into a document MUST have different aliases, and aliases MUST differ
 from the namespaces of all schemas defined within or included into a
 document.
 
+
+
 The alias MUST NOT be one of the reserved values `Edm`, `odata`,
 `System`, or `Transient`.
 
+
 An alias is only valid within the document in which it is declared; a
 referencing document may define its own aliases for included schemas.
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1074,6 +1122,7 @@ Annotations are selectively included by specifying the
 to inspect the referenced document if none of the term namespaces is of
 interest for the consumer.
 
+
 In addition, the [qualifier](#Qualifier) of annotations to be included
 MAY be specified. For instance, a service author might want to supply a
 different set of annotations for various device form factors. If a
@@ -1101,6 +1150,8 @@ The target namespace also provides consumers insight about what
 namespaces are present in the referenced document. If the consumer is
 not interested in that particular target namespace, the consumer can opt
 not to inspect the referenced document.
+
+
 
 
 
@@ -1194,6 +1245,26 @@ The namespace MUST NOT be one of the reserved values `Edm`, `odata`,
 `System`, or `Transient`.
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ::: {.varxml .rep}
 ### <a id="ElementedmSchema.7" href="#ElementedmSchema.7">Element `edm:Schema`</a>
 
@@ -1260,6 +1331,14 @@ schema
 
 
 
+
+
+
+
+
+
+
+
 ::: {.varxml .rep}
 ### <a id="ElementedmAnnotations.8" href="#ElementedmAnnotations.8">Element `edm:Annotations`</a>
 
@@ -1315,6 +1394,9 @@ types.
 
 
 
+
+
+
 ::: {.varxml .rep}
 ### <a id="ElementedmEntityType.9" href="#ElementedmEntityType.9">Element `edm:EntityType`</a>
 
@@ -1361,6 +1443,8 @@ navigation properties of its base type.
 
 An entity type MUST NOT introduce an inheritance cycle by specifying a
 base type.
+
+
 
 
 
@@ -1535,6 +1619,11 @@ special encoding and are a standard constituent of expressions anyway.
 
 
 
+
+
+
+
+
 ::: {.varxml .rep}
 ### <a id="ElementedmKey.10" href="#ElementedmKey.10">Element `edm:Key`</a>
 
@@ -1651,6 +1740,12 @@ that differ only in case.
 
 
 
+
+
+
+
+
+
 ::: {.varxml .rep}
 ### <a id="ElementedmProperty.12" href="#ElementedmProperty.12">Element `edm:Property`</a>
 
@@ -1701,6 +1796,9 @@ A collection-valued property MAY be annotated with the
 [`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
 term, defined in [OData-VocCore](#ODataVocCore), to specify that it
 supports inserting items into a specific ordinal position.
+
+
+
 
 
 
@@ -1797,6 +1895,9 @@ responses.
 
 Names are case-sensitive, but service authors SHOULD NOT choose names
 that differ only in case.
+
+
+
 
 
 
@@ -1913,6 +2014,7 @@ derived complex types, but MUST NOT traverse any navigation properties.
 The type of the partner navigation property MUST be the declaring entity
 type of the current navigation property or one of its parent entity
 types.
+
 
 If the partner navigation property is single-valued, it MUST lead back
 to the source entity from all related entities. If the partner
@@ -2040,6 +2142,13 @@ defined is nullable, or the principal property is nullable, then the
 dependent property MUST also be nullable. If both the navigation
 property and the principal property are not nullable, then the dependent
 property MUST NOT be nullable.
+
+
+
+
+
+
+
 
 
 
@@ -2305,6 +2414,9 @@ one enumeration member at a time.
 
 
 
+
+
+
 ::: {.varxml .rep}
 ### <a id="ElementedmEnumType.17" href="#ElementedmEnumType.17">Element `edm:EnumType`</a>
 
@@ -2411,6 +2523,13 @@ values.
 
 
 
+
+
+
+
+
+
+
 ::: {.varxml .rep}
 ### <a id="ElementedmMember.18" href="#ElementedmMember.18">Element `edm:Member`</a>
 
@@ -2479,6 +2598,8 @@ defined using the same underlying type.
 It is up to the definition of a term to specify whether and how
 annotations with this term propagate to places where the annotated type
 definition is used, and whether they can be overridden.
+
+
 
 
 
@@ -2584,6 +2705,14 @@ schema.
 An unbound action MAY have the same name as a bound action.
 
 
+
+
+
+
+
+
+
+
 ::: {.varxml .rep}
 ### <a id="ElementedmAction.20" href="#ElementedmAction.20">Element `edm:Action`</a>
 
@@ -2650,6 +2779,8 @@ disambiguate overloads for both bound and unbound functions, even if
 they specify the same underlying type.
 
 
+
+
 ::: {.varxml .rep}
 ### <a id="ElementedmFunction.21" href="#ElementedmFunction.21">Element `edm:Function`</a>
 
@@ -2711,6 +2842,7 @@ type-cast segment names the [qualified name](#QualifiedName) of the
 entity type that should be returned from the type cast.
 
 
+
 ::: {.varxml .rep}
 ### <a id="AttributeEntitySetPath.21.3" href="#AttributeEntitySetPath.21.3">Attribute `EntitySetPath`</a>
 
@@ -2748,6 +2880,10 @@ well as the [`Unicode`](#Unicode) facet for 4.01 or greater payloads.
 For a single-valued return type the facets apply to the returned value.
 For a collection-valued return type the facets apply to the items in the
 returned collection.
+
+
+
+
 
 
 ::: {.varxml .rep}
@@ -2816,6 +2952,10 @@ specify value restrictions of the parameter, as well as the
 For single-valued parameters the facets apply to the parameter value. If
 the parameter value is a collection, the facets apply to the items in
 the collection.
+
+
+
+
 
 
 ::: {.varxml .rep}
@@ -2948,6 +3088,9 @@ in an entity model as a top level resource.
 
 
 
+
+
+
 ::: {.varxml .rep}
 ### <a id="ElementedmEntityContainer.24" href="#ElementedmEntityContainer.24">Element `edm:EntityContainer`</a>
 
@@ -3006,6 +3149,7 @@ extending entity containers.
 
 
 
+
 ::: {.varxml .rep}
 ### <a id="AttributeExtends.24.2" href="#AttributeExtends.24.2">Attribute `Extends`</a>
 
@@ -3043,6 +3187,11 @@ document. If not explicitly indicated, it is included.
 
 Entity sets that cannot be queried without specifying additional query
 options SHOULD NOT be included in the service document.
+
+
+
+
+
 
 
 ::: {.varxml .rep}
@@ -3190,6 +3339,13 @@ be any non-containment navigation properties prior to the final segment.
 
 
 
+
+
+
+
+
+
+
 ::: {.varxml .rep}
 ### <a id="ElementedmNavigationPropertyBinding.27" href="#ElementedmNavigationPropertyBinding.27">Element `edm:NavigationPropertyBinding`</a>
 
@@ -3258,6 +3414,10 @@ container. If a [target path](#TargetPath) is specified, it MUST resolve
 to an entity set in scope.
 
 
+
+
+
+
 ::: {.varxml .rep}
 ### <a id="ElementedmActionImport.28" href="#ElementedmActionImport.28">Element `edm:ActionImport`</a>
 
@@ -3304,6 +3464,9 @@ to an entity set in scope.
 A function import for a parameterless function MAY indicate whether it
 is included in the service document. If not explicitly indicated, it is
 not included.
+
+
+
 
 
 ::: {.varxml .rep}
@@ -3436,6 +3599,9 @@ The term's type MUST be a type in scope, or a collection of a type in
 scope.
 
 
+
+
+
 ::: {.varxml .rep}
 ### <a id="ElementedmTerm.30" href="#ElementedmTerm.30">Element `edm:Term`</a>
 
@@ -3512,6 +3678,7 @@ term.
 When applying a specialized term, the base term MUST also be applied
 with the same qualifier, and so on until a term without a base term is
 reached.
+
 
 
 ::: {.varxml .rep}
@@ -3606,6 +3773,33 @@ representing a constant value, or a [dynamic
 expression](#DynamicExpression). The most common construct for assigning
 an annotation value is a [path expression](#ValuePath) that refers to a
 property of the same or a related structured type.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3759,6 +3953,7 @@ External targeting is possible for properties and navigation
 properties of singletons or entities in a particular entity set. These
 annotations override annotations on the properties or navigation
 properties targeted via the declaring structured type.
+
 
 ## <a id="ConstantExpression" href="#ConstantExpression">14.3 Constant Expression</a>
 
@@ -4218,10 +4413,24 @@ from the path expression syntax of URLs, see [OData-URL, section 5.1.1.15](https
 A path MUST be composed of zero or more path segments joined together by
 forward slashes (`/`).
 
+
+
+
+
+
+
+
+
+
+
+
+
 Paths starting with a forward slash (`/`) are absolute paths, and the
 first path segment MUST be the qualified name of a model element, e.g.
 an entity container. The remaining path after the second forward slash
 is interpreted relative to that model element.
+
+
 
 ::: example
 Example 60: absolute path to an entity set
@@ -4232,6 +4441,16 @@ Example 60: absolute path to an entity set
 
 Paths not starting with a forward slash are interpreted relative to the
 annotation target, following the rules specified in [section 14.4.1.2](#PathEvaluation).
+
+
+
+
+
+
+
+
+
+
 
 ::: example
 Example 61: relative path to a property
@@ -4245,6 +4464,7 @@ If a path segment is a [qualified name](#QualifiedName), it represents a
 in scope. If the type or instance identified by the preceding path part
 cannot be cast to the specified type, the path expression evaluates to
 the null value.
+
 
 ::: example
 Example 62: type-cast segment
@@ -4271,6 +4491,9 @@ properties:
 -   `odata.mediaContentType`
 -   `odata.mediaEtag`
 
+
+
+
 ::: example
 Example 63: term-cast segments
 ```
@@ -4286,6 +4509,15 @@ segments can traverse multiple CSDL documents. The document containing
 the path expression only needs to reference the next traversed document
 to bring the navigation target type into scope, and each traversed
 document in turn needs to reference only its next document.
+
+
+
+
+
+
+
+
+
 
 A model path MAY contain any number of segments representing
 collection-valued structural or navigation properties. The result of the
@@ -4397,6 +4629,12 @@ unless that target is another annotation or a model element (collection,
 record or property value) directly or indirectly embedded within another
 annotation, in which case the host is the host of that other annotation.
 
+
+
+
+
+
+
 If the value of an annotation is expressed dynamically with a path
 expression, the path evaluation rules for this expression depend upon the
 model element by which the annotation is hosted.
@@ -4421,6 +4659,8 @@ property of the type, a [type cast](#TypeCast), or a [term cast](#TermCast).
 For annotations hosted by an action, action import, function, function
 import, parameter, or return type, the first segment of the path MUST be the
 name of a parameter of the action or function or `$ReturnType`.
+
+
 
 For annotations hosted by a structural or navigation property, the path
 evaluation rules additionally depend upon how the annotation target is
@@ -4452,6 +4692,7 @@ specified, as follows:
    the outermost type, and the first segment of a non-empty path MUST be a
    structural or navigation property of the outermost type, a [type cast](#TypeCast),
    or a [term cast](#TermCast).
+
 
 ::: example
 Example 69: Annotations hosted by property `A2` in various modes
@@ -4514,6 +4755,40 @@ type `self.A` named in the target expression.
 
 :::
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #### <a id="AnnotationPath" href="#AnnotationPath">14.4.1.3 Annotation Path</a>
 
 The annotation path expression provides a value for terms or term
@@ -4530,6 +4805,13 @@ A term or term property of type `Edm.AnnotationPath` can be annotated
 with the term `Validation.AllowedTerms` (see
 [OData-VocValidation](#ODataVocValidation)) if its intended value is an
 annotation path that ends in a term cast with one of the listed terms.
+
+
+
+
+
+
+
 
 
 
@@ -4567,6 +4849,8 @@ the instance(s) identified by the path.
 
 
 
+
+
 ::: {.varxml .rep}
 ### <a id="ExpressionedmModelElementPath.45" href="#ExpressionedmModelElementPath.45">Expression `edm:ModelElementPath`</a>
 
@@ -4600,6 +4884,8 @@ or a term cast to a term whose type is an entity type or a collection of entity 
 
 The value of the navigation property path expression is the path itself,
 not the entity or collection of entities identified by the path.
+
+
 
 
 
@@ -4646,6 +4932,8 @@ identified by the path.
 
 
 
+
+
 ::: {.varxml .rep}
 ### <a id="ExpressionedmPropertyPath.47" href="#ExpressionedmPropertyPath.47">Expression `edm:PropertyPath`</a>
 
@@ -4681,6 +4969,9 @@ types. Its argument is an [instance path](#PathExpressions).
 
 The value of the path expression is the instance or collection of
 instances identified by the path.
+
+
+
 
 
 
@@ -4747,6 +5038,10 @@ handling for comparison operators see [OData-URL, section 5.1.1.1](https://docs.
 
 The other comparison operators require two operand expressions that
 evaluate to comparable values.
+
+
+
+
 
 
 
@@ -5127,6 +5422,11 @@ that rely on the value.
 
 
 
+
+
+
+
+
 ::: {.varxml .rep}
 ### <a id="ExpressionedmCollection.56" href="#ExpressionedmCollection.56">Expression `edm:Collection`</a>
 
@@ -5405,6 +5705,10 @@ property value.
 
 
 
+
+
+
+
 ::: {.varxml .rep}
 ### <a id="ExpressionedmRecord.62" href="#ExpressionedmRecord.62">Expression `edm:Record`</a>
 
@@ -5558,6 +5862,9 @@ For model elements that are direct children of a schema: the namespace
 or alias of the schema that defines the model element, followed by a dot
 and the name of the model element, see rule `qualifiedTypeName` in
 [OData‑ABNF](#ODataABNF).
+
+
+
 
 For built-in [primitive types](#PrimitiveTypes): the name of the type,
 prefixed with `Edm` followed by a dot.
@@ -6091,6 +6398,7 @@ https://www.ogc.org/standard/sfa/.
   - [Attribute `Property`](#AttributeProperty.63.1)
 - [Expression `edm:UrlRef`](#ExpressionedmUrlRef.64)
 :::
+
 
 -------
 

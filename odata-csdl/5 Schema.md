@@ -43,6 +43,158 @@ The schema object MAY also contain [annotations](#Annotation) that apply
 to the schema itself.
 :::
 
+::: funnelweb
+The schema is the first of many model elements that appear as members
+with an unqualified name. They are represented as subclasses of `NamedModelElement`
+whose constructor ensures that they are appended to the children list of their parent.
+Note the analogy with the [`ListedModelElement`](#IncludedSchema) constructor.
+:::
+
+@$@<Javascript CSDL metamodel@>@{
+class NamedModelElement extends ModelElement {
+  @<Internal property@>@(name@,@)
+  constructor(parent, name) {
+    super(parent);
+    this.#name = name;
+    parent.children[name] = this;
+    this.$Kind = this.constructor.name;
+  }
+  toString() {
+    return this.name;
+  }
+}
+class Schema extends NamedModelElement {
+  @<Schema@>
+}
+@}
+
+@$@<Exports@>@{
+Schema,
+@}
+
+@$@<Schema@>@{
+constructor(csdlDocument, name) {
+  super(csdlDocument, name);
+  delete this.$Kind;
+}
+@}
+
+::: funnelweb
+We cannot simply say `parent[name] = this`, because `name` may be a reserved name,
+like the `toJSON` method that every model element has. The `children` property is
+introduced for this reason, but during JSON serialization the `children` are treated
+like other object members.
+:::
+
+@$@<ModelElement@>@{
+toJSON() {
+  const json = { ...this, ...this.children };
+  @<Serialize annotations of annotations@>@(this@,json@,""@)
+  return json;
+}
+@}
+
+::: funnelweb
+Besides JSON serialization, we also support YAML serialization. And like many model element
+classes have a special `toJSON` method, some also have a special implementation of a
+`toYAML` method that is called by a `YAMLResolver`.
+:::
+
+@$@<Javascript CSDL metamodel@>@{
+function YAMLResolver(key) {
+  if (this[key] instanceof ModelElement) return this[key].toYAML(key);
+  else return this[key];
+}
+@}
+
+@$@<Exports@>@{
+YAMLResolver,
+@}
+
+::: funnelweb
+The default implementation of `toYAML` simply returns the current object.
+:::
+
+@$@<ModelElement@>@{
+toYAML(key) {
+  return this;
+}
+@}
+
+::: funnelweb
+Addressing a schema member by its qualified name is a special case
+of evaluating a path consisting of one segment that starts with a namespace or alias.
+:::
+
+@$@<Javascript CSDL metamodel@>@{
+class AbstractPath extends ModelElement {
+  @<AbstractPath@>
+}
+class QualifiedNamePath extends AbstractPath {
+  constructor(host, qname, attribute) {
+    super(host, attribute);
+    this.segments = [new QualifiedNameSegment(this, qname)];
+    @<Housekeeping for paths@>
+  }
+  evaluate() {
+    const target = this.segments[0].evaluateRelativeTo();
+    @<Housekeeping during path evaluation@>
+    return target;
+  }
+}
+@}
+
+@$@<Exports@>@{
+QualifiedNamePath,
+@}
+
+::: funnelweb
+The `evaluateRelativeTo` method of the segment accepts an optional `modelElement`
+that is set if the segment represents a type cast.
+:::
+
+@$@<Javascript CSDL metamodel@>@{
+class Segment {
+  @<Segment@>
+}
+class QualifiedNameSegment extends Segment {
+  #namespace;
+  #name;
+  constructor(path, segment) {
+    super(path, segment);
+    @<Determine namespace and name of segment@>
+    @<The namespace is used by this path@>
+  }
+  evaluateRelativeTo(modelElement) {
+    if (@<namespace is reserved@>) return this;
+    let target = this.path.csdlDocument.byQualifiedName(
+      this.#namespace,
+      this.#name
+    );
+    if (!target) throw new InvalidPathError(this.path);
+    @<Special treatment if target is an operation@>
+    return (this.target = target);
+  }
+}
+@}
+
+::: funnelweb
+When a namespace is used, its [`Reference`](#Reference) is needed.
+:::
+
+@$@<Reference@>@{
+@<Internal property with setter@>@(needed@)
+@}
+
+@$@<The namespace is used by this path@>@{
+const reference = path.csdlDocument.includes.get(this.#namespace)?.parent;
+if (reference) reference.needed = true;
+@}
+
+@$@<If the reference is needed in this CSDL document@>@{
+if (this.$Reference[uri].needed)
+@}
+
 ::: {.varxml .rep}
 ### ##isec Element `edm:Schema`
 
@@ -144,6 +296,63 @@ It MUST resolve to a model element in scope.
 The member value is an object containing [annotations](#Annotation) for that target.
 :::
 
+::: funnelweb
+`Annotations` is the first example of a model element that appears not
+in the `children` property of its parent but as named member of a specially named `sub`-property
+(`$Annotations` in this case).
+:::
+
+@$@<Javascript CSDL metamodel@>@{
+class NamedSubElement extends ModelElement {
+  @<NamedSubElement@>
+}
+@}
+
+@$@<NamedSubElement@>@{
+@<Internal property@>@(name@,@)
+#sub;
+constructor(parent, sub, name) {
+  super(parent);
+  this.#sub = sub;
+  this.#name = name;
+  parent[sub] ||= {};
+  parent[sub][name] = this;
+}
+toString() {
+  return this.#sub + "/" + this.name;
+}
+@}
+
+
+@$@<Javascript CSDL metamodel@>@{
+class Annotations extends NamedSubElement {
+  @<Annotations@>
+}
+@}
+
+@$@<Exports@>@{
+Annotations,
+@}
+
+@$@<Annotations@>@{
+@<Internal property@>@(target@,@)
+constructor(schema, target) {
+  super(schema, "$Annotations", target);
+  this.#target = new RelativePath(this, target, this.parent, "externalTarget");
+}
+annotationTarget(prefix) {
+  return this.#target;
+}
+@}
+
+@$@<Schema@>@{
+fromJSON(json) {
+  for (const target in json.$Annotations)
+    new Annotations(this, target).fromJSON(json.$Annotations[target]);
+  super.fromJSON(json);
+}
+@}
+
 ::: {.varjson .example}
 Example ##ex: annotations targeting the `Person` type with qualifier
 `Tablet`
@@ -232,6 +441,26 @@ properties](#StructuralProperty) and [navigation
 properties](#NavigationProperty) as well as [annotations](#Annotation).
 :::
 
+::: funnelweb
+Since the entity type has much in common with the [complex type](#ComplexType),
+its class is derived from the other one.
+:::
+
+@$@<Javascript CSDL metamodel@>@{
+class ComplexType extends NamedModelElement {
+  @<Common parts of complex and entity type@>
+  @<ComplexType@>
+}
+class EntityType extends ComplexType {
+  @<EntityType@>
+}
+@}
+
+@$@<Exports@>@{
+ComplexType,
+EntityType,
+@}
+
 ::: {.varjson .example}
 Example ##ex_entitytype: a simple entity type
 ```json
@@ -304,6 +533,46 @@ base type.
 
 The value of `$BaseType` is the qualified name of the base type.
 :::
+
+::: funnelweb
+The effective type is constructed as child of a new model element so that it does not
+appear in the JSON serialization of the current CSDL document. It contains the properties
+of the derived type, the inherited properties and "merged" properties, for example
+if the derived type specializes the inherited type or adds an annotation.
+:::
+
+@$@<Common parts of complex and entity type@>@{
+#effectiveType;
+get effectiveType() {
+  return this.#effectiveType ||= this.computeEffectiveType();
+}
+computeEffectiveType() {
+  if (!this.$BaseType) return this;
+  const effectiveType = new this.constructor(
+    new ModelElement(),
+    this.name + "<effective>"
+  );
+  for (const prop in this.$BaseType.target.effectiveType.children)
+    effectiveType.children[prop] = this.$BaseType.target.effectiveType.children[prop];
+  for (const prop in this.children)
+    if (prop in effectiveType.children) {
+      effectiveType.children[prop] = new this.children[prop].constructor(
+        effectiveType,
+        prop
+      );
+      Object.assign(
+        effectiveType.children[prop],
+        this.$BaseType.target.effectiveType.children[prop],
+        this.children[prop]
+      );
+    } else effectiveType.children[prop] = this.children[prop];
+  return effectiveType;
+}
+fromJSON(json) {
+  @<Deserialize optional qualified name@>@($BaseType@)
+  @<JSON members without kind are properties@>
+}
+@}
 
 ::: {.varjson .example}
 Example ##ex: a derived entity type based on the previous example
@@ -522,6 +791,73 @@ Key properties with a key alias are represented as objects with one
 member whose name is the key alias and whose value is a string
 containing the path to the property.
 :::
+
+::: funnelweb
+We use the name `PropertyRef` of the CSDL XML element here, even though it does not
+appear in the CSDL JSON format.
+:::
+
+@$@<Javascript CSDL metamodel@>@{
+class PropertyRef extends ListedModelElement {
+  @<PropertyRef@>
+}
+@}
+
+@$@<Exports@>@{
+PropertyRef,
+@}
+
+@$@<PropertyRef@>@{
+@<Internal property@>@(path@,@)
+@<Internal property@>@(alias@,@)
+constructor(entityType) {
+  super(entityType, "$Key");
+}
+get target() {
+  return this.path.target;
+}
+fromJSON(json) {
+  if (typeof json === "string") @<Path to key property@>@(json@)
+  else
+    for (const name in json) {
+      this.#alias = name;
+      @<Path to key property@>@(json[name]@)
+    }
+}
+toJSON() {
+  if (this.alias) {
+    const propRef = {};
+    propRef[this.alias] = this.path;
+    return propRef;
+  } else return this.path.toJSON();
+}
+toYAML() {
+  if (this.alias) return this.toJSON();
+  else {
+    const propRef = {};
+    propRef[this.path.toJSON()] = this.path;
+    return propRef;
+  }
+}
+@}
+
+@$@<EntityType@>@{
+computeEffectiveType() {
+  const effectiveType = super.computeEffectiveType();
+  if (effectiveType !== this)
+    for (let t = this; t; t = t.$BaseType?.target)
+      if (t.$Key) {
+        effectiveType.$Key = t.$Key;
+        break;
+      }
+  return effectiveType;
+}
+fromJSON(json) {
+  if (json.$Key)
+    for (const propRef of json.$Key) new PropertyRef(this).fromJSON(propRef);
+  super.fromJSON(json);
+}
+@}
 
 ::: {.varjson .example}
 Example ##ex: entity type with a simple key
