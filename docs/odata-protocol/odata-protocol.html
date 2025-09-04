@@ -2292,9 +2292,9 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <h4 id="11411-atomicity"><a id="Atomicity" href="#Atomicity">11.4.1.1 Atomicity</a></h4>
 </summary>
 <p>Data modification requests guarantee <em>atomicity</em> in the following sense: When the request completes, every subsequent request observes a state of the system in which either all or none of the changes have been carried out. The experience of concurrent clients observing the state of the system can be described through isolation levels as defined in <a href="#_SQL92">SQL92, section 4.28</a>, even for services that do not use a transactional database.</p>
-<p>When a service operates at isolation level “read uncommitted”, concurrent clients MAY observe a state of the system where the changes have been carried out only partially while the data modification request is still being executed. During the execution, the service MUST roll back any changes that may have been applied (and seen by clients) before another change failed.</p>
+<p>When a service operates at isolation level “read uncommitted”, concurrent clients MAY observe a state of the system where the changes have been carried out only partially while the data modification request is still being executed. In such a case, if an error is encountered while processing the request, the service MUST roll back any changes that have been applied (even though they may have been seen by clients).</p>
 <p>When a service operates at an isolation level of “read committed” or higher, it protects against seeing such partial changes.</p>
-<p>When data modification requests apply the <a href="#Preferencecontinueonerrorodatacontinueonerror"><code>continue-on-error</code></a> preference, they do not always guarantee atomicity. See the sections below where this preference is mentioned.</p>
+<p>When data modification requests apply the <a href="#Preferencecontinueonerrorodatacontinueonerror"><code>continue-on-error</code></a> preference, they do not guarantee atomicity. See the sections below where this preference is mentioned.</p>
 </details>
 <details open><summary>
 <h4 id="11412-use-of-etags-for-avoiding-update-conflicts"><a id="UseofETagsforAvoidingUpdateConflicts" href="#UseofETagsforAvoidingUpdateConflicts">11.4.1.2 Use of ETags for Avoiding Update Conflicts</a></h4>

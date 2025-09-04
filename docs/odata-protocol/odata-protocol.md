@@ -4109,15 +4109,15 @@ even for services that do not use a transactional database.
 When a service operates at isolation level "read uncommitted",
 concurrent clients MAY observe a state of the system where the changes have been carried out only partially
 while the data modification request is still being executed.
-During the execution, the service MUST roll back any changes that
-may have been applied (and seen by clients) before another change failed.
+In such a case, if an error is encountered while processing the request, the service MUST roll back any changes that
+have been applied (even though they may have been seen by clients).
 
 When a service operates at an isolation level of "read committed" or higher,
 it protects against seeing such partial changes.
 
 When data modification requests apply the
 [`continue-on-error`](#Preferencecontinueonerrorodatacontinueonerror) preference,
-they do not always guarantee atomicity. See the sections below where this preference is mentioned.
+they do not guarantee atomicity. See the sections below where this preference is mentioned.
 
 #### <a id="UseofETagsforAvoidingUpdateConflicts" href="#UseofETagsforAvoidingUpdateConflicts">11.4.1.2 Use of ETags for Avoiding Update Conflicts</a>
 
