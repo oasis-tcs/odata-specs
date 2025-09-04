@@ -953,7 +953,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <h3 id="827-header-odata-maxversion"><a id="HeaderODataMaxVersion" href="#HeaderODataMaxVersion">8.2.7 Header <code>OData-MaxVersion</code></a></h3>
 </summary>
 <p>Clients SHOULD specify an <code>OData-MaxVersion</code> request header.</p>
-<p>If specified, the service MUST generate a response with the greatest supported <a href="#HeaderODataVersion"><code>OData-Version</code></a> less than or equal to the specified <code>OData-MaxVersion</code>.</p>
+<p>If specified, the service MUST generate a response with the greatest supported <a href="#HeaderODataVersion"><code>OData-Version</code></a> less than or equal to the specified <code>OData-MaxVersion</code> or fail the request with an appropriate error.</p>
 <p>If <code>OData-MaxVersion</code> is not specified, then the service SHOULD return responses with the same OData version over time and interpret the request as having an <code>OData-MaxVersion</code> equal to the maximum OData version supported by the service at its initial publication.</p>
 <p>If the <code>OData-MaxVersion</code> header is specified on an individual request within a batch, then it specifies the maximum OData version for that individual request. Individual requests that don’t include the <code>OData-MaxVersion</code> header inherit the maximum OData version of the overall batch request or response. The maximum OData version does not typically vary within a batch.</p>
 <p>For more details, see <a href="#Versioning">Versioning</a>.</p>
@@ -1237,7 +1237,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <details open><summary>
 <h3 id="923-response-code-406-not-acceptable"><a id="ResponseCode406NotAcceptable" href="#ResponseCode406NotAcceptable">9.2.3 Response Code <code>406 Not Acceptable</code></a></h3>
 </summary>
-<p><code>406 Not Acceptable</code> indicates that the resource specified by the request URL does not have a current representation that would be acceptable for the client according to the request headers <a href="#HeaderAccept"><code>Accept</code></a>, <a href="#HeaderAcceptCharset"><code>Accept-Charset</code></a>, and <a href="#HeaderAcceptLanguage"><code>Accept-Language</code></a>, and that the service is unwilling to supply a default representation.</p>
+<p><code>406 Not Acceptable</code> indicates that the resource specified by the request URL does not have a current representation that would be acceptable for the client according to the request headers <a href="#HeaderAccept"><code>Accept</code></a>, <a href="#HeaderAcceptCharset"><code>Accept-Charset</code></a>, <a href="#HeaderAcceptLanguage"><code>Accept-Language</code></a>, and <a href="#HeaderODataMaxVersion"><code>OData-MaxVersion</code></a>, and that the service is unwilling to supply a default representation.</p>
 </details>
 <details open><summary>
 <h3 id="924-response-code-410-gone"><a id="ResponseCode410Gone" href="#ResponseCode410Gone">9.2.4 Response Code <code>410 Gone</code></a></h3>
