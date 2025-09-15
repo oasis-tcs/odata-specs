@@ -184,8 +184,6 @@ The _descendants with maximum distance $d≥1$_ of a node are its child nodes an
 
 The _ancestors with maximum distance $d≥1$_ of a node are its parent nodes and, if $d>1$, the ancestors of these parent nodes with maximum distance $d-1$. The _ancestors_ are the ancestors with maximum distance $d=∞$. The `ParentNavigationProperty` MUST be such that no node is an ancestor of itself, in other words: cycles are forbidden.
 
-The term `UpPath` can be used in hierarchical result sets to associate with each instance one of its ancestors, one ancestor of that ancestor and so on. This instance annotation is introduced in [section ##Transformationtraverse].
-
 #### ##subsubsubsec Hierarchy Functions
 
 For testing the position of a given entity in a recursive hierarchy, the `Aggregation` vocabulary [OData-VocAggr](#ODataVocAggr) defines unbound functions. These have
