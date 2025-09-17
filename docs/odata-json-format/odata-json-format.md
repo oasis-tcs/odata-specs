@@ -2268,7 +2268,7 @@ Example 36: deleted entity in OData 4.0 response --- note that `id` is
 a property, not control information
 ```json
 {
-  "@context": "#Customers/$deletedEntity",
+  "@odata.context": "#Customers/$deletedEntity",
   "reason": "deleted",
   "id": "Customers('ANTON')"
 }
