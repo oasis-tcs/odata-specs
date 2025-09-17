@@ -1453,7 +1453,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <li><code>reason</code> — either <code>deleted</code>, if the entity was deleted (destroyed), or <code>changed</code> if the entity was removed from membership in the result (i.e., due to a data change).</li>
 </ul>
 <div class="example">
-<p>Example 36: deleted entity in OData 4.0 response — note that <code>id</code> is a property, not control information</p>
+<p>Example 36: deleted entity in OData 4.0 response — note that <code>id</code> is represented as a property of the deleted-entity object, not control information</p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Customers/$deletedEntity&quot;</span><span class="fu">,</span></span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;reason&quot;</span><span class="fu">:</span> <span class="st">&quot;deleted&quot;</span><span class="fu">,</span></span>

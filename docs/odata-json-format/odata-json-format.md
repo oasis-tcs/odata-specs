@@ -2265,7 +2265,7 @@ following optional property, regardless of the specified
 
 ::: example
 Example 36: deleted entity in OData 4.0 response --- note that `id` is
-a property, not control information
+represented as a property of the deleted-entity object, not control information
 ```json
 {
   "@odata.context": "#Customers/$deletedEntity",
