@@ -2187,7 +2187,7 @@ occurrence
     },
     {
       "@odata.context": "#Customers/$deletedEntity",
-      "@odata.id": "Customers('ANTON')"
+      "id": "Customers('ANTON')"
     },
     {
       "@odata.id": "Customers('ALFKI')",
