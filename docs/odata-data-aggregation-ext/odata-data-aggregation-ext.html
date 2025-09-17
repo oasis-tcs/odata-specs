@@ -148,7 +148,7 @@
 </summary>
 <h2>Committee Specification Draft 05</h2>
 <details open><summary>
-<h2 id="17-september-2025">17 September 2025</h2>
+<h2 id="24-september-2025">24 September 2025</h2>
 </summary>
 <p> </p>
 <h4>This stage:</h4>
@@ -211,9 +211,9 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <h4>Citation format:</h4>
 <p>When referencing this specification the following citation format should be used:</p>
 <p><strong>[OData-Data-Agg-v4.0]</strong></p>
-<p><em>OData Extension for Data Aggregation Version 4.0</em>. Edited by Ralf Handl, Hubert Heijkers, Gerald Krause, Michael Pizzo, Heiko Theißen, and Martin Zurmuehl. 17 September 2025. OASIS Committee Specification Draft 05. <a href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd05/odata-data-aggregation-ext-v4.0-csd05.html">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd05/odata-data-aggregation-ext-v4.0-csd05.html</a>. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.html">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.html</a>.</p>
+<p><em>OData Extension for Data Aggregation Version 4.0</em>. Edited by Ralf Handl, Hubert Heijkers, Gerald Krause, Michael Pizzo, Heiko Theißen, and Martin Zurmuehl. 24 September 2025. OASIS Committee Specification Draft 05. <a href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd05/odata-data-aggregation-ext-v4.0-csd05.html">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd05/odata-data-aggregation-ext-v4.0-csd05.html</a>. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.html">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.html</a>.</p>
 <h4>Notices</h4>
-<p>Copyright © OASIS Open 2023. All Rights Reserved.</p>
+<p>Copyright © OASIS Open 2025. All Rights Reserved.</p>
 <p>Distributed under the terms of the OASIS <a href="https://www.oasis-open.org/policies-guidelines/ipr/">IPR Policy</a>.</p>
 <p>The name “OASIS” is a trademark of <a href="https://www.oasis-open.org/">OASIS</a>, the owner and developer of this specification, and should be used only to refer to the organization and its official outputs.</p>
 <p>For complete copyright information please see the full Notices section in an Appendix <a href="#Notices">below</a>.</p>
@@ -464,6 +464,7 @@ Martin Zurmuehl (<a href="mailto:martin.zurmuehl@sap.com">martin.zurmuehl@sap.co
 <p>All examples in this document are non-normative and informative only. Examples labeled with ⚠ contain advanced concepts or make use of keywords that are defined only later in the text, they can be skipped at first reading.</p>
 <p>All other text is normative unless otherwise labeled.</p>
 <p>Paragraphs labeled 🚧 in this version of the specification contain restrictions that were not made in <strong>[OData-Data-Agg-v4.0]</strong> OASIS Committee Specification 03. Also, some sections of <strong>[OData-Data-Agg-v4.0]</strong> OASIS Committee Specification 03 are omitted from this version. In later OASIS standard versions these restrictions may be lifted again and the omitted sections reintroduced.</p>
+<p>The ABNF rules <a href="#ODataABNF">OData-ABNF</a> have been simplified in this version to reflect these restrictions. Also, some members of the OData Aggregation Vocabulary <a href="#ODataVocAggr">OData-VocAggr</a> have been removed from this version (deleted from the CSDL JSON document; commented out and labeled 🚧 in the CSDL XML document). These members are referenced by <strong>[OData-Data-Agg-v4.0]</strong> OASIS Committee Specification 03 but not by this version.</p>
 <!--
 Here is a customized command line which will generate HTML from the markdown file (named `odata-data-aggregation-ext-v4.0-csd05.md`). Line breaks are added for readability only:
 
@@ -4144,7 +4145,7 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 </tr>
 <tr class="odd">
 <td>Committee Specification Draft 05</td>
-<td>2025-09-17</td>
+<td>2025-09-24</td>
 <td>Gerald Krause<br> Heiko Theißen</td>
 <td>Remove sections not intended for OASIS Standard</td>
 </tr>
@@ -4155,7 +4156,7 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <details open><summary>
 <h1 id="appendix-d-notices"><a id="Notices" href="#Notices">Appendix D. Notices</a></h1>
 </summary>
-<p>Copyright © OASIS Open 2023. All Rights Reserved.</p>
+<p>Copyright © OASIS Open 2025. All Rights Reserved.</p>
 <p>All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the “OASIS IPR Policy”). The full <a href="https://www.oasis-open.org/policies-guidelines/ipr/">Policy</a> may be found at the OASIS website.</p>
 <p>This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published, and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this section are included on all such copies and derivative works. However, this document itself may not be modified in any way, including by removing the copyright notice or references to OASIS, except as needed for the purpose of developing any document or deliverable produced by an OASIS Technical Committee (in which case the rules applicable to copyrights, as set forth in the OASIS IPR Policy, must be followed) or as required to translate it into languages other than English.</p>
 <p>The limited permissions granted above are perpetual and will not be revoked by OASIS or its successors or assigns.</p>

@@ -5,16 +5,22 @@ subtitle: Committee Specification Draft 05
 filename: odata-data-aggregation-ext-v4.0-csd05
 stage: csd05
 previousStage: cs03
-pubdate: 17 September 2025
-pubdateISO: '2025-09-17'
-copyright: © OASIS Open 2023
+pubdate: 24 September 2025
+pubdateISO: '2025-09-24'
+copyright: © OASIS Open 2025
 additionalArtifacts:
   - repo: odata-vocabularies
     path: vocabularies/Org.OData.Aggregation.V1.json
-    branch: v4.02-release-candidate
+    branch: OData-Data-Aggr-v4.0/oasis-standard
   - repo: odata-vocabularies
     path: vocabularies/Org.OData.Aggregation.V1.xml
-    branch: v4.02-release-candidate
+    branch: OData-Data-Aggr-v4.0/oasis-standard
+  - repo: odata-abnf
+    path: abnf/odata-aggregation-abnf.txt
+    branch: OData-Data-Aggr-v4.0/oasis-standard
+  - repo: odata-abnf
+    path: abnf/odata-aggregation-testcases.yaml
+    branch: OData-Data-Aggr-v4.0/oasis-standard
 description:
   This specification adds basic grouping and aggregation functionality (e.g. sum, min, and max)
   to the Open Data Protocol (OData) without changing any of the base principles of OData.
