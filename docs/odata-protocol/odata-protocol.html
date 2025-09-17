@@ -384,11 +384,12 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <ul>
 <li><a href="#CommonDataModificationSemantics">11.4.1 Common Data Modification Semantics</a>
 <ul>
-<li><a href="#UseofETagsforAvoidingUpdateConflicts">11.4.1.1 Use of ETags for Avoiding Update Conflicts</a></li>
-<li><a href="#HandlingofDateTimeOffsetValues">11.4.1.2 Handling of DateTimeOffset Values</a></li>
-<li><a href="#HandlingofPropertiesNotAdvertisedinMetadata">11.4.1.3 Handling of Properties Not Advertised in Metadata</a></li>
-<li><a href="#HandlingofIntegrityConstraints">11.4.1.4 Handling of Integrity Constraints</a></li>
-<li><a href="#ReturningResultsfromDataModificationRequests">11.4.1.5 Returning Results from Data Modification Requests</a></li>
+<li><a href="#Atomicity">11.4.1.1 Atomicity</a></li>
+<li><a href="#UseofETagsforAvoidingUpdateConflicts">11.4.1.2 Use of ETags for Avoiding Update Conflicts</a></li>
+<li><a href="#HandlingofDateTimeOffsetValues">11.4.1.3 Handling of DateTimeOffset Values</a></li>
+<li><a href="#HandlingofPropertiesNotAdvertisedinMetadata">11.4.1.4 Handling of Properties Not Advertised in Metadata</a></li>
+<li><a href="#HandlingofIntegrityConstraints">11.4.1.5 Handling of Integrity Constraints</a></li>
+<li><a href="#ReturningResultsfromDataModificationRequests">11.4.1.6 Returning Results from Data Modification Requests</a></li>
 </ul></li>
 <li><a href="#CreateanEntity">11.4.2 Create an Entity</a>
 <ul>
@@ -953,7 +954,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <h3 id="827-header-odata-maxversion"><a id="HeaderODataMaxVersion" href="#HeaderODataMaxVersion">8.2.7 Header <code>OData-MaxVersion</code></a></h3>
 </summary>
 <p>Clients SHOULD specify an <code>OData-MaxVersion</code> request header.</p>
-<p>If specified, the service MUST generate a response with the greatest supported <a href="#HeaderODataVersion"><code>OData-Version</code></a> less than or equal to the specified <code>OData-MaxVersion</code>.</p>
+<p>If specified, the service MUST generate a response with the greatest supported <a href="#HeaderODataVersion"><code>OData-Version</code></a> less than or equal to the specified <code>OData-MaxVersion</code> or fail the request with an appropriate error.</p>
 <p>If <code>OData-MaxVersion</code> is not specified, then the service SHOULD return responses with the same OData version over time and interpret the request as having an <code>OData-MaxVersion</code> equal to the maximum OData version supported by the service at its initial publication.</p>
 <p>If the <code>OData-MaxVersion</code> header is specified on an individual request within a batch, then it specifies the maximum OData version for that individual request. Individual requests that don’t include the <code>OData-MaxVersion</code> header inherit the maximum OData version of the overall batch request or response. The maximum OData version does not typically vary within a batch.</p>
 <p>For more details, see <a href="#Versioning">Versioning</a>.</p>
@@ -1237,7 +1238,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <details open><summary>
 <h3 id="923-response-code-406-not-acceptable"><a id="ResponseCode406NotAcceptable" href="#ResponseCode406NotAcceptable">9.2.3 Response Code <code>406 Not Acceptable</code></a></h3>
 </summary>
-<p><code>406 Not Acceptable</code> indicates that the resource specified by the request URL does not have a current representation that would be acceptable for the client according to the request headers <a href="#HeaderAccept"><code>Accept</code></a>, <a href="#HeaderAcceptCharset"><code>Accept-Charset</code></a>, and <a href="#HeaderAcceptLanguage"><code>Accept-Language</code></a>, and that the service is unwilling to supply a default representation.</p>
+<p><code>406 Not Acceptable</code> indicates that the resource specified by the request URL does not have a current representation that would be acceptable for the client according to the request headers <a href="#HeaderAccept"><code>Accept</code></a>, <a href="#HeaderAcceptCharset"><code>Accept-Charset</code></a>, <a href="#HeaderAcceptLanguage"><code>Accept-Language</code></a>, and <a href="#HeaderODataMaxVersion"><code>OData-MaxVersion</code></a>, and that the service is unwilling to supply a default representation.</p>
 </details>
 <details open><summary>
 <h3 id="924-response-code-410-gone"><a id="ResponseCode410Gone" href="#ResponseCode410Gone">9.2.4 Response Code <code>410 Gone</code></a></h3>
@@ -2288,7 +2289,15 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 </summary>
 <p><a href="#DataModification">Data Modification Requests</a> share the following semantics.</p>
 <details open><summary>
-<h4 id="11411-use-of-etags-for-avoiding-update-conflicts"><a id="UseofETagsforAvoidingUpdateConflicts" href="#UseofETagsforAvoidingUpdateConflicts">11.4.1.1 Use of ETags for Avoiding Update Conflicts</a></h4>
+<h4 id="11411-atomicity"><a id="Atomicity" href="#Atomicity">11.4.1.1 Atomicity</a></h4>
+</summary>
+<p>Data modification requests guarantee <em>atomicity</em> in the following sense: When the request completes, every subsequent request observes a state of the system in which either all or none of the changes have been carried out. The experience of concurrent clients observing the state of the system can be described through isolation levels as defined in <a href="#_SQL92">SQL92, section 4.28</a>, even for services that do not use a transactional database.</p>
+<p>When a service operates at isolation level “read uncommitted”, concurrent clients MAY observe a state of the system where the changes have been carried out only partially while the data modification request is still being executed. In such a case, if an error is encountered while processing the request, the service MUST roll back any changes that have been applied (even though they may have been seen by clients).</p>
+<p>When a service operates at an isolation level of “read committed” or higher, it protects against seeing such partial changes.</p>
+<p>When data modification requests apply the <a href="#Preferencecontinueonerrorodatacontinueonerror"><code>continue-on-error</code></a> preference, they do not guarantee atomicity. See the sections below where this preference is mentioned.</p>
+</details>
+<details open><summary>
+<h4 id="11412-use-of-etags-for-avoiding-update-conflicts"><a id="UseofETagsforAvoidingUpdateConflicts" href="#UseofETagsforAvoidingUpdateConflicts">11.4.1.2 Use of ETags for Avoiding Update Conflicts</a></h4>
 </summary>
 <p>Each entity has its own ETag value that MUST change when structural properties or links from that entity have changed. In addition, modifying, adding, or deleting a contained entity MAY change the ETag of the parent entity.</p>
 <p>Collections of entities (including collections of related entities) MAY have their own ETag value whose semantics is service-specific. It typically changes if entities are added to or removed from the collection, or if an entity in the collection is changed. The ETag of a collection of related entities reached via a navigation property MAY differ from the ETag of the entity containing the navigation property.</p>
@@ -2312,22 +2321,22 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 </div>
 </details>
 <details open><summary>
-<h4 id="11412-handling-of-datetimeoffset-values"><a id="HandlingofDateTimeOffsetValues" href="#HandlingofDateTimeOffsetValues">11.4.1.2 Handling of DateTimeOffset Values</a></h4>
+<h4 id="11413-handling-of-datetimeoffset-values"><a id="HandlingofDateTimeOffsetValues" href="#HandlingofDateTimeOffsetValues">11.4.1.3 Handling of DateTimeOffset Values</a></h4>
 </summary>
 <p>Services SHOULD preserve the offset of <code>Edm.DateTimeOffset</code> values, if possible. However, where the underlying storage does not support offset services may be forced to normalize the value to some common time zone (for example UTC) in which case the result would be returned with that time zone offset. If the service normalizes values, it MUST fail evaluation of the <a href="#BuiltinQueryFunctions">query functions</a> <code>year</code>, <code>month</code>, <code>day</code>, <code>hour</code>, and <code>time</code> for literal values that are not stated in the time zone of the normalized values.</p>
 </details>
 <details open><summary>
-<h4 id="11413-handling-of-properties-not-advertised-in-metadata"><a id="HandlingofPropertiesNotAdvertisedinMetadata" href="#HandlingofPropertiesNotAdvertisedinMetadata">11.4.1.3 Handling of Properties Not Advertised in Metadata</a></h4>
+<h4 id="11414-handling-of-properties-not-advertised-in-metadata"><a id="HandlingofPropertiesNotAdvertisedinMetadata" href="#HandlingofPropertiesNotAdvertisedinMetadata">11.4.1.4 Handling of Properties Not Advertised in Metadata</a></h4>
 </summary>
 <p>Clients MUST be prepared to receive additional properties in an entity or complex type instance that are not advertised in metadata, even for types not marked as open. By using <code>PATCH</code> when <a href="#UpdateanEntity">updating entities</a>, clients can ensure that such properties values are not lost if omitted from the request.</p>
 </details>
 <details open><summary>
-<h4 id="11414-handling-of-integrity-constraints"><a id="HandlingofIntegrityConstraints" href="#HandlingofIntegrityConstraints">11.4.1.4 Handling of Integrity Constraints</a></h4>
+<h4 id="11415-handling-of-integrity-constraints"><a id="HandlingofIntegrityConstraints" href="#HandlingofIntegrityConstraints">11.4.1.5 Handling of Integrity Constraints</a></h4>
 </summary>
 <p>Services may impose cross-entity integrity constraints. Certain referential constraints, such as requiring an entity to be created with related entities can be satisfied through <a href="#CreateRelatedEntitiesWhenCreatinganEntity">creating</a> or <a href="#LinktoRelatedEntitiesWhenCreatinganEntity">linking</a> related entities when creating the entity. Other constraints might require multiple changes to be processed in an all-or-nothing fashion.</p>
 </details>
 <details open><summary>
-<h4 id="11415-returning-results-from-data-modification-requests"><a id="ReturningResultsfromDataModificationRequests" href="#ReturningResultsfromDataModificationRequests">11.4.1.5 Returning Results from Data Modification Requests</a></h4>
+<h4 id="11416-returning-results-from-data-modification-requests"><a id="ReturningResultsfromDataModificationRequests" href="#ReturningResultsfromDataModificationRequests">11.4.1.6 Returning Results from Data Modification Requests</a></h4>
 </summary>
 <p>Clients can request whether created or modified resources are returned from <a href="#CreateanEntity">create</a>, <a href="#UpdateanEntity">update</a>, and <a href="#UpsertanEntity">upsert</a> operations using the <a href="#Preferencereturnrepresentationandreturnminimal"><code>return</code></a> preference header. In the absence of such a header, services SHOULD return the created or modified content unless the resource is a stream property value.</p>
 <p>When returning content other than for an update to a media entity stream, services MUST return the same content as a subsequent request to retrieve the same resource. For updating media entity streams, the content of a non-empty response body MUST be the updated media entity.</p>
@@ -2816,6 +2825,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <li>Collections within the request are represented as collections in the response according to the rules specified in <a href="#ErrorHandlingwhenReplacingaCollectionofEntities">Replace a Collection of Entities</a>.</li>
 </ul>
 <p>If an individual change fails due to a failed dependency, it MUST be annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DataModificationException"><code>Core.DataModificationException</code></a> and SHOULD specify a <code>responseCode</code> of <code>424</code> (<a href="#ResponseCode424FailedDependency">Failed Dependency</a>).</p>
+<p>If no <code>continue-on-error</code> preference is applied, the collection update MUST happen in an <a href="#Atomicity">atomic</a> manner.</p>
 </details>
 </details>
 <details open><summary>
@@ -2834,6 +2844,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <li>Failed updates within the request MUST be represented in the response with their current values and SHOULD be annotated with the term <code>Core.DataModificationException</code> with a <code>failedOperation</code> value of <code>update</code>.</li>
 <li>Collections within the request MUST also be represented in the response following these same rules.</li>
 </ul>
+<p>If no <code>continue-on-error</code> preference is applied, the collection update MUST happen in an <a href="#Atomicity">atomic</a> manner.</p>
 </details>
 </details>
 <details open><summary>
@@ -2856,6 +2867,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Clients should note that requesting a response may be expensive for services that could otherwise efficiently apply updates to a (possibly filtered) collection.</p>
 <p>If the <code>continue-on-error</code> preference has been specified, the service MAY continue processing updates after a failure. In this case, the service MUST return a response containing at least the members of the collection that failed to update, which MUST be annotated with the term <code>Core.DataModificationException</code> with a <code>failedOperation</code> value of <code>update</code>.</p>
 <p>If the <code>continue-on-error</code> preference has not been specified, and the service is unable to update all of the members identified by the request, then it MUST return an error response and MUST NOT apply any updates.</p>
+<p>If no <code>continue-on-error</code> preference is applied, the collection update MUST happen in an <a href="#Atomicity">atomic</a> manner.</p>
 </details>
 <details open><summary>
 <h3 id="11414-delete-members-of-a-collection"><a id="DeleteMembersofaCollection" href="#DeleteMembersofaCollection">11.4.14 Delete Members of a Collection</a></h3>
@@ -2870,6 +2882,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>If the collection is a collection of entities, then the client MAY specify the <code>continue-on-error</code> preference, in which case the service MAY continue processing deletes after a failure. In this case, the service MUST return a response containing at least an entity or entity reference for each entity identified by the request that failed to delete, which MUST be annotated with the term <code>Core.DataModificationException</code> with a <code>failedOperation</code> value of <code>delete</code>.</p>
 <p>Clients should note that requesting a response may be expensive for services that could otherwise efficiently apply deletes to a (possibly filtered) collection.</p>
 <p>If the <code>continue-on-error</code> preference has not been specified, and the service is unable to delete all of the entities identified by the request, then it MUST return an error response and MUST NOT apply any changes.</p>
+<p>If no <code>continue-on-error</code> preference is applied, the deletion MUST happen in an <a href="#Atomicity">atomic</a> manner.</p>
 </details>
 </details>
 <details open><summary>
@@ -3396,7 +3409,7 @@ Accept: application/json
 <h4 id="11775-processing-a-multipart-batch-request"><a id="ProcessingaMultipartBatchRequest" href="#ProcessingaMultipartBatchRequest">11.7.7.5 Processing a Multipart Batch Request</a></h4>
 </summary>
 <p>The service MUST process the individual requests and change sets within a multipart batch request in the order received. Processing stops on the first error unless the <a href="#Preferencecontinueonerrorodatacontinueonerror"><code>continue-on-error</code></a> preference is specified with an explicit or implicit value of <code>true</code>.</p>
-<p>All requests in a change set represent a single change unit so a service MUST successfully process and apply all the requests in the change set or else apply none of them. It is up to the service implementation to define rollback semantics to undo any requests within a change set that may have been applied before another request in that same change set failed and thereby apply this all-or-nothing requirement. The service MAY execute the requests within a change set in any order and MAY return the responses to the individual requests in any order. If a request specifies a request identifier, the service MUST include the <code>Content-ID</code> header with the request identifier in the corresponding response so clients can correlate requests and responses.</p>
+<p>All requests in a change set represent a single change unit so a service MUST successfully process and apply all the requests in the change set or else apply none of them. See <a href="#Atomicity">section 11.4.1.1</a> for details on visibility of atomic changes. The service MAY execute the requests within a change set in any order and MAY return the responses to the individual requests in any order. If a request specifies a request identifier, the service MUST include the <code>Content-ID</code> header with the request identifier in the corresponding response so clients can correlate requests and responses.</p>
 </details>
 <details open><summary>
 <h4 id="11776-multipart-batch-response"><a id="MultipartBatchResponse" href="#MultipartBatchResponse">11.7.7.6 Multipart Batch Response</a></h4>
@@ -3584,14 +3597,14 @@ Content-Length: ###
 <p>To be considered an <em>Updatable OData Service</em>, the service additionally:</p>
 <ol start="18" type="1">
 <li>MUST include edit links (explicitly or implicitly) for all updatable or deletable resources according to <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink">OData-JSON, section 4.6.9</a></li>
-<li>MUST support <code>POST</code> of new entities to insertable entity sets (<a href="#ReturningResultsfromDataModificationRequests">section 11.4.1.5</a>)</li>
+<li>MUST support <code>POST</code> of new entities to insertable entity sets (<a href="#ReturningResultsfromDataModificationRequests">section 11.4.1.6</a>)</li>
 <li>MUST support <code>POST</code> of new related entities to updatable navigation properties (<a href="#CreateanEntity">section 11.4.2</a>)</li>
 <li>MUST support <code>POST</code> to <code>$ref</code> to add an existing entity to an updatable related collection (<a href="#AddaReferencetoaCollectionValuedNavigationProperty">section 11.4.5.1</a>)</li>
 <li>MUST support <code>PUT</code> to <code>$ref</code> to set an existing single updatable related entity (<a href="#ChangetheReferenceinaSingleValuedNavigationProperty">section 11.4.5.3</a>)</li>
 <li>MUST support <code>PATCH</code> to all edit URLs for updatable resources (<a href="#UpdateanEntity">section 11.4.3</a>)</li>
 <li>MUST support <code>DELETE</code> to all edit URLs for deletable resources (<a href="#DeleteanEntity">section 11.4.4</a>)</li>
 <li>MUST support <code>DELETE</code> to <code>$ref</code> to remove a reference to an entity from an updatable navigation property (<a href="#RemoveaReferencetoanEntity">section 11.4.5.2</a>)</li>
-<li>MUST support <code>If-Match</code> header in update/delete of any resources returned with an ETag (<a href="#UseofETagsforAvoidingUpdateConflicts">section 11.4.1.1</a>)</li>
+<li>MUST support <code>If-Match</code> header in update/delete of any resources returned with an ETag (<a href="#UseofETagsforAvoidingUpdateConflicts">section 11.4.1.2</a>)</li>
 <li>MUST return a <code>Location</code> header with the edit URL or read URL of a created resource (<a href="#CreateanEntity">section 11.4.2</a>)</li>
 <li>MUST include the <code>OData-EntityId</code> header in response to any create or upsert operation that returns <code>204 No Content</code> (<a href="#HeaderODataEntityId">section 8.3.4</a>)</li>
 <li>MUST support Upserts (<a href="#UpsertanEntity">section 11.4.3.2</a>)</li>
@@ -3862,6 +3875,8 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 </summary>
 <h6><span id="_ECMAScript">ECMAScript</span></h6>
 <p><em>ECMAScript 2023 Language Specification, 14th Edition</em>, June 2023. Standard ECMA-262. <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">https://www.ecma-international.org/publications-and-standards/standards/ecma-262/</a>.</p>
+<h6><span id="_SQL92">SQL92</span></h6>
+<p><em>ISO/IEC 9075:1992, Database Language SQL</em>, July 30, 1992. Digital Equipment Corporation, Maynard, Massachusetts. <a href="http://www.contrib.andrew.cmu.edu/~shadow/sql/sql1992.txt">http://www.contrib.andrew.cmu.edu/~shadow/sql/sql1992.txt</a>.</p>
 <h6><span id="_WKT">Well-Known Text</span></h6>
 <p><em>OpenGIS Implementation Specification for Geographic information – Simple feature access – Part 1: Common architecture</em>, May 2011. Open Geospatial Consortium. <a href="https://www.ogc.org/standard/sfa/">https://www.ogc.org/standard/sfa/</a>.</p>
 </details>
