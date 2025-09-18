@@ -11,16 +11,16 @@ copyright: © OASIS Open 2025
 additionalArtifacts:
   - repo: odata-vocabularies
     path: vocabularies/Org.OData.Aggregation.V1.json
-    branch: OData-Data-Aggr-v4.0/oasis-standard
+    branch: OData-Data-Agg-v4.0/oasis-standard
   - repo: odata-vocabularies
     path: vocabularies/Org.OData.Aggregation.V1.xml
-    branch: OData-Data-Aggr-v4.0/oasis-standard
+    branch: OData-Data-Agg-v4.0/oasis-standard
   - repo: odata-abnf
     path: abnf/odata-aggregation-abnf.txt
-    branch: OData-Data-Aggr-v4.0/oasis-standard
+    branch: OData-Data-Agg-v4.0/oasis-standard
   - repo: odata-abnf
     path: abnf/odata-aggregation-testcases.yaml
-    branch: OData-Data-Aggr-v4.0/oasis-standard
+    branch: OData-Data-Agg-v4.0/oasis-standard
 description:
   This specification adds basic grouping and aggregation functionality (e.g. sum, min, and max)
   to the Open Data Protocol (OData) without changing any of the base principles of OData.
