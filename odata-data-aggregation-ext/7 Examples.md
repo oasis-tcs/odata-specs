@@ -191,35 +191,7 @@ Note that the base set of the request is `Products`, so there is a result item f
 :::
 
 ::: example
-Example ##ex_nest: Alternatively, the request could ask for the aggregated amount to be nested inside a clone of Sales
-```
-GET /service/Products?$apply=addnested(Sales,
-    aggregate(Amount with sum as Total) as AggregatedSales)
-```
-results in
-```json
-{
-  "@context": "$metadata#Products(AggregatedSales())",
-  "value": [
-    { "ID": "P2", "Name": "Coffee", "Color": "Brown", "TaxRate": 0.06,
-      "AggregatedSales@context": "#Sales(Total)",
-      "AggregatedSales": [ { "Total@type": "Decimal", "Total": 12 } ] },
-    { "ID": "P3", "Name": "Paper",  "Color": "White", "TaxRate": 0.14,
-      "AggregatedSales@context": "#Sales(Total)",
-      "AggregatedSales": [ { "Total@type": "Decimal", "Total":  8 } ] },
-    { "ID": "P4", "Name": "Pencil", "Color": "Black", "TaxRate": 0.14,
-      "AggregatedSales@context": "#Sales(Total)",
-      "AggregatedSales": [ {                          "Total": null } ] },
-    { "ID": "P1", "Name": "Sugar",  "Color": "White", "TaxRate": 0.06,
-      "AggregatedSales@context": "#Sales(Total)",
-      "AggregatedSales": [ { "Total@type": "Decimal", "Total":  4 } ] }
-  ]
-}
-```
-:::
-
-::: example
-Example ##ex: To compute the aggregate as a property without nesting, use the `aggregate` function in `$compute` rather than the `aggregate` transformation in `$apply`:
+Example ##ex: Compute the aggregate as a property using the `aggregate` function in `$compute`:
 ```
 GET /service/Products?$compute=Sales/aggregate(Amount with sum) as Total
 ```
@@ -305,40 +277,6 @@ results in
     { "Name": "Paper",  "SalesCount@type": "Decimal", "SalesCount": 4 },
     { "Name": "Pencil", "SalesCount@type": "Decimal", "SalesCount": 0 },
     { "Name": "Sugar",  "SalesCount@type": "Decimal", "SalesCount": 2 }
-  ]
-}
-```
-:::
-
-To place the number of instances in a group next to other aggregated values, the aggregate expression [`$count`](#AggregateExpressioncount) can be used:
-
-::: example
-⚠ Example ##ex: The effect of the `groupby` is to create transient entities and avoid in the result structural properties other than `Name`.
-```
-GET /service/Products?$apply=groupby((Name),addnested(Sales,
-      aggregate($count as SalesCount,
-                Amount with sum as TotalAmount) as AggregatedSales))
-```
-results in
-```json
-{
-  "@context": "$metadata#Products(Name,AggregatedSales())",
-  "value": [
-    { "Name": "Coffee",
-      "AggregatedSales@context": "#Sales(SalesCount,TotalAmount)",
-      "AggregatedSales": [ { "SalesCount": 2,
-          "TotalAmount@type": "Decimal", "TotalAmount": 12 } ] },
-    { "Name": "Paper",
-      "AggregatedSales@context": "#Sales(SalesCount,TotalAmount)",
-      "AggregatedSales": [ { "SalesCount": 4,
-          "TotalAmount@type": "Decimal", "TotalAmount":  8 } ] },
-    { "Name": "Pencil",
-      "AggregatedSales@context": "#Sales(SalesCount,TotalAmount)",
-      "AggregatedSales": [ { "SalesCount": 0, "TotalAmount": null } ] },
-    { "Name": "Sugar",
-      "AggregatedSales@context": "#Sales(SalesCount,TotalAmount)",
-      "AggregatedSales": [ { "SalesCount": 2,
-          "TotalAmount@type": "Decimal",  "TotalAmount":  4 } ] }
   ]
 }
 ```
@@ -458,154 +396,7 @@ results in
 ```
 :::
 
-::: example
-Example ##ex: rule 1 for [keyword `from`](#Keywordfrom) applied repeatedly
-```
-GET /service/Sales?$apply=aggregate(Amount with sum
-                                    from Time with average
-                                    from Customer/Country with max
-                                    as MaxDailyAveragePerCountry)
-```
-is equivalent to (with nested `groupby` transformations)
-```
-GET /service/Sales?$apply=
-  groupby((Customer/Country),
-    groupby((Time),aggregate(Amount with sum as D1))
-    /aggregate(D1 with average as D2))
-  /aggregate(D2 with max as MaxDailyAveragePerCountry)
-```
-and is equivalent to (with consecutive `groupby` transformations)
-```
-GET /service/Sales?$apply=
-  groupby((Customer/Country,Time),aggregate(Amount with sum as D1))
-  /groupby((Customer/Country),aggregate(D1 with average as D2))
-  /aggregate(D2 with max as MaxDailyAveragePerCountry)
-```
-:::
-
 ## ##subsec Requesting Expanded Results
-
-::: example
-Example ##ex: Assuming an extension of the data model where `Customer` contains an additional collection-valued complex property `Addresses` and these contain a single-valued navigation property `ResponsibleSalesOrganization`, `addnested` can be used to compute a nested dynamic property:
-```
-GET /service/Customers?$apply=
-    addnested(Addresses/ResponsibleSalesOrganization,
-              compute(Superordinate/Name as SalesRegion)
-              as AugmentedSalesOrganization)
-```
-results in
-```json
-{
-  "@context": "$metadata#Customers(Addresses(AugmentedSalesOrganization())",
-  "value": [
-    { "ID": "C1", "Name": "Joe", "Country": "US",
-      "Addresses": [
-        { "Locality": "Seattle",
-          "AugmentedSalesOrganization":
-          { "@context": "#SalesOrganizations/$entity",
-            "ID": "US West", "SalesRegion": "US" } },
-        { "Locality": "DC",
-          "AugmentedSalesOrganization":
-          { "@context": "#SalesOrganizations/$entity",
-            "ID": "US",      "SalesRegion": "Corporate Sales" } },
-      ]
-    }, …
-  ]
-}
-```
-:::
-
-`addnested` transformations can be nested.
-
-::: example
-Example ##ex: nested `addnested` transformations
-```
-GET /service/Categories?$apply=
-    addnested(Products,
-      addnested(Sales,filter(Amount gt 3) as FilteredSales)
-    as FilteredProducts)
-```
-results in
-```json
-{
-  "@context": "$metadata#Categories(FilteredProducts()",
-  "value": [
-    { "ID": "PG1", "Name": "Food",
-      "FilteredProducts@context": "#Products(FilteredSales())",
-      "FilteredProducts": [
-        { "ID": "P1", "Name": "Sugar",  "Color": "White",
-          "FilteredSales@context": "#Sales",
-          "FilteredSales": [] },
-        { "ID": "P2", "Name": "Coffee", "Color": "Brown",
-          "FilteredSales@context": "#Sales",
-          "FilteredSales": [ { "ID": 3, "Amount": 4 },
-                             { "ID": 4, "Amount": 8 } ] }
-      ]
-    },
-    { "ID": "PG2", "Name": "Non-Food",
-      "FilteredProducts@context": "#Products(FilteredSales())",
-      "FilteredProducts": [
-        { "ID": "P3", "Name": "Paper",  "Color": "White",
-          "FilteredSales@context": "#Sales",
-          "FilteredSales": [ { "ID": 5, "Amount": 4 } ] },
-        { "ID": "P4", "Name": "Pencil", "Color": "Black",
-          "FilteredSales@context": "#Sales",
-          "FilteredSales": [] }
-      ]
-    }
-  ]
-}
-```
-
-Instead of keeping all related entities from navigation properties that `addnested` expanded by default, an explicit `$expand` controls which of them to include in the response:
-```
-GET /service/Categories?$apply=
-    addnested(Products,
-      addnested(Sales,filter(Amount gt 3) as FilteredSales)
-    as FilteredProducts)
-  &$expand=FilteredProducts
-```
-results in the response before without the FilteredSales dynamic navigation properties expanded in the result.
-:::
-
-::: example
-Example ##ex: Here only the `GroupedSales` are expanded, because they are named in `$expand`, the related `Product` entity is not:
-```
-GET /service/Customers?$apply=addnested(Sales,
-    groupby((Product/Name)) as GroupedSales)
-  &$expand=GroupedSales
-```
-results in
-```json
-{
-  "@context": "$metadata#Customers(GroupedSales())",
-  "value": [
-    { "ID": "C1", "Name": "Joe", "Country": "USA",
-      "GroupedSales@context": "#Sales(@Core.AnyStructure)",
-      "GroupedSales": [
-        { },
-        { },
-        { }
-      ] },
-    { "ID": "C2", "Name": "Sue", "Country": "USA",
-      "GroupedSales@context": "#Sales(@Core.AnyStructure)",
-      "GroupedSales": [
-        { },
-        { }
-      ] },
-    { "ID": "C3", "Name": "Joe", "Country": "Netherlands",
-      "GroupedSales@context": "#Sales(@Core.AnyStructure)",
-      "GroupedSales": [
-        { },
-        { }
-      ] },
-    { "ID": "C4", "Name": "Luc", "Country": "France",
-      "GroupedSales@context": "#Sales(@Core.AnyStructure)",
-      "GroupedSales": [ ] }
-  ]
-}
-```
-:::
 
 ::: example
 Example ##ex: use `outerjoin` to split up collection-valued navigation properties for grouping
@@ -686,50 +477,6 @@ results in
 ```
 :::
 
-::: example
-Example ##ex: illustrates rule 1 for [keyword `from`](#Keywordfrom): maximal sales forecast for a product
-```
-GET /service/Sales?$apply=aggregate(Forecast from Product with max
-                                    as MaxProductForecast)
-```
-is equivalent to
-```
-GET /service/Sales?$apply=
-  groupby((Product),aggregate(Forecast))
-  /aggregate(Forecast with max as MaxProductForecast)
-```
-:::
-
-::: example
-Example ##ex: illustrates rule 2 for [keyword `from`](#Keywordfrom): the forecast is computed in two steps
-```
-GET /service/Sales?$apply=aggregate(Forecast from Product as ProductForecast)
-```
-is equivalent to the following (except that the property name is `Forecast` instead of `ProductForecast`)
-```
-GET /service/Sales?$apply=
-  groupby((Product),aggregate(Forecast))
-  /aggregate(Forecast)
-```
-:::
-
-::: example
-Example ##ex: illustrates rule 1 followed by rule 2 for [keyword `from`](#Keywordfrom): a forecast based on the average daily forecasts per country
-```
-GET /service/Sales?$apply=aggregate(Forecast from Time with average
-                                    from Customer/Country
-                                    as CountryForecast)
-```
-is equivalent to the following (except that the property name is `Forecast` instead of `CountryForecast`). Note that `Forecast` appears as a property and as a custom aggregate.
-```
-GET /service/Sales?$apply=
-  groupby((Customer/Country),
-    groupby((Time),aggregate(Forecast))
-    /aggregate(Forecast with average as D1))
-  /aggregate(Forecast)
-```
-:::
-
 ## ##subsec Aliasing
 
 A property can be aggregated in multiple ways, each with a different alias.
@@ -752,42 +499,6 @@ results in
     { "Customer": { "Country": "USA" },
       "Total@type": "Decimal", "Total": 19,
       "AvgAmt@type": "Decimal", "AvgAmt": 3.8 }
-  ]
-}
-```
-:::
-
-The introduced dynamic property is added to the context where the aggregate expression is applied to:
-
-::: example
-Example ##ex:
-```
-GET /service/Products?$apply=groupby((Name),
-                              aggregate(Sales/Amount with sum as Total))
-    /groupby((Name),
-     addnested(Sales,aggregate(Amount with average as AvgAmt)
-               as AggregatedSales))
-```
-results in
-```json
-{
-  "@context": "$metadata#Products(Name,Total,AggregatedSales())",
-  "value": [
-    { "Name": "Coffee", "Total":   12,
-      "AggregatedSales@context": "#Sales(AvgAmt)",
-      "AggregatedSales": [ { "AvgAmt@type": "Decimal",
-                             "AvgAmt": 6 } ] },
-    { "Name": "Paper",  "Total":    8,
-      "AggregatedSales@context": "#Sales(AvgAmt)",
-      "AggregatedSales": [ { "AvgAmt@type": "Decimal",
-                             "AvgAmt": 2 } ] },
-    { "Name": "Pencil", "Total": null,
-      "AggregatedSales@context": "#Sales(AvgAmt)",
-      "AggregatedSales": [ { "AvgAmt": null } ] },
-    { "Name": "Sugar",  "Total":    4,
-      "AggregatedSales@context": "#Sales(AvgAmt)",
-      "AggregatedSales": [ { "AvgAmt@type": "Decimal",
-                             "AvgAmt": 2 } ] }
   ]
 }
 ```
@@ -959,7 +670,7 @@ Note that these two entities get their values for the Country property from the 
 
 ## ##subsec Controlling Aggregation per Rollup Level
 
-For a leveled hierarchy, consumers may specify a different aggregation method per level for every property passed to [`rollup`](#Groupingwithrollup) as a hierarchy level below the root level.
+For a leveled hierarchy, consumers may specify a different aggregation method per level as a hierarchy level below the root level.
 
 ::: example
 Example ##ex: get the average of the overall amount by month per product.
@@ -972,134 +683,7 @@ GET /service/Sales?$apply=groupby((Product/ID,Product/Name,Time/Month),
                            aggregate(Total with average as MonthlyAverage))
 ```
 
-Using `from`:
-```
-GET /service/Sales?$apply=groupby((Product/ID,Product/Name),
-                      aggregate(Amount with sum
-                                       from Time/Month with average
-                                       as MonthlyAverage))
-```
-:::
-
-::: example
-Example ##ex:  get the total amount per customer, the average of the total customer amounts per country, and the overall average of these averages
-```
-GET /service/Sales?$apply=concat(
-                    groupby((rollup(Customer/Country,Customer/ID)),
-                           aggregate(Amount with sum
-                                     from Customer/ID with average
-                                     as CustomerCountryAverage)),
-                    aggregate(Amount with sum
-                              from Customer/ID      with average
-                              from Customer/Country with average
-                              as CustomerCountryAverage)))
-```
-results in
-```json
-{
-  "@context": "$metadata#Sales(CustomerCountryAverage)",
-  "value": [
-    { "Customer": { "Country": "USA", "ID": "C1" },
-      "CustomerCountryAverage@type": "Decimal",
-      "CustomerCountryAverage":   7 },
-    { "Customer": { "Country": "USA", "ID": "C2" },
-      "CustomerCountryAverage@type": "Decimal",
-      "CustomerCountryAverage":  12 },
-    { "Customer": { "Country": "USA" },
-      "CustomerCountryAverage@type": "Decimal",
-      "CustomerCountryAverage": 9.5 },
-    { "Customer": { "Country": "Netherlands", "ID": "C3" },
-      "CustomerCountryAverage@type": "Decimal",
-      "CustomerCountryAverage": 5 },
-    { "Customer": { "Country": "Netherlands" },
-      "CustomerCountryAverage@type": "Decimal",
-      "CustomerCountryAverage": 5 },
-    { "CustomerCountryAverage@type": "Decimal",
-      "CustomerCountryAverage": 7.25 }
-  ]
-}
-```
-
-Note that this example extends the result of `rollup` with `concat` and `aggregate` to append the overall
-average.
-:::
-
 ## ##subsec Aggregation in Recursive Hierarchies
-
-If aggregation along a recursive hierarchy does not apply to the entire hierarchy, transformations `ancestors` and `descendants` may be used to restrict it as needed.
-
-::: example
-Example ##ex: Total sales amounts for sales orgs in 'US' in the `SalesOrgHierarchy` defined in [Hierarchy Examples](#HierarchyExamples)
-```
-GET /service/Sales?$apply=
-    descendants(
-        $root/SalesOrganizations,SalesOrgHierarchy,SalesOrganization/ID,
-        filter(SalesOrganization/Name eq 'US'),keep start)
-    /groupby((rolluprecursive(
-        $root/SalesOrganizations,SalesOrgHierarchy,SalesOrganization/ID)),
-      aggregate(Amount with sum as TotalAmount))
-  &$expand=SalesOrganization($expand=Superordinate/$ref)
-```
-results in
-```json
-{
-  "@context": "$metadata#Sales(TotalAmount,SalesOrganization())",
-  "value": [
-    { "TotalAmount@type": "Decimal", "TotalAmount": 19,
-      "SalesOrganization": { "ID": "US",      "Name": "US",
-        "Superordinate": { "@id": "SalesOrganizations('Sales')" } } },
-    { "TotalAmount@type": "Decimal", "TotalAmount": 12,
-      "SalesOrganization": { "ID": "US East", "Name": "US East",
-        "Superordinate": { "@id": "SalesOrganizations('US')" } } },
-    { "TotalAmount@type": "Decimal", "TotalAmount":  7,
-      "SalesOrganization": { "ID": "US West", "Name": "US West",
-        "Superordinate": { "@id": "SalesOrganizations('US')" } } }
-  ]
-}
-```
-
-Note that this example returns the actual total sums regardless of whether the `descendants` transformation comes before or after the `groupby` with `rolluprecursive`.
-:::
-
-The order of transformations becomes relevant if `groupby` with `rolluprecursive` shall aggregate over a thinned-out hierarchy, like here:
-
-::: example
-Example ##ex: Number of Paper sales per sales org aggregated along the the `SalesOrgHierarchy` defined in [Hierarchy Examples](#HierarchyExamples)
-```
-GET /service/Sales?$apply=
-    filter(Product/Name eq 'Paper')
-    /groupby((rolluprecursive((
-        $root/SalesOrganizations,SalesOrgHierarchy,SalesOrganization/ID)),
-      aggregate($count as PaperSalesCount))
-  &$expand=SalesOrganization($expand=Superordinate/$ref)
-```
-results in
-```json
-{
-  "@context": "$metadata#Sales(PaperSalesCount,SalesOrganization())",
-  "value": [
-    { "PaperSalesCount@type": "Decimal", "PaperSalesCount": 2,
-      "SalesOrganization": { "ID": "US",           "Name": "US",
-        "Superordinate": { "@id": "SalesOrganizations('Sales')" } } },
-    { "PaperSalesCount@type": "Decimal", "PaperSalesCount": 1,
-      "SalesOrganization": { "ID": "US East",      "Name": "US East",
-        "Superordinate": { "@id": "SalesOrganizations('US')" } } },
-    { "PaperSalesCount@type": "Decimal", "PaperSalesCount": 1,
-      "SalesOrganization": { "ID": "US West",      "Name": "US West",
-        "Superordinate": { "@id": "SalesOrganizations('US')" } } },
-    { "PaperSalesCount@type": "Decimal", "PaperSalesCount": 2,
-      "SalesOrganization": { "ID": "EMEA",         "Name": "EMEA",
-        "Superordinate": { "@id": "SalesOrganizations('Sales')" } } },
-    { "PaperSalesCount@type": "Decimal", "PaperSalesCount": 2,
-      "SalesOrganization": { "ID": "EMEA Central", "Name": "EMEA Central",
-        "Superordinate": { "@id": "SalesOrganizations('EMEA')" } } },
-    { "PaperSalesCount@type": "Decimal", "PaperSalesCount": 4,
-      "SalesOrganization": { "ID": "Sales",        "Name": "Sales",
-        "Superordinate": null } }
-  ]
-}
-```
-:::
 
 ::: example
 ⚠ Example ##ex: The input set `Sales` is filtered along a hierarchy on a related entity (navigation property `SalesOrganization`) before an aggregation
@@ -1122,87 +706,6 @@ GET /service/SalesOrganizations?$apply=
     filter(Name eq 'US'),
     keep start)
   /aggregate(Sales/Amount with sum as TotalAmount)
-```
-:::
-
-::: example
-⚠ Example ##ex: total sales amount aggregated along the sales organization sub-hierarchy with root EMEA restricted to 3 levels
-```
-GET /service/Sales?$apply=
-  groupby((rolluprecursive($root/SalesOrganizations,
-                           SalesOrgHierarchy,
-                           SalesOrganization/ID)),
-          aggregate(Amount with sum as Total))
-  /filter(Aggregation.isdescendant(
-    HierarchyNodes=$root/SalesOrganizations,
-    HierarchyQualifier='SalesOrgHierarchy',
-    Node=SalesOrganization/ID,
-    Ancestor='EMEA',
-    MaxDistance=2,
-    IncludeSelf=true))
-  /orderby(SalesOrganization/Name)
-  /traverse($root/SalesOrganizations,
-            SalesOrgHierarchy,SalesOrganization/ID,preorder)
-```
-or, equivalently
-```
-GET /service/Sales?$apply=
-  groupby((rolluprecursive(
-    $root/SalesOrganizations,
-    SalesOrgHierarchy,
-    SalesOrganization/ID,
-    descendants(
-      $root/SalesOrganizations,
-      SalesOrgHierarchy,
-      ID,
-      filter(ID eq 'EMEA'),
-      2, keep start))),
-  aggregate(Amount with sum as Total))
-  /orderby(SalesOrganization/Name)
-  /traverse($root/SalesOrganizations,
-            SalesOrgHierarchy,SalesOrganization/ID,preorder)
-```
-:::
-
-::: example
-Example ##ex: Return the result of [example ##rollupnode] in preorder
-```
-GET /service/Sales?$apply=groupby(
-    (rolluprecursive(
-      $root/SalesOrganizations,
-      SalesOrgHierarchy,
-      SalesOrganization/ID,
-      descendants(
-        $root/SalesOrganizations,
-        SalesOrgHierarchy,
-        ID, filter(ID eq 'US'), keep start))),
-    compute(case(SalesOrganization eq Aggregation.rollupnode():Amount)
-            as AmountExcl)
-    /aggregate(Amount with sum as TotalAmountIncl,
-               AmountExcl with sum as TotalAmountExcl))
-    /traverse($root/SalesOrganizations,
-              SalesOrgHierarchy,
-              SalesOrganization/ID,
-              preorder,
-              Name asc)
-```
-results in
-```json
-{
-  "@context": "$metadata#Sales(SalesOrganization(ID),
-                               TotalAmountIncl,TotalAmountExcl)",
-  "value": [
-    { "SalesOrganization": { "ID": "US",      "Name": "US" },
-      "TotalAmountIncl@type": "Decimal", "TotalAmountIncl": 19,
-      "TotalAmountExcl": null },
-    { "SalesOrganization": { "ID": "US East", "Name": "US East" },
-      "TotalAmountIncl@type": "Decimal", "TotalAmountIncl": 12,
-      "TotalAmountExcl@type": "Decimal", "TotalAmountExcl": 12 },
-    { "SalesOrganization": { "ID": "US West", "Name": "US West" },
-      "TotalAmountIncl@type": "Decimal", "TotalAmountIncl":  7,
-      "TotalAmountExcl@type": "Decimal" ,"TotalAmountExcl":  7 }
-  ]
-}
 ```
 :::
 
@@ -1244,100 +747,6 @@ The result contains multiple instances of the same `Product` that differ in thei
   ]
 }
 ```
-:::
-
-::: example
-Example ##ex_rollupcoll: Aggregation along a hierarchy with 1:N relationship: Sold products per sales organization
-```
-GET /service/Products?$apply=
-    groupby((rolluprecursive(
-               $root/SalesOrganizations,
-               SalesOrgHierarchy,
-               Sales/SalesOrganization/ID)),
-             aggregate(ID with Custom.concat as SoldProducts)
-```
-results in
-```json
-{
-  "@context": "$metadata#Products(Sales(SalesOrganization(ID)),SoldProducts)",
-  "value": [
-    { "Sales": [ { "SalesOrganization": { "ID": "Sales" } } ],
-      "SoldProducts": "P1,P2,P3" },
-    { "Sales": [ { "SalesOrganization": { "ID": "EMEA" } } ],
-      "SoldProducts": "P1,P3" },
-    { "Sales": [ { "SalesOrganization": { "ID": "EMEA Central" } } ],
-      "SoldProducts": "P1,P3" },
-    { "Sales": [ { "SalesOrganization": { "ID": "US" } } ],
-      "SoldProducts": "P1,P2,P3" },
-    { "Sales": [ { "SalesOrganization": { "ID": "US East" } } ],
-      "SoldProducts": "P2,P3" },
-    { "Sales": [ { "SalesOrganization": { "ID": "US West" } } ],
-      "SoldProducts": "P1,P2,P3" }
-  ]
-}
-```
-:::
-
-::: example
-⚠ Example ##ex: Assume an extension of the data model where a `SalesOrganization` is associated with one or more instances of `ProductCategory`, and `ProductCategory` also organizes categories in a recursive hierarchy:
-
-ProductCategory|parent ProductCategory|associated SalesOrganizations
----------------|----------------------|-----------------------------
-Food||US, EMEA
-Cereals|Food|US
-Organic cereals|Cereals|US West
-
-Aggregation of sales amounts along the sales organization hierarchy could be restricted to those organizations linked with product category "Cereals" or a descendant of it, and the ancestors of those organizations:
-```
-GET /service/Sales?$apply=groupby((rolluprecursive(
-    $root/SalesOrganizations,SalesOrgHierarchy,
-    SalesOrganization/ID,
-    ancestors(
-      $root/SalesOrganizations,SalesOrgHierarchy,
-      ID,
-      traverse(
-        $root/ProductCategories,ProductCategoryHierarchy,
-        ProductCategories/ID,
-        preorder,
-        filter(Name eq 'Cereals')),
-      keep start)
-    )),
-    aggregate(Amount with sum as TotalAmount))
-  &$expand=SalesOrganization($select=ID,$expand=ProductCategories/$ref)
-```
-results in
-```json
-{
-  "@context": "$metadata#Sales(SalesOrganization(ID),TotalAmount)",
-  "value": [
-    { "SalesOrganization": { "ID": "Sales",   "ProductCategories": [ ] },
-      "TotalAmount@type": "Decimal", "TotalAmount": 24 },
-    { "SalesOrganization": { "ID": "US",      "ProductCategories": [
-      { "@id": "ProductCategories('Food')" },
-      { "@id": "ProductCategories('Cereals')" } ] },
-      "TotalAmount@type": "Decimal", "TotalAmount": 19 },
-    { "SalesOrganization": { "ID": "US West", "ProductCategories": [
-      { "@id": "ProductCategories('Organic cereals')" } ] },
-      "TotalAmount@type": "Decimal", "TotalAmount":  7 }
-  ]
-}
-```
-
-`traverse` acts here as a filter, hence `preorder` could be changed to `postorder` without changing the result. `filter` is the parameter $S$ of `traverse` and operates on the product category hierarchy being traversed.
-
-Replacing the `traverse` transformation with a `descendants` transformation, as in
-```
-ancestors(
-  $root/SalesOrganizations,SalesOrgHierarchy,
-  ID,
-  descendants(
-    $root/ProductCategories,ProductCategoryHierarchy,
-    ProductCategories/ID,
-    filter(ProductCategories/any(c:c/Name eq 'Cereals')),
-    keep start),
-  keep start)
-```
-works differently: `descendants` is the parameter $T$ of `ancestors` and operates on its input set of sales organizations. This would determine descendants of sales organizations for "Cereals" and their ancestor sales organizations, so US East would appear in the result.
 :::
 
 ## ##subsec Maintaining Recursive Hierarchies
@@ -1439,21 +848,7 @@ Atlantis|US|0.6
 Atlantis|EMEA|0.4
 Phobos|Mars|1
 
-Then Atlantis is a node with two parents. The standard hierarchical transformations disregard the weight property and consider both parents equally valid (but see [example ##weighted]).
-
-In a traversal with start node Sales only:
-```
-GET /service/SalesOrganizations?$apply=
-    traverse($root/SalesOrganizations,MultiParentHierarchy,ID,preorder,
-             filter(ID eq 'Sales'))
-```
-Mars and Phobos cannot be reached and hence are orphans. But they can be made descendants of the start node Sales by adding a relationship. Note the collection-valued segment of the `ParentNavigationProperty` appears at the end of the resource path and the subsequent single-valued segment appears in the payload:
-```json
-POST /service/SalesOrganizations('Mars')/Relations
-Content-Type: application/json
-
-{ "Superordinate": { "@id": "SalesOrganizations('Sales')" } }
-```
+Then Atlantis is a node with two parents. The standard hierarchical transformations `ancestors` and `descendants` disregard the weight property and consider both parents equally valid. Transformation `traverse` has no defined behavior.
 
 Since this example contains no referential constraint, there is no analogy to [example ##refconstr]. The alias `SuperordinateID` cannot be used in the payload, the following request is invalid:
 ```json
@@ -1466,59 +861,6 @@ Content-Type: application/json
 The alias `SuperordinateID` is used in the request to delete the added relationship again:
 ```
 DELETE /service/SalesOrganizations('Mars')/Relations('Sales')
-```
-:::
-
-::: example
-⚠ Example ##ex_weighted: Continuing [example ##weight], assume a [custom aggregate](#CustomAggregates) `MultiParentWeightedTotal` that computes the total sales amount weighted by the `SalesOrganizationRelation/Weight` properties along the `@Aggregation.UpPath#MultiParentHierarchy` of a sales organization:
-```xml
-<Annotations Target="SalesData.Sales">
-  <Annotation Term="Aggregation.CustomAggregate"
-    Qualifier="MultiParentWeightedTotal" String="Edm.Decimal" />
-</Annotations>
-```
-
-Then `rolluprecursive` can be used to aggregate the weighted sales amounts with the request below. The `traverse` transformation produces an output set $H'$ in which sales organizations with multiple parents occur multiple times. [For each occurrence](#SamenessandOrder) $x$ in $H'$, the `rolluprecursive` algorithm determines a sales collection $F(x)$ and the custom aggregate `MultiParentWeightedTotal` evaluates the path `SalesOrganization/@Aggregation.UpPath#MultiParentHierarchy` relative to that collection:
-```
-GET /service/Sales?$apply=groupby(
-    (rolluprecursive(
-      $root/SalesOrganizations,
-      MultiParentHierarchy,
-      SalesOrganization/ID,
-      traverse(
-        $root/SalesOrganizations,
-        MultiParentHierarchy,
-        SalesOrganization/ID,
-        preorder))),
-    aggregate(MultiParentWeightedTotal))
-```
-
-Assume that in addition to the sales in the [example data](#ExampleData) there are sales of 10 in Atlantis. Then 60% of them would contribute to the US sales organization and 40% to the EMEA sales organization. Without the weights, all duplicate nodes would contribute the same aggregate result, therefore this example only makes sense in connection with a custom aggregate that considers the weights.
-
-Note that `rolluprecursive` must preserve the preorder established by `traverse`:
-```json
-{
-  "@context": "$metadata#Sales(SalesOrganization(),MultiParentWeightedTotal)",
-  "value": [
-    { "SalesOrganization": { "ID": "Sales", "Name": "Corporate Sales",
-        "@Aggregation.UpPath#MultiParentHierarchy": [ ] },
-      "MultiParentWeightedTotal": 34 },
-    { "SalesOrganization": { "ID": "US", "Name": "US",
-        "@Aggregation.UpPath#MultiParentHierarchy": [ "Sales" ] },
-      "MultiParentWeightedTotal": 25 },
-    { "SalesOrganization": { "ID": "Atlantis", "Name": "Atlantis",
-        "@Aggregation.UpPath#MultiParentHierarchy": [ "US", "Sales" ] },
-      "MultiParentWeightedTotal": 6 },
-    …
-    { "SalesOrganization": { "ID": "EMEA", "Name": "EMEA",
-        "@Aggregation.UpPath#MultiParentHierarchy": [ "Sales" ] },
-      "MultiParentWeightedTotal": 9 },
-    { "SalesOrganization": { "ID": "Atlantis", "Name": "Atlantis",
-        "@Aggregation.UpPath#MultiParentHierarchy": [ "EMEA", "Sales" ] },
-      "MultiParentWeightedTotal": 4 },
-    …
-  ]
-}
 ```
 :::
 
@@ -1566,18 +908,6 @@ results in
 ```
 :::
 
-::: example
-Example ##ex: Revisiting [example ##from] for using the `from` keyword with the `aggregate` function, the request
-```
-GET /service/Sales?$apply=aggregate(Amount from Time with average
-                                    as DailyAverage)
-```
-could be rewritten in a more procedural way using a transformation sequence returning the same result
-```
-GET /service/Sales?$apply=groupby((Time),aggregate(Amount with sum as Total))
-                  /aggregate(Total with average as DailyAverage)
-```
-:::
 For further examples, consider another data model containing entity sets for cities, countries and continents and the obvious associations between them.
 
 ::: example
@@ -1627,9 +957,12 @@ or
 GET /service/Cities?$apply=groupby((Continent/Name,Country/Name),
                           aggregate(Population with sum as CountryPopulation))
                    /filter(CountryPopulation ge 10000000)
-                   /groupby((rollup(Continent/Name,Country/Name)),
+                   /concat(groupby((Continent/Name,Country/Name),
                              aggregate(CountryPopulation with sum
-                                       as TotalPopulation))
+                                       as TotalPopulation)),
+                           groupby((Continent/Name),
+                             aggregate(CountryPopulation with sum
+                                       as TotalPopulation)))
 ```
 :::
 
@@ -1646,58 +979,11 @@ GET /service/Cities?$apply=groupby((Continent/Name,Country/Name),
 :::
 
 ::: example
-Example ##ex: assuming the data model includes a sales order entity set with related sets for order items and customers, the base set as well as the related items can be filtered before aggregation
-```
-GET /service/SalesOrders?$apply=filter(Status eq 'incomplete')
-    /addnested(Items,filter(not Shipped) as FilteredItems)
-    /groupby((Customer/Country),
-     aggregate(FilteredItems/Amount with sum as ItemAmount))
-```
-:::
-
-::: example
 Example ##ex: assuming that `Amount` is a custom aggregate in addition to the property, determine the total for countries with an `Amount` greater than 1000
 ```
 GET /service/SalesOrders?$apply=
   groupby((Customer/Country),aggregate(Amount))
   /filter(Amount gt 1000)
   /aggregate(Amount)
-```
-:::
-
-::: example
-Example ##ex_aggrconflict: The output set of the `concat` transformation contains `Sales` entities multiple times with conflicting related `AugmentedProduct` entities that cannot be aggregated by the second transformation.
-```
-GET /service/Sales?$apply=
-  concat(addnested(Product,compute(0.1 as Discount) as AugmentedProduct),
-         addnested(Product,compute(0.2 as Discount) as AugmentedProduct))
-  /aggregate(AugmentedProduct/Discount with max as MaxDiscount)
-```
-results in an error.
-:::
-
-::: example
-Example ##ex: The `nest` transformation can be used inside `groupby` to produce one or more collection-valued properties per group.
-```
-GET /service/Sales?$apply=groupby((Product/Category/ID),
-                      nest(groupby((Customer/ID)) as Customers))
-```
-results in
-```json
-{
-  "@context": "$metadata#Sales(Product(Category(ID)),Customers())",
-  "value": [
-    { "Product": { "Category": { "ID": "PG1" } },
-      "Customers@context": "#Sales(Customer(ID))",
-      "Customers": [ { "Customer": { "ID": "C1" } },
-                     { "Customer": { "ID": "C2" } },
-                     { "Customer": { "ID": "C3" } } ] },
-    { "Product": { "Category": { "ID": "PG2" } },
-      "Customers@context": "#Sales(Customer(ID))",
-      "Customers": [ { "Customer": { "ID": "C1" } },
-                     { "Customer": { "ID": "C2" } },
-                     { "Customer": { "ID": "C3" } } ] }
-  ]
-}
 ```
 :::

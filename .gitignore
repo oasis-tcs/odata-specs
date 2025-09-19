@@ -3,4 +3,5 @@ coverage
 .DS_Store
 /zip/*
 !/zip/*.docx
+!/zip/*.pdf
 !/zip/*.zip
