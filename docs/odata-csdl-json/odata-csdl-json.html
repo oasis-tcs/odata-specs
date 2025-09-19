@@ -97,39 +97,6 @@
       }
     }};
   </script>
-  <script type="text/javascript">
-    document.addEventListener("DOMContentLoaded", function () {
-      function darkmode_auto() {
-        if (darkmode_switch.value === "auto") {
-          if (darkmode_query.matches) document.documentElement.classList.add("darkmode");
-          else document.documentElement.classList.remove("darkmode");
-        }
-      }
-
-      function darkmode_manual() {
-        localStorage.setItem("odata-specs/darkmode", darkmode_switch.value);
-        switch (darkmode_switch.value) {
-          case "off":
-            document.documentElement.classList.remove("darkmode");
-            break;
-          case "on":
-            document.documentElement.classList.add("darkmode");
-            break;
-          case "auto":
-            darkmode_auto();
-            break;
-        }
-      }
-
-      const darkmode_query = matchMedia("(prefers-color-scheme: dark)");
-      darkmode_query.addEventListener("change", darkmode_auto);
-      const darkmode_switch = document.querySelector("#darkmode select");
-      darkmode_switch.value =
-        localStorage.getItem("odata-specs/darkmode") || "off";
-      darkmode_switch.addEventListener("change", darkmode_manual);
-      darkmode_manual();
-    });
-  </script>
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 </head>
@@ -853,7 +820,34 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <h3 id="343-scale"><a id="Scale" href="#Scale">3.4.3 Scale</a></h3>
 </summary>
 <p>A non-negative integer value specifying the maximum number of digits allowed to the right of the decimal point, or one of the symbolic values <code>floating</code> or <code>variable</code>.</p>
-<p>The value <code>floating</code> means that the decimal value represents a decimal floating-point number whose number of significant digits is the value of the <a href="#Precision"><code>Precision</code></a> facet. OData 4.0 responses MUST NOT specify the value <code>floating</code>.</p>
+<p>The value <code>floating</code> means that the decimal value represents a decimal floating-point number <span class="math inline">\(m\cdot 10^e\)</span> where the number of significant digits in <span class="math inline">\(m\)</span> is the value of the <a href="#Precision"><code>Precision</code></a> facet. Supported formats are:</p>
+<table>
+<thead>
+<tr class="header">
+<th>IEEE 754 format</th>
+<th style="text-align: right;">Precision</th>
+<th style="text-align: center;">Allowed exponents</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://en.wikipedia.org/wiki/Decimal32_floating-point_format">decimal32</a> (rarely implemented)</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: center;"><span class="math inline">\(-101\le e\le 96\)</span></td>
+</tr>
+<tr class="even">
+<td><a href="https://en.wikipedia.org/wiki/Decimal64_floating-point_format">decimal64</a></td>
+<td style="text-align: right;">16</td>
+<td style="text-align: center;"><span class="math inline">\(-398\le e\le 384\)</span></td>
+</tr>
+<tr class="odd">
+<td><a href="https://en.wikipedia.org/wiki/Decimal128_floating-point_format">decimal128</a></td>
+<td style="text-align: right;">34</td>
+<td style="text-align: center;"><span class="math inline">\(-6143\le e\le 6144\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>OData 4.0 responses MUST NOT specify the value <code>floating</code>.</p>
 <p>The value <code>variable</code> means that the number of digits to the right of the decimal point can vary from zero to the value of the <a href="#Precision"><code>Precision</code></a> facet.</p>
 <p>An integer value means that the number of digits to the right of the decimal point may vary from zero to the value of the <code>Scale</code> facet, and the number of digits to the left of the decimal point may vary from one to the value of the <code>Precision</code> facet minus the value of the <code>Scale</code> facet. If <code>Precision</code> is equal to <code>Scale</code>, a single zero MUST precede the decimal point.</p>
 <p>The value of <code>Scale</code> MUST be less than or equal to the value of <a href="#Precision"><code>Precision</code></a>.</p>
@@ -892,7 +886,7 @@ Allowed values: 0.123, 1.23, 0.23, 0.7, 123 and 12.3, not allowed values: 12.34,
 </div>
 <div class="varjson example">
 <p>Example 6: <code>Precision=7</code> and a floating <code>Scale</code>.<br />
-Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and 1e97 due to the limited precision.</p>
+Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and 1e97 because exponents are out of range.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;Amount7f&quot;:</span> <span class="fu">{</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;Edm.Decimal&quot;</span><span class="fu">,</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$Precision&quot;</span><span class="fu">:</span> <span class="dv">7</span><span class="fu">,</span></span>
@@ -1988,10 +1982,20 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <details open><summary>
 <h2 id="126-entity-set-path"><a id="EntitySetPath" href="#EntitySetPath">12.6 Entity Set Path</a></h2>
 </summary>
-<p>Bound actions and functions that return an entity or a collection of entities MAY specify an entity set path if the entity set of the returned entities depends on the entity set of the binding parameter value.</p>
-<p>The entity set path consists of a series of segments joined together with forward slashes.</p>
-<p>The first segment of the entity set path MUST be the name of the binding parameter. The remaining segments of the entity set path MUST represent navigation segments or type casts.</p>
-<p>A navigation segment names the <a href="#SimpleIdentifier">simple identifier</a> of the <a href="#NavigationProperty">navigation property</a> to be traversed. A type-cast segment names the <a href="#QualifiedName">qualified name</a> of the entity type that should be returned from the type cast.</p>
+<p>Bound actions and functions that return an entity or a collection of entities MAY specify an entity set path. The entity set path specifies the canonical collection (as defined in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ContextURL">OData-Protocol, section 10</a>) of the returned entities in terms of the binding parameter value.</p>
+<p>The entity set path consists of a series of segments joined together with forward slashes. The first segment of the entity set path MUST be the name of the binding parameter. If the entity set path consists only of the name of the binding parameter, the binding parameter MUST be an entity or a collection of entities. In this case the returned entities MUST belong to the same canonical collection as the binding parameter.</p>
+<p>Otherwise the entity set path has the form <span class="math inline">\(p/s_1/…/s_k\)</span> with <span class="math inline">\(k&gt;0\)</span>, and the binding parameter MUST be single-valued. The additional segments <span class="math inline">\(s_1,…,s_k\)</span> MUST be paths that could occur in an expand item <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#SystemQueryOptionexpand">OData-URL, section 5.1.3</a>, and they MUST end with the name of a <a href="#NavigationProperty">navigation property</a>, optionally followed by the <a href="#QualifiedName">qualified name</a> of a type cast. Furthermore, <span class="math inline">\(s_1,…,s_{k-1}\)</span> MUST be single-valued, and <span class="math inline">\(s_k\)</span> MUST name a collection-valued navigation property. In this case all returned entities MUST belong to the canonical collection <span class="math inline">\(C\)</span> of the final navigation property, if this can be determined by the following algorithm:</p>
+<ol type="1">
+<li>Let <span class="math inline">\(v\)</span> be the binding parameter value, and let <span class="math inline">\(α/β\)</span> be the canonical URL of <span class="math inline">\(v\)</span> where <span class="math inline">\(α\)</span> is either an entity set followed by a key predicate or a singleton, and <span class="math inline">\(β\)</span> is a possibly empty concatenation of containment navigation properties, type casts and key predicates. Remove any key predicates from <span class="math inline">\(α\)</span> and <span class="math inline">\(β\)</span>.</li>
+<li>Let <span class="math inline">\(i=1\)</span>.</li>
+<li>If <span class="math inline">\(i=k\)</span>, go to step 8.</li>
+<li>Update <span class="math inline">\(v\)</span> to the result of evaluating the <a href="#PathExpressions">instance path</a> <span class="math inline">\(s_i\)</span> on the instance <span class="math inline">\(v\)</span>.</li>
+<li>If <span class="math inline">\(s_i\)</span> names a containment navigation property, update <span class="math inline">\(β=β/s_i\)</span>.</li>
+<li>Otherwise <span class="math inline">\(s_i\)</span> names a non-containment navigation property. Determine the <a href="#NavigationPropertyBinding">navigation property binding</a> defined by the service on the entity set or singleton <span class="math inline">\(α\)</span> whose path matches <span class="math inline">\(β/s_i\)</span>; if it does not exist, then <span class="math inline">\(C\)</span> cannot be determined. The binding target of that navigation property binding is either an entity set <span class="math inline">\(α&#39;\)</span> or has the form <span class="math inline">\(α&#39;/β&#39;\)</span> where <span class="math inline">\(α&#39;\)</span> is a singleton. Update <span class="math inline">\(α=α&#39;\)</span> and <span class="math inline">\(β=β&#39;\)</span>.</li>
+<li>Update <span class="math inline">\(i=i+1\)</span> and go back to step 3.</li>
+<li>If <span class="math inline">\(s_k\)</span> names a containment navigation property, let <span class="math inline">\(C\)</span> be the implicit entity set defined by <span class="math inline">\(s_k\)</span> for <span class="math inline">\(v\)</span> (as explained in <a href="#ContainmentNavigationProperty">section 8.4</a>).</li>
+<li>Otherwise <span class="math inline">\(s_k\)</span> names a non-containment navigation property. Determine the navigation property binding defined by the service on the entity set or singleton <span class="math inline">\(α\)</span> whose path matches <span class="math inline">\(β/s_k\)</span>; if it does not exist, then <span class="math inline">\(C\)</span> cannot be determined. Let <span class="math inline">\(C\)</span> be the binding target of that navigation property binding.</li>
+</ol>
 <section class="varjson rep">
 <h3><a id="EntitySetPath.13.2" href="#EntitySetPath.13.2"><code>$EntitySetPath</code></a></h3>
 <p>The value of <code>$EntitySetPath</code> is a string containing the entity set path.</p>
@@ -2247,9 +2251,9 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </summary>
 <p>A navigation property binding MUST specify a path to a navigation property of the entity set’s or singleton’s declared entity type, or a navigation property reached through a chain of type casts, complex properties, or containment navigation properties. If the navigation property is defined on a subtype, the path MUST contain the <a href="#QualifiedName">qualified name</a> of the subtype, followed by a forward slash, followed by the navigation property name. If the navigation property is defined on a complex type used in the definition of the entity set’s entity type, the path MUST contain a forward-slash separated list of complex property names and qualified type names that describe the path leading to the navigation property.</p>
 <p>The path can traverse one or more containment navigation properties, but the last navigation property segment MUST be a non-containment navigation property and there MUST NOT be any non-containment navigation properties prior to the final navigation property segment.</p>
-<p>If the path traverses collection-valued complex properties or collection-valued containment navigation properties, the binding applies to all items of these collections.</p>
-<p>If the path contains a recursive sub-path (i.e. a path leading back to the same structured type, the binding applies recursively to any positive number of cycles through that sub-path.</p>
 <p>OData 4.01 services MAY have a type-cast segment as the last path segment, allowing to bind instances of different sub-types to different targets.</p>
+<p>If the path traverses collection-valued complex properties or collection-valued containment navigation properties, the binding applies to all items of these collections.</p>
+<p>If the path contains a recursive sub-path (i.e. a path leading back to the same structured type), the binding applies recursively to any positive number of cycles through that sub-path.</p>
 <p>The same navigation property path MUST NOT be specified in more than one navigation property binding; navigation property bindings are only used when all related entities are known to come from a single entity set. Note that it is possible to have navigation property bindings for paths that differ only in a type-cast segment, allowing to bind instances of different sub-types to different targets. If paths differ only in type-cast segments, the most specific path applies.</p>
 </details>
 <details open><summary>
@@ -2283,12 +2287,12 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="varjson example">
-<p>Example 37: binding <code>Supplier</code> on <code>Products</code> contained within <code>Categories</code> – binding applies to all suppliers of all products of all categories</p>
+<p>Example 37: If <code>Subcategories</code> is a containment navigation property on the category entity type, the following binding applies to all products of all subcategories of all categories</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;Categories&quot;:</span> <span class="fu">{</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$Collection&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;self.Category&quot;</span><span class="fu">,</span></span>
 <span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$NavigationPropertyBinding&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;Products/Supplier&quot;</span><span class="fu">:</span> <span class="st">&quot;Suppliers&quot;</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;Subcategories/Products&quot;</span><span class="fu">:</span> <span class="st">&quot;Products&quot;</span></span>
 <span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
 <span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
@@ -3493,6 +3497,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h3 id="1444-apply-client-side-functions"><a id="ApplyClientSideFunctions" href="#ApplyClientSideFunctions">14.4.4 Apply Client-Side Functions</a></h3>
 </summary>
 <p>The apply expression enables a value to be obtained by applying a client-side function. The apply expression MAY have operand expressions. The operand expressions are used as parameters to the client-side function.</p>
+<p>If the value of an operand expression is not acceptable for the function, the client SHOULD NOT make any assumptions about the application of the term that rely on the operand.</p>
 <section class="varjson rep">
 <h3><a id="Apply.21.20" href="#Apply.21.20"><code>$Apply</code></a> and <a id="Function.21.21" href="#Function.21.21"><code>$Function</code></a></h3>
 <p>Apply expressions are represented as an object with a member <code>$Apply</code> whose value is an array of annotation expressions, and a member <code>$Function</code> whose value is a string containing the <a href="#QualifiedName">qualified name</a> of the client-side function to be applied.</p>
@@ -3668,9 +3673,10 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <li>it is the second or third child of a collection-if-then-else expression.</li>
 </ul>
 <p>An if-then-else expression MUST contain exactly three child expressions. There is one exception to this rule: if and only if the if-then-else expression is a collection-if-then-else expression, the third child expression MAY be omitted, reducing it to an if-then expression. This can be used to conditionally add an element to a collection.</p>
-<p>The first child expression is the condition and MUST evaluate to a Boolean result, e.g. the <a href="#ComparisonandLogicalOperators">comparison and logical operators</a> can be used.</p>
+<p>The first child expression is the condition and MUST evaluate to a Boolean result or <code>null</code>, e.g. the <a href="#ComparisonandLogicalOperators">comparison and logical operators</a> can be used.</p>
 <p>The second and third child expressions are evaluated conditionally. The result MUST be type compatible with the type expected by the surrounding expression.</p>
-<p>If the first expression evaluates to <code>true</code>, the second expression MUST be evaluated and its value MUST be returned as the result of the if-then-else expression. If the first expression evaluates to <code>false</code> and a third child element is present, it MUST be evaluated and its value MUST be returned as the result of the if-then-else expression. If no third expression is present, nothing is added to the surrounding collection.</p>
+<p>If the value of a child expression does not meet these conditions, the client SHOULD NOT make any assumptions about the application of the term that rely on the condition expression.</p>
+<p>If the first expression evaluates to <code>true</code>, the second expression MUST be evaluated and its value MUST be returned as the result of the if-then-else expression. If the first expression evaluates to <code>false</code> or <code>null</code> and a third child element is present, it MUST be evaluated and its value MUST be returned as the result of the if-then-else expression. If no third expression is present, nothing is added to the surrounding collection.</p>
 <section class="varjson rep">
 <h3><a id="If.21.23" href="#If.21.23"><code>$If</code></a></h3>
 <p>Conditional expressions are represented as an object with a member <code>$If</code> whose value is an array of two or three annotation expressions.</p>
@@ -4621,5 +4627,36 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <p>[OASIS invites any party to contact the OASIS TC Administrator if it is aware of a claim of ownership of any patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable by a patent holder that is not willing to provide a license to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this OASIS Standards Final Deliverable. OASIS may include such claims on its website, but disclaims any obligation to do so.]</p>
 <p>[OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this OASIS Standards Final Deliverable or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS’ procedures with respect to rights in any document or deliverable produced by an OASIS Technical Committee can be found on the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this OASIS Standards Final Deliverable, can be obtained from the OASIS TC Administrator. OASIS makes no representation that any information or list of intellectual property rights will at any time be complete, or that any claims in such list are, in fact, Essential Claims.]</p>
 <p>The name “OASIS” is a trademark of <a href="https://www.oasis-open.org/">OASIS</a>, the owner and developer of this specification, and should be used only to refer to the organization and its official outputs. OASIS welcomes reference to, and implementation and use of, specifications, while reserving the right to enforce its marks against misleading uses. Please see <a href="https://www.oasis-open.org/policies-guidelines/trademark/">https://www.oasis-open.org/policies-guidelines/trademark/</a> for above guidance.</p>
+<script type="text/javascript">
+  function darkmode_auto() {
+    if (darkmode_switch.value === "auto") {
+      if (darkmode_query.matches)
+        document.documentElement.classList.add("darkmode");
+      else document.documentElement.classList.remove("darkmode");
+    }
+  }
+
+  function darkmode_manual() {
+    localStorage.setItem("odata-specs/darkmode", darkmode_switch.value);
+    switch (darkmode_switch.value) {
+      case "off":
+        document.documentElement.classList.remove("darkmode");
+        break;
+      case "on":
+        document.documentElement.classList.add("darkmode");
+        break;
+      case "auto":
+        darkmode_auto();
+        break;
+    }
+  }
+
+  const darkmode_query = matchMedia("(prefers-color-scheme: dark)");
+  darkmode_query.addEventListener("change", darkmode_auto);
+  const darkmode_switch = document.querySelector("#darkmode select");
+  darkmode_switch.value = localStorage.getItem("odata-specs/darkmode") || "off";
+  darkmode_switch.addEventListener("change", darkmode_manual);
+  darkmode_manual();
+</script>
 </body>
 </html>

@@ -97,39 +97,6 @@
       }
     }};
   </script>
-  <script type="text/javascript">
-    document.addEventListener("DOMContentLoaded", function () {
-      function darkmode_auto() {
-        if (darkmode_switch.value === "auto") {
-          if (darkmode_query.matches) document.documentElement.classList.add("darkmode");
-          else document.documentElement.classList.remove("darkmode");
-        }
-      }
-
-      function darkmode_manual() {
-        localStorage.setItem("odata-specs/darkmode", darkmode_switch.value);
-        switch (darkmode_switch.value) {
-          case "off":
-            document.documentElement.classList.remove("darkmode");
-            break;
-          case "on":
-            document.documentElement.classList.add("darkmode");
-            break;
-          case "auto":
-            darkmode_auto();
-            break;
-        }
-      }
-
-      const darkmode_query = matchMedia("(prefers-color-scheme: dark)");
-      darkmode_query.addEventListener("change", darkmode_auto);
-      const darkmode_switch = document.querySelector("#darkmode select");
-      darkmode_switch.value =
-        localStorage.getItem("odata-specs/darkmode") || "off";
-      darkmode_switch.addEventListener("change", darkmode_manual);
-      darkmode_manual();
-    });
-  </script>
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 </head>
@@ -403,22 +370,22 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <tr class="odd">
 <td><a href="#StructuralProperty">Section 7</a>, <a href="#InformativeReferences">Section A.2</a></td>
 <td>Removed reference to obsolete version of GeoJSON</td>
-<td><a href="https://github.com/oasis-tcs/odata-specs/issues/456">456</a></td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/352">352</a></td>
 </tr>
 <tr class="even">
+<td><a href="#EntityReference">Section 14</a></td>
+<td>Entities can be referenced by id or full set of key properties</td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/456">456</a></td>
+</tr>
+<tr class="odd">
 <td><a href="#DeletedEntity">Section 15.3</a></td>
 <td><code>type</code> control information, if present, must come immediately after <code>removed</code></td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/1985">1985</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#ActionInvocation">Section 18</a></td>
 <td>Allow common expressions in action payloads</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/341">341</a></td>
-</tr>
-<tr class="even">
-<td><a href="#ActionInvocation">Section 18</a></td>
-<td>Omission of collection-valued action parameters</td>
-<td><a href="https://github.com/oasis-tcs/odata-specs/issues/2045">2045</a></td>
 </tr>
 </tbody>
 </table>
@@ -688,7 +655,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <h3 id="462-control-information-metadataetag-odatametadataetag"><a id="ControlInformationmetadataEtagodatametadataEtag" href="#ControlInformationmetadataEtagodatametadataEtag">4.6.2 Control Information: <code>metadataEtag</code> (<code>odata.metadataEtag</code>)</a></h3>
 </summary>
 <p>The <code>metadataEtag</code> control information MAY appear in a response in order to specify the entity tag (ETag) that can be used to determine the version of the metadata of the response. If an ETag is returned when requesting the metadata document, then the service SHOULD set the <code>metadataEtag</code> control information to the metadata document’s ETag in all responses when using <a href="#metadataminimalodatametadataminimal"><code>metadata=minimal</code></a> or <a href="#metadatafullodatametadatafull"><code>metadata=full</code></a>. If no ETag is returned when requesting the metadata document, then the service SHOULD NOT set the <code>metadataEtag</code> control information in any responses.</p>
-<p>For details on how ETags are used, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UseofETagsforAvoidingUpdateConflicts">OData-Protocol, section 11.4.1.1</a>.</p>
+<p>For details on how ETags are used, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UseofETagsforAvoidingUpdateConflicts">OData-Protocol, section 11.4.1.2</a>.</p>
 </details>
 <details open><summary>
 <h3 id="463-control-information-type-odatatype"><a id="ControlInformationtypeodatatype" href="#ControlInformationtypeodatatype">4.6.3 Control Information: <code>type</code> (<code>odata.type</code>)</a></h3>
@@ -794,7 +761,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <h3 id="4610-control-information-etag-odataetag"><a id="ControlInformationetagodataetag" href="#ControlInformationetagodataetag">4.6.10 Control Information: <code>etag</code> (<code>odata.etag</code>)</a></h3>
 </summary>
 <p>The <code>etag</code> control information MAY be applied to an <a href="#Entity">entity</a> or collection in a response. The value of the control information is an entity tag (ETag) which is an opaque string value that can be used in a subsequent request to determine if the value of the entity or collection has changed.</p>
-<p>For details on how ETags are used, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UseofETagsforAvoidingUpdateConflicts">OData-Protocol, section 11.4.1.1</a>. The special value <code>"@etag": "*"</code> is equivalent to the header <code>If-Match: *</code>, and the special value <code>"@etag": ""</code> is equivalent to the header <code>If-None-Match: *</code>, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UpdateaCollectionofEntities">OData-Protocol, section 11.4.12</a>.</p>
+<p>For details on how ETags are used, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UseofETagsforAvoidingUpdateConflicts">OData-Protocol, section 11.4.1.2</a>. The special value <code>"@etag": "*"</code> is equivalent to the header <code>If-Match: *</code>, and the special value <code>"@etag": ""</code> is equivalent to the header <code>If-None-Match: *</code>, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UpdateaCollectionofEntities">OData-Protocol, section 11.4.11</a>.</p>
 <p>The <code>etag</code> control information is ignored in request payloads for single entities and not written in responses if <a href="#metadatanoneodatametadatanone"><code>metadata=none</code></a> is requested.</p>
 </details>
 <details open><summary>
@@ -919,7 +886,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <h1 id="6-entity"><a id="Entity" href="#Entity">6 Entity</a></h1>
 </summary>
 <p>An entity is serialized as a JSON object. It MAY contain <a href="#ControlInformationcontextodatacontext"><code>context</code></a>, <a href="#ControlInformationtypeodatatype"><code>type</code></a>, or <a href="#ControlInformationdeltaLinkodatadeltaLink"><code>deltaLink</code></a> control information.</p>
-<p>Each <a href="#StructuralProperty">property</a> to be transmitted is represented as a name/value pair within the object. The order properties appear within the object is considered insignificant.</p>
+<p>Each <a href="#StructuralProperty">structural property</a> or <a href="#NavigationProperty">navigation property</a> to be transmitted is represented as a name/value pair within the object. The order in which the pairs appear within the object is considered insignificant.</p>
 <p>An entity in a payload may be a complete entity, a projected entity (see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptionselect">OData-Protocol, section 11.2.5.1</a>), or a partial entity update (see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UpdateanEntity">OData-Protocol, section 11.4.3</a>).</p>
 <p>An entity representation can be (modified and) round-tripped to the service directly. The <a href="#ControlInformationcontextodatacontext">context URL</a> is used in requests only as a base for <a href="#RelativeURLs">relative URLs</a>.</p>
 <div class="example">
@@ -1008,7 +975,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <details open><summary>
 <h2 id="72-complex-value"><a id="ComplexValue" href="#ComplexValue">7.2 Complex Value</a></h2>
 </summary>
-<p>A complex value is represented as a single JSON object containing one name/value pair for each property that makes up the complex type. Each property value is formatted as appropriate for the type of the property.</p>
+<p>A complex value is represented as a single JSON object containing one name/value pair for each <a href="#StructuralProperty">structural property</a> or <a href="#NavigationProperty">navigation property</a> that makes up the complex type. Each property value is formatted as appropriate for the type of the property.</p>
 <p>It MAY have name/value pairs for <a href="#InstanceAnnotations">instance annotations</a> and control information.</p>
 <div class="example">
 <p>Example 13:</p>
@@ -1368,7 +1335,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <details open><summary>
 <h1 id="14-entity-reference"><a id="EntityReference" href="#EntityReference">14 Entity Reference</a></h1>
 </summary>
-<p>An entity reference (see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#EntityIdsandEntityReferences">OData-Protocol, section 4.1</a>) MAY take the place of an entity in a JSON payload, based on the client request. It is serialized as a JSON object that MUST contain the <a href="#ControlInformationidodataid">id</a> of the referenced entity and MAY contain the <a href="#ControlInformationtypeodatatype"><code>type</code></a> control information and <a href="#InstanceAnnotations">instance annotations</a>, but no additional properties or control information.</p>
+<p>An entity reference (see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#EntityIdsandEntityReferences">OData-Protocol, section 4.1</a>) MAY take the place of an entity in a JSON payload, based on the client request. It is serialized as a JSON object that MUST contain either the <a href="#ControlInformationidodataid">id</a> or the full set of key values of the referenced entity and MAY contain the <a href="#ControlInformationtypeodatatype"><code>type</code></a> control information and <a href="#InstanceAnnotations">instance annotations</a>, but no additional properties or control information. If the entity reference contains both the <code>id</code> and key values, then they MUST identify the same entity.</p>
 <p>A collection of entity references is represented as a <a href="#CollectionofEntities">collection of entities</a>, with entity reference representations instead of entity representations as items in the array value of the <code>value</code> name/value pair.</p>
 <p>The outermost JSON object in a response MUST contain a <a href="#ControlInformationcontextodatacontext"><code>context</code></a> control information and MAY contain <a href="#ControlInformationcountodatacount"><code>count</code></a>, <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a>, or <a href="#ControlInformationdeltaLinkodatadeltaLink"><code>deltaLink</code></a> control information.</p>
 <div class="example">
@@ -1384,9 +1351,9 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Collection($ref)&quot;</span><span class="fu">,</span></span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
 <span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Orders(10643)&quot;</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Orders(10759)&quot;</span> <span class="fu">}</span></span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="dv">10759</span><span class="st">&quot; }</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="st">  ]</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span></code></pre></div>
 </div>
 </details>
 <hr />
@@ -1449,7 +1416,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
 <span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Customers/$deletedEntity&quot;</span><span class="fu">,</span></span>
-<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@odata.id&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ANTON&#39;)&quot;</span></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ANTON&#39;)&quot;</span></span>
 <span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
 <span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@odata.id&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ALFKI&#39;)&quot;</span><span class="fu">,</span></span>
@@ -1486,9 +1453,9 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <li><code>reason</code> — either <code>deleted</code>, if the entity was deleted (destroyed), or <code>changed</code> if the entity was removed from membership in the result (i.e., due to a data change).</li>
 </ul>
 <div class="example">
-<p>Example 36: deleted entity in OData 4.0 response — note that <code>id</code> is a property, not control information</p>
+<p>Example 36: deleted entity in OData 4.0 response — note that <code>id</code> is represented as a property of the deleted-entity object, not control information</p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Customers/$deletedEntity&quot;</span><span class="fu">,</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Customers/$deletedEntity&quot;</span><span class="fu">,</span></span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;reason&quot;</span><span class="fu">:</span> <span class="st">&quot;deleted&quot;</span><span class="fu">,</span></span>
 <span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ANTON&#39;)&quot;</span></span>
 <span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
@@ -2105,8 +2072,6 @@ Preference-Applied: return=minimal, continue-on-error
 <span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <p>Inside a batch request the common expressions can also be value references starting with <code>$</code>, as introduced in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ReferencingValuesfromResponseBodies">OData-Protocol, section 11.7.6</a>.</p>
-<p>Non-binding single-valued parameters that are nullable or annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter"><code>Core.OptionalParameter</code></a> defined in <a href="#ODataVocCore">OData-VocCore</a> MAY be omitted from the request body. If an omitted single-valued parameter is not annotated (and thus nullable), it MUST be interpreted as having the <code>null</code> value. If it is annotated and the annotation specifies a <code>DefaultValue</code>, the omitted parameter is interpreted as having that default value. If omitted and the annotation does not specify a default value, the service is free on how to interpret the omitted parameter. Note: a nullable non-binding parameter is equivalent to being annotated as optional with a default value of <code>null</code>.</p>
-<p>The interpretation of an omitted non-binding collection-valued parameter is up to the service regardless of its nullability or optionality. Possible interpretations include assuming an empty collection or, for parameters not annotated as <code>Core.OptionalParameter</code>, reporting an error.</p>
 <div class="example">
 <p>Example 54:</p>
 <div class="sourceCode" id="cb61"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
@@ -2324,7 +2289,7 @@ Preference-Applied: return=minimal, continue-on-error
 <details open><summary>
 <h2 id="195-processing-a-batch-request"><a id="ProcessingaBatchRequest" href="#ProcessingaBatchRequest">19.5 Processing a Batch Request</a></h2>
 </summary>
-<p>All requests in an atomicity group represent a single change unit. A service MUST successfully process and apply all the requests in the atomicity group or else apply none of them. It is up to the service implementation to define rollback semantics to undo any requests within an atomicity group that may have been applied before another request in that same atomicity group failed.</p>
+<p>All requests in an atomicity group represent a single change unit. A service MUST successfully process and apply all the requests in the atomicity group or else apply none of them. See <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#Atomicity">OData-Protocol, section 11.4.1.1</a> for details on visibility of atomic changes.</p>
 <p>The service MAY process the individual requests and atomicity groups within a batch request, or individual requests within an atomicity group, in any order that is compatible with the dependencies expressed with the <code>dependsOn</code> name/value pair. Individual requests and atomicity groups that do not specify the <code>dependsOn</code> name/value pair may be processed in parallel. Clients that are only interested in completely successful batch responses MAY specify the preference <code>continue-on-error=false</code> to indicate that the service need not spend cycles on further processing once an error occurs in one of the dependency chains. In this case the response MAY omit response objects for requests that have not been processed. If the preference <code>continue-on-error</code> is not specified, or specified with a value of <code>true</code>, all requests are processed according to their dependencies.</p>
 <p>The service MUST include the <code>id</code> name/value pair in each response object with the value of the request identifier that the client specified in the corresponding request, so clients can correlate requests and responses.</p>
 </details>
@@ -2869,5 +2834,36 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <p>[OASIS invites any party to contact the OASIS TC Administrator if it is aware of a claim of ownership of any patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable by a patent holder that is not willing to provide a license to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this OASIS Standards Final Deliverable. OASIS may include such claims on its website, but disclaims any obligation to do so.]</p>
 <p>[OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this OASIS Standards Final Deliverable or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS’ procedures with respect to rights in any document or deliverable produced by an OASIS Technical Committee can be found on the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this OASIS Standards Final Deliverable, can be obtained from the OASIS TC Administrator. OASIS makes no representation that any information or list of intellectual property rights will at any time be complete, or that any claims in such list are, in fact, Essential Claims.]</p>
 <p>The name “OASIS” is a trademark of <a href="https://www.oasis-open.org/">OASIS</a>, the owner and developer of this specification, and should be used only to refer to the organization and its official outputs. OASIS welcomes reference to, and implementation and use of, specifications, while reserving the right to enforce its marks against misleading uses. Please see <a href="https://www.oasis-open.org/policies-guidelines/trademark/">https://www.oasis-open.org/policies-guidelines/trademark/</a> for above guidance.</p>
+<script type="text/javascript">
+  function darkmode_auto() {
+    if (darkmode_switch.value === "auto") {
+      if (darkmode_query.matches)
+        document.documentElement.classList.add("darkmode");
+      else document.documentElement.classList.remove("darkmode");
+    }
+  }
+
+  function darkmode_manual() {
+    localStorage.setItem("odata-specs/darkmode", darkmode_switch.value);
+    switch (darkmode_switch.value) {
+      case "off":
+        document.documentElement.classList.remove("darkmode");
+        break;
+      case "on":
+        document.documentElement.classList.add("darkmode");
+        break;
+      case "auto":
+        darkmode_auto();
+        break;
+    }
+  }
+
+  const darkmode_query = matchMedia("(prefers-color-scheme: dark)");
+  darkmode_query.addEventListener("change", darkmode_auto);
+  const darkmode_switch = document.querySelector("#darkmode select");
+  darkmode_switch.value = localStorage.getItem("odata-specs/darkmode") || "off";
+  darkmode_switch.addEventListener("change", darkmode_manual);
+  darkmode_manual();
+</script>
 </body>
 </html>
