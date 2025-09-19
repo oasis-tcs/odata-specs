@@ -732,9 +732,17 @@ allowed to the right of the decimal point, or one of the symbolic values
 `floating` or `variable`.
 
 The value `floating` means that the decimal value represents a
-decimal floating-point number whose number of significant digits is the
-value of the [`Precision`](#Precision) facet. OData 4.0 responses MUST
-NOT specify the value `floating`.
+decimal floating-point number $m\cdot 10^e$
+where the number of significant digits in $m$ is the
+value of the [`Precision`](#Precision) facet. Supported formats are:
+
+IEEE 754 format|Precision|Allowed exponents
+---------------|--------:|:---------------:
+[decimal32](https://en.wikipedia.org/wiki/Decimal32_floating-point_format) (rarely implemented) |        7|$-101\le e\le 96$
+[decimal64](https://en.wikipedia.org/wiki/Decimal64_floating-point_format)                      |       16|$-398\le e\le 384$
+[decimal128](https://en.wikipedia.org/wiki/Decimal128_floating-point_format)                    |       34|$-6143\le e\le 6144$
+
+OData 4.0 responses MUST NOT specify the value `floating`.
 
 The value `variable` means that the number of digits to the right of the
 decimal point can vary from zero to the value of the
@@ -806,7 +814,7 @@ values: 12.34, 1234 and 123.4 due to the limited precision.
 ::: {.varjson .example}
 Example 6: `Precision=7` and a floating `Scale`.  
 Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values:
-1e-102 and 1e97 due to the limited precision.
+1e-102 and 1e97 because exponents are out of range.
 ```json
 "Amount7f": {
   "$Type": "Edm.Decimal",
@@ -2815,21 +2823,49 @@ The value of `$IsBound` is one of the Boolean literals `true` or
 ## <a id="EntitySetPath" href="#EntitySetPath">12.6 Entity Set Path</a>
 
 Bound actions and functions that return an entity or a collection of
-entities MAY specify an entity set path if the entity set of the
-returned entities depends on the entity set of the binding parameter
-value.
+entities MAY specify an entity set path. The entity set path specifies the canonical collection
+(as defined in [OData-Protocol, section 10](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ContextURL)) of the
+returned entities in terms of the binding parameter value.
 
 The entity set path consists of a series of segments joined together
 with forward slashes.
-
 The first segment of the entity set path MUST be the name of the binding
-parameter. The remaining segments of the entity set path MUST represent
-navigation segments or type casts.
+parameter.
+If the entity set path consists only of the name of the binding parameter,
+the binding parameter MUST be an entity or a collection of entities. In this case
+the returned entities MUST belong to the same canonical collection
+as the binding parameter.
 
-A navigation segment names the [simple identifier](#SimpleIdentifier) of
-the [navigation property](#NavigationProperty) to be traversed. A
-type-cast segment names the [qualified name](#QualifiedName) of the
-entity type that should be returned from the type cast.
+Otherwise the entity set path has the form $p/s_1/…/s_k$ with $k>0$, and
+the binding parameter MUST be single-valued.
+The additional segments $s_1,…,s_k$ MUST be paths that could occur in an expand item [OData-URL, section 5.1.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#SystemQueryOptionexpand),
+and they MUST end with the name of a [navigation property](#NavigationProperty),
+optionally followed by the [qualified name](#QualifiedName) of a type cast.
+Furthermore, $s_1,…,s_{k-1}$ MUST be single-valued, and
+$s_k$ MUST name a collection-valued navigation property.
+In this case all returned entities MUST belong to the canonical collection $C$ of the final navigation
+property, if this can be determined by the following algorithm:
+1. Let $v$ be the binding parameter value, and let $α/β$ be the canonical URL of $v$
+   where $α$ is either an entity set followed by a key predicate or a singleton, and $β$
+   is a possibly empty concatenation of containment navigation properties, type casts and key predicates.
+   Remove any key predicates from $α$ and $β$.
+2. Let $i=1$.
+3. If $i=k$, go to step 8.
+4. Update $v$ to the result of evaluating the [instance path](#PathExpressions) $s_i$ on the instance $v$.
+5. If $s_i$ names a containment navigation property, update $β=β/s_i$.
+6. Otherwise $s_i$ names a non-containment navigation property. Determine
+   the [navigation property binding](#NavigationPropertyBinding) defined by the service
+   on the entity set or singleton $α$ whose path matches $β/s_i$;
+   if it does not exist, then $C$ cannot be determined.
+   The binding target of that navigation property binding is either an entity set $α'$ or has the form $α'/β'$ where $α'$ is a singleton.
+   Update $α=α'$ and $β=β'$.
+7. Update $i=i+1$ and go back to step 3.
+8. If $s_k$ names a containment navigation property, let $C$ be the implicit
+   entity set defined by $s_k$ for $v$ (as explained in [section 8.4](#ContainmentNavigationProperty)).
+9. Otherwise $s_k$ names a non-containment navigation property. Determine
+   the navigation property binding defined by the service on the entity set or singleton $α$
+   whose path matches $β/s_k$; if it does not exist, then $C$ cannot be determined.
+   Let $C$ be the binding target of that navigation property binding.
 
 ::: {.varjson .rep}
 ### <a id="EntitySetPath.13.2" href="#EntitySetPath.13.2">`$EntitySetPath`</a>
@@ -3329,17 +3365,17 @@ the last navigation property segment MUST be a non-containment
 navigation property and there MUST NOT be any non-containment navigation
 properties prior to the final navigation property segment.
 
+OData 4.01 services MAY have a type-cast segment as the last path
+segment, allowing to bind instances of different sub-types to different
+targets.
+
 If the path traverses collection-valued complex properties or
 collection-valued containment navigation properties, the binding applies
 to all items of these collections.
 
 If the path contains a recursive sub-path (i.e. a path leading back to
-the same structured type, the binding applies recursively to any
+the same structured type), the binding applies recursively to any
 positive number of cycles through that sub-path.
-
-OData 4.01 services MAY have a type-cast segment as the last path
-segment, allowing to bind instances of different sub-types to different
-targets.
 
 The same navigation property path MUST NOT be specified in more than one
 navigation property binding; navigation property bindings are only used
@@ -3405,14 +3441,15 @@ Example 36: for an entity set in any container in scope
 :::
 
 ::: {.varjson .example}
-Example 37: binding `Supplier` on `Products` contained within
-`Categories` – binding applies to all suppliers of all products of all categories
+Example 37: If `Subcategories` is a containment navigation property on the
+category entity type, the following binding applies to all products of all subcategories
+of all categories
 ```json
 "Categories": {
   "$Collection": true,
   "$Type": "self.Category",
   "$NavigationPropertyBinding": {
-    "Products/Supplier": "Suppliers"
+    "Subcategories/Products": "Products"
   }
 }
 ```
@@ -5055,6 +5092,10 @@ client-side function. The apply expression MAY have operand expressions.
 The operand expressions are used as parameters to the client-side
 function.
 
+If the value of an operand expression is not acceptable for the function,
+the client SHOULD NOT make any assumptions about the application of the term
+that rely on the operand.
+
 ::: {.varjson .rep}
 ### <a id="Apply.21.20" href="#Apply.21.20">`$Apply`</a> and <a id="Function.21.21" href="#Function.21.21">`$Function`</a>
 
@@ -5341,16 +5382,20 @@ child expression MAY be omitted, reducing it to an if-then expression.
 This can be used to conditionally add an element to a collection.
 
 The first child expression is the condition and MUST evaluate to a
-Boolean result, e.g. the [comparison and logical
+Boolean result or `null`, e.g. the [comparison and logical
 operators](#ComparisonandLogicalOperators) can be used.
 
 The second and third child expressions are evaluated conditionally. The
 result MUST be type compatible with the type expected by the surrounding
 expression.
 
+If the value of a child expression does not meet these conditions,
+the client SHOULD NOT make any assumptions about the application of the term
+that rely on the condition expression.
+
 If the first expression evaluates to `true`, the second expression MUST
 be evaluated and its value MUST be returned as the result of the
-if-then-else expression. If the first expression evaluates to `false`
+if-then-else expression. If the first expression evaluates to `false` or `null`
 and a third child element is present, it MUST be evaluated and its value
 MUST be returned as the result of the if-then-else expression. If no
 third expression is present, nothing is added to the surrounding

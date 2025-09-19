@@ -2404,7 +2404,7 @@ This works identical to the SQL statement DELETE FOR PORTION OF:
    slices, one with non-overlapping, and one with fully included period.
 4. Then all fully included time slices (including ones created in the
    previous step) are deleted following the rules for deleting entities
-   specified in [OData-Protocol, section 11.4.5](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#DeleteanEntity).
+   specified in [OData-Protocol, section 11.4.4](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#DeleteanEntity).
 
 On success it returns the deleted time slices.
 

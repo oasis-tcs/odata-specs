@@ -36,6 +36,9 @@ Response code `204 No Content` after successful data modification if requested r
 [Section ##CreateanEntity]| 
 Services can validate non-insertable property values in insert payloads| 
 [356](https://github.com/oasis-tcs/odata-specs/issues/356)
+[Section ##LinktoRelatedEntitiesWhenCreatinganEntity]| 
+Client can update properties of existing related entities when creating an entity| 
+[352](https://github.com/oasis-tcs/odata-specs/issues/352)
 [Section ##CreateRelatedEntitiesWhenCreatinganEntity]| 
 Deep-insert response includes at least the properties present in the request| 
 [363](https://github.com/oasis-tcs/odata-specs/issues/363)
@@ -52,6 +55,9 @@ Setting a complex property to a different type|
 Control information to prevent updates| 
 [2021](https://github.com/oasis-tcs/odata-specs/issues/2021)
 [Section ##ReplaceaCollectionofEntities]| Semantics of `continue-on-error` when replacing a collection of entities | [358](https://github.com/oasis-tcs/odata-specs/issues/358)
+[Section ##InvokinganAction]| 
+Omission of collection-valued action parameters| 
+[2045](https://github.com/oasis-tcs/odata-specs/issues/2045)
 [Section ##Conformance] | Allow `400 Bad Request` in addition to `501 Not Implemented` for unsupported functionality| [391](https://github.com/oasis-tcs/odata-specs/issues/391)
 [Section ##InteroperableODataClients] | Encoding of plus character in URLs | [485](https://github.com/oasis-tcs/odata-specs/issues/485)
 
@@ -174,6 +180,12 @@ additional undeclared *dynamic properties*. A dynamic property cannot
 have the same name as a declared property. Entity or complex types which
 allow clients to persist additional undeclared properties are called
 *open types*.
+A dynamic property need not exist on all instances of a structured type,
+and it can have values of different types on different instances.
+It can be specified in both [`$expand`](#SystemQueryOptionexpand) and [`$select`](#SystemQueryOptionselect),
+and it is interpreted per instance according to its instance-specific type,
+with the addition that it is silently ignored in `$expand` if the instance-specific value is neither a stream,
+an entity, or a collection of entities.
 
 Relationships from one entity to another are represented as *navigation
 properties.* Navigation properties are generally defined as part of an
