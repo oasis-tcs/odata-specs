@@ -70,7 +70,7 @@ All other text is normative unless otherwise labeled.
 
 Paragraphs labeled 🚧 in this version of the specification contain restrictions that were not made in **[OData-Data-Agg-v4.0]** OASIS Committee Specification 03. Also, some sections of **[OData-Data-Agg-v4.0]** OASIS Committee Specification 03 are omitted from this version. In later OASIS standard versions these restrictions may be lifted again and the omitted sections reintroduced.
 
-The ABNF rules [OData-ABNF](#ODataABNF) have been simplified in this version to reflect these restrictions. Also, some members of the OData Aggregation Vocabulary [OData-VocAggr](#ODataVocAggr) have been removed from this version (deleted from the CSDL JSON document; commented out and labeled 🚧 in the CSDL XML document). These members are referenced by **[OData-Data-Agg-v4.0]** OASIS Committee Specification 03 but not by this version.
+The ABNF rules [OData-ABNF](#ODataABNF) have been simplified in this version to reflect these restrictions. Also, some members of the OData Aggregation Vocabulary [OData-VocAggr](#ODataVocAggr) have been omitted from this version. These members are referenced by **[OData-Data-Agg-v4.0]** OASIS Committee Specification 03 but not by this version.
 
 <!--
 Here is a customized command line which will generate HTML from the markdown file (named `$$$filename$$$.md`). Line breaks are added for readability only:

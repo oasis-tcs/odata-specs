@@ -7,7 +7,7 @@
 
 ## Committee Specification Draft 05
 
-## 24 September 2025
+## 01 October 2025
 
 &nbsp;
 
@@ -82,7 +82,7 @@ When referencing this specification the following citation format should be used
 **[OData-Data-Agg-v4.0]**
 
 _OData Extension for Data Aggregation Version 4.0_.
-Edited by Ralf Handl, Hubert Heijkers, Gerald Krause, Michael Pizzo, Heiko Theißen, and Martin Zurmuehl. 24 September 2025. OASIS Committee Specification Draft 05.
+Edited by Ralf Handl, Hubert Heijkers, Gerald Krause, Michael Pizzo, Heiko Theißen, and Martin Zurmuehl. 01 October 2025. OASIS Committee Specification Draft 05.
 https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd05/odata-data-aggregation-ext-v4.0-csd05.html.
 Latest stage: https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.html.
 
@@ -262,7 +262,7 @@ All other text is normative unless otherwise labeled.
 
 Paragraphs labeled 🚧 in this version of the specification contain restrictions that were not made in **[OData-Data-Agg-v4.0]** OASIS Committee Specification 03. Also, some sections of **[OData-Data-Agg-v4.0]** OASIS Committee Specification 03 are omitted from this version. In later OASIS standard versions these restrictions may be lifted again and the omitted sections reintroduced.
 
-The ABNF rules [OData-ABNF](#ODataABNF) have been simplified in this version to reflect these restrictions. Also, some members of the OData Aggregation Vocabulary [OData-VocAggr](#ODataVocAggr) have been removed from this version (deleted from the CSDL JSON document; commented out and labeled 🚧 in the CSDL XML document). These members are referenced by **[OData-Data-Agg-v4.0]** OASIS Committee Specification 03 but not by this version.
+The ABNF rules [OData-ABNF](#ODataABNF) have been simplified in this version to reflect these restrictions. Also, some members of the OData Aggregation Vocabulary [OData-VocAggr](#ODataVocAggr) have been omitted from this version. These members are referenced by **[OData-Data-Agg-v4.0]** OASIS Committee Specification 03 but not by this version.
 
 <!--
 Here is a customized command line which will generate HTML from the markdown file (named `odata-data-aggregation-ext-v4.0-csd05.md`). Line breaks are added for readability only:
@@ -3895,7 +3895,7 @@ Committee Specification Draft 02|2014-01-09| Ralf Handl<br> Hubert Heijkers<br> 
 Committee Specification Draft 03|2015-07-16| Ralf Handl<br> Hubert Heijkers<br> Gerald Krause<br> Michael Pizzo<br> Martin Zurmuehl| Added compute transformation<br> Minor clean-up
 Committee Specification Draft 04|2023-07-05| Ralf Handl<br> Hubert Heijkers<br> Gerald Krause<br> Michael Pizzo<br> Heiko Theißen| Added section about fundamentals of input and output sets<br> Algorithmic descriptions of transformations<br> Added join and outerjoin transformations, replaced expand by addnested<br> Added transformations orderby, skip, top, nest<br> Added transformations for recursive hierarchies, updated related filter functions<br> Added functions evaluable on a collection, introduced keyword $these<br> Merged section 4 "Representation of Aggregated Instances" into section 3<br> Remove actions and functions (except set transformations) on aggregated entities, adapted section "Actions and Functions on Aggregated Entities"
 Committee Specification 03|2023-09-19| Ralf Handl<br> Gerald Krause<br> Heiko Theißen| Non-material changes from public review feedback
-Committee Specification Draft 05|2025-09-24| Gerald Krause<br> Heiko Theißen| Remove sections not intended for OASIS Standard
+Committee Specification Draft 05|2025-10-01| Gerald Krause<br> Heiko Theißen| Remove sections not intended for OASIS Standard
 
 -------
 
