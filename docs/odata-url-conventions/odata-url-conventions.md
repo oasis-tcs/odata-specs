@@ -471,7 +471,7 @@ libraries.
 Services that do not follow the resource path conventions for entity
 container children are strongly encouraged to document their resource
 paths by annotating entity container children with the term
-[`Core.ResourcePath`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ResourcePath)
+[Core.ResourcePath]{.term}
 defined in [OData-VocCore](#ODataVocCore). The annotation value is the
 URL of the annotated resource and may be relative to `xml:base` (if
 present), otherwise the request URL.
@@ -806,7 +806,7 @@ The semantics of `$entity` are covered in [OData-Protocol, section 10](https://d
 
 In addition to the canonical (primary) key an entity set or entity type
 can specify one or more alternate keys with the
-[`Core.AlternateKeys`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AlternateKeys)
+[Core.AlternateKeys]{.term}
 term (see [OData-VocCore](#ODataVocCore)).
 
 Alternate keys can be used by the client to address entities anywhere the canonical key
@@ -986,7 +986,7 @@ defined in [OData-Protocol, section 11.5](https://docs.oasis-open.org/odata/odat
 Services MAY additionally support the use of the unqualified name of an
 action or function in a URL by defining one or more default namespaces
 through the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) term
+[Core.DefaultNamespace]{.term} term
 defined in [OData-VocCore](#ODataVocCore). For more information on
 default namespaces, see [OData-Protocol, section 4.4](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#DefaultNamespaces).
 
@@ -1165,14 +1165,14 @@ appended to the collection URL before appending the key segment.
 
 Note: entity sets or collection-valued navigation properties annotated
 with the term
-[`Capabilities.IndexableByKey`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#IndexableByKey)
+[Capabilities.IndexableByKey]{.term}
 defined in [OData-VocCap](#ODataVocCap) and a value of `false` do not
 support addressing their members by key.
 
 ## <a id="AddressingaMemberofanOrderedCollection" href="#AddressingaMemberofanOrderedCollection">4.10 Addressing a Member of an Ordered Collection</a>
 
 Collections can be annotated as ordered using the
-[`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered)
+[Core.Ordered]{.term}
 term (see [OData-VocCore](#ODataVocCore)). Individual items within an
 ordered collection of primitive or complex types can be addressed by
 appending a segment containing the zero-based ordinal to the URL of the
@@ -1210,7 +1210,7 @@ the type cast will evaluate to `null`.
 Services MAY additionally support the use of the unqualified name of a
 derived type in a URL by defining one or more default namespaces through
 the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace)
+[Core.DefaultNamespace]{.term}
 term defined in [OData-VocCore](#ODataVocCore). For more information on
 default namespaces, see [OData-Protocol, section 4.4](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#DefaultNamespaces).
 
@@ -1220,7 +1220,7 @@ derived type. In this case, the set and values of properties of the
 addressed type may be different than the properties of the source type.
 The set of such possible target types outside of the type hierarchy
 SHOULD be called out using the
-[`Core.MayImplement`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#MayImplement)
+[Core.MayImplement]{.term}
 annotation term, defined in [OData-VocCore](#ODataVocCore).
 
 ::: example
@@ -1773,7 +1773,7 @@ The Boolean value `true` is greater than `false`.
 Services SHOULD order language-dependent strings according to the
 `Content-Language` of the response, and SHOULD annotate string properties
 with language-dependent order with the term
-[`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
+[Core.IsLanguageDependent]{.term},
 see [OData-VocCore](#ODataVocCore).
 
 If any operand is `null`, the operator returns `false`.
@@ -1798,7 +1798,7 @@ The Boolean value `false` is less than `true`.
 Services SHOULD order language-dependent strings according to the
 `Content-Language` of the response, and SHOULD annotate string properties
 with language-dependent order with the term
-[`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
+[Core.IsLanguageDependent]{.term},
 see [OData-VocCore](#ODataVocCore).
 
 If any operand is `null`, the operator returns `false`.
@@ -3464,7 +3464,7 @@ navigation properties, then the request may be considered malformed.
 Services MAY support the use of annotation values as operands or
 function parameters, and they MAY advertise this by annotating the
 entity container with term
-[`Capabilities.AnnotationValuesInQuerySupported`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#AnnotationValuesInQuerySupported),
+[Capabilities.AnnotationValuesInQuerySupported]{.term},
 see [OData-VocCap](#ODataVocCap).
 
 Annotation values are referenced by the annotation name which consists
@@ -3486,7 +3486,7 @@ http://host/service/Products?$filter=Price/@Measures.Currency eq 'EUR'
 
 ::: example
 Example 122: Return Employees that have any error messages in the
-[`Core.Messages`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Messages)
+[Core.Messages]{.term}
 annotation
 ```
 http://host/service/Employees?$filter=@Core.Messages/any(m:m/severity eq 'error')
@@ -3495,7 +3495,7 @@ http://host/service/Employees?$filter=@Core.Messages/any(m:m/severity eq 'error'
 
 Services MAY additionally support the use of the unqualified term name
 by defining one or more default namespaces through the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) annotation
+[Core.DefaultNamespace]{.term} annotation
 term defined in [OData-VocCore](#ODataVocCore). For more information on
 default namespaces, see [OData-Protocol, section 4.4](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#DefaultNamespaces).
 This short notation however uses the same name pattern as parameter
@@ -4147,7 +4147,7 @@ http://host/service/Orders(10)/Items
 
 The `$index` system query option allows clients to do a positional
 insert into a collection annotated with the
-[`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
+[Core.PositionalInsert]{.term}
 term (see [OData-VocCore](#ODataVocCore)). The value of the `$index`
 system query option is the zero-based ordinal position where the item is
 to be inserted. The ordinal of items within the collection greater than

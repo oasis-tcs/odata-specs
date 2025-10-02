@@ -1267,7 +1267,7 @@ Constant values of type `Edm.Stream` with other media types are represented as [
 :::
 
 The annotation (property) being assigned a stream value MUST be annotated with term
-[`Core.MediaType`]($$$OData-VocCore$$$#MediaType)
+[Core.MediaType]{.term}
 and the media type of the stream as its value.
 
 ::: {.varjson .example}
