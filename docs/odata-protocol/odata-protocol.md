@@ -1352,7 +1352,7 @@ If the service encounters any errors processing the request and returns a succes
 
 A service MAY specify support for the `continue-on-error` preference
 using an annotation with term
-[`Capabilities.BatchContinueOnErrorSupported`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#BatchContinueOnErrorSupported),
+[Capabilities.BatchContinueOnErrorSupported]{.term},
 see [OData-VocCap](#ODataVocCap).
 
 The `continue-on-error` preference on a batch request refers to whether individual
