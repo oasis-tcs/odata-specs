@@ -202,12 +202,12 @@ For testing the position of a given entity in a recursive hierarchy, the `Aggreg
 - a Boolean return value for the outcome of the test.
 
 The following functions are defined:
-- [Aggregation.isnode]{.term} tests if the given entity is a node of the hierarchy.
-- [Aggregation.isroot]{.term} tests if the given entity is a root node of the hierarchy.
-- [Aggregation.isdescendant]{.term} tests if the given entity is a descendant with maximum distance `MaxDistance` of an ancestor node (whose node identifier is given in a parameter `Ancestor`), or equals the ancestor if `IncludeSelf` is true.
-- [Aggregation.isancestor]{.term} tests if the given entity is an ancestor with maximum distance `MaxDistance` of a descendant node (whose node identifier is given in a parameter `Descendant`), or equals the descendant if `IncludeSelf` is true.
-- [Aggregation.issibling]{.term} tests if the given entity and another entity (whose node identifier is given in a parameter `Other`) are sibling nodes.
-- [Aggregation.isleaf]{.term} tests if the given entity is a leaf node.
+- [`isnode`]($$$OData-VocAggr$$$#isnode) tests if the given entity is a node of the hierarchy.
+- [`isroot`]($$$OData-VocAggr$$$#isroot) tests if the given entity is a root node of the hierarchy.
+- [`isdescendant`]($$$OData-VocAggr$$$#isdescendant) tests if the given entity is a descendant with maximum distance `MaxDistance` of an ancestor node (whose node identifier is given in a parameter `Ancestor`), or equals the ancestor if `IncludeSelf` is true.
+- [`isancestor`]($$$OData-VocAggr$$$#isancestor) tests if the given entity is an ancestor with maximum distance `MaxDistance` of a descendant node (whose node identifier is given in a parameter `Descendant`), or equals the descendant if `IncludeSelf` is true.
+- [`issibling`]($$$OData-VocAggr$$$#issibling) tests if the given entity and another entity (whose node identifier is given in a parameter `Other`) are sibling nodes.
+- [`isleaf`]($$$OData-VocAggr$$$#isleaf) tests if the given entity is a leaf node.
 
 Another function `rollupnode` is defined that can only be used in connection with [`rolluprecursive`](#Groupingwithrolluprecursive).
 
