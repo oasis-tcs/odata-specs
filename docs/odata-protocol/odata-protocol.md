@@ -1339,8 +1339,8 @@ that returns an error, the service return the error for that request and
 continue processing additional requests within the batch (if specified
 with an implicit or explicit value of `true`), or rather stop further
 processing (if specified with an explicit value of `false`). The syntax
-of the `continue-on-error` preference is defined in
-[OData-ABNF](#ODataABNF).
+of the `continue-on-error` preference is defined in the
+[OData-ABNF](#ODataABNF) rule [continueOnErrorPreference]{.abnf}.
 
 The `continue-on-error` preference can also be used on a
 [delta update](#UpdateaCollectionofEntities),
