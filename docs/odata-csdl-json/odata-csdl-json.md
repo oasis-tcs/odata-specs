@@ -998,10 +998,10 @@ in a format-specific way.
 A reference MAY be annotated.
 
 The
-[`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
+[Core.SchemaVersion]{.term}
 annotation, defined in [OData-VocCore](#ODataVocCore), MAY be used to
 indicate a particular version of the referenced document. If the
-[`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
+[Core.SchemaVersion]{.term}
 annotation is present, the `$schemaversion` system query option, defined in
 [OData-Protocol, section 11.2.12](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptionschemaversion), SHOULD be used when retrieving the
 referenced schema document.
@@ -1537,7 +1537,7 @@ also a media entity type.
 
 Media entity types MAY specify a list of acceptable media types using an
 annotation with term
-[`Core.AcceptableMediaTypes`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AcceptableMediaTypes),
+[Core.AcceptableMediaTypes]{.term},
 see [OData-VocCore](#ODataVocCore).
 
 ::: {.varjson .rep}
@@ -1804,13 +1804,13 @@ leading back to the property's declaring type, the finiteness condition for
 in this chain MUST be nullable or collection-valued.
 
 A collection-valued property MAY be annotated with the
-[`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered)
+[Core.Ordered]{.term}
 term, defined in
 [OData-VocCore](#ODataVocCore), to specify that it supports a
 stable ordering.
 
 A collection-valued property MAY be annotated with the
-[`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
+[Core.PositionalInsert]{.term}
 term, defined in [OData-VocCore](#ODataVocCore), to specify that it
 supports inserting items into a specific ordinal position.
 
@@ -1985,12 +1985,12 @@ For a collection-valued containment navigation property the specified
 entity type MUST have a [key](#Key) defined.
 
 A collection-valued navigation property MAY be annotated with the
-[`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered)
+[Core.Ordered]{.term}
 term, defined in [OData-VocCore](#ODataVocCore), to specify that it
 supports a stable ordering.
 
 A collection-valued navigation property MAY be annotated with the
-[`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
+[Core.PositionalInsert]{.term}
 term, defined in [OData-VocCore](#ODataVocCore), to specify that it
 supports inserting items into a specific ordinal position.
 
@@ -2088,7 +2088,7 @@ MUST have a [key](#Key) defined.
 
 For items of an ordered collection of complex types (those annotated
 with the
-[`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered)
+[Core.Ordered]{.term}
 term defined in [OData-VocCore](#ODataVocCore) the canonical URL
 of the item is the canonical URL of the collection appended with a
 segment containing the zero-based ordinal of the item. Items within in
@@ -2948,7 +2948,7 @@ fail with an error response if it cannot compute a result.
 ### <a id="AnnotationCoreIsDelta.13.8" href="#AnnotationCoreIsDelta.13.8">Annotation `Core.IsDelta`</a>
 
 An action or function that returns a single entity or a collection of entities MAY return results as a delta payload.
-This is indicated by annotating the return type with the term [`Core.IsDelta`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsDelta).
+This is indicated by annotating the return type with the term [Core.IsDelta]{.term}.
 
 Delta payloads represent changes between two versions of data and, in addition
 to current values, MAY include deleted entities as well as changes to related entities and relationships, according to the format-specific delta representation.
@@ -3024,7 +3024,7 @@ of the collection and specifies whether the collection MAY contain
 
 ### <a id="AnnotationCoreOptionalParameter.14.5" href="#AnnotationCoreOptionalParameter.14.5">Annotation `Core.OptionalParameter`</a>
 
-A parameter that is annotated with the term [`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter) MAY be omitted when invoking the function or action.
+A parameter that is annotated with the term [Core.OptionalParameter]{.term} MAY be omitted when invoking the function or action.
 
 All parameters marked as optional MUST come after any parameters not marked as optional. 
 The binding parameter MUST NOT be marked as optional.
@@ -3058,7 +3058,7 @@ function with the `$Parameter` member.
 ### <a id="AnnotationCoreIsDelta.14.6" href="#AnnotationCoreIsDelta.14.6">Annotation `Core.IsDelta`</a>
 
 A parameter that accepts a single entity or a collection of entities MAY accept a delta representation.
-This is indicated by annotating the parameter with the term [`Core.IsDelta`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsDelta).
+This is indicated by annotating the parameter with the term [Core.IsDelta]{.term}.
 
 Deltas represent changes between two versions of data and, in addition
 to current values, MAY include deleted entities as well as changes to related entities and relationships, according to the format-specific delta representation.
@@ -4261,7 +4261,7 @@ Constant values of type `Edm.Stream` are represented according to [OData-JSON, s
 
 
 The annotation (property) being assigned a stream value MUST be annotated with term
-[`Core.MediaType`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#MediaType)
+[Core.MediaType]{.term}
 and the media type of the stream as its value.
 
 ::: {.varjson .example}
@@ -6146,7 +6146,7 @@ to complex types and navigation properties
 6. MUST NOT include a non-abstract entity type with no inherited or
 defined [entity key](#Key)
 7. MUST NOT include the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace)
+[Core.DefaultNamespace]{.term}
 annotation on [included schemas](#IncludedSchema)
 8. MUST NOT return the Unicode facet for terms, parameters, and return
 types
