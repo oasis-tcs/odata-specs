@@ -138,10 +138,14 @@ Ralf Handl<br>
 Gerald Krause<br> 
 Heiko Theißen| 
 Non-material changes from public review feedback
-$$$subtitle$$$|$$$pubdateISO$$$| 
+Committee Specification Draft 05|2025-10-01| 
 Gerald Krause<br> 
 Heiko Theißen| 
 Remove sections not intended for OASIS Standard
+$$$subtitle$$$|$$$pubdateISO$$$| 
+Gerald Krause<br> 
+Heiko Theißen| 
+No changes from public review
 
 -------
 
