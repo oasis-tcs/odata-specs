@@ -393,6 +393,9 @@ value is a string containing the header-encoded value of the header.
 
 The response object MAY contain the name/value pair `body`
 which follows the same rules as within [request objects](#BatchRequest).
+The `content-type` header mandated by [#OData-Protocol#HeaderContentType]
+MAY be omitted if the media type is exactly equal to `application/json`
+(i.e. it is not a subtype and has no format parameters).
 
 Relative URLs in a response object follow the rules for [relative
 URLs](#RelativeURLs) based on the request URL of the corresponding
