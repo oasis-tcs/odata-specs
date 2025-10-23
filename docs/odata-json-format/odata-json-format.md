@@ -3277,6 +3277,9 @@ of the header.
 
 The value of `body` can be `null`, which is
 equivalent to not specifying the `body` name/value pair.
+The `content-type` header mandated by [OData-Protocol, section 8.1.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#HeaderContentType)
+MAY be omitted if the media type is exactly equal to `application/json`
+(i.e. it is not a subtype and has no format parameters).
 
 For media type `application/json` or one of its subtypes,
 optionally with format parameters, the value of `body` is JSON.
@@ -3329,7 +3332,6 @@ Content-Length: ###
       "method": "patch",
       "url": "/service/Customers('ALFKI')",
       "headers": {
-        "content-type": "application/json",
         "prefer": "return=minimal"
       },
       "body": <JSON representation of changes to Customer ALFKI>
@@ -3339,9 +3341,6 @@ Content-Length: ###
       "atomicityGroup": "group1",
       "method": "post",
       "url": "/service/Customers",
-      "headers": {
-        "content-type": "application/json"
-      },
       "body": <JSON representation of a new Customer entity>
     },
     {
@@ -3381,9 +3380,6 @@ Content-Length: ###
       "id": "1",
       "method": "post",
       "url": "/service/Customers",
-      "headers": {
-        "content-type": "application/json"
-      },
       "body": <JSON representation of a new Customer entity>
     },
     {
@@ -3391,9 +3387,6 @@ Content-Length: ###
       "dependsOn": [ "1" ]
       "method": "post",
       "url": "$1/Orders",
-      "headers": {
-        "content-type": "application/json"
-      },
       "body": <JSON representation of a new Order>
     }
   ]
@@ -3433,8 +3426,7 @@ Content-Length: ###
       "method": "patch",
       "url": "/service/Employees(0)",
       "headers": {
-        "if-match": "$1",
-        "content-type": "application/json"
+        "if-match": "$1"
       },
       "body": {
         "Salary": 75000
