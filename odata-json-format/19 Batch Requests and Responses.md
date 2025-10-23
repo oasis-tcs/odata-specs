@@ -101,8 +101,7 @@ atomicity group, all requests in that group fail with
 The value of `headers` is an object whose name/value pairs
 represent request headers. The name of each pair MUST be the lower-case
 header name; the value is a string containing the header-encoded value
-of the header. The `headers` object MUST contain a name/value
-pair with the name `content-type` whose value is the media type.
+of the header.
 
 The value of `body` can be `null`, which is
 equivalent to not specifying the `body` name/value pair.
@@ -118,6 +117,10 @@ For all other media types the value of `body` is a string
 containing the base64url-encoded value of the request body. In this case
 the body content can be compressed or chunked if this is correctly
 reflected in the `Transfer-Encoding` header.
+
+The `content-type` header mandated by [#OData-Protocol#HeaderContentType]
+MAY be omitted if the media type is exactly equal to `application/json`
+(i.e. it is not a subtype and has no format parameters).
 
 A `body` MUST NOT be specified if the `method` is `get` or `delete`.
 
@@ -158,7 +161,7 @@ Content-Length: ###
       "method": "patch",
       "url": "/service/Customers('ALFKI')",
       "headers": {
-        "Prefer": "return=minimal"
+        "prefer": "return=minimal"
       },
       "body": <JSON representation of changes to Customer ALFKI>
     },
@@ -384,10 +387,9 @@ value is a string containing the header-encoded value of the header.
 The response object MAY contain the name/value pair `body`
 which follows the same rules as within [request objects](#BatchRequest).
 
-If the media type is not exactly equal to `application/json`
-(i.e. it is a subtype or has format parameters), the
-`headers` object MUST contain a name/value pair with the name
-`content-type` whose value is the media type.
+The `content-type` header mandated by [#OData-Protocol#HeaderContentType]
+MAY be omitted if the media type is exactly equal to `application/json`
+(i.e. it is not a subtype and has no format parameters).
 
 Relative URLs in a response object follow the rules for [relative
 URLs](#RelativeURLs) based on the request URL of the corresponding
