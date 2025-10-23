@@ -105,9 +105,6 @@ of the header.
 
 The value of `body` can be `null`, which is
 equivalent to not specifying the `body` name/value pair.
-The `content-type` header mandated by [#OData-Protocol#HeaderContentType]
-MAY be omitted if the media type is exactly equal to `application/json`
-(i.e. it is not a subtype and has no format parameters).
 
 For media type `application/json` or one of its subtypes,
 optionally with format parameters, the value of `body` is JSON.
@@ -120,6 +117,10 @@ For all other media types the value of `body` is a string
 containing the base64url-encoded value of the request body. In this case
 the body content can be compressed or chunked if this is correctly
 reflected in the `Transfer-Encoding` header.
+
+The `content-type` header mandated by [#OData-Protocol#HeaderContentType]
+MAY be omitted if the media type is exactly equal to `application/json`
+(i.e. it is not a subtype and has no format parameters).
 
 A `body` MUST NOT be specified if the `method` is `get` or `delete`.
 
@@ -385,6 +386,7 @@ value is a string containing the header-encoded value of the header.
 
 The response object MAY contain the name/value pair `body`
 which follows the same rules as within [request objects](#BatchRequest).
+
 The `content-type` header mandated by [#OData-Protocol#HeaderContentType]
 MAY be omitted if the media type is exactly equal to `application/json`
 (i.e. it is not a subtype and has no format parameters).
