@@ -3273,8 +3273,7 @@ atomicity group, all requests in that group fail with
 The value of `headers` is an object whose name/value pairs
 represent request headers. The name of each pair MUST be the lower-case
 header name; the value is a string containing the header-encoded value
-of the header. The `headers` object MUST contain a name/value
-pair with the name `content-type` whose value is the media type.
+of the header.
 
 The value of `body` can be `null`, which is
 equivalent to not specifying the `body` name/value pair.
@@ -3330,7 +3329,8 @@ Content-Length: ###
       "method": "patch",
       "url": "/service/Customers('ALFKI')",
       "headers": {
-        "Prefer": "return=minimal"
+        "content-type": "application/json",
+        "prefer": "return=minimal"
       },
       "body": <JSON representation of changes to Customer ALFKI>
     },
@@ -3339,6 +3339,9 @@ Content-Length: ###
       "atomicityGroup": "group1",
       "method": "post",
       "url": "/service/Customers",
+      "headers": {
+        "content-type": "application/json"
+      },
       "body": <JSON representation of a new Customer entity>
     },
     {
@@ -3378,6 +3381,9 @@ Content-Length: ###
       "id": "1",
       "method": "post",
       "url": "/service/Customers",
+      "headers": {
+        "content-type": "application/json"
+      },
       "body": <JSON representation of a new Customer entity>
     },
     {
@@ -3385,6 +3391,9 @@ Content-Length: ###
       "dependsOn": [ "1" ]
       "method": "post",
       "url": "$1/Orders",
+      "headers": {
+        "content-type": "application/json"
+      },
       "body": <JSON representation of a new Order>
     }
   ]
@@ -3424,7 +3433,8 @@ Content-Length: ###
       "method": "patch",
       "url": "/service/Employees(0)",
       "headers": {
-        "if-match": "$1"
+        "if-match": "$1",
+        "content-type": "application/json"
       },
       "body": {
         "Salary": 75000
@@ -3555,11 +3565,6 @@ value is a string containing the header-encoded value of the header.
 
 The response object MAY contain the name/value pair `body`
 which follows the same rules as within [request objects](#BatchRequest).
-
-If the media type is not exactly equal to `application/json`
-(i.e. it is a subtype or has format parameters), the
-`headers` object MUST contain a name/value pair with the name
-`content-type` whose value is the media type.
 
 Relative URLs in a response object follow the rules for [relative
 URLs](#RelativeURLs) based on the request URL of the corresponding
