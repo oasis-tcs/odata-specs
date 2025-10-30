@@ -102,6 +102,10 @@ The value of `headers` is an object whose name/value pairs
 represent request headers. The name of each pair MUST be the lower-case
 header name; the value is a string containing the header-encoded value
 of the header.
+Services MAY support omitting the `content-type` in the `header` property of a request object.
+Such requests MUST be interpreted as if the `content-type` header mandated by
+[#OData-Protocol#HeaderContentType] were specified with a value of `application/json`
+(with no format parameters).
 
 The value of `body` can be `null`, which is
 equivalent to not specifying the `body` name/value pair.
@@ -117,10 +121,6 @@ For all other media types the value of `body` is a string
 containing the base64url-encoded value of the request body. In this case
 the body content can be compressed or chunked if this is correctly
 reflected in the `Transfer-Encoding` header.
-
-The `content-type` header mandated by [#OData-Protocol#HeaderContentType]
-MAY be omitted if the media type is exactly equal to `application/json`
-(i.e. it is not a subtype and has no format parameters).
 
 A `body` MUST NOT be specified if the `method` is `get` or `delete`.
 
@@ -383,13 +383,11 @@ The response object MAY contain the name/value pair `headers`
 whose value is an object with name/value pairs representing response
 headers. The name of each pair MUST be the lower-case header name; the
 value is a string containing the header-encoded value of the header.
+If the object does not name the `content-type`, then the `content-type` header mandated by
+[#OData-Protocol#HeaderContentType] is assumed to be `application/json` (with no format parameters).
 
 The response object MAY contain the name/value pair `body`
 which follows the same rules as within [request objects](#BatchRequest).
-
-The `content-type` header mandated by [#OData-Protocol#HeaderContentType]
-MAY be omitted if the media type is exactly equal to `application/json`
-(i.e. it is not a subtype and has no format parameters).
 
 Relative URLs in a response object follow the rules for [relative
 URLs](#RelativeURLs) based on the request URL of the corresponding
