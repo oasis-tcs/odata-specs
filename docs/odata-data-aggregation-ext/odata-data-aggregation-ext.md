@@ -7,7 +7,7 @@
 
 ## Committee Specification 04
 
-## 05 November 2025
+## 18 November 2025
 
 &nbsp;
 
@@ -82,7 +82,7 @@ When referencing this specification the following citation format should be used
 **[OData-Data-Agg-v4.0]**
 
 _OData Extension for Data Aggregation Version 4.0_.
-Edited by Ralf Handl, Hubert Heijkers, Gerald Krause, Michael Pizzo, Heiko Theißen, and Martin Zurmuehl. 05 November 2025. OASIS Committee Specification 04.
+Edited by Ralf Handl, Hubert Heijkers, Gerald Krause, Michael Pizzo, Heiko Theißen, and Martin Zurmuehl. 18 November 2025. OASIS Committee Specification 04.
 https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs04/odata-data-aggregation-ext-v4.0-cs04.html.
 Latest stage: https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.html.
 
@@ -3896,7 +3896,7 @@ Committee Specification Draft 03|2015-07-16| Ralf Handl<br> Hubert Heijkers<br> 
 Committee Specification Draft 04|2023-07-05| Ralf Handl<br> Hubert Heijkers<br> Gerald Krause<br> Michael Pizzo<br> Heiko Theißen| Added section about fundamentals of input and output sets<br> Algorithmic descriptions of transformations<br> Added join and outerjoin transformations, replaced expand by addnested<br> Added transformations orderby, skip, top, nest<br> Added transformations for recursive hierarchies, updated related filter functions<br> Added functions evaluable on a collection, introduced keyword $these<br> Merged section 4 "Representation of Aggregated Instances" into section 3<br> Remove actions and functions (except set transformations) on aggregated entities, adapted section "Actions and Functions on Aggregated Entities"
 Committee Specification 03|2023-09-19| Ralf Handl<br> Gerald Krause<br> Heiko Theißen| Non-material changes from public review feedback
 Committee Specification Draft 05|2025-10-01| Gerald Krause<br> Heiko Theißen| Remove sections not intended for OASIS Standard
-Committee Specification 04|2025-11-05| Gerald Krause<br> Heiko Theißen| No changes from public review
+Committee Specification 04|2025-11-18| Gerald Krause<br> Heiko Theißen| No changes from public review
 
 -------
 
