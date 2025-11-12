@@ -4469,7 +4469,9 @@ Other services that do not return the `Core.ContentID` MUST fail requests that c
 [value reference](#ReferencingValuesfromResponseBodies) that uses this annotation value.
 
 Services MUST also fail requests if a related entity whose key is fully specified in the
-payload cannot be created as intended by the client.
+payload cannot be created as intended by the client. Related entities that cannot be created
+as intended by the client in a successful request MUST be represented in the response as in
+[section 11.4.11.1](#ErrorHandlingwhenUpdatingaCollectionofEntities).
 
 The `continue-on-error` preference is not supported for deep insert
 operations.
@@ -4823,6 +4825,10 @@ Other services that do not return the `Core.ContentID` MUST fail requests that c
 
 Services MUST also fail requests if a related entity whose key is fully specified in the
 payload cannot be created as intended by the client.
+
+Related entities that cannot be created or updated
+as intended by the client in a successful request MUST be represented in the response as in
+[section 11.4.11.1](#ErrorHandlingwhenUpdatingaCollectionofEntities).
 
 The `continue-on-error` preference is not supported for deep update
 operations.
