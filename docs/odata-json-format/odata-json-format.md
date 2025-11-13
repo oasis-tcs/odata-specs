@@ -806,7 +806,7 @@ If no ETag is returned when requesting the metadata document, then the
 service SHOULD NOT set the `metadataEtag` control information
 in any responses.
 
-For details on how ETags are used, see [OData-Protocol, section 11.4.1.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UseofETagsforAvoidingUpdateConflicts).
+For details on how ETags are used, see [OData-Protocol, section 11.4.1.2](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UseofETagsforAvoidingUpdateConflicts).
 
 ### <a id="ControlInformationtypeodatatype" href="#ControlInformationtypeodatatype">4.6.3 Control Information: `type` (`odata.type`)</a>
 
@@ -830,10 +830,10 @@ using the `$schemaversion` system query option
 defined in [OData-Protocol, section 11.2.12](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptionschemaversion).
 
 For non-built in primitive types, the URI contains the
-namespace-qualified or alias-qualified type, specified as a URI
-fragment. For properties that represent a collection of values, the
-fragment is the namespace-qualified or alias-qualified element type
-enclosed in parentheses and prefixed with `Collection`. The
+namespace-qualified or alias-qualified type, specified in the URI
+fragment (after the `#`). For properties that represent a collection of values, the
+fragment is `#Collection` followed by the namespace-qualified or alias-qualified element type name
+enclosed in parentheses. The
 namespace or alias MUST be defined or the namespace referenced in the
 metadata document of the service, see
 [OData-CSDL](#ODataCSDL).
@@ -1047,7 +1047,7 @@ value of the control information is an entity tag (ETag) which is an
 opaque string value that can be used in a subsequent request to
 determine if the value of the entity or collection has changed.
 
-For details on how ETags are used, see [OData-Protocol, section 11.4.1.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UseofETagsforAvoidingUpdateConflicts).
+For details on how ETags are used, see [OData-Protocol, section 11.4.1.2](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UseofETagsforAvoidingUpdateConflicts).
 The special value `"@etag": "*"` is equivalent to the header `If-Match: *`,
 and the special value `"@etag": ""` is equivalent to the header `If-None-Match: *`,
 see [OData-Protocol, section 11.4.11](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UpdateaCollectionofEntities).
@@ -2187,7 +2187,7 @@ occurrence
     },
     {
       "@odata.context": "#Customers/$deletedEntity",
-      "@odata.id": "Customers('ANTON')"
+      "id": "Customers('ANTON')"
     },
     {
       "@odata.id": "Customers('ALFKI')",
@@ -2265,10 +2265,10 @@ following optional property, regardless of the specified
 
 ::: example
 Example 36: deleted entity in OData 4.0 response --- note that `id` is
-a property, not control information
+represented as a property of the deleted-entity object, not control information
 ```json
 {
-  "@context": "#Customers/$deletedEntity",
+  "@odata.context": "#Customers/$deletedEntity",
   "reason": "deleted",
   "id": "Customers('ANTON')"
 }
@@ -3273,8 +3273,11 @@ atomicity group, all requests in that group fail with
 The value of `headers` is an object whose name/value pairs
 represent request headers. The name of each pair MUST be the lower-case
 header name; the value is a string containing the header-encoded value
-of the header. The `headers` object MUST contain a name/value
-pair with the name `content-type` whose value is the media type.
+of the header.
+Services MAY support omitting the `content-type` in the `header` property of a request object.
+Such requests MUST be interpreted as if the `content-type` header mandated by
+[OData-Protocol, section 8.1.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#HeaderContentType) were specified with a value of `application/json`
+(with no format parameters).
 
 The value of `body` can be `null`, which is
 equivalent to not specifying the `body` name/value pair.
@@ -3330,7 +3333,7 @@ Content-Length: ###
       "method": "patch",
       "url": "/service/Customers('ALFKI')",
       "headers": {
-        "Prefer": "return=minimal"
+        "prefer": "return=minimal"
       },
       "body": <JSON representation of changes to Customer ALFKI>
     },
@@ -3479,10 +3482,8 @@ Content-Length: ###
 
 All requests in an atomicity group represent a single change unit. A
 service MUST successfully process and apply all the requests in the
-atomicity group or else apply none of them. It is up to the service
-implementation to define rollback semantics to undo any requests within
-an atomicity group that may have been applied before another request in
-that same atomicity group failed.
+atomicity group or else apply none of them.
+See [OData-Protocol, section 11.4.1.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#Atomicity) for details on visibility of atomic changes.
 
 The service MAY process the individual requests and atomicity groups
 within a batch request, or individual requests within an atomicity
@@ -3554,14 +3555,11 @@ The response object MAY contain the name/value pair `headers`
 whose value is an object with name/value pairs representing response
 headers. The name of each pair MUST be the lower-case header name; the
 value is a string containing the header-encoded value of the header.
+If the object does not name the `content-type`, then the `content-type` header mandated by
+[OData-Protocol, section 8.1.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#HeaderContentType) is assumed to be `application/json` (with no format parameters).
 
 The response object MAY contain the name/value pair `body`
 which follows the same rules as within [request objects](#BatchRequest).
-
-If the media type is not exactly equal to `application/json`
-(i.e. it is a subtype or has format parameters), the
-`headers` object MUST contain a name/value pair with the name
-`content-type` whose value is the media type.
 
 Relative URLs in a response object follow the rules for [relative
 URLs](#RelativeURLs) based on the request URL of the corresponding
