@@ -4488,12 +4488,12 @@ support through
 MUST return the
 `Core.ContentID` for
 the inserted or updated entities and MUST fail the request if an entity with associated
-id cannot be created as intended by the request.
+id cannot be created as intended.
 Other services that do not return the `Core.ContentID` MUST fail requests that contain a
 [value reference](#ReferencingValuesfromResponseBodies) that uses this annotation value.
 
 Services MUST also fail requests if a related entity whose key is fully specified in the
-payload cannot be created as intended by the request. Related entities that cannot be created
+payload cannot be created as intended. Related entities that cannot be created
 as intended by a successful request MUST be represented in the response as in
 [section 11.4.11.1](#ErrorHandlingwhenUpdatingaCollectionofEntities).
 
@@ -4843,12 +4843,12 @@ through the
 term, defined in [OData-VocCap](#ODataVocCap); services that
 advertise this support MUST return the `Core.ContentID` for
 the entities in the response and MUST fail the request if an entity with associated
-id cannot be created as intended by the request.
+id cannot be created as intended.
 Other services that do not return the `Core.ContentID` MUST fail requests that contain a
 [value reference](#ReferencingValuesfromResponseBodies) that uses this annotation value.
 
 Services MUST also fail requests if a related entity whose key is fully specified in the
-payload cannot be created as intended by the request.
+payload cannot be created as intended.
 
 Related entities that cannot be created or updated
 as intended by a successful request MUST be represented in the response as in
