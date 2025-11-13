@@ -652,9 +652,17 @@ allowed to the right of the decimal point, or one of the symbolic values
 `floating` or `variable`.
 
 The value `floating` means that the decimal value represents a
-decimal floating-point number whose number of significant digits is the
-value of the [`Precision`](#Precision) facet. OData 4.0 responses MUST
-NOT specify the value `floating`.
+decimal floating-point number $m\cdot 10^e$
+where the number of significant digits in $m$ is the
+value of the [`Precision`](#Precision) facet. Supported formats are:
+
+IEEE 754 format|Precision|Allowed exponents
+---------------|--------:|:---------------:
+[decimal32](https://en.wikipedia.org/wiki/Decimal32_floating-point_format) (rarely implemented) |        7|$-101\le e\le 96$
+[decimal64](https://en.wikipedia.org/wiki/Decimal64_floating-point_format)                      |       16|$-398\le e\le 384$
+[decimal128](https://en.wikipedia.org/wiki/Decimal128_floating-point_format)                    |       34|$-6143\le e\le 6144$
+
+OData 4.0 responses MUST NOT specify the value `floating`.
 
 The value `variable` means that the number of digits to the right of the
 decimal point can vary from zero to the value of the
@@ -726,7 +734,7 @@ values: 12.34, 1234 and 123.4 due to the limited precision.
 ::: {.varjson .example}
 Example ##ex: `Precision=7` and a floating `Scale`.  
 Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values:
-1e-102 and 1e97 due to the limited precision.
+1e-102 and 1e97 because exponents are out of range.
 ```json
 "Amount7f": {
   "$Type": "Edm.Decimal",
@@ -777,7 +785,7 @@ values: 12.34, 1234 and 123.4 due to the limited precision.
 ::: {.varxml .example}
 Example ##ex: `Precision=7` and a floating `Scale`.  
 Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values:
-1e-102 and 1e97 due to the limited precision.
+1e-102 and 1e97 because exponents are out of range.
 ```xml
 <Property Name="Amount7f" Type="Edm.Decimal" Nullable="false" Precision="7" Scale="floating" />
 ```

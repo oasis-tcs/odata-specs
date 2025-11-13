@@ -283,7 +283,7 @@ Clients SHOULD specify an `OData-MaxVersion` request header.
 
 If specified, the service MUST generate a response with the greatest
 supported [`OData-Version`](#HeaderODataVersion) less than or equal to
-the specified `OData-MaxVersion`.
+the specified `OData-MaxVersion` or fail the request with an appropriate error.
 
 If `OData-MaxVersion` is not specified, then the service SHOULD return
 responses with the same OData version over time and interpret the
@@ -1008,8 +1008,9 @@ request methods for the requested resource as defined in
 request URL does not have a current representation that would be
 acceptable for the client according to the request
 headers [`Accept`](#HeaderAccept),
-[`Accept-Charset`](#HeaderAcceptCharset), and
-[`Accept-Language`](#HeaderAcceptLanguage), and that the service is
+[`Accept-Charset`](#HeaderAcceptCharset),
+[`Accept-Language`](#HeaderAcceptLanguage), and
+[`OData-MaxVersion`](#HeaderODataMaxVersion), and that the service is
 unwilling to supply a default representation.
 
 ### ##subsubsec Response Code `410 Gone`
