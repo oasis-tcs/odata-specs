@@ -38,7 +38,7 @@ field is used as a modifier to the media-type (as indicated in the
 content codings have been applied to the entity-body.
 A service MAY specify a list of acceptable content codings using an
 annotation with term
-[`Capabilities.AcceptableEncodings`]($$$OData-VocCap$$$#AcceptableEncodings),
+[Capabilities.AcceptableEncodings]{.term},
 see [OData-VocCap](#ODataVocCap).
 
 If the `Content-Encoding` header is specified on an individual request
@@ -55,7 +55,7 @@ the intended audience for the enclosed message body. OData does not add
 any additional requirements over HTTP for including `Content-Language`.
 OData services can annotate model elements whose content depends on the
 content language with the term
-[`Core.IsLanguageDependent`]($$$OData-VocCore$$$#IsLanguageDependent),
+[Core.IsLanguageDependent]{.term},
 see [OData-VocCore](#ODataVocCore).
 
 If the `Content-Language` header is specified on an individual request
@@ -167,10 +167,10 @@ As defined in [RFC9110](#rfc9110), a client MAY include an
 value previously retrieved for the resource, or `*`.
 
 If an operation on an existing resource requires an ETag, (see term
-[`Core.OptimisticConcurrency`]($$$OData-VocCore$$$#OptimisticConcurrency) in
+[Core.OptimisticConcurrency]{.term} in
 [OData-VocCore](#ODataVocCore) and property
 `OptimisticConcurrencyControl` of type
-[`Capabilities.NavigationPropertyRestriction`]($$$OData-VocCap$$$#NavigationPropertyRestriction)
+[Capabilities.NavigationPropertyRestriction]{.term}
 in [OData-VocCap](#ODataVocCap)) and the client does not specify an
 `If-Match` request header in a [Data Modification
 Request](#DataModification) or in an [Action Request](#Actions) invoking
@@ -267,7 +267,7 @@ The syntax of the `Isolation` header is defined in
 
 A service MAY specify the support for `Isolation:snapshot` using an
 annotation with term
-[`Capabilities.IsolationSupported`]($$$OData-VocCap$$$#IsolationSupported),
+[Capabilities.IsolationSupported]{.term},
 see [OData-VocCap](#ODataVocCap).
 
 Note: The `Isolation` header was named `OData-Isolation` in OData
@@ -369,7 +369,7 @@ request against the specified URL.
 
 Services that support `callback` SHOULD support notifying the client
 through HTTP. Services can advertise callback support using the
-[`Capabilities.CallbackSupported`]($$$OData-VocCap$$$#CallbackSupported)
+[Capabilities.CallbackSupported]{.term}
 annotation term defined in [OData-VocCap](#ODataVocCap).
 
 If the service applies the `callback` preference it MUST include the
@@ -432,8 +432,8 @@ that returns an error, the service return the error for that request and
 continue processing additional requests within the batch (if specified
 with an implicit or explicit value of `true`), or rather stop further
 processing (if specified with an explicit value of `false`). The syntax
-of the `continue-on-error` preference is defined in
-[OData-ABNF](#ODataABNF).
+of the `continue-on-error` preference is defined in the
+[OData-ABNF](#ODataABNF) rule [continueOnErrorPreference]{.abnf}.
 
 The `continue-on-error` preference can also be used on a
 [delta update](#UpdateaCollectionofEntities),
@@ -445,7 +445,7 @@ If the service encounters any errors processing the request and returns a succes
 
 A service MAY specify support for the `continue-on-error` preference
 using an annotation with term
-[`Capabilities.BatchContinueOnErrorSupported`]($$$OData-VocCap$$$#BatchContinueOnErrorSupported),
+[Capabilities.BatchContinueOnErrorSupported]{.term},
 see [OData-VocCap](#ODataVocCap).
 
 The `continue-on-error` preference on a batch request refers to whether individual
@@ -687,7 +687,7 @@ containing the `respond-async` preference.
 
 A service MAY specify the support for the `respond-async` preference
 using an annotation with term
-[`Capabilities.AsynchronousRequestsSupported`]($$$OData-VocCap$$$#AsynchronousRequestsSupported),
+[Capabilities.AsynchronousRequestsSupported]{.term},
 see [OData-VocCap](#ODataVocCap).
 
 ::: example
@@ -726,7 +726,7 @@ to signal that changes are being tracked.
 
 A service MAY specify the support for the `track-changes` preference
 using an annotation with term
-[`Capabilities.ChangeTracking`]($$$OData-VocCap$$$#ChangeTracking),
+[Capabilities.ChangeTracking]{.term},
 see [OData-VocCap](#ODataVocCap).
 
 The `track-changes` preference SHOULD NOT be applied to a batch request,

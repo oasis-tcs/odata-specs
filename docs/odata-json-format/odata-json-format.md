@@ -341,7 +341,7 @@ The names and values of these format parameters are case-insensitive.
 
 Services SHOULD advertise the supported media types by annotating the
 entity container with the term
-[`Capabilities.SupportedFormats`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#SupportedFormats)
+[Capabilities.SupportedFormats]{.term}
 defined in [OData-VocCap](#ODataVocCap), listing all
 available formats and combinations of supported format parameters.
 
@@ -3262,7 +3262,7 @@ The URL expression syntax is extended and additionally allows
 Services SHOULD advertise support of the `if` member by
 specifying the property
 `RequestDependencyConditionsSupported` in the
-[`Capabilities.BatchSupport`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#BatchSupport)
+[Capabilities.BatchSupport]{.term}
 term applied to the entity container, see
 [OData-VocCap](#ODataVocCap). If a service does not
 support request dependencies, the dependent request MUST fail with
