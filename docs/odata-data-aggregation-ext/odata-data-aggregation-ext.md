@@ -5,16 +5,16 @@
 
 # OData Extension for Data Aggregation Version 4.0
 
-## Committee Specification Draft 05
+## Committee Specification 04
 
-## 01 October 2025
+## 18 November 2025
 
 &nbsp;
 
 #### This stage:
-https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd05/odata-data-aggregation-ext-v4.0-csd05.md (Authoritative) \
-https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd05/odata-data-aggregation-ext-v4.0-csd05.html \
-https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd05/odata-data-aggregation-ext-v4.0-csd05.pdf
+https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs04/odata-data-aggregation-ext-v4.0-cs04.md (Authoritative) \
+https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs04/odata-data-aggregation-ext-v4.0-cs04.html \
+https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs04/odata-data-aggregation-ext-v4.0-cs04.pdf
 
 #### Previous stage:
 https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs03/odata-data-aggregation-ext-v4.0-cs03.md (Authoritative) \
@@ -45,10 +45,10 @@ Martin Zurmuehl (martin.zurmuehl@sap.com), [SAP SE](https://www.sap.com/)
 
 #### [Additional artifacts:]{id=AdditionalArtifacts}
 This document is one component of a Work Product that also includes:
-* ABNF components: _OData Aggregation ABNF Construction Rules Version 4.0 and OData Aggregation ABNF Test Cases_: https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd05/abnf/
+* ABNF components: _OData Aggregation ABNF Construction Rules Version 4.0 and OData Aggregation ABNF Test Cases_: https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs04/abnf/
 * OData Aggregation Vocabulary:
-  * https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd05/vocabularies/Org.OData.Aggregation.V1.json
-  * https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd05/vocabularies/Org.OData.Aggregation.V1.xml
+  * https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs04/vocabularies/Org.OData.Aggregation.V1.json
+  * https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs04/vocabularies/Org.OData.Aggregation.V1.xml
 
 #### [Related work:]{id=RelatedWork}
 This specification is related to:
@@ -82,8 +82,8 @@ When referencing this specification the following citation format should be used
 **[OData-Data-Agg-v4.0]**
 
 _OData Extension for Data Aggregation Version 4.0_.
-Edited by Ralf Handl, Hubert Heijkers, Gerald Krause, Michael Pizzo, Heiko Theißen, and Martin Zurmuehl. 01 October 2025. OASIS Committee Specification Draft 05.
-https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/csd05/odata-data-aggregation-ext-v4.0-csd05.html.
+Edited by Ralf Handl, Hubert Heijkers, Gerald Krause, Michael Pizzo, Heiko Theißen, and Martin Zurmuehl. 18 November 2025. OASIS Committee Specification 04.
+https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs04/odata-data-aggregation-ext-v4.0-cs04.html.
 Latest stage: https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.html.
 
 #### Notices
@@ -265,12 +265,12 @@ Paragraphs labeled 🚧 in this version of the specification contain restriction
 The ABNF rules [OData-ABNF](#ODataABNF) have been simplified in this version to reflect these restrictions. Also, some members of the OData Aggregation Vocabulary [OData-VocAggr](#ODataVocAggr) have been omitted from this version. These members are referenced by **[OData-Data-Agg-v4.0]** OASIS Committee Specification 03 but not by this version.
 
 <!--
-Here is a customized command line which will generate HTML from the markdown file (named `odata-data-aggregation-ext-v4.0-csd05.md`). Line breaks are added for readability only:
+Here is a customized command line which will generate HTML from the markdown file (named `odata-data-aggregation-ext-v4.0-cs04.md`). Line breaks are added for readability only:
 
 ```
 pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        -t html
-       -o odata-data-aggregation-ext-v4.0-csd05.html
+       -o odata-data-aggregation-ext-v4.0-cs04.html
        -c styles/markdown-styles-v1.7.3b.css
        -c styles/odata.css
        -s
@@ -278,7 +278,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        --eol=lf
        --wrap=none
        --metadata pagetitle="OData Extension for Data Aggregation Version 4.0"
-       odata-data-aggregation-ext-v4.0-csd05.md
+       odata-data-aggregation-ext-v4.0-cs04.md
 ```
 
 This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
@@ -2282,7 +2282,7 @@ The hierarchy terms can be applied to the [Example Data Model](#ExampleDataModel
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
            Version="4.0">
   <edmx:Reference Uri="https://docs.oasis-open.org/odata/odata-data-
-    aggregation-ext/v4.0/csd05/vocabularies/Org.OData.Aggregation.V1.xml">
+    aggregation-ext/v4.0/cs04/vocabularies/Org.OData.Aggregation.V1.xml">
     <edmx:Include Alias="Aggregation"
                   Namespace="Org.OData.Aggregation.V1" />
   </edmx:Reference>
@@ -3896,6 +3896,7 @@ Committee Specification Draft 03|2015-07-16| Ralf Handl<br> Hubert Heijkers<br> 
 Committee Specification Draft 04|2023-07-05| Ralf Handl<br> Hubert Heijkers<br> Gerald Krause<br> Michael Pizzo<br> Heiko Theißen| Added section about fundamentals of input and output sets<br> Algorithmic descriptions of transformations<br> Added join and outerjoin transformations, replaced expand by addnested<br> Added transformations orderby, skip, top, nest<br> Added transformations for recursive hierarchies, updated related filter functions<br> Added functions evaluable on a collection, introduced keyword $these<br> Merged section 4 "Representation of Aggregated Instances" into section 3<br> Remove actions and functions (except set transformations) on aggregated entities, adapted section "Actions and Functions on Aggregated Entities"
 Committee Specification 03|2023-09-19| Ralf Handl<br> Gerald Krause<br> Heiko Theißen| Non-material changes from public review feedback
 Committee Specification Draft 05|2025-10-01| Gerald Krause<br> Heiko Theißen| Remove sections not intended for OASIS Standard
+Committee Specification 04|2025-11-18| Gerald Krause<br> Heiko Theißen| No changes from public review
 
 -------
 

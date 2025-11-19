@@ -1,12 +1,12 @@
 name: OData-Data-Agg
 url: https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.html
 pagetitle: OData Extension for Data Aggregation Version 4.0
-subtitle: Committee Specification Draft 05
-filename: odata-data-aggregation-ext-v4.0-csd05
-stage: csd05
+subtitle: Committee Specification 04
+filename: odata-data-aggregation-ext-v4.0-cs04
+stage: cs04
 previousStage: cs03
-pubdate: 01 October 2025
-pubdateISO: '2025-10-01'
+pubdate: 18 November 2025
+pubdateISO: '2025-11-18'
 copyright: © OASIS Open 2025
 additionalArtifacts:
   - repo: odata-vocabularies
