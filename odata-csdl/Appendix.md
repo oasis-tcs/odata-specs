@@ -154,6 +154,254 @@ $$$isec$$$
 
 -------
 
+# Appendix ##asec Model elements, properties and relationships
+
+## ##subasec Overview
+
+This appendix describes the model elements, their properties and relationships of the abstract OData model. The XSD schema is the normative document for the model elements and their properties. Yet, because of the limitations of XSD schema, it only contains the parent-child relationships of the model elements. For example the type of a property is represented as a string in XML and JSON, a string of the qualified name of the type. In the abstract model, it is a reference to the element that is the type.
+
+## ##subasec Model elements, properties and relationships
+
+The model is represented as a set of elements, each with a name, a set of properties and a set of child elements. This is treating the abstract OData model as a [labeled property graph](https://en.wikipedia.org/wiki/Property_graph). And the following is the schema of that labeled property graph.
+
+### Legend
+
+- ↓ child elements
+- ↑ parent elements
+- ᴘ value/primitive properties like bool, string, identifier
+- ʀ reference to other model elements. The allowed elements are listed
+- ᴄ path to an element. optionally: relative to the ancestor element `n` levels up
+- ᴚ custom reference to a model element
+
+
+##### <span id="action-element"/>Action Element>/span>
+
+  - ↓ [Parameter](#parameter-element), [Annotation](#annotation-element), [ReturnType](#returntype-element)
+- ᴄ EntitySetPath: relative to ancestor 0 levels up
+- ᴘ IsBound: Boolean (optional)
+- ᴘ Name: String 
+
+##### <span id="actionimport-element"/>ActionImport Element>/span>
+
+  - ↑ [EntityContainer](#entitycontainer-element)
+  - ↓ [Annotation](#annotation-element)
+- ʀ Action: [Action](#$action-element) 
+
+##### <span id="annotation-element"/>Annotation Element>/span>
+
+  - ↑ [Schema](#schema-element), [EntityType](#entitytype-element), [ComplexType](#complextype-element), [TypeDefinition](#typedefinition-element), [Property](#property-element), [NavigationProperty](#navigationproperty-element), [ReferentialConstraint](#referentialconstraint-element), [OnDelete](#ondelete-element), [EnumType](#enumtype-element), [Member](#member-element), [PrimitiveType](#primitivetype-element), [Action](#action-element), [Function](#function-element), [ReturnType](#returntype-element), [Parameter](#parameter-element), [Term](#term-element), [Annotations](#annotations-element), [Annotation](#annotation-element), [EntityContainer](#entitycontainer-element), [EntitySet](#entityset-element), [Singleton](#singleton-element), [ActionImport](#actionimport-element), [FunctionImport](#functionimport-element)
+  - ↓ [Annotation](#annotation-element)
+- ᴘ Qualifier: String (optional)
+- ʀ Term: [Term](#term-element) 
+
+##### <span id="annotations-element"/>Annotations Element>/span>
+
+  - ↑ [Schema](#schema-element)
+  - ↓ [Annotation](#annotation-element)
+- ᴘ Qualifier: String (optional)
+- ʀ Target:  
+
+##### <span id="complextype-element"/>ComplexType Element>/span>
+
+  - ↑ [Schema](#schema-element)
+  - ↓ [Property](#property-element), [NavigationProperty](#navigationproperty-element), [Annotation](#annotation-element)
+- ᴘ Abstract: Boolean 
+- ʀ BaseType: [ComplexType](#complextype-element) (optional)
+- ᴘ Name: String 
+- ᴘ OpenType: Boolean (optional default: false))
+
+##### <span id="entitycontainer-element"/>EntityContainer Element>/span>
+
+  - ↑ [Schema](#schema-element)
+  - ↓ [EntitySet](#entityset-element), [ActionImport](#actionimport-element), [FunctionImport](#functionimport-element), [Singleton](#singleton-element), [Annotation](#annotation-element)
+- ʀ Extends: [EntityContainer](#entitycontainer-element) (optional)
+- ᴘ Name: String 
+
+##### <span id="entityset-element"/>EntitySet Element>/span>
+
+  - ↑ [EntityContainer](#entitycontainer-element)
+  - ↓ [NavigationPropertyBinding](#navigationpropertybinding-element), [Annotation](#annotation-element)
+- ʀ EntityType: [EntityType](#entitytype-element) 
+- ᴘ Name: String 
+
+##### <span id="entitytype-element"/>EntityType Element>/span>
+
+  - ↑ [Schema](#schema-element)
+  - ↓ [Key](#key-element), [Property](#property-element), [NavigationProperty](#navigationproperty-element), [Annotation](#annotation-element)
+- ᴘ Abstract: Boolean 
+- ʀ BaseType: [EntityType](#entitytype-element) (optional)
+- ᴘ HasStream: Boolean (optional default: false))
+- ᴘ Name: String 
+- ᴘ OpenType: Boolean (optional default: false))
+
+##### <span id="enumtype-element"/>EnumType Element>/span>
+
+  - ↑ [Schema](#schema-element)
+  - ↓ [Member](#member-element), [Annotation](#annotation-element)
+- ᴘ IsFlags: Boolean (optional)
+- ᴘ Name: String 
+- ʀ UnderlyingType: [PrimitiveType](#primitivetype-element) (optional)
+
+##### <span id="function-element"/>Function Element>/span>
+
+  - ↓ [Parameter](#parameter-element), [ReturnType](#returntype-element), [Annotation](#annotation-element)
+- ᴄ EntitySetPath: relative to ancestor 0 levels up
+- ᴘ IsBound: Boolean (optional)
+- ᴘ IsComposable: Boolean (optional)
+- ᴘ Name: String 
+
+##### <span id="functionimport-element"/>FunctionImport Element>/span>
+
+  - ↑ [EntityContainer](#entitycontainer-element)
+  - ↓ [Annotation](#annotation-element)
+- ʀ EntitySet: [EntitySet](#entityset-element) 
+- ʀ Function: [Function](#function-element) 
+- ᴘ IncludeInServiceDocument: Boolean (optional default: false))
+- ᴘ Name: String 
+
+##### <span id="key-element"/>Key Element>/span>
+
+  - ↑ [EntityType](#entitytype-element)
+  - ↓ [PropertyRef](#propertyref-element)
+
+##### <span id="member-element"/>Member Element>/span>
+
+  - ↑ [EnumType](#enumtype-element)
+  - ↓ [Annotation](#annotation-element)
+- ᴘ Name: String 
+- ᴘ Value: Int64 (optional)
+
+##### <span id="navigationproperty-element"/>NavigationProperty Element>/span>
+
+  - ↑ [EntityType](#entitytype-element), [ComplexType](#complextype-element)
+  - ↓ [ReferentialConstraint](#referentialconstraint-element), [OnDelete](#ondelete-element), [Annotation](#annotation-element)
+- ᴘ ContainsTarget: Boolean (optional)
+- ᴘ MaxLength: Int64 (optional)
+- ᴘ Name: String 
+- ᴘ Nullable: Boolean (optional)
+- ʀ Partner: [NavigationProperty](#navigationproperty-element) (optional)
+- ᴘ Precision: Int64 (optional)
+- ᴘ Scale: Scale (optional)
+- ᴘ SRID: Int64 (optional)
+- ʀ Type: [EntityType](#entitytype-element) 
+- ᴘ Unicode: Boolean (optional)
+
+##### <span id="navigationpropertybinding-element"/>NavigationPropertyBinding Element>/span>
+
+  - ↑ [EntitySet](#entityset-element), [Singleton](#singleton-element)
+- ᴚ Path 
+- ᴚ Target 
+
+##### <span id="ondelete-element"/>OnDelete Element>/span>
+
+  - ↑ [NavigationProperty](#navigationproperty-element)
+  - ↓ [Annotation](#annotation-element)
+- ᴘ Action: OnDeleteAction 
+
+##### <span id="parameter-element"/>Parameter Element>/span>
+
+  - ↑ [Action](#action-element), [Function](#function-element)
+  - ↓ [Annotation](#annotation-element)
+- ᴘ MaxLength: Int64 (optional)
+- ᴘ Name: String 
+- ᴘ Nullable: Boolean (optional)
+- ᴘ Precision: Int64 (optional)
+- ᴘ Scale: Scale (optional)
+- ᴘ SRID: Int64 (optional)
+- ʀ Type: [PrimitiveType](#primitivetype-element) | [ComplexType](#complextype-element) | [EntityType](#entitytype-element) | [EnumType](#enumtype-element) | [TypeDefinition](#typedefinition-element) 
+- ᴘ Unicode: Boolean (optional)
+
+##### <span id="primitivetype-element"/>PrimitiveType Element>/span>
+
+  - ↑ [Schema](#schema-element)
+  - ↓ [Annotation](#annotation-element)
+- ᴘ Abstract: Boolean 
+- ᴘ Name: String 
+
+##### <span id="property-element"/>Property Element>/span>
+
+  - ↑ [EntityType](#entitytype-element), [ComplexType](#complextype-element)
+  - ↓ [Annotation](#annotation-element)
+- ᴘ DefaultValue: String 
+- ᴘ MaxLength: Int64 (optional)
+- ᴘ Name: String 
+- ᴘ Nullable: Boolean (optional default: false))
+- ᴘ Precision: Int64 (optional)
+- ᴘ Scale: Scale (optional)
+- ᴘ SRID: Int64 (optional)
+- ʀ Type: [PrimitiveType](#primitivetype-element) | [ComplexType](#complextype-element) | [EnumType](#enumtype-element) | [TypeDefinition](#typedefinition-element) 
+- ᴘ Unicode: Boolean (optional)
+
+##### <span id="propertyref-element"/>PropertyRef Element>/span>
+
+  - ↑ [Key](#key-element)
+- ᴘ Alias: String (optional)
+- ᴄ Name: relative to ancestor 2 levels up
+
+##### <span id="referentialconstraint-element"/>ReferentialConstraint Element>/span>
+
+  - ↑ [NavigationProperty](#navigationproperty-element)
+  - ↓ [Annotation](#annotation-element)
+- ʀ Property:  
+- ʀ ReferencedProperty:  
+
+##### <span id="returntype-element"/>ReturnType Element>/span>
+
+  - ↑ [Action](#action-element), [Function](#function-element)
+  - ↓ [Annotation](#annotation-element)
+- ᴘ MaxLength: Int64 (optional)
+- ᴘ Nullable: Boolean (optional)
+- ᴘ Precision: Int64 (optional)
+- ᴘ Scale: Scale (optional)
+- ᴘ SRID: Int64 (optional)
+- ʀ Type: [EntityType](#entitytype-element) | [ComplexType](#complextype-element) | [PrimitiveType](#primitivetype-element) | [EnumType](#enumtype-element) | [TypeDefinition](#typedefinition-element) 
+- ᴘ Unicode: Boolean (optional)
+
+##### <span id="schema-element"/>Schema Element>/span>
+
+  - ↓ [ComplexType](#complextype-element), [EntityType](#entitytype-element), [TypeDefinition](#typedefinition-element), [EnumType](#enumtype-element), [Term](#term-element), [Annotations](#annotations-element), [EntityContainer](#entitycontainer-element), [Annotation](#annotation-element), [PrimitiveType](#primitivetype-element)
+- ᴘ Alias: String (optional)
+- ᴘ Namespace: String 
+
+##### <span id="singleton-element"/>Singleton Element>/span>
+
+  - ↑ [EntityContainer](#entitycontainer-element)
+  - ↓ [NavigationPropertyBinding](#navigationpropertybinding-element), [Annotation](#annotation-element)
+- ᴘ Name: String 
+- ᴘ Nullable: Boolean (optional)
+- ʀ Type: [EntityType](#entitytype-element) 
+
+##### <span id="term-element"/>Term Element>/span>
+
+  - ↑ [Schema](#schema-element)
+  - ↓ [Annotation](#annotation-element)
+- ᴘ AppliesTo: AppliesTo (optional)
+- ʀ BaseTerm: [Term](#term-element) (optional)
+- ᴘ DefaultValue: String (optional)
+- ᴘ MaxLength: Int64 (optional)
+- ᴘ Name: String 
+- ᴘ Nullable: Boolean (optional)
+- ᴘ Precision: Int64 (optional)
+- ᴘ Scale: Scale (optional)
+- ᴘ SRID: Int64 (optional)
+- ʀ Type: [PrimitiveType](#primitivetype-element) | [ComplexType](#complextype-element) | [EntityType](#entitytype-element) | [EnumType](#enumtype-element) | [TypeDefinition](#typedefinition-element) 
+- ᴘ Unicode: Boolean (optional)
+
+##### <span id="typedefinition-element"/>TypeDefinition Element>/span>
+
+  - ↑ [Schema](#schema-element)
+  - ↓ [Annotation](#annotation-element)
+- ᴘ MaxLength: Int64 (optional)
+- ᴘ Name: String 
+- ᴘ Precision: Int64 (optional)
+- ᴘ Scale: Scale (optional)
+- ᴘ SRID: Int64 (optional)
+- ʀ UnderlyingType: [PrimitiveType](#primitivetype-element) 
+- ᴘ Unicode: Boolean (optional)
+
+
+-------
+
 # Appendix ##asec Acknowledgments
 
 ## ##subasec Special Thanks
