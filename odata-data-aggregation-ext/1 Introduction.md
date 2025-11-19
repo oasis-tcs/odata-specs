@@ -8,6 +8,21 @@ This specification adds aggregation functionality to the Open Data Protocol (ODa
 - Results format for queries containing aggregated data,
 - Vocabulary terms to annotate what can be aggregated, and how.
 
+## ##subsec Changes from Earlier Versions
+
+Compared to the previous stage **[OData-Data-Agg-v4.0]** OASIS Committee Specification 03, this version makes the following restrictions.
+
+Section | Restriction
+--------|------------
+After [section ##AggregateExpressioncount]|Keyword `from` removed
+After [section ##SimpleGrouping]|Grouping with `rollup` removed
+After [section ##Transformationcompute]|Transformation `addnested` removed
+After [section ##Transformationsjoinandouterjoin]|Transformation `nest` removed
+Before [section ##RecursiveHierarchy]|Leveled Hierarchy removed
+[Section ##CommonParametersforHierarchicalTransformations]|Optional parameter $S$ removed
+[Section ##Transformationtraverse]|Restricted to single-valued `ParentNavigationProperty`
+After [section ##Transformationtraverse]|Grouping with `rolluprecursive` removed
+
 ## ##subsec Glossary
 
 ### ##subsubsec Definitions of Terms
@@ -29,7 +44,7 @@ The following non-exhaustive list contains variable names that are used througho
 - $u,v,w$ – instances in a collection
 - $x$ – an instance in a hierarchical collection, called a node
 - $p,q,r$ – paths
-- $S,T$ – transformation sequences
+- $T$ – transformation sequence
 - $α$ – [aggregate expression](#AggregateExpression), defined in [section ##AggregationAlgorithm]
 - $\Gamma(A,p)$ – the collection that results from evaluating a [data aggregation path](#DataAggregationPath) $p$ relative to a collection $A$, defined in [section ##EvaluationofDataAggregationPaths]
 - $γ(u,p)$ – the collection that results from evaluating a [data aggregation path](#DataAggregationPath) $p$ relative to an instance $u$, defined in [section ##EvaluationofDataAggregationPaths]
@@ -52,6 +67,10 @@ Non-normative examples use this paragraph style.
 All examples in this document are non-normative and informative only. Examples labeled with ⚠ contain advanced concepts or make use of keywords that are defined only later in the text, they can be skipped at first reading.
 
 All other text is normative unless otherwise labeled.
+
+Paragraphs labeled 🚧 in this version of the specification contain restrictions that were not made in **[OData-Data-Agg-v4.0]** OASIS Committee Specification 03. Also, some sections of **[OData-Data-Agg-v4.0]** OASIS Committee Specification 03 are omitted from this version. In later OASIS standard versions these restrictions may be lifted again and the omitted sections reintroduced.
+
+The ABNF rules [OData-ABNF](#ODataABNF) have been simplified in this version to reflect these restrictions. Also, some members of the OData Aggregation Vocabulary [OData-VocAggr](#ODataVocAggr) have been omitted from this version. These members are referenced by **[OData-Data-Agg-v4.0]** OASIS Committee Specification 03 but not by this version.
 
 <!--
 Here is a customized command line which will generate HTML from the markdown file (named `$$$filename$$$.md`). Line breaks are added for readability only:
@@ -585,8 +604,8 @@ Example ##ex: The following diagram depicts a simple model that is used througho
 
 The `Amount` property in the `Sale` entity type is an [aggregatable property](#AggregationCapabilities), and the properties of the related entity types are groupable. These can be arranged in hierarchies, for example:
 - Product hierarchy based on [groupable](#AggregationCapabilities) properties of the `Category` and `Product` entity types
-- Customer [hierarchy](#LeveledHierarchy) based on `Country` and `Customer`
-- Time [hierarchy](#LeveledHierarchy) based on `Year`, `Month`, and `Date`
+- Customer hierarchy based on `Country` and `Customer`
+- Time hierarchy based on `Year`, `Month`, and `Date`
 - SalesOrganization [hierarchy](#RecursiveHierarchy) based on the recursive association to itself
 
 In the context of Online Analytical Processing (OLAP), this model might be described in terms of a Sales "cube" with an Amount "measure" and three "dimensions". This document will avoid such terms, as they are heavily overloaded.

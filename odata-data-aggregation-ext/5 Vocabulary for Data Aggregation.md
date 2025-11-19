@@ -10,7 +10,8 @@ The following terms are defined in the vocabulary for data aggregation [OData-Vo
 The term `ApplySupported` can be applied to an entity set, an entity type, or a collection if the target expression of the annotation starts with an entity container (see [example ##containerrooted]). It describes the aggregation capabilities of the annotated target. If present, it implies that instances of the annotated target can contain dynamic properties as an effect of `$apply` even if they do not specify the `OpenType` attribute, see [#OData-CSDL#OpenEntityType]. The term has a complex type with the following properties:
 - The `Transformations` collection lists all supported set transformations. Allowed values are the names of the standard transformations introduced in sections 3 and 6, and namespace-qualified names identifying a service-defined bindable function. If `Transformations` is omitted the server supports all transformations defined by this specification.
 - The `CustomAggregationMethods` collection lists supported custom aggregation methods. Allowed values are namespace-qualified names identifying service-specific aggregation methods. If omitted, no custom aggregation methods are supported.
-- `Rollup` specifies whether the service supports no rollup, only a single rollup hierarchy, or multiple rollup hierarchies in a [`groupby`](#Transformationgroupby) transformation. If omitted, multiple rollup hierarchies are supported.
+- 🚧 `Rollup` is reserved for later versions of this specifications.
+  The functional scope of this version of the specification is expressed by giving `Rollup` the value `None`.
 - A non-empty `GroupableProperties` indicates that only the listed properties of the annotated target can be used in `groupby`.
 - A non-empty `AggregatableProperties` indicates that only the listed properties of the annotated target can be used in [`aggregate`](#Transformationaggregate), optionally restricted to the specified aggregation methods.
 
@@ -161,17 +162,9 @@ Example ##ex: This simplified `Sales` entity set has a single aggregatable prope
 
 ## ##subsec Hierarchies
 
-A hierarchy is an arrangement of entities whose values are represented as being "above", "below", or "at the same level as" one another. A hierarchy can be leveled or recursive.
+A hierarchy is an arrangement of entities whose values are represented as being "above", "below", or "at the same level as" one another.
 
-### ##subsubsec Leveled Hierarchy
-
-A _leveled hierarchy_ has a fixed number of levels each of which is represented by a [grouping property](#SimpleGrouping). The values of a lower-level property depend on the property value of the level above.
-
-A leveled hierarchy can be defined for a collection of instances of an entity or complex type and is described with the term `LeveledHierarchy` that lists the properties used to form the hierarchy.
-
-The order of the collection is significant: it lists paths from the entity or complex type where the term is applied to groupable properties representing the levels, starting with the root level (coarsest granularity) down to the lowest (finest-grained) level of the hierarchy.
-
-The term `LeveledHierarchy` MUST be applied with a qualifier that can be used to reference the hierarchy in [grouping with `rollup`](#Groupingwithrollup).
+🚧 Recursive hierarchies are defined in the following subsection. Any list of properties can be viewed as a leveled hierarchy with a fixed number of levels, for example, year, quarter and month, but this is not made explicit in the OData service.
 
 ### ##subsubsec Recursive Hierarchy
 
@@ -183,15 +176,13 @@ The recursive hierarchy is described in the model by an annotation of the entity
 - The `NodeProperty` MUST be a path with single-valued segments ending in a primitive property. This property holds the node identifier of an entity that is a node in the hierarchy.
 - The `ParentNavigationProperty` MUST be a collection-valued or nullable single-valued navigation property path that addresses the entity type annotated with this term. It navigates from an entity that is a node in the hierarchy to its parent nodes.
 
-The term `RecursiveHierarchy` can only be applied to entity types, and MUST be applied with a qualifier, which is used to reference the hierarchy in transformations operating on recursive hierarchies, in [grouping with `rolluprecursive`](#Groupingwithrolluprecursive), and in [hierarchy functions](#HierarchyFunctions). The same entity can serve as nodes in different recursive hierarchies, given different qualifiers.
+The term `RecursiveHierarchy` can only be applied to entity types, and MUST be applied with a qualifier, which is used to reference the hierarchy in transformations operating on recursive hierarchies and in [hierarchy functions](#HierarchyFunctions). The same entity can serve as nodes in different recursive hierarchies, given different qualifiers.
 
 A _root node_ is a node without parent nodes. A recursive hierarchy can have one or more root nodes. A node is a _child node_ of its parent nodes, a node without child nodes is a _leaf node_. Two nodes with a common parent node are _sibling nodes_ and so are two root nodes.
 
 The _descendants with maximum distance $d≥1$_ of a node are its child nodes and, if $d>1$, the descendants of these child nodes with maximum distance $d-1$. The _descendants_ are the descendants with maximum distance $d=∞$. A node together with its descendants forms a _sub-hierarchy_ of the hierarchy.
 
 The _ancestors with maximum distance $d≥1$_ of a node are its parent nodes and, if $d>1$, the ancestors of these parent nodes with maximum distance $d-1$. The _ancestors_ are the ancestors with maximum distance $d=∞$. The `ParentNavigationProperty` MUST be such that no node is an ancestor of itself, in other words: cycles are forbidden.
-
-The term `UpPath` can be used in hierarchical result sets to associate with each instance one of its ancestors, one ancestor of that ancestor and so on. This instance annotation is introduced in [section ##Transformationtraverse].
 
 #### ##subsubsubsec Hierarchy Functions
 
@@ -208,8 +199,6 @@ The following functions are defined:
 - [`isancestor`]($$$OData-VocAggr$$$#isancestor) tests if the given entity is an ancestor with maximum distance `MaxDistance` of a descendant node (whose node identifier is given in a parameter `Descendant`), or equals the descendant if `IncludeSelf` is true.
 - [`issibling`]($$$OData-VocAggr$$$#issibling) tests if the given entity and another entity (whose node identifier is given in a parameter `Other`) are sibling nodes.
 - [`isleaf`]($$$OData-VocAggr$$$#isleaf) tests if the given entity is a leaf node.
-
-Another function `rollupnode` is defined that can only be used in connection with [`rolluprecursive`](#Groupingwithrolluprecursive).
 
 ### ##subsubsec Hierarchy Examples
 
@@ -229,27 +218,6 @@ The hierarchy terms can be applied to the [Example Data Model](#ExampleDataModel
   <edmx:DataServices>
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm"
             Alias="SalesModel" Namespace="org.example.odata.salesservice">
-      <Annotations Target="SalesModel.Product">
-        <Annotation Term="Aggregation.LeveledHierarchy"
-                    Qualifier="ProductHierarchy">
-          <Collection>
-            <PropertyPath>Category/Name</PropertyPath>
-            <PropertyPath>Name</PropertyPath>
-          </Collection>
-        </Annotation>
-      </Annotations>
-
-      <Annotations Target="SalesModel.Time">
-        <Annotation Term="Aggregation.LeveledHierarchy"
-                    Qualifier="TimeHierarchy">
-          <Collection>
-            <PropertyPath>Year</PropertyPath>
-            <PropertyPath>Quarter</PropertyPath>
-            <PropertyPath>Month</PropertyPath>
-          </Collection>
-        </Annotation>
-      </Annotations>
-
       <Annotations Target="SalesModel.SalesOrganization">
         <Annotation Term="Aggregation.RecursiveHierarchy"
                     Qualifier="SalesOrgHierarchy">
