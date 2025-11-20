@@ -4355,9 +4355,10 @@ entity could not be constructed. In either case, if the service is able to const
 the edit URL or read URL of the created entity, the response MUST contain that URL in a
 [`Location`](#HeaderLocation) header.
 
-If these rules oblige the service to return a representation of the created entity, but the
-related entities contained in it are not in 1:1 correspondence with the entities included in the
-request, the service MUST NOT return the representation and return an error instead.
+The service MUST NOT return a representation of the created entity unless the related entities
+contained in it are in 1:1 correspondence with the entities included in the request.
+If rules in the previous paragraph oblige the service to return a representation that lacks
+this 1:1 correspondence, it MUST return an error instead.
 
 #### <a id="LinktoRelatedEntitiesWhenCreatinganEntity" href="#LinktoRelatedEntitiesWhenCreatinganEntity">11.4.2.1 Link to Related Entities When Creating an Entity</a>
 
@@ -4628,9 +4629,10 @@ and is included in the response MUST include an ETag.
 If a representation of the updated entity could not be constructed,
 the service MAY ignore the system query options and respond with `204 No Content`.
 
-If these rules oblige the service to return a representation of the updated entity, but the
-updated related entities contained in it are not in 1:1 correspondence with the entities included in the
-request, the service MUST NOT return the representation and return an error instead.
+The service MUST NOT return a representation of the updated entity unless the updated related entities
+contained in it are in 1:1 correspondence with the entities included in the request.
+If rules in the previous paragraph oblige the service to return a representation that lacks
+this 1:1 correspondence, it MUST return an error instead.
 
 #### <a id="UpdateRelatedEntitiesWhenUpdatinganEntity" href="#UpdateRelatedEntitiesWhenUpdatinganEntity">11.4.3.1 Update Related Entities When Updating an Entity</a>
 
