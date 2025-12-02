@@ -7,6 +7,9 @@
   <meta name="description" content="This specification adds basic grouping and aggregation functionality (e.g. sum, min, and max) to the Open Data Protocol (OData) without changing any of the base principles of OData." />
   <title>OData Extension for Data Aggregation Version 4.0</title>
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -22,8 +25,9 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -34,7 +38,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -97,8 +101,7 @@
       }
     }};
   </script>
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 </head>
 <body>
 <aside id="darkmode">
@@ -409,7 +412,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        odata-data-aggregation-ext-v4.0-cs03.md
 ```
 
-This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
+This uses pandoc 3.8.3 from https://github.com/jgm/pandoc/releases/tag/3.8.3.
 -->
 
 </details>
@@ -988,7 +991,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>Products</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>ID</th>
 <th>Category</th>
 <th>Name</th>
@@ -997,28 +1000,28 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>P1</td>
 <td>PG1</td>
 <td>Sugar</td>
 <td>White</td>
 <td style="text-align: right;">0.06</td>
 </tr>
-<tr class="even">
+<tr>
 <td>P2</td>
 <td>PG1</td>
 <td>Coffee</td>
 <td>Brown</td>
 <td style="text-align: right;">0.06</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>P3</td>
 <td>PG2</td>
 <td>Paper</td>
 <td>White</td>
 <td style="text-align: right;">0.14</td>
 </tr>
-<tr class="even">
+<tr>
 <td>P4</td>
 <td>PG2</td>
 <td>Pencil</td>
@@ -1032,21 +1035,21 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>Food</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th style="text-align: right;">Rating</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td style="text-align: right;">5</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: right;"> </td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: right;">n/a</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: right;">n/a</td>
 </tr>
 </tbody>
@@ -1056,21 +1059,21 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>Non-Food</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>RatingClass</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>n/a</td>
 </tr>
-<tr class="even">
+<tr>
 <td>n/a</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>average</td>
 </tr>
-<tr class="even">
+<tr>
 <td> </td>
 </tr>
 </tbody>
@@ -1080,7 +1083,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>Time</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>Date</th>
 <th>Month</th>
 <th>Quarter</th>
@@ -1088,25 +1091,25 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>2022-01-01</td>
 <td>2022-01</td>
 <td>2022-1</td>
 <td>2022</td>
 </tr>
-<tr class="even">
+<tr>
 <td>2022-04-01</td>
 <td>2022-04</td>
 <td>2022-2</td>
 <td>2022</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>2022-04-10</td>
 <td>2022-04</td>
 <td>2022-2</td>
 <td>2022</td>
 </tr>
-<tr class="even">
+<tr>
 <td>…</td>
 <td></td>
 <td></td>
@@ -1119,17 +1122,17 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>Categories</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>ID</th>
 <th>Name</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>PG1</td>
 <td>Food</td>
 </tr>
-<tr class="even">
+<tr>
 <td>PG2</td>
 <td>Non-Food</td>
 </tr>
@@ -1140,39 +1143,39 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>Sales Organizations</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>ID</th>
 <th>Superordinate</th>
 <th>Name</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>Sales</td>
 <td></td>
 <td>Corporate Sales</td>
 </tr>
-<tr class="even">
+<tr>
 <td>US</td>
 <td>Sales</td>
 <td>US</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>US West</td>
 <td>US</td>
 <td>US West</td>
 </tr>
-<tr class="even">
+<tr>
 <td>US East</td>
 <td>US</td>
 <td>US East</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>EMEA</td>
 <td>Sales</td>
 <td>EMEA</td>
 </tr>
-<tr class="even">
+<tr>
 <td>EMEA Central</td>
 <td>EMEA</td>
 <td>EMEA Central</td>
@@ -1184,29 +1187,29 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>Customers</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>ID</th>
 <th>Name</th>
 <th>Country</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>C1</td>
 <td>Joe</td>
 <td>USA</td>
 </tr>
-<tr class="even">
+<tr>
 <td>C2</td>
 <td>Sue</td>
 <td>USA</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>C3</td>
 <td>Sue</td>
 <td>Netherlands</td>
 </tr>
-<tr class="even">
+<tr>
 <td>C4</td>
 <td>Luc</td>
 <td>France</td>
@@ -1218,7 +1221,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>Sales</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>ID</th>
 <th>Customer</th>
 <th>Time</th>
@@ -1228,7 +1231,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>1</td>
 <td>C1</td>
 <td>2022-01-03</td>
@@ -1236,7 +1239,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <td>US West</td>
 <td style="text-align: right;">1</td>
 </tr>
-<tr class="even">
+<tr>
 <td>2</td>
 <td>C1</td>
 <td>2022-04-10</td>
@@ -1244,7 +1247,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <td>US West</td>
 <td style="text-align: right;">2</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>3</td>
 <td>C1</td>
 <td>2022-08-07</td>
@@ -1252,7 +1255,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <td>US West</td>
 <td style="text-align: right;">4</td>
 </tr>
-<tr class="even">
+<tr>
 <td>4</td>
 <td>C2</td>
 <td>2022-01-03</td>
@@ -1260,7 +1263,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <td>US East</td>
 <td style="text-align: right;">8</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>5</td>
 <td>C2</td>
 <td>2022-11-09</td>
@@ -1268,7 +1271,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <td>US East</td>
 <td style="text-align: right;">4</td>
 </tr>
-<tr class="even">
+<tr>
 <td>6</td>
 <td>C3</td>
 <td>2022-04-01</td>
@@ -1276,7 +1279,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <td>EMEA Central</td>
 <td style="text-align: right;">2</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>7</td>
 <td>C3</td>
 <td>2022-08-06</td>
@@ -1284,7 +1287,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <td>EMEA Central</td>
 <td style="text-align: right;">1</td>
 </tr>
-<tr class="even">
+<tr>
 <td>8</td>
 <td>C3</td>
 <td>2022-11-22</td>
@@ -1299,15 +1302,15 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>Legend</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>Property</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>Key</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Navigation Property</td>
 </tr>
 </tbody>
@@ -1326,7 +1329,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <div class="cross">
 <table>
 <tbody>
-<tr class="odd">
+<tr>
 <td></td>
 <td></td>
 <td style="text-align: right;">Food</td>
@@ -1335,7 +1338,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <td style="text-align: right;">Non-Food</td>
 <td style="text-align: right;"></td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td></td>
 <td style="text-align: right;"></td>
@@ -1344,7 +1347,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <td style="text-align: right;"></td>
 <td style="text-align: right;">Paper</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>USA</td>
 <td></td>
 <td style="text-align: right;">14</td>
@@ -1353,7 +1356,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <td style="text-align: right;">5</td>
 <td style="text-align: right;">5</td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td>Joe</td>
 <td style="text-align: right;">6</td>
@@ -1362,7 +1365,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">1</td>
 </tr>
-<tr class="odd">
+<tr>
 <td></td>
 <td>Sue</td>
 <td style="text-align: right;">8</td>
@@ -1371,7 +1374,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <td style="text-align: right;">4</td>
 <td style="text-align: right;">4</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Netherlands</td>
 <td></td>
 <td style="text-align: right;">2</td>
@@ -1380,7 +1383,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <td style="text-align: right;">3</td>
 <td style="text-align: right;">3</td>
 </tr>
-<tr class="odd">
+<tr>
 <td></td>
 <td>Sue</td>
 <td style="text-align: right;">2</td>
@@ -1395,7 +1398,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>The data in this cross-table can be written down in a shape that more closely resembles the structure of the data model, leaving cells empty that have been aggregated away:</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>Customer/Country</th>
 <th>Customer/Name</th>
 <th>Product/Category/Name</th>
@@ -1404,154 +1407,154 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>USA</td>
 <td>Joe</td>
 <td>Non-Food</td>
 <td>Paper</td>
 <td style="text-align: right;">1</td>
 </tr>
-<tr class="even">
+<tr>
 <td>USA</td>
 <td>Joe</td>
 <td>Food</td>
 <td>Sugar</td>
 <td style="text-align: right;">2</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>USA</td>
 <td>Joe</td>
 <td>Food</td>
 <td>Coffee</td>
 <td style="text-align: right;">4</td>
 </tr>
-<tr class="even">
+<tr>
 <td>USA</td>
 <td>Sue</td>
 <td>Food</td>
 <td>Coffee</td>
 <td style="text-align: right;">8</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>USA</td>
 <td>Sue</td>
 <td>Non-Food</td>
 <td>Paper</td>
 <td style="text-align: right;">4</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Netherlands</td>
 <td>Sue</td>
 <td>Food</td>
 <td>Sugar</td>
 <td style="text-align: right;">2</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Netherlands</td>
 <td>Sue</td>
 <td>Non-Food</td>
 <td>Paper</td>
 <td style="text-align: right;">3</td>
 </tr>
-<tr class="even">
+<tr>
 <td>USA</td>
 <td></td>
 <td>Food</td>
 <td>Sugar</td>
 <td style="text-align: right;">2</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>USA</td>
 <td></td>
 <td>Food</td>
 <td>Coffee</td>
 <td style="text-align: right;">12</td>
 </tr>
-<tr class="even">
+<tr>
 <td>USA</td>
 <td></td>
 <td>Non-Food</td>
 <td>Paper</td>
 <td style="text-align: right;">5</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Netherlands</td>
 <td></td>
 <td>Food</td>
 <td>Sugar</td>
 <td style="text-align: right;">2</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Netherlands</td>
 <td></td>
 <td>Non-Food</td>
 <td>Paper</td>
 <td style="text-align: right;">3</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>USA</td>
 <td>Joe</td>
 <td>Food</td>
 <td></td>
 <td style="text-align: right;">6</td>
 </tr>
-<tr class="even">
+<tr>
 <td>USA</td>
 <td>Joe</td>
 <td>Non-Food</td>
 <td></td>
 <td style="text-align: right;">1</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>USA</td>
 <td>Sue</td>
 <td>Food</td>
 <td></td>
 <td style="text-align: right;">8</td>
 </tr>
-<tr class="even">
+<tr>
 <td>USA</td>
 <td>Sue</td>
 <td>Non-Food</td>
 <td></td>
 <td style="text-align: right;">4</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Netherlands</td>
 <td>Sue</td>
 <td>Food</td>
 <td></td>
 <td style="text-align: right;">2</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Netherlands</td>
 <td>Sue</td>
 <td>Non-Food</td>
 <td></td>
 <td style="text-align: right;">3</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>USA</td>
 <td></td>
 <td>Food</td>
 <td></td>
 <td style="text-align: right;">14</td>
 </tr>
-<tr class="even">
+<tr>
 <td>USA</td>
 <td></td>
 <td>Non-Food</td>
 <td></td>
 <td style="text-align: right;">5</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Netherlands</td>
 <td></td>
 <td>Food</td>
 <td></td>
 <td style="text-align: right;">2</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Netherlands</td>
 <td></td>
 <td>Non-Food</td>
@@ -2342,14 +2345,14 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <div class="sourceCode" id="cb65"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Sales(*,Tax)&quot;</span><span class="fu">,</span></span>
 <span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span> <span class="dt">&quot;Amount&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span> <span class="dt">&quot;Tax@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Tax&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="er">.</span><span class="dv">14</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span> <span class="dt">&quot;Amount&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span> <span class="dt">&quot;Tax@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Tax&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="er">.</span><span class="dv">12</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">3</span><span class="fu">,</span> <span class="dt">&quot;Amount&quot;</span><span class="fu">:</span> <span class="dv">4</span><span class="fu">,</span> <span class="dt">&quot;Tax@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Tax&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="er">.</span><span class="dv">24</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">4</span><span class="fu">,</span> <span class="dt">&quot;Amount&quot;</span><span class="fu">:</span> <span class="dv">8</span><span class="fu">,</span> <span class="dt">&quot;Tax@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Tax&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="er">.</span><span class="dv">48</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb65-8"><a href="#cb65-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">5</span><span class="fu">,</span> <span class="dt">&quot;Amount&quot;</span><span class="fu">:</span> <span class="dv">4</span><span class="fu">,</span> <span class="dt">&quot;Tax@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Tax&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="er">.</span><span class="dv">56</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb65-9"><a href="#cb65-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">6</span><span class="fu">,</span> <span class="dt">&quot;Amount&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span> <span class="dt">&quot;Tax@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Tax&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="er">.</span><span class="dv">12</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb65-10"><a href="#cb65-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">7</span><span class="fu">,</span> <span class="dt">&quot;Amount&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span> <span class="dt">&quot;Tax@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Tax&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="er">.</span><span class="dv">14</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb65-11"><a href="#cb65-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">8</span><span class="fu">,</span> <span class="dt">&quot;Amount&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span> <span class="dt">&quot;Tax@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Tax&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="er">.</span><span class="dv">28</span> <span class="fu">}</span></span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span> <span class="dt">&quot;Amount&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span> <span class="dt">&quot;Tax@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Tax&quot;</span><span class="fu">:</span> <span class="fl">0.14</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span> <span class="dt">&quot;Amount&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span> <span class="dt">&quot;Tax@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Tax&quot;</span><span class="fu">:</span> <span class="fl">0.12</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">3</span><span class="fu">,</span> <span class="dt">&quot;Amount&quot;</span><span class="fu">:</span> <span class="dv">4</span><span class="fu">,</span> <span class="dt">&quot;Tax@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Tax&quot;</span><span class="fu">:</span> <span class="fl">0.24</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">4</span><span class="fu">,</span> <span class="dt">&quot;Amount&quot;</span><span class="fu">:</span> <span class="dv">8</span><span class="fu">,</span> <span class="dt">&quot;Tax@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Tax&quot;</span><span class="fu">:</span> <span class="fl">0.48</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb65-8"><a href="#cb65-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">5</span><span class="fu">,</span> <span class="dt">&quot;Amount&quot;</span><span class="fu">:</span> <span class="dv">4</span><span class="fu">,</span> <span class="dt">&quot;Tax@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Tax&quot;</span><span class="fu">:</span> <span class="fl">0.56</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb65-9"><a href="#cb65-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">6</span><span class="fu">,</span> <span class="dt">&quot;Amount&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span> <span class="dt">&quot;Tax@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Tax&quot;</span><span class="fu">:</span> <span class="fl">0.12</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb65-10"><a href="#cb65-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">7</span><span class="fu">,</span> <span class="dt">&quot;Amount&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span> <span class="dt">&quot;Tax@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Tax&quot;</span><span class="fu">:</span> <span class="fl">0.14</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb65-11"><a href="#cb65-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">8</span><span class="fu">,</span> <span class="dt">&quot;Amount&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span> <span class="dt">&quot;Tax@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Tax&quot;</span><span class="fu">:</span> <span class="fl">0.28</span> <span class="fu">}</span></span>
 <span id="cb65-12"><a href="#cb65-12" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb65-13"><a href="#cb65-13" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
@@ -2524,7 +2527,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <div class="sourceCode" id="cb76"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Products&quot;</span><span class="fu">,</span></span>
 <span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;P3&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Paper&quot;</span><span class="fu">,</span> <span class="dt">&quot;Color&quot;</span><span class="fu">:</span> <span class="st">&quot;White&quot;</span><span class="fu">,</span> <span class="dt">&quot;TaxRate&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="er">.</span><span class="dv">14</span> <span class="fu">}</span></span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;P3&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Paper&quot;</span><span class="fu">,</span> <span class="dt">&quot;Color&quot;</span><span class="fu">:</span> <span class="st">&quot;White&quot;</span><span class="fu">,</span> <span class="dt">&quot;TaxRate&quot;</span><span class="fu">:</span> <span class="fl">0.14</span> <span class="fu">}</span></span>
 <span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
@@ -2576,13 +2579,13 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <div class="sourceCode" id="cb82"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Products(Sales(Total))&quot;</span><span class="fu">,</span></span>
 <span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;P2&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Coffee&quot;</span><span class="fu">,</span> <span class="dt">&quot;Color&quot;</span><span class="fu">:</span> <span class="st">&quot;Brown&quot;</span><span class="fu">,</span> <span class="dt">&quot;TaxRate&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="er">.06</span><span class="fu">,</span></span>
+<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;P2&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Coffee&quot;</span><span class="fu">,</span> <span class="dt">&quot;Color&quot;</span><span class="fu">:</span> <span class="st">&quot;Brown&quot;</span><span class="fu">,</span> <span class="dt">&quot;TaxRate&quot;</span><span class="fu">:</span> <span class="fl">0.06</span><span class="fu">,</span></span>
 <span id="cb82-5"><a href="#cb82-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="fu">{</span> <span class="dt">&quot;Total@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Total&quot;</span><span class="fu">:</span>   <span class="dv">12</span> <span class="fu">}</span> <span class="ot">]</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb82-6"><a href="#cb82-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;P3&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Paper&quot;</span><span class="fu">,</span>  <span class="dt">&quot;Color&quot;</span><span class="fu">:</span> <span class="st">&quot;White&quot;</span><span class="fu">,</span> <span class="dt">&quot;TaxRate&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="er">.</span><span class="dv">14</span><span class="fu">,</span></span>
+<span id="cb82-6"><a href="#cb82-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;P3&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Paper&quot;</span><span class="fu">,</span>  <span class="dt">&quot;Color&quot;</span><span class="fu">:</span> <span class="st">&quot;White&quot;</span><span class="fu">,</span> <span class="dt">&quot;TaxRate&quot;</span><span class="fu">:</span> <span class="fl">0.14</span><span class="fu">,</span></span>
 <span id="cb82-7"><a href="#cb82-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="fu">{</span> <span class="dt">&quot;Total@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Total&quot;</span><span class="fu">:</span>    <span class="dv">8</span> <span class="fu">}</span> <span class="ot">]</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb82-8"><a href="#cb82-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;P4&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Pencil&quot;</span><span class="fu">,</span> <span class="dt">&quot;Color&quot;</span><span class="fu">:</span> <span class="st">&quot;Black&quot;</span><span class="fu">,</span> <span class="dt">&quot;TaxRate&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="er">.</span><span class="dv">14</span><span class="fu">,</span></span>
+<span id="cb82-8"><a href="#cb82-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;P4&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Pencil&quot;</span><span class="fu">,</span> <span class="dt">&quot;Color&quot;</span><span class="fu">:</span> <span class="st">&quot;Black&quot;</span><span class="fu">,</span> <span class="dt">&quot;TaxRate&quot;</span><span class="fu">:</span> <span class="fl">0.14</span><span class="fu">,</span></span>
 <span id="cb82-9"><a href="#cb82-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="fu">{</span> <span class="dt">&quot;Total&quot;</span><span class="fu">:</span> <span class="kw">null</span> <span class="fu">}</span> <span class="ot">]</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb82-10"><a href="#cb82-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;P1&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Sugar&quot;</span><span class="fu">,</span>  <span class="dt">&quot;Color&quot;</span><span class="fu">:</span> <span class="st">&quot;White&quot;</span><span class="fu">,</span> <span class="dt">&quot;TaxRate&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="er">.06</span><span class="fu">,</span></span>
+<span id="cb82-10"><a href="#cb82-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;P1&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Sugar&quot;</span><span class="fu">,</span>  <span class="dt">&quot;Color&quot;</span><span class="fu">:</span> <span class="st">&quot;White&quot;</span><span class="fu">,</span> <span class="dt">&quot;TaxRate&quot;</span><span class="fu">:</span> <span class="fl">0.06</span><span class="fu">,</span></span>
 <span id="cb82-11"><a href="#cb82-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Sales&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="fu">{</span> <span class="dt">&quot;Total@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Total&quot;</span><span class="fu">:</span>    <span class="dv">4</span> <span class="fu">}</span> <span class="ot">]</span> <span class="fu">}</span></span>
 <span id="cb82-12"><a href="#cb82-12" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb82-13"><a href="#cb82-13" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
@@ -2662,15 +2665,15 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 </ul>
 <div class="example">
 <p>Example 49: an entity container with default support for everything defined in this specification</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">EntityContainer</span><span class="ot"> Name=</span><span class="st">&quot;SalesData&quot;</span>&gt;</span>
-<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Aggregation.ApplySupportedDefaults&quot;</span> /&gt;</span>
+<div class="sourceCode" id="cb87"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">EntityContainer</span> <span class="ot">Name=</span><span class="st">&quot;SalesData&quot;</span>&gt;</span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Annotation</span> <span class="ot">Term=</span><span class="st">&quot;Aggregation.ApplySupportedDefaults&quot;</span> /&gt;</span>
 <span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a>  …</span>
 <span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">EntityContainer</span>&gt;</span></code></pre></div>
 </div>
 <div class="example">
 <p>Example <a id="containerrooted" href="#containerrooted">50</a>: Define aggregation support only for the products of a given category</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotations</span><span class="ot"> Target=</span><span class="st">&quot;SalesModel.SalesData/Categories/Products&quot;</span>&gt;</span>
-<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Aggregation.ApplySupported&quot;</span>&gt;</span>
+<div class="sourceCode" id="cb88"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotations</span> <span class="ot">Target=</span><span class="st">&quot;SalesModel.SalesData/Categories/Products&quot;</span>&gt;</span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Annotation</span> <span class="ot">Term=</span><span class="st">&quot;Aggregation.ApplySupported&quot;</span>&gt;</span>
 <span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>    …</span>
 <span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">Annotation</span>&gt;</span>
 <span id="cb88-5"><a href="#cb88-5" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Annotations</span>&gt;</span></code></pre></div>
@@ -2687,13 +2690,13 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <p>If the custom aggregate is associated with an entity container, the value of the <code>Qualifier</code> attribute MUST NOT collide with the names of any entity container children.</p>
 <div class="example">
 <p>Example 51: Sales forecasts are modeled as a custom aggregate of the Sale entity type because it belongs there. For the budget, there is no appropriate structured type, so it is modeled as a custom aggregate of the <code>SalesData</code> entity container.</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotations</span><span class="ot"> Target=</span><span class="st">&quot;SalesModel.SalesData/Sales&quot;</span>&gt;</span>
-<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Aggregation.CustomAggregate&quot;</span><span class="ot"> Qualifier=</span><span class="st">&quot;Forecast&quot;</span></span>
-<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a><span class="ot">              String=</span><span class="st">&quot;Edm.Decimal&quot;</span> /&gt;</span>
+<div class="sourceCode" id="cb89"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotations</span> <span class="ot">Target=</span><span class="st">&quot;SalesModel.SalesData/Sales&quot;</span>&gt;</span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Annotation</span> <span class="ot">Term=</span><span class="st">&quot;Aggregation.CustomAggregate&quot;</span> <span class="ot">Qualifier=</span><span class="st">&quot;Forecast&quot;</span></span>
+<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>              <span class="ot">String=</span><span class="st">&quot;Edm.Decimal&quot;</span> /&gt;</span>
 <span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Annotations</span>&gt;</span>
-<span id="cb89-5"><a href="#cb89-5" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotations</span><span class="ot"> Target=</span><span class="st">&quot;SalesModel.SalesData&quot;</span>&gt;</span>
-<span id="cb89-6"><a href="#cb89-6" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Aggregation.CustomAggregate&quot;</span><span class="ot"> Qualifier=</span><span class="st">&quot;Budget&quot;</span></span>
-<span id="cb89-7"><a href="#cb89-7" aria-hidden="true" tabindex="-1"></a><span class="ot">              String=</span><span class="st">&quot;Edm.Decimal&quot;</span> /&gt;</span>
+<span id="cb89-5"><a href="#cb89-5" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotations</span> <span class="ot">Target=</span><span class="st">&quot;SalesModel.SalesData&quot;</span>&gt;</span>
+<span id="cb89-6"><a href="#cb89-6" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Annotation</span> <span class="ot">Term=</span><span class="st">&quot;Aggregation.CustomAggregate&quot;</span> <span class="ot">Qualifier=</span><span class="st">&quot;Budget&quot;</span></span>
+<span id="cb89-7"><a href="#cb89-7" aria-hidden="true" tabindex="-1"></a>              <span class="ot">String=</span><span class="st">&quot;Edm.Decimal&quot;</span> /&gt;</span>
 <span id="cb89-8"><a href="#cb89-8" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Annotations</span>&gt;</span></code></pre></div>
 <p>These custom aggregates can be used in the <code>aggregate</code> transformation:</p>
 <pre><code>GET /service/Sales?$apply=groupby((Time/Month),aggregate(Forecast))</code></pre>
@@ -2712,44 +2715,44 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 </summary>
 <div class="example">
 <p>Example 52: This simplified <code>Sales</code> entity set has a single aggregatable property <code>Amount</code> whose context is defined by the <code>Code</code> property of the related <code>Currency</code>, and a custom aggregate <code>Forecast</code> with the same context. The <code>Code</code> property of <code>Currencies</code> is groupable. All other properties are neither groupable nor aggregatable.</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">EntityType</span><span class="ot"> Name=</span><span class="st">&quot;Currency&quot;</span>&gt;</span>
+<div class="sourceCode" id="cb92"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">EntityType</span> <span class="ot">Name=</span><span class="st">&quot;Currency&quot;</span>&gt;</span>
 <span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Key</span>&gt;</span>
-<span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">PropertyRef</span><span class="ot"> Name=</span><span class="st">&quot;Code&quot;</span> /&gt;</span>
+<span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">PropertyRef</span> <span class="ot">Name=</span><span class="st">&quot;Code&quot;</span> /&gt;</span>
 <span id="cb92-4"><a href="#cb92-4" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">Key</span>&gt;</span>
-<span id="cb92-5"><a href="#cb92-5" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;Code&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span> /&gt;</span>
-<span id="cb92-6"><a href="#cb92-6" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;Name&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span>&gt;</span>
-<span id="cb92-7"><a href="#cb92-7" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Core.IsLanguageDependent&quot;</span> /&gt;</span>
+<span id="cb92-5"><a href="#cb92-5" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Property</span> <span class="ot">Name=</span><span class="st">&quot;Code&quot;</span> <span class="ot">Type=</span><span class="st">&quot;Edm.String&quot;</span> /&gt;</span>
+<span id="cb92-6"><a href="#cb92-6" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Property</span> <span class="ot">Name=</span><span class="st">&quot;Name&quot;</span> <span class="ot">Type=</span><span class="st">&quot;Edm.String&quot;</span>&gt;</span>
+<span id="cb92-7"><a href="#cb92-7" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Annotation</span> <span class="ot">Term=</span><span class="st">&quot;Core.IsLanguageDependent&quot;</span> /&gt;</span>
 <span id="cb92-8"><a href="#cb92-8" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">Property</span>&gt;</span>
 <span id="cb92-9"><a href="#cb92-9" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">EntityType</span>&gt;</span>
 <span id="cb92-10"><a href="#cb92-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb92-11"><a href="#cb92-11" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">EntityType</span><span class="ot"> Name=</span><span class="st">&quot;Sale&quot;</span>&gt;</span>
+<span id="cb92-11"><a href="#cb92-11" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">EntityType</span> <span class="ot">Name=</span><span class="st">&quot;Sale&quot;</span>&gt;</span>
 <span id="cb92-12"><a href="#cb92-12" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Key</span>&gt;</span>
-<span id="cb92-13"><a href="#cb92-13" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">PropertyRef</span><span class="ot"> Name=</span><span class="st">&quot;ID&quot;</span> /&gt;</span>
+<span id="cb92-13"><a href="#cb92-13" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">PropertyRef</span> <span class="ot">Name=</span><span class="st">&quot;ID&quot;</span> /&gt;</span>
 <span id="cb92-14"><a href="#cb92-14" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">Key</span>&gt;</span>
-<span id="cb92-15"><a href="#cb92-15" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;ID&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span><span class="ot"> Nullable=</span><span class="st">&quot;false&quot;</span> /&gt;</span>
-<span id="cb92-16"><a href="#cb92-16" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;Amount&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.Decimal&quot;</span><span class="ot"> Scale=</span><span class="st">&quot;variable&quot;</span>&gt;</span>
-<span id="cb92-17"><a href="#cb92-17" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Aggregation.ContextDefiningProperties&quot;</span>&gt;</span>
+<span id="cb92-15"><a href="#cb92-15" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Property</span> <span class="ot">Name=</span><span class="st">&quot;ID&quot;</span> <span class="ot">Type=</span><span class="st">&quot;Edm.String&quot;</span> <span class="ot">Nullable=</span><span class="st">&quot;false&quot;</span> /&gt;</span>
+<span id="cb92-16"><a href="#cb92-16" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Property</span> <span class="ot">Name=</span><span class="st">&quot;Amount&quot;</span> <span class="ot">Type=</span><span class="st">&quot;Edm.Decimal&quot;</span> <span class="ot">Scale=</span><span class="st">&quot;variable&quot;</span>&gt;</span>
+<span id="cb92-17"><a href="#cb92-17" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Annotation</span> <span class="ot">Term=</span><span class="st">&quot;Aggregation.ContextDefiningProperties&quot;</span>&gt;</span>
 <span id="cb92-18"><a href="#cb92-18" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Collection</span>&gt;</span>
 <span id="cb92-19"><a href="#cb92-19" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">PropertyPath</span>&gt;Currency/Code&lt;/<span class="kw">PropertyPath</span>&gt;</span>
 <span id="cb92-20"><a href="#cb92-20" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">Collection</span>&gt;</span>
 <span id="cb92-21"><a href="#cb92-21" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">Annotation</span>&gt;</span>
 <span id="cb92-22"><a href="#cb92-22" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">Property</span>&gt;</span>
-<span id="cb92-23"><a href="#cb92-23" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">NavigationProperty</span><span class="ot"> Name=</span><span class="st">&quot;Currency&quot;</span><span class="ot"> Type=</span><span class="st">&quot;SalesModel.Currency&quot;</span></span>
-<span id="cb92-24"><a href="#cb92-24" aria-hidden="true" tabindex="-1"></a><span class="ot">                      Nullable=</span><span class="st">&quot;false&quot;</span> /&gt;</span>
+<span id="cb92-23"><a href="#cb92-23" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">NavigationProperty</span> <span class="ot">Name=</span><span class="st">&quot;Currency&quot;</span> <span class="ot">Type=</span><span class="st">&quot;SalesModel.Currency&quot;</span></span>
+<span id="cb92-24"><a href="#cb92-24" aria-hidden="true" tabindex="-1"></a>                      <span class="ot">Nullable=</span><span class="st">&quot;false&quot;</span> /&gt;</span>
 <span id="cb92-25"><a href="#cb92-25" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">EntityType</span>&gt;</span>
 <span id="cb92-26"><a href="#cb92-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb92-27"><a href="#cb92-27" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">EntityContainer</span><span class="ot"> Name=</span><span class="st">&quot;SalesData&quot;</span>&gt;</span>
-<span id="cb92-28"><a href="#cb92-28" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">EntitySet</span><span class="ot"> Name=</span><span class="st">&quot;Sales&quot;</span><span class="ot"> EntityType=</span><span class="st">&quot;SalesModel.Sale&quot;</span>&gt;</span>
-<span id="cb92-29"><a href="#cb92-29" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Aggregation.ApplySupported&quot;</span>&gt;</span>
+<span id="cb92-27"><a href="#cb92-27" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">EntityContainer</span> <span class="ot">Name=</span><span class="st">&quot;SalesData&quot;</span>&gt;</span>
+<span id="cb92-28"><a href="#cb92-28" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">EntitySet</span> <span class="ot">Name=</span><span class="st">&quot;Sales&quot;</span> <span class="ot">EntityType=</span><span class="st">&quot;SalesModel.Sale&quot;</span>&gt;</span>
+<span id="cb92-29"><a href="#cb92-29" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Annotation</span> <span class="ot">Term=</span><span class="st">&quot;Aggregation.ApplySupported&quot;</span>&gt;</span>
 <span id="cb92-30"><a href="#cb92-30" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Record</span>&gt;</span>
-<span id="cb92-31"><a href="#cb92-31" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;AggregatableProperties&quot;</span>&gt;</span>
+<span id="cb92-31"><a href="#cb92-31" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">PropertyValue</span> <span class="ot">Property=</span><span class="st">&quot;AggregatableProperties&quot;</span>&gt;</span>
 <span id="cb92-32"><a href="#cb92-32" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">Collection</span>&gt;</span>
 <span id="cb92-33"><a href="#cb92-33" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">Record</span>&gt;</span>
-<span id="cb92-34"><a href="#cb92-34" aria-hidden="true" tabindex="-1"></a>              &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;Property&quot;</span><span class="ot"> PropertyPath=</span><span class="st">&quot;Amount&quot;</span> /&gt;</span>
+<span id="cb92-34"><a href="#cb92-34" aria-hidden="true" tabindex="-1"></a>              &lt;<span class="kw">PropertyValue</span> <span class="ot">Property=</span><span class="st">&quot;Property&quot;</span> <span class="ot">PropertyPath=</span><span class="st">&quot;Amount&quot;</span> /&gt;</span>
 <span id="cb92-35"><a href="#cb92-35" aria-hidden="true" tabindex="-1"></a>            &lt;/<span class="kw">Record</span>&gt;</span>
 <span id="cb92-36"><a href="#cb92-36" aria-hidden="true" tabindex="-1"></a>          &lt;/<span class="kw">Collection</span>&gt;</span>
 <span id="cb92-37"><a href="#cb92-37" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">PropertyValue</span>&gt;</span>
-<span id="cb92-38"><a href="#cb92-38" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;GroupableProperties&quot;</span>&gt;</span>
+<span id="cb92-38"><a href="#cb92-38" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">PropertyValue</span> <span class="ot">Property=</span><span class="st">&quot;GroupableProperties&quot;</span>&gt;</span>
 <span id="cb92-39"><a href="#cb92-39" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">Collection</span>&gt;</span>
 <span id="cb92-40"><a href="#cb92-40" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">PropertyPath</span>&gt;Currency&lt;/<span class="kw">PropertyPath</span>&gt;</span>
 <span id="cb92-41"><a href="#cb92-41" aria-hidden="true" tabindex="-1"></a>          &lt;/<span class="kw">Collection</span>&gt;</span>
@@ -2757,9 +2760,9 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <span id="cb92-43"><a href="#cb92-43" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">Record</span>&gt;</span>
 <span id="cb92-44"><a href="#cb92-44" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">Annotation</span>&gt;</span>
 <span id="cb92-45"><a href="#cb92-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb92-46"><a href="#cb92-46" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Aggregation.CustomAggregate&quot;</span><span class="ot"> Qualifier=</span><span class="st">&quot;Forecast&quot;</span></span>
-<span id="cb92-47"><a href="#cb92-47" aria-hidden="true" tabindex="-1"></a><span class="ot">                String=</span><span class="st">&quot;Edm.Decimal&quot;</span>&gt;</span>
-<span id="cb92-48"><a href="#cb92-48" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Aggregation.ContextDefiningProperties&quot;</span>&gt;</span>
+<span id="cb92-46"><a href="#cb92-46" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Annotation</span> <span class="ot">Term=</span><span class="st">&quot;Aggregation.CustomAggregate&quot;</span> <span class="ot">Qualifier=</span><span class="st">&quot;Forecast&quot;</span></span>
+<span id="cb92-47"><a href="#cb92-47" aria-hidden="true" tabindex="-1"></a>                <span class="ot">String=</span><span class="st">&quot;Edm.Decimal&quot;</span>&gt;</span>
+<span id="cb92-48"><a href="#cb92-48" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Annotation</span> <span class="ot">Term=</span><span class="st">&quot;Aggregation.ContextDefiningProperties&quot;</span>&gt;</span>
 <span id="cb92-49"><a href="#cb92-49" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Collection</span>&gt;</span>
 <span id="cb92-50"><a href="#cb92-50" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">PropertyPath</span>&gt;Currency/Code&lt;/<span class="kw">PropertyPath</span>&gt;</span>
 <span id="cb92-51"><a href="#cb92-51" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Collection</span>&gt;</span>
@@ -2767,10 +2770,10 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <span id="cb92-53"><a href="#cb92-53" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">Annotation</span>&gt;</span>
 <span id="cb92-54"><a href="#cb92-54" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">EntitySet</span>&gt;</span>
 <span id="cb92-55"><a href="#cb92-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb92-56"><a href="#cb92-56" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">EntitySet</span><span class="ot"> Name=</span><span class="st">&quot;Currencies&quot;</span><span class="ot"> EntityType=</span><span class="st">&quot;SalesModel.Currency&quot;</span>&gt;</span>
-<span id="cb92-57"><a href="#cb92-57" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Aggregation.ApplySupported&quot;</span>&gt;</span>
+<span id="cb92-56"><a href="#cb92-56" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">EntitySet</span> <span class="ot">Name=</span><span class="st">&quot;Currencies&quot;</span> <span class="ot">EntityType=</span><span class="st">&quot;SalesModel.Currency&quot;</span>&gt;</span>
+<span id="cb92-57"><a href="#cb92-57" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Annotation</span> <span class="ot">Term=</span><span class="st">&quot;Aggregation.ApplySupported&quot;</span>&gt;</span>
 <span id="cb92-58"><a href="#cb92-58" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Record</span>&gt;</span>
-<span id="cb92-59"><a href="#cb92-59" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;GroupableProperties&quot;</span>&gt;</span>
+<span id="cb92-59"><a href="#cb92-59" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">PropertyValue</span> <span class="ot">Property=</span><span class="st">&quot;GroupableProperties&quot;</span>&gt;</span>
 <span id="cb92-60"><a href="#cb92-60" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">Collection</span>&gt;</span>
 <span id="cb92-61"><a href="#cb92-61" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">PropertyPath</span>&gt;Code&lt;/<span class="kw">PropertyPath</span>&gt;</span>
 <span id="cb92-62"><a href="#cb92-62" aria-hidden="true" tabindex="-1"></a>          &lt;/<span class="kw">Collection</span>&gt;</span>
@@ -2839,20 +2842,20 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <p>The hierarchy terms can be applied to the <a href="#ExampleDataModel">Example Data Model</a>.</p>
 <div class="example">
 <p>⚠ Example 53: leveled hierarchies for products and time, and a recursive hierarchy for the sales organizations:</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;?xml</span><span class="ot"> version=</span><span class="st">&quot;1.0&quot;</span><span class="ot"> encoding=</span><span class="st">&quot;UTF-8&quot;</span><span class="ot"> standalone=</span><span class="st">&quot;yes&quot;</span><span class="fu">?&gt;</span></span>
-<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">edmx:Edmx</span><span class="ot"> xmlns:edmx=</span><span class="st">&quot;http://docs.oasis-open.org/odata/ns/edmx&quot;</span></span>
-<span id="cb93-3"><a href="#cb93-3" aria-hidden="true" tabindex="-1"></a><span class="ot">           Version=</span><span class="st">&quot;4.0&quot;</span>&gt;</span>
-<span id="cb93-4"><a href="#cb93-4" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">edmx:Reference</span><span class="ot"> Uri=</span><span class="st">&quot;https://docs.oasis-open.org/odata/odata-data-</span></span>
+<div class="sourceCode" id="cb93"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;?xml</span> <span class="ot">version=</span><span class="st">&quot;1.0&quot;</span> <span class="ot">encoding=</span><span class="st">&quot;UTF-8&quot;</span> <span class="ot">standalone=</span><span class="st">&quot;yes&quot;</span><span class="fu">?&gt;</span></span>
+<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">edmx:Edmx</span> <span class="ot">xmlns:edmx=</span><span class="st">&quot;http://docs.oasis-open.org/odata/ns/edmx&quot;</span></span>
+<span id="cb93-3"><a href="#cb93-3" aria-hidden="true" tabindex="-1"></a>           <span class="ot">Version=</span><span class="st">&quot;4.0&quot;</span>&gt;</span>
+<span id="cb93-4"><a href="#cb93-4" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">edmx:Reference</span> <span class="ot">Uri=</span><span class="st">&quot;https://docs.oasis-open.org/odata/odata-data-</span></span>
 <span id="cb93-5"><a href="#cb93-5" aria-hidden="true" tabindex="-1"></a><span class="st">    aggregation-ext/v4.0/cs03/vocabularies/Org.OData.Aggregation.V1.xml&quot;</span>&gt;</span>
-<span id="cb93-6"><a href="#cb93-6" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">edmx:Include</span><span class="ot"> Alias=</span><span class="st">&quot;Aggregation&quot;</span></span>
-<span id="cb93-7"><a href="#cb93-7" aria-hidden="true" tabindex="-1"></a><span class="ot">                  Namespace=</span><span class="st">&quot;Org.OData.Aggregation.V1&quot;</span> /&gt;</span>
+<span id="cb93-6"><a href="#cb93-6" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">edmx:Include</span> <span class="ot">Alias=</span><span class="st">&quot;Aggregation&quot;</span></span>
+<span id="cb93-7"><a href="#cb93-7" aria-hidden="true" tabindex="-1"></a>                  <span class="ot">Namespace=</span><span class="st">&quot;Org.OData.Aggregation.V1&quot;</span> /&gt;</span>
 <span id="cb93-8"><a href="#cb93-8" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">edmx:Reference</span>&gt;</span>
 <span id="cb93-9"><a href="#cb93-9" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">edmx:DataServices</span>&gt;</span>
-<span id="cb93-10"><a href="#cb93-10" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Schema</span><span class="ot"> xmlns=</span><span class="st">&quot;http://docs.oasis-open.org/odata/ns/edm&quot;</span></span>
-<span id="cb93-11"><a href="#cb93-11" aria-hidden="true" tabindex="-1"></a><span class="ot">            Alias=</span><span class="st">&quot;SalesModel&quot;</span><span class="ot"> Namespace=</span><span class="st">&quot;org.example.odata.salesservice&quot;</span>&gt;</span>
-<span id="cb93-12"><a href="#cb93-12" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Annotations</span><span class="ot"> Target=</span><span class="st">&quot;SalesModel.Product&quot;</span>&gt;</span>
-<span id="cb93-13"><a href="#cb93-13" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Aggregation.LeveledHierarchy&quot;</span></span>
-<span id="cb93-14"><a href="#cb93-14" aria-hidden="true" tabindex="-1"></a><span class="ot">                    Qualifier=</span><span class="st">&quot;ProductHierarchy&quot;</span>&gt;</span>
+<span id="cb93-10"><a href="#cb93-10" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Schema</span> <span class="ot">xmlns=</span><span class="st">&quot;http://docs.oasis-open.org/odata/ns/edm&quot;</span></span>
+<span id="cb93-11"><a href="#cb93-11" aria-hidden="true" tabindex="-1"></a>            <span class="ot">Alias=</span><span class="st">&quot;SalesModel&quot;</span> <span class="ot">Namespace=</span><span class="st">&quot;org.example.odata.salesservice&quot;</span>&gt;</span>
+<span id="cb93-12"><a href="#cb93-12" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Annotations</span> <span class="ot">Target=</span><span class="st">&quot;SalesModel.Product&quot;</span>&gt;</span>
+<span id="cb93-13"><a href="#cb93-13" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Annotation</span> <span class="ot">Term=</span><span class="st">&quot;Aggregation.LeveledHierarchy&quot;</span></span>
+<span id="cb93-14"><a href="#cb93-14" aria-hidden="true" tabindex="-1"></a>                    <span class="ot">Qualifier=</span><span class="st">&quot;ProductHierarchy&quot;</span>&gt;</span>
 <span id="cb93-15"><a href="#cb93-15" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">Collection</span>&gt;</span>
 <span id="cb93-16"><a href="#cb93-16" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">PropertyPath</span>&gt;Category/Name&lt;/<span class="kw">PropertyPath</span>&gt;</span>
 <span id="cb93-17"><a href="#cb93-17" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">PropertyPath</span>&gt;Name&lt;/<span class="kw">PropertyPath</span>&gt;</span>
@@ -2860,9 +2863,9 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <span id="cb93-19"><a href="#cb93-19" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Annotation</span>&gt;</span>
 <span id="cb93-20"><a href="#cb93-20" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">Annotations</span>&gt;</span>
 <span id="cb93-21"><a href="#cb93-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb93-22"><a href="#cb93-22" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Annotations</span><span class="ot"> Target=</span><span class="st">&quot;SalesModel.Time&quot;</span>&gt;</span>
-<span id="cb93-23"><a href="#cb93-23" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Aggregation.LeveledHierarchy&quot;</span></span>
-<span id="cb93-24"><a href="#cb93-24" aria-hidden="true" tabindex="-1"></a><span class="ot">                    Qualifier=</span><span class="st">&quot;TimeHierarchy&quot;</span>&gt;</span>
+<span id="cb93-22"><a href="#cb93-22" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Annotations</span> <span class="ot">Target=</span><span class="st">&quot;SalesModel.Time&quot;</span>&gt;</span>
+<span id="cb93-23"><a href="#cb93-23" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Annotation</span> <span class="ot">Term=</span><span class="st">&quot;Aggregation.LeveledHierarchy&quot;</span></span>
+<span id="cb93-24"><a href="#cb93-24" aria-hidden="true" tabindex="-1"></a>                    <span class="ot">Qualifier=</span><span class="st">&quot;TimeHierarchy&quot;</span>&gt;</span>
 <span id="cb93-25"><a href="#cb93-25" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">Collection</span>&gt;</span>
 <span id="cb93-26"><a href="#cb93-26" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">PropertyPath</span>&gt;Year&lt;/<span class="kw">PropertyPath</span>&gt;</span>
 <span id="cb93-27"><a href="#cb93-27" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">PropertyPath</span>&gt;Quarter&lt;/<span class="kw">PropertyPath</span>&gt;</span>
@@ -2871,14 +2874,14 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <span id="cb93-30"><a href="#cb93-30" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Annotation</span>&gt;</span>
 <span id="cb93-31"><a href="#cb93-31" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">Annotations</span>&gt;</span>
 <span id="cb93-32"><a href="#cb93-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb93-33"><a href="#cb93-33" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Annotations</span><span class="ot"> Target=</span><span class="st">&quot;SalesModel.SalesOrganization&quot;</span>&gt;</span>
-<span id="cb93-34"><a href="#cb93-34" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Aggregation.RecursiveHierarchy&quot;</span></span>
-<span id="cb93-35"><a href="#cb93-35" aria-hidden="true" tabindex="-1"></a><span class="ot">                    Qualifier=</span><span class="st">&quot;SalesOrgHierarchy&quot;</span>&gt;</span>
+<span id="cb93-33"><a href="#cb93-33" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">Annotations</span> <span class="ot">Target=</span><span class="st">&quot;SalesModel.SalesOrganization&quot;</span>&gt;</span>
+<span id="cb93-34"><a href="#cb93-34" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">Annotation</span> <span class="ot">Term=</span><span class="st">&quot;Aggregation.RecursiveHierarchy&quot;</span></span>
+<span id="cb93-35"><a href="#cb93-35" aria-hidden="true" tabindex="-1"></a>                    <span class="ot">Qualifier=</span><span class="st">&quot;SalesOrgHierarchy&quot;</span>&gt;</span>
 <span id="cb93-36"><a href="#cb93-36" aria-hidden="true" tabindex="-1"></a>          &lt;<span class="kw">Record</span>&gt;</span>
-<span id="cb93-37"><a href="#cb93-37" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;NodeProperty&quot;</span></span>
-<span id="cb93-38"><a href="#cb93-38" aria-hidden="true" tabindex="-1"></a><span class="ot">                           PropertyPath=</span><span class="st">&quot;ID&quot;</span> /&gt;</span>
-<span id="cb93-39"><a href="#cb93-39" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;ParentNavigationProperty&quot;</span></span>
-<span id="cb93-40"><a href="#cb93-40" aria-hidden="true" tabindex="-1"></a><span class="ot">                           PropertyPath=</span><span class="st">&quot;Superordinate&quot;</span> /&gt;</span>
+<span id="cb93-37"><a href="#cb93-37" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">PropertyValue</span> <span class="ot">Property=</span><span class="st">&quot;NodeProperty&quot;</span></span>
+<span id="cb93-38"><a href="#cb93-38" aria-hidden="true" tabindex="-1"></a>                           <span class="ot">PropertyPath=</span><span class="st">&quot;ID&quot;</span> /&gt;</span>
+<span id="cb93-39"><a href="#cb93-39" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">PropertyValue</span> <span class="ot">Property=</span><span class="st">&quot;ParentNavigationProperty&quot;</span></span>
+<span id="cb93-40"><a href="#cb93-40" aria-hidden="true" tabindex="-1"></a>                           <span class="ot">PropertyPath=</span><span class="st">&quot;Superordinate&quot;</span> /&gt;</span>
 <span id="cb93-41"><a href="#cb93-41" aria-hidden="true" tabindex="-1"></a>          &lt;/<span class="kw">Record</span>&gt;</span>
 <span id="cb93-42"><a href="#cb93-42" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">Annotation</span>&gt;</span>
 <span id="cb93-43"><a href="#cb93-43" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">Annotations</span>&gt;</span>
@@ -3572,16 +3575,16 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 <div class="sourceCode" id="cb142"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb142-1"><a href="#cb142-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb142-2"><a href="#cb142-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Products(AggregatedSales())&quot;</span><span class="fu">,</span></span>
 <span id="cb142-3"><a href="#cb142-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb142-4"><a href="#cb142-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;P2&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Coffee&quot;</span><span class="fu">,</span> <span class="dt">&quot;Color&quot;</span><span class="fu">:</span> <span class="st">&quot;Brown&quot;</span><span class="fu">,</span> <span class="dt">&quot;TaxRate&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="er">.06</span><span class="fu">,</span></span>
+<span id="cb142-4"><a href="#cb142-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;P2&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Coffee&quot;</span><span class="fu">,</span> <span class="dt">&quot;Color&quot;</span><span class="fu">:</span> <span class="st">&quot;Brown&quot;</span><span class="fu">,</span> <span class="dt">&quot;TaxRate&quot;</span><span class="fu">:</span> <span class="fl">0.06</span><span class="fu">,</span></span>
 <span id="cb142-5"><a href="#cb142-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;AggregatedSales@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Sales(Total)&quot;</span><span class="fu">,</span></span>
 <span id="cb142-6"><a href="#cb142-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;AggregatedSales&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="fu">{</span> <span class="dt">&quot;Total@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Total&quot;</span><span class="fu">:</span> <span class="dv">12</span> <span class="fu">}</span> <span class="ot">]</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb142-7"><a href="#cb142-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;P3&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Paper&quot;</span><span class="fu">,</span>  <span class="dt">&quot;Color&quot;</span><span class="fu">:</span> <span class="st">&quot;White&quot;</span><span class="fu">,</span> <span class="dt">&quot;TaxRate&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="er">.</span><span class="dv">14</span><span class="fu">,</span></span>
+<span id="cb142-7"><a href="#cb142-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;P3&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Paper&quot;</span><span class="fu">,</span>  <span class="dt">&quot;Color&quot;</span><span class="fu">:</span> <span class="st">&quot;White&quot;</span><span class="fu">,</span> <span class="dt">&quot;TaxRate&quot;</span><span class="fu">:</span> <span class="fl">0.14</span><span class="fu">,</span></span>
 <span id="cb142-8"><a href="#cb142-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;AggregatedSales@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Sales(Total)&quot;</span><span class="fu">,</span></span>
 <span id="cb142-9"><a href="#cb142-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;AggregatedSales&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="fu">{</span> <span class="dt">&quot;Total@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Total&quot;</span><span class="fu">:</span>  <span class="dv">8</span> <span class="fu">}</span> <span class="ot">]</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb142-10"><a href="#cb142-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;P4&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Pencil&quot;</span><span class="fu">,</span> <span class="dt">&quot;Color&quot;</span><span class="fu">:</span> <span class="st">&quot;Black&quot;</span><span class="fu">,</span> <span class="dt">&quot;TaxRate&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="er">.</span><span class="dv">14</span><span class="fu">,</span></span>
+<span id="cb142-10"><a href="#cb142-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;P4&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Pencil&quot;</span><span class="fu">,</span> <span class="dt">&quot;Color&quot;</span><span class="fu">:</span> <span class="st">&quot;Black&quot;</span><span class="fu">,</span> <span class="dt">&quot;TaxRate&quot;</span><span class="fu">:</span> <span class="fl">0.14</span><span class="fu">,</span></span>
 <span id="cb142-11"><a href="#cb142-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;AggregatedSales@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Sales(Total)&quot;</span><span class="fu">,</span></span>
 <span id="cb142-12"><a href="#cb142-12" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;AggregatedSales&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="fu">{</span>                          <span class="dt">&quot;Total&quot;</span><span class="fu">:</span> <span class="kw">null</span> <span class="fu">}</span> <span class="ot">]</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb142-13"><a href="#cb142-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;P1&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Sugar&quot;</span><span class="fu">,</span>  <span class="dt">&quot;Color&quot;</span><span class="fu">:</span> <span class="st">&quot;White&quot;</span><span class="fu">,</span> <span class="dt">&quot;TaxRate&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="er">.06</span><span class="fu">,</span></span>
+<span id="cb142-13"><a href="#cb142-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;P1&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Sugar&quot;</span><span class="fu">,</span>  <span class="dt">&quot;Color&quot;</span><span class="fu">:</span> <span class="st">&quot;White&quot;</span><span class="fu">,</span> <span class="dt">&quot;TaxRate&quot;</span><span class="fu">:</span> <span class="fl">0.06</span><span class="fu">,</span></span>
 <span id="cb142-14"><a href="#cb142-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;AggregatedSales@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Sales(Total)&quot;</span><span class="fu">,</span></span>
 <span id="cb142-15"><a href="#cb142-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;AggregatedSales&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="fu">{</span> <span class="dt">&quot;Total@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Total&quot;</span><span class="fu">:</span>  <span class="dv">4</span> <span class="fu">}</span> <span class="ot">]</span> <span class="fu">}</span></span>
 <span id="cb142-16"><a href="#cb142-16" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
@@ -3594,13 +3597,13 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 <div class="sourceCode" id="cb144"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb144-1"><a href="#cb144-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb144-2"><a href="#cb144-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Products(*,Total)&quot;</span><span class="fu">,</span></span>
 <span id="cb144-3"><a href="#cb144-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb144-4"><a href="#cb144-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;P2&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Coffee&quot;</span><span class="fu">,</span> <span class="dt">&quot;Color&quot;</span><span class="fu">:</span> <span class="st">&quot;Brown&quot;</span><span class="fu">,</span> <span class="dt">&quot;TaxRate&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="er">.06</span><span class="fu">,</span></span>
+<span id="cb144-4"><a href="#cb144-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;P2&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Coffee&quot;</span><span class="fu">,</span> <span class="dt">&quot;Color&quot;</span><span class="fu">:</span> <span class="st">&quot;Brown&quot;</span><span class="fu">,</span> <span class="dt">&quot;TaxRate&quot;</span><span class="fu">:</span> <span class="fl">0.06</span><span class="fu">,</span></span>
 <span id="cb144-5"><a href="#cb144-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Total@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Total&quot;</span><span class="fu">:</span> <span class="dv">12</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb144-6"><a href="#cb144-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;P3&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Paper&quot;</span><span class="fu">,</span>  <span class="dt">&quot;Color&quot;</span><span class="fu">:</span> <span class="st">&quot;White&quot;</span><span class="fu">,</span> <span class="dt">&quot;TaxRate&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="er">.</span><span class="dv">14</span><span class="fu">,</span></span>
+<span id="cb144-6"><a href="#cb144-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;P3&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Paper&quot;</span><span class="fu">,</span>  <span class="dt">&quot;Color&quot;</span><span class="fu">:</span> <span class="st">&quot;White&quot;</span><span class="fu">,</span> <span class="dt">&quot;TaxRate&quot;</span><span class="fu">:</span> <span class="fl">0.14</span><span class="fu">,</span></span>
 <span id="cb144-7"><a href="#cb144-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Total@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Total&quot;</span><span class="fu">:</span>  <span class="dv">8</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb144-8"><a href="#cb144-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;P4&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Pencil&quot;</span><span class="fu">,</span> <span class="dt">&quot;Color&quot;</span><span class="fu">:</span> <span class="st">&quot;Black&quot;</span><span class="fu">,</span> <span class="dt">&quot;TaxRate&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="er">.</span><span class="dv">14</span><span class="fu">,</span></span>
+<span id="cb144-8"><a href="#cb144-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;P4&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Pencil&quot;</span><span class="fu">,</span> <span class="dt">&quot;Color&quot;</span><span class="fu">:</span> <span class="st">&quot;Black&quot;</span><span class="fu">,</span> <span class="dt">&quot;TaxRate&quot;</span><span class="fu">:</span> <span class="fl">0.14</span><span class="fu">,</span></span>
 <span id="cb144-9"><a href="#cb144-9" aria-hidden="true" tabindex="-1"></a>                               <span class="dt">&quot;Total&quot;</span><span class="fu">:</span> <span class="kw">null</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb144-10"><a href="#cb144-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;P1&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Sugar&quot;</span><span class="fu">,</span>  <span class="dt">&quot;Color&quot;</span><span class="fu">:</span> <span class="st">&quot;White&quot;</span><span class="fu">,</span> <span class="dt">&quot;TaxRate&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="er">.06</span><span class="fu">,</span></span>
+<span id="cb144-10"><a href="#cb144-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;P1&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Sugar&quot;</span><span class="fu">,</span>  <span class="dt">&quot;Color&quot;</span><span class="fu">:</span> <span class="st">&quot;White&quot;</span><span class="fu">,</span> <span class="dt">&quot;TaxRate&quot;</span><span class="fu">:</span> <span class="fl">0.06</span><span class="fu">,</span></span>
 <span id="cb144-11"><a href="#cb144-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Total@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Total&quot;</span><span class="fu">:</span>  <span class="dv">4</span> <span class="fu">}</span></span>
 <span id="cb144-12"><a href="#cb144-12" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb144-13"><a href="#cb144-13" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
@@ -3694,8 +3697,8 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 <div class="sourceCode" id="cb154"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb154-1"><a href="#cb154-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb154-2"><a href="#cb154-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Products&quot;</span><span class="fu">,</span></span>
 <span id="cb154-3"><a href="#cb154-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb154-4"><a href="#cb154-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;P2&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Coffee&quot;</span><span class="fu">,</span> <span class="dt">&quot;Color&quot;</span><span class="fu">:</span> <span class="st">&quot;Brown&quot;</span><span class="fu">,</span> <span class="dt">&quot;TaxRate&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="er">.06</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb154-5"><a href="#cb154-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;P3&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Paper&quot;</span><span class="fu">,</span>  <span class="dt">&quot;Color&quot;</span><span class="fu">:</span> <span class="st">&quot;White&quot;</span><span class="fu">,</span> <span class="dt">&quot;TaxRate&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="er">.</span><span class="dv">14</span> <span class="fu">}</span></span>
+<span id="cb154-4"><a href="#cb154-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;P2&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Coffee&quot;</span><span class="fu">,</span> <span class="dt">&quot;Color&quot;</span><span class="fu">:</span> <span class="st">&quot;Brown&quot;</span><span class="fu">,</span> <span class="dt">&quot;TaxRate&quot;</span><span class="fu">:</span> <span class="fl">0.06</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb154-5"><a href="#cb154-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;P3&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Paper&quot;</span><span class="fu">,</span>  <span class="dt">&quot;Color&quot;</span><span class="fu">:</span> <span class="st">&quot;White&quot;</span><span class="fu">,</span> <span class="dt">&quot;TaxRate&quot;</span><span class="fu">:</span> <span class="fl">0.14</span> <span class="fu">}</span></span>
 <span id="cb154-6"><a href="#cb154-6" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb154-7"><a href="#cb154-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
@@ -3722,21 +3725,21 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 <span id="cb158-2"><a href="#cb158-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Sales(*,Contribution)&quot;</span><span class="fu">,</span></span>
 <span id="cb158-3"><a href="#cb158-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
 <span id="cb158-4"><a href="#cb158-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span> <span class="dt">&quot;Amount&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span> <span class="dt">&quot;Contribution@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span></span>
-<span id="cb158-5"><a href="#cb158-5" aria-hidden="true" tabindex="-1"></a>                            <span class="dt">&quot;Contribution&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="er">.0416666666666667</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb158-5"><a href="#cb158-5" aria-hidden="true" tabindex="-1"></a>                            <span class="dt">&quot;Contribution&quot;</span><span class="fu">:</span> <span class="fl">0.0416666666666667</span> <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb158-6"><a href="#cb158-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span> <span class="dt">&quot;Amount&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span> <span class="dt">&quot;Contribution@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span></span>
-<span id="cb158-7"><a href="#cb158-7" aria-hidden="true" tabindex="-1"></a>                            <span class="dt">&quot;Contribution&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="er">.0833333333333333</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb158-7"><a href="#cb158-7" aria-hidden="true" tabindex="-1"></a>                            <span class="dt">&quot;Contribution&quot;</span><span class="fu">:</span> <span class="fl">0.0833333333333333</span> <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb158-8"><a href="#cb158-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">3</span><span class="fu">,</span> <span class="dt">&quot;Amount&quot;</span><span class="fu">:</span> <span class="dv">4</span><span class="fu">,</span> <span class="dt">&quot;Contribution@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span></span>
-<span id="cb158-9"><a href="#cb158-9" aria-hidden="true" tabindex="-1"></a>                            <span class="dt">&quot;Contribution&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="er">.</span><span class="dv">1666666666666667</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb158-9"><a href="#cb158-9" aria-hidden="true" tabindex="-1"></a>                            <span class="dt">&quot;Contribution&quot;</span><span class="fu">:</span> <span class="fl">0.1666666666666667</span> <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb158-10"><a href="#cb158-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">4</span><span class="fu">,</span> <span class="dt">&quot;Amount&quot;</span><span class="fu">:</span> <span class="dv">8</span><span class="fu">,</span> <span class="dt">&quot;Contribution@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span></span>
-<span id="cb158-11"><a href="#cb158-11" aria-hidden="true" tabindex="-1"></a>                            <span class="dt">&quot;Contribution&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="er">.</span><span class="dv">3333333333333333</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb158-11"><a href="#cb158-11" aria-hidden="true" tabindex="-1"></a>                            <span class="dt">&quot;Contribution&quot;</span><span class="fu">:</span> <span class="fl">0.3333333333333333</span> <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb158-12"><a href="#cb158-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">5</span><span class="fu">,</span> <span class="dt">&quot;Amount&quot;</span><span class="fu">:</span> <span class="dv">4</span><span class="fu">,</span> <span class="dt">&quot;Contribution@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span></span>
-<span id="cb158-13"><a href="#cb158-13" aria-hidden="true" tabindex="-1"></a>                            <span class="dt">&quot;Contribution&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="er">.</span><span class="dv">1666666666666667</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb158-13"><a href="#cb158-13" aria-hidden="true" tabindex="-1"></a>                            <span class="dt">&quot;Contribution&quot;</span><span class="fu">:</span> <span class="fl">0.1666666666666667</span> <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb158-14"><a href="#cb158-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">6</span><span class="fu">,</span> <span class="dt">&quot;Amount&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span> <span class="dt">&quot;Contribution@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span></span>
-<span id="cb158-15"><a href="#cb158-15" aria-hidden="true" tabindex="-1"></a>                            <span class="dt">&quot;Contribution&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="er">.0833333333333333</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb158-15"><a href="#cb158-15" aria-hidden="true" tabindex="-1"></a>                            <span class="dt">&quot;Contribution&quot;</span><span class="fu">:</span> <span class="fl">0.0833333333333333</span> <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb158-16"><a href="#cb158-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">7</span><span class="fu">,</span> <span class="dt">&quot;Amount&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span> <span class="dt">&quot;Contribution@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span></span>
-<span id="cb158-17"><a href="#cb158-17" aria-hidden="true" tabindex="-1"></a>                            <span class="dt">&quot;Contribution&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="er">.0416666666666667</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb158-17"><a href="#cb158-17" aria-hidden="true" tabindex="-1"></a>                            <span class="dt">&quot;Contribution&quot;</span><span class="fu">:</span> <span class="fl">0.0416666666666667</span> <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb158-18"><a href="#cb158-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">8</span><span class="fu">,</span> <span class="dt">&quot;Amount&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span> <span class="dt">&quot;Contribution@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span></span>
-<span id="cb158-19"><a href="#cb158-19" aria-hidden="true" tabindex="-1"></a>                            <span class="dt">&quot;Contribution&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="er">.0833333333333333</span> <span class="fu">}</span></span>
+<span id="cb158-19"><a href="#cb158-19" aria-hidden="true" tabindex="-1"></a>                            <span class="dt">&quot;Contribution&quot;</span><span class="fu">:</span> <span class="fl">0.0833333333333333</span> <span class="fu">}</span></span>
 <span id="cb158-20"><a href="#cb158-20" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb158-21"><a href="#cb158-21" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
@@ -3765,11 +3768,11 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 <span id="cb162-2"><a href="#cb162-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Sales(Customer(),CustomerAmount,Contribution)&quot;</span><span class="fu">,</span></span>
 <span id="cb162-3"><a href="#cb162-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
 <span id="cb162-4"><a href="#cb162-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Customer&quot;</span><span class="fu">:</span>    <span class="fu">{</span> <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;C1&#39;)&quot;</span> <span class="fu">},</span></span>
-<span id="cb162-5"><a href="#cb162-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Contribution@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Contribution&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="er">.</span><span class="dv">2916667</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb162-5"><a href="#cb162-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Contribution@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Contribution&quot;</span><span class="fu">:</span> <span class="fl">0.2916667</span> <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb162-6"><a href="#cb162-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Customer&quot;</span><span class="fu">:</span>    <span class="fu">{</span> <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;C2&#39;)&quot;</span> <span class="fu">},</span></span>
-<span id="cb162-7"><a href="#cb162-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Contribution@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Contribution&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="er">.</span><span class="dv">5</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb162-7"><a href="#cb162-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Contribution@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Contribution&quot;</span><span class="fu">:</span> <span class="fl">0.5</span> <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb162-8"><a href="#cb162-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;Customer&quot;</span><span class="fu">:</span>    <span class="fu">{</span> <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;C3&#39;)&quot;</span> <span class="fu">},</span></span>
-<span id="cb162-9"><a href="#cb162-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Contribution@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Contribution&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="er">.</span><span class="dv">2083333</span> <span class="fu">}</span></span>
+<span id="cb162-9"><a href="#cb162-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Contribution@type&quot;</span><span class="fu">:</span> <span class="st">&quot;Decimal&quot;</span><span class="fu">,</span> <span class="dt">&quot;Contribution&quot;</span><span class="fu">:</span> <span class="fl">0.2083333</span> <span class="fu">}</span></span>
 <span id="cb162-10"><a href="#cb162-10" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb162-11"><a href="#cb162-11" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
@@ -4148,13 +4151,13 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 <div class="example">
 <p>Example 104: As a variation of <a href="#bestselling">example 101</a>, a query for returning the best-selling product per country and the total amount of the remaining products can be formulated with the help of a model function.</p>
 <p>For this purpose, the model includes a definition of a <code>TopCountAndRemainder</code> function that accepts a count and a numeric property for the top entities:</p>
-<div class="sourceCode" id="cb197"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb197-1"><a href="#cb197-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">edm:Function</span><span class="ot"> Name=</span><span class="st">&quot;TopCountAndRemainder&quot;</span></span>
-<span id="cb197-2"><a href="#cb197-2" aria-hidden="true" tabindex="-1"></a><span class="ot">              IsBound=</span><span class="st">&quot;true&quot;</span>&gt;</span>
-<span id="cb197-3"><a href="#cb197-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">edm:Parameter</span><span class="ot">  Name=</span><span class="st">&quot;EntityCollection&quot;</span></span>
-<span id="cb197-4"><a href="#cb197-4" aria-hidden="true" tabindex="-1"></a><span class="ot">                    Type=</span><span class="st">&quot;Collection(Edm.EntityType)&quot;</span> /&gt;</span>
-<span id="cb197-5"><a href="#cb197-5" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">edm:Parameter</span><span class="ot">  Name=</span><span class="st">&quot;Count&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.Int16&quot;</span> /&gt;</span>
-<span id="cb197-6"><a href="#cb197-6" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">edm:Parameter</span><span class="ot">  Name=</span><span class="st">&quot;Property&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span> /&gt;</span>
-<span id="cb197-7"><a href="#cb197-7" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">edm:ReturnType</span><span class="ot"> Type=</span><span class="st">&quot;Collection(Edm.EntityType)&quot;</span> /&gt;</span>
+<div class="sourceCode" id="cb197"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb197-1"><a href="#cb197-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">edm:Function</span> <span class="ot">Name=</span><span class="st">&quot;TopCountAndRemainder&quot;</span></span>
+<span id="cb197-2"><a href="#cb197-2" aria-hidden="true" tabindex="-1"></a>              <span class="ot">IsBound=</span><span class="st">&quot;true&quot;</span>&gt;</span>
+<span id="cb197-3"><a href="#cb197-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">edm:Parameter</span>  <span class="ot">Name=</span><span class="st">&quot;EntityCollection&quot;</span></span>
+<span id="cb197-4"><a href="#cb197-4" aria-hidden="true" tabindex="-1"></a>                    <span class="ot">Type=</span><span class="st">&quot;Collection(Edm.EntityType)&quot;</span> /&gt;</span>
+<span id="cb197-5"><a href="#cb197-5" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">edm:Parameter</span>  <span class="ot">Name=</span><span class="st">&quot;Count&quot;</span> <span class="ot">Type=</span><span class="st">&quot;Edm.Int16&quot;</span> /&gt;</span>
+<span id="cb197-6"><a href="#cb197-6" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">edm:Parameter</span>  <span class="ot">Name=</span><span class="st">&quot;Property&quot;</span> <span class="ot">Type=</span><span class="st">&quot;Edm.String&quot;</span> /&gt;</span>
+<span id="cb197-7"><a href="#cb197-7" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">edm:ReturnType</span> <span class="ot">Type=</span><span class="st">&quot;Collection(Edm.EntityType)&quot;</span> /&gt;</span>
 <span id="cb197-8"><a href="#cb197-8" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">edm:Function</span>&gt;</span></code></pre></div>
 <p>The function retains those entities that <code>topcount</code> also would retain, and replaces the remaining entities by a single aggregated entity, where only the numeric property has a value, which is the sum over those remaining entities:</p>
 <pre><code>GET /service/Sales?$apply=
@@ -4454,24 +4457,24 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 <p>⚠ Example 114: Assume an extension of the data model where a <code>SalesOrganization</code> is associated with one or more instances of <code>ProductCategory</code>, and <code>ProductCategory</code> also organizes categories in a recursive hierarchy:</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>ProductCategory</th>
 <th>parent ProductCategory</th>
 <th>associated SalesOrganizations</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>Food</td>
 <td></td>
 <td>US, EMEA</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Cereals</td>
 <td>Food</td>
 <td>US</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Organic cereals</td>
 <td>Cereals</td>
 <td>US West</td>
@@ -4544,17 +4547,17 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 </div>
 <div class="example">
 <p>Example <a id="refconstr" href="#refconstr">116</a>: If the parent navigation property contained a referential constraint for the key of the target <a href="https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#ReferentialConstraint">OData-CSDL, section 8.5</a>,</p>
-<div class="sourceCode" id="cb224"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb224-1"><a href="#cb224-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">EntityType</span><span class="ot"> Name=</span><span class="st">&quot;SalesOrganization&quot;</span>&gt;</span>
+<div class="sourceCode" id="cb224"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb224-1"><a href="#cb224-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">EntityType</span> <span class="ot">Name=</span><span class="st">&quot;SalesOrganization&quot;</span>&gt;</span>
 <span id="cb224-2"><a href="#cb224-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Key</span>&gt;</span>
-<span id="cb224-3"><a href="#cb224-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">PropertyRef</span><span class="ot"> Name=</span><span class="st">&quot;ID&quot;</span> /&gt;</span>
+<span id="cb224-3"><a href="#cb224-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">PropertyRef</span> <span class="ot">Name=</span><span class="st">&quot;ID&quot;</span> /&gt;</span>
 <span id="cb224-4"><a href="#cb224-4" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">Key</span>&gt;</span>
-<span id="cb224-5"><a href="#cb224-5" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;ID&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span><span class="ot"> Nullable=</span><span class="st">&quot;false&quot;</span> /&gt;</span>
-<span id="cb224-6"><a href="#cb224-6" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;Name&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span> /&gt;</span>
-<span id="cb224-7"><a href="#cb224-7" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;SuperordinateID&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span> /&gt;</span>
-<span id="cb224-8"><a href="#cb224-8" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">NavigationProperty</span><span class="ot"> Name=</span><span class="st">&quot;Superordinate&quot;</span></span>
-<span id="cb224-9"><a href="#cb224-9" aria-hidden="true" tabindex="-1"></a><span class="ot">                      Type=</span><span class="st">&quot;SalesModel.SalesOrganization&quot;</span>&gt;</span>
-<span id="cb224-10"><a href="#cb224-10" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">ReferentialConstraint</span><span class="ot"> Property=</span><span class="st">&quot;SuperordinateID&quot;</span></span>
-<span id="cb224-11"><a href="#cb224-11" aria-hidden="true" tabindex="-1"></a><span class="ot">                           ReferencedProperty=</span><span class="st">&quot;ID&quot;</span> /&gt;</span>
+<span id="cb224-5"><a href="#cb224-5" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Property</span> <span class="ot">Name=</span><span class="st">&quot;ID&quot;</span> <span class="ot">Type=</span><span class="st">&quot;Edm.String&quot;</span> <span class="ot">Nullable=</span><span class="st">&quot;false&quot;</span> /&gt;</span>
+<span id="cb224-6"><a href="#cb224-6" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Property</span> <span class="ot">Name=</span><span class="st">&quot;Name&quot;</span> <span class="ot">Type=</span><span class="st">&quot;Edm.String&quot;</span> /&gt;</span>
+<span id="cb224-7"><a href="#cb224-7" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Property</span> <span class="ot">Name=</span><span class="st">&quot;SuperordinateID&quot;</span> <span class="ot">Type=</span><span class="st">&quot;Edm.String&quot;</span> /&gt;</span>
+<span id="cb224-8"><a href="#cb224-8" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">NavigationProperty</span> <span class="ot">Name=</span><span class="st">&quot;Superordinate&quot;</span></span>
+<span id="cb224-9"><a href="#cb224-9" aria-hidden="true" tabindex="-1"></a>                      <span class="ot">Type=</span><span class="st">&quot;SalesModel.SalesOrganization&quot;</span>&gt;</span>
+<span id="cb224-10"><a href="#cb224-10" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">ReferentialConstraint</span> <span class="ot">Property=</span><span class="st">&quot;SuperordinateID&quot;</span></span>
+<span id="cb224-11"><a href="#cb224-11" aria-hidden="true" tabindex="-1"></a>                           <span class="ot">ReferencedProperty=</span><span class="st">&quot;ID&quot;</span> /&gt;</span>
 <span id="cb224-12"><a href="#cb224-12" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">NavigationProperty</span>&gt;</span>
 <span id="cb224-13"><a href="#cb224-13" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">EntityType</span>&gt;</span></code></pre></div>
 <p>then alternatively the property taking part in the referential constraint <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UpdateaPrimitiveProperty">OData-Protocol, section 11.4.8.1</a> could be changed to EMEA Central:</p>
@@ -4566,70 +4569,70 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 <p>If the parent-child relationship between sales organizations is maintained in a separate entity set, a node can have multiple parents, with additional information on each parent-child relationship.</p>
 <div class="example">
 <p>⚠ Example <a id="weight" href="#weight">117</a>: Assume the relation from a node to its parent nodes contains a weight:</p>
-<div class="sourceCode" id="cb226"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb226-1"><a href="#cb226-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">EntityType</span><span class="ot"> Name=</span><span class="st">&quot;SalesOrganizationRelation&quot;</span>&gt;</span>
+<div class="sourceCode" id="cb226"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb226-1"><a href="#cb226-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">EntityType</span> <span class="ot">Name=</span><span class="st">&quot;SalesOrganizationRelation&quot;</span>&gt;</span>
 <span id="cb226-2"><a href="#cb226-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Key</span>&gt;</span>
-<span id="cb226-3"><a href="#cb226-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">PropertyRef</span><span class="ot"> Name=</span><span class="st">&quot;Superordinate/ID&quot;</span><span class="ot"> Alias=</span><span class="st">&quot;SuperordinateID&quot;</span> /&gt;</span>
+<span id="cb226-3"><a href="#cb226-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">PropertyRef</span> <span class="ot">Name=</span><span class="st">&quot;Superordinate/ID&quot;</span> <span class="ot">Alias=</span><span class="st">&quot;SuperordinateID&quot;</span> /&gt;</span>
 <span id="cb226-4"><a href="#cb226-4" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">Key</span>&gt;</span>
-<span id="cb226-5"><a href="#cb226-5" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;Weight&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.Decimal&quot;</span></span>
-<span id="cb226-6"><a href="#cb226-6" aria-hidden="true" tabindex="-1"></a><span class="ot">                          Nullable=</span><span class="st">&quot;false&quot;</span><span class="ot"> DefaultValue=</span><span class="st">&quot;1&quot;</span> /&gt;</span>
-<span id="cb226-7"><a href="#cb226-7" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">NavigationProperty</span><span class="ot"> Name=</span><span class="st">&quot;Superordinate&quot;</span></span>
-<span id="cb226-8"><a href="#cb226-8" aria-hidden="true" tabindex="-1"></a><span class="ot">                      Type=</span><span class="st">&quot;SalesModel.SalesOrganization&quot;</span><span class="ot"> Nullable=</span><span class="st">&quot;false&quot;</span> /&gt;</span>
+<span id="cb226-5"><a href="#cb226-5" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Property</span> <span class="ot">Name=</span><span class="st">&quot;Weight&quot;</span> <span class="ot">Type=</span><span class="st">&quot;Edm.Decimal&quot;</span></span>
+<span id="cb226-6"><a href="#cb226-6" aria-hidden="true" tabindex="-1"></a>                          <span class="ot">Nullable=</span><span class="st">&quot;false&quot;</span> <span class="ot">DefaultValue=</span><span class="st">&quot;1&quot;</span> /&gt;</span>
+<span id="cb226-7"><a href="#cb226-7" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">NavigationProperty</span> <span class="ot">Name=</span><span class="st">&quot;Superordinate&quot;</span></span>
+<span id="cb226-8"><a href="#cb226-8" aria-hidden="true" tabindex="-1"></a>                      <span class="ot">Type=</span><span class="st">&quot;SalesModel.SalesOrganization&quot;</span> <span class="ot">Nullable=</span><span class="st">&quot;false&quot;</span> /&gt;</span>
 <span id="cb226-9"><a href="#cb226-9" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">EntityType</span>&gt;</span>
-<span id="cb226-10"><a href="#cb226-10" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">EntityType</span><span class="ot"> Name=</span><span class="st">&quot;SalesOrganization&quot;</span>&gt;</span>
+<span id="cb226-10"><a href="#cb226-10" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">EntityType</span> <span class="ot">Name=</span><span class="st">&quot;SalesOrganization&quot;</span>&gt;</span>
 <span id="cb226-11"><a href="#cb226-11" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Key</span>&gt;</span>
-<span id="cb226-12"><a href="#cb226-12" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">PropertyRef</span><span class="ot"> Name=</span><span class="st">&quot;ID&quot;</span> /&gt;</span>
+<span id="cb226-12"><a href="#cb226-12" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">PropertyRef</span> <span class="ot">Name=</span><span class="st">&quot;ID&quot;</span> /&gt;</span>
 <span id="cb226-13"><a href="#cb226-13" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">Key</span>&gt;</span>
-<span id="cb226-14"><a href="#cb226-14" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;ID&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span><span class="ot"> Nullable=</span><span class="st">&quot;false&quot;</span> /&gt;</span>
-<span id="cb226-15"><a href="#cb226-15" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Property</span><span class="ot"> Name=</span><span class="st">&quot;Name&quot;</span><span class="ot"> Type=</span><span class="st">&quot;Edm.String&quot;</span> /&gt;</span>
-<span id="cb226-16"><a href="#cb226-16" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">NavigationProperty</span><span class="ot"> Name=</span><span class="st">&quot;Relations&quot;</span></span>
-<span id="cb226-17"><a href="#cb226-17" aria-hidden="true" tabindex="-1"></a><span class="ot">                      Type=</span><span class="st">&quot;Collection(SalesModel.SalesOrganizationRelation)&quot;</span></span>
-<span id="cb226-18"><a href="#cb226-18" aria-hidden="true" tabindex="-1"></a><span class="ot">                      Nullable=</span><span class="st">&quot;false&quot;</span><span class="ot"> ContainsTarget=</span><span class="st">&quot;true&quot;</span> /&gt;</span>
-<span id="cb226-19"><a href="#cb226-19" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Aggregation.RecursiveHierarchy&quot;</span></span>
-<span id="cb226-20"><a href="#cb226-20" aria-hidden="true" tabindex="-1"></a><span class="ot">              Qualifier=</span><span class="st">&quot;MultiParentHierarchy&quot;</span>&gt;</span>
+<span id="cb226-14"><a href="#cb226-14" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Property</span> <span class="ot">Name=</span><span class="st">&quot;ID&quot;</span> <span class="ot">Type=</span><span class="st">&quot;Edm.String&quot;</span> <span class="ot">Nullable=</span><span class="st">&quot;false&quot;</span> /&gt;</span>
+<span id="cb226-15"><a href="#cb226-15" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Property</span> <span class="ot">Name=</span><span class="st">&quot;Name&quot;</span> <span class="ot">Type=</span><span class="st">&quot;Edm.String&quot;</span> /&gt;</span>
+<span id="cb226-16"><a href="#cb226-16" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">NavigationProperty</span> <span class="ot">Name=</span><span class="st">&quot;Relations&quot;</span></span>
+<span id="cb226-17"><a href="#cb226-17" aria-hidden="true" tabindex="-1"></a>                      <span class="ot">Type=</span><span class="st">&quot;Collection(SalesModel.SalesOrganizationRelation)&quot;</span></span>
+<span id="cb226-18"><a href="#cb226-18" aria-hidden="true" tabindex="-1"></a>                      <span class="ot">Nullable=</span><span class="st">&quot;false&quot;</span> <span class="ot">ContainsTarget=</span><span class="st">&quot;true&quot;</span> /&gt;</span>
+<span id="cb226-19"><a href="#cb226-19" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Annotation</span> <span class="ot">Term=</span><span class="st">&quot;Aggregation.RecursiveHierarchy&quot;</span></span>
+<span id="cb226-20"><a href="#cb226-20" aria-hidden="true" tabindex="-1"></a>              <span class="ot">Qualifier=</span><span class="st">&quot;MultiParentHierarchy&quot;</span>&gt;</span>
 <span id="cb226-21"><a href="#cb226-21" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">Record</span>&gt;</span>
-<span id="cb226-22"><a href="#cb226-22" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;NodeProperty&quot;</span></span>
-<span id="cb226-23"><a href="#cb226-23" aria-hidden="true" tabindex="-1"></a><span class="ot">                     PropertyPath=</span><span class="st">&quot;ID&quot;</span> /&gt;</span>
-<span id="cb226-24"><a href="#cb226-24" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">PropertyValue</span><span class="ot"> Property=</span><span class="st">&quot;ParentNavigationProperty&quot;</span></span>
-<span id="cb226-25"><a href="#cb226-25" aria-hidden="true" tabindex="-1"></a><span class="ot">                     NavigationPropertyPath=</span><span class="st">&quot;Relations/Superordinate&quot;</span> /&gt;</span>
+<span id="cb226-22"><a href="#cb226-22" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">PropertyValue</span> <span class="ot">Property=</span><span class="st">&quot;NodeProperty&quot;</span></span>
+<span id="cb226-23"><a href="#cb226-23" aria-hidden="true" tabindex="-1"></a>                     <span class="ot">PropertyPath=</span><span class="st">&quot;ID&quot;</span> /&gt;</span>
+<span id="cb226-24"><a href="#cb226-24" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">PropertyValue</span> <span class="ot">Property=</span><span class="st">&quot;ParentNavigationProperty&quot;</span></span>
+<span id="cb226-25"><a href="#cb226-25" aria-hidden="true" tabindex="-1"></a>                     <span class="ot">NavigationPropertyPath=</span><span class="st">&quot;Relations/Superordinate&quot;</span> /&gt;</span>
 <span id="cb226-26"><a href="#cb226-26" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">Record</span>&gt;</span>
 <span id="cb226-27"><a href="#cb226-27" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">Annotation</span>&gt;</span>
 <span id="cb226-28"><a href="#cb226-28" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">EntityType</span>&gt;</span></code></pre></div>
 <p>Further assume the following relationships between sales organizations:</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>ID</th>
 <th>Relations/SuperordinateID</th>
 <th style="text-align: right;">Relations/Weight</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>US</td>
 <td>Sales</td>
 <td style="text-align: right;">1</td>
 </tr>
-<tr class="even">
+<tr>
 <td>EMEA</td>
 <td>Sales</td>
 <td style="text-align: right;">1</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>EMEA Central</td>
 <td>EMEA</td>
 <td style="text-align: right;">1</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Atlantis</td>
 <td>US</td>
 <td style="text-align: right;">0.6</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Atlantis</td>
 <td>EMEA</td>
 <td style="text-align: right;">0.4</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Phobos</td>
 <td>Mars</td>
 <td style="text-align: right;">1</td>
@@ -4656,9 +4659,9 @@ GET /service/Sales?$apply=groupby((Customer))</code></pre>
 </div>
 <div class="example">
 <p>⚠ Example <a id="weighted" href="#weighted">118</a>: Continuing <a href="#weight">example 117</a>, assume a <a href="#CustomAggregates">custom aggregate</a> <code>MultiParentWeightedTotal</code> that computes the total sales amount weighted by the <code>SalesOrganizationRelation/Weight</code> properties along the <code>@Aggregation.UpPath#MultiParentHierarchy</code> of a sales organization:</p>
-<div class="sourceCode" id="cb231"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb231-1"><a href="#cb231-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotations</span><span class="ot"> Target=</span><span class="st">&quot;SalesData.Sales&quot;</span>&gt;</span>
-<span id="cb231-2"><a href="#cb231-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Annotation</span><span class="ot"> Term=</span><span class="st">&quot;Aggregation.CustomAggregate&quot;</span></span>
-<span id="cb231-3"><a href="#cb231-3" aria-hidden="true" tabindex="-1"></a><span class="ot">    Qualifier=</span><span class="st">&quot;MultiParentWeightedTotal&quot;</span><span class="ot"> String=</span><span class="st">&quot;Edm.Decimal&quot;</span> /&gt;</span>
+<div class="sourceCode" id="cb231"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb231-1"><a href="#cb231-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotations</span> <span class="ot">Target=</span><span class="st">&quot;SalesData.Sales&quot;</span>&gt;</span>
+<span id="cb231-2"><a href="#cb231-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">Annotation</span> <span class="ot">Term=</span><span class="st">&quot;Aggregation.CustomAggregate&quot;</span></span>
+<span id="cb231-3"><a href="#cb231-3" aria-hidden="true" tabindex="-1"></a>    <span class="ot">Qualifier=</span><span class="st">&quot;MultiParentWeightedTotal&quot;</span> <span class="ot">String=</span><span class="st">&quot;Edm.Decimal&quot;</span> /&gt;</span>
 <span id="cb231-4"><a href="#cb231-4" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Annotations</span>&gt;</span></code></pre></div>
 <p>Then <code>rolluprecursive</code> can be used to aggregate the weighted sales amounts with the request below. The <code>traverse</code> transformation produces an output set <span class="math inline">\(H&#39;\)</span> in which sales organizations with multiple parents occur multiple times. <a href="#SamenessandOrder">For each occurrence</a> <span class="math inline">\(x\)</span> in <span class="math inline">\(H&#39;\)</span>, the <code>rolluprecursive</code> algorithm determines a sales collection <span class="math inline">\(F(x)\)</span> and the custom aggregate <code>MultiParentWeightedTotal</code> evaluates the path <code>SalesOrganization/@Aggregation.UpPath#MultiParentHierarchy</code> relative to that collection:</p>
 <pre><code>GET /service/Sales?$apply=groupby(
@@ -4900,59 +4903,59 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <p><strong>OData TC Members:</strong></p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th style="text-align: left;">First Name</th>
 <th style="text-align: left;">Last Name</th>
 <th style="text-align: left;">Company</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td style="text-align: left;">George</td>
 <td style="text-align: left;">Ericson</td>
 <td style="text-align: left;">Dell</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: left;">Hubert</td>
 <td style="text-align: left;">Heijkers</td>
 <td style="text-align: left;">IBM</td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: left;">Ling</td>
 <td style="text-align: left;">Jin</td>
 <td style="text-align: left;">IBM</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: left;">Stefan</td>
 <td style="text-align: left;">Hagen</td>
 <td style="text-align: left;">Individual</td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: left;">Michael</td>
 <td style="text-align: left;">Pizzo</td>
 <td style="text-align: left;">Microsoft</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: left;">Christof</td>
 <td style="text-align: left;">Sprenger</td>
 <td style="text-align: left;">Microsoft</td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: left;">Ralf</td>
 <td style="text-align: left;">Handl</td>
 <td style="text-align: left;">SAP SE</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: left;">Gerald</td>
 <td style="text-align: left;">Krause</td>
 <td style="text-align: left;">SAP SE</td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: left;">Heiko</td>
 <td style="text-align: left;">Theißen</td>
 <td style="text-align: left;">SAP SE</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: left;">Martin</td>
 <td style="text-align: left;">Zurmuehl</td>
 <td style="text-align: left;">SAP SE</td>
@@ -4967,7 +4970,7 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 </summary>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>Revision</th>
 <th>Date</th>
 <th>Editor</th>
@@ -4975,37 +4978,37 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>Working Draft 01</td>
 <td>2012-11-12</td>
 <td>Ralf Handl</td>
 <td>Translated contribution into OASIS format</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Committee Specification Draft 01</td>
 <td>2013-07-25</td>
 <td>Ralf Handl<br> Hubert Heijkers<br> Gerald Krause<br> Michael Pizzo<br> Martin Zurmuehl</td>
 <td>Switched to pipe-and-filter-style query language based on composable set transformations<br> Fleshed out examples and addressed numerous editorial and technical issues processed through the TC<br> Added Conformance section</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Committee Specification Draft 02</td>
 <td>2014-01-09</td>
 <td>Ralf Handl<br> Hubert Heijkers<br> Gerald Krause<br> Michael Pizzo<br> Martin Zurmuehl</td>
 <td>Dynamic properties used all aggregated values either via aliases or via custom aggregates<br> Refactored annotations</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Committee Specification Draft 03</td>
 <td>2015-07-16</td>
 <td>Ralf Handl<br> Hubert Heijkers<br> Gerald Krause<br> Michael Pizzo<br> Martin Zurmuehl</td>
 <td>Added compute transformation<br> Minor clean-up</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Committee Specification Draft 04</td>
 <td>2023-07-05</td>
 <td>Ralf Handl<br> Hubert Heijkers<br> Gerald Krause<br> Michael Pizzo<br> Heiko Theißen</td>
 <td>Added section about fundamentals of input and output sets<br> Algorithmic descriptions of transformations<br> Added join and outerjoin transformations, replaced expand by addnested<br> Added transformations orderby, skip, top, nest<br> Added transformations for recursive hierarchies, updated related filter functions<br> Added functions evaluable on a collection, introduced keyword $these<br> Merged section 4 “Representation of Aggregated Instances” into section 3<br> Remove actions and functions (except set transformations) on aggregated entities, adapted section “Actions and Functions on Aggregated Entities”</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Committee Specification 03</td>
 <td>2023-09-19</td>
 <td>Ralf Handl<br> Gerald Krause<br> Heiko Theißen</td>

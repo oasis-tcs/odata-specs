@@ -7,6 +7,9 @@
   <meta name="description" content="This specification defines how to represent and interact with time-dependent data using the Open Data Protocol (OData)." />
   <title>OData Extension for Temporal Data Version 4.0</title>
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -22,8 +25,9 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -34,7 +38,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -97,8 +101,7 @@
       }
     }};
   </script>
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 </head>
 <body>
 <aside id="darkmode">
@@ -365,7 +368,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        odata-temporal-ext-v4.0-csd04.md
 ```
 
-This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
+This uses pandoc 3.8.3 from https://github.com/jgm/pandoc/releases/tag/3.8.3.
 -->
 
 </details>
@@ -1241,7 +1244,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p><strong>Departments</strong></p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>ID</th>
 <th>From</th>
 <th>To</th>
@@ -1250,42 +1253,42 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>D08</td>
 <td>2010-01-01</td>
 <td>2012-01-01</td>
 <td>Support</td>
 <td>1000</td>
 </tr>
-<tr class="even">
+<tr>
 <td>D08</td>
 <td>2012-01-01</td>
 <td>2012-06-01</td>
 <td>Support</td>
 <td>1250</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>D08</td>
 <td>2012-06-01</td>
 <td>2014-01-01</td>
 <td>1st Level Support</td>
 <td>1250</td>
 </tr>
-<tr class="even">
+<tr>
 <td>D08</td>
 <td>2014-01-01</td>
 <td>max</td>
 <td>1st Level Support</td>
 <td>1400</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>D15</td>
 <td>2010-01-01</td>
 <td>2011-01-01</td>
 <td>Services</td>
 <td>1100</td>
 </tr>
-<tr class="even">
+<tr>
 <td>D15</td>
 <td>2011-01-01</td>
 <td>max</td>
@@ -1299,7 +1302,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p><strong>Employees</strong></p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>ID</th>
 <th>From</th>
 <th>To</th>
@@ -1309,7 +1312,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>E314</td>
 <td>2011-01-01</td>
 <td>2013-10-01</td>
@@ -1317,7 +1320,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <td>Junior</td>
 <td>D08</td>
 </tr>
-<tr class="even">
+<tr>
 <td>E314</td>
 <td>2013-10-01</td>
 <td>2014-01-01</td>
@@ -1325,7 +1328,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <td>Senior</td>
 <td>D08</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>E314</td>
 <td>2014-01-01</td>
 <td>max</td>
@@ -1333,7 +1336,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <td>Senior</td>
 <td>D15</td>
 </tr>
-<tr class="even">
+<tr>
 <td>E401</td>
 <td>2009-11-01</td>
 <td>2012-03-01</td>
@@ -1341,7 +1344,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <td>Expert</td>
 <td>D15</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>E401</td>
 <td>2012-03-01</td>
 <td>max</td>
@@ -1406,7 +1409,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </ul>
 <div class="example">
 <p>Example 6: <code>Employees</code> entity set from <a href="#api1">example model <code>api-1</code></a> annotated with temporal terms</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;Employees&quot;:</span> <span class="fu">{</span></span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;Employees&quot;</span><span class="er">:</span> <span class="fu">{</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$Collection&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;OrgModel.Employee&quot;</span><span class="fu">,</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@Temporal.ApplicationTimeSupport&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
@@ -1421,7 +1424,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </div>
 <div class="example">
 <p>Example 7: <code>history</code> navigation property in entity set <code>Employees</code> from <a href="#api2">example model <code>api-2</code></a> annotated with temporal terms</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;$Annotations&quot;:</span> <span class="fu">{</span></span>
+<div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;$Annotations&quot;</span><span class="er">:</span> <span class="fu">{</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;OrgModel.Default/Employees/history&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;@Temporal.ApplicationTimeSupport&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Timeline&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
@@ -1443,7 +1446,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </div>
 <div class="example">
 <p>Example <a id="CostCenters" href="#CostCenters">8</a>: <code>CostCenters</code> entity set containing time slices for multiple temporal objects, the temporal objects identified by combination of <code>AreaID</code> and <code>CostCenterID</code></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;CostCenter&quot;:</span> <span class="fu">{</span></span>
+<div class="sourceCode" id="cb4"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;CostCenter&quot;</span><span class="er">:</span> <span class="fu">{</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$Kind&quot;</span><span class="fu">:</span> <span class="st">&quot;EntityType&quot;</span><span class="fu">,</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$Key&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;tsid&quot;</span><span class="ot">]</span><span class="fu">,</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;tsid&quot;</span><span class="fu">:</span> <span class="fu">{},</span></span>
@@ -1455,12 +1458,12 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;DepartmentID&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;$Nullable&quot;</span><span class="fu">:</span> <span class="kw">true</span> <span class="fu">}</span></span>
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span><span class="er">,</span></span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;Default&quot;:</span> <span class="fu">{</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;Default&quot;</span><span class="er">:</span> <span class="fu">{</span></span>
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$Kind&quot;</span><span class="fu">:</span> <span class="st">&quot;EntityContainer&quot;</span><span class="fu">,</span></span>
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;CostCenters&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;$Collection&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span> <span class="dt">&quot;$Type&quot;</span><span class="fu">:</span> <span class="st">&quot;this.CostCenter&quot;</span> <span class="fu">}</span></span>
 <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span><span class="er">,</span></span>
 <span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;$Annotations&quot;:</span> <span class="fu">{</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;$Annotations&quot;</span><span class="er">:</span> <span class="fu">{</span></span>
 <span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;this.Default/CostCenters&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;@Temporal.ApplicationTimeSupport&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;UnitOfTime&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
@@ -1924,7 +1927,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>On success it returns the created or updated time slices.</p>
 <div class="example">
 <p>Example 18: Change a department’s budget during a period of application time with <a href="#api2"><code>api-2</code></a> (visible timeline)</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/api-2/Departments(&#39;D08&#39;)/history/Temporal.Update</span></span>
+<div class="sourceCode" id="cb23"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/api</span><span class="dv">-2</span><span class="er">/Departments(&#39;D08&#39;)/history/Temporal.Update</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
@@ -1943,7 +1946,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p><strong>Departments (after)</strong></p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>ID</th>
 <th>From</th>
 <th>To</th>
@@ -1952,56 +1955,56 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>D08</td>
 <td>2010-01-01</td>
 <td>2012-01-01</td>
 <td>Support</td>
 <td>1000</td>
 </tr>
-<tr class="even">
+<tr>
 <td>D08</td>
 <td>2012-01-01</td>
 <td><em>2012-04-01</em></td>
 <td>Support</td>
 <td>1250</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><em>D08</em></td>
 <td><em>2012-04-01</em></td>
 <td><em>2012-06-01</em></td>
 <td><em>Support</em></td>
 <td><em>1320</em></td>
 </tr>
-<tr class="even">
+<tr>
 <td>D08</td>
 <td>2012-06-01</td>
 <td>2014-01-01</td>
 <td>1st Level Support</td>
 <td><em>1320</em></td>
 </tr>
-<tr class="odd">
+<tr>
 <td>D08</td>
 <td>2014-01-01</td>
 <td><em>2014-07-01</em></td>
 <td>1st Level Support</td>
 <td><em>1320</em></td>
 </tr>
-<tr class="even">
+<tr>
 <td><em>D08</em></td>
 <td><em>2014-07-01</em></td>
 <td><em>max</em></td>
 <td><em>1st Level Support</em></td>
 <td><em>1400</em></td>
 </tr>
-<tr class="odd">
+<tr>
 <td>D15</td>
 <td>2010-01-01</td>
 <td>2011-01-01</td>
 <td>Services</td>
 <td>1100</td>
 </tr>
-<tr class="even">
+<tr>
 <td>D15</td>
 <td>2011-01-01</td>
 <td>max</td>
@@ -2066,7 +2069,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </div>
 <div class="example">
 <p>Example 19: Change an employee’s job title during a period of application time with <a href="#api1"><code>api-1</code></a> (snapshot). Note that the period boundaries are not visible in <a href="#api1"><code>api-1</code></a> and are provided as <code>PeriodStart</code> and <code>PeriodEnd</code> next to the <code>Timeslice</code> data. The <code>PeriodEnd</code> is omitted, meaning the end of application time.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/api-1/Employees/Temporal.Update</span></span>
+<div class="sourceCode" id="cb25"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/api</span><span class="dv">-1</span><span class="er">/Employees/Temporal.Update</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
@@ -2085,7 +2088,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p><strong>Employees (after)</strong></p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>ID</th>
 <th>From</th>
 <th>To</th>
@@ -2095,7 +2098,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>E314</td>
 <td>2011-01-01</td>
 <td>2013-10-01</td>
@@ -2103,7 +2106,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <td>Junior</td>
 <td>D08</td>
 </tr>
-<tr class="even">
+<tr>
 <td>E314</td>
 <td>2013-10-01</td>
 <td>2014-01-01</td>
@@ -2111,7 +2114,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <td>Senior</td>
 <td>D08</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>E314</td>
 <td>2014-01-01</td>
 <td>max</td>
@@ -2119,7 +2122,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <td>Senior</td>
 <td>D15</td>
 </tr>
-<tr class="even">
+<tr>
 <td>E401</td>
 <td>2009-11-01</td>
 <td>2012-03-01</td>
@@ -2127,7 +2130,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <td>Expert</td>
 <td>D15</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>E401</td>
 <td>2012-03-01</td>
 <td><em>2021-10-01</em></td>
@@ -2135,7 +2138,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <td>Expert</td>
 <td>D15</td>
 </tr>
-<tr class="even">
+<tr>
 <td><em>E401</em></td>
 <td><em>2021-10-01</em></td>
 <td><em>max</em></td>
@@ -2191,7 +2194,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p>On success it returns the created or updated time slices.</p>
 <div class="example">
 <p>Example 20: Upsert two cost centers during a period of application time using the model from <a href="#CostCenters">example 8</a></p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/api-3/CostCenters/Temporal.Upsert</span></span>
+<div class="sourceCode" id="cb27"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/api</span><span class="dv">-3</span><span class="er">/CostCenters/Temporal.Upsert</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
@@ -2220,7 +2223,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p><strong>CostCenters (before)</strong></p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>tsid</th>
 <th>AreaID</th>
 <th>CostCenterID</th>
@@ -2231,7 +2234,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>n</td>
 <td>51</td>
 <td>C1</td>
@@ -2249,7 +2252,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <p><strong>CostCenters (after)</strong></p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>tsid</th>
 <th>AreaID</th>
 <th>CostCenterID</th>
@@ -2260,7 +2263,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>n</td>
 <td>51</td>
 <td>C1</td>
@@ -2269,7 +2272,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <td>P1</td>
 <td>D02</td>
 </tr>
-<tr class="even">
+<tr>
 <td><em>o</em></td>
 <td><em>51</em></td>
 <td><em>C1</em></td>
@@ -2278,7 +2281,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <td><em>P2</em></td>
 <td><em>D02</em></td>
 </tr>
-<tr class="odd">
+<tr>
 <td><em>p</em></td>
 <td><em>51</em></td>
 <td><em>C1</em></td>
@@ -2287,7 +2290,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <td><em>P1</em></td>
 <td><em>D02</em></td>
 </tr>
-<tr class="even">
+<tr>
 <td><em>q</em></td>
 <td><em>51</em></td>
 <td><em>C2</em></td>
@@ -2466,64 +2469,64 @@ See link in “<a href="#AdditionalArtifacts">Additional artifacts</a>” sectio
 <p><strong>OData TC Members:</strong></p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th style="text-align: left;">First Name</th>
 <th style="text-align: left;">Last Name</th>
 <th style="text-align: left;">Company</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td style="text-align: left;">George</td>
 <td style="text-align: left;">Ericson</td>
 <td style="text-align: left;">Dell</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: left;">Hubert</td>
 <td style="text-align: left;">Heijkers</td>
 <td style="text-align: left;">IBM</td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: left;">Ling</td>
 <td style="text-align: left;">Jin</td>
 <td style="text-align: left;">IBM</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: left;">Stefan</td>
 <td style="text-align: left;">Hagen</td>
 <td style="text-align: left;">Individual</td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: left;">Michael</td>
 <td style="text-align: left;">Pizzo</td>
 <td style="text-align: left;">Microsoft</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: left;">Christof</td>
 <td style="text-align: left;">Sprenger</td>
 <td style="text-align: left;">Microsoft</td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: left;">Ralf</td>
 <td style="text-align: left;">Handl</td>
 <td style="text-align: left;">SAP SE</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: left;">Gerald</td>
 <td style="text-align: left;">Krause</td>
 <td style="text-align: left;">SAP SE</td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: left;">Heiko</td>
 <td style="text-align: left;">Theißen</td>
 <td style="text-align: left;">SAP SE</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: left;">Mark</td>
 <td style="text-align: left;">Biamonte</td>
 <td style="text-align: left;">Progress Software</td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: left;">Martin</td>
 <td style="text-align: left;">Zurmuehl</td>
 <td style="text-align: left;">SAP SE</td>
@@ -2538,7 +2541,7 @@ See link in “<a href="#AdditionalArtifacts">Additional artifacts</a>” sectio
 </summary>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th style="text-align: left;">Revision</th>
 <th style="text-align: left;">Date</th>
 <th style="text-align: left;">Editor</th>
@@ -2546,31 +2549,31 @@ See link in “<a href="#AdditionalArtifacts">Additional artifacts</a>” sectio
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td style="text-align: left;">Working Draft 01</td>
 <td style="text-align: left;">2013-09-05</td>
 <td style="text-align: left;">Ralf Handl</td>
 <td style="text-align: left;">Initial working draft</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: left;">Committee Specification Draft 01</td>
 <td style="text-align: left;">2021-07-22</td>
 <td style="text-align: left;">Ralf Handl<br>Hubert Heijkers<br> Gerald Krause<br> Michael Pizzo<br> Heiko Theißen<br> Martin Zurmuehl</td>
 <td style="text-align: left;">Timeline entity sets for manipulating time slices<br> Snapshot entity sets for hiding application-time dependency<br> Modification during a period via actions<br> Closed-closed application time</td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: left;">Committee Specification Draft 02</td>
 <td style="text-align: left;">2021-10-15</td>
 <td style="text-align: left;">Ralf Handl</td>
 <td style="text-align: left;">Example model with object key<br> Example for Update action on snapshot entity set<br> Example for Upsert action with object key<br> Semantics of omitting upper period boundaries in action parameters</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: left;">Committee Specification Draft 03</td>
 <td style="text-align: left;">2021-12-02</td>
 <td style="text-align: left;">Ralf Handl</td>
 <td style="text-align: left;">Removed the “stop on change” actions<br> Minor clarifications</td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: left;">Committee Specification 01</td>
 <td style="text-align: left;">2022-01-07</td>
 <td style="text-align: left;">Ralf Handl</td>
