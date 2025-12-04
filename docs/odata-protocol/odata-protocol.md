@@ -4241,7 +4241,9 @@ modified content unless the resource is a stream property value.
 
 When returning content other than for an update to a media entity
 stream, services MUST return the same content as a subsequent request to
-retrieve the same resource. For updating media entity streams, the
+retrieve the same resource would return if there were no other changes to the resources.
+Every entity and related entity contained in the request MUST have a corresponding
+entity or related entity in the returned content. For updating media entity streams, the
 content of a non-empty response body MUST be the updated media entity.
 
 Requests that return a single instance of a structured type or a
@@ -4269,12 +4271,6 @@ query options. If it cannot apply the specified query options
 appropriately, it MUST NOT fail the request solely due to the presence
 of these query options and instead MUST return [`204 No Content`](#ResponseCode204NoContent).
 
-A representation of a single instance _conforms_ to the request if the client can
-recognize a 1:1 mapping $e\mapsto e'$ from the entity and nested entities contained
-in the request into (not necessarily onto) those contained in the representation such that for every
-navigation property $N$ contained in the request with source entity $e$ it establishes a
-1:1 correspondence between the entity or entities addressed by $e/N$ and $e'/N$.
-
 ### <a id="CreateanEntity" href="#CreateanEntity">11.4.2 Create an Entity</a>
 
 To create an entity in a collection, the client sends a `POST` request
@@ -4295,7 +4291,7 @@ Otherwise the entity MUST be created in the determined collection and,
 if the resource path ends with a non-containment navigation property,
 also linked to the entity containing the navigation property.
 
-In order to express the client's intent to relate the created entity to other entities,
+In order to relate the created entity to other entities,
 the entity representation MAY reference existing
 entities as well as define content for new related entities. The intended result of the
 operation is the entity with relationships to all referenced existing
@@ -4357,15 +4353,13 @@ request included a
 [`return=minimal`](#Preferencereturnrepresentationandreturnminimal) preference and did not
 include the system query options [`$select`](#SystemQueryOptionselect)
 and [`$expand`](#SystemQueryOptionexpand), or if a representation of the created
-entity that [conforms](#ReturningResultsfromDataModificationRequests) to the request could not be constructed.
-In either case, if the service is able to construct
+entity could not be constructed. In either case, if the service is able to construct
 the edit URL or read URL of the created entity, the response MUST contain that URL in a
 [`Location`](#HeaderLocation) header.
 
 #### <a id="LinktoRelatedEntitiesWhenCreatinganEntity" href="#LinktoRelatedEntitiesWhenCreatinganEntity">11.4.2.1 Link to Related Entities When Creating an Entity</a>
 
-In order to express the intent
-to create a new entity with links to existing entities in a single
+In order to create a new entity with links to existing entities in a single
 request, the client includes references to the related entities in the
 request body.
 
@@ -4458,8 +4452,7 @@ MUST never create an entity in a partially valid state
 
 #### <a id="CreateRelatedEntitiesWhenCreatinganEntity" href="#CreateRelatedEntitiesWhenCreatinganEntity">11.4.2.2 Create Related Entities When Creating an Entity</a>
 
-In order to express the client's intent to
-create an entity together with related entities, the related entities are
+In order to create an entity together with related entities, the related entities are
 represented using the appropriate inline representation, such a request is referred to
 as a "deep insert".
 
@@ -4630,8 +4623,6 @@ An entity that requires concurrency control
 and is included in the response MUST include an ETag.
 If a representation of the updated entity could not be constructed,
 the service MAY ignore the system query options and respond with `204 No Content`.
-If the constructed representation does not [conform](#ReturningResultsfromDataModificationRequests)
-to the request it MUST respond with `204 No Content`.
 
 #### <a id="UpdateRelatedEntitiesWhenUpdatinganEntity" href="#UpdateRelatedEntitiesWhenUpdatinganEntity">11.4.3.1 Update Related Entities When Updating an Entity</a>
 
@@ -4645,8 +4636,7 @@ Payloads with an `OData-Version` header with a value of `4.01` or
 greater MAY include nested entities and entity references that specify
 the full set of to be related entities, or a nested [delta
 payload](#DeltaPayloads) representing the related entities that have
-been added, removed, or changed. Such a request expresses the client's intent
-to update an entity together with related entities and is referred to as a
+been added, removed, or changed. Such a request is referred to as a
 "deep update". If the nested collection is represented identical to an
 expanded navigation property, then the set of nested entities and entity
 references specified in a successful request represents the full
@@ -4685,22 +4675,21 @@ reports; two existing employees and one new employee named
 :::
 
 If the nested collection is represented as a delta control information on the
-navigation property, then the collection expresses the client's intent to
-have its members added or
+navigation property, then the collection contains members to be added or
 changed and MAY include deleted entities for entities that are no longer
 intended to be part of the collection, using the [delta payload](#DeltaPayloads)
 format. If the deleted entity specifies a `reason` as `deleted`, then
-the entity is intended to be both removed from the collection and deleted, otherwise it
-is intended to be removed from the collection and only deleted if the relationship is
+the entity is to be both removed from the collection and deleted, otherwise it
+is to be removed from the collection and only deleted if the relationship is
 contained. Non-key properties of the deleted entity are ignored. Nested
 collections MUST NOT contain added or deleted links. If the request
 contains nested delta collections, then the `PATCH` verb MUST be
 specified.
 
 If a nested entity has the same id or key fields as an existing entity,
-the existing entity is intended to be updated according to the semantics of the `PUT` or
+the existing entity is to be updated according to the semantics of the `PUT` or
 `PATCH` request. Nested entities that have no id or key fields, or for
-which the id or key fields do not match existing entities, are intended to be treated
+which the id or key fields do not match existing entities, are to be treated
 as inserts and processed observing the rules for [creating an entity](#CreateanEntity).
 If any nested entities contain both id and key
 fields, they MUST identify the same entity, or the request is invalid.
