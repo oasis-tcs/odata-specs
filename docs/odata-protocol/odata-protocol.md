@@ -4101,8 +4101,7 @@ regardless of whether the requested content could be returned.
 
 ### <a id="CommonDataModificationSemantics" href="#CommonDataModificationSemantics">11.4.1 Common Data Modification Semantics</a>
 
-[Data Modification Requests](#DataModification) share the following
-semantics.
+Data modification requests share the following semantics.
 
 #### <a id="Atomicity" href="#Atomicity">11.4.1.1 Atomicity</a>
 
@@ -4242,8 +4241,11 @@ modified content unless the resource is a stream property value.
 When returning content other than for an update to a media entity
 stream, services MUST return the same content as a subsequent request to
 retrieve the same resource would return if there were no other changes to the resources.
-Every entity and related entity contained in the request MUST have a corresponding
-entity or related entity in the returned content. For updating media entity streams, the
+Every entity and related entity contained in the request MUST have in the returned content
+a corresponding entity or related entity or an entry representing an error as
+in [section 11.4.11.1](#ErrorHandlingwhenUpdatingaCollectionofEntities) in cases where this specification
+allows such an error representation.
+For updating media entity streams, the
 content of a non-empty response body MUST be the updated media entity.
 
 Requests that return a single instance of a structured type or a
@@ -4494,7 +4496,7 @@ Other services that do not return the `Core.ContentID` MUST fail requests that c
 
 Services MUST also fail requests if a related entity whose key is fully specified in the
 payload cannot be created as intended. Related entities that cannot be created
-as intended by a successful request MUST be represented in the response as in
+as intended by a successful request MAY be represented in the response as in
 [section 11.4.11.1](#ErrorHandlingwhenUpdatingaCollectionofEntities).
 
 The `continue-on-error` preference is not supported for deep insert
@@ -4849,7 +4851,7 @@ Services MUST also fail requests if a related entity whose key is fully specifie
 payload cannot be created as intended.
 
 Related entities that cannot be created or updated
-as intended by a successful request MUST be represented in the response as in
+as intended by a successful request MAY be represented in the response as in
 [section 11.4.11.1](#ErrorHandlingwhenUpdatingaCollectionofEntities).
 
 The `continue-on-error` preference is not supported for deep update
