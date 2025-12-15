@@ -43,7 +43,7 @@ The [`pandoc.js`](pandoc.js) module converts this single Markdown document to HT
 - name: Setup pandoc
   uses: nikeee/setup-pandoc@v1
   with:
-    pandoc-version: 3.1.x
+    pandoc-version: 3.x.y
 ```
 
 and effectively executes

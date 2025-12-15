@@ -7,6 +7,9 @@
   <meta name="description" content="The Open Data Protocol (OData) for representing and interacting with structured content is comprised of a set of specifications. The core specification for the protocol is in OData Version 4.02 Part 1: Protocol. This document extends the core specification by defining representations for OData requests and responses using a JSON format." />
   <title>OData JSON Format Version 4.02</title>
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -22,8 +25,9 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -34,7 +38,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -97,8 +101,7 @@
       }
     }};
   </script>
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 </head>
 <body>
 <aside id="darkmode">
@@ -340,49 +343,49 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </summary>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>Section</th>
 <th>Feature / Change</th>
 <th>Issue</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><a href="#ControlInformationcontextodatacontext">Section 4.6.1</a></td>
 <td>Fragment portion of Context URL is not percent-encoded</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/368">368</a></td>
 </tr>
-<tr class="even">
+<tr>
 <td><a href="#ControlInformationidodataid">Section 4.6.8</a></td>
 <td>Transient entities can be identifiable</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/1928">1928</a></td>
 </tr>
-<tr class="odd">
+<tr>
 <td><a href="#ControlInformationetagodataetag">Section 4.6.10</a></td>
 <td>Control information <code>"@etag": ""</code> to prevent updates</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/2021">2021</a></td>
 </tr>
-<tr class="even">
+<tr>
 <td><a href="#ControlInformationmediaodatamedia">Section 4.6.12</a></td>
 <td><code>mediaContentType</code> can be <code>null</code></td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/536">536</a></td>
 </tr>
-<tr class="odd">
+<tr>
 <td><a href="#StructuralProperty">Section 7</a>, <a href="#InformativeReferences">Section A.2</a></td>
 <td>Removed reference to obsolete version of GeoJSON</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/352">352</a></td>
 </tr>
-<tr class="even">
+<tr>
 <td><a href="#EntityReference">Section 14</a></td>
 <td>Entities can be referenced by id or full set of key properties</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/456">456</a></td>
 </tr>
-<tr class="odd">
+<tr>
 <td><a href="#DeletedEntity">Section 15.3</a></td>
 <td><code>type</code> control information, if present, must come immediately after <code>removed</code></td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/1985">1985</a></td>
 </tr>
-<tr class="even">
+<tr>
 <td><a href="#ActionInvocation">Section 18</a></td>
 <td>Allow common expressions in action payloads</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/341">341</a></td>
@@ -431,7 +434,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        odata-json-format-v4.02-csd02.md
 ```
 
-This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
+This uses pandoc 3.8.3 from https://github.com/jgm/pandoc/releases/tag/3.8.3.
 -->
 
 </details>
@@ -1106,7 +1109,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <div class="sourceCode" id="cb21"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">11643</span><span class="fu">,</span></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Amount&quot;</span><span class="fu">:</span> <span class="dv">100</span><span class="fu">,</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span><span class="fu">,</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="er">…,</span></span>
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Customer&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;ANEWONE&quot;</span><span class="fu">,</span></span>
 <span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="er">…</span></span>
@@ -1133,7 +1136,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <p>For requests containing an <code>OData-Version</code> header with a value of <code>4.0</code>, a bind operation is encoded as a property control information <code>odata.bind</code> on the navigation property it belongs to and has a single value for single-valued navigation properties or an array of values for collection navigation properties. For nullable single-valued navigation properties the value <code>null</code> may be used to remove the relationship.</p>
 <div class="example">
 <p>Example 20: assign an existing product to an existing category with a partial update request against the product</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="er">PATCH</span> <span class="er">http://host/service/Products(42)</span> <span class="er">HTTP/1.1</span></span>
+<div class="sourceCode" id="cb22"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="er">PATCH</span> <span class="er">http://host/service/Products(</span><span class="dv">42</span><span class="er">)</span> <span class="er">HTTP/</span><span class="fl">1.1</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
@@ -1144,7 +1147,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <p>For requests containing an <code>OData-Version</code> header with a value of <code>4.01</code>, a relationship is bound to an existing entity using the same representation as for an <a href="#EntityReference">expanded entity reference</a>.</p>
 <div class="example">
 <p>Example 21: assign an existing product to an existing category with a partial update request against the product</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="er">PATCH</span> <span class="er">http://host/service/Products(42)</span> <span class="er">HTTP/1.1</span></span>
+<div class="sourceCode" id="cb23"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="er">PATCH</span> <span class="er">http://host/service/Products(</span><span class="dv">42</span><span class="er">)</span> <span class="er">HTTP/</span><span class="fl">1.1</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
@@ -1160,7 +1163,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <li>create a new product named <code>Wedges</code> and assign it to the category</li>
 </ul>
 <p>At the end of the request, the updated category contains exactly the three specified products.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="er">PATCH</span> <span class="er">http://host/service/Categories(6)</span> <span class="er">HTTP/1.1</span></span>
+<div class="sourceCode" id="cb24"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="er">PATCH</span> <span class="er">http://host/service/Categories(</span><span class="dv">6</span><span class="er">)</span> <span class="er">HTTP/</span><span class="fl">1.1</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
@@ -1666,7 +1669,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <li>Add order 10643 to customer <code>ANATR</code></li>
 <li>Remove order 10311 from customer <code>DUMON</code></li>
 </ol>
-<div class="sourceCode" id="cb44"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="er">PATCH</span> <span class="er">/service/Customers</span> <span class="er">HTTP/1.1</span></span>
+<div class="sourceCode" id="cb44"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="er">PATCH</span> <span class="er">/service/Customers</span> <span class="er">HTTP/</span><span class="fl">1.1</span></span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="er">Host:</span> <span class="er">host</span></span>
 <span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Length:</span> <span class="er">###</span></span>
@@ -1770,7 +1773,7 @@ Preference-Applied: return=minimal, continue-on-error
 <li>Add order 10643 to customer ‘ANATR’ - failed without further info</li>
 <li>Remove order 10311 from customer ‘DUMON’ - failed without further info</li>
 </ol>
-<div class="sourceCode" id="cb46"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="er">HTTP/1.1</span> <span class="er">200</span> <span class="er">OK</span></span>
+<div class="sourceCode" id="cb46"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="er">HTTP/</span><span class="fl">1.1</span> <span class="dv">200</span> <span class="er">OK</span></span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Length:</span> <span class="er">###</span></span>
 <span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="er">Preference-Applied:</span> <span class="er">return=minimal,</span> <span class="er">continue-on-error</span></span>
@@ -1876,7 +1879,7 @@ Preference-Applied: return=minimal, continue-on-error
 <span id="cb46-104"><a href="#cb46-104" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb46-105"><a href="#cb46-105" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <p>Without the <code>continue-on-error</code> preference processing would stop on the first error, and the response would be a standard OData error response</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="er">HTTP/1.1</span> <span class="er">400</span> <span class="er">Bad</span> <span class="er">Request</span></span>
+<div class="sourceCode" id="cb47"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="er">HTTP/</span><span class="fl">1.1</span> <span class="dv">400</span> <span class="er">Bad</span> <span class="er">Request</span></span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Length:</span> <span class="er">###</span></span>
 <span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -2049,7 +2052,7 @@ Preference-Applied: return=minimal, continue-on-error
 <p>Alternatively, values of non-binding parameters MAY be specified as common expressions <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CommonExpressionSyntax">OData-URL, section 5.1.1</a>. In the case of a bound action these MAY contain path expressions <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#PathExpressions">OData-URL, section 5.1.1.15</a>, which the service evaluates on the binding parameter value. Such parameters are encoded as name/value pairs where the name is the name of the parameter followed by <code>@expression</code> and the value is the common expression. As the following example demonstrates, non-transient entities can be passed as non-binding action parameters through a resource path in this way.</p>
 <div class="example">
 <p>Example 53: An employee requests leave from their manager for the next two weeks:</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/service/Employees(23)/self.RequestLeave</span></span>
+<div class="sourceCode" id="cb59"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/service/Employees(</span><span class="dv">23</span><span class="er">)/self.RequestLeave</span></span>
 <span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="er">Host:</span> <span class="er">host</span></span>
 <span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -2131,9 +2134,9 @@ Preference-Applied: return=minimal, continue-on-error
 <li>A second query request</li>
 </ol>
 <p>Note: For brevity, in the example, request bodies are excluded in favor of English descriptions inside <code>&lt;&gt;</code> brackets and <code>OData-Version</code> headers are omitted.</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/service/$batch</span> <span class="er">HTTP/1.1</span></span>
+<div class="sourceCode" id="cb62"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/service/$batch</span> <span class="er">HTTP/</span><span class="fl">1.1</span></span>
 <span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="er">Host:</span> <span class="er">host</span></span>
-<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="er">4.01</span></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="fl">4.01</span></span>
 <span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Length:</span> <span class="er">###</span></span>
 <span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a></span>
@@ -2182,9 +2185,9 @@ Preference-Applied: return=minimal, continue-on-error
 <li>Insert a new entity (with <code>id = 1</code>)</li>
 <li>Insert a second new entity (references request with <code>id = 1</code>)</li>
 </ul>
-<div class="sourceCode" id="cb63"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/service/$batch</span> <span class="er">HTTP/1.1</span></span>
+<div class="sourceCode" id="cb63"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/service/$batch</span> <span class="er">HTTP/</span><span class="fl">1.1</span></span>
 <span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="er">Host:</span> <span class="er">host</span></span>
-<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="er">4.01</span></span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="fl">4.01</span></span>
 <span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Length:</span> <span class="er">###</span></span>
 <span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a></span>
@@ -2216,9 +2219,9 @@ Preference-Applied: return=minimal, continue-on-error
 <li>Get an Employee (with <code>id</code> = 1)</li>
 <li>Update the salary only if the employee has not changed</li>
 </ul>
-<div class="sourceCode" id="cb64"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/service/$batch</span> <span class="er">HTTP/1.1</span></span>
+<div class="sourceCode" id="cb64"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/service/$batch</span> <span class="er">HTTP/</span><span class="fl">1.1</span></span>
 <span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="er">Host:</span> <span class="er">host</span></span>
-<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="er">4.01</span></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="fl">4.01</span></span>
 <span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Length:</span> <span class="er">###</span></span>
 <span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a></span>
@@ -2257,9 +2260,9 @@ Preference-Applied: return=minimal, continue-on-error
 <li>Get an employee (with <code>Content-ID = 1</code>)</li>
 <li>Get all employees residing in the same building</li>
 </ul>
-<div class="sourceCode" id="cb65"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/service/$batch</span> <span class="er">HTTP/1.1</span></span>
+<div class="sourceCode" id="cb65"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/service/$batch</span> <span class="er">HTTP/</span><span class="fl">1.1</span></span>
 <span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="er">Host:</span> <span class="er">host</span></span>
-<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="er">4.01</span></span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="fl">4.01</span></span>
 <span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Length:</span> <span class="er">###</span></span>
 <span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a></span>
@@ -2308,8 +2311,8 @@ Preference-Applied: return=minimal, continue-on-error
 <p>Relative URLs in a response object follow the rules for <a href="#RelativeURLs">relative URLs</a> based on the request URL of the corresponding request. Especially: URLs in responses MUST NOT contain <code>$</code>-prefixed request identifiers.</p>
 <div class="example">
 <p>Example 59: referencing the batch request <a href="#batchRequest">example 55</a> above, assume all the requests except the final query request succeed. In this case the response would be</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="er">HTTP/1.1</span> <span class="er">200</span> <span class="er">OK</span></span>
-<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="er">4.01</span></span>
+<div class="sourceCode" id="cb66"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="er">HTTP/</span><span class="fl">1.1</span> <span class="dv">200</span> <span class="er">OK</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="fl">4.01</span></span>
 <span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Length:</span> <span class="er">####</span></span>
 <span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a></span>
@@ -2348,13 +2351,13 @@ Preference-Applied: return=minimal, continue-on-error
 <p>A service MAY return interim results to an asynchronously executing batch. It does this by responding with <code>200 OK</code> to a <code>GET</code> request to the monitor resource and including a <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a> control information in the JSON batch response, thus signaling that the response is only a partial result. A subsequent <code>GET</code> request to the next link MAY result in a <code>202 Accepted</code> response with a <code>location</code> header pointing to a new status monitor resource.</p>
 <div class="example">
 <p>Example 60: referencing the <a href="#batchRequest">example 55</a> above again, assume that the request is sent with the <code>respond-async</code> preference. This results in a <code>202</code> response pointing to a status monitor resource:</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="er">HTTP/1.1</span> <span class="er">202</span> <span class="er">Accepted</span></span>
-<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="er">Location:</span> <span class="er">http://service-root/async-monitor-0</span></span>
+<div class="sourceCode" id="cb67"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="er">HTTP/</span><span class="fl">1.1</span> <span class="dv">202</span> <span class="er">Accepted</span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="er">Location:</span> <span class="er">http://service-root/async-monitor</span><span class="dv">-0</span></span>
 <span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a><span class="er">Retry-After:</span> <span class="er">###</span></span></code></pre></div>
 <p>When interrogating the monitor URL only the first request in the batch has finished processing and all the remaining requests are still being processed. The service signals that asynchronous processing is “finished” and returns a partial result with the first response and a next link. The client did not explicitly accept <code>application/http</code>, so the response is “unwrapped” and only indicates with the <code>AsyncResult</code> header that it is a response to a status monitor resource:</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="er">HTTP/1.1</span> <span class="er">200</span> <span class="er">OK</span></span>
-<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="er">AsyncResult:</span> <span class="er">200</span></span>
-<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="er">4.01</span></span>
+<div class="sourceCode" id="cb68"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="er">HTTP/</span><span class="fl">1.1</span> <span class="dv">200</span> <span class="er">OK</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="er">AsyncResult:</span> <span class="dv">200</span></span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="fl">4.01</span></span>
 <span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Length:</span> <span class="er">###</span></span>
 <span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a></span>
@@ -2369,13 +2372,13 @@ Preference-Applied: return=minimal, continue-on-error
 <span id="cb68-15"><a href="#cb68-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@nextLink&quot;</span><span class="fu">:</span> <span class="st">&quot;…?$skiptoken=YmF0Y2gx&quot;</span></span>
 <span id="cb68-16"><a href="#cb68-16" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <p>Client makes a <code>GET</code> request to the next link and receives a <code>202</code> response with the location of a new monitor resource.</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="er">HTTP/1.1</span> <span class="er">202</span> <span class="er">Accepted</span></span>
-<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="er">Location:</span> <span class="er">http://service-root/async-monitor-1</span></span>
+<div class="sourceCode" id="cb69"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="er">HTTP/</span><span class="fl">1.1</span> <span class="dv">202</span> <span class="er">Accepted</span></span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="er">Location:</span> <span class="er">http://service-root/async-monitor</span><span class="dv">-1</span></span>
 <span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a><span class="er">Retry-After:</span> <span class="er">###</span></span></code></pre></div>
 <p>After some time a <code>GET</code> request to the monitor resource returns the remainder of the result.</p>
-<div class="sourceCode" id="cb70"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="er">HTTP/1.1</span> <span class="er">200</span> <span class="er">OK</span></span>
-<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="er">AsyncResult:</span> <span class="er">200</span></span>
-<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="er">4.01</span></span>
+<div class="sourceCode" id="cb70"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="er">HTTP/</span><span class="fl">1.1</span> <span class="dv">200</span> <span class="er">OK</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="er">AsyncResult:</span> <span class="dv">200</span></span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="fl">4.01</span></span>
 <span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Length:</span> <span class="er">###</span></span>
 <span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a></span>
@@ -2404,8 +2407,8 @@ Preference-Applied: return=minimal, continue-on-error
 <p>In addition to the above interaction pattern individual requests within a batch with no other requests depending on it and not part of an atomicity group MAY be executed asynchronously if they specify the <code>respond-async</code> preference and if the service responds with a JSON batch response. In this case the <code>response</code> array contains a response object for each asynchronously executed individual request with a <code>status</code> of <code>202</code>, a <code>location</code> header pointing to an individual status monitor resource, and optionally a <code>retry-after</code> header.</p>
 <div class="example">
 <p>Example 61: the first individual request is processed asynchronously, the second synchronously, the batch itself is processed synchronously</p>
-<div class="sourceCode" id="cb71"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="er">HTTP/1.1</span> <span class="er">200</span> <span class="er">OK</span></span>
-<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="er">4.01</span></span>
+<div class="sourceCode" id="cb71"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="er">HTTP/</span><span class="fl">1.1</span> <span class="dv">200</span> <span class="er">OK</span></span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="fl">4.01</span></span>
 <span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Length:</span> <span class="er">###</span></span>
 <span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a></span>
@@ -2728,64 +2731,64 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <p><strong>OData TC Members:</strong></p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th style="text-align: left;">First Name</th>
 <th style="text-align: left;">Last Name</th>
 <th style="text-align: left;">Company</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td style="text-align: left;">George</td>
 <td style="text-align: left;">Ericson</td>
 <td style="text-align: left;">Dell</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: left;">Hubert</td>
 <td style="text-align: left;">Heijkers</td>
 <td style="text-align: left;">IBM</td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: left;">Ling</td>
 <td style="text-align: left;">Jin</td>
 <td style="text-align: left;">IBM</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: left;">Stefan</td>
 <td style="text-align: left;">Hagen</td>
 <td style="text-align: left;">Individual</td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: left;">Michael</td>
 <td style="text-align: left;">Pizzo</td>
 <td style="text-align: left;">Microsoft</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: left;">Christof</td>
 <td style="text-align: left;">Sprenger</td>
 <td style="text-align: left;">Microsoft</td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: left;">Ralf</td>
 <td style="text-align: left;">Handl</td>
 <td style="text-align: left;">SAP SE</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: left;">Gerald</td>
 <td style="text-align: left;">Krause</td>
 <td style="text-align: left;">SAP SE</td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: left;">Heiko</td>
 <td style="text-align: left;">Theißen</td>
 <td style="text-align: left;">SAP SE</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: left;">Mark</td>
 <td style="text-align: left;">Biamonte</td>
 <td style="text-align: left;">Progress Software</td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: left;">Martin</td>
 <td style="text-align: left;">Zurmuehl</td>
 <td style="text-align: left;">SAP SE</td>
@@ -2800,7 +2803,7 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 </summary>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th style="text-align: left;">Revision</th>
 <th style="text-align: left;">Date</th>
 <th style="text-align: left;">Editor</th>
@@ -2808,7 +2811,7 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td style="text-align: left;">Committee Specification Draft 01</td>
 <td style="text-align: left;">2024-02-28</td>
 <td style="text-align: left;">Michael Pizzo<br>Ralf Handl<br>Heiko Theißen</td>

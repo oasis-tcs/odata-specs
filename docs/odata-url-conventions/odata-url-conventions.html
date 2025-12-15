@@ -7,6 +7,9 @@
   <meta name="description" content="The Open Data Protocol (OData) enables the creation of REST-based data services, which allow resources, identified using Uniform Resource Locators (URLs) and defined in an Entity Data Model (EDM), to be published and edited by Web clients using simple HTTP messages. This specification defines a set of recommended (but not required) rules for constructing URLs to identify the data and metadata exposed by an OData service as well as a set of reserved URL query string operators." />
   <title>OData Version 4.02. Part 2: URL Conventions</title>
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -22,8 +25,9 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -34,7 +38,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -97,8 +101,7 @@
       }
     }};
   </script>
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 </head>
 <body>
 <aside id="darkmode">
@@ -398,29 +401,29 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </summary>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>Section</th>
 <th>Feature / Change</th>
 <th>Issue</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><a href="#PassingQueryOptionsintheRequestBody">Section 4.17</a></td>
 <td><code>POST ~/$query</code> with <code>Content-Type: application/x-www-form-urlencoded</code> or <code>application/json</code></td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/320">320</a>, <a href="https://github.com/oasis-tcs/odata-specs/issues/371">371</a></td>
 </tr>
-<tr class="even">
+<tr>
 <td><a href="#matchespattern">Section 5.1.1.7.1</a></td>
 <td>New overload for function <code>matchespattern</code> with flags</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/441">441</a></td>
 </tr>
-<tr class="odd">
+<tr>
 <td><a href="#SystemQueryOptionexpand">Section 5.1.3</a></td>
 <td>Nested query options can only appear once per expand item</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/2004">2004</a></td>
 </tr>
-<tr class="even">
+<tr>
 <td><a href="#SystemQueryOptionsearch">Section 5.1.8</a></td>
 <td>Allow alternative <code>$search</code> syntax</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/293">293</a></td>
@@ -471,7 +474,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        odata-v4.02-csd02-part2-url-conventions.md
 ```
 
-This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
+This uses pandoc 3.8.3 from https://github.com/jgm/pandoc/releases/tag/3.8.3.
 -->
 
 </details>
@@ -1069,7 +1072,7 @@ Content-Type: application/x-www-form-urlencoded
 <p>Members of the JSON object also include parameters if the resource path is a function invocation or function import. In this case parameters MUST be represented like parameters in an action invocation <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ActionInvocation">OData-JSON, section 18</a>, and in the resource path parentheses after the function name MUST be omitted.</p>
 <div class="example">
 <p>Example 54: An employee’s top ten leave requests from now to the end of the year pending their manager’s approval.</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">http://host/service/Employees(23)/self.PendingLeaveRequests/$query</span></span>
+<div class="sourceCode" id="cb75"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">http://host/service/Employees(</span><span class="dv">23</span><span class="er">)/self.PendingLeaveRequests/$query</span></span>
 <span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
@@ -2048,7 +2051,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>OData services MUST use the following operator precedence for supported operators when evaluating <a href="#SystemQueryOptionfilter"><code>$filter</code></a> and <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> expressions. Operators are listed by category in order of precedence from highest to lowest. Operators in the same category have equal precedence:</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>Group</th>
 <th>Operator</th>
 <th>Description</th>
@@ -2056,139 +2059,139 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>Grouping</td>
 <td><code>( )</code></td>
 <td>Precedence grouping</td>
 <td><code>parenExpr</code><br><code>boolParenExpr</code></td>
 </tr>
-<tr class="even">
+<tr>
 <td>Primary</td>
 <td><code>/</code></td>
 <td>Navigation</td>
 <td><code>firstMemberExpr</code><br><code>memberExpr</code></td>
 </tr>
-<tr class="odd">
+<tr>
 <td></td>
 <td><code>has</code></td>
 <td>Enumeration Flags</td>
 <td><code>hasExpr</code></td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td><code>in</code></td>
 <td>Is a member of</td>
 <td><code>inExpr</code></td>
 </tr>
-<tr class="odd">
+<tr>
 <td></td>
 <td><code>xxx( )</code></td>
 <td>Method Call</td>
 <td><code>methodCallExpr</code><br><code>boolMethodCallExpr</code><br><code>functionExpr</code></td>
 </tr>
-<tr class="even">
+<tr>
 <td>Unary</td>
 <td><code>-</code></td>
 <td>Negation</td>
 <td><code>negateExpr</code></td>
 </tr>
-<tr class="odd">
+<tr>
 <td></td>
 <td><code>not</code></td>
 <td>Logical Negation</td>
 <td><code>notExpr</code></td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td><code>cast( )</code></td>
 <td>Type Casting</td>
 <td><code>castExpr</code></td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Multiplicative</td>
 <td><code>mul</code></td>
 <td>Multiplication</td>
 <td><code>mulExpr</code></td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td><code>div</code></td>
 <td>Division</td>
 <td><code>divExpr</code></td>
 </tr>
-<tr class="odd">
+<tr>
 <td></td>
 <td><code>divby</code></td>
 <td>Decimal Division</td>
 <td><code>divbyExpr</code></td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td><code>mod</code></td>
 <td>Modulo</td>
 <td><code>modExpr</code></td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Additive</td>
 <td><code>add</code></td>
 <td>Addition</td>
 <td><code>addExpr</code></td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td><code>sub</code></td>
 <td>Subtraction</td>
 <td><code>subExpr</code></td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Relational</td>
 <td><code>gt</code></td>
 <td>Greater Than</td>
 <td><code>gtExpr</code></td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td><code>ge</code></td>
 <td>Greater than or Equal</td>
 <td><code>geExpr</code></td>
 </tr>
-<tr class="odd">
+<tr>
 <td></td>
 <td><code>lt</code></td>
 <td>Less Than</td>
 <td><code>ltExpr</code></td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td><code>le</code></td>
 <td>Less than or Equal</td>
 <td><code>leExpr</code></td>
 </tr>
-<tr class="odd">
+<tr>
 <td></td>
 <td><code>isof</code></td>
 <td>Type Testing</td>
 <td><code>isofExpr</code></td>
 </tr>
-<tr class="even">
+<tr>
 <td>Equality</td>
 <td><code>eq</code></td>
 <td>Equal</td>
 <td><code>eqExpr</code></td>
 </tr>
-<tr class="odd">
+<tr>
 <td></td>
 <td><code>ne</code></td>
 <td>Not Equal</td>
 <td><code>neExpr</code></td>
 </tr>
-<tr class="even">
+<tr>
 <td>Conditional AND</td>
 <td><code>and</code></td>
 <td>Logical And</td>
 <td><code>andExpr</code></td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Conditional OR</td>
 <td><code>or</code></td>
 <td>Logical Or</td>
@@ -2576,54 +2579,54 @@ do we have considerations specific to URLs, for example length, encoding, privac
 <p><strong>OData TC Members:</strong></p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th style="text-align: left;">First Name</th>
 <th style="text-align: left;">Last Name</th>
 <th style="text-align: left;">Company</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td style="text-align: left;">George</td>
 <td style="text-align: left;">Ericson</td>
 <td style="text-align: left;">Dell</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: left;">Hubert</td>
 <td style="text-align: left;">Heijkers</td>
 <td style="text-align: left;">IBM</td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: left;">Ling</td>
 <td style="text-align: left;">Jin</td>
 <td style="text-align: left;">IBM</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: left;">Stefan</td>
 <td style="text-align: left;">Hagen</td>
 <td style="text-align: left;">Individual</td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: left;">Michael</td>
 <td style="text-align: left;">Pizzo</td>
 <td style="text-align: left;">Microsoft</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: left;">Christof</td>
 <td style="text-align: left;">Sprenger</td>
 <td style="text-align: left;">Microsoft</td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: left;">Ralf</td>
 <td style="text-align: left;">Handl</td>
 <td style="text-align: left;">SAP SE</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: left;">Gerald</td>
 <td style="text-align: left;">Krause</td>
 <td style="text-align: left;">SAP SE</td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: left;">Heiko</td>
 <td style="text-align: left;">Theißen</td>
 <td style="text-align: left;">SAP SE</td>
@@ -2638,7 +2641,7 @@ do we have considerations specific to URLs, for example length, encoding, privac
 </summary>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th style="text-align: left;">Revision</th>
 <th style="text-align: left;">Date</th>
 <th style="text-align: left;">Editor</th>
@@ -2646,7 +2649,7 @@ do we have considerations specific to URLs, for example length, encoding, privac
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td style="text-align: left;">Committee Specification Draft 01</td>
 <td style="text-align: left;">2024-02-28</td>
 <td style="text-align: left;">Michael Pizzo<br>Ralf Handl<br>Heiko Theißen</td>
