@@ -779,7 +779,7 @@ This uses pandoc 3.8.3 from https://github.com/jgm/pandoc/releases/tag/3.8.3.
 <p><code>Edm.Decimal</code> with a <a href="#Scale"><code>Scale</code></a> value of <code>floating</code>, <code>Edm.Double</code>, and <code>Edm.Single</code> allow the special numeric values <code>-INF</code>, <code>INF</code>, and <code>NaN</code>.</p>
 <p><code>Edm.Stream</code> is a primitive type that can be used as a property of an <a href="#EntityType">entity type</a> or <a href="#ComplexType">complex type</a>, the underlying type for a <a href="#TypeDefinition">type definition</a>, or a binding or non-binding parameter or return type of an <a href="#Action">action</a> or <a href="#Function">function</a>. <code>Edm.Stream</code>, or a type definition whose underlying type is <code>Edm.Stream</code>, cannot be used in collections.</p>
 <p>Some of these types allow facets, defined in <a href="#TypeFacets">section 3.4</a>.</p>
-<p>Representation of primitive type values within a URL is defined by the rule <code>primitiveLiteral</code> in <a href="#ODataABNF">OData-ABNF</a>. Representation within request and response bodies is format specific.</p>
+<p>Representation of primitive type values within a URL is defined by the rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#primitiveLiteral"><code>primitiveLiteral</code></a></span> in <a href="#ODataABNF">OData-ABNF</a>. Representation within request and response bodies is format specific.</p>
 </details>
 <details open><summary>
 <h2 id="34-type-facets"><a id="TypeFacets" href="#TypeFacets">3.4 Type Facets</a></h2>
@@ -2824,7 +2824,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h3 id="1433-date"><a id="Date" href="#Date">14.3.3 Date</a></h3>
 </summary>
 <div class="varjson rep">
-<p>Date expressions are represented as a string containing the date value. The value MUST conform to type <code>xs:date</code>, see <a href="#XML-Schema2">XML-Schema-2</a>, <a href="http://www.w3.org/TR/xmlschema11-2/#date">section 3.3.9</a>. The value MUST also conform to rule <code>dateValue</code> in <a href="#ODataABNF">OData-ABNF</a>, i.e. it MUST NOT contain a time-zone offset.</p>
+<p>Date expressions are represented as a string containing the date value. The value MUST conform to type <code>xs:date</code>, see <a href="#XML-Schema2">XML-Schema-2</a>, <a href="http://www.w3.org/TR/xmlschema11-2/#date">section 3.3.9</a>. The value MUST also conform to rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#dateValue"><code>dateValue</code></a></span> in <a href="#ODataABNF">OData-ABNF</a>, i.e. it MUST NOT contain a time-zone offset.</p>
 </div>
 <div class="varjson example">
 <p>Example 45:</p>
@@ -2835,7 +2835,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h3 id="1434-datetimeoffset"><a id="DateTimeOffset" href="#DateTimeOffset">14.3.4 DateTimeOffset</a></h3>
 </summary>
 <div class="varjson rep">
-<p>Datetimestamp expressions are represented as a string containing the timestamp value. The value MUST conform to type <code>xs:dateTimeStamp</code>, see <a href="#XML-Schema2">XML-Schema-2</a>, <a href="http://www.w3.org/TR/xmlschema11-2/#dateTimeStamp">section 3.4.28</a>. The value MUST also conform to rule <code>dateTimeOffsetValue</code> in <a href="#ODataABNF">OData-ABNF</a>, i.e. it MUST NOT contain an end-of-day fragment (24:00:00).</p>
+<p>Datetimestamp expressions are represented as a string containing the timestamp value. The value MUST conform to type <code>xs:dateTimeStamp</code>, see <a href="#XML-Schema2">XML-Schema-2</a>, <a href="http://www.w3.org/TR/xmlschema11-2/#dateTimeStamp">section 3.4.28</a>. The value MUST also conform to rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#dateTimeOffsetValue"><code>dateTimeOffsetValue</code></a></span> in <a href="#ODataABNF">OData-ABNF</a>, i.e. it MUST NOT contain an end-of-day fragment (24:00:00).</p>
 </div>
 <div class="varjson example">
 <p>Example 46:</p>
@@ -2901,7 +2901,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h3 id="1439-guid"><a id="Guid" href="#Guid">14.3.9 Guid</a></h3>
 </summary>
 <div class="varjson rep">
-<p>Guid expressions are represented as a string containing the uuid value. The value MUST conform to the rule <code>guidValue</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
+<p>Guid expressions are represented as a string containing the uuid value. The value MUST conform to the rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#guidValue"><code>guidValue</code></a></span> in <a href="#ODataABNF">OData-ABNF</a>.</p>
 </div>
 <div class="varjson example">
 <p>Example 53:</p>
@@ -2938,7 +2938,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h3 id="14312-time-of-day"><a id="TimeofDay" href="#TimeofDay">14.3.12 Time of Day</a></h3>
 </summary>
 <div class="varjson rep">
-<p>Time-of-day expressions are represented as a string containing the time-of-day value. The value MUST conform to the rule <code>timeOfDayValue</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
+<p>Time-of-day expressions are represented as a string containing the time-of-day value. The value MUST conform to the rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#timeOfDayValue"><code>timeOfDayValue</code></a></span> in <a href="#ODataABNF">OData-ABNF</a>.</p>
 </div>
 <div class="varjson example">
 <p>Example 57:</p>
@@ -3511,7 +3511,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h4 id="14441-canonical-functions"><a id="CanonicalFunctions" href="#CanonicalFunctions">14.4.4.1 Canonical Functions</a></h4>
 </summary>
 <p>All canonical functions defined in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalFunctions">OData-URL, section 5.1.1.4</a> can be used as client-side functions, qualified with the namespace <code>odata</code>. The semantics of these client-side functions is identical to their counterpart function defined in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalFunctions">OData-URL, section 5.1.1.4</a>.</p>
-<p>For example, the <code>odata.concat</code> client-side function takes two expressions as arguments. Each argument MUST evaluate to a primitive or enumeration type. It returns a value of type <code>Edm.String</code> that is the concatenation of the literal representations of the results of the argument expressions. Values of primitive types other than <code>Edm.String</code> are represented according to the appropriate alternative in the <code>primitiveValue</code> rule of <a href="#ODataABNF">OData-ABNF</a>, i.e. <code>Edm.Binary</code> as <code>binaryValue</code>, <code>Edm.Boolean</code> as <code>booleanValue</code> etc.</p>
+<p>For example, the <code>odata.concat</code> client-side function takes two expressions as arguments. Each argument MUST evaluate to a primitive or enumeration type. It returns a value of type <code>Edm.String</code> that is the concatenation of the literal representations of the results of the argument expressions. Values of primitive types other than <code>Edm.String</code> are represented according to the appropriate alternative in the <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#primitiveValue"><code>primitiveValue</code></a></span> rule of <a href="#ODataABNF">OData-ABNF</a>, i.e. <code>Edm.Binary</code> as <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#binaryValue"><code>binaryValue</code></a></span>, <code>Edm.Boolean</code> as <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#booleanValue"><code>booleanValue</code></a></span> etc.</p>
 <div class="varjson example">
 <p>Example 78:</p>
 <div class="sourceCode" id="cb86"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;@UI.DisplayName&quot;</span><span class="er">:</span> <span class="fu">{</span></span>
@@ -3927,7 +3927,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <details open><summary>
 <h2 id="153-qualified-name"><a id="QualifiedName" href="#QualifiedName">15.3 Qualified Name</a></h2>
 </summary>
-<p>For model elements that are direct children of a schema: the namespace or alias of the schema that defines the model element, followed by a dot and the name of the model element, see rule <code>qualifiedTypeName</code> in <a href="#ODataABNF">OData‑ABNF</a>.</p>
+<p>For model elements that are direct children of a schema: the namespace or alias of the schema that defines the model element, followed by a dot and the name of the model element, see rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#qualifiedTypeName"><code>qualifiedTypeName</code></a></span> in <a href="#ODataABNF">OData‑ABNF</a>.</p>
 <p>For built-in <a href="#PrimitiveTypes">primitive types</a>: the name of the type, prefixed with <code>Edm</code> followed by a dot.</p>
 </details>
 <details open><summary>

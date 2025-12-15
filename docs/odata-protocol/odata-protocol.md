@@ -696,7 +696,7 @@ OData clients include the
 order to specify the maximum acceptable response version. Services
 respond with the maximum supported version that is less than or equal to
 the requested `OData-MaxVersion`, using decimal comparison. The syntax
-of the `OData-Version` and `OData-MaxVersion` header fields is defined
+of the [OData-Version]{.abnf} and [OData-MaxVersion]{.abnf} header fields is defined
 in [OData-ABNF](#ODataABNF).
 
 Services SHOULD advertise supported versions of OData through the
@@ -1170,7 +1170,7 @@ A service returns [`410 Gone`](#ResponseCode410Gone) or
 [`404 Not Found`](#ResponseCode404NotFound) if a consumer tries to
 follow a next link referring to a snapshot that is no longer available.
 
-The syntax of the `Isolation` header is defined in
+The syntax of the [Isolation]{.abnf} header is defined in
 [OData-ABNF](#ODataABNF).
 
 A service MAY specify the support for `Isolation:snapshot` using an
@@ -1232,7 +1232,7 @@ many-to-many relationships). The service MUST NOT return entity
 references in place of requested entities if
 `allow-entityreferences` has not been specified in the request, unless
 explicitly defined by other rules in this document. The syntax of the
-`allow-entityreferences` preference is defined in
+[allow-entityreferences]{.abnf} preference is defined in
 [OData-ABNF](#ODataABNF).
 
 In the case the service applies the `allow-entityreferences` preference
@@ -1270,7 +1270,7 @@ The `callback` preference can be specified:
 The `callback` preference MUST include the parameter `url` whose value
 is the URL of a callback endpoint to be invoked by the OData service
 when data is available. The syntax of the `callback` preference is
-defined in [OData-ABNF](#ODataABNF).
+defined in the [OData-ABNF](#ODataABNF) rule [callbackPreference]{.abnf}.
 
 For HTTP based callbacks, the OData service executes an HTTP `GET`
 request against the specified URL.
@@ -1380,7 +1380,8 @@ list of namespace-qualified term names or term name patterns to include
 or exclude, with `*` as a wildcard for name segments. Term names and
 term name patterns can optionally be followed by a hash (`#`) character
 and an annotation qualifier. The full syntax of the
-`include-annotations` preference is defined in [OData-ABNF](#ODataABNF).
+`include-annotations` preference is defined in the [OData-ABNF](#ODataABNF)
+rule [includeAnnotationsPreference]{.abnf}.
 
 The most specific identifier always takes precedence, with an explicit
 name taking precedence over a name pattern, and a longer pattern taking
@@ -1462,7 +1463,8 @@ preferences are specified in the same request, the value of the
 The `maxpagesize` preference is used to request that each collection
 within the response contain no more than the number of items specified
 as the positive integer value of this preference. The syntax of the
-`maxpagesize` preference is defined in [OData-ABNF](#ODataABNF).
+`maxpagesize` preference is defined in the [OData-ABNF](#ODataABNF) rule
+[maxpagesizePreference]{.abnf}.
 
 ::: example
 Example 8: a request for customers and their orders would result in a
@@ -1616,8 +1618,8 @@ Prefer: respond-async, wait=10
 The `track-changes` preference is used to request that the service
 return a [delta link](#DeltaLinks) that can subsequently be used to
 obtain [changes](#RequestingChanges) (deltas) to this result. The syntax
-of the `track-changes` preference is defined in
-[OData-ABNF](#ODataABNF).
+of the `track-changes` preference is defined in the
+[OData-ABNF](#ODataABNF) rule [trackChangesPreference]{.abnf}.
 
 For [paged results](#ServerDrivenPaging), the preference MUST be
 specified on the initial request. Services MUST ignore the
@@ -1678,7 +1680,8 @@ A 4.01 service MUST include the `AsyncResult` header in
 order to indicate the final [HTTP Response Status
 Code](#CommonResponseStatusCodes) of an [asynchronously executed
 request](#AsynchronousRequests).
-The header value is the three-digit HTTP response code, see [OData-ABNF](#ODataABNF).
+The header value is the three-digit HTTP response code, see [OData-ABNF](#ODataABNF)
+rule [asyncresult]{.abnf}.
 
 The `AsyncResult` header SHOULD NOT be applied to individual responses
 within a batch.
@@ -1736,7 +1739,7 @@ A response to a [create](#CreateanEntity) or [upsert](#UpsertanEntity)
 operation that returns [`204 No Content`](#ResponseCode204NoContent)
 MUST include an `OData-EntityId` response header. The value of the
 header is the [entity-id](#EntityIdsandEntityReferences) of the entity
-that was acted on by the request. The syntax of the `OData-EntityId`
+that was acted on by the request. The syntax of the [OData-EntityId]{.abnf}
 header is defined in [OData-ABNF](#ODataABNF).
 
 The `OData-EntityID` header SHOULD NOT be included for the overall batch
@@ -2043,8 +2046,8 @@ prefixed with a forward slash.
 Key values in `{canonical-collection}`, `{canonical-singleton}`, and `{canonical-member}` are represented in canonical form
 (parentheses-style) without percent-encoding.
 
-The full grammar for the context URL is defined in
-[OData-ABNF](#ODataABNF). Note that the syntax of the context URL is
+The full grammar for the context URL is defined in the
+[OData-ABNF](#ODataABNF) rule [context]{.abnf}. Note that the syntax of the context URL is
 independent of whatever URL conventions the service uses for addressing
 individual entities.
 
@@ -2233,7 +2236,7 @@ The shortcut `*` represents the list of all structural properties.
 Properties defined on types derived from the declared type of the entity
 set (or type specified in the type-cast segment if specified) are
 prefixed with the qualified name of the derived type as defined in
-[OData-ABNF](#ODataABNF).
+[OData-ABNF](#ODataABNF) rule [selectItem]{.abnf}.
 
 The list also contains explicitly selected or expanded instance
 annotations. It is possible to select or expand only instance
@@ -2284,7 +2287,7 @@ The shortcut `*` represents the list of all structural properties.
 Properties defined on types derived from the type of the entity set (or
 type specified in the type-cast segment if specified) are prefixed with
 the qualified name of the derived type as defined in
-[OData-ABNF](#ODataABNF). Note that expanded properties are
+[OData-ABNF](#ODataABNF) rule [selectItem]{.abnf}. Note that expanded properties are
 automatically included in the response.
 
 The list also contains explicitly selected or expanded instance
@@ -2871,20 +2874,20 @@ annotation is present. If not annotated, the format cannot be predicted
 by the client.
 
 The default format for `Edm.Geo` types is `text/plain` using the WKT
-(well-known text) format, see rules `fullCollectionLiteral`,
-`fullLineStringLiteral`, `fullMultiPointLiteral`,
-`fullMultiLineStringLiteral`, `fullMultiPolygonLiteral`,
-`fullPointLiteral`, and `fullPolygonLiteral` in
+(well-known text) format, see rules [fullCollectionLiteral]{.abnf},
+[fullLineStringLiteral]{.abnf}, [fullMultiPointLiteral]{.abnf},
+[fullMultiLineStringLiteral]{.abnf}, [fullMultiPolygonLiteral]{.abnf},
+[fullPointLiteral]{.abnf}, and [fullPolygonLiteral]{.abnf} in
 [OData-ABNF](#ODataABNF).
 
 The default format for single primitive values except `Edm.Binary` and
 the `Edm.Geo` types is `text/plain`. Responses of type
 `Edm.String` can use the `charset` format parameter to specify the
 character set used for representing the string value. Responses for the
-other primitive types follow the rules `booleanValue`, `byteValue`,
-`dateValue`, `dateTimeOffsetValue`, `decimalValue`, `doubleValue`,
-`durationValue`, `enumValue`, `guidValue`, `int16Value`, `int32Value`,
-`int64Value`, `sbyteValue`, `singleValue`, and `timeOfDayValue` in
+other primitive types follow the rules [booleanValue]{.abnf}, [byteValue]{.abnf},
+[dateValue]{.abnf}, [dateTimeOffsetValue]{.abnf}, [decimalValue]{.abnf}, [doubleValue]{.abnf},
+[durationValue]{.abnf}, [enumValue]{.abnf}, [guidValue]{.abnf}, [int16Value]{.abnf}, [int32Value]{.abnf},
+[int64Value]{.abnf}, [sbyteValue]{.abnf}, [singleValue]{.abnf}, and [timeOfDayValue]{.abnf} in
 [OData-ABNF](#ODataABNF).
 
 A raw value request for a property or operation result of type `Edm.Stream`
@@ -3221,7 +3224,7 @@ GET http://host/service/Categories?$filter=Products/$count lt 10
 :::
 
 The value of the `$filter` option is a Boolean expression as defined in
-[OData-ABNF](#ODataABNF).
+[OData-ABNF](#ODataABNF) rule [filterExpr]{.abnf}.
 
 ##### <a id="BuiltinFilterOperations" href="#BuiltinFilterOperations">11.2.6.1.1 Built-in Filter Operations</a>
 
@@ -3623,7 +3626,7 @@ specified in the same request, only those items satisfying both criteria
 are returned.
 
 The value of the `$search` option is a search expression as defined in
-[OData-ABNF](#ODataABNF).
+[OData-ABNF](#ODataABNF) rule [searchExpr]{.abnf}.
 
 #### <a id="ServerDrivenPaging" href="#ServerDrivenPaging">11.2.6.7 Server-Driven Paging</a>
 
@@ -3897,7 +3900,7 @@ the `$schemaversion` system query option addresses a specific schema
 version. For all other request types the value specifies the version of
 the schema against which the request is made. The syntax of the
 `$schemaversion` system query option is defined in
-[OData-ABNF](#ODataABNF).
+[OData-ABNF](#ODataABNF) rule [schemaversion]{.abnf}.
 
 The value of the `$schemaversion` system query option MUST be a version
 of the schema as returned in the
@@ -6187,7 +6190,7 @@ executed in any order.
 
 Each individual request within a batch request MAY have a request
 identifier assigned. The request identifier is case-sensitive, MUST be
-unique within the batch request, and MUST satisfy the rule `request-id`
+unique within the batch request, and MUST satisfy the rule [request-id]{.abnf}
 in [OData-ABNF](#ODataABNF).
 
 The representation of the request identifier is format-specific, as are
@@ -6249,7 +6252,7 @@ then the referenced value is the corresponding value in the response,
 which the service SHOULD annotate with the same `Core.ContentID` value.
 
 In both cases, if the referenced value is a collection, the value reference MAY be followed by a
-`collectionNavigationExpr`, as defined in [OData-ABNF](#ODataABNF),
+[collectionNavigationExpr]{.abnf}, as defined in [OData-ABNF](#ODataABNF),
 that is evaluated relative to the referenced value.
 Otherwise the value reference MAY be followed by a forward slash and a
 `memberExpr` that is evaluated relative to the referenced value.

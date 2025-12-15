@@ -586,7 +586,7 @@ underlying type is `Edm.Stream`, cannot be used in collections.
 
 Some of these types allow facets, defined in [section 3.4](#TypeFacets).
 
-Representation of primitive type values within a URL is defined by the rule `primitiveLiteral` in [OData-ABNF](#ODataABNF).
+Representation of primitive type values within a URL is defined by the rule [primitiveLiteral]{.abnf} in [OData-ABNF](#ODataABNF).
 Representation within request and response bodies is format specific.
 
 ## <a id="TypeFacets" href="#TypeFacets">3.4 Type Facets</a>
@@ -1777,7 +1777,7 @@ If no value is specified, the client SHOULD NOT assume a default value.
 Default values of type `Edm.String` MUST be represented according to the
 XML escaping rules for character data in attribute values. Values of
 other primitive types MUST be represented according to the appropriate
-alternative in the `primitiveValue` rule defined in
+alternative in the [primitiveValue]{.abnf} rule defined in
 [OData-ABNF](#ODataABNF), i.e. `Edm.Binary` as `binaryValue`,
 `Edm.Boolean` as `booleanValue` etc.
 :::
@@ -3532,7 +3532,7 @@ expression.
 Default values of type `Edm.String` MUST be represented according to the
 XML escaping rules for character data in attribute values. Values of
 other primitive types MUST be represented according to the appropriate
-alternative in the `primitiveValue` rule defined in
+alternative in the [primitiveValue]{.abnf} rule defined in
 [OData-ABNF](#ODataABNF), i.e. `Edm.Binary` as `binaryValue`,
 `Edm.Boolean` as `booleanValue` etc.
 
@@ -3811,7 +3811,7 @@ term.
 
 The `edm:Binary` expression evaluates to a primitive binary value. A
 binary expression MUST be assigned a value conforming to the rule
-`binaryValue` in [OData-ABNF](#ODataABNF).
+[binaryValue]{.abnf} in [OData-ABNF](#ODataABNF).
 
 The binary expression MAY be provided using element notation or
 attribute notation.
@@ -3864,7 +3864,7 @@ The `edm:Date` expression evaluates to a primitive date value. A date
 expression MUST be assigned a value of type `xs:date`, see
 [XML-Schema-2](#XML-Schema2), [section
 3.3.9](http://www.w3.org/TR/xmlschema11-2/#date). The value MUST also
-conform to rule `dateValue` in [OData-ABNF](#ODataABNF), i.e. it MUST
+conform to rule [dateValue]{.abnf} in [OData-ABNF](#ODataABNF), i.e. it MUST
 NOT contain a time-zone offset.
 
 The date expression MAY be provided using element notation or attribute
@@ -3894,7 +3894,7 @@ datetimestamp value with a time-zone offset. A datetimestamp expression
 MUST be assigned a value of type `xs:dateTimeStamp`, see
 [XML-Schema-2](#XML-Schema2), [section
 3.4.28](http://www.w3.org/TR/xmlschema11-2/#dateTimeStamp). The value
-MUST also conform to rule `dateTimeOffsetValue` in
+MUST also conform to rule [dateTimeOffsetValue]{.abnf} in
 [OData-ABNF](#ODataABNF), i.e. it MUST NOT contain an end-of-day
 fragment (24:00:00).
 
@@ -3925,7 +3925,7 @@ Example 46:
 
 The `edm:Decimal` expression evaluates to a primitive decimal value. A
 decimal expression MUST be assigned a value conforming to the rule
-`decimalValue` in [OData-ABNF](#ODataABNF).
+[decimalValue]{.abnf} in [OData-ABNF](#ODataABNF).
 
 The decimal expression MAY be provided using element notation or
 attribute notation.
@@ -4029,7 +4029,7 @@ Example 51: combined value for `IsFlags` enumeration type
 
 The `edm:Float` expression evaluates to a primitive floating point (or
 double) value. A float expression MUST be assigned a value conforming to
-the rule `doubleValue` in [OData-ABNF](#ODataABNF).
+the rule [doubleValue]{.abnf} in [OData-ABNF](#ODataABNF).
 
 The float expression MAY be provided using element notation or attribute
 notation.
@@ -4054,7 +4054,7 @@ Example 52:
 ### <a id="ExpressionedmGuid.40" href="#ExpressionedmGuid.40">Expression `edm:Guid`</a>
 
 The `edm:Guid` expression evaluates to a primitive guid value. A guid
-expression MUST be assigned a value conforming to the rule `guidValue`
+expression MUST be assigned a value conforming to the rule [guidValue]{.abnf}
 in [OData-ABNF](#ODataABNF).
 
 The guid expression MAY be provided using element notation or attribute
@@ -4082,7 +4082,7 @@ Example 53:
 ### <a id="ExpressionedmInt.41" href="#ExpressionedmInt.41">Expression `edm:Int`</a>
 
 The `edm:Int` expression evaluates to a primitive integer value. An
-integer MUST be assigned a value conforming to the rule `int64Value` in
+integer MUST be assigned a value conforming to the rule [int64Value]{.abnf} in
 [OData-ABNF](#ODataABNF).
 
 The integer expression MAY be provided using element notation or
@@ -4164,10 +4164,10 @@ Example 57:
 
 ::: {.varxml .rep}
 Values are represented as [string expressions](#String) using the WKT (well-known text) format for `Geo` types, see rules
-`fullCollectionLiteral`, `fullLineStringLiteral`,
-`fullMultiPointLiteral`, `fullMultiLineStringLiteral`,
-`fullMultiPolygonLiteral`, `fullPointLiteral`, and
-`fullPolygonLiteral` in
+[fullCollectionLiteral]{.abnf}, [fullLineStringLiteral]{.abnf},
+[fullMultiPointLiteral]{.abnf}, [fullMultiLineStringLiteral]{.abnf},
+[fullMultiPolygonLiteral]{.abnf}, [fullPointLiteral]{.abnf}, and
+[fullPolygonLiteral]{.abnf} in
 [OData-ABNF](#ODataABNF).
 :::
 
@@ -4979,8 +4979,8 @@ enumeration type. It returns a value of type `Edm.String` that is the
 concatenation of the literal representations of the results of the
 argument expressions. Values of primitive types other than `Edm.String`
 are represented according to the appropriate alternative in the
-`primitiveValue` rule of [OData-ABNF](#ODataABNF), i.e. `Edm.Binary` as
-`binaryValue`, `Edm.Boolean` as `booleanValue` etc.
+[primitiveValue]{.abnf} rule of [OData-ABNF](#ODataABNF), i.e. `Edm.Binary` as
+[binaryValue]{.abnf}, `Edm.Boolean` as [booleanValue]{.abnf} etc.
 
 
 ::: {.varxml .example}
@@ -5592,7 +5592,7 @@ and match the pattern `^[_A-Za-z][_A-Za-z0-9]*$`.
 
 For model elements that are direct children of a schema: the namespace
 or alias of the schema that defines the model element, followed by a dot
-and the name of the model element, see rule `qualifiedTypeName` in
+and the name of the model element, see rule [qualifiedTypeName]{.abnf} in
 [OData‑ABNF](#ODataABNF).
 
 For built-in [primitive types](#PrimitiveTypes): the name of the type,

@@ -61,7 +61,7 @@ The semantics of all system query options are defined in
 [#OData-Protocol#SystemQueryOptions].
 
 The grammar and syntax rules for system query options are defined in
-[OData-ABNF](#ODataABNF).
+[OData-ABNF](#ODataABNF) rule [queryOptions]{.abnf}.
 
 Dynamic properties can be used in the same way as declared properties.
 If they are not defined on an instance, they evaluate to `null`.
@@ -71,7 +71,7 @@ If they are not defined on an instance, they evaluate to `null`.
 The following operators, functions, and literals can be used in
 `$filter`, `$orderby`, and `$compute` expressions.
 
-The [OData-ABNF](#ODataABNF) `commonExpr` syntax rule defines the formal
+The [OData-ABNF](#ODataABNF) [commonExpr]{.abnf} syntax rule defines the formal
 grammar of common expressions.
 
 The following subsections specify situations in which expressions evaluate to `null`
@@ -97,12 +97,12 @@ instead be returned in such a case.
 #### ##subsubsubsec Logical Operators
 
 OData defines a set of logical operators that evaluate to `true` or `false`
-(i.e. a `boolCommonExpr` as defined in [OData-ABNF](#ODataABNF)).
+(i.e. a [boolCommonExpr]{.abnf} as defined in [OData-ABNF](#ODataABNF)).
 Logical operators are typically used to filter a collection of
 resources.
 
 The syntax rules for the logical operators are defined in
-[OData-ABNF](#ODataABNF).  4.01 Services MUST support case-insensitive
+[OData-ABNF](#ODataABNF) rule [commonExpr]{.abnf}. 4.01 Services MUST support case-insensitive
 operator names. Clients that want to work with 4.0 services MUST use
 lower case operator names.
 
@@ -365,7 +365,7 @@ If an operand of an arithmetic operator is `null` or has a non-allowed type,
 the result is `null`.
 
 The syntax rules for the arithmetic operators are defined in
-[OData-ABNF](#ODataABNF). 4.01 Services MUST support case-insensitive
+[OData-ABNF](#ODataABNF) rule [commonExpr]{.abnf}. 4.01 Services MUST support case-insensitive
 operator names. Clients that want to work with 4.0 services MUST use
 lower case operator names.
 
@@ -559,7 +559,7 @@ If a parameter of a canonical function is `null`, the function returns
 the function also returns `null`.
 
 The syntax rules for all functions are defined in
-[OData-ABNF](#ODataABNF). 4.01 Services MUST support case-insensitive
+[OData-ABNF](#ODataABNF) rule [methodCallExpr]{.abnf}. 4.01 Services MUST support case-insensitive
 canonical function names. Clients that want to work with 4.0 services
 MUST use lower case canonical function names.
 
@@ -583,7 +583,7 @@ The concat function with collection parameter values returns a
 collection that appends all items of the second collection to the first.
 If both collections are ordered, the result is also ordered.
 
-The `concatMethodCallExpr` syntax rule defines how the `concat` function
+The [concatMethodCallExpr]{.abnf} syntax rule defines how the `concat` function
 is invoked.
 
 ::: example
@@ -614,7 +614,7 @@ The `contains` function with ordered collection parameter values returns
 collection by removing zero or more items from the beginning or the end
 of the first collection.
 
-The `containsMethodCallExpr` syntax rule defines how the `contains`
+The [containsMethodCallExpr]{.abnf} syntax rule defines how the `contains`
 function is invoked.
 
 ::: example
@@ -645,7 +645,7 @@ The `endswith` function with ordered collection parameter values returns
 collection by removing zero or more items from the beginning of the
 first collection.
 
-The `endsWithMethodCallExpr` syntax rule defines how the `endswith`
+The [endsWithMethodCallExpr]{.abnf} syntax rule defines how the `endswith`
 function is invoked.
 
 ::: example
@@ -677,7 +677,7 @@ the zero-based index of the first occurrence of the second collection in
 the first collection, or -1 if the first collection does not contain the
 second collection.
 
-The `indexOfMethodCallExpr` syntax rule defines how the `indexof`
+The [indexOfMethodCallExpr]{.abnf} syntax rule defines how the `indexof`
 function is invoked.
 
 ::: example
@@ -703,7 +703,7 @@ of characters in the string.
 The `length` function with a collection parameter value returns the
 number of itens in the collection.
 
-The `lengthMethodCallExpr` syntax rule defines how the `length` function
+The [lengthMethodCallExpr]{.abnf} syntax rule defines how the `length` function
 is invoked.
 
 ::: example
@@ -735,7 +735,7 @@ returns `true` if the first collection can be transformed into the second
 collection by removing zero or more items from the end of the first
 collection.
 
-The `startsWithMethodCallExpr` syntax rule defines how the `startswith`
+The [startsWithMethodCallExpr]{.abnf} syntax rule defines how the `startswith`
 function is invoked.
 
 ::: example
@@ -789,7 +789,7 @@ A negative length M is a bad request.
 A negative start index N, if supported, returns a string/collection
 starting N characters/items before the end of the string/collection.
 
-The `substringMethodCallExpr` syntax rule defines how the `substring`
+The [substringMethodCallExpr]{.abnf} syntax rule defines how the `substring`
 function is invoked.
 
 ::: example
@@ -820,7 +820,7 @@ Edm.Boolean hassubset(Collection, Collection)
 
 The `hassubset` function returns `true` if the first collection can be
 transformed into the second collection by reordering and/or removing
-zero or more items. The `hasSubsetMethodCallExpr` syntax rule defines
+zero or more items. The [hasSubsetMethodCallExpr]{.abnf} syntax rule defines
 how the `hassubset` function is invoked.
 
 ::: example
@@ -864,7 +864,7 @@ Edm.Boolean hassubsequence(OrderedCollection,OrderedCollection)
 
 The `hassubsequence` function returns `true` if the first collection can
 be transformed into the second collection by removing zero or more
-items. The `hasSubsequenceMethodCallExpr` syntax rule defines how the
+items. The [hasSubsequenceMethodCallExpr]{.abnf} syntax rule defines how the
 `hassubsequence` function is invoked.
 
 ::: example
@@ -905,7 +905,8 @@ hassubsequence([1,2],[1,1,2])
 
 ##### ##subsubsubsubsec `matchespattern`
 
-The `matchespattern` function has the following signatures:
+The `matchespattern` function has the following signatures (see syntax rule
+[matchesPatternMethodCallExpr]{.abnf}):
 
 ```
 Edm.Boolean matchespattern(Edm.String,Edm.String)
@@ -948,7 +949,7 @@ Edm.String tolower(Edm.String)
 
 The `tolower` function returns the input parameter string value with all
 uppercase characters converted to lowercase according to Unicode rules.
-The `toLowerMethodCallExpr` syntax rule defines how the `tolower`
+The [toLowerMethodCallExpr]{.abnf} syntax rule defines how the `tolower`
 function is invoked.
 
 ::: example
@@ -970,7 +971,7 @@ Edm.String toupper(Edm.String)
 
 The `toupper` function returns the input parameter string value with all
 lowercase characters converted to uppercase according to Unicode rules.
-The `toUpperMethodCallExpr` syntax rule defines how the `toupper`
+The [toUpperMethodCallExpr]{.abnf} syntax rule defines how the `toupper`
 function is invoked.
 
 ::: example
@@ -992,7 +993,7 @@ Edm.String trim(Edm.String)
 
 The `trim` function returns the input parameter string value with all
 leading and trailing whitespace characters, according to Unicode rules,
-removed. The `trimMethodCallExpr` syntax rule defines how the `trim`
+removed. The [trimMethodCallExpr]{.abnf} syntax rule defines how the `trim`
 function is invoked.
 
 ::: example
@@ -1007,7 +1008,7 @@ http://host/service/Customers?$filter=trim(CompanyName) eq CompanyName
 
 ##### ##subsubsubsubsec `date`
 
-The `date` function has the following signature:
+The `date` function has the following signature (see syntax rule [dateMethodCallExpr]]{.abnf}):
 
 ```
 Edm.Date date(Edm.DateTimeOffset)
@@ -1028,7 +1029,7 @@ Edm.Int32 day(Edm.DateTimeOffset)
 
 The `day` function returns the day component `Date` or `DateTimeOffset`
 parameter value, evaluated in the time zone of the `DateTimeOffset`
-parameter value. The `dayMethodCallExpr` syntax rule defines how the
+parameter value. The [dayMethodCallExpr]{.abnf} syntax rule defines how the
 `day` function is invoked.
 
 Services that are unable to preserve the offset of `Edm.DateTimeOffset`
@@ -1056,7 +1057,7 @@ Edm.Decimal fractionalseconds(Edm.TimeOfDay)
 The `fractionalseconds` function returns the fractional seconds
 component of the `DateTimeOffset` or `TimeOfDay` parameter value as a
 non-negative decimal value less than 1. The
-`fractionalsecondsMethodCallExpr` syntax rule defines how the
+[fractionalsecondsMethodCallExpr]{.abnf} syntax rule defines how the
 `fractionalseconds` function is invoked.
 
 ::: example
@@ -1078,7 +1079,7 @@ Edm.Int32 hour(Edm.TimeOfDay)
 
 The `hour` function returns the hour component (`0` to `23`) of the
 `DateTimeOffset` or `TimeOfDay` parameter value, evaluated in the time
-zone of the `DateTimeOffset` parameter value. The `hourMethodCallExpr`
+zone of the `DateTimeOffset` parameter value. The [hourMethodCallExpr]{.abnf}
 syntax rule defines how the `hour` function is invoked.
 
 Services that are unable to preserve the offset of `Edm.DateTimeOffset`
@@ -1097,7 +1098,7 @@ http://host/service/Employees?$filter=hour(BirthDate) eq 4
 
 ##### ##subsubsubsubsec `maxdatetime`
 
-The `maxdatetime` function has the following signature:
+The `maxdatetime` function has the following signature (see syntax rule [maxDateTimeMethodCallExpr]]{.abnf}):
 
 ```
 Edm.DateTimeOffset maxdatetime()
@@ -1108,7 +1109,7 @@ a `DateTimeOffset` value.
 
 ##### ##subsubsubsubsec `mindatetime`
 
-The `mindatetime` function has the following signature:
+The `mindatetime` function has the following signature (see syntax rule [minDateTimeMethodCallExpr]]{.abnf}):
 
 ```
 Edm.DateTimeOffset mindatetime()
@@ -1128,7 +1129,7 @@ Edm.Int32 minute(Edm.TimeOfDay)
 
 The `minute` function returns the minute component (`0` to `59`) of the
 `DateTimeOffset` or `TimeOfDay` parameter value, evaluated in the time
-zone of the `DateTimeOffset` parameter value. The `minuteMethodCallExpr`
+zone of the `DateTimeOffset` parameter value. The [minuteMethodCallExpr]{.abnf}
 syntax rule defines how the `minute` function is invoked.
 
 ::: example
@@ -1149,7 +1150,7 @@ Edm.Int32 month(Edm.DateTimeOffset)
 
 The `month` function returns the month component of the `Date` or
 `DateTimeOffset` parameter value, evaluated in the time zone of the
-`DateTimeOffset` parameter value. The `monthMethodCallExpr` syntax rule
+`DateTimeOffset` parameter value. The [monthMethodCallExpr]{.abnf} syntax rule
 defines how the `month` function is invoked.
 
 Services that are unable to preserve the offset of `Edm.DateTimeOffset`
@@ -1167,7 +1168,7 @@ http://host/service/Employees?$filter=month(BirthDate) eq 5
 
 ##### ##subsubsubsubsec `now`
 
-The `now` function has the following signature:
+The `now` function has the following signature (see syntax rule [nowMethodCallExpr]]{.abnf}):
 
 ```
 Edm.DateTimeOffset now()
@@ -1194,7 +1195,7 @@ Edm.Int32 second(Edm.TimeOfDay)
 The `second` function returns the second component (`0` to `59` for
 regular seconds, and `60` for leap seconds, without the fractional part)
 of the `DateTimeOffset` or `TimeOfDay` parameter value. The
-`secondMethodCallExpr` syntax rule defines how the `second` function is
+[secondMethodCallExpr]{.abnf} syntax rule defines how the `second` function is
 invoked.
 
 ::: example
@@ -1207,7 +1208,7 @@ http://host/service/Employees?$filter=second(BirthDate) eq 40
 
 ##### ##subsubsubsubsec `time`
 
-The `time` function has the following signature:
+The `time` function has the following signature (see syntax rule [timeMethodCallExpr]]{.abnf}):
 
 ```
 Edm.TimeOfDay time(Edm.DateTimeOffset)
@@ -1225,7 +1226,7 @@ normalized values.
 
 ##### ##subsubsubsubsec `totaloffsetminutes`
 
-The `totaloffsetminutes` function has the following signature:
+The `totaloffsetminutes` function has the following signature (see syntax rule [totalOffsetMinutesMethodCallExpr]]{.abnf}):
 
 ```
 Edm.Int32 totaloffsetminutes(Edm.DateTimeOffset)
@@ -1237,7 +1238,7 @@ evaluated in the time zone of the `DateTimeOffset` parameter value.
 
 ##### ##subsubsubsubsec `totalseconds`
 
-The `totalseconds` function has the following signature:
+The `totalseconds` function has the following signature (see syntax rule [totalsecondsMethodCallExpr]]{.abnf}):
 
 ```
 Edm.Decimal totalseconds(Edm.Duration)
@@ -1257,7 +1258,7 @@ Edm.Int32 year(Edm.DateTimeOffset)
 
 The `year` function returns the year component of the `Date` or
 `DateTimeOffset` parameter value, evaluated in the time zone of the
-`DateTimeOffset` parameter value. The `yearMethodCallExpr` syntax rule
+`DateTimeOffset` parameter value. The [yearMethodCallExpr]{.abnf} syntax rule
 defines how the `year` function is invoked.
 
 Services that are unable to preserve the offset of `Edm.DateTimeOffset`
@@ -1286,7 +1287,7 @@ Edm.Decimal ceiling(Edm.Decimal)
 
 The `ceiling` function rounds the input numeric parameter up to the
 nearest numeric value with no decimal component. The
-`ceilingMethodCallExpr` syntax rule defines how the `ceiling` function
+[ceilingMethodCallExpr]{.abnf} syntax rule defines how the `ceiling` function
 is invoked.
 
 ::: example
@@ -1307,7 +1308,7 @@ Edm.Decimal floor(Edm.Decimal)
 
 The `floor` function rounds the input numeric parameter down to the
 nearest numeric value with no decimal component. The
-`floorMethodCallExpr` syntax rule defines how the `floor` function is
+[floorMethodCallExpr]{.abnf} syntax rule defines how the `floor` function is
 invoked.
 
 ::: example
@@ -1329,7 +1330,7 @@ Edm.Decimal round(Edm.Decimal)
 The `round` function rounds the input numeric parameter to the nearest
 numeric value with no decimal component. The mid-point between two
 integers is rounded away from zero, i.e. 0.5 is rounded to 1 and -0.5 is
-rounded to -1. The `roundMethodCallExpr` syntax rule defines how the
+rounded to -1. The [roundMethodCallExpr]{.abnf} syntax rule defines how the
 `round` function is invoked.
 
 ::: example
@@ -1343,7 +1344,7 @@ http://host/service/Orders?$filter=round(Freight) eq 32
 
 ##### ##subsubsubsubsec `cast`
 
-The `cast` function has the following signatures:
+The `cast` function has the following signatures (see syntax rule [castExpr]]{.abnf}):
 
 ```
 type cast(type)
@@ -1359,10 +1360,10 @@ The `cast` function follows these assignment rules:
 1.  The `null` value can be cast to any type.
 2.  Primitive types are cast to `Edm.String` or a type definition based on it by using the literal representation used in payloads, and WKT (well-known
     text) format for `Geo` types, see rules
-    `fullCollectionLiteral`, `fullLineStringLiteral`,
-    `fullMultiPointLiteral`, `fullMultiLineStringLiteral`,
-    `fullMultiPolygonLiteral`, `fullPointLiteral`, and
-    `fullPolygonLiteral` in
+    [fullCollectionLiteral]{.abnf}, [fullLineStringLiteral]{.abnf},
+    [fullMultiPointLiteral]{.abnf}, [fullMultiLineStringLiteral]{.abnf},
+    [fullMultiPolygonLiteral]{.abnf}, [fullPointLiteral]{.abnf}, and
+    [fullPolygonLiteral]{.abnf} in
     [OData-ABNF](#ODataABNF). The cast fails if the target type specifies an insufficient `MaxLength`.
 3.  `Edm.String`, or a type definition based on `Edm.String`, can be cast to a primitive type if the string contains a literal representation for the target type.
 4.  Numeric primitive types are cast to each other with appropriate rounding. The cast fails if the integer part doesn't fit into the target type.
@@ -1396,7 +1397,7 @@ The two parameter `isof` function returns `true` if the object referred to
 by the expression is assignable to the type specified, according to the
 same rules, otherwise it returns `false`.
 
-The `isofExpr` syntax rule defines how the `isof` function is invoked.
+The [isofExpr]{.abnf} syntax rule defines how the `isof` function is invoked.
 
 ::: example
 Example ##ex: orders that are also `BigOrders`
@@ -1420,7 +1421,7 @@ http://host/service/Orders?$filter=isof(Customer,NorthwindModel.VIPCustomer)
 
 ##### ##subsubsubsubsec `geo.distance`
 
-The `geo.distance` function has the following signatures:
+The `geo.distance` function has the following signatures (see syntax rule [distanceMethodCallExpr]]{.abnf}):
 
 ```
 Edm.Double geo.distance(Edm.GeographyPoint,Edm.GeographyPoint)
@@ -1433,7 +1434,7 @@ points' SRIDs.
 
 ##### ##subsubsubsubsec `geo.intersects`
 
-The `geo.intersects` function has the following signatures:
+The `geo.intersects` function has the following signatures (see syntax rule [intersectsMethodCallExpr]]{.abnf}):
 
 ```
 Edm.Boolean geo.intersects(Edm.GeographyPoint,Edm.GeographyPolygon)
@@ -1446,7 +1447,7 @@ otherwise it returns `false`.
 
 ##### ##subsubsubsubsec `geo.length`
 
-The `geo.length` function has the following signatures:
+The `geo.length` function has the following signatures (see syntax rule [geoLengthMethodCallExpr]]{.abnf}):
 
 ```
 Edm.Double geo.length(Edm.GeographyLineString)
@@ -1460,7 +1461,7 @@ parameter in the coordinate reference system signified by its SRID.
 
 ##### ##subsubsubsubsec `case`
 
-The `case` operator has a comma-separated lists of arguments:
+The `case` operator has a comma-separated lists of arguments (see syntax rule [caseMethodCallExpr]]{.abnf}):
 
 ```
 expression case(Edm.Boolean:expression, …, Edm.Boolean:expression)
@@ -1586,8 +1587,8 @@ http://host/service/Orders?$filter=Items/all(d:d/Quantity gt 100)
 Primitive literals can appear in the resource path as key property
 values, and in the query part, for example, as operands in
 [`$filter`](#SystemQueryOptionfilter) expressions. They are represented
-according to the `primitiveLiteral` rule in [OData-ABNF](#ODataABNF).
-The interpretation of a `timeOfDayLiteral` in which the `second` is omitted
+according to the [primitiveLiteral]{.abnf} rule in [OData-ABNF](#ODataABNF).
+The interpretation of a [timeOfDayLiteral]{.abnf} in which the `second` is omitted
 is not defined by this specification. For maximum interoperability, senders
 SHOULD always include the `second`.
 
@@ -1682,7 +1683,7 @@ prefix for duration and enumeration types.
 ##### ##subsubsubsubsec Structured and Collection Literals
 
 Complex literals and collection literals in URLs are represented as JSON
-objects and arrays according to the `arrayOrObject` rule in
+objects and arrays according to the [arrayOrObject]{.abnf} rule in
 [OData-ABNF](#ODataABNF). Such literals MUST NOT appear in the path
 portion of the URL but can be passed to bound
 [functions](#AddressingFunctions) and function imports in path segments
@@ -1932,29 +1933,29 @@ Operators in the same category have equal precedence:
 
 Group|Operator|Description|ABNF Expression
 -----|--------|-----------|---------------
-Grouping        | `( )`           | Precedence grouping      | `parenExpr`<br>`boolParenExpr`
-Primary         | `/`             | Navigation      | `firstMemberExpr`<br>`memberExpr`
-                | `has`           | Enumeration Flags     | `hasExpr`
-                | `in`            | Is a member of  | `inExpr`
-                | `xxx( )`        | Method Call     | `methodCallExpr`<br>`boolMethodCallExpr`<br>`functionExpr`
-Unary           | `-`             | Negation        | `negateExpr`
-                | `not`           | Logical Negation| `notExpr`
-                | `cast( )`       | Type Casting    | `castExpr`
-Multiplicative  | `mul`           | Multiplication  | `mulExpr`
-                | `div`           | Division        | `divExpr`
-                | `divby`         | Decimal Division| `divbyExpr`
-                | `mod`           | Modulo          | `modExpr`
-Additive        | `add`           | Addition        | `addExpr`
-                | `sub`           | Subtraction     | `subExpr`
-Relational      | `gt`            | Greater Than    | `gtExpr`
-                | `ge`            | Greater than or Equal| `geExpr`
-                | `lt`            | Less Than       | `ltExpr`
-                | `le`            | Less than or Equal   | `leExpr`
-                | `isof`          | Type Testing    | `isofExpr`
-Equality        | `eq`            | Equal           | `eqExpr`
-                | `ne`            | Not Equal       | `neExpr`
-Conditional AND | `and`           | Logical And     | `andExpr`
-Conditional OR  | `or`            | Logical Or      | `orExpr`
+Grouping        | `( )`           | Precedence grouping      | [parenExpr]{.abnf}<br>[boolParenExpr]{.abnf}
+Primary         | `/`             | Navigation      | [firstMemberExpr]{.abnf}<br>[memberExpr]{.abnf}
+                | `has`           | Enumeration Flags     | [hasExpr]{.abnf}
+                | `in`            | Is a member of  | [inExpr]{.abnf}
+                | `xxx( )`        | Method Call     | [methodCallExpr]{.abnf}<br>[boolMethodCallExpr]{.abnf}<br>[functionExpr]{.abnf}
+Unary           | `-`             | Negation        | [negateExpr]{.abnf}
+                | `not`           | Logical Negation| [notExpr]{.abnf}
+                | `cast( )`       | Type Casting    | [castExpr]{.abnf}
+Multiplicative  | `mul`           | Multiplication  | [mulExpr]{.abnf}
+                | `div`           | Division        | [divExpr]{.abnf}
+                | `divby`         | Decimal Division| [divbyExpr]{.abnf}
+                | `mod`           | Modulo          | [modExpr]{.abnf}
+Additive        | `add`           | Addition        | [addExpr]{.abnf}
+                | `sub`           | Subtraction     | [subExpr]{.abnf}
+Relational      | `gt`            | Greater Than    | [gtExpr]{.abnf}
+                | `ge`            | Greater than or Equal| [geExpr]{.abnf}
+                | `lt`            | Less Than       | [ltExpr]{.abnf}
+                | `le`            | Less than or Equal   | [leExpr]{.abnf}
+                | `isof`          | Type Testing    | [isofExpr]{.abnf}
+Equality        | `eq`            | Equal           | [eqExpr]{.abnf}
+                | `ne`            | Not Equal       | [neExpr]{.abnf}
+Conditional AND | `and`           | Logical And     | [andExpr]{.abnf}
+Conditional OR  | `or`            | Logical Or      | [orExpr]{.abnf}
 
 #### ##subsubsubsec Numeric Promotion
 
@@ -1989,7 +1990,7 @@ included in the response. Resources for which the expression evaluates
 to `false` or to `null`, or which reference properties that are unavailable
 due to permissions, are omitted from the response.
 
-The [OData-ABNF](#ODataABNF) `filter` syntax rule defines the formal
+The [OData-ABNF](#ODataABNF) [filter]{.abnf} syntax rule defines the formal
 grammar of the `$filter` query option.
 
 ### ##subsubsec System Query Option `$expand`
@@ -1997,7 +1998,7 @@ grammar of the `$filter` query option.
 The `$expand` system query option specifies the related resources or
 media streams to be included in line with retrieved resources.
 
-The [OData-ABNF](#ODataABNF) `expand` syntax rule defines the formal
+The [OData-ABNF](#ODataABNF) [expand]{.abnf} syntax rule defines the formal
 grammar of the `$expand` query option.
 
 The value of `$expand` is a comma-separated list of expand items. Each
@@ -2203,7 +2204,7 @@ subset of properties for each resource in the graph (`$select`).
 Expanded navigation properties MUST be returned, even if they are not
 specified in `$select`.
 
-The [OData-ABNF](#ODataABNF) `select` syntax rule defines the formal
+The [OData-ABNF](#ODataABNF) [select]{.abnf} syntax rule defines the formal
 grammar of the `$select` query option.
 
 The value of `$select` is a comma-separated list of select items. Each
@@ -2415,7 +2416,7 @@ in a particular order.
 
 The semantics of `$orderby` are covered in [#OData-Protocol#SystemQueryOptionorderby].
 
-The [OData-ABNF](#ODataABNF) `orderby` syntax rule defines the formal
+The [OData-ABNF](#ODataABNF) [orderby]{.abnf} syntax rule defines the formal
 grammar of the `$orderby` query option.
 
 ### ##subsubsec System Query Options `$top` and `$skip`
@@ -2428,8 +2429,8 @@ particular page of items by combining `$top` and `$skip`.
 
 The semantics of `$top` and `$skip` are covered in
 [#OData-Protocol#SystemQueryOptiontop] and [#OData-Protocol#SystemQueryOptionskip].
-The [OData-ABNF](#ODataABNF) `top`
-and `skip` syntax rules define the formal grammar of the `$top` and
+The [OData-ABNF](#ODataABNF) [top]{.abnf}
+and [skip]{.abnf} syntax rules define the formal grammar of the `$top` and
 `$skip` query options respectively.
 
 ### ##subsubsec System Query Option `$count`
@@ -2456,7 +2457,7 @@ If both `$search` and [`$filter`](#SystemQueryOptionfilter) are applied
 to the same request, the results include only those items that match
 both criteria.
 
-The [OData-ABNF](#ODataABNF) `search` syntax rule defines the formal
+The [OData-ABNF](#ODataABNF) [search]{.abnf} syntax rule defines the formal
 grammar of the `$search` query option.
 
 ::: example
@@ -2510,7 +2511,7 @@ sent as OData string literals enclosed in single-quotes, and
 single-quotes within the search expression doubled.
 Such an expression can also be used to search for double quotes: `?$search='"'`.
 
-The [OData-ABNF](#ODataABNF) `searchExpr` syntax rule defines the formal
+The [OData-ABNF](#ODataABNF) [searchExpr]{.abnf} syntax rule defines the formal
 grammar of the search expression.
 
 ### ##subsubsec System Query Option `$format`
@@ -2522,7 +2523,7 @@ request headers for standard content-type negotiation. Where present
 
 The semantics of `$format` is covered in [#OData-Protocol#SystemQueryOptionformat].
 
-The [OData-ABNF](#ODataABNF) `format` syntax rule defines the formal
+The [OData-ABNF](#ODataABNF) [format]{.abnf} syntax rule defines the formal
 grammar of the `$format` query option.
 
 ### ##subsubsec System Query Option `$compute`
@@ -2546,7 +2547,7 @@ Services MAY support compute instructions that address
 dynamic properties added by other compute instructions within the same
 `$compute` system query option, provided that the service can determine an evaluation sequence.
 
-The [OData-ABNF](#ODataABNF) `compute` syntax rule defines the formal
+The [OData-ABNF](#ODataABNF) [compute]{.abnf} syntax rule defines the formal
 grammar of the `$compute` query option.
 
 Computed properties SHOULD be included as dynamic properties in the
@@ -2576,7 +2577,7 @@ or equal to the inserted position are increased by one. A negative
 ordinal indexes from the end of the collection, with -1 representing an
 insert at the end of the collection.
 
-The [OData-ABNF](#ODataABNF) `index` syntax rule defines the formal
+The [OData-ABNF](#ODataABNF) [index]{.abnf} syntax rule defines the formal
 grammar of the `$index` query option.
 
 ### ##subsubsec System Query Option `$schemaversion`
@@ -2585,7 +2586,7 @@ The `$schemaversion` system query option allows clients to specify the
 version of the schema against which the request is made. The semantics
 of `$schemaversion` is covered in [#OData-Protocol#SystemQueryOptionschemaversion].
 
-The [OData-ABNF](#ODataABNF) `schemaversion` syntax rule defines the
+The [OData-ABNF](#ODataABNF) [schemaversion]{.abnf} syntax rule defines the
 formal grammar of the `$schemaversion` query option
 
 ## ##subsec Custom Query Options
@@ -2593,7 +2594,7 @@ formal grammar of the `$schemaversion` query option
 Custom query options provide an extensible mechanism for
 service-specific information to be placed in a URL query string. A
 custom query option is any query option of the form shown by the rule
-`customQueryOption` in [OData-ABNF](#ODataABNF).
+[customQueryOption]{.abnf} in [OData-ABNF](#ODataABNF).
 
 Custom query options MUST NOT begin with a `$` or `@` character.
 
@@ -2612,11 +2613,11 @@ Parameter aliases can be used in place of literal values in entity keys,
 [`$orderby`](#SystemQueryOptionorderby) expression.
 
 Parameter aliases MUST start with an `@` character, see rule
-`parameterAlias` in [OData-ABNF](#ODataABNF).
+[parameterAlias]{.abnf} in [OData-ABNF](#ODataABNF).
 
 The semantics of parameter aliases are covered in
 [#OData-Protocol#ParameterAliases]. The [OData-ABNF](#ODataABNF) rule
-`aliasAndValue` defines the formal grammar for passing parameter alias
+[aliasAndValue]{.abnf} defines the formal grammar for passing parameter alias
 values as query options.
 
 ::: example

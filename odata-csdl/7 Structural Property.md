@@ -229,7 +229,7 @@ type parameter
 Default values of type `Edm.String` MUST be represented according to the
 XML escaping rules for character data in attribute values. Values of
 other primitive types MUST be represented according to the appropriate
-alternative in the `primitiveValue` rule defined in
+alternative in the [primitiveValue]{.abnf} rule defined in
 [OData-ABNF](#ODataABNF), i.e. `Edm.Binary` as `binaryValue`,
 `Edm.Boolean` as `booleanValue` etc.
 :::

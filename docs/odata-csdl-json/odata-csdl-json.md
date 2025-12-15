@@ -643,7 +643,7 @@ underlying type is `Edm.Stream`, cannot be used in collections.
 
 Some of these types allow facets, defined in [section 3.4](#TypeFacets).
 
-Representation of primitive type values within a URL is defined by the rule `primitiveLiteral` in [OData-ABNF](#ODataABNF).
+Representation of primitive type values within a URL is defined by the rule [primitiveLiteral]{.abnf} in [OData-ABNF](#ODataABNF).
 Representation within request and response bodies is format specific.
 
 ## <a id="TypeFacets" href="#TypeFacets">3.4 Type Facets</a>
@@ -4032,7 +4032,7 @@ Date expressions are represented as a string containing the date value.
 The value MUST conform to type `xs:date`, see
 [XML-Schema-2](#XML-Schema2), [section
 3.3.9](http://www.w3.org/TR/xmlschema11-2/#date). The value MUST also
-conform to rule `dateValue` in [OData-ABNF](#ODataABNF), i.e. it MUST
+conform to rule [dateValue]{.abnf} in [OData-ABNF](#ODataABNF), i.e. it MUST
 NOT contain a time-zone offset.
 :::
 
@@ -4052,7 +4052,7 @@ Datetimestamp expressions are represented as a string containing the
 timestamp value. The value MUST conform to type `xs:dateTimeStamp`, see
 [XML-Schema-2](#XML-Schema2), [section
 3.4.28](http://www.w3.org/TR/xmlschema11-2/#dateTimeStamp). The value
-MUST also conform to rule `dateTimeOffsetValue` in
+MUST also conform to rule [dateTimeOffsetValue]{.abnf} in
 [OData-ABNF](#ODataABNF), i.e. it MUST NOT contain an end-of-day
 fragment (24:00:00).
 :::
@@ -4168,7 +4168,7 @@ Example 52:
 
 ::: {.varjson .rep}
 Guid expressions are represented as a string containing the uuid value.
-The value MUST conform to the rule `guidValue` in
+The value MUST conform to the rule [guidValue]{.abnf} in
 [OData-ABNF](#ODataABNF).
 :::
 
@@ -4225,7 +4225,7 @@ Example 56:
 
 ::: {.varjson .rep}
 Time-of-day expressions are represented as a string containing the
-time-of-day value. The value MUST conform to the rule `timeOfDayValue`
+time-of-day value. The value MUST conform to the rule [timeOfDayValue]{.abnf}
 in [OData-ABNF](#ODataABNF).
 :::
 
@@ -5126,8 +5126,8 @@ enumeration type. It returns a value of type `Edm.String` that is the
 concatenation of the literal representations of the results of the
 argument expressions. Values of primitive types other than `Edm.String`
 are represented according to the appropriate alternative in the
-`primitiveValue` rule of [OData-ABNF](#ODataABNF), i.e. `Edm.Binary` as
-`binaryValue`, `Edm.Boolean` as `booleanValue` etc.
+[primitiveValue]{.abnf} rule of [OData-ABNF](#ODataABNF), i.e. `Edm.Binary` as
+[binaryValue]{.abnf}, `Edm.Boolean` as [booleanValue]{.abnf} etc.
 
 ::: {.varjson .example}
 Example 78:
@@ -5791,7 +5791,7 @@ and match the pattern `^[_A-Za-z][_A-Za-z0-9]*$`.
 
 For model elements that are direct children of a schema: the namespace
 or alias of the schema that defines the model element, followed by a dot
-and the name of the model element, see rule `qualifiedTypeName` in
+and the name of the model element, see rule [qualifiedTypeName]{.abnf} in
 [OData‑ABNF](#ODataABNF).
 
 For built-in [primitive types](#PrimitiveTypes): the name of the type,

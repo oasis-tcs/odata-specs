@@ -775,7 +775,7 @@ This uses pandoc 3.8.3 from https://github.com/jgm/pandoc/releases/tag/3.8.3.
 <p><code>Edm.Decimal</code> with a <a href="#Scale"><code>Scale</code></a> value of <code>floating</code>, <code>Edm.Double</code>, and <code>Edm.Single</code> allow the special numeric values <code>-INF</code>, <code>INF</code>, and <code>NaN</code>.</p>
 <p><code>Edm.Stream</code> is a primitive type that can be used as a property of an <a href="#EntityType">entity type</a> or <a href="#ComplexType">complex type</a>, the underlying type for a <a href="#TypeDefinition">type definition</a>, or a binding or non-binding parameter or return type of an <a href="#Action">action</a> or <a href="#Function">function</a>. <code>Edm.Stream</code>, or a type definition whose underlying type is <code>Edm.Stream</code>, cannot be used in collections.</p>
 <p>Some of these types allow facets, defined in <a href="#TypeFacets">section 3.4</a>.</p>
-<p>Representation of primitive type values within a URL is defined by the rule <code>primitiveLiteral</code> in <a href="#ODataABNF">OData-ABNF</a>. Representation within request and response bodies is format specific.</p>
+<p>Representation of primitive type values within a URL is defined by the rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#primitiveLiteral"><code>primitiveLiteral</code></a></span> in <a href="#ODataABNF">OData-ABNF</a>. Representation within request and response bodies is format specific.</p>
 </details>
 <details open><summary>
 <h2 id="34-type-facets"><a id="TypeFacets" href="#TypeFacets">3.4 Type Facets</a></h2>
@@ -1412,7 +1412,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>If no value is specified, the client SHOULD NOT assume a default value.</p>
 <section class="varxml rep">
 <h3><a id="AttributeDefaultValue.12.4" href="#AttributeDefaultValue.12.4">Attribute <code>DefaultValue</code></a></h3>
-<p>Default values of type <code>Edm.String</code> MUST be represented according to the XML escaping rules for character data in attribute values. Values of other primitive types MUST be represented according to the appropriate alternative in the <code>primitiveValue</code> rule defined in <a href="#ODataABNF">OData-ABNF</a>, i.e. <code>Edm.Binary</code> as <code>binaryValue</code>, <code>Edm.Boolean</code> as <code>booleanValue</code> etc.</p>
+<p>Default values of type <code>Edm.String</code> MUST be represented according to the XML escaping rules for character data in attribute values. Values of other primitive types MUST be represented according to the appropriate alternative in the <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#primitiveValue"><code>primitiveValue</code></a></span> rule defined in <a href="#ODataABNF">OData-ABNF</a>, i.e. <code>Edm.Binary</code> as <code>binaryValue</code>, <code>Edm.Boolean</code> as <code>booleanValue</code> etc.</p>
 </section>
 </details>
 </details>
@@ -2240,7 +2240,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>If no value is specified for a collection-valued term, the client cannot assume any default value. Clients SHOULD be prepared for this situation even in OData 4.01 responses.</p>
 <h3><a id="AttributeDefaultValue.30.4" href="#AttributeDefaultValue.30.4">Attribute <code>DefaultValue</code></a></h3>
 <p>The value of this attribute determines the value of the term when applied in an <a href="#Annotation"><code>edm:Annotation</code></a> without providing an expression.</p>
-<p>Default values of type <code>Edm.String</code> MUST be represented according to the XML escaping rules for character data in attribute values. Values of other primitive types MUST be represented according to the appropriate alternative in the <code>primitiveValue</code> rule defined in <a href="#ODataABNF">OData-ABNF</a>, i.e. <code>Edm.Binary</code> as <code>binaryValue</code>, <code>Edm.Boolean</code> as <code>booleanValue</code> etc.</p>
+<p>Default values of type <code>Edm.String</code> MUST be represented according to the XML escaping rules for character data in attribute values. Values of other primitive types MUST be represented according to the appropriate alternative in the <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#primitiveValue"><code>primitiveValue</code></a></span> rule defined in <a href="#ODataABNF">OData-ABNF</a>, i.e. <code>Edm.Binary</code> as <code>binaryValue</code>, <code>Edm.Boolean</code> as <code>booleanValue</code> etc.</p>
 <p>If no value is specified, the <code>DefaultValue</code> attribute defaults to <code>null</code>.</p>
 </div>
 <details open><summary>
@@ -2615,7 +2615,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </summary>
 <section class="varxml rep">
 <h3><a id="ExpressionedmBinary.32" href="#ExpressionedmBinary.32">Expression <code>edm:Binary</code></a></h3>
-<p>The <code>edm:Binary</code> expression evaluates to a primitive binary value. A binary expression MUST be assigned a value conforming to the rule <code>binaryValue</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
+<p>The <code>edm:Binary</code> expression evaluates to a primitive binary value. A binary expression MUST be assigned a value conforming to the rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#binaryValue"><code>binaryValue</code></a></span> in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>The binary expression MAY be provided using element notation or attribute notation.</p>
 </section>
 <div class="varxml example">
@@ -2649,7 +2649,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </summary>
 <section class="varxml rep">
 <h3><a id="ExpressionedmDate.34" href="#ExpressionedmDate.34">Expression <code>edm:Date</code></a></h3>
-<p>The <code>edm:Date</code> expression evaluates to a primitive date value. A date expression MUST be assigned a value of type <code>xs:date</code>, see <a href="#XML-Schema2">XML-Schema-2</a>, <a href="http://www.w3.org/TR/xmlschema11-2/#date">section 3.3.9</a>. The value MUST also conform to rule <code>dateValue</code> in <a href="#ODataABNF">OData-ABNF</a>, i.e. it MUST NOT contain a time-zone offset.</p>
+<p>The <code>edm:Date</code> expression evaluates to a primitive date value. A date expression MUST be assigned a value of type <code>xs:date</code>, see <a href="#XML-Schema2">XML-Schema-2</a>, <a href="http://www.w3.org/TR/xmlschema11-2/#date">section 3.3.9</a>. The value MUST also conform to rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#dateValue"><code>dateValue</code></a></span> in <a href="#ODataABNF">OData-ABNF</a>, i.e. it MUST NOT contain a time-zone offset.</p>
 <p>The date expression MAY be provided using element notation or attribute notation.</p>
 </section>
 <div class="varxml example">
@@ -2666,7 +2666,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </summary>
 <section class="varxml rep">
 <h3><a id="ExpressionedmDateTimeOffset.35" href="#ExpressionedmDateTimeOffset.35">Expression <code>edm:DateTimeOffset</code></a></h3>
-<p>The <code>edm:DateTimeOffset</code> expression evaluates to a primitive datetimestamp value with a time-zone offset. A datetimestamp expression MUST be assigned a value of type <code>xs:dateTimeStamp</code>, see <a href="#XML-Schema2">XML-Schema-2</a>, <a href="http://www.w3.org/TR/xmlschema11-2/#dateTimeStamp">section 3.4.28</a>. The value MUST also conform to rule <code>dateTimeOffsetValue</code> in <a href="#ODataABNF">OData-ABNF</a>, i.e. it MUST NOT contain an end-of-day fragment (24:00:00).</p>
+<p>The <code>edm:DateTimeOffset</code> expression evaluates to a primitive datetimestamp value with a time-zone offset. A datetimestamp expression MUST be assigned a value of type <code>xs:dateTimeStamp</code>, see <a href="#XML-Schema2">XML-Schema-2</a>, <a href="http://www.w3.org/TR/xmlschema11-2/#dateTimeStamp">section 3.4.28</a>. The value MUST also conform to rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#dateTimeOffsetValue"><code>dateTimeOffsetValue</code></a></span> in <a href="#ODataABNF">OData-ABNF</a>, i.e. it MUST NOT contain an end-of-day fragment (24:00:00).</p>
 <p>The datetimestamp expression MAY be provided using element notation or attribute notation.</p>
 </section>
 <div class="varxml example">
@@ -2685,7 +2685,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </summary>
 <section class="varxml rep">
 <h3><a id="ExpressionedmDecimal.36" href="#ExpressionedmDecimal.36">Expression <code>edm:Decimal</code></a></h3>
-<p>The <code>edm:Decimal</code> expression evaluates to a primitive decimal value. A decimal expression MUST be assigned a value conforming to the rule <code>decimalValue</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
+<p>The <code>edm:Decimal</code> expression evaluates to a primitive decimal value. A decimal expression MUST be assigned a value conforming to the rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#decimalValue"><code>decimalValue</code></a></span> in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>The decimal expression MAY be provided using element notation or attribute notation.</p>
 </section>
 <div class="varxml rep">
@@ -2748,7 +2748,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </summary>
 <section class="varxml rep">
 <h3><a id="ExpressionedmFloat.39" href="#ExpressionedmFloat.39">Expression <code>edm:Float</code></a></h3>
-<p>The <code>edm:Float</code> expression evaluates to a primitive floating point (or double) value. A float expression MUST be assigned a value conforming to the rule <code>doubleValue</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
+<p>The <code>edm:Float</code> expression evaluates to a primitive floating point (or double) value. A float expression MUST be assigned a value conforming to the rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#doubleValue"><code>doubleValue</code></a></span> in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>The float expression MAY be provided using element notation or attribute notation.</p>
 </section>
 <div class="varxml example">
@@ -2765,7 +2765,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </summary>
 <section class="varxml rep">
 <h3><a id="ExpressionedmGuid.40" href="#ExpressionedmGuid.40">Expression <code>edm:Guid</code></a></h3>
-<p>The <code>edm:Guid</code> expression evaluates to a primitive guid value. A guid expression MUST be assigned a value conforming to the rule <code>guidValue</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
+<p>The <code>edm:Guid</code> expression evaluates to a primitive guid value. A guid expression MUST be assigned a value conforming to the rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#guidValue"><code>guidValue</code></a></span> in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>The guid expression MAY be provided using element notation or attribute notation.</p>
 </section>
 <div class="varxml example">
@@ -2783,7 +2783,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </summary>
 <section class="varxml rep">
 <h3><a id="ExpressionedmInt.41" href="#ExpressionedmInt.41">Expression <code>edm:Int</code></a></h3>
-<p>The <code>edm:Int</code> expression evaluates to a primitive integer value. An integer MUST be assigned a value conforming to the rule <code>int64Value</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
+<p>The <code>edm:Int</code> expression evaluates to a primitive integer value. An integer MUST be assigned a value conforming to the rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#int64Value"><code>int64Value</code></a></span> in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>The integer expression MAY be provided using element notation or attribute notation.</p>
 </section>
 <div class="varxml example">
@@ -2835,7 +2835,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h3 id="14313-geo-values"><a id="GeoValues" href="#GeoValues">14.3.13 Geo Values</a></h3>
 </summary>
 <div class="varxml rep">
-<p>Values are represented as <a href="#String">string expressions</a> using the WKT (well-known text) format for <code>Geo</code> types, see rules <code>fullCollectionLiteral</code>, <code>fullLineStringLiteral</code>, <code>fullMultiPointLiteral</code>, <code>fullMultiLineStringLiteral</code>, <code>fullMultiPolygonLiteral</code>, <code>fullPointLiteral</code>, and <code>fullPolygonLiteral</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
+<p>Values are represented as <a href="#String">string expressions</a> using the WKT (well-known text) format for <code>Geo</code> types, see rules <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#fullCollectionLiteral"><code>fullCollectionLiteral</code></a></span>, <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#fullLineStringLiteral"><code>fullLineStringLiteral</code></a></span>, <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#fullMultiPointLiteral"><code>fullMultiPointLiteral</code></a></span>, <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#fullMultiLineStringLiteral"><code>fullMultiLineStringLiteral</code></a></span>, <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#fullMultiPolygonLiteral"><code>fullMultiPolygonLiteral</code></a></span>, <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#fullPointLiteral"><code>fullPointLiteral</code></a></span>, and <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#fullPolygonLiteral"><code>fullPolygonLiteral</code></a></span> in <a href="#ODataABNF">OData-ABNF</a>.</p>
 </div>
 <div class="varxml example">
 <p>Example 58:</p>
@@ -3320,7 +3320,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h4 id="14441-canonical-functions"><a id="CanonicalFunctions" href="#CanonicalFunctions">14.4.4.1 Canonical Functions</a></h4>
 </summary>
 <p>All canonical functions defined in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalFunctions">OData-URL, section 5.1.1.4</a> can be used as client-side functions, qualified with the namespace <code>odata</code>. The semantics of these client-side functions is identical to their counterpart function defined in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalFunctions">OData-URL, section 5.1.1.4</a>.</p>
-<p>For example, the <code>odata.concat</code> client-side function takes two expressions as arguments. Each argument MUST evaluate to a primitive or enumeration type. It returns a value of type <code>Edm.String</code> that is the concatenation of the literal representations of the results of the argument expressions. Values of primitive types other than <code>Edm.String</code> are represented according to the appropriate alternative in the <code>primitiveValue</code> rule of <a href="#ODataABNF">OData-ABNF</a>, i.e. <code>Edm.Binary</code> as <code>binaryValue</code>, <code>Edm.Boolean</code> as <code>booleanValue</code> etc.</p>
+<p>For example, the <code>odata.concat</code> client-side function takes two expressions as arguments. Each argument MUST evaluate to a primitive or enumeration type. It returns a value of type <code>Edm.String</code> that is the concatenation of the literal representations of the results of the argument expressions. Values of primitive types other than <code>Edm.String</code> are represented according to the appropriate alternative in the <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#primitiveValue"><code>primitiveValue</code></a></span> rule of <a href="#ODataABNF">OData-ABNF</a>, i.e. <code>Edm.Binary</code> as <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#binaryValue"><code>binaryValue</code></a></span>, <code>Edm.Boolean</code> as <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#booleanValue"><code>booleanValue</code></a></span> etc.</p>
 <div class="varxml example">
 <p>Example 78:</p>
 <div class="sourceCode" id="cb83"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotation</span> <span class="ot">Term=</span><span class="st">&quot;org.example.display.DisplayName&quot;</span>&gt;</span>
@@ -3677,7 +3677,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <details open><summary>
 <h2 id="153-qualified-name"><a id="QualifiedName" href="#QualifiedName">15.3 Qualified Name</a></h2>
 </summary>
-<p>For model elements that are direct children of a schema: the namespace or alias of the schema that defines the model element, followed by a dot and the name of the model element, see rule <code>qualifiedTypeName</code> in <a href="#ODataABNF">OData‑ABNF</a>.</p>
+<p>For model elements that are direct children of a schema: the namespace or alias of the schema that defines the model element, followed by a dot and the name of the model element, see rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#qualifiedTypeName"><code>qualifiedTypeName</code></a></span> in <a href="#ODataABNF">OData‑ABNF</a>.</p>
 <p>For built-in <a href="#PrimitiveTypes">primitive types</a>: the name of the type, prefixed with <code>Edm</code> followed by a dot.</p>
 </details>
 <details open><summary>

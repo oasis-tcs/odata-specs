@@ -71,7 +71,7 @@ http://host/service/$batch
 
 The basic rules for addressing a collection (of entities), a single
 entity within a collection, a singleton, as well as a property of an
-entity are covered in the `resourcePath` syntax rule in
+entity are covered in the [resourcePath]{.abnf} syntax rule in
 [OData-ABNF](#ODataABNF).
 
 Below is a (non-normative) snippet from [OData-ABNF](#ODataABNF):
@@ -94,7 +94,7 @@ resourcePath = entitySetName                  [collectionNavigation]
 Since OData has a uniform composable URL syntax and associated rules
 there are many ways to address a collection of entities, including, but
 not limited to:
-- Via an entity set (see rule `entitySetName` in [OData-ABNF](#ODataABNF))
+- Via an entity set (see rule [entitySetName]{.abnf} in [OData-ABNF](#ODataABNF))
 
 ::: example
 Example ##ex:
@@ -537,15 +537,15 @@ default namespaces, see [#OData-Protocol#DefaultNamespaces].
 
 The grammar for addressing and invoking actions is defined by the
 following syntax grammar rules in [OData-ABNF](#ODataABNF):
-- The `actionImportCall` syntax rule
-defines the grammar in the `resourcePath` for addressing and invoking an
+- The [actionImportCall]{.abnf} syntax rule
+defines the grammar in the [resourcePath]{.abnf} for addressing and invoking an
 action import directly from the service root.
-- The `boundActionCall` syntax rule
+- The [boundActionCall]{.abnf} syntax rule
 defines the grammar in the `resourcePath` for addressing and invoking an
 action that is appended to a `resourcePath` that identifies some
 resources that can be used as the binding parameter value when invoking
 the action.
-- The `boundOperation` syntax rule (which
+- The [boundOperation]{.abnf} syntax rule (which
 encompasses the `boundActionCall` syntax rule), when used by the
 `resourcePath` syntax rule, illustrates how a `boundActionCall` can be
 appended to a `resourcePath`.
@@ -555,28 +555,28 @@ appended to a `resourcePath`.
 The grammar for addressing and invoking functions is defined by
 syntax rules in [OData-ABNF](#ODataABNF), in particular:
 - The function import call syntax rules
-`complexFunctionImportCall`, `complexColFunctionImportCall`,
-`entityFunctionImportCall`, `entityColFunctionImportCall`,
-`primitiveFunctionImportCall`, and `primitiveColFunctionImportCall`
+[complexFunctionImportCall]{.abnf}, [complexColFunctionImportCall]{.abnf},
+[entityFunctionImportCall]{.abnf}, [entityColFunctionImportCall]{.abnf},
+[primitiveFunctionImportCall]{.abnf}, and [primitiveColFunctionImportCall]{.abnf}
 define the grammar in the `resourcePath` for addressing and providing
 parameters for a function import directly from the service root.
 - The bound function call syntax rules
-`boundComplexFunctionCall`, `boundComplexColFunctionCall`,
-`boundEntityFunctionCall`, `boundEntityColFunctionCall`,
-`boundPrimitiveFunctionCall` and `boundPrimitiveColFunctionCall` define
+[boundComplexFunctionCall]{.abnf}, [boundComplexColFunctionCall]{.abnf},
+[boundEntityFunctionCall]{.abnf}, [boundEntityColFunctionCall]{.abnf},
+[boundPrimitiveFunctionCall]{.abnf} and [boundPrimitiveColFunctionCall]{.abnf} define
 the grammar in the `resourcePath` for addressing and providing
 parameters for a function that is appended to a `resourcePath` that
 identifies some resources that can be used as the binding parameter
 value when invoking the function.
-- The `boundOperation` syntax rule (which
+- The [boundOperation]{.abnf} syntax rule (which
 encompasses the bound function call syntax rules), when used by the
 `resourcePath` syntax rule, illustrates how a bound function call can be
 appended to a `resourcePath`.
-- The `functionExpr` and
-`boundFunctionExpr` syntax rules as used by the `commonExpr`
+- The [functionExpr]{.abnf} and
+[boundFunctionExpr]{.abnf} syntax rules as used by the [commonExpr]{.abnf}
 syntax rule define the grammar for invoking functions, for example to help filter
 and order resources identified by the `resourcePath` of the URL.
-- The `aliasAndValue` syntax rule defines
+- The [aliasAndValue]{.abnf} syntax rule defines
 the grammar for providing function parameter values using Parameter
 Alias Syntax, see [#OData-Protocol#ParameterAliases].
 
@@ -817,7 +817,7 @@ http://host/service/Orders?$expand=Customer/Model.VipCustomer
 Any resource path or path expression identifying a collection can be
 appended with a filter path segment consisting of `/$filter` followed by
 parentheses containing a [parameter alias](#ParameterAliases) or a
-filter expression following the `filter` syntax rule in
+filter expression following the [filter]{.abnf} syntax rule in
 [OData-ABNF](#ODataABNF). If the parentheses contain a parameter alias,
 a filter expression MUST be assigned to the parameter alias in the query
 part of the request URL. If the filter path segment appears in the

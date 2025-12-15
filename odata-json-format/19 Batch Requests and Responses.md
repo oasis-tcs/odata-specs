@@ -54,7 +54,7 @@ URL (i.e. relative to the service root).
 
 The value of `atomicityGroup` is a string whose content MUST
 NOT be identical to any value of `id` within the batch
-request, and which MUST satisfy the rule `request-id` in
+request, and which MUST satisfy the rule [request-id]{.abnf} in
 [OData-ABNF](#ODataABNF). All request objects with the same value for
 `atomicityGroup` MUST be adjacent in the
 `requests` array. These requests are processed as an atomic
