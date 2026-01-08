@@ -36,6 +36,9 @@ Response code `204 No Content` after successful data modification if requested r
 [Section ##CreateanEntity]| 
 Services can validate non-insertable property values in insert payloads| 
 [356](https://github.com/oasis-tcs/odata-specs/issues/356)
+[Section ##LinktoRelatedEntitiesWhenCreatinganEntity]| 
+Client can update properties of existing related entities when creating an entity| 
+[352](https://github.com/oasis-tcs/odata-specs/issues/352)
 [Section ##CreateRelatedEntitiesWhenCreatinganEntity]| 
 Deep-insert response includes at least the properties present in the request| 
 [363](https://github.com/oasis-tcs/odata-specs/issues/363)

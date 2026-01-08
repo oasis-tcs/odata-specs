@@ -220,7 +220,8 @@ Section | Feature / Change | Issue
 [Section 4.6.8](#ControlInformationidodataid)| Transient entities can be identifiable| [1928](https://github.com/oasis-tcs/odata-specs/issues/1928)
 [Section 4.6.10](#ControlInformationetagodataetag)| Control information `"@etag": ""` to prevent updates| [2021](https://github.com/oasis-tcs/odata-specs/issues/2021)
 [Section 4.6.12](#ControlInformationmediaodatamedia)| `mediaContentType` can be `null`| [536](https://github.com/oasis-tcs/odata-specs/issues/536)
-[Section 7](#StructuralProperty), [Section A.2](#InformativeReferences)| Removed reference to obsolete version of GeoJSON| [456](https://github.com/oasis-tcs/odata-specs/issues/456)
+[Section 7](#StructuralProperty), [Section A.2](#InformativeReferences)| Removed reference to obsolete version of GeoJSON| [352](https://github.com/oasis-tcs/odata-specs/issues/352)
+[Section 14](#EntityReference)| Entities can be referenced by id or full set of key properties| [456](https://github.com/oasis-tcs/odata-specs/issues/456)
 [Section 15.3](#DeletedEntity)| `type` control information, if present, must come immediately after `removed`| [1985](https://github.com/oasis-tcs/odata-specs/issues/1985)
 [Section 18](#ActionInvocation)| Allow common expressions in action payloads| [341](https://github.com/oasis-tcs/odata-specs/issues/341)
 
@@ -266,7 +267,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        odata-json-format-v4.02-csd02.md
 ```
 
-This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
+This uses pandoc 3.8.3 from https://github.com/jgm/pandoc/releases/tag/3.8.3.
 -->
 
 -------
@@ -805,7 +806,7 @@ If no ETag is returned when requesting the metadata document, then the
 service SHOULD NOT set the `metadataEtag` control information
 in any responses.
 
-For details on how ETags are used, see [OData-Protocol, section 11.4.1.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UseofETagsforAvoidingUpdateConflicts).
+For details on how ETags are used, see [OData-Protocol, section 11.4.1.2](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UseofETagsforAvoidingUpdateConflicts).
 
 ### <a id="ControlInformationtypeodatatype" href="#ControlInformationtypeodatatype">4.6.3 Control Information: `type` (`odata.type`)</a>
 
@@ -829,10 +830,10 @@ using the `$schemaversion` system query option
 defined in [OData-Protocol, section 11.2.12](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptionschemaversion).
 
 For non-built in primitive types, the URI contains the
-namespace-qualified or alias-qualified type, specified as a URI
-fragment. For properties that represent a collection of values, the
-fragment is the namespace-qualified or alias-qualified element type
-enclosed in parentheses and prefixed with `Collection`. The
+namespace-qualified or alias-qualified type, specified in the URI
+fragment (after the `#`). For properties that represent a collection of values, the
+fragment is `#Collection` followed by the namespace-qualified or alias-qualified element type name
+enclosed in parentheses. The
 namespace or alias MUST be defined or the namespace referenced in the
 metadata document of the service, see
 [OData-CSDL](#ODataCSDL).
@@ -1046,7 +1047,7 @@ value of the control information is an entity tag (ETag) which is an
 opaque string value that can be used in a subsequent request to
 determine if the value of the entity or collection has changed.
 
-For details on how ETags are used, see [OData-Protocol, section 11.4.1.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UseofETagsforAvoidingUpdateConflicts).
+For details on how ETags are used, see [OData-Protocol, section 11.4.1.2](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UseofETagsforAvoidingUpdateConflicts).
 The special value `"@etag": "*"` is equivalent to the header `If-Match: *`,
 and the special value `"@etag": ""` is equivalent to the header `If-None-Match: *`,
 see [OData-Protocol, section 11.4.11](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UpdateaCollectionofEntities).
@@ -1296,8 +1297,8 @@ An entity is serialized as a JSON object. It MAY contain
 or [`deltaLink`](#ControlInformationdeltaLinkodatadeltaLink)
 control information.
 
-Each [property](#StructuralProperty) to be transmitted is
-represented as a name/value pair within the object. The order properties
+Each [structural property](#StructuralProperty) or [navigation property](#NavigationProperty) to be transmitted is
+represented as a name/value pair within the object. The order in which the pairs
 appear within the object is considered insignificant.
 
 An entity in a payload may be a complete entity, a projected entity (see
@@ -1454,7 +1455,7 @@ Example 12:
 ## <a id="ComplexValue" href="#ComplexValue">7.2 Complex Value</a>
 
 A complex value is represented as a single JSON object containing one
-name/value pair for each property that makes up the complex type. Each
+name/value pair for each [structural property](#StructuralProperty) or [navigation property](#NavigationProperty) that makes up the complex type. Each
 property value is formatted as appropriate for the type of the property.
 
 It MAY have name/value pairs for [instance annotations](#InstanceAnnotations) and control information.
@@ -2063,10 +2064,9 @@ Example 31:
 
 An entity reference (see [OData-Protocol, section 4.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#EntityIdsandEntityReferences)) MAY take the
 place of an entity in a JSON payload, based on the client request. It
-is serialized as a JSON object that MUST contain the [id](#ControlInformationidodataid) of the referenced
-entity and MAY contain the [`type`](#ControlInformationtypeodatatype)
+is serialized as a JSON object that MUST contain either the [id](#ControlInformationidodataid) or the full set of key values of the referenced entity and MAY contain the [`type`](#ControlInformationtypeodatatype)
 control information and [instance annotations](#InstanceAnnotations), but no additional properties or
-control information.
+control information. If the entity reference contains both the `id` and key values, then they MUST identify the same entity.
 
 A collection of entity references is represented as a [collection of entities](#CollectionofEntities),
 with entity reference representations instead of entity representations as items in the array value of the `value` name/value pair.
@@ -2095,7 +2095,7 @@ Example 33: collection of entity references
   "@context": "http://host/service/$metadata#Collection($ref)",
   "value": [
     { "@id": "Orders(10643)" },
-    { "@id": "Orders(10759)" }
+    { "id": 10759" }
   ]
 }
 ```
@@ -2187,7 +2187,7 @@ occurrence
     },
     {
       "@odata.context": "#Customers/$deletedEntity",
-      "@odata.id": "Customers('ANTON')"
+      "id": "Customers('ANTON')"
     },
     {
       "@odata.id": "Customers('ALFKI')",
@@ -2265,10 +2265,10 @@ following optional property, regardless of the specified
 
 ::: example
 Example 36: deleted entity in OData 4.0 response --- note that `id` is
-a property, not control information
+represented as a property of the deleted-entity object, not control information
 ```json
 {
-  "@context": "#Customers/$deletedEntity",
+  "@odata.context": "#Customers/$deletedEntity",
   "reason": "deleted",
   "id": "Customers('ANTON')"
 }
@@ -3273,8 +3273,11 @@ atomicity group, all requests in that group fail with
 The value of `headers` is an object whose name/value pairs
 represent request headers. The name of each pair MUST be the lower-case
 header name; the value is a string containing the header-encoded value
-of the header. The `headers` object MUST contain a name/value
-pair with the name `content-type` whose value is the media type.
+of the header.
+Services MAY support omitting the `content-type` in the `header` property of a request object.
+Such requests MUST be interpreted as if the `content-type` header mandated by
+[OData-Protocol, section 8.1.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#HeaderContentType) were specified with a value of `application/json`
+(with no format parameters).
 
 The value of `body` can be `null`, which is
 equivalent to not specifying the `body` name/value pair.
@@ -3330,7 +3333,7 @@ Content-Length: ###
       "method": "patch",
       "url": "/service/Customers('ALFKI')",
       "headers": {
-        "Prefer": "return=minimal"
+        "prefer": "return=minimal"
       },
       "body": <JSON representation of changes to Customer ALFKI>
     },
@@ -3479,10 +3482,8 @@ Content-Length: ###
 
 All requests in an atomicity group represent a single change unit. A
 service MUST successfully process and apply all the requests in the
-atomicity group or else apply none of them. It is up to the service
-implementation to define rollback semantics to undo any requests within
-an atomicity group that may have been applied before another request in
-that same atomicity group failed.
+atomicity group or else apply none of them.
+See [OData-Protocol, section 11.4.1.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#Atomicity) for details on visibility of atomic changes.
 
 The service MAY process the individual requests and atomicity groups
 within a batch request, or individual requests within an atomicity
@@ -3554,14 +3555,11 @@ The response object MAY contain the name/value pair `headers`
 whose value is an object with name/value pairs representing response
 headers. The name of each pair MUST be the lower-case header name; the
 value is a string containing the header-encoded value of the header.
+If the object does not name the `content-type`, then the `content-type` header mandated by
+[OData-Protocol, section 8.1.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#HeaderContentType) is assumed to be `application/json` (with no format parameters).
 
 The response object MAY contain the name/value pair `body`
 which follows the same rules as within [request objects](#BatchRequest).
-
-If the media type is not exactly equal to `application/json`
-(i.e. it is a subtype or has format parameters), the
-`headers` object MUST contain a name/value pair with the name
-`content-type` whose value is the media type.
 
 Relative URLs in a response object follow the rules for [relative
 URLs](#RelativeURLs) based on the request URL of the corresponding

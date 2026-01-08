@@ -1456,10 +1456,11 @@ appended to the path of a delta link in order to get just the number of
 changes available. The count includes all added, changed, or deleted
 entities, as well as added or deleted links.
 
-The results of a request against the delta link may span one or more pages
-and MUST be ordered by the service across all pages in such a way as to
-guarantee consistency when applied in order to the response which
-contained the delta link.
+The results of a request against the delta link may span one or more pages.
+The service MUST order changes across all pages in such a way as to
+guarantee that each change can be applied in order to the response which
+contained the delta link, and that doing so across all changes results 
+in a consistent state.
 
 Services SHOULD return only changed entities, but MAY return additional
 entities matching the defining query for which the client may not see a

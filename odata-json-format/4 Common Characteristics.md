@@ -281,10 +281,10 @@ using the `$schemaversion` system query option
 defined in [#OData-Protocol#SystemQueryOptionschemaversion].
 
 For non-built in primitive types, the URI contains the
-namespace-qualified or alias-qualified type, specified as a URI
-fragment. For properties that represent a collection of values, the
-fragment is the namespace-qualified or alias-qualified element type
-enclosed in parentheses and prefixed with `Collection`. The
+namespace-qualified or alias-qualified type, specified in the URI
+fragment (after the `#`). For properties that represent a collection of values, the
+fragment is `#Collection` followed by the namespace-qualified or alias-qualified element type name
+enclosed in parentheses. The
 namespace or alias MUST be defined or the namespace referenced in the
 metadata document of the service, see
 [OData-CSDL](#ODataCSDL).
