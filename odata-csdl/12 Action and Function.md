@@ -51,6 +51,68 @@ It MAY contain the members
 [annotations](#Annotation).
 :::
 
+::: funnelweb
+Actions and functions are the only example of a named array that contains several instances
+of metamodel classes.
+:::
+
+@$@<Deserialize an array-valued member@>@{
+{
+  this.children[member] = [];
+  for (const item of json[member]) {
+    if (item.$Kind) {
+      const memberItem = new closure[item.$Kind](this, member);
+      memberItem.fromJSON(item);
+      this.children[member].push(memberItem);
+    } else this.children[member].push(item);
+  }
+}
+@}
+
+::: funnelweb
+Since actions and functions are so similar, their classes are derived from a
+common superclass `Operation`.
+:::
+
+@$@<Javascript CSDL metamodel@>@{
+class Operation extends ModelElement {
+  @<Operation@>
+}
+class Action extends Operation {
+  @<Action@>
+}
+@}
+
+@$@<Exports@>@{
+Action,
+@}
+
+::: funnelweb
+Operation is not a `NamedModelElement`, because the named member in its parent is not
+the operation, but an array of operations. It cannot therefore inherit its `name`
+property from `NamedModelElement`.
+:::
+
+@$@<Operation@>@{
+@<Internal property@>@(name@,@)
+constructor(parent, name) {
+  super(parent);
+  this.#name = name;
+  this.$Kind = this.constructor.name;
+}
+fromJSON(json) {
+  @<Deserialize members of Operation@>
+  super.fromJSON(json);
+}
+toString() {
+  return this.name;
+}
+@}
+
+@$@<Special treatment if target is an operation@>@{
+if (target instanceof Array) target = target[0];
+@}
+
 ::: {.varxml .rep}
 ### ##isec Element `edm:Action`
 
@@ -132,6 +194,16 @@ contain the members [`$IsBound`](#BoundorUnboundActionorFunctionOverloads),
 and it MAY contain [annotations](#Annotation).
 :::
 
+@$@<Javascript CSDL metamodel@>@{
+class Function extends Operation {
+  @<Function@>
+}
+@}
+
+@$@<Exports@>@{
+Function,
+@}
+
 ::: {.varxml .rep}
 ### ##isec Element `edm:Function`
 
@@ -182,27 +254,60 @@ Absence of the attribute means `false`.
 ## ##subsec Entity Set Path
 
 Bound actions and functions that return an entity or a collection of
-entities MAY specify an entity set path if the entity set of the
-returned entities depends on the entity set of the binding parameter
-value.
+entities MAY specify an entity set path. The entity set path specifies the canonical collection
+(as defined in [#OData-Protocol#ContextURL]) of the
+returned entities in terms of the binding parameter value.
 
 The entity set path consists of a series of segments joined together
 with forward slashes.
-
 The first segment of the entity set path MUST be the name of the binding
-parameter. The remaining segments of the entity set path MUST represent
-navigation segments or type casts.
+parameter.
+If the entity set path consists only of the name of the binding parameter,
+the binding parameter MUST be an entity or a collection of entities. In this case
+the returned entities MUST belong to the same canonical collection
+as the binding parameter.
 
-A navigation segment names the [simple identifier](#SimpleIdentifier) of
-the [navigation property](#NavigationProperty) to be traversed. A
-type-cast segment names the [qualified name](#QualifiedName) of the
-entity type that should be returned from the type cast.
+Otherwise the entity set path has the form $p/s_1/…/s_k$ with $k>0$, and
+the binding parameter MUST be single-valued.
+The additional segments $s_1,…,s_k$ MUST be paths that could occur in an expand item [#OData-URL#SystemQueryOptionexpand],
+and they MUST end with the name of a [navigation property](#NavigationProperty),
+optionally followed by the [qualified name](#QualifiedName) of a type cast.
+Furthermore, $s_1,…,s_{k-1}$ MUST be single-valued, and
+$s_k$ MUST name a collection-valued navigation property.
+In this case all returned entities MUST belong to the canonical collection $C$ of the final navigation
+property, if this can be determined by the following algorithm:
+1. Let $v$ be the binding parameter value, and let $α/β$ be the canonical URL of $v$
+   where $α$ is either an entity set followed by a key predicate or a singleton, and $β$
+   is a possibly empty concatenation of containment navigation properties, type casts and key predicates.
+   Remove any key predicates from $α$ and $β$.
+2. Let $i=1$.
+3. If $i=k$, go to step 8.
+4. Update $v$ to the result of evaluating the [instance path](#PathExpressions) $s_i$ on the instance $v$.
+5. If $s_i$ names a containment navigation property, update $β=β/s_i$.
+6. Otherwise $s_i$ names a non-containment navigation property. Determine
+   the [navigation property binding](#NavigationPropertyBinding) defined by the service
+   on the entity set or singleton $α$ whose path matches $β/s_i$;
+   if it does not exist, then $C$ cannot be determined.
+   The binding target of that navigation property binding is either an entity set $α'$ or has the form $α'/β'$ where $α'$ is a singleton.
+   Update $α=α'$ and $β=β'$.
+7. Update $i=i+1$ and go back to step 3.
+8. If $s_k$ names a containment navigation property, let $C$ be the implicit
+   entity set defined by $s_k$ for $v$ (as explained in [section ##ContainmentNavigationProperty]).
+9. Otherwise $s_k$ names a non-containment navigation property. Determine
+   the navigation property binding defined by the service on the entity set or singleton $α$
+   whose path matches $β/s_k$; if it does not exist, then $C$ cannot be determined.
+   Let $C$ be the binding target of that navigation property binding.
 
 ::: {.varjson .rep}
 ### ##subisec `$EntitySetPath`
 
 The value of `$EntitySetPath` is a string containing the entity set
 path.
+:::
+
+::: funnelweb
+`$EntitySetPath` cannot be modeled as a `RelativePath`, because its `relativeTo`
+element is known only when the operation is invoked.
 :::
 
 ::: {.varxml .rep}
@@ -286,6 +391,35 @@ function MAY return a single `null` value. The value `false` means that
 the action or function will never return a `null` value and instead will
 fail with an error response if it cannot compute a result.
 :::
+
+::: funnelweb
+`ReturnType` is like a [`TypedModelElement`](#StructuralProperty), except that it is not named.
+:::
+
+@$@<Javascript CSDL metamodel@>@{
+class ReturnType extends ModelElement {
+  fromJSON(json) {
+    @<Absence of $Type means Edm.String@>
+    @<Deserialize qualified name@>@($Type@)
+    super.fromJSON(json);
+  }
+  toJSON() {
+    @<Omit $Type if it is Edm.String@>@(this@)
+  }
+  @<Parameter and ReturnType inherit from TypedModelElement@>
+}
+@}
+
+@$@<Exports@>@{
+ReturnType,
+@}
+
+@$@<Deserialize members of Operation@>@{
+if (json.$ReturnType) {
+  this.$ReturnType = new ReturnType(this);
+  this.$ReturnType.fromJSON(json.$ReturnType);
+}
+@}
 
 ::: {.varxml .rep}
 ### ##isec Element `edm:ReturnType`
@@ -399,6 +533,41 @@ collection that MAY be empty. In this case `$Nullable` applies to items
 of the collection and specifies whether the collection MAY contain
 `null` values.
 :::
+
+::: funnelweb
+`Parameter` is like a [`TypedModelElement`](#StructuralProperty),
+except that it is listed instead of named.
+:::
+
+@$@<Javascript CSDL metamodel@>@{
+class Parameter extends ListedModelElement {
+  constructor(operation) {
+    super(operation, "$Parameter");
+  }
+  fromJSON(json) {
+    @<Absence of $Type means Edm.String@>
+    @<Deserialize qualified name@>@($Type@)
+    super.fromJSON(json);
+  }
+  toJSON() {
+    @<Omit $Type if it is Edm.String@>@(this@)
+  }
+  toString() {
+    return this.$Name;
+  }
+  @<Parameter and ReturnType inherit from TypedModelElement@>
+}
+@}
+
+@$@<Exports@>@{
+Parameter,
+@}
+
+@$@<Deserialize members of Operation@>@{
+if (json.$Parameter) {
+  for (const param of json.$Parameter) new Parameter(this).fromJSON(param);
+}
+@}
 
 ::: {.varxml .rep}
 ### ##isec Element `edm:Parameter`
