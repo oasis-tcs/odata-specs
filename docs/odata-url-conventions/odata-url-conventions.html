@@ -1107,6 +1107,7 @@ Content-Type: application/x-www-form-urlencoded
 <li>Resource paths not ending in <code>/$count</code> or <code>/$batch</code> allow <a href="#SystemQueryOptionformat"><code>$format</code></a>.</li>
 </ul>
 <p>For <code>POST</code> requests to an action URL the return type of the action determines the applicable system query options that a service MAY support, following the same rules as <code>GET</code> requests.</p>
+<p>Actions and Functions SHOULD be annotated with the appropriate <a href="ODataVocCapabilities">Capabilities Vocabulary</a> annotations to specify supported query options.</p>
 <p><code>POST</code> requests to an entity set follow the same rules as <code>GET</code> requests that return a single entity.</p>
 <p>System query options SHOULD NOT be applied to a <code>DELETE</code> request.</p>
 <p>An OData service may support some or all of the system query options defined. If a data service does not support a system query option, it MUST reject any request that contains the unsupported option.</p>

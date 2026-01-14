@@ -12,7 +12,9 @@ any type.
 The action's name is a [simple identifier](#SimpleIdentifier) that MUST
 be unique within its schema.
 
-Actions cannot be composed with additional path segments.
+Actions cannot be composed with additional path segments and SHOULD 
+use appropriate [Capabilities Vocabulary](ODataVocCap) annotations
+to denote any supported query options.
 
 An action MAY specify a [return type](#ReturnType) that MUST be a
 primitive, entity or complex type, or a collection of primitive, entity
@@ -246,8 +248,14 @@ indicated, it is not composable.
 
 A composable function can be invoked with additional path segments or
 key predicates appended to the resource path that identifies the
-composable function, and with system query options as appropriate for
-the type returned by the composable function.
+composable function, and is assumed to support system query options 
+as appropriate for the type returned by the composable function unless
+otherwise annotated using the appropriate 
+[Capabilities Vocabulary](ODataVocCap) annotations.
+
+Non-composable functions do not support additional path segments and
+SHOULD use the appropriate [Capabilities Vocabulary](ODataVocCap)
+annotations to denote any supported query options.
 
 ::: {.varjson .rep}
 ### ##subisec `$IsComposable`
