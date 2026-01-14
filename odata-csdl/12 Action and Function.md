@@ -251,7 +251,7 @@ key predicates appended to the resource path that identifies the
 composable function, and is assumed to support system query options 
 as appropriate for the type returned by the composable function unless
 otherwise annotated using the appropriate
-Capabilities vocabulary annotations [OData-VocCap](#ODataVocCap)
+Capabilities vocabulary annotations [OData-VocCap](#ODataVocCap).
 
 Non-composable functions do not support additional path segments and
 SHOULD use the appropriate Capabilities vocabulary
