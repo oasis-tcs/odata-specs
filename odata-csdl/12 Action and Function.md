@@ -13,7 +13,7 @@ The action's name is a [simple identifier](#SimpleIdentifier) that MUST
 be unique within its schema.
 
 Actions cannot be composed with additional path segments and SHOULD 
-use appropriate [Capabilities Vocabulary](ODataVocCap) annotations
+use appropriate Capabilities vocabulary annotations [OData-VocCap](#ODataVocCap)
 to denote any supported query options.
 
 An action MAY specify a [return type](#ReturnType) that MUST be a
@@ -250,11 +250,11 @@ A composable function can be invoked with additional path segments or
 key predicates appended to the resource path that identifies the
 composable function, and is assumed to support system query options 
 as appropriate for the type returned by the composable function unless
-otherwise annotated using the appropriate 
-[Capabilities Vocabulary](ODataVocCap) annotations.
+otherwise annotated using the appropriate
+Capabilities vocabulary annotations [OData-VocCap](#ODataVocCap)
 
 Non-composable functions do not support additional path segments and
-SHOULD use the appropriate [Capabilities Vocabulary](ODataVocCap)
+SHOULD use the appropriate Capabilities vocabulary
 annotations to denote any supported query options.
 
 ::: {.varjson .rep}
