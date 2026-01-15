@@ -1710,12 +1710,11 @@ type `self.A` named in the target expression.
 
 #### ##subsubsubsec Annotation Path
 
-The annotation path expression provides a value for terms or term
+The annotation path expression provides a non-null value for terms or term
 properties that specify the [built-in
 types](#BuiltInTypesfordefiningVocabularyTerms)
 `Edm.AnnotationPath` or `Edm.ModelElementPath`. Its argument is a [model
-path](#PathExpressions) with the following restriction:
-- A non-null path MUST resolve to an [annotation](#Annotation).
+path](#PathExpressions) that resolves to an [annotation](#Annotation).
 
 The value of the annotation path expression is the _path_ to the annotation, not its instance value.
 This is useful for terms that reuse or refer to other terms.
@@ -1765,7 +1764,7 @@ Example ##ex:
 
 #### ##subsubsubsec Model Element Path
 
-The model element path expression provides a value for terms or term
+The model element path expression provides a non-null value for terms or term
 properties that specify the [built-in
 type](#BuiltInTypesfordefiningVocabularyTerms) `Edm.ModelElementPath`. Its
 argument is a [model path](#PathExpressions).
@@ -1806,15 +1805,12 @@ Example ##ex:
 
 #### ##subsubsubsec Navigation Property Path
 
-The navigation property path expression provides a value for terms or
+The navigation property path expression provides a non-null value for terms or
 term properties that specify the [built-in
 types](#BuiltInTypesfordefiningVocabularyTerms)
 `Edm.NavigationPropertyPath`, `Edm.AnyPropertyPath`, or `Edm.ModelElementPath`.
-Its argument is a [model path](#PathExpressions) with the following
-restriction:
-- A non-null path MUST end with a [navigation property](#NavigationProperty)
+Its argument is a [model path](#PathExpressions) that ends with a [navigation property](#NavigationProperty)
 or a term cast to a term whose type is an entity type or a collection of entity types.
-
 
 The value of the navigation property path expression is the path itself,
 not the entity or collection of entities identified by the path.
@@ -1864,13 +1860,11 @@ Example ##ex:
 
 #### ##subsubsubsec Property Path
 
-The property path expression provides a value for terms or term
+The property path expression provides a non-null value for terms or term
 properties that specify one of the [built-in
 types](#BuiltInTypesfordefiningVocabularyTerms)
 `Edm.PropertyPath`, `Edm.AnyPropertyPath`, or `Edm.ModelElementPath`. Its
-argument is a [model path](#PathExpressions) with the following
-restriction:
-- A non-null path MUST end with a [structural property](#StructuralProperty)
+argument is a [model path](#PathExpressions) that ends with a [structural property](#StructuralProperty)
 or a term cast to a term whose type is a primitive or complex type, an enumeration type,
 a type definition, or a collection of one of these types.
 

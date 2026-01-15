@@ -4552,12 +4552,11 @@ type `self.A` named in the target expression.
 
 #### <a id="AnnotationPath" href="#AnnotationPath">14.4.1.3 Annotation Path</a>
 
-The annotation path expression provides a value for terms or term
+The annotation path expression provides a non-null value for terms or term
 properties that specify the [built-in
 types](#BuiltInTypesfordefiningVocabularyTerms)
 `Edm.AnnotationPath` or `Edm.ModelElementPath`. Its argument is a [model
-path](#PathExpressions) with the following restriction:
-- A non-null path MUST resolve to an [annotation](#Annotation).
+path](#PathExpressions) that resolves to an [annotation](#Annotation).
 
 The value of the annotation path expression is the _path_ to the annotation, not its instance value.
 This is useful for terms that reuse or refer to other terms.
@@ -4593,7 +4592,7 @@ Example 70:
 
 #### <a id="ModelElementPath" href="#ModelElementPath">14.4.1.4 Model Element Path</a>
 
-The model element path expression provides a value for terms or term
+The model element path expression provides a non-null value for terms or term
 properties that specify the [built-in
 type](#BuiltInTypesfordefiningVocabularyTerms) `Edm.ModelElementPath`. Its
 argument is a [model path](#PathExpressions).
@@ -4624,15 +4623,12 @@ Example 71:
 
 #### <a id="NavigationPropertyPath" href="#NavigationPropertyPath">14.4.1.5 Navigation Property Path</a>
 
-The navigation property path expression provides a value for terms or
+The navigation property path expression provides a non-null value for terms or
 term properties that specify the [built-in
 types](#BuiltInTypesfordefiningVocabularyTerms)
 `Edm.NavigationPropertyPath`, `Edm.AnyPropertyPath`, or `Edm.ModelElementPath`.
-Its argument is a [model path](#PathExpressions) with the following
-restriction:
-- A non-null path MUST end with a [navigation property](#NavigationProperty)
+Its argument is a [model path](#PathExpressions) that ends with a [navigation property](#NavigationProperty)
 or a term cast to a term whose type is an entity type or a collection of entity types.
-
 
 The value of the navigation property path expression is the path itself,
 not the entity or collection of entities identified by the path.
@@ -4666,13 +4662,11 @@ Example 72:
 
 #### <a id="PropertyPath" href="#PropertyPath">14.4.1.6 Property Path</a>
 
-The property path expression provides a value for terms or term
+The property path expression provides a non-null value for terms or term
 properties that specify one of the [built-in
 types](#BuiltInTypesfordefiningVocabularyTerms)
 `Edm.PropertyPath`, `Edm.AnyPropertyPath`, or `Edm.ModelElementPath`. Its
-argument is a [model path](#PathExpressions) with the following
-restriction:
-- A non-null path MUST end with a [structural property](#StructuralProperty)
+argument is a [model path](#PathExpressions) that ends with a [structural property](#StructuralProperty)
 or a term cast to a term whose type is a primitive or complex type, an enumeration type,
 a type definition, or a collection of one of these types.
 
