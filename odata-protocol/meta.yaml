@@ -17,6 +17,9 @@ additionalArtifacts:
   - repo: odata-abnf
     path: abnf/odata-abnf-testcases.yaml
     branch: v4.02-release-candidate
+  - repo: odata-abnf
+    path: syntax-diagram
+    branch: v4.02-release-candidate
 description:
   The Open Data Protocol (OData) enables the creation of REST-based data services,
   which allow resources, identified using Uniform Resource Locators (URLs) and
