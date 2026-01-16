@@ -3010,10 +3010,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <details open><summary>
 <h4 id="14413-annotation-path"><a id="AnnotationPath" href="#AnnotationPath">14.4.1.3 Annotation Path</a></h4>
 </summary>
-<p>The annotation path expression provides a value for terms or term properties that specify the <a href="#BuiltInTypesfordefiningVocabularyTerms">built-in types</a> <code>Edm.AnnotationPath</code> or <code>Edm.ModelElementPath</code>. Its argument is a <a href="#PathExpressions">model path</a> with the following restriction:</p>
-<ul>
-<li>A non-null path MUST resolve to an <a href="#Annotation">annotation</a>.</li>
-</ul>
+<p>The annotation path expression provides a non-null value for terms or term properties that specify the <a href="#BuiltInTypesfordefiningVocabularyTerms">built-in types</a> <code>Edm.AnnotationPath</code> or <code>Edm.ModelElementPath</code>. Its argument is a <a href="#PathExpressions">model path</a> that resolves to an <a href="#Annotation">annotation</a>.</p>
 <p>The value of the annotation path expression is the <em>path</em> to the annotation, not its instance value. This is useful for terms that reuse or refer to other terms.</p>
 <p>A term or term property of type <code>Edm.AnnotationPath</code> can be annotated with the term <code>Validation.AllowedTerms</code> (see <a href="#ODataVocValidation">OData-VocValidation</a>) if its intended value is an annotation path that ends in a term cast with one of the listed terms.</p>
 <section class="varxml rep">
@@ -3036,7 +3033,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <details open><summary>
 <h4 id="14414-model-element-path"><a id="ModelElementPath" href="#ModelElementPath">14.4.1.4 Model Element Path</a></h4>
 </summary>
-<p>The model element path expression provides a value for terms or term properties that specify the <a href="#BuiltInTypesfordefiningVocabularyTerms">built-in type</a> <code>Edm.ModelElementPath</code>. Its argument is a <a href="#PathExpressions">model path</a>.</p>
+<p>The model element path expression provides a non-null value for terms or term properties that specify the <a href="#BuiltInTypesfordefiningVocabularyTerms">built-in type</a> <code>Edm.ModelElementPath</code>. Its argument is a <a href="#PathExpressions">model path</a>.</p>
 <p>The value of the model element path expression is the path itself, not the instance(s) identified by the path.</p>
 <section class="varxml rep">
 <h3><a id="ExpressionedmModelElementPath.45" href="#ExpressionedmModelElementPath.45">Expression <code>edm:ModelElementPath</code></a></h3>
@@ -3055,10 +3052,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <details open><summary>
 <h4 id="14415-navigation-property-path"><a id="NavigationPropertyPath" href="#NavigationPropertyPath">14.4.1.5 Navigation Property Path</a></h4>
 </summary>
-<p>The navigation property path expression provides a value for terms or term properties that specify the <a href="#BuiltInTypesfordefiningVocabularyTerms">built-in types</a> <code>Edm.NavigationPropertyPath</code>, <code>Edm.AnyPropertyPath</code>, or <code>Edm.ModelElementPath</code>. Its argument is a <a href="#PathExpressions">model path</a> with the following restriction:</p>
-<ul>
-<li>A non-null path MUST end with a <a href="#NavigationProperty">navigation property</a> or a term cast to a term whose type is an entity type or a collection of entity types.</li>
-</ul>
+<p>The navigation property path expression provides a non-null value for terms or term properties that specify the <a href="#BuiltInTypesfordefiningVocabularyTerms">built-in types</a> <code>Edm.NavigationPropertyPath</code>, <code>Edm.AnyPropertyPath</code>, or <code>Edm.ModelElementPath</code>. Its argument is a <a href="#PathExpressions">model path</a> that ends with a <a href="#NavigationProperty">navigation property</a> or a term cast to a term whose type is an entity type or a collection of entity types.</p>
 <p>The value of the navigation property path expression is the path itself, not the entity or collection of entities identified by the path.</p>
 <section class="varxml rep">
 <h3><a id="ExpressionedmNavigationPropertyPath.46" href="#ExpressionedmNavigationPropertyPath.46">Expression <code>edm:NavigationPropertyPath</code></a></h3>
@@ -3083,10 +3077,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <details open><summary>
 <h4 id="14416-property-path"><a id="PropertyPath" href="#PropertyPath">14.4.1.6 Property Path</a></h4>
 </summary>
-<p>The property path expression provides a value for terms or term properties that specify one of the <a href="#BuiltInTypesfordefiningVocabularyTerms">built-in types</a> <code>Edm.PropertyPath</code>, <code>Edm.AnyPropertyPath</code>, or <code>Edm.ModelElementPath</code>. Its argument is a <a href="#PathExpressions">model path</a> with the following restriction:</p>
-<ul>
-<li>A non-null path MUST end with a <a href="#StructuralProperty">structural property</a> or a term cast to a term whose type is a primitive or complex type, an enumeration type, a type definition, or a collection of one of these types.</li>
-</ul>
+<p>The property path expression provides a non-null value for terms or term properties that specify one of the <a href="#BuiltInTypesfordefiningVocabularyTerms">built-in types</a> <code>Edm.PropertyPath</code>, <code>Edm.AnyPropertyPath</code>, or <code>Edm.ModelElementPath</code>. Its argument is a <a href="#PathExpressions">model path</a> that ends with a <a href="#StructuralProperty">structural property</a> or a term cast to a term whose type is a primitive or complex type, an enumeration type, a type definition, or a collection of one of these types.</p>
 <p>The value of the property path expression is the path itself, not the value of the structural property or annotation identified by the path.</p>
 <section class="varxml rep">
 <h3><a id="ExpressionedmPropertyPath.47" href="#ExpressionedmPropertyPath.47">Expression <code>edm:PropertyPath</code></a></h3>
