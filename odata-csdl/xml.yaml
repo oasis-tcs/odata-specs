@@ -16,6 +16,16 @@ additionalArtifacts:
   - repo: odata-csdl-schemas
     path: schemas/edmx.xsd
     branch: v4.02-release-candidate
+  - repo: odata-abnf
+    path: abnf/odata-abnf-construction-rules.txt
+    branch: v4.02-release-candidate
+  - repo: odata-abnf
+    path: abnf/odata-abnf-testcases.yaml
+    branch: v4.02-release-candidate
+  - repo: odata-abnf
+    path: syntax-diagram
+    branch: v4.02-release-candidate
+OData-ABNF: https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html
 description:
   OData services are described by an Entity Model (EDM).
   The Common Schema Definition Language (CSDL) defines specific representations

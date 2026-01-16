@@ -13,5 +13,16 @@ additionalArtifacts:
     path: vocabularies/Org.OData.Temporal.V1.json
   - repo: odata-vocabularies
     path: vocabularies/Org.OData.Temporal.V1.xml
+  - repo: odata-abnf
+    path: abnf/odata-abnf-construction-rules.txt
+  - repo: odata-abnf
+    path: abnf/odata-abnf-testcases.yaml
+  - repo: odata-abnf
+    path: abnf/odata-temporal-abnf.txt
+  - repo: odata-abnf
+    path: abnf/odata-temporal-testcases.yaml
+  - repo: odata-abnf
+    path: syntax-diagram
+OData-ABNF: https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html
 description:
   This specification defines how to represent and interact with time-dependent data using the Open Data Protocol (OData).

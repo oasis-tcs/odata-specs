@@ -20,6 +20,7 @@ additionalArtifacts:
   - repo: odata-abnf
     path: syntax-diagram
     branch: v4.02-release-candidate
+OData-ABNF: https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html
 description:
   The Open Data Protocol (OData) enables the creation of REST-based data services,
   which allow resources, identified using Uniform Resource Locators (URLs) and

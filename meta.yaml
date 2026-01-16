@@ -1,6 +1,3 @@
 OData-VocCore: https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md
 OData-VocCap: https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md
 OData-VocAggr: https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.md
-OData-ABNF: https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html
-# OData-ABNF for OData 4.02 Core: https://docs.oasis-open.org/odata/odata/v4.0/os/abnf/syntax-diagram/odata-abnf-diagrams.html
-# OData-ABNF for OData-Data-Aggr-Ext 4.0: https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/abnf/syntax-diagram/odata-abnf-diagrams.html

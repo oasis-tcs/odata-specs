@@ -8,6 +8,17 @@ previousStage: csd01
 pubdate: 28 February 2024
 pubdateISO: '2024-02-28'
 copyright: © OASIS Open 2024
+additionalArtifacts:
+  - repo: odata-abnf
+    path: abnf/odata-abnf-construction-rules.txt
+    branch: v4.02-release-candidate
+  - repo: odata-abnf
+    path: abnf/odata-abnf-testcases.yaml
+    branch: v4.02-release-candidate
+  - repo: odata-abnf
+    path: syntax-diagram
+    branch: v4.02-release-candidate
+OData-ABNF: https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html
 description: >
   The Open Data Protocol (OData) for representing and interacting with structured
   content is comprised of a set of specifications. The core specification for the

@@ -10,6 +10,7 @@ pubdateISO: '2024-02-28'
 copyright: © OASIS Open 2024
 archivename: odata-v4.02-csd02
 partname: part2-url-conventions
+OData-ABNF: https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html
 description:
   The Open Data Protocol (OData) enables the creation of REST-based data services,
   which allow resources, identified using Uniform Resource Locators (URLs) and
