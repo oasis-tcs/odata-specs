@@ -2591,7 +2591,7 @@ http://host/service/Customers?$filter=trim(CompanyName) eq CompanyName
 
 ##### <a id="date" href="#date">5.1.1.8.1 `date`</a>
 
-The `date` function has the following signature (see syntax rule [dateMethodCallExpr]]{.abnf}):
+The `date` function has the following signature:
 
 ```
 Edm.Date date(Edm.DateTimeOffset)
@@ -2599,7 +2599,8 @@ Edm.Date date(Edm.DateTimeOffset)
 
 The `date` function returns the date part of the `DateTimeOffset`
 parameter value, evaluated in the time zone of the `DateTimeOffset`
-parameter value.
+parameter value. The [dateMethodCallExpr]{.abnf} syntax rule defines how the `date`
+function is invoked.
 
 ##### <a id="day" href="#day">5.1.1.8.2 `day`</a>
 
@@ -2681,25 +2682,27 @@ http://host/service/Employees?$filter=hour(BirthDate) eq 4
 
 ##### <a id="maxdatetime" href="#maxdatetime">5.1.1.8.5 `maxdatetime`</a>
 
-The `maxdatetime` function has the following signature (see syntax rule [maxDateTimeMethodCallExpr]]{.abnf}):
+The `maxdatetime` function has the following signature:
 
 ```
 Edm.DateTimeOffset maxdatetime()
 ```
 
 The `maxdatetime` function returns the latest possible point in time as
-a `DateTimeOffset` value.
+a `DateTimeOffset` value. The [maxDateTimeMethodCallExpr]{.abnf}
+syntax rule defines how the `maxdatetime` function is invoked.
 
 ##### <a id="mindatetime" href="#mindatetime">5.1.1.8.6 `mindatetime`</a>
 
-The `mindatetime` function has the following signature (see syntax rule [minDateTimeMethodCallExpr]]{.abnf}):
+The `mindatetime` function has the following signature:
 
 ```
 Edm.DateTimeOffset mindatetime()
 ```
 
 The `mindatetime` function returns the earliest possible point in time
-as a `DateTimeOffset` value.
+as a `DateTimeOffset` value. The [minDateTimeMethodCallExpr]{.abnf}
+syntax rule defines how the `mindatetime` function is invoked.
 
 ##### <a id="minute" href="#minute">5.1.1.8.7 `minute`</a>
 
@@ -2751,14 +2754,15 @@ http://host/service/Employees?$filter=month(BirthDate) eq 5
 
 ##### <a id="now" href="#now">5.1.1.8.9 `now`</a>
 
-The `now` function has the following signature (see syntax rule [nowMethodCallExpr]]{.abnf}):
+The `now` function has the following signature:
 
 ```
 Edm.DateTimeOffset now()
 ```
 
 The `now` function returns the current point in time (date and time with
-time zone) as a `DateTimeOffset` value.
+time zone) as a `DateTimeOffset` value. The [nowMethodCallExpr]{.abnf}
+syntax rule defines how the `now` function is invoked.
 
 Services are free to choose the time zone for the current point, for example
 UTC. Services that are unable to preserve the offset of
@@ -2791,7 +2795,7 @@ http://host/service/Employees?$filter=second(BirthDate) eq 40
 
 ##### <a id="time" href="#time">5.1.1.8.11 `time`</a>
 
-The `time` function has the following signature (see syntax rule [timeMethodCallExpr]]{.abnf}):
+The `time` function has the following signature:
 
 ```
 Edm.TimeOfDay time(Edm.DateTimeOffset)
@@ -2799,7 +2803,8 @@ Edm.TimeOfDay time(Edm.DateTimeOffset)
 
 The `time` function returns the time part of the `DateTimeOffset`
 parameter value, evaluated in the time zone of the `DateTimeOffset`
-parameter value.
+parameter value. The [timeMethodCallExpr]{.abnf}
+syntax rule defines how the `time` function is invoked.
 
 Services that are unable to preserve the offset of `Edm.DateTimeOffset`
 values and instead normalize the values to some common time zone (for example
@@ -2809,7 +2814,7 @@ normalized values.
 
 ##### <a id="totaloffsetminutes" href="#totaloffsetminutes">5.1.1.8.12 `totaloffsetminutes`</a>
 
-The `totaloffsetminutes` function has the following signature (see syntax rule [totalOffsetMinutesMethodCallExpr]]{.abnf}):
+The `totaloffsetminutes` function has the following signature:
 
 ```
 Edm.Int32 totaloffsetminutes(Edm.DateTimeOffset)
@@ -2818,17 +2823,20 @@ Edm.Int32 totaloffsetminutes(Edm.DateTimeOffset)
 The `totaloffsetminutes` function returns the signed number of minutes
 in the time zone offset part of the `DateTimeOffset` parameter value,
 evaluated in the time zone of the `DateTimeOffset` parameter value.
+The [totalOffsetMinutesMethodCallExpr]{.abnf}
+syntax rule defines how the `totaloffsetminutes` function is invoked.
 
 ##### <a id="totalseconds" href="#totalseconds">5.1.1.8.13 `totalseconds`</a>
 
-The `totalseconds` function has the following signature (see syntax rule [totalsecondsMethodCallExpr]]{.abnf}):
+The `totalseconds` function has the following signature:
 
 ```
 Edm.Decimal totalseconds(Edm.Duration)
 ```
 
 The `totalseconds` function returns the duration of the value in total
-seconds, including fractional seconds.
+seconds, including fractional seconds. The [totalSecondsMethodCallExpr]{.abnf}
+syntax rule defines how the `totalseconds` function is invoked.
 
 ##### <a id="year" href="#year">5.1.1.8.14 `year`</a>
 
@@ -2927,7 +2935,7 @@ http://host/service/Orders?$filter=round(Freight) eq 32
 
 ##### <a id="cast" href="#cast">5.1.1.10.1 `cast`</a>
 
-The `cast` function has the following signatures (see syntax rule [castExpr]]{.abnf}):
+The `cast` function has the following signatures:
 
 ```
 type cast(type)
@@ -2937,6 +2945,8 @@ type cast(expression,type)
 The single parameter `cast` function returns the current instance cast
 to the type specified. The two-parameter `cast` function returns the
 object referred to by the expression cast to the type specified.
+The [castMethodCallExpr]{.abnf}
+syntax rule defines how the `cast` function is invoked.
 
 The `cast` function follows these assignment rules:
 
@@ -3004,7 +3014,7 @@ http://host/service/Orders?$filter=isof(Customer,NorthwindModel.VIPCustomer)
 
 ##### <a id="geodistance" href="#geodistance">5.1.1.11.1 `geo.distance`</a>
 
-The `geo.distance` function has the following signatures (see syntax rule [distanceMethodCallExpr]]{.abnf}):
+The `geo.distance` function has the following signatures:
 
 ```
 Edm.Double geo.distance(Edm.GeographyPoint,Edm.GeographyPoint)
@@ -3013,11 +3023,12 @@ Edm.Double geo.distance(Edm.GeometryPoint,Edm.GeometryPoint)
 
 The `geo.distance` function returns the shortest distance between the
 two points in the coordinate reference system signified by the two
-points' SRIDs.
+points' SRIDs. The [distanceMethodCallExpr]{.abnf}
+syntax rule defines how the `geo.distance` function is invoked.
 
 ##### <a id="geointersects" href="#geointersects">5.1.1.11.2 `geo.intersects`</a>
 
-The `geo.intersects` function has the following signatures (see syntax rule [intersectsMethodCallExpr]]{.abnf}):
+The `geo.intersects` function has the following signatures:
 
 ```
 Edm.Boolean geo.intersects(Edm.GeographyPoint,Edm.GeographyPolygon)
@@ -3026,11 +3037,12 @@ Edm.Boolean geo.intersects(Edm.GeometryPoint,Edm.GeometryPolygon)
 
 The `geo.intersects` function returns `true` if the specified point lies
 within the interior or on the boundary of the specified polygon,
-otherwise it returns `false`.
+otherwise it returns `false`. The [intersectsMethodCallExpr]{.abnf}
+syntax rule defines how the `geo.intersects` function is invoked.
 
 ##### <a id="geolength" href="#geolength">5.1.1.11.3 `geo.length`</a>
 
-The `geo.length` function has the following signatures (see syntax rule [geoLengthMethodCallExpr]]{.abnf}):
+The `geo.length` function has the following signatures:
 
 ```
 Edm.Double geo.length(Edm.GeographyLineString)
@@ -3039,12 +3051,14 @@ Edm.Double geo.length(Edm.GeometryLineString)
 
 The `geo.length` function returns the total length of its line string
 parameter in the coordinate reference system signified by its SRID.
+The [geoLengthMethodCallExpr]{.abnf}
+syntax rule defines how the `geo.length` function is invoked.
 
 #### <a id="ConditionalOperators" href="#ConditionalOperators">5.1.1.12 Conditional Operators</a>
 
 ##### <a id="case" href="#case">5.1.1.12.1 `case`</a>
 
-The `case` operator has a comma-separated lists of arguments (see syntax rule [caseMethodCallExpr]]{.abnf}):
+The `case` operator has a comma-separated lists of arguments:
 
 ```
 expression case(Edm.Boolean:expression, …, Edm.Boolean:expression)
@@ -3053,7 +3067,8 @@ expression case(Edm.Boolean:expression, …, Edm.Boolean:expression)
 Each argument is a pair of expressions separated by a colon (`:`),
 where the first expression --- the condition --- MUST be a Boolean
 expression, and the second expression --- the result --- may evaluate to
-any type.
+any type. The [caseMethodCallExpr]{.abnf}
+syntax rule defines how the `case` operator is invoked.
 
 The `case` operator evaluates the condition in each pair, starting with
 the leftmost pair, and stops as soon as a condition evaluates to `true`.

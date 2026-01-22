@@ -1599,9 +1599,9 @@ Edm.Boolean matchespattern(Edm.String,Edm.String,Edm.String)</code></pre>
 <details open><summary>
 <h5 id="51181-date"><a id="date" href="#date">5.1.1.8.1 <code>date</code></a></h5>
 </summary>
-<p>The <code>date</code> function has the following signature (see syntax rule [dateMethodCallExpr]]{.abnf}):</p>
+<p>The <code>date</code> function has the following signature:</p>
 <pre><code>Edm.Date date(Edm.DateTimeOffset)</code></pre>
-<p>The <code>date</code> function returns the date part of the <code>DateTimeOffset</code> parameter value, evaluated in the time zone of the <code>DateTimeOffset</code> parameter value.</p>
+<p>The <code>date</code> function returns the date part of the <code>DateTimeOffset</code> parameter value, evaluated in the time zone of the <code>DateTimeOffset</code> parameter value. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#dateMethodCallExpr"><code>dateMethodCallExpr</code></a></span> syntax rule defines how the <code>date</code> function is invoked.</p>
 </details>
 <details open><summary>
 <h5 id="51182-day"><a id="day" href="#day">5.1.1.8.2 <code>day</code></a></h5>
@@ -1644,16 +1644,16 @@ Edm.Int32 hour(Edm.TimeOfDay)</code></pre>
 <details open><summary>
 <h5 id="51185-maxdatetime"><a id="maxdatetime" href="#maxdatetime">5.1.1.8.5 <code>maxdatetime</code></a></h5>
 </summary>
-<p>The <code>maxdatetime</code> function has the following signature (see syntax rule [maxDateTimeMethodCallExpr]]{.abnf}):</p>
+<p>The <code>maxdatetime</code> function has the following signature:</p>
 <pre><code>Edm.DateTimeOffset maxdatetime()</code></pre>
-<p>The <code>maxdatetime</code> function returns the latest possible point in time as a <code>DateTimeOffset</code> value.</p>
+<p>The <code>maxdatetime</code> function returns the latest possible point in time as a <code>DateTimeOffset</code> value. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#maxDateTimeMethodCallExpr"><code>maxDateTimeMethodCallExpr</code></a></span> syntax rule defines how the <code>maxdatetime</code> function is invoked.</p>
 </details>
 <details open><summary>
 <h5 id="51186-mindatetime"><a id="mindatetime" href="#mindatetime">5.1.1.8.6 <code>mindatetime</code></a></h5>
 </summary>
-<p>The <code>mindatetime</code> function has the following signature (see syntax rule [minDateTimeMethodCallExpr]]{.abnf}):</p>
+<p>The <code>mindatetime</code> function has the following signature:</p>
 <pre><code>Edm.DateTimeOffset mindatetime()</code></pre>
-<p>The <code>mindatetime</code> function returns the earliest possible point in time as a <code>DateTimeOffset</code> value.</p>
+<p>The <code>mindatetime</code> function returns the earliest possible point in time as a <code>DateTimeOffset</code> value. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#minDateTimeMethodCallExpr"><code>minDateTimeMethodCallExpr</code></a></span> syntax rule defines how the <code>mindatetime</code> function is invoked.</p>
 </details>
 <details open><summary>
 <h5 id="51187-minute"><a id="minute" href="#minute">5.1.1.8.7 <code>minute</code></a></h5>
@@ -1683,9 +1683,9 @@ Edm.Int32 month(Edm.DateTimeOffset)</code></pre>
 <details open><summary>
 <h5 id="51189-now"><a id="now" href="#now">5.1.1.8.9 <code>now</code></a></h5>
 </summary>
-<p>The <code>now</code> function has the following signature (see syntax rule [nowMethodCallExpr]]{.abnf}):</p>
+<p>The <code>now</code> function has the following signature:</p>
 <pre><code>Edm.DateTimeOffset now()</code></pre>
-<p>The <code>now</code> function returns the current point in time (date and time with time zone) as a <code>DateTimeOffset</code> value.</p>
+<p>The <code>now</code> function returns the current point in time (date and time with time zone) as a <code>DateTimeOffset</code> value. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#nowMethodCallExpr"><code>nowMethodCallExpr</code></a></span> syntax rule defines how the <code>now</code> function is invoked.</p>
 <p>Services are free to choose the time zone for the current point, for example UTC. Services that are unable to preserve the offset of <code>Edm.DateTimeOffset</code> values and instead normalize the values to some common time zone SHOULD return a value in the normalized time zone (for example UTC).</p>
 </details>
 <details open><summary>
@@ -1703,24 +1703,24 @@ Edm.Int32 second(Edm.TimeOfDay)</code></pre>
 <details open><summary>
 <h5 id="511811-time"><a id="time" href="#time">5.1.1.8.11 <code>time</code></a></h5>
 </summary>
-<p>The <code>time</code> function has the following signature (see syntax rule [timeMethodCallExpr]]{.abnf}):</p>
+<p>The <code>time</code> function has the following signature:</p>
 <pre><code>Edm.TimeOfDay time(Edm.DateTimeOffset)</code></pre>
-<p>The <code>time</code> function returns the time part of the <code>DateTimeOffset</code> parameter value, evaluated in the time zone of the <code>DateTimeOffset</code> parameter value.</p>
+<p>The <code>time</code> function returns the time part of the <code>DateTimeOffset</code> parameter value, evaluated in the time zone of the <code>DateTimeOffset</code> parameter value. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#timeMethodCallExpr"><code>timeMethodCallExpr</code></a></span> syntax rule defines how the <code>time</code> function is invoked.</p>
 <p>Services that are unable to preserve the offset of <code>Edm.DateTimeOffset</code> values and instead normalize the values to some common time zone (for example UTC) MUST fail evaluation of the <code>time</code> function for literal <code>Edm.DateTimeOffset</code> values that are not stated in the time zone of the normalized values.</p>
 </details>
 <details open><summary>
 <h5 id="511812-totaloffsetminutes"><a id="totaloffsetminutes" href="#totaloffsetminutes">5.1.1.8.12 <code>totaloffsetminutes</code></a></h5>
 </summary>
-<p>The <code>totaloffsetminutes</code> function has the following signature (see syntax rule [totalOffsetMinutesMethodCallExpr]]{.abnf}):</p>
+<p>The <code>totaloffsetminutes</code> function has the following signature:</p>
 <pre><code>Edm.Int32 totaloffsetminutes(Edm.DateTimeOffset)</code></pre>
-<p>The <code>totaloffsetminutes</code> function returns the signed number of minutes in the time zone offset part of the <code>DateTimeOffset</code> parameter value, evaluated in the time zone of the <code>DateTimeOffset</code> parameter value.</p>
+<p>The <code>totaloffsetminutes</code> function returns the signed number of minutes in the time zone offset part of the <code>DateTimeOffset</code> parameter value, evaluated in the time zone of the <code>DateTimeOffset</code> parameter value. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#totalOffsetMinutesMethodCallExpr"><code>totalOffsetMinutesMethodCallExpr</code></a></span> syntax rule defines how the <code>totaloffsetminutes</code> function is invoked.</p>
 </details>
 <details open><summary>
 <h5 id="511813-totalseconds"><a id="totalseconds" href="#totalseconds">5.1.1.8.13 <code>totalseconds</code></a></h5>
 </summary>
-<p>The <code>totalseconds</code> function has the following signature (see syntax rule [totalsecondsMethodCallExpr]]{.abnf}):</p>
+<p>The <code>totalseconds</code> function has the following signature:</p>
 <pre><code>Edm.Decimal totalseconds(Edm.Duration)</code></pre>
-<p>The <code>totalseconds</code> function returns the duration of the value in total seconds, including fractional seconds.</p>
+<p>The <code>totalseconds</code> function returns the duration of the value in total seconds, including fractional seconds. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#totalSecondsMethodCallExpr"><code>totalSecondsMethodCallExpr</code></a></span> syntax rule defines how the <code>totalseconds</code> function is invoked.</p>
 </details>
 <details open><summary>
 <h5 id="511814-year"><a id="year" href="#year">5.1.1.8.14 <code>year</code></a></h5>
@@ -1782,10 +1782,10 @@ Edm.Decimal round(Edm.Decimal)</code></pre>
 <details open><summary>
 <h5 id="511101-cast"><a id="cast" href="#cast">5.1.1.10.1 <code>cast</code></a></h5>
 </summary>
-<p>The <code>cast</code> function has the following signatures (see syntax rule [castExpr]]{.abnf}):</p>
+<p>The <code>cast</code> function has the following signatures:</p>
 <pre><code>type cast(type)
 type cast(expression,type)</code></pre>
-<p>The single parameter <code>cast</code> function returns the current instance cast to the type specified. The two-parameter <code>cast</code> function returns the object referred to by the expression cast to the type specified.</p>
+<p>The single parameter <code>cast</code> function returns the current instance cast to the type specified. The two-parameter <code>cast</code> function returns the object referred to by the expression cast to the type specified. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#castMethodCallExpr"><code>castMethodCallExpr</code></a></span> syntax rule defines how the <code>cast</code> function is invoked.</p>
 <p>The <code>cast</code> function follows these assignment rules:</p>
 <ol type="1">
 <li>The <code>null</code> value can be cast to any type.</li>
@@ -1828,26 +1828,26 @@ Edm.Boolean isof(expression,type)</code></pre>
 <details open><summary>
 <h5 id="511111-geodistance"><a id="geodistance" href="#geodistance">5.1.1.11.1 <code>geo.distance</code></a></h5>
 </summary>
-<p>The <code>geo.distance</code> function has the following signatures (see syntax rule [distanceMethodCallExpr]]{.abnf}):</p>
+<p>The <code>geo.distance</code> function has the following signatures:</p>
 <pre><code>Edm.Double geo.distance(Edm.GeographyPoint,Edm.GeographyPoint)
 Edm.Double geo.distance(Edm.GeometryPoint,Edm.GeometryPoint)</code></pre>
-<p>The <code>geo.distance</code> function returns the shortest distance between the two points in the coordinate reference system signified by the two points’ SRIDs.</p>
+<p>The <code>geo.distance</code> function returns the shortest distance between the two points in the coordinate reference system signified by the two points’ SRIDs. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#distanceMethodCallExpr"><code>distanceMethodCallExpr</code></a></span> syntax rule defines how the <code>geo.distance</code> function is invoked.</p>
 </details>
 <details open><summary>
 <h5 id="511112-geointersects"><a id="geointersects" href="#geointersects">5.1.1.11.2 <code>geo.intersects</code></a></h5>
 </summary>
-<p>The <code>geo.intersects</code> function has the following signatures (see syntax rule [intersectsMethodCallExpr]]{.abnf}):</p>
+<p>The <code>geo.intersects</code> function has the following signatures:</p>
 <pre><code>Edm.Boolean geo.intersects(Edm.GeographyPoint,Edm.GeographyPolygon)
 Edm.Boolean geo.intersects(Edm.GeometryPoint,Edm.GeometryPolygon)</code></pre>
-<p>The <code>geo.intersects</code> function returns <code>true</code> if the specified point lies within the interior or on the boundary of the specified polygon, otherwise it returns <code>false</code>.</p>
+<p>The <code>geo.intersects</code> function returns <code>true</code> if the specified point lies within the interior or on the boundary of the specified polygon, otherwise it returns <code>false</code>. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#intersectsMethodCallExpr"><code>intersectsMethodCallExpr</code></a></span> syntax rule defines how the <code>geo.intersects</code> function is invoked.</p>
 </details>
 <details open><summary>
 <h5 id="511113-geolength"><a id="geolength" href="#geolength">5.1.1.11.3 <code>geo.length</code></a></h5>
 </summary>
-<p>The <code>geo.length</code> function has the following signatures (see syntax rule [geoLengthMethodCallExpr]]{.abnf}):</p>
+<p>The <code>geo.length</code> function has the following signatures:</p>
 <pre><code>Edm.Double geo.length(Edm.GeographyLineString)
 Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
-<p>The <code>geo.length</code> function returns the total length of its line string parameter in the coordinate reference system signified by its SRID.</p>
+<p>The <code>geo.length</code> function returns the total length of its line string parameter in the coordinate reference system signified by its SRID. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#geoLengthMethodCallExpr"><code>geoLengthMethodCallExpr</code></a></span> syntax rule defines how the <code>geo.length</code> function is invoked.</p>
 </details>
 </details>
 <details open><summary>
@@ -1856,9 +1856,9 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <details open><summary>
 <h5 id="511121-case"><a id="case" href="#case">5.1.1.12.1 <code>case</code></a></h5>
 </summary>
-<p>The <code>case</code> operator has a comma-separated lists of arguments (see syntax rule [caseMethodCallExpr]]{.abnf}):</p>
+<p>The <code>case</code> operator has a comma-separated lists of arguments:</p>
 <pre><code>expression case(Edm.Boolean:expression, …, Edm.Boolean:expression)</code></pre>
-<p>Each argument is a pair of expressions separated by a colon (<code>:</code>), where the first expression — the condition — MUST be a Boolean expression, and the second expression — the result — may evaluate to any type.</p>
+<p>Each argument is a pair of expressions separated by a colon (<code>:</code>), where the first expression — the condition — MUST be a Boolean expression, and the second expression — the result — may evaluate to any type. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#caseMethodCallExpr"><code>caseMethodCallExpr</code></a></span> syntax rule defines how the <code>case</code> operator is invoked.</p>
 <p>The <code>case</code> operator evaluates the condition in each pair, starting with the leftmost pair, and stops as soon as a condition evaluates to <code>true</code>. It then returns the value of the result of this pair. It returns <code>null</code> if none of the conditions in any pair evaluates to <code>true</code>. Clients can specify a last pair whose condition is <code>true</code> to get a non-<code>null</code> “default/else/otherwise” result.</p>
 <p>Boolean expressions containing <code>DateTimeOffset</code> or <code>TimeOfDay</code> literals without the optional seconds part will introduce ambiguity for parsers. Clients SHOULD use whitespace or parentheses to avoid ambiguity.</p>
 <p>Clients SHOULD ensure that the results in all pairs are compatible. If all results are of the same type, the type of the <code>case</code> expression is of that type. If all results are of numeric type, then the type of the <code>case</code> expression is a numeric type capable of representing any of these expressions according to standard type promotion rules.</p>
