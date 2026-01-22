@@ -40,7 +40,7 @@ Michael Pizzo (mikep@microsoft.com), [Microsoft](http://www.microsoft.com/) \
 Ralf Handl (ralf.handl@sap.com), [SAP SE](http://www.sap.com/) \
 Heiko Theißen (heiko.theissen@sap.com), [SAP SE](http://www.sap.com/)
 
-#### Additional artifacts:
+#### [Additional artifacts:]{id=AdditionalArtifacts}
 This prose specification is one component of a Work Product that also includes:
 * _OData Version 4.02 Part 1: Protocol_. https://docs.oasis-open.org/odata/odata/v4.02/csd02/part1-protocol/odata-v4.02-csd02-part1-protocol.html
 * _OData Version 4.02 Part 2: URL Conventions_ (this document). https://docs.oasis-open.org/odata/odata/v4.02/csd02/part2-url-conventions/odata-v4.02-csd02-part2-url-conventions.html
@@ -4260,7 +4260,7 @@ The following documents are referenced in such a way that some or all of their c
 
 ###### [OData-ABNF]{id=ODataABNF}
 _ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases._  
-See link in "[Related work](#RelatedWork)" section on cover page.
+See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
 
 ###### [OData-CSDL]{id=ODataCSDL}
 _OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02._  
