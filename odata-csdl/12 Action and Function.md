@@ -13,9 +13,9 @@ The action's name is a [simple identifier](#SimpleIdentifier) that MUST
 be unique within its schema.
 
 Actions cannot be composed with additional path segments nor indexed by key,
-and SHOULD be annotated with the [Capabilities Vocabulary](ODataVocCap) annotations
-to denote any supported query options. Absent such annotations, actions
-SHOULD NOT be assumed to support any query options.
+and SHOULD be annotated with the appropriate Capabilities vocabulary annotations
+[OData-VocCap](#ODataVocCap) to denote any supported query options.
+Absent such annotations, actions SHOULD NOT be assumed to support any query options.
 
 An action MAY specify a [return type](#ReturnType) that MUST be a
 primitive, entity or complex type, or a collection of primitive, entity
@@ -252,11 +252,11 @@ key predicates appended to the resource path that identifies the
 composable function. Non-composable functions do not support additional
 path segments, nor indexing by key.
 
-Functions SHOULD be annotated with the [Capabilities Vocabulary](ODataVocCap) 
-annotations to denote any supported query options. Absent such annotations, 
-composable functions SHOULD support the same default query options as an entity
-set of that type would support, while non-composable functions SHOULD NOT
-be assumed to support any query options.
+Functions SHOULD be annotated with the appropriate Capabilities vocabulary
+annotations [OData-VocCap](#ODataVocCap) to denote any supported
+query options. Absent such annotations, composable functions SHOULD support
+the same default query options as an entity set of that type would support,
+while non-composable functions SHOULD NOT be assumed to support any query options.
 
 ::: {.varjson .rep}
 ### ##subisec `$IsComposable`
