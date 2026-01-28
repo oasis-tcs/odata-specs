@@ -105,13 +105,13 @@ leading back to the property's declaring type, the finiteness condition for
 in this chain MUST be nullable or collection-valued.
 
 A collection-valued property MAY be annotated with the
-[`Core.Ordered`]($$$OData-VocCore$$$#Ordered)
+[Core.Ordered]{.term}
 term, defined in
 [OData-VocCore](#ODataVocCore), to specify that it supports a
 stable ordering.
 
 A collection-valued property MAY be annotated with the
-[`Core.PositionalInsert`]($$$OData-VocCore$$$#PositionalInsert)
+[Core.PositionalInsert]{.term}
 term, defined in [OData-VocCore](#ODataVocCore), to specify that it
 supports inserting items into a specific ordinal position.
 
@@ -229,7 +229,7 @@ type parameter
 Default values of type `Edm.String` MUST be represented according to the
 XML escaping rules for character data in attribute values. Values of
 other primitive types MUST be represented according to the appropriate
-alternative in the `primitiveValue` rule defined in
+alternative in the [primitiveValue]{.abnf} rule defined in
 [OData-ABNF](#ODataABNF), i.e. `Edm.Binary` as `binaryValue`,
 `Edm.Boolean` as `booleanValue` etc.
 :::
@@ -375,12 +375,12 @@ For a collection-valued containment navigation property the specified
 entity type MUST have a [key](#Key) defined.
 
 A collection-valued navigation property MAY be annotated with the
-[`Core.Ordered`]($$$OData-VocCore$$$#Ordered)
+[Core.Ordered]{.term}
 term, defined in [OData-VocCore](#ODataVocCore), to specify that it
 supports a stable ordering.
 
 A collection-valued navigation property MAY be annotated with the
-[`Core.PositionalInsert`]($$$OData-VocCore$$$#PositionalInsert)
+[Core.PositionalInsert]{.term}
 term, defined in [OData-VocCore](#ODataVocCore), to specify that it
 supports inserting items into a specific ordinal position.
 
@@ -501,7 +501,7 @@ MUST have a [key](#Key) defined.
 
 For items of an ordered collection of complex types (those annotated
 with the
-[`Core.Ordered`]($$$OData-VocCore$$$#Ordered)
+[Core.Ordered]{.term}
 term defined in [OData-VocCore](#ODataVocCore) the canonical URL
 of the item is the canonical URL of the collection appended with a
 segment containing the zero-based ordinal of the item. Items within in

@@ -21,7 +21,7 @@ _European Petroleum Survey Group (EPSG)_. https://spatialreference.org/ref/epsg/
 
 ###### [OData-ABNF]{id=ODataABNF}
 _OData ABNF Construction Rules Version 4.02_.  
-See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
+See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### [OData-CSDL]{id=ODataCSDL}
 _OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02._

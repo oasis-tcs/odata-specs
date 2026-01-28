@@ -63,10 +63,7 @@ import * as Number from './lib/number.js';
 import * as pandoc from './lib/pandoc.js';
 var proc = pandoc({"--metadata-file": "./odata-data-aggregation-ext/meta.yaml"});
 proc.stdout.pipe(«HTML file»);
-var meta = {
-  ...yaml.load(fs.readFileSync("./meta.yaml")),
-  ...yaml.load(fs.readFileSync("./odata-data-aggregation-ext/meta.yaml"))
-}
+var meta = yaml.load(fs.readFileSync("./odata-data-aggregation-ext/meta.yaml"));
 new Number("odata-data-aggregation-ext", "meta", meta).build(proc.stdin);
 ```
 

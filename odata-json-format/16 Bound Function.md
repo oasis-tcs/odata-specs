@@ -11,7 +11,7 @@ service, see [OData-CSDL](#ODataCSDL). A
 specific function overload can be advertised by appending the
 parentheses-enclosed, comma-separated list of non-binding parameter
 names to the qualified function name, see rule
-`qualifiedFunctionName` in [OData-ABNF](#ODataABNF).
+[qualifiedFunctionName]{.abnf} in [OData-ABNF](#ODataABNF).
 
 A function that is bound to a single structured type MAY be advertised
 within the JSON object representing that structured type.

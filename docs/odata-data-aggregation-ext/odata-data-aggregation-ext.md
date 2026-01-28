@@ -216,7 +216,7 @@ This specification defines the following terms:
 - [_Aggregate Expression_]{id=AggregateExpression} – argument of the `aggregate` [transformation](#Transformationaggregate) or [function](#Functionaggregate) defined in [section 3.2.1.1](#AggregationAlgorithm)
 - [_Aggregatable Primitive Type_]{id=AggregatablePrimitiveType} – a primitive type other than `Edm.Stream` or subtypes of `Edm.Geography` or `Edm.Geometry`
 - [_Data Aggregation Path_]{id=DataAggregationPath} – a path that consists of one or more segments joined together by forward slashes (`/`). Segments are names of declared or dynamic structural or navigation properties, or type-cast segments consisting of the (optionally qualified) name of a structured type that is derived from the type identified by the preceding path segment to reach properties declared by the derived type.
-- [_Expression_]{id=Expression} – derived from the `commonExpr` rule (see [OData-ABNF](#ODataABNF))
+- [_Expression_]{id=Expression} – derived from the [commonExpr]{.abnf} rule (see [OData-ABNF](#ODataABNF))
 - [_Single-Valued Property Path_]{id=SingleValuedPropertyPath} – property path ending in a single-valued primitive, complex, or navigation property
 
 ### <a id="AcronymsandAbbreviations" href="#AcronymsandAbbreviations">1.1.2 Acronyms and Abbreviations</a>
@@ -1021,7 +1021,7 @@ The allowed set transformations are defined in this section as well as in the se
 
 Service-defined bound functions that take a collection of instances of a structured type as their binding parameter and return a collection of instances of a structured type MAY be used as set transformations within `$apply`. Further transformations can follow the bound function. The parameter syntax for bound function segments is identical to the parameter syntax for bound functions in resource path segments or `$filter` expressions. See [section 7.7](#ModelFunctionsasSetTransformations) for an example.
 
-Parameter aliases [OData-URL, section 5.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#ParameterAliases) can be used inside the value of `$apply` wherever the ABNF rule `applyTrafo` [OData-ABNF](#ODataABNF) is reduced to a `commonExpr` [OData-URL, section 5.1.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CommonExpressionSyntax) or a `collectionExpr` ([section 3.6](#ExpressionsEvaluableonaCollection)).
+Parameter aliases [OData-URL, section 5.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#ParameterAliases) can be used inside the value of `$apply` wherever the ABNF rule `applyTrafo` [OData-ABNF](#ODataABNF) is reduced to a [commonExpr]{.abnf} [OData-URL, section 5.1.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CommonExpressionSyntax) or a `collectionExpr` ([section 3.6](#ExpressionsEvaluableonaCollection)).
 
 If a data service that supports `$apply` does not support it on the collection identified by the request resource path, it MUST fail with `501 Not Implemented` and a meaningful human-readable error message.
 
@@ -2781,7 +2781,7 @@ G(n)={\tt filter}(\hfill\\
 \hskip1pc )\hfill\\
 )\hfill
 }$$
-where $y_1,…,y_k$ denote `lambdaVariableExpr`s as defined in [OData-ABNF](#ODataABNF) and ${}/r$ may be absent.
+where $y_1,…,y_k$ denote [lambdaVariableExpr]{.abnf}s as defined in [OData-ABNF](#ODataABNF) and ${}/r$ may be absent.
 
 If parameter $d$ is absent, the parameter ${\tt MaxDistance}=d$ is omitted. If `keep start` is absent, the parameter ${\tt IncludeSelf}={\tt true}$ is omitted.
 
