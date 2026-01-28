@@ -905,8 +905,7 @@ hassubsequence([1,2],[1,1,2])
 
 ##### ##subsubsubsubsec `matchespattern`
 
-The `matchespattern` function has the following signatures (see syntax rule
-[matchesPatternMethodCallExpr]{.abnf}):
+The `matchespattern` function has the following signatures:
 
 ```
 Edm.Boolean matchespattern(Edm.String,Edm.String)
@@ -923,6 +922,8 @@ returns `false`.
 If the optional third parameter is provided, it MUST evaluate to a string
 consisting of ECMAScript regular expression flags to modify the match, otherwise
 the function returns `null`.
+The [matchesPatternMethodCallExpr]{.abnf} syntax rule defines how the `matchespattern`
+function is invoked.
 
 ::: example
 Example ##ex: all customers with a `CompanyName` that match the

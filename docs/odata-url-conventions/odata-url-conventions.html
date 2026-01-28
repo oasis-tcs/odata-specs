@@ -1546,10 +1546,10 @@ OrderedCollection substring(OrderedCollection,Edm.Int32,Edm.Int32)</code></pre>
 <details open><summary>
 <h5 id="51171-matchespattern"><a id="matchespattern" href="#matchespattern">5.1.1.7.1 <code>matchespattern</code></a></h5>
 </summary>
-<p>The <code>matchespattern</code> function has the following signatures (see syntax rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#matchesPatternMethodCallExpr"><code>matchesPatternMethodCallExpr</code></a></span>):</p>
+<p>The <code>matchespattern</code> function has the following signatures:</p>
 <pre><code>Edm.Boolean matchespattern(Edm.String,Edm.String)
 Edm.Boolean matchespattern(Edm.String,Edm.String,Edm.String)</code></pre>
-<p>The second parameter MUST evaluate to a string containing an <a href="#_ECMAScript">ECMAScript</a> (JavaScript) regular expression, otherwise the function returns <code>null</code>. The <code>matchespattern</code> function returns <code>true</code> if the first parameter evaluates to a string matching that regular expression, using syntax and semantics of ECMAScript regular expressions, otherwise it returns <code>false</code>. If the optional third parameter is provided, it MUST evaluate to a string consisting of ECMAScript regular expression flags to modify the match, otherwise the function returns <code>null</code>.</p>
+<p>The second parameter MUST evaluate to a string containing an <a href="#_ECMAScript">ECMAScript</a> (JavaScript) regular expression, otherwise the function returns <code>null</code>. The <code>matchespattern</code> function returns <code>true</code> if the first parameter evaluates to a string matching that regular expression, using syntax and semantics of ECMAScript regular expressions, otherwise it returns <code>false</code>. If the optional third parameter is provided, it MUST evaluate to a string consisting of ECMAScript regular expression flags to modify the match, otherwise the function returns <code>null</code>. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#matchesPatternMethodCallExpr"><code>matchesPatternMethodCallExpr</code></a></span> syntax rule defines how the <code>matchespattern</code> function is invoked.</p>
 <div class="example">
 <p>Example 87: all customers with a <code>CompanyName</code> that match the (percent-encoded) regular expression <code>^A.*e$</code></p>
 <pre><code>http://host/service/Customers?$filter=matchespattern(CompanyName,&#39;%5EA.*e$&#39;)</code></pre>
