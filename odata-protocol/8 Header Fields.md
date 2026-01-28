@@ -38,7 +38,7 @@ field is used as a modifier to the media-type (as indicated in the
 content codings have been applied to the entity-body.
 A service MAY specify a list of acceptable content codings using an
 annotation with term
-[`Capabilities.AcceptableEncodings`]($$$OData-VocCap$$$#AcceptableEncodings),
+[Capabilities.AcceptableEncodings]{.term},
 see [OData-VocCap](#ODataVocCap).
 
 If the `Content-Encoding` header is specified on an individual request
@@ -55,7 +55,7 @@ the intended audience for the enclosed message body. OData does not add
 any additional requirements over HTTP for including `Content-Language`.
 OData services can annotate model elements whose content depends on the
 content language with the term
-[`Core.IsLanguageDependent`]($$$OData-VocCore$$$#IsLanguageDependent),
+[Core.IsLanguageDependent]{.term},
 see [OData-VocCore](#ODataVocCore).
 
 If the `Content-Language` header is specified on an individual request
@@ -167,10 +167,10 @@ As defined in [RFC9110](#rfc9110), a client MAY include an
 value previously retrieved for the resource, or `*`.
 
 If an operation on an existing resource requires an ETag, (see term
-[`Core.OptimisticConcurrency`]($$$OData-VocCore$$$#OptimisticConcurrency) in
+[Core.OptimisticConcurrency]{.term} in
 [OData-VocCore](#ODataVocCore) and property
 `OptimisticConcurrencyControl` of type
-[`Capabilities.NavigationPropertyRestriction`]($$$OData-VocCap$$$#NavigationPropertyRestriction)
+[Capabilities.NavigationPropertyRestriction]{.term}
 in [OData-VocCap](#ODataVocCap)) and the client does not specify an
 `If-Match` request header in a [Data Modification
 Request](#DataModification) or in an [Action Request](#Actions) invoking
@@ -262,12 +262,12 @@ A service returns [`410 Gone`](#ResponseCode410Gone) or
 [`404 Not Found`](#ResponseCode404NotFound) if a consumer tries to
 follow a next link referring to a snapshot that is no longer available.
 
-The syntax of the `Isolation` header is defined in
+The syntax of the [Isolation]{.abnf} header is defined in
 [OData-ABNF](#ODataABNF).
 
 A service MAY specify the support for `Isolation:snapshot` using an
 annotation with term
-[`Capabilities.IsolationSupported`]($$$OData-VocCap$$$#IsolationSupported),
+[Capabilities.IsolationSupported]{.term},
 see [OData-VocCap](#ODataVocCap).
 
 Note: The `Isolation` header was named `OData-Isolation` in OData
@@ -324,7 +324,7 @@ many-to-many relationships). The service MUST NOT return entity
 references in place of requested entities if
 `allow-entityreferences` has not been specified in the request, unless
 explicitly defined by other rules in this document. The syntax of the
-`allow-entityreferences` preference is defined in
+[allow-entityreferences]{.abnf} preference is defined in
 [OData-ABNF](#ODataABNF).
 
 In the case the service applies the `allow-entityreferences` preference
@@ -362,14 +362,14 @@ The `callback` preference can be specified:
 The `callback` preference MUST include the parameter `url` whose value
 is the URL of a callback endpoint to be invoked by the OData service
 when data is available. The syntax of the `callback` preference is
-defined in [OData-ABNF](#ODataABNF).
+defined in the [OData-ABNF](#ODataABNF) rule [callbackPreference]{.abnf}.
 
 For HTTP based callbacks, the OData service executes an HTTP `GET`
 request against the specified URL.
 
 Services that support `callback` SHOULD support notifying the client
 through HTTP. Services can advertise callback support using the
-[`Capabilities.CallbackSupported`]($$$OData-VocCap$$$#CallbackSupported)
+[Capabilities.CallbackSupported]{.term}
 annotation term defined in [OData-VocCap](#ODataVocCap).
 
 If the service applies the `callback` preference it MUST include the
@@ -432,8 +432,8 @@ that returns an error, the service return the error for that request and
 continue processing additional requests within the batch (if specified
 with an implicit or explicit value of `true`), or rather stop further
 processing (if specified with an explicit value of `false`). The syntax
-of the `continue-on-error` preference is defined in
-[OData-ABNF](#ODataABNF).
+of the `continue-on-error` preference is defined in the
+[OData-ABNF](#ODataABNF) rule [continueOnErrorPreference]{.abnf}.
 
 The `continue-on-error` preference can also be used on a
 [delta update](#UpdateaCollectionofEntities),
@@ -445,7 +445,7 @@ If the service encounters any errors processing the request and returns a succes
 
 A service MAY specify support for the `continue-on-error` preference
 using an annotation with term
-[`Capabilities.BatchContinueOnErrorSupported`]($$$OData-VocCap$$$#BatchContinueOnErrorSupported),
+[Capabilities.BatchContinueOnErrorSupported]{.term},
 see [OData-VocCap](#ODataVocCap).
 
 The `continue-on-error` preference on a batch request refers to whether individual
@@ -472,7 +472,8 @@ list of namespace-qualified term names or term name patterns to include
 or exclude, with `*` as a wildcard for name segments. Term names and
 term name patterns can optionally be followed by a hash (`#`) character
 and an annotation qualifier. The full syntax of the
-`include-annotations` preference is defined in [OData-ABNF](#ODataABNF).
+`include-annotations` preference is defined in the [OData-ABNF](#ODataABNF)
+rule [includeAnnotationsPreference]{.abnf}.
 
 The most specific identifier always takes precedence, with an explicit
 name taking precedence over a name pattern, and a longer pattern taking
@@ -554,7 +555,8 @@ preferences are specified in the same request, the value of the
 The `maxpagesize` preference is used to request that each collection
 within the response contain no more than the number of items specified
 as the positive integer value of this preference. The syntax of the
-`maxpagesize` preference is defined in [OData-ABNF](#ODataABNF).
+`maxpagesize` preference is defined in the [OData-ABNF](#ODataABNF) rule
+[maxpagesizePreference]{.abnf}.
 
 ::: example
 Example ##ex: a request for customers and their orders would result in a
@@ -687,7 +689,7 @@ containing the `respond-async` preference.
 
 A service MAY specify the support for the `respond-async` preference
 using an annotation with term
-[`Capabilities.AsynchronousRequestsSupported`]($$$OData-VocCap$$$#AsynchronousRequestsSupported),
+[Capabilities.AsynchronousRequestsSupported]{.term},
 see [OData-VocCap](#ODataVocCap).
 
 ::: example
@@ -708,8 +710,8 @@ Prefer: respond-async, wait=10
 The `track-changes` preference is used to request that the service
 return a [delta link](#DeltaLinks) that can subsequently be used to
 obtain [changes](#RequestingChanges) (deltas) to this result. The syntax
-of the `track-changes` preference is defined in
-[OData-ABNF](#ODataABNF).
+of the `track-changes` preference is defined in the
+[OData-ABNF](#ODataABNF) rule [trackChangesPreference]{.abnf}.
 
 For [paged results](#ServerDrivenPaging), the preference MUST be
 specified on the initial request. Services MUST ignore the
@@ -726,7 +728,7 @@ to signal that changes are being tracked.
 
 A service MAY specify the support for the `track-changes` preference
 using an annotation with term
-[`Capabilities.ChangeTracking`]($$$OData-VocCap$$$#ChangeTracking),
+[Capabilities.ChangeTracking]{.term},
 see [OData-VocCap](#ODataVocCap).
 
 The `track-changes` preference SHOULD NOT be applied to a batch request,
@@ -770,7 +772,8 @@ A 4.01 service MUST include the `AsyncResult` header in
 order to indicate the final [HTTP Response Status
 Code](#CommonResponseStatusCodes) of an [asynchronously executed
 request](#AsynchronousRequests).
-The header value is the three-digit HTTP response code, see [OData-ABNF](#ODataABNF).
+The header value is the three-digit HTTP response code, see [OData-ABNF](#ODataABNF)
+rule [asyncresult]{.abnf}.
 
 The `AsyncResult` header SHOULD NOT be applied to individual responses
 within a batch.
@@ -828,7 +831,7 @@ A response to a [create](#CreateanEntity) or [upsert](#UpsertanEntity)
 operation that returns [`204 No Content`](#ResponseCode204NoContent)
 MUST include an `OData-EntityId` response header. The value of the
 header is the [entity-id](#EntityIdsandEntityReferences) of the entity
-that was acted on by the request. The syntax of the `OData-EntityId`
+that was acted on by the request. The syntax of the [OData-EntityId]{.abnf}
 header is defined in [OData-ABNF](#ODataABNF).
 
 The `OData-EntityID` header SHOULD NOT be included for the overall batch
