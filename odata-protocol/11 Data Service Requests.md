@@ -184,7 +184,7 @@ types not marked as open.
 
 Properties that are not available are not returned. If their unavailability
 is due to permissions, the
-[`Core.Permissions`]($$$OData-VocCore$$$#Permissions)
+[Core.Permissions]{.term}
 annotation, defined in [OData-VocCore](#ODataVocCore) MUST be returned
 for the property with a value of `None`.
 If the [`omit-values`](#Preferenceomitvalues) preference is
@@ -269,26 +269,26 @@ header and the [`$format`](#SystemQueryOptionformat) system query
 option.
 
 The default format for `Edm.Binary` is the format specified by the
-[`Core.MediaType`]($$$OData-VocCore$$$#MediaType)
+[Core.MediaType]{.term}
 annotation (see [OData-VocCore](#ODataVocCore)) if this
 annotation is present. If not annotated, the format cannot be predicted
 by the client.
 
 The default format for `Edm.Geo` types is `text/plain` using the WKT
-(well-known text) format, see rules `fullCollectionLiteral`,
-`fullLineStringLiteral`, `fullMultiPointLiteral`,
-`fullMultiLineStringLiteral`, `fullMultiPolygonLiteral`,
-`fullPointLiteral`, and `fullPolygonLiteral` in
+(well-known text) format, see rules [fullCollectionLiteral]{.abnf},
+[fullLineStringLiteral]{.abnf}, [fullMultiPointLiteral]{.abnf},
+[fullMultiLineStringLiteral]{.abnf}, [fullMultiPolygonLiteral]{.abnf},
+[fullPointLiteral]{.abnf}, and [fullPolygonLiteral]{.abnf} in
 [OData-ABNF](#ODataABNF).
 
 The default format for single primitive values except `Edm.Binary` and
 the `Edm.Geo` types is `text/plain`. Responses of type
 `Edm.String` can use the `charset` format parameter to specify the
 character set used for representing the string value. Responses for the
-other primitive types follow the rules `booleanValue`, `byteValue`,
-`dateValue`, `dateTimeOffsetValue`, `decimalValue`, `doubleValue`,
-`durationValue`, `enumValue`, `guidValue`, `int16Value`, `int32Value`,
-`int64Value`, `sbyteValue`, `singleValue`, and `timeOfDayValue` in
+other primitive types follow the rules [booleanValue]{.abnf}, [byteValue]{.abnf},
+[dateValue]{.abnf}, [dateTimeOffsetValue]{.abnf}, [decimalValue]{.abnf}, [doubleValue]{.abnf},
+[durationValue]{.abnf}, [enumValue]{.abnf}, [guidValue]{.abnf}, [int16Value]{.abnf}, [int32Value]{.abnf},
+[int64Value]{.abnf}, [sbyteValue]{.abnf}, [singleValue]{.abnf}, and [timeOfDayValue]{.abnf} in
 [OData-ABNF](#ODataABNF).
 
 A raw value request for a property or operation result of type `Edm.Stream`
@@ -636,7 +636,7 @@ GET http://host/service/Categories?$filter=Products/$count lt 10
 :::
 
 The value of the `$filter` option is a Boolean expression as defined in
-[OData-ABNF](#ODataABNF).
+[OData-ABNF](#ODataABNF) rule [filterExpr]{.abnf}.
 
 ##### ##subsubsubsubsec Built-in Filter Operations
 
@@ -821,7 +821,7 @@ The Boolean value false comes before the value true in ascending order.
 Services SHOULD order language-dependent strings according to the
 [`Content-Language`](#HeaderContentLanguage) of the response, and SHOULD
 annotate string properties with language-dependent order with the term
-[`Core.IsLanguageDependent`]($$$OData-VocCore$$$#IsLanguageDependent),
+[Core.IsLanguageDependent]{.term},
 see [OData-VocCore](#ODataVocCore).
 
 Values of type `Edm.Stream` or any of the `Geo` types cannot be sorted.
@@ -1038,7 +1038,7 @@ specified in the same request, only those items satisfying both criteria
 are returned.
 
 The value of the `$search` option is a search expression as defined in
-[OData-ABNF](#ODataABNF).
+[OData-ABNF](#ODataABNF) rule [searchExpr]{.abnf}.
 
 #### ##subsubsubsec Server-Driven Paging
 
@@ -1312,11 +1312,11 @@ the `$schemaversion` system query option addresses a specific schema
 version. For all other request types the value specifies the version of
 the schema against which the request is made. The syntax of the
 `$schemaversion` system query option is defined in
-[OData-ABNF](#ODataABNF).
+[OData-ABNF](#ODataABNF) rule [schemaversion]{.abnf}.
 
 The value of the `$schemaversion` system query option MUST be a version
 of the schema as returned in the
-[`Core.SchemaVersion`]($$$OData-VocCore$$$#SchemaVersion)
+[Core.SchemaVersion]{.term}
 annotation, defined in [OData-VocCore](#ODataVocCore), of a previous
 request to the [metadata document](#MetadataDocumentRequest), or `*` in
 order to specify the current version of the metadata.
@@ -1328,7 +1328,7 @@ Clients can retrieve the current version of the metadata by making a
 [metadata document request](#MetadataDocumentRequest) with a
 `$schemaversion` system query option value of `*`, and SHOULD include
 the value from the returned
-[`Core.SchemaVersion`]($$$OData-VocCore$$$#SchemaVersion)
+[Core.SchemaVersion]{.term}
 annotation in the `$schemaversion` system query option of subsequent
 requests.
 
@@ -1354,7 +1354,7 @@ body SHOULD provide additional information.
 
 Services advertise their change-tracking capabilities by annotating
 entity sets with the
-[`Capabilities.ChangeTracking`]($$$OData-VocCap$$$#ChangeTracking)
+[Capabilities.ChangeTracking]{.term}
 term defined in [OData-VocCap](#ODataVocCap).
 
 Any `GET` request to retrieve one or more entities MAY allow

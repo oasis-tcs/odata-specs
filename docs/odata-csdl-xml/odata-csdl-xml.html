@@ -775,7 +775,7 @@ This uses pandoc 3.8.3 from https://github.com/jgm/pandoc/releases/tag/3.8.3.
 <p><code>Edm.Decimal</code> with a <a href="#Scale"><code>Scale</code></a> value of <code>floating</code>, <code>Edm.Double</code>, and <code>Edm.Single</code> allow the special numeric values <code>-INF</code>, <code>INF</code>, and <code>NaN</code>.</p>
 <p><code>Edm.Stream</code> is a primitive type that can be used as a property of an <a href="#EntityType">entity type</a> or <a href="#ComplexType">complex type</a>, the underlying type for a <a href="#TypeDefinition">type definition</a>, or a binding or non-binding parameter or return type of an <a href="#Action">action</a> or <a href="#Function">function</a>. <code>Edm.Stream</code>, or a type definition whose underlying type is <code>Edm.Stream</code>, cannot be used in collections.</p>
 <p>Some of these types allow facets, defined in <a href="#TypeFacets">section 3.4</a>.</p>
-<p>Representation of primitive type values within a URL is defined by the rule <code>primitiveLiteral</code> in <a href="#ODataABNF">OData-ABNF</a>. Representation within request and response bodies is format specific.</p>
+<p>Representation of primitive type values within a URL is defined by the rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#primitiveLiteral"><code>primitiveLiteral</code></a></span> in <a href="#ODataABNF">OData-ABNF</a>. Representation within request and response bodies is format specific.</p>
 </details>
 <details open><summary>
 <h2 id="34-type-facets"><a id="TypeFacets" href="#TypeFacets">3.4 Type Facets</a></h2>
@@ -998,7 +998,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>A reference to an external CSDL document allows to bring part of the referenced document’s content into the scope of the referencing document.</p>
 <p>A reference MUST specify a URI that uniquely identifies the referenced document, so two references MUST NOT specify the same URI. The URI SHOULD be a URL that locates the referenced document. If the URI is not dereferencable it SHOULD identify a well-known schema. The URI MAY be absolute or relative URI; relative URLs are relative to the URL of the document containing the reference, or relative to a base URL specified in a format-specific way.</p>
 <p>A reference MAY be annotated.</p>
-<p>The <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#SchemaVersion"><code>Core.SchemaVersion</code></a> annotation, defined in <a href="#ODataVocCore">OData-VocCore</a>, MAY be used to indicate a particular version of the referenced document. If the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#SchemaVersion"><code>Core.SchemaVersion</code></a> annotation is present, the <code>$schemaversion</code> system query option, defined in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptionschemaversion">OData-Protocol, section 11.2.12</a>, SHOULD be used when retrieving the referenced schema document.</p>
+<p>The <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#SchemaVersion"><code>Core.SchemaVersion</code></a></span> annotation, defined in <a href="#ODataVocCore">OData-VocCore</a>, MAY be used to indicate a particular version of the referenced document. If the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#SchemaVersion"><code>Core.SchemaVersion</code></a></span> annotation is present, the <code>$schemaversion</code> system query option, defined in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptionschemaversion">OData-Protocol, section 11.2.12</a>, SHOULD be used when retrieving the referenced schema document.</p>
 <div class="varxml rep">
 <h3><a id="ElementedmxReference.4" href="#ElementedmxReference.4">Element <code>edmx:Reference</code></a></h3>
 <p>The <code>edmx:Reference</code> element specifies external CSDL documents referenced by the referencing document. The child elements <a href="#IncludedSchema"><code>edmx:Include</code></a> and <a href="#IncludedAnnotations"><code>edmx:IncludeAnnotations</code></a> specify which parts of the referenced document are available for use in the referencing document.</p>
@@ -1253,7 +1253,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </summary>
 <p>An entity type that does not specify a base type MAY indicate that it is a media entity type. <em>Media entities</em> are entities that represent a media stream, such as a photo. Use a media entity if the out-of-band stream is the main topic of interest and the media entity is just additional structured information attached to the stream. Use a normal entity with one or more properties of type <code>Edm.Stream</code> if the structured data of the entity is the main topic of interest and the stream data is just additional information attached to the structured data. For more information on media entities see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#RequestingtheMediaStreamofaMediaEntityusingvalue">OData-Protocol, section 11.2.3</a>.</p>
 <p>An entity type derived from a media entity type MUST indicate that it is also a media entity type.</p>
-<p>Media entity types MAY specify a list of acceptable media types using an annotation with term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AcceptableMediaTypes"><code>Core.AcceptableMediaTypes</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>.</p>
+<p>Media entity types MAY specify a list of acceptable media types using an annotation with term <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AcceptableMediaTypes"><code>Core.AcceptableMediaTypes</code></a></span>, see <a href="#ODataVocCore">OData-VocCore</a>.</p>
 <section class="varxml rep">
 <h3><a id="AttributeHasStream.9.5" href="#AttributeHasStream.9.5">Attribute <code>HasStream</code></a></h3>
 <p>The value of <code>HasStream</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the attribute means <code>false</code>.</p>
@@ -1379,8 +1379,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </summary>
 <p>The property’s type MUST be a <a href="#PrimitiveTypes">primitive type</a>, <a href="#ComplexType">complex type</a>, or <a href="#EnumerationType">enumeration type</a> in scope, or a collection of one of these types.</p>
 <p>If the property is part of a chain of <a href="#StructuralProperty">structural properties</a> and <a href="#ContainmentNavigationProperty">containment navigation properties</a> leading back to the property’s declaring type, the finiteness condition for <a href="#StructuredTypes">structured types</a> demands that at least one property in this chain MUST be nullable or collection-valued.</p>
-<p>A collection-valued property MAY be annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered"><code>Core.Ordered</code></a> term, defined in <a href="#ODataVocCore">OData-VocCore</a>, to specify that it supports a stable ordering.</p>
-<p>A collection-valued property MAY be annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#PositionalInsert"><code>Core.PositionalInsert</code></a> term, defined in <a href="#ODataVocCore">OData-VocCore</a>, to specify that it supports inserting items into a specific ordinal position.</p>
+<p>A collection-valued property MAY be annotated with the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered"><code>Core.Ordered</code></a></span> term, defined in <a href="#ODataVocCore">OData-VocCore</a>, to specify that it supports a stable ordering.</p>
+<p>A collection-valued property MAY be annotated with the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#PositionalInsert"><code>Core.PositionalInsert</code></a></span> term, defined in <a href="#ODataVocCore">OData-VocCore</a>, to specify that it supports inserting items into a specific ordinal position.</p>
 <section class="varxml rep">
 <h3><a id="AttributeType.12.2" href="#AttributeType.12.2">Attribute <code>Type</code></a></h3>
 <p>For single-valued properties the value of <code>Type</code> is the qualified name of the property’s type.</p>
@@ -1412,7 +1412,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>If no value is specified, the client SHOULD NOT assume a default value.</p>
 <section class="varxml rep">
 <h3><a id="AttributeDefaultValue.12.4" href="#AttributeDefaultValue.12.4">Attribute <code>DefaultValue</code></a></h3>
-<p>Default values of type <code>Edm.String</code> MUST be represented according to the XML escaping rules for character data in attribute values. Values of other primitive types MUST be represented according to the appropriate alternative in the <code>primitiveValue</code> rule defined in <a href="#ODataABNF">OData-ABNF</a>, i.e. <code>Edm.Binary</code> as <code>binaryValue</code>, <code>Edm.Boolean</code> as <code>booleanValue</code> etc.</p>
+<p>Default values of type <code>Edm.String</code> MUST be represented according to the XML escaping rules for character data in attribute values. Values of other primitive types MUST be represented according to the appropriate alternative in the <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#primitiveValue"><code>primitiveValue</code></a></span> rule defined in <a href="#ODataABNF">OData-ABNF</a>, i.e. <code>Edm.Binary</code> as <code>binaryValue</code>, <code>Edm.Boolean</code> as <code>booleanValue</code> etc.</p>
 </section>
 </details>
 </details>
@@ -1454,8 +1454,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>If the type is a collection, an arbitrary number of entities can be related. Otherwise there is at most one related entity.</p>
 <p>The related entities MUST be of the specified entity type or one of its subtypes.</p>
 <p>For a collection-valued containment navigation property the specified entity type MUST have a <a href="#Key">key</a> defined.</p>
-<p>A collection-valued navigation property MAY be annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered"><code>Core.Ordered</code></a> term, defined in <a href="#ODataVocCore">OData-VocCore</a>, to specify that it supports a stable ordering.</p>
-<p>A collection-valued navigation property MAY be annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#PositionalInsert"><code>Core.PositionalInsert</code></a> term, defined in <a href="#ODataVocCore">OData-VocCore</a>, to specify that it supports inserting items into a specific ordinal position.</p>
+<p>A collection-valued navigation property MAY be annotated with the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered"><code>Core.Ordered</code></a></span> term, defined in <a href="#ODataVocCore">OData-VocCore</a>, to specify that it supports a stable ordering.</p>
+<p>A collection-valued navigation property MAY be annotated with the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#PositionalInsert"><code>Core.PositionalInsert</code></a></span> term, defined in <a href="#ODataVocCore">OData-VocCore</a>, to specify that it supports inserting items into a specific ordinal position.</p>
 <section class="varxml rep">
 <h3><a id="AttributeType.13.2" href="#AttributeType.13.2">Attribute <code>Type</code></a></h3>
 <p>For single-valued navigation properties the value of <code>Type</code> is the qualified name of the navigation property’s type.</p>
@@ -1492,7 +1492,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>Containment navigation properties define an implicit entity set for each instance of its declaring structured type. This implicit entity set is identified by the read URL of the navigation property for that structured type instance.</p>
 <p>Instances of the structured type that declares the navigation property, either directly or indirectly via a property of complex type, contain the entities referenced by the containment navigation property. The canonical URL for contained entities is the canonical URL of the containing instance, followed by the path segment of the navigation property and the key of the contained entity, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalURLforContainedEntities">OData-URL, section 4.3.2</a>.</p>
 <p>Entity types used in collection-valued containment navigation properties MUST have a <a href="#Key">key</a> defined.</p>
-<p>For items of an ordered collection of complex types (those annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered"><code>Core.Ordered</code></a> term defined in <a href="#ODataVocCore">OData-VocCore</a> the canonical URL of the item is the canonical URL of the collection appended with a segment containing the zero-based ordinal of the item. Items within in an unordered collection of complex types do not have a canonical URL. Services that support unordered collections of complex types declaring a containment navigation property, either directly or indirectly via a property of complex type, MUST specify the URL for the navigation link within a payload representing that item, according to format-specific rules.</p>
+<p>For items of an ordered collection of complex types (those annotated with the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered"><code>Core.Ordered</code></a></span> term defined in <a href="#ODataVocCore">OData-VocCore</a> the canonical URL of the item is the canonical URL of the collection appended with a segment containing the zero-based ordinal of the item. Items within in an unordered collection of complex types do not have a canonical URL. Services that support unordered collections of complex types declaring a containment navigation property, either directly or indirectly via a property of complex type, MUST specify the URL for the navigation link within a payload representing that item, according to format-specific rules.</p>
 <p>OData 4.0 responses MUST NOT specify a complex type declaring a containment navigation property as the type of a collection-valued property.</p>
 <p>An entity cannot be referenced by more than one containment relationship, and cannot both belong to an entity set declared within the entity container and be referenced by a containment relationship.</p>
 <p>Containment navigation properties MUST NOT be specified as the last path segment in the path of a <a href="#NavigationPropertyBinding">navigation property binding</a>.</p>
@@ -1920,7 +1920,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>For single-valued return types the value <code>true</code> means that the action or function MAY return a single <code>null</code> value. The value <code>false</code> means that the action or function will never return a <code>null</code> value and instead will fail with an error response if it cannot compute a result.</p>
 </div>
 <h3><a id="AnnotationCoreIsDelta.22.3" href="#AnnotationCoreIsDelta.22.3">Annotation <code>Core.IsDelta</code></a></h3>
-<p>An action or function that returns a single entity or a collection of entities MAY return results as a delta payload. This is indicated by annotating the return type with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsDelta"><code>Core.IsDelta</code></a>.</p>
+<p>An action or function that returns a single entity or a collection of entities MAY return results as a delta payload. This is indicated by annotating the return type with the term <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsDelta"><code>Core.IsDelta</code></a></span>.</p>
 <p>Delta payloads represent changes between two versions of data and, in addition to current values, MAY include deleted entities as well as changes to related entities and relationships, according to the format-specific delta representation.</p>
 </details>
 <details open><summary>
@@ -1947,7 +1947,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>For collection-valued parameters the parameter value will always be a collection that MAY be empty. In this case <code>Nullable</code> applies to items of the collection and specifies whether the collection MAY contain <code>null</code> values.</p>
 </div>
 <h3><a id="AnnotationCoreOptionalParameter.23.4" href="#AnnotationCoreOptionalParameter.23.4">Annotation <code>Core.OptionalParameter</code></a></h3>
-<p>A parameter that is annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter"><code>Core.OptionalParameter</code></a> MAY be omitted when invoking the function or action.</p>
+<p>A parameter that is annotated with the term <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter"><code>Core.OptionalParameter</code></a></span> MAY be omitted when invoking the function or action.</p>
 <p>All parameters marked as optional MUST come after any parameters not marked as optional. The binding parameter MUST NOT be marked as optional.</p>
 <div class="varxml example">
 <p>Example 30: a function returning the top-selling products for a given year. In this case the year must be specified as a parameter of the function with the <code>edm:Parameter</code> element.</p>
@@ -1957,7 +1957,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">Function</span>&gt;</span></code></pre></div>
 </div>
 <h3><a id="AnnotationCoreIsDelta.23.5" href="#AnnotationCoreIsDelta.23.5">Annotation <code>Core.IsDelta</code></a></h3>
-<p>A parameter that accepts a single entity or a collection of entities MAY accept a delta representation. This is indicated by annotating the parameter with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsDelta"><code>Core.IsDelta</code></a>.</p>
+<p>A parameter that accepts a single entity or a collection of entities MAY accept a delta representation. This is indicated by annotating the parameter with the term <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsDelta"><code>Core.IsDelta</code></a></span>.</p>
 <p>Deltas represent changes between two versions of data and, in addition to current values, MAY include deleted entities as well as changes to related entities and relationships, according to the format-specific delta representation.</p>
 </details>
 </details>
@@ -2240,7 +2240,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>If no value is specified for a collection-valued term, the client cannot assume any default value. Clients SHOULD be prepared for this situation even in OData 4.01 responses.</p>
 <h3><a id="AttributeDefaultValue.30.4" href="#AttributeDefaultValue.30.4">Attribute <code>DefaultValue</code></a></h3>
 <p>The value of this attribute determines the value of the term when applied in an <a href="#Annotation"><code>edm:Annotation</code></a> without providing an expression.</p>
-<p>Default values of type <code>Edm.String</code> MUST be represented according to the XML escaping rules for character data in attribute values. Values of other primitive types MUST be represented according to the appropriate alternative in the <code>primitiveValue</code> rule defined in <a href="#ODataABNF">OData-ABNF</a>, i.e. <code>Edm.Binary</code> as <code>binaryValue</code>, <code>Edm.Boolean</code> as <code>booleanValue</code> etc.</p>
+<p>Default values of type <code>Edm.String</code> MUST be represented according to the XML escaping rules for character data in attribute values. Values of other primitive types MUST be represented according to the appropriate alternative in the <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#primitiveValue"><code>primitiveValue</code></a></span> rule defined in <a href="#ODataABNF">OData-ABNF</a>, i.e. <code>Edm.Binary</code> as <code>binaryValue</code>, <code>Edm.Boolean</code> as <code>booleanValue</code> etc.</p>
 <p>If no value is specified, the <code>DefaultValue</code> attribute defaults to <code>null</code>.</p>
 </div>
 <details open><summary>
@@ -2615,7 +2615,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </summary>
 <section class="varxml rep">
 <h3><a id="ExpressionedmBinary.32" href="#ExpressionedmBinary.32">Expression <code>edm:Binary</code></a></h3>
-<p>The <code>edm:Binary</code> expression evaluates to a primitive binary value. A binary expression MUST be assigned a value conforming to the rule <code>binaryValue</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
+<p>The <code>edm:Binary</code> expression evaluates to a primitive binary value. A binary expression MUST be assigned a value conforming to the rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#binaryValue"><code>binaryValue</code></a></span> in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>The binary expression MAY be provided using element notation or attribute notation.</p>
 </section>
 <div class="varxml example">
@@ -2649,7 +2649,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </summary>
 <section class="varxml rep">
 <h3><a id="ExpressionedmDate.34" href="#ExpressionedmDate.34">Expression <code>edm:Date</code></a></h3>
-<p>The <code>edm:Date</code> expression evaluates to a primitive date value. A date expression MUST be assigned a value of type <code>xs:date</code>, see <a href="#XML-Schema2">XML-Schema-2</a>, <a href="http://www.w3.org/TR/xmlschema11-2/#date">section 3.3.9</a>. The value MUST also conform to rule <code>dateValue</code> in <a href="#ODataABNF">OData-ABNF</a>, i.e. it MUST NOT contain a time-zone offset.</p>
+<p>The <code>edm:Date</code> expression evaluates to a primitive date value. A date expression MUST be assigned a value of type <code>xs:date</code>, see <a href="#XML-Schema2">XML-Schema-2</a>, <a href="http://www.w3.org/TR/xmlschema11-2/#date">section 3.3.9</a>. The value MUST also conform to rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#dateValue"><code>dateValue</code></a></span> in <a href="#ODataABNF">OData-ABNF</a>, i.e. it MUST NOT contain a time-zone offset.</p>
 <p>The date expression MAY be provided using element notation or attribute notation.</p>
 </section>
 <div class="varxml example">
@@ -2666,7 +2666,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </summary>
 <section class="varxml rep">
 <h3><a id="ExpressionedmDateTimeOffset.35" href="#ExpressionedmDateTimeOffset.35">Expression <code>edm:DateTimeOffset</code></a></h3>
-<p>The <code>edm:DateTimeOffset</code> expression evaluates to a primitive datetimestamp value with a time-zone offset. A datetimestamp expression MUST be assigned a value of type <code>xs:dateTimeStamp</code>, see <a href="#XML-Schema2">XML-Schema-2</a>, <a href="http://www.w3.org/TR/xmlschema11-2/#dateTimeStamp">section 3.4.28</a>. The value MUST also conform to rule <code>dateTimeOffsetValue</code> in <a href="#ODataABNF">OData-ABNF</a>, i.e. it MUST NOT contain an end-of-day fragment (24:00:00).</p>
+<p>The <code>edm:DateTimeOffset</code> expression evaluates to a primitive datetimestamp value with a time-zone offset. A datetimestamp expression MUST be assigned a value of type <code>xs:dateTimeStamp</code>, see <a href="#XML-Schema2">XML-Schema-2</a>, <a href="http://www.w3.org/TR/xmlschema11-2/#dateTimeStamp">section 3.4.28</a>. The value MUST also conform to rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#dateTimeOffsetValue"><code>dateTimeOffsetValue</code></a></span> in <a href="#ODataABNF">OData-ABNF</a>, i.e. it MUST NOT contain an end-of-day fragment (24:00:00).</p>
 <p>The datetimestamp expression MAY be provided using element notation or attribute notation.</p>
 </section>
 <div class="varxml example">
@@ -2685,7 +2685,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </summary>
 <section class="varxml rep">
 <h3><a id="ExpressionedmDecimal.36" href="#ExpressionedmDecimal.36">Expression <code>edm:Decimal</code></a></h3>
-<p>The <code>edm:Decimal</code> expression evaluates to a primitive decimal value. A decimal expression MUST be assigned a value conforming to the rule <code>decimalValue</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
+<p>The <code>edm:Decimal</code> expression evaluates to a primitive decimal value. A decimal expression MUST be assigned a value conforming to the rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#decimalValue"><code>decimalValue</code></a></span> in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>The decimal expression MAY be provided using element notation or attribute notation.</p>
 </section>
 <div class="varxml rep">
@@ -2748,7 +2748,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </summary>
 <section class="varxml rep">
 <h3><a id="ExpressionedmFloat.39" href="#ExpressionedmFloat.39">Expression <code>edm:Float</code></a></h3>
-<p>The <code>edm:Float</code> expression evaluates to a primitive floating point (or double) value. A float expression MUST be assigned a value conforming to the rule <code>doubleValue</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
+<p>The <code>edm:Float</code> expression evaluates to a primitive floating point (or double) value. A float expression MUST be assigned a value conforming to the rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#doubleValue"><code>doubleValue</code></a></span> in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>The float expression MAY be provided using element notation or attribute notation.</p>
 </section>
 <div class="varxml example">
@@ -2765,7 +2765,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </summary>
 <section class="varxml rep">
 <h3><a id="ExpressionedmGuid.40" href="#ExpressionedmGuid.40">Expression <code>edm:Guid</code></a></h3>
-<p>The <code>edm:Guid</code> expression evaluates to a primitive guid value. A guid expression MUST be assigned a value conforming to the rule <code>guidValue</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
+<p>The <code>edm:Guid</code> expression evaluates to a primitive guid value. A guid expression MUST be assigned a value conforming to the rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#guidValue"><code>guidValue</code></a></span> in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>The guid expression MAY be provided using element notation or attribute notation.</p>
 </section>
 <div class="varxml example">
@@ -2783,7 +2783,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </summary>
 <section class="varxml rep">
 <h3><a id="ExpressionedmInt.41" href="#ExpressionedmInt.41">Expression <code>edm:Int</code></a></h3>
-<p>The <code>edm:Int</code> expression evaluates to a primitive integer value. An integer MUST be assigned a value conforming to the rule <code>int64Value</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
+<p>The <code>edm:Int</code> expression evaluates to a primitive integer value. An integer MUST be assigned a value conforming to the rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#int64Value"><code>int64Value</code></a></span> in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>The integer expression MAY be provided using element notation or attribute notation.</p>
 </section>
 <div class="varxml example">
@@ -2835,7 +2835,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h3 id="14313-geo-values"><a id="GeoValues" href="#GeoValues">14.3.13 Geo Values</a></h3>
 </summary>
 <div class="varxml rep">
-<p>Values are represented as <a href="#String">string expressions</a> using the WKT (well-known text) format for <code>Geo</code> types, see rules <code>fullCollectionLiteral</code>, <code>fullLineStringLiteral</code>, <code>fullMultiPointLiteral</code>, <code>fullMultiLineStringLiteral</code>, <code>fullMultiPolygonLiteral</code>, <code>fullPointLiteral</code>, and <code>fullPolygonLiteral</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
+<p>Values are represented as <a href="#String">string expressions</a> using the WKT (well-known text) format for <code>Geo</code> types, see rules <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#fullCollectionLiteral"><code>fullCollectionLiteral</code></a></span>, <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#fullLineStringLiteral"><code>fullLineStringLiteral</code></a></span>, <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#fullMultiPointLiteral"><code>fullMultiPointLiteral</code></a></span>, <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#fullMultiLineStringLiteral"><code>fullMultiLineStringLiteral</code></a></span>, <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#fullMultiPolygonLiteral"><code>fullMultiPolygonLiteral</code></a></span>, <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#fullPointLiteral"><code>fullPointLiteral</code></a></span>, and <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#fullPolygonLiteral"><code>fullPolygonLiteral</code></a></span> in <a href="#ODataABNF">OData-ABNF</a>.</p>
 </div>
 <div class="varxml example">
 <p>Example 58:</p>
@@ -2850,7 +2850,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>Constant values of type <code>Edm.Stream</code> with top-level type <code>text</code>, for example <code>text/plain</code>, are represented as <a href="#String">string expressions</a> containing the raw text.</p>
 <p>Constant values of type <code>Edm.Stream</code> with other media types are represented as <a href="#Binary">binary expressions</a> containing the base64url-encoded binary value.</p>
 </div>
-<p>The annotation (property) being assigned a stream value MUST be annotated with term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#MediaType"><code>Core.MediaType</code></a> and the media type of the stream as its value.</p>
+<p>The annotation (property) being assigned a stream value MUST be annotated with term <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#MediaType"><code>Core.MediaType</code></a></span> and the media type of the stream as its value.</p>
 <div class="varxml example">
 <p>Example 59:</p>
 <div class="sourceCode" id="cb58"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">PropertyValue</span> <span class="ot">Property=</span><span class="st">&quot;JsonStream&quot;</span>&gt;</span>
@@ -3311,7 +3311,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h4 id="14441-canonical-functions"><a id="CanonicalFunctions" href="#CanonicalFunctions">14.4.4.1 Canonical Functions</a></h4>
 </summary>
 <p>All canonical functions defined in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalFunctions">OData-URL, section 5.1.1.4</a> can be used as client-side functions, qualified with the namespace <code>odata</code>. The semantics of these client-side functions is identical to their counterpart function defined in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalFunctions">OData-URL, section 5.1.1.4</a>.</p>
-<p>For example, the <code>odata.concat</code> client-side function takes two expressions as arguments. Each argument MUST evaluate to a primitive or enumeration type. It returns a value of type <code>Edm.String</code> that is the concatenation of the literal representations of the results of the argument expressions. Values of primitive types other than <code>Edm.String</code> are represented according to the appropriate alternative in the <code>primitiveValue</code> rule of <a href="#ODataABNF">OData-ABNF</a>, i.e. <code>Edm.Binary</code> as <code>binaryValue</code>, <code>Edm.Boolean</code> as <code>booleanValue</code> etc.</p>
+<p>For example, the <code>odata.concat</code> client-side function takes two expressions as arguments. Each argument MUST evaluate to a primitive or enumeration type. It returns a value of type <code>Edm.String</code> that is the concatenation of the literal representations of the results of the argument expressions. Values of primitive types other than <code>Edm.String</code> are represented according to the appropriate alternative in the <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#primitiveValue"><code>primitiveValue</code></a></span> rule of <a href="#ODataABNF">OData-ABNF</a>, i.e. <code>Edm.Binary</code> as <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#binaryValue"><code>binaryValue</code></a></span>, <code>Edm.Boolean</code> as <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#booleanValue"><code>booleanValue</code></a></span> etc.</p>
 <div class="varxml example">
 <p>Example 78:</p>
 <div class="sourceCode" id="cb83"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">Annotation</span> <span class="ot">Term=</span><span class="st">&quot;org.example.display.DisplayName&quot;</span>&gt;</span>
@@ -3668,7 +3668,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <details open><summary>
 <h2 id="153-qualified-name"><a id="QualifiedName" href="#QualifiedName">15.3 Qualified Name</a></h2>
 </summary>
-<p>For model elements that are direct children of a schema: the namespace or alias of the schema that defines the model element, followed by a dot and the name of the model element, see rule <code>qualifiedTypeName</code> in <a href="#ODataABNF">OData‑ABNF</a>.</p>
+<p>For model elements that are direct children of a schema: the namespace or alias of the schema that defines the model element, followed by a dot and the name of the model element, see rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#qualifiedTypeName"><code>qualifiedTypeName</code></a></span> in <a href="#ODataABNF">OData‑ABNF</a>.</p>
 <p>For built-in <a href="#PrimitiveTypes">primitive types</a>: the name of the type, prefixed with <code>Edm</code> followed by a dot.</p>
 </details>
 <details open><summary>
@@ -3871,7 +3871,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <li>MUST NOT use <code>Edm.ModelElementPath</code> and <code>Edm.AnyPropertyPath</code></li>
 <li>MUST NOT specify <a href="#ReferentialConstraint">referential constraints</a> to complex types and navigation properties</li>
 <li>MUST NOT include a non-abstract entity type with no inherited or defined <a href="#Key">entity key</a></li>
-<li>MUST NOT include the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a> annotation on <a href="#IncludedSchema">included schemas</a></li>
+<li>MUST NOT include the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a></span> annotation on <a href="#IncludedSchema">included schemas</a></li>
 <li>MUST NOT return the Unicode facet for terms, parameters, and return types</li>
 <li>MUST NOT include collections of <code>Edm.ComplexType</code> or <code>Edm.Untyped</code></li>
 <li>MUST NOT specify a key as a property of a related entity</li>
@@ -3908,7 +3908,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p><em>European Petroleum Survey Group (EPSG)</em>. <a href="https://spatialreference.org/ref/epsg/">https://spatialreference.org/ref/epsg/</a>.</p>
 <h6><span id="ODataABNF">OData-ABNF</span></h6>
 <p><em>OData ABNF Construction Rules Version 4.02</em>.<br />
-See link in “<a href="#AdditionalArtifacts">Additional artifacts</a>” section on cover page.</p>
+See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
 <h6><span id="ODataCSDL">OData-CSDL</span></h6>
 <p><em>OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02.</em> See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
 <p><em>OData Common Schema Definition Language (CSDL) XML Representation Version 4.02.</em> This document.</p>

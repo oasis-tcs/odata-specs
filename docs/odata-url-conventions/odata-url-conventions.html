@@ -142,7 +142,7 @@ Michael Pizzo (<a href="mailto:mikep@microsoft.com">mikep@microsoft.com</a>), <a
 <p>Michael Pizzo (<a href="mailto:mikep@microsoft.com">mikep@microsoft.com</a>), <a href="http://www.microsoft.com/">Microsoft</a><br />
 Ralf Handl (<a href="mailto:ralf.handl@sap.com">ralf.handl@sap.com</a>), <a href="http://www.sap.com/">SAP SE</a><br />
 Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</a>), <a href="http://www.sap.com/">SAP SE</a></p>
-<h4>Additional artifacts:</h4>
+<h4><span id="AdditionalArtifacts">Additional artifacts:</span></h4>
 <p>This prose specification is one component of a Work Product that also includes:</p>
 <ul>
 <li><em>OData Version 4.02 Part 1: Protocol</em>. <a href="https://docs.oasis-open.org/odata/odata/v4.02/csd02/part1-protocol/odata-v4.02-csd02-part1-protocol.html">https://docs.oasis-open.org/odata/odata/v4.02/csd02/part1-protocol/odata-v4.02-csd02-part1-protocol.html</a></li>
@@ -546,7 +546,7 @@ This uses pandoc 3.8.3 from https://github.com/jgm/pandoc/releases/tag/3.8.3.
 <h1 id="4-resource-path"><a id="ResourcePath" href="#ResourcePath">4 Resource Path</a></h1>
 </summary>
 <p>The rules for resource path construction as defined in this section are optional. OData services SHOULD follow the subsequently described URL path construction rules and are indeed encouraged to do so; as such consistency promotes a rich ecosystem of reusable client components and libraries.</p>
-<p>Services that do not follow the resource path conventions for entity container children are strongly encouraged to document their resource paths by annotating entity container children with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ResourcePath"><code>Core.ResourcePath</code></a> defined in <a href="#ODataVocCore">OData-VocCore</a>. The annotation value is the URL of the annotated resource and may be relative to <code>xml:base</code> (if present), otherwise the request URL.</p>
+<p>Services that do not follow the resource path conventions for entity container children are strongly encouraged to document their resource paths by annotating entity container children with the term <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ResourcePath"><code>Core.ResourcePath</code></a></span> defined in <a href="#ODataVocCore">OData-VocCore</a>. The annotation value is the URL of the annotated resource and may be relative to <code>xml:base</code> (if present), otherwise the request URL.</p>
 <p>Resources exposed by an OData service are addressable by corresponding resource path URL components to enable interaction of the client with that resource aspect.</p>
 <p>To illustrate the concept, some examples for resources might be: customers, a single customer, orders related to a single customer, and so forth. Examples of addressable aspects of these resources as exposed by the data model might be: collections of entities, a single entity, properties, links, operations, and so on.</p>
 <p>An OData service MAY respond with <code>301 Moved Permanently</code> or <code>307 Temporary Redirect</code> from the canonical URL to the actual URL.</p>
@@ -576,7 +576,7 @@ This uses pandoc 3.8.3 from https://github.com/jgm/pandoc/releases/tag/3.8.3.
 <details open><summary>
 <h2 id="43-addressing-entities"><a id="AddressingEntities" href="#AddressingEntities">4.3 Addressing Entities</a></h2>
 </summary>
-<p>The basic rules for addressing a collection (of entities), a single entity within a collection, a singleton, as well as a property of an entity are covered in the <code>resourcePath</code> syntax rule in <a href="#ODataABNF">OData-ABNF</a>.</p>
+<p>The basic rules for addressing a collection (of entities), a single entity within a collection, a singleton, as well as a property of an entity are covered in the <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#resourcePath"><code>resourcePath</code></a></span> syntax rule in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>Below is a (non-normative) snippet from <a href="#ODataABNF">OData-ABNF</a>:</p>
 <pre><code>resourcePath = entitySetName                  [collectionNavigation]
              / singletonEntity                [singleNavigation]
@@ -592,7 +592,7 @@ This uses pandoc 3.8.3 from https://github.com/jgm/pandoc/releases/tag/3.8.3.
              / %s&quot;$all&quot;                       [ &quot;/&quot; optionallyQualifiedEntityTypeName ]</code></pre>
 <p>Since OData has a uniform composable URL syntax and associated rules there are many ways to address a collection of entities, including, but not limited to:</p>
 <ul>
-<li>Via an entity set (see rule <code>entitySetName</code> in <a href="#ODataABNF">OData-ABNF</a>)</li>
+<li>Via an entity set (see rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#entitySetName"><code>entitySetName</code></a></span> in <a href="#ODataABNF">OData-ABNF</a>)</li>
 </ul>
 <div class="example">
 <p>Example 8:</p>
@@ -740,7 +740,7 @@ This uses pandoc 3.8.3 from https://github.com/jgm/pandoc/releases/tag/3.8.3.
 <details open><summary>
 <h3 id="435-alternate-keys"><a id="AlternateKeys" href="#AlternateKeys">4.3.5 Alternate Keys</a></h3>
 </summary>
-<p>In addition to the canonical (primary) key an entity set or entity type can specify one or more alternate keys with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AlternateKeys"><code>Core.AlternateKeys</code></a> term (see <a href="#ODataVocCore">OData-VocCore</a>).</p>
+<p>In addition to the canonical (primary) key an entity set or entity type can specify one or more alternate keys with the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AlternateKeys"><code>Core.AlternateKeys</code></a></span> term (see <a href="#ODataVocCore">OData-VocCore</a>).</p>
 <p>Alternate keys can be used by the client to address entities anywhere the canonical key can be used; for example, within entity sets, collection-valued navigation properties, collection-valued composable functions, and within delta payloads.</p>
 <p>Entities are addressed via an alternate key using the same parentheses-style convention as for the canonical key, with one difference: single-part alternate keys MUST specify the key property name to unambiguously determine the alternate key.</p>
 <div class="example">
@@ -808,15 +808,15 @@ This uses pandoc 3.8.3 from https://github.com/jgm/pandoc/releases/tag/3.8.3.
 <h2 id="45-addressing-operations"><a id="AddressingOperations" href="#AddressingOperations">4.5 Addressing Operations</a></h2>
 </summary>
 <p>The semantic rules for addressing and invoking actions and functions are defined in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#Operations">OData-Protocol, section 11.5</a>.</p>
-<p>Services MAY additionally support the use of the unqualified name of an action or function in a URL by defining one or more default namespaces through the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a> term defined in <a href="#ODataVocCore">OData-VocCore</a>. For more information on default namespaces, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#DefaultNamespaces">OData-Protocol, section 4.4</a>.</p>
+<p>Services MAY additionally support the use of the unqualified name of an action or function in a URL by defining one or more default namespaces through the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a></span> term defined in <a href="#ODataVocCore">OData-VocCore</a>. For more information on default namespaces, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#DefaultNamespaces">OData-Protocol, section 4.4</a>.</p>
 <details open><summary>
 <h3 id="451-addressing-actions"><a id="AddressingActions" href="#AddressingActions">4.5.1 Addressing Actions</a></h3>
 </summary>
 <p>The grammar for addressing and invoking actions is defined by the following syntax grammar rules in <a href="#ODataABNF">OData-ABNF</a>:</p>
 <ul>
-<li>The <code>actionImportCall</code> syntax rule defines the grammar in the <code>resourcePath</code> for addressing and invoking an action import directly from the service root.</li>
-<li>The <code>boundActionCall</code> syntax rule defines the grammar in the <code>resourcePath</code> for addressing and invoking an action that is appended to a <code>resourcePath</code> that identifies some resources that can be used as the binding parameter value when invoking the action.</li>
-<li>The <code>boundOperation</code> syntax rule (which encompasses the <code>boundActionCall</code> syntax rule), when used by the <code>resourcePath</code> syntax rule, illustrates how a <code>boundActionCall</code> can be appended to a <code>resourcePath</code>.</li>
+<li>The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#actionImportCall"><code>actionImportCall</code></a></span> syntax rule defines the grammar in the <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#resourcePath"><code>resourcePath</code></a></span> for addressing and invoking an action import directly from the service root.</li>
+<li>The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#boundActionCall"><code>boundActionCall</code></a></span> syntax rule defines the grammar in the <code>resourcePath</code> for addressing and invoking an action that is appended to a <code>resourcePath</code> that identifies some resources that can be used as the binding parameter value when invoking the action.</li>
+<li>The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#boundOperation"><code>boundOperation</code></a></span> syntax rule (which encompasses the <code>boundActionCall</code> syntax rule), when used by the <code>resourcePath</code> syntax rule, illustrates how a <code>boundActionCall</code> can be appended to a <code>resourcePath</code>.</li>
 </ul>
 </details>
 <details open><summary>
@@ -824,11 +824,11 @@ This uses pandoc 3.8.3 from https://github.com/jgm/pandoc/releases/tag/3.8.3.
 </summary>
 <p>The grammar for addressing and invoking functions is defined by syntax rules in <a href="#ODataABNF">OData-ABNF</a>, in particular:</p>
 <ul>
-<li>The function import call syntax rules <code>complexFunctionImportCall</code>, <code>complexColFunctionImportCall</code>, <code>entityFunctionImportCall</code>, <code>entityColFunctionImportCall</code>, <code>primitiveFunctionImportCall</code>, and <code>primitiveColFunctionImportCall</code> define the grammar in the <code>resourcePath</code> for addressing and providing parameters for a function import directly from the service root.</li>
-<li>The bound function call syntax rules <code>boundComplexFunctionCall</code>, <code>boundComplexColFunctionCall</code>, <code>boundEntityFunctionCall</code>, <code>boundEntityColFunctionCall</code>, <code>boundPrimitiveFunctionCall</code> and <code>boundPrimitiveColFunctionCall</code> define the grammar in the <code>resourcePath</code> for addressing and providing parameters for a function that is appended to a <code>resourcePath</code> that identifies some resources that can be used as the binding parameter value when invoking the function.</li>
-<li>The <code>boundOperation</code> syntax rule (which encompasses the bound function call syntax rules), when used by the <code>resourcePath</code> syntax rule, illustrates how a bound function call can be appended to a <code>resourcePath</code>.</li>
-<li>The <code>functionExpr</code> and <code>boundFunctionExpr</code> syntax rules as used by the <code>commonExpr</code> syntax rule define the grammar for invoking functions, for example to help filter and order resources identified by the <code>resourcePath</code> of the URL.</li>
-<li>The <code>aliasAndValue</code> syntax rule defines the grammar for providing function parameter values using Parameter Alias Syntax, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ParameterAliases">OData-Protocol, section 11.2.6.1.3</a>.</li>
+<li>The function import call syntax rules <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#complexFunctionImportCall"><code>complexFunctionImportCall</code></a></span>, <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#complexColFunctionImportCall"><code>complexColFunctionImportCall</code></a></span>, <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#entityFunctionImportCall"><code>entityFunctionImportCall</code></a></span>, <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#entityColFunctionImportCall"><code>entityColFunctionImportCall</code></a></span>, <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#primitiveFunctionImportCall"><code>primitiveFunctionImportCall</code></a></span>, and <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#primitiveColFunctionImportCall"><code>primitiveColFunctionImportCall</code></a></span> define the grammar in the <code>resourcePath</code> for addressing and providing parameters for a function import directly from the service root.</li>
+<li>The bound function call syntax rules <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#boundComplexFunctionCall"><code>boundComplexFunctionCall</code></a></span>, <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#boundComplexColFunctionCall"><code>boundComplexColFunctionCall</code></a></span>, <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#boundEntityFunctionCall"><code>boundEntityFunctionCall</code></a></span>, <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#boundEntityColFunctionCall"><code>boundEntityColFunctionCall</code></a></span>, <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#boundPrimitiveFunctionCall"><code>boundPrimitiveFunctionCall</code></a></span> and <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#boundPrimitiveColFunctionCall"><code>boundPrimitiveColFunctionCall</code></a></span> define the grammar in the <code>resourcePath</code> for addressing and providing parameters for a function that is appended to a <code>resourcePath</code> that identifies some resources that can be used as the binding parameter value when invoking the function.</li>
+<li>The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#boundOperation"><code>boundOperation</code></a></span> syntax rule (which encompasses the bound function call syntax rules), when used by the <code>resourcePath</code> syntax rule, illustrates how a bound function call can be appended to a <code>resourcePath</code>.</li>
+<li>The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#functionExpr"><code>functionExpr</code></a></span> and <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#boundFunctionExpr"><code>boundFunctionExpr</code></a></span> syntax rules as used by the <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#commonExpr"><code>commonExpr</code></a></span> syntax rule define the grammar for invoking functions, for example to help filter and order resources identified by the <code>resourcePath</code> of the URL.</li>
+<li>The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#aliasAndValue"><code>aliasAndValue</code></a></span> syntax rule defines the grammar for providing function parameter values using Parameter Alias Syntax, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ParameterAliases">OData-Protocol, section 11.2.6.1.3</a>.</li>
 </ul>
 <p>Note: there is no literal representation for <code>Edm.Stream</code> values in URLs, so it is not possible to pass <code>Edm.Stream</code> values to parameters of function imports or to non-binding parameters of bound functions used in the resource path. Function expressions within query options can use <a href="#PathExpressions">path expressions</a> of type <code>Edm.Stream</code> as values of non-binding function parameters. The aliases can contain <a href="#CommonExpressionSyntax">common expressions</a>. In the case of a bound function these MAY contain <a href="#PathExpressions">path expressions</a>, which the service evaluates on the binding parameter value.</p>
 <div class="example">
@@ -893,12 +893,12 @@ This uses pandoc 3.8.3 from https://github.com/jgm/pandoc/releases/tag/3.8.3.
 <p>Collections of entities are modeled as entity sets, collection-valued navigation properties, or operation results.</p>
 <p>For entity sets, results of operations associated with an entity set through an <code>EntitySet</code> or <code>EntitySetPath</code> declaration, or collection-valued navigation properties with a <code>NavigationPropertyBinding</code> or <code>ContainsTarget=true</code> specification, members of the collection can be addressed by convention by appending the parenthesized key to the URL specifying the collection of entities, or by using the <a href="#KeyasSegmentConvention">key-as-segment convention</a> if supported by the service.</p>
 <p>For collection-valued navigation properties with navigation property bindings that end in a <a href="#AddressingDerivedTypes">type-cast segment</a>, a type-cast segment MUST be appended to the collection URL before appending the key segment.</p>
-<p>Note: entity sets or collection-valued navigation properties annotated with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#IndexableByKey"><code>Capabilities.IndexableByKey</code></a> defined in <a href="#ODataVocCap">OData-VocCap</a> and a value of <code>false</code> do not support addressing their members by key.</p>
+<p>Note: entity sets or collection-valued navigation properties annotated with the term <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#IndexableByKey"><code>Capabilities.IndexableByKey</code></a></span> defined in <a href="#ODataVocCap">OData-VocCap</a> and a value of <code>false</code> do not support addressing their members by key.</p>
 </details>
 <details open><summary>
 <h2 id="410-addressing-a-member-of-an-ordered-collection"><a id="AddressingaMemberofanOrderedCollection" href="#AddressingaMemberofanOrderedCollection">4.10 Addressing a Member of an Ordered Collection</a></h2>
 </summary>
-<p>Collections can be annotated as ordered using the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered"><code>Core.Ordered</code></a> term (see <a href="#ODataVocCore">OData-VocCore</a>). Individual items within an ordered collection of primitive or complex types can be addressed by appending a segment containing the zero-based ordinal to the URL of the collection. A negative ordinal number indexes from the end of the collection, with <code>-1</code> representing the last item in the collection. Services MUST NOT specify a negative index when returning the address of a member of an ordered collection.</p>
+<p>Collections can be annotated as ordered using the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered"><code>Core.Ordered</code></a></span> term (see <a href="#ODataVocCore">OData-VocCore</a>). Individual items within an ordered collection of primitive or complex types can be addressed by appending a segment containing the zero-based ordinal to the URL of the collection. A negative ordinal number indexes from the end of the collection, with <code>-1</code> representing the last item in the collection. Services MUST NOT specify a negative index when returning the address of a member of an ordered collection.</p>
 <p>Entity types are stably addressable using their canonical URL and SHOULD NOT be accessed or accessible using an index.</p>
 <div class="example">
 <p>Example 37: the first address in a list of addresses for <code>MainSupplier</code></p>
@@ -910,8 +910,8 @@ This uses pandoc 3.8.3 from https://github.com/jgm/pandoc/releases/tag/3.8.3.
 </summary>
 <p>Any resource path or path expression identifying a collection of entities or complex type instances can be appended with a <em>type-cast segment</em>, that is a path segment containing the qualified name of a type derived from the declared item type of the collection. The result will be restricted to instances of the derived type and may be empty.</p>
 <p>Any resource path or path expression identifying a single entity or complex type instance can be appended with a type-cast segment containing the qualified name of a type derived from the declared type of the identified resource. If used in a resource path and the identified resource is not an instance of the derived type, the request will result in a <code>404 Not Found</code> response. If used in a path expression, the type cast will evaluate to <code>null</code>.</p>
-<p>Services MAY additionally support the use of the unqualified name of a derived type in a URL by defining one or more default namespaces through the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a> term defined in <a href="#ODataVocCore">OData-VocCore</a>. For more information on default namespaces, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#DefaultNamespaces">OData-Protocol, section 4.4</a>.</p>
-<p>Services MAY also support treating an instance as a type outside of the type hierarchy using the same syntax and semantics as when addressing a derived type. In this case, the set and values of properties of the addressed type may be different than the properties of the source type. The set of such possible target types outside of the type hierarchy SHOULD be called out using the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#MayImplement"><code>Core.MayImplement</code></a> annotation term, defined in <a href="#ODataVocCore">OData-VocCore</a>.</p>
+<p>Services MAY additionally support the use of the unqualified name of a derived type in a URL by defining one or more default namespaces through the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a></span> term defined in <a href="#ODataVocCore">OData-VocCore</a>. For more information on default namespaces, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#DefaultNamespaces">OData-Protocol, section 4.4</a>.</p>
+<p>Services MAY also support treating an instance as a type outside of the type hierarchy using the same syntax and semantics as when addressing a derived type. In this case, the set and values of properties of the addressed type may be different than the properties of the source type. The set of such possible target types outside of the type hierarchy SHOULD be called out using the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#MayImplement"><code>Core.MayImplement</code></a></span> annotation term, defined in <a href="#ODataVocCore">OData-VocCore</a>.</p>
 <div class="example">
 <p>Example 38: entity set restricted to <code>VipCustomer</code> instances</p>
 <pre><code>http://host/service/Customers/Model.VipCustomer</code></pre>
@@ -938,7 +938,7 @@ This uses pandoc 3.8.3 from https://github.com/jgm/pandoc/releases/tag/3.8.3.
 <details open><summary>
 <h2 id="412-addressing-a-subset-of-a-collection"><a id="AddressingaSubsetofaCollection" href="#AddressingaSubsetofaCollection">4.12 Addressing a Subset of a Collection</a></h2>
 </summary>
-<p>Any resource path or path expression identifying a collection can be appended with a filter path segment consisting of <code>/$filter</code> followed by parentheses containing a <a href="#ParameterAliases">parameter alias</a> or a filter expression following the <code>filter</code> syntax rule in <a href="#ODataABNF">OData-ABNF</a>. If the parentheses contain a parameter alias, a filter expression MUST be assigned to the parameter alias in the query part of the request URL. If the filter path segment appears in the resource path, the filter expression in parentheses MUST NOT use forward slashes, it must be specified with a parameter alias instead.</p>
+<p>Any resource path or path expression identifying a collection can be appended with a filter path segment consisting of <code>/$filter</code> followed by parentheses containing a <a href="#ParameterAliases">parameter alias</a> or a filter expression following the <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#filter"><code>filter</code></a></span> syntax rule in <a href="#ODataABNF">OData-ABNF</a>. If the parentheses contain a parameter alias, a filter expression MUST be assigned to the parameter alias in the query part of the request URL. If the filter path segment appears in the resource path, the filter expression in parentheses MUST NOT use forward slashes, it must be specified with a parameter alias instead.</p>
 <p>The collection will be restricted to instances matching the filter expression assigned to the parameter alias and may be empty.</p>
 <p>The <code>/$filter</code> path segment MAY occur multiple times and it MAY be combined with the <a href="#SystemQueryOptionfilter"><code>$filter</code></a> system query option.</p>
 <div class="example">
@@ -1112,13 +1112,13 @@ Content-Type: application/x-www-form-urlencoded
 <p>An OData service may support some or all of the system query options defined. If a data service does not support a system query option, it MUST reject any request that contains the unsupported option.</p>
 <p>The same system query option, irrespective of casing or whether or not it is prefixed with a <code>$</code>, MUST NOT be specified more than once for any resource.</p>
 <p>The semantics of all system query options are defined in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptions">OData-Protocol, section 11.2.1</a>.</p>
-<p>The grammar and syntax rules for system query options are defined in <a href="#ODataABNF">OData-ABNF</a>.</p>
+<p>The grammar and syntax rules for system query options are defined in <a href="#ODataABNF">OData-ABNF</a> rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#queryOptions"><code>queryOptions</code></a></span>.</p>
 <p>Dynamic properties can be used in the same way as declared properties. If they are not defined on an instance, they evaluate to <code>null</code>.</p>
 <details open><summary>
 <h3 id="511-common-expression-syntax"><a id="CommonExpressionSyntax" href="#CommonExpressionSyntax">5.1.1 Common Expression Syntax</a></h3>
 </summary>
 <p>The following operators, functions, and literals can be used in <code>$filter</code>, <code>$orderby</code>, and <code>$compute</code> expressions.</p>
-<p>The <a href="#ODataABNF">OData-ABNF</a> <code>commonExpr</code> syntax rule defines the formal grammar of common expressions.</p>
+<p>The <a href="#ODataABNF">OData-ABNF</a> <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#commonExpr"><code>commonExpr</code></a></span> syntax rule defines the formal grammar of common expressions.</p>
 <p>The following subsections specify situations in which expressions evaluate to <code>null</code> if operands or parameters do not have the types expected by an operator or function. Notwithstanding these rules, if a service can determine such a type discrepancy for an expression that appears in a request independently of the underlying data, it MUST reject the request with an error message explaining the discrepancy. The determination can be based on, for example, the declared type of a property or the type of a literal value that occurs in the expression.</p>
 <div class="example">
 <p>Example 55: In a search for people above a certain age</p>
@@ -1128,8 +1128,8 @@ Content-Type: application/x-www-form-urlencoded
 <details open><summary>
 <h4 id="5111-logical-operators"><a id="LogicalOperators" href="#LogicalOperators">5.1.1.1 Logical Operators</a></h4>
 </summary>
-<p>OData defines a set of logical operators that evaluate to <code>true</code> or <code>false</code> (i.e. a <code>boolCommonExpr</code> as defined in <a href="#ODataABNF">OData-ABNF</a>). Logical operators are typically used to filter a collection of resources.</p>
-<p>The syntax rules for the logical operators are defined in <a href="#ODataABNF">OData-ABNF</a>. 4.01 Services MUST support case-insensitive operator names. Clients that want to work with 4.0 services MUST use lower case operator names.</p>
+<p>OData defines a set of logical operators that evaluate to <code>true</code> or <code>false</code> (i.e. a <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#boolCommonExpr"><code>boolCommonExpr</code></a></span> as defined in <a href="#ODataABNF">OData-ABNF</a>). Logical operators are typically used to filter a collection of resources.</p>
+<p>The syntax rules for the logical operators are defined in <a href="#ODataABNF">OData-ABNF</a> rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#commonExpr"><code>commonExpr</code></a></span>. 4.01 Services MUST support case-insensitive operator names. Clients that want to work with 4.0 services MUST use lower case operator names.</p>
 <p>The six comparison operators can be used with all primitive values except <code>Edm.Binary</code>, <code>Edm.Stream</code>, and the <code>Edm.Geo</code> types. <code>Edm.Binary</code>, <code>Edm.Stream</code>, and the <code>Edm.Geo</code> types can only be compared to the <code>null</code> value using the <a href="#Equals"><code>eq</code></a> and <a href="#NotEquals"><code>ne</code></a> operators.</p>
 <p>When applied to operands of numeric types, <a href="#NumericPromotion">numeric promotion</a> rules are applied.</p>
 <p>The <code>eq</code>, <code>ne</code>, and <code>in</code> operators can be used with collection-valued operands, and the <code>eq</code> and <code>ne</code> operators can be used with operands of a structured type.</p>
@@ -1164,7 +1164,7 @@ Content-Type: application/x-www-form-urlencoded
 <p>The <code>gt</code> operator returns <code>true</code> if the left operand is greater than the right operand, otherwise it returns <code>false</code>.</p>
 <p>The special value <code>INF</code> is greater than any number, and any number is greater than <code>-INF</code>.</p>
 <p>The Boolean value <code>true</code> is greater than <code>false</code>.</p>
-<p>Services SHOULD order language-dependent strings according to the <code>Content-Language</code> of the response, and SHOULD annotate string properties with language-dependent order with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent"><code>Core.IsLanguageDependent</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>.</p>
+<p>Services SHOULD order language-dependent strings according to the <code>Content-Language</code> of the response, and SHOULD annotate string properties with language-dependent order with the term <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent"><code>Core.IsLanguageDependent</code></a></span>, see <a href="#ODataVocCore">OData-VocCore</a>.</p>
 <p>If any operand is <code>null</code>, the operator returns <code>false</code>.</p>
 </details>
 <details open><summary>
@@ -1179,7 +1179,7 @@ Content-Type: application/x-www-form-urlencoded
 <p>The <code>lt</code> operator returns <code>true</code> if the left operand is less than the right operand, otherwise it returns <code>false</code>.</p>
 <p>The special value <code>-INF</code> is less than any number, and any number is less than <code>INF</code>.</p>
 <p>The Boolean value <code>false</code> is less than <code>true</code>.</p>
-<p>Services SHOULD order language-dependent strings according to the <code>Content-Language</code> of the response, and SHOULD annotate string properties with language-dependent order with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent"><code>Core.IsLanguageDependent</code></a>, see <a href="#ODataVocCore">OData-VocCore</a>.</p>
+<p>Services SHOULD order language-dependent strings according to the <code>Content-Language</code> of the response, and SHOULD annotate string properties with language-dependent order with the term <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent"><code>Core.IsLanguageDependent</code></a></span>, see <a href="#ODataVocCore">OData-VocCore</a>.</p>
 <p>If any operand is <code>null</code>, the operator returns <code>false</code>.</p>
 </details>
 <details open><summary>
@@ -1272,7 +1272,7 @@ Content-Type: application/x-www-form-urlencoded
 </summary>
 <p>OData defines a set of arithmetic operators that require operands that evaluate to numeric types. Arithmetic operators are typically used to filter a collection of resources. However, services MAY allow using arithmetic operators with the <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> system query option.</p>
 <p>If an operand of an arithmetic operator is <code>null</code> or has a non-allowed type, the result is <code>null</code>.</p>
-<p>The syntax rules for the arithmetic operators are defined in <a href="#ODataABNF">OData-ABNF</a>. 4.01 Services MUST support case-insensitive operator names. Clients that want to work with 4.0 services MUST use lower case operator names.</p>
+<p>The syntax rules for the arithmetic operators are defined in <a href="#ODataABNF">OData-ABNF</a> rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#commonExpr"><code>commonExpr</code></a></span>. 4.01 Services MUST support case-insensitive operator names. Clients that want to work with 4.0 services MUST use lower case operator names.</p>
 <details open><summary>
 <h5 id="51121-addition"><a id="Addition" href="#Addition">5.1.1.2.1 Addition</a></h5>
 </summary>
@@ -1381,7 +1381,7 @@ Content-Type: application/x-www-form-urlencoded
 <p>In addition to operators, a set of functions is also defined for use with the <a href="#SystemQueryOptioncompute"><code>$compute</code></a>, <code>$filter</code> or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> system query options, or in <a href="#ParameterAliases">parameter alias</a> values. The following <a href="#concat">sections 5.1.1.5.1</a> to <a href="#geolength">5.1.1.11.3</a> describe the available functions. The <a href="#case"><code>case</code></a> and <a href="#LambdaOperators">lambda operators</a> have a slightly different syntax.</p>
 <p>Note: ISNULL or COALESCE operators are not defined. Instead, OData defines a <a href="#null"><code>null</code></a> literal that can be used in comparisons.</p>
 <p>If a parameter of a canonical function is <code>null</code>, the function returns <code>null</code>. If the types of parameters do not match the function signature, the function also returns <code>null</code>.</p>
-<p>The syntax rules for all functions are defined in <a href="#ODataABNF">OData-ABNF</a>. 4.01 Services MUST support case-insensitive canonical function names. Clients that want to work with 4.0 services MUST use lower case canonical function names.</p>
+<p>The syntax rules for all functions are defined in <a href="#ODataABNF">OData-ABNF</a> rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#methodCallExpr"><code>methodCallExpr</code></a></span>. 4.01 Services MUST support case-insensitive canonical function names. Clients that want to work with 4.0 services MUST use lower case canonical function names.</p>
 </details>
 <details open><summary>
 <h4 id="5115-string-and-collection-functions"><a id="StringandCollectionFunctions" href="#StringandCollectionFunctions">5.1.1.5 String and Collection Functions</a></h4>
@@ -1395,7 +1395,7 @@ Collection concat(Collection,Collection)
 OrderedCollection concat(OrderedCollection,OrderedCollection)</code></pre>
 <p>The <code>concat</code> function with string parameter values returns a string that appends the second parameter string value to the first.</p>
 <p>The concat function with collection parameter values returns a collection that appends all items of the second collection to the first. If both collections are ordered, the result is also ordered.</p>
-<p>The <code>concatMethodCallExpr</code> syntax rule defines how the <code>concat</code> function is invoked.</p>
+<p>The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#concatMethodCallExpr"><code>concatMethodCallExpr</code></a></span> syntax rule defines how the <code>concat</code> function is invoked.</p>
 <div class="example">
 <p>Example 75: all customers from Berlin, Germany</p>
 <pre><code>http://host/service/Customers?$filter=concat(concat(City,&#39;, &#39;),Country) eq &#39;Berlin, Germany&#39;</code></pre>
@@ -1409,7 +1409,7 @@ OrderedCollection concat(OrderedCollection,OrderedCollection)</code></pre>
 Edm.Boolean contains(OrderedCollection,OrderedCollection)</code></pre>
 <p>The <code>contains</code> function with string parameter values returns <code>true</code> if the second string is a substring of the first string, otherwise it returns <code>false</code>. String comparison is case-sensitive, case-insensitive comparison can be achieved in combination with <a href="#tolower"><code>tolower</code></a> or <a href="#toupper"><code>toupper</code></a>.</p>
 <p>The <code>contains</code> function with ordered collection parameter values returns <code>true</code> if the first collection can be transformed into the second collection by removing zero or more items from the beginning or the end of the first collection.</p>
-<p>The <code>containsMethodCallExpr</code> syntax rule defines how the <code>contains</code> function is invoked.</p>
+<p>The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#containsMethodCallExpr"><code>containsMethodCallExpr</code></a></span> syntax rule defines how the <code>contains</code> function is invoked.</p>
 <div class="example">
 <p>Example 76: all customers with a <code>CompanyName</code> that contains <code>Alfreds</code></p>
 <pre><code>http://host/service/Customers?$filter=contains(CompanyName,&#39;Alfreds&#39;)</code></pre>
@@ -1423,7 +1423,7 @@ Edm.Boolean contains(OrderedCollection,OrderedCollection)</code></pre>
 Edm.Boolean endswith(OrderedCollection,OrderedCollection)</code></pre>
 <p>The <code>endswith</code> function with string parameter values returns <code>true</code> if the first string ends with the second string, otherwise it returns <code>false</code>. String comparison is case-sensitive, case-insensitive comparison can be achieved in combination with <a href="#tolower"><code>tolower</code></a> or <a href="#toupper"><code>toupper</code></a>.</p>
 <p>The <code>endswith</code> function with ordered collection parameter values returns <code>true</code> if the first collection can be transformed into the second collection by removing zero or more items from the beginning of the first collection.</p>
-<p>The <code>endsWithMethodCallExpr</code> syntax rule defines how the <code>endswith</code> function is invoked.</p>
+<p>The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#endsWithMethodCallExpr"><code>endsWithMethodCallExpr</code></a></span> syntax rule defines how the <code>endswith</code> function is invoked.</p>
 <div class="example">
 <p>Example 77: all customers with a <code>CompanyName</code> that ends with <code>Futterkiste</code></p>
 <pre><code>http://host/service/Customers?$filter=endswith(CompanyName,&#39;Futterkiste&#39;)</code></pre>
@@ -1437,7 +1437,7 @@ Edm.Boolean endswith(OrderedCollection,OrderedCollection)</code></pre>
 Edm.Int32 indexof(OrderedCollection,OrderedCollection)</code></pre>
 <p>The <code>indexof</code> function with string parameter values returns the zero-based character position of the first occurrence of the second string in the first string, or -1 if the first string does not contain the second string. String comparison is case-sensitive, case-insensitive comparison can be achieved in combination with <a href="#tolower"><code>tolower</code></a> or <a href="#toupper"><code>toupper</code></a>.</p>
 <p>The <code>indexof</code> function with ordered collection parameter values returns the zero-based index of the first occurrence of the second collection in the first collection, or -1 if the first collection does not contain the second collection.</p>
-<p>The <code>indexOfMethodCallExpr</code> syntax rule defines how the <code>indexof</code> function is invoked.</p>
+<p>The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#indexOfMethodCallExpr"><code>indexOfMethodCallExpr</code></a></span> syntax rule defines how the <code>indexof</code> function is invoked.</p>
 <div class="example">
 <p>Example 78: all customers with a <code>CompanyName</code> containing <code>lfreds</code> starting at the second character</p>
 <pre><code>http://host/service/Customers?$filter=indexof(CompanyName,&#39;lfreds&#39;) eq 1</code></pre>
@@ -1451,7 +1451,7 @@ Edm.Int32 indexof(OrderedCollection,OrderedCollection)</code></pre>
 Edm.Int32 length(Collection)</code></pre>
 <p>The <code>length</code> function with a string parameter value returns the number of characters in the string.</p>
 <p>The <code>length</code> function with a collection parameter value returns the number of itens in the collection.</p>
-<p>The <code>lengthMethodCallExpr</code> syntax rule defines how the <code>length</code> function is invoked.</p>
+<p>The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#lengthMethodCallExpr"><code>lengthMethodCallExpr</code></a></span> syntax rule defines how the <code>length</code> function is invoked.</p>
 <div class="example">
 <p>Example 79: all customers with a <code>CompanyName</code> that is 19 characters long</p>
 <pre><code>http://host/service/Customers?$filter=length(CompanyName) eq 19</code></pre>
@@ -1465,7 +1465,7 @@ Edm.Int32 length(Collection)</code></pre>
 Edm.Boolean startswith(Collection,Collection)</code></pre>
 <p>The <code>startswith</code> function with string parameter values returns <code>true</code> if the first string starts with the second string, otherwise it returns <code>false</code>. String comparison is case-sensitive, case-insensitive comparison can be achieved in combination with <a href="#tolower"><code>tolower</code></a> or <a href="#toupper"><code>toupper</code></a>.</p>
 <p>The <code>startswith</code> function with ordered collection parameter values returns <code>true</code> if the first collection can be transformed into the second collection by removing zero or more items from the end of the first collection.</p>
-<p>The <code>startsWithMethodCallExpr</code> syntax rule defines how the <code>startswith</code> function is invoked.</p>
+<p>The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#startsWithMethodCallExpr"><code>startsWithMethodCallExpr</code></a></span> syntax rule defines how the <code>startswith</code> function is invoked.</p>
 <div class="example">
 <p>Example 80: all customers with a <code>CompanyName</code> that starts with <code>Alfr</code></p>
 <pre><code>http://host/service/Customers?$filter=startswith(CompanyName,&#39;Alfr&#39;)</code></pre>
@@ -1486,7 +1486,7 @@ OrderedCollection substring(OrderedCollection,Edm.Int32,Edm.Int32)</code></pre>
 <p>If the length M is larger than the length of the remaining string/collection starting at the Nth character/item, as many characters/items as are available are returned.</p>
 <p>A negative length M is a bad request.</p>
 <p>A negative start index N, if supported, returns a string/collection starting N characters/items before the end of the string/collection.</p>
-<p>The <code>substringMethodCallExpr</code> syntax rule defines how the <code>substring</code> function is invoked.</p>
+<p>The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#substringMethodCallExpr"><code>substringMethodCallExpr</code></a></span> syntax rule defines how the <code>substring</code> function is invoked.</p>
 <div class="example">
 <p>Example 81: all customers with a <code>CompanyName</code> of <code>lfreds Futterkiste</code> once the first character has been removed</p>
 <pre><code>http://host/service/Customers?$filter=substring(CompanyName,1) eq &#39;lfreds Futterkiste&#39;</code></pre>
@@ -1505,7 +1505,7 @@ OrderedCollection substring(OrderedCollection,Edm.Int32,Edm.Int32)</code></pre>
 </summary>
 <p>The <code>hassubset</code> function has the following signature:</p>
 <pre><code>Edm.Boolean hassubset(Collection, Collection)</code></pre>
-<p>The <code>hassubset</code> function returns <code>true</code> if the first collection can be transformed into the second collection by reordering and/or removing zero or more items. The <code>hasSubsetMethodCallExpr</code> syntax rule defines how the <code>hassubset</code> function is invoked.</p>
+<p>The <code>hassubset</code> function returns <code>true</code> if the first collection can be transformed into the second collection by reordering and/or removing zero or more items. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#hasSubsetMethodCallExpr"><code>hasSubsetMethodCallExpr</code></a></span> syntax rule defines how the <code>hassubset</code> function is invoked.</p>
 <div class="example">
 <p>Example 83: <code>hassubset</code> expressions that return <code>true</code></p>
 <pre><code>hassubset([4,1,3],[4,1,3])</code></pre>
@@ -1524,7 +1524,7 @@ OrderedCollection substring(OrderedCollection,Edm.Int32,Edm.Int32)</code></pre>
 </summary>
 <p>The <code>hassubsequence</code> function has the following signature:</p>
 <pre><code>Edm.Boolean hassubsequence(OrderedCollection,OrderedCollection)</code></pre>
-<p>The <code>hassubsequence</code> function returns <code>true</code> if the first collection can be transformed into the second collection by removing zero or more items. The <code>hasSubsequenceMethodCallExpr</code> syntax rule defines how the <code>hassubsequence</code> function is invoked.</p>
+<p>The <code>hassubsequence</code> function returns <code>true</code> if the first collection can be transformed into the second collection by removing zero or more items. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#hasSubsequenceMethodCallExpr"><code>hasSubsequenceMethodCallExpr</code></a></span> syntax rule defines how the <code>hassubsequence</code> function is invoked.</p>
 <div class="example">
 <p>Example 85: <code>hassubsequence</code> expressions that return <code>true</code></p>
 <pre><code>hassubsequence([4,1,3],[4,1,3])</code></pre>
@@ -1549,7 +1549,7 @@ OrderedCollection substring(OrderedCollection,Edm.Int32,Edm.Int32)</code></pre>
 <p>The <code>matchespattern</code> function has the following signatures:</p>
 <pre><code>Edm.Boolean matchespattern(Edm.String,Edm.String)
 Edm.Boolean matchespattern(Edm.String,Edm.String,Edm.String)</code></pre>
-<p>The second parameter MUST evaluate to a string containing an <a href="#_ECMAScript">ECMAScript</a> (JavaScript) regular expression, otherwise the function returns <code>null</code>. The <code>matchespattern</code> function returns <code>true</code> if the first parameter evaluates to a string matching that regular expression, using syntax and semantics of ECMAScript regular expressions, otherwise it returns <code>false</code>. If the optional third parameter is provided, it MUST evaluate to a string consisting of ECMAScript regular expression flags to modify the match, otherwise the function returns <code>null</code>.</p>
+<p>The second parameter MUST evaluate to a string containing an <a href="#_ECMAScript">ECMAScript</a> (JavaScript) regular expression, otherwise the function returns <code>null</code>. The <code>matchespattern</code> function returns <code>true</code> if the first parameter evaluates to a string matching that regular expression, using syntax and semantics of ECMAScript regular expressions, otherwise it returns <code>false</code>. If the optional third parameter is provided, it MUST evaluate to a string consisting of ECMAScript regular expression flags to modify the match, otherwise the function returns <code>null</code>. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#matchesPatternMethodCallExpr"><code>matchesPatternMethodCallExpr</code></a></span> syntax rule defines how the <code>matchespattern</code> function is invoked.</p>
 <div class="example">
 <p>Example 87: all customers with a <code>CompanyName</code> that match the (percent-encoded) regular expression <code>^A.*e$</code></p>
 <pre><code>http://host/service/Customers?$filter=matchespattern(CompanyName,&#39;%5EA.*e$&#39;)</code></pre>
@@ -1564,7 +1564,7 @@ Edm.Boolean matchespattern(Edm.String,Edm.String,Edm.String)</code></pre>
 </summary>
 <p>The <code>tolower</code> function has the following signature:</p>
 <pre><code>Edm.String tolower(Edm.String)</code></pre>
-<p>The <code>tolower</code> function returns the input parameter string value with all uppercase characters converted to lowercase according to Unicode rules. The <code>toLowerMethodCallExpr</code> syntax rule defines how the <code>tolower</code> function is invoked.</p>
+<p>The <code>tolower</code> function returns the input parameter string value with all uppercase characters converted to lowercase according to Unicode rules. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#toLowerMethodCallExpr"><code>toLowerMethodCallExpr</code></a></span> syntax rule defines how the <code>tolower</code> function is invoked.</p>
 <div class="example">
 <p>Example 89: all customers with a <code>CompanyName</code> that equals <code>alfreds futterkiste</code> once any uppercase characters have been converted to lowercase</p>
 <pre><code>http://host/service/Customers?$filter=tolower(CompanyName) eq &#39;alfreds futterkiste&#39;</code></pre>
@@ -1575,7 +1575,7 @@ Edm.Boolean matchespattern(Edm.String,Edm.String,Edm.String)</code></pre>
 </summary>
 <p>The <code>toupper</code> function has the following signature:</p>
 <pre><code>Edm.String toupper(Edm.String)</code></pre>
-<p>The <code>toupper</code> function returns the input parameter string value with all lowercase characters converted to uppercase according to Unicode rules. The <code>toUpperMethodCallExpr</code> syntax rule defines how the <code>toupper</code> function is invoked.</p>
+<p>The <code>toupper</code> function returns the input parameter string value with all lowercase characters converted to uppercase according to Unicode rules. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#toUpperMethodCallExpr"><code>toUpperMethodCallExpr</code></a></span> syntax rule defines how the <code>toupper</code> function is invoked.</p>
 <div class="example">
 <p>Example 90: all customers with a <code>CompanyName</code> that equals <code>ALFREDS FUTTERKISTE</code> once any lowercase characters have been converted to uppercase</p>
 <pre><code>http://host/service/Customers?$filter=toupper(CompanyName) eq &#39;ALFREDS FUTTERKISTE&#39;</code></pre>
@@ -1586,7 +1586,7 @@ Edm.Boolean matchespattern(Edm.String,Edm.String,Edm.String)</code></pre>
 </summary>
 <p>The <code>trim</code> function has the following signature:</p>
 <pre><code>Edm.String trim(Edm.String)</code></pre>
-<p>The <code>trim</code> function returns the input parameter string value with all leading and trailing whitespace characters, according to Unicode rules, removed. The <code>trimMethodCallExpr</code> syntax rule defines how the <code>trim</code> function is invoked.</p>
+<p>The <code>trim</code> function returns the input parameter string value with all leading and trailing whitespace characters, according to Unicode rules, removed. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#trimMethodCallExpr"><code>trimMethodCallExpr</code></a></span> syntax rule defines how the <code>trim</code> function is invoked.</p>
 <div class="example">
 <p>Example 91: all customers with a <code>CompanyName</code> without leading or trailing whitespace characters</p>
 <pre><code>http://host/service/Customers?$filter=trim(CompanyName) eq CompanyName</code></pre>
@@ -1601,7 +1601,7 @@ Edm.Boolean matchespattern(Edm.String,Edm.String,Edm.String)</code></pre>
 </summary>
 <p>The <code>date</code> function has the following signature:</p>
 <pre><code>Edm.Date date(Edm.DateTimeOffset)</code></pre>
-<p>The <code>date</code> function returns the date part of the <code>DateTimeOffset</code> parameter value, evaluated in the time zone of the <code>DateTimeOffset</code> parameter value.</p>
+<p>The <code>date</code> function returns the date part of the <code>DateTimeOffset</code> parameter value, evaluated in the time zone of the <code>DateTimeOffset</code> parameter value. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#dateMethodCallExpr"><code>dateMethodCallExpr</code></a></span> syntax rule defines how the <code>date</code> function is invoked.</p>
 </details>
 <details open><summary>
 <h5 id="51182-day"><a id="day" href="#day">5.1.1.8.2 <code>day</code></a></h5>
@@ -1609,7 +1609,7 @@ Edm.Boolean matchespattern(Edm.String,Edm.String,Edm.String)</code></pre>
 <p>The <code>day</code> function has the following signatures:</p>
 <pre><code>Edm.Int32 day(Edm.Date)
 Edm.Int32 day(Edm.DateTimeOffset)</code></pre>
-<p>The <code>day</code> function returns the day component <code>Date</code> or <code>DateTimeOffset</code> parameter value, evaluated in the time zone of the <code>DateTimeOffset</code> parameter value. The <code>dayMethodCallExpr</code> syntax rule defines how the <code>day</code> function is invoked.</p>
+<p>The <code>day</code> function returns the day component <code>Date</code> or <code>DateTimeOffset</code> parameter value, evaluated in the time zone of the <code>DateTimeOffset</code> parameter value. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#dayMethodCallExpr"><code>dayMethodCallExpr</code></a></span> syntax rule defines how the <code>day</code> function is invoked.</p>
 <p>Services that are unable to preserve the offset of <code>Edm.DateTimeOffset</code> values and instead normalize the values to some common time zone (for example UTC) MUST fail evaluation of the <code>day</code> function for literal <code>Edm.DateTimeOffset</code> values that are not stated in the time zone of the normalized values.</p>
 <div class="example">
 <p>Example 92: all employees born on the 8th day of a month</p>
@@ -1622,7 +1622,7 @@ Edm.Int32 day(Edm.DateTimeOffset)</code></pre>
 <p>The <code>fractionalseconds</code> function has the following signatures:</p>
 <pre><code>Edm.Decimal fractionalseconds[(Edm.DateTimeOffset)
 Edm.Decimal fractionalseconds(Edm.TimeOfDay)</code></pre>
-<p>The <code>fractionalseconds</code> function returns the fractional seconds component of the <code>DateTimeOffset</code> or <code>TimeOfDay</code> parameter value as a non-negative decimal value less than 1. The <code>fractionalsecondsMethodCallExpr</code> syntax rule defines how the <code>fractionalseconds</code> function is invoked.</p>
+<p>The <code>fractionalseconds</code> function returns the fractional seconds component of the <code>DateTimeOffset</code> or <code>TimeOfDay</code> parameter value as a non-negative decimal value less than 1. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#fractionalsecondsMethodCallExpr"><code>fractionalsecondsMethodCallExpr</code></a></span> syntax rule defines how the <code>fractionalseconds</code> function is invoked.</p>
 <div class="example">
 <p>Example 93: all employees born less than 100 milliseconds after a full second of any minute of any hour on any day</p>
 <pre><code>http://host/service/Employees?$filter=[fractionalseconds(BirthDate) lt 0.1</code></pre>
@@ -1634,7 +1634,7 @@ Edm.Decimal fractionalseconds(Edm.TimeOfDay)</code></pre>
 <p>The <code>hour</code> function has the following signatures:</p>
 <pre><code>Edm.Int32 hour(Edm.DateTimeOffset)
 Edm.Int32 hour(Edm.TimeOfDay)</code></pre>
-<p>The <code>hour</code> function returns the hour component (<code>0</code> to <code>23</code>) of the <code>DateTimeOffset</code> or <code>TimeOfDay</code> parameter value, evaluated in the time zone of the <code>DateTimeOffset</code> parameter value. The <code>hourMethodCallExpr</code> syntax rule defines how the <code>hour</code> function is invoked.</p>
+<p>The <code>hour</code> function returns the hour component (<code>0</code> to <code>23</code>) of the <code>DateTimeOffset</code> or <code>TimeOfDay</code> parameter value, evaluated in the time zone of the <code>DateTimeOffset</code> parameter value. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#hourMethodCallExpr"><code>hourMethodCallExpr</code></a></span> syntax rule defines how the <code>hour</code> function is invoked.</p>
 <p>Services that are unable to preserve the offset of <code>Edm.DateTimeOffset</code> values and instead normalize the values to some common time zone (for example UTC) MUST fail evaluation of the <code>hour</code> function for literal <code>Edm.DateTimeOffset</code> values that are not stated in the time zone of the normalized values.</p>
 <div class="example">
 <p>Example 94: all employees born in hour 4, between 04:00 (inclusive) and 05:00 (exclusive)</p>
@@ -1646,14 +1646,14 @@ Edm.Int32 hour(Edm.TimeOfDay)</code></pre>
 </summary>
 <p>The <code>maxdatetime</code> function has the following signature:</p>
 <pre><code>Edm.DateTimeOffset maxdatetime()</code></pre>
-<p>The <code>maxdatetime</code> function returns the latest possible point in time as a <code>DateTimeOffset</code> value.</p>
+<p>The <code>maxdatetime</code> function returns the latest possible point in time as a <code>DateTimeOffset</code> value. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#maxDateTimeMethodCallExpr"><code>maxDateTimeMethodCallExpr</code></a></span> syntax rule defines how the <code>maxdatetime</code> function is invoked.</p>
 </details>
 <details open><summary>
 <h5 id="51186-mindatetime"><a id="mindatetime" href="#mindatetime">5.1.1.8.6 <code>mindatetime</code></a></h5>
 </summary>
 <p>The <code>mindatetime</code> function has the following signature:</p>
 <pre><code>Edm.DateTimeOffset mindatetime()</code></pre>
-<p>The <code>mindatetime</code> function returns the earliest possible point in time as a <code>DateTimeOffset</code> value.</p>
+<p>The <code>mindatetime</code> function returns the earliest possible point in time as a <code>DateTimeOffset</code> value. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#minDateTimeMethodCallExpr"><code>minDateTimeMethodCallExpr</code></a></span> syntax rule defines how the <code>mindatetime</code> function is invoked.</p>
 </details>
 <details open><summary>
 <h5 id="51187-minute"><a id="minute" href="#minute">5.1.1.8.7 <code>minute</code></a></h5>
@@ -1661,7 +1661,7 @@ Edm.Int32 hour(Edm.TimeOfDay)</code></pre>
 <p>The <code>minute</code> function has the following signatures:</p>
 <pre><code>Edm.Int32 minute(Edm.DateTimeOffset)
 Edm.Int32 minute(Edm.TimeOfDay)</code></pre>
-<p>The <code>minute</code> function returns the minute component (<code>0</code> to <code>59</code>) of the <code>DateTimeOffset</code> or <code>TimeOfDay</code> parameter value, evaluated in the time zone of the <code>DateTimeOffset</code> parameter value. The <code>minuteMethodCallExpr</code> syntax rule defines how the <code>minute</code> function is invoked.</p>
+<p>The <code>minute</code> function returns the minute component (<code>0</code> to <code>59</code>) of the <code>DateTimeOffset</code> or <code>TimeOfDay</code> parameter value, evaluated in the time zone of the <code>DateTimeOffset</code> parameter value. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#minuteMethodCallExpr"><code>minuteMethodCallExpr</code></a></span> syntax rule defines how the <code>minute</code> function is invoked.</p>
 <div class="example">
 <p>Example 95: all employees born in minute 40 of any hour on any day</p>
 <pre><code>http://host/service/Employees?$filter=minute(BirthDate) eq 40</code></pre>
@@ -1673,7 +1673,7 @@ Edm.Int32 minute(Edm.TimeOfDay)</code></pre>
 <p>The <code>month</code> function has the following signatures:</p>
 <pre><code>Edm.Int32 month(Edm.Date)
 Edm.Int32 month(Edm.DateTimeOffset)</code></pre>
-<p>The <code>month</code> function returns the month component of the <code>Date</code> or <code>DateTimeOffset</code> parameter value, evaluated in the time zone of the <code>DateTimeOffset</code> parameter value. The <code>monthMethodCallExpr</code> syntax rule defines how the <code>month</code> function is invoked.</p>
+<p>The <code>month</code> function returns the month component of the <code>Date</code> or <code>DateTimeOffset</code> parameter value, evaluated in the time zone of the <code>DateTimeOffset</code> parameter value. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#monthMethodCallExpr"><code>monthMethodCallExpr</code></a></span> syntax rule defines how the <code>month</code> function is invoked.</p>
 <p>Services that are unable to preserve the offset of <code>Edm.DateTimeOffset</code> values and instead normalize the values to some common time zone (for example UTC) MUST fail evaluation of the <code>month</code> function for literal <code>Edm.DateTimeOffset</code> values that are not stated in the time zone of the normalized values.</p>
 <div class="example">
 <p>Example 96: all employees born in May</p>
@@ -1685,7 +1685,7 @@ Edm.Int32 month(Edm.DateTimeOffset)</code></pre>
 </summary>
 <p>The <code>now</code> function has the following signature:</p>
 <pre><code>Edm.DateTimeOffset now()</code></pre>
-<p>The <code>now</code> function returns the current point in time (date and time with time zone) as a <code>DateTimeOffset</code> value.</p>
+<p>The <code>now</code> function returns the current point in time (date and time with time zone) as a <code>DateTimeOffset</code> value. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#nowMethodCallExpr"><code>nowMethodCallExpr</code></a></span> syntax rule defines how the <code>now</code> function is invoked.</p>
 <p>Services are free to choose the time zone for the current point, for example UTC. Services that are unable to preserve the offset of <code>Edm.DateTimeOffset</code> values and instead normalize the values to some common time zone SHOULD return a value in the normalized time zone (for example UTC).</p>
 </details>
 <details open><summary>
@@ -1694,7 +1694,7 @@ Edm.Int32 month(Edm.DateTimeOffset)</code></pre>
 <p>The <code>second</code> function has the following signatures:</p>
 <pre><code>Edm.Int32 second(Edm.DateTimeOffset)
 Edm.Int32 second(Edm.TimeOfDay)</code></pre>
-<p>The <code>second</code> function returns the second component (<code>0</code> to <code>59</code> for regular seconds, and <code>60</code> for leap seconds, without the fractional part) of the <code>DateTimeOffset</code> or <code>TimeOfDay</code> parameter value. The <code>secondMethodCallExpr</code> syntax rule defines how the <code>second</code> function is invoked.</p>
+<p>The <code>second</code> function returns the second component (<code>0</code> to <code>59</code> for regular seconds, and <code>60</code> for leap seconds, without the fractional part) of the <code>DateTimeOffset</code> or <code>TimeOfDay</code> parameter value. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#secondMethodCallExpr"><code>secondMethodCallExpr</code></a></span> syntax rule defines how the <code>second</code> function is invoked.</p>
 <div class="example">
 <p>Example 97: all employees born in second 40 of any minute of any hour on any day</p>
 <pre><code>http://host/service/Employees?$filter=second(BirthDate) eq 40</code></pre>
@@ -1705,7 +1705,7 @@ Edm.Int32 second(Edm.TimeOfDay)</code></pre>
 </summary>
 <p>The <code>time</code> function has the following signature:</p>
 <pre><code>Edm.TimeOfDay time(Edm.DateTimeOffset)</code></pre>
-<p>The <code>time</code> function returns the time part of the <code>DateTimeOffset</code> parameter value, evaluated in the time zone of the <code>DateTimeOffset</code> parameter value.</p>
+<p>The <code>time</code> function returns the time part of the <code>DateTimeOffset</code> parameter value, evaluated in the time zone of the <code>DateTimeOffset</code> parameter value. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#timeMethodCallExpr"><code>timeMethodCallExpr</code></a></span> syntax rule defines how the <code>time</code> function is invoked.</p>
 <p>Services that are unable to preserve the offset of <code>Edm.DateTimeOffset</code> values and instead normalize the values to some common time zone (for example UTC) MUST fail evaluation of the <code>time</code> function for literal <code>Edm.DateTimeOffset</code> values that are not stated in the time zone of the normalized values.</p>
 </details>
 <details open><summary>
@@ -1713,14 +1713,14 @@ Edm.Int32 second(Edm.TimeOfDay)</code></pre>
 </summary>
 <p>The <code>totaloffsetminutes</code> function has the following signature:</p>
 <pre><code>Edm.Int32 totaloffsetminutes(Edm.DateTimeOffset)</code></pre>
-<p>The <code>totaloffsetminutes</code> function returns the signed number of minutes in the time zone offset part of the <code>DateTimeOffset</code> parameter value, evaluated in the time zone of the <code>DateTimeOffset</code> parameter value.</p>
+<p>The <code>totaloffsetminutes</code> function returns the signed number of minutes in the time zone offset part of the <code>DateTimeOffset</code> parameter value, evaluated in the time zone of the <code>DateTimeOffset</code> parameter value. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#totalOffsetMinutesMethodCallExpr"><code>totalOffsetMinutesMethodCallExpr</code></a></span> syntax rule defines how the <code>totaloffsetminutes</code> function is invoked.</p>
 </details>
 <details open><summary>
 <h5 id="511813-totalseconds"><a id="totalseconds" href="#totalseconds">5.1.1.8.13 <code>totalseconds</code></a></h5>
 </summary>
 <p>The <code>totalseconds</code> function has the following signature:</p>
 <pre><code>Edm.Decimal totalseconds(Edm.Duration)</code></pre>
-<p>The <code>totalseconds</code> function returns the duration of the value in total seconds, including fractional seconds.</p>
+<p>The <code>totalseconds</code> function returns the duration of the value in total seconds, including fractional seconds. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#totalSecondsMethodCallExpr"><code>totalSecondsMethodCallExpr</code></a></span> syntax rule defines how the <code>totalseconds</code> function is invoked.</p>
 </details>
 <details open><summary>
 <h5 id="511814-year"><a id="year" href="#year">5.1.1.8.14 <code>year</code></a></h5>
@@ -1728,7 +1728,7 @@ Edm.Int32 second(Edm.TimeOfDay)</code></pre>
 <p>The <code>year</code> function has the following signatures:</p>
 <pre><code>Edm.Int32 year(Edm.Date)
 Edm.Int32 year(Edm.DateTimeOffset)</code></pre>
-<p>The <code>year</code> function returns the year component of the <code>Date</code> or <code>DateTimeOffset</code> parameter value, evaluated in the time zone of the <code>DateTimeOffset</code> parameter value. The <code>yearMethodCallExpr</code> syntax rule defines how the <code>year</code> function is invoked.</p>
+<p>The <code>year</code> function returns the year component of the <code>Date</code> or <code>DateTimeOffset</code> parameter value, evaluated in the time zone of the <code>DateTimeOffset</code> parameter value. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#yearMethodCallExpr"><code>yearMethodCallExpr</code></a></span> syntax rule defines how the <code>year</code> function is invoked.</p>
 <p>Services that are unable to preserve the offset of <code>Edm.DateTimeOffset</code> values and instead normalize the values to some common time zone (for example UTC) MUST fail evaluation of the <code>year</code> function for literal <code>Edm.DateTimeOffset</code> values that are not stated in the time zone of the normalized values.</p>
 <div class="example">
 <p>Example 98: all employees born in 1971</p>
@@ -1745,7 +1745,7 @@ Edm.Int32 year(Edm.DateTimeOffset)</code></pre>
 <p>The <code>ceiling</code> function has the following signatures</p>
 <pre><code>Edm.Double ceiling(Edm.Double)
 Edm.Decimal ceiling(Edm.Decimal)</code></pre>
-<p>The <code>ceiling</code> function rounds the input numeric parameter up to the nearest numeric value with no decimal component. The <code>ceilingMethodCallExpr</code> syntax rule defines how the <code>ceiling</code> function is invoked.</p>
+<p>The <code>ceiling</code> function rounds the input numeric parameter up to the nearest numeric value with no decimal component. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#ceilingMethodCallExpr"><code>ceilingMethodCallExpr</code></a></span> syntax rule defines how the <code>ceiling</code> function is invoked.</p>
 <div class="example">
 <p>Example 99: all orders with freight costs that round up to 32</p>
 <pre><code>http://host/service/Orders?$filter=ceiling(Freight) eq 32</code></pre>
@@ -1757,7 +1757,7 @@ Edm.Decimal ceiling(Edm.Decimal)</code></pre>
 <p>The <code>floor</code> function has the following signatures</p>
 <pre><code>Edm.Double floor(Edm.Double)
 Edm.Decimal floor(Edm.Decimal)</code></pre>
-<p>The <code>floor</code> function rounds the input numeric parameter down to the nearest numeric value with no decimal component. The <code>floorMethodCallExpr</code> syntax rule defines how the <code>floor</code> function is invoked.</p>
+<p>The <code>floor</code> function rounds the input numeric parameter down to the nearest numeric value with no decimal component. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#floorMethodCallExpr"><code>floorMethodCallExpr</code></a></span> syntax rule defines how the <code>floor</code> function is invoked.</p>
 <div class="example">
 <p>Example 100: all orders with freight costs that round down to 32</p>
 <pre><code>http://host/service/Orders?$filter=floor(Freight) eq 32</code></pre>
@@ -1769,7 +1769,7 @@ Edm.Decimal floor(Edm.Decimal)</code></pre>
 <p>The <code>round</code> function has the following signatures</p>
 <pre><code>Edm.Double round(Edm.Double)
 Edm.Decimal round(Edm.Decimal)</code></pre>
-<p>The <code>round</code> function rounds the input numeric parameter to the nearest numeric value with no decimal component. The mid-point between two integers is rounded away from zero, i.e. 0.5 is rounded to 1 and -0.5 is rounded to -1. The <code>roundMethodCallExpr</code> syntax rule defines how the <code>round</code> function is invoked.</p>
+<p>The <code>round</code> function rounds the input numeric parameter to the nearest numeric value with no decimal component. The mid-point between two integers is rounded away from zero, i.e. 0.5 is rounded to 1 and -0.5 is rounded to -1. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#roundMethodCallExpr"><code>roundMethodCallExpr</code></a></span> syntax rule defines how the <code>round</code> function is invoked.</p>
 <div class="example">
 <p>Example 101: all orders with freight costs that round to 32</p>
 <pre><code>http://host/service/Orders?$filter=round(Freight) eq 32</code></pre>
@@ -1785,11 +1785,11 @@ Edm.Decimal round(Edm.Decimal)</code></pre>
 <p>The <code>cast</code> function has the following signatures:</p>
 <pre><code>type cast(type)
 type cast(expression,type)</code></pre>
-<p>The single parameter <code>cast</code> function returns the current instance cast to the type specified. The two-parameter <code>cast</code> function returns the object referred to by the expression cast to the type specified.</p>
+<p>The single parameter <code>cast</code> function returns the current instance cast to the type specified. The two-parameter <code>cast</code> function returns the object referred to by the expression cast to the type specified. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#castMethodCallExpr"><code>castMethodCallExpr</code></a></span> syntax rule defines how the <code>cast</code> function is invoked.</p>
 <p>The <code>cast</code> function follows these assignment rules:</p>
 <ol type="1">
 <li>The <code>null</code> value can be cast to any type.</li>
-<li>Primitive types are cast to <code>Edm.String</code> or a type definition based on it by using the literal representation used in payloads, and WKT (well-known text) format for <code>Geo</code> types, see rules <code>fullCollectionLiteral</code>, <code>fullLineStringLiteral</code>, <code>fullMultiPointLiteral</code>, <code>fullMultiLineStringLiteral</code>, <code>fullMultiPolygonLiteral</code>, <code>fullPointLiteral</code>, and <code>fullPolygonLiteral</code> in <a href="#ODataABNF">OData-ABNF</a>. The cast fails if the target type specifies an insufficient <code>MaxLength</code>.</li>
+<li>Primitive types are cast to <code>Edm.String</code> or a type definition based on it by using the literal representation used in payloads, and WKT (well-known text) format for <code>Geo</code> types, see rules <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#fullCollectionLiteral"><code>fullCollectionLiteral</code></a></span>, <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#fullLineStringLiteral"><code>fullLineStringLiteral</code></a></span>, <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#fullMultiPointLiteral"><code>fullMultiPointLiteral</code></a></span>, <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#fullMultiLineStringLiteral"><code>fullMultiLineStringLiteral</code></a></span>, <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#fullMultiPolygonLiteral"><code>fullMultiPolygonLiteral</code></a></span>, <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#fullPointLiteral"><code>fullPointLiteral</code></a></span>, and <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#fullPolygonLiteral"><code>fullPolygonLiteral</code></a></span> in <a href="#ODataABNF">OData-ABNF</a>. The cast fails if the target type specifies an insufficient <code>MaxLength</code>.</li>
 <li><code>Edm.String</code>, or a type definition based on <code>Edm.String</code>, can be cast to a primitive type if the string contains a literal representation for the target type.</li>
 <li>Numeric primitive types are cast to each other with appropriate rounding. The cast fails if the integer part doesn’t fit into the target type.</li>
 <li><code>Edm.DateTimeOffset</code>, <code>Edm.Duration</code>, and <code>Edm.TimeOfDay</code> values can be cast to the same type with a different precision with appropriate rounding.</li>
@@ -1810,7 +1810,7 @@ type cast(expression,type)</code></pre>
 Edm.Boolean isof(expression,type)</code></pre>
 <p>The single parameter <code>isof</code> function returns <code>true</code> if the current instance is assignable to the type specified, according to the assignment rules for the <a href="#cast"><code>cast</code></a> function, otherwise it returns <code>false</code>.</p>
 <p>The two parameter <code>isof</code> function returns <code>true</code> if the object referred to by the expression is assignable to the type specified, according to the same rules, otherwise it returns <code>false</code>.</p>
-<p>The <code>isofExpr</code> syntax rule defines how the <code>isof</code> function is invoked.</p>
+<p>The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#isofExpr"><code>isofExpr</code></a></span> syntax rule defines how the <code>isof</code> function is invoked.</p>
 <div class="example">
 <p>Example 102: orders that are also <code>BigOrders</code></p>
 <pre><code>http://host/service/Orders?$filter=isof(NorthwindModel.BigOrder)</code></pre>
@@ -1831,7 +1831,7 @@ Edm.Boolean isof(expression,type)</code></pre>
 <p>The <code>geo.distance</code> function has the following signatures:</p>
 <pre><code>Edm.Double geo.distance(Edm.GeographyPoint,Edm.GeographyPoint)
 Edm.Double geo.distance(Edm.GeometryPoint,Edm.GeometryPoint)</code></pre>
-<p>The <code>geo.distance</code> function returns the shortest distance between the two points in the coordinate reference system signified by the two points’ SRIDs.</p>
+<p>The <code>geo.distance</code> function returns the shortest distance between the two points in the coordinate reference system signified by the two points’ SRIDs. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#distanceMethodCallExpr"><code>distanceMethodCallExpr</code></a></span> syntax rule defines how the <code>geo.distance</code> function is invoked.</p>
 </details>
 <details open><summary>
 <h5 id="511112-geointersects"><a id="geointersects" href="#geointersects">5.1.1.11.2 <code>geo.intersects</code></a></h5>
@@ -1839,7 +1839,7 @@ Edm.Double geo.distance(Edm.GeometryPoint,Edm.GeometryPoint)</code></pre>
 <p>The <code>geo.intersects</code> function has the following signatures:</p>
 <pre><code>Edm.Boolean geo.intersects(Edm.GeographyPoint,Edm.GeographyPolygon)
 Edm.Boolean geo.intersects(Edm.GeometryPoint,Edm.GeometryPolygon)</code></pre>
-<p>The <code>geo.intersects</code> function returns <code>true</code> if the specified point lies within the interior or on the boundary of the specified polygon, otherwise it returns <code>false</code>.</p>
+<p>The <code>geo.intersects</code> function returns <code>true</code> if the specified point lies within the interior or on the boundary of the specified polygon, otherwise it returns <code>false</code>. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#intersectsMethodCallExpr"><code>intersectsMethodCallExpr</code></a></span> syntax rule defines how the <code>geo.intersects</code> function is invoked.</p>
 </details>
 <details open><summary>
 <h5 id="511113-geolength"><a id="geolength" href="#geolength">5.1.1.11.3 <code>geo.length</code></a></h5>
@@ -1847,7 +1847,7 @@ Edm.Boolean geo.intersects(Edm.GeometryPoint,Edm.GeometryPolygon)</code></pre>
 <p>The <code>geo.length</code> function has the following signatures:</p>
 <pre><code>Edm.Double geo.length(Edm.GeographyLineString)
 Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
-<p>The <code>geo.length</code> function returns the total length of its line string parameter in the coordinate reference system signified by its SRID.</p>
+<p>The <code>geo.length</code> function returns the total length of its line string parameter in the coordinate reference system signified by its SRID. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#geoLengthMethodCallExpr"><code>geoLengthMethodCallExpr</code></a></span> syntax rule defines how the <code>geo.length</code> function is invoked.</p>
 </details>
 </details>
 <details open><summary>
@@ -1858,7 +1858,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 </summary>
 <p>The <code>case</code> operator has a comma-separated lists of arguments:</p>
 <pre><code>expression case(Edm.Boolean:expression, …, Edm.Boolean:expression)</code></pre>
-<p>Each argument is a pair of expressions separated by a colon (<code>:</code>), where the first expression — the condition — MUST be a Boolean expression, and the second expression — the result — may evaluate to any type.</p>
+<p>Each argument is a pair of expressions separated by a colon (<code>:</code>), where the first expression — the condition — MUST be a Boolean expression, and the second expression — the result — may evaluate to any type. The <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#caseMethodCallExpr"><code>caseMethodCallExpr</code></a></span> syntax rule defines how the <code>case</code> operator is invoked.</p>
 <p>The <code>case</code> operator evaluates the condition in each pair, starting with the leftmost pair, and stops as soon as a condition evaluates to <code>true</code>. It then returns the value of the result of this pair. It returns <code>null</code> if none of the conditions in any pair evaluates to <code>true</code>. Clients can specify a last pair whose condition is <code>true</code> to get a non-<code>null</code> “default/else/otherwise” result.</p>
 <p>Boolean expressions containing <code>DateTimeOffset</code> or <code>TimeOfDay</code> literals without the optional seconds part will introduce ambiguity for parsers. Clients SHOULD use whitespace or parentheses to avoid ambiguity.</p>
 <p>Clients SHOULD ensure that the results in all pairs are compatible. If all results are of the same type, the type of the <code>case</code> expression is of that type. If all results are of numeric type, then the type of the <code>case</code> expression is a numeric type capable of representing any of these expressions according to standard type promotion rules.</p>
@@ -1913,7 +1913,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <details open><summary>
 <h5 id="511141-primitive-literals"><a id="PrimitiveLiterals" href="#PrimitiveLiterals">5.1.1.14.1 Primitive Literals</a></h5>
 </summary>
-<p>Primitive literals can appear in the resource path as key property values, and in the query part, for example, as operands in <a href="#SystemQueryOptionfilter"><code>$filter</code></a> expressions. They are represented according to the <code>primitiveLiteral</code> rule in <a href="#ODataABNF">OData-ABNF</a>. The interpretation of a <code>timeOfDayLiteral</code> in which the <code>second</code> is omitted is not defined by this specification. For maximum interoperability, senders SHOULD always include the <code>second</code>.</p>
+<p>Primitive literals can appear in the resource path as key property values, and in the query part, for example, as operands in <a href="#SystemQueryOptionfilter"><code>$filter</code></a> expressions. They are represented according to the <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#primitiveLiteral"><code>primitiveLiteral</code></a></span> rule in <a href="#ODataABNF">OData-ABNF</a>. The interpretation of a <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#timeOfDayLiteral"><code>timeOfDayLiteral</code></a></span> in which the <code>second</code> is omitted is not defined by this specification. For maximum interoperability, senders SHOULD always include the <code>second</code>.</p>
 <div class="example">
 <p>Example 109: expressions using primitive literals</p>
 <pre><code>NullValue eq null</code></pre>
@@ -1942,7 +1942,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <details open><summary>
 <h5 id="511142-structured-and-collection-literals"><a id="StructuredandCollectionLiterals" href="#StructuredandCollectionLiterals">5.1.1.14.2 Structured and Collection Literals</a></h5>
 </summary>
-<p>Complex literals and collection literals in URLs are represented as JSON objects and arrays according to the <code>arrayOrObject</code> rule in <a href="#ODataABNF">OData-ABNF</a>. Such literals MUST NOT appear in the path portion of the URL but can be passed to bound <a href="#AddressingFunctions">functions</a> and function imports in path segments by using <a href="#ParameterAliases">parameter aliases</a>.</p>
+<p>Complex literals and collection literals in URLs are represented as JSON objects and arrays according to the <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#arrayOrObject"><code>arrayOrObject</code></a></span> rule in <a href="#ODataABNF">OData-ABNF</a>. Such literals MUST NOT appear in the path portion of the URL but can be passed to bound <a href="#AddressingFunctions">functions</a> and function imports in path segments by using <a href="#ParameterAliases">parameter aliases</a>.</p>
 <p>Object member values and array items can be expressions, including other objects and arrays, arithmetic expressions, property names, and of course primitive values.</p>
 <p>Note that the special characters <code>{</code>, <code>}</code>, <code>[</code>, <code>]</code>, and <code>"</code> MUST be percent-encoded in URLs although some browsers will accept and pass them on unencoded.</p>
 <div class="example">
@@ -2032,7 +2032,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <details open><summary>
 <h4 id="51116-annotation-values-in-expressions"><a id="AnnotationValuesinExpressions" href="#AnnotationValuesinExpressions">5.1.1.16 Annotation Values in Expressions</a></h4>
 </summary>
-<p>Services MAY support the use of annotation values as operands or function parameters, and they MAY advertise this by annotating the entity container with term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#AnnotationValuesInQuerySupported"><code>Capabilities.AnnotationValuesInQuerySupported</code></a>, see <a href="#ODataVocCap">OData-VocCap</a>.</p>
+<p>Services MAY support the use of annotation values as operands or function parameters, and they MAY advertise this by annotating the entity container with term <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#AnnotationValuesInQuerySupported"><code>Capabilities.AnnotationValuesInQuerySupported</code></a></span>, see <a href="#ODataVocCap">OData-VocCap</a>.</p>
 <p>Annotation values are referenced by the annotation name which consists of an at sign (<code>@</code>) followed by the qualified term name, optionally followed by a percent-encoded hash (<code>%23</code>) and an annotation qualifier. The annotation name can be prefixed with a <a href="#PathExpressions">path expression</a> leading to the annotated resource or property.</p>
 <p>If an annotation is not applied to the resource or property, then its value, and the values of its components, are treated as <code>null</code>.</p>
 <div class="example">
@@ -2040,10 +2040,10 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <pre><code>http://host/service/Products?$filter=Price/@Measures.Currency eq &#39;EUR&#39;</code></pre>
 </div>
 <div class="example">
-<p>Example 122: Return Employees that have any error messages in the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Messages"><code>Core.Messages</code></a> annotation</p>
+<p>Example 122: Return Employees that have any error messages in the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Messages"><code>Core.Messages</code></a></span> annotation</p>
 <pre><code>http://host/service/Employees?$filter=@Core.Messages/any(m:m/severity eq &#39;error&#39;)</code></pre>
 </div>
-<p>Services MAY additionally support the use of the unqualified term name by defining one or more default namespaces through the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a> annotation term defined in <a href="#ODataVocCore">OData-VocCore</a>. For more information on default namespaces, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#DefaultNamespaces">OData-Protocol, section 4.4</a>. This short notation however uses the same name pattern as parameter aliases. If a query option is specified as a <a href="#ParameterAliases">parameter alias</a>, then any occurrence of the parameter alias name in an expression MUST evaluate to the parameter alias value and MUST NOT evaluate to the annotation value of an identical unqualified term name.</p>
+<p>Services MAY additionally support the use of the unqualified term name by defining one or more default namespaces through the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a></span> annotation term defined in <a href="#ODataVocCore">OData-VocCore</a>. For more information on default namespaces, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#DefaultNamespaces">OData-Protocol, section 4.4</a>. This short notation however uses the same name pattern as parameter aliases. If a query option is specified as a <a href="#ParameterAliases">parameter alias</a>, then any occurrence of the parameter alias name in an expression MUST evaluate to the parameter alias value and MUST NOT evaluate to the annotation value of an identical unqualified term name.</p>
 </details>
 <details open><summary>
 <h4 id="51117-operator-precedence"><a id="OperatorPrecedence" href="#OperatorPrecedence">5.1.1.17 Operator Precedence</a></h4>
@@ -2063,139 +2063,139 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <td>Grouping</td>
 <td><code>( )</code></td>
 <td>Precedence grouping</td>
-<td><code>parenExpr</code><br><code>boolParenExpr</code></td>
+<td><span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#parenExpr"><code>parenExpr</code></a></span><br><span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#boolParenExpr"><code>boolParenExpr</code></a></span></td>
 </tr>
 <tr>
 <td>Primary</td>
 <td><code>/</code></td>
 <td>Navigation</td>
-<td><code>firstMemberExpr</code><br><code>memberExpr</code></td>
+<td><span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#firstMemberExpr"><code>firstMemberExpr</code></a></span><br><span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#memberExpr"><code>memberExpr</code></a></span></td>
 </tr>
 <tr>
 <td></td>
 <td><code>has</code></td>
 <td>Enumeration Flags</td>
-<td><code>hasExpr</code></td>
+<td><span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#hasExpr"><code>hasExpr</code></a></span></td>
 </tr>
 <tr>
 <td></td>
 <td><code>in</code></td>
 <td>Is a member of</td>
-<td><code>inExpr</code></td>
+<td><span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#inExpr"><code>inExpr</code></a></span></td>
 </tr>
 <tr>
 <td></td>
 <td><code>xxx( )</code></td>
 <td>Method Call</td>
-<td><code>methodCallExpr</code><br><code>boolMethodCallExpr</code><br><code>functionExpr</code></td>
+<td><span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#methodCallExpr"><code>methodCallExpr</code></a></span><br><span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#boolMethodCallExpr"><code>boolMethodCallExpr</code></a></span><br><span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#functionExpr"><code>functionExpr</code></a></span></td>
 </tr>
 <tr>
 <td>Unary</td>
 <td><code>-</code></td>
 <td>Negation</td>
-<td><code>negateExpr</code></td>
+<td><span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#negateExpr"><code>negateExpr</code></a></span></td>
 </tr>
 <tr>
 <td></td>
 <td><code>not</code></td>
 <td>Logical Negation</td>
-<td><code>notExpr</code></td>
+<td><span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#notExpr"><code>notExpr</code></a></span></td>
 </tr>
 <tr>
 <td></td>
 <td><code>cast( )</code></td>
 <td>Type Casting</td>
-<td><code>castExpr</code></td>
+<td><span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#castExpr"><code>castExpr</code></a></span></td>
 </tr>
 <tr>
 <td>Multiplicative</td>
 <td><code>mul</code></td>
 <td>Multiplication</td>
-<td><code>mulExpr</code></td>
+<td><span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#mulExpr"><code>mulExpr</code></a></span></td>
 </tr>
 <tr>
 <td></td>
 <td><code>div</code></td>
 <td>Division</td>
-<td><code>divExpr</code></td>
+<td><span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#divExpr"><code>divExpr</code></a></span></td>
 </tr>
 <tr>
 <td></td>
 <td><code>divby</code></td>
 <td>Decimal Division</td>
-<td><code>divbyExpr</code></td>
+<td><span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#divbyExpr"><code>divbyExpr</code></a></span></td>
 </tr>
 <tr>
 <td></td>
 <td><code>mod</code></td>
 <td>Modulo</td>
-<td><code>modExpr</code></td>
+<td><span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#modExpr"><code>modExpr</code></a></span></td>
 </tr>
 <tr>
 <td>Additive</td>
 <td><code>add</code></td>
 <td>Addition</td>
-<td><code>addExpr</code></td>
+<td><span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#addExpr"><code>addExpr</code></a></span></td>
 </tr>
 <tr>
 <td></td>
 <td><code>sub</code></td>
 <td>Subtraction</td>
-<td><code>subExpr</code></td>
+<td><span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#subExpr"><code>subExpr</code></a></span></td>
 </tr>
 <tr>
 <td>Relational</td>
 <td><code>gt</code></td>
 <td>Greater Than</td>
-<td><code>gtExpr</code></td>
+<td><span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#gtExpr"><code>gtExpr</code></a></span></td>
 </tr>
 <tr>
 <td></td>
 <td><code>ge</code></td>
 <td>Greater than or Equal</td>
-<td><code>geExpr</code></td>
+<td><span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#geExpr"><code>geExpr</code></a></span></td>
 </tr>
 <tr>
 <td></td>
 <td><code>lt</code></td>
 <td>Less Than</td>
-<td><code>ltExpr</code></td>
+<td><span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#ltExpr"><code>ltExpr</code></a></span></td>
 </tr>
 <tr>
 <td></td>
 <td><code>le</code></td>
 <td>Less than or Equal</td>
-<td><code>leExpr</code></td>
+<td><span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#leExpr"><code>leExpr</code></a></span></td>
 </tr>
 <tr>
 <td></td>
 <td><code>isof</code></td>
 <td>Type Testing</td>
-<td><code>isofExpr</code></td>
+<td><span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#isofExpr"><code>isofExpr</code></a></span></td>
 </tr>
 <tr>
 <td>Equality</td>
 <td><code>eq</code></td>
 <td>Equal</td>
-<td><code>eqExpr</code></td>
+<td><span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#eqExpr"><code>eqExpr</code></a></span></td>
 </tr>
 <tr>
 <td></td>
 <td><code>ne</code></td>
 <td>Not Equal</td>
-<td><code>neExpr</code></td>
+<td><span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#neExpr"><code>neExpr</code></a></span></td>
 </tr>
 <tr>
 <td>Conditional AND</td>
 <td><code>and</code></td>
 <td>Logical And</td>
-<td><code>andExpr</code></td>
+<td><span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#andExpr"><code>andExpr</code></a></span></td>
 </tr>
 <tr>
 <td>Conditional OR</td>
 <td><code>or</code></td>
 <td>Logical Or</td>
-<td><code>orExpr</code></td>
+<td><span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#orExpr"><code>orExpr</code></a></span></td>
 </tr>
 </tbody>
 </table>
@@ -2221,13 +2221,13 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <h3 id="512-system-query-option-filter"><a id="SystemQueryOptionfilter" href="#SystemQueryOptionfilter">5.1.2 System Query Option <code>$filter</code></a></h3>
 </summary>
 <p>The <code>$filter</code> system query option allows clients to filter a collection of resources that are addressed by a request URL. The expression specified with <code>$filter</code> is evaluated for each resource in the collection, and only items where the expression evaluates to <code>true</code> are included in the response. Resources for which the expression evaluates to <code>false</code> or to <code>null</code>, or which reference properties that are unavailable due to permissions, are omitted from the response.</p>
-<p>The <a href="#ODataABNF">OData-ABNF</a> <code>filter</code> syntax rule defines the formal grammar of the <code>$filter</code> query option.</p>
+<p>The <a href="#ODataABNF">OData-ABNF</a> <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#filter"><code>filter</code></a></span> syntax rule defines the formal grammar of the <code>$filter</code> query option.</p>
 </details>
 <details open><summary>
 <h3 id="513-system-query-option-expand"><a id="SystemQueryOptionexpand" href="#SystemQueryOptionexpand">5.1.3 System Query Option <code>$expand</code></a></h3>
 </summary>
 <p>The <code>$expand</code> system query option specifies the related resources or media streams to be included in line with retrieved resources.</p>
-<p>The <a href="#ODataABNF">OData-ABNF</a> <code>expand</code> syntax rule defines the formal grammar of the <code>$expand</code> query option.</p>
+<p>The <a href="#ODataABNF">OData-ABNF</a> <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#expand"><code>expand</code></a></span> syntax rule defines the formal grammar of the <code>$expand</code> query option.</p>
 <p>The value of <code>$expand</code> is a comma-separated list of expand items. Each expand item is evaluated relative to the retrieved resource being expanded. An expand item is either a path or one of the symbols <code>*</code> or <code>$value</code>.</p>
 <p>A path consists of segments separated by a forward slash (<code>/</code>). Segments are either names of single- or collection-valued complex properties, <a href="#AnnotationValuesinExpressions">instance annotations</a>, or <a href="#AddressingDerivedTypes">type-cast segments</a> consisting of the qualified name of a structured type that is derived from the type identified by the preceding path segment to reach properties defined on the derived type.</p>
 <p>A path can end with</p>
@@ -2309,7 +2309,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 </summary>
 <p>The <code>$select</code> system query option allows clients to request a specific set of properties for each entity or complex type.</p>
 <p>The <code>$select</code> query option is often used in conjunction with the <a href="#SystemQueryOptionexpand"><code>$expand</code></a> system query option, to define the extent of the resource graph to return (<code>$expand</code>) and then specify a subset of properties for each resource in the graph (<code>$select</code>). Expanded navigation properties MUST be returned, even if they are not specified in <code>$select</code>.</p>
-<p>The <a href="#ODataABNF">OData-ABNF</a> <code>select</code> syntax rule defines the formal grammar of the <code>$select</code> query option.</p>
+<p>The <a href="#ODataABNF">OData-ABNF</a> <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#select"><code>select</code></a></span> syntax rule defines the formal grammar of the <code>$select</code> query option.</p>
 <p>The value of <code>$select</code> is a comma-separated list of select items. Each select item is one of the following:</p>
 <ul>
 <li>a path, optionally followed by a <a href="#AddressingtheCountofaCollection">count segment</a> or <a href="#SelectOptions">select options</a></li>
@@ -2393,13 +2393,13 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 </summary>
 <p>The <code>$orderby</code> system query option allows clients to request resources in a particular order.</p>
 <p>The semantics of <code>$orderby</code> are covered in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptionorderby">OData-Protocol, section 11.2.6.2</a>.</p>
-<p>The <a href="#ODataABNF">OData-ABNF</a> <code>orderby</code> syntax rule defines the formal grammar of the <code>$orderby</code> query option.</p>
+<p>The <a href="#ODataABNF">OData-ABNF</a> <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#orderby"><code>orderby</code></a></span> syntax rule defines the formal grammar of the <code>$orderby</code> query option.</p>
 </details>
 <details open><summary>
 <h3 id="516-system-query-options-top-and-skip"><a id="SystemQueryOptionstopandskip" href="#SystemQueryOptionstopandskip">5.1.6 System Query Options <code>$top</code> and <code>$skip</code></a></h3>
 </summary>
 <p>The <code>$top</code> system query option requests the number of items in the queried collection to be included in the result. The <code>$skip</code> query option requests the number of items in the queried collection that are to be skipped and not included in the result. A client can request a particular page of items by combining <code>$top</code> and <code>$skip</code>.</p>
-<p>The semantics of <code>$top</code> and <code>$skip</code> are covered in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptiontop">OData-Protocol, section 11.2.6.3</a> and <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptionskip">OData-Protocol, section 11.2.6.4</a>. The <a href="#ODataABNF">OData-ABNF</a> <code>top</code> and <code>skip</code> syntax rules define the formal grammar of the <code>$top</code> and <code>$skip</code> query options respectively.</p>
+<p>The semantics of <code>$top</code> and <code>$skip</code> are covered in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptiontop">OData-Protocol, section 11.2.6.3</a> and <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptionskip">OData-Protocol, section 11.2.6.4</a>. The <a href="#ODataABNF">OData-ABNF</a> <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#top"><code>top</code></a></span> and <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#skip"><code>skip</code></a></span> syntax rules define the formal grammar of the <code>$top</code> and <code>$skip</code> query options respectively.</p>
 </details>
 <details open><summary>
 <h3 id="517-system-query-option-count"><a id="SystemQueryOptioncount" href="#SystemQueryOptioncount">5.1.7 System Query Option <code>$count</code></a></h3>
@@ -2413,7 +2413,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>The <code>$search</code> system query option allows clients to request items within a collection matching a free-text <a href="#SearchExpressions">search expression</a>.</p>
 <p>The <code>$search</code> query option can be applied to a URL representing a collection of entity, complex, or primitive typed instances, to return all matching items within the collection. Applying the <code>$search</code> query option to the <a href="#AddressingAllEntitiesinaService"><code>$all</code></a> resource requests all matching entities in the service.</p>
 <p>If both <code>$search</code> and <a href="#SystemQueryOptionfilter"><code>$filter</code></a> are applied to the same request, the results include only those items that match both criteria.</p>
-<p>The <a href="#ODataABNF">OData-ABNF</a> <code>search</code> syntax rule defines the formal grammar of the <code>$search</code> query option.</p>
+<p>The <a href="#ODataABNF">OData-ABNF</a> <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#search"><code>search</code></a></span> syntax rule defines the formal grammar of the <code>$search</code> query option.</p>
 <div class="example">
 <p>Example 145: all products that are blue or green. It is up to the service to decide what makes a product blue or green.</p>
 <pre><code>http://host/service/Products?$search=blue OR green</code></pre>
@@ -2432,7 +2432,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>Two expressions not enclosed in quotes and separated by a space are equivalent to the same two expressions separated by the <code>AND</code> keyword. Such expressions evaluate to <code>true</code> if both expressions evaluate to <code>true</code>, otherwise <code>false</code>.</p>
 <p>Expressions separated by an <code>OR</code> evaluate to <code>true</code> if either of the expressions evaluate to <code>true</code>, otherwise <code>false</code>.</p>
 <p>To support type-ahead use cases, incomplete search expressions can be sent as OData string literals enclosed in single-quotes, and single-quotes within the search expression doubled. Such an expression can also be used to search for double quotes: <code>?$search='"'</code>.</p>
-<p>The <a href="#ODataABNF">OData-ABNF</a> <code>searchExpr</code> syntax rule defines the formal grammar of the search expression.</p>
+<p>The <a href="#ODataABNF">OData-ABNF</a> <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#searchExpr"><code>searchExpr</code></a></span> syntax rule defines the formal grammar of the search expression.</p>
 </details>
 </details>
 <details open><summary>
@@ -2440,7 +2440,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 </summary>
 <p>The <code>$format</code> system query option allows clients to request a response in a particular format and is useful for clients without access to request headers for standard content-type negotiation. Where present <code>$format</code> takes precedence over standard content-type negotiation.</p>
 <p>The semantics of <code>$format</code> is covered in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptionformat">OData-Protocol, section 11.2.11</a>.</p>
-<p>The <a href="#ODataABNF">OData-ABNF</a> <code>format</code> syntax rule defines the formal grammar of the <code>$format</code> query option.</p>
+<p>The <a href="#ODataABNF">OData-ABNF</a> <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#format"><code>format</code></a></span> syntax rule defines the formal grammar of the <code>$format</code> query option.</p>
 </details>
 <details open><summary>
 <h3 id="5110-system-query-option-compute"><a id="SystemQueryOptioncompute" href="#SystemQueryOptioncompute">5.1.10 System Query Option <code>$compute</code></a></h3>
@@ -2448,7 +2448,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>The <code>$compute</code> system query option allows clients to define computed properties that can be used in a <a href="#SystemQueryOptionselect"><code>$select</code></a> or within a <a href="#SystemQueryOptionfilter"><code>$filter</code></a> or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> expression.</p>
 <p>The <code>$compute</code> system query option is interpreted relative to the entity type or complex type of the resources identified by the resource path section of the URL.</p>
 <p>The value of <code>$compute</code> is a comma-separated list of compute instructions, each consisting of a <a href="#CommonExpressionSyntax">common expression</a> followed by the keyword <code>as</code>, followed by the name for the computed dynamic property. This name MUST differ from the names of declared or dynamic properties of the identified resources. Services MAY support compute instructions that address dynamic properties added by other compute instructions within the same <code>$compute</code> system query option, provided that the service can determine an evaluation sequence.</p>
-<p>The <a href="#ODataABNF">OData-ABNF</a> <code>compute</code> syntax rule defines the formal grammar of the <code>$compute</code> query option.</p>
+<p>The <a href="#ODataABNF">OData-ABNF</a> <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#compute"><code>compute</code></a></span> syntax rule defines the formal grammar of the <code>$compute</code> query option.</p>
 <p>Computed properties SHOULD be included as dynamic properties in the result and MUST be included if <code>$select</code> is specified with the computed property name, or star (<code>*</code>).</p>
 <div class="example">
 <p>Example 146: compute total price for order items</p>
@@ -2462,20 +2462,20 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <details open><summary>
 <h3 id="5111-system-query-option-index"><a id="SystemQueryOptionindex" href="#SystemQueryOptionindex">5.1.11 System Query Option <code>$index</code></a></h3>
 </summary>
-<p>The <code>$index</code> system query option allows clients to do a positional insert into a collection annotated with the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#PositionalInsert"><code>Core.PositionalInsert</code></a> term (see <a href="#ODataVocCore">OData-VocCore</a>). The value of the <code>$index</code> system query option is the zero-based ordinal position where the item is to be inserted. The ordinal of items within the collection greater than or equal to the inserted position are increased by one. A negative ordinal indexes from the end of the collection, with -1 representing an insert at the end of the collection.</p>
-<p>The <a href="#ODataABNF">OData-ABNF</a> <code>index</code> syntax rule defines the formal grammar of the <code>$index</code> query option.</p>
+<p>The <code>$index</code> system query option allows clients to do a positional insert into a collection annotated with the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#PositionalInsert"><code>Core.PositionalInsert</code></a></span> term (see <a href="#ODataVocCore">OData-VocCore</a>). The value of the <code>$index</code> system query option is the zero-based ordinal position where the item is to be inserted. The ordinal of items within the collection greater than or equal to the inserted position are increased by one. A negative ordinal indexes from the end of the collection, with -1 representing an insert at the end of the collection.</p>
+<p>The <a href="#ODataABNF">OData-ABNF</a> <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#index"><code>index</code></a></span> syntax rule defines the formal grammar of the <code>$index</code> query option.</p>
 </details>
 <details open><summary>
 <h3 id="5112-system-query-option-schemaversion"><a id="SystemQueryOptionschemaversion" href="#SystemQueryOptionschemaversion">5.1.12 System Query Option <code>$schemaversion</code></a></h3>
 </summary>
 <p>The <code>$schemaversion</code> system query option allows clients to specify the version of the schema against which the request is made. The semantics of <code>$schemaversion</code> is covered in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptionschemaversion">OData-Protocol, section 11.2.12</a>.</p>
-<p>The <a href="#ODataABNF">OData-ABNF</a> <code>schemaversion</code> syntax rule defines the formal grammar of the <code>$schemaversion</code> query option</p>
+<p>The <a href="#ODataABNF">OData-ABNF</a> <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#schemaversion"><code>schemaversion</code></a></span> syntax rule defines the formal grammar of the <code>$schemaversion</code> query option</p>
 </details>
 </details>
 <details open><summary>
 <h2 id="52-custom-query-options"><a id="CustomQueryOptions" href="#CustomQueryOptions">5.2 Custom Query Options</a></h2>
 </summary>
-<p>Custom query options provide an extensible mechanism for service-specific information to be placed in a URL query string. A custom query option is any query option of the form shown by the rule <code>customQueryOption</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
+<p>Custom query options provide an extensible mechanism for service-specific information to be placed in a URL query string. A custom query option is any query option of the form shown by the rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#customQueryOption"><code>customQueryOption</code></a></span> in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>Custom query options MUST NOT begin with a <code>$</code> or <code>@</code> character.</p>
 <div class="example">
 <p>Example 147: service-specific custom query option <code>debug-mode</code></p>
@@ -2486,8 +2486,8 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <h2 id="53-parameter-aliases"><a id="ParameterAliases" href="#ParameterAliases">5.3 Parameter Aliases</a></h2>
 </summary>
 <p>Parameter aliases can be used in place of literal values in entity keys, <a href="#AddressingFunctions">function</a> parameters, or within a <a href="#SystemQueryOptionfilter"><code>$filter</code></a> or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> expression.</p>
-<p>Parameter aliases MUST start with an <code>@</code> character, see rule <code>parameterAlias</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
-<p>The semantics of parameter aliases are covered in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ParameterAliases">OData-Protocol, section 11.2.6.1.3</a>. The <a href="#ODataABNF">OData-ABNF</a> rule <code>aliasAndValue</code> defines the formal grammar for passing parameter alias values as query options.</p>
+<p>Parameter aliases MUST start with an <code>@</code> character, see rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#parameterAlias"><code>parameterAlias</code></a></span> in <a href="#ODataABNF">OData-ABNF</a>.</p>
+<p>The semantics of parameter aliases are covered in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ParameterAliases">OData-Protocol, section 11.2.6.1.3</a>. The <a href="#ODataABNF">OData-ABNF</a> rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#aliasAndValue"><code>aliasAndValue</code></a></span> defines the formal grammar for passing parameter alias values as query options.</p>
 <div class="example">
 <p>Example 148:</p>
 <pre><code>http://host/service/Movies?$filter=contains(@word,Title)&amp;@word=&#39;Black&#39;</code></pre>
@@ -2521,7 +2521,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.</p>
 <h6><span id="ODataABNF">OData-ABNF</span></h6>
 <p><em>ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases.</em><br />
-See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
+See link in “<a href="#AdditionalArtifacts">Additional artifacts</a>” section on cover page.</p>
 <h6><span id="ODataCSDL">OData-CSDL</span></h6>
 <p><em>OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02.</em><br />
 See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>

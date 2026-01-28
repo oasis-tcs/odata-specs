@@ -40,7 +40,7 @@ Michael Pizzo (mikep@microsoft.com), [Microsoft](http://www.microsoft.com/) \
 Ralf Handl (ralf.handl@sap.com), [SAP SE](http://www.sap.com/) \
 Heiko Theißen (heiko.theissen@sap.com), [SAP SE](http://www.sap.com/)
 
-#### Additional artifacts:
+#### [Additional artifacts:]{id=AdditionalArtifacts}
 This prose specification is one component of a Work Product that also includes:
 * _OData Version 4.02 Part 1: Protocol_ (this document). https://docs.oasis-open.org/odata/odata/v4.02/csd02/part1-protocol/odata-v4.02-csd02-part1-protocol.html
 * _OData Version 4.02 Part 2: URL Conventions_. https://docs.oasis-open.org/odata/odata/v4.02/csd02/part2-url-conventions/odata-v4.02-csd02-part2-url-conventions.html
@@ -599,7 +599,7 @@ of an IRI in the [`EntityId`](#HeaderODataEntityId) header.
 Services are strongly encouraged to use the canonical URL for an entity
 as defined in [OData-URL, section 4.3.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalURL) as its entity-id, but clients cannot assume
 the entity-id can be used to locate the entity unless the
-[`Core.DereferenceableIDs`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DereferenceableIDs)
+[Core.DereferenceableIDs]{.term}
 term is applied to the entity container, nor can the client assume any
 semantics from the structure of the entity-id. The canonical resource
 `$entity` provides a general mechanism for
@@ -607,7 +607,7 @@ semantics from the structure of the entity-id. The canonical resource
 
 Services that use the standard URL conventions for entity-ids annotate
 their entity container with the term
-[`Core.ConventionalIDs`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ConventionalIDs),
+[Core.ConventionalIDs]{.term},
 see [OData-VocCore](#ODataVocCore).
 
 *Entity references* refer to an entity using the entity's entity-id.
@@ -650,7 +650,7 @@ or between properties and bound functions, actions, or types with the
 same name.
 
 Services MAY define one or more default namespaces through the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) term
+[Core.DefaultNamespace]{.term} term
 defined in [OData-VocCore](#ODataVocCore). Functions, actions and types
 in a default namespace can be referenced in URLs with or without
 namespace or alias qualification.
@@ -696,11 +696,11 @@ OData clients include the
 order to specify the maximum acceptable response version. Services
 respond with the maximum supported version that is less than or equal to
 the requested `OData-MaxVersion`, using decimal comparison. The syntax
-of the `OData-Version` and `OData-MaxVersion` header fields is defined
+of the [OData-Version]{.abnf} and [OData-MaxVersion]{.abnf} header fields is defined
 in [OData-ABNF](#ODataABNF).
 
 Services SHOULD advertise supported versions of OData through the
-[`Core.ODataVersions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ODataVersions)
+[Core.ODataVersions]{.term}
 term, defined in [OData-VocCore](#ODataVocCore).
 
 This version of the specification defines OData version values `4.0` and
@@ -717,7 +717,7 @@ type of existing properties, adding or removing key properties, or
 reordering action or function parameters, require that a new service
 version is provided at a different service root URL for the new model,
 or that the service version its metadata using the
-[`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
+[Core.SchemaVersion]{.term}
 annotation, defined in [OData-VocCore](#ODataVocCore).
 
 Services that version their metadata MUST support version-specific
@@ -743,7 +743,7 @@ import, or function import
 nullable after existing parameters
 - Adding an action or function parameter
 that is annotated with
-[`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter)
+[Core.OptionalParameter]{.term}
 after existing parameters
 - Adding a type definition or enumeration
 - Adding a new term
@@ -888,7 +888,7 @@ If the service does not support the requested format, it replies with a
 
 Services SHOULD advertise their supported formats in the metadata
 document by annotating their entity container with the term
-[`Capabilities.SupportedFormats`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#SupportedFormats),
+[Capabilities.SupportedFormats]{.term},
 as defined in [OData-VocCap](#ODataVocCap), listing all available
 formats and combinations of supported format parameters.
 
@@ -946,7 +946,7 @@ field is used as a modifier to the media-type (as indicated in the
 content codings have been applied to the entity-body.
 A service MAY specify a list of acceptable content codings using an
 annotation with term
-[`Capabilities.AcceptableEncodings`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#AcceptableEncodings),
+[Capabilities.AcceptableEncodings]{.term},
 see [OData-VocCap](#ODataVocCap).
 
 If the `Content-Encoding` header is specified on an individual request
@@ -963,7 +963,7 @@ the intended audience for the enclosed message body. OData does not add
 any additional requirements over HTTP for including `Content-Language`.
 OData services can annotate model elements whose content depends on the
 content language with the term
-[`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
+[Core.IsLanguageDependent]{.term},
 see [OData-VocCore](#ODataVocCore).
 
 If the `Content-Language` header is specified on an individual request
@@ -1075,10 +1075,10 @@ As defined in [RFC9110](#rfc9110), a client MAY include an
 value previously retrieved for the resource, or `*`.
 
 If an operation on an existing resource requires an ETag, (see term
-[`Core.OptimisticConcurrency`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptimisticConcurrency) in
+[Core.OptimisticConcurrency]{.term} in
 [OData-VocCore](#ODataVocCore) and property
 `OptimisticConcurrencyControl` of type
-[`Capabilities.NavigationPropertyRestriction`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#NavigationPropertyRestriction)
+[Capabilities.NavigationPropertyRestriction]{.term}
 in [OData-VocCap](#ODataVocCap)) and the client does not specify an
 `If-Match` request header in a [Data Modification
 Request](#DataModification) or in an [Action Request](#Actions) invoking
@@ -1170,12 +1170,12 @@ A service returns [`410 Gone`](#ResponseCode410Gone) or
 [`404 Not Found`](#ResponseCode404NotFound) if a consumer tries to
 follow a next link referring to a snapshot that is no longer available.
 
-The syntax of the `Isolation` header is defined in
+The syntax of the [Isolation]{.abnf} header is defined in
 [OData-ABNF](#ODataABNF).
 
 A service MAY specify the support for `Isolation:snapshot` using an
 annotation with term
-[`Capabilities.IsolationSupported`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#IsolationSupported),
+[Capabilities.IsolationSupported]{.term},
 see [OData-VocCap](#ODataVocCap).
 
 Note: The `Isolation` header was named `OData-Isolation` in OData
@@ -1232,7 +1232,7 @@ many-to-many relationships). The service MUST NOT return entity
 references in place of requested entities if
 `allow-entityreferences` has not been specified in the request, unless
 explicitly defined by other rules in this document. The syntax of the
-`allow-entityreferences` preference is defined in
+[allow-entityreferences]{.abnf} preference is defined in
 [OData-ABNF](#ODataABNF).
 
 In the case the service applies the `allow-entityreferences` preference
@@ -1270,14 +1270,14 @@ The `callback` preference can be specified:
 The `callback` preference MUST include the parameter `url` whose value
 is the URL of a callback endpoint to be invoked by the OData service
 when data is available. The syntax of the `callback` preference is
-defined in [OData-ABNF](#ODataABNF).
+defined in the [OData-ABNF](#ODataABNF) rule [callbackPreference]{.abnf}.
 
 For HTTP based callbacks, the OData service executes an HTTP `GET`
 request against the specified URL.
 
 Services that support `callback` SHOULD support notifying the client
 through HTTP. Services can advertise callback support using the
-[`Capabilities.CallbackSupported`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#CallbackSupported)
+[Capabilities.CallbackSupported]{.term}
 annotation term defined in [OData-VocCap](#ODataVocCap).
 
 If the service applies the `callback` preference it MUST include the
@@ -1340,8 +1340,8 @@ that returns an error, the service return the error for that request and
 continue processing additional requests within the batch (if specified
 with an implicit or explicit value of `true`), or rather stop further
 processing (if specified with an explicit value of `false`). The syntax
-of the `continue-on-error` preference is defined in
-[OData-ABNF](#ODataABNF).
+of the `continue-on-error` preference is defined in the
+[OData-ABNF](#ODataABNF) rule [continueOnErrorPreference]{.abnf}.
 
 The `continue-on-error` preference can also be used on a
 [delta update](#UpdateaCollectionofEntities),
@@ -1353,7 +1353,7 @@ If the service encounters any errors processing the request and returns a succes
 
 A service MAY specify support for the `continue-on-error` preference
 using an annotation with term
-[`Capabilities.BatchContinueOnErrorSupported`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#BatchContinueOnErrorSupported),
+[Capabilities.BatchContinueOnErrorSupported]{.term},
 see [OData-VocCap](#ODataVocCap).
 
 The `continue-on-error` preference on a batch request refers to whether individual
@@ -1380,7 +1380,8 @@ list of namespace-qualified term names or term name patterns to include
 or exclude, with `*` as a wildcard for name segments. Term names and
 term name patterns can optionally be followed by a hash (`#`) character
 and an annotation qualifier. The full syntax of the
-`include-annotations` preference is defined in [OData-ABNF](#ODataABNF).
+`include-annotations` preference is defined in the [OData-ABNF](#ODataABNF)
+rule [includeAnnotationsPreference]{.abnf}.
 
 The most specific identifier always takes precedence, with an explicit
 name taking precedence over a name pattern, and a longer pattern taking
@@ -1462,7 +1463,8 @@ preferences are specified in the same request, the value of the
 The `maxpagesize` preference is used to request that each collection
 within the response contain no more than the number of items specified
 as the positive integer value of this preference. The syntax of the
-`maxpagesize` preference is defined in [OData-ABNF](#ODataABNF).
+`maxpagesize` preference is defined in the [OData-ABNF](#ODataABNF) rule
+[maxpagesizePreference]{.abnf}.
 
 ::: example
 Example 8: a request for customers and their orders would result in a
@@ -1595,7 +1597,7 @@ containing the `respond-async` preference.
 
 A service MAY specify the support for the `respond-async` preference
 using an annotation with term
-[`Capabilities.AsynchronousRequestsSupported`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#AsynchronousRequestsSupported),
+[Capabilities.AsynchronousRequestsSupported]{.term},
 see [OData-VocCap](#ODataVocCap).
 
 ::: example
@@ -1616,8 +1618,8 @@ Prefer: respond-async, wait=10
 The `track-changes` preference is used to request that the service
 return a [delta link](#DeltaLinks) that can subsequently be used to
 obtain [changes](#RequestingChanges) (deltas) to this result. The syntax
-of the `track-changes` preference is defined in
-[OData-ABNF](#ODataABNF).
+of the `track-changes` preference is defined in the
+[OData-ABNF](#ODataABNF) rule [trackChangesPreference]{.abnf}.
 
 For [paged results](#ServerDrivenPaging), the preference MUST be
 specified on the initial request. Services MUST ignore the
@@ -1634,7 +1636,7 @@ to signal that changes are being tracked.
 
 A service MAY specify the support for the `track-changes` preference
 using an annotation with term
-[`Capabilities.ChangeTracking`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#ChangeTracking),
+[Capabilities.ChangeTracking]{.term},
 see [OData-VocCap](#ODataVocCap).
 
 The `track-changes` preference SHOULD NOT be applied to a batch request,
@@ -1678,7 +1680,8 @@ A 4.01 service MUST include the `AsyncResult` header in
 order to indicate the final [HTTP Response Status
 Code](#CommonResponseStatusCodes) of an [asynchronously executed
 request](#AsynchronousRequests).
-The header value is the three-digit HTTP response code, see [OData-ABNF](#ODataABNF).
+The header value is the three-digit HTTP response code, see [OData-ABNF](#ODataABNF)
+rule [asyncresult]{.abnf}.
 
 The `AsyncResult` header SHOULD NOT be applied to individual responses
 within a batch.
@@ -1736,7 +1739,7 @@ A response to a [create](#CreateanEntity) or [upsert](#UpsertanEntity)
 operation that returns [`204 No Content`](#ResponseCode204NoContent)
 MUST include an `OData-EntityId` response header. The value of the
 header is the [entity-id](#EntityIdsandEntityReferences) of the entity
-that was acted on by the request. The syntax of the `OData-EntityId`
+that was acted on by the request. The syntax of the [OData-EntityId]{.abnf}
 header is defined in [OData-ABNF](#ODataABNF).
 
 The `OData-EntityID` header SHOULD NOT be included for the overall batch
@@ -2043,8 +2046,8 @@ prefixed with a forward slash.
 Key values in `{canonical-collection}`, `{canonical-singleton}`, and `{canonical-member}` are represented in canonical form
 (parentheses-style) without percent-encoding.
 
-The full grammar for the context URL is defined in
-[OData-ABNF](#ODataABNF). Note that the syntax of the context URL is
+The full grammar for the context URL is defined in the
+[OData-ABNF](#ODataABNF) rule [context]{.abnf}. Note that the syntax of the context URL is
 independent of whatever URL conventions the service uses for addressing
 individual entities.
 
@@ -2233,7 +2236,7 @@ The shortcut `*` represents the list of all structural properties.
 Properties defined on types derived from the declared type of the entity
 set (or type specified in the type-cast segment if specified) are
 prefixed with the qualified name of the derived type as defined in
-[OData-ABNF](#ODataABNF).
+[OData-ABNF](#ODataABNF) rule [selectItem]{.abnf}.
 
 The list also contains explicitly selected or expanded instance
 annotations. It is possible to select or expand only instance
@@ -2284,7 +2287,7 @@ The shortcut `*` represents the list of all structural properties.
 Properties defined on types derived from the type of the entity set (or
 type specified in the type-cast segment if specified) are prefixed with
 the qualified name of the derived type as defined in
-[OData-ABNF](#ODataABNF). Note that expanded properties are
+[OData-ABNF](#ODataABNF) rule [selectItem]{.abnf}. Note that expanded properties are
 automatically included in the response.
 
 The list also contains explicitly selected or expanded instance
@@ -2780,7 +2783,7 @@ types not marked as open.
 
 Properties that are not available are not returned. If their unavailability
 is due to permissions, the
-[`Core.Permissions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Permissions)
+[Core.Permissions]{.term}
 annotation, defined in [OData-VocCore](#ODataVocCore) MUST be returned
 for the property with a value of `None`.
 If the [`omit-values`](#Preferenceomitvalues) preference is
@@ -2865,26 +2868,26 @@ header and the [`$format`](#SystemQueryOptionformat) system query
 option.
 
 The default format for `Edm.Binary` is the format specified by the
-[`Core.MediaType`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#MediaType)
+[Core.MediaType]{.term}
 annotation (see [OData-VocCore](#ODataVocCore)) if this
 annotation is present. If not annotated, the format cannot be predicted
 by the client.
 
 The default format for `Edm.Geo` types is `text/plain` using the WKT
-(well-known text) format, see rules `fullCollectionLiteral`,
-`fullLineStringLiteral`, `fullMultiPointLiteral`,
-`fullMultiLineStringLiteral`, `fullMultiPolygonLiteral`,
-`fullPointLiteral`, and `fullPolygonLiteral` in
+(well-known text) format, see rules [fullCollectionLiteral]{.abnf},
+[fullLineStringLiteral]{.abnf}, [fullMultiPointLiteral]{.abnf},
+[fullMultiLineStringLiteral]{.abnf}, [fullMultiPolygonLiteral]{.abnf},
+[fullPointLiteral]{.abnf}, and [fullPolygonLiteral]{.abnf} in
 [OData-ABNF](#ODataABNF).
 
 The default format for single primitive values except `Edm.Binary` and
 the `Edm.Geo` types is `text/plain`. Responses of type
 `Edm.String` can use the `charset` format parameter to specify the
 character set used for representing the string value. Responses for the
-other primitive types follow the rules `booleanValue`, `byteValue`,
-`dateValue`, `dateTimeOffsetValue`, `decimalValue`, `doubleValue`,
-`durationValue`, `enumValue`, `guidValue`, `int16Value`, `int32Value`,
-`int64Value`, `sbyteValue`, `singleValue`, and `timeOfDayValue` in
+other primitive types follow the rules [booleanValue]{.abnf}, [byteValue]{.abnf},
+[dateValue]{.abnf}, [dateTimeOffsetValue]{.abnf}, [decimalValue]{.abnf}, [doubleValue]{.abnf},
+[durationValue]{.abnf}, [enumValue]{.abnf}, [guidValue]{.abnf}, [int16Value]{.abnf}, [int32Value]{.abnf},
+[int64Value]{.abnf}, [sbyteValue]{.abnf}, [singleValue]{.abnf}, and [timeOfDayValue]{.abnf} in
 [OData-ABNF](#ODataABNF).
 
 A raw value request for a property or operation result of type `Edm.Stream`
@@ -3221,7 +3224,7 @@ GET http://host/service/Categories?$filter=Products/$count lt 10
 :::
 
 The value of the `$filter` option is a Boolean expression as defined in
-[OData-ABNF](#ODataABNF).
+[OData-ABNF](#ODataABNF) rule [filterExpr]{.abnf}.
 
 ##### <a id="BuiltinFilterOperations" href="#BuiltinFilterOperations">11.2.6.1.1 Built-in Filter Operations</a>
 
@@ -3406,7 +3409,7 @@ The Boolean value false comes before the value true in ascending order.
 Services SHOULD order language-dependent strings according to the
 [`Content-Language`](#HeaderContentLanguage) of the response, and SHOULD
 annotate string properties with language-dependent order with the term
-[`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
+[Core.IsLanguageDependent]{.term},
 see [OData-VocCore](#ODataVocCore).
 
 Values of type `Edm.Stream` or any of the `Geo` types cannot be sorted.
@@ -3623,7 +3626,7 @@ specified in the same request, only those items satisfying both criteria
 are returned.
 
 The value of the `$search` option is a search expression as defined in
-[OData-ABNF](#ODataABNF).
+[OData-ABNF](#ODataABNF) rule [searchExpr]{.abnf}.
 
 #### <a id="ServerDrivenPaging" href="#ServerDrivenPaging">11.2.6.7 Server-Driven Paging</a>
 
@@ -3897,11 +3900,11 @@ the `$schemaversion` system query option addresses a specific schema
 version. For all other request types the value specifies the version of
 the schema against which the request is made. The syntax of the
 `$schemaversion` system query option is defined in
-[OData-ABNF](#ODataABNF).
+[OData-ABNF](#ODataABNF) rule [schemaversion]{.abnf}.
 
 The value of the `$schemaversion` system query option MUST be a version
 of the schema as returned in the
-[`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
+[Core.SchemaVersion]{.term}
 annotation, defined in [OData-VocCore](#ODataVocCore), of a previous
 request to the [metadata document](#MetadataDocumentRequest), or `*` in
 order to specify the current version of the metadata.
@@ -3913,7 +3916,7 @@ Clients can retrieve the current version of the metadata by making a
 [metadata document request](#MetadataDocumentRequest) with a
 `$schemaversion` system query option value of `*`, and SHOULD include
 the value from the returned
-[`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
+[Core.SchemaVersion]{.term}
 annotation in the `$schemaversion` system query option of subsequent
 requests.
 
@@ -3939,7 +3942,7 @@ body SHOULD provide additional information.
 
 Services advertise their change-tracking capabilities by annotating
 entity sets with the
-[`Capabilities.ChangeTracking`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#ChangeTracking)
+[Capabilities.ChangeTracking]{.term}
 term defined in [OData-VocCap](#ODataVocCap).
 
 Any `GET` request to retrieve one or more entities MAY allow
@@ -4138,9 +4141,9 @@ A [Data Modification Request](#DataModification) on an existing resource
 or an [Action Request](#Actions) invoking an action bound to an existing
 resource MAY require optimistic concurrency control. Services SHOULD
 announce this via annotations with the terms
-[`Core.OptimisticConcurrency`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptimisticConcurrency) in
+[Core.OptimisticConcurrency]{.term} in
 [OData-VocCore](#ODataVocCore) and
-[`Capabilities.NavigationRestrictions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#NavigationRestrictions)
+[Capabilities.NavigationRestrictions]{.term}
 (nested property `OptimisticConcurrencyControl`) in
 [OData-VocCap](#ODataVocCap).
 
@@ -4316,10 +4319,10 @@ Non-insertable properties include (and are not limited to)
 
 - dependent properties that are tied to non-key properties of the principal entity through a referential constraint [OData-CSDL, section 8.5](https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#ReferentialConstraint) (informally: "denormalized" properties),
 - properties annotated with the term
-  [`Core.Computed`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Computed), see [OData-VocCore](#ODataVocCore),
-- properties listed as `NonInsertableProperties` of term [`Capabilities.InsertRestrictions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#InsertRestrictions), see [OData-VocCap](#ODataVocCap),
+  [Core.Computed]{.term}, see [OData-VocCore](#ODataVocCore),
+- properties listed as `NonInsertableProperties` of term [Capabilities.InsertRestrictions]{.term}, see [OData-VocCap](#ODataVocCap),
 - properties annotated with term
-  [`Core.Permissions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Permissions), see [OData-VocCore](#ODataVocCore), where the annotation value does not have the `Write` flag.
+  [Core.Permissions]{.term}, see [OData-VocCore](#ODataVocCore), where the annotation value does not have the `Write` flag.
 
 Services MUST return an error if the request body contains a value for a property that in principle can be specified on insert but the request cannot currently be executed respecting the specified value, for example, due to permissions or state of the object.
 Properties with a default value, nullable properties, and
@@ -4449,21 +4452,21 @@ an explicit `$expand`, the response MUST be expanded to include at least the ent
 
 Clients MAY associate an id with individual nested entities in the
 request by applying the
-[`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID)
+[Core.ContentID]{.term}
 term using the namespace or alias defined for the [OData-VocCore](#ODataVocCore) vocabulary in the service's `$metadata` document. Services that respond
 with [`201 Created`](#ResponseCode201Created) SHOULD annotate the entities in the response using
 the same
-[`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID)
+[Core.ContentID]{.term}
 value as specified in the request. Services SHOULD advertise support for
 deep inserts, including support for returning the
-[`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID),
+[Core.ContentID]{.term},
 through the
-[`Capabilities.DeepInsertSupport`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#DeepInsertSupport)
+[Capabilities.DeepInsertSupport]{.term}
 term, defined in [OData-VocCap](#ODataVocCap); services that advertise
 support through
-[`Capabilities.DeepInsertSupport`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#DeepInsertSupport)
+[Capabilities.DeepInsertSupport]{.term}
 MUST return the
-[`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID) for
+[Core.ContentID]{.term} for
 the inserted or updated entities.
 
 The `continue-on-error` preference is not supported for deep insert
@@ -4540,10 +4543,10 @@ Non-updatable properties include (and are not limited to)
 - key properties,
 - dependent properties that are tied to non-key properties of the principal entity through a referential constraint [OData-CSDL, section 8.5](https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#ReferentialConstraint) (informally: "denormalized" properties),
 - properties annotated with the terms
-  [`Core.Computed`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Computed) or [`Core.Immutable`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Immutable), see [OData-VocCore](#ODataVocCore),
-- properties listed as `NonUpdatableProperties` of term [`Capabilities.UpdateRestrictions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#UpdateRestrictions), see [OData-VocCap](#ODataVocCap),
+  [Core.Computed]{.term} or [Core.Immutable]{.term}, see [OData-VocCore](#ODataVocCore),
+- properties listed as `NonUpdatableProperties` of term [Capabilities.UpdateRestrictions]{.term}, see [OData-VocCap](#ODataVocCap),
 - properties annotated with term
-  [`Core.Permissions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Permissions), see [OData-VocCore](#ODataVocCore), where the annotation value does not have the `Write` flag.
+  [Core.Permissions]{.term}, see [OData-VocCore](#ODataVocCore), where the annotation value does not have the `Write` flag.
 
 Services MUST return an error if the request body contains a value for a
 property that in principle can be specified on update but the request cannot currently be executed respecting the specified value, for example, due to permissions or state of the object.
@@ -4797,16 +4800,16 @@ Content-Type: application/json
 
 Clients MAY associate an id with individual nested entities in the
 request by using the
-[`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID)
+[Core.ContentID]{.term}
 term defined in [OData-VocCore](#ODataVocCore). Services that respond
 with [`200 OK`](#ResponseCode200OK) SHOULD annotate the entities in the response using the
 same
-[`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID)
+[Core.ContentID]{.term}
 value as specified in the request. Services SHOULD advertise support for
 deep updates, including support for returning the
-[`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID),
+[Core.ContentID]{.term},
 through the
-[`Capabilities.DeepUpdateSupport`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#DeepUpdateSupport)
+[Capabilities.DeepUpdateSupport]{.term}
 term, defined in [OData-VocCap](#ODataVocCap).
 
 The `continue-on-error` preference is not supported for deep update
@@ -5100,7 +5103,7 @@ empty.
 
 Stream properties MAY specify a list of acceptable media types using an
 annotation with term
-[`Core.AcceptableMediaTypes`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AcceptableMediaTypes),
+[Core.AcceptableMediaTypes]{.term},
 see [OData-VocCore](#ODataVocCore).
 
 On success, the service MUST respond with either
@@ -5251,7 +5254,7 @@ Services MUST return an error if the property is not updatable.
 ### <a id="ManagingMembersofanOrderedCollection" href="#ManagingMembersofanOrderedCollection">11.4.9 Managing Members of an Ordered Collection</a>
 
 Collections annotated with the
-[`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered)
+[Core.Ordered]{.term}
 term (see [OData-VocCore](#ODataVocCore)) have a stable order. Members
 of an ordered collection of primitive and complex types can be
 individually updated or deleted by invoking an update operation against
@@ -5266,7 +5269,7 @@ using an index.
 ### <a id="PositionalInserts" href="#PositionalInserts">11.4.10 Positional Inserts</a>
 
 Collections of entity, complex, or primitive types annotated with the
-[`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
+[Core.PositionalInsert]{.term}
 term (see [OData-VocCore](#ODataVocCore)) support inserting items at a
 specific location via `POST` requests to the collection URL using the
 `$index` system query option. The value of the `$index` system query
@@ -5307,20 +5310,20 @@ entity](#UpdateRelatedEntitiesWhenUpdatinganEntity).
 
 Clients MAY associate an id with individual nested entities in the
 request by using the
-[`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID)
+[Core.ContentID]{.term}
 term defined in [OData-VocCore](#ODataVocCore). Services that respond
 with [`200 OK`](#ResponseCode200OK) SHOULD annotate the entities in the response using the
 same
-[`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID)
+[Core.ContentID]{.term}
 value as specified in the request.
 
 Services SHOULD advertise support for updating a collection using a
 delta payload through the `DeltaUpdateSupported` property of the
-[`Capabilities.UpdateRestrictions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#UpdateRestrictionsType)
+[Capabilities.UpdateRestrictions]{.term}
 term, and SHOULD advertise support for returning the
-[`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID)
+[Core.ContentID]{.term}
 through the `ContentIDSupported` property of the
-[`Capabilities.DeepUpdateSupport`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#DeepUpdateSupportType)
+[Capabilities.DeepUpdateSupport]{.term}
 term, both defined in [OData-VocCap](#ODataVocCap).
 
 For each entity being updated or removed, clients MAY specify an [ETag](#UseofETagsforAvoidingUpdateConflicts) value obtained from a previous request.
@@ -5373,7 +5376,7 @@ represents failed changes in the delta response as follows:
   according to the rules specified in [Replace a Collection of Entities](#ErrorHandlingwhenReplacingaCollectionofEntities).
 
 If an individual change fails due to a failed dependency, it MUST be
-annotated with the term [`Core.DataModificationException`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DataModificationException) and SHOULD specify
+annotated with the term [Core.DataModificationException]{.term} and SHOULD specify
 a `responseCode` of `424` ([Failed Dependency](#ResponseCode424FailedDependency)).
 
 If no `continue-on-error` preference is applied, the collection update MUST happen
@@ -5710,7 +5713,7 @@ ampersand (`&`) or a question mark (`?`).
 Services MAY additionally support invoking functions using the
 unqualified function name by defining one or more [default
 namespaces](#DefaultNamespaces) through the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) term
+[Core.DefaultNamespace]{.term} term
 defined in [OData-VocCore](#ODataVocCore).
 
 To request processing of the function only if the binding parameter value,
@@ -5847,7 +5850,7 @@ GET http://host/service/EmployeesByManager?ManagerID=3
 :::
 
 Non-binding parameters annotated with the term
-[`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter) defined
+[Core.OptionalParameter]{.term} defined
 in [OData-VocCore](#ODataVocCore) MAY be omitted. If it is annotated and
 the annotation specifies a `DefaultValue`, the omitted parameter is
 interpreted as having that default value. If omitted and the annotation
@@ -5876,7 +5879,7 @@ hierarchy, see [OData-URL, section 4.11](https://docs.oasis-open.org/odata/odata
 
 Non-binding parameters MAY be marked as optional by annotating them with
 the term
-[`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter) defined
+[Core.OptionalParameter]{.term} defined
 in [OData-VocCore](#ODataVocCore). All parameters marked as optional
 MUST come after any parameters not marked as optional.
 
@@ -5921,7 +5924,7 @@ respectively.
 Services MAY additionally support invoking actions using the unqualified
 action name by defining one or more [default
 namespaces](#DefaultNamespaces) through the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) term
+[Core.DefaultNamespace]{.term} term
 defined in [OData-VocCore](#ODataVocCore).
 
 To invoke an action through an action import, the client issues a `POST`
@@ -5932,7 +5935,7 @@ values MUST be passed in the request body according to the particular
 format.
 
 Non-binding single-valued parameters that are nullable or annotated with the term
-[`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter) defined in
+[Core.OptionalParameter]{.term} defined in
 [OData-VocCore](#ODataVocCore) MAY be omitted from the request body.
 If an omitted single-valued parameter is not annotated (and thus nullable), it MUST be
 interpreted as having the `null` value. If it is annotated
@@ -5966,7 +5969,7 @@ If the invocation of an action results in the creation and return of a single en
 that action invocation follows the rules for [entity creation](#CreateanEntity) and returns a
 [`Location`](#HeaderLocation) header that contains the edit URL or read URL of the
 created entity. Actions whose successful invocation always creates and returns a single entity MAY be annotated with the term
-[`Core.Constructor`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Constructor)
+[Core.Constructor]{.term}
 defined in [OData-VocCore](#ODataVocCore).
 
 If the action returns a value of type `Edm.Stream`, the response to the `POST` request
@@ -6187,7 +6190,7 @@ executed in any order.
 
 Each individual request within a batch request MAY have a request
 identifier assigned. The request identifier is case-sensitive, MUST be
-unique within the batch request, and MUST satisfy the rule `request-id`
+unique within the batch request, and MUST satisfy the rule [request-id]{.abnf}
 in [OData-ABNF](#ODataABNF).
 
 The representation of the request identifier is format-specific, as are
@@ -6215,7 +6218,7 @@ identifiers.
 Services MAY also support referencing within request bodies, in which
 case they SHOULD advertise this support by specifying the
 `ReferencesInRequestBodiesSupported` property in the
-[`Capabilities.BatchSupport`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#BatchSupport)
+[Capabilities.BatchSupport]{.term}
 term applied to the entity container, see [OData-VocCap](#ODataVocCap).
 
 ### <a id="ReferencingtheETagofanEntity" href="#ReferencingtheETagofanEntity">11.7.5 Referencing the ETag of an Entity</a>
@@ -6225,7 +6228,7 @@ operation in an [`If-Match`](#HeaderIfMatch) or
 [`If-None-Match`](#HeaderIfNoneMatch) header of a subsequent statement.
 Services SHOULD advertise this support by specifying the
 `EtagReferencesSupported` property in the
-[`Capabilities.BatchSupport`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#BatchSupport)
+[Capabilities.BatchSupport]{.term}
 annotation term applied to the entity container, see
 [OData-VocCap](#ODataVocCap).
 
@@ -6241,7 +6244,7 @@ consist of a `$` character followed by the identifier of the preceding
 request, then the referenced value is the value
 represented by the response body of that preceding request. Alternatively, a value
 reference can consist of a `$` character followed by the value of an instance annotation with term
-[`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID)
+[Core.ContentID]{.term}
 (see [OData-VocCore](#ODataVocCore)) that occurs in the payload of the preceding request
 as described in [section 11.4.2.2](#CreateRelatedEntitiesWhenCreatinganEntity) and
 [section 11.4.3.1](#UpdateRelatedEntitiesWhenUpdatinganEntity),
@@ -6249,7 +6252,7 @@ then the referenced value is the corresponding value in the response,
 which the service SHOULD annotate with the same `Core.ContentID` value.
 
 In both cases, if the referenced value is a collection, the value reference MAY be followed by a
-`collectionNavigationExpr`, as defined in [OData-ABNF](#ODataABNF),
+[collectionNavigationExpr]{.abnf}, as defined in [OData-ABNF](#ODataABNF),
 that is evaluated relative to the referenced value.
 Otherwise the value reference MAY be followed by a forward slash and a
 `memberExpr` that is evaluated relative to the referenced value.
@@ -6425,7 +6428,7 @@ referenced in the request URL of subsequent requests within the same
 change set. Services MAY also support referencing across change sets, in
 which case they SHOULD advertise this support by specifying the
 `ReferencesAcrossChangeSetsSupported` property in the
-[`Capabilities.BatchSupport`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#BatchSupport)
+[Capabilities.BatchSupport]{.term}
 term applied to the entity container, see [OData-VocCap](#ODataVocCap).
 
 ::: example
@@ -6839,7 +6842,7 @@ the most functionality against the broadest range of generic clients.
 
 Services can advertise their level of conformance by annotating their
 entity container with the term
-[`Capabilities.ConformanceLevel`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#ConformanceLevel)
+[Capabilities.ConformanceLevel]{.term}
 defined in [OData-VocCap](#ODataVocCap).
 
 Note: Services are encouraged to support as much additional
@@ -7011,7 +7014,7 @@ according to the JSON Batch format defined in [OData-JSON, section 19](https://d
 
 OData services can report conformance to the OData 4.01 specification by
 including `4.01` in the list of supported protocol versions in the
-[`Core.ODataVersions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ODataVersions)
+[Core.ODataVersions]{.term}
 annotation, as defined in [OData-VocCore](#ODataVocCore). As all OData
 4.01 compliant services must also be fully OData 4.0 compliant, OData
 4.01 services do not need to separately list `4.0` as a supported
@@ -7034,7 +7037,7 @@ headers and preference values
 5. MUST reject a request with an incompatible
 [`$schemaversion`](#SystemQueryOptionschemaversion) system query option
 if a
-[`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
+[Core.SchemaVersion]{.term}
 annotation is returned in `$metadata`
 6. MUST support specifying supported system query options with or
 without the `$` prefix
@@ -7075,7 +7078,7 @@ expression
 schema, a structural type, or an entity container) that differ only by
 case
 12. SHOULD return the
-[`Core.ODataVersions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ODataVersions)
+[Core.ODataVersions]{.term}
 annotation
 13. SHOULD report capabilities through the Capabilities vocabulary
 14. MAY support filtering on annotation values
@@ -7203,7 +7206,7 @@ In addition, interoperable OData 4.01 clients
 
 17. MUST send OData 4.0-compliant payloads to services that don't
 advertise support for 4.01 or greater through the
-[`Core.ODataVersions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ODataVersions)
+[Core.ODataVersions]{.term}
 metadata annotation (see [OData-VocCore](#ODataVocCore))
 18. MUST specify identifiers in payloads and URLs in the case they are
 specified in `$metadata`
@@ -7229,7 +7232,7 @@ The following documents are referenced in such a way that some or all of their c
 
 ###### [OData-ABNF]{id=ODataABNF}
 _ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases._  
-See link in "[Related work](#RelatedWork)" section on cover page.
+See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
 
 ###### [OData-Aggregation]{id=ODataAggregation}
 _OData Extension for Data Aggregation Version 4.02._  

@@ -1412,8 +1412,8 @@ temporal objects, the temporal objects identified by combination of
 
 A temporal expression is
 
-- A date in the form `dateValue`, see   [OData-ABNF](#ODataABNF)
-- A timestamp in the form `dateTimeOffsetValueInUrl`, see   [OData-ABNF](#ODataABNF)
+- A date in the form [dateValue]{.abnf}, see [OData-ABNF](#ODataABNF)
+- A timestamp in the form [dateTimeOffsetValueInUrl]{.abnf}, see [OData-ABNF](#ODataABNF)
 - One of the literals `min` or `max`
 - An expression resulting in a date or timestamp value
 
