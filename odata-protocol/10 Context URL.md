@@ -48,8 +48,8 @@ prefixed with a forward slash.
 Key values in `{canonical-collection}`, `{canonical-singleton}`, and `{canonical-member}` are represented in canonical form
 (parentheses-style) without percent-encoding.
 
-The full grammar for the context URL is defined in
-[OData-ABNF](#ODataABNF). Note that the syntax of the context URL is
+The full grammar for the context URL is defined in the
+[OData-ABNF](#ODataABNF) rule [context]{.abnf}. Note that the syntax of the context URL is
 independent of whatever URL conventions the service uses for addressing
 individual entities.
 
@@ -238,7 +238,7 @@ The shortcut `*` represents the list of all structural properties.
 Properties defined on types derived from the declared type of the entity
 set (or type specified in the type-cast segment if specified) are
 prefixed with the qualified name of the derived type as defined in
-[OData-ABNF](#ODataABNF).
+[OData-ABNF](#ODataABNF) rule [selectItem]{.abnf}.
 
 The list also contains explicitly selected or expanded instance
 annotations. It is possible to select or expand only instance
@@ -289,7 +289,7 @@ The shortcut `*` represents the list of all structural properties.
 Properties defined on types derived from the type of the entity set (or
 type specified in the type-cast segment if specified) are prefixed with
 the qualified name of the derived type as defined in
-[OData-ABNF](#ODataABNF). Note that expanded properties are
+[OData-ABNF](#ODataABNF) rule [selectItem]{.abnf}. Note that expanded properties are
 automatically included in the response.
 
 The list also contains explicitly selected or expanded instance

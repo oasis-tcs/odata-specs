@@ -35,10 +35,10 @@ using the JSON string escaping rules.
 Values of type `Edm.Binary`, `Edm.Date`,
 `Edm.DateTimeOffset`, `Edm.Duration`,
 `Edm.Guid`, and `Edm.TimeOfDay` are represented as
-JSON strings whose content satisfies the rules `binaryValue`,
-`dateValue`, `dateTimeOffsetValue`,
-`durationValue`, `guidValue`, and
-`timeOfDayValue` respectively, in
+JSON strings whose content satisfies the rules [binaryValue]{.abnf},
+[dateValue]{.abnf}, [dateTimeOffsetValue]{.abnf},
+[durationValue]{.abnf}, [guidValue]{.abnf}, and
+[timeOfDayValue]{.abnf} respectively, in
 [OData-ABNF](#ODataABNF). The interpretation of a `timeOfDayValue` in which the `second` is omitted
 is not defined by this specification. For maximum interoperability, senders
 SHOULD always include the `second`.
@@ -51,11 +51,11 @@ string representation of the exact value in the `value`
 property of the annotation.
 
 Enumeration values are represented as JSON strings whose content
-satisfies the rule `enumValue` in
+satisfies the rule [enumValue]{.abnf} in
 [OData-ABNF](#ODataABNF). The preferred representation is the
-`enumerationMember`. If no `enumerationMember` (or
+[enumerationMember]{.abnf}. If no `enumerationMember` (or
 combination of named enumeration members) is
-available, the `enumMemberValue` representation may be used.
+available, the [enumMemberValue]{.abnf} representation may be used.
 
 Geography and geometry values are represented as geometry types as
 defined in [RFC7946](#rfc7946).
