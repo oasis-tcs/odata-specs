@@ -72,6 +72,10 @@ See link in "[Related work](#RelatedWork)" section on cover page.
 _OData Vocabularies Version 4.0: Core Vocabulary_.  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
+###### [OData-VocCap]{id=ODataVocCap}
+_OData Vocabularies Version 4.0: Capabilities Vocabulary_.  
+See link in "[Related work](#RelatedWork)" section on cover page.
+
 ###### [OData-VocMeasures]{id=ODataVocMeasures}
 _OData Vocabularies Version 4.0: Measures Vocabulary_.  
 See link in "[Related work](#RelatedWork)" section on cover page.

@@ -1163,8 +1163,8 @@ http://host/service/Categories?$orderby=Products/$count
 Collections of entities are modeled as entity sets, collection-valued
 navigation properties, or operation results.
 
-For entity sets, results of operations associated with an entity set
-through an `EntitySet` or `EntitySetPath` declaration, or
+For entity sets, results of composable functions associated with an
+entity set through an `EntitySet` or `EntitySetPath` declaration, or
 collection-valued navigation properties with a
 `NavigationPropertyBinding` or `ContainsTarget=true` specification,
 members of the collection can be addressed by convention by appending
@@ -1640,6 +1640,9 @@ or `/$batch` allow [`$format`](#SystemQueryOptionformat).
 For `POST` requests to an action URL the return type of the action
 determines the applicable system query options that a service MAY
 support, following the same rules as `GET` requests.
+
+Actions and Functions SHOULD be annotated with the appropriate Capabilities vocabulary annotations [OData-VocCap](#ODataVocCap) to specify
+supported query options.
 
 `POST` requests to an entity set follow the same rules as `GET` requests
 that return a single entity.
