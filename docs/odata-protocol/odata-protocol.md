@@ -283,13 +283,14 @@ For complete copyright information please see the full Notices section in an App
     - [11.5.1 Binding an Operation to a Resource](#BindinganOperationtoaResource)
     - [11.5.2 Applying an Operation to Members of a Collection](#ApplyinganOperationtoMembersofaCollection)
     - [11.5.3 Advertising Available Operations within a Payload](#AdvertisingAvailableOperationswithinaPayload)
-    - [11.5.4 Functions](#Functions)
-      - [11.5.4.1 Invoking a Function](#InvokingaFunction)
-        - [11.5.4.1.1 Inline Parameter Syntax](#InlineParameterSyntax)
-      - [11.5.4.2 Function overload resolution](#Functionoverloadresolution)
-    - [11.5.5 Actions](#Actions)
-      - [11.5.5.1 Invoking an Action](#InvokinganAction)
-      - [11.5.5.2 Action Overload Resolution](#ActionOverloadResolution)
+    - [11.5.4 Operations that return Entities](#OperationsthatreturnEntities)
+    - [11.5.5 Functions](#Functions)
+      - [11.5.5.1 Invoking a Function](#InvokingaFunction)
+        - [11.5.5.1.1 Inline Parameter Syntax](#InlineParameterSyntax)
+      - [11.5.5.2 Function overload resolution](#Functionoverloadresolution)
+    - [11.5.6 Actions](#Actions)
+      - [11.5.6.1 Invoking an Action](#InvokinganAction)
+      - [11.5.6.2 Action Overload Resolution](#ActionOverloadResolution)
   - [11.6 Asynchronous Requests](#AsynchronousRequests)
   - [11.7 Batch Requests](#BatchRequests)
     - [11.7.1 Batch Request Headers](#BatchRequestHeaders)
@@ -367,7 +368,7 @@ Section | Feature / Change | Issue
 [Section 11.4.8.3](#UpdateaComplexProperty)| Setting a complex property to a different type| [534](https://github.com/oasis-tcs/odata-specs/issues/534)
 [Section 11.4.11](#UpdateaCollectionofEntities)| Control information to prevent updates| [2021](https://github.com/oasis-tcs/odata-specs/issues/2021)
 [Section 11.4.12](#ReplaceaCollectionofEntities)| Semantics of `continue-on-error` when replacing a collection of entities | [358](https://github.com/oasis-tcs/odata-specs/issues/358)
-[Section 11.5.5.1](#InvokinganAction)| Omission of collection-valued action parameters| [2045](https://github.com/oasis-tcs/odata-specs/issues/2045)
+[Section 11.5.6.1](#InvokinganAction)| Omission of collection-valued action parameters| [2045](https://github.com/oasis-tcs/odata-specs/issues/2045)
 [Section 12](#Conformance) | Allow `400 Bad Request` in addition to `501 Not Implemented` for unsupported functionality| [391](https://github.com/oasis-tcs/odata-specs/issues/391)
 [Section 12.3](#InteroperableODataClients) | Encoding of plus character in URLs | [485](https://github.com/oasis-tcs/odata-specs/issues/485)
 
@@ -5678,13 +5679,32 @@ available for customer `ALFKI`
 }
 ```
 :::
+### <a id="OperationsthatreturnEntities" href="#OperationsthatreturnEntities">11.5.4 Operations that return Entities</a>
 
-### <a id="Functions" href="#Functions">11.5.4 Functions</a>
+Entities returned by an operation may be persisted in an entity set or
+containment path, or may be computed by the operation.
+
+Operation definitions returning persisted entities SHOULD specify an
+entity set path, if possible, and SHOULD return a context URL specifying
+the containment path where the entities are persisted. If the entities
+come from multiple containment paths, then the context URL for the result
+SHOULD specify the entity type and each instance SHOULD contain the context
+URL specifying the containment path for that instance.
+
+The context URL returned by an operation that computes non-persisted entities
+specifies the type of the computed entity. Such computed entities may have null
+or non-null entity key values. Entities with null key values are transient and
+cannot be referenced. Non-null key values of computed entities can be used to
+correlate results across operation invocations; an entity with key values matching
+an instance returned in a previous invocation of the same operation, with the same
+parameter values, is considered the same instance.
+
+### <a id="Functions" href="#Functions">11.5.5 Functions</a>
 
 Functions are operations exposed by an OData service that MUST return
 data and MUST have no observable side effects.
 
-#### <a id="InvokingaFunction" href="#InvokingaFunction">11.5.4.1 Invoking a Function</a>
+#### <a id="InvokingaFunction" href="#InvokingaFunction">11.5.5.1 Invoking a Function</a>
 
 To invoke a function bound to a resource, the client issues a `GET`
 request to a function URL. A function URL may be
@@ -5759,6 +5779,11 @@ POST http://host/service/MyShoppingCart()/Items
 ```
 :::
 
+URLs that identify composable functions that return a collection of entities with
+non-null key values can be appended with key values to specify an instance within
+the result matching those key values. For entities computed by the function, this
+URL serves as the Canonical URL for such instances.
+
 If the function returns a value of type `Edm.Stream` and no additional path
 segments follow the function invocation, the response to the `GET` request
 follows the rules for [requesting stream properties](#RequestingStreamProperties).
@@ -5789,7 +5814,7 @@ Function imports preceded by the `$root` literal MAY be used in the
 [`$orderby`](#SystemQueryOptionorderby) system query options, see
 [OData-URL, section 5.1.2](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#SystemQueryOptionfilter) and [OData-URL, section 5.1.5](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#SystemQueryOptionorderby).
 
-##### <a id="InlineParameterSyntax" href="#InlineParameterSyntax">11.5.4.1.1 Inline Parameter Syntax</a>
+##### <a id="InlineParameterSyntax" href="#InlineParameterSyntax">11.5.5.1.1 Inline Parameter Syntax</a>
 
 Parameter values are specified inline by appending a comma-separated
 list of parameter values, enclosed by parenthesis to the function name.
@@ -5857,7 +5882,7 @@ interpreted as having that default value. If omitted and the annotation
 does not specify a default value, the service is free on how to
 interpret the omitted parameter.
 
-#### <a id="Functionoverloadresolution" href="#Functionoverloadresolution">11.5.4.2 Function overload resolution</a>
+#### <a id="Functionoverloadresolution" href="#Functionoverloadresolution">11.5.5.2 Function overload resolution</a>
 
 The same function name may be used multiple times within a schema, each
 with a different set of parameters. For unbound overloads the
@@ -5897,13 +5922,13 @@ particular function overload. If there is ambiguity, then services MAY
 return `400 Bad Request` with an error response body stating that the
 request was ambiguous.
 
-### <a id="Actions" href="#Actions">11.5.5 Actions</a>
+### <a id="Actions" href="#Actions">11.5.6 Actions</a>
 
 Actions are operations exposed by an OData service that MAY have side
 effects when invoked. Actions MAY return data but MUST NOT be further
 composed with additional path segments.
 
-#### <a id="InvokinganAction" href="#InvokinganAction">11.5.5.1 Invoking an Action</a>
+#### <a id="InvokinganAction" href="#InvokinganAction">11.5.6.1 Invoking an Action</a>
 
 To invoke an action bound to a resource, the client issues a `POST`
 request to an action URL. An action URL may be
@@ -6006,7 +6031,7 @@ Content-Type: application/json
 ```
 :::
 
-#### <a id="ActionOverloadResolution" href="#ActionOverloadResolution">11.5.5.2 Action Overload Resolution</a>
+#### <a id="ActionOverloadResolution" href="#ActionOverloadResolution">11.5.6.2 Action Overload Resolution</a>
 
 The same action name may be used multiple times within a schema provided
 there is at most one unbound overload, and each bound overload specifies

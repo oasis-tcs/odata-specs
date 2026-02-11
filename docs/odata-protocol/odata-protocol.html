@@ -448,18 +448,19 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><a href="#BindinganOperationtoaResource">11.5.1 Binding an Operation to a Resource</a></li>
 <li><a href="#ApplyinganOperationtoMembersofaCollection">11.5.2 Applying an Operation to Members of a Collection</a></li>
 <li><a href="#AdvertisingAvailableOperationswithinaPayload">11.5.3 Advertising Available Operations within a Payload</a></li>
-<li><a href="#Functions">11.5.4 Functions</a>
+<li><a href="#OperationsthatreturnEntities">11.5.4 Operations that return Entities</a></li>
+<li><a href="#Functions">11.5.5 Functions</a>
 <ul>
-<li><a href="#InvokingaFunction">11.5.4.1 Invoking a Function</a>
+<li><a href="#InvokingaFunction">11.5.5.1 Invoking a Function</a>
 <ul>
-<li><a href="#InlineParameterSyntax">11.5.4.1.1 Inline Parameter Syntax</a></li>
+<li><a href="#InlineParameterSyntax">11.5.5.1.1 Inline Parameter Syntax</a></li>
 </ul></li>
-<li><a href="#Functionoverloadresolution">11.5.4.2 Function overload resolution</a></li>
+<li><a href="#Functionoverloadresolution">11.5.5.2 Function overload resolution</a></li>
 </ul></li>
-<li><a href="#Actions">11.5.5 Actions</a>
+<li><a href="#Actions">11.5.6 Actions</a>
 <ul>
-<li><a href="#InvokinganAction">11.5.5.1 Invoking an Action</a></li>
-<li><a href="#ActionOverloadResolution">11.5.5.2 Action Overload Resolution</a></li>
+<li><a href="#InvokinganAction">11.5.6.1 Invoking an Action</a></li>
+<li><a href="#ActionOverloadResolution">11.5.6.2 Action Overload Resolution</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#AsynchronousRequests">11.6 Asynchronous Requests</a></li>
@@ -595,7 +596,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/358">358</a></td>
 </tr>
 <tr>
-<td><a href="#InvokinganAction">Section 11.5.5.1</a></td>
+<td><a href="#InvokinganAction">Section 11.5.6.1</a></td>
 <td>Omission of collection-valued action parameters</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/2045">2045</a></td>
 </tr>
@@ -2964,11 +2965,18 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 </div>
 </details>
 <details open><summary>
-<h3 id="1154-functions"><a id="Functions" href="#Functions">11.5.4 Functions</a></h3>
+<h3 id="1154-operations-that-return-entities"><a id="OperationsthatreturnEntities" href="#OperationsthatreturnEntities">11.5.4 Operations that return Entities</a></h3>
+</summary>
+<p>Entities returned by an operation may be persisted in an entity set or containment path, or may be computed by the operation.</p>
+<p>Operation definitions returning persisted entities SHOULD specify an entity set path, if possible, and SHOULD return a context URL specifying the containment path where the entities are persisted. If the entities come from multiple containment paths, then the context URL for the result SHOULD specify the entity type and each instance SHOULD contain the context URL specifying the containment path for that instance.</p>
+<p>The context URL returned by an operation that computes non-persisted entities specifies the type of the computed entity. Such computed entities may have null or non-null entity key values. Entities with null key values are transient and cannot be referenced. Non-null key values of computed entities can be used to correlate results across operation invocations; an entity with key values matching an instance returned in a previous invocation of the same operation, with the same parameter values, is considered the same instance.</p>
+</details>
+<details open><summary>
+<h3 id="1155-functions"><a id="Functions" href="#Functions">11.5.5 Functions</a></h3>
 </summary>
 <p>Functions are operations exposed by an OData service that MUST return data and MUST have no observable side effects.</p>
 <details open><summary>
-<h4 id="11541-invoking-a-function"><a id="InvokingaFunction" href="#InvokingaFunction">11.5.4.1 Invoking a Function</a></h4>
+<h4 id="11551-invoking-a-function"><a id="InvokingaFunction" href="#InvokingaFunction">11.5.5.1 Invoking a Function</a></h4>
 </summary>
 <p>To invoke a function bound to a resource, the client issues a <code>GET</code> request to a function URL. A function URL may be <a href="#AdvertisingAvailableOperationswithinaPayload">obtained</a> from a previously returned entity representation or constructed by appending the namespace- or alias-qualified function name to a URL that identifies a resource whose type is the same as, or derived from, the type of the binding parameter of the function. The value for the binding parameter is the value of the resource identified by the URL prior to appending the function name, and additional parameter values are specified using <a href="#InlineParameterSyntax">inline parameter syntax</a>. In parameters containing complex instances or transient entities, properties with a defined default value, nullable properties, and collection-valued properties that are omitted from the request are interpreted as the default value, null, or an empty collection, respectively.</p>
 <p>If the function URL is <a href="#AdvertisingAvailableOperationswithinaPayload">obtained</a> from a previously returned entity representation, <a href="#ParameterAliases">parameter aliases</a> that are identical to the parameter name preceded by an at (<code>@</code>) sign MUST be used. Clients MUST check if the obtained URL already contains a query part and appropriately precede the parameters either with an ampersand (<code>&amp;</code>) or a question mark (<code>?</code>).</p>
@@ -2983,6 +2991,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 
 …</code></pre>
 </div>
+<p>URLs that identify composable functions that return a collection of entities with non-null key values can be appended with key values to specify an instance within the result matching those key values. For entities computed by the function, this URL serves as the Canonical URL for such instances.</p>
 <p>If the function returns a value of type <code>Edm.Stream</code> and no additional path segments follow the function invocation, the response to the <code>GET</code> request follows the rules for <a href="#RequestingStreamProperties">requesting stream properties</a>.</p>
 <p>Parameter values passed to functions MUST be specified either as a URL literal (for primitive values) or as a JSON formatted OData object (for complex values, or collections of primitive or complex values). Entity typed values are passed as JSON formatted entities that MAY include a subset of the properties, or just the entity reference, as appropriate to the function.</p>
 <p>If a collection-valued function has no result for a given parameter value combination, the response is the format-specific representation of an empty collection. If a single-valued function with a nullable return-type has no result, the service returns <a href="#ResponseCode204NoContent"><code>204 No Content</code></a>.</p>
@@ -2990,7 +2999,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>For a composable function the processing is stopped when the function result requires a <code>4xx</code> response, and continues otherwise.</p>
 <p>Function imports preceded by the <code>$root</code> literal MAY be used in the <a href="#SystemQueryOptionfilter"><code>$filter</code></a> or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> system query options, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#SystemQueryOptionfilter">OData-URL, section 5.1.2</a> and <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#SystemQueryOptionorderby">OData-URL, section 5.1.5</a>.</p>
 <details open><summary>
-<h5 id="115411-inline-parameter-syntax"><a id="InlineParameterSyntax" href="#InlineParameterSyntax">11.5.4.1.1 Inline Parameter Syntax</a></h5>
+<h5 id="115511-inline-parameter-syntax"><a id="InlineParameterSyntax" href="#InlineParameterSyntax">11.5.5.1.1 Inline Parameter Syntax</a></h5>
 </summary>
 <p>Parameter values are specified inline by appending a comma-separated list of parameter values, enclosed by parenthesis to the function name.</p>
 <p>Each parameter value is represented as a name/value pair in the format <code>Name=Value</code>, where <code>Name</code> is the name of the parameter to the function and <code>Value</code> is the parameter value.</p>
@@ -3017,7 +3026,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 </details>
 </details>
 <details open><summary>
-<h4 id="11542-function-overload-resolution"><a id="Functionoverloadresolution" href="#Functionoverloadresolution">11.5.4.2 Function overload resolution</a></h4>
+<h4 id="11552-function-overload-resolution"><a id="Functionoverloadresolution" href="#Functionoverloadresolution">11.5.5.2 Function overload resolution</a></h4>
 </summary>
 <p>The same function name may be used multiple times within a schema, each with a different set of parameters. For unbound overloads the combination of the function name and the unordered set of parameter names MUST identify a particular function overload. For bound overloads the combination of the function name, the binding parameter type, and the unordered set of names of the non-binding parameters MUST identify a particular function overload.</p>
 <p>All unbound overloads MUST have the same return type. Also, all bound overloads with a given binding parameter type MUST have the same return type.</p>
@@ -3032,11 +3041,11 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 </details>
 </details>
 <details open><summary>
-<h3 id="1155-actions"><a id="Actions" href="#Actions">11.5.5 Actions</a></h3>
+<h3 id="1156-actions"><a id="Actions" href="#Actions">11.5.6 Actions</a></h3>
 </summary>
 <p>Actions are operations exposed by an OData service that MAY have side effects when invoked. Actions MAY return data but MUST NOT be further composed with additional path segments.</p>
 <details open><summary>
-<h4 id="11551-invoking-an-action"><a id="InvokinganAction" href="#InvokinganAction">11.5.5.1 Invoking an Action</a></h4>
+<h4 id="11561-invoking-an-action"><a id="InvokinganAction" href="#InvokinganAction">11.5.6.1 Invoking an Action</a></h4>
 </summary>
 <p>To invoke an action bound to a resource, the client issues a <code>POST</code> request to an action URL. An action URL may be <a href="#AdvertisingAvailableOperationswithinaPayload">obtained</a> from a previously returned entity representation or constructed by appending the namespace- or alias-qualified action name to a URL that identifies a resource whose type is the same as, or derives from, the type of the binding parameter of the action. The value for the binding parameter is the resource identified by the URL preceding the action name, and only the non-binding parameter values are passed in the request body according to the particular format. In parameters containing complex instances or transient entities, properties with a defined default value, nullable properties, and collection-valued properties that are omitted from the request are interpreted as the default value, null, or an empty collection, respectively.</p>
 <p>Services MAY additionally support invoking actions using the unqualified action name by defining one or more <a href="#DefaultNamespaces">default namespaces</a> through the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace"><code>Core.DefaultNamespace</code></a></span> term defined in <a href="#ODataVocCore">OData-VocCore</a>.</p>
@@ -3066,7 +3075,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 </div>
 </details>
 <details open><summary>
-<h4 id="11552-action-overload-resolution"><a id="ActionOverloadResolution" href="#ActionOverloadResolution">11.5.5.2 Action Overload Resolution</a></h4>
+<h4 id="11562-action-overload-resolution"><a id="ActionOverloadResolution" href="#ActionOverloadResolution">11.5.6.2 Action Overload Resolution</a></h4>
 </summary>
 <p>The same action name may be used multiple times within a schema provided there is at most one unbound overload, and each bound overload specifies a different binding parameter type.</p>
 <p>If the action is bound and the binding parameter type is part of an inheritance hierarchy, the action overload is selected based on the type of the URL segment preceding the action name. A type-cast segment can be used to select an action defined on a particular type in the hierarchy, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingDerivedTypes">OData-URL, section 4.11</a>.</p>
