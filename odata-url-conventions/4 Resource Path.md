@@ -692,8 +692,8 @@ http://host/service/Categories?$orderby=Products/$count
 Collections of entities are modeled as entity sets, collection-valued
 navigation properties, or operation results.
 
-For entity sets, results of operations associated with an entity set
-through an `EntitySet` or `EntitySetPath` declaration, or
+For entity sets, results of composable functions associated with an
+entity set through an `EntitySet` or `EntitySetPath` declaration, or
 collection-valued navigation properties with a
 `NavigationPropertyBinding` or `ContainsTarget=true` specification,
 members of the collection can be addressed by convention by appending
