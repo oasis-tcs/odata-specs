@@ -289,7 +289,7 @@ http://host/service/Company
 
 For composable functions that return a collection of computed entities, the URL that
 invokes the function, appended by the key predicate, serves as the Canonical URL
-for the computed entites.
+for the computed entities.
 
 ### ##subsubsec Canonical URL for Contained Entities
 
