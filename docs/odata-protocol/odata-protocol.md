@@ -1987,6 +1987,14 @@ concerns around information disclosure.
 
 ## <a id="InStreamErrors" href="#InStreamErrors">9.5 In-Stream Errors</a>
 
+When processing a request, services can produce the response payload either
+in one go after finishing the entire processing, or chunk-by-chunk, outputting chunks as
+they are computed during the processing. The latter is useful if the request payload is
+also consumed chunk-by-chunk, with each processed chunk leading to a chunk of the response
+payload. In this alternative, since the HTTP protocol requires a response code to be sent
+before the first response chunk, it can only be a success status like
+[`200 OK`](#ResponseCode200OK).
+
 In the case that the service encounters an error after sending a success
 status to the client, the service MUST leave the response malformed
 according to its [`Content-Type`](#HeaderContentType) or abort the response by
@@ -6140,7 +6148,7 @@ A batch request is represented using either the [multipart batch
 format](#MultipartBatchFormat) defined in this document or the JSON
 batch format defined in [OData-JSON, section 19](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#BatchRequestsandResponses).
 
-If the set of request headers of a batch request are valid the service
+Services that process a batch request chunk-by-chunk (as explained in [section 9.5](#InStreamErrors))
 MUST return a [`200 OK`](#ResponseCode200OK) HTTP response code to
 indicate that the batch request was accepted for processing, even if the
 processing is yet to be completed. The individual requests within the
