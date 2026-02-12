@@ -1992,7 +1992,7 @@ in one go after finishing the entire processing, or chunk-by-chunk, outputting c
 they are computed during the processing. The latter is useful if the request payload is
 also consumed chunk-by-chunk, with each processed chunk leading to a chunk of the response
 payload. In this alternative, since the HTTP protocol requires a response code to be sent
-before the first response chunk, it can only be a success status like
+before the first response chunk, the response can only have a success status like
 [`200 OK`](#ResponseCode200OK).
 
 In the case that the service encounters an error after sending a success
