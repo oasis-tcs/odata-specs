@@ -341,7 +341,7 @@ The names and values of these format parameters are case-insensitive.
 
 Services SHOULD advertise the supported media types by annotating the
 entity container with the term
-[`Capabilities.SupportedFormats`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#SupportedFormats)
+[Capabilities.SupportedFormats]{.term}
 defined in [OData-VocCap](#ODataVocCap), listing all
 available formats and combinations of supported format parameters.
 
@@ -1394,10 +1394,10 @@ using the JSON string escaping rules.
 Values of type `Edm.Binary`, `Edm.Date`,
 `Edm.DateTimeOffset`, `Edm.Duration`,
 `Edm.Guid`, and `Edm.TimeOfDay` are represented as
-JSON strings whose content satisfies the rules `binaryValue`,
-`dateValue`, `dateTimeOffsetValue`,
-`durationValue`, `guidValue`, and
-`timeOfDayValue` respectively, in
+JSON strings whose content satisfies the rules [binaryValue]{.abnf},
+[dateValue]{.abnf}, [dateTimeOffsetValue]{.abnf},
+[durationValue]{.abnf}, [guidValue]{.abnf}, and
+[timeOfDayValue]{.abnf} respectively, in
 [OData-ABNF](#ODataABNF). The interpretation of a `timeOfDayValue` in which the `second` is omitted
 is not defined by this specification. For maximum interoperability, senders
 SHOULD always include the `second`.
@@ -1410,11 +1410,11 @@ string representation of the exact value in the `value`
 property of the annotation.
 
 Enumeration values are represented as JSON strings whose content
-satisfies the rule `enumValue` in
+satisfies the rule [enumValue]{.abnf} in
 [OData-ABNF](#ODataABNF). The preferred representation is the
-`enumerationMember`. If no `enumerationMember` (or
+[enumerationMember]{.abnf}. If no `enumerationMember` (or
 combination of named enumeration members) is
-available, the `enumMemberValue` representation may be used.
+available, the [enumMemberValue]{.abnf} representation may be used.
 
 Geography and geometry values are represented as geometry types as
 defined in [RFC7946](#rfc7946).
@@ -2836,7 +2836,7 @@ service, see [OData-CSDL](#ODataCSDL). A
 specific function overload can be advertised by appending the
 parentheses-enclosed, comma-separated list of non-binding parameter
 names to the qualified function name, see rule
-`qualifiedFunctionName` in [OData-ABNF](#ODataABNF).
+[qualifiedFunctionName]{.abnf} in [OData-ABNF](#ODataABNF).
 
 A function that is bound to a single structured type MAY be advertised
 within the JSON object representing that structured type.
@@ -3226,7 +3226,7 @@ URL (i.e. relative to the service root).
 
 The value of `atomicityGroup` is a string whose content MUST
 NOT be identical to any value of `id` within the batch
-request, and which MUST satisfy the rule `request-id` in
+request, and which MUST satisfy the rule [request-id]{.abnf} in
 [OData-ABNF](#ODataABNF). All request objects with the same value for
 `atomicityGroup` MUST be adjacent in the
 `requests` array. These requests are processed as an atomic
@@ -3262,7 +3262,7 @@ The URL expression syntax is extended and additionally allows
 Services SHOULD advertise support of the `if` member by
 specifying the property
 `RequestDependencyConditionsSupported` in the
-[`Capabilities.BatchSupport`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#BatchSupport)
+[Capabilities.BatchSupport]{.term}
 term applied to the entity container, see
 [OData-VocCap](#ODataVocCap). If a service does not
 support request dependencies, the dependent request MUST fail with

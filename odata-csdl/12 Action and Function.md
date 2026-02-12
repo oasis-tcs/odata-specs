@@ -12,7 +12,10 @@ any type.
 The action's name is a [simple identifier](#SimpleIdentifier) that MUST
 be unique within its schema.
 
-Actions cannot be composed with additional path segments.
+Actions cannot be composed with additional path segments nor indexed by key,
+and SHOULD be annotated with the appropriate Capabilities vocabulary annotations
+[OData-VocCap](#ODataVocCap) to denote any supported query options.
+Absent such annotations, actions SHOULD NOT be assumed to support any query options.
 
 An action MAY specify a [return type](#ReturnType) that MUST be a
 primitive, entity or complex type, or a collection of primitive, entity
@@ -246,8 +249,14 @@ indicated, it is not composable.
 
 A composable function can be invoked with additional path segments or
 key predicates appended to the resource path that identifies the
-composable function, and with system query options as appropriate for
-the type returned by the composable function.
+composable function. Non-composable functions do not support additional
+path segments, nor indexing by key.
+
+Functions SHOULD be annotated with the appropriate Capabilities vocabulary
+annotations [OData-VocCap](#ODataVocCap) to denote any supported
+query options. Absent such annotations, composable functions SHOULD support
+the same default query options as an entity set of that type would support,
+while non-composable functions SHOULD NOT be assumed to support any query options.
 
 ::: {.varjson .rep}
 ### ##subisec `$IsComposable`
@@ -353,7 +362,7 @@ fail with an error response if it cannot compute a result.
 ### ##subisec Annotation `Core.IsDelta`
 
 An action or function that returns a single entity or a collection of entities MAY return results as a delta payload.
-This is indicated by annotating the return type with the term [`Core.IsDelta`]($$$OData-VocCore$$$#IsDelta).
+This is indicated by annotating the return type with the term [Core.IsDelta]{.term}.
 
 Delta payloads represent changes between two versions of data and, in addition
 to current values, MAY include deleted entities as well as changes to related 
@@ -468,7 +477,7 @@ of the collection and specifies whether the collection MAY contain
 ### ##subisec Annotation `Core.OptionalParameter`
 
 A parameter that is annotated with the term 
-[`Core.OptionalParameter`]($$$OData-VocCore$$$#OptionalParameter) MAY be 
+[Core.OptionalParameter]{.term} MAY be 
 omitted when invoking the function or action.
 
 All parameters marked as optional MUST come after any parameters not marked as optional. 
@@ -515,7 +524,7 @@ function with the `edm:Parameter` element.
 ### ##subisec Annotation `Core.IsDelta`
 
 A parameter that accepts a single entity or a collection of entities MAY accept a delta representation.
-This is indicated by annotating the parameter with the term [`Core.IsDelta`]($$$OData-VocCore$$$#IsDelta).
+This is indicated by annotating the parameter with the term [Core.IsDelta]{.term}.
 
 Deltas represent changes between two versions of data and, in addition
 to current values, MAY include deleted entities as well as changes to related 

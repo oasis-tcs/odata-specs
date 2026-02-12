@@ -17,7 +17,7 @@ This specification defines the following terms:
 - [_Aggregate Expression_]{id=AggregateExpression} – argument of the `aggregate` [transformation](#Transformationaggregate) or [function](#Functionaggregate) defined in [section ##AggregationAlgorithm]
 - [_Aggregatable Primitive Type_]{id=AggregatablePrimitiveType} – a primitive type other than `Edm.Stream` or subtypes of `Edm.Geography` or `Edm.Geometry`
 - [_Data Aggregation Path_]{id=DataAggregationPath} – a path that consists of one or more segments joined together by forward slashes (`/`). Segments are names of declared or dynamic structural or navigation properties, or type-cast segments consisting of the (optionally qualified) name of a structured type that is derived from the type identified by the preceding path segment to reach properties declared by the derived type.
-- [_Expression_]{id=Expression} – derived from the `commonExpr` rule (see [OData-ABNF](#ODataABNF))
+- [_Expression_]{id=Expression} – derived from the [commonExpr]{.abnf} rule (see [OData-ABNF](#ODataABNF))
 - [_Single-Valued Property Path_]{id=SingleValuedPropertyPath} – property path ending in a single-valued primitive, complex, or navigation property
 
 ### ##subsubsec Acronyms and Abbreviations
