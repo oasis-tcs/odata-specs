@@ -1803,7 +1803,7 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 </summary>
 <p>Actions are service-defined operations that MAY have observable side effects and MAY return a single instance or a collection of instances of any type.</p>
 <p>The action’s name is a <a href="#SimpleIdentifier">simple identifier</a> that MUST be unique within its schema.</p>
-<p>Actions cannot be composed with additional path segments.</p>
+<p>Actions cannot be composed with additional path segments nor indexed by key, and SHOULD be annotated with the appropriate Capabilities vocabulary annotations <a href="#ODataVocCap">OData-VocCap</a> to denote any supported query options. Absent such annotations, actions SHOULD NOT be assumed to support any query options.</p>
 <p>An action MAY specify a <a href="#ReturnType">return type</a> that MUST be a primitive, entity or complex type, or a collection of primitive, entity or complex types in scope.</p>
 <p>An action MAY define <a href="#Parameter">parameters</a> used during the execution of the action.</p>
 </details>
@@ -1895,7 +1895,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h2 id="127-composable-function"><a id="ComposableFunction" href="#ComposableFunction">12.7 Composable Function</a></h2>
 </summary>
 <p>A function MAY indicate that it is composable. If not explicitly indicated, it is not composable.</p>
-<p>A composable function can be invoked with additional path segments or key predicates appended to the resource path that identifies the composable function, and with system query options as appropriate for the type returned by the composable function.</p>
+<p>A composable function can be invoked with additional path segments or key predicates appended to the resource path that identifies the composable function. Non-composable functions do not support additional path segments, nor indexing by key.</p>
+<p>Functions SHOULD be annotated with the appropriate Capabilities vocabulary annotations <a href="#ODataVocCap">OData-VocCap</a> to denote any supported query options. Absent such annotations, composable functions SHOULD support the same default query options as an entity set of that type would support, while non-composable functions SHOULD NOT be assumed to support any query options.</p>
 <section class="varxml rep">
 <h3><a id="AttributeIsComposable.21.4" href="#AttributeIsComposable.21.4">Attribute <code>IsComposable</code></a></h3>
 <p>The value of <code>IsComposable</code> is one of the Boolean literals <code>true</code> or <code>false</code>. Absence of the attribute means <code>false</code>.</p>
@@ -3929,6 +3930,9 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
 <h6><span id="ODataVocCore">OData-VocCore</span></h6>
 <p><em>OData Vocabularies Version 4.0: Core Vocabulary</em>.<br />
+See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
+<h6><span id="ODataVocCap">OData-VocCap</span></h6>
+<p><em>OData Vocabularies Version 4.0: Capabilities Vocabulary</em>.<br />
 See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
 <h6><span id="ODataVocMeasures">OData-VocMeasures</span></h6>
 <p><em>OData Vocabularies Version 4.0: Measures Vocabulary</em>.<br />

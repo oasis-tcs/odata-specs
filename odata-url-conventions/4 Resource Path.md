@@ -250,10 +250,11 @@ returns an entity or collections of entities.
 
 For OData services conformant with the addressing conventions in this
 section, the canonical form of an absolute URL identifying a
-non-contained entity is formed by adding a single path segment to the
-service root URL. The path segment is made up of the name of the entity
-set associated with the entity followed by the key predicate identifying
-the entity within the collection. No [type-cast segment](#AddressingDerivedTypes) is added to the
+non-contained entity from within an an entity set is formed by adding a
+single path segment to the service root URL. The path segment is made up
+of the name of the entity set associated with the entity followed by the
+key predicate identifying the entity within the collection. No 
+[type-cast segment](#AddressingDerivedTypes) is added to the
 canonical URL, even if the entity is an instance of a type derived from
 the declared entity type of its entity set.
 
@@ -275,6 +276,20 @@ Example ##ex: Canonical URL for previous example:
 http://host/service/Products(1)
 ```
 :::
+
+The canonical form of an absolute URL identifying singleton is formed by
+adding the name of the singleton to the service root URL.
+
+::: example
+Example ##ex: Canonical URL for a singleton `Company`:
+```
+http://host/service/Company
+```
+:::
+
+For composable functions that return a collection of computed entities, the URL that
+invokes the function, appended by the key predicate, serves as the Canonical URL
+for the computed entities.
 
 ### ##subsubsec Canonical URL for Contained Entities
 
@@ -692,8 +707,8 @@ http://host/service/Categories?$orderby=Products/$count
 Collections of entities are modeled as entity sets, collection-valued
 navigation properties, or operation results.
 
-For entity sets, results of operations associated with an entity set
-through an `EntitySet` or `EntitySetPath` declaration, or
+For entity sets, results of composable functions associated with an
+entity set through an `EntitySet` or `EntitySetPath` declaration, or
 collection-valued navigation properties with a
 `NavigationPropertyBinding` or `ContainsTarget=true` specification,
 members of the collection can be addressed by convention by appending

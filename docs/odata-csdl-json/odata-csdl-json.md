@@ -2691,7 +2691,10 @@ any type.
 The action's name is a [simple identifier](#SimpleIdentifier) that MUST
 be unique within its schema.
 
-Actions cannot be composed with additional path segments.
+Actions cannot be composed with additional path segments nor indexed by key,
+and SHOULD be annotated with the appropriate Capabilities vocabulary annotations
+[OData-VocCap](#ODataVocCap) to denote any supported query options.
+Absent such annotations, actions SHOULD NOT be assumed to support any query options.
 
 An action MAY specify a [return type](#ReturnType) that MUST be a
 primitive, entity or complex type, or a collection of primitive, entity
@@ -2882,8 +2885,14 @@ indicated, it is not composable.
 
 A composable function can be invoked with additional path segments or
 key predicates appended to the resource path that identifies the
-composable function, and with system query options as appropriate for
-the type returned by the composable function.
+composable function. Non-composable functions do not support additional
+path segments, nor indexing by key.
+
+Functions SHOULD be annotated with the appropriate Capabilities vocabulary
+annotations [OData-VocCap](#ODataVocCap) to denote any supported
+query options. Absent such annotations, composable functions SHOULD support
+the same default query options as an entity set of that type would support,
+while non-composable functions SHOULD NOT be assumed to support any query options.
 
 ::: {.varjson .rep}
 ### <a id="IsComposable.13.3" href="#IsComposable.13.3">`$IsComposable`</a>
@@ -6218,6 +6227,10 @@ See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### [OData-VocCore]{id=ODataVocCore}
 _OData Vocabularies Version 4.0: Core Vocabulary_.  
+See link in "[Related work](#RelatedWork)" section on cover page.
+
+###### [OData-VocCap]{id=ODataVocCap}
+_OData Vocabularies Version 4.0: Capabilities Vocabulary_.  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### [OData-VocMeasures]{id=ODataVocMeasures}
