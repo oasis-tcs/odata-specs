@@ -3238,13 +3238,11 @@ multipart batch format specified in [OData-Protocol, section 11.7.7.1](https://d
 
 The value of `dependsOn` is an array of strings whose values
 MUST be values of either `id` or `atomicityGroup`
-of preceding request objects; forward references are not allowed. If a
-request depends on another request that is part of a different atomicity
-group, the atomicity group MUST be listed in `dependsOn`.
+of preceding request objects; forward references are not allowed.
 OData 4.02 or greater services SHOULD NOT require the atomicity group to be listed
-if `dependsOn` already contains the `id` of a request within that atomicity group,
-but (for maximum interoperability with earlier services) clients SHOULD always include
-the atomicity group of any dependent requests from other atomicity groups.
+if `dependsOn` already contains the `id` of a request within that atomicity group
+but, for maximum interoperability with earlier services, clients SHOULD additionally
+specify the `atomicityGroup` of any dependent requests from other atomicity groups.
 
 In the absence of the optional `if` member a request that
 depends on other requests or atomicity groups is only executed if those
