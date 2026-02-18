@@ -44,6 +44,10 @@ For `POST` requests to an action URL the return type of the action
 determines the applicable system query options that a service MAY
 support, following the same rules as `GET` requests.
 
+Actions and Functions SHOULD be annotated with the appropriate 
+Capabilities vocabulary annotations [OData-VocCap](#ODataVocCap) to specify
+supported query options.
+
 `POST` requests to an entity set follow the same rules as `GET` requests
 that return a single entity.
 
