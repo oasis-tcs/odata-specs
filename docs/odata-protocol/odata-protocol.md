@@ -1987,13 +1987,10 @@ concerns around information disclosure.
 
 ## <a id="InStreamErrors" href="#InStreamErrors">9.5 In-Stream Errors</a>
 
-When processing a request, services can produce the response payload either
-in one go after finishing the entire processing, or chunk-by-chunk, outputting chunks as
-they are computed during the processing. The latter is useful if the request payload is
-also consumed chunk-by-chunk, with each processed chunk leading to a chunk of the response
-payload. In this alternative, since the HTTP protocol requires a response code to be sent
-before the first response chunk, the response can only have a success status like
-[`200 OK`](#ResponseCode200OK).
+If a service starts sending the octet-stream of the response payload to the client
+before completion of the computation of the response, the HTTP protocol demands that
+the HTTP status is sent first. The service MAY then send a success status even though the overall
+success of the request has not yet been determined.
 
 In the case that the service encounters an error after sending a success
 status to the client, the service MUST leave the response malformed
@@ -4128,6 +4125,9 @@ have been applied (even though they may have been seen by clients).
 When a service operates at an isolation level of "read committed" or higher,
 it protects against seeing such partial changes.
 
+Services MUST NOT send the client parts of the response that describe changes until
+they have all been carried out.
+
 When data modification requests apply the
 [`continue-on-error`](#Preferencecontinueonerrorodatacontinueonerror) preference,
 they do not guarantee atomicity. See the sections below where this preference is mentioned.
@@ -6148,14 +6148,15 @@ A batch request is represented using either the [multipart batch
 format](#MultipartBatchFormat) defined in this document or the JSON
 batch format defined in [OData-JSON, section 19](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#BatchRequestsandResponses).
 
-Services that process a batch request chunk-by-chunk (as explained in [section 9.5](#InStreamErrors))
-MUST return a [`200 OK`](#ResponseCode200OK) HTTP response code to
+Services MAY return a [`200 OK`](#ResponseCode200OK) HTTP response code to
 indicate that the batch request was accepted for processing, even if the
 processing is yet to be completed. The individual requests within the
 body of the batch request may be processed as soon as they are received,
 this enables clients to stream batch requests, and batch implementations to stream the results.
+This is a special case of the "sending-before-completion" described in [section 9.5](#InStreamErrors).
 
-If the service receives a batch request with an invalid set of headers
+If the service receives a batch request with an invalid set of headers or detects an error
+before starting to send the response,
 it MUST return a [`4xx` response code](#ClientErrorResponses) and
 perform no further processing of the batch request.
 
