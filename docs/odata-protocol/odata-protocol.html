@@ -1286,7 +1286,7 @@ This uses pandoc 3.8.3 from https://github.com/jgm/pandoc/releases/tag/3.8.3.
 <details open><summary>
 <h2 id="95-in-stream-errors"><a id="InStreamErrors" href="#InStreamErrors">9.5 In-Stream Errors</a></h2>
 </summary>
-<p>In the case that the service encounters an error after sending a success status to the client, the service MUST leave the response malformed according to its <a href="#HeaderContentType"><code>Content-Type</code></a> or abort the response by causing an error on transport protocol level. Clients MUST treat the entire response as being in error.</p>
+<p>Because the HTTP response status code is sent before the body of a response, services may encounter an error in generating the response body after having already returned a success status. In such a case the service MUST leave the response malformed according to its <a href="#HeaderContentType"><code>Content-Type</code></a> or abort the response by causing an error on transport protocol level. Clients MUST treat the entire response as being in error.</p>
 <p>Services MAY include the header <a href="#HeaderODataError"><code>OData-Error</code></a> as a trailing header if supported by the transport protocol (e.g. HTTP/1.1 with chunked transfer encoding, or HTTP/2).</p>
 </details>
 </details>
@@ -3104,8 +3104,8 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Batch requests are submitted as a single HTTP <code>POST</code> request to the batch endpoint of a service, located at the URL <code>$batch</code> relative to the service root.</p>
 <p>Individual requests within a batch request are evaluated according to the same semantics used when the request appears outside the context of a batch request.</p>
 <p>A batch request is represented using either the <a href="#MultipartBatchFormat">multipart batch format</a> defined in this document or the JSON batch format defined in <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#BatchRequestsandResponses">OData-JSON, section 19</a>.</p>
-<p>If the set of request headers of a batch request are valid the service MUST return a <a href="#ResponseCode200OK"><code>200 OK</code></a> HTTP response code to indicate that the batch request was accepted for processing, even if the processing is yet to be completed. The individual requests within the body of the batch request may be processed as soon as they are received, this enables clients to stream batch requests, and batch implementations to stream the results.</p>
-<p>If the service receives a batch request with an invalid set of headers it MUST return a <a href="#ClientErrorResponses"><code>4xx</code> response code</a> and perform no further processing of the batch request.</p>
+<p>Services MAY return a <a href="#ResponseCode200OK"><code>200 OK</code></a> HTTP response code to indicate that the batch request was accepted for processing, even if the processing is yet to be completed. The individual requests within the body of the batch request may be processed as soon as they are received, this enables clients to stream batch requests, and batch implementations to stream the results. This is handled as described in <a href="#InStreamErrors">section 9.5</a>.</p>
+<p>If the service receives a batch request with an invalid set of headers or detects an error before starting to send the response, it MUST return a <a href="#ClientErrorResponses"><code>4xx</code> response code</a> and perform no further processing of the batch request.</p>
 <details open><summary>
 <h3 id="1171-batch-request-headers"><a id="BatchRequestHeaders" href="#BatchRequestHeaders">11.7.1 Batch Request Headers</a></h3>
 </summary>

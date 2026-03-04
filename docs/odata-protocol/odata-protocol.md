@@ -1987,8 +1987,9 @@ concerns around information disclosure.
 
 ## <a id="InStreamErrors" href="#InStreamErrors">9.5 In-Stream Errors</a>
 
-In the case that the service encounters an error after sending a success
-status to the client, the service MUST leave the response malformed
+Because the HTTP response status code is sent before the body of a response,
+services may encounter an error in generating the response body after having
+already returned a success status. In such a case the service MUST leave the response malformed
 according to its [`Content-Type`](#HeaderContentType) or abort the response by
 causing an error on transport protocol level. Clients MUST treat
 the entire response as being in error.
@@ -6140,14 +6141,15 @@ A batch request is represented using either the [multipart batch
 format](#MultipartBatchFormat) defined in this document or the JSON
 batch format defined in [OData-JSON, section 19](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#BatchRequestsandResponses).
 
-If the set of request headers of a batch request are valid the service
-MUST return a [`200 OK`](#ResponseCode200OK) HTTP response code to
+Services MAY return a [`200 OK`](#ResponseCode200OK) HTTP response code to
 indicate that the batch request was accepted for processing, even if the
 processing is yet to be completed. The individual requests within the
 body of the batch request may be processed as soon as they are received,
 this enables clients to stream batch requests, and batch implementations to stream the results.
+This is handled as described in [section 9.5](#InStreamErrors).
 
-If the service receives a batch request with an invalid set of headers
+If the service receives a batch request with an invalid set of headers or detects an error
+before starting to send the response,
 it MUST return a [`4xx` response code](#ClientErrorResponses) and
 perform no further processing of the batch request.
 

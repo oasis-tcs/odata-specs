@@ -1078,8 +1078,9 @@ concerns around information disclosure.
 
 ## ##subsec In-Stream Errors
 
-In the case that the service encounters an error after sending a success
-status to the client, the service MUST leave the response malformed
+Because the HTTP response status code is sent before the body of a response,
+services may encounter an error in generating the response body after having
+already returned a success status. In such a case the service MUST leave the response malformed
 according to its [`Content-Type`](#HeaderContentType) or abort the response by
 causing an error on transport protocol level. Clients MUST treat
 the entire response as being in error.
