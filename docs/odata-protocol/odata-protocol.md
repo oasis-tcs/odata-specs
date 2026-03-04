@@ -1987,13 +1987,11 @@ concerns around information disclosure.
 
 ## <a id="InStreamErrors" href="#InStreamErrors">9.5 In-Stream Errors</a>
 
-If a service starts sending the octet-stream of the response payload to the client
-before completion of the computation of the response, the HTTP protocol demands that
-the HTTP status is sent first. The service MAY then send a success status even though the overall
-success of the request has not yet been determined.
+Because the HTTP response status code is sent before the body of a response,
+services may encounter an error in generating the response body after having
+already returned a success status.
 
-In the case that the service encounters an error after sending a success
-status to the client, the service MUST leave the response malformed
+In such a case the service MUST leave the response malformed
 according to its [`Content-Type`](#HeaderContentType) or abort the response by
 causing an error on transport protocol level. Clients MUST treat
 the entire response as being in error.
@@ -6153,7 +6151,7 @@ indicate that the batch request was accepted for processing, even if the
 processing is yet to be completed. The individual requests within the
 body of the batch request may be processed as soon as they are received,
 this enables clients to stream batch requests, and batch implementations to stream the results.
-This is a special case of the "sending-before-completion" described in [section 9.5](#InStreamErrors).
+This is a special case of the "success-status-before-response" described in [section 9.5](#InStreamErrors).
 
 If the service receives a batch request with an invalid set of headers or detects an error
 before starting to send the response,

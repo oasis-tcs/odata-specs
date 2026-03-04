@@ -1078,13 +1078,11 @@ concerns around information disclosure.
 
 ## ##subsec In-Stream Errors
 
-If a service starts sending the octet-stream of the response payload to the client
-before completion of the computation of the response, the HTTP protocol demands that
-the HTTP status is sent first. The service MAY then send a success status even though the overall
-success of the request has not yet been determined.
+Because the HTTP response status code is sent before the body of a response,
+services may encounter an error in generating the response body after having
+already returned a success status.
 
-In the case that the service encounters an error after sending a success
-status to the client, the service MUST leave the response malformed
+In such a case the service MUST leave the response malformed
 according to its [`Content-Type`](#HeaderContentType) or abort the response by
 causing an error on transport protocol level. Clients MUST treat
 the entire response as being in error.
