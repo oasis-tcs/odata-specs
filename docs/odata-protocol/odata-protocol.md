@@ -1989,9 +1989,7 @@ concerns around information disclosure.
 
 Because the HTTP response status code is sent before the body of a response,
 services may encounter an error in generating the response body after having
-already returned a success status.
-
-In such a case the service MUST leave the response malformed
+already returned a success status. In such a case the service MUST leave the response malformed
 according to its [`Content-Type`](#HeaderContentType) or abort the response by
 causing an error on transport protocol level. Clients MUST treat
 the entire response as being in error.
@@ -4123,9 +4121,6 @@ have been applied (even though they may have been seen by clients).
 When a service operates at an isolation level of "read committed" or higher,
 it protects against seeing such partial changes.
 
-Services MUST NOT send the client parts of the response that describe changes until
-they have all been carried out.
-
 When data modification requests apply the
 [`continue-on-error`](#Preferencecontinueonerrorodatacontinueonerror) preference,
 they do not guarantee atomicity. See the sections below where this preference is mentioned.
@@ -6151,7 +6146,7 @@ indicate that the batch request was accepted for processing, even if the
 processing is yet to be completed. The individual requests within the
 body of the batch request may be processed as soon as they are received,
 this enables clients to stream batch requests, and batch implementations to stream the results.
-This is a special case of the "success-status-before-response" described in [section 9.5](#InStreamErrors).
+This is handled as described in [section 9.5](#InStreamErrors).
 
 If the service receives a batch request with an invalid set of headers or detects an error
 before starting to send the response,

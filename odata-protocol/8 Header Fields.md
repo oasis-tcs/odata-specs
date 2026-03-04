@@ -1080,9 +1080,7 @@ concerns around information disclosure.
 
 Because the HTTP response status code is sent before the body of a response,
 services may encounter an error in generating the response body after having
-already returned a success status.
-
-In such a case the service MUST leave the response malformed
+already returned a success status. In such a case the service MUST leave the response malformed
 according to its [`Content-Type`](#HeaderContentType) or abort the response by
 causing an error on transport protocol level. Clients MUST treat
 the entire response as being in error.
