@@ -224,6 +224,7 @@ Section | Feature / Change | Issue
 [Section 14](#EntityReference)| Entities can be referenced by id or full set of key properties| [456](https://github.com/oasis-tcs/odata-specs/issues/456)
 [Section 15.3](#DeletedEntity)| `type` control information, if present, must come immediately after `removed`| [1985](https://github.com/oasis-tcs/odata-specs/issues/1985)
 [Section 18](#ActionInvocation)| Allow common expressions in action payloads| [341](https://github.com/oasis-tcs/odata-specs/issues/341)
+[Section 19](#BatchRequestsandResponses)| Atomicity group of prerequisite requests optional in `dependsOn`| [2150](https://github.com/oasis-tcs/odata-specs/issues/2150)
 
 ## <a id="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -3237,10 +3238,14 @@ multipart batch format specified in [OData-Protocol, section 11.7.7.1](https://d
 
 The value of `dependsOn` is an array of strings whose values
 MUST be values of either `id` or `atomicityGroup`
-of preceding request objects; forward references are not allowed. If a
-request depends on another request that is part of a different atomicity
-group, the atomicity group MUST be listed in `dependsOn`. In
-the absence of the optional `if` member a request that
+of preceding request objects; forward references are not allowed.
+When targeting a 4.01 service, if a request depends on another request that is part of a different atomicity group, the atomicity group MUST be listed in `dependsOn`.
+OData 4.02 or greater services SHOULD NOT require the atomicity group to be listed
+if `dependsOn` already contains the `id` of a request within that atomicity group.
+For maximum interoperability with earlier services, clients SHOULD continue to
+specify the `atomicityGroup`.
+
+In the absence of the optional `if` member a request that
 depends on other requests or atomicity groups is only executed if those
 requests were executed successfully, i.e. with a `2xx`
 response code. If one of the requests it depends on has failed, the

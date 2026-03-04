@@ -45,6 +45,9 @@ Entities can be referenced by id or full set of key properties|
 [Section ##ActionInvocation]| 
 Allow common expressions in action payloads| 
 [341](https://github.com/oasis-tcs/odata-specs/issues/341)
+[Section ##BatchRequestsandResponses]| 
+Atomicity group of prerequisite requests optional in `dependsOn`| 
+[2150](https://github.com/oasis-tcs/odata-specs/issues/2150)
 
 ## ##subsec Glossary
 

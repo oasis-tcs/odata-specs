@@ -390,6 +390,11 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td>Allow common expressions in action payloads</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/341">341</a></td>
 </tr>
+<tr>
+<td><a href="#BatchRequestsandResponses">Section 19</a></td>
+<td>Atomicity group of prerequisite requests optional in <code>dependsOn</code></td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/2150">2150</a></td>
+</tr>
 </tbody>
 </table>
 </details>
@@ -2107,7 +2112,8 @@ Preference-Applied: return=minimal, continue-on-error
 <p>Otherwise, the relative path is resolved relative to the batch request URL (i.e. relative to the service root).</p>
 <p>The value of <code>atomicityGroup</code> is a string whose content MUST NOT be identical to any value of <code>id</code> within the batch request, and which MUST satisfy the rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#request-id"><code>request-id</code></a></span> in <a href="#ODataABNF">OData-ABNF</a>. All request objects with the same value for <code>atomicityGroup</code> MUST be adjacent in the <code>requests</code> array. These requests are processed as an atomic operation and MUST either all succeed, or all fail.</p>
 <p>Note: the atomicity group is a generalization of the change set in the multipart batch format specified in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#MultipartBatchRequestBody">OData-Protocol, section 11.7.7.1</a>.</p>
-<p>The value of <code>dependsOn</code> is an array of strings whose values MUST be values of either <code>id</code> or <code>atomicityGroup</code> of preceding request objects; forward references are not allowed. If a request depends on another request that is part of a different atomicity group, the atomicity group MUST be listed in <code>dependsOn</code>. In the absence of the optional <code>if</code> member a request that depends on other requests or atomicity groups is only executed if those requests were executed successfully, i.e. with a <code>2xx</code> response code. If one of the requests it depends on has failed, the dependent request is not executed and a response with status code of <code>424 Failed Dependency</code> is returned for it as part of the batch response.</p>
+<p>The value of <code>dependsOn</code> is an array of strings whose values MUST be values of either <code>id</code> or <code>atomicityGroup</code> of preceding request objects; forward references are not allowed. When targeting a 4.01 service, if a request depends on another request that is part of a different atomicity group, the atomicity group MUST be listed in <code>dependsOn</code>. OData 4.02 or greater services SHOULD NOT require the atomicity group to be listed if <code>dependsOn</code> already contains the <code>id</code> of a request within that atomicity group. For maximum interoperability with earlier services, clients SHOULD continue to specify the <code>atomicityGroup</code>.</p>
+<p>In the absence of the optional <code>if</code> member a request that depends on other requests or atomicity groups is only executed if those requests were executed successfully, i.e. with a <code>2xx</code> response code. If one of the requests it depends on has failed, the dependent request is not executed and a response with status code of <code>424 Failed Dependency</code> is returned for it as part of the batch response.</p>
 <p>The <code>if</code> member can specify an alternative condition for executing the dependent request. Its value MUST be URL expression (see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CommonExpressionSyntax">OData-URL, section 5.1.1</a>) that evaluates to a Boolean value. The URL expression syntax is extended and additionally allows</p>
 <ul>
 <li><code>$&lt;content-id&gt;/$succeeded</code> to check if the referenced request has succeeded</li>
