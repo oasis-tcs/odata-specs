@@ -384,6 +384,13 @@ A collection-valued navigation property MAY be annotated with the
 term, defined in [OData-VocCore](#ODataVocCore), to specify that it
 supports inserting items into a specific ordinal position.
 
+A collection-valued navigation property MAY be annotated with the
+[Core.Subsets]{.term}
+term, defined in [OData-VocCore](#ODataVocCore), to specify that its
+collection of related entities is a (proper or improper) subset of the
+collection of entities related by the collection-valued navigation property
+specified in the annotation.
+
 ::: {.varjson .rep}
 ### ##subisec `$Type` 
 and ##subisec `$Collection`
