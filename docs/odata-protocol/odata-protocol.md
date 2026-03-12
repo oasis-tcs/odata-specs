@@ -5476,20 +5476,17 @@ Clients should note that requesting a response may be expensive for
 services that could otherwise efficiently apply updates to a (possibly
 filtered) collection.
 
-If the `continue-on-error` preference has been specified, the service
+If the `continue-on-error` preference has been applied, the service
 MAY continue processing updates after a failure. In this case, the
 service MUST return a response containing at least the members of the
 collection that failed to update, which MUST be annotated with the term
 `Core.DataModificationException` with a `failedOperation` value of
 `update`.
 
-If the `continue-on-error` preference has not been specified, and the
+If the `continue-on-error` preference has not been applied, and the
 service is unable to update all of the members identified by the
 request, then it MUST return an error response and MUST NOT apply any
-updates.
-
-If no `continue-on-error` preference is applied, the collection update MUST happen
-in an [atomic](#Atomicity) manner.
+updates in order to guarantee [atomicity](#Atomicity).
 
 ### <a id="DeleteMembersofaCollection" href="#DeleteMembersofaCollection">11.4.14 Delete Members of a Collection</a>
 
@@ -5527,13 +5524,10 @@ Clients should note that requesting a response may be expensive for
 services that could otherwise efficiently apply deletes to a (possibly
 filtered) collection.
 
-If the `continue-on-error` preference has not been specified, and the
+If the `continue-on-error` preference has not been applied, and the
 service is unable to delete all of the entities identified by the
 request, then it MUST return an error response and MUST NOT apply any
-changes.
-
-If no `continue-on-error` preference is applied, the deletion MUST happen
-in an [atomic](#Atomicity) manner.
+changes in order to guarantee [atomicity](#Atomicity).
 
 ## <a id="Operations" href="#Operations">11.5 Operations</a>
 
