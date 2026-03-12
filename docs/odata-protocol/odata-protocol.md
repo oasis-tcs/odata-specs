@@ -4125,6 +4125,10 @@ When data modification requests apply the
 [`continue-on-error`](#Preferencecontinueonerrorodatacontinueonerror) preference,
 they do not guarantee atomicity. See the sections below where this preference is mentioned.
 
+When processing data modification requests that allow this preference but do not apply it,
+services MUST NOT send a status code in the response until all changes
+have been attempted and not use [in-stream errors](#InStreamErrors) to signal failure of a change.
+
 #### <a id="UseofETagsforAvoidingUpdateConflicts" href="#UseofETagsforAvoidingUpdateConflicts">11.4.1.2 Use of ETags for Avoiding Update Conflicts</a>
 
 Each entity has its own ETag value that MUST change when structural
@@ -5347,7 +5351,7 @@ and order as the request payload, representing the applied changes.
 If the `continue-on-error` preference has not been applied, and the
 service is unable to apply all of the changes in the request, then it
 MUST return an error response and MUST NOT apply any of the changes
-specified in the request payload.
+specified in the request payload in order to guarantee [atomicity](#Atomicity).
 
 If the [`continue-on-error`](#Preferencecontinueonerrorodatacontinueonerror) preference
 has been applied and any errors occur in processing the changes, then a delta response MUST be returned
@@ -5381,9 +5385,6 @@ If an individual change fails due to a failed dependency, it MUST be
 annotated with the term [Core.DataModificationException]{.term} and SHOULD specify
 a `responseCode` of `424` ([Failed Dependency](#ResponseCode424FailedDependency)).
 
-If no `continue-on-error` preference is applied, the collection update MUST happen
-in an [atomic](#Atomicity) manner.
-
 ### <a id="ReplaceaCollectionofEntities" href="#ReplaceaCollectionofEntities">11.4.12 Replace a Collection of Entities</a>
 
 Collections of entities can be replaced by submitting a `PUT` request
@@ -5406,7 +5407,7 @@ but fail if the entity does not already exist.
 If the `continue-on-error` preference has not been applied, and the
 service is unable to apply all of the changes in the request, then it
 MUST return an error response and MUST NOT apply any of the changes
-specified in the request payload.
+specified in the request payload in order to guarantee [atomicity](#Atomicity).
 
 If the `continue-on-error` preference has been applied and any errors occur
 in processing the changes, then a response MUST be returned regardless of the
@@ -5426,9 +5427,6 @@ the service, as follows:
   with a `failedOperation` value of `update`.
 - Collections within the request MUST also be represented in the response
   following these same rules.
-
-If no `continue-on-error` preference is applied, the collection update MUST happen
-in an [atomic](#Atomicity) manner.
 
 ### <a id="UpdateMembersofaCollection" href="#UpdateMembersofaCollection">11.4.13 Update Members of a Collection</a>
 
