@@ -4089,8 +4089,14 @@ Updatable OData services support Create, Update, and Delete operations
 for some or all exposed entities. Additionally, [Actions](#Actions)
 supported by a service can affect the state of the system.
 
-A successfully completed [Data Modification Request](#DataModification)
-must not violate the integrity of the data.
+A client specifies its intent to update the state of the system by making data modification requests
+as described in the following subsections. The service may choose how to
+apply the client's intent, subject to the following rules:
+- The service MUST reject data modification requests that violate constraints
+  expressed in the service metadata or annotations (for example,
+  [`Capabilities.InsertRestrictions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#InsertRestrictions)).
+- The following subsections contain rules for successful data modification requests
+  that MUST be obeyed by the service.
 
 The client may request whether content be returned from a Create,
 Update, or Delete request, or the invocation of an Action, by specifying
@@ -4100,8 +4106,7 @@ regardless of whether the requested content could be returned.
 
 ### <a id="CommonDataModificationSemantics" href="#CommonDataModificationSemantics">11.4.1 Common Data Modification Semantics</a>
 
-[Data Modification Requests](#DataModification) share the following
-semantics.
+Data modification requests share the following semantics.
 
 #### <a id="Atomicity" href="#Atomicity">11.4.1.1 Atomicity</a>
 
@@ -4240,7 +4245,12 @@ modified content unless the resource is a stream property value.
 
 When returning content other than for an update to a media entity
 stream, services MUST return the same content as a subsequent request to
-retrieve the same resource. For updating media entity streams, the
+retrieve the same resource would return if there were no other changes to the resources.
+Every entity and related entity contained in the request MUST have in the returned content
+a corresponding entity or related entity or an entry representing an error as
+in [section 11.4.11.1](#ErrorHandlingwhenUpdatingaCollectionofEntities) in cases where this specification
+allows such an error representation.
+For updating media entity streams, the
 content of a non-empty response body MUST be the updated media entity.
 
 Requests that return a single instance of a structured type or a
@@ -4284,17 +4294,27 @@ If the service is unable to determine the canonical collection for the entity, i
 
 The service MUST fail the request if the
 body of the request specifies a key that already exists in the determined collection.
-Otherwise the entity is created in the determined collection and,
+Otherwise the entity MUST be created in the determined collection and,
 if the resource path ends with a non-containment navigation property,
 also linked to the entity containing the navigation property.
 
-The entity representation MAY reference existing
-entities as well as define content for new related entities. The result of the
+In order to relate the created entity to other entities,
+the entity representation MAY reference existing
+entities as well as define content for new related entities. The intended result of the
 operation is the entity with relationships to all referenced existing
 entities as well as all related entities created inline.
 
-If the request includes a related entity type that supports user-specified key values, or server generated keys with user-specified alternate key values, and the request specifies the full set of primary or alternate key values that do not match an existing entity, then a [new entity is created](#CreateRelatedEntitiesWhenCreatinganEntity) with the provided values and associated with the target entity. If a related
-entity specifies the full set of (primary or alternate) key values of an existing entity, then [a relationship is established to that existing entity](#LinktoRelatedEntitiesWhenCreatinganEntity). If both primary and alternate key values are specified, they MUST identify the same entity.
+If the request includes a related entity type that supports user-specified key values,
+or server generated keys with user-specified alternate key values, and the request
+specifies the full set of primary or alternate key values
+that do not match an existing entity, then the client intends to
+[create a new entity](#CreateRelatedEntitiesWhenCreatinganEntity) with the provided
+values and associate it with the target entity. If a related
+entity specifies the full set of (primary or alternate) key values of an existing entity, then
+the client intends to
+[establish a relationship to that existing entity](#LinktoRelatedEntitiesWhenCreatinganEntity).
+If both primary and alternate key values are specified, they MUST
+identify the same entity.
 
 An entity may also be created as the result of a `PATCH` or `PUT` request
 that is [treated as an insert](#UpsertanEntity).
@@ -4346,7 +4366,7 @@ the edit URL or read URL of the created entity, the response MUST contain that U
 
 #### <a id="LinktoRelatedEntitiesWhenCreatinganEntity" href="#LinktoRelatedEntitiesWhenCreatinganEntity">11.4.2.1 Link to Related Entities When Creating an Entity</a>
 
-To create a new entity with links to existing entities in a single
+In order to create a new entity with links to existing entities in a single
 request, the client includes references to the related entities in the
 request body.
 
@@ -4375,7 +4395,8 @@ annotation to the `Manager` and `DirectReports` navigation properties
 
 ::: example
 Example 83: using the JSON format, 4.01 clients can create a new manager
-entity with links to an existing manager (of managers) and to two existing employees by including either the entity-ids or full set of key properties within the `Manager` and `DirectReports` navigation properties
+entity with links to an existing manager (of managers) and to two existing employees by including
+either the entity-ids or full set of key properties within the `Manager` and `DirectReports` navigation properties
 
 ```json
 {
@@ -4390,8 +4411,8 @@ entity with links to an existing manager (of managers) and to two existing emplo
 
 :::
 
-Upon successful completion of the operation, the service creates the
-requested entity and relates it to the requested existing entities.
+Upon successful completion of the operation, the service MUST create the
+requested entity and relate it to the requested existing entities.
 
 Properties of related entities may be updated by supplying property
 values for the related entities. Upon successful completion of
@@ -4412,10 +4433,12 @@ to the new manager.
   "LastName": "Griswold",
   "Manager": { "id": 0 },
   "DirectReports": [
-    {       "@id": "Employees(5)",
+    {
+      "@id": "Employees(5)",
       "TeamName": "Pat's Team"
     },
-    {       "id": 6,
+    {
+      "id": 6,
       "TeamName": "Pat's Team"
     }
   ]
@@ -4430,13 +4453,14 @@ binding information provided by the request URL, the request MUST fail,
 and the service responds with `400 Bad Request`.
 
 Upon failure of the operation, the service MUST NOT create the new
-entity nor update any related entities. In particular, the service MUST never create an entity in a partially valid state
+entity nor update any related entities. In particular, the service
+MUST never create an entity in a partially valid state
 (with the navigation property unset).
 
 #### <a id="CreateRelatedEntitiesWhenCreatinganEntity" href="#CreateRelatedEntitiesWhenCreatinganEntity">11.4.2.2 Create Related Entities When Creating an Entity</a>
 
-A request to create an entity that includes related entities,
-represented using the appropriate inline representation, is referred to
+In order to create an entity together with related entities, the related entities are
+represented using the appropriate inline representation, such a request is referred to
 as a "deep insert".
 
 Media entities MUST contain the format-specific representation of
@@ -4448,9 +4472,10 @@ Each included related entity is processed observing the rules for
 original target URL extended with the navigation path to this related
 entity.
 
-On success, the service MUST create all entities and relate them. If the
+If the
 service responds with [`201 Created`](#ResponseCode201Created) then, in the absence of
-an explicit `$expand`, the response MUST be expanded to include at least the entities and properties that were specified in the deep-insert request.
+an explicit `$expand`, the response MUST be expanded to include at least the entities
+and properties that were specified in the deep-insert request.
 
 Clients MAY associate an id with individual nested entities in the
 request by applying the
@@ -4469,7 +4494,15 @@ support through
 [Capabilities.DeepInsertSupport]{.term}
 MUST return the
 [Core.ContentID]{.term} for
-the inserted or updated entities.
+the inserted or updated entities and MUST fail the request if an entity with associated
+id cannot be created as intended.
+Other services that do not return the [Core.ContentID]{.term} MUST fail requests that contain a
+[value reference](#ReferencingValuesfromResponseBodies) that uses this annotation value.
+
+Services MUST also fail requests if a related entity whose key is fully specified in the
+payload cannot be created as intended. Related entities that cannot be created
+as intended by a successful request MAY be represented in the response as in
+[section 11.4.11.1](#ErrorHandlingwhenUpdatingaCollectionofEntities).
 
 The `continue-on-error` preference is not supported for deep insert
 operations.
@@ -4525,16 +4558,16 @@ greater, the media stream of a media entity can be updated by specifying
 the format-specific representation of the media stream as a virtual
 property `$value`.
 
-Updating a dependent property that is tied to a key property of the
-principal entity through a referential constraint updates the
+When the service updates a dependent property that is tied to a key property of the
+principal entity through a referential constraint, it updates the
 relationship to point to the entity with the specified key value. If
 the canonical collection (as defined in [section 10](#ContextURL)) for that entity cannot be determined or does not contain
-such an entity, the update fails. The canonical collection is known for referential constraints on
+such an entity, the update MUST fail. The canonical collection is known for referential constraints on
 containment navigation properties, and can be determined in the presence of navigation property
 bindings or a context URL in the request payload, or through service specific knowledge.
 
-Updating a principal property that is tied to a dependent entity through
-a referential constraint on the dependent entity updates the dependent
+When the service updates a principal property that is tied to a dependent entity through
+a referential constraint on the dependent entity, it updates the dependent
 property.
 
 Non-updatable properties SHOULD be omitted from the request body.
@@ -4614,7 +4647,7 @@ been added, removed, or changed. Such a request is referred to as a
 "deep update". If the nested collection is represented identical to an
 expanded navigation property, then the set of nested entities and entity
 references specified in a successful request represents the full
-set of entities to be related according to that relationship and MUST
+set of entities întended to be related according to that relationship and MUST
 NOT include added links, deleted links, or deleted entities.
 
 If a navigation property is absent from a `PUT` or `PATCH` request payload, the referenced
@@ -4648,22 +4681,22 @@ reports; two existing employees and one new employee named
 
 :::
 
-If the nested collection is represented as delta control information on the
+If the nested collection is represented as a delta control information on the
 navigation property, then the collection contains members to be added or
 changed and MAY include deleted entities for entities that are no longer
-part of the collection, using the [delta payload](#DeltaPayloads)
+intended to be part of the collection, using the [delta payload](#DeltaPayloads)
 format. If the deleted entity specifies a `reason` as `deleted`, then
-the entity is both removed from the collection and deleted, otherwise it
-is removed from the collection and only deleted if the relationship is
+the entity is to be both removed from the collection and deleted, otherwise it
+is to be removed from the collection and only deleted if the relationship is
 contained. Non-key properties of the deleted entity are ignored. Nested
 collections MUST NOT contain added or deleted links. If the request
-contains nested delta collections, then the `PATCH` verb must be
+contains nested delta collections, then the `PATCH` verb MUST be
 specified.
 
 If a nested entity has the same id or key fields as an existing entity,
-the existing entity is updated according to the semantics of the `PUT` or
+the existing entity is to be updated according to the semantics of the `PUT` or
 `PATCH` request. Nested entities that have no id or key fields, or for
-which the id or key fields do not match existing entities, are treated
+which the id or key fields do not match existing entities, are to be treated
 as inserts and processed observing the rules for [creating an entity](#CreateanEntity).
 If any nested entities contain both id and key
 fields, they MUST identify the same entity, or the request is invalid.
@@ -4812,7 +4845,19 @@ deep updates, including support for returning the
 [Core.ContentID]{.term},
 through the
 [Capabilities.DeepUpdateSupport]{.term}
-term, defined in [OData-VocCap](#ODataVocCap).
+term, defined in [OData-VocCap](#ODataVocCap); services that
+advertise this support MUST return the [Core.ContentID]{.term} for
+the entities in the response and MUST fail the request if an entity with associated
+id cannot be created as intended.
+Other services that do not return the [Core.ContentID]{.term} MUST fail requests that contain a
+[value reference](#ReferencingValuesfromResponseBodies) that uses this annotation value.
+
+Services MUST also fail requests if a related entity whose key is fully specified in the
+payload cannot be created as intended.
+
+Related entities that cannot be created or updated
+as intended by a successful request MAY be represented in the response as in
+[section 11.4.11.1](#ErrorHandlingwhenUpdatingaCollectionofEntities).
 
 The `continue-on-error` preference is not supported for deep update
 operations.
@@ -5345,7 +5390,7 @@ and order as the request payload, representing the applied changes.
 #### <a id="ErrorHandlingwhenUpdatingaCollectionofEntities" href="#ErrorHandlingwhenUpdatingaCollectionofEntities">11.4.11.1 Error Handling when Updating a Collection of Entities</a>
 
 If the `continue-on-error` preference has not been applied, and the
-service is unable to apply all of the changes in the request, then it
+service is unable to successfully complete all of the upserts or deletions intended by the request, then it
 MUST return an error response and MUST NOT apply any of the changes
 specified in the request payload.
 
@@ -5404,7 +5449,7 @@ but fail if the entity does not already exist.
 #### <a id="ErrorHandlingwhenReplacingaCollectionofEntities" href="#ErrorHandlingwhenReplacingaCollectionofEntities">11.4.12.1 Error Handling when Replacing a Collection of Entities</a>
 
 If the `continue-on-error` preference has not been applied, and the
-service is unable to apply all of the changes in the request, then it
+service is unable to successfully complete all of the upserts intended by the request, then it
 MUST return an error response and MUST NOT apply any of the changes
 specified in the request payload.
 
