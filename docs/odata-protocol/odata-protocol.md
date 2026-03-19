@@ -4125,8 +4125,9 @@ When data modification requests apply the
 [`continue-on-error`](#Preferencecontinueonerrorodatacontinueonerror) preference,
 they do not guarantee atomicity. See the [sections 11.4.11](#UpdateaCollectionofEntities),
 [11.4.13](#UpdateMembersofaCollection), and [11.4.14](#DeleteMembersofaCollection) below where this preference is mentioned.
-When processing data modification requests from one of these sections that do not apply the
-`continue-on-error` preference, services MUST NOT send a status code in the response until all changes
+When processing data modification requests from one of these sections in an atomic manner
+(that is, not applying the `continue-on-error` preference),
+services MUST NOT send a status code in the response until all changes
 have been attempted and not use [in-stream errors](#InStreamErrors) to signal failure of a change.
 
 #### <a id="UseofETagsforAvoidingUpdateConflicts" href="#UseofETagsforAvoidingUpdateConflicts">11.4.1.2 Use of ETags for Avoiding Update Conflicts</a>
