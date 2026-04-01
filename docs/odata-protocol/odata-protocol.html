@@ -2934,6 +2934,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <h3 id="1153-advertising-available-operations-within-a-payload"><a id="AdvertisingAvailableOperationswithinaPayload" href="#AdvertisingAvailableOperationswithinaPayload">11.5.3 Advertising Available Operations within a Payload</a></h3>
 </summary>
 <p>Services MAY return actions and/or functions bound to a particular entity or entity collection as part of the representation of the entity or entity collection within the payload. The representation of an action or function depends on the <a href="#Formats">format</a>.</p>
+<p>Operations advertised MUST be defined in metadata for the service. Operation definitions annotated with the <code>Core.RequiresExplicitBinding</code> term are only available when explicitly advertised, or for model elements annotated with the <code>Core.ExplicitOperationBindings</code> term specifying the operation.</p>
 <div class="example">
 <p>Example 99: given a <code>GET</code> request to <code>http://host/service/Customers('ALFKI')</code>, the service might respond with a Customer that includes the <code>SampleEntities.MostRecentOrder</code> function bound to the entity</p>
 <div class="sourceCode" id="cb123"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb123-1"><a href="#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
