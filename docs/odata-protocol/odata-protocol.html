@@ -2298,7 +2298,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Data modification requests guarantee <em>atomicity</em> in the following sense: When the request completes, every subsequent request observes a state of the system in which either all or none of the changes have been carried out. The experience of concurrent clients observing the state of the system can be described through isolation levels as defined in <a href="#_SQL92">SQL92, section 4.28</a>, even for services that do not use a transactional database.</p>
 <p>When a service operates at isolation level “read uncommitted”, concurrent clients MAY observe a state of the system where the changes have been carried out only partially while the data modification request is still being executed. In such a case, if an error is encountered while processing the request, the service MUST roll back any changes that have been applied (even though they may have been seen by clients).</p>
 <p>When a service operates at an isolation level of “read committed” or higher, it protects against seeing such partial changes.</p>
-<p>When data modification requests apply the <a href="#Preferencecontinueonerrorodatacontinueonerror"><code>continue-on-error</code></a> preference, they do not guarantee atomicity. See the sections below where this preference is mentioned.</p>
+<p>When data modification requests apply the <a href="#Preferencecontinueonerrorodatacontinueonerror"><code>continue-on-error</code></a> preference, they do not guarantee atomicity. See the <a href="#UpdateaCollectionofEntities">sections 11.4.11</a>, <a href="#UpdateMembersofaCollection">11.4.13</a>, and <a href="#DeleteMembersofaCollection">11.4.14</a> below where this preference is mentioned. When processing data modification requests from one of these sections in an atomic manner (that is, not applying the <code>continue-on-error</code> preference), services MUST NOT send a status code in the response until all changes have been attempted and not use <a href="#InStreamErrors">in-stream errors</a> to signal failure of a change.</p>
 </details>
 <details open><summary>
 <h4 id="11412-use-of-etags-for-avoiding-update-conflicts"><a id="UseofETagsforAvoidingUpdateConflicts" href="#UseofETagsforAvoidingUpdateConflicts">11.4.1.2 Use of ETags for Avoiding Update Conflicts</a></h4>
@@ -2817,7 +2817,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <details open><summary>
 <h4 id="114111-error-handling-when-updating-a-collection-of-entities"><a id="ErrorHandlingwhenUpdatingaCollectionofEntities" href="#ErrorHandlingwhenUpdatingaCollectionofEntities">11.4.11.1 Error Handling when Updating a Collection of Entities</a></h4>
 </summary>
-<p>If the <code>continue-on-error</code> preference has not been applied, and the service is unable to apply all of the changes in the request, then it MUST return an error response and MUST NOT apply any of the changes specified in the request payload.</p>
+<p>If the <code>continue-on-error</code> preference has not been applied, and the service is unable to apply all of the changes in the request, then it MUST return an error response and MUST NOT apply any of the changes specified in the request payload in order to guarantee <a href="#Atomicity">atomicity</a>.</p>
 <p>If the <a href="#Preferencecontinueonerrorodatacontinueonerror"><code>continue-on-error</code></a> preference has been applied and any errors occur in processing the changes, then a delta response MUST be returned regardless of the <a href="#Preferencereturnrepresentationandreturnminimal"><code>return</code></a> preference and MUST contain at least the failed changes. The service represents failed changes in the delta response as follows:</p>
 <ul>
 <li>Failed deletes in the request MUST be represented in the response as either entities or entity references, annotated with the term <code>Core.DataModificationException</code>, see <a href="#ODataVocCore">OData-VocCore</a>. If the deleted entity specified a reason of <code>deleted</code>, or the target collection is an entity set or containment navigation property, then the value of <code>failedOperation</code> MUST be <code>delete</code>, otherwise <code>unlink</code>.</li>
@@ -2829,7 +2829,6 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <li>Collections within the request are represented as collections in the response according to the rules specified in <a href="#ErrorHandlingwhenReplacingaCollectionofEntities">Replace a Collection of Entities</a>.</li>
 </ul>
 <p>If an individual change fails due to a failed dependency, it MUST be annotated with the term <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DataModificationException"><code>Core.DataModificationException</code></a></span> and SHOULD specify a <code>responseCode</code> of <code>424</code> (<a href="#ResponseCode424FailedDependency">Failed Dependency</a>).</p>
-<p>If no <code>continue-on-error</code> preference is applied, the collection update MUST happen in an <a href="#Atomicity">atomic</a> manner.</p>
 </details>
 </details>
 <details open><summary>
@@ -2840,7 +2839,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <details open><summary>
 <h4 id="114121-error-handling-when-replacing-a-collection-of-entities"><a id="ErrorHandlingwhenReplacingaCollectionofEntities" href="#ErrorHandlingwhenReplacingaCollectionofEntities">11.4.12.1 Error Handling when Replacing a Collection of Entities</a></h4>
 </summary>
-<p>If the <code>continue-on-error</code> preference has not been applied, and the service is unable to apply all of the changes in the request, then it MUST return an error response and MUST NOT apply any of the changes specified in the request payload.</p>
+<p>If the <code>continue-on-error</code> preference has not been applied, and the service is unable to apply all of the changes in the request, then it MUST return an error response and MUST NOT apply any of the changes specified in the request payload in order to guarantee <a href="#Atomicity">atomicity</a>.</p>
 <p>If the <code>continue-on-error</code> preference has been applied and any errors occur in processing the changes, then a response MUST be returned regardless of the <a href="#Preferencereturnrepresentationandreturnminimal"><code>return</code></a> preference, and MUST contain the full membership and values of the collection as it exists in the service, as follows:</p>
 <ul>
 <li>Entities missing in the request that cannot be removed from the collection MUST be represented in the response as either entities or entity references, and SHOULD be annotated with the term <code>Core.DataModificationException</code>, see <a href="#ODataVocCore">OData-VocCore</a>. If the target collection is an entity set or containment navigation property, then the value of <code>failedOperation</code> MUST be <code>delete</code>, otherwise <code>unlink</code>.</li>
@@ -2848,7 +2847,6 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <li>Failed updates within the request MUST be represented in the response with their current values and SHOULD be annotated with the term <code>Core.DataModificationException</code> with a <code>failedOperation</code> value of <code>update</code>.</li>
 <li>Collections within the request MUST also be represented in the response following these same rules.</li>
 </ul>
-<p>If no <code>continue-on-error</code> preference is applied, the collection update MUST happen in an <a href="#Atomicity">atomic</a> manner.</p>
 </details>
 </details>
 <details open><summary>
@@ -2869,9 +2867,8 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 </div>
 <p>The response, if requested, is a collection payload containing the updated representation of each member identified by the request. If the update payload includes nested collections or nested delta collections, then they MUST be included in the response, as described in <a href="#UpdateaCollectionofEntities">Update a Collection of Entities</a>.</p>
 <p>Clients should note that requesting a response may be expensive for services that could otherwise efficiently apply updates to a (possibly filtered) collection.</p>
-<p>If the <code>continue-on-error</code> preference has been specified, the service MAY continue processing updates after a failure. In this case, the service MUST return a response containing at least the members of the collection that failed to update, which MUST be annotated with the term <code>Core.DataModificationException</code> with a <code>failedOperation</code> value of <code>update</code>.</p>
-<p>If the <code>continue-on-error</code> preference has not been specified, and the service is unable to update all of the members identified by the request, then it MUST return an error response and MUST NOT apply any updates.</p>
-<p>If no <code>continue-on-error</code> preference is applied, the collection update MUST happen in an <a href="#Atomicity">atomic</a> manner.</p>
+<p>If the <code>continue-on-error</code> preference has been applied, the service MAY continue processing updates after a failure. In this case, the service MUST return a response containing at least the members of the collection that failed to update, which MUST be annotated with the term <code>Core.DataModificationException</code> with a <code>failedOperation</code> value of <code>update</code>.</p>
+<p>If the <code>continue-on-error</code> preference has not been applied, and the service is unable to update all of the members identified by the request, then it MUST return an error response and MUST NOT apply any updates in order to guarantee <a href="#Atomicity">atomicity</a>.</p>
 </details>
 <details open><summary>
 <h3 id="11414-delete-members-of-a-collection"><a id="DeleteMembersofaCollection" href="#DeleteMembersofaCollection">11.4.14 Delete Members of a Collection</a></h3>
@@ -2885,8 +2882,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>If the path identifies a collection of entities and if the service returns a representation, then the response is a delta response containing a representation of a deleted entity for each deleted member.</p>
 <p>If the collection is a collection of entities, then the client MAY specify the <code>continue-on-error</code> preference, in which case the service MAY continue processing deletes after a failure. In this case, the service MUST return a response containing at least an entity or entity reference for each entity identified by the request that failed to delete, which MUST be annotated with the term <code>Core.DataModificationException</code> with a <code>failedOperation</code> value of <code>delete</code>.</p>
 <p>Clients should note that requesting a response may be expensive for services that could otherwise efficiently apply deletes to a (possibly filtered) collection.</p>
-<p>If the <code>continue-on-error</code> preference has not been specified, and the service is unable to delete all of the entities identified by the request, then it MUST return an error response and MUST NOT apply any changes.</p>
-<p>If no <code>continue-on-error</code> preference is applied, the deletion MUST happen in an <a href="#Atomicity">atomic</a> manner.</p>
+<p>If the <code>continue-on-error</code> preference has not been applied, and the service is unable to delete all of the entities identified by the request, then it MUST return an error response and MUST NOT apply any changes in order to guarantee <a href="#Atomicity">atomicity</a>.</p>
 </details>
 </details>
 <details open><summary>
