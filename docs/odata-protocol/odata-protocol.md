@@ -5640,6 +5640,12 @@ entity or entity collection as part of the representation of the entity
 or entity collection within the payload. The representation of an action
 or function depends on the [format](#Formats).
 
+Operations advertised MUST be defined in metadata for the service.
+Operation definitions annotated with the `Core.RequiresExplicitBinding` term
+are only available when explicitly advertised, or
+for model elements annotated with the `Core.ExplicitOperationBindings` term
+specifying the operation.
+
 ::: example
 Example 99: given a `GET` request to
 `http://host/service/Customers('ALFKI')`, the service might respond with
@@ -5660,7 +5666,7 @@ bound to the entity
 :::
 
 An efficient format that assumes client knowledge of metadata may omit
-actions and functions from the payload  whose target URL can be computed
+actions and functions from the payload whose target URL can be computed
 via metadata following standard conventions defined in
 [OData-URL, section 4.5](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingOperations).
 
