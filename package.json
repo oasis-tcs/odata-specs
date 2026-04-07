@@ -22,10 +22,14 @@
     "js-yaml": "^4.1.1",
     "mocha": "^11.3.0",
     "pandoc-filter": "^2.2.0",
-    "puppeteer": "^22.14.0"
+    "puppeteer": "^24.40.0"
   },
   "devDependencies": {
     "connect-livereload": "^0.6.1",
     "livereload": "^0.9.3"
+  },
+  "overrides": {
+    "diff": "^8.0.3",
+    "serialize-javascript": "^7.0.5"
   }
 }
