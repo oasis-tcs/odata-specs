@@ -401,7 +401,10 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </ul></li>
 <li><a href="#UpdateanEntity">11.4.3 Update an Entity</a>
 <ul>
-<li><a href="#UpdateRelatedEntitiesWhenUpdatinganEntity">11.4.3.1 Update Related Entities When Updating an Entity</a></li>
+<li><a href="#UpdateRelatedEntitiesWhenUpdatinganEntity">11.4.3.1 Update Related Entities When Updating an Entity</a>
+<ul>
+<li><a href="#ResponseRepresentationofRelatedEntities">11.4.3.1.1 Response Representation of Related Entities</a></li>
+</ul></li>
 <li><a href="#UpsertanEntity">11.4.3.2 Upsert an Entity</a></li>
 </ul></li>
 <li><a href="#DeleteanEntity">11.4.4 Delete an Entity</a></li>
@@ -2600,6 +2603,14 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Clients MAY associate an id with individual nested entities in the request by using the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a></span> term defined in <a href="#ODataVocCore">OData-VocCore</a>. Services that respond with <a href="#ResponseCode200OK"><code>200 OK</code></a> SHOULD annotate the entities in the response using the same <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a></span> value as specified in the request. Services SHOULD advertise support for deep updates, including support for returning the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a></span>, through the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#DeepUpdateSupport"><code>Capabilities.DeepUpdateSupport</code></a></span> term, defined in <a href="#ODataVocCap">OData-VocCap</a>.</p>
 <p>The <code>continue-on-error</code> preference is not supported for deep update operations.</p>
 <p>On failure, the service MUST NOT apply any of the changes specified in the request.</p>
+<details open><summary>
+<h5 id="114311-response-representation-of-related-entities"><a id="ResponseRepresentationofRelatedEntities" href="#ResponseRepresentationofRelatedEntities">11.4.3.1.1 Response Representation of Related Entities</a></h5>
+</summary>
+<p>In the absence of <a href="#SystemQueryOptionexpand"><code>$expand</code></a>, an update request that includes related entities SHOULD include those related entities in the response.</p>
+<p>If a collection representing the full set of related entities is included in the update request, then the full set of related entities for that collection SHOULD be included in the response.</p>
+<p>If changes to a related collection are included as a delta representation in the request payload, then a delta representation of the collection containing at least the applied changes SHOULD be included in the response.</p>
+<p>If the update request includes <code>$expand</code>, then the expanded collections are represented in the response as the full set of related entities, and no related collections are returned as delta representations.</p>
+</details>
 </details>
 <details open><summary>
 <h4 id="11432-upsert-an-entity"><a id="UpsertanEntity" href="#UpsertanEntity">11.4.3.2 Upsert an Entity</a></h4>
