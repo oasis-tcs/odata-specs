@@ -752,9 +752,17 @@ after existing parameters
 that does not need to be understood by the client in order to correctly
 interact with the service
 
-Clients SHOULD be prepared for services to make such incremental changes
-to their model. In particular, clients SHOULD be prepared to receive
-properties and derived types not previously defined by the service.
+Clients should be prepared for services to make such incremental changes
+to their model at any time. In particular:
+- Clients should be prepared to receive
+properties and derived types not previously defined by the service
+- Clients that cache metadata should be prepared to receive references
+to new schema elements in response payloads, including types, properties,
+entity sets, singletons, operations and terms, that may not have been
+part of the cached metadata
+- Clients should be prepared to receive references to schema
+elements defined in new metadata documents, including metadata
+documents not referenced by the original schema
 
 Services SHOULD NOT change their data model depending on the
 authenticated user. If the data model is user or user-group dependent,
