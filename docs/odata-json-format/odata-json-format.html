@@ -632,7 +632,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <pre><code>Content-Type: application/json;metadata=minimal</code></pre>
 <p>cannot be assumed to support streaming.</p>
 </div>
-<p>JSON producers are encouraged to follow the payload ordering constraints whenever possible (and include the <code>streaming=true</code> media type parameter) to support the maximum set of client scenarios. 4.02 and greater clients and services MAY require that JSON request and response payloads follow ordering constraints (whether or not <code>streaming=true</code> is specified) in order to interoperate.</p>
+<p>JSON producers are encouraged to follow the payload ordering constraints whenever possible (and include the <code>streaming=true</code> media type parameter) to support the maximum set of client scenarios. 4.02 and greater clients and services MAY require that JSON request and response payloads follow ordering constraints (whether or not <code>streaming=true</code> is specified) in order to interoperate. Such services SHOULD report their support using the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#JsonStreamingSupport"><code>Capabilities.JsonStreamingSupport</code></a></span> term.</p>
 <p>To support streaming scenarios the following payload ordering constraints have to be met:</p>
 <ul>
 <li>If present, the <code>context</code> control information MUST be the first property in the JSON object.</li>
