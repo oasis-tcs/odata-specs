@@ -395,6 +395,16 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td>Atomicity group of prerequisite requests optional in <code>dependsOn</code></td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/2150">2150</a></td>
 </tr>
+<tr>
+<td>Ordering of properties in JSON Batch Request/Response objects</td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/351">351</a></td>
+<td></td>
+</tr>
+<tr>
+<td>Clients and services MAY require ordered JSON payloads</td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/351">351</a></td>
+<td></td>
+</tr>
 </tbody>
 </table>
 </details>
@@ -622,7 +632,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <pre><code>Content-Type: application/json;metadata=minimal</code></pre>
 <p>cannot be assumed to support streaming.</p>
 </div>
-<p>JSON producers are encouraged to follow the payload ordering constraints whenever possible (and include the <code>streaming=true</code> media type parameter) to support the maximum set of client scenarios.</p>
+<p>JSON producers are encouraged to follow the payload ordering constraints whenever possible (and include the <code>streaming=true</code> media type parameter) to support the maximum set of client scenarios. 4.02 and greater clients and services MAY require that JSON request and response payloads follow ordering constraints (whether or not <code>streaming=true</code> is specified) in order to interoperate.</p>
 <p>To support streaming scenarios the following payload ordering constraints have to be met:</p>
 <ul>
 <li>If present, the <code>context</code> control information MUST be the first property in the JSON object.</li>
@@ -2103,7 +2113,7 @@ Preference-Applied: return=minimal, continue-on-error
 </summary>
 <p>A JSON batch request body consists of a single JSON object that MUST contain the name/value pair <code>requests</code> and MAY contain <a href="#InstanceAnnotations">annotations</a>. It does not contain the <code>context</code> control information.</p>
 <p>The value of <code>requests</code> is an array of request objects, each representing an individual request. Note: an individual request MUST NOT itself be a batch request.</p>
-<p>A <em>request object</em> MUST contain the name/value pairs <code>id</code>, <code>method</code> and <code>url</code>, and it MAY contain the name/value pairs <code>atomicityGroup</code>, <code>dependsOn</code>, <code>if</code>, <code>headers</code>, and <code>body</code>.</p>
+<p>A <em>request object</em> MUST contain the name/value pairs <code>id</code>, <code>method</code> and <code>url</code>, and it MAY contain the name/value pairs <code>atomicityGroup</code>, <code>dependsOn</code>, <code>if</code>, <code>headers</code>, and <code>body</code>. For <a href="#PayloadOrderingConstraints">ordered payloads</a>, the <code>id</code> MUST be the first name/value pair in the request object, and <code>body</code> (if present) MUST be the final name/value pair in the request object.</p>
 <p>The value of <code>id</code> is a string containing the request identifier of the individual request, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#IdentifyingIndividualRequests">OData-Protocol, section 11.7.3</a>. It MUST NOT be identical to the value of any other request identifier nor any <code>atomicityGroup</code> within the batch request.</p>
 <p>Note: the <code>id</code> name/value pair corresponds to the <code>Content-ID</code> header in the multipart batch format specified in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#MultipartBatchRequestBody">OData-Protocol, section 11.7.7.1</a>.</p>
 <p>The value of <code>method</code> is a string that MUST contain one of the literals <code>delete</code>, <code>get</code>, <code>patch</code>, <code>post</code>, or <code>put</code>. These literals are case-insensitive.</p>
@@ -2310,10 +2320,11 @@ Preference-Applied: return=minimal, continue-on-error
 <p>A JSON batch response MAY be a partial result containing the <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a> control information. This allows services to chunk results into manageable pieces, or to return results for already processed requests and continue processing the remaining individual requests while waiting for the client to fire a <code>GET</code> request to the next link.</p>
 <p>In a response to a batch request using the multipart format defined in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#MultipartBatchFormat">OData-Protocol, section 11.7.7</a> the response objects MUST appear in the same order as required for multipart batch responses because the <code>Content-ID</code> header is not required outside of change sets. Response objects corresponding to requests that specify a <code>Content-ID</code> header MUST contain the <code>id</code> name/value pair, and the value of <code>id</code> MUST be the value of the <code>Content-ID</code> header of the corresponding request. This is necessarily the case for requests contained within a change set. Responses to requests within a change set MUST contain the <code>atomicityGroup</code> name/value pair with a value common within a change set and unique across change sets.</p>
 <p>In a response to a batch request using the JSON batch request format specified in the preceding section the response objects MAY appear in any order, and each response object MUST contain the <code>id</code> name/value pair with the same value as in the corresponding request object. If the corresponding request object contains the <code>atomicityGroup</code> name/value pair, it MUST also be present in the response object with the same value.</p>
+<p>When present in <a href="#PayloadOrderingConstraints">ordered payloads</a>, the <code>id</code> MUST be the first name/value pair in the response object.</p>
 <p>If any response within an atomicity group returns a failure code, all requests within that atomicity group are considered failed, regardless of their individual returned status code. The service MAY return <code>424 Failed Dependency</code> for statements within an atomicity group that fail or are not attempted due to other failures within the same atomicity group.</p>
 <p>A response object MUST contain the name/value pair <code>status</code> whose value is a number representing the HTTP status code of the response to the individual request.</p>
 <p>The response object MAY contain the name/value pair <code>headers</code> whose value is an object with name/value pairs representing response headers. The name of each pair MUST be the lower-case header name; the value is a string containing the header-encoded value of the header. If the object does not name the <code>content-type</code>, then the <code>content-type</code> header mandated by <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#HeaderContentType">OData-Protocol, section 8.1.1</a> is assumed to be <code>application/json</code> (with no format parameters).</p>
-<p>The response object MAY contain the name/value pair <code>body</code> which follows the same rules as within <a href="#BatchRequest">request objects</a>.</p>
+<p>The response object MAY contain the name/value pair <code>body</code> which follows the same rules as within <a href="#BatchRequest">request objects</a>, including placement as the last property in the response object for <a href="#PayloadOrderingConstraints">ordered payloads</a>.</p>
 <p>Relative URLs in a response object follow the rules for <a href="#RelativeURLs">relative URLs</a> based on the request URL of the corresponding request. Especially: URLs in responses MUST NOT contain <code>$</code>-prefixed request identifiers.</p>
 <div class="example">
 <p>Example 59: referencing the batch request <a href="#batchRequest">example 55</a> above, assume all the requests except the final query request succeed. In this case the response would be</p>

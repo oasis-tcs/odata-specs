@@ -158,6 +158,9 @@ cannot be assumed to support streaming.
 JSON producers are encouraged to follow the payload ordering constraints
 whenever possible (and include the `streaming=true`
 media type parameter) to support the maximum set of client scenarios.
+4.02 and greater clients and services MAY require that JSON request and response payloads
+follow ordering constraints (whether or not `streaming=true` is specified) in
+order to interoperate.
 
 To support streaming scenarios the following payload ordering
 constraints have to be met:
