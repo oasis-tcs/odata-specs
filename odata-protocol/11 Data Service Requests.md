@@ -404,8 +404,11 @@ GET http://host/service/Customers?$select=ID,Addresses/$count($filter=startswith
 :::
 
 If the `$select` query option is not specified, the service returns
-the full set of properties or a default set of properties. The default
-set of properties MUST include all key properties.
+the full set of properties or a default set of properties. In either case
+it MUST include all key properties, expanding navigation properties as necessary
+to include key properties from related entities that are defined with an alias
+[#OData-CSDL#Key] irrespective of the system query option [`$expand`](#SystemQueryOptionexpand).
+
 Services may change the default set of properties returned. This
 includes returning new properties by default and omitting properties
 previously returned by default. Clients that rely on
