@@ -2,7 +2,6 @@ name: Node CI
 
 on: 
   push:
-  workflow_dispatch:
 
 jobs:
   build:
