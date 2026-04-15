@@ -788,9 +788,9 @@ This uses pandoc 3.8.3 from https://github.com/jgm/pandoc/releases/tag/3.8.3.
 </ul>
 <p>Clients should be prepared for services to make such incremental changes to their model at any time. In particular:</p>
 <ul>
-<li>Clients should be prepared to receive properties and derived types not previously defined by the service</li>
-<li>Clients that cache metadata should be prepared to receive references to new schema elements in response payloads, including types, properties, entity sets, singletons, operations and terms, that may not have been part of the cached metadata</li>
-<li>Clients should be prepared to receive references to schema elements defined in new metadata documents, including metadata documents not referenced by the original schema</li>
+<li>Clients should be prepared to receive properties and derived types not previously defined by the service.</li>
+<li>Clients that cache metadata should be prepared to receive references to new schema elements in response payloads, including types, properties, entity sets, singletons, operations and terms, in existing or new namespaces, that may not have been part of the cached metadata.</li>
+<li>Clients should be prepared to receive references to schema elements defined in new metadata documents, including metadata documents not referenced by the original schema.</li>
 </ul>
 <p>Services SHOULD NOT change their data model depending on the authenticated user. If the data model is user or user-group dependent, all changes MUST be <em>safe changes</em> as defined in this section when comparing the full model to the model visible to users with restricted authorizations.</p>
 </details>
