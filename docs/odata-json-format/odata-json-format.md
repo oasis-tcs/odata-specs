@@ -225,6 +225,8 @@ Section | Feature / Change | Issue
 [Section 15.3](#DeletedEntity)| `type` control information, if present, must come immediately after `removed`| [1985](https://github.com/oasis-tcs/odata-specs/issues/1985)
 [Section 18](#ActionInvocation)| Allow common expressions in action payloads| [341](https://github.com/oasis-tcs/odata-specs/issues/341)
 [Section 19](#BatchRequestsandResponses)| Atomicity group of prerequisite requests optional in `dependsOn`| [2150](https://github.com/oasis-tcs/odata-specs/issues/2150)
+Ordering of properties in JSON Batch Request/Response objects| [351](https://github.com/oasis-tcs/odata-specs/issues/351)
+Clients and services MAY require ordered JSON payloads| [351](https://github.com/oasis-tcs/odata-specs/issues/351)
 
 ## <a id="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -709,6 +711,9 @@ cannot be assumed to support streaming.
 JSON producers are encouraged to follow the payload ordering constraints
 whenever possible (and include the `streaming=true`
 media type parameter) to support the maximum set of client scenarios.
+4.02 and greater clients and services MAY require that JSON request and response payloads
+follow ordering constraints (whether or not `streaming=true` is specified) in
+order to interoperate.
 
 To support streaming scenarios the following payload ordering
 constraints have to be met:
@@ -3192,6 +3197,9 @@ itself be a batch request.
 A _request object_ MUST contain the name/value pairs `id`,
 `method` and `url`, and it MAY contain the
 name/value pairs `atomicityGroup`, `dependsOn`, `if`, `headers`, and `body`.
+For [ordered payloads](#PayloadOrderingConstraints), the `id`
+MUST be the first name/value pair in the request object, and `body` (if
+present) MUST be the final name/value pair in the request object.
 
 The value of `id` is a string containing the request
 identifier of the individual request, see
@@ -3547,6 +3555,9 @@ corresponding request object contains the `atomicityGroup`
 name/value pair, it MUST also be present in the response object with the
 same value.
 
+When present in [ordered payloads](#PayloadOrderingConstraints), the `id`
+MUST be the first name/value pair in the response object.
+
 If any response within an atomicity group returns a failure code, all
 requests within that atomicity group are considered failed, regardless
 of their individual returned status code. The service MAY return
@@ -3566,7 +3577,9 @@ If the object does not name the `content-type`, then the `content-type` header m
 [OData-Protocol, section 8.1.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#HeaderContentType) is assumed to be `application/json` (with no format parameters).
 
 The response object MAY contain the name/value pair `body`
-which follows the same rules as within [request objects](#BatchRequest).
+which follows the same rules as within [request objects](#BatchRequest),
+including placement as the last property in the response object for
+[ordered payloads](#PayloadOrderingConstraints).
 
 Relative URLs in a response object follow the rules for [relative
 URLs](#RelativeURLs) based on the request URL of the corresponding

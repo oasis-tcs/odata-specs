@@ -17,6 +17,9 @@ itself be a batch request.
 A _request object_ MUST contain the name/value pairs `id`,
 `method` and `url`, and it MAY contain the
 name/value pairs `atomicityGroup`, `dependsOn`, `if`, `headers`, and `body`.
+For [ordered payloads](#PayloadOrderingConstraints), the `id`
+MUST be the first name/value pair in the request object, and `body` (if
+present) MUST be the final name/value pair in the request object.
 
 The value of `id` is a string containing the request
 identifier of the individual request, see
@@ -373,6 +376,9 @@ corresponding request object contains the `atomicityGroup`
 name/value pair, it MUST also be present in the response object with the
 same value.
 
+When present in [ordered payloads](#PayloadOrderingConstraints), the `id`
+MUST be the first name/value pair in the response object.
+
 If any response within an atomicity group returns a failure code, all
 requests within that atomicity group are considered failed, regardless
 of their individual returned status code. The service MAY return
@@ -392,7 +398,9 @@ If the object does not name the `content-type`, then the `content-type` header m
 [#OData-Protocol#HeaderContentType] is assumed to be `application/json` (with no format parameters).
 
 The response object MAY contain the name/value pair `body`
-which follows the same rules as within [request objects](#BatchRequest).
+which follows the same rules as within [request objects](#BatchRequest),
+including placement as the last property in the response object for
+[ordered payloads](#PayloadOrderingConstraints).
 
 Relative URLs in a response object follow the rules for [relative
 URLs](#RelativeURLs) based on the request URL of the corresponding

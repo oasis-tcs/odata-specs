@@ -48,6 +48,10 @@ Allow common expressions in action payloads|
 [Section ##BatchRequestsandResponses]| 
 Atomicity group of prerequisite requests optional in `dependsOn`| 
 [2150](https://github.com/oasis-tcs/odata-specs/issues/2150)
+Ordering of properties in JSON Batch Request/Response objects| 
+[351](https://github.com/oasis-tcs/odata-specs/issues/351)
+Clients and services MAY require ordered JSON payloads| 
+[351](https://github.com/oasis-tcs/odata-specs/issues/351)
 
 ## ##subsec Glossary
 
