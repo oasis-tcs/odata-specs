@@ -752,9 +752,17 @@ after existing parameters
 that does not need to be understood by the client in order to correctly
 interact with the service
 
-Clients SHOULD be prepared for services to make such incremental changes
-to their model. In particular, clients SHOULD be prepared to receive
+Clients should be prepared for services to make such incremental changes
+to their model at any time. In particular:
+- Clients should be prepared to receive
 properties and derived types not previously defined by the service.
+- Clients that cache metadata should be prepared to receive references
+to new schema elements in response payloads, including types, properties,
+entity sets, singletons, operations and terms, in existing or new namespaces, that may not have been
+part of the cached metadata.
+- Clients should be prepared to receive references to schema
+elements defined in new metadata documents, including metadata
+documents not referenced by the original schema.
 
 Services SHOULD NOT change their data model depending on the
 authenticated user. If the data model is user or user-group dependent,
@@ -3000,8 +3008,11 @@ GET http://host/service/Customers?$select=ID,Addresses/$count($filter=startswith
 :::
 
 If the `$select` query option is not specified, the service returns
-the full set of properties or a default set of properties. The default
-set of properties MUST include all key properties.
+the full set of properties or a default set of properties. In either case
+it MUST include all key properties, expanding navigation properties as necessary
+to include key properties from related entities
+[OData-CSDL, section 6.5](https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#Key) irrespective of the system query option [`$expand`](#SystemQueryOptionexpand).
+
 Services may change the default set of properties returned. This
 includes returning new properties by default and omitting properties
 previously returned by default. Clients that rely on

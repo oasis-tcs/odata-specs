@@ -786,7 +786,12 @@ This uses pandoc 3.8.3 from https://github.com/jgm/pandoc/releases/tag/3.8.3.
 <li>Adding a new term</li>
 <li>Adding any annotation to a model element that does not need to be understood by the client in order to correctly interact with the service</li>
 </ul>
-<p>Clients SHOULD be prepared for services to make such incremental changes to their model. In particular, clients SHOULD be prepared to receive properties and derived types not previously defined by the service.</p>
+<p>Clients should be prepared for services to make such incremental changes to their model at any time. In particular:</p>
+<ul>
+<li>Clients should be prepared to receive properties and derived types not previously defined by the service.</li>
+<li>Clients that cache metadata should be prepared to receive references to new schema elements in response payloads, including types, properties, entity sets, singletons, operations and terms, in existing or new namespaces, that may not have been part of the cached metadata.</li>
+<li>Clients should be prepared to receive references to schema elements defined in new metadata documents, including metadata documents not referenced by the original schema.</li>
+</ul>
 <p>Services SHOULD NOT change their data model depending on the authenticated user. If the data model is user or user-group dependent, all changes MUST be <em>safe changes</em> as defined in this section when comparing the full model to the model visible to users with restricted authorizations.</p>
 </details>
 </details>
@@ -1800,7 +1805,8 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Example 41: for each customer, return the ID and the count of addresses starting with the letter ‘H’.</p>
 <pre><code>GET http://host/service/Customers?$select=ID,Addresses/$count($filter=startswith(City,&#39;H&#39;))</code></pre>
 </div>
-<p>If the <code>$select</code> query option is not specified, the service returns the full set of properties or a default set of properties. The default set of properties MUST include all key properties. Services may change the default set of properties returned. This includes returning new properties by default and omitting properties previously returned by default. Clients that rely on specific properties in the response MUST use <code>$select</code> with the required properties or with <code>*</code>.</p>
+<p>If the <code>$select</code> query option is not specified, the service returns the full set of properties or a default set of properties. In either case it MUST include all key properties, expanding navigation properties as necessary to include key properties from related entities <a href="https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#Key">OData-CSDL, section 6.5</a> irrespective of the system query option <a href="#SystemQueryOptionexpand"><code>$expand</code></a>.</p>
+<p>Services may change the default set of properties returned. This includes returning new properties by default and omitting properties previously returned by default. Clients that rely on specific properties in the response MUST use <code>$select</code> with the required properties or with <code>*</code>.</p>
 <p>If the service returns less than the full set of properties, either because the client specified a select or because the service returned a subset of properties in the absence of a select, the <a href="#ContextURL">context URL</a> MUST reflect the set of selected properties and projected <a href="#SystemQueryOptionexpand">expanded</a> navigation properties.</p>
 <details open><summary>
 <h5 id="112511-select-options"><a id="SelectOptions" href="#SelectOptions">11.2.5.1.1 Select Options</a></h5>
