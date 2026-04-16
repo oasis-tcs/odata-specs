@@ -252,6 +252,7 @@ For complete copyright information please see the full Notices section in an App
       - [11.4.2.2 Create Related Entities When Creating an Entity](#CreateRelatedEntitiesWhenCreatinganEntity)
     - [11.4.3 Update an Entity](#UpdateanEntity)
       - [11.4.3.1 Update Related Entities When Updating an Entity](#UpdateRelatedEntitiesWhenUpdatinganEntity)
+        - [11.4.3.1.1 Response Representation of Related Entities](#ResponseRepresentationofRelatedEntities)
       - [11.4.3.2 Upsert an Entity](#UpsertanEntity)
     - [11.4.4 Delete an Entity](#DeleteanEntity)
     - [11.4.5 Modifying Relationships between Entities](#ModifyingRelationshipsbetweenEntities)
@@ -4835,6 +4836,21 @@ operations.
 
 On failure, the service MUST NOT apply any of the changes specified in
 the request.
+
+##### <a id="ResponseRepresentationofRelatedEntities" href="#ResponseRepresentationofRelatedEntities">11.4.3.1.1 Response Representation of Related Entities</a>
+
+In the absence of [`$expand`](#SystemQueryOptionexpand), an update request that includes related entities SHOULD include those related entities in the response.
+
+If a collection representing the full set of related entities is included in
+the update request, then the full set of related entities for that collection
+SHOULD be included in the response.
+
+If changes to a related collection are included as a delta representation
+in the request payload, then a delta representation of the collection containing at least the applied changes SHOULD be included in the response.
+
+If the update request includes `$expand`, then the expanded collections
+are represented in the response as the full set of related entities,
+and no related collections are returned as delta representations.
 
 #### <a id="UpsertanEntity" href="#UpsertanEntity">11.4.3.2 Upsert an Entity</a>
 
