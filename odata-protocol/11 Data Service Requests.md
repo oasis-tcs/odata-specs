@@ -409,11 +409,10 @@ it MUST include all key properties, expanding navigation properties as necessary
 to include key properties from related entities
 [#OData-CSDL#Key] irrespective of the system query option [`$expand`](#SystemQueryOptionexpand).
 
-Services may change the default set of properties returned. This
-includes returning new properties by default and omitting properties
-previously returned by default. Clients that rely on
-specific properties in the response MUST use
-`$select` with the required properties or with `*`.
+Services may change the default set of properties returned.
+While, for backward compatibility, services SHOULD NOT omit properties
+previously returned by default, clients that rely on specific properties
+in the response MUST use `$select` with the required properties or with `*`.
 
 If the service returns less than the full set
 of properties, either because the client specified a select or because
