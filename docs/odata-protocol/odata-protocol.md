@@ -763,6 +763,9 @@ part of the cached metadata.
 - Clients should be prepared to receive references to schema
 elements defined in new metadata documents, including metadata
 documents not referenced by the original schema.
+- Clients should use `$select` to select required properties, as the
+service may change the default set of properties returned in the
+absence of `$select`.
 
 Services SHOULD NOT change their data model depending on the
 authenticated user. If the data model is user or user-group dependent,
@@ -770,6 +773,9 @@ all changes MUST be *safe changes* as defined in this section when
 comparing the full model to the model visible to users with restricted
 authorizations.
 
+Services MAY change the default set of properties returned in the
+absence of `$select` but, for backward compatibility, SHOULD NOT
+reduce the set of properties returned by default.
 -------
 
 # <a id="Extensibility" href="#Extensibility">6 Extensibility</a>
@@ -3013,11 +3019,10 @@ it MUST include all key properties, expanding navigation properties as necessary
 to include key properties from related entities
 [OData-CSDL, section 6.5](https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#Key) irrespective of the system query option [`$expand`](#SystemQueryOptionexpand).
 
-Services may change the default set of properties returned. This
-includes returning new properties by default and omitting properties
-previously returned by default. Clients that rely on
-specific properties in the response MUST use
-`$select` with the required properties or with `*`.
+Services may change the default set of properties returned.
+While, for backward compatibility, services SHOULD NOT omit properties
+previously returned by default, clients that rely on specific properties
+in the response MUST use `$select` with the required properties or with `*`.
 
 If the service returns less than the full set
 of properties, either because the client specified a select or because
