@@ -452,12 +452,19 @@ part of the cached metadata.
 - Clients should be prepared to receive references to schema
 elements defined in new metadata documents, including metadata
 documents not referenced by the original schema.
+- Clients should use `$select` to select required properties, as the
+service may change the default set of properties returned in the
+absence of `$select`.
 
 Services SHOULD NOT change their data model depending on the
 authenticated user. If the data model is user or user-group dependent,
 all changes MUST be *safe changes* as defined in this section when
 comparing the full model to the model visible to users with restricted
 authorizations.
+
+Services MAY change the default set of properties returned in the
+absence of `$select` but, for backward compatibility, SHOULD NOT
+reduce the set of properties returned by default.
 
 -------
 
