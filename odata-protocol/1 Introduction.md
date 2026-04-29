@@ -465,6 +465,7 @@ authorizations.
 Services MAY change the default set of properties returned in the
 absence of `$select` but, for backward compatibility, SHOULD NOT
 reduce the set of properties returned by default.
+
 -------
 
 # ##sec Extensibility

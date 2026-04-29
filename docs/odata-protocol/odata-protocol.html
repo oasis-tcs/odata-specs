@@ -794,9 +794,10 @@ This uses pandoc 3.8.3 from https://github.com/jgm/pandoc/releases/tag/3.8.3.
 <li>Clients should use <code>$select</code> to select required properties, as the service may change the default set of properties returned in the absence of <code>$select</code>.</li>
 </ul>
 <p>Services SHOULD NOT change their data model depending on the authenticated user. If the data model is user or user-group dependent, all changes MUST be <em>safe changes</em> as defined in this section when comparing the full model to the model visible to users with restricted authorizations.</p>
-<h2>Services MAY change the default set of properties returned in the absence of <code>$select</code> but, for backward compatibility, SHOULD NOT reduce the set of properties returned by default.</h2>
+<p>Services MAY change the default set of properties returned in the absence of <code>$select</code> but, for backward compatibility, SHOULD NOT reduce the set of properties returned by default.</p>
 </details>
 </details>
+<hr />
 <details open><summary>
 <h1 id="6-extensibility"><a id="Extensibility" href="#Extensibility">6 Extensibility</a></h1>
 </summary>
