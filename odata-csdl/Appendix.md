@@ -154,7 +154,7 @@ $$$isec$$$
 
 -------
 
-# Appendix ##asec Model elements, properties and relationships
+# Appendix ##asec Model Elements, Properties, and Relationships
 
 ## ##subasec Overview
 
