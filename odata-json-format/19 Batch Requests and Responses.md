@@ -64,8 +64,9 @@ Note: the atomicity group is a generalization of the change set in the
 multipart batch format specified in [#OData-Protocol#MultipartBatchRequestBody].
 
 The value of `dependsOn` is an array of strings whose values
-MUST be values of either `id` or `atomicityGroup`
-of preceding request objects; forward references are not allowed.
+MUST be values of either the `id` of a preceding request object
+or an `atomicityGroup` that appears only in preceding request objects;
+forward references are not allowed.
 When targeting a 4.01 service, if a request depends on another request that 
 is part of a different atomicity group, the atomicity group MUST be listed in `dependsOn`.
 OData 4.02 or greater services SHOULD NOT require the atomicity group to be listed
