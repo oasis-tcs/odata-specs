@@ -1865,12 +1865,13 @@ resource paths, i.e. by specifying the name of a complex property,
 followed by a forward slash (`/`) and the name of a property of the
 complex property, and so on,
 
-Properties and navigation properties of entities related with a target
-cardinality 0..1 or 1 can be used by specifying the navigation property,
+Properties and navigation properties of related entities
+can be used by specifying the navigation property,
+followed by a [keyPredicate]{.abnf} if the navigation property is collection-valued,
 followed by a forward slash (`/`) and the name of a property of the
 related entity, and so on.
 
-If a complex property is `null`, or no entity is related (in case of
+If a complex property is `null`, or no entity is related (with the specified `keyPredicate`, or in case of
 target cardinality 0..1), its value, and the values of its components,
 are treated as `null`.
 

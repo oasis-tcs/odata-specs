@@ -401,7 +401,10 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </ul></li>
 <li><a href="#UpdateanEntity">11.4.3 Update an Entity</a>
 <ul>
-<li><a href="#UpdateRelatedEntitiesWhenUpdatinganEntity">11.4.3.1 Update Related Entities When Updating an Entity</a></li>
+<li><a href="#UpdateRelatedEntitiesWhenUpdatinganEntity">11.4.3.1 Update Related Entities When Updating an Entity</a>
+<ul>
+<li><a href="#ResponseRepresentationofRelatedEntities">11.4.3.1.1 Response Representation of Related Entities</a></li>
+</ul></li>
 <li><a href="#UpsertanEntity">11.4.3.2 Upsert an Entity</a></li>
 </ul></li>
 <li><a href="#DeleteanEntity">11.4.4 Delete an Entity</a></li>
@@ -786,8 +789,15 @@ This uses pandoc 3.8.3 from https://github.com/jgm/pandoc/releases/tag/3.8.3.
 <li>Adding a new term</li>
 <li>Adding any annotation to a model element that does not need to be understood by the client in order to correctly interact with the service</li>
 </ul>
-<p>Clients SHOULD be prepared for services to make such incremental changes to their model. In particular, clients SHOULD be prepared to receive properties and derived types not previously defined by the service.</p>
+<p>Clients should be prepared for services to make such incremental changes to their model at any time. In particular:</p>
+<ul>
+<li>Clients should be prepared to receive properties and derived types not previously defined by the service.</li>
+<li>Clients that cache metadata should be prepared to receive references to new schema elements in response payloads, including types, properties, entity sets, singletons, operations and terms, in existing or new namespaces, that may not have been part of the cached metadata.</li>
+<li>Clients should be prepared to receive references to schema elements defined in new metadata documents, including metadata documents not referenced by the original schema.</li>
+<li>Clients should use <code>$select</code> to select required properties, as the service may change the default set of properties returned in the absence of <code>$select</code>.</li>
+</ul>
 <p>Services SHOULD NOT change their data model depending on the authenticated user. If the data model is user or user-group dependent, all changes MUST be <em>safe changes</em> as defined in this section when comparing the full model to the model visible to users with restricted authorizations.</p>
+<p>Services MAY change the default set of properties returned in the absence of <code>$select</code> but, for backward compatibility, SHOULD NOT reduce the set of properties returned by default.</p>
 </details>
 </details>
 <hr />
@@ -1800,7 +1810,8 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Example 41: for each customer, return the ID and the count of addresses starting with the letter ‘H’.</p>
 <pre><code>GET http://host/service/Customers?$select=ID,Addresses/$count($filter=startswith(City,&#39;H&#39;))</code></pre>
 </div>
-<p>If the <code>$select</code> query option is not specified, the service returns the full set of properties or a default set of properties. The default set of properties MUST include all key properties. Services may change the default set of properties returned. This includes returning new properties by default and omitting properties previously returned by default. Clients that rely on specific properties in the response MUST use <code>$select</code> with the required properties or with <code>*</code>.</p>
+<p>If the <code>$select</code> query option is not specified, the service returns the full set of properties or a default set of properties. In either case it MUST include all key properties, expanding navigation properties as necessary to include key properties from related entities <a href="https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#Key">OData-CSDL, section 6.5</a> irrespective of the system query option <a href="#SystemQueryOptionexpand"><code>$expand</code></a>.</p>
+<p>Services may change the default set of properties returned. While, for backward compatibility, services SHOULD NOT omit properties previously returned by default, clients that rely on specific properties in the response MUST use <code>$select</code> with the required properties or with <code>*</code>.</p>
 <p>If the service returns less than the full set of properties, either because the client specified a select or because the service returned a subset of properties in the absence of a select, the <a href="#ContextURL">context URL</a> MUST reflect the set of selected properties and projected <a href="#SystemQueryOptionexpand">expanded</a> navigation properties.</p>
 <details open><summary>
 <h5 id="112511-select-options"><a id="SelectOptions" href="#SelectOptions">11.2.5.1.1 Select Options</a></h5>
@@ -2600,6 +2611,14 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Clients MAY associate an id with individual nested entities in the request by using the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a></span> term defined in <a href="#ODataVocCore">OData-VocCore</a>. Services that respond with <a href="#ResponseCode200OK"><code>200 OK</code></a> SHOULD annotate the entities in the response using the same <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a></span> value as specified in the request. Services SHOULD advertise support for deep updates, including support for returning the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a></span>, through the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#DeepUpdateSupport"><code>Capabilities.DeepUpdateSupport</code></a></span> term, defined in <a href="#ODataVocCap">OData-VocCap</a>.</p>
 <p>The <code>continue-on-error</code> preference is not supported for deep update operations.</p>
 <p>On failure, the service MUST NOT apply any of the changes specified in the request.</p>
+<details open><summary>
+<h5 id="114311-response-representation-of-related-entities"><a id="ResponseRepresentationofRelatedEntities" href="#ResponseRepresentationofRelatedEntities">11.4.3.1.1 Response Representation of Related Entities</a></h5>
+</summary>
+<p>In the absence of <a href="#SystemQueryOptionexpand"><code>$expand</code></a>, an update request that includes related entities SHOULD include those related entities in the response.</p>
+<p>If a collection representing the full set of related entities is included in the update request, then the full set of related entities for that collection SHOULD be included in the response.</p>
+<p>If changes to a related collection are included as a delta representation in the request payload, then a delta representation of the collection containing at least the applied changes SHOULD be included in the response.</p>
+<p>If the update request includes <code>$expand</code>, then the expanded collections are represented in the response as the full set of related entities, and no related collections are returned as delta representations.</p>
+</details>
 </details>
 <details open><summary>
 <h4 id="11432-upsert-an-entity"><a id="UpsertanEntity" href="#UpsertanEntity">11.4.3.2 Upsert an Entity</a></h4>

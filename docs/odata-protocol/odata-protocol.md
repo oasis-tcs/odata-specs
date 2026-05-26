@@ -252,6 +252,7 @@ For complete copyright information please see the full Notices section in an App
       - [11.4.2.2 Create Related Entities When Creating an Entity](#CreateRelatedEntitiesWhenCreatinganEntity)
     - [11.4.3 Update an Entity](#UpdateanEntity)
       - [11.4.3.1 Update Related Entities When Updating an Entity](#UpdateRelatedEntitiesWhenUpdatinganEntity)
+        - [11.4.3.1.1 Response Representation of Related Entities](#ResponseRepresentationofRelatedEntities)
       - [11.4.3.2 Upsert an Entity](#UpsertanEntity)
     - [11.4.4 Delete an Entity](#DeleteanEntity)
     - [11.4.5 Modifying Relationships between Entities](#ModifyingRelationshipsbetweenEntities)
@@ -752,15 +753,30 @@ after existing parameters
 that does not need to be understood by the client in order to correctly
 interact with the service
 
-Clients SHOULD be prepared for services to make such incremental changes
-to their model. In particular, clients SHOULD be prepared to receive
+Clients should be prepared for services to make such incremental changes
+to their model at any time. In particular:
+- Clients should be prepared to receive
 properties and derived types not previously defined by the service.
+- Clients that cache metadata should be prepared to receive references
+to new schema elements in response payloads, including types, properties,
+entity sets, singletons, operations and terms, in existing or new namespaces, that may not have been
+part of the cached metadata.
+- Clients should be prepared to receive references to schema
+elements defined in new metadata documents, including metadata
+documents not referenced by the original schema.
+- Clients should use `$select` to select required properties, as the
+service may change the default set of properties returned in the
+absence of `$select`.
 
 Services SHOULD NOT change their data model depending on the
 authenticated user. If the data model is user or user-group dependent,
 all changes MUST be *safe changes* as defined in this section when
 comparing the full model to the model visible to users with restricted
 authorizations.
+
+Services MAY change the default set of properties returned in the
+absence of `$select` but, for backward compatibility, SHOULD NOT
+reduce the set of properties returned by default.
 
 -------
 
@@ -3000,13 +3016,15 @@ GET http://host/service/Customers?$select=ID,Addresses/$count($filter=startswith
 :::
 
 If the `$select` query option is not specified, the service returns
-the full set of properties or a default set of properties. The default
-set of properties MUST include all key properties.
-Services may change the default set of properties returned. This
-includes returning new properties by default and omitting properties
-previously returned by default. Clients that rely on
-specific properties in the response MUST use
-`$select` with the required properties or with `*`.
+the full set of properties or a default set of properties. In either case
+it MUST include all key properties, expanding navigation properties as necessary
+to include key properties from related entities
+[OData-CSDL, section 6.5](https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#Key) irrespective of the system query option [`$expand`](#SystemQueryOptionexpand).
+
+Services may change the default set of properties returned.
+While, for backward compatibility, services SHOULD NOT omit properties
+previously returned by default, clients that rely on specific properties
+in the response MUST use `$select` with the required properties or with `*`.
 
 If the service returns less than the full set
 of properties, either because the client specified a select or because
@@ -4824,6 +4842,21 @@ operations.
 
 On failure, the service MUST NOT apply any of the changes specified in
 the request.
+
+##### <a id="ResponseRepresentationofRelatedEntities" href="#ResponseRepresentationofRelatedEntities">11.4.3.1.1 Response Representation of Related Entities</a>
+
+In the absence of [`$expand`](#SystemQueryOptionexpand), an update request that includes related entities SHOULD include those related entities in the response.
+
+If a collection representing the full set of related entities is included in
+the update request, then the full set of related entities for that collection
+SHOULD be included in the response.
+
+If changes to a related collection are included as a delta representation
+in the request payload, then a delta representation of the collection containing at least the applied changes SHOULD be included in the response.
+
+If the update request includes `$expand`, then the expanded collections
+are represented in the response as the full set of related entities,
+and no related collections are returned as delta representations.
 
 #### <a id="UpsertanEntity" href="#UpsertanEntity">11.4.3.2 Upsert an Entity</a>
 

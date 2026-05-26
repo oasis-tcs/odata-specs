@@ -41,7 +41,7 @@ The [`pandoc.js`](pandoc.js) module converts this single Markdown document to HT
 
 ```yaml
 - name: Setup pandoc
-  uses: nikeee/setup-pandoc@v1
+  uses: r-lib/actions/setup-pandoc@v2
   with:
     pandoc-version: 3.x.y
 ```

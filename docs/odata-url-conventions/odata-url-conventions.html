@@ -2026,8 +2026,8 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 </summary>
 <p>Properties and navigation properties of the structured type on which a common expression is evaluated can be used as operands or function parameters, as shown in the preceding examples.</p>
 <p>Properties of complex properties can be used via the same syntax as in resource paths, i.e. by specifying the name of a complex property, followed by a forward slash (<code>/</code>) and the name of a property of the complex property, and so on,</p>
-<p>Properties and navigation properties of entities related with a target cardinality 0..1 or 1 can be used by specifying the navigation property, followed by a forward slash (<code>/</code>) and the name of a property of the related entity, and so on.</p>
-<p>If a complex property is <code>null</code>, or no entity is related (in case of target cardinality 0..1), its value, and the values of its components, are treated as <code>null</code>.</p>
+<p>Properties and navigation properties of related entities can be used by specifying the navigation property, followed by a <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#keyPredicate"><code>keyPredicate</code></a></span> if the navigation property is collection-valued, followed by a forward slash (<code>/</code>) and the name of a property of the related entity, and so on.</p>
+<p>If a complex property is <code>null</code>, or no entity is related (with the specified <code>keyPredicate</code>, or in case of target cardinality 0..1), its value, and the values of its components, are treated as <code>null</code>.</p>
 <div class="example">
 <p>Example 121: similar behavior whether <code>HeadquarterAddress</code> is a nullable complex type or a nullable navigation property</p>
 <pre><code>Companies(1)/HeadquarterAddress/Street</code></pre>
