@@ -158,9 +158,6 @@ cannot be assumed to support streaming.
 JSON producers are encouraged to follow the payload ordering constraints
 whenever possible (and include the `streaming=true`
 media type parameter) to support the maximum set of client scenarios.
-4.02 and greater clients and services MAY require that JSON request and response payloads
-follow ordering constraints (whether or not `streaming=true` is specified) in
-order to interoperate.
 
 To support streaming scenarios the following payload ordering
 constraints have to be met:
@@ -186,6 +183,14 @@ constraints have to be met:
 - For 4.0 payloads, annotations and control information for navigation
   properties MUST appear after all structural properties. 4.01 clients
   MUST NOT assume this ordering.
+- For 4.02 batch payloads, the `streaming` format parameter of the overall
+  batch request or response applies to the properties of the batch request
+  or response itself; specifically, for ordered batch requests and
+  responses, the `id` property MUST be the first property in each request or
+  response object and `body`, if present, MUST be last. Ordering constraints
+  for the body of an individual request or response within
+  the batch MAY be specified through the `headers` property of the individual request
+  or response object.
 
 Note that in OData 4.0 the `streaming` format parameter was prefixed with
 `odata.`. Payloads with an `OData-Version` header equal to

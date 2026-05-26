@@ -17,9 +17,12 @@ itself be a batch request.
 A _request object_ MUST contain the name/value pairs `id`,
 `method` and `url`, and it MAY contain the
 name/value pairs `atomicityGroup`, `dependsOn`, `if`, `headers`, and `body`.
-For [ordered payloads](#PayloadOrderingConstraints), the `id`
-MUST be the first name/value pair in the request object, and `body` (if
-present) MUST be the final name/value pair in the request object.
+The `id` SHOULD be the first name/value pair in the request object, and `body` (if
+present) SHOULD be the final name/value pair in the request object. If the
+JSON batch request specifies an `OData-Version` of `4.02` or greater, and the `content-type`
+header specifies that the batch request follows
+[payload ordering constraints](#PayloadOrderingConstraints), then these two ordering
+requirements MUST be true.
 
 The value of `id` is a string containing the request
 identifier of the individual request, see
@@ -111,9 +114,8 @@ represent request headers. The name of each pair MUST be the lower-case
 header name; the value is a string containing the header-encoded value
 of the header.
 Services MAY support omitting the `content-type` in the `header` property of a request object.
-Such requests MUST be interpreted as if the `content-type` header mandated by
-[#OData-Protocol#HeaderContentType] were specified with a value of `application/json`
-(with no format parameters).
+For such requests the `body`, if present, MUST be `application/json`
+and MUST conform to [payload ordering constraints](#PayloadOrderingConstraints).
 
 The value of `body` can be `null`, which is
 equivalent to not specifying the `body` name/value pair.
@@ -376,8 +378,9 @@ corresponding request object contains the `atomicityGroup`
 name/value pair, it MUST also be present in the response object with the
 same value.
 
-When present in [ordered payloads](#PayloadOrderingConstraints), the `id`
-MUST be the first name/value pair in the response object.
+For 4.02 and greater [ordered payloads](#PayloadOrderingConstraints), the `id`
+MUST be the first name/value pair in the response object and `body`,
+if present, MUST be the final property in the response object.
 
 If any response within an atomicity group returns a failure code, all
 requests within that atomicity group are considered failed, regardless
@@ -394,13 +397,12 @@ The response object MAY contain the name/value pair `headers`
 whose value is an object with name/value pairs representing response
 headers. The name of each pair MUST be the lower-case header name; the
 value is a string containing the header-encoded value of the header.
-If the object does not name the `content-type`, then the `content-type` header mandated by
-[#OData-Protocol#HeaderContentType] is assumed to be `application/json` (with no format parameters).
+If the response object does not name the `content-type`, then the content type
+of the `body`, if present, is assumed to be `application/json` and MUST follow
+[payload ordering constraints](#PayloadOrderingConstraints).
 
 The response object MAY contain the name/value pair `body`
-which follows the same rules as within [request objects](#BatchRequest),
-including placement as the last property in the response object for
-[ordered payloads](#PayloadOrderingConstraints).
+which follows the same rules as within [request objects](#BatchRequest).
 
 Relative URLs in a response object follow the rules for [relative
 URLs](#RelativeURLs) based on the request URL of the corresponding
@@ -415,14 +417,14 @@ response would be
 HTTP/1.1 200 OK
 OData-Version: 4.01
 Content-Length: ####
-Content-Type: application/json
+Content-Type: application/json;streaming=true
 
 {
   "responses": [
     {
       "id": "0",
       "status": 200,
-      "body": <JSON representation of the Customer entity with key ALFKI>
+      "body": <Ordered JSON representation of the Customer entity with key ALFKI>
     },
     {
       "id": "1",
@@ -434,7 +436,7 @@ Content-Type: application/json
       "headers": {
         "location": "http://host/service.svc/Customer('POIUY')"
       },
-      "body": <JSON representation of the new Customer entity>
+      "body": <Ordered JSON representation of the new Customer entity>
     },
     {
       "id": "3",
@@ -488,14 +490,14 @@ HTTP/1.1 200 OK
 AsyncResult: 200
 OData-Version: 4.01
 Content-Length: ###
-Content-Type: application/json
+Content-Type: application/json;streaming=true
 
 {
   "responses": [
     {
       "id": "0",
       "status": 200,
-      "body": <JSON representation of the Customer entity with key ALFKI>
+      "body": <Ordered JSON representation of the Customer entity with key ALFKI>
     }
   ],
   "@nextLink": "…?$skiptoken=YmF0Y2gx"
@@ -518,7 +520,7 @@ HTTP/1.1 200 OK
 AsyncResult: 200
 OData-Version: 4.01
 Content-Length: ###
-Content-Type: application/json
+Content-Type: application/json;streaming=true
 
 {
   "responses": [
@@ -532,7 +534,7 @@ Content-Type: application/json
       "headers": {
         "location": "http://host/service.svc/Customer('POIUY')"
       },
-      "body": <JSON representation of the new Customer entity>
+      "body": <Ordered JSON representation of the new Customer entity>
     },
     {
       "id": "3",
@@ -561,7 +563,7 @@ the second synchronously, the batch itself is processed synchronously
 HTTP/1.1 200 OK
 OData-Version: 4.01
 Content-Length: ###
-Content-Type: application/json
+Content-Type: application/json;streaming=true
 
 {
   "responses": [
