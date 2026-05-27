@@ -60,6 +60,7 @@ Omission of collection-valued action parameters|
 [2045](https://github.com/oasis-tcs/odata-specs/issues/2045)
 [Section ##Conformance] | Allow `400 Bad Request` in addition to `501 Not Implemented` for unsupported functionality| [391](https://github.com/oasis-tcs/odata-specs/issues/391)
 [Section ##InteroperableODataClients] | Encoding of plus character in URLs | [485](https://github.com/oasis-tcs/odata-specs/issues/485)
+[Section #Preferencereturnrepresentationandreturnminimal] | Added `delta` format parameter to `return=representation` preference | [309](https://github.com/oasis-tcs/odata-specs/issues/309)
 
 ## ##subsec Glossary
 
