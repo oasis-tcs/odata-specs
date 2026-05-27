@@ -225,7 +225,7 @@ Section | Feature / Change | Issue
 [Section 15.3](#DeletedEntity)| `type` control information, if present, must come immediately after `removed`| [1985](https://github.com/oasis-tcs/odata-specs/issues/1985)
 [Section 18](#ActionInvocation)| Allow common expressions in action payloads| [341](https://github.com/oasis-tcs/odata-specs/issues/341)
 [Section 19](#BatchRequestsandResponses)| Atomicity group of prerequisite requests optional in `dependsOn`| [2150](https://github.com/oasis-tcs/odata-specs/issues/2150)
-Ordering of properties in JSON Batch Request/Response objects| [351](https://github.com/oasis-tcs/odata-specs/issues/351)
+[Section 19](#BatchRequestsandResponses)| Ordering of properties in JSON Batch Request/Response objects| [351](https://github.com/oasis-tcs/odata-specs/issues/351)
 
 ## <a id="Glossary" href="#Glossary">1.2 Glossary</a>
 
