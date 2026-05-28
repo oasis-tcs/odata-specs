@@ -366,7 +366,7 @@ Section | Feature / Change | Issue
 [Section 11.4.2.2](#CreateRelatedEntitiesWhenCreatinganEntity)| Deep-insert response includes at least the properties present in the request| [363](https://github.com/oasis-tcs/odata-specs/issues/363)
 [Section 11.4.3](#UpdateanEntity)| Services can validate non-updatable property values in update payloads| [356](https://github.com/oasis-tcs/odata-specs/issues/356)
 [Section 11.4.3.2](#UpsertanEntity)| Upserts to single-valued non-containment navigation properties| [455](https://github.com/oasis-tcs/odata-specs/issues/455)
-[Section 11.4.4](#DeleteanEntity)| Idempotency of delete operation| [2103](https://github.com/oasis-tcs/odata-specs/issues/2103)
+Sections [11.4.4](#DeleteanEntity), [11.4.5.2](#RemoveaReferencetoanEntity), [11.4.7.2](#DeleteStreamValues)| Idempotency of delete operation| [2103](https://github.com/oasis-tcs/odata-specs/issues/2103)
 [Section 11.4.8.3](#UpdateaComplexProperty)| Setting a complex property to a different type| [534](https://github.com/oasis-tcs/odata-specs/issues/534)
 [Section 11.4.11](#UpdateaCollectionofEntities)| Control information to prevent updates| [2021](https://github.com/oasis-tcs/odata-specs/issues/2021)
 [Section 11.4.12](#ReplaceaCollectionofEntities)| Semantics of `continue-on-error` when replacing a collection of entities | [358](https://github.com/oasis-tcs/odata-specs/issues/358)
@@ -4921,7 +4921,7 @@ On successful completion of the delete, the response MUST either be
 [`204 No Content`](#ResponseCode204NoContent) and contain an empty body,
 or [`200 OK`](#ResponseCode200OK) and contain a representation of a
 deleted entity according to the specified format. Services MAY treat deletion of
-a non-existing entity as success, thus making `DELETE` requests idempotent.
+a non-existing entity as success, thus making the `DELETE` request idempotent.
 
 Services MUST implicitly remove relations to and from an entity when
 deleting it; clients need not delete the relations explicitly.
@@ -4977,6 +4977,8 @@ constraints](#HandlingofIntegrityConstraints) in the data model.
 
 On successful completion, the response MUST be
 [`204 No Content`](#ResponseCode204NoContent) and contain an empty body.
+ Services MAY treat removal of
+a non-existing reference as success, thus making the `DELETE` request idempotent.
 
 #### <a id="ChangetheReferenceinaSingleValuedNavigationProperty" href="#ChangetheReferenceinaSingleValuedNavigationProperty">11.4.5.3 Change the Reference in a Single-Valued Navigation Property</a>
 
@@ -5165,7 +5167,8 @@ defined in [OData-VocCap](#ODataVocCap).
 
 A successful `DELETE` request to the edit URL of a stream property
 attempts to set the property to null and results in an error if the
-property is non-nullable.
+property is non-nullable. Services MAY treat deletion of
+a non-existing stream value as success, thus making the `DELETE` request idempotent.
 
 ::: example
 Example 90: delete the stream value using the media edit link retrieved in [example 88](#entityWithStreamProperty)

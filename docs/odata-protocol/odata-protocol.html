@@ -584,7 +584,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/455">455</a></td>
 </tr>
 <tr>
-<td><a href="#DeleteanEntity">Section 11.4.4</a></td>
+<td>Sections <a href="#DeleteanEntity">11.4.4</a>, <a href="#RemoveaReferencetoanEntity">11.4.5.2</a>, <a href="#DeleteStreamValues">11.4.7.2</a></td>
 <td>Idempotency of delete operation</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/2103">2103</a></td>
 </tr>
@@ -2647,7 +2647,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 </summary>
 <p>To delete an individual entity, the client makes a <code>DELETE</code> request to a URL that identifies the entity. The <a href="#ReadURLsandEditURLs">edit URL</a> MAY differ from the canonical URL defined in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalURL">OData-URL, section 4.3.1</a>, in which case clients SHOULD use the edit URL when deleting the entity.</p>
 <p>The request body SHOULD be empty. Top-level singleton entities can be deleted if they are nullable. Services supporting this MAY advertise it by annotating the singleton with the term <code>Capabilities.DeleteRestrictions</code> (nested property <code>Deletable</code> with value <code>true</code>) defined in <a href="#ODataVocCap">OData-VocCap</a>.</p>
-<p>On successful completion of the delete, the response MUST either be <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> and contain an empty body, or <a href="#ResponseCode200OK"><code>200 OK</code></a> and contain a representation of a deleted entity according to the specified format. Services MAY treat deletion of a non-existing entity as success, thus making <code>DELETE</code> requests idempotent.</p>
+<p>On successful completion of the delete, the response MUST either be <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> and contain an empty body, or <a href="#ResponseCode200OK"><code>200 OK</code></a> and contain a representation of a deleted entity according to the specified format. Services MAY treat deletion of a non-existing entity as success, thus making the <code>DELETE</code> request idempotent.</p>
 <p>Services MUST implicitly remove relations to and from an entity when deleting it; clients need not delete the relations explicitly.</p>
 <p>Services MAY implicitly delete or modify related entities if required by <a href="#HandlingofIntegrityConstraints">integrity constraints</a>. If integrity constraints are declared in <code>$metadata</code> using a <code>ReferentialConstraint</code> element, services MUST modify affected related entities according to the declared integrity constraints, e.g. by deleting dependent entities, or setting dependent properties to <code>null</code> or their default value.</p>
 <p>One such integrity constraint results from using a navigation property in a key definition of an entity type. If the related “key” entity is deleted, the dependent entity is also deleted.</p>
@@ -2670,7 +2670,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>In OData 4.0, the entity reference to be removed within a collection-valued navigation property is the URL that represents the collection of related references, with the reference to be removed identified by the <a href="#ResolvinganEntityId"><code>$id</code></a> query option. OData 4.01 services additionally support using the URL that represents the reference of the collection member to be removed, identified by key, as described in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingReferencesbetweenEntities">OData-URL, section 4.4</a>.</p>
 <p>For single-valued navigation properties, the <a href="#ResolvinganEntityId"><code>$id</code></a> query option MUST NOT be specified.</p>
 <p>The <code>DELETE</code> request MUST NOT violate any <a href="#HandlingofIntegrityConstraints">integrity constraints</a> in the data model.</p>
-<p>On successful completion, the response MUST be <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> and contain an empty body.</p>
+<p>On successful completion, the response MUST be <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> and contain an empty body. Services MAY treat removal of a non-existing reference as success, thus making the <code>DELETE</code> request idempotent.</p>
 </details>
 <details open><summary>
 <h4 id="11453-change-the-reference-in-a-single-valued-navigation-property"><a id="ChangetheReferenceinaSingleValuedNavigationProperty" href="#ChangetheReferenceinaSingleValuedNavigationProperty">11.4.5.3 Change the Reference in a Single-Valued Navigation Property</a></h4>
@@ -2755,7 +2755,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <details open><summary>
 <h4 id="11472-delete-stream-values"><a id="DeleteStreamValues" href="#DeleteStreamValues">11.4.7.2 Delete Stream Values</a></h4>
 </summary>
-<p>A successful <code>DELETE</code> request to the edit URL of a stream property attempts to set the property to null and results in an error if the property is non-nullable.</p>
+<p>A successful <code>DELETE</code> request to the edit URL of a stream property attempts to set the property to null and results in an error if the property is non-nullable. Services MAY treat deletion of a non-existing stream value as success, thus making the <code>DELETE</code> request idempotent.</p>
 <div class="example">
 <p>Example 90: delete the stream value using the media edit link retrieved in <a href="#entityWithStreamProperty">example 88</a></p>
 <pre><code>DELETE http://server/uploads/Thumbnail546.jpg</code></pre>
