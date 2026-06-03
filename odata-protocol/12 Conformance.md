@@ -370,7 +370,7 @@ versions.
 In order to conform to the OData 4.02 Minimal Conformance Level, a
 service:
 
-1. MUST conform to the [OData 4.1 Minimal Conformance
+1. MUST conform to the [OData 4.01 Minimal Conformance
 Level](#OData401MinimalConformanceLevel)
 2. MUST be compliant with version 4.02 of the [OData-JSON](#ODataJSON)
 format
@@ -380,16 +380,18 @@ format
 In order to conform to the OData 4.02 Intermediate Conformance Level, a
 service:
 
-1. MUST conform to the [OData 4.02 Intermediate Conformance
-Level](#OData402IntermediateConformanceLevel)
+1. MUST conform to the [OData 4.02 Minimal Conformance Level](#OData402MinimalConformanceLevel)
+2. MUST conform to the [OData 4.01 Intermediate Conformance
+Level](#OData401IntermediateConformanceLevel)
 
 ### ##subsubsec OData 4.02 Advanced Conformance Level
 
 In order to conform to the OData 4.02 Advanced Conformance Level, a
 service:
 
-1. MUST conform to the [OData 4.02 Advanced Conformance
-Level](#OData402AdvancedConformanceLevel)
+1. MUST conform to the [OData 4.02 Intermediate Conformance Level](#OData402IntermediateConformanceLevel)
+2. MUST conform to the [OData 4.01 Advanced Conformance
+Level](#OData401AdvancedConformanceLevel)
 
 ## ##subsec Interoperable OData Clients
 
