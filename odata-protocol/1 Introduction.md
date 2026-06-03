@@ -48,7 +48,7 @@ Services can validate non-updatable property values in update payloads|
 [Section ##UpsertanEntity]| 
 Upserts to single-valued non-containment navigation properties| 
 [455](https://github.com/oasis-tcs/odata-specs/issues/455)
-Sections [##DeleteanEntity], [##RemoveaReferencetoanEntity], [##DeleteStreamValues]| 
+Sections [##DeleteanEntity], [##RemoveaReferencetoanEntity]| 
 Idempotency of delete operation| 
 [2103](https://github.com/oasis-tcs/odata-specs/issues/2103)
 [Section ##UpdateaComplexProperty]| 
