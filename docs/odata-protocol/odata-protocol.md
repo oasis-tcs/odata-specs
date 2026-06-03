@@ -5167,8 +5167,7 @@ defined in [OData-VocCap](#ODataVocCap).
 
 A successful `DELETE` request to the edit URL of a stream property
 attempts to set the property to null and results in an error if the
-property is non-nullable. Services MAY treat deletion of
-a non-existing stream value as success, thus making the `DELETE` request idempotent.
+property is non-nullable.
 
 ::: example
 Example 90: delete the stream value using the media edit link retrieved in [example 88](#entityWithStreamProperty)
@@ -5348,8 +5347,8 @@ contain any system query options that affect the shape of the result.
 
 Added/changed entities are applied as [upserts](#UpsertanEntity), and
 deleted entities as [deletions](#DeleteanEntity). Non-key properties of
-deleted entities are ignored, deletions of non-existing entities MUST be
-treated as success (idempotency). The top-level collection may include added
+deleted entities are ignored. Deletions of valid, non-existing (for example, deleted)
+entities MUST be treated as success. The top-level collection may include added
 and deleted links, and related entities represented inline are updated
 according to the rules for [treating related entities when updating an
 entity](#UpdateRelatedEntitiesWhenUpdatinganEntity).
