@@ -1878,6 +1878,11 @@ A collection-valued navigation property MAY be annotated with the
 term, defined in [OData-VocCore](#ODataVocCore), to specify that it
 supports inserting items into a specific ordinal position.
 
+A navigation property MAY be annotated with the
+[Core.Subsets]{.term}
+term, defined in [OData-VocCore](#ODataVocCore), to specify that each entity
+related by the annotated navigation property is also related by the navigation property specified in the annotation.
+
 
 ::: {.varxml .rep}
 ### <a id="AttributeType.13.2" href="#AttributeType.13.2">Attribute `Type`</a>

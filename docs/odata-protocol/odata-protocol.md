@@ -252,6 +252,7 @@ For complete copyright information please see the full Notices section in an App
       - [11.4.2.2 Create Related Entities When Creating an Entity](#CreateRelatedEntitiesWhenCreatinganEntity)
     - [11.4.3 Update an Entity](#UpdateanEntity)
       - [11.4.3.1 Update Related Entities When Updating an Entity](#UpdateRelatedEntitiesWhenUpdatinganEntity)
+        - [11.4.3.1.1 Response Representation of Related Entities](#ResponseRepresentationofRelatedEntities)
       - [11.4.3.2 Upsert an Entity](#UpsertanEntity)
     - [11.4.4 Delete an Entity](#DeleteanEntity)
     - [11.4.5 Modifying Relationships between Entities](#ModifyingRelationshipsbetweenEntities)
@@ -752,15 +753,30 @@ after existing parameters
 that does not need to be understood by the client in order to correctly
 interact with the service
 
-Clients SHOULD be prepared for services to make such incremental changes
-to their model. In particular, clients SHOULD be prepared to receive
+Clients should be prepared for services to make such incremental changes
+to their model at any time. In particular:
+- Clients should be prepared to receive
 properties and derived types not previously defined by the service.
+- Clients that cache metadata should be prepared to receive references
+to new schema elements in response payloads, including types, properties,
+entity sets, singletons, operations and terms, in existing or new namespaces, that may not have been
+part of the cached metadata.
+- Clients should be prepared to receive references to schema
+elements defined in new metadata documents, including metadata
+documents not referenced by the original schema.
+- Clients should use `$select` to select required properties, as the
+service may change the default set of properties returned in the
+absence of `$select`.
 
 Services SHOULD NOT change their data model depending on the
 authenticated user. If the data model is user or user-group dependent,
 all changes MUST be *safe changes* as defined in this section when
 comparing the full model to the model visible to users with restricted
 authorizations.
+
+Services MAY change the default set of properties returned in the
+absence of `$select` but, for backward compatibility, SHOULD NOT
+reduce the set of properties returned by default.
 
 -------
 
@@ -1987,8 +2003,9 @@ concerns around information disclosure.
 
 ## <a id="InStreamErrors" href="#InStreamErrors">9.5 In-Stream Errors</a>
 
-In the case that the service encounters an error after sending a success
-status to the client, the service MUST leave the response malformed
+Because the HTTP response status code is sent before the body of a response,
+services may encounter an error in generating the response body after having
+already returned a success status. In such a case the service MUST leave the response malformed
 according to its [`Content-Type`](#HeaderContentType) or abort the response by
 causing an error on transport protocol level. Clients MUST treat
 the entire response as being in error.
@@ -2999,13 +3016,15 @@ GET http://host/service/Customers?$select=ID,Addresses/$count($filter=startswith
 :::
 
 If the `$select` query option is not specified, the service returns
-the full set of properties or a default set of properties. The default
-set of properties MUST include all key properties.
-Services may change the default set of properties returned. This
-includes returning new properties by default and omitting properties
-previously returned by default. Clients that rely on
-specific properties in the response MUST use
-`$select` with the required properties or with `*`.
+the full set of properties or a default set of properties. In either case
+it MUST include all key properties, expanding navigation properties as necessary
+to include key properties from related entities
+[OData-CSDL, section 6.5](https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#Key) irrespective of the system query option [`$expand`](#SystemQueryOptionexpand).
+
+Services may change the default set of properties returned.
+While, for backward compatibility, services SHOULD NOT omit properties
+previously returned by default, clients that rely on specific properties
+in the response MUST use `$select` with the required properties or with `*`.
 
 If the service returns less than the full set
 of properties, either because the client specified a select or because
@@ -4127,7 +4146,12 @@ it protects against seeing such partial changes.
 
 When data modification requests apply the
 [`continue-on-error`](#Preferencecontinueonerrorodatacontinueonerror) preference,
-they do not guarantee atomicity. See the sections below where this preference is mentioned.
+they do not guarantee atomicity. See the [sections 11.4.11](#UpdateaCollectionofEntities),
+[11.4.13](#UpdateMembersofaCollection), and [11.4.14](#DeleteMembersofaCollection) below where this preference is mentioned.
+When processing data modification requests from one of these sections in an atomic manner
+(that is, not applying the `continue-on-error` preference),
+services MUST NOT send a status code in the response until all changes
+have been attempted and not use [in-stream errors](#InStreamErrors) to signal failure of a change.
 
 #### <a id="UseofETagsforAvoidingUpdateConflicts" href="#UseofETagsforAvoidingUpdateConflicts">11.4.1.2 Use of ETags for Avoiding Update Conflicts</a>
 
@@ -4864,6 +4888,21 @@ operations.
 On failure, the service MUST NOT apply any of the changes specified in
 the request.
 
+##### <a id="ResponseRepresentationofRelatedEntities" href="#ResponseRepresentationofRelatedEntities">11.4.3.1.1 Response Representation of Related Entities</a>
+
+In the absence of [`$expand`](#SystemQueryOptionexpand), an update request that includes related entities SHOULD include those related entities in the response.
+
+If a collection representing the full set of related entities is included in
+the update request, then the full set of related entities for that collection
+SHOULD be included in the response.
+
+If changes to a related collection are included as a delta representation
+in the request payload, then a delta representation of the collection containing at least the applied changes SHOULD be included in the response.
+
+If the update request includes `$expand`, then the expanded collections
+are represented in the response as the full set of related entities,
+and no related collections are returned as delta representations.
+
 #### <a id="UpsertanEntity" href="#UpsertanEntity">11.4.3.2 Upsert an Entity</a>
 
 Services MAY treat a request to change an entity as a [create entity request](#CreateanEntity)
@@ -5391,7 +5430,7 @@ and order as the request payload, representing the applied changes.
 If the `continue-on-error` preference has not been applied, and the
 service is unable to successfully complete all of the upserts or deletions intended by the request, then it
 MUST return an error response and MUST NOT apply any of the changes
-specified in the request payload.
+specified in the request payload in order to guarantee [atomicity](#Atomicity).
 
 If the [`continue-on-error`](#Preferencecontinueonerrorodatacontinueonerror) preference
 has been applied and any errors occur in processing the changes, then a delta response MUST be returned
@@ -5425,9 +5464,6 @@ If an individual change fails due to a failed dependency, it MUST be
 annotated with the term [Core.DataModificationException]{.term} and SHOULD specify
 a `responseCode` of `424` ([Failed Dependency](#ResponseCode424FailedDependency)).
 
-If no `continue-on-error` preference is applied, the collection update MUST happen
-in an [atomic](#Atomicity) manner.
-
 ### <a id="ReplaceaCollectionofEntities" href="#ReplaceaCollectionofEntities">11.4.12 Replace a Collection of Entities</a>
 
 Collections of entities can be replaced by submitting a `PUT` request
@@ -5450,7 +5486,7 @@ but fail if the entity does not already exist.
 If the `continue-on-error` preference has not been applied, and the
 service is unable to successfully complete all of the upserts intended by the request, then it
 MUST return an error response and MUST NOT apply any of the changes
-specified in the request payload.
+specified in the request payload in order to guarantee [atomicity](#Atomicity).
 
 If the `continue-on-error` preference has been applied and any errors occur
 in processing the changes, then a response MUST be returned regardless of the
@@ -5470,9 +5506,6 @@ the service, as follows:
   with a `failedOperation` value of `update`.
 - Collections within the request MUST also be represented in the response
   following these same rules.
-
-If no `continue-on-error` preference is applied, the collection update MUST happen
-in an [atomic](#Atomicity) manner.
 
 ### <a id="UpdateMembersofaCollection" href="#UpdateMembersofaCollection">11.4.13 Update Members of a Collection</a>
 
@@ -5522,20 +5555,17 @@ Clients should note that requesting a response may be expensive for
 services that could otherwise efficiently apply updates to a (possibly
 filtered) collection.
 
-If the `continue-on-error` preference has been specified, the service
+If the `continue-on-error` preference has been applied, the service
 MAY continue processing updates after a failure. In this case, the
 service MUST return a response containing at least the members of the
 collection that failed to update, which MUST be annotated with the term
 `Core.DataModificationException` with a `failedOperation` value of
 `update`.
 
-If the `continue-on-error` preference has not been specified, and the
+If the `continue-on-error` preference has not been applied, and the
 service is unable to update all of the members identified by the
 request, then it MUST return an error response and MUST NOT apply any
-updates.
-
-If no `continue-on-error` preference is applied, the collection update MUST happen
-in an [atomic](#Atomicity) manner.
+updates in order to guarantee [atomicity](#Atomicity).
 
 ### <a id="DeleteMembersofaCollection" href="#DeleteMembersofaCollection">11.4.14 Delete Members of a Collection</a>
 
@@ -5573,13 +5603,10 @@ Clients should note that requesting a response may be expensive for
 services that could otherwise efficiently apply deletes to a (possibly
 filtered) collection.
 
-If the `continue-on-error` preference has not been specified, and the
+If the `continue-on-error` preference has not been applied, and the
 service is unable to delete all of the entities identified by the
 request, then it MUST return an error response and MUST NOT apply any
-changes.
-
-If no `continue-on-error` preference is applied, the deletion MUST happen
-in an [atomic](#Atomicity) manner.
+changes in order to guarantee [atomicity](#Atomicity).
 
 ## <a id="Operations" href="#Operations">11.5 Operations</a>
 
@@ -5684,6 +5711,12 @@ entity or entity collection as part of the representation of the entity
 or entity collection within the payload. The representation of an action
 or function depends on the [format](#Formats).
 
+Operations advertised MUST be defined in metadata for the service.
+Operation definitions annotated with the `Core.RequiresExplicitBinding` term
+are only available when explicitly advertised, or
+for model elements annotated with the `Core.ExplicitOperationBindings` term
+specifying the operation.
+
 ::: example
 Example 99: given a `GET` request to
 `http://host/service/Customers('ALFKI')`, the service might respond with
@@ -5704,7 +5737,7 @@ bound to the entity
 :::
 
 An efficient format that assumes client knowledge of metadata may omit
-actions and functions from the payload  whose target URL can be computed
+actions and functions from the payload whose target URL can be computed
 via metadata following standard conventions defined in
 [OData-URL, section 4.5](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingOperations).
 
@@ -6185,14 +6218,15 @@ A batch request is represented using either the [multipart batch
 format](#MultipartBatchFormat) defined in this document or the JSON
 batch format defined in [OData-JSON, section 19](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#BatchRequestsandResponses).
 
-If the set of request headers of a batch request are valid the service
-MUST return a [`200 OK`](#ResponseCode200OK) HTTP response code to
+Services MAY return a [`200 OK`](#ResponseCode200OK) HTTP response code to
 indicate that the batch request was accepted for processing, even if the
 processing is yet to be completed. The individual requests within the
 body of the batch request may be processed as soon as they are received,
 this enables clients to stream batch requests, and batch implementations to stream the results.
+This is handled as described in [section 9.5](#InStreamErrors).
 
-If the service receives a batch request with an invalid set of headers
+If the service receives a batch request with an invalid set of headers or detects an error
+before starting to send the response,
 it MUST return a [`4xx` response code](#ClientErrorResponses) and
 perform no further processing of the batch request.
 
