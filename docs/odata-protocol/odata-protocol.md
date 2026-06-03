@@ -359,6 +359,7 @@ resource representations that are exchanged using OData.
 Section | Feature / Change | Issue
 --------|------------------|------
 [Section 8.2.8.3](#Preferencecontinueonerrorodatacontinueonerror) | Responses that include errors MUST include the `Preference-Applied` header with `continue-on-error` set to `true` | [1965](https://github.com/oasis-tcs/odata-specs/issues/1965)
+[Section 8.2.8.7](#Preferencereturnrepresentationandreturnminimal) | Added `delta` format parameter to `return=representation` preference | [309](https://github.com/oasis-tcs/odata-specs/issues/309)
 [Section 10.2](#CollectionofEntities)| Context URLs use parentheses-style keys without percent-encoding| [368](https://github.com/oasis-tcs/odata-specs/issues/368)
 [Section 11.4](#DataModification)| Response code `204 No Content` after successful data modification if requested response could not be constructed| [443](https://github.com/oasis-tcs/odata-specs/issues/443)
 [Section 11.4.2](#CreateanEntity)| Services can validate non-insertable property values in insert payloads| [356](https://github.com/oasis-tcs/odata-specs/issues/356)
@@ -1590,6 +1591,14 @@ according to the rules specified for the requested [format](#Formats).
 In this case the service MAY include a
 [`Preference-Applied`](#HeaderPreferenceApplied) response header
 containing the `return=representation` preference.
+
+For PATCH requests, the `return=representation` preference MAY be appended
+with the `delta` format parameter, as in `return=representation;delta`,
+in order to specify that the response be returned in delta format. A delta
+response MUST include at least the changes made to the data as a result
+of the request. If the `delta` format parameter is not specified, or is
+specified for a request that does not support delta responses, then
+the response follows the default format defined for the particular request.
 
 The `return` preference SHOULD NOT be applied to a batch request, but
 MAY be applied to individual requests within a batch.
@@ -4846,11 +4855,15 @@ the request.
 
 ##### <a id="ResponseRepresentationofRelatedEntities" href="#ResponseRepresentationofRelatedEntities">11.4.3.1.1 Response Representation of Related Entities</a>
 
-In the absence of [`$expand`](#SystemQueryOptionexpand), an update request that includes related entities SHOULD include those related entities in the response.
+In the absence of [`$expand`](#SystemQueryOptionexpand), an update request
+that includes related entities SHOULD include those related entities in the response.
 
 If a collection representing the full set of related entities is included in
 the update request, then the full set of related entities for that collection
-SHOULD be included in the response.
+SHOULD be included in the response unless the
+[`return=representation;delta`](#Preferencereturnrepresentationandreturnminimal)
+preference is applied, in which case the delta representation of the collection
+containing at least the applied changes SHOULD be included in the response.
 
 If changes to a related collection are included as a delta representation
 in the request payload, then a delta representation of the collection containing at least the applied changes SHOULD be included in the response.
