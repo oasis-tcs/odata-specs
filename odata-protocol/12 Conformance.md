@@ -32,7 +32,7 @@ the most functionality against the broadest range of generic clients.
 
 Services can advertise their level of conformance by annotating their
 entity container with the term
-[`Capabilities.ConformanceLevel`]($$$OData-VocCap$$$#ConformanceLevel)
+[Capabilities.ConformanceLevel]{.term}
 defined in [OData-VocCap](#ODataVocCap).
 
 Note: Services are encouraged to support as much additional
@@ -204,7 +204,7 @@ according to the JSON Batch format defined in [#OData-JSON#BatchRequestsandRespo
 
 OData services can report conformance to the OData 4.01 specification by
 including `4.01` in the list of supported protocol versions in the
-[`Core.ODataVersions`]($$$OData-VocCore$$$#ODataVersions)
+[Core.ODataVersions]{.term}
 annotation, as defined in [OData-VocCore](#ODataVocCore). As all OData
 4.01 compliant services must also be fully OData 4.0 compliant, OData
 4.01 services do not need to separately list `4.0` as a supported
@@ -227,7 +227,7 @@ headers and preference values
 5. MUST reject a request with an incompatible
 [`$schemaversion`](#SystemQueryOptionschemaversion) system query option
 if a
-[`Core.SchemaVersion`]($$$OData-VocCore$$$#SchemaVersion)
+[Core.SchemaVersion]{.term}
 annotation is returned in `$metadata`
 6. MUST support specifying supported system query options with or
 without the `$` prefix
@@ -268,7 +268,7 @@ expression
 schema, a structural type, or an entity container) that differ only by
 case
 12. SHOULD return the
-[`Core.ODataVersions`]($$$OData-VocCore$$$#ODataVersions)
+[Core.ODataVersions]{.term}
 annotation
 13. SHOULD report capabilities through the Capabilities vocabulary
 14. MAY support filtering on annotation values
@@ -396,7 +396,7 @@ In addition, interoperable OData 4.01 clients
 
 17. MUST send OData 4.0-compliant payloads to services that don't
 advertise support for 4.01 or greater through the
-[`Core.ODataVersions`]($$$OData-VocCore$$$#ODataVersions)
+[Core.ODataVersions]{.term}
 metadata annotation (see [OData-VocCore](#ODataVocCore))
 18. MUST specify identifiers in payloads and URLs in the case they are
 specified in `$metadata`

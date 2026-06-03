@@ -7,6 +7,9 @@
   <meta name="description" content="The Open Data Protocol (OData) for representing and interacting with structured content is comprised of a set of specifications. The core specification for the protocol is in OData Version 4.02 Part 1: Protocol. This document extends the core specification by defining representations for OData requests and responses using a JSON format." />
   <title>OData JSON Format Version 4.02</title>
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -22,8 +25,9 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -34,7 +38,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -97,8 +101,7 @@
       }
     }};
   </script>
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 </head>
 <body>
 <aside id="darkmode">
@@ -340,47 +343,62 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </summary>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>Section</th>
 <th>Feature / Change</th>
 <th>Issue</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><a href="#ControlInformationcontextodatacontext">Section 4.6.1</a></td>
 <td>Fragment portion of Context URL is not percent-encoded</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/368">368</a></td>
 </tr>
-<tr class="even">
+<tr>
 <td><a href="#ControlInformationidodataid">Section 4.6.8</a></td>
 <td>Transient entities can be identifiable</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/1928">1928</a></td>
 </tr>
-<tr class="odd">
+<tr>
 <td><a href="#ControlInformationetagodataetag">Section 4.6.10</a></td>
 <td>Control information <code>"@etag": ""</code> to prevent updates</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/2021">2021</a></td>
 </tr>
-<tr class="even">
+<tr>
 <td><a href="#ControlInformationmediaodatamedia">Section 4.6.12</a></td>
 <td><code>mediaContentType</code> can be <code>null</code></td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/536">536</a></td>
 </tr>
-<tr class="odd">
+<tr>
 <td><a href="#StructuralProperty">Section 7</a>, <a href="#InformativeReferences">Section A.2</a></td>
 <td>Removed reference to obsolete version of GeoJSON</td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/352">352</a></td>
+</tr>
+<tr>
+<td><a href="#EntityReference">Section 14</a></td>
+<td>Entities can be referenced by id or full set of key properties</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/456">456</a></td>
 </tr>
-<tr class="even">
+<tr>
 <td><a href="#DeletedEntity">Section 15.3</a></td>
 <td><code>type</code> control information, if present, must come immediately after <code>removed</code></td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/1985">1985</a></td>
 </tr>
-<tr class="odd">
+<tr>
 <td><a href="#ActionInvocation">Section 18</a></td>
 <td>Allow common expressions in action payloads</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/341">341</a></td>
+</tr>
+<tr>
+<td><a href="#BatchRequestsandResponses">Section 19</a></td>
+<td>Atomicity group of prerequisite requests optional in <code>dependsOn</code></td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/2150">2150</a></td>
+</tr>
+<tr>
+<td><a href="#BatchRequestsandResponses">Section 19</a></td>
+<td>Ordering of properties in JSON Batch Request/Response objects</td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/351">351</a></td>
 </tr>
 </tbody>
 </table>
@@ -426,7 +444,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        odata-json-format-v4.02-csd02.md
 ```
 
-This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
+This uses pandoc 3.8.3 from https://github.com/jgm/pandoc/releases/tag/3.8.3.
 -->
 
 </details>
@@ -458,7 +476,7 @@ This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
 <li><a href="#PayloadOrderingConstraints"><code>streaming</code></a></li>
 </ul>
 <p>The names and values of these format parameters are case-insensitive.</p>
-<p>Services SHOULD advertise the supported media types by annotating the entity container with the term <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#SupportedFormats"><code>Capabilities.SupportedFormats</code></a> defined in <a href="#ODataVocCap">OData-VocCap</a>, listing all available formats and combinations of supported format parameters.</p>
+<p>Services SHOULD advertise the supported media types by annotating the entity container with the term <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#SupportedFormats"><code>Capabilities.SupportedFormats</code></a></span> defined in <a href="#ODataVocCap">OData-VocCap</a>, listing all available formats and combinations of supported format parameters.</p>
 <details open><summary>
 <h2 id="31-controlling-the-amount-of-control-information-in-responses"><a id="ControllingtheAmountofControlInformationinResponses" href="#ControllingtheAmountofControlInformationinResponses">3.1 Controlling the Amount of Control Information in Responses</a></h2>
 </summary>
@@ -619,6 +637,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <li>All annotations or control information for a structural or navigation property MUST appear as a group immediately before the property itself. The one exception is the <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a> of a collection which MAY appear after the collection it annotates.</li>
 <li>All other control information can appear anywhere in the payload as long as it does not violate any of the above rules.</li>
 <li>For 4.0 payloads, annotations and control information for navigation properties MUST appear after all structural properties. 4.01 clients MUST NOT assume this ordering.</li>
+<li>For 4.02 batch payloads, the <code>streaming</code> format parameter of the overall batch request or response applies to the properties of the batch request or response itself; specifically, for ordered batch requests and responses, the <code>id</code> property MUST be the first property in each request or response object and <code>body</code>, if present, MUST be last. Ordering constraints for the body of an individual request or response within the batch MAY be specified through the <code>headers</code> property of the individual request or response object.</li>
 </ul>
 <p>Note that in OData 4.0 the <code>streaming</code> format parameter was prefixed with <code>odata.</code>. Payloads with an <code>OData-Version</code> header equal to <code>4.0</code> MUST include the <code>odata.</code> prefix. Payloads with an <code>OData-Version</code> header equal to <code>4.01</code> or greater SHOULD NOT include the <code>odata.</code> prefix.</p>
 </details>
@@ -650,14 +669,14 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <h3 id="462-control-information-metadataetag-odatametadataetag"><a id="ControlInformationmetadataEtagodatametadataEtag" href="#ControlInformationmetadataEtagodatametadataEtag">4.6.2 Control Information: <code>metadataEtag</code> (<code>odata.metadataEtag</code>)</a></h3>
 </summary>
 <p>The <code>metadataEtag</code> control information MAY appear in a response in order to specify the entity tag (ETag) that can be used to determine the version of the metadata of the response. If an ETag is returned when requesting the metadata document, then the service SHOULD set the <code>metadataEtag</code> control information to the metadata document’s ETag in all responses when using <a href="#metadataminimalodatametadataminimal"><code>metadata=minimal</code></a> or <a href="#metadatafullodatametadatafull"><code>metadata=full</code></a>. If no ETag is returned when requesting the metadata document, then the service SHOULD NOT set the <code>metadataEtag</code> control information in any responses.</p>
-<p>For details on how ETags are used, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UseofETagsforAvoidingUpdateConflicts">OData-Protocol, section 11.4.1.1</a>.</p>
+<p>For details on how ETags are used, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UseofETagsforAvoidingUpdateConflicts">OData-Protocol, section 11.4.1.2</a>.</p>
 </details>
 <details open><summary>
 <h3 id="463-control-information-type-odatatype"><a id="ControlInformationtypeodatatype" href="#ControlInformationtypeodatatype">4.6.3 Control Information: <code>type</code> (<code>odata.type</code>)</a></h3>
 </summary>
 <p>The <code>type</code> control information specifies the type of a JSON object or name/value pair. Its value is a URI that identifies the type of the property or object. For built-in primitive types the value is the unqualified name of the primitive type. For payloads described by an <code>OData-Version</code> header with a value of <code>4.0</code>, this name MUST be prefixed with the hash symbol (<code>#</code>); for non-OData 4.0 payloads, built-in primitive type values SHOULD be represented without the hash symbol, but consumers of 4.01 or greater payloads MUST support values with or without the hash symbol. For all other types, the URI may be absolute or relative to the <code>type</code> of the containing object. The root <code>type</code> may be absolute or relative to the root <a href="#ControlInformationcontextodatacontext">context URL</a>.</p>
 <p>If the URI references a metadata document (that is, it’s not just a fragment), it MAY refer to a specific version of that metadata document using the <code>$schemaversion</code> system query option defined in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptionschemaversion">OData-Protocol, section 11.2.12</a>.</p>
-<p>For non-built in primitive types, the URI contains the namespace-qualified or alias-qualified type, specified as a URI fragment. For properties that represent a collection of values, the fragment is the namespace-qualified or alias-qualified element type enclosed in parentheses and prefixed with <code>Collection</code>. The namespace or alias MUST be defined or the namespace referenced in the metadata document of the service, see <a href="#ODataCSDL">OData-CSDL</a>.</p>
+<p>For non-built in primitive types, the URI contains the namespace-qualified or alias-qualified type, specified in the URI fragment (after the <code>#</code>). For properties that represent a collection of values, the fragment is <code>#Collection</code> followed by the namespace-qualified or alias-qualified element type name enclosed in parentheses. The namespace or alias MUST be defined or the namespace referenced in the metadata document of the service, see <a href="#ODataCSDL">OData-CSDL</a>.</p>
 <p>The <code>type</code> control information MUST appear in requests and in responses with <a href="#metadataminimalodatametadataminimal">minimal</a> or <a href="#metadatafullodatametadatafull">full</a> metadata, if the type cannot be heuristically determined, as described below, and one of the following is true:</p>
 <ul>
 <li>The type is derived from the type specified for the (collection of) entities or (collection of) complex type instances, or</li>
@@ -756,7 +775,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <h3 id="4610-control-information-etag-odataetag"><a id="ControlInformationetagodataetag" href="#ControlInformationetagodataetag">4.6.10 Control Information: <code>etag</code> (<code>odata.etag</code>)</a></h3>
 </summary>
 <p>The <code>etag</code> control information MAY be applied to an <a href="#Entity">entity</a> or collection in a response. The value of the control information is an entity tag (ETag) which is an opaque string value that can be used in a subsequent request to determine if the value of the entity or collection has changed.</p>
-<p>For details on how ETags are used, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UseofETagsforAvoidingUpdateConflicts">OData-Protocol, section 11.4.1.1</a>. The special value <code>"@etag": "*"</code> is equivalent to the header <code>If-Match: *</code>, and the special value <code>"@etag": ""</code> is equivalent to the header <code>If-None-Match: *</code>, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UpdateaCollectionofEntities">OData-Protocol, section 11.4.11</a>.</p>
+<p>For details on how ETags are used, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UseofETagsforAvoidingUpdateConflicts">OData-Protocol, section 11.4.1.2</a>. The special value <code>"@etag": "*"</code> is equivalent to the header <code>If-Match: *</code>, and the special value <code>"@etag": ""</code> is equivalent to the header <code>If-None-Match: *</code>, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UpdateaCollectionofEntities">OData-Protocol, section 11.4.11</a>.</p>
 <p>The <code>etag</code> control information is ignored in request payloads for single entities and not written in responses if <a href="#metadatanoneodatametadatanone"><code>metadata=none</code></a> is requested.</p>
 </details>
 <details open><summary>
@@ -939,9 +958,9 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <p>Values of type <code>Edm.Boolean</code> are represented as the JSON literals <code>true</code> and <code>false</code></p>
 <p>Values of types <code>Edm.Byte</code>, <code>Edm.SByte</code>, <code>Edm.Int16</code>, <code>Edm.Int32</code>, <code>Edm.Int64</code>, <code>Edm.Single</code>, <code>Edm.Double</code>, and <code>Edm.Decimal</code> are represented as JSON numbers, except for <code>-INF</code>, <code>INF</code>, and <code>NaN</code> which are represented as strings, and except when the <a href="#ControllingtheRepresentationofNumbers"><code>IEEE754Compatible</code></a> format parameter demands representation of <code>Edm.Int64</code> and <code>Edm.Decimal</code> as strings.</p>
 <p>Values of type <code>Edm.String</code> are represented as JSON strings, using the JSON string escaping rules.</p>
-<p>Values of type <code>Edm.Binary</code>, <code>Edm.Date</code>, <code>Edm.DateTimeOffset</code>, <code>Edm.Duration</code>, <code>Edm.Guid</code>, and <code>Edm.TimeOfDay</code> are represented as JSON strings whose content satisfies the rules <code>binaryValue</code>, <code>dateValue</code>, <code>dateTimeOffsetValue</code>, <code>durationValue</code>, <code>guidValue</code>, and <code>timeOfDayValue</code> respectively, in <a href="#ODataABNF">OData-ABNF</a>. The interpretation of a <code>timeOfDayValue</code> in which the <code>second</code> is omitted is not defined by this specification. For maximum interoperability, senders SHOULD always include the <code>second</code>.</p>
+<p>Values of type <code>Edm.Binary</code>, <code>Edm.Date</code>, <code>Edm.DateTimeOffset</code>, <code>Edm.Duration</code>, <code>Edm.Guid</code>, and <code>Edm.TimeOfDay</code> are represented as JSON strings whose content satisfies the rules <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#binaryValue"><code>binaryValue</code></a></span>, <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#dateValue"><code>dateValue</code></a></span>, <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#dateTimeOffsetValue"><code>dateTimeOffsetValue</code></a></span>, <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#durationValue"><code>durationValue</code></a></span>, <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#guidValue"><code>guidValue</code></a></span>, and <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#timeOfDayValue"><code>timeOfDayValue</code></a></span> respectively, in <a href="#ODataABNF">OData-ABNF</a>. The interpretation of a <code>timeOfDayValue</code> in which the <code>second</code> is omitted is not defined by this specification. For maximum interoperability, senders SHOULD always include the <code>second</code>.</p>
 <p>Primitive values that cannot be represented, for example due to server conversion issues or IEEE754 limitations on the size of an <code>Edm.Int64</code> or <code>Edm.Decimal</code> value, are annotated with the <code>Core.ValueException</code> term. In this case, the payload MAY include an approximation of the value and MAY specify a string representation of the exact value in the <code>value</code> property of the annotation.</p>
-<p>Enumeration values are represented as JSON strings whose content satisfies the rule <code>enumValue</code> in <a href="#ODataABNF">OData-ABNF</a>. The preferred representation is the <code>enumerationMember</code>. If no <code>enumerationMember</code> (or combination of named enumeration members) is available, the <code>enumMemberValue</code> representation may be used.</p>
+<p>Enumeration values are represented as JSON strings whose content satisfies the rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#enumValue"><code>enumValue</code></a></span> in <a href="#ODataABNF">OData-ABNF</a>. The preferred representation is the <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#enumerationMember"><code>enumerationMember</code></a></span>. If no <code>enumerationMember</code> (or combination of named enumeration members) is available, the <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#enumMemberValue"><code>enumMemberValue</code></a></span> representation may be used.</p>
 <p>Geography and geometry values are represented as geometry types as defined in <a href="#rfc7946">RFC7946</a>.</p>
 <p>Geography and geometry types have the same representation in a JSON payload. Whether the value represents a geography type or geometry type is inferred from its usage or specified using the <a href="#ControlInformationtypeodatatype"><code>type</code></a> control information. <a href="#rfc7946">RFC7946</a> does not define means for expressing instance-specific <a href="https://datatracker.ietf.org/doc/html/rfc7946#section-4">Coordinate Reference Systems</a>.</p>
 <div class="example">
@@ -1101,7 +1120,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <div class="sourceCode" id="cb21"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">11643</span><span class="fu">,</span></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Amount&quot;</span><span class="fu">:</span> <span class="dv">100</span><span class="fu">,</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="er">…</span><span class="fu">,</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="er">…,</span></span>
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Customer&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;ANEWONE&quot;</span><span class="fu">,</span></span>
 <span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="er">…</span></span>
@@ -1128,7 +1147,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <p>For requests containing an <code>OData-Version</code> header with a value of <code>4.0</code>, a bind operation is encoded as a property control information <code>odata.bind</code> on the navigation property it belongs to and has a single value for single-valued navigation properties or an array of values for collection navigation properties. For nullable single-valued navigation properties the value <code>null</code> may be used to remove the relationship.</p>
 <div class="example">
 <p>Example 20: assign an existing product to an existing category with a partial update request against the product</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="er">PATCH</span> <span class="er">http://host/service/Products(42)</span> <span class="er">HTTP/1.1</span></span>
+<div class="sourceCode" id="cb22"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="er">PATCH</span> <span class="er">http://host/service/Products(</span><span class="dv">42</span><span class="er">)</span> <span class="er">HTTP/</span><span class="fl">1.1</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
@@ -1139,7 +1158,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <p>For requests containing an <code>OData-Version</code> header with a value of <code>4.01</code>, a relationship is bound to an existing entity using the same representation as for an <a href="#EntityReference">expanded entity reference</a>.</p>
 <div class="example">
 <p>Example 21: assign an existing product to an existing category with a partial update request against the product</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="er">PATCH</span> <span class="er">http://host/service/Products(42)</span> <span class="er">HTTP/1.1</span></span>
+<div class="sourceCode" id="cb23"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="er">PATCH</span> <span class="er">http://host/service/Products(</span><span class="dv">42</span><span class="er">)</span> <span class="er">HTTP/</span><span class="fl">1.1</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
@@ -1155,7 +1174,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <li>create a new product named <code>Wedges</code> and assign it to the category</li>
 </ul>
 <p>At the end of the request, the updated category contains exactly the three specified products.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="er">PATCH</span> <span class="er">http://host/service/Categories(6)</span> <span class="er">HTTP/1.1</span></span>
+<div class="sourceCode" id="cb24"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="er">PATCH</span> <span class="er">http://host/service/Categories(</span><span class="dv">6</span><span class="er">)</span> <span class="er">HTTP/</span><span class="fl">1.1</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
@@ -1330,7 +1349,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <details open><summary>
 <h1 id="14-entity-reference"><a id="EntityReference" href="#EntityReference">14 Entity Reference</a></h1>
 </summary>
-<p>An entity reference (see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#EntityIdsandEntityReferences">OData-Protocol, section 4.1</a>) MAY take the place of an entity in a JSON payload, based on the client request. It is serialized as a JSON object that MUST contain the <a href="#ControlInformationidodataid">id</a> of the referenced entity and MAY contain the <a href="#ControlInformationtypeodatatype"><code>type</code></a> control information and <a href="#InstanceAnnotations">instance annotations</a>, but no additional properties or control information.</p>
+<p>An entity reference (see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#EntityIdsandEntityReferences">OData-Protocol, section 4.1</a>) MAY take the place of an entity in a JSON payload, based on the client request. It is serialized as a JSON object that MUST contain either the <a href="#ControlInformationidodataid">id</a> or the full set of key values of the referenced entity and MAY contain the <a href="#ControlInformationtypeodatatype"><code>type</code></a> control information and <a href="#InstanceAnnotations">instance annotations</a>, but no additional properties or control information. If the entity reference contains both the <code>id</code> and key values, then they MUST identify the same entity.</p>
 <p>A collection of entity references is represented as a <a href="#CollectionofEntities">collection of entities</a>, with entity reference representations instead of entity representations as items in the array value of the <code>value</code> name/value pair.</p>
 <p>The outermost JSON object in a response MUST contain a <a href="#ControlInformationcontextodatacontext"><code>context</code></a> control information and MAY contain <a href="#ControlInformationcountodatacount"><code>count</code></a>, <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a>, or <a href="#ControlInformationdeltaLinkodatadeltaLink"><code>deltaLink</code></a> control information.</p>
 <div class="example">
@@ -1346,9 +1365,9 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service/$metadata#Collection($ref)&quot;</span><span class="fu">,</span></span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
 <span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Orders(10643)&quot;</span> <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Orders(10759)&quot;</span> <span class="fu">}</span></span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="dv">10759</span><span class="st">&quot; }</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="st">  ]</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span></code></pre></div>
 </div>
 </details>
 <hr />
@@ -1411,7 +1430,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
 <span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Customers/$deletedEntity&quot;</span><span class="fu">,</span></span>
-<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@odata.id&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ANTON&#39;)&quot;</span></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ANTON&#39;)&quot;</span></span>
 <span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
 <span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@odata.id&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ALFKI&#39;)&quot;</span><span class="fu">,</span></span>
@@ -1448,9 +1467,9 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <li><code>reason</code> — either <code>deleted</code>, if the entity was deleted (destroyed), or <code>changed</code> if the entity was removed from membership in the result (i.e., due to a data change).</li>
 </ul>
 <div class="example">
-<p>Example 36: deleted entity in OData 4.0 response — note that <code>id</code> is a property, not control information</p>
+<p>Example 36: deleted entity in OData 4.0 response — note that <code>id</code> is represented as a property of the deleted-entity object, not control information</p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Customers/$deletedEntity&quot;</span><span class="fu">,</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@odata.context&quot;</span><span class="fu">:</span> <span class="st">&quot;#Customers/$deletedEntity&quot;</span><span class="fu">,</span></span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;reason&quot;</span><span class="fu">:</span> <span class="st">&quot;deleted&quot;</span><span class="fu">,</span></span>
 <span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ANTON&#39;)&quot;</span></span>
 <span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
@@ -1661,7 +1680,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <li>Add order 10643 to customer <code>ANATR</code></li>
 <li>Remove order 10311 from customer <code>DUMON</code></li>
 </ol>
-<div class="sourceCode" id="cb44"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="er">PATCH</span> <span class="er">/service/Customers</span> <span class="er">HTTP/1.1</span></span>
+<div class="sourceCode" id="cb44"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="er">PATCH</span> <span class="er">/service/Customers</span> <span class="er">HTTP/</span><span class="fl">1.1</span></span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="er">Host:</span> <span class="er">host</span></span>
 <span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Length:</span> <span class="er">###</span></span>
@@ -1765,7 +1784,7 @@ Preference-Applied: return=minimal, continue-on-error
 <li>Add order 10643 to customer ‘ANATR’ - failed without further info</li>
 <li>Remove order 10311 from customer ‘DUMON’ - failed without further info</li>
 </ol>
-<div class="sourceCode" id="cb46"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="er">HTTP/1.1</span> <span class="er">200</span> <span class="er">OK</span></span>
+<div class="sourceCode" id="cb46"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="er">HTTP/</span><span class="fl">1.1</span> <span class="dv">200</span> <span class="er">OK</span></span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Length:</span> <span class="er">###</span></span>
 <span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="er">Preference-Applied:</span> <span class="er">return=minimal,</span> <span class="er">continue-on-error</span></span>
@@ -1871,7 +1890,7 @@ Preference-Applied: return=minimal, continue-on-error
 <span id="cb46-104"><a href="#cb46-104" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb46-105"><a href="#cb46-105" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <p>Without the <code>continue-on-error</code> preference processing would stop on the first error, and the response would be a standard OData error response</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="er">HTTP/1.1</span> <span class="er">400</span> <span class="er">Bad</span> <span class="er">Request</span></span>
+<div class="sourceCode" id="cb47"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="er">HTTP/</span><span class="fl">1.1</span> <span class="dv">400</span> <span class="er">Bad</span> <span class="er">Request</span></span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Length:</span> <span class="er">###</span></span>
 <span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -1890,7 +1909,7 @@ Preference-Applied: return=minimal, continue-on-error
 <details open><summary>
 <h1 id="16-bound-function"><a id="BoundFunction" href="#BoundFunction">16 Bound Function</a></h1>
 </summary>
-<p>A bound function is advertised via a name/value pair where the name is a hash (<code>#</code>) character followed by the namespace- or alias-qualified name of the function. The namespace or alias MUST be defined or the namespace referenced in the metadata document of the service, see <a href="#ODataCSDL">OData-CSDL</a>. A specific function overload can be advertised by appending the parentheses-enclosed, comma-separated list of non-binding parameter names to the qualified function name, see rule <code>qualifiedFunctionName</code> in <a href="#ODataABNF">OData-ABNF</a>.</p>
+<p>A bound function is advertised via a name/value pair where the name is a hash (<code>#</code>) character followed by the namespace- or alias-qualified name of the function. The namespace or alias MUST be defined or the namespace referenced in the metadata document of the service, see <a href="#ODataCSDL">OData-CSDL</a>. A specific function overload can be advertised by appending the parentheses-enclosed, comma-separated list of non-binding parameter names to the qualified function name, see rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#qualifiedFunctionName"><code>qualifiedFunctionName</code></a></span> in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>A function that is bound to a single structured type MAY be advertised within the JSON object representing that structured type.</p>
 <p>Functions that are bound to a collection MAY be advertised within the JSON object containing the collection. If the collection is the top-level response, the function advertisement name/value pair is placed next to the <code>value</code> name/value pair representing the collection. If the collection is nested within an instance of a structured type, then in 4.01 payloads the name of the function advertisement is prepended with the name of the collection-valued property and is placed next to the collection-valued property, <a href="#ExpandedNavigationProperty">expanded navigation property</a>, or <a href="#NavigationLink"><code>navigationLink</code></a> control information, if present. 4.0 payloads MUST NOT advertise functions prefixed with property names.</p>
 <p>If the function is available, the value of the advertisement is an object. OData 4.01 services MAY advertise the non-availability of the function with the value <code>null</code>.</p>
@@ -2003,7 +2022,7 @@ Preference-Applied: return=minimal, continue-on-error
 <h1 id="18-action-invocation"><a id="ActionInvocation" href="#ActionInvocation">18 Action Invocation</a></h1>
 </summary>
 <p>Action parameter values are encoded in a single JSON object in the request body.</p>
-<p>Each non-binding parameter value is encoded as a separate name/value pair in this JSON object. The name is the name of the parameter. The value is the parameter value in the JSON representation appropriate for its type. Entity typed parameter values MAY include a subset of the properties, or just the <a href="#EntityReference">entity reference</a>, as appropriate to the action. Stream typed parameter values are represented following the same rules as inlined <a href="#StreamProperty">stream properties</a>.</p>
+<p>Each non-binding parameter value is encoded as a separate name/value pair in this JSON object. The name is the name of the parameter. The value is the parameter value in the JSON representation appropriate for its type. Entity typed parameter values MAY include a subset of the properties, or just the <a href="#EntityReference">entity reference</a>, as appropriate to the action. For transient entities or complex typed parameters, properties with a defined default value, nullable properties, and collection-valued properties that are omitted from the request are interpreted as the default value, null, or an empty collection, respectively. Stream typed parameter values are represented following the same rules as inlined <a href="#StreamProperty">stream properties</a>.</p>
 <p>Entities as parameter values are represented as explained in <a href="#Entity">section 6</a>.</p>
 <div class="example">
 <p>Example 51: Create a quote for a product that does not yet exist. The <code>Product</code> parameter takes a transient entity.</p>
@@ -2044,7 +2063,7 @@ Preference-Applied: return=minimal, continue-on-error
 <p>Alternatively, values of non-binding parameters MAY be specified as common expressions <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CommonExpressionSyntax">OData-URL, section 5.1.1</a>. In the case of a bound action these MAY contain path expressions <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#PathExpressions">OData-URL, section 5.1.1.15</a>, which the service evaluates on the binding parameter value. Such parameters are encoded as name/value pairs where the name is the name of the parameter followed by <code>@expression</code> and the value is the common expression. As the following example demonstrates, non-transient entities can be passed as non-binding action parameters through a resource path in this way.</p>
 <div class="example">
 <p>Example 53: An employee requests leave from their manager for the next two weeks:</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/service/Employees(23)/self.RequestLeave</span></span>
+<div class="sourceCode" id="cb59"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/service/Employees(</span><span class="dv">23</span><span class="er">)/self.RequestLeave</span></span>
 <span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="er">Host:</span> <span class="er">host</span></span>
 <span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -2090,24 +2109,25 @@ Preference-Applied: return=minimal, continue-on-error
 </summary>
 <p>A JSON batch request body consists of a single JSON object that MUST contain the name/value pair <code>requests</code> and MAY contain <a href="#InstanceAnnotations">annotations</a>. It does not contain the <code>context</code> control information.</p>
 <p>The value of <code>requests</code> is an array of request objects, each representing an individual request. Note: an individual request MUST NOT itself be a batch request.</p>
-<p>A <em>request object</em> MUST contain the name/value pairs <code>id</code>, <code>method</code> and <code>url</code>, and it MAY contain the name/value pairs <code>atomicityGroup</code>, <code>dependsOn</code>, <code>if</code>, <code>headers</code>, and <code>body</code>.</p>
+<p>A <em>request object</em> MUST contain the name/value pairs <code>id</code>, <code>method</code> and <code>url</code>, and it MAY contain the name/value pairs <code>atomicityGroup</code>, <code>dependsOn</code>, <code>if</code>, <code>headers</code>, and <code>body</code>. The <code>id</code> SHOULD be the first name/value pair in the request object, and <code>body</code> (if present) SHOULD be the final name/value pair in the request object. If the JSON batch request specifies an <code>OData-Version</code> of <code>4.02</code> or greater, and the <code>content-type</code> header specifies that the batch request follows <a href="#PayloadOrderingConstraints">payload ordering constraints</a>, then these two ordering requirements MUST be true.</p>
 <p>The value of <code>id</code> is a string containing the request identifier of the individual request, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#IdentifyingIndividualRequests">OData-Protocol, section 11.7.3</a>. It MUST NOT be identical to the value of any other request identifier nor any <code>atomicityGroup</code> within the batch request.</p>
 <p>Note: the <code>id</code> name/value pair corresponds to the <code>Content-ID</code> header in the multipart batch format specified in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#MultipartBatchRequestBody">OData-Protocol, section 11.7.7.1</a>.</p>
 <p>The value of <code>method</code> is a string that MUST contain one of the literals <code>delete</code>, <code>get</code>, <code>patch</code>, <code>post</code>, or <code>put</code>. These literals are case-insensitive.</p>
 <p>The value of <code>url</code> is a string containing the individual request URL. The URL MAY be an absolute path (starting with a forward slash <code>/</code>) which is appended to scheme, host, and port of the batch request URL, or a relative path (not starting with a forward slash <code>/</code>).</p>
 <p>If the first segment of a relative path starts with a <code>$</code> character and is not identical to the name of a top-level system resource (<code>$batch</code>, <code>$crossjoin</code>, <code>$all</code>, <code>$entity</code>, <code>$root</code>, <code>$id</code>, <code>$metadata</code>, or other system resources defined according to the <code>OData-Version</code> of the protocol specified in the request), then this first segment is replaced with the URL of the entity created by or returned from a preceding request whose <code>id</code> value is identical to the value of the first segment with the leading <code>$</code> character removed. The <code>id</code> of this request MUST be specified in the <code>dependsOn</code> name/value pair.</p>
 <p>Otherwise, the relative path is resolved relative to the batch request URL (i.e. relative to the service root).</p>
-<p>The value of <code>atomicityGroup</code> is a string whose content MUST NOT be identical to any value of <code>id</code> within the batch request, and which MUST satisfy the rule <code>request-id</code> in <a href="#ODataABNF">OData-ABNF</a>. All request objects with the same value for <code>atomicityGroup</code> MUST be adjacent in the <code>requests</code> array. These requests are processed as an atomic operation and MUST either all succeed, or all fail.</p>
+<p>The value of <code>atomicityGroup</code> is a string whose content MUST NOT be identical to any value of <code>id</code> within the batch request, and which MUST satisfy the rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#request-id"><code>request-id</code></a></span> in <a href="#ODataABNF">OData-ABNF</a>. All request objects with the same value for <code>atomicityGroup</code> MUST be adjacent in the <code>requests</code> array. These requests are processed as an atomic operation and MUST either all succeed, or all fail.</p>
 <p>Note: the atomicity group is a generalization of the change set in the multipart batch format specified in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#MultipartBatchRequestBody">OData-Protocol, section 11.7.7.1</a>.</p>
-<p>The value of <code>dependsOn</code> is an array of strings whose values MUST be values of either <code>id</code> or <code>atomicityGroup</code> of preceding request objects; forward references are not allowed. If a request depends on another request that is part of a different atomicity group, the atomicity group MUST be listed in <code>dependsOn</code>. In the absence of the optional <code>if</code> member a request that depends on other requests or atomicity groups is only executed if those requests were executed successfully, i.e. with a <code>2xx</code> response code. If one of the requests it depends on has failed, the dependent request is not executed and a response with status code of <code>424 Failed Dependency</code> is returned for it as part of the batch response.</p>
+<p>The value of <code>dependsOn</code> is an array of strings whose values MUST be values of either <code>id</code> or <code>atomicityGroup</code> of preceding request objects; forward references are not allowed. When targeting a 4.01 service, if a request depends on another request that is part of a different atomicity group, the atomicity group MUST be listed in <code>dependsOn</code>. OData 4.02 or greater services SHOULD NOT require the atomicity group to be listed if <code>dependsOn</code> already contains the <code>id</code> of a request within that atomicity group. For maximum interoperability with earlier services, clients SHOULD continue to specify the <code>atomicityGroup</code>.</p>
+<p>In the absence of the optional <code>if</code> member a request that depends on other requests or atomicity groups is only executed if those requests were executed successfully, i.e. with a <code>2xx</code> response code. If one of the requests it depends on has failed, the dependent request is not executed and a response with status code of <code>424 Failed Dependency</code> is returned for it as part of the batch response.</p>
 <p>The <code>if</code> member can specify an alternative condition for executing the dependent request. Its value MUST be URL expression (see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CommonExpressionSyntax">OData-URL, section 5.1.1</a>) that evaluates to a Boolean value. The URL expression syntax is extended and additionally allows</p>
 <ul>
 <li><code>$&lt;content-id&gt;/$succeeded</code> to check if the referenced request has succeeded</li>
 <li><code>$&lt;content-id&gt;</code> to reference the response body of the referenced request</li>
 <li><code>$&lt;content-id&gt;/&lt;path&gt;</code> to reference a part of the response body</li>
 </ul>
-<p>Services SHOULD advertise support of the <code>if</code> member by specifying the property <code>RequestDependencyConditionsSupported</code> in the <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#BatchSupport"><code>Capabilities.BatchSupport</code></a> term applied to the entity container, see <a href="#ODataVocCap">OData-VocCap</a>. If a service does not support request dependencies, the dependent request MUST fail with <code>424 Failed Dependency</code>, and if the dependent request is part of an atomicity group, all requests in that group fail with <code>424 Failed Dependency</code> with no changes applied.</p>
-<p>The value of <code>headers</code> is an object whose name/value pairs represent request headers. The name of each pair MUST be the lower-case header name; the value is a string containing the header-encoded value of the header. The <code>headers</code> object MUST contain a name/value pair with the name <code>content-type</code> whose value is the media type.</p>
+<p>Services SHOULD advertise support of the <code>if</code> member by specifying the property <code>RequestDependencyConditionsSupported</code> in the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#BatchSupport"><code>Capabilities.BatchSupport</code></a></span> term applied to the entity container, see <a href="#ODataVocCap">OData-VocCap</a>. If a service does not support request dependencies, the dependent request MUST fail with <code>424 Failed Dependency</code>, and if the dependent request is part of an atomicity group, all requests in that group fail with <code>424 Failed Dependency</code> with no changes applied.</p>
+<p>The value of <code>headers</code> is an object whose name/value pairs represent request headers. The name of each pair MUST be the lower-case header name; the value is a string containing the header-encoded value of the header. Services MAY support omitting the <code>content-type</code> in the <code>header</code> property of a request object. For such requests the <code>body</code>, if present, MUST be <code>application/json</code> and MUST conform to <a href="#PayloadOrderingConstraints">payload ordering constraints</a>.</p>
 <p>The value of <code>body</code> can be <code>null</code>, which is equivalent to not specifying the <code>body</code> name/value pair.</p>
 <p>For media type <code>application/json</code> or one of its subtypes, optionally with format parameters, the value of <code>body</code> is JSON.</p>
 <p>For media types of top-level type <code>text</code>, for example <code>text/plain</code>, the value of <code>body</code> is a string containing the value of the request body.</p>
@@ -2126,9 +2146,9 @@ Preference-Applied: return=minimal, continue-on-error
 <li>A second query request</li>
 </ol>
 <p>Note: For brevity, in the example, request bodies are excluded in favor of English descriptions inside <code>&lt;&gt;</code> brackets and <code>OData-Version</code> headers are omitted.</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/service/$batch</span> <span class="er">HTTP/1.1</span></span>
+<div class="sourceCode" id="cb62"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/service/$batch</span> <span class="er">HTTP/</span><span class="fl">1.1</span></span>
 <span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="er">Host:</span> <span class="er">host</span></span>
-<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="er">4.01</span></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="fl">4.01</span></span>
 <span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Length:</span> <span class="er">###</span></span>
 <span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a></span>
@@ -2146,7 +2166,7 @@ Preference-Applied: return=minimal, continue-on-error
 <span id="cb62-18"><a href="#cb62-18" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;method&quot;</span><span class="fu">:</span> <span class="st">&quot;patch&quot;</span><span class="fu">,</span></span>
 <span id="cb62-19"><a href="#cb62-19" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;url&quot;</span><span class="fu">:</span> <span class="st">&quot;/service/Customers(&#39;ALFKI&#39;)&quot;</span><span class="fu">,</span></span>
 <span id="cb62-20"><a href="#cb62-20" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;headers&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb62-21"><a href="#cb62-21" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;Prefer&quot;</span><span class="fu">:</span> <span class="st">&quot;return=minimal&quot;</span></span>
+<span id="cb62-21"><a href="#cb62-21" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;prefer&quot;</span><span class="fu">:</span> <span class="st">&quot;return=minimal&quot;</span></span>
 <span id="cb62-22"><a href="#cb62-22" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
 <span id="cb62-23"><a href="#cb62-23" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;body&quot;</span><span class="fu">:</span> <span class="er">&lt;JSON</span> <span class="er">representation</span> <span class="er">of</span> <span class="er">changes</span> <span class="er">to</span> <span class="er">Customer</span> <span class="er">ALFKI&gt;</span></span>
 <span id="cb62-24"><a href="#cb62-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
@@ -2177,9 +2197,9 @@ Preference-Applied: return=minimal, continue-on-error
 <li>Insert a new entity (with <code>id = 1</code>)</li>
 <li>Insert a second new entity (references request with <code>id = 1</code>)</li>
 </ul>
-<div class="sourceCode" id="cb63"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/service/$batch</span> <span class="er">HTTP/1.1</span></span>
+<div class="sourceCode" id="cb63"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/service/$batch</span> <span class="er">HTTP/</span><span class="fl">1.1</span></span>
 <span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="er">Host:</span> <span class="er">host</span></span>
-<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="er">4.01</span></span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="fl">4.01</span></span>
 <span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Length:</span> <span class="er">###</span></span>
 <span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a></span>
@@ -2211,9 +2231,9 @@ Preference-Applied: return=minimal, continue-on-error
 <li>Get an Employee (with <code>id</code> = 1)</li>
 <li>Update the salary only if the employee has not changed</li>
 </ul>
-<div class="sourceCode" id="cb64"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/service/$batch</span> <span class="er">HTTP/1.1</span></span>
+<div class="sourceCode" id="cb64"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/service/$batch</span> <span class="er">HTTP/</span><span class="fl">1.1</span></span>
 <span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="er">Host:</span> <span class="er">host</span></span>
-<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="er">4.01</span></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="fl">4.01</span></span>
 <span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Length:</span> <span class="er">###</span></span>
 <span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a></span>
@@ -2252,9 +2272,9 @@ Preference-Applied: return=minimal, continue-on-error
 <li>Get an employee (with <code>Content-ID = 1</code>)</li>
 <li>Get all employees residing in the same building</li>
 </ul>
-<div class="sourceCode" id="cb65"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/service/$batch</span> <span class="er">HTTP/1.1</span></span>
+<div class="sourceCode" id="cb65"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/service/$batch</span> <span class="er">HTTP/</span><span class="fl">1.1</span></span>
 <span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="er">Host:</span> <span class="er">host</span></span>
-<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="er">4.01</span></span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="fl">4.01</span></span>
 <span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
 <span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Length:</span> <span class="er">###</span></span>
 <span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a></span>
@@ -2284,7 +2304,7 @@ Preference-Applied: return=minimal, continue-on-error
 <details open><summary>
 <h2 id="195-processing-a-batch-request"><a id="ProcessingaBatchRequest" href="#ProcessingaBatchRequest">19.5 Processing a Batch Request</a></h2>
 </summary>
-<p>All requests in an atomicity group represent a single change unit. A service MUST successfully process and apply all the requests in the atomicity group or else apply none of them. It is up to the service implementation to define rollback semantics to undo any requests within an atomicity group that may have been applied before another request in that same atomicity group failed.</p>
+<p>All requests in an atomicity group represent a single change unit. A service MUST successfully process and apply all the requests in the atomicity group or else apply none of them. See <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#Atomicity">OData-Protocol, section 11.4.1.1</a> for details on visibility of atomic changes.</p>
 <p>The service MAY process the individual requests and atomicity groups within a batch request, or individual requests within an atomicity group, in any order that is compatible with the dependencies expressed with the <code>dependsOn</code> name/value pair. Individual requests and atomicity groups that do not specify the <code>dependsOn</code> name/value pair may be processed in parallel. Clients that are only interested in completely successful batch responses MAY specify the preference <code>continue-on-error=false</code> to indicate that the service need not spend cycles on further processing once an error occurs in one of the dependency chains. In this case the response MAY omit response objects for requests that have not been processed. If the preference <code>continue-on-error</code> is not specified, or specified with a value of <code>true</code>, all requests are processed according to their dependencies.</p>
 <p>The service MUST include the <code>id</code> name/value pair in each response object with the value of the request identifier that the client specified in the corresponding request, so clients can correlate requests and responses.</p>
 </details>
@@ -2296,25 +2316,25 @@ Preference-Applied: return=minimal, continue-on-error
 <p>A JSON batch response MAY be a partial result containing the <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a> control information. This allows services to chunk results into manageable pieces, or to return results for already processed requests and continue processing the remaining individual requests while waiting for the client to fire a <code>GET</code> request to the next link.</p>
 <p>In a response to a batch request using the multipart format defined in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#MultipartBatchFormat">OData-Protocol, section 11.7.7</a> the response objects MUST appear in the same order as required for multipart batch responses because the <code>Content-ID</code> header is not required outside of change sets. Response objects corresponding to requests that specify a <code>Content-ID</code> header MUST contain the <code>id</code> name/value pair, and the value of <code>id</code> MUST be the value of the <code>Content-ID</code> header of the corresponding request. This is necessarily the case for requests contained within a change set. Responses to requests within a change set MUST contain the <code>atomicityGroup</code> name/value pair with a value common within a change set and unique across change sets.</p>
 <p>In a response to a batch request using the JSON batch request format specified in the preceding section the response objects MAY appear in any order, and each response object MUST contain the <code>id</code> name/value pair with the same value as in the corresponding request object. If the corresponding request object contains the <code>atomicityGroup</code> name/value pair, it MUST also be present in the response object with the same value.</p>
+<p>For 4.02 and greater <a href="#PayloadOrderingConstraints">ordered payloads</a>, the <code>id</code> MUST be the first name/value pair in the response object and <code>body</code>, if present, MUST be the final property in the response object.</p>
 <p>If any response within an atomicity group returns a failure code, all requests within that atomicity group are considered failed, regardless of their individual returned status code. The service MAY return <code>424 Failed Dependency</code> for statements within an atomicity group that fail or are not attempted due to other failures within the same atomicity group.</p>
 <p>A response object MUST contain the name/value pair <code>status</code> whose value is a number representing the HTTP status code of the response to the individual request.</p>
-<p>The response object MAY contain the name/value pair <code>headers</code> whose value is an object with name/value pairs representing response headers. The name of each pair MUST be the lower-case header name; the value is a string containing the header-encoded value of the header.</p>
+<p>The response object MAY contain the name/value pair <code>headers</code> whose value is an object with name/value pairs representing response headers. The name of each pair MUST be the lower-case header name; the value is a string containing the header-encoded value of the header. If the response object does not name the <code>content-type</code>, then the content type of the <code>body</code>, if present, is assumed to be <code>application/json</code> and MUST follow <a href="#PayloadOrderingConstraints">payload ordering constraints</a>.</p>
 <p>The response object MAY contain the name/value pair <code>body</code> which follows the same rules as within <a href="#BatchRequest">request objects</a>.</p>
-<p>If the media type is not exactly equal to <code>application/json</code> (i.e. it is a subtype or has format parameters), the <code>headers</code> object MUST contain a name/value pair with the name <code>content-type</code> whose value is the media type.</p>
 <p>Relative URLs in a response object follow the rules for <a href="#RelativeURLs">relative URLs</a> based on the request URL of the corresponding request. Especially: URLs in responses MUST NOT contain <code>$</code>-prefixed request identifiers.</p>
 <div class="example">
 <p>Example 59: referencing the batch request <a href="#batchRequest">example 55</a> above, assume all the requests except the final query request succeed. In this case the response would be</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="er">HTTP/1.1</span> <span class="er">200</span> <span class="er">OK</span></span>
-<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="er">4.01</span></span>
+<div class="sourceCode" id="cb66"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="er">HTTP/</span><span class="fl">1.1</span> <span class="dv">200</span> <span class="er">OK</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="fl">4.01</span></span>
 <span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Length:</span> <span class="er">####</span></span>
-<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json;streaming=</span><span class="kw">true</span></span>
 <span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;responses&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
 <span id="cb66-8"><a href="#cb66-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
 <span id="cb66-9"><a href="#cb66-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;0&quot;</span><span class="fu">,</span></span>
 <span id="cb66-10"><a href="#cb66-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;status&quot;</span><span class="fu">:</span> <span class="dv">200</span><span class="fu">,</span></span>
-<span id="cb66-11"><a href="#cb66-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;body&quot;</span><span class="fu">:</span> <span class="er">&lt;JSON</span> <span class="er">representation</span> <span class="er">of</span> <span class="er">the</span> <span class="er">Customer</span> <span class="er">entity</span> <span class="er">with</span> <span class="er">key</span> <span class="er">ALFKI&gt;</span></span>
+<span id="cb66-11"><a href="#cb66-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;body&quot;</span><span class="fu">:</span> <span class="er">&lt;Ordered</span> <span class="er">JSON</span> <span class="er">representation</span> <span class="er">of</span> <span class="er">the</span> <span class="er">Customer</span> <span class="er">entity</span> <span class="er">with</span> <span class="er">key</span> <span class="er">ALFKI&gt;</span></span>
 <span id="cb66-12"><a href="#cb66-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb66-13"><a href="#cb66-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
 <span id="cb66-14"><a href="#cb66-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;1&quot;</span><span class="fu">,</span></span>
@@ -2326,7 +2346,7 @@ Preference-Applied: return=minimal, continue-on-error
 <span id="cb66-20"><a href="#cb66-20" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;headers&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb66-21"><a href="#cb66-21" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;location&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service.svc/Customer(&#39;POIUY&#39;)&quot;</span></span>
 <span id="cb66-22"><a href="#cb66-22" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
-<span id="cb66-23"><a href="#cb66-23" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;body&quot;</span><span class="fu">:</span> <span class="er">&lt;JSON</span> <span class="er">representation</span> <span class="er">of</span> <span class="er">the</span> <span class="er">new</span> <span class="er">Customer</span> <span class="er">entity&gt;</span></span>
+<span id="cb66-23"><a href="#cb66-23" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;body&quot;</span><span class="fu">:</span> <span class="er">&lt;Ordered</span> <span class="er">JSON</span> <span class="er">representation</span> <span class="er">of</span> <span class="er">the</span> <span class="er">new</span> <span class="er">Customer</span> <span class="er">entity&gt;</span></span>
 <span id="cb66-24"><a href="#cb66-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb66-25"><a href="#cb66-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
 <span id="cb66-26"><a href="#cb66-26" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;3&quot;</span><span class="fu">,</span></span>
@@ -2344,36 +2364,36 @@ Preference-Applied: return=minimal, continue-on-error
 <p>A service MAY return interim results to an asynchronously executing batch. It does this by responding with <code>200 OK</code> to a <code>GET</code> request to the monitor resource and including a <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a> control information in the JSON batch response, thus signaling that the response is only a partial result. A subsequent <code>GET</code> request to the next link MAY result in a <code>202 Accepted</code> response with a <code>location</code> header pointing to a new status monitor resource.</p>
 <div class="example">
 <p>Example 60: referencing the <a href="#batchRequest">example 55</a> above again, assume that the request is sent with the <code>respond-async</code> preference. This results in a <code>202</code> response pointing to a status monitor resource:</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="er">HTTP/1.1</span> <span class="er">202</span> <span class="er">Accepted</span></span>
-<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="er">Location:</span> <span class="er">http://service-root/async-monitor-0</span></span>
+<div class="sourceCode" id="cb67"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="er">HTTP/</span><span class="fl">1.1</span> <span class="dv">202</span> <span class="er">Accepted</span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="er">Location:</span> <span class="er">http://service-root/async-monitor</span><span class="dv">-0</span></span>
 <span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a><span class="er">Retry-After:</span> <span class="er">###</span></span></code></pre></div>
 <p>When interrogating the monitor URL only the first request in the batch has finished processing and all the remaining requests are still being processed. The service signals that asynchronous processing is “finished” and returns a partial result with the first response and a next link. The client did not explicitly accept <code>application/http</code>, so the response is “unwrapped” and only indicates with the <code>AsyncResult</code> header that it is a response to a status monitor resource:</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="er">HTTP/1.1</span> <span class="er">200</span> <span class="er">OK</span></span>
-<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="er">AsyncResult:</span> <span class="er">200</span></span>
-<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="er">4.01</span></span>
+<div class="sourceCode" id="cb68"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="er">HTTP/</span><span class="fl">1.1</span> <span class="dv">200</span> <span class="er">OK</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="er">AsyncResult:</span> <span class="dv">200</span></span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="fl">4.01</span></span>
 <span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Length:</span> <span class="er">###</span></span>
-<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json;streaming=</span><span class="kw">true</span></span>
 <span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb68-8"><a href="#cb68-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;responses&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
 <span id="cb68-9"><a href="#cb68-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
 <span id="cb68-10"><a href="#cb68-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;0&quot;</span><span class="fu">,</span></span>
 <span id="cb68-11"><a href="#cb68-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;status&quot;</span><span class="fu">:</span> <span class="dv">200</span><span class="fu">,</span></span>
-<span id="cb68-12"><a href="#cb68-12" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;body&quot;</span><span class="fu">:</span> <span class="er">&lt;JSON</span> <span class="er">representation</span> <span class="er">of</span> <span class="er">the</span> <span class="er">Customer</span> <span class="er">entity</span> <span class="er">with</span> <span class="er">key</span> <span class="er">ALFKI&gt;</span></span>
+<span id="cb68-12"><a href="#cb68-12" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;body&quot;</span><span class="fu">:</span> <span class="er">&lt;Ordered</span> <span class="er">JSON</span> <span class="er">representation</span> <span class="er">of</span> <span class="er">the</span> <span class="er">Customer</span> <span class="er">entity</span> <span class="er">with</span> <span class="er">key</span> <span class="er">ALFKI&gt;</span></span>
 <span id="cb68-13"><a href="#cb68-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
 <span id="cb68-14"><a href="#cb68-14" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
 <span id="cb68-15"><a href="#cb68-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@nextLink&quot;</span><span class="fu">:</span> <span class="st">&quot;…?$skiptoken=YmF0Y2gx&quot;</span></span>
 <span id="cb68-16"><a href="#cb68-16" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <p>Client makes a <code>GET</code> request to the next link and receives a <code>202</code> response with the location of a new monitor resource.</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="er">HTTP/1.1</span> <span class="er">202</span> <span class="er">Accepted</span></span>
-<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="er">Location:</span> <span class="er">http://service-root/async-monitor-1</span></span>
+<div class="sourceCode" id="cb69"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="er">HTTP/</span><span class="fl">1.1</span> <span class="dv">202</span> <span class="er">Accepted</span></span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="er">Location:</span> <span class="er">http://service-root/async-monitor</span><span class="dv">-1</span></span>
 <span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a><span class="er">Retry-After:</span> <span class="er">###</span></span></code></pre></div>
 <p>After some time a <code>GET</code> request to the monitor resource returns the remainder of the result.</p>
-<div class="sourceCode" id="cb70"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="er">HTTP/1.1</span> <span class="er">200</span> <span class="er">OK</span></span>
-<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="er">AsyncResult:</span> <span class="er">200</span></span>
-<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="er">4.01</span></span>
+<div class="sourceCode" id="cb70"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="er">HTTP/</span><span class="fl">1.1</span> <span class="dv">200</span> <span class="er">OK</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="er">AsyncResult:</span> <span class="dv">200</span></span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="fl">4.01</span></span>
 <span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Length:</span> <span class="er">###</span></span>
-<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json;streaming=</span><span class="kw">true</span></span>
 <span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb70-8"><a href="#cb70-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;responses&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
@@ -2387,7 +2407,7 @@ Preference-Applied: return=minimal, continue-on-error
 <span id="cb70-16"><a href="#cb70-16" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;headers&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb70-17"><a href="#cb70-17" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;location&quot;</span><span class="fu">:</span> <span class="st">&quot;http://host/service.svc/Customer(&#39;POIUY&#39;)&quot;</span></span>
 <span id="cb70-18"><a href="#cb70-18" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
-<span id="cb70-19"><a href="#cb70-19" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;body&quot;</span><span class="fu">:</span> <span class="er">&lt;JSON</span> <span class="er">representation</span> <span class="er">of</span> <span class="er">the</span> <span class="er">new</span> <span class="er">Customer</span> <span class="er">entity&gt;</span></span>
+<span id="cb70-19"><a href="#cb70-19" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;body&quot;</span><span class="fu">:</span> <span class="er">&lt;Ordered</span> <span class="er">JSON</span> <span class="er">representation</span> <span class="er">of</span> <span class="er">the</span> <span class="er">new</span> <span class="er">Customer</span> <span class="er">entity&gt;</span></span>
 <span id="cb70-20"><a href="#cb70-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb70-21"><a href="#cb70-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
 <span id="cb70-22"><a href="#cb70-22" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;3&quot;</span><span class="fu">,</span></span>
@@ -2400,10 +2420,10 @@ Preference-Applied: return=minimal, continue-on-error
 <p>In addition to the above interaction pattern individual requests within a batch with no other requests depending on it and not part of an atomicity group MAY be executed asynchronously if they specify the <code>respond-async</code> preference and if the service responds with a JSON batch response. In this case the <code>response</code> array contains a response object for each asynchronously executed individual request with a <code>status</code> of <code>202</code>, a <code>location</code> header pointing to an individual status monitor resource, and optionally a <code>retry-after</code> header.</p>
 <div class="example">
 <p>Example 61: the first individual request is processed asynchronously, the second synchronously, the batch itself is processed synchronously</p>
-<div class="sourceCode" id="cb71"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="er">HTTP/1.1</span> <span class="er">200</span> <span class="er">OK</span></span>
-<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="er">4.01</span></span>
+<div class="sourceCode" id="cb71"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="er">HTTP/</span><span class="fl">1.1</span> <span class="dv">200</span> <span class="er">OK</span></span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="fl">4.01</span></span>
 <span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Length:</span> <span class="er">###</span></span>
-<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json</span></span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a><span class="er">Content-Type:</span> <span class="er">application/json;streaming=</span><span class="kw">true</span></span>
 <span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb71-7"><a href="#cb71-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;responses&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
@@ -2724,64 +2744,64 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <p><strong>OData TC Members:</strong></p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th style="text-align: left;">First Name</th>
 <th style="text-align: left;">Last Name</th>
 <th style="text-align: left;">Company</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td style="text-align: left;">George</td>
 <td style="text-align: left;">Ericson</td>
 <td style="text-align: left;">Dell</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: left;">Hubert</td>
 <td style="text-align: left;">Heijkers</td>
 <td style="text-align: left;">IBM</td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: left;">Ling</td>
 <td style="text-align: left;">Jin</td>
 <td style="text-align: left;">IBM</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: left;">Stefan</td>
 <td style="text-align: left;">Hagen</td>
 <td style="text-align: left;">Individual</td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: left;">Michael</td>
 <td style="text-align: left;">Pizzo</td>
 <td style="text-align: left;">Microsoft</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: left;">Christof</td>
 <td style="text-align: left;">Sprenger</td>
 <td style="text-align: left;">Microsoft</td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: left;">Ralf</td>
 <td style="text-align: left;">Handl</td>
 <td style="text-align: left;">SAP SE</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: left;">Gerald</td>
 <td style="text-align: left;">Krause</td>
 <td style="text-align: left;">SAP SE</td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: left;">Heiko</td>
 <td style="text-align: left;">Theißen</td>
 <td style="text-align: left;">SAP SE</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: left;">Mark</td>
 <td style="text-align: left;">Biamonte</td>
 <td style="text-align: left;">Progress Software</td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: left;">Martin</td>
 <td style="text-align: left;">Zurmuehl</td>
 <td style="text-align: left;">SAP SE</td>
@@ -2796,7 +2816,7 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 </summary>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th style="text-align: left;">Revision</th>
 <th style="text-align: left;">Date</th>
 <th style="text-align: left;">Editor</th>
@@ -2804,7 +2824,7 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td style="text-align: left;">Committee Specification Draft 01</td>
 <td style="text-align: left;">2024-02-28</td>
 <td style="text-align: left;">Michael Pizzo<br>Ralf Handl<br>Heiko Theißen</td>

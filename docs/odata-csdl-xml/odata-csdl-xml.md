@@ -327,7 +327,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        odata-csdl-xml-v4.02-csd02.md
 ```
 
-This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
+This uses pandoc 3.8.3 from https://github.com/jgm/pandoc/releases/tag/3.8.3.
 -->
 
 <!-- These source files can be used to produce the JSON variant or the XML variant,
@@ -586,7 +586,7 @@ underlying type is `Edm.Stream`, cannot be used in collections.
 
 Some of these types allow facets, defined in [section 3.4](#TypeFacets).
 
-Representation of primitive type values within a URL is defined by the rule `primitiveLiteral` in [OData-ABNF](#ODataABNF).
+Representation of primitive type values within a URL is defined by the rule [primitiveLiteral]{.abnf} in [OData-ABNF](#ODataABNF).
 Representation within request and response bodies is format specific.
 
 ## <a id="TypeFacets" href="#TypeFacets">3.4 Type Facets</a>
@@ -679,9 +679,17 @@ allowed to the right of the decimal point, or one of the symbolic values
 `floating` or `variable`.
 
 The value `floating` means that the decimal value represents a
-decimal floating-point number whose number of significant digits is the
-value of the [`Precision`](#Precision) facet. OData 4.0 responses MUST
-NOT specify the value `floating`.
+decimal floating-point number $m\cdot 10^e$
+where the number of significant digits in $m$ is the
+value of the [`Precision`](#Precision) facet. Supported formats are:
+
+IEEE 754 format|Precision|Allowed exponents
+---------------|--------:|:---------------:
+[decimal32](https://en.wikipedia.org/wiki/Decimal32_floating-point_format) (rarely implemented) |        7|$-101\le e\le 96$
+[decimal64](https://en.wikipedia.org/wiki/Decimal64_floating-point_format)                      |       16|$-398\le e\le 384$
+[decimal128](https://en.wikipedia.org/wiki/Decimal128_floating-point_format)                    |       34|$-6143\le e\le 6144$
+
+OData 4.0 responses MUST NOT specify the value `floating`.
 
 The value `variable` means that the number of digits to the right of the
 decimal point can vary from zero to the value of the
@@ -748,7 +756,7 @@ values: 12.34, 1234 and 123.4 due to the limited precision.
 ::: {.varxml .example}
 Example 6: `Precision=7` and a floating `Scale`.  
 Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values:
-1e-102 and 1e97 due to the limited precision.
+1e-102 and 1e97 because exponents are out of range.
 ```xml
 <Property Name="Amount7f" Type="Edm.Decimal" Nullable="false" Precision="7" Scale="floating" />
 ```
@@ -925,10 +933,10 @@ in a format-specific way.
 A reference MAY be annotated.
 
 The
-[`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
+[Core.SchemaVersion]{.term}
 annotation, defined in [OData-VocCore](#ODataVocCore), MAY be used to
 indicate a particular version of the referenced document. If the
-[`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
+[Core.SchemaVersion]{.term}
 annotation is present, the `$schemaversion` system query option, defined in
 [OData-Protocol, section 11.2.12](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptionschemaversion), SHOULD be used when retrieving the
 referenced schema document.
@@ -1447,7 +1455,7 @@ also a media entity type.
 
 Media entity types MAY specify a list of acceptable media types using an
 annotation with term
-[`Core.AcceptableMediaTypes`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AcceptableMediaTypes),
+[Core.AcceptableMediaTypes]{.term},
 see [OData-VocCore](#ODataVocCore).
 
 
@@ -1692,13 +1700,13 @@ leading back to the property's declaring type, the finiteness condition for
 in this chain MUST be nullable or collection-valued.
 
 A collection-valued property MAY be annotated with the
-[`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered)
+[Core.Ordered]{.term}
 term, defined in
 [OData-VocCore](#ODataVocCore), to specify that it supports a
 stable ordering.
 
 A collection-valued property MAY be annotated with the
-[`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
+[Core.PositionalInsert]{.term}
 term, defined in [OData-VocCore](#ODataVocCore), to specify that it
 supports inserting items into a specific ordinal position.
 
@@ -1769,7 +1777,7 @@ If no value is specified, the client SHOULD NOT assume a default value.
 Default values of type `Edm.String` MUST be represented according to the
 XML escaping rules for character data in attribute values. Values of
 other primitive types MUST be represented according to the appropriate
-alternative in the `primitiveValue` rule defined in
+alternative in the [primitiveValue]{.abnf} rule defined in
 [OData-ABNF](#ODataABNF), i.e. `Edm.Binary` as `binaryValue`,
 `Edm.Boolean` as `booleanValue` etc.
 :::
@@ -1861,14 +1869,19 @@ For a collection-valued containment navigation property the specified
 entity type MUST have a [key](#Key) defined.
 
 A collection-valued navigation property MAY be annotated with the
-[`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered)
+[Core.Ordered]{.term}
 term, defined in [OData-VocCore](#ODataVocCore), to specify that it
 supports a stable ordering.
 
 A collection-valued navigation property MAY be annotated with the
-[`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
+[Core.PositionalInsert]{.term}
 term, defined in [OData-VocCore](#ODataVocCore), to specify that it
 supports inserting items into a specific ordinal position.
+
+A navigation property MAY be annotated with the
+[Core.Subsets]{.term}
+term, defined in [OData-VocCore](#ODataVocCore), to specify that each entity
+related by the annotated navigation property is also related by the navigation property specified in the annotation.
 
 
 ::: {.varxml .rep}
@@ -1964,7 +1977,7 @@ MUST have a [key](#Key) defined.
 
 For items of an ordered collection of complex types (those annotated
 with the
-[`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered)
+[Core.Ordered]{.term}
 term defined in [OData-VocCore](#ODataVocCore) the canonical URL
 of the item is the canonical URL of the collection appended with a
 segment containing the zero-based ordinal of the item. Items within in
@@ -2561,7 +2574,10 @@ any type.
 The action's name is a [simple identifier](#SimpleIdentifier) that MUST
 be unique within its schema.
 
-Actions cannot be composed with additional path segments.
+Actions cannot be composed with additional path segments nor indexed by key,
+and SHOULD be annotated with the appropriate Capabilities vocabulary annotations
+[OData-VocCap](#ODataVocCap) to denote any supported query options.
+Absent such annotations, actions SHOULD NOT be assumed to support any query options.
 
 An action MAY specify a [return type](#ReturnType) that MUST be a
 primitive, entity or complex type, or a collection of primitive, entity
@@ -2694,21 +2710,49 @@ Absence of the attribute means `false`.
 ## <a id="EntitySetPath" href="#EntitySetPath">12.6 Entity Set Path</a>
 
 Bound actions and functions that return an entity or a collection of
-entities MAY specify an entity set path if the entity set of the
-returned entities depends on the entity set of the binding parameter
-value.
+entities MAY specify an entity set path. The entity set path specifies the canonical collection
+(as defined in [OData-Protocol, section 10](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ContextURL)) of the
+returned entities in terms of the binding parameter value.
 
 The entity set path consists of a series of segments joined together
 with forward slashes.
-
 The first segment of the entity set path MUST be the name of the binding
-parameter. The remaining segments of the entity set path MUST represent
-navigation segments or type casts.
+parameter.
+If the entity set path consists only of the name of the binding parameter,
+the binding parameter MUST be an entity or a collection of entities. In this case
+the returned entities MUST belong to the same canonical collection
+as the binding parameter.
 
-A navigation segment names the [simple identifier](#SimpleIdentifier) of
-the [navigation property](#NavigationProperty) to be traversed. A
-type-cast segment names the [qualified name](#QualifiedName) of the
-entity type that should be returned from the type cast.
+Otherwise the entity set path has the form $p/s_1/…/s_k$ with $k>0$, and
+the binding parameter MUST be single-valued.
+The additional segments $s_1,…,s_k$ MUST be paths that could occur in an expand item [OData-URL, section 5.1.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#SystemQueryOptionexpand),
+and they MUST end with the name of a [navigation property](#NavigationProperty),
+optionally followed by the [qualified name](#QualifiedName) of a type cast.
+Furthermore, $s_1,…,s_{k-1}$ MUST be single-valued, and
+$s_k$ MUST name a collection-valued navigation property.
+In this case all returned entities MUST belong to the canonical collection $C$ of the final navigation
+property, if this can be determined by the following algorithm:
+1. Let $v$ be the binding parameter value, and let $α/β$ be the canonical URL of $v$
+   where $α$ is either an entity set followed by a key predicate or a singleton, and $β$
+   is a possibly empty concatenation of containment navigation properties, type casts and key predicates.
+   Remove any key predicates from $α$ and $β$.
+2. Let $i=1$.
+3. If $i=k$, go to step 8.
+4. Update $v$ to the result of evaluating the [instance path](#PathExpressions) $s_i$ on the instance $v$.
+5. If $s_i$ names a containment navigation property, update $β=β/s_i$.
+6. Otherwise $s_i$ names a non-containment navigation property. Determine
+   the [navigation property binding](#NavigationPropertyBinding) defined by the service
+   on the entity set or singleton $α$ whose path matches $β/s_i$;
+   if it does not exist, then $C$ cannot be determined.
+   The binding target of that navigation property binding is either an entity set $α'$ or has the form $α'/β'$ where $α'$ is a singleton.
+   Update $α=α'$ and $β=β'$.
+7. Update $i=i+1$ and go back to step 3.
+8. If $s_k$ names a containment navigation property, let $C$ be the implicit
+   entity set defined by $s_k$ for $v$ (as explained in [section 8.4](#ContainmentNavigationProperty)).
+9. Otherwise $s_k$ names a non-containment navigation property. Determine
+   the navigation property binding defined by the service on the entity set or singleton $α$
+   whose path matches $β/s_k$; if it does not exist, then $C$ cannot be determined.
+   Let $C$ be the binding target of that navigation property binding.
 
 
 ::: {.varxml .rep}
@@ -2724,8 +2768,14 @@ indicated, it is not composable.
 
 A composable function can be invoked with additional path segments or
 key predicates appended to the resource path that identifies the
-composable function, and with system query options as appropriate for
-the type returned by the composable function.
+composable function. Non-composable functions do not support additional
+path segments, nor indexing by key.
+
+Functions SHOULD be annotated with the appropriate Capabilities vocabulary
+annotations [OData-VocCap](#ODataVocCap) to denote any supported
+query options. Absent such annotations, composable functions SHOULD support
+the same default query options as an entity set of that type would support,
+while non-composable functions SHOULD NOT be assumed to support any query options.
 
 
 ::: {.varxml .rep}
@@ -2788,7 +2838,7 @@ fail with an error response if it cannot compute a result.
 ### <a id="AnnotationCoreIsDelta.22.3" href="#AnnotationCoreIsDelta.22.3">Annotation `Core.IsDelta`</a>
 
 An action or function that returns a single entity or a collection of entities MAY return results as a delta payload.
-This is indicated by annotating the return type with the term [`Core.IsDelta`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsDelta).
+This is indicated by annotating the return type with the term [Core.IsDelta]{.term}.
 
 Delta payloads represent changes between two versions of data and, in addition
 to current values, MAY include deleted entities as well as changes to related entities and relationships, according to the format-specific delta representation.
@@ -2857,7 +2907,7 @@ of the collection and specifies whether the collection MAY contain
 
 ### <a id="AnnotationCoreOptionalParameter.23.4" href="#AnnotationCoreOptionalParameter.23.4">Annotation `Core.OptionalParameter`</a>
 
-A parameter that is annotated with the term [`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter) MAY be omitted when invoking the function or action.
+A parameter that is annotated with the term [Core.OptionalParameter]{.term} MAY be omitted when invoking the function or action.
 
 All parameters marked as optional MUST come after any parameters not marked as optional. 
 The binding parameter MUST NOT be marked as optional.
@@ -2877,7 +2927,7 @@ function with the `edm:Parameter` element.
 ### <a id="AnnotationCoreIsDelta.23.5" href="#AnnotationCoreIsDelta.23.5">Annotation `Core.IsDelta`</a>
 
 A parameter that accepts a single entity or a collection of entities MAY accept a delta representation.
-This is indicated by annotating the parameter with the term [`Core.IsDelta`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsDelta).
+This is indicated by annotating the parameter with the term [Core.IsDelta]{.term}.
 
 Deltas represent changes between two versions of data and, in addition
 to current values, MAY include deleted entities as well as changes to related entities and relationships, according to the format-specific delta representation.
@@ -3496,7 +3546,7 @@ expression.
 Default values of type `Edm.String` MUST be represented according to the
 XML escaping rules for character data in attribute values. Values of
 other primitive types MUST be represented according to the appropriate
-alternative in the `primitiveValue` rule defined in
+alternative in the [primitiveValue]{.abnf} rule defined in
 [OData-ABNF](#ODataABNF), i.e. `Edm.Binary` as `binaryValue`,
 `Edm.Boolean` as `booleanValue` etc.
 
@@ -3775,7 +3825,7 @@ term.
 
 The `edm:Binary` expression evaluates to a primitive binary value. A
 binary expression MUST be assigned a value conforming to the rule
-`binaryValue` in [OData-ABNF](#ODataABNF).
+[binaryValue]{.abnf} in [OData-ABNF](#ODataABNF).
 
 The binary expression MAY be provided using element notation or
 attribute notation.
@@ -3828,7 +3878,7 @@ The `edm:Date` expression evaluates to a primitive date value. A date
 expression MUST be assigned a value of type `xs:date`, see
 [XML-Schema-2](#XML-Schema2), [section
 3.3.9](http://www.w3.org/TR/xmlschema11-2/#date). The value MUST also
-conform to rule `dateValue` in [OData-ABNF](#ODataABNF), i.e. it MUST
+conform to rule [dateValue]{.abnf} in [OData-ABNF](#ODataABNF), i.e. it MUST
 NOT contain a time-zone offset.
 
 The date expression MAY be provided using element notation or attribute
@@ -3858,7 +3908,7 @@ datetimestamp value with a time-zone offset. A datetimestamp expression
 MUST be assigned a value of type `xs:dateTimeStamp`, see
 [XML-Schema-2](#XML-Schema2), [section
 3.4.28](http://www.w3.org/TR/xmlschema11-2/#dateTimeStamp). The value
-MUST also conform to rule `dateTimeOffsetValue` in
+MUST also conform to rule [dateTimeOffsetValue]{.abnf} in
 [OData-ABNF](#ODataABNF), i.e. it MUST NOT contain an end-of-day
 fragment (24:00:00).
 
@@ -3889,7 +3939,7 @@ Example 46:
 
 The `edm:Decimal` expression evaluates to a primitive decimal value. A
 decimal expression MUST be assigned a value conforming to the rule
-`decimalValue` in [OData-ABNF](#ODataABNF).
+[decimalValue]{.abnf} in [OData-ABNF](#ODataABNF).
 
 The decimal expression MAY be provided using element notation or
 attribute notation.
@@ -3993,7 +4043,7 @@ Example 51: combined value for `IsFlags` enumeration type
 
 The `edm:Float` expression evaluates to a primitive floating point (or
 double) value. A float expression MUST be assigned a value conforming to
-the rule `doubleValue` in [OData-ABNF](#ODataABNF).
+the rule [doubleValue]{.abnf} in [OData-ABNF](#ODataABNF).
 
 The float expression MAY be provided using element notation or attribute
 notation.
@@ -4018,7 +4068,7 @@ Example 52:
 ### <a id="ExpressionedmGuid.40" href="#ExpressionedmGuid.40">Expression `edm:Guid`</a>
 
 The `edm:Guid` expression evaluates to a primitive guid value. A guid
-expression MUST be assigned a value conforming to the rule `guidValue`
+expression MUST be assigned a value conforming to the rule [guidValue]{.abnf}
 in [OData-ABNF](#ODataABNF).
 
 The guid expression MAY be provided using element notation or attribute
@@ -4046,7 +4096,7 @@ Example 53:
 ### <a id="ExpressionedmInt.41" href="#ExpressionedmInt.41">Expression `edm:Int`</a>
 
 The `edm:Int` expression evaluates to a primitive integer value. An
-integer MUST be assigned a value conforming to the rule `int64Value` in
+integer MUST be assigned a value conforming to the rule [int64Value]{.abnf} in
 [OData-ABNF](#ODataABNF).
 
 The integer expression MAY be provided using element notation or
@@ -4128,10 +4178,10 @@ Example 57:
 
 ::: {.varxml .rep}
 Values are represented as [string expressions](#String) using the WKT (well-known text) format for `Geo` types, see rules
-`fullCollectionLiteral`, `fullLineStringLiteral`,
-`fullMultiPointLiteral`, `fullMultiLineStringLiteral`,
-`fullMultiPolygonLiteral`, `fullPointLiteral`, and
-`fullPolygonLiteral` in
+[fullCollectionLiteral]{.abnf}, [fullLineStringLiteral]{.abnf},
+[fullMultiPointLiteral]{.abnf}, [fullMultiLineStringLiteral]{.abnf},
+[fullMultiPolygonLiteral]{.abnf}, [fullPointLiteral]{.abnf}, and
+[fullPolygonLiteral]{.abnf} in
 [OData-ABNF](#ODataABNF).
 :::
 
@@ -4156,7 +4206,7 @@ Constant values of type `Edm.Stream` with other media types are represented as [
 :::
 
 The annotation (property) being assigned a stream value MUST be annotated with term
-[`Core.MediaType`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#MediaType)
+[Core.MediaType]{.term}
 and the media type of the stream as its value.
 
 
@@ -4516,12 +4566,11 @@ type `self.A` named in the target expression.
 
 #### <a id="AnnotationPath" href="#AnnotationPath">14.4.1.3 Annotation Path</a>
 
-The annotation path expression provides a value for terms or term
+The annotation path expression provides a non-null value for terms or term
 properties that specify the [built-in
 types](#BuiltInTypesfordefiningVocabularyTerms)
 `Edm.AnnotationPath` or `Edm.ModelElementPath`. Its argument is a [model
-path](#PathExpressions) with the following restriction:
-- A non-null path MUST resolve to an [annotation](#Annotation).
+path](#PathExpressions) that resolves to an [annotation](#Annotation).
 
 The value of the annotation path expression is the _path_ to the annotation, not its instance value.
 This is useful for terms that reuse or refer to other terms.
@@ -4557,7 +4606,7 @@ Example 70:
 
 #### <a id="ModelElementPath" href="#ModelElementPath">14.4.1.4 Model Element Path</a>
 
-The model element path expression provides a value for terms or term
+The model element path expression provides a non-null value for terms or term
 properties that specify the [built-in
 type](#BuiltInTypesfordefiningVocabularyTerms) `Edm.ModelElementPath`. Its
 argument is a [model path](#PathExpressions).
@@ -4588,15 +4637,12 @@ Example 71:
 
 #### <a id="NavigationPropertyPath" href="#NavigationPropertyPath">14.4.1.5 Navigation Property Path</a>
 
-The navigation property path expression provides a value for terms or
+The navigation property path expression provides a non-null value for terms or
 term properties that specify the [built-in
 types](#BuiltInTypesfordefiningVocabularyTerms)
 `Edm.NavigationPropertyPath`, `Edm.AnyPropertyPath`, or `Edm.ModelElementPath`.
-Its argument is a [model path](#PathExpressions) with the following
-restriction:
-- A non-null path MUST end with a [navigation property](#NavigationProperty)
+Its argument is a [model path](#PathExpressions) that ends with a [navigation property](#NavigationProperty)
 or a term cast to a term whose type is an entity type or a collection of entity types.
-
 
 The value of the navigation property path expression is the path itself,
 not the entity or collection of entities identified by the path.
@@ -4630,13 +4676,11 @@ Example 72:
 
 #### <a id="PropertyPath" href="#PropertyPath">14.4.1.6 Property Path</a>
 
-The property path expression provides a value for terms or term
+The property path expression provides a non-null value for terms or term
 properties that specify one of the [built-in
 types](#BuiltInTypesfordefiningVocabularyTerms)
 `Edm.PropertyPath`, `Edm.AnyPropertyPath`, or `Edm.ModelElementPath`. Its
-argument is a [model path](#PathExpressions) with the following
-restriction:
-- A non-null path MUST end with a [structural property](#StructuralProperty)
+argument is a [model path](#PathExpressions) that ends with a [structural property](#StructuralProperty)
 or a term cast to a term whose type is a primitive or complex type, an enumeration type,
 a type definition, or a collection of one of these types.
 
@@ -4943,8 +4987,8 @@ enumeration type. It returns a value of type `Edm.String` that is the
 concatenation of the literal representations of the results of the
 argument expressions. Values of primitive types other than `Edm.String`
 are represented according to the appropriate alternative in the
-`primitiveValue` rule of [OData-ABNF](#ODataABNF), i.e. `Edm.Binary` as
-`binaryValue`, `Edm.Boolean` as `booleanValue` etc.
+[primitiveValue]{.abnf} rule of [OData-ABNF](#ODataABNF), i.e. `Edm.Binary` as
+[binaryValue]{.abnf}, `Edm.Boolean` as [booleanValue]{.abnf} etc.
 
 
 ::: {.varxml .example}
@@ -5556,7 +5600,7 @@ and match the pattern `^[_A-Za-z][_A-Za-z0-9]*$`.
 
 For model elements that are direct children of a schema: the namespace
 or alias of the schema that defines the model element, followed by a dot
-and the name of the model element, see rule `qualifiedTypeName` in
+and the name of the model element, see rule [qualifiedTypeName]{.abnf} in
 [OData‑ABNF](#ODataABNF).
 
 For built-in [primitive types](#PrimitiveTypes): the name of the type,
@@ -5793,7 +5837,7 @@ to complex types and navigation properties
 6. MUST NOT include a non-abstract entity type with no inherited or
 defined [entity key](#Key)
 7. MUST NOT include the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace)
+[Core.DefaultNamespace]{.term}
 annotation on [included schemas](#IncludedSchema)
 8. MUST NOT return the Unicode facet for terms, parameters, and return
 types
@@ -5843,7 +5887,7 @@ _European Petroleum Survey Group (EPSG)_. https://spatialreference.org/ref/epsg/
 
 ###### [OData-ABNF]{id=ODataABNF}
 _OData ABNF Construction Rules Version 4.02_.  
-See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
+See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### [OData-CSDL]{id=ODataCSDL}
 _OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02._
@@ -5875,6 +5919,10 @@ See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### [OData-VocCore]{id=ODataVocCore}
 _OData Vocabularies Version 4.0: Core Vocabulary_.  
+See link in "[Related work](#RelatedWork)" section on cover page.
+
+###### [OData-VocCap]{id=ODataVocCap}
+_OData Vocabularies Version 4.0: Capabilities Vocabulary_.  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### [OData-VocMeasures]{id=ODataVocMeasures}

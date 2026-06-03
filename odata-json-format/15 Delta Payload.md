@@ -87,7 +87,7 @@ occurrence
     },
     {
       "@odata.context": "#Customers/$deletedEntity",
-      "@odata.id": "Customers('ANTON')"
+      "id": "Customers('ANTON')"
     },
     {
       "@odata.id": "Customers('ALFKI')",
@@ -169,10 +169,10 @@ following optional property, regardless of the specified
 
 ::: example
 Example ##ex: deleted entity in OData 4.0 response --- note that `id` is
-a property, not control information
+represented as a property of the deleted-entity object, not control information
 ```json
 {
-  "@context": "#Customers/$deletedEntity",
+  "@odata.context": "#Customers/$deletedEntity",
   "reason": "deleted",
   "id": "Customers('ANTON')"
 }

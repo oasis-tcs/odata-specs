@@ -35,6 +35,9 @@ Control information `"@etag": ""` to prevent updates|
 [536](https://github.com/oasis-tcs/odata-specs/issues/536)
 [Section ##StructuralProperty], [Section ##InformativeReferences]| 
 Removed reference to obsolete version of GeoJSON| 
+[352](https://github.com/oasis-tcs/odata-specs/issues/352)
+[Section ##EntityReference]| 
+Entities can be referenced by id or full set of key properties| 
 [456](https://github.com/oasis-tcs/odata-specs/issues/456)
 [Section ##DeletedEntity]| 
 `type` control information, if present, must come immediately after `removed`| 
@@ -42,6 +45,12 @@ Removed reference to obsolete version of GeoJSON|
 [Section ##ActionInvocation]| 
 Allow common expressions in action payloads| 
 [341](https://github.com/oasis-tcs/odata-specs/issues/341)
+[Section ##BatchRequestsandResponses]| 
+Atomicity group of prerequisite requests optional in `dependsOn`| 
+[2150](https://github.com/oasis-tcs/odata-specs/issues/2150)
+[Section ##BatchRequestsandResponses]| 
+Ordering of properties in JSON Batch Request/Response objects| 
+[351](https://github.com/oasis-tcs/odata-specs/issues/351)
 
 ## ##subsec Glossary
 

@@ -36,6 +36,9 @@ Response code `204 No Content` after successful data modification if requested r
 [Section ##CreateanEntity]| 
 Services can validate non-insertable property values in insert payloads| 
 [356](https://github.com/oasis-tcs/odata-specs/issues/356)
+[Section ##LinktoRelatedEntitiesWhenCreatinganEntity]| 
+Client can update properties of existing related entities when creating an entity| 
+[352](https://github.com/oasis-tcs/odata-specs/issues/352)
 [Section ##CreateRelatedEntitiesWhenCreatinganEntity]| 
 Deep-insert response includes at least the properties present in the request| 
 [363](https://github.com/oasis-tcs/odata-specs/issues/363)
@@ -286,7 +289,7 @@ of an IRI in the [`EntityId`](#HeaderODataEntityId) header.
 Services are strongly encouraged to use the canonical URL for an entity
 as defined in [#OData-URL#CanonicalURL] as its entity-id, but clients cannot assume
 the entity-id can be used to locate the entity unless the
-[`Core.DereferenceableIDs`]($$$OData-VocCore$$$#DereferenceableIDs)
+[Core.DereferenceableIDs]{.term}
 term is applied to the entity container, nor can the client assume any
 semantics from the structure of the entity-id. The canonical resource
 `$entity` provides a general mechanism for
@@ -294,7 +297,7 @@ semantics from the structure of the entity-id. The canonical resource
 
 Services that use the standard URL conventions for entity-ids annotate
 their entity container with the term
-[`Core.ConventionalIDs`]($$$OData-VocCore$$$#ConventionalIDs),
+[Core.ConventionalIDs]{.term},
 see [OData-VocCore](#ODataVocCore).
 
 *Entity references* refer to an entity using the entity's entity-id.
@@ -337,7 +340,7 @@ or between properties and bound functions, actions, or types with the
 same name.
 
 Services MAY define one or more default namespaces through the
-[`Core.DefaultNamespace`]($$$OData-VocCore$$$#DefaultNamespace) term
+[Core.DefaultNamespace]{.term} term
 defined in [OData-VocCore](#ODataVocCore). Functions, actions and types
 in a default namespace can be referenced in URLs with or without
 namespace or alias qualification.
@@ -383,11 +386,11 @@ OData clients include the
 order to specify the maximum acceptable response version. Services
 respond with the maximum supported version that is less than or equal to
 the requested `OData-MaxVersion`, using decimal comparison. The syntax
-of the `OData-Version` and `OData-MaxVersion` header fields is defined
+of the [OData-Version]{.abnf} and [OData-MaxVersion]{.abnf} header fields is defined
 in [OData-ABNF](#ODataABNF).
 
 Services SHOULD advertise supported versions of OData through the
-[`Core.ODataVersions`]($$$OData-VocCore$$$#ODataVersions)
+[Core.ODataVersions]{.term}
 term, defined in [OData-VocCore](#ODataVocCore).
 
 This version of the specification defines OData version values `4.0` and
@@ -404,7 +407,7 @@ type of existing properties, adding or removing key properties, or
 reordering action or function parameters, require that a new service
 version is provided at a different service root URL for the new model,
 or that the service version its metadata using the
-[`Core.SchemaVersion`]($$$OData-VocCore$$$#SchemaVersion)
+[Core.SchemaVersion]{.term}
 annotation, defined in [OData-VocCore](#ODataVocCore).
 
 Services that version their metadata MUST support version-specific
@@ -430,7 +433,7 @@ import, or function import
 nullable after existing parameters
 - Adding an action or function parameter
 that is annotated with
-[`Core.OptionalParameter`]($$$OData-VocCore$$$#OptionalParameter)
+[Core.OptionalParameter]{.term}
 after existing parameters
 - Adding a type definition or enumeration
 - Adding a new term
@@ -438,15 +441,30 @@ after existing parameters
 that does not need to be understood by the client in order to correctly
 interact with the service
 
-Clients SHOULD be prepared for services to make such incremental changes
-to their model. In particular, clients SHOULD be prepared to receive
+Clients should be prepared for services to make such incremental changes
+to their model at any time. In particular:
+- Clients should be prepared to receive
 properties and derived types not previously defined by the service.
+- Clients that cache metadata should be prepared to receive references
+to new schema elements in response payloads, including types, properties,
+entity sets, singletons, operations and terms, in existing or new namespaces, that may not have been
+part of the cached metadata.
+- Clients should be prepared to receive references to schema
+elements defined in new metadata documents, including metadata
+documents not referenced by the original schema.
+- Clients should use `$select` to select required properties, as the
+service may change the default set of properties returned in the
+absence of `$select`.
 
 Services SHOULD NOT change their data model depending on the
 authenticated user. If the data model is user or user-group dependent,
 all changes MUST be *safe changes* as defined in this section when
 comparing the full model to the model visible to users with restricted
 authorizations.
+
+Services MAY change the default set of properties returned in the
+absence of `$select` but, for backward compatibility, SHOULD NOT
+reduce the set of properties returned by default.
 
 -------
 
@@ -575,7 +593,7 @@ If the service does not support the requested format, it replies with a
 
 Services SHOULD advertise their supported formats in the metadata
 document by annotating their entity container with the term
-[`Capabilities.SupportedFormats`]($$$OData-VocCap$$$#SupportedFormats),
+[Capabilities.SupportedFormats]{.term},
 as defined in [OData-VocCap](#ODataVocCap), listing all available
 formats and combinations of supported format parameters.
 

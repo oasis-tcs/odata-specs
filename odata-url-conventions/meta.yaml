@@ -10,6 +10,10 @@ pubdateISO: '2024-02-28'
 copyright: © OASIS Open 2024
 archivename: odata-v4.02-csd02
 partname: part2-url-conventions
+OData-ABNF: https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html
+OData-VocCore: https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md
+OData-VocCap: https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md
+OData-VocAggr: https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.md
 description:
   The Open Data Protocol (OData) enables the creation of REST-based data services,
   which allow resources, identified using Uniform Resource Locators (URLs) and

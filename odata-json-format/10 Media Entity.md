@@ -196,10 +196,11 @@ Example ##ex:
 
 An entity reference (see [#OData-Protocol#EntityIdsandEntityReferences]) MAY take the
 place of an entity in a JSON payload, based on the client request. It
-is serialized as a JSON object that MUST contain the [id](#ControlInformationidodataid) of the referenced
-entity and MAY contain the [`type`](#ControlInformationtypeodatatype)
+is serialized as a JSON object that MUST contain either the [id](#ControlInformationidodataid) 
+or the full set of key values of the referenced entity and MAY contain the [`type`](#ControlInformationtypeodatatype)
 control information and [instance annotations](#InstanceAnnotations), but no additional properties or
-control information.
+control information. If the entity reference contains both the `id` and key values, then they MUST identify 
+the same entity.
 
 A collection of entity references is represented as a [collection of entities](#CollectionofEntities),
 with entity reference representations instead of entity representations as items in the array value of the `value` name/value pair.
@@ -228,7 +229,7 @@ Example ##ex: collection of entity references
   "@context": "http://host/service/$metadata#Collection($ref)",
   "value": [
     { "@id": "Orders(10643)" },
-    { "@id": "Orders(10759)" }
+    { "id": 10759" }
   ]
 }
 ```

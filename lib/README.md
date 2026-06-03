@@ -41,9 +41,9 @@ The [`pandoc.js`](pandoc.js) module converts this single Markdown document to HT
 
 ```yaml
 - name: Setup pandoc
-  uses: nikeee/setup-pandoc@v1
+  uses: r-lib/actions/setup-pandoc@v2
   with:
-    pandoc-version: 3.1.x
+    pandoc-version: 3.x.y
 ```
 
 and effectively executes
@@ -63,10 +63,7 @@ import * as Number from './lib/number.js';
 import * as pandoc from './lib/pandoc.js';
 var proc = pandoc({"--metadata-file": "./odata-data-aggregation-ext/meta.yaml"});
 proc.stdout.pipe(«HTML file»);
-var meta = {
-  ...yaml.load(fs.readFileSync("./meta.yaml")),
-  ...yaml.load(fs.readFileSync("./odata-data-aggregation-ext/meta.yaml"))
-}
+var meta = yaml.load(fs.readFileSync("./odata-data-aggregation-ext/meta.yaml"));
 new Number("odata-data-aggregation-ext", "meta", meta).build(proc.stdin);
 ```
 

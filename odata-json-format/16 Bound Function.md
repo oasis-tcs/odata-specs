@@ -11,7 +11,7 @@ service, see [OData-CSDL](#ODataCSDL). A
 specific function overload can be advertised by appending the
 parentheses-enclosed, comma-separated list of non-binding parameter
 names to the qualified function name, see rule
-`qualifiedFunctionName` in [OData-ABNF](#ODataABNF).
+[qualifiedFunctionName]{.abnf} in [OData-ABNF](#ODataABNF).
 
 A function that is bound to a single structured type MAY be advertised
 within the JSON object representing that structured type.
@@ -229,7 +229,10 @@ pair in this JSON object. The name is the name of the parameter. The
 value is the parameter value in the JSON representation appropriate for
 its type. Entity typed parameter values MAY include a subset of the
 properties, or just the [entity reference](#EntityReference), as
-appropriate to the action.
+appropriate to the action.  For transient entities or complex typed parameters,
+properties with a defined default value, nullable properties, and collection-valued properties
+that are omitted from the request are interpreted as the default value, null, or an empty collection,
+respectively. 
 Stream typed parameter values are represented following the same rules as inlined [stream properties](#StreamProperty).
 
 Entities as parameter values are represented as explained in [section ##Entity].

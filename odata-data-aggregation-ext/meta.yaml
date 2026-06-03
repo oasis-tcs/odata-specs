@@ -13,6 +13,20 @@ additionalArtifacts:
     path: vocabularies/Org.OData.Aggregation.V1.json
   - repo: odata-vocabularies
     path: vocabularies/Org.OData.Aggregation.V1.xml
+  - repo: odata-abnf
+    path: abnf/odata-abnf-construction-rules.txt
+  - repo: odata-abnf
+    path: abnf/odata-abnf-testcases.yaml
+  - repo: odata-abnf
+    path: abnf/odata-aggregation-abnf.txt
+  - repo: odata-abnf
+    path: abnf/odata-aggregation-testcases.yaml
+  - repo: odata-abnf
+    path: syntax-diagram
+OData-ABNF: https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html
+OData-VocCore: https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md
+OData-VocCap: https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md
+OData-VocAggr: https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Aggregation.V1.md
 description:
   This specification adds basic grouping and aggregation functionality (e.g. sum, min, and max)
   to the Open Data Protocol (OData) without changing any of the base principles of OData.

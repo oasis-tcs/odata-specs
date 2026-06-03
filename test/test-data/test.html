@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Test document</title>
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -21,8 +24,9 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +37,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -96,41 +100,7 @@
       }
     }};
   </script>
-  <script type="text/javascript">
-    document.addEventListener("DOMContentLoaded", function () {
-      function darkmode_auto() {
-        if (darkmode_switch.value === "auto") {
-          if (darkmode_query.matches) document.documentElement.classList.add("darkmode");
-          else document.documentElement.classList.remove("darkmode");
-        }
-      }
-
-      function darkmode_manual() {
-        localStorage.setItem("odata-specs/darkmode", darkmode_switch.value);
-        switch (darkmode_switch.value) {
-          case "off":
-            document.documentElement.classList.remove("darkmode");
-            break;
-          case "on":
-            document.documentElement.classList.add("darkmode");
-            break;
-          case "auto":
-            darkmode_auto();
-            break;
-        }
-      }
-
-      const darkmode_query = matchMedia("(prefers-color-scheme: dark)");
-      darkmode_query.addEventListener("change", darkmode_auto);
-      const darkmode_switch = document.querySelector("#darkmode select");
-      darkmode_switch.value =
-        localStorage.getItem("odata-specs/darkmode") || "off";
-      darkmode_switch.addEventListener("change", darkmode_manual);
-      darkmode_manual();
-    });
-  </script>
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 </head>
 <body>
 <aside id="darkmode">
@@ -170,13 +140,13 @@
 <h3><a id="Table.1.1" href="#Table.1.1">Table</a></h3>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>A</th>
 <th>B</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>C</td>
 <td>D</td>
 </tr>
@@ -188,5 +158,36 @@
 <li><a href="#Table.1.1">Table</a></li>
 </ul></li>
 </ul>
+<script type="text/javascript">
+  function darkmode_auto() {
+    if (darkmode_switch.value === "auto") {
+      if (darkmode_query.matches)
+        document.documentElement.classList.add("darkmode");
+      else document.documentElement.classList.remove("darkmode");
+    }
+  }
+
+  function darkmode_manual() {
+    localStorage.setItem("odata-specs/darkmode", darkmode_switch.value);
+    switch (darkmode_switch.value) {
+      case "off":
+        document.documentElement.classList.remove("darkmode");
+        break;
+      case "on":
+        document.documentElement.classList.add("darkmode");
+        break;
+      case "auto":
+        darkmode_auto();
+        break;
+    }
+  }
+
+  const darkmode_query = matchMedia("(prefers-color-scheme: dark)");
+  darkmode_query.addEventListener("change", darkmode_auto);
+  const darkmode_switch = document.querySelector("#darkmode select");
+  darkmode_switch.value = localStorage.getItem("odata-specs/darkmode") || "off";
+  darkmode_switch.addEventListener("change", darkmode_manual);
+  darkmode_manual();
+</script>
 </body>
 </html>

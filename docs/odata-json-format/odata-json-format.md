@@ -220,9 +220,12 @@ Section | Feature / Change | Issue
 [Section 4.6.8](#ControlInformationidodataid)| Transient entities can be identifiable| [1928](https://github.com/oasis-tcs/odata-specs/issues/1928)
 [Section 4.6.10](#ControlInformationetagodataetag)| Control information `"@etag": ""` to prevent updates| [2021](https://github.com/oasis-tcs/odata-specs/issues/2021)
 [Section 4.6.12](#ControlInformationmediaodatamedia)| `mediaContentType` can be `null`| [536](https://github.com/oasis-tcs/odata-specs/issues/536)
-[Section 7](#StructuralProperty), [Section A.2](#InformativeReferences)| Removed reference to obsolete version of GeoJSON| [456](https://github.com/oasis-tcs/odata-specs/issues/456)
+[Section 7](#StructuralProperty), [Section A.2](#InformativeReferences)| Removed reference to obsolete version of GeoJSON| [352](https://github.com/oasis-tcs/odata-specs/issues/352)
+[Section 14](#EntityReference)| Entities can be referenced by id or full set of key properties| [456](https://github.com/oasis-tcs/odata-specs/issues/456)
 [Section 15.3](#DeletedEntity)| `type` control information, if present, must come immediately after `removed`| [1985](https://github.com/oasis-tcs/odata-specs/issues/1985)
 [Section 18](#ActionInvocation)| Allow common expressions in action payloads| [341](https://github.com/oasis-tcs/odata-specs/issues/341)
+[Section 19](#BatchRequestsandResponses)| Atomicity group of prerequisite requests optional in `dependsOn`| [2150](https://github.com/oasis-tcs/odata-specs/issues/2150)
+[Section 19](#BatchRequestsandResponses)| Ordering of properties in JSON Batch Request/Response objects| [351](https://github.com/oasis-tcs/odata-specs/issues/351)
 
 ## <a id="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -266,7 +269,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        odata-json-format-v4.02-csd02.md
 ```
 
-This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
+This uses pandoc 3.8.3 from https://github.com/jgm/pandoc/releases/tag/3.8.3.
 -->
 
 -------
@@ -340,7 +343,7 @@ The names and values of these format parameters are case-insensitive.
 
 Services SHOULD advertise the supported media types by annotating the
 entity container with the term
-[`Capabilities.SupportedFormats`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#SupportedFormats)
+[Capabilities.SupportedFormats]{.term}
 defined in [OData-VocCap](#ODataVocCap), listing all
 available formats and combinations of supported format parameters.
 
@@ -731,6 +734,14 @@ constraints have to be met:
 - For 4.0 payloads, annotations and control information for navigation
   properties MUST appear after all structural properties. 4.01 clients
   MUST NOT assume this ordering.
+- For 4.02 batch payloads, the `streaming` format parameter of the overall
+  batch request or response applies to the properties of the batch request
+  or response itself; specifically, for ordered batch requests and
+  responses, the `id` property MUST be the first property in each request or
+  response object and `body`, if present, MUST be last. Ordering constraints
+  for the body of an individual request or response within
+  the batch MAY be specified through the `headers` property of the individual request
+  or response object.
 
 Note that in OData 4.0 the `streaming` format parameter was prefixed with
 `odata.`. Payloads with an `OData-Version` header equal to
@@ -805,7 +816,7 @@ If no ETag is returned when requesting the metadata document, then the
 service SHOULD NOT set the `metadataEtag` control information
 in any responses.
 
-For details on how ETags are used, see [OData-Protocol, section 11.4.1.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UseofETagsforAvoidingUpdateConflicts).
+For details on how ETags are used, see [OData-Protocol, section 11.4.1.2](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UseofETagsforAvoidingUpdateConflicts).
 
 ### <a id="ControlInformationtypeodatatype" href="#ControlInformationtypeodatatype">4.6.3 Control Information: `type` (`odata.type`)</a>
 
@@ -829,10 +840,10 @@ using the `$schemaversion` system query option
 defined in [OData-Protocol, section 11.2.12](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptionschemaversion).
 
 For non-built in primitive types, the URI contains the
-namespace-qualified or alias-qualified type, specified as a URI
-fragment. For properties that represent a collection of values, the
-fragment is the namespace-qualified or alias-qualified element type
-enclosed in parentheses and prefixed with `Collection`. The
+namespace-qualified or alias-qualified type, specified in the URI
+fragment (after the `#`). For properties that represent a collection of values, the
+fragment is `#Collection` followed by the namespace-qualified or alias-qualified element type name
+enclosed in parentheses. The
 namespace or alias MUST be defined or the namespace referenced in the
 metadata document of the service, see
 [OData-CSDL](#ODataCSDL).
@@ -1046,7 +1057,7 @@ value of the control information is an entity tag (ETag) which is an
 opaque string value that can be used in a subsequent request to
 determine if the value of the entity or collection has changed.
 
-For details on how ETags are used, see [OData-Protocol, section 11.4.1.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UseofETagsforAvoidingUpdateConflicts).
+For details on how ETags are used, see [OData-Protocol, section 11.4.1.2](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UseofETagsforAvoidingUpdateConflicts).
 The special value `"@etag": "*"` is equivalent to the header `If-Match: *`,
 and the special value `"@etag": ""` is equivalent to the header `If-None-Match: *`,
 see [OData-Protocol, section 11.4.11](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UpdateaCollectionofEntities).
@@ -1393,10 +1404,10 @@ using the JSON string escaping rules.
 Values of type `Edm.Binary`, `Edm.Date`,
 `Edm.DateTimeOffset`, `Edm.Duration`,
 `Edm.Guid`, and `Edm.TimeOfDay` are represented as
-JSON strings whose content satisfies the rules `binaryValue`,
-`dateValue`, `dateTimeOffsetValue`,
-`durationValue`, `guidValue`, and
-`timeOfDayValue` respectively, in
+JSON strings whose content satisfies the rules [binaryValue]{.abnf},
+[dateValue]{.abnf}, [dateTimeOffsetValue]{.abnf},
+[durationValue]{.abnf}, [guidValue]{.abnf}, and
+[timeOfDayValue]{.abnf} respectively, in
 [OData-ABNF](#ODataABNF). The interpretation of a `timeOfDayValue` in which the `second` is omitted
 is not defined by this specification. For maximum interoperability, senders
 SHOULD always include the `second`.
@@ -1409,11 +1420,11 @@ string representation of the exact value in the `value`
 property of the annotation.
 
 Enumeration values are represented as JSON strings whose content
-satisfies the rule `enumValue` in
+satisfies the rule [enumValue]{.abnf} in
 [OData-ABNF](#ODataABNF). The preferred representation is the
-`enumerationMember`. If no `enumerationMember` (or
+[enumerationMember]{.abnf}. If no `enumerationMember` (or
 combination of named enumeration members) is
-available, the `enumMemberValue` representation may be used.
+available, the [enumMemberValue]{.abnf} representation may be used.
 
 Geography and geometry values are represented as geometry types as
 defined in [RFC7946](#rfc7946).
@@ -2063,10 +2074,9 @@ Example 31:
 
 An entity reference (see [OData-Protocol, section 4.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#EntityIdsandEntityReferences)) MAY take the
 place of an entity in a JSON payload, based on the client request. It
-is serialized as a JSON object that MUST contain the [id](#ControlInformationidodataid) of the referenced
-entity and MAY contain the [`type`](#ControlInformationtypeodatatype)
+is serialized as a JSON object that MUST contain either the [id](#ControlInformationidodataid) or the full set of key values of the referenced entity and MAY contain the [`type`](#ControlInformationtypeodatatype)
 control information and [instance annotations](#InstanceAnnotations), but no additional properties or
-control information.
+control information. If the entity reference contains both the `id` and key values, then they MUST identify the same entity.
 
 A collection of entity references is represented as a [collection of entities](#CollectionofEntities),
 with entity reference representations instead of entity representations as items in the array value of the `value` name/value pair.
@@ -2095,7 +2105,7 @@ Example 33: collection of entity references
   "@context": "http://host/service/$metadata#Collection($ref)",
   "value": [
     { "@id": "Orders(10643)" },
-    { "@id": "Orders(10759)" }
+    { "id": 10759" }
   ]
 }
 ```
@@ -2187,7 +2197,7 @@ occurrence
     },
     {
       "@odata.context": "#Customers/$deletedEntity",
-      "@odata.id": "Customers('ANTON')"
+      "id": "Customers('ANTON')"
     },
     {
       "@odata.id": "Customers('ALFKI')",
@@ -2265,10 +2275,10 @@ following optional property, regardless of the specified
 
 ::: example
 Example 36: deleted entity in OData 4.0 response --- note that `id` is
-a property, not control information
+represented as a property of the deleted-entity object, not control information
 ```json
 {
-  "@context": "#Customers/$deletedEntity",
+  "@odata.context": "#Customers/$deletedEntity",
   "reason": "deleted",
   "id": "Customers('ANTON')"
 }
@@ -2836,7 +2846,7 @@ service, see [OData-CSDL](#ODataCSDL). A
 specific function overload can be advertised by appending the
 parentheses-enclosed, comma-separated list of non-binding parameter
 names to the qualified function name, see rule
-`qualifiedFunctionName` in [OData-ABNF](#ODataABNF).
+[qualifiedFunctionName]{.abnf} in [OData-ABNF](#ODataABNF).
 
 A function that is bound to a single structured type MAY be advertised
 within the JSON object representing that structured type.
@@ -3054,8 +3064,10 @@ pair in this JSON object. The name is the name of the parameter. The
 value is the parameter value in the JSON representation appropriate for
 its type. Entity typed parameter values MAY include a subset of the
 properties, or just the [entity reference](#EntityReference), as
-appropriate to the action.
-Stream typed parameter values are represented following the same rules as inlined [stream properties](#StreamProperty).
+appropriate to the action.  For transient entities or complex typed parameters,
+properties with a defined default value, nullable properties, and collection-valued properties
+that are omitted from the request are interpreted as the default value, null, or an empty collection,
+respectively. Stream typed parameter values are represented following the same rules as inlined [stream properties](#StreamProperty).
 
 Entities as parameter values are represented as explained in [section 6](#Entity).
 
@@ -3189,6 +3201,12 @@ itself be a batch request.
 A _request object_ MUST contain the name/value pairs `id`,
 `method` and `url`, and it MAY contain the
 name/value pairs `atomicityGroup`, `dependsOn`, `if`, `headers`, and `body`.
+The `id` SHOULD be the first name/value pair in the request object, and `body` (if
+present) SHOULD be the final name/value pair in the request object. If the
+JSON batch request specifies an `OData-Version` of `4.02` or greater, and the `content-type`
+header specifies that the batch request follows
+[payload ordering constraints](#PayloadOrderingConstraints), then these two ordering
+requirements MUST be true.
 
 The value of `id` is a string containing the request
 identifier of the individual request, see
@@ -3226,7 +3244,7 @@ URL (i.e. relative to the service root).
 
 The value of `atomicityGroup` is a string whose content MUST
 NOT be identical to any value of `id` within the batch
-request, and which MUST satisfy the rule `request-id` in
+request, and which MUST satisfy the rule [request-id]{.abnf} in
 [OData-ABNF](#ODataABNF). All request objects with the same value for
 `atomicityGroup` MUST be adjacent in the
 `requests` array. These requests are processed as an atomic
@@ -3237,10 +3255,14 @@ multipart batch format specified in [OData-Protocol, section 11.7.7.1](https://d
 
 The value of `dependsOn` is an array of strings whose values
 MUST be values of either `id` or `atomicityGroup`
-of preceding request objects; forward references are not allowed. If a
-request depends on another request that is part of a different atomicity
-group, the atomicity group MUST be listed in `dependsOn`. In
-the absence of the optional `if` member a request that
+of preceding request objects; forward references are not allowed.
+When targeting a 4.01 service, if a request depends on another request that is part of a different atomicity group, the atomicity group MUST be listed in `dependsOn`.
+OData 4.02 or greater services SHOULD NOT require the atomicity group to be listed
+if `dependsOn` already contains the `id` of a request within that atomicity group.
+For maximum interoperability with earlier services, clients SHOULD continue to
+specify the `atomicityGroup`.
+
+In the absence of the optional `if` member a request that
 depends on other requests or atomicity groups is only executed if those
 requests were executed successfully, i.e. with a `2xx`
 response code. If one of the requests it depends on has failed, the
@@ -3262,7 +3284,7 @@ The URL expression syntax is extended and additionally allows
 Services SHOULD advertise support of the `if` member by
 specifying the property
 `RequestDependencyConditionsSupported` in the
-[`Capabilities.BatchSupport`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#BatchSupport)
+[Capabilities.BatchSupport]{.term}
 term applied to the entity container, see
 [OData-VocCap](#ODataVocCap). If a service does not
 support request dependencies, the dependent request MUST fail with
@@ -3273,8 +3295,10 @@ atomicity group, all requests in that group fail with
 The value of `headers` is an object whose name/value pairs
 represent request headers. The name of each pair MUST be the lower-case
 header name; the value is a string containing the header-encoded value
-of the header. The `headers` object MUST contain a name/value
-pair with the name `content-type` whose value is the media type.
+of the header.
+Services MAY support omitting the `content-type` in the `header` property of a request object.
+For such requests the `body`, if present, MUST be `application/json`
+and MUST conform to [payload ordering constraints](#PayloadOrderingConstraints).
 
 The value of `body` can be `null`, which is
 equivalent to not specifying the `body` name/value pair.
@@ -3330,7 +3354,7 @@ Content-Length: ###
       "method": "patch",
       "url": "/service/Customers('ALFKI')",
       "headers": {
-        "Prefer": "return=minimal"
+        "prefer": "return=minimal"
       },
       "body": <JSON representation of changes to Customer ALFKI>
     },
@@ -3479,10 +3503,8 @@ Content-Length: ###
 
 All requests in an atomicity group represent a single change unit. A
 service MUST successfully process and apply all the requests in the
-atomicity group or else apply none of them. It is up to the service
-implementation to define rollback semantics to undo any requests within
-an atomicity group that may have been applied before another request in
-that same atomicity group failed.
+atomicity group or else apply none of them.
+See [OData-Protocol, section 11.4.1.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#Atomicity) for details on visibility of atomic changes.
 
 The service MAY process the individual requests and atomicity groups
 within a batch request, or individual requests within an atomicity
@@ -3539,6 +3561,10 @@ corresponding request object contains the `atomicityGroup`
 name/value pair, it MUST also be present in the response object with the
 same value.
 
+For 4.02 and greater [ordered payloads](#PayloadOrderingConstraints), the `id`
+MUST be the first name/value pair in the response object and `body`,
+if present, MUST be the final property in the response object.
+
 If any response within an atomicity group returns a failure code, all
 requests within that atomicity group are considered failed, regardless
 of their individual returned status code. The service MAY return
@@ -3554,14 +3580,12 @@ The response object MAY contain the name/value pair `headers`
 whose value is an object with name/value pairs representing response
 headers. The name of each pair MUST be the lower-case header name; the
 value is a string containing the header-encoded value of the header.
+If the response object does not name the `content-type`, then the content type
+of the `body`, if present, is assumed to be `application/json` and MUST follow
+[payload ordering constraints](#PayloadOrderingConstraints).
 
 The response object MAY contain the name/value pair `body`
 which follows the same rules as within [request objects](#BatchRequest).
-
-If the media type is not exactly equal to `application/json`
-(i.e. it is a subtype or has format parameters), the
-`headers` object MUST contain a name/value pair with the name
-`content-type` whose value is the media type.
 
 Relative URLs in a response object follow the rules for [relative
 URLs](#RelativeURLs) based on the request URL of the corresponding
@@ -3576,14 +3600,14 @@ response would be
 HTTP/1.1 200 OK
 OData-Version: 4.01
 Content-Length: ####
-Content-Type: application/json
+Content-Type: application/json;streaming=true
 
 {
   "responses": [
     {
       "id": "0",
       "status": 200,
-      "body": <JSON representation of the Customer entity with key ALFKI>
+      "body": <Ordered JSON representation of the Customer entity with key ALFKI>
     },
     {
       "id": "1",
@@ -3595,7 +3619,7 @@ Content-Type: application/json
       "headers": {
         "location": "http://host/service.svc/Customer('POIUY')"
       },
-      "body": <JSON representation of the new Customer entity>
+      "body": <Ordered JSON representation of the new Customer entity>
     },
     {
       "id": "3",
@@ -3649,14 +3673,14 @@ HTTP/1.1 200 OK
 AsyncResult: 200
 OData-Version: 4.01
 Content-Length: ###
-Content-Type: application/json
+Content-Type: application/json;streaming=true
 
 {
   "responses": [
     {
       "id": "0",
       "status": 200,
-      "body": <JSON representation of the Customer entity with key ALFKI>
+      "body": <Ordered JSON representation of the Customer entity with key ALFKI>
     }
   ],
   "@nextLink": "…?$skiptoken=YmF0Y2gx"
@@ -3679,7 +3703,7 @@ HTTP/1.1 200 OK
 AsyncResult: 200
 OData-Version: 4.01
 Content-Length: ###
-Content-Type: application/json
+Content-Type: application/json;streaming=true
 
 {
   "responses": [
@@ -3693,7 +3717,7 @@ Content-Type: application/json
       "headers": {
         "location": "http://host/service.svc/Customer('POIUY')"
       },
-      "body": <JSON representation of the new Customer entity>
+      "body": <Ordered JSON representation of the new Customer entity>
     },
     {
       "id": "3",
@@ -3722,7 +3746,7 @@ the second synchronously, the batch itself is processed synchronously
 HTTP/1.1 200 OK
 OData-Version: 4.01
 Content-Length: ###
-Content-Type: application/json
+Content-Type: application/json;streaming=true
 
 {
   "responses": [

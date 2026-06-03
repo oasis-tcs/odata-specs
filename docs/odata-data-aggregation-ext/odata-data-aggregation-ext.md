@@ -216,7 +216,7 @@ This specification defines the following terms:
 - [_Aggregate Expression_]{id=AggregateExpression} – argument of the `aggregate` [transformation](#Transformationaggregate) or [function](#Functionaggregate) defined in [section 3.2.1.1](#AggregationAlgorithm)
 - [_Aggregatable Primitive Type_]{id=AggregatablePrimitiveType} – a primitive type other than `Edm.Stream` or subtypes of `Edm.Geography` or `Edm.Geometry`
 - [_Data Aggregation Path_]{id=DataAggregationPath} – a path that consists of one or more segments joined together by forward slashes (`/`). Segments are names of declared or dynamic structural or navigation properties, or type-cast segments consisting of the (optionally qualified) name of a structured type that is derived from the type identified by the preceding path segment to reach properties declared by the derived type.
-- [_Expression_]{id=Expression} – derived from the `commonExpr` rule (see [OData-ABNF](#ODataABNF))
+- [_Expression_]{id=Expression} – derived from the [commonExpr]{.abnf} rule (see [OData-ABNF](#ODataABNF))
 - [_Single-Valued Property Path_]{id=SingleValuedPropertyPath} – property path ending in a single-valued primitive, complex, or navigation property
 
 ### <a id="AcronymsandAbbreviations" href="#AcronymsandAbbreviations">1.1.2 Acronyms and Abbreviations</a>
@@ -269,7 +269,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        odata-data-aggregation-ext-v4.0-cs03.md
 ```
 
-This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
+This uses pandoc 3.8.3 from https://github.com/jgm/pandoc/releases/tag/3.8.3.
 -->
 
 -------
@@ -1021,7 +1021,7 @@ The allowed set transformations are defined in this section as well as in the se
 
 Service-defined bound functions that take a collection of instances of a structured type as their binding parameter and return a collection of instances of a structured type MAY be used as set transformations within `$apply`. Further transformations can follow the bound function. The parameter syntax for bound function segments is identical to the parameter syntax for bound functions in resource path segments or `$filter` expressions. See [section 7.7](#ModelFunctionsasSetTransformations) for an example.
 
-Parameter aliases [OData-URL, section 5.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#ParameterAliases) can be used inside the value of `$apply` wherever the ABNF rule `applyTrafo` [OData-ABNF](#ODataABNF) is reduced to a `commonExpr` [OData-URL, section 5.1.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CommonExpressionSyntax) or a `collectionExpr` ([section 3.6](#ExpressionsEvaluableonaCollection)).
+Parameter aliases [OData-URL, section 5.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#ParameterAliases) can be used inside the value of `$apply` wherever the ABNF rule `applyTrafo` [OData-ABNF](#ODataABNF) is reduced to a [commonExpr]{.abnf} [OData-URL, section 5.1.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CommonExpressionSyntax) or a `collectionExpr` ([section 3.6](#ExpressionsEvaluableonaCollection)).
 
 If a data service that supports `$apply` does not support it on the collection identified by the request resource path, it MUST fail with `501 Not Implemented` and a meaningful human-readable error message.
 
@@ -1042,6 +1042,7 @@ The _structure_ of an instance that occurs in an input or output set is defined 
 - Single- or collection-valued primitive properties addressed by a property path starting at a non-transient entity MUST keep their values from the addressed resource path collection throughout the transformation sequence. Likewise, single- or collection-valued navigation property paths starting at a non-transient entity MUST keep addressing the same non-transient entities as in the addressed resource path collection.
 - Instances in an output set need not have all declared or dynamic properties that occurred in the input set.
 - Instances in an output set can have dynamic properties that did not occur in the input set. The name for such a dynamic property is called an _alias_, it is a simple identifier (see [OData-CSDL, section 15.2](https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#SimpleIdentifier)). Aliases MUST differ from names of declared properties in the input type, from names of properties in the first input set, and from names of properties in the current input set. Aliases in one collection MUST also differ from each other.
+- Instances in an output set that have all key properties of an entity also have the metadata associated with that entity, such as entity-id, read and edit URL (defined in [OData-Protocol, section 4](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ServiceModel)) and ETag (defined in [OData-Protocol, section 11.4.1.2](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UseofETagsforAvoidingUpdateConflicts)) as well as relations to other entities  [OData-Protocol, section 11.2.7](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#RequestingRelatedEntities).
 
 Here is an overview of the structural changes made by different transformations:
 - During [aggregation](#BasicAggregation) or [nest](#Transformationnest), many instances are replaced by one instance, properties that represent the aggregation level are retained, and others are replaced by dynamic properties holding the aggregate value of the many instances or a transformed copy of them.
@@ -1453,7 +1454,7 @@ The `groupby` transformation takes one or two parameters where the second is a l
 
 #### <a id="SimpleGrouping" href="#SimpleGrouping">3.2.3.1 Simple Grouping</a>
 
-In its simplest form the first parameter of `groupby` specifies the _grouping properties_, a comma-separated parenthesized list $G$ of one or more [data aggregation paths](#DataAggregationPath) with single-valued segments. The same path SHOULD NOT appear more than once; redundant property paths MAY be considered valid, but MUST NOT alter the meaning of the request. Navigation properties and stream properties specified in grouping properties are expanded by default (see [example 72](#groupbynav)).
+In its simplest form the `groupby` transformation partitions the input set by the values of certain "grouping properties" and applies the given set transformations to each partition. In this form the first parameter of `groupby` specifies the _grouping properties_, a comma-separated parenthesized list $G$ of one or more [data aggregation paths](#DataAggregationPath) with single-valued segments. The same path SHOULD NOT appear more than once; redundant property paths MAY be considered valid, but MUST NOT alter the meaning of the request. Navigation properties and stream properties specified in grouping properties are expanded by default (see [example 72](#groupbynav)).
 
 The algorithmic description of this transformation makes use of the following definitions: Let $u[q]$ denote the value of a structural or navigation property $q$ in an instance $u$. A path $p_1$ is called a _prefix_ of a path $p$ if there is a non-empty path $p_2$ such that $p$ equals the concatenated path $p_1/p_2$. Let $e$ denote the empty path.
 
@@ -2780,7 +2781,7 @@ G(n)={\tt filter}(\hfill\\
 \hskip1pc )\hfill\\
 )\hfill
 }$$
-where $y_1,…,y_k$ denote `lambdaVariableExpr`s as defined in [OData-ABNF](#ODataABNF) and ${}/r$ may be absent.
+where $y_1,…,y_k$ denote [lambdaVariableExpr]{.abnf}s as defined in [OData-ABNF](#ODataABNF) and ${}/r$ may be absent.
 
 If parameter $d$ is absent, the parameter ${\tt MaxDistance}=d$ is omitted. If `keep start` is absent, the parameter ${\tt IncludeSelf}={\tt true}$ is omitted.
 
@@ -3459,7 +3460,7 @@ results in
 :::
 
 ::: example
-Example 78: To compute the aggregate as a property without nesting, use the aggregate function in `$compute` rather than the aggregate transformation in `$apply`:
+Example 78: To compute the aggregate as a property without nesting, use the `aggregate` function in `$compute` rather than the `aggregate` transformation in `$apply`:
 ```
 GET /service/Products?$compute=Sales/aggregate(Amount with sum) as Total
 ```
