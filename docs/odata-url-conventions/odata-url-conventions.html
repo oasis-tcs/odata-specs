@@ -802,9 +802,9 @@ This uses pandoc 3.8.3 from https://github.com/jgm/pandoc/releases/tag/3.8.3.
 <p>Example 30: URL addressing the references between <code>Categories(1)</code> and <code>Products</code></p>
 <pre><code>http://host/service/Categories(1)/Products/$ref</code></pre>
 </div>
-<p>Resource paths addressing a single related entity reference can be used in <code>DELETE</code> requests to unrelate two entities. In OData 4.01, this includes resource paths that identify an individual entity reference within a related collection by key. In OData 4.0, resource paths addressing a collection of references MUST be followed by the system query option <code>$id</code> in order to identify a single entity reference within the collection to be removed. The entity-id specified by <code>$id</code> may be expressed absolute or relative to the request URL. For details see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#EntityIdsandEntityReferences">OData-Protocol, section 4.1</a>.</p>
+<p>Resource paths addressing a single related entity reference can be used in <code>DELETE</code> requests to unrelate two entities. In OData 4.01 and greater, this includes resource paths that identify an individual entity reference within a related collection by key. In OData 4.0, resource paths addressing a collection of references MUST be followed by the system query option <code>$id</code> in order to identify a single entity reference within the collection to be removed. The entity-id specified by <code>$id</code> may be expressed absolute or relative to the request URL. For details see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#EntityIdsandEntityReferences">OData-Protocol, section 4.1</a>.</p>
 <div class="example">
-<p>Example 31: three ways of unrelating <code>Categories(1)</code> and <code>Products(0)</code>; the second option is supported only in OData 4.01</p>
+<p>Example 31: three ways of unrelating <code>Categories(1)</code> and <code>Products(0)</code>; the second option is supported only in OData 4.01 and greater</p>
 <pre><code>DELETE http://host/service/Categories(1)/Products/$ref?$id=../../Products(0)</code></pre>
 <pre><code>DELETE http://host/service/Categories(1)/Products(0)/$ref</code></pre>
 <pre><code>DELETE http://host/service/Products(0)/Category/$ref</code></pre>
@@ -1104,7 +1104,7 @@ Content-Type: application/x-www-form-urlencoded
 <details open><summary>
 <h2 id="51-system-query-options"><a id="SystemQueryOptions" href="#SystemQueryOptions">5.1 System Query Options</a></h2>
 </summary>
-<p>System query options are query string parameters that control the amount and order of the data returned for the resource identified by the URL. The names of all system query options are optionally prefixed with a dollar (<code>$</code>) character. 4.01 Services MUST support case-insensitive system query option names specified with or without the <code>$</code> prefix. Clients that want to work with 4.0 services MUST use lower case names and specify the <code>$</code> prefix.</p>
+<p>System query options are query string parameters that control the amount and order of the data returned for the resource identified by the URL. The names of all system query options are optionally prefixed with a dollar (<code>$</code>) character. 4.01 and greater services MUST support case-insensitive system query option names specified with or without the <code>$</code> prefix. Clients that want to work with 4.0 services MUST use lower case names and specify the <code>$</code> prefix.</p>
 <p>For <code>GET</code>, <code>PATCH</code>, and <code>PUT</code> requests the following rules apply:</p>
 <ul>
 <li>Resource paths identifying a single entity, a complex type instance, a collection of entities, or a collection of complex type instances allow <a href="#SystemQueryOptioncompute"><code>$compute</code></a>, <a href="#SystemQueryOptionexpand"><code>$expand</code></a> and <a href="#SystemQueryOptionselect"><code>$select</code></a>.</li>
@@ -1136,7 +1136,7 @@ Content-Type: application/x-www-form-urlencoded
 <h4 id="5111-logical-operators"><a id="LogicalOperators" href="#LogicalOperators">5.1.1.1 Logical Operators</a></h4>
 </summary>
 <p>OData defines a set of logical operators that evaluate to <code>true</code> or <code>false</code> (i.e. a <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#boolCommonExpr"><code>boolCommonExpr</code></a></span> as defined in <a href="#ODataABNF">OData-ABNF</a>). Logical operators are typically used to filter a collection of resources.</p>
-<p>The syntax rules for the logical operators are defined in <a href="#ODataABNF">OData-ABNF</a> rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#commonExpr"><code>commonExpr</code></a></span>. 4.01 Services MUST support case-insensitive operator names. Clients that want to work with 4.0 services MUST use lower case operator names.</p>
+<p>The syntax rules for the logical operators are defined in <a href="#ODataABNF">OData-ABNF</a> rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#commonExpr"><code>commonExpr</code></a></span>. 4.01 and greater services MUST support case-insensitive operator names. Clients that want to work with 4.0 services MUST use lower case operator names.</p>
 <p>The six comparison operators can be used with all primitive values except <code>Edm.Binary</code>, <code>Edm.Stream</code>, and the <code>Edm.Geo</code> types. <code>Edm.Binary</code>, <code>Edm.Stream</code>, and the <code>Edm.Geo</code> types can only be compared to the <code>null</code> value using the <a href="#Equals"><code>eq</code></a> and <a href="#NotEquals"><code>ne</code></a> operators.</p>
 <p>When applied to operands of numeric types, <a href="#NumericPromotion">numeric promotion</a> rules are applied.</p>
 <p>The <code>eq</code>, <code>ne</code>, and <code>in</code> operators can be used with collection-valued operands, and the <code>eq</code> and <code>ne</code> operators can be used with operands of a structured type.</p>
@@ -1279,7 +1279,7 @@ Content-Type: application/x-www-form-urlencoded
 </summary>
 <p>OData defines a set of arithmetic operators that require operands that evaluate to numeric types. Arithmetic operators are typically used to filter a collection of resources. However, services MAY allow using arithmetic operators with the <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> system query option.</p>
 <p>If an operand of an arithmetic operator is <code>null</code> or has a non-allowed type, the result is <code>null</code>.</p>
-<p>The syntax rules for the arithmetic operators are defined in <a href="#ODataABNF">OData-ABNF</a> rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#commonExpr"><code>commonExpr</code></a></span>. 4.01 Services MUST support case-insensitive operator names. Clients that want to work with 4.0 services MUST use lower case operator names.</p>
+<p>The syntax rules for the arithmetic operators are defined in <a href="#ODataABNF">OData-ABNF</a> rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#commonExpr"><code>commonExpr</code></a></span>. 4.01 and greater services MUST support case-insensitive operator names. Clients that want to work with 4.0 services MUST use lower case operator names.</p>
 <details open><summary>
 <h5 id="51121-addition"><a id="Addition" href="#Addition">5.1.1.2.1 Addition</a></h5>
 </summary>
@@ -1388,7 +1388,7 @@ Content-Type: application/x-www-form-urlencoded
 <p>In addition to operators, a set of functions is also defined for use with the <a href="#SystemQueryOptioncompute"><code>$compute</code></a>, <code>$filter</code> or <a href="#SystemQueryOptionorderby"><code>$orderby</code></a> system query options, or in <a href="#ParameterAliases">parameter alias</a> values. The following <a href="#concat">sections 5.1.1.5.1</a> to <a href="#geolength">5.1.1.11.3</a> describe the available functions. The <a href="#case"><code>case</code></a> and <a href="#LambdaOperators">lambda operators</a> have a slightly different syntax.</p>
 <p>Note: ISNULL or COALESCE operators are not defined. Instead, OData defines a <a href="#null"><code>null</code></a> literal that can be used in comparisons.</p>
 <p>If a parameter of a canonical function is <code>null</code>, the function returns <code>null</code>. If the types of parameters do not match the function signature, the function also returns <code>null</code>.</p>
-<p>The syntax rules for all functions are defined in <a href="#ODataABNF">OData-ABNF</a> rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#methodCallExpr"><code>methodCallExpr</code></a></span>. 4.01 Services MUST support case-insensitive canonical function names. Clients that want to work with 4.0 services MUST use lower case canonical function names.</p>
+<p>The syntax rules for all functions are defined in <a href="#ODataABNF">OData-ABNF</a> rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#methodCallExpr"><code>methodCallExpr</code></a></span>. 4.01 and greater services MUST support case-insensitive canonical function names. Clients that want to work with 4.0 services MUST use lower case canonical function names.</p>
 </details>
 <details open><summary>
 <h4 id="5115-string-and-collection-functions"><a id="StringandCollectionFunctions" href="#StringandCollectionFunctions">5.1.1.5 String and Collection Functions</a></h4>
@@ -1880,7 +1880,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <h4 id="51113-lambda-operators"><a id="LambdaOperators" href="#LambdaOperators">5.1.1.13 Lambda Operators</a></h4>
 </summary>
 <p>OData defines two operators that evaluate a Boolean expression on a collection. Both must be prepended with a path expression that identifies a collection.</p>
-<p>4.01 Services MUST support case-insensitive lambda operator names. Clients that want to work with 4.0 services MUST use lower case lambda operator names.</p>
+<p>4.01 and greater services MUST support case-insensitive lambda operator names. Clients that want to work with 4.0 services MUST use lower case lambda operator names.</p>
 <p>The argument of a lambda operator is a case-sensitive lambda variable name followed by a colon (<code>:</code>) and a Boolean expression that uses the lambda variable name to refer to properties of the instance or of members of the collection identified by the path expression.</p>
 <p>If the name chosen for the lambda variable matches a property name of the current resource referenced by the resource path, the lambda variable takes precedence. Clients can prefix properties of the current resource referenced by the resource path with <a href="#it"><code>$it</code></a>.</p>
 <p>Other path expressions in the Boolean expression neither prefixed with the lambda variable nor <code>$it</code> are evaluated in the scope of the instance or of members of the collection at the origin of the path expression prepended to the lambda operator.</p>
@@ -1944,7 +1944,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <pre><code>geo.distance(Location,geography&#39;SRID=0;Point(142.1 64.1)&#39;)</code></pre>
 </div>
 <p>Duration literals in OData 4.0 required prefixing with “<code>duration</code>”. Enumeration literals in OData 4.0 required prefixing with the qualified type name of the enumeration.</p>
-<p>In OData 4.01, services MUST support duration and enumeration literals with or without the type prefix. OData clients that want to operate across OData 4.0 and OData 4.01 services should always include the prefix for duration and enumeration types.</p>
+<p>In OData 4.01 and greater, services MUST support duration and enumeration literals with or without the type prefix. OData clients that want to operate across OData 4.0 and OData 4.01 and greater services should always include the prefix for duration and enumeration types.</p>
 </details>
 <details open><summary>
 <h5 id="511142-structured-and-collection-literals"><a id="StructuredandCollectionLiterals" href="#StructuredandCollectionLiterals">5.1.1.14.2 Structured and Collection Literals</a></h5>

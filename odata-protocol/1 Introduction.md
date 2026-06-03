@@ -393,8 +393,8 @@ Services SHOULD advertise supported versions of OData through the
 [Core.ODataVersions]{.term}
 term, defined in [OData-VocCore](#ODataVocCore).
 
-This version of the specification defines OData version values `4.0` and
-`4.01`. Content that applies only to one version or another is
+This version of the specification defines OData version values `4.0`, `4.01` and
+`4.02`. Content that applies only to one version or another is
 explicitly called out in the text.
 
 ## ##subsec Model Versioning

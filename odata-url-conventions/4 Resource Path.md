@@ -511,7 +511,7 @@ http://host/service/Categories(1)/Products/$ref
 :::
 
 Resource paths addressing a single related entity reference can be used
-in `DELETE` requests to unrelate two entities. In OData 4.01, this
+in `DELETE` requests to unrelate two entities. In OData 4.01 and greater, this
 includes resource paths that identify an individual entity reference
 within a related collection by key. In OData 4.0, resource paths
 addressing a collection of references MUST be followed by the system
@@ -522,7 +522,7 @@ expressed absolute or relative to the request URL. For details see
 
 ::: example
 Example ##ex: three ways of unrelating `Categories(1)` and
-`Products(0)`; the second option is supported only in OData 4.01
+`Products(0)`; the second option is supported only in OData 4.01 and greater
 ```
 DELETE http://host/service/Categories(1)/Products/$ref?$id=../../Products(0)
 ```

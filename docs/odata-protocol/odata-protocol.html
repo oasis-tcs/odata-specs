@@ -501,7 +501,13 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><a href="#OData401IntermediateConformanceLevel">12.2.2 OData 4.01 Intermediate Conformance Level</a></li>
 <li><a href="#OData401AdvancedConformanceLevel">12.2.3 OData 4.01 Advanced Conformance Level</a></li>
 </ul></li>
-<li><a href="#InteroperableODataClients">12.3 Interoperable OData Clients</a></li>
+<li><a href="#OData402ServiceConformanceLevels">12.3 OData 4.02 Service Conformance Levels</a>
+<ul>
+<li><a href="#OData402MinimalConformanceLevel">12.3.1 OData 4.02 Minimal Conformance Level</a></li>
+<li><a href="#OData402IntermediateConformanceLevel">12.3.2 OData 4.02 Intermediate Conformance Level</a></li>
+<li><a href="#OData402AdvancedConformanceLevel">12.3.3 OData 4.02 Advanced Conformance Level</a></li>
+</ul></li>
+<li><a href="#InteroperableODataClients">12.4 Interoperable OData Clients</a></li>
 </ul></li>
 <li><a href="#References">A References</a>
 <ul>
@@ -609,7 +615,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/391">391</a></td>
 </tr>
 <tr>
-<td><a href="#InteroperableODataClients">Section 12.3</a></td>
+<td><a href="#InteroperableODataClients">Section 12.4</a></td>
 <td>Encoding of plus character in URLs</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/485">485</a></td>
 </tr>
@@ -768,7 +774,7 @@ This uses pandoc 3.8.3 from https://github.com/jgm/pandoc/releases/tag/3.8.3.
 <p>OData requests and responses are versioned according to the <a href="#HeaderODataVersion"><code>OData-Version</code></a> header.</p>
 <p>OData clients include the <a href="#HeaderODataMaxVersion"><code>OData-MaxVersion</code></a> header in requests in order to specify the maximum acceptable response version. Services respond with the maximum supported version that is less than or equal to the requested <code>OData-MaxVersion</code>, using decimal comparison. The syntax of the <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#OData-Version"><code>OData-Version</code></a></span> and <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#OData-MaxVersion"><code>OData-MaxVersion</code></a></span> header fields is defined in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>Services SHOULD advertise supported versions of OData through the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ODataVersions"><code>Core.ODataVersions</code></a></span> term, defined in <a href="#ODataVocCore">OData-VocCore</a>.</p>
-<p>This version of the specification defines OData version values <code>4.0</code> and <code>4.01</code>. Content that applies only to one version or another is explicitly called out in the text.</p>
+<p>This version of the specification defines OData version values <code>4.0</code>, <code>4.01</code> and <code>4.02</code>. Content that applies only to one version or another is explicitly called out in the text.</p>
 </details>
 <details open><summary>
 <h2 id="52-model-versioning"><a id="ModelVersioning" href="#ModelVersioning">5.2 Model Versioning</a></h2>
@@ -1138,7 +1144,7 @@ This uses pandoc 3.8.3 from https://github.com/jgm/pandoc/releases/tag/3.8.3.
 <details open><summary>
 <h3 id="831-header-asyncresult"><a id="HeaderAsyncResult" href="#HeaderAsyncResult">8.3.1 Header <code>AsyncResult</code></a></h3>
 </summary>
-<p>A 4.01 service MUST include the <code>AsyncResult</code> header in <a href="#ResponseCode200OK"><code>200 OK</code></a> responses from a status monitor resource in order to indicate the final <a href="#CommonResponseStatusCodes">HTTP Response Status Code</a> of an <a href="#AsynchronousRequests">asynchronously executed request</a>. The header value is the three-digit HTTP response code, see <a href="#ODataABNF">OData-ABNF</a> rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#asyncresult"><code>asyncresult</code></a></span>.</p>
+<p>A 4.01 or greater service MUST include the <code>AsyncResult</code> header in <a href="#ResponseCode200OK"><code>200 OK</code></a> responses from a status monitor resource in order to indicate the final <a href="#CommonResponseStatusCodes">HTTP Response Status Code</a> of an <a href="#AsynchronousRequests">asynchronously executed request</a>. The header value is the three-digit HTTP response code, see <a href="#ODataABNF">OData-ABNF</a> rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#asyncresult"><code>asyncresult</code></a></span>.</p>
 <p>The <code>AsyncResult</code> header SHOULD NOT be applied to individual responses within a batch.</p>
 </details>
 <details open><summary>
@@ -1429,7 +1435,7 @@ http://host/service/$metadata#MainSupplier/Model.PreferredVendor</code></pre>
 <p>The shortcut <code>*</code> represents the list of all structural properties. Properties defined on types derived from the declared type of the entity set (or type specified in the type-cast segment if specified) are prefixed with the qualified name of the derived type as defined in <a href="#ODataABNF">OData-ABNF</a> rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#selectItem"><code>selectItem</code></a></span>.</p>
 <p>The list also contains explicitly selected or expanded instance annotations. It is possible to select or expand only instance annotations, in which case only those selected or expanded annotations appear in the result. Note that annotations specified only in the <a href="#Preferenceincludeannotationsodataincludeannotations"><code>include-annotations</code></a> preference do not appear in the context URL and do not affect the selected/expanded properties.</p>
 <p>Operations in the context URL are represented using the namespace- or alias-qualified name. Function names suffixed with parentheses represent a specific overload, while function names without parentheses represent all overloads of the function.</p>
-<p>OData 4.01 responses MAY use the shortcut pattern <code>{namespace}.*</code> to represent the list of all bound actions or functions available for entities in the collection, see system query option <a href="#SystemQueryOptionselect"><code>$select</code></a>.</p>
+<p>OData 4.01 or greater responses MAY use the shortcut pattern <code>{namespace}.*</code> to represent the list of all bound actions or functions available for entities in the collection, see system query option <a href="#SystemQueryOptionselect"><code>$select</code></a>.</p>
 <div class="example">
 <p>Example 20: resource URL and corresponding context URL</p>
 <pre><code>http://host/service/Customers?$select=Address,Orders,Model.VipCustomer/PreferredContact
@@ -1448,7 +1454,7 @@ http://host/service/$metadata#Customers(Address,Orders,Model.VipCustomer/Preferr
 <p>The shortcut <code>*</code> represents the list of all structural properties. Properties defined on types derived from the type of the entity set (or type specified in the type-cast segment if specified) are prefixed with the qualified name of the derived type as defined in <a href="#ODataABNF">OData-ABNF</a> rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#selectItem"><code>selectItem</code></a></span>. Note that expanded properties are automatically included in the response.</p>
 <p>The list also contains explicitly selected or expanded instance annotations. It is possible to select or expand only instance annotations, in which case only those selected or expanded annotations appear in the result. Note that annotations specified only in the <a href="#Preferenceincludeannotationsodataincludeannotations"><code>include-annotations</code></a> preference do not appear in the context URL and do not affect the selected/expanded properties.</p>
 <p>Operations in the context URL are represented using the namespace- or alias-qualified name. Function names suffixed with parentheses represent a specific overload, while function names without parentheses represent all overloads of the function.</p>
-<p>OData 4.01 responses MAY use the shortcut pattern <code>{namespace}.*</code> to represent the list of all bound actions or functions available for the returned entity, see system query option <a href="#SystemQueryOptionselect"><code>$select</code></a>.</p>
+<p>OData 4.01 or greater responses MAY use the shortcut pattern <code>{namespace}.*</code> to represent the list of all bound actions or functions available for the returned entity, see system query option <a href="#SystemQueryOptionselect"><code>$select</code></a>.</p>
 <div class="example">
 <p>Example 21: resource URL and corresponding context URL</p>
 <pre><code>http://host/service/Customers(1)?$select=Name,Rating
@@ -1461,7 +1467,7 @@ http://host/service/$metadata#Customers(Name,Rating)/$entity</code></pre>
 <p>Context URL template:</p>
 <pre><code>{context-url}#{canonical-collection}{/type-name}{select-list}
 {context-url}#Collection({type-name}){select-list}</code></pre>
-<p>For a 4.01 response, if a navigation property is explicitly expanded, then in addition to any non-suffixed names of any selected properties, navigation properties, functions or actions, the comma-separated list of properties MUST include the name of the expanded property, suffixed with the parenthesized comma-separated list of any properties of the expanded navigation property that are selected or expanded. If the expanded navigation property does not contain a nested <code>$select</code> or <code>$expand</code>, then the expanded property is suffixed with empty parentheses. If the expansion is recursive for nested children, a plus sign (<code>+</code>) is infixed between the navigation property name and the opening parenthesis.</p>
+<p>For a 4.01 or greater response, if a navigation property is explicitly expanded, then in addition to any non-suffixed names of any selected properties, navigation properties, functions or actions, the comma-separated list of properties MUST include the name of the expanded property, suffixed with the parenthesized comma-separated list of any properties of the expanded navigation property that are selected or expanded. If the expanded navigation property does not contain a nested <code>$select</code> or <code>$expand</code>, then the expanded property is suffixed with empty parentheses. If the expansion is recursive for nested children, a plus sign (<code>+</code>) is infixed between the navigation property name and the opening parenthesis.</p>
 <p>For a 4.0 response, the expanded navigation property suffixed with parentheses is omitted from the select-list if it does not contain a nested <code>$select</code> or <code>$expand</code>, but MUST still be present, without a suffix, if it is explicitly selected.</p>
 <p>The context URL has no shortcut for representing the list of all navigation properties; <code>$expand=*</code> is treated as if all navigation properties were explicitly expanded.</p>
 <p>If the context URL includes only expanded navigation properties (i.e., only navigation properties suffixed with parentheses), then all structural properties are implicitly selected (same as if there were no properties listed in the select-list).</p>
@@ -1491,7 +1497,7 @@ http://host/service/$metadata
 <pre><code>{context-url}#{canonical-collection}{/type-name}{select-list}/$entity
 {context-url}#{canonical-singleton}{/type-name}{select-list}
 {context-url}#{type-name}{select-list}</code></pre>
-<p>For a 4.01 response, if a navigation property is explicitly expanded, then in addition to the non-suffixed names of any selected properties, navigation properties, functions or actions, the comma-separated list of properties MUST include the name of the expanded property, suffixed with the parenthesized comma-separated list of any properties of the expanded navigation property that are selected or expanded. If the expanded navigation property does not contain a nested <code>$select</code> or <code>$expand</code>, then the expanded property is suffixed with empty parentheses. If the expansion is recursive for nested children, a plus sign (<code>+</code>) is infixed between the navigation property name and the opening parenthesis.</p>
+<p>For a 4.01 or greater response, if a navigation property is explicitly expanded, then in addition to the non-suffixed names of any selected properties, navigation properties, functions or actions, the comma-separated list of properties MUST include the name of the expanded property, suffixed with the parenthesized comma-separated list of any properties of the expanded navigation property that are selected or expanded. If the expanded navigation property does not contain a nested <code>$select</code> or <code>$expand</code>, then the expanded property is suffixed with empty parentheses. If the expansion is recursive for nested children, a plus sign (<code>+</code>) is infixed between the navigation property name and the opening parenthesis.</p>
 <p>For a 4.0 response, the expanded navigation property suffixed with parentheses is omitted from the select-list if it does not contain a nested <code>$select</code> or <code>$expand</code>, but MUST still be present, without a suffix, if it is explicitly selected.</p>
 <p>If the context URL includes only expanded navigation properties (i.e., only navigation properties suffixed with parentheses), then all structural properties are implicitly selected (same as if there were no properties listed in the select-list).</p>
 <p>Navigation properties with expanded references are not represented in the context URL.</p>
@@ -1534,7 +1540,7 @@ http://host/service/$metadata#$ref</code></pre>
 <pre><code>{context-url}#{canonical-member}/{property-path}{select-list}
 {context-url}#{type-name}{select-list}</code></pre>
 <p>If a response represents an <a href="#RequestingIndividualProperties">individual property</a> of a canonical member, the context URL specifies the <code>{canonical-member}</code> and the path to the structural property. The path MUST include cast segments for properties defined on types derived from the expected type of the previous segment.</p>
-<p>If the property value does not contain explicitly or implicitly selected navigation properties or operations, OData 4.01 responses MAY use the less specific second template.</p>
+<p>If the property value does not contain explicitly or implicitly selected navigation properties or operations, OData 4.01 or greater responses MAY use the less specific second template.</p>
 <div class="example">
 <p>Example 28: resource URL and corresponding context URL</p>
 <pre><code>http://host/service/Customers(1)/Addresses
@@ -1690,7 +1696,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <details open><summary>
 <h3 id="1121-system-query-options"><a id="SystemQueryOptions" href="#SystemQueryOptions">11.2.1 System Query Options</a></h3>
 </summary>
-<p>OData defines a number of system query options that allow refining the request. System query options are prefixed with the dollar (<code>$</code>) character, which is optional in OData 4.01. 4.01 services MUST support case-insensitive system query option names specified with or without the <code>$</code> prefix. Clients that want to work with 4.0 services MUST use lower case names and specify the <code>$</code> prefix.</p>
+<p>OData defines a number of system query options that allow refining the request. System query options are prefixed with the dollar (<code>$</code>) character, which is optional in OData 4.01 or greater. 4.01 or greater services MUST support case-insensitive system query option names specified with or without the <code>$</code> prefix. Clients that want to work with 4.0 services MUST use lower case names and specify the <code>$</code> prefix.</p>
 <p>The result of the request MUST be as if the system query options were evaluated in the following order.</p>
 <ul>
 <li><a href="#SystemQueryOptionschemaversion"><code>$schemaversion</code></a> MUST be evaluated first, because it may influence any further processing.</li>
@@ -1869,7 +1875,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>The <code>$levels</code> expand option can be used to specify the number of levels of recursion for a hierarchy in which the related entity type is the same as, or can be cast to, the source entity type. A <code>$levels</code> option with a value of 1 specifies a single expand with no recursion. All provided expand options except <code>$levels</code> are applied at each level of the hierarchy.</p>
 <p>Services MAY support the symbolic value <code>max</code> in addition to numeric values. In that case they MUST solve circular dependencies by injecting an entity reference somewhere in the circular dependency.</p>
 <p>Clients using <code>$levels=max</code> MUST be prepared to handle entity references in cases were a circular reference would occur otherwise.</p>
-<p>4.01 services that support <code>max</code> SHOULD do so in a case-insensitive manner. Clients that want to work with 4.0 services MUST use lower case.</p>
+<p>4.01 or greater services that support <code>max</code> SHOULD do so in a case-insensitive manner. Clients that want to work with 4.0 services MUST use lower case.</p>
 <div class="example">
 <p>Example 49: return each employee from the Employees entity set and, for each employee that is a manager, return all direct reports, recursively to four levels</p>
 <pre><code>GET http://host/service/Employees?$expand=Model.Manager/DirectReports($levels=4)</code></pre>
@@ -1895,7 +1901,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <h3 id="1126-querying-collections"><a id="QueryingCollections" href="#QueryingCollections">11.2.6 Querying Collections</a></h3>
 </summary>
 <p>OData services support querying collections of entities, complex type instances, and primitive values.</p>
-<p>The target collection is specified through a URL, and query operations such as filter, sort, paging, and projection are specified as <a href="#SystemQueryOptions"><em>system query options</em></a> optionally prefixed with a dollar (<code>$</code>) character. 4.01 Services MUST support case-insensitive system query option names specified with or without the <code>$</code> prefix. Clients that want to work with 4.0 services MUST use lower case names and specify the <code>$</code> prefix.</p>
+<p>The target collection is specified through a URL, and query operations such as filter, sort, paging, and projection are specified as <a href="#SystemQueryOptions"><em>system query options</em></a> optionally prefixed with a dollar (<code>$</code>) character. 4.01 or greater services MUST support case-insensitive system query option names specified with or without the <code>$</code> prefix. Clients that want to work with 4.0 services MUST use lower case names and specify the <code>$</code> prefix.</p>
 <p>The same system query option MUST NOT be specified more than once for any resource.</p>
 <p>An OData service MAY support some or all of the system query options defined. If a data service does not support a system query option, it MUST fail any request that contains the unsupported option and SHOULD return <a href="#ResponseCode501NotImplemented"><code>501 Not Implemented</code></a>.</p>
 <details open><summary>
@@ -1916,7 +1922,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <h5 id="112611-built-in-filter-operations"><a id="BuiltinFilterOperations" href="#BuiltinFilterOperations">11.2.6.1.1 Built-in Filter Operations</a></h5>
 </summary>
 <p>OData supports a set of built-in filter operations, as described in this section.</p>
-<p>4.01 services MUST support case-insensitive operation names. Clients that want to work with 4.0 services MUST use lower case operation names.</p>
+<p>4.01 or greater services MUST support case-insensitive operation names. Clients that want to work with 4.0 services MUST use lower case operation names.</p>
 <p>For a full description of the syntax used when building requests, see <a href="#ODataURL">OData-URL</a>.</p>
 <table>
 <tr><th>Operator</th><th>Description</th><th>Example</th></tr>
@@ -1949,7 +1955,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <h5 id="112612-built-in-query-functions"><a id="BuiltinQueryFunctions" href="#BuiltinQueryFunctions">11.2.6.1.2 Built-in Query Functions</a></h5>
 </summary>
 <p>OData supports a set of built-in functions that can be used within <code>$filter</code> operations. The following table lists the available functions.</p>
-<p>4.01 services MUST support case-insensitive built-in function names. Clients that want to work with 4.0 services MUST use lower case names.</p>
+<p>4.01 or greater services MUST support case-insensitive built-in function names. Clients that want to work with 4.0 services MUST use lower case names.</p>
 <p>For a full description of the syntax used when building requests, see <a href="#ODataURL">OData-URL</a>.</p>
 <p>OData does not define an ISNULL or COALESCE operator. Instead, there is a <code>null</code> literal that can be used in comparisons.</p>
 <table>
@@ -2026,7 +2032,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 </summary>
 <p>The <code>$orderby</code> System Query option specifies the order in which items are returned from the service.</p>
 <p>The value of the <code>$orderby</code> System Query option contains a comma-separated list of expressions whose primitive result values are used to sort the items. A special case of such an expression is a property path terminating on a primitive property. A type cast using the qualified entity type name is required to order by a property defined on a derived type. Only aliases defined in the metadata document of the service can be used in URLs.</p>
-<p>The expression can include the suffix <code>asc</code> for ascending or <code>desc</code> for descending, separated from the property name by one or more spaces. If <code>asc</code> or <code>desc</code> is not specified, the service MUST order by the specified property in ascending order. 4.01 services MUST support case-insensitive values for <code>asc</code> and <code>desc</code>. Clients that want to work with 4.0 services MUST use lower case values.</p>
+<p>The expression can include the suffix <code>asc</code> for ascending or <code>desc</code> for descending, separated from the property name by one or more spaces. If <code>asc</code> or <code>desc</code> is not specified, the service MUST order by the specified property in ascending order. 4.01 or greater services MUST support case-insensitive values for <code>asc</code> and <code>desc</code>. Clients that want to work with 4.0 services MUST use lower case values.</p>
 <p>Null values come before non-null values when sorting in ascending order and after non-null values when sorting in descending order.</p>
 <p>Items are sorted by the result values of the first expression, and then items with the same value for the first expression are sorted by the result value of the second expression, and so on.</p>
 <p>The Boolean value false comes before the value true in ascending order.</p>
@@ -2201,7 +2207,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Example 74: return the number of products in the Products entity set</p>
 <pre><code>GET http://host/service/Products/$count</code></pre>
 </div>
-<p>With 4.01 services the <code>/$count</code> segment MAY be used in combination with the <code>/$filter</code> path segment to count the items in the filtered collection.</p>
+<p>With 4.01 or greater services the <code>/$count</code> segment MAY be used in combination with the <code>/$filter</code> path segment to count the items in the filtered collection.</p>
 <div class="example">
 <p>Example 75: return the number of products whose <code>Price</code> is less than $10.00</p>
 <pre><code>GET http://host/service/Products/$filter(@foo)/$count?@foo=Price lt 10.00</code></pre>
@@ -2321,7 +2327,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>The presence of an <a href="#HeaderETag"><code>ETag</code></a> header in a response does not imply in itself that the resource requires optimistic concurrency control; the ETag may just be used for caching and/or conditional <code>GET</code> requests.</p>
 <p>If an ETag value is specified in an <a href="#HeaderIfMatch"><code>If-Match</code></a> or <a href="#HeaderIfNoneMatch"><code>If-None-Match</code></a> header of a <a href="#DataModification">Data Modification Request</a> or <a href="#Actions">Action Request</a>, the operation MUST only be invoked if the <code>If-Match</code> or <code>If-None-Match</code> condition is satisfied.</p>
 <p>If the client does not specify an <a href="#HeaderIfMatch"><code>If-Match</code></a> request header in a <a href="#DataModification">Data Modification Request</a> or <a href="#Actions">Action Request</a> on a resource that requires optimistic concurrency control, the service responds with a <code>428 Precondition Required</code> and MUST ensure that no observable change occurs as a result of the request. Clients can attempt to disable optimistic concurrency control by specifying <code>If-Match</code> with a value of <code>*</code>. Services MAY reject such requests.</p>
-<p>For requests including an <a href="#HeaderODataVersion"><code>OData-Version</code></a> header value of <code>4.01</code>, any ETag values specified in the request body of a <a href="#UpdateanEntity">request to modify an entity</a> MUST be <code>*</code> or match the current value for the record being updated.</p>
+<p>For requests including an <a href="#HeaderODataVersion"><code>OData-Version</code></a> header value of <code>4.01</code> or greater, any ETag values specified in the request body of a <a href="#UpdateanEntity">request to modify an entity</a> MUST be <code>*</code> or match the current value for the record being updated.</p>
 <div class="example">
 <p>Example <a id="antietag" href="#antietag">81</a>: <code>Category</code> is a single-valued nullable non-containment navigation property on the product entity type. Note that an ETag used in the <code>If-Match</code> header in the following request applies to the category currently associated with the product.</p>
 <div class="sourceCode" id="cb99"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="er">PATCH</span> <span class="er">http://host/service/Products(</span><span class="dv">57</span><span class="er">)/Category</span></span>
@@ -2405,7 +2411,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <span id="cb101-11"><a href="#cb101-11" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
-<p>Example 83: using the JSON format, 4.01 clients can create a new manager entity with links to an existing manager (of managers) and to two existing employees by including either the entity-ids or full set of key properties within the <code>Manager</code> and <code>DirectReports</code> navigation properties</p>
+<p>Example 83: using the JSON format, 4.01 or greater clients can create a new manager entity with links to an existing manager (of managers) and to two existing employees by including either the entity-ids or full set of key properties within the <code>Manager</code> and <code>DirectReports</code> navigation properties</p>
 <div class="sourceCode" id="cb102"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@type&quot;</span><span class="fu">:</span> <span class="st">&quot;#Northwind.Manager&quot;</span><span class="fu">,</span></span>
 <span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
@@ -2418,7 +2424,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Upon successful completion of the operation, the service creates the requested entity and relates it to the requested existing entities.</p>
 <p>Properties of related entities may be updated by supplying property values for the related entities. Upon successful completion of the operation, in addition to creating the entity and relating it to the requested entities, the properties of the existing entities are updated using <code>PATCH</code> semantics as described in <a href="#UpdateanEntity">Update an Entity</a>.</p>
 <div class="example">
-<p>Example 84: using the JSON format, 4.01 clients can update the <code>TeamName</code> property of existing direct reports when relating them to the new manager.</p>
+<p>Example 84: using the JSON format, 4.01 or greater clients can update the <code>TeamName</code> property of existing direct reports when relating them to the new manager.</p>
 <div class="sourceCode" id="cb103"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@type&quot;</span><span class="fu">:</span> <span class="st">&quot;#Northwind.Manager&quot;</span><span class="fu">,</span></span>
 <span id="cb103-3"><a href="#cb103-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
@@ -2486,7 +2492,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>Payloads with an <code>OData-Version</code> header with a value of <code>4.01</code> or greater MAY include nested entities and entity references that specify the full set of to be related entities, or a nested <a href="#DeltaPayloads">delta payload</a> representing the related entities that have been added, removed, or changed. Such a request is referred to as a “deep update”. If the nested collection is represented identical to an expanded navigation property, then the set of nested entities and entity references specified in a successful request represents the full set of entities to be related according to that relationship and MUST NOT include added links, deleted links, or deleted entities.</p>
 <p>If a navigation property is absent from a <code>PUT</code> or <code>PATCH</code> request payload, the referenced or contained entity, or the collection thereof, remains unchanged by a successful update.</p>
 <div class="example">
-<p>Example 85: using the JSON format, a 4.01 <code>PATCH</code> request can update a manager entity. Following the update, the manager has three direct reports; two existing employees and one new employee named <code>Suzanne Brown</code>. The <code>LastName</code> of employee 6 is updated to <code>Smith</code>.</p>
+<p>Example 85: using the JSON format, a 4.01 or greater <code>PATCH</code> request can update a manager entity. Following the update, the manager has three direct reports; two existing employees and one new employee named <code>Suzanne Brown</code>. The <code>LastName</code> of employee 6 is updated to <code>Smith</code>.</p>
 <div class="sourceCode" id="cb104"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@type&quot;</span><span class="fu">:</span> <span class="st">&quot;#Northwind.Manager&quot;</span><span class="fu">,</span></span>
 <span id="cb104-3"><a href="#cb104-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;FirstName&quot;</span><span class="fu">:</span> <span class="st">&quot;Patricia&quot;</span><span class="fu">,</span></span>
@@ -2508,7 +2514,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>If the nested collection is represented as delta control information on the navigation property, then the collection contains members to be added or changed and MAY include deleted entities for entities that are no longer part of the collection, using the <a href="#DeltaPayloads">delta payload</a> format. If the deleted entity specifies a <code>reason</code> as <code>deleted</code>, then the entity is both removed from the collection and deleted, otherwise it is removed from the collection and only deleted if the relationship is contained. Non-key properties of the deleted entity are ignored. Nested collections MUST NOT contain added or deleted links. If the request contains nested delta collections, then the <code>PATCH</code> verb must be specified.</p>
 <p>If a nested entity has the same id or key fields as an existing entity, the existing entity is updated according to the semantics of the <code>PUT</code> or <code>PATCH</code> request. Nested entities that have no id or key fields, or for which the id or key fields do not match existing entities, are treated as inserts and processed observing the rules for <a href="#CreateanEntity">creating an entity</a>. If any nested entities contain both id and key fields, they MUST identify the same entity, or the request is invalid.</p>
 <div class="example">
-<p>Example 86: using the JSON format, a 4.01 <code>PATCH</code> request can specify a nested delta representation to:</p>
+<p>Example 86: using the JSON format, a 4.01 or greater <code>PATCH</code> request can specify a nested delta representation to:</p>
 <ul>
 <li>delete employee 3 and remove link to it</li>
 <li>remove the link to employee 4 and do not delete it</li>
@@ -2547,7 +2553,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <span id="cb105-29"><a href="#cb105-29" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
-<p>Example 87: When updating an entity with a 4.01 <code>PUT</code> request, the target of a non-containment navigation property can be replaced if the targeted entity is specified by an entity reference (see <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#EntityReference">OData-JSON, section 14</a>), without specifying all its structural properties in <code>PUT</code> semantics.</p>
+<p>Example 87: When updating an entity with a 4.01 or greater <code>PUT</code> request, the target of a non-containment navigation property can be replaced if the targeted entity is specified by an entity reference (see <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#EntityReference">OData-JSON, section 14</a>), without specifying all its structural properties in <code>PUT</code> semantics.</p>
 <p>The following JSON payload changes the name of a category and the products belonging to it. (Compare this to <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#deepupdate">OData-JSON, example 22</a>.) The effect would be the same if the <code>@context</code> was omitted from the request.</p>
 <div class="side-by-side">
 <div class="caption">
@@ -2662,7 +2668,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <h4 id="11452-remove-a-reference-to-an-entity"><a id="RemoveaReferencetoanEntity" href="#RemoveaReferencetoanEntity">11.4.5.2 Remove a Reference to an Entity</a></h4>
 </summary>
 <p>A successful <code>DELETE</code> request to the URL that represents a reference to a related entity removes the relationship to that entity.</p>
-<p>In OData 4.0, the entity reference to be removed within a collection-valued navigation property is the URL that represents the collection of related references, with the reference to be removed identified by the <a href="#ResolvinganEntityId"><code>$id</code></a> query option. OData 4.01 services additionally support using the URL that represents the reference of the collection member to be removed, identified by key, as described in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingReferencesbetweenEntities">OData-URL, section 4.4</a>.</p>
+<p>In OData 4.0, the entity reference to be removed within a collection-valued navigation property is the URL that represents the collection of related references, with the reference to be removed identified by the <a href="#ResolvinganEntityId"><code>$id</code></a> query option. OData 4.01 or greater services additionally support using the URL that represents the reference of the collection member to be removed, identified by key, as described in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingReferencesbetweenEntities">OData-URL, section 4.4</a>.</p>
 <p>For single-valued navigation properties, the <a href="#ResolvinganEntityId"><code>$id</code></a> query option MUST NOT be specified.</p>
 <p>The <code>DELETE</code> request MUST NOT violate any <a href="#HandlingofIntegrityConstraints">integrity constraints</a> in the data model.</p>
 <p>On successful completion, the response MUST be <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> and contain an empty body.</p>
@@ -3068,7 +3074,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>To invoke an action through an action import, the client issues a <code>POST</code> request to a URL identifying the action import. The canonical URL for an action import is the service root, followed by the name of the action import. When invoking an action through an action import all parameter values MUST be passed in the request body according to the particular format.</p>
 <p>Non-binding single-valued parameters that are nullable or annotated with the term <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter"><code>Core.OptionalParameter</code></a></span> defined in <a href="#ODataVocCore">OData-VocCore</a> MAY be omitted from the request body. If an omitted single-valued parameter is not annotated (and thus nullable), it MUST be interpreted as having the <code>null</code> value. If it is annotated and the annotation specifies a <code>DefaultValue</code>, the omitted parameter is interpreted as having that default value. If omitted and the annotation does not specify a default value, the service is free on how to interpret the omitted parameter. Note: a nullable non-binding parameter is equivalent to being annotated as optional with a default value of <code>null</code>.</p>
 <p>The interpretation of an omitted non-binding collection-valued parameter is up to the service regardless of its nullability or optionality. Possible interpretations include assuming an empty collection or, for parameters not annotated as <code>Core.OptionalParameter</code>, reporting an error.</p>
-<p>4.01 services MUST support invoking actions with no non-binding parameters and parameterless action imports both without a request body and with a request body representing no parameters, according to the particular format. Interoperable clients SHOULD always include a request body, even when invoking actions with no non-binding parameters and parameterless action imports.</p>
+<p>4.01 and greater services MUST support invoking actions with no non-binding parameters and parameterless action imports both without a request body and with a request body representing no parameters, according to the particular format. Interoperable clients SHOULD always include a request body, even when invoking actions with no non-binding parameters and parameterless action imports.</p>
 <p>If the action returns results, the client SHOULD use content type negotiation to request the results in the desired format, otherwise the default content type will be used.</p>
 <p>The client can request whether any results from the action be returned using the <a href="#Preferencereturnrepresentationandreturnminimal"><code>return</code></a> preference.</p>
 <p>If the invocation of an action results in the creation and return of a single entity, that action invocation follows the rules for <a href="#CreateanEntity">entity creation</a> and returns a <a href="#HeaderLocation"><code>Location</code></a> header that contains the edit URL or read URL of the created entity. Actions whose successful invocation always creates and returns a single entity MAY be annotated with the term <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Constructor"><code>Core.Constructor</code></a></span> defined in <a href="#ODataVocCore">OData-VocCore</a>.</p>
@@ -3812,7 +3818,37 @@ Content-Length: ###
 </details>
 </details>
 <details open><summary>
-<h2 id="123-interoperable-odata-clients"><a id="InteroperableODataClients" href="#InteroperableODataClients">12.3 Interoperable OData Clients</a></h2>
+<h2 id="123-odata-402-service-conformance-levels"><a id="OData402ServiceConformanceLevels" href="#OData402ServiceConformanceLevels">12.3 OData 4.02 Service Conformance Levels</a></h2>
+</summary>
+<p>OData services can report conformance to the OData 4.02 specification by including <code>4.02</code> in the list of supported protocol versions in the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ODataVersions"><code>Core.ODataVersions</code></a></span> annotation, as defined in <a href="#ODataVocCore">OData-VocCore</a>. As all OData 4.02 compliant services must also be fully OData 4.0 and 4.01 compliant, OData 4.02 services do not need to separately list <code>4.0</code> and <code>4.01</code> as supported versions.</p>
+<details open><summary>
+<h3 id="1231-odata-402-minimal-conformance-level"><a id="OData402MinimalConformanceLevel" href="#OData402MinimalConformanceLevel">12.3.1 OData 4.02 Minimal Conformance Level</a></h3>
+</summary>
+<p>In order to conform to the OData 4.02 Minimal Conformance Level, a service:</p>
+<ol type="1">
+<li>MUST conform to the <a href="#OData401MinimalConformanceLevel">OData 4.1 Minimal Conformance Level</a></li>
+<li>MUST be compliant with version 4.02 of the <a href="#ODataJSON">OData-JSON</a> format</li>
+</ol>
+</details>
+<details open><summary>
+<h3 id="1232-odata-402-intermediate-conformance-level"><a id="OData402IntermediateConformanceLevel" href="#OData402IntermediateConformanceLevel">12.3.2 OData 4.02 Intermediate Conformance Level</a></h3>
+</summary>
+<p>In order to conform to the OData 4.02 Intermediate Conformance Level, a service:</p>
+<ol type="1">
+<li>MUST conform to the <a href="#OData402IntermediateConformanceLevel">OData 4.02 Intermediate Conformance Level</a></li>
+</ol>
+</details>
+<details open><summary>
+<h3 id="1233-odata-402-advanced-conformance-level"><a id="OData402AdvancedConformanceLevel" href="#OData402AdvancedConformanceLevel">12.3.3 OData 4.02 Advanced Conformance Level</a></h3>
+</summary>
+<p>In order to conform to the OData 4.02 Advanced Conformance Level, a service:</p>
+<ol type="1">
+<li>MUST conform to the <a href="#OData402AdvancedConformanceLevel">OData 4.02 Advanced Conformance Level</a></li>
+</ol>
+</details>
+</details>
+<details open><summary>
+<h2 id="124-interoperable-odata-clients"><a id="InteroperableODataClients" href="#InteroperableODataClients">12.4 Interoperable OData Clients</a></h2>
 </summary>
 <p>Interoperable OData clients can expect to work with OData Services that comply with at least the <a href="#OData40MinimalConformanceLevel">OData 4.0 Minimal Conformance Level</a> and implement the <a href="#ODataJSON">OData-JSON</a> format.</p>
 <p>To be generally interoperable, OData clients</p>
@@ -3841,6 +3877,12 @@ Content-Length: ###
 <li>MUST be prepared to receive any valid 4.01 CSDL</li>
 <li>MUST be prepared to receive any valid 4.01 response according to the requested format</li>
 <li>SHOULD use capabilities (see <a href="#ODataVocCap">OData-VocCap</a>) to determine if a 4.01 feature is supported but MAY attempt syntax and be prepared to handle <code>400 Bad Request</code> or <a href="#ResponseCode501NotImplemented"><code>501 Not Implemented</code></a></li>
+</ol>
+<p>In addition, interoperable OData 4.02 clients</p>
+<ol start="22" type="1">
+<li>MUST be prepared to receive any valid 4.02 CSDL</li>
+<li>MUST be prepared to receive any valid 4.02 response according to the requested format</li>
+<li>SHOULD use capabilities (see <a href="#ODataVocCap">OData-VocCap</a>) to determine if a 4.02 feature is supported but MAY attempt syntax and be prepared to handle <code>400 Bad Request</code> or <a href="#ResponseCode501NotImplemented"><code>501 Not Implemented</code></a></li>
 </ol>
 </details>
 </details>

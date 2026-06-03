@@ -716,7 +716,7 @@ constraints have to be met:
 
 - If present, the `context` control information MUST be the first
   property in the JSON object.
-- For 4.01 deleted entities, the `removed` control information MUST appear   after `context`, if present, and before any other property or control information.
+- For 4.01 and greater deleted entities, the `removed` control information MUST appear   after `context`, if present, and before any other property or control information.
 - The
   `type` control information, if present, MUST appear next in
   the JSON object.
@@ -732,7 +732,7 @@ constraints have to be met:
   appear anywhere in the payload as long as it does not violate any of the
   above rules.
 - For 4.0 payloads, annotations and control information for navigation
-  properties MUST appear after all structural properties. 4.01 clients
+  properties MUST appear after all structural properties. 4.01 and greater clients
   MUST NOT assume this ordering.
 - For 4.02 batch payloads, the `streaming` format parameter of the overall
   batch request or response applies to the properties of the batch request
@@ -1733,7 +1733,7 @@ The values are the [ids](#ControlInformationidodataid) of the
 related entities. They MAY be absolute or [relative URLs](#RelativeURLs).
 
 For requests containing an `OData-Version` header with a value
-of `4.01`, a relationship is bound to an existing entity
+of `4.01` or greater, a relationship is bound to an existing entity
 using the same representation as for an [expanded entity
 reference](#EntityReference).
 
@@ -1781,12 +1781,12 @@ Content-Type: application/json
 ```
 :::
 
-OData 4.01 services MUST support both the OData 4.0 representation, for
+OData 4.01 and greater services MUST support both the OData 4.0 representation, for
 requests containing an `OData-Version` header with a value of
 `4.0`, and the OData 4.01 representation, for requests
-containing an `OData-Version` header with a value of `4.01`.
+containing an `OData-Version` header with a value of `4.01` or greater.
 Clients MUST NOT use `@odata.bind` in requests with an
-`OData-Version` header with a value of `4.01`.
+`OData-Version` header with a value of `4.01` or greater.
 
 For insert operations collection navigation property bind operations and
 deep insert operations can be combined. For OData 4.0 requests, the bind
@@ -2250,7 +2250,7 @@ which case it MUST include those in any returned count of enumerated
 changes.
 
 The representation of deleted-entity objects differs between OData 4.0
-and OData 4.01.
+and OData 4.01 and greater.
 
 In OData 4.0 payloads the deleted-entity object MUST include the
 following properties, regardless of the specified
@@ -2285,7 +2285,7 @@ represented as a property of the deleted-entity object, not control information
 ```
 :::
 
-In OData 4.01 payloads the deleted-entity object MUST include the
+In OData 4.01 and greater payloads the deleted-entity object MUST include the
 following properties, regardless of the specified
 [`metadata`](#ControllingtheAmountofControlInformationinResponses) value.
 For ordered payloads, this control information MUST follow the [payload ordering constraints](#PayloadOrderingConstraints).
@@ -2351,15 +2351,15 @@ single key field of `Customer`)
 ```
 :::
 ## <a id="RelatedEntities" href="#RelatedEntities">15.4 Related Entities</a>
-Changes to related entities are represented differently in OData 4.0 and OData 4.01.
+Changes to related entities are represented differently in OData 4.0 and OData 4.01 and greater.
 
-In OData 4.01, changes to relationships and related entities are generally represented as
+In OData 4.01 and greater, changes to relationships and related entities are generally represented as
 [expanded navigation properties](#OData401ExpandedNavigationProperties).
 
 In OData 4.0, changes to relationships and related entities are represented as a [flat array](#OData40FlattenedDeltaPayload) of added, deleted, or changed entities, along with added or deleted links.
 
 ### <a id="OData401ExpandedNavigationProperties" href="#OData401ExpandedNavigationProperties">15.4.1 OData 4.01 Expanded Navigation Properties</a>
-OData 4.01 delta payloads represent changes to relationships and related
+OData 4.01 and greater delta payloads represent changes to relationships and related
 entities as expanded navigation properties. 
 Related single entities are represented as either an [added/changed](#AddedChangedEntity)
 entity, an [entity reference](#EntityReference), a [deleted entity](#DeletedEntity), or a null value (if no entity is related as the outcome of the change). 
@@ -2856,7 +2856,7 @@ JSON object containing the collection. If the collection is the
 top-level response, the function advertisement name/value pair is placed
 next to the `value` name/value pair representing the
 collection. If the collection is nested within an instance of a
-structured type, then in 4.01 payloads the name of the function
+structured type, then in 4.01 and greater payloads the name of the function
 advertisement is prepended with the name of the collection-valued
 property and is placed next to the collection-valued property, [expanded
 navigation property](#ExpandedNavigationProperty), or
@@ -2865,7 +2865,7 @@ control information, if present. 4.0 payloads MUST NOT advertise
 functions prefixed with property names.
 
 If the function is available, the value of the advertisement is an
-object. OData 4.01 services MAY advertise the non-availability of the
+object. OData 4.01 and greater services MAY advertise the non-availability of the
 function with the value `null`.
 
 If
@@ -2878,7 +2878,7 @@ pairs MUST be considered insignificant.
 The `target` name/value pair contains a URL. Clients MUST be
 able to invoke the function or the specific function overload by passing
 the parameter values via query options for [parameter
-aliases](https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_ParameterAliases) that are identical to
+aliases](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#sec_ParameterAliases) that are identical to
 the parameter name preceded by an at
 (`@`) sign. Clients MUST check if the obtained
 URL already contains a query part and appropriately precede the
@@ -2969,7 +2969,7 @@ object containing the collection. If the collection is the top-level
 response, the action advertisement name/value pair is placed next to the
 `value` name/value pair representing the collection. If the
 collection is nested within an instance of a structured type, then in
-4.01 payloads the name of the action advertisement is prepended with the
+4.01 and greater payloads the name of the action advertisement is prepended with the
 name of the collection-valued property and is placed next to the
 name/value pair representing the collection-valued property, [expanded
 navigation property](#ExpandedNavigationProperty), or
@@ -2978,7 +2978,7 @@ control information, if present. 4.0 payloads MUST NOT advertise actions
 prefixed with property names.
 
 If the action is available, the value of the advertisement is an object.
-OData 4.01 services MAY advertise the non-availability of the action
+OData 4.01 and greater services MAY advertise the non-availability of the action
 with the value `null`.
 
 If [`metadata=full`](#metadatafullodatametadatafull)
@@ -3179,7 +3179,7 @@ Example 54:
 
 
 In order to invoke an action with no non-binding parameters, the client
-passes an empty JSON object in the body of the request. 4.01 Services
+passes an empty JSON object in the body of the request. 4.01 and greater Services
 MUST also support clients passing an empty request body for this case.
 
 

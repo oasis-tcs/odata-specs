@@ -355,6 +355,42 @@ request payloads if no exact match is found, using the same lookup
 sequence as for [default namespaces](#DefaultNamespaces) with a
 case-insensitive comparison
 
+## ##subsec OData 4.02 Service Conformance Levels
+
+OData services can report conformance to the OData 4.02 specification by
+including `4.02` in the list of supported protocol versions in the
+[Core.ODataVersions]{.term}
+annotation, as defined in [OData-VocCore](#ODataVocCore). As all OData
+4.02 compliant services must also be fully OData 4.0 and 4.01 compliant, OData
+4.02 services do not need to separately list `4.0` and `4.01` as supported
+versions.
+
+### ##subsubsec OData 4.02 Minimal Conformance Level
+
+In order to conform to the OData 4.02 Minimal Conformance Level, a
+service:
+
+1. MUST conform to the [OData 4.1 Minimal Conformance
+Level](#OData401MinimalConformanceLevel)
+2. MUST be compliant with version 4.02 of the [OData-JSON](#ODataJSON)
+format
+
+### ##subsubsec OData 4.02 Intermediate Conformance Level
+
+In order to conform to the OData 4.02 Intermediate Conformance Level, a
+service:
+
+1. MUST conform to the [OData 4.02 Intermediate Conformance
+Level](#OData402IntermediateConformanceLevel)
+
+### ##subsubsec OData 4.02 Advanced Conformance Level
+
+In order to conform to the OData 4.02 Advanced Conformance Level, a
+service:
+
+1. MUST conform to the [OData 4.02 Advanced Conformance
+Level](#OData402AdvancedConformanceLevel)
+
 ## ##subsec Interoperable OData Clients
 
 Interoperable OData clients can expect to work with OData Services that
@@ -405,4 +441,13 @@ specified in `$metadata`
 the requested format
 21. SHOULD use capabilities (see [OData-VocCap](#ODataVocCap)) to
 determine if a 4.01 feature is supported but MAY attempt syntax and be
+prepared to handle `400 Bad Request` or [`501 Not Implemented`](#ResponseCode501NotImplemented)
+
+In addition, interoperable OData 4.02 clients
+
+22. MUST be prepared to receive any valid 4.02 CSDL
+23. MUST be prepared to receive any valid 4.02 response according to
+the requested format
+24. SHOULD use capabilities (see [OData-VocCap](#ODataVocCap)) to
+determine if a 4.02 feature is supported but MAY attempt syntax and be
 prepared to handle `400 Bad Request` or [`501 Not Implemented`](#ResponseCode501NotImplemented)

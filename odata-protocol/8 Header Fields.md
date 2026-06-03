@@ -767,7 +767,7 @@ response headers have defined meaning in OData.
 
 ### ##subsubsec Header `AsyncResult`
 
-A 4.01 service MUST include the `AsyncResult` header in
+A 4.01 or greater service MUST include the `AsyncResult` header in
 [`200 OK`](#ResponseCode200OK) responses from a status monitor resource in
 order to indicate the final [HTTP Response Status
 Code](#CommonResponseStatusCodes) of an [asynchronously executed

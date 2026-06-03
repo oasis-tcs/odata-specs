@@ -164,7 +164,7 @@ constraints have to be met:
 
 - If present, the `context` control information MUST be the first
   property in the JSON object.
-- For 4.01 deleted entities, the `removed` control information MUST appear 
+- For 4.01 and greater deleted entities, the `removed` control information MUST appear 
   after `context`, if present, and before any other property or control information.
 - The
   `type` control information, if present, MUST appear next in
@@ -181,7 +181,7 @@ constraints have to be met:
   appear anywhere in the payload as long as it does not violate any of the
   above rules.
 - For 4.0 payloads, annotations and control information for navigation
-  properties MUST appear after all structural properties. 4.01 clients
+  properties MUST appear after all structural properties. 4.01 and greater clients
   MUST NOT assume this ordering.
 - For 4.02 batch payloads, the `streaming` format parameter of the overall
   batch request or response applies to the properties of the batch request

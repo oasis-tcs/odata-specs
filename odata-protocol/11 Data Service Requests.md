@@ -114,7 +114,7 @@ service is allowed to return the response in any format.
 
 OData defines a number of system query options that allow refining the
 request. System query options are prefixed with the dollar (`$`)
-character, which is optional in OData 4.01. 4.01 services MUST support
+character, which is optional in OData 4.01 or greater. 4.01 or greater services MUST support
 case-insensitive system query option names specified with or without the
 `$` prefix.
 Clients that want to work with 4.0 services MUST use lower case names
@@ -557,7 +557,7 @@ an entity reference somewhere in the circular dependency.
 Clients using `$levels=max` MUST be prepared to handle entity references
 in cases were a circular reference would occur otherwise.
 
-4.01 services that support `max` SHOULD do so in a case-insensitive
+4.01 or greater services that support `max` SHOULD do so in a case-insensitive
 manner. Clients that want to work with 4.0 services MUST use lower case.
 
 ::: example
@@ -602,7 +602,7 @@ instances, and primitive values.
 The target collection is specified through a URL, and query operations
 such as filter, sort, paging, and projection are specified as
 [*system query options*](#SystemQueryOptions) optionally prefixed with a dollar
-(`$`) character. 4.01 Services MUST support case-insensitive system
+(`$`) character. 4.01 or greater services MUST support case-insensitive system
 query option names specified with or without the `$` prefix. Clients
 that want to work with 4.0 services MUST use lower case names and
 specify the `$` prefix.
@@ -645,7 +645,7 @@ The value of the `$filter` option is a Boolean expression as defined in
 OData supports a set of built-in filter operations, as described in this
 section.
 
-4.01 services MUST support case-insensitive operation names. Clients
+4.01 or greater services MUST support case-insensitive operation names. Clients
 that want to work with 4.0 services MUST use lower case operation names.
 
 For a full description of the syntax used when building requests, see
@@ -682,7 +682,7 @@ For a full description of the syntax used when building requests, see
 OData supports a set of built-in functions that can be used within
 `$filter` operations. The following table lists the available functions.
 
-4.01 services MUST support case-insensitive built-in function names.
+4.01 or greater services MUST support case-insensitive built-in function names.
 Clients that want to work with 4.0 services MUST use lower case names.
 
 For a full description of the syntax used when building requests, see
@@ -807,7 +807,7 @@ service can be used in URLs.
 The expression can include the suffix `asc` for ascending or `desc` for
 descending, separated from the property name by one or more spaces. If
 `asc` or `desc` is not specified, the service MUST order by the
-specified property in ascending order. 4.01 services MUST support
+specified property in ascending order. 4.01 or greater services MUST support
 case-insensitive values for `asc` and `desc`. Clients that want to work
 with 4.0 services MUST use lower case values.
 
@@ -1216,7 +1216,7 @@ GET http://host/service/Products/$count
 ```
 :::
 
-With 4.01 services the `/$count` segment MAY be used in combination with
+With 4.01 or greater services the `/$count` segment MAY be used in combination with
 the `/$filter` path segment to count the items in the filtered
 collection.
 

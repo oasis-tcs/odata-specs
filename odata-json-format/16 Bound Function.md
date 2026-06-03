@@ -21,7 +21,7 @@ JSON object containing the collection. If the collection is the
 top-level response, the function advertisement name/value pair is placed
 next to the `value` name/value pair representing the
 collection. If the collection is nested within an instance of a
-structured type, then in 4.01 payloads the name of the function
+structured type, then in 4.01 and greater payloads the name of the function
 advertisement is prepended with the name of the collection-valued
 property and is placed next to the collection-valued property, [expanded
 navigation property](#ExpandedNavigationProperty), or
@@ -30,7 +30,7 @@ control information, if present. 4.0 payloads MUST NOT advertise
 functions prefixed with property names.
 
 If the function is available, the value of the advertisement is an
-object. OData 4.01 services MAY advertise the non-availability of the
+object. OData 4.01 and greater services MAY advertise the non-availability of the
 function with the value `null`.
 
 If
@@ -43,7 +43,7 @@ pairs MUST be considered insignificant.
 The `target` name/value pair contains a URL. Clients MUST be
 able to invoke the function or the specific function overload by passing
 the parameter values via query options for [parameter
-aliases](https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_ParameterAliases) that are identical to
+aliases](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#sec_ParameterAliases) that are identical to
 the parameter name preceded by an at
 (`@`) sign. Clients MUST check if the obtained
 URL already contains a query part and appropriately precede the
@@ -134,7 +134,7 @@ object containing the collection. If the collection is the top-level
 response, the action advertisement name/value pair is placed next to the
 `value` name/value pair representing the collection. If the
 collection is nested within an instance of a structured type, then in
-4.01 payloads the name of the action advertisement is prepended with the
+4.01 and greater payloads the name of the action advertisement is prepended with the
 name of the collection-valued property and is placed next to the
 name/value pair representing the collection-valued property, [expanded
 navigation property](#ExpandedNavigationProperty), or
@@ -143,7 +143,7 @@ control information, if present. 4.0 payloads MUST NOT advertise actions
 prefixed with property names.
 
 If the action is available, the value of the advertisement is an object.
-OData 4.01 services MAY advertise the non-availability of the action
+OData 4.01 and greater services MAY advertise the non-availability of the action
 with the value `null`.
 
 If [`metadata=full`](#metadatafullodatametadatafull)
@@ -345,5 +345,5 @@ Example ##ex:
 
 
 In order to invoke an action with no non-binding parameters, the client
-passes an empty JSON object in the body of the request. 4.01 Services
+passes an empty JSON object in the body of the request. 4.01 and greater Services
 MUST also support clients passing an empty request body for this case.

@@ -11,7 +11,7 @@ using the JavaScript Object Notation (JSON), see [RFC8259](#rfc8259).
 
 This format is based on the OpenUI5 OData V4 Metadata JSON Format, see
 [OpenUI5](#_OpenUI5), with some extensions and
-modifications made necessary to fully cover OData CSDL Version 4.01.
+modifications made necessary to fully cover OData CSDL Version 4.02.
 :
 
 : varxml

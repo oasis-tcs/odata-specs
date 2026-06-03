@@ -15,7 +15,7 @@ subsections.
 System query options are query string parameters that control the amount
 and order of the data returned for the resource identified by the URL.
 The names of all system query options are optionally prefixed with a
-dollar (`$`) character. 4.01 Services MUST support case-insensitive
+dollar (`$`) character. 4.01 and greater services MUST support case-insensitive
 system query option names specified with or without the `$` prefix.
 Clients that want to work with 4.0 services MUST use lower case names
 and specify the `$` prefix.
@@ -106,7 +106,7 @@ Logical operators are typically used to filter a collection of
 resources.
 
 The syntax rules for the logical operators are defined in
-[OData-ABNF](#ODataABNF) rule [commonExpr]{.abnf}. 4.01 Services MUST support case-insensitive
+[OData-ABNF](#ODataABNF) rule [commonExpr]{.abnf}. 4.01 and greater services MUST support case-insensitive
 operator names. Clients that want to work with 4.0 services MUST use
 lower case operator names.
 
@@ -369,7 +369,7 @@ If an operand of an arithmetic operator is `null` or has a non-allowed type,
 the result is `null`.
 
 The syntax rules for the arithmetic operators are defined in
-[OData-ABNF](#ODataABNF) rule [commonExpr]{.abnf}. 4.01 Services MUST support case-insensitive
+[OData-ABNF](#ODataABNF) rule [commonExpr]{.abnf}. 4.01 and greater services MUST support case-insensitive
 operator names. Clients that want to work with 4.0 services MUST use
 lower case operator names.
 
@@ -563,7 +563,7 @@ If a parameter of a canonical function is `null`, the function returns
 the function also returns `null`.
 
 The syntax rules for all functions are defined in
-[OData-ABNF](#ODataABNF) rule [methodCallExpr]{.abnf}. 4.01 Services MUST support case-insensitive
+[OData-ABNF](#ODataABNF) rule [methodCallExpr]{.abnf}. 4.01 and greater services MUST support case-insensitive
 canonical function names. Clients that want to work with 4.0 services
 MUST use lower case canonical function names.
 
@@ -1527,7 +1527,7 @@ OData defines two operators that evaluate a Boolean expression on a
 collection. Both must be prepended with a path expression that
 identifies a collection.
 
-4.01 Services MUST support case-insensitive lambda operator names.
+4.01 and greater services MUST support case-insensitive lambda operator names.
 Clients that want to work with 4.0 services MUST use lower case lambda
 operator names.
 
@@ -1695,9 +1695,9 @@ Duration literals in OData 4.0 required prefixing with "`duration`".
 Enumeration literals in OData 4.0 required prefixing with the qualified
 type name of the enumeration.
 
-In OData 4.01, services MUST support duration and enumeration literals
+In OData 4.01 and greater, services MUST support duration and enumeration literals
 with or without the type prefix. OData clients that want to operate
-across OData 4.0 and OData 4.01 services should always include the
+across OData 4.0 and OData 4.01 and greater services should always include the
 prefix for duration and enumeration types.
 
 ##### ##subsubsubsubsec Structured and Collection Literals

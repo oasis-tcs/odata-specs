@@ -253,7 +253,7 @@ alias-qualified name. Function names suffixed with parentheses represent
 a specific overload, while function names without parentheses represent
 all overloads of the function.
 
-OData 4.01 responses MAY use the shortcut pattern `{namespace}.*` to
+OData 4.01 or greater responses MAY use the shortcut pattern `{namespace}.*` to
 represent the list of all bound actions or functions available for
 entities in the collection, see system query option
 [`$select`](#SystemQueryOptionselect).
@@ -305,7 +305,7 @@ alias-qualified name. Function names suffixed with parentheses represent
 a specific overload, while function names without parentheses represent
 all overloads of the function.
 
-OData 4.01 responses MAY use the shortcut pattern `{namespace}.*` to
+OData 4.01 or greater responses MAY use the shortcut pattern `{namespace}.*` to
 represent the list of all bound actions or functions available for the
 returned entity, see system query option
 [`$select`](#SystemQueryOptionselect).
@@ -325,7 +325,7 @@ Context URL template:
     {context-url}#{canonical-collection}{/type-name}{select-list}
     {context-url}#Collection({type-name}){select-list}
 
-For a 4.01 response, if a navigation property is explicitly expanded,
+For a 4.01 or greater response, if a navigation property is explicitly expanded,
 then in addition to any non-suffixed names of any selected properties,
 navigation properties, functions or actions, the comma-separated list of
 properties MUST include the name of the expanded property, suffixed with
@@ -388,7 +388,7 @@ Context URL template:
     {context-url}#{canonical-singleton}{/type-name}{select-list}
     {context-url}#{type-name}{select-list}
 
-For a 4.01 response, if a navigation property is explicitly expanded,
+For a 4.01 or greater response, if a navigation property is explicitly expanded,
 then in addition to the non-suffixed names of any selected properties,
 navigation properties, functions or actions, the comma-separated list of
 properties MUST include the name of the expanded property, suffixed with
@@ -473,7 +473,7 @@ cast segments for properties defined on types derived from the expected
 type of the previous segment.
 
 If the property value does not contain explicitly or implicitly selected
-navigation properties or operations, OData 4.01 responses MAY use the
+navigation properties or operations, OData 4.01 or greater responses MAY use the
 less specific second template.
 
 ::: example
