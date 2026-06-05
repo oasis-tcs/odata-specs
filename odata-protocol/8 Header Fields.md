@@ -665,6 +665,14 @@ In this case the service MAY include a
 [`Preference-Applied`](#HeaderPreferenceApplied) response header
 containing the `return=representation` preference.
 
+For PATCH requests, the `return=representation` preference MAY be appended
+with the `delta` format parameter, as in `return=representation;delta`,
+in order to specify that the response be returned in delta format. A delta
+response MUST include at least the changes made to the data as a result
+of the request. If the `delta` format parameter is not specified, or is
+specified for a request that does not support delta responses, then
+the response follows the default format defined for the particular request.
+
 The `return` preference SHOULD NOT be applied to a batch request, but
 MAY be applied to individual requests within a batch.
 

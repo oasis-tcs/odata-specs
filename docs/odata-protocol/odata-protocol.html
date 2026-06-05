@@ -555,6 +555,11 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/1965">1965</a></td>
 </tr>
 <tr>
+<td><a href="#Preferencereturnrepresentationandreturnminimal">Section 8.2.8.7</a></td>
+<td>Added <code>delta</code> format parameter to <code>return=representation</code> preference</td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/309">309</a></td>
+</tr>
+<tr>
 <td><a href="#CollectionofEntities">Section 10.2</a></td>
 <td>Context URLs use parentheses-style keys without percent-encoding</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/368">368</a></td>
@@ -588,6 +593,11 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td><a href="#UpsertanEntity">Section 11.4.3.2</a></td>
 <td>Upserts to single-valued non-containment navigation properties</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/455">455</a></td>
+</tr>
+<tr>
+<td>Sections <a href="#DeleteanEntity">11.4.4</a>, <a href="#RemoveaReferencetoanEntity">11.4.5.2</a></td>
+<td>Idempotency of delete operation</td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/2103">2103</a></td>
 </tr>
 <tr>
 <td><a href="#UpdateaComplexProperty">Section 11.4.8.3</a></td>
@@ -1095,6 +1105,7 @@ This uses pandoc 3.8.3 from https://github.com/jgm/pandoc/releases/tag/3.8.3.
 <p>A preference of <code>return=representation</code> or <code>return=minimal</code> is allowed on an individual <a href="#DataModification">Data Modification Request</a> or <a href="#Actions">Action Request</a> within a batch, subject to the same restrictions, but SHOULD return a <code>4xx</code> client error if specified on the batch request itself.</p>
 <p>A preference of <code>return=minimal</code> requests that the service invoke the request but does not return content in the response. The service MAY apply this preference by returning <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> in which case it MAY include a <a href="#HeaderPreferenceApplied"><code>Preference-Applied</code></a> response header containing the <code>return=minimal</code> preference.</p>
 <p>A preference of <code>return=representation</code> requests that the service invokes the request and returns the modified resource. The service MAY apply this preference by returning the representation of the successfully modified resource in the body of the response, formatted according to the rules specified for the requested <a href="#Formats">format</a>. In this case the service MAY include a <a href="#HeaderPreferenceApplied"><code>Preference-Applied</code></a> response header containing the <code>return=representation</code> preference.</p>
+<p>For PATCH requests, the <code>return=representation</code> preference MAY be appended with the <code>delta</code> format parameter, as in <code>return=representation;delta</code>, in order to specify that the response be returned in delta format. A delta response MUST include at least the changes made to the data as a result of the request. If the <code>delta</code> format parameter is not specified, or is specified for a request that does not support delta responses, then the response follows the default format defined for the particular request.</p>
 <p>The <code>return</code> preference SHOULD NOT be applied to a batch request, but MAY be applied to individual requests within a batch.</p>
 </details>
 <details open><summary>
@@ -2621,7 +2632,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <h5 id="114311-response-representation-of-related-entities"><a id="ResponseRepresentationofRelatedEntities" href="#ResponseRepresentationofRelatedEntities">11.4.3.1.1 Response Representation of Related Entities</a></h5>
 </summary>
 <p>In the absence of <a href="#SystemQueryOptionexpand"><code>$expand</code></a>, an update request that includes related entities SHOULD include those related entities in the response.</p>
-<p>If a collection representing the full set of related entities is included in the update request, then the full set of related entities for that collection SHOULD be included in the response.</p>
+<p>If a collection representing the full set of related entities is included in the update request, then the full set of related entities for that collection SHOULD be included in the response unless the <a href="#Preferencereturnrepresentationandreturnminimal"><code>return=representation;delta</code></a> preference is applied, in which case the delta representation of the collection containing at least the applied changes SHOULD be included in the response.</p>
 <p>If changes to a related collection are included as a delta representation in the request payload, then a delta representation of the collection containing at least the applied changes SHOULD be included in the response.</p>
 <p>If the update request includes <code>$expand</code>, then the expanded collections are represented in the response as the full set of related entities, and no related collections are returned as delta representations.</p>
 </details>
@@ -2648,7 +2659,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 </summary>
 <p>To delete an individual entity, the client makes a <code>DELETE</code> request to a URL that identifies the entity. The <a href="#ReadURLsandEditURLs">edit URL</a> MAY differ from the canonical URL defined in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalURL">OData-URL, section 4.3.1</a>, in which case clients SHOULD use the edit URL when deleting the entity.</p>
 <p>The request body SHOULD be empty. Top-level singleton entities can be deleted if they are nullable. Services supporting this MAY advertise it by annotating the singleton with the term <code>Capabilities.DeleteRestrictions</code> (nested property <code>Deletable</code> with value <code>true</code>) defined in <a href="#ODataVocCap">OData-VocCap</a>.</p>
-<p>On successful completion of the delete, the response MUST either be <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> and contain an empty body, or <a href="#ResponseCode200OK"><code>200 OK</code></a> and contain a representation of a deleted entity according to the specified format.</p>
+<p>On successful completion of the delete, the response MUST either be <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> and contain an empty body, or <a href="#ResponseCode200OK"><code>200 OK</code></a> and contain a representation of a deleted entity according to the specified format. Services MAY treat deletion of a non-existing entity as success, thus making the <code>DELETE</code> request idempotent.</p>
 <p>Services MUST implicitly remove relations to and from an entity when deleting it; clients need not delete the relations explicitly.</p>
 <p>Services MAY implicitly delete or modify related entities if required by <a href="#HandlingofIntegrityConstraints">integrity constraints</a>. If integrity constraints are declared in <code>$metadata</code> using a <code>ReferentialConstraint</code> element, services MUST modify affected related entities according to the declared integrity constraints, e.g. by deleting dependent entities, or setting dependent properties to <code>null</code> or their default value.</p>
 <p>One such integrity constraint results from using a navigation property in a key definition of an entity type. If the related “key” entity is deleted, the dependent entity is also deleted.</p>
@@ -2671,7 +2682,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <p>In OData 4.0, the entity reference to be removed within a collection-valued navigation property is the URL that represents the collection of related references, with the reference to be removed identified by the <a href="#ResolvinganEntityId"><code>$id</code></a> query option. OData 4.01 or greater services additionally support using the URL that represents the reference of the collection member to be removed, identified by key, as described in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingReferencesbetweenEntities">OData-URL, section 4.4</a>.</p>
 <p>For single-valued navigation properties, the <a href="#ResolvinganEntityId"><code>$id</code></a> query option MUST NOT be specified.</p>
 <p>The <code>DELETE</code> request MUST NOT violate any <a href="#HandlingofIntegrityConstraints">integrity constraints</a> in the data model.</p>
-<p>On successful completion, the response MUST be <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> and contain an empty body.</p>
+<p>On successful completion, the response MUST be <a href="#ResponseCode204NoContent"><code>204 No Content</code></a> and contain an empty body. Services MAY treat removal of a non-existing reference as success, thus making the <code>DELETE</code> request idempotent.</p>
 </details>
 <details open><summary>
 <h4 id="11453-change-the-reference-in-a-single-valued-navigation-property"><a id="ChangetheReferenceinaSingleValuedNavigationProperty" href="#ChangetheReferenceinaSingleValuedNavigationProperty">11.4.5.3 Change the Reference in a Single-Valued Navigation Property</a></h4>
@@ -2833,7 +2844,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <h3 id="11411-update-a-collection-of-entities"><a id="UpdateaCollectionofEntities" href="#UpdateaCollectionofEntities">11.4.11 Update a Collection of Entities</a></h3>
 </summary>
 <p>Collections of entities can be updated by submitting a <code>PATCH</code> request to the resource path of the collection. The body of the request MUST be a <a href="#DeltaPayloads">delta payload</a>, and the resource path of the collection MUST NOT contain type cast or filter segments, and MUST NOT contain any system query options that affect the shape of the result.</p>
-<p>Added/changed entities are applied as <a href="#UpsertanEntity">upserts</a>, and deleted entities as <a href="#DeleteanEntity">deletions</a>. Non-key properties of deleted entities are ignored. The top-level collection may include added and deleted links, and related entities represented inline are updated according to the rules for <a href="#UpdateRelatedEntitiesWhenUpdatinganEntity">treating related entities when updating an entity</a>.</p>
+<p>Added/changed entities are applied as <a href="#UpsertanEntity">upserts</a>, and deleted entities as <a href="#DeleteanEntity">deletions</a>. Non-key properties of deleted entities are ignored. Deletions of valid, non-existing (for example, deleted) entities MUST be treated as success. The top-level collection may include added and deleted links, and related entities represented inline are updated according to the rules for <a href="#UpdateRelatedEntitiesWhenUpdatinganEntity">treating related entities when updating an entity</a>.</p>
 <p>Clients MAY associate an id with individual nested entities in the request by using the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a></span> term defined in <a href="#ODataVocCore">OData-VocCore</a>. Services that respond with <a href="#ResponseCode200OK"><code>200 OK</code></a> SHOULD annotate the entities in the response using the same <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a></span> value as specified in the request.</p>
 <p>Services SHOULD advertise support for updating a collection using a delta payload through the <code>DeltaUpdateSupported</code> property of the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#UpdateRestrictions"><code>Capabilities.UpdateRestrictions</code></a></span> term, and SHOULD advertise support for returning the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID"><code>Core.ContentID</code></a></span> through the <code>ContentIDSupported</code> property of the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#DeepUpdateSupport"><code>Capabilities.DeepUpdateSupport</code></a></span> term, both defined in <a href="#ODataVocCap">OData-VocCap</a>.</p>
 <p>For each entity being updated or removed, clients MAY specify an <a href="#UseofETagsforAvoidingUpdateConflicts">ETag</a> value obtained from a previous request. If an ETag is provided that does not match the ETag value of the entity being updated or removed, or if an ETag is provided when adding or updating an entity that does not currently exist, then services that support ETags MUST NOT apply the change and instead <a href="#ErrorHandlingwhenUpdatingaCollectionofEntities">report</a> a <code>412 Precondition Failed</code> error. The special value <code>*</code> can be used to match any existing entity but fail if the entity does not already exist.</p>

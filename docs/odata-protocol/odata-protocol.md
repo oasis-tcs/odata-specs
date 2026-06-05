@@ -363,6 +363,7 @@ resource representations that are exchanged using OData.
 Section | Feature / Change | Issue
 --------|------------------|------
 [Section 8.2.8.3](#Preferencecontinueonerrorodatacontinueonerror) | Responses that include errors MUST include the `Preference-Applied` header with `continue-on-error` set to `true` | [1965](https://github.com/oasis-tcs/odata-specs/issues/1965)
+[Section 8.2.8.7](#Preferencereturnrepresentationandreturnminimal) | Added `delta` format parameter to `return=representation` preference | [309](https://github.com/oasis-tcs/odata-specs/issues/309)
 [Section 10.2](#CollectionofEntities)| Context URLs use parentheses-style keys without percent-encoding| [368](https://github.com/oasis-tcs/odata-specs/issues/368)
 [Section 11.4](#DataModification)| Response code `204 No Content` after successful data modification if requested response could not be constructed| [443](https://github.com/oasis-tcs/odata-specs/issues/443)
 [Section 11.4.2](#CreateanEntity)| Services can validate non-insertable property values in insert payloads| [356](https://github.com/oasis-tcs/odata-specs/issues/356)
@@ -370,6 +371,7 @@ Section | Feature / Change | Issue
 [Section 11.4.2.2](#CreateRelatedEntitiesWhenCreatinganEntity)| Deep-insert response includes at least the properties present in the request| [363](https://github.com/oasis-tcs/odata-specs/issues/363)
 [Section 11.4.3](#UpdateanEntity)| Services can validate non-updatable property values in update payloads| [356](https://github.com/oasis-tcs/odata-specs/issues/356)
 [Section 11.4.3.2](#UpsertanEntity)| Upserts to single-valued non-containment navigation properties| [455](https://github.com/oasis-tcs/odata-specs/issues/455)
+Sections [11.4.4](#DeleteanEntity), [11.4.5.2](#RemoveaReferencetoanEntity)| Idempotency of delete operation| [2103](https://github.com/oasis-tcs/odata-specs/issues/2103)
 [Section 11.4.8.3](#UpdateaComplexProperty)| Setting a complex property to a different type| [534](https://github.com/oasis-tcs/odata-specs/issues/534)
 [Section 11.4.11](#UpdateaCollectionofEntities)| Control information to prevent updates| [2021](https://github.com/oasis-tcs/odata-specs/issues/2021)
 [Section 11.4.12](#ReplaceaCollectionofEntities)| Semantics of `continue-on-error` when replacing a collection of entities | [358](https://github.com/oasis-tcs/odata-specs/issues/358)
@@ -1593,6 +1595,14 @@ according to the rules specified for the requested [format](#Formats).
 In this case the service MAY include a
 [`Preference-Applied`](#HeaderPreferenceApplied) response header
 containing the `return=representation` preference.
+
+For PATCH requests, the `return=representation` preference MAY be appended
+with the `delta` format parameter, as in `return=representation;delta`,
+in order to specify that the response be returned in delta format. A delta
+response MUST include at least the changes made to the data as a result
+of the request. If the `delta` format parameter is not specified, or is
+specified for a request that does not support delta responses, then
+the response follows the default format defined for the particular request.
 
 The `return` preference SHOULD NOT be applied to a batch request, but
 MAY be applied to individual requests within a batch.
@@ -4849,11 +4859,15 @@ the request.
 
 ##### <a id="ResponseRepresentationofRelatedEntities" href="#ResponseRepresentationofRelatedEntities">11.4.3.1.1 Response Representation of Related Entities</a>
 
-In the absence of [`$expand`](#SystemQueryOptionexpand), an update request that includes related entities SHOULD include those related entities in the response.
+In the absence of [`$expand`](#SystemQueryOptionexpand), an update request
+that includes related entities SHOULD include those related entities in the response.
 
 If a collection representing the full set of related entities is included in
 the update request, then the full set of related entities for that collection
-SHOULD be included in the response.
+SHOULD be included in the response unless the
+[`return=representation;delta`](#Preferencereturnrepresentationandreturnminimal)
+preference is applied, in which case the delta representation of the collection
+containing at least the applied changes SHOULD be included in the response.
 
 If changes to a related collection are included as a delta representation
 in the request payload, then a delta representation of the collection containing at least the applied changes SHOULD be included in the response.
@@ -4923,7 +4937,8 @@ annotating the singleton with the term `Capabilities.DeleteRestrictions`
 On successful completion of the delete, the response MUST either be
 [`204 No Content`](#ResponseCode204NoContent) and contain an empty body,
 or [`200 OK`](#ResponseCode200OK) and contain a representation of a
-deleted entity according to the specified format.
+deleted entity according to the specified format. Services MAY treat deletion of
+a non-existing entity as success, thus making the `DELETE` request idempotent.
 
 Services MUST implicitly remove relations to and from an entity when
 deleting it; clients need not delete the relations explicitly.
@@ -4979,6 +4994,8 @@ constraints](#HandlingofIntegrityConstraints) in the data model.
 
 On successful completion, the response MUST be
 [`204 No Content`](#ResponseCode204NoContent) and contain an empty body.
+ Services MAY treat removal of
+a non-existing reference as success, thus making the `DELETE` request idempotent.
 
 #### <a id="ChangetheReferenceinaSingleValuedNavigationProperty" href="#ChangetheReferenceinaSingleValuedNavigationProperty">11.4.5.3 Change the Reference in a Single-Valued Navigation Property</a>
 
@@ -5347,7 +5364,8 @@ contain any system query options that affect the shape of the result.
 
 Added/changed entities are applied as [upserts](#UpsertanEntity), and
 deleted entities as [deletions](#DeleteanEntity). Non-key properties of
-deleted entities are ignored. The top-level collection may include added
+deleted entities are ignored. Deletions of valid, non-existing (for example, deleted)
+entities MUST be treated as success. The top-level collection may include added
 and deleted links, and related entities represented inline are updated
 according to the rules for [treating related entities when updating an
 entity](#UpdateRelatedEntitiesWhenUpdatinganEntity).

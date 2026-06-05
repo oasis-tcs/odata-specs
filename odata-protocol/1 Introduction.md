@@ -27,6 +27,7 @@ resource representations that are exchanged using OData.
 Section | Feature / Change | Issue
 --------|------------------|------
 [Section ##Preferencecontinueonerrorodatacontinueonerror] | Responses that include errors MUST include the `Preference-Applied` header with `continue-on-error` set to `true` | [1965](https://github.com/oasis-tcs/odata-specs/issues/1965)
+[Section ##Preferencereturnrepresentationandreturnminimal] | Added `delta` format parameter to `return=representation` preference | [309](https://github.com/oasis-tcs/odata-specs/issues/309)
 [Section ##CollectionofEntities]| 
 Context URLs use parentheses-style keys without percent-encoding| 
 [368](https://github.com/oasis-tcs/odata-specs/issues/368)
@@ -48,6 +49,9 @@ Services can validate non-updatable property values in update payloads|
 [Section ##UpsertanEntity]| 
 Upserts to single-valued non-containment navigation properties| 
 [455](https://github.com/oasis-tcs/odata-specs/issues/455)
+Sections [##DeleteanEntity], [##RemoveaReferencetoanEntity]| 
+Idempotency of delete operation| 
+[2103](https://github.com/oasis-tcs/odata-specs/issues/2103)
 [Section ##UpdateaComplexProperty]| 
 Setting a complex property to a different type| 
 [534](https://github.com/oasis-tcs/odata-specs/issues/534)
