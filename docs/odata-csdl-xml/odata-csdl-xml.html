@@ -977,7 +977,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>The <code>edmx:Edmx</code> element is the root element of a CSDL XML document. It MUST contain the <code>Version</code> attribute and it MUST contain exactly one <code>edmx:DataServices</code> element.</p>
 <p>It MAY contain <a href="#Reference"><code>edmx:Reference</code></a> elements to reference other CSDL documents.</p>
 <h3><a id="AttributeVersion.2.1" href="#AttributeVersion.2.1">Attribute <code>Version</code></a></h3>
-<p>The <code>Version</code> attribute specifies the OData protocol version of the document, either <code>4.0</code>, <code>4.01</code>, or <code>4.02</code>.</p>
+<p>The <code>Version</code> attribute specifies the OData protocol version of the The <code>Version</code> attribute specifies the OData CSDL version of the document, either <code>4.0</code>, <code>4.01</code>, or <code>4.02</code>.</p>
+<p>In order to work with downlevel clients, services SHOULD report the lowest CSDL version with which the metadata document complies.</p>
 <p>Services MUST return an OData 4.0 response if the request was made with an <code>OData-MaxVersion</code> header with a value of <code>4.0</code>.</p>
 <h3><a id="ElementedmxDataServices.3" href="#ElementedmxDataServices.3">Element <code>edmx:DataServices</code></a></h3>
 <p>The <code>edmx:DataServices</code> element MUST contain one or more <a href="#Schema"><code>edm:Schema</code></a> elements which define the schemas exposed by the OData service.</p>

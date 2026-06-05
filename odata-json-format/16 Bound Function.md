@@ -42,8 +42,8 @@ pairs MUST be considered insignificant.
 
 The `target` name/value pair contains a URL. Clients MUST be
 able to invoke the function or the specific function overload by passing
-the parameter values via query options for [parameter
-aliases](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#sec_ParameterAliases) that are identical to
+the parameter values via query options for parameter
+aliases [#OData-Protocol#ParameterAliases] that are identical to
 the parameter name preceded by an at
 (`@`) sign. Clients MUST check if the obtained
 URL already contains a query part and appropriately precede the
