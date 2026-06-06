@@ -266,7 +266,7 @@ Section | Feature / Change | Issue
 --------|------------------|------
 [Section 3.3](#PrimitiveTypes)| Allow stream-valued non-binding parameters| [525](https://github.com/oasis-tcs/odata-specs/issues/525)
 [Section 3.4.5](#SRID)| SRID value `variable` is deprecated| [1935](https://github.com/oasis-tcs/odata-specs/issues/1935)
-[Section 4](#CSDLJSONDocument) | Additional `$Version` value `4.02` |
+[Section 4](#CSDLJSONDocument) | Additional `$Version` value `4.02` | [2222](https://github.com/oasis-tcs/odata-specs/issues/1935)
 [Section 12](#ActionandFunction) | Actions and functions can take, and return, delta payloads | [348](https://github.com/oasis-tcs/odata-specs/issues/348)
 [Section 12.8](#ReturnType) | Returned collections of entities may contain `null` values | [1983](https://github.com/oasis-tcs/odata-specs/issues/1983)
 [Section 14.3.13](#GeoValues) | Constant Geo values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
