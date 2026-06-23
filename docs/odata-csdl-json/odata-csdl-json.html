@@ -997,9 +997,9 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <p>It also MAY contain members for schemas.</p>
 <p>If the CSDL JSON document is the metadata document of an OData service, the document object MUST contain the member <code>$EntityContainer</code>.</p>
 <h3><a id="Version.2.1" href="#Version.2.1"><code>$Version</code></a></h3>
-<p>The value of <code>$Version</code> is a string specifying the OData CSDL version of the document, either <code>4.0</code>, <code>4.01</code>, or <code>4.02</code>.</p>
+<p>The value of <code>$Version</code> specifies the OData version of this CSDL document; allowed values are <code>4.0</code>, <code>4.01</code>, or <code>4.02</code>.</p>
 <p>In order to work with downlevel clients, services SHOULD report the lowest CSDL version with which the metadata document complies.</p>
-<p>Services MUST return an OData 4.0 response if the request was made with an <code>OData-MaxVersion</code> header with a value of <code>4.0</code>.</p>
+<p>If a request for the metadata document specifies an <code>OData-MaxVersion</code> header, then the service MUST return a response that complies with a version of OData less than or equal to the specified value.</p>
 <h3><a id="EntityContainer.2.2" href="#EntityContainer.2.2"><code>$EntityContainer</code></a></h3>
 <p>The value of <code>$EntityContainer</code> is the namespace-qualified name of the entity container of that service. This is the only place where a model element MUST be referenced with its namespace-qualified name and use of the alias-qualified name is not allowed.</p>
 </div>

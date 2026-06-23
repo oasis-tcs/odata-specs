@@ -890,15 +890,15 @@ other CSDL documents.
 
 ### <a id="AttributeVersion.2.1" href="#AttributeVersion.2.1">Attribute `Version`</a>
 
-The `Version` attribute specifies the OData protocol version of the
-The `Version` attribute specifies the OData CSDL version of the
-document, either `4.0`, `4.01`, or `4.02`.
+The `Version` attribute specifies the OData version of this CSDL
+document; allowed values are `4.0`, `4.01`, or `4.02`.
 
 In order to work with downlevel clients, services SHOULD report the lowest
 CSDL version with which the metadata document complies.
 
-Services MUST return an OData 4.0 response if the request was
-made with an `OData-MaxVersion` header with a value of `4.0`.
+If a request for the metadata document specifies an `OData-MaxVersion` header,
+then the service MUST return a response that complies with a version of OData
+less than or equal to the specified value.
 
 ### <a id="ElementedmxDataServices.3" href="#ElementedmxDataServices.3">Element `edmx:DataServices`</a>
 
