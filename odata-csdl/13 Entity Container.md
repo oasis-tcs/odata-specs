@@ -426,7 +426,7 @@ the last navigation property segment MUST be a non-containment
 navigation property and there MUST NOT be any non-containment navigation
 properties prior to the final navigation property segment.
 
-OData 4.01 services MAY have a type-cast segment as the last path
+OData 4.01 and greater services MAY have a type-cast segment as the last path
 segment, allowing to bind instances of different sub-types to different
 targets.
 

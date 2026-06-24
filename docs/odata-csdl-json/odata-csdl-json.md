@@ -257,7 +257,7 @@ using the JavaScript Object Notation (JSON), see [RFC8259](#rfc8259).
 
 This format is based on the OpenUI5 OData V4 Metadata JSON Format, see
 [OpenUI5](#_OpenUI5), with some extensions and
-modifications made necessary to fully cover OData CSDL Version 4.01.
+modifications made necessary to fully cover OData CSDL Version 4.02.
 
 
 ## <a id="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a>
@@ -266,7 +266,7 @@ Section | Feature / Change | Issue
 --------|------------------|------
 [Section 3.3](#PrimitiveTypes)| Allow stream-valued non-binding parameters| [525](https://github.com/oasis-tcs/odata-specs/issues/525)
 [Section 3.4.5](#SRID)| SRID value `variable` is deprecated| [1935](https://github.com/oasis-tcs/odata-specs/issues/1935)
-[Section 4](#CSDLJSONDocument) | Additional `$Version` value `4.02` |
+[Section 4](#CSDLJSONDocument) | Additional `$Version` value `4.02` | [2222](https://github.com/oasis-tcs/odata-specs/issues/2222)
 [Section 12](#ActionandFunction) | Actions and functions can take, and return, delta payloads | [348](https://github.com/oasis-tcs/odata-specs/issues/348)
 [Section 12.8](#ReturnType) | Returned collections of entities may contain `null` values | [1983](https://github.com/oasis-tcs/odata-specs/issues/1983)
 [Section 14.3.13](#GeoValues) | Constant Geo values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
@@ -956,11 +956,15 @@ If the CSDL JSON document is the metadata document of an OData service, the docu
 
 ### <a id="Version.2.1" href="#Version.2.1">`$Version`</a>
 
-The value of `$Version` is a string specifying the OData protocol version of the
-document, either `4.0`, `4.01`, or `4.02`.
+The value of `$Version` specifies the OData version of this CSDL
+document; allowed values are `4.0`, `4.01`, or `4.02`.
 
-Services MUST return an OData 4.0 response if the request was
-made with an `OData-MaxVersion` header with a value of `4.0`.
+In order to work with downlevel clients, services SHOULD report the lowest
+CSDL version with which the metadata document complies.
+
+If a request for the metadata document specifies an `OData-MaxVersion` header,
+then the service MUST return a response that complies with a version of OData
+less than or equal to the specified value.
 
 ### <a id="EntityContainer.2.2" href="#EntityContainer.2.2">`$EntityContainer`</a>
 
@@ -1560,7 +1564,7 @@ property](#ContainmentNavigationProperty), the entity type MUST either
 specify a key or inherit its key from its [base
 type](#DerivedEntityType).
 
-In OData 4.01 responses entity types used for [singletons](#Singleton)
+In OData 4.01 and greater responses, entity types used for [singletons](#Singleton)
 or single-valued [navigation properties](#NavigationProperty) do not
 require a key. In OData 4.0 responses entity types used for
 [singletons](#Singleton) or single-valued [navigation
@@ -1597,7 +1601,7 @@ A key property MUST be a non-nullable primitive property of the entity
 type itself, including non-nullable primitive properties of non-nullable
 single-valued complex properties, recursively.
 
-In OData 4.01 the key properties of a directly related entity type MAY
+In OData 4.01 and greater, the key properties of a directly related entity type MAY
 also be part of the key if the navigation property is single-valued and
 not nullable. This includes navigation properties of non-nullable
 single-valued complex properties (recursively) of the entity type. If a
@@ -3379,7 +3383,7 @@ the last navigation property segment MUST be a non-containment
 navigation property and there MUST NOT be any non-containment navigation
 properties prior to the final navigation property segment.
 
-OData 4.01 services MAY have a type-cast segment as the last path
+OData 4.01 and greater services MAY have a type-cast segment as the last path
 segment, allowing to bind instances of different sub-types to different
 targets.
 

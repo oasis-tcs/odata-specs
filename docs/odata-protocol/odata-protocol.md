@@ -317,7 +317,11 @@ For complete copyright information please see the full Notices section in an App
     - [12.2.1 OData 4.01 Minimal Conformance Level](#OData401MinimalConformanceLevel)
     - [12.2.2 OData 4.01 Intermediate Conformance Level](#OData401IntermediateConformanceLevel)
     - [12.2.3 OData 4.01 Advanced Conformance Level](#OData401AdvancedConformanceLevel)
-  - [12.3 Interoperable OData Clients](#InteroperableODataClients)
+  - [12.3 OData 4.02 Service Conformance Levels](#OData402ServiceConformanceLevels)
+    - [12.3.1 OData 4.02 Minimal Conformance Level](#OData402MinimalConformanceLevel)
+    - [12.3.2 OData 4.02 Intermediate Conformance Level](#OData402IntermediateConformanceLevel)
+    - [12.3.3 OData 4.02 Advanced Conformance Level](#OData402AdvancedConformanceLevel)
+  - [12.4 Interoperable OData Clients](#InteroperableODataClients)
 - [A References](#References)
   - [A.1 Normative References](#NormativeReferences)
   - [A.2 Informative References](#InformativeReferences)
@@ -373,7 +377,7 @@ Sections [11.4.4](#DeleteanEntity), [11.4.5.2](#RemoveaReferencetoanEntity)| Ide
 [Section 11.4.12](#ReplaceaCollectionofEntities)| Semantics of `continue-on-error` when replacing a collection of entities | [358](https://github.com/oasis-tcs/odata-specs/issues/358)
 [Section 11.5.6.1](#InvokinganAction)| Omission of collection-valued action parameters| [2045](https://github.com/oasis-tcs/odata-specs/issues/2045)
 [Section 12](#Conformance) | Allow `400 Bad Request` in addition to `501 Not Implemented` for unsupported functionality| [391](https://github.com/oasis-tcs/odata-specs/issues/391)
-[Section 12.3](#InteroperableODataClients) | Encoding of plus character in URLs | [485](https://github.com/oasis-tcs/odata-specs/issues/485)
+[Section 12.4](#InteroperableODataClients) | Encoding of plus character in URLs | [485](https://github.com/oasis-tcs/odata-specs/issues/485)
 
 ## <a id="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -707,8 +711,8 @@ Services SHOULD advertise supported versions of OData through the
 [Core.ODataVersions]{.term}
 term, defined in [OData-VocCore](#ODataVocCore).
 
-This version of the specification defines OData version values `4.0` and
-`4.01`. Content that applies only to one version or another is
+This version of the specification defines OData version values `4.0`, `4.01` and
+`4.02`. Content that applies only to one version or another is
 explicitly called out in the text.
 
 ## <a id="ModelVersioning" href="#ModelVersioning">5.2 Model Versioning</a>
@@ -1702,7 +1706,7 @@ response headers have defined meaning in OData.
 
 ### <a id="HeaderAsyncResult" href="#HeaderAsyncResult">8.3.1 Header `AsyncResult`</a>
 
-A 4.01 service MUST include the `AsyncResult` header in
+A 4.01 or greater service MUST include the `AsyncResult` header in
 [`200 OK`](#ResponseCode200OK) responses from a status monitor resource in
 order to indicate the final [HTTP Response Status
 Code](#CommonResponseStatusCodes) of an [asynchronously executed
@@ -2279,7 +2283,7 @@ alias-qualified name. Function names suffixed with parentheses represent
 a specific overload, while function names without parentheses represent
 all overloads of the function.
 
-OData 4.01 responses MAY use the shortcut pattern `{namespace}.*` to
+OData 4.01 or greater responses MAY use the shortcut pattern `{namespace}.*` to
 represent the list of all bound actions or functions available for
 entities in the collection, see system query option
 [`$select`](#SystemQueryOptionselect).
@@ -2331,7 +2335,7 @@ alias-qualified name. Function names suffixed with parentheses represent
 a specific overload, while function names without parentheses represent
 all overloads of the function.
 
-OData 4.01 responses MAY use the shortcut pattern `{namespace}.*` to
+OData 4.01 or greater responses MAY use the shortcut pattern `{namespace}.*` to
 represent the list of all bound actions or functions available for the
 returned entity, see system query option
 [`$select`](#SystemQueryOptionselect).
@@ -2351,7 +2355,7 @@ Context URL template:
     {context-url}#{canonical-collection}{/type-name}{select-list}
     {context-url}#Collection({type-name}){select-list}
 
-For a 4.01 response, if a navigation property is explicitly expanded,
+For a 4.01 or greater response, if a navigation property is explicitly expanded,
 then in addition to any non-suffixed names of any selected properties,
 navigation properties, functions or actions, the comma-separated list of
 properties MUST include the name of the expanded property, suffixed with
@@ -2414,7 +2418,7 @@ Context URL template:
     {context-url}#{canonical-singleton}{/type-name}{select-list}
     {context-url}#{type-name}{select-list}
 
-For a 4.01 response, if a navigation property is explicitly expanded,
+For a 4.01 or greater response, if a navigation property is explicitly expanded,
 then in addition to the non-suffixed names of any selected properties,
 navigation properties, functions or actions, the comma-separated list of
 properties MUST include the name of the expanded property, suffixed with
@@ -2499,7 +2503,7 @@ cast segments for properties defined on types derived from the expected
 type of the previous segment.
 
 If the property value does not contain explicitly or implicitly selected
-navigation properties or operations, OData 4.01 responses MAY use the
+navigation properties or operations, OData 4.01 or greater responses MAY use the
 less specific second template.
 
 ::: example
@@ -2741,7 +2745,7 @@ service is allowed to return the response in any format.
 
 OData defines a number of system query options that allow refining the
 request. System query options are prefixed with the dollar (`$`)
-character, which is optional in OData 4.01. 4.01 services MUST support
+character, which is optional in OData 4.01 or greater. 4.01 or greater services MUST support
 case-insensitive system query option names specified with or without the
 `$` prefix.
 Clients that want to work with 4.0 services MUST use lower case names
@@ -3173,7 +3177,7 @@ an entity reference somewhere in the circular dependency.
 Clients using `$levels=max` MUST be prepared to handle entity references
 in cases were a circular reference would occur otherwise.
 
-4.01 services that support `max` SHOULD do so in a case-insensitive
+4.01 or greater services that support `max` SHOULD do so in a case-insensitive
 manner. Clients that want to work with 4.0 services MUST use lower case.
 
 ::: example
@@ -3218,7 +3222,7 @@ instances, and primitive values.
 The target collection is specified through a URL, and query operations
 such as filter, sort, paging, and projection are specified as
 [*system query options*](#SystemQueryOptions) optionally prefixed with a dollar
-(`$`) character. 4.01 Services MUST support case-insensitive system
+(`$`) character. 4.01 or greater services MUST support case-insensitive system
 query option names specified with or without the `$` prefix. Clients
 that want to work with 4.0 services MUST use lower case names and
 specify the `$` prefix.
@@ -3261,7 +3265,7 @@ The value of the `$filter` option is a Boolean expression as defined in
 OData supports a set of built-in filter operations, as described in this
 section.
 
-4.01 services MUST support case-insensitive operation names. Clients
+4.01 or greater services MUST support case-insensitive operation names. Clients
 that want to work with 4.0 services MUST use lower case operation names.
 
 For a full description of the syntax used when building requests, see
@@ -3298,7 +3302,7 @@ For a full description of the syntax used when building requests, see
 OData supports a set of built-in functions that can be used within
 `$filter` operations. The following table lists the available functions.
 
-4.01 services MUST support case-insensitive built-in function names.
+4.01 or greater services MUST support case-insensitive built-in function names.
 Clients that want to work with 4.0 services MUST use lower case names.
 
 For a full description of the syntax used when building requests, see
@@ -3423,7 +3427,7 @@ service can be used in URLs.
 The expression can include the suffix `asc` for ascending or `desc` for
 descending, separated from the property name by one or more spaces. If
 `asc` or `desc` is not specified, the service MUST order by the
-specified property in ascending order. 4.01 services MUST support
+specified property in ascending order. 4.01 or greater services MUST support
 case-insensitive values for `asc` and `desc`. Clients that want to work
 with 4.0 services MUST use lower case values.
 
@@ -3832,7 +3836,7 @@ GET http://host/service/Products/$count
 ```
 :::
 
-With 4.01 services the `/$count` segment MAY be used in combination with
+With 4.01 or greater services the `/$count` segment MAY be used in combination with
 the `/$filter` path segment to count the items in the filtered
 collection.
 
@@ -4209,7 +4213,7 @@ specifying `If-Match` with a value of `*`. Services MAY reject such
 requests.
 
 For requests including an [`OData-Version`](#HeaderODataVersion) header
-value of `4.01`, any ETag values specified in the request body of a
+value of `4.01` or greater, any ETag values specified in the request body of a
 [request to modify an entity](#UpdateanEntity) MUST be `*` or match the current value
 for the record being updated.
 
@@ -4407,7 +4411,7 @@ annotation to the `Manager` and `DirectReports` navigation properties
 :::
 
 ::: example
-Example 83: using the JSON format, 4.01 clients can create a new manager
+Example 83: using the JSON format, 4.01 or greater clients can create a new manager
 entity with links to an existing manager (of managers) and to two existing employees by including either the entity-ids or full set of key properties within the `Manager` and `DirectReports` navigation properties
 
 ```json
@@ -4433,7 +4437,7 @@ requested entities, the properties of the existing entities are updated
 using `PATCH` semantics as described in [Update an Entity](#UpdateanEntity).
 
 ::: example
-Example 84: using the JSON format, 4.01 clients can update the
+Example 84: using the JSON format, 4.01 or greater clients can update the
 `TeamName` property of existing direct reports when relating them
 to the new manager.
 
@@ -4654,7 +4658,7 @@ If a navigation property is absent from a `PUT` or `PATCH` request payload, the 
 or contained entity, or the collection thereof, remains unchanged by a successful update.
 
 ::: example
-Example 85: using the JSON format, a 4.01 `PATCH` request can update a
+Example 85: using the JSON format, a 4.01 or greater `PATCH` request can update a
 manager entity. Following the update, the manager has three direct
 reports; two existing employees and one new employee named
 `Suzanne Brown`. The `LastName` of employee 6 is updated to `Smith`.
@@ -4702,7 +4706,7 @@ If any nested entities contain both id and key
 fields, they MUST identify the same entity, or the request is invalid.
 
 ::: example
-Example 86: using the JSON format, a 4.01 `PATCH` request can specify a
+Example 86: using the JSON format, a 4.01 or greater `PATCH` request can specify a
 nested delta representation to:
 
 - delete employee 3 and
@@ -4750,7 +4754,7 @@ nested delta representation to:
 :::
 
 ::: example
-Example 87: When updating an entity with a 4.01 `PUT` request, the target of a
+Example 87: When updating an entity with a 4.01 or greater `PUT` request, the target of a
 non-containment navigation property can be replaced if the targeted entity is specified
 by an entity reference (see [OData-JSON, section 14](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#EntityReference)), without specifying all
 its structural properties in `PUT` semantics.
@@ -4978,7 +4982,7 @@ In OData 4.0, the entity reference to be removed within a
 collection-valued navigation property is the URL that represents the
 collection of related references, with the reference to be removed
 identified by the [`$id`](#ResolvinganEntityId) query option. OData 4.01
-services additionally support using the URL that represents the
+or greater services additionally support using the URL that represents the
 reference of the collection member to be removed, identified by key, as
 described in [OData-URL, section 4.4](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingReferencesbetweenEntities).
 
@@ -6027,7 +6031,7 @@ is up to the service regardless of its nullability or optionality.
 Possible interpretations include assuming an empty collection or,
 for parameters not annotated as `Core.OptionalParameter`, reporting an error.
 
-4.01 services MUST support invoking actions with no non-binding
+4.01 and greater services MUST support invoking actions with no non-binding
 parameters and parameterless action imports both without a request body
 and with a request body representing no parameters, according to the
 particular format. Interoperable clients SHOULD always include a request
@@ -7242,7 +7246,45 @@ request payloads if no exact match is found, using the same lookup
 sequence as for [default namespaces](#DefaultNamespaces) with a
 case-insensitive comparison
 
-## <a id="InteroperableODataClients" href="#InteroperableODataClients">12.3 Interoperable OData Clients</a>
+## <a id="OData402ServiceConformanceLevels" href="#OData402ServiceConformanceLevels">12.3 OData 4.02 Service Conformance Levels</a>
+
+OData services can report conformance to the OData 4.02 specification by
+including `4.02` in the list of supported protocol versions in the
+[Core.ODataVersions]{.term}
+annotation, as defined in [OData-VocCore](#ODataVocCore). As all OData
+4.02 compliant services must also be fully OData 4.0 and 4.01 compliant, OData
+4.02 services do not need to separately list `4.0` and `4.01` as supported
+versions.
+
+### <a id="OData402MinimalConformanceLevel" href="#OData402MinimalConformanceLevel">12.3.1 OData 4.02 Minimal Conformance Level</a>
+
+In order to conform to the OData 4.02 Minimal Conformance Level, a
+service:
+
+1. MUST conform to the [OData 4.01 Minimal Conformance
+Level](#OData401MinimalConformanceLevel)
+2. MUST be compliant with version 4.02 of the [OData-JSON](#ODataJSON)
+format
+
+### <a id="OData402IntermediateConformanceLevel" href="#OData402IntermediateConformanceLevel">12.3.2 OData 4.02 Intermediate Conformance Level</a>
+
+In order to conform to the OData 4.02 Intermediate Conformance Level, a
+service:
+
+1. MUST conform to the [OData 4.02 Minimal Conformance Level](#OData402MinimalConformanceLevel)
+2. MUST conform to the [OData 4.01 Intermediate Conformance
+Level](#OData401IntermediateConformanceLevel)
+
+### <a id="OData402AdvancedConformanceLevel" href="#OData402AdvancedConformanceLevel">12.3.3 OData 4.02 Advanced Conformance Level</a>
+
+In order to conform to the OData 4.02 Advanced Conformance Level, a
+service:
+
+1. MUST conform to the [OData 4.02 Intermediate Conformance Level](#OData402IntermediateConformanceLevel)
+2. MUST conform to the [OData 4.01 Advanced Conformance
+Level](#OData401AdvancedConformanceLevel)
+
+## <a id="InteroperableODataClients" href="#InteroperableODataClients">12.4 Interoperable OData Clients</a>
 
 Interoperable OData clients can expect to work with OData Services that
 comply with at least the [OData 4.0 Minimal Conformance
@@ -7292,6 +7334,15 @@ specified in `$metadata`
 the requested format
 21. SHOULD use capabilities (see [OData-VocCap](#ODataVocCap)) to
 determine if a 4.01 feature is supported but MAY attempt syntax and be
+prepared to handle `400 Bad Request` or [`501 Not Implemented`](#ResponseCode501NotImplemented)
+
+In addition, interoperable OData 4.02 clients
+
+22. MUST be prepared to receive any valid 4.02 CSDL
+23. MUST be prepared to receive any valid 4.02 response according to
+the requested format
+24. SHOULD use capabilities (see [OData-VocCap](#ODataVocCap)) to
+determine if a 4.02 feature is supported but MAY attempt syntax and be
 prepared to handle `400 Bad Request` or [`501 Not Implemented`](#ResponseCode501NotImplemented)
 
 

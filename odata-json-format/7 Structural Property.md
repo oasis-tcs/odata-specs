@@ -366,7 +366,7 @@ The values are the [ids](#ControlInformationidodataid) of the
 related entities. They MAY be absolute or [relative URLs](#RelativeURLs).
 
 For requests containing an `OData-Version` header with a value
-of `4.01`, a relationship is bound to an existing entity
+of `4.01` or greater, a relationship is bound to an existing entity
 using the same representation as for an [expanded entity
 reference](#EntityReference).
 
@@ -414,12 +414,12 @@ Content-Type: application/json
 ```
 :::
 
-OData 4.01 services MUST support both the OData 4.0 representation, for
+OData 4.01 and greater services MUST support both the OData 4.0 representation, for
 requests containing an `OData-Version` header with a value of
 `4.0`, and the OData 4.01 representation, for requests
-containing an `OData-Version` header with a value of `4.01`.
+containing an `OData-Version` header with a value of `4.01` or greater.
 Clients MUST NOT use `@odata.bind` in requests with an
-`OData-Version` header with a value of `4.01`.
+`OData-Version` header with a value of `4.01` or greater.
 
 For insert operations collection navigation property bind operations and
 deep insert operations can be combined. For OData 4.0 requests, the bind
