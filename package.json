@@ -31,5 +31,8 @@
   "devDependencies": {
     "connect-livereload": "^0.6.1",
     "livereload": "^0.9.3"
+  },
+  "allowScripts": {
+    "puppeteer@22.14.0": true
   }
 }
