@@ -328,22 +328,6 @@ Content-Type: application/json
 Inside a batch request the common expressions can also be value references
 starting with `$`, as introduced in [#OData-Protocol#ReferencingValuesfromResponseBodies].
 
-::: example
-Example ##ex:
-```json
-{
-  "param1": 42,
-  "param2": {
-    "Street": "One Microsoft Way",
-    "Zip": 98052
-  },
-  "param3": [ 1, 42, 99 ],
-  "param4": null
-}
-```
-:::
-
-
 In order to invoke an action with no non-binding parameters, the client
 passes an empty JSON object in the body of the request. 4.01 and greater Services
 MUST also support clients passing an empty request body for this case.
