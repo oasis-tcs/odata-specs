@@ -3064,15 +3064,32 @@ pair in this JSON object. The name is the name of the parameter. The
 value is the parameter value in the JSON representation appropriate for
 its type. Entity typed parameter values MAY include a subset of the
 properties, or just the [entity reference](#EntityReference), as
-appropriate to the action.  For transient entities or complex typed parameters,
+appropriate to the action. For transient entities or complex typed parameters,
 properties with a defined default value, nullable properties, and collection-valued properties
 that are omitted from the request are interpreted as the default value, null, or an empty collection,
-respectively. Stream typed parameter values are represented following the same rules as inlined [stream properties](#StreamProperty).
+respectively.
+
+::: example
+Example 51:
+```json
+{
+  "param1": 42,
+  "param2": {
+    "Street": "One Microsoft Way",
+    "Zip": 98052
+  },
+  "param3": [ 1, 42, 99 ],
+  "param4": null
+}
+```
+
+:::
+Stream typed parameter values are represented following the same rules as inlined [stream properties](#StreamProperty).
 
 Entities as parameter values are represented as explained in [section 6](#Entity).
 
 ::: example
-Example 51: Create a quote for a product that does not yet exist. The `Product`
+Example 52: Create a quote for a product that does not yet exist. The `Product`
 parameter takes a transient entity.
 ```json
 POST http://host/service/CreateQuote
@@ -3089,7 +3106,7 @@ Content-Type: application/json
 :::
 
 ::: example
-Example 52: Create a quote for an existing product. The `Product`
+Example 53: Create a quote for an existing product. The `Product`
 parameter takes a non-transient entity which can be identified through its
 entity-id:
 ```json
@@ -3129,7 +3146,7 @@ non-transient entities can be passed as non-binding action parameters through a
 resource path in this way.
 
 ::: example
-Example 53: An employee requests leave from their manager for the next two weeks:
+Example 54: An employee requests leave from their manager for the next two weeks:
 ```json
 POST /service/Employees(23)/self.RequestLeave
 Host: host
@@ -3161,22 +3178,6 @@ Content-Type: application/json
 
 Inside a batch request the common expressions can also be value references
 starting with `$`, as introduced in [OData-Protocol, section 11.7.6](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ReferencingValuesfromResponseBodies).
-
-::: example
-Example 54:
-```json
-{
-  "param1": 42,
-  "param2": {
-    "Street": "One Microsoft Way",
-    "Zip": 98052
-  },
-  "param3": [ 1, 42, 99 ],
-  "param4": null
-}
-```
-:::
-
 
 In order to invoke an action with no non-binding parameters, the client
 passes an empty JSON object in the body of the request. 4.01 and greater Services
