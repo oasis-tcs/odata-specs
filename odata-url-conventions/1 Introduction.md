@@ -27,8 +27,11 @@ ecosystem of reusable client components and libraries.
 Section | Feature / Change | Issue
 --------|------------------|------
 [Section ##PassingQueryOptionsintheRequestBody]| 
-`POST ~/$query` with `Content-Type: application/x-www-form-urlencoded` or `application/json`| 
+`POST <uri>/$query` with `Content-Type: application/x-www-form-urlencoded` or `application/json`| 
 [320](https://github.com/oasis-tcs/odata-specs/issues/320), [371](https://github.com/oasis-tcs/odata-specs/issues/371)
+[Section ##PassingQueryOptionsintheRequestBody]| 
+`QUERY <uri>` as alternative to `POST <uri>/$query`| 
+[355](https://github.com/oasis-tcs/odata-specs/issues/355)
 [Section ##matchespattern]| 
 New overload for function `matchespattern` with flags| 
 [441](https://github.com/oasis-tcs/odata-specs/issues/441)
