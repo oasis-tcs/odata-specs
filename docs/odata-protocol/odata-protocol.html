@@ -3839,7 +3839,11 @@ Content-Length: ###
 <ol type="1">
 <li>MUST conform to the <a href="#OData401MinimalConformanceLevel">OData 4.01 Minimal Conformance Level</a></li>
 <li>MUST be compliant with version 4.02 of the <a href="#ODataJSON">OData-JSON</a> format</li>
+<li>MUST NOT percent-encode Context URLs</li>
+<li>SHOULD support Key-As-Segment URL convention in addition to canonical URL conventions</li>
+<li>SHOULD, if they support optimistic concurrency, return etag values for added/changed entities in a delta payload</li>
 </ol>
+<p>In addition, to be considered an <em>Updatable OData 4.02 Service</em>, the service: 6. MUST conform to the <em>Updatable OData 4.01 Service</em> requirements 7. MUST, if it supports Deep Inserts, include in the response at least the properties that were present in the Deep Insert request 8. SHOULD support Upserts to single-valued non-containment navigation properties 9. SHOULD, if they support optimistic concurrency, honor etags in delta update payloads</p>
 </details>
 <details open><summary>
 <h3 id="1232-odata-402-intermediate-conformance-level"><a id="OData402IntermediateConformanceLevel" href="#OData402IntermediateConformanceLevel">12.3.2 OData 4.02 Intermediate Conformance Level</a></h3>
@@ -3848,7 +3852,17 @@ Content-Length: ###
 <ol type="1">
 <li>MUST conform to the <a href="#OData402MinimalConformanceLevel">OData 4.02 Minimal Conformance Level</a></li>
 <li>MUST conform to the <a href="#OData401IntermediateConformanceLevel">OData 4.01 Intermediate Conformance Level</a></li>
+<li>MUST, if they support optimistic concurrency, return etag values for added/changed entities in a delta payload</li>
+<li>MUST support Key-As-Segment URL convention in addition to canonical URL conventions</li>
+<li>SHOULD support Passing Query Options in the Request Body (See Url Conventions)
+<ol type="1">
+<li>SHOULD support HTTP POST to GET resource path appended with /$query</li>
+<li>SHOULD support the HTTP QUERY method</li>
+<li>SHOULD support <code>Content-Type: application/x-www-form-urlencoded</code></li>
+<li>SHOULD support <code>Content-Type: application/json</code></li>
+</ol></li>
 </ol>
+<p>In addition, to be considered an <em>Updatable Intermediate OData 4.02 Service</em>, the service: 4. MUST conform to <em>Updatable OData 4.02 Service</em> requirements 5. MUST support Upserts to single-valued non-containment navigation properties 6. MUST, if they support optimistic concurrency, honor etags in delta update payloads 7. SHOULD support updating properties of related entities when updating an entity 8. SHOULD support updating a complex property to a different type in the hierarchy</p>
 </details>
 <details open><summary>
 <h3 id="1233-odata-402-advanced-conformance-level"><a id="OData402AdvancedConformanceLevel" href="#OData402AdvancedConformanceLevel">12.3.3 OData 4.02 Advanced Conformance Level</a></h3>
@@ -3896,6 +3910,7 @@ Content-Length: ###
 <li>MUST be prepared to receive any valid 4.02 CSDL</li>
 <li>MUST be prepared to receive any valid 4.02 response according to the requested format</li>
 <li>SHOULD use capabilities (see <a href="#ODataVocCap">OData-VocCap</a>) to determine if a 4.02 feature is supported but MAY attempt syntax and be prepared to handle <code>400 Bad Request</code> or <a href="#ResponseCode501NotImplemented"><code>501 Not Implemented</code></a></li>
+<li>SHOULD use Context URL to interpret payloads, rather than inferring from the request</li>
 </ol>
 </details>
 </details>
