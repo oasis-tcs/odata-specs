@@ -433,6 +433,11 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td>Allow alternative <code>$search</code> syntax</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/293">293</a></td>
 </tr>
+<tr>
+<td>Allow empty <code>$select</code> and <code>$expand</code> lists</td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/2243">2243</a></td>
+<td></td>
+</tr>
 </tbody>
 </table>
 </details>
@@ -2273,6 +2278,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <p>The <code>$expand</code> system query option specifies the related resources or media streams to be included in line with retrieved resources.</p>
 <p>The <a href="#ODataABNF">OData-ABNF</a> <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#expand"><code>expand</code></a></span> syntax rule defines the formal grammar of the <code>$expand</code> query option.</p>
 <p>The value of <code>$expand</code> is a comma-separated list of expand items. Each expand item is evaluated relative to the retrieved resource being expanded. An expand item is either a path or one of the symbols <code>*</code> or <code>$value</code>.</p>
+<p>OData 4.02 and greater services MAY support an empty expand list to indicate that no navigation or stream properties are requested, including those marked with <code>AutoExpand</code> or <code>AutoExpandReferences</code>, or otherwise required by protocol to be returned in the absence of an explicit <code>$expand</code>. Selected or default structural properties are still returned, along with required metadata according to the requested format.</p>
 <p>A path consists of segments separated by a forward slash (<code>/</code>). Segments are either names of single- or collection-valued complex properties, <a href="#AnnotationValuesinExpressions">instance annotations</a>, or <a href="#AddressingDerivedTypes">type-cast segments</a> consisting of the qualified name of a structured type that is derived from the type identified by the preceding path segment to reach properties defined on the derived type.</p>
 <p>A path can end with</p>
 <ul>
@@ -2360,6 +2366,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <li>a star (<code>*</code>), to include all declared or dynamic properties of the type, or</li>
 <li>a qualified schema name followed by a dot (<code>.</code>) followed by a star (<code>*</code>) to request all applicable actions or functions from that schema</li>
 </ul>
+<p>OData 4.02 and greater services MAY support an empty select list to indicate that no structural properties are requested. The service still returns expanded navigation and stream properties, along with required metadata and/or key properties as required by the particular format.</p>
 <p>A path consists of segments separated by a forward slash (<code>/</code>). Segments are either names of single- or collection-valued complex properties, <a href="#AnnotationValuesinExpressions">instance annotations</a>, or <a href="#AddressingDerivedTypes">type-cast segments</a> consisting of the qualified name of a structured type that is derived from the type identified by the preceding path segment to reach properties defined on the derived type.</p>
 <p>A path can end with</p>
 <ul>

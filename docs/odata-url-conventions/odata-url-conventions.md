@@ -277,6 +277,7 @@ Section | Feature / Change | Issue
 [Section 5.1.1.7.1](#matchespattern)| New overload for function `matchespattern` with flags| [441](https://github.com/oasis-tcs/odata-specs/issues/441)
 [Section 5.1.3](#SystemQueryOptionexpand)| Nested query options can only appear once per expand item| [2004](https://github.com/oasis-tcs/odata-specs/issues/2004)
 [Section 5.1.8](#SystemQueryOptionsearch)| Allow alternative `$search` syntax| [293](https://github.com/oasis-tcs/odata-specs/issues/293)
+Allow empty `$select` and `$expand` lists| [2243](https://github.com/oasis-tcs/odata-specs/issues/2243)
 
 ## <a id="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -3662,6 +3663,14 @@ expand item is evaluated relative to the retrieved resource being
 expanded. An expand item is either a path or one of the symbols `*` or
 `$value`.
 
+OData 4.02 and greater services MAY support an empty expand list to indicate
+that no navigation or stream properties are requested, including those marked
+with `AutoExpand` or `AutoExpandReferences`, or otherwise required by protocol
+to be returned in the absence of an explicit `$expand`. Selected or default
+structural properties are still returned, along with required metadata according
+to the requested format.
+
+
 A path consists of segments separated by a forward slash (`/`). Segments
 are either names of single- or collection-valued complex properties,
 [instance annotations](#AnnotationValuesinExpressions), or [type-cast segments](#AddressingDerivedTypes)
@@ -3870,6 +3879,11 @@ dynamic properties of the type, or
 - a qualified schema name followed by a
 dot (`.`) followed by a star (`*`) to request all applicable actions or
 functions from that schema
+
+OData 4.02 and greater services MAY support an empty select list to indicate
+that no structural properties are requested. The service still returns expanded
+navigation and stream properties, along with required metadata and/or key properties
+as required by the particular format.
 
 A path consists of segments separated by a forward slash (`/`). Segments
 are either names of single- or collection-valued complex properties,
