@@ -7158,9 +7158,7 @@ expression
 11. SHOULD NOT have identifiers within a uniqueness scope (e.g. a
 schema, a structural type, or an entity container) that differ only by
 case
-12. SHOULD return the
-[Core.ODataVersions]{.term}
-annotation
+12. SHOULD return the [Core.ODataVersions]{.term} annotation
 13. SHOULD report capabilities through the Capabilities vocabulary
 14. MAY support filtering on annotation values
 15. MAY support `$compute` system query option
@@ -7284,9 +7282,10 @@ service:
 1. MUST conform to the [OData 4.02 Minimal Conformance Level](#OData402MinimalConformanceLevel)
 2. MUST conform to the [OData 4.01 Intermediate Conformance
 Level](#OData401IntermediateConformanceLevel)
-3. MUST, if they support optimistic concurrency, return etag values for added/changed entities in a delta payload
-4. MUST support Key-As-Segment URL convention in addition to canonical URL conventions
-5. SHOULD support Passing Query Options in the Request Body (See Url Conventions)
+3. MUST support `select` with an empty select list
+4. MUST, if they support optimistic concurrency, return etag values for added/changed entities in a delta payload
+5. MUST support Key-As-Segment URL convention in addition to canonical URL conventions
+6. SHOULD support Passing Query Options in the Request Body (See Url Conventions)
    1. SHOULD support HTTP POST to GET resource path appended with /$query
    2. SHOULD support the HTTP QUERY method
    3. SHOULD support `Content-Type: application/x-www-form-urlencoded`
@@ -7294,11 +7293,11 @@ Level](#OData401IntermediateConformanceLevel)
 
 In addition, to be considered an *Updatable Intermediate OData 4.02 Service*, the
 service:
-4. MUST conform to *Updatable OData 4.02 Service* requirements
-5. MUST support Upserts to single-valued non-containment navigation properties
-6. MUST, if they support optimistic concurrency, honor etags in delta update payloads
-7. SHOULD support updating properties of related entities when updating an entity
-8. SHOULD support updating a complex property to a different type in the hierarchy
+7. MUST conform to *Updatable OData 4.02 Service* requirements
+8. MUST support Upserts to single-valued non-containment navigation properties
+9. MUST, if they support optimistic concurrency, honor etags in delta update payloads
+10. SHOULD support updating properties of related entities when updating an entity
+11. SHOULD support updating a complex property to a different type in the hierarchy
 
 ### <a id="OData402AdvancedConformanceLevel" href="#OData402AdvancedConformanceLevel">12.3.3 OData 4.02 Advanced Conformance Level</a>
 
@@ -7308,6 +7307,7 @@ service:
 1. MUST conform to the [OData 4.02 Intermediate Conformance Level](#OData402IntermediateConformanceLevel)
 2. MUST conform to the [OData 4.01 Advanced Conformance
 Level](#OData401AdvancedConformanceLevel)
+3. MUST support `$expand` with an empty expand list
 
 ## <a id="InteroperableODataClients" href="#InteroperableODataClients">12.4 Interoperable OData Clients</a>
 
@@ -7370,6 +7370,7 @@ the requested format
 determine if a 4.02 feature is supported but MAY attempt syntax and be
 prepared to handle `400 Bad Request` or [`501 Not Implemented`](#ResponseCode501NotImplemented)
 25. SHOULD use Context URL to interpret payloads, rather than inferring from the request
+26. SHOULD NOT specify an empty `$select` or `$expand` list to a 4.01 or earlier service
 
 
 -------
