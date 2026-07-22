@@ -41,6 +41,8 @@ Nested query options can only appear once per expand item|
 [Section ##SystemQueryOptionsearch]| 
 Allow alternative `$search` syntax| 
 [293](https://github.com/oasis-tcs/odata-specs/issues/293)
+Allow empty `$select` and `$expand` lists| 
+[2243](https://github.com/oasis-tcs/odata-specs/issues/2243)
 
 ## ##subsec Glossary
 
