@@ -2617,7 +2617,7 @@ Preference-Applied: return=minimal, continue-on-error
 <li>MAY be a conforming consumer of the OData 4.02 JSON format, for payloads with an <code>OData-Version</code> header value of <code>4.02</code>.
 <ol type="1">
 <li>MUST support referencing entities by either id or full set of key properties</li>
-<li>MUST NOT require the atomicity group also be included in <code>dependsOn</code> for prerequisit requests that are in an atomicity group</li>
+<li>MUST NOT require the atomicity group also be included in <code>dependsOn</code> for prerequisite requests that are in an atomicity group</li>
 <li>MUST be prepared to deal with a null <code>mediaContentType</code> value to represent an empty binary stream</li>
 <li>SHOULD support expressions in non-binding action parameters</li>
 </ol></li>
@@ -2649,7 +2649,7 @@ Preference-Applied: return=minimal, continue-on-error
 <li>MUST return the <code>requestId</code> as the first property in a JSON Batch Request or Response Object and <code>body</code>, if specified, as the last property for ordered payloads</li>
 <li>SHOULD always follow <a href="PayloadOrderingConstraints">JSON Payload Ordering Constraints</a>, regardless the presence of the <code>odata.streaming</code> format parameter</li>
 <li>SHOULD represent identifiable transient entities using the pattern <code>odata:transient:{unique-identifier}</code>, and with an explicit <code>null</code> value for the <code>readlink</code> if the transient entity cannot be re-read</li>
-<li>SHOULD include the atomicity group in <code>dependsOn</code> for prerequisit requests that are in an atomicity group</li>
+<li>SHOULD include the atomicity group in <code>dependsOn</code> for prerequisite requests that are in an atomicity group</li>
 </ol></li>
 </ol>
 <p>In addition, in order to conform to the OData JSON format, a service:</p>
@@ -2683,6 +2683,7 @@ Preference-Applied: return=minimal, continue-on-error
 <li>MUST comply with the OData 4.01 JSON format</li>
 <li>SHOULD return the OData JSON 4.02 format for requests with an <code>OData-MaxVersion</code> header value of <code>4.02</code></li>
 <li>MUST support the OData JSON 4.02 format in request payloads for requests with an <code>OData-Version</code> header value of <code>4.02</code></li>
+<li>SHOULD support an empty string for <code>odata.etag</code> control information to perform the requested operation only if the entity does not already exist</li>
 </ol>
 </details>
 <hr />
