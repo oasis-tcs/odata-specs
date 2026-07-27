@@ -272,10 +272,12 @@ ecosystem of reusable client components and libraries.
 
 Section | Feature / Change | Issue
 --------|------------------|------
-[Section 4.17](#PassingQueryOptionsintheRequestBody)| `POST ~/$query` with `Content-Type: application/x-www-form-urlencoded` or `application/json`| [320](https://github.com/oasis-tcs/odata-specs/issues/320), [371](https://github.com/oasis-tcs/odata-specs/issues/371)
+[Section 4.17](#PassingQueryOptionsintheRequestBody)| `POST <uri>/$query` with `Content-Type: application/x-www-form-urlencoded` or `application/json`| [320](https://github.com/oasis-tcs/odata-specs/issues/320), [371](https://github.com/oasis-tcs/odata-specs/issues/371)
+[Section 4.17](#PassingQueryOptionsintheRequestBody)| `QUERY <uri>` as alternative to `POST <uri>/$query`| [355](https://github.com/oasis-tcs/odata-specs/issues/355)
 [Section 5.1.1.7.1](#matchespattern)| New overload for function `matchespattern` with flags| [441](https://github.com/oasis-tcs/odata-specs/issues/441)
 [Section 5.1.3](#SystemQueryOptionexpand)| Nested query options can only appear once per expand item| [2004](https://github.com/oasis-tcs/odata-specs/issues/2004)
 [Section 5.1.8](#SystemQueryOptionsearch)| Allow alternative `$search` syntax| [293](https://github.com/oasis-tcs/odata-specs/issues/293)
+Allow empty `$select` and `$expand` lists| [2243](https://github.com/oasis-tcs/odata-specs/issues/2243)
 
 ## <a id="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -1485,9 +1487,10 @@ transmitting or processing the request. One way to avoid this is
 wrapping the request in a batch request, which has the penalty of
 needing to construct a well-formed batch request body.
 
-An easier alternative for `GET` requests is to append `/$query` to the
-resource path of the URL, use the `POST` verb instead of `GET`, and pass
-the query options part of the URL in the request body.
+Easier alternatives for `GET` requests are to pass
+the query options part of the URL in the request body and instead of `GET` either
+- use the `QUERY` verb (see [RFC10008](#rfc10008)), or
+- append `/$query` to the resource path of the URL and use the `POST` verb.
 
 Requests to paths ending in `/$query` MUST use the `POST` verb. Query
 options specified in the request body and query options specified in the
@@ -1504,6 +1507,13 @@ and MUST follow the syntax rules described in [chapter 5](#QueryOptions).
 Example <a id="postquery" href="#postquery">52</a>: system query options in request body instead of URL
 ```
 POST http://host/service/People/$query
+Content-Type: text/plain
+
+$filter=LastName%20eq%20'P%26G'&$select=FirstName,LastName
+```
+or
+```
+QUERY http://host/service/People
 Content-Type: text/plain
 
 $filter=LastName%20eq%20'P%26G'&$select=FirstName,LastName
@@ -1541,6 +1551,14 @@ This POST request would result from submitting the HTML form
 ```
 which encodes spaces and ampersands (and more characters for which encoding is
 optional).
+
+Alternative using `QUERY`:
+```
+QUERY http://host/service/People
+Content-Type: application/x-www-form-urlencoded
+
+%24filter=LastName+eq+%27P%26G%27&%24select=FirstName%2CLastName
+```
 :::
 
 With `Content-Type: application/json` query options and function parameters are
@@ -1555,6 +1573,16 @@ Example 54: The same request as in [example 52](#postquery) can be sent with
 `application/json` encoding using the following payload:
 ```json
 POST http://host/service/People/$query
+Content-Type: application/json
+
+{
+  "$filter": "LastName eq 'P&G'",
+  "$select": "FirstName,LastName"
+}
+```
+or
+```json
+QUERY http://host/service/People
 Content-Type: application/json
 
 {
@@ -1583,8 +1611,20 @@ Content-Type: application/json
   "$top": 10
 }
 ```
+or
+```json
+QUERY http://host/service/Employees(23)/self.PendingLeaveRequests
+Content-Type: application/json
 
-The previous request looks analogous to a bound function invocation with expressions (like in [example 32](#funcexpr))
+{
+  "StartDate@expression": "now()",
+  "EndDate": "2024-12-31",
+  "Approver@expression": "Manager",
+  "$top": 10
+}
+```
+
+The previous requests look analogous to a bound function invocation with expressions (like in [example 32](#funcexpr))
 if it is written using implicit parameter aliases (see [OData-Protocol, section 11.5.5.1.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#InlineParameterSyntax)).
 ```
 GET http://host/service/Employees(23)/self.PendingLeaveRequests
@@ -3623,6 +3663,14 @@ expand item is evaluated relative to the retrieved resource being
 expanded. An expand item is either a path or one of the symbols `*` or
 `$value`.
 
+OData 4.02 and greater services MAY support an empty expand list to indicate
+that no navigation or stream properties are requested, including those marked
+with `AutoExpand` or `AutoExpandReferences`, or otherwise required by protocol
+to be returned in the absence of an explicit `$expand`. Selected or default
+structural properties are still returned, along with required metadata according
+to the requested format.
+
+
 A path consists of segments separated by a forward slash (`/`). Segments
 are either names of single- or collection-valued complex properties,
 [instance annotations](#AnnotationValuesinExpressions), or [type-cast segments](#AddressingDerivedTypes)
@@ -3831,6 +3879,11 @@ dynamic properties of the type, or
 - a qualified schema name followed by a
 dot (`.`) followed by a star (`*`) to request all applicable actions or
 functions from that schema
+
+OData 4.02 and greater services MAY support an empty select list to indicate
+that no structural properties are requested. The service still returns expanded
+navigation and stream properties, along with required metadata and/or key properties
+as required by the particular format.
 
 A path consists of segments separated by a forward slash (`/`). Segments
 are either names of single- or collection-valued complex properties,
@@ -4315,6 +4368,10 @@ https://www.rfc-editor.org/info/rfc3986.
 ###### [RFC8174]{id=rfc8174}
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_.
 https://www.rfc-editor.org/info/rfc8174.
+
+###### [RFC10008]{id=rfc10008}
+_Reschke, J., Snell, J., and M. Bishop, "The HTTP QUERY Method", RFC 10008, DOI 10.17487/RFC10008, June 2026_.
+https://www.rfc-editor.org/info/rfc10008.
 
 ###### [URL]{id=_url}
 _URL Living Standard._  

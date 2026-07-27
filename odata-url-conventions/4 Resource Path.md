@@ -1029,9 +1029,10 @@ transmitting or processing the request. One way to avoid this is
 wrapping the request in a batch request, which has the penalty of
 needing to construct a well-formed batch request body.
 
-An easier alternative for `GET` requests is to append `/$query` to the
-resource path of the URL, use the `POST` verb instead of `GET`, and pass
-the query options part of the URL in the request body.
+Easier alternatives for `GET` requests are to pass
+the query options part of the URL in the request body and instead of `GET` either
+- use the `QUERY` verb (see [RFC10008](#rfc10008)), or
+- append `/$query` to the resource path of the URL and use the `POST` verb.
 
 Requests to paths ending in `/$query` MUST use the `POST` verb. Query
 options specified in the request body and query options specified in the
@@ -1048,6 +1049,13 @@ and MUST follow the syntax rules described in [chapter ##QueryOptions].
 Example ##ex_postquery: system query options in request body instead of URL
 ```
 POST http://host/service/People/$query
+Content-Type: text/plain
+
+$filter=LastName%20eq%20'P%26G'&$select=FirstName,LastName
+```
+or
+```
+QUERY http://host/service/People
 Content-Type: text/plain
 
 $filter=LastName%20eq%20'P%26G'&$select=FirstName,LastName
@@ -1085,6 +1093,14 @@ This POST request would result from submitting the HTML form
 ```
 which encodes spaces and ampersands (and more characters for which encoding is
 optional).
+
+Alternative using `QUERY`:
+```
+QUERY http://host/service/People
+Content-Type: application/x-www-form-urlencoded
+
+%24filter=LastName+eq+%27P%26G%27&%24select=FirstName%2CLastName
+```
 :::
 
 With `Content-Type: application/json` query options and function parameters are
@@ -1099,6 +1115,16 @@ Example ##ex: The same request as in [example ##postquery] can be sent with
 `application/json` encoding using the following payload:
 ```json
 POST http://host/service/People/$query
+Content-Type: application/json
+
+{
+  "$filter": "LastName eq 'P&G'",
+  "$select": "FirstName,LastName"
+}
+```
+or
+```json
+QUERY http://host/service/People
 Content-Type: application/json
 
 {
@@ -1127,8 +1153,20 @@ Content-Type: application/json
   "$top": 10
 }
 ```
+or
+```json
+QUERY http://host/service/Employees(23)/self.PendingLeaveRequests
+Content-Type: application/json
 
-The previous request looks analogous to a bound function invocation with expressions (like in [example ##funcexpr])
+{
+  "StartDate@expression": "now()",
+  "EndDate": "2024-12-31",
+  "Approver@expression": "Manager",
+  "$top": 10
+}
+```
+
+The previous requests look analogous to a bound function invocation with expressions (like in [example ##funcexpr])
 if it is written using implicit parameter aliases (see [#OData-Protocol#InlineParameterSyntax]).
 ```
 GET http://host/service/Employees(23)/self.PendingLeaveRequests
