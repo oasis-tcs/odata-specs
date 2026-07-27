@@ -377,7 +377,12 @@ Sections [11.4.4](#DeleteanEntity), [11.4.5.2](#RemoveaReferencetoanEntity)| Ide
 [Section 11.4.12](#ReplaceaCollectionofEntities)| Semantics of `continue-on-error` when replacing a collection of entities | [358](https://github.com/oasis-tcs/odata-specs/issues/358)
 [Section 11.5.6.1](#InvokinganAction)| Omission of collection-valued action parameters| [2045](https://github.com/oasis-tcs/odata-specs/issues/2045)
 [Section 12](#Conformance) | Allow `400 Bad Request` in addition to `501 Not Implemented` for unsupported functionality| [391](https://github.com/oasis-tcs/odata-specs/issues/391)
-[Section 12.4](#InteroperableODataClients) | Encoding of plus character in URLs | [485](https://github.com/oasis-tcs/odata-specs/issues/485)
+[Section 12.4](#InteroperableODataClients) |
+Encoding of plus character in URLs |
+[485](https://github.com/oasis-tcs/odata-specs/issues/485)
+[Section 11.2.1](#SystemQueryOptions) |
+Allow empty `$select` and `$expand` lists |
+[2243](https://github.com/oasis-tcs/odata-specs/issues/2243)
 
 ## <a id="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -2965,6 +2970,11 @@ alias of the schema in order to specify all operations defined in the
 schema. Only aliases defined in the metadata document of the service can
 be used in URLs.
 
+OData 4.02 and greater services MAY support an empty select list to indicate
+that no structural properties are requested. The service still returns expanded
+navigation and stream properties, along with required metadata and/or key properties
+as required by the particular format.
+
 ::: example
 Example 36: request only the `Rating` and `ReleaseDate` for the matching
 Products
@@ -3072,6 +3082,13 @@ the specified content, and MAY choose to return additional information.
 The value of `$expand` is a comma-separated list of expand items. Each
 expand item is evaluated relative to the retrieved resource being
 expanded.
+
+OData 4.02 and greater services MAY support an empty expand list to indicate
+that no navigation or stream properties are requested, including those marked
+with `AutoExpand` or `AutoExpandReferences`, or otherwise required by protocol
+to be returned in the absence of an explicit `$expand`. Selected or default
+structural properties are still returned, along with required metadata according
+to the requested format.
 
 For a full description of the syntax used when building requests, see
 [OData-URL, section 5.1.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#SystemQueryOptionexpand).
