@@ -397,8 +397,9 @@ Level](#OData401IntermediateConformanceLevel)
 6. SHOULD support Passing Query Options in the Request Body (See Url Conventions)
    1. SHOULD support HTTP POST to GET resource path appended with /$query
    2. SHOULD support the HTTP QUERY method
-   3. SHOULD support `Content-Type: application/x-www-form-urlencoded`
-   4. SHOULD support `Content-Type: application/json`
+   3. SHOULD support `Content-Type: text/plain`
+   4. SHOULD support `Content-Type: application/x-www-form-urlencoded`
+   5. SHOULD support `Content-Type: application/json`
 
 In addition, to be considered an *Updatable Intermediate OData 4.02 Service*, the
 service:

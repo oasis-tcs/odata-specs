@@ -34,7 +34,7 @@ In order to be a conforming consumer of the OData JSON format, a client or servi
    7. MUST be prepared to handle decimal values written in exponential notation
 9. MAY be a conforming consumer of the OData 4.02 JSON format, for payloads with an `OData-Version` header value of `4.02`.
    1. MUST support referencing entities by either id or full set of key properties
-   2. MUST NOT require the atomicity group also be included in `dependsOn` for prerequisit requests that are in an atomicity group
+   2. MUST NOT require the atomicity group also be included in `dependsOn` for prerequisite requests that are in an atomicity group
    3. MUST be prepared to deal with a null `mediaContentType` value to represent an empty binary stream
    4. SHOULD support expressions in non-binding action parameters
 
@@ -62,8 +62,7 @@ In order to be a conforming producer of the OData JSON format, a client or servi
     3. MUST return the `requestId` as the first property in a JSON Batch Request or Response Object and `body`, if specified, as the last property for ordered payloads
     4. SHOULD always follow [JSON Payload Ordering Constraints](PayloadOrderingConstraints), regardless the presence of the `odata.streaming` format parameter
     5. SHOULD represent identifiable transient entities using the pattern `odata:transient:{unique-identifier}`, and with an explicit `null` value for the `readlink` if the transient entity cannot be re-read
-    6. SHOULD include the atomicity group in `dependsOn` for prerequisit requests that are in an atomicity group
-
+    6. SHOULD include the atomicity group in `dependsOn` for prerequisite requests that are in an atomicity group
 
 In addition, in order to conform to the OData JSON format, a service:
 
@@ -96,3 +95,4 @@ In addition, in order to comply with the OData 4.02 JSON format, a service:
 33. MUST comply with the OData 4.01 JSON format
 34. SHOULD return the OData JSON 4.02 format for requests with an `OData-MaxVersion` header value of `4.02`
 35. MUST support the OData JSON 4.02 format in request payloads for requests with an `OData-Version` header value of `4.02`
+36. SHOULD support an empty string for `odata.etag` control information to perform the requested operation only if the entity does not already exist
