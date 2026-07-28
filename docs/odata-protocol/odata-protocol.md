@@ -7299,7 +7299,7 @@ service:
 1. MUST conform to the [OData 4.02 Minimal Conformance Level](#OData402MinimalConformanceLevel)
 2. MUST conform to the [OData 4.01 Intermediate Conformance
 Level](#OData401IntermediateConformanceLevel)
-3. MUST support `select` with an empty select list
+3. MUST support `$select` with an empty select list
 4. MUST, if they support optimistic concurrency, return etag values for added/changed entities in a delta payload
 5. MUST support Key-As-Segment URL convention in addition to canonical URL conventions
 6. SHOULD support Passing Query Options in the Request Body (See Url Conventions)
