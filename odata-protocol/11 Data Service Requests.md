@@ -974,8 +974,20 @@ count returned inline may not exactly equal the actual number of items
 returned, due to latency between calculating the count and enumerating
 the last value or due to inexact calculations on the service.
 
-How the count is encoded in the response body is dependent upon the
-selected format.
+Services MAY indicate the accuracy of the count as one of the following values:
+ - `counted` indicates that the count was exact at the time of calculation
+ - `estimated` indicates that the count was estimated
+ - `partial` indicates that the collection contained at least the returned number
+ of items at the time of calculation
+
+Services MAY indicate a default count accuracy through the `CountRestrictions`
+or `DefaultCapabilities` annotation terms in the `Capabilities` vocabulary.
+If a default count accuracy is defined, the service MUST return the
+actual count accuracy applied for any responses with a non-counted accuracy
+different than the defined default.
+
+How the count is encoded in the response body, as well as the accuracy
+(if included), is dependent upon the selected format.
 
 #### ##subsubsubsec System Query Option `$search`
 
