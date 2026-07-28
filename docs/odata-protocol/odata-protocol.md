@@ -2818,11 +2818,11 @@ Clients MUST be prepared to receive additional properties in an entity
 or complex type instance that are not advertised in metadata, even for
 types not marked as open.
 
-Properties that are not available are not returned. If their unavailability
-is due to permissions, the
-[Core.Permissions]{.term}
-annotation, defined in [OData-VocCore](#ODataVocCore) MUST be returned
-for the property with a value of `None`.
+Properties that are not available are not returned. Services return
+the [Core.Permissions]{.term} annotation, defined in [OData-VocCore](#ODataVocCore),
+with a value of `None` if the property can not be accessed due to permissions issues,
+or `Write` if the property can be written but not read
+(for example, a password or other sensitive write-only information).
 If the [`omit-values`](#Preferenceomitvalues) preference is
 applied, `Core.Permissions` or another specific annotation that explains the
 reason MUST be returned for every unavailable property.
