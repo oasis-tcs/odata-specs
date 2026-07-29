@@ -729,9 +729,12 @@ or that the service version its metadata using the
 [Core.SchemaVersion]{.term}
 annotation, defined in [OData-VocCore](#ODataVocCore).
 
-Services that version their metadata MUST support version-specific
-requests according to the
+Services that make breaking changes to the metadata exposed
+through a [metadata document URL](#MetadataDocumentRequest) MUST support
+version-specific requests according to the
 [`$schemaversion`](#SystemQueryOptionschemaversion) system query option.
+
+
 The following Data Model additions are considered safe and do not
 require services to version their entry point or schema.
 - Adding a property that is nullable or
