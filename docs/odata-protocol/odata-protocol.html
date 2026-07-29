@@ -2120,9 +2120,12 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 <ul>
 <li><code>counted</code> indicates that the count was exact at the time of calculation</li>
 <li><code>estimated</code> indicates that the count was estimated</li>
+<li><code>cached</code> indicates the count was based on cached values that may no longer be current</li>
 <li><code>partial</code> indicates that the collection contained at least the returned number of items at the time of calculation</li>
+<li><code>unavailable</code> indicates that the count was unavailable and any count value returned (typically 0) should be ignored</li>
 </ul>
-<p>Services MAY indicate a default count accuracy through the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#CountRestrictions"><code>Capabilities.CountRestrictions</code></a></span> or <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#DefaultCapabilities"><code>Capabilities.DefaultCapabilities</code></a></span> annotation, defined in <a href="#ODataVocCap">OData-VocCap</a>. If a default count accuracy is defined, the service MUST return the actual count accuracy applied for any responses with a non-counted accuracy different than the defined default.</p>
+<p>Note that future versions of this specification may add additional values to describe count accuracy. Clients should treat any unknown value as an inexact count.</p>
+<p>Services MAY indicate a default count accuracy through the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#CountRestrictions"><code>Capabilities.CountRestrictions</code></a></span> or <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#DefaultCapabilities"><code>Capabilities.DefaultCapabilities</code></a></span> annotation, defined in <a href="#ODataVocCap">OData-VocCap</a>. If a default count accuracy is defined, then the service MUST return the actual count accuracy applied for any responses with a non-exact accuracy different than the default.</p>
 <p>How the count is encoded in the response body, as well as the accuracy (if included), is dependent upon the selected format.</p>
 </details>
 <details open><summary>

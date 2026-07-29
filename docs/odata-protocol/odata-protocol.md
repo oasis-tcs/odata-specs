@@ -3602,14 +3602,20 @@ the last value or due to inexact calculations on the service.
 Services MAY indicate the accuracy of the count as one of the following values:
  - `counted` indicates that the count was exact at the time of calculation
  - `estimated` indicates that the count was estimated
+ - `cached` indicates the count was based on cached values that may no longer be current
  - `partial` indicates that the collection contained at least the returned number
  of items at the time of calculation
+ - `unavailable` indicates that the count was unavailable and any count value returned (typically 0) should be ignored
+
+Note that future versions of this specification may add additional values
+to describe count accuracy. Clients should treat any unknown value as an
+inexact count.
 
 Services MAY indicate a default count accuracy through the [Capabilities.CountRestrictions]{.term} or [Capabilities.DefaultCapabilities]{.term}
 annotation, defined in [OData-VocCap](#ODataVocCap).
-If a default count accuracy is defined, the service MUST return the
-actual count accuracy applied for any responses with a non-counted accuracy
-different than the defined default.
+If a default count accuracy is defined, then the service MUST return the
+actual count accuracy applied for any responses with a non-exact accuracy
+different than the default.
 
 How the count is encoded in the response body, as well as the accuracy
 (if included), is dependent upon the selected format.
