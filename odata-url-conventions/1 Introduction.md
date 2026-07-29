@@ -38,11 +38,12 @@ New overload for function `matchespattern` with flags|
 [Section ##SystemQueryOptionexpand]| 
 Nested query options can only appear once per expand item| 
 [2004](https://github.com/oasis-tcs/odata-specs/issues/2004)
+[Section ##SystemQueryOptionexpand], [Section ##SystemQueryOptionselect]| 
+Allow empty `$select` and `$expand` lists| 
+[2243](https://github.com/oasis-tcs/odata-specs/issues/2243)
 [Section ##SystemQueryOptionsearch]| 
 Allow alternative `$search` syntax| 
 [293](https://github.com/oasis-tcs/odata-specs/issues/293)
-Allow empty `$select` and `$expand` lists| 
-[2243](https://github.com/oasis-tcs/odata-specs/issues/2243)
 
 ## ##subsec Glossary
 
