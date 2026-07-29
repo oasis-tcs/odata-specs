@@ -5876,6 +5876,9 @@ all constructs defined in this specification, including custom
 annotations, and MUST ignore constructs not defined in this version of
 the specification.
 
+In addition, conforming OData 4.02 clients:
+1. MUST evaluate annotation target paths according to the clarified [Path Evaluation Rules](#PathEvaluation).
+
 
 -------
 

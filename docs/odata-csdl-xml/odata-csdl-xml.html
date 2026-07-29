@@ -3894,6 +3894,10 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <li>SHOULD use <a href="#SimpleIdentifier">simple identifiers</a> matching the pattern <code>^[_A-Za-z][_A-Za-z0-9]*$</code></li>
 </ol>
 <p>Conforming clients MUST be prepared to consume a model that uses any or all constructs defined in this specification, including custom annotations, and MUST ignore constructs not defined in this version of the specification.</p>
+<p>In addition, conforming OData 4.02 clients:</p>
+<ol type="1">
+<li>MUST evaluate annotation target paths according to the clarified <a href="#PathEvaluation">Path Evaluation Rules</a>.</li>
+</ol>
 </details>
 <hr />
 <details open><summary>
