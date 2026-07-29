@@ -565,6 +565,11 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/368">368</a></td>
 </tr>
 <tr>
+<td><a href="#SystemQueryOptions">Section 11.2.1</a></td>
+<td>Allow empty <code>$select</code> and <code>$expand</code> lists</td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/2243">2243</a></td>
+</tr>
+<tr>
 <td><a href="#DataModification">Section 11.4</a></td>
 <td>Response code <code>204 No Content</code> after successful data modification if requested response could not be constructed</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/443">443</a></td>
@@ -626,17 +631,11 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </tr>
 <tr>
 <td><a href="#InteroperableODataClients">Section 12.4</a></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
 <td>Encoding of plus character in URLs</td>
-<td></td>
-<td></td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/485">485</a></td>
 </tr>
 </tbody>
 </table>
-<p><a href="https://github.com/oasis-tcs/odata-specs/issues/485">485</a> <a href="#SystemQueryOptions">Section 11.2.1</a> | Allow empty <code>$select</code> and <code>$expand</code> lists | <a href="https://github.com/oasis-tcs/odata-specs/issues/2243">2243</a></p>
 </details>
 <details open><summary>
 <h2 id="12-glossary"><a id="Glossary" href="#Glossary">1.2 Glossary</a></h2>
@@ -796,7 +795,8 @@ This uses pandoc 3.8.3 from https://github.com/jgm/pandoc/releases/tag/3.8.3.
 <h2 id="52-model-versioning"><a id="ModelVersioning" href="#ModelVersioning">5.2 Model Versioning</a></h2>
 </summary>
 <p>The <a href="#DataModel">Data Model</a> exposed by an OData Service defines a contract between the OData service and its clients. Services are allowed to extend their model only to the degree that it does not break existing clients. Breaking changes, such as removing properties, changing the type of existing properties, adding or removing key properties, or reordering action or function parameters, require that a new service version is provided at a different service root URL for the new model, or that the service version its metadata using the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#SchemaVersion"><code>Core.SchemaVersion</code></a></span> annotation, defined in <a href="#ODataVocCore">OData-VocCore</a>.</p>
-<p>Services that version their metadata MUST support version-specific requests according to the <a href="#SystemQueryOptionschemaversion"><code>$schemaversion</code></a> system query option. The following Data Model additions are considered safe and do not require services to version their entry point or schema.</p>
+<p>Services that make breaking changes to the metadata exposed through a <a href="#MetadataDocumentRequest">metadata document URL</a> MUST support version-specific requests according to the <a href="#SystemQueryOptionschemaversion"><code>$schemaversion</code></a> system query option.</p>
+<p>The following Data Model additions are considered safe and do not require services to version their entry point or schema.</p>
 <ul>
 <li>Adding a property that is nullable or has a default value; if it has the same name as an existing dynamic property, it must have the same type (or base type) as the existing dynamic property</li>
 <li>Adding a navigation property that is nullable or collection-valued; if it has the same name as an existing dynamic navigation property, it must have the same type (or base type) as the existing dynamic navigation property</li>
@@ -1748,7 +1748,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 </div>
 <p>The set of structural or navigation properties to return may be specified through <a href="#SystemQueryOptionselect"><code>$select</code></a> or <a href="#SystemQueryOptionexpand"><code>$expand</code></a> system query options.</p>
 <p>Clients MUST be prepared to receive additional properties in an entity or complex type instance that are not advertised in metadata, even for types not marked as open.</p>
-<p>Properties that are not available are not returned. If their unavailability is due to permissions, the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Permissions"><code>Core.Permissions</code></a></span> annotation, defined in <a href="#ODataVocCore">OData-VocCore</a> MUST be returned for the property with a value of <code>None</code>. If the <a href="#Preferenceomitvalues"><code>omit-values</code></a> preference is applied, <code>Core.Permissions</code> or another specific annotation that explains the reason MUST be returned for every unavailable property.</p>
+<p>Properties that are not available are not returned. Services return the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Permissions"><code>Core.Permissions</code></a></span> annotation, defined in <a href="#ODataVocCore">OData-VocCore</a>, with a value of <code>None</code> if the property can not be accessed due to permissions issues, or <code>Write</code> if the property can be written but not read (for example, a password or other sensitive write-only information). If the <a href="#Preferenceomitvalues"><code>omit-values</code></a> preference is applied, <code>Core.Permissions</code> or another specific annotation that explains the reason MUST be returned for every unavailable property.</p>
 <p>If no entity exists with the specified request URL, the service responds with <a href="#ResponseCode404NotFound"><code>404 Not Found</code></a>.</p>
 </details>
 <details open><summary>
