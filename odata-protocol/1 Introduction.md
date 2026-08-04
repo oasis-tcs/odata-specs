@@ -31,6 +31,9 @@ Section | Feature / Change | Issue
 [Section ##CollectionofEntities]| 
 Context URLs use parentheses-style keys without percent-encoding| 
 [368](https://github.com/oasis-tcs/odata-specs/issues/368)
+[Section ##SystemQueryOptions] | 
+Allow empty `$select` and `$expand` lists | 
+[2243](https://github.com/oasis-tcs/odata-specs/issues/2243)
 [Section ##DataModification]| 
 Response code `204 No Content` after successful data modification if requested response could not be constructed| 
 [443](https://github.com/oasis-tcs/odata-specs/issues/443)
@@ -63,12 +66,9 @@ Control information to prevent updates|
 Omission of collection-valued action parameters| 
 [2045](https://github.com/oasis-tcs/odata-specs/issues/2045)
 [Section ##Conformance] | Allow `400 Bad Request` in addition to `501 Not Implemented` for unsupported functionality| [391](https://github.com/oasis-tcs/odata-specs/issues/391)
-[Section ##InteroperableODataClients] |
-Encoding of plus character in URLs |
+[Section ##InteroperableODataClients] | 
+Encoding of plus character in URLs | 
 [485](https://github.com/oasis-tcs/odata-specs/issues/485)
-[Section ##SystemQueryOptions] |
-Allow empty `$select` and `$expand` lists |
-[2243](https://github.com/oasis-tcs/odata-specs/issues/2243)
 
 ## ##subsec Glossary
 
@@ -419,9 +419,12 @@ or that the service version its metadata using the
 [Core.SchemaVersion]{.term}
 annotation, defined in [OData-VocCore](#ODataVocCore).
 
-Services that version their metadata MUST support version-specific
-requests according to the
+Services that make breaking changes to the metadata exposed
+through a [metadata document URL](#MetadataDocumentRequest) MUST support
+version-specific requests according to the
 [`$schemaversion`](#SystemQueryOptionschemaversion) system query option.
+
+
 The following Data Model additions are considered safe and do not
 require services to version their entry point or schema.
 - Adding a property that is nullable or
