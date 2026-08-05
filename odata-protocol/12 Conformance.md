@@ -205,10 +205,11 @@ according to the JSON Batch format defined in [#OData-JSON#BatchRequestsandRespo
 OData services can report conformance to the OData 4.01 specification by
 including `4.01` in the list of supported protocol versions in the
 [Core.ODataVersions]{.term}
-annotation, as defined in [OData-VocCore](#ODataVocCore). As all OData
-4.01 compliant services must also be fully OData 4.0 compliant, OData
-4.01 services do not need to separately list `4.0` as a supported
-version.
+annotation, as defined in [OData-VocCore](#ODataVocCore). As OData
+supports semantic versioning, clients can assume that services reporting
+`4.01` also support `4.0`. In order to interoperate with the greatest number
+of clients, OData 4.01 services SHOULD advertise both `4.0` and `4.01` as
+supported versions.
 
 ### ##subsubsec OData 4.01 Minimal Conformance Level
 
@@ -358,10 +359,11 @@ case-insensitive comparison
 OData services can report conformance to the OData 4.02 specification by
 including `4.02` in the list of supported protocol versions in the
 [Core.ODataVersions]{.term}
-annotation, as defined in [OData-VocCore](#ODataVocCore). As all OData
-4.02 compliant services must also be fully OData 4.0 and 4.01 compliant, OData
-4.02 services do not need to separately list `4.0` and `4.01` as supported
-versions.
+annotation, as defined in [OData-VocCore](#ODataVocCore). As OData
+supports semantic versioning, clients can assume that services reporting
+`4.02` also support both `4.0` and `4.01`. In order to interoperate with
+the greatest number of clients, OData 4.02 services SHOULD advertise
+`4.0`, `4.01`, and `4.02` as supported versions.
 
 ### ##subsubsec OData 4.02 Minimal Conformance Level
 
