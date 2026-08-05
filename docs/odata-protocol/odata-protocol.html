@@ -566,7 +566,12 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 </tr>
 <tr>
 <td><a href="#SystemQueryOptions">Section 11.2.1</a></td>
-<td>Allow empty <code>$select</code> and <code>$expand</code> lists</td>
+<td>Allow <code>$key</code> in <code>$select</code> list to include key properties</td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/2257">2257</a></td>
+</tr>
+<tr>
+<td><a href="#SystemQueryOptions">Section 11.2.1</a></td>
+<td>Allow empty <code>$expand</code> lists</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/2243">2243</a></td>
 </tr>
 <tr>
@@ -1804,7 +1809,7 @@ http://host/service/$metadata#Customers/$delta</code></pre>
 </summary>
 <p>The <code>$select</code> system query option requests that the service return only the properties, dynamic properties, <a href="#Actions">actions</a> and <a href="#Functions">functions</a> explicitly requested by the client. The service returns the specified content, if available, along with any available <a href="#SystemQueryOptionexpand">expanded</a> navigation or stream properties, and MAY return additional information.</p>
 <p>The value of the <code>$select</code> query option is a comma-separated list of paths that end with properties, non-entity-valued instance annotations, qualified action names, or qualified function names, as well as of the star operator (<code>*</code>), or the star operator prefixed with the namespace or alias of the schema in order to specify all operations defined in the schema. Only aliases defined in the metadata document of the service can be used in URLs.</p>
-<p>OData 4.02 and greater services MAY support an empty select list to indicate that no structural properties are requested. The service still returns expanded navigation and stream properties, along with required metadata and/or key properties as required by the particular format.</p>
+<p>OData 4.02 and greater services MAY support <code>$key</code> in the select list to indicate that all key properties be included in the response.</p>
 <div class="example">
 <p>Example 36: request only the <code>Rating</code> and <code>ReleaseDate</code> for the matching Products</p>
 <pre><code>GET http://host/service/Products?$select=Rating,ReleaseDate</code></pre>

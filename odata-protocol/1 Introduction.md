@@ -32,7 +32,10 @@ Section | Feature / Change | Issue
 Context URLs use parentheses-style keys without percent-encoding| 
 [368](https://github.com/oasis-tcs/odata-specs/issues/368)
 [Section ##SystemQueryOptions] | 
-Allow empty `$select` and `$expand` lists | 
+Allow `$key` in `$select` list to include key properties | 
+[2257](https://github.com/oasis-tcs/odata-specs/issues/2257)
+[Section ##SystemQueryOptions] | 
+Allow empty `$expand` lists | 
 [2243](https://github.com/oasis-tcs/odata-specs/issues/2243)
 [Section ##DataModification]| 
 Response code `204 No Content` after successful data modification if requested response could not be constructed| 

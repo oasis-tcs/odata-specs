@@ -365,7 +365,8 @@ Section | Feature / Change | Issue
 [Section 8.2.8.3](#Preferencecontinueonerrorodatacontinueonerror) | Responses that include errors MUST include the `Preference-Applied` header with `continue-on-error` set to `true` | [1965](https://github.com/oasis-tcs/odata-specs/issues/1965)
 [Section 8.2.8.7](#Preferencereturnrepresentationandreturnminimal) | Added `delta` format parameter to `return=representation` preference | [309](https://github.com/oasis-tcs/odata-specs/issues/309)
 [Section 10.2](#CollectionofEntities)| Context URLs use parentheses-style keys without percent-encoding| [368](https://github.com/oasis-tcs/odata-specs/issues/368)
-[Section 11.2.1](#SystemQueryOptions) | Allow empty `$select` and `$expand` lists | [2243](https://github.com/oasis-tcs/odata-specs/issues/2243)
+[Section 11.2.1](#SystemQueryOptions) | Allow `$key` in `$select` list to include key properties | [2257](https://github.com/oasis-tcs/odata-specs/issues/2257)
+[Section 11.2.1](#SystemQueryOptions) | Allow empty `$expand` lists | [2243](https://github.com/oasis-tcs/odata-specs/issues/2243)
 [Section 11.4](#DataModification)| Response code `204 No Content` after successful data modification if requested response could not be constructed| [443](https://github.com/oasis-tcs/odata-specs/issues/443)
 [Section 11.4.2](#CreateanEntity)| Services can validate non-insertable property values in insert payloads| [356](https://github.com/oasis-tcs/odata-specs/issues/356)
 [Section 11.4.2.1](#LinktoRelatedEntitiesWhenCreatinganEntity)| Client can update properties of existing related entities when creating an entity| [352](https://github.com/oasis-tcs/odata-specs/issues/352)
@@ -2969,10 +2970,8 @@ alias of the schema in order to specify all operations defined in the
 schema. Only aliases defined in the metadata document of the service can
 be used in URLs.
 
-OData 4.02 and greater services MAY support an empty select list to indicate
-that no structural properties are requested. The service still returns expanded
-navigation and stream properties, along with required metadata and/or key properties
-as required by the particular format.
+OData 4.02 and greater services MAY support `$key` in the select list to indicate
+that all key properties be included in the response.
 
 ::: example
 Example 36: request only the `Rating` and `ReleaseDate` for the matching

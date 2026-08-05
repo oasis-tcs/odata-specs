@@ -429,8 +429,13 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/2004">2004</a></td>
 </tr>
 <tr>
-<td><a href="#SystemQueryOptionexpand">Section 5.1.3</a>, <a href="#SystemQueryOptionselect">Section 5.1.4</a></td>
-<td>Allow empty <code>$select</code> and <code>$expand</code> lists</td>
+<td><a href="#SystemQueryOptionselect">Section 5.1.4</a></td>
+<td>Allow <code>$key</code> in <code>$select</code> list to include key properties</td>
+<td><a href="https://github.com/oasis-tcs/odata-specs/issues/2257">2257</a></td>
+</tr>
+<tr>
+<td><a href="#SystemQueryOptionexpand">Section 5.1.3</a></td>
+<td>Allow empty <code>$expand</code> lists</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/2243">2243</a></td>
 </tr>
 <tr>
@@ -2366,7 +2371,7 @@ Edm.Double geo.length(Edm.GeometryLineString)</code></pre>
 <li>a star (<code>*</code>), to include all declared or dynamic properties of the type, or</li>
 <li>a qualified schema name followed by a dot (<code>.</code>) followed by a star (<code>*</code>) to request all applicable actions or functions from that schema</li>
 </ul>
-<p>OData 4.02 and greater services MAY support an empty select list to indicate that no structural properties are requested. The service still returns expanded navigation and stream properties, along with required metadata and/or key properties as required by the particular format.</p>
+<p>OData 4.02 and greater services MAY support <code>$key</code> in the select list to indicate that all key properties be included in the response.</p>
 <p>A path consists of segments separated by a forward slash (<code>/</code>). Segments are either names of single- or collection-valued complex properties, <a href="#AnnotationValuesinExpressions">instance annotations</a>, or <a href="#AddressingDerivedTypes">type-cast segments</a> consisting of the qualified name of a structured type that is derived from the type identified by the preceding path segment to reach properties defined on the derived type.</p>
 <p>A path can end with</p>
 <ul>

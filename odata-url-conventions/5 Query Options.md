@@ -2245,10 +2245,8 @@ dynamic properties of the type, or
 dot (`.`) followed by a star (`*`) to request all applicable actions or
 functions from that schema
 
-OData 4.02 and greater services MAY support an empty select list to indicate
-that no structural properties are requested. The service still returns expanded
-navigation and stream properties, along with required metadata and/or key properties
-as required by the particular format.
+OData 4.02 and greater services MAY support `$key` in the select list to indicate
+that all key properties be included in the response.
 
 A path consists of segments separated by a forward slash (`/`). Segments
 are either names of single- or collection-valued complex properties,
