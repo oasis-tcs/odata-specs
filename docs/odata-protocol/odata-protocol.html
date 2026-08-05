@@ -3736,7 +3736,7 @@ Content-Length: ###
 <details open><summary>
 <h2 id="122-odata-401-service-conformance-levels"><a id="OData401ServiceConformanceLevels" href="#OData401ServiceConformanceLevels">12.2 OData 4.01 Service Conformance Levels</a></h2>
 </summary>
-<p>OData services can report conformance to the OData 4.01 specification by including <code>4.01</code> in the list of supported protocol versions in the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ODataVersions"><code>Core.ODataVersions</code></a></span> annotation, as defined in <a href="#ODataVocCore">OData-VocCore</a>. As all OData 4.01 compliant services must also be fully OData 4.0 compliant, OData 4.01 services do not need to separately list <code>4.0</code> as a supported version.</p>
+<p>OData services can report conformance to the OData 4.01 specification by including <code>4.01</code> in the list of supported protocol versions in the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ODataVersions"><code>Core.ODataVersions</code></a></span> annotation, as defined in <a href="#ODataVocCore">OData-VocCore</a>. As OData supports semantic versioning, clients can assume that services reporting <code>4.01</code> also support <code>4.0</code>. In order to interoperate with the greatest number of clients, OData 4.01 services SHOULD advertise both <code>4.0</code> and <code>4.01</code> as supported versions.</p>
 <details open><summary>
 <h3 id="1221-odata-401-minimal-conformance-level"><a id="OData401MinimalConformanceLevel" href="#OData401MinimalConformanceLevel">12.2.1 OData 4.01 Minimal Conformance Level</a></h3>
 </summary>
@@ -3839,7 +3839,7 @@ Content-Length: ###
 <details open><summary>
 <h2 id="123-odata-402-service-conformance-levels"><a id="OData402ServiceConformanceLevels" href="#OData402ServiceConformanceLevels">12.3 OData 4.02 Service Conformance Levels</a></h2>
 </summary>
-<p>OData services can report conformance to the OData 4.02 specification by including <code>4.02</code> in the list of supported protocol versions in the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ODataVersions"><code>Core.ODataVersions</code></a></span> annotation, as defined in <a href="#ODataVocCore">OData-VocCore</a>. As all OData 4.02 compliant services must also be fully OData 4.0 and 4.01 compliant, OData 4.02 services do not need to separately list <code>4.0</code> and <code>4.01</code> as supported versions.</p>
+<p>OData services can report conformance to the OData 4.02 specification by including <code>4.02</code> in the list of supported protocol versions in the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ODataVersions"><code>Core.ODataVersions</code></a></span> annotation, as defined in <a href="#ODataVocCore">OData-VocCore</a>. As OData supports semantic versioning, clients can assume that services reporting <code>4.02</code> also support both <code>4.0</code> and <code>4.01</code>. In order to interoperate with the greatest number of clients, OData 4.02 services SHOULD advertise <code>4.0</code>, <code>4.01</code>, and <code>4.02</code> as supported versions.</p>
 <details open><summary>
 <h3 id="1231-odata-402-minimal-conformance-level"><a id="OData402MinimalConformanceLevel" href="#OData402MinimalConformanceLevel">12.3.1 OData 4.02 Minimal Conformance Level</a></h3>
 </summary>
