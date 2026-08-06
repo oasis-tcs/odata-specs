@@ -334,10 +334,8 @@ alias of the schema in order to specify all operations defined in the
 schema. Only aliases defined in the metadata document of the service can
 be used in URLs.
 
-OData 4.02 and greater services MAY support an empty select list to indicate
-that no structural properties are requested. The service still returns expanded
-navigation and stream properties, along with required metadata and/or key properties
-as required by the particular format.
+OData 4.02 and greater services MAY support `$key` in the select list to indicate
+that all key properties be included in the response.
 
 ::: example
 Example ##ex: request only the `Rating` and `ReleaseDate` for the matching
