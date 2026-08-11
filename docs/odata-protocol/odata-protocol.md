@@ -7387,7 +7387,8 @@ the requested format
 determine if a 4.02 feature is supported but MAY attempt syntax and be
 prepared to handle `400 Bad Request` or [`501 Not Implemented`](#ResponseCode501NotImplemented)
 25. SHOULD use Context URL to interpret payloads, rather than inferring from the request
-26. SHOULD NOT specify an empty `$select` or `$expand` list to a 4.01 or earlier service
+26. SHOULD NOT specify an empty `$expand` list to a 4.01 or earlier service
+27. SHOULD NOT specify `$key` in a `$select` list to a 4.01 or earlier service
 
 
 -------
