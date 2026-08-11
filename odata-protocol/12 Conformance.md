@@ -380,6 +380,7 @@ format
 
 In addition, to be considered an *Updatable OData 4.02 Service*, the
 service:
+
 6. MUST conform to the *Updatable OData 4.01 Service* requirements
 7. MUST, if it supports Deep Inserts, include in the response at least the properties that were present in the Deep Insert request
 8. SHOULD support Upserts to single-valued non-containment navigation properties
@@ -405,6 +406,7 @@ Level](#OData401IntermediateConformanceLevel)
 
 In addition, to be considered an *Updatable Intermediate OData 4.02 Service*, the
 service:
+
 7. MUST conform to *Updatable OData 4.02 Service* requirements
 8. MUST support Upserts to single-valued non-containment navigation properties
 9. MUST, if they support optimistic concurrency, honor etags in delta update payloads

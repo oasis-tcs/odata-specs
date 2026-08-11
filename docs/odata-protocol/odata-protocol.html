@@ -3851,7 +3851,13 @@ Content-Length: ###
 <li>SHOULD support Key-As-Segment URL convention in addition to canonical URL conventions</li>
 <li>SHOULD, if they support optimistic concurrency, return etag values for added/changed entities in a delta payload</li>
 </ol>
-<p>In addition, to be considered an <em>Updatable OData 4.02 Service</em>, the service: 6. MUST conform to the <em>Updatable OData 4.01 Service</em> requirements 7. MUST, if it supports Deep Inserts, include in the response at least the properties that were present in the Deep Insert request 8. SHOULD support Upserts to single-valued non-containment navigation properties 9. SHOULD, if they support optimistic concurrency, honor etags in delta update payloads</p>
+<p>In addition, to be considered an <em>Updatable OData 4.02 Service</em>, the service:</p>
+<ol start="6" type="1">
+<li>MUST conform to the <em>Updatable OData 4.01 Service</em> requirements</li>
+<li>MUST, if it supports Deep Inserts, include in the response at least the properties that were present in the Deep Insert request</li>
+<li>SHOULD support Upserts to single-valued non-containment navigation properties</li>
+<li>SHOULD, if they support optimistic concurrency, honor etags in delta update payloads</li>
+</ol>
 </details>
 <details open><summary>
 <h3 id="1232-odata-402-intermediate-conformance-level"><a id="OData402IntermediateConformanceLevel" href="#OData402IntermediateConformanceLevel">12.3.2 OData 4.02 Intermediate Conformance Level</a></h3>
@@ -3872,7 +3878,14 @@ Content-Length: ###
 <li>SHOULD support <code>Content-Type: application/json</code></li>
 </ol></li>
 </ol>
-<p>In addition, to be considered an <em>Updatable Intermediate OData 4.02 Service</em>, the service: 7. MUST conform to <em>Updatable OData 4.02 Service</em> requirements 8. MUST support Upserts to single-valued non-containment navigation properties 9. MUST, if they support optimistic concurrency, honor etags in delta update payloads 10. SHOULD support updating properties of related entities when updating an entity 11. SHOULD support updating a complex property to a different type in the hierarchy</p>
+<p>In addition, to be considered an <em>Updatable Intermediate OData 4.02 Service</em>, the service:</p>
+<ol start="7" type="1">
+<li>MUST conform to <em>Updatable OData 4.02 Service</em> requirements</li>
+<li>MUST support Upserts to single-valued non-containment navigation properties</li>
+<li>MUST, if they support optimistic concurrency, honor etags in delta update payloads</li>
+<li>SHOULD support updating properties of related entities when updating an entity</li>
+<li>SHOULD support updating a complex property to a different type in the hierarchy</li>
+</ol>
 </details>
 <details open><summary>
 <h3 id="1233-odata-402-advanced-conformance-level"><a id="OData402AdvancedConformanceLevel" href="#OData402AdvancedConformanceLevel">12.3.3 OData 4.02 Advanced Conformance Level</a></h3>
