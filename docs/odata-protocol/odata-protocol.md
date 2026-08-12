@@ -7301,7 +7301,7 @@ service:
 1. MUST conform to the [OData 4.02 Minimal Conformance Level](#OData402MinimalConformanceLevel)
 2. MUST conform to the [OData 4.01 Intermediate Conformance
 Level](#OData401IntermediateConformanceLevel)
-3. MUST support `$select` with an empty select list
+3. MUST support `$key` in `$select`
 4. MUST, if they support optimistic concurrency, return etag values for added/changed entities in a delta payload
 5. MUST support Key-As-Segment URL convention in addition to canonical URL conventions
 6. SHOULD support Passing Query Options in the Request Body (See Url Conventions)
@@ -7391,7 +7391,8 @@ the requested format
 determine if a 4.02 feature is supported but MAY attempt syntax and be
 prepared to handle `400 Bad Request` or [`501 Not Implemented`](#ResponseCode501NotImplemented)
 25. SHOULD use Context URL to interpret payloads, rather than inferring from the request
-26. SHOULD NOT specify an empty `$select` or `$expand` list to a 4.01 or earlier service
+26. SHOULD NOT specify an empty `$expand` list to a 4.01 or earlier service
+27. SHOULD NOT specify `$key` in a `$select` list to a 4.01 or earlier service
 
 
 -------
