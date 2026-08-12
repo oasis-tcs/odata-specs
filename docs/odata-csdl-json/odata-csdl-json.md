@@ -6172,6 +6172,7 @@ types
 13. MAY include new CSDL annotations
 
 In addition, an OData 4.01 or earlier metadata response
+
 14. MUST NOT include functions containing stream-valued non-binding parameters
 15. MUST NOT include actions or functions that take or return delta payloads
 16. SHOULD NOT include actions or functions that return entity collections that may contain NULL values

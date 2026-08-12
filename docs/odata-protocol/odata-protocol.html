@@ -3854,7 +3854,7 @@ Content-Length: ###
 <p>In addition, to be considered an <em>Updatable OData 4.02 Service</em>, the service:</p>
 <ol start="6" type="1">
 <li>MUST conform to the <em>Updatable OData 4.01 Service</em> requirements</li>
-<li>MUST, if it supports Deep Inserts, include in the response at least the properties that were present in the Deep Insert request</li>
+<li>MUST, if it supports Deep Inserts, by default include in the response at least the properties that were present in the Deep Insert request</li>
 <li>SHOULD support Upserts to single-valued non-containment navigation properties</li>
 <li>SHOULD, if they support optimistic concurrency, honor etags in delta update payloads</li>
 </ol>
@@ -3868,7 +3868,6 @@ Content-Length: ###
 <li>MUST conform to the <a href="#OData401IntermediateConformanceLevel">OData 4.01 Intermediate Conformance Level</a></li>
 <li>MUST support <code>$select</code> with an empty select list</li>
 <li>MUST, if they support optimistic concurrency, return etag values for added/changed entities in a delta payload</li>
-<li>MUST support Key-As-Segment URL convention in addition to canonical URL conventions</li>
 <li>SHOULD support Passing Query Options in the Request Body (See Url Conventions)
 <ol type="1">
 <li>SHOULD support HTTP POST to GET resource path appended with /$query</li>
@@ -3879,7 +3878,7 @@ Content-Length: ###
 </ol></li>
 </ol>
 <p>In addition, to be considered an <em>Updatable Intermediate OData 4.02 Service</em>, the service:</p>
-<ol start="7" type="1">
+<ol start="6" type="1">
 <li>MUST conform to <em>Updatable OData 4.02 Service</em> requirements</li>
 <li>MUST support Upserts to single-valued non-containment navigation properties</li>
 <li>MUST, if they support optimistic concurrency, honor etags in delta update payloads</li>

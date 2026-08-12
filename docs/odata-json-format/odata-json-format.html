@@ -2624,7 +2624,8 @@ Preference-Applied: return=minimal, continue-on-error
 </ol>
 <p>In order to be a conforming producer of the OData JSON format, a client or service:</p>
 <ol start="10" type="1">
-<li>MUST support generating OData 4.0 JSON compliant payloads with an <code>OData-Version</code> header value of <code>4.0</code>.</li>
+<li>MUST support generating OData 4.0 JSON compliant payloads with an <code>OData-Version</code> header value of <code>4.0</code>.
+<ol type="1">
 <li>MUST NOT omit the <code>odata.</code> prefix from format parameters or control information</li>
 <li>MUST NOT omit the <code>#</code> prefix from <code>@odata.type</code> values</li>
 <li>MUST NOT include entity values or entity references within a collection-valued navigation property in the body of a <code>PATCH</code>, <code>PUT</code>, or <code>POST</code> request</li>
@@ -2632,7 +2633,9 @@ Preference-Applied: return=minimal, continue-on-error
 <li>MUST NOT advertise available actions or functions using name/value pairs prefixed with a property name</li>
 <li>MUST NOT return a null value for name/value pairs representing actions or functions that are not available</li>
 <li>MUST NOT represent numeric value exceptions for values other than single and double values using the string values <code>-INF</code>, <code>INF</code>, and <code>NaN</code></li>
-<li>MAY support generating OData 4.01 JSON compliant payloads for requests with an <code>OData-Version</code> header value of <code>4.01</code>.</li>
+</ol></li>
+<li>MAY support generating OData 4.01 JSON compliant payloads for requests with an <code>OData-Version</code> header value of <code>4.01</code>.
+<ol type="1">
 <li>MUST return property annotations immediately before the property they annotate</li>
 <li>SHOULD omit the <code>odata.</code> prefix from format parameters and control information</li>
 <li>SHOULD omit the <code>#</code> prefix from <code>@type</code> primitive values</li>
@@ -2640,13 +2643,16 @@ Preference-Applied: return=minimal, continue-on-error
 <li>MAY include <code>TargetId</code> within a deleted link for a relationship with a maximum cardinality of 1</li>
 <li>MAY return decimal values written in exponential notation</li>
 <li>MAY represent numeric value exceptions for decimal values with floating scale using the string values <code>-INF</code>, <code>INF</code>, and <code>NaN</code></li>
-<li>MAY support generating OData 4.02 JSON compliant payloads for requests with an <code>OData-Version</code> header value of <code>4.02</code>.</li>
+</ol></li>
+<li>MAY support generating OData 4.02 JSON compliant payloads for requests with an <code>OData-Version</code> header value of <code>4.02</code>.
+<ol type="1">
 <li>MUST NOT percent-encode the fragment portion of a Context URL</li>
 <li>MUST order <code>@type</code> control information, if specified, immediately following <code>@removed</code> in a deleted entity for ordered payloads</li>
 <li>MUST return the <code>requestId</code> as the first property in a JSON Batch Request or Response Object and <code>body</code>, if specified, as the last property for ordered payloads</li>
 <li>SHOULD always follow <a href="PayloadOrderingConstraints">JSON Payload Ordering Constraints</a>, regardless the presence of the <code>odata.streaming</code> format parameter</li>
 <li>SHOULD represent identifiable transient entities using the pattern <code>odata:transient:{unique-identifier}</code>, and with an explicit <code>null</code> value for the <code>readlink</code> if the transient entity cannot be re-read</li>
 <li>SHOULD include the atomicity group in <code>dependsOn</code> for prerequisite requests that are in an atomicity group</li>
+</ol></li>
 </ol>
 <p>In addition, in order to conform to the OData JSON format, a service:</p>
 <ol start="13" type="1">

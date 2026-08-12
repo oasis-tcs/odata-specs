@@ -3882,7 +3882,12 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <li>SHOULD NOT include constant <a href="#GeoValues">Geo</a> or <a href="#StreamValues">Stream values</a> in annotations</li>
 <li>MAY include new CSDL annotations</li>
 </ol>
-<p>In addition, an OData 4.01 or earlier metadata response 14. MUST NOT include functions containing stream-valued non-binding parameters 15. MUST NOT include actions or functions that take or return delta payloads 16. SHOULD NOT include actions or functions that return entity collections that may contain NULL values</p>
+<p>In addition, an OData 4.01 or earlier metadata response</p>
+<ol start="14" type="1">
+<li>MUST NOT include functions containing stream-valued non-binding parameters</li>
+<li>MUST NOT include actions or functions that take or return delta payloads</li>
+<li>SHOULD NOT include actions or functions that return entity collections that may contain NULL values</li>
+</ol>
 <p>In addition, OData 4.01 or greater services:</p>
 <ol start="17" type="1">
 <li>SHOULD NOT have identifiers within a uniqueness scope (e.g. a schema, a structural type, or an entity container) that differ only by case</li>

@@ -4072,28 +4072,28 @@ In order to be a conforming consumer of the OData JSON format, a client or servi
 In order to be a conforming producer of the OData JSON format, a client or service:
 
 10. MUST support generating OData 4.0 JSON compliant payloads with an `OData-Version` header value of `4.0`.
-   1. MUST NOT omit the `odata.` prefix from format parameters or control information
-   2. MUST NOT omit the `#` prefix from `@odata.type` values
-   3. MUST NOT include entity values or entity references within a collection-valued navigation property in the body of a `PATCH`, `PUT`, or `POST` request
-   4. MUST NOT return decimal values written in exponential notation unless the ExponentialDecimals format parameter is specified.
-   5. MUST NOT advertise available actions or functions using name/value pairs prefixed with a property name
-   6. MUST NOT return a null value for name/value pairs representing actions or functions that are not available
-   7. MUST NOT represent numeric value exceptions for values other than single and double values using the string values `-INF`, `INF`, and `NaN`
+    1. MUST NOT omit the `odata.` prefix from format parameters or control information
+    2. MUST NOT omit the `#` prefix from `@odata.type` values
+    3. MUST NOT include entity values or entity references within a collection-valued navigation property in the body of a `PATCH`, `PUT`, or `POST` request
+    4. MUST NOT return decimal values written in exponential notation unless the ExponentialDecimals format parameter is specified.
+    5. MUST NOT advertise available actions or functions using name/value pairs prefixed with a property name
+    6. MUST NOT return a null value for name/value pairs representing actions or functions that are not available
+    7. MUST NOT represent numeric value exceptions for values other than single and double values using the string values `-INF`, `INF`, and `NaN`
 11. MAY support generating OData 4.01 JSON compliant payloads for requests with an `OData-Version` header value of `4.01`.
-   1. MUST return property annotations immediately before the property they annotate
-   2. SHOULD omit the `odata.` prefix from format parameters and control information
-   3. SHOULD omit the `#` prefix from `@type` primitive values
-   4. MAY include inline related entities or nested delta collections within a delta payload
-   5. MAY include `TargetId` within a deleted link for a relationship with a maximum cardinality of 1
-   6. MAY return decimal values written in exponential notation
-   7. MAY represent numeric value exceptions for decimal values with floating scale using the string values `-INF`, `INF`, and `NaN`
+    1. MUST return property annotations immediately before the property they annotate
+    2. SHOULD omit the `odata.` prefix from format parameters and control information
+    3. SHOULD omit the `#` prefix from `@type` primitive values
+    4. MAY include inline related entities or nested delta collections within a delta payload
+    5. MAY include `TargetId` within a deleted link for a relationship with a maximum cardinality of 1
+    6. MAY return decimal values written in exponential notation
+    7. MAY represent numeric value exceptions for decimal values with floating scale using the string values `-INF`, `INF`, and `NaN`
 12. MAY support generating OData 4.02 JSON compliant payloads for requests with an `OData-Version` header value of `4.02`.
-   1. MUST NOT percent-encode the fragment portion of a Context URL
-   2. MUST order `@type` control information, if specified, immediately following `@removed` in a deleted entity for ordered payloads
-   3. MUST return the `requestId` as the first property in a JSON Batch Request or Response Object and `body`, if specified, as the last property for ordered payloads
-   4. SHOULD always follow [JSON Payload Ordering Constraints](PayloadOrderingConstraints), regardless the presence of the `odata.streaming` format parameter
-   5. SHOULD represent identifiable transient entities using the pattern `odata:transient:{unique-identifier}`, and with an explicit `null` value for the `readlink` if the transient entity cannot be re-read
-   6. SHOULD include the atomicity group in `dependsOn` for prerequisite requests that are in an atomicity group
+    1. MUST NOT percent-encode the fragment portion of a Context URL
+    2. MUST order `@type` control information, if specified, immediately following `@removed` in a deleted entity for ordered payloads
+    3. MUST return the `requestId` as the first property in a JSON Batch Request or Response Object and `body`, if specified, as the last property for ordered payloads
+    4. SHOULD always follow [JSON Payload Ordering Constraints](PayloadOrderingConstraints), regardless the presence of the `odata.streaming` format parameter
+    5. SHOULD represent identifiable transient entities using the pattern `odata:transient:{unique-identifier}`, and with an explicit `null` value for the `readlink` if the transient entity cannot be re-read
+    6. SHOULD include the atomicity group in `dependsOn` for prerequisite requests that are in an atomicity group
 
 In addition, in order to conform to the OData JSON format, a service:
 
