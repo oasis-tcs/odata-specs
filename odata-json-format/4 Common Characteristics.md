@@ -377,6 +377,12 @@ Its value is an
 `Edm.Int64` value corresponding to
 the total count of members in the collection represented by the request.
 
+### ##subsubsec Control Information: `countAccuracy` (`odata.countAccuracy`)
+
+The `countAccuracy` control information occurs only for collections that include
+the [`count`](#ControlInformationcountodatacount) of values. Its value is an `Edm.String`
+value specifying the accuracy of the count, see [#OData-Protocol#SystemQueryOptioncount].
+
 ### ##subsubsec Control Information: `nextLink` (`odata.nextLink`)
 
 The `nextLink` control information indicates that a response

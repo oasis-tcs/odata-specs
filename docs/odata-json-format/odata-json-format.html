@@ -220,16 +220,17 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><a href="#ControlInformationmetadataEtagodatametadataEtag">4.6.2 Control Information: <code>metadataEtag</code> (<code>odata.metadataEtag</code>)</a></li>
 <li><a href="#ControlInformationtypeodatatype">4.6.3 Control Information: <code>type</code> (<code>odata.type</code>)</a></li>
 <li><a href="#ControlInformationcountodatacount">4.6.4 Control Information: <code>count</code> (<code>odata.count</code>)</a></li>
-<li><a href="#ControlInformationnextLinkodatanextLink">4.6.5 Control Information: <code>nextLink</code> (<code>odata.nextLink</code>)</a></li>
-<li><a href="#ControlInformationdeltaodatadelta">4.6.6 Control Information: <code>delta</code> (<code>odata.delta</code>)</a></li>
-<li><a href="#ControlInformationdeltaLinkodatadeltaLink">4.6.7 Control Information: <code>deltaLink</code> (<code>odata.deltaLink</code>)</a></li>
-<li><a href="#ControlInformationidodataid">4.6.8 Control Information: <code>id</code> (<code>odata.id</code>)</a></li>
-<li><a href="#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink">4.6.9 Control Information: <code>editLink</code> and <code>readLink</code> (<code>odata.editLink</code> and <code>odata.readLink</code>)</a></li>
-<li><a href="#ControlInformationetagodataetag">4.6.10 Control Information: <code>etag</code> (<code>odata.etag</code>)</a></li>
-<li><a href="#ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink">4.6.11 Control Information: <code>navigationLink</code> and <code>associationLink</code> (<code>odata.navigationLink</code> and <code>odata.associationLink</code>)</a></li>
-<li><a href="#ControlInformationmediaodatamedia">4.6.12 Control Information: <code>media*</code> (<code>odata.media*</code>)</a></li>
-<li><a href="#ControlInformationremovedodataremoved">4.6.13 Control Information: <code>removed</code> (<code>odata.removed</code>)</a></li>
-<li><a href="#ControlInformationcollectionAnnotationsodatacollectionAnnotations">4.6.14 Control Information: <code>collectionAnnotations</code> (<code>odata.collectionAnnotations</code>)</a></li>
+<li><a href="#ControlInformationcountAccuracyodatacountAccuracy">4.6.5 Control Information: <code>countAccuracy</code> (<code>odata.countAccuracy</code>)</a></li>
+<li><a href="#ControlInformationnextLinkodatanextLink">4.6.6 Control Information: <code>nextLink</code> (<code>odata.nextLink</code>)</a></li>
+<li><a href="#ControlInformationdeltaodatadelta">4.6.7 Control Information: <code>delta</code> (<code>odata.delta</code>)</a></li>
+<li><a href="#ControlInformationdeltaLinkodatadeltaLink">4.6.8 Control Information: <code>deltaLink</code> (<code>odata.deltaLink</code>)</a></li>
+<li><a href="#ControlInformationidodataid">4.6.9 Control Information: <code>id</code> (<code>odata.id</code>)</a></li>
+<li><a href="#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink">4.6.10 Control Information: <code>editLink</code> and <code>readLink</code> (<code>odata.editLink</code> and <code>odata.readLink</code>)</a></li>
+<li><a href="#ControlInformationetagodataetag">4.6.11 Control Information: <code>etag</code> (<code>odata.etag</code>)</a></li>
+<li><a href="#ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink">4.6.12 Control Information: <code>navigationLink</code> and <code>associationLink</code> (<code>odata.navigationLink</code> and <code>odata.associationLink</code>)</a></li>
+<li><a href="#ControlInformationmediaodatamedia">4.6.13 Control Information: <code>media*</code> (<code>odata.media*</code>)</a></li>
+<li><a href="#ControlInformationremovedodataremoved">4.6.14 Control Information: <code>removed</code> (<code>odata.removed</code>)</a></li>
+<li><a href="#ControlInformationcollectionAnnotationsodatacollectionAnnotations">4.6.15 Control Information: <code>collectionAnnotations</code> (<code>odata.collectionAnnotations</code>)</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#ServiceDocument">5 Service Document</a></li>
@@ -356,17 +357,17 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/368">368</a></td>
 </tr>
 <tr>
-<td><a href="#ControlInformationidodataid">Section 4.6.8</a></td>
+<td><a href="#ControlInformationidodataid">Section 4.6.9</a></td>
 <td>Transient entities can be identifiable</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/1928">1928</a></td>
 </tr>
 <tr>
-<td><a href="#ControlInformationetagodataetag">Section 4.6.10</a></td>
+<td><a href="#ControlInformationetagodataetag">Section 4.6.11</a></td>
 <td>Control information <code>"@etag": ""</code> to prevent updates</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/2021">2021</a></td>
 </tr>
 <tr>
-<td><a href="#ControlInformationmediaodatamedia">Section 4.6.12</a></td>
+<td><a href="#ControlInformationmediaodatamedia">Section 4.6.13</a></td>
 <td><code>mediaContentType</code> can be <code>null</code></td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/536">536</a></td>
 </tr>
@@ -719,23 +720,28 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <p>The <code>count</code> control information occurs only in responses and can annotate any collection, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptioncount">OData-Protocol, section 11.2.6.5</a>. Its value is an <code>Edm.Int64</code> value corresponding to the total count of members in the collection represented by the request.</p>
 </details>
 <details open><summary>
-<h3 id="465-control-information-nextlink-odatanextlink"><a id="ControlInformationnextLinkodatanextLink" href="#ControlInformationnextLinkodatanextLink">4.6.5 Control Information: <code>nextLink</code> (<code>odata.nextLink</code>)</a></h3>
+<h3 id="465-control-information-countaccuracy-odatacountaccuracy"><a id="ControlInformationcountAccuracyodatacountAccuracy" href="#ControlInformationcountAccuracyodatacountAccuracy">4.6.5 Control Information: <code>countAccuracy</code> (<code>odata.countAccuracy</code>)</a></h3>
+</summary>
+<p>The <code>countAccuracy</code> control information occurs only for collections that include the <a href="#ControlInformationcountodatacount"><code>count</code></a> of values. Its value is an <code>Edm.String</code> value specifying the accuracy of the count, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptioncount">OData-Protocol, section 11.2.6.5</a>.</p>
+</details>
+<details open><summary>
+<h3 id="466-control-information-nextlink-odatanextlink"><a id="ControlInformationnextLinkodatanextLink" href="#ControlInformationnextLinkodatanextLink">4.6.6 Control Information: <code>nextLink</code> (<code>odata.nextLink</code>)</a></h3>
 </summary>
 <p>The <code>nextLink</code> control information indicates that a response is only a subset of the requested collection. It contains a <a href="URLsinMessageBodies">URL</a> that allows retrieving the next subset of the requested collection.</p>
 <p>This control information can also be applied to <a href="#ExpandedNavigationProperty">expanded to-many navigation properties</a> and to collections of <a href="#CollectionofPrimitiveValues">primitive</a> or <a href="#CollectionofComplexValues">complex</a> values.</p>
 </details>
 <details open><summary>
-<h3 id="466-control-information-delta-odatadelta"><a id="ControlInformationdeltaodatadelta" href="#ControlInformationdeltaodatadelta">4.6.6 Control Information: <code>delta</code> (<code>odata.delta</code>)</a></h3>
+<h3 id="467-control-information-delta-odatadelta"><a id="ControlInformationdeltaodatadelta" href="#ControlInformationdeltaodatadelta">4.6.7 Control Information: <code>delta</code> (<code>odata.delta</code>)</a></h3>
 </summary>
 <p>The <code>delta</code> control information is applied to a collection-valued navigation property within an <a href="#AddedChangedEntity">added/changed entity</a> in a delta payload to represent changes in membership or value of nested entities.</p>
 </details>
 <details open><summary>
-<h3 id="467-control-information-deltalink-odatadeltalink"><a id="ControlInformationdeltaLinkodatadeltaLink" href="#ControlInformationdeltaLinkodatadeltaLink">4.6.7 Control Information: <code>deltaLink</code> (<code>odata.deltaLink</code>)</a></h3>
+<h3 id="468-control-information-deltalink-odatadeltalink"><a id="ControlInformationdeltaLinkodatadeltaLink" href="#ControlInformationdeltaLinkodatadeltaLink">4.6.8 Control Information: <code>deltaLink</code> (<code>odata.deltaLink</code>)</a></h3>
 </summary>
 <p>The <code>deltaLink</code> control information contains a <a href="URLsinMessageBodies">URL</a> that can be used to retrieve changes to the current set of results. The <code>deltaLink</code> control information MUST only appear on the last page of results. A page of results MUST NOT have both a <code>deltaLink</code> control information and a <a href="#ControlInformationnextLinkodatanextLink"><code>nextLink</code></a> control information.</p>
 </details>
 <details open><summary>
-<h3 id="468-control-information-id-odataid"><a id="ControlInformationidodataid" href="#ControlInformationidodataid">4.6.8 Control Information: <code>id</code> (<code>odata.id</code>)</a></h3>
+<h3 id="469-control-information-id-odataid"><a id="ControlInformationidodataid" href="#ControlInformationidodataid">4.6.9 Control Information: <code>id</code> (<code>odata.id</code>)</a></h3>
 </summary>
 <p>The <code>id</code> control information contains the entity-id, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#EntityIdsandEntityReferences">OData-Protocol, section 4.1</a>. By convention the entity-id is identical to the canonical URL of the entity, as defined in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalURL">OData-URL, section 4.3.1</a>.</p>
 <p>The <code>id</code> control information MUST appear in responses if <a href="#metadatafullodatametadatafull"><code>metadata=full</code></a> is requested, or if <a href="#metadataminimalodatametadataminimal"><code>metadata=minimal</code></a> is requested and any of a non-transient entity’s key fields are omitted from the response <em>or</em> the entity-id is not identical to the canonical URL of the entity after</p>
@@ -749,7 +755,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <p>The <code>id</code> control information MUST NOT appear for a collection. Its meaning in this context is reserved for future versions of this specification.</p>
 </details>
 <details open><summary>
-<h3 id="469-control-information-editlink-and-readlink-odataeditlink-and-odatareadlink"><a id="ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink" href="#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink">4.6.9 Control Information: <code>editLink</code> and <code>readLink</code> (<code>odata.editLink</code> and <code>odata.readLink</code>)</a></h3>
+<h3 id="4610-control-information-editlink-and-readlink-odataeditlink-and-odatareadlink"><a id="ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink" href="#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink">4.6.10 Control Information: <code>editLink</code> and <code>readLink</code> (<code>odata.editLink</code> and <code>odata.readLink</code>)</a></h3>
 </summary>
 <p>The <code>editLink</code> control information contains the edit <a href="URLsinMessageBodies">URL</a> of the entity; see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ReadURLsandEditURLs">OData-Protocol, section 4.2</a>.</p>
 <p>The <code>readLink</code> control information contains the read URL of the entity or collection; see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ReadURLsandEditURLs">OData-Protocol, section 4.2</a>.</p>
@@ -772,14 +778,14 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 </ul>
 </details>
 <details open><summary>
-<h3 id="4610-control-information-etag-odataetag"><a id="ControlInformationetagodataetag" href="#ControlInformationetagodataetag">4.6.10 Control Information: <code>etag</code> (<code>odata.etag</code>)</a></h3>
+<h3 id="4611-control-information-etag-odataetag"><a id="ControlInformationetagodataetag" href="#ControlInformationetagodataetag">4.6.11 Control Information: <code>etag</code> (<code>odata.etag</code>)</a></h3>
 </summary>
 <p>The <code>etag</code> control information MAY be applied to an <a href="#Entity">entity</a> or collection in a response. The value of the control information is an entity tag (ETag) which is an opaque string value that can be used in a subsequent request to determine if the value of the entity or collection has changed.</p>
 <p>For details on how ETags are used, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UseofETagsforAvoidingUpdateConflicts">OData-Protocol, section 11.4.1.2</a>. The special value <code>"@etag": "*"</code> is equivalent to the header <code>If-Match: *</code>, and the special value <code>"@etag": ""</code> is equivalent to the header <code>If-None-Match: *</code>, see <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UpdateaCollectionofEntities">OData-Protocol, section 11.4.11</a>.</p>
 <p>The <code>etag</code> control information is ignored in request payloads for single entities and not written in responses if <a href="#metadatanoneodatametadatanone"><code>metadata=none</code></a> is requested.</p>
 </details>
 <details open><summary>
-<h3 id="4611-control-information-navigationlink-and-associationlink-odatanavigationlink-and-odataassociationlink"><a id="ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink" href="#ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink">4.6.11 Control Information: <code>navigationLink</code> and <code>associationLink</code> (<code>odata.navigationLink</code> and <code>odata.associationLink</code>)</a></h3>
+<h3 id="4612-control-information-navigationlink-and-associationlink-odatanavigationlink-and-odataassociationlink"><a id="ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink" href="#ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink">4.6.12 Control Information: <code>navigationLink</code> and <code>associationLink</code> (<code>odata.navigationLink</code> and <code>odata.associationLink</code>)</a></h3>
 </summary>
 <p>The <code>navigationLink</code> control information in a response contains a <em>navigation <a href="URLsinMessageBodies">URL</a></em> that can be used to retrieve an entity or collection of entities related to the current entity via a <a href="#NavigationProperty">navigation property</a>.</p>
 <p>The <em>default computed value of a navigation URL</em> is the value of the <a href="#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink">read URL</a> appended with a segment containing the name of the navigation property. The service MAY omit the <code>navigationLink</code> control information if <a href="#metadataminimalodatametadataminimal"><code>metadata=minimal</code></a> has been specified on the request and the navigation link matches this computed value.</p>
@@ -788,7 +794,7 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <p>The <code>navigationLink</code> and <code>associationLink</code> control information is ignored in request payloads and not written in responses if <a href="#metadatanoneodatametadatanone"><code>metadata=none</code></a> is requested.</p>
 </details>
 <details open><summary>
-<h3 id="4612-control-information-media-odatamedia"><a id="ControlInformationmediaodatamedia" href="#ControlInformationmediaodatamedia">4.6.12 Control Information: <code>media*</code> (<code>odata.media*</code>)</a></h3>
+<h3 id="4613-control-information-media-odatamedia"><a id="ControlInformationmediaodatamedia" href="#ControlInformationmediaodatamedia">4.6.13 Control Information: <code>media*</code> (<code>odata.media*</code>)</a></h3>
 </summary>
 <p>For <a href="#MediaEntity">media entities</a> and <a href="#StreamProperty">stream properties</a> at least one of the control information <code>mediaEditLink</code> and <code>mediaReadLink</code> MUST be included in responses if they don’t follow standard URL conventions as defined in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingaProperty">OData-URL, section 4.6</a> and <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingtheMediaStreamofaMediaEntity">OData-URL, section 4.14</a>, or if <a href="#metadatafullodatametadatafull"><code>metadata=full</code></a> is requested.</p>
 <p>The <code>mediaEditLink</code> control information contains a <a href="URLsinMessageBodies">URL</a> that can be used to update the binary stream associated with the media entity or stream property. It MUST be included for updatable streams if it differs from standard URL conventions relative to the edit link of the entity.</p>
@@ -811,12 +817,12 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 </div>
 </details>
 <details open><summary>
-<h3 id="4613-control-information-removed-odataremoved"><a id="ControlInformationremovedodataremoved" href="#ControlInformationremovedodataremoved">4.6.13 Control Information: <code>removed</code> (<code>odata.removed</code>)</a></h3>
+<h3 id="4614-control-information-removed-odataremoved"><a id="ControlInformationremovedodataremoved" href="#ControlInformationremovedodataremoved">4.6.14 Control Information: <code>removed</code> (<code>odata.removed</code>)</a></h3>
 </summary>
 <p>The <code>removed</code> control information is used in <a href="#DeletedEntity">delta payloads</a> and indicates that the represented entity is (to be) deleted.</p>
 </details>
 <details open><summary>
-<h3 id="4614-control-information-collectionannotations-odatacollectionannotations"><a id="ControlInformationcollectionAnnotationsodatacollectionAnnotations" href="#ControlInformationcollectionAnnotationsodatacollectionAnnotations">4.6.14 Control Information: <code>collectionAnnotations</code> (<code>odata.collectionAnnotations</code>)</a></h3>
+<h3 id="4615-control-information-collectionannotations-odatacollectionannotations"><a id="ControlInformationcollectionAnnotationsodatacollectionAnnotations" href="#ControlInformationcollectionAnnotationsodatacollectionAnnotations">4.6.15 Control Information: <code>collectionAnnotations</code> (<code>odata.collectionAnnotations</code>)</a></h3>
 </summary>
 <p>The <code>collectionAnnotations</code> control information can be applied to a collection containing primitive members in order to annotate such primitive members. The value of the <code>collectionAnnotations</code> control information is an array of JSON objects containing an integer property <code>index</code>, specifying the zero-based ordinal index of the primitive item within the collection, along with any annotations that are to be applied to that primitive collection member.</p>
 <div class="example">
@@ -2646,7 +2652,7 @@ Preference-Applied: return=minimal, continue-on-error
 <li>MUST support the <code>application/json</code> media type in the <code>Accept</code> header (<a href="#RequestingtheJSONFormat">section 3</a>)</li>
 <li>MUST return well-formed JSON payloads</li>
 <li>MUST support <code>odata.metadata=full</code> (<a href="#metadatafullodatametadatafull">section 3.1.2</a>)</li>
-<li>MUST include the <code>odata.nextLink</code> control information in partial results for entity collections (<a href="#ControlInformationnextLinkodatanextLink">section 4.6.5</a>)</li>
+<li>MUST include the <code>odata.nextLink</code> control information in partial results for entity collections (<a href="#ControlInformationnextLinkodatanextLink">section 4.6.6</a>)</li>
 <li>MUST support entity instances with external metadata (<a href="#ControlInformationcontextodatacontext">section 4.6.1</a>)</li>
 <li>MUST support properties with externally defined data types (<a href="#ControlInformationtypeodatatype">section 4.6.3</a>)</li>
 <li>MUST NOT violate any other aspects of this OData JSON specification</li>
