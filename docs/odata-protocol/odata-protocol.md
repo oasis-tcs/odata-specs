@@ -3611,14 +3611,14 @@ Note that future versions of this specification may add additional values
 to describe count accuracy. Clients should treat any unknown value as an
 inexact count.
 
+How the count is encoded in the response body, as well as the accuracy
+(if included), is dependent upon the selected format.
+
 Services MAY indicate a default count accuracy through the [Capabilities.CountRestrictions]{.term} or [Capabilities.DefaultCapabilities]{.term}
 annotation, defined in [OData-VocCap](#ODataVocCap).
 If a default count accuracy is defined, then the service MUST return the
 actual count accuracy applied for any responses with a non-exact accuracy
 different than the default.
-
-How the count is encoded in the response body, as well as the accuracy
-(if included), is dependent upon the selected format.
 
 #### <a id="SystemQueryOptionsearch" href="#SystemQueryOptionsearch">11.2.6.6 System Query Option `$search`</a>
 
