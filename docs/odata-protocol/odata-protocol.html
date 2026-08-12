@@ -3866,7 +3866,7 @@ Content-Length: ###
 <ol type="1">
 <li>MUST conform to the <a href="#OData402MinimalConformanceLevel">OData 4.02 Minimal Conformance Level</a></li>
 <li>MUST conform to the <a href="#OData401IntermediateConformanceLevel">OData 4.01 Intermediate Conformance Level</a></li>
-<li>MUST support <code>$select</code> with an empty select list</li>
+<li>MUST support <code>$key</code> in <code>$select</code></li>
 <li>MUST, if they support optimistic concurrency, return etag values for added/changed entities in a delta payload</li>
 <li>SHOULD support Passing Query Options in the Request Body (See Url Conventions)
 <ol type="1">
@@ -3934,7 +3934,8 @@ Content-Length: ###
 <li>MUST be prepared to receive any valid 4.02 response according to the requested format</li>
 <li>SHOULD use capabilities (see <a href="#ODataVocCap">OData-VocCap</a>) to determine if a 4.02 feature is supported but MAY attempt syntax and be prepared to handle <code>400 Bad Request</code> or <a href="#ResponseCode501NotImplemented"><code>501 Not Implemented</code></a></li>
 <li>SHOULD use Context URL to interpret payloads, rather than inferring from the request</li>
-<li>SHOULD NOT specify an empty <code>$select</code> or <code>$expand</code> list to a 4.01 or earlier service</li>
+<li>SHOULD NOT specify an empty <code>$expand</code> list to a 4.01 or earlier service</li>
+<li>SHOULD NOT specify <code>$key</code> in a <code>$select</code> list to a 4.01 or earlier service</li>
 </ol>
 </details>
 </details>
