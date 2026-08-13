@@ -541,10 +541,11 @@ Conforming services MUST follow all rules of this specification document
 for the types, sets, functions, actions, containers and annotations they
 expose.
 
-In addition, conforming services MUST NOT return CSDL constructs defined in OData 4.01 or greater 
-for requests made with `OData-MaxVersion: 4.0`.
+In addition, if the metadata request includes an `OData-MaxVersion` header,
+conforming services MUST NOT return CSDL constructs defined in later version
+of the OData specification.
 
-Specifically, they
+Specifically, an OData 4.0 metadata response
 1. MUST NOT include properties in derived types that overwrite a
 property defined in the base type
 2. MUST NOT include `Edm.Untyped`
@@ -572,18 +573,28 @@ types
 12. SHOULD NOT include constant [Geo](#GeoValues) or [Stream values](#StreamValues) in annotations
 13. MAY include new CSDL annotations
 
+In addition, an OData 4.01 or earlier metadata response
+
+14. MUST NOT include functions containing stream-valued non-binding parameters
+15. MUST NOT include actions or functions that take or return delta payloads
+16. SHOULD NOT include actions or functions that return entity collections that may contain NULL values
+
 In addition, OData 4.01 or greater services:
 
-14. SHOULD NOT have identifiers within a uniqueness scope (e.g. a
+17. SHOULD NOT have identifiers within a uniqueness scope (e.g. a
 schema, a structural type, or an entity container) that differ only by
 case
 
 In addition, OData 4.02 or greater services:
 
-15. SHOULD NOT include constant [Geo](#GeoValues) or [Stream values](#StreamValues) in annotations
-16. SHOULD use [simple identifiers](#SimpleIdentifier) matching the pattern `^[_A-Za-z][_A-Za-z0-9]*$`
+18. SHOULD NOT include constant [Geo](#GeoValues) or [Stream values](#StreamValues) in annotations
+19. SHOULD NOT specify an SRID value of 'variable'
+20. SHOULD use [simple identifiers](#SimpleIdentifier) matching the pattern `^[_A-Za-z][_A-Za-z0-9]*$`
 
 Conforming clients MUST be prepared to consume a model that uses any or
 all constructs defined in this specification, including custom
 annotations, and MUST ignore constructs not defined in this version of
 the specification.
+
+In addition, conforming OData 4.02 clients:
+1. MUST evaluate annotation target paths according to the clarified [Path Evaluation Rules](#PathEvaluation).
