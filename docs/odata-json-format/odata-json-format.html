@@ -2585,8 +2585,6 @@ Preference-Applied: return=minimal, continue-on-error
 <h1 id="23-conformance"><a id="Conformance" href="#Conformance">23 Conformance</a></h1>
 </summary>
 <p>Conforming clients MUST be prepared to consume a service that uses any or all of the constructs defined in this specification. The exception to this are the constructs defined in Delta Response, which are only required for clients that request changes.</p>
-<!--TODO: V4.02 conformance -->
-
 <p>In order to be a conforming consumer of the OData JSON format, a client or service:</p>
 <ol type="1">
 <li>MUST either:
@@ -2622,9 +2620,16 @@ Preference-Applied: return=minimal, continue-on-error
 <li>MUST be prepared to handle related entities inline within a delta payload as well as a nested delta representation for the collection</li>
 <li>MUST be prepared to handle decimal values written in exponential notation</li>
 </ol></li>
+<li>MAY be a conforming consumer of the OData 4.02 JSON format, for payloads with an <code>OData-Version</code> header value of <code>4.02</code>.
+<ol type="1">
+<li>MUST support referencing entities by either id or full set of key properties</li>
+<li>MUST NOT require the atomicity group also be included in <code>dependsOn</code> for prerequisite requests that are in an atomicity group</li>
+<li>MUST be prepared to deal with a null <code>mediaContentType</code> value to represent an empty binary stream</li>
+<li>SHOULD support expressions in non-binding action parameters</li>
+</ol></li>
 </ol>
 <p>In order to be a conforming producer of the OData JSON format, a client or service:</p>
-<ol start="9" type="1">
+<ol start="10" type="1">
 <li>MUST support generating OData 4.0 JSON compliant payloads with an <code>OData-Version</code> header value of <code>4.0</code>.
 <ol type="1">
 <li>MUST NOT omit the <code>odata.</code> prefix from format parameters or control information</li>
@@ -2645,9 +2650,18 @@ Preference-Applied: return=minimal, continue-on-error
 <li>MAY return decimal values written in exponential notation</li>
 <li>MAY represent numeric value exceptions for decimal values with floating scale using the string values <code>-INF</code>, <code>INF</code>, and <code>NaN</code></li>
 </ol></li>
+<li>MAY support generating OData 4.02 JSON compliant payloads for requests with an <code>OData-Version</code> header value of <code>4.02</code>.
+<ol type="1">
+<li>MUST NOT percent-encode the fragment portion of a Context URL</li>
+<li>MUST order <code>@type</code> control information, if specified, immediately following <code>@removed</code> in a deleted entity for ordered payloads</li>
+<li>MUST return the <code>requestId</code> as the first property in a JSON Batch Request or Response Object and <code>body</code>, if specified, as the last property for ordered payloads</li>
+<li>SHOULD always follow <a href="PayloadOrderingConstraints">JSON Payload Ordering Constraints</a>, regardless the presence of the <code>odata.streaming</code> format parameter</li>
+<li>SHOULD represent identifiable transient entities using the pattern <code>odata:transient:{unique-identifier}</code>, and with an explicit <code>null</code> value for the <code>readlink</code> if the transient entity cannot be re-read</li>
+<li>SHOULD include the atomicity group in <code>dependsOn</code> for prerequisite requests that are in an atomicity group</li>
+</ol></li>
 </ol>
 <p>In addition, in order to conform to the OData JSON format, a service:</p>
-<ol start="11" type="1">
+<ol start="13" type="1">
 <li>MUST comply with one of the conformance levels defined in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#Conformance">OData-Protocol, section 12</a></li>
 <li>MUST support the <code>application/json</code> media type in the <code>Accept</code> header (<a href="#RequestingtheJSONFormat">section 3</a>)</li>
 <li>MUST return well-formed JSON payloads</li>
@@ -2663,13 +2677,21 @@ Preference-Applied: return=minimal, continue-on-error
 <li>MUST return OData JSON 4.0-compliant responses for requests with an <code>OData-MaxVersion</code> header value of <code>4.0</code></li>
 <li>MUST support OData JSON 4.0-compliant payloads in requests with an <code>OData-Version</code> header value of <code>4.0</code></li>
 <li>MUST support returning, in the final response to an asynchronous request, the <code>application/json</code> payload that would have been returned had the operation completed synchronously, wrapped in an <code>application/http</code> message</li>
+<li>SHOULD NOT percent-encode the fragment portion of a Context URL</li>
 </ol>
 <p>In addition, in order to comply with the OData 4.01 JSON format, a service:</p>
-<ol start="26" type="1">
+<ol start="29" type="1">
 <li>SHOULD return the OData JSON 4.01 format for requests with an <code>OData-MaxVersion</code> header value of <code>4.01</code></li>
 <li>MUST support the OData JSON 4.01 format in request payloads for requests with an <code>OData-Version</code> header value of <code>4.01</code></li>
 <li>MUST honor the <code>odata.etag</code> control information within <code>PUT</code>, <code>PATCH</code> or <code>DELETE</code> payloads, if specified</li>
 <li>MUST support returning, in the final response to an asynchronous request, the <code>application/json</code> payload that would have been returned had the operation completed synchronously</li>
+</ol>
+<p>In addition, in order to comply with the OData 4.02 JSON format, a service:</p>
+<ol start="33" type="1">
+<li>MUST comply with the OData 4.01 JSON format</li>
+<li>SHOULD return the OData JSON 4.02 format for requests with an <code>OData-MaxVersion</code> header value of <code>4.02</code></li>
+<li>MUST support the OData JSON 4.02 format in request payloads for requests with an <code>OData-Version</code> header value of <code>4.02</code></li>
+<li>SHOULD support an empty string for <code>odata.etag</code> control information to perform the requested operation only if the entity does not already exist</li>
 </ol>
 </details>
 <hr />

@@ -3865,8 +3865,8 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <h1 id="17-conformance"><a id="Conformance" href="#Conformance">17 Conformance</a></h1>
 </summary>
 <p>Conforming services MUST follow all rules of this specification document for the types, sets, functions, actions, containers and annotations they expose.</p>
-<p>In addition, conforming services MUST NOT return CSDL constructs defined in OData 4.01 or greater for requests made with <code>OData-MaxVersion: 4.0</code>.</p>
-<p>Specifically, they</p>
+<p>In addition, if the metadata request includes an <code>OData-MaxVersion</code> header, conforming services MUST NOT return CSDL constructs defined in later version of the OData specification.</p>
+<p>Specifically, an OData 4.0 metadata response</p>
 <ol type="1">
 <li>MUST NOT include properties in derived types that overwrite a property defined in the base type</li>
 <li>MUST NOT include <code>Edm.Untyped</code></li>
@@ -3882,16 +3882,27 @@ Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values: 1e-102 and
 <li>SHOULD NOT include constant <a href="#GeoValues">Geo</a> or <a href="#StreamValues">Stream values</a> in annotations</li>
 <li>MAY include new CSDL annotations</li>
 </ol>
-<p>In addition, OData 4.01 or greater services:</p>
+<p>In addition, an OData 4.01 or earlier metadata response</p>
 <ol start="14" type="1">
+<li>MUST NOT include functions containing stream-valued non-binding parameters</li>
+<li>MUST NOT include actions or functions that take or return delta payloads</li>
+<li>SHOULD NOT include actions or functions that return entity collections that may contain NULL values</li>
+</ol>
+<p>In addition, OData 4.01 or greater services:</p>
+<ol start="17" type="1">
 <li>SHOULD NOT have identifiers within a uniqueness scope (e.g. a schema, a structural type, or an entity container) that differ only by case</li>
 </ol>
 <p>In addition, OData 4.02 or greater services:</p>
-<ol start="15" type="1">
+<ol start="18" type="1">
 <li>SHOULD NOT include constant <a href="#GeoValues">Geo</a> or <a href="#StreamValues">Stream values</a> in annotations</li>
+<li>SHOULD NOT specify an SRID value of ‘variable’</li>
 <li>SHOULD use <a href="#SimpleIdentifier">simple identifiers</a> matching the pattern <code>^[_A-Za-z][_A-Za-z0-9]*$</code></li>
 </ol>
 <p>Conforming clients MUST be prepared to consume a model that uses any or all constructs defined in this specification, including custom annotations, and MUST ignore constructs not defined in this version of the specification.</p>
+<p>In addition, conforming OData 4.02 clients:</p>
+<ol type="1">
+<li>MUST evaluate annotation target paths according to the clarified <a href="#PathEvaluation">Path Evaluation Rules</a>.</li>
+</ol>
 </details>
 <hr />
 <details open><summary>
