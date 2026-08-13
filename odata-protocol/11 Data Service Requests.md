@@ -334,10 +334,8 @@ alias of the schema in order to specify all operations defined in the
 schema. Only aliases defined in the metadata document of the service can
 be used in URLs.
 
-OData 4.02 and greater services MAY support an empty select list to indicate
-that no structural properties are requested. The service still returns expanded
-navigation and stream properties, along with required metadata and/or key properties
-as required by the particular format.
+OData 4.02 and greater services MAY support `$key` in the select list to indicate
+that all key properties be included in the response.
 
 ::: example
 Example ##ex: request only the `Rating` and `ReleaseDate` for the matching
@@ -974,8 +972,26 @@ count returned inline may not exactly equal the actual number of items
 returned, due to latency between calculating the count and enumerating
 the last value or due to inexact calculations on the service.
 
-How the count is encoded in the response body is dependent upon the
-selected format.
+Services MAY indicate the accuracy of the count as one of the following values:
+ - `counted` indicates that the count was exact at the time of calculation
+ - `estimated` indicates that the count was estimated
+ - `cached` indicates the count was based on cached values that may no longer be current
+ - `partial` indicates that the collection contained at least the returned number
+ of items at the time of calculation
+ - `unavailable` indicates that the count was unavailable and any count value returned (typically 0) should be ignored
+
+Note that future versions of this specification may add additional values
+to describe count accuracy. Clients should treat any unknown value as an
+inexact count.
+
+How the count is encoded in the response body, as well as the accuracy
+(if included), is dependent upon the selected format.
+
+Services MAY indicate a default count accuracy through the [Capabilities.CountRestrictions]{.term} or [Capabilities.DefaultCapabilities]{.term}
+annotation, defined in [OData-VocCap](#ODataVocCap).
+If a default count accuracy is defined, then the service MUST return the
+actual count accuracy applied for any responses with a non-exact accuracy
+different than the default.
 
 #### ##subsubsubsec System Query Option `$search`
 
