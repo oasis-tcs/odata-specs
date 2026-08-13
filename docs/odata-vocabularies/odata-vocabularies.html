@@ -454,7 +454,7 @@ Section | Feature / Change | Issue
 <tr>
 <td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L574">AnyStructure</a></td>
 <td style="text-align: left;"><a href="#Tag">Tag</a></td>
-<td style="text-align: left;"><a name="AnyStructure"></a>Instances of a type are annotated with this tag if they have no common structure in a given response payload<br>The select-list of a context URL MUST be <code>(@Core.AnyStructure)</code> if it would otherwise be empty, but this instance annotation SHOULD be omitted from the response value.</td>
+<td style="text-align: left;"><a name="AnyStructure"></a>Instances of a type are annotated with this tag if they have no common structure in a given response payload<br>The select-list of a context URL MUST contain <code>@Core.AnyStructure</code> if it contains no structural properties, but this instance annotation SHOULD be omitted from the response value.</td>
 </tr>
 <tr>
 <td style="text-align: left;"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L582">Constructor</a></td>
