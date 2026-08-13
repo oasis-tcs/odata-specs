@@ -207,7 +207,9 @@ Import material from OData Common Schema Definition Language (CSDL) JSON Represe
 : varxml
 Import material from OData Common Schema Definition Language (CSDL) XML Representation Version 4.01 
 :
-<br>Changes listed in [section ##ChangesfromEarlierVersions]|
+<br>Changes listed in section 1.1|
+|$$$subtitle$$$|$$$pubdateISO$$$|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| 
+Changes listed in [section ##ChangesfromEarlierVersions]|
 
 -------
 

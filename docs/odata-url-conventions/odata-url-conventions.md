@@ -4424,7 +4424,8 @@ do we have considerations specific to URLs, for example length, encoding, privac
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
-|Committee Specification Draft 01|2024-02-28|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| Import material from OData Version 4.01 Part 2: URL Conventions <br>Changes listed in [section 1.1](#ChangesfromEarlierVersions)|
+|Committee Specification Draft 01|2024-02-28|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| Import material from OData Version 4.01 Part 2: URL Conventions <br>Changes listed in section 1.1|
+|Committee Specification Draft 02|2026-08-19|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| Changes listed in [section 1.1](#ChangesfromEarlierVersions)|
 
 -------
 

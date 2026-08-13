@@ -2253,7 +2253,8 @@ The contributions of the OASIS OData Technical Committee members, enumerated in 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
 |Committee Specification Draft 01|2016-12-08|Michael Pizzo<br>Ralf Handl<br>Ram Jeyaraman| Documentation automatically extracted from XML source files|
-|Committee Specification Draft 03|2024-06-19|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| Documentation automatically extracted from XML source files|
+|Committee Specification Draft 02|2024-06-19|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| Documentation automatically extracted from XML source files|
+|Committee Specification Draft 03|2026-08-19|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| Documentation automatically extracted from XML source files|
 
 -------
 
