@@ -5,9 +5,9 @@ subtitle: Committee Specification Draft 02
 filename: odata-json-format-v4.02-csd02
 stage: csd02
 previousStage: csd01
-pubdate: 28 February 2024
-pubdateISO: '2024-02-28'
-copyright: © OASIS Open 2024
+pubdate: 19 August 2026
+pubdateISO: '2026-08-19'
+copyright: © OASIS Open 2026
 additionalArtifacts:
   - repo: odata-abnf
     path: abnf/odata-abnf-construction-rules.txt
@@ -16,7 +16,10 @@ additionalArtifacts:
     path: abnf/odata-abnf-testcases.yaml
     branch: v4.02-release-candidate
   - repo: odata-abnf
-    path: syntax-diagram
+    path: syntax-diagram/odata-abnf-diagrams.html
+    branch: v4.02-release-candidate
+  - repo: odata-abnf
+    path: syntax-diagram/railroad-diagram.css
     branch: v4.02-release-candidate
 OData-ABNF: https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html
 OData-VocCore: https://github.com/oasis-tcs/odata-vocabularies/blob/v4.02-release-candidate/vocabularies/Org.OData.Core.V1.md

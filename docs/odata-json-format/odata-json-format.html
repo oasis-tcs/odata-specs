@@ -118,7 +118,7 @@
 </summary>
 <h2>Committee Specification Draft 02</h2>
 <details open><summary>
-<h2 id="28-february-2024">28 February 2024</h2>
+<h2 id="19-august-2026">19 August 2026</h2>
 </summary>
 <p><span class="math inline">\(\hbox{}\)</span></p>
 <h4>This stage:</h4>
@@ -172,9 +172,9 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <h4>Citation format:</h4>
 <p>When referencing this specification the following citation format should be used:</p>
 <p><strong>[OData-JSON-Format-v4.02]</strong></p>
-<p><em>OData JSON Format Version 4.02</em>. Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. 28 February 2024. OASIS Committee Specification Draft 02. <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/csd02/odata-json-format-v4.02-csd02.html">https://docs.oasis-open.org/odata/odata-json-format/v4.02/csd02/odata-json-format-v4.02-csd02.html</a>. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html">https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html</a>.</p>
+<p><em>OData JSON Format Version 4.02</em>. Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. 19 August 2026. OASIS Committee Specification Draft 02. <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/csd02/odata-json-format-v4.02-csd02.html">https://docs.oasis-open.org/odata/odata-json-format/v4.02/csd02/odata-json-format-v4.02-csd02.html</a>. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html">https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html</a>.</p>
 <h4>Notices</h4>
-<p>Copyright © OASIS Open 2024. All Rights Reserved.</p>
+<p>Copyright © OASIS Open 2026. All Rights Reserved.</p>
 <p>Distributed under the terms of the OASIS <a href="https://www.oasis-open.org/policies-guidelines/ipr/">IPR Policy</a>.</p>
 <p>The name “OASIS” is a trademark of <a href="https://www.oasis-open.org/">OASIS</a>, the owner and developer of this specification, and should be used only to refer to the organization and its official outputs.</p>
 <p>For complete copyright information please see the full Notices section in an Appendix <a href="#Notices">below</a>.</p>
@@ -477,7 +477,7 @@ This uses pandoc 3.8.3 from https://github.com/jgm/pandoc/releases/tag/3.8.3.
 <li><a href="#PayloadOrderingConstraints"><code>streaming</code></a></li>
 </ul>
 <p>The names and values of these format parameters are case-insensitive.</p>
-<p>Services SHOULD advertise the supported media types by annotating the entity container with the term <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#SupportedFormats"><code>Capabilities.SupportedFormats</code></a></span> defined in <a href="#ODataVocCap">OData-VocCap</a>, listing all available formats and combinations of supported format parameters.</p>
+<p>Services SHOULD advertise the supported media types by annotating the entity container with the term <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/v4.02-release-candidate/vocabularies/Org.OData.Capabilities.V1.md#SupportedFormats"><code>Capabilities.SupportedFormats</code></a></span> defined in <a href="#ODataVocCap">OData-VocCap</a>, listing all available formats and combinations of supported format parameters.</p>
 <details open><summary>
 <h2 id="31-controlling-the-amount-of-control-information-in-responses"><a id="ControllingtheAmountofControlInformationinResponses" href="#ControllingtheAmountofControlInformationinResponses">3.1 Controlling the Amount of Control Information in Responses</a></h2>
 </summary>
@@ -2133,7 +2133,7 @@ Preference-Applied: return=minimal, continue-on-error
 <li><code>$&lt;content-id&gt;</code> to reference the response body of the referenced request</li>
 <li><code>$&lt;content-id&gt;/&lt;path&gt;</code> to reference a part of the response body</li>
 </ul>
-<p>Services SHOULD advertise support of the <code>if</code> member by specifying the property <code>RequestDependencyConditionsSupported</code> in the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#BatchSupport"><code>Capabilities.BatchSupport</code></a></span> term applied to the entity container, see <a href="#ODataVocCap">OData-VocCap</a>. If a service does not support request dependencies, the dependent request MUST fail with <code>424 Failed Dependency</code>, and if the dependent request is part of an atomicity group, all requests in that group fail with <code>424 Failed Dependency</code> with no changes applied.</p>
+<p>Services SHOULD advertise support of the <code>if</code> member by specifying the property <code>RequestDependencyConditionsSupported</code> in the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/v4.02-release-candidate/vocabularies/Org.OData.Capabilities.V1.md#BatchSupport"><code>Capabilities.BatchSupport</code></a></span> term applied to the entity container, see <a href="#ODataVocCap">OData-VocCap</a>. If a service does not support request dependencies, the dependent request MUST fail with <code>424 Failed Dependency</code>, and if the dependent request is part of an atomicity group, all requests in that group fail with <code>424 Failed Dependency</code> with no changes applied.</p>
 <p>The value of <code>headers</code> is an object whose name/value pairs represent request headers. The name of each pair MUST be the lower-case header name; the value is a string containing the header-encoded value of the header. Services MAY support omitting the <code>content-type</code> in the <code>header</code> property of a request object. For such requests the <code>body</code>, if present, MUST be <code>application/json</code> and MUST conform to <a href="#PayloadOrderingConstraints">payload ordering constraints</a>.</p>
 <p>The value of <code>body</code> can be <code>null</code>, which is equivalent to not specifying the <code>body</code> name/value pair.</p>
 <p>For media type <code>application/json</code> or one of its subtypes, optionally with format parameters, the value of <code>body</code> is JSON.</p>
@@ -2846,7 +2846,7 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 </summary>
 <!-- Required section. Do not modify. -->
 
-<p>Copyright © OASIS Open 2024. All Rights Reserved.</p>
+<p>Copyright © OASIS Open 2026. All Rights Reserved.</p>
 <p>All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the “OASIS IPR Policy”). The full <a href="https://www.oasis-open.org/policies-guidelines/ipr/">Policy</a> may be found at the OASIS website.</p>
 <p>This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published, and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this section are included on all such copies and derivative works. However, this document itself may not be modified in any way, including by removing the copyright notice or references to OASIS, except as needed for the purpose of developing any document or deliverable produced by an OASIS Technical Committee (in which case the rules applicable to copyrights, as set forth in the OASIS IPR Policy, must be followed) or as required to translate it into languages other than English.</p>
 <p>The limited permissions granted above are perpetual and will not be revoked by OASIS or its successors or assigns.</p>

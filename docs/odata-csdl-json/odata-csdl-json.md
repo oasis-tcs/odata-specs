@@ -7,7 +7,7 @@
 
 ## Committee Specification Draft 02
 
-## 28 February 2024
+## 19 August 2026
 
 $\hbox{}$
 
@@ -79,12 +79,12 @@ When referencing this specification the following citation format should be used
 **[OData-CSDL-JSON-v4.02]**
 
 _OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02_.
-Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. 28 February 2024. OASIS Committee Specification Draft 02.
+Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. 19 August 2026. OASIS Committee Specification Draft 02.
 https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd02/odata-csdl-json-v4.02-csd02.html.
 Latest stage: https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html.
 
 #### Notices
-Copyright © OASIS Open 2024. All Rights Reserved.
+Copyright © OASIS Open 2026. All Rights Reserved.
 
 Distributed under the terms of the OASIS [IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/).
 
@@ -6463,7 +6463,7 @@ acknowledged.
 
 <!-- Required section. Do not modify. -->
 
-Copyright © OASIS Open 2024. All Rights Reserved.
+Copyright © OASIS Open 2026. All Rights Reserved.
 
 All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the "OASIS IPR Policy"). The full [Policy](https://www.oasis-open.org/policies-guidelines/ipr/) may be found at the OASIS website.
 

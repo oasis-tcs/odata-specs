@@ -164,7 +164,8 @@ pre {
 
 p code,
 li code,
-td > code {
+td > code,
+td > span code {
   font-size: 1em;
   font-weight: bold;
 }
