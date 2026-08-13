@@ -365,6 +365,8 @@ Section | Feature / Change | Issue
 [Section 8.2.8.3](#Preferencecontinueonerrorodatacontinueonerror) | Responses that include errors MUST include the `Preference-Applied` header with `continue-on-error` set to `true` | [1965](https://github.com/oasis-tcs/odata-specs/issues/1965)
 [Section 8.2.8.7](#Preferencereturnrepresentationandreturnminimal) | Added `delta` format parameter to `return=representation` preference | [309](https://github.com/oasis-tcs/odata-specs/issues/309)
 [Section 10.2](#CollectionofEntities)| Context URLs use parentheses-style keys without percent-encoding| [368](https://github.com/oasis-tcs/odata-specs/issues/368)
+[Section 11.2.1](#SystemQueryOptions) | Allow `$key` in `$select` list to include key properties | [2257](https://github.com/oasis-tcs/odata-specs/issues/2257)
+[Section 11.2.1](#SystemQueryOptions) | Allow empty `$expand` lists | [2243](https://github.com/oasis-tcs/odata-specs/issues/2243)
 [Section 11.4](#DataModification)| Response code `204 No Content` after successful data modification if requested response could not be constructed| [443](https://github.com/oasis-tcs/odata-specs/issues/443)
 [Section 11.4.2](#CreateanEntity)| Services can validate non-insertable property values in insert payloads| [356](https://github.com/oasis-tcs/odata-specs/issues/356)
 [Section 11.4.2.1](#LinktoRelatedEntitiesWhenCreatinganEntity)| Client can update properties of existing related entities when creating an entity| [352](https://github.com/oasis-tcs/odata-specs/issues/352)
@@ -728,9 +730,12 @@ or that the service version its metadata using the
 [Core.SchemaVersion]{.term}
 annotation, defined in [OData-VocCore](#ODataVocCore).
 
-Services that version their metadata MUST support version-specific
-requests according to the
+Services that make breaking changes to the metadata exposed
+through a [metadata document URL](#MetadataDocumentRequest) MUST support
+version-specific requests according to the
 [`$schemaversion`](#SystemQueryOptionschemaversion) system query option.
+
+
 The following Data Model additions are considered safe and do not
 require services to version their entry point or schema.
 - Adding a property that is nullable or
@@ -2782,7 +2787,7 @@ URL that identifies the entity, e.g. its read URL.
 
 The read URL can be obtained from a response payload containing that
 instance, for example as a `readLink` or `editLink` in an
-[OData-JSON, section 4.6.9](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink) payload. In addition, services
+[OData-JSON, section 4.6.10](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink) payload. In addition, services
 MAY support conventions for constructing a read URL using the entity's
 key value(s), as described in [OData-URL, section 4.3.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalURL).
 
@@ -2813,11 +2818,11 @@ Clients MUST be prepared to receive additional properties in an entity
 or complex type instance that are not advertised in metadata, even for
 types not marked as open.
 
-Properties that are not available are not returned. If their unavailability
-is due to permissions, the
-[Core.Permissions]{.term}
-annotation, defined in [OData-VocCore](#ODataVocCore) MUST be returned
-for the property with a value of `None`.
+Properties that are not available are not returned. Services return
+the [Core.Permissions]{.term} annotation, defined in [OData-VocCore](#ODataVocCore),
+with a value of `None` if the property can not be accessed due to permissions issues,
+or `Write` if the property can be written but not read
+(for example, a password or other sensitive write-only information).
 If the [`omit-values`](#Preferenceomitvalues) preference is
 applied, `Core.Permissions` or another specific annotation that explains the
 reason MUST be returned for every unavailable property.
@@ -2965,6 +2970,9 @@ alias of the schema in order to specify all operations defined in the
 schema. Only aliases defined in the metadata document of the service can
 be used in URLs.
 
+OData 4.02 and greater services MAY support `$key` in the select list to indicate
+that all key properties be included in the response.
+
 ::: example
 Example 36: request only the `Rating` and `ReleaseDate` for the matching
 Products
@@ -3072,6 +3080,13 @@ the specified content, and MAY choose to return additional information.
 The value of `$expand` is a comma-separated list of expand items. Each
 expand item is evaluated relative to the retrieved resource being
 expanded.
+
+OData 4.02 and greater services MAY support an empty expand list to indicate
+that no navigation or stream properties are requested, including those marked
+with `AutoExpand` or `AutoExpandReferences`, or otherwise required by protocol
+to be returned in the absence of an explicit `$expand`. Selected or default
+structural properties are still returned, along with required metadata according
+to the requested format.
 
 For a full description of the syntax used when building requests, see
 [OData-URL, section 5.1.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#SystemQueryOptionexpand).
@@ -3582,8 +3597,26 @@ count returned inline may not exactly equal the actual number of items
 returned, due to latency between calculating the count and enumerating
 the last value or due to inexact calculations on the service.
 
-How the count is encoded in the response body is dependent upon the
-selected format.
+Services MAY indicate the accuracy of the count as one of the following values:
+ - `counted` indicates that the count was exact at the time of calculation
+ - `estimated` indicates that the count was estimated
+ - `cached` indicates the count was based on cached values that may no longer be current
+ - `partial` indicates that the collection contained at least the returned number
+ of items at the time of calculation
+ - `unavailable` indicates that the count was unavailable and any count value returned (typically 0) should be ignored
+
+Note that future versions of this specification may add additional values
+to describe count accuracy. Clients should treat any unknown value as an
+inexact count.
+
+How the count is encoded in the response body, as well as the accuracy
+(if included), is dependent upon the selected format.
+
+Services MAY indicate a default count accuracy through the [Capabilities.CountRestrictions]{.term} or [Capabilities.DefaultCapabilities]{.term}
+annotation, defined in [OData-VocCap](#ODataVocCap).
+If a default count accuracy is defined, then the service MUST return the
+actual count accuracy applied for any responses with a non-exact accuracy
+different than the default.
 
 #### <a id="SystemQueryOptionsearch" href="#SystemQueryOptionsearch">11.2.6.6 System Query Option `$search`</a>
 
@@ -4190,7 +4223,7 @@ If optimistic concurrency control is required for a resource, the
 service MUST include an [`ETag`](#HeaderETag) header in a response to a
 `GET` request to the resource, and MAY include the ETag in a
 format-specific manner in responses containing that resource,
-see for example [OData-JSON, section 4.6.10](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformationetagodataetag).
+see for example [OData-JSON, section 4.6.11](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformationetagodataetag).
 
 The presence of an [`ETag`](#HeaderETag) header in a response does not
 imply in itself that the resource requires optimistic concurrency
@@ -5396,7 +5429,7 @@ then services that support ETags MUST NOT apply the change and instead
 The special value `*` can be used to match any existing entity but fail if the entity does not already exist.
 
 Added/changed entities that specify format-specific control information
-equivalent to an `If-Match-None: *` header [OData-JSON, section 4.6.10](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformationetagodataetag)
+equivalent to an `If-Match-None: *` header [OData-JSON, section 4.6.11](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformationetagodataetag)
 MUST NOT be treated as an update.
 
 The response, if requested, is a delta payload, in the same structure
@@ -6979,7 +7012,7 @@ final response to an asynchronous request
 To be considered an *Updatable OData Service*, the service additionally:
 
 18. MUST include edit links (explicitly or implicitly) for all
-updatable or deletable resources according to [OData-JSON, section 4.6.9](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink)
+updatable or deletable resources according to [OData-JSON, section 4.6.10](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink)
 19. MUST support `POST` of new entities to insertable entity sets
 ([section 11.4.1.6](#ReturningResultsfromDataModificationRequests))
 20. MUST support `POST` of new related entities to updatable navigation
@@ -7096,10 +7129,11 @@ according to the JSON Batch format defined in [OData-JSON, section 19](https://d
 OData services can report conformance to the OData 4.01 specification by
 including `4.01` in the list of supported protocol versions in the
 [Core.ODataVersions]{.term}
-annotation, as defined in [OData-VocCore](#ODataVocCore). As all OData
-4.01 compliant services must also be fully OData 4.0 compliant, OData
-4.01 services do not need to separately list `4.0` as a supported
-version.
+annotation, as defined in [OData-VocCore](#ODataVocCore). As OData
+supports semantic versioning, clients can assume that services reporting
+`4.01` also support `4.0`. In order to interoperate with the greatest number
+of clients, OData 4.01 services SHOULD advertise both `4.0` and `4.01` as
+supported versions.
 
 ### <a id="OData401MinimalConformanceLevel" href="#OData401MinimalConformanceLevel">12.2.1 OData 4.01 Minimal Conformance Level</a>
 
@@ -7251,10 +7285,11 @@ case-insensitive comparison
 OData services can report conformance to the OData 4.02 specification by
 including `4.02` in the list of supported protocol versions in the
 [Core.ODataVersions]{.term}
-annotation, as defined in [OData-VocCore](#ODataVocCore). As all OData
-4.02 compliant services must also be fully OData 4.0 and 4.01 compliant, OData
-4.02 services do not need to separately list `4.0` and `4.01` as supported
-versions.
+annotation, as defined in [OData-VocCore](#ODataVocCore). As OData
+supports semantic versioning, clients can assume that services reporting
+`4.02` also support both `4.0` and `4.01`. In order to interoperate with
+the greatest number of clients, OData 4.02 services SHOULD advertise
+`4.0`, `4.01`, and `4.02` as supported versions.
 
 ### <a id="OData402MinimalConformanceLevel" href="#OData402MinimalConformanceLevel">12.3.1 OData 4.02 Minimal Conformance Level</a>
 

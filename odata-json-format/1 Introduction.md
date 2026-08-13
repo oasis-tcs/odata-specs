@@ -35,10 +35,10 @@ Control information `"@etag": ""` to prevent updates|
 [536](https://github.com/oasis-tcs/odata-specs/issues/536)
 [Section ##StructuralProperty], [Section ##InformativeReferences]| 
 Removed reference to obsolete version of GeoJSON| 
-[352](https://github.com/oasis-tcs/odata-specs/issues/352)
+[456](https://github.com/oasis-tcs/odata-specs/issues/456)
 [Section ##EntityReference]| 
 Entities can be referenced by id or full set of key properties| 
-[456](https://github.com/oasis-tcs/odata-specs/issues/456)
+[352](https://github.com/oasis-tcs/odata-specs/issues/352)
 [Section ##DeletedEntity]| 
 `type` control information, if present, must come immediately after `removed`| 
 [1985](https://github.com/oasis-tcs/odata-specs/issues/1985)

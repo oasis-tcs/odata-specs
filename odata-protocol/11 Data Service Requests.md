@@ -182,11 +182,11 @@ Clients MUST be prepared to receive additional properties in an entity
 or complex type instance that are not advertised in metadata, even for
 types not marked as open.
 
-Properties that are not available are not returned. If their unavailability
-is due to permissions, the
-[Core.Permissions]{.term}
-annotation, defined in [OData-VocCore](#ODataVocCore) MUST be returned
-for the property with a value of `None`.
+Properties that are not available are not returned. Services return
+the [Core.Permissions]{.term} annotation, defined in [OData-VocCore](#ODataVocCore),
+with a value of `None` if the property can not be accessed due to permissions issues,
+or `Write` if the property can be written but not read
+(for example, a password or other sensitive write-only information).
 If the [`omit-values`](#Preferenceomitvalues) preference is
 applied, `Core.Permissions` or another specific annotation that explains the
 reason MUST be returned for every unavailable property.
@@ -334,6 +334,9 @@ alias of the schema in order to specify all operations defined in the
 schema. Only aliases defined in the metadata document of the service can
 be used in URLs.
 
+OData 4.02 and greater services MAY support `$key` in the select list to indicate
+that all key properties be included in the response.
+
 ::: example
 Example ##ex: request only the `Rating` and `ReleaseDate` for the matching
 Products
@@ -446,6 +449,13 @@ the specified content, and MAY choose to return additional information.
 The value of `$expand` is a comma-separated list of expand items. Each
 expand item is evaluated relative to the retrieved resource being
 expanded.
+
+OData 4.02 and greater services MAY support an empty expand list to indicate
+that no navigation or stream properties are requested, including those marked
+with `AutoExpand` or `AutoExpandReferences`, or otherwise required by protocol
+to be returned in the absence of an explicit `$expand`. Selected or default
+structural properties are still returned, along with required metadata according
+to the requested format.
 
 For a full description of the syntax used when building requests, see
 [#OData-URL#SystemQueryOptionexpand].
@@ -962,8 +972,26 @@ count returned inline may not exactly equal the actual number of items
 returned, due to latency between calculating the count and enumerating
 the last value or due to inexact calculations on the service.
 
-How the count is encoded in the response body is dependent upon the
-selected format.
+Services MAY indicate the accuracy of the count as one of the following values:
+ - `counted` indicates that the count was exact at the time of calculation
+ - `estimated` indicates that the count was estimated
+ - `cached` indicates the count was based on cached values that may no longer be current
+ - `partial` indicates that the collection contained at least the returned number
+ of items at the time of calculation
+ - `unavailable` indicates that the count was unavailable and any count value returned (typically 0) should be ignored
+
+Note that future versions of this specification may add additional values
+to describe count accuracy. Clients should treat any unknown value as an
+inexact count.
+
+How the count is encoded in the response body, as well as the accuracy
+(if included), is dependent upon the selected format.
+
+Services MAY indicate a default count accuracy through the [Capabilities.CountRestrictions]{.term} or [Capabilities.DefaultCapabilities]{.term}
+annotation, defined in [OData-VocCap](#ODataVocCap).
+If a default count accuracy is defined, then the service MUST return the
+actual count accuracy applied for any responses with a non-exact accuracy
+different than the default.
 
 #### ##subsubsubsec System Query Option `$search`
 

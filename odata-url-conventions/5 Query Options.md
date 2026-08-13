@@ -2027,6 +2027,14 @@ expand item is evaluated relative to the retrieved resource being
 expanded. An expand item is either a path or one of the symbols `*` or
 `$value`.
 
+OData 4.02 and greater services MAY support an empty expand list to indicate
+that no navigation or stream properties are requested, including those marked
+with `AutoExpand` or `AutoExpandReferences`, or otherwise required by protocol
+to be returned in the absence of an explicit `$expand`. Selected or default
+structural properties are still returned, along with required metadata according
+to the requested format.
+
+
 A path consists of segments separated by a forward slash (`/`). Segments
 are either names of single- or collection-valued complex properties,
 [instance annotations](#AnnotationValuesinExpressions), or [type-cast segments](#AddressingDerivedTypes)
@@ -2236,6 +2244,9 @@ dynamic properties of the type, or
 - a qualified schema name followed by a
 dot (`.`) followed by a star (`*`) to request all applicable actions or
 functions from that schema
+
+OData 4.02 and greater services MAY support `$key` in the select list to indicate
+that all key properties be included in the response.
 
 A path consists of segments separated by a forward slash (`/`). Segments
 are either names of single- or collection-valued complex properties,

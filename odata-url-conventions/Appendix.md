@@ -50,6 +50,10 @@ https://www.rfc-editor.org/info/rfc3986.
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_.
 https://www.rfc-editor.org/info/rfc8174.
 
+###### [RFC10008]{id=rfc10008}
+_Reschke, J., Snell, J., and M. Bishop, "The HTTP QUERY Method", RFC 10008, DOI 10.17487/RFC10008, June 2026_.
+https://www.rfc-editor.org/info/rfc10008.
+
 ###### [URL]{id=_url}
 _URL Living Standard._  
 https://url.spec.whatwg.org/.
