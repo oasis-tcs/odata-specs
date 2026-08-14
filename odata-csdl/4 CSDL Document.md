@@ -22,11 +22,15 @@ If the CSDL JSON document is the metadata document of an OData service, the docu
 
 ### ##subisec `$Version`
 
-The value of `$Version` is a string specifying the OData protocol version of the
-document, either `4.0`, `4.01`, or `4.02`.
+The value of `$Version` specifies the OData version of this CSDL
+document; allowed values are `4.0`, `4.01`, or `4.02`.
 
-Services MUST return an OData 4.0 response if the request was
-made with an `OData-MaxVersion` header with a value of `4.0`.
+In order to work with downlevel clients, services SHOULD report the lowest
+CSDL version with which the metadata document complies.
+
+If a request for the metadata document specifies an `OData-MaxVersion` header,
+then the service MUST return a response that complies with a version of OData
+less than or equal to the specified value.
 
 ### ##subisec `$EntityContainer`
 
@@ -165,11 +169,15 @@ other CSDL documents.
 
 ### ##subisec Attribute `Version`
 
-The `Version` attribute specifies the OData protocol version of the
-document, either `4.0`, `4.01`, or `4.02`.
+The `Version` attribute specifies the OData version of this CSDL
+document; allowed values are `4.0`, `4.01`, or `4.02`.
 
-Services MUST return an OData 4.0 response if the request was
-made with an `OData-MaxVersion` header with a value of `4.0`.
+In order to work with downlevel clients, services SHOULD report the lowest
+CSDL version with which the metadata document complies.
+
+If a request for the metadata document specifies an `OData-MaxVersion` header,
+then the service MUST return a response that complies with a version of OData
+less than or equal to the specified value.
 
 ### ##isec Element `edmx:DataServices`
 
@@ -208,10 +216,10 @@ in a format-specific way.
 A reference MAY be annotated.
 
 The
-[`Core.SchemaVersion`]($$$OData-VocCore$$$#SchemaVersion)
+[Core.SchemaVersion]{.term}
 annotation, defined in [OData-VocCore](#ODataVocCore), MAY be used to
 indicate a particular version of the referenced document. If the
-[`Core.SchemaVersion`]($$$OData-VocCore$$$#SchemaVersion)
+[Core.SchemaVersion]{.term}
 annotation is present, the `$schemaversion` system query option, defined in
 [#OData-Protocol#SystemQueryOptionschemaversion], SHOULD be used when retrieving the
 referenced schema document.

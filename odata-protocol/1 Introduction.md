@@ -27,9 +27,16 @@ resource representations that are exchanged using OData.
 Section | Feature / Change | Issue
 --------|------------------|------
 [Section ##Preferencecontinueonerrorodatacontinueonerror] | Responses that include errors MUST include the `Preference-Applied` header with `continue-on-error` set to `true` | [1965](https://github.com/oasis-tcs/odata-specs/issues/1965)
+[Section ##Preferencereturnrepresentationandreturnminimal] | Added `delta` format parameter to `return=representation` preference | [309](https://github.com/oasis-tcs/odata-specs/issues/309)
 [Section ##CollectionofEntities]| 
 Context URLs use parentheses-style keys without percent-encoding| 
 [368](https://github.com/oasis-tcs/odata-specs/issues/368)
+[Section ##SystemQueryOptions] | 
+Allow `$key` in `$select` list to include key properties | 
+[2257](https://github.com/oasis-tcs/odata-specs/issues/2257)
+[Section ##SystemQueryOptions] | 
+Allow empty `$expand` lists | 
+[2243](https://github.com/oasis-tcs/odata-specs/issues/2243)
 [Section ##DataModification]| 
 Response code `204 No Content` after successful data modification if requested response could not be constructed| 
 [443](https://github.com/oasis-tcs/odata-specs/issues/443)
@@ -48,6 +55,9 @@ Services can validate non-updatable property values in update payloads|
 [Section ##UpsertanEntity]| 
 Upserts to single-valued non-containment navigation properties| 
 [455](https://github.com/oasis-tcs/odata-specs/issues/455)
+Sections [##DeleteanEntity], [##RemoveaReferencetoanEntity]| 
+Idempotency of delete operation| 
+[2103](https://github.com/oasis-tcs/odata-specs/issues/2103)
 [Section ##UpdateaComplexProperty]| 
 Setting a complex property to a different type| 
 [534](https://github.com/oasis-tcs/odata-specs/issues/534)
@@ -59,7 +69,9 @@ Control information to prevent updates|
 Omission of collection-valued action parameters| 
 [2045](https://github.com/oasis-tcs/odata-specs/issues/2045)
 [Section ##Conformance] | Allow `400 Bad Request` in addition to `501 Not Implemented` for unsupported functionality| [391](https://github.com/oasis-tcs/odata-specs/issues/391)
-[Section ##InteroperableODataClients] | Encoding of plus character in URLs | [485](https://github.com/oasis-tcs/odata-specs/issues/485)
+[Section ##InteroperableODataClients] | 
+Encoding of plus character in URLs | 
+[485](https://github.com/oasis-tcs/odata-specs/issues/485)
 
 ## ##subsec Glossary
 
@@ -289,7 +301,7 @@ of an IRI in the [`EntityId`](#HeaderODataEntityId) header.
 Services are strongly encouraged to use the canonical URL for an entity
 as defined in [#OData-URL#CanonicalURL] as its entity-id, but clients cannot assume
 the entity-id can be used to locate the entity unless the
-[`Core.DereferenceableIDs`]($$$OData-VocCore$$$#DereferenceableIDs)
+[Core.DereferenceableIDs]{.term}
 term is applied to the entity container, nor can the client assume any
 semantics from the structure of the entity-id. The canonical resource
 `$entity` provides a general mechanism for
@@ -297,7 +309,7 @@ semantics from the structure of the entity-id. The canonical resource
 
 Services that use the standard URL conventions for entity-ids annotate
 their entity container with the term
-[`Core.ConventionalIDs`]($$$OData-VocCore$$$#ConventionalIDs),
+[Core.ConventionalIDs]{.term},
 see [OData-VocCore](#ODataVocCore).
 
 *Entity references* refer to an entity using the entity's entity-id.
@@ -340,7 +352,7 @@ or between properties and bound functions, actions, or types with the
 same name.
 
 Services MAY define one or more default namespaces through the
-[`Core.DefaultNamespace`]($$$OData-VocCore$$$#DefaultNamespace) term
+[Core.DefaultNamespace]{.term} term
 defined in [OData-VocCore](#ODataVocCore). Functions, actions and types
 in a default namespace can be referenced in URLs with or without
 namespace or alias qualification.
@@ -386,15 +398,15 @@ OData clients include the
 order to specify the maximum acceptable response version. Services
 respond with the maximum supported version that is less than or equal to
 the requested `OData-MaxVersion`, using decimal comparison. The syntax
-of the `OData-Version` and `OData-MaxVersion` header fields is defined
+of the [OData-Version]{.abnf} and [OData-MaxVersion]{.abnf} header fields is defined
 in [OData-ABNF](#ODataABNF).
 
 Services SHOULD advertise supported versions of OData through the
-[`Core.ODataVersions`]($$$OData-VocCore$$$#ODataVersions)
+[Core.ODataVersions]{.term}
 term, defined in [OData-VocCore](#ODataVocCore).
 
-This version of the specification defines OData version values `4.0` and
-`4.01`. Content that applies only to one version or another is
+This version of the specification defines OData version values `4.0`, `4.01` and
+`4.02`. Content that applies only to one version or another is
 explicitly called out in the text.
 
 ## ##subsec Model Versioning
@@ -407,12 +419,15 @@ type of existing properties, adding or removing key properties, or
 reordering action or function parameters, require that a new service
 version is provided at a different service root URL for the new model,
 or that the service version its metadata using the
-[`Core.SchemaVersion`]($$$OData-VocCore$$$#SchemaVersion)
+[Core.SchemaVersion]{.term}
 annotation, defined in [OData-VocCore](#ODataVocCore).
 
-Services that version their metadata MUST support version-specific
-requests according to the
+Services that make breaking changes to the metadata exposed
+through a [metadata document URL](#MetadataDocumentRequest) MUST support
+version-specific requests according to the
 [`$schemaversion`](#SystemQueryOptionschemaversion) system query option.
+
+
 The following Data Model additions are considered safe and do not
 require services to version their entry point or schema.
 - Adding a property that is nullable or
@@ -433,7 +448,7 @@ import, or function import
 nullable after existing parameters
 - Adding an action or function parameter
 that is annotated with
-[`Core.OptionalParameter`]($$$OData-VocCore$$$#OptionalParameter)
+[Core.OptionalParameter]{.term}
 after existing parameters
 - Adding a type definition or enumeration
 - Adding a new term
@@ -441,15 +456,30 @@ after existing parameters
 that does not need to be understood by the client in order to correctly
 interact with the service
 
-Clients SHOULD be prepared for services to make such incremental changes
-to their model. In particular, clients SHOULD be prepared to receive
+Clients should be prepared for services to make such incremental changes
+to their model at any time. In particular:
+- Clients should be prepared to receive
 properties and derived types not previously defined by the service.
+- Clients that cache metadata should be prepared to receive references
+to new schema elements in response payloads, including types, properties,
+entity sets, singletons, operations and terms, in existing or new namespaces, that may not have been
+part of the cached metadata.
+- Clients should be prepared to receive references to schema
+elements defined in new metadata documents, including metadata
+documents not referenced by the original schema.
+- Clients should use `$select` to select required properties, as the
+service may change the default set of properties returned in the
+absence of `$select`.
 
 Services SHOULD NOT change their data model depending on the
 authenticated user. If the data model is user or user-group dependent,
 all changes MUST be *safe changes* as defined in this section when
 comparing the full model to the model visible to users with restricted
 authorizations.
+
+Services MAY change the default set of properties returned in the
+absence of `$select` but, for backward compatibility, SHOULD NOT
+reduce the set of properties returned by default.
 
 -------
 
@@ -578,7 +608,7 @@ If the service does not support the requested format, it replies with a
 
 Services SHOULD advertise their supported formats in the metadata
 document by annotating their entity container with the term
-[`Capabilities.SupportedFormats`]($$$OData-VocCap$$$#SupportedFormats),
+[Capabilities.SupportedFormats]{.term},
 as defined in [OData-VocCap](#ODataVocCap), listing all available
 formats and combinations of supported format parameters.
 

@@ -259,7 +259,7 @@ using the JavaScript Object Notation (JSON), see [RFC8259](#rfc8259).
 
 This format is based on the OpenUI5 OData V4 Metadata JSON Format, see
 [OpenUI5](#_OpenUI5), with some extensions and
-modifications made necessary to fully cover OData CSDL Version 4.01.
+modifications made necessary to fully cover OData CSDL Version 4.02.
 
 
 ## <a id="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a>
@@ -268,7 +268,7 @@ Section | Feature / Change | Issue
 --------|------------------|------
 [Section 3.3](#PrimitiveTypes)| Allow stream-valued non-binding parameters| [525](https://github.com/oasis-tcs/odata-specs/issues/525)
 [Section 3.4.5](#SRID)| SRID value `variable` is deprecated| [1935](https://github.com/oasis-tcs/odata-specs/issues/1935)
-[Section 4](#CSDLJSONDocument) | Additional `$Version` value `4.02` |
+[Section 4](#CSDLJSONDocument) | Additional `$Version` value `4.02` | [2222](https://github.com/oasis-tcs/odata-specs/issues/2222)
 [Section 12](#ActionandFunction) | Actions and functions can take, and return, delta payloads | [348](https://github.com/oasis-tcs/odata-specs/issues/348)
 [Section 12.8](#ReturnType) | Returned collections of entities may contain `null` values | [1983](https://github.com/oasis-tcs/odata-specs/issues/1983)
 [Section 14.3.13](#GeoValues) | Constant Geo values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
@@ -347,7 +347,7 @@ class&nbsp;ModelElement&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -372,7 +372,7 @@ get&nbsp;</TT>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is invoked in definitions <A HREF="#3">3</A>, <A HREF="#3">3</A>, <A HREF="#15">15</A>, <A HREF="#23">23</A>, <A HREF="#30">30</A>, <A HREF="#31">31</A>, <A HREF="#37">37</A>, <A HREF="#51">51</A>, <A HREF="#54">54</A>, <A HREF="#61">61</A>, <A HREF="#61">61</A>, <A HREF="#85">85</A>, <A HREF="#93">93</A>, <A HREF="#126">126</A>, <A HREF="#126">126</A>, <A HREF="#126">126</A>, <A HREF="#130">130</A>, <A HREF="#134">134</A>, <A HREF="#142">142</A>, <A HREF="#143">143</A>, <A HREF="#143">143</A>, <A HREF="#151">151</A>, <A HREF="#174">174</A>, <A HREF="#174">174</A>, <A HREF="#180">180</A>, <A HREF="#183">183</A> and <A HREF="#183">183</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definitions <A HREF="#3">3</A>, <A HREF="#3">3</A>, <A HREF="#15">15</A>, <A HREF="#23">23</A>, <A HREF="#30">30</A>, <A HREF="#31">31</A>, <A HREF="#37">37</A>, <A HREF="#51">51</A>, <A HREF="#54">54</A>, <A HREF="#61">61</A>, <A HREF="#61">61</A>, <A HREF="#85">85</A>, <A HREF="#93">93</A>, <A HREF="#128">128</A>, <A HREF="#128">128</A>, <A HREF="#128">128</A>, <A HREF="#132">132</A>, <A HREF="#136">136</A>, <A HREF="#144">144</A>, <A HREF="#145">145</A>, <A HREF="#145">145</A>, <A HREF="#153">153</A>, <A HREF="#176">176</A>, <A HREF="#176">176</A>, <A HREF="#182">182</A>, <A HREF="#185">185</A> and <A HREF="#185">185</A>.</FONT><BR>
 
 </P>
 :::
@@ -394,7 +394,7 @@ constructor(parent)&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#130">130</A>, <A HREF="#131">131</A>, <A HREF="#137">137</A>, <A HREF="#139">139</A>, <A HREF="#151">151</A>, <A HREF="#164">164</A>, <A HREF="#169">169</A>, <A HREF="#170">170</A>, <A HREF="#183">183</A>, <A HREF="#188">188</A> and <A HREF="#191">191</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#132">132</A>, <A HREF="#133">133</A>, <A HREF="#139">139</A>, <A HREF="#141">141</A>, <A HREF="#153">153</A>, <A HREF="#166">166</A>, <A HREF="#171">171</A>, <A HREF="#172">172</A>, <A HREF="#185">185</A>, <A HREF="#190">190</A> and <A HREF="#193">193</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#1">1</A>.</FONT><BR>
 
 </P>
@@ -413,7 +413,7 @@ descendantOf(anc)&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#130">130</A>, <A HREF="#131">131</A>, <A HREF="#137">137</A>, <A HREF="#139">139</A>, <A HREF="#151">151</A>, <A HREF="#164">164</A>, <A HREF="#169">169</A>, <A HREF="#170">170</A>, <A HREF="#183">183</A>, <A HREF="#188">188</A> and <A HREF="#191">191</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#132">132</A>, <A HREF="#133">133</A>, <A HREF="#139">139</A>, <A HREF="#141">141</A>, <A HREF="#153">153</A>, <A HREF="#166">166</A>, <A HREF="#171">171</A>, <A HREF="#172">172</A>, <A HREF="#185">185</A>, <A HREF="#190">190</A> and <A HREF="#193">193</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#1">1</A>.</FONT><BR>
 
 </P>
@@ -442,7 +442,7 @@ toString()&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#130">130</A>, <A HREF="#131">131</A>, <A HREF="#137">137</A>, <A HREF="#139">139</A>, <A HREF="#151">151</A>, <A HREF="#164">164</A>, <A HREF="#169">169</A>, <A HREF="#170">170</A>, <A HREF="#183">183</A>, <A HREF="#188">188</A> and <A HREF="#191">191</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#132">132</A>, <A HREF="#133">133</A>, <A HREF="#139">139</A>, <A HREF="#141">141</A>, <A HREF="#153">153</A>, <A HREF="#166">166</A>, <A HREF="#171">171</A>, <A HREF="#172">172</A>, <A HREF="#185">185</A>, <A HREF="#190">190</A> and <A HREF="#193">193</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#1">1</A>.</FONT><BR>
 
 </P>
@@ -473,7 +473,7 @@ fromJSON(json,&nbsp;defaultKind)&nbsp;{<BR>
 &nbsp;&nbsp;let&nbsp;hasAnnotations&nbsp;=&nbsp;false;<BR>
 &nbsp;&nbsp;for&nbsp;(const&nbsp;member&nbsp;in&nbsp;json)&nbsp;{<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;</TT>
-<A HREF="#129">If the member is an annotation, deserialize it</A><TT><BR>
+<A HREF="#131">If the member is an annotation, deserialize it</A><TT><BR>
 &nbsp;&nbsp;&nbsp;&nbsp;else&nbsp;if&nbsp;(!member.startsWith("$"))&nbsp;{<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(json[member]&nbsp;instanceof&nbsp;Array)<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>
@@ -493,12 +493,12 @@ fromJSON(json,&nbsp;defaultKind)&nbsp;{<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;}<BR>
 &nbsp;&nbsp;}<BR>
 &nbsp;&nbsp;</TT>
-<A HREF="#135">Housekeeping for annotations</A><TT><BR>
+<A HREF="#137">Housekeeping for annotations</A><TT><BR>
 }<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#130">130</A>, <A HREF="#131">131</A>, <A HREF="#137">137</A>, <A HREF="#139">139</A>, <A HREF="#151">151</A>, <A HREF="#164">164</A>, <A HREF="#169">169</A>, <A HREF="#170">170</A>, <A HREF="#183">183</A>, <A HREF="#188">188</A> and <A HREF="#191">191</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#132">132</A>, <A HREF="#133">133</A>, <A HREF="#139">139</A>, <A HREF="#141">141</A>, <A HREF="#153">153</A>, <A HREF="#166">166</A>, <A HREF="#171">171</A>, <A HREF="#172">172</A>, <A HREF="#185">185</A>, <A HREF="#190">190</A> and <A HREF="#193">193</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#1">1</A>.</FONT><BR>
 
 </P>
@@ -834,7 +834,7 @@ underlying type is `Edm.Stream`, cannot be used in collections.
 
 Some of these types allow facets, defined in [section 3.4](#TypeFacets).
 
-Representation of primitive type values within a URL is defined by the rule `primitiveLiteral` in [OData-ABNF](#ODataABNF).
+Representation of primitive type values within a URL is defined by the rule [primitiveLiteral]{.abnf} in [OData-ABNF](#ODataABNF).
 Representation within request and response bodies is format specific.
 
 ## <a id="TypeFacets" href="#TypeFacets">3.4 Type Facets</a>
@@ -1147,11 +1147,15 @@ If the CSDL JSON document is the metadata document of an OData service, the docu
 
 ### <a id="Version.2.1" href="#Version.2.1">`$Version`</a>
 
-The value of `$Version` is a string specifying the OData protocol version of the
-document, either `4.0`, `4.01`, or `4.02`.
+The value of `$Version` specifies the OData version of this CSDL
+document; allowed values are `4.0`, `4.01`, or `4.02`.
 
-Services MUST return an OData 4.0 response if the request was
-made with an `OData-MaxVersion` header with a value of `4.0`.
+In order to work with downlevel clients, services SHOULD report the lowest
+CSDL version with which the metadata document complies.
+
+If a request for the metadata document specifies an `OData-MaxVersion` header,
+then the service MUST return a response that complies with a version of OData
+less than or equal to the specified value.
 
 ### <a id="EntityContainer.2.2" href="#EntityContainer.2.2">`$EntityContainer`</a>
 
@@ -1170,7 +1174,7 @@ class&nbsp;CSDLDocument&nbsp;extends&nbsp;ModelElement&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -1193,7 +1197,7 @@ function&nbsp;CSDLReviver(key,&nbsp;value)&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -1213,7 +1217,7 @@ CSDLReviver,<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#106">106</A>, <A HREF="#109">109</A>, <A HREF="#114">114</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#127">127</A>, <A HREF="#148">148</A>, <A HREF="#189">189</A>, <A HREF="#196">196</A>, <A HREF="#198">198</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#209">209</A>, <A HREF="#214">214</A>, <A HREF="#216">216</A> and <A HREF="#220">220</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -1236,7 +1240,7 @@ get&nbsp;csdlDocument()&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#130">130</A>, <A HREF="#131">131</A>, <A HREF="#137">137</A>, <A HREF="#139">139</A>, <A HREF="#151">151</A>, <A HREF="#164">164</A>, <A HREF="#169">169</A>, <A HREF="#170">170</A>, <A HREF="#183">183</A>, <A HREF="#188">188</A> and <A HREF="#191">191</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#132">132</A>, <A HREF="#133">133</A>, <A HREF="#139">139</A>, <A HREF="#141">141</A>, <A HREF="#153">153</A>, <A HREF="#166">166</A>, <A HREF="#171">171</A>, <A HREF="#172">172</A>, <A HREF="#185">185</A>, <A HREF="#190">190</A> and <A HREF="#193">193</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#1">1</A>.</FONT><BR>
 
 </P>
@@ -1250,7 +1254,7 @@ get&nbsp;csdlDocument()&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#12">12</A>, <A HREF="#15">15</A>, <A HREF="#19">19</A>, <A HREF="#25">25</A>, <A HREF="#31">31</A>, <A HREF="#134">134</A>, <A HREF="#154">154</A>, <A HREF="#174">174</A>, <A HREF="#180">180</A> and <A HREF="#222">222</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#12">12</A>, <A HREF="#15">15</A>, <A HREF="#19">19</A>, <A HREF="#25">25</A>, <A HREF="#31">31</A>, <A HREF="#136">136</A>, <A HREF="#156">156</A>, <A HREF="#176">176</A>, <A HREF="#182">182</A> and <A HREF="#224">224</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#8">8</A>.</FONT><BR>
 
 </P>
@@ -1285,7 +1289,7 @@ this.csdlDocument?.modelElements.push(this);<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#14">14</A> and <A HREF="#152">152</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#14">14</A> and <A HREF="#154">154</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#13">13</A>.</FONT><BR>
 
 </P>
@@ -1300,7 +1304,7 @@ this.csdlDocument?.modelElements.push(this);<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#12">12</A>, <A HREF="#15">15</A>, <A HREF="#19">19</A>, <A HREF="#25">25</A>, <A HREF="#31">31</A>, <A HREF="#134">134</A>, <A HREF="#154">154</A>, <A HREF="#174">174</A>, <A HREF="#180">180</A> and <A HREF="#222">222</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#12">12</A>, <A HREF="#15">15</A>, <A HREF="#19">19</A>, <A HREF="#25">25</A>, <A HREF="#31">31</A>, <A HREF="#136">136</A>, <A HREF="#156">156</A>, <A HREF="#176">176</A>, <A HREF="#182">182</A> and <A HREF="#224">224</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#8">8</A>.</FONT><BR>
 
 </P>
@@ -1345,7 +1349,7 @@ this.</TT>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is invoked in definitions <A HREF="#18">18</A>, <A HREF="#67">67</A>, <A HREF="#88">88</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#115">115</A> and <A HREF="#118">118</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definitions <A HREF="#18">18</A>, <A HREF="#67">67</A>, <A HREF="#88">88</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#117">117</A> and <A HREF="#120">120</A>.</FONT><BR>
 
 </P>
 :::
@@ -1358,7 +1362,7 @@ if&nbsp;(json.</TT>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is invoked in definitions <A HREF="#19">19</A>, <A HREF="#58">58</A>, <A HREF="#105">105</A> and <A HREF="#123">123</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definitions <A HREF="#19">19</A>, <A HREF="#58">58</A>, <A HREF="#107">107</A> and <A HREF="#125">125</A>.</FONT><BR>
 
 </P>
 :::
@@ -1376,7 +1380,7 @@ fromJSON(json)&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#12">12</A>, <A HREF="#15">15</A>, <A HREF="#19">19</A>, <A HREF="#25">25</A>, <A HREF="#31">31</A>, <A HREF="#134">134</A>, <A HREF="#154">154</A>, <A HREF="#174">174</A>, <A HREF="#180">180</A> and <A HREF="#222">222</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#12">12</A>, <A HREF="#15">15</A>, <A HREF="#19">19</A>, <A HREF="#25">25</A>, <A HREF="#31">31</A>, <A HREF="#136">136</A>, <A HREF="#156">156</A>, <A HREF="#176">176</A>, <A HREF="#182">182</A> and <A HREF="#224">224</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#8">8</A>.</FONT><BR>
 
 </P>
@@ -1402,10 +1406,10 @@ in a format-specific way.
 A reference MAY be annotated.
 
 The
-[`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
+[Core.SchemaVersion]{.term}
 annotation, defined in [OData-VocCore](#ODataVocCore), MAY be used to
 indicate a particular version of the referenced document. If the
-[`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
+[Core.SchemaVersion]{.term}
 annotation is present, the `$schemaversion` system query option, defined in
 [OData-Protocol, section 11.2.12](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SystemQueryOptionschemaversion), SHOULD be used when retrieving the
 referenced schema document.
@@ -1447,7 +1451,7 @@ class&nbsp;Reference&nbsp;extends&nbsp;ModelElement&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -1459,7 +1463,7 @@ Reference,<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#106">106</A>, <A HREF="#109">109</A>, <A HREF="#114">114</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#127">127</A>, <A HREF="#148">148</A>, <A HREF="#189">189</A>, <A HREF="#196">196</A>, <A HREF="#198">198</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#209">209</A>, <A HREF="#214">214</A>, <A HREF="#216">216</A> and <A HREF="#220">220</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -1488,7 +1492,7 @@ fromJSON(json)&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#23">23</A>, <A HREF="#47">47</A> and <A HREF="#179">179</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#23">23</A>, <A HREF="#47">47</A> and <A HREF="#181">181</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#21">21</A>.</FONT><BR>
 
 </P>
@@ -1584,7 +1588,7 @@ byQualifiedName(namespace,&nbsp;name)&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#12">12</A>, <A HREF="#15">15</A>, <A HREF="#19">19</A>, <A HREF="#25">25</A>, <A HREF="#31">31</A>, <A HREF="#134">134</A>, <A HREF="#154">154</A>, <A HREF="#174">174</A>, <A HREF="#180">180</A> and <A HREF="#222">222</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#12">12</A>, <A HREF="#15">15</A>, <A HREF="#19">19</A>, <A HREF="#25">25</A>, <A HREF="#31">31</A>, <A HREF="#136">136</A>, <A HREF="#156">156</A>, <A HREF="#176">176</A>, <A HREF="#182">182</A> and <A HREF="#224">224</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#8">8</A>.</FONT><BR>
 
 </P>
@@ -1655,7 +1659,7 @@ class&nbsp;Include&nbsp;extends&nbsp;ListedModelElement&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -1667,7 +1671,7 @@ Include,<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#106">106</A>, <A HREF="#109">109</A>, <A HREF="#114">114</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#127">127</A>, <A HREF="#148">148</A>, <A HREF="#189">189</A>, <A HREF="#196">196</A>, <A HREF="#198">198</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#209">209</A>, <A HREF="#214">214</A>, <A HREF="#216">216</A> and <A HREF="#220">220</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -1704,7 +1708,7 @@ set&nbsp;</TT>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is invoked in definitions <A HREF="#29">29</A>, <A HREF="#47">47</A>, <A HREF="#75">75</A>, <A HREF="#75">75</A>, <A HREF="#111">111</A>, <A HREF="#111">111</A>, <A HREF="#142">142</A>, <A HREF="#209">209</A> and <A HREF="#209">209</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definitions <A HREF="#29">29</A>, <A HREF="#47">47</A>, <A HREF="#75">75</A>, <A HREF="#75">75</A>, <A HREF="#113">113</A>, <A HREF="#113">113</A>, <A HREF="#144">144</A>, <A HREF="#211">211</A> and <A HREF="#211">211</A>.</FONT><BR>
 
 </P>
 :::
@@ -1723,7 +1727,7 @@ include them.
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#12">12</A>, <A HREF="#15">15</A>, <A HREF="#19">19</A>, <A HREF="#25">25</A>, <A HREF="#31">31</A>, <A HREF="#134">134</A>, <A HREF="#154">154</A>, <A HREF="#174">174</A>, <A HREF="#180">180</A> and <A HREF="#222">222</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#12">12</A>, <A HREF="#15">15</A>, <A HREF="#19">19</A>, <A HREF="#25">25</A>, <A HREF="#31">31</A>, <A HREF="#136">136</A>, <A HREF="#156">156</A>, <A HREF="#176">176</A>, <A HREF="#182">182</A> and <A HREF="#224">224</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#8">8</A>.</FONT><BR>
 
 </P>
@@ -1878,7 +1882,7 @@ class&nbsp;IncludeAnnotations&nbsp;extends&nbsp;ListedModelElement&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -1890,7 +1894,7 @@ IncludeAnnotations,<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#106">106</A>, <A HREF="#109">109</A>, <A HREF="#114">114</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#127">127</A>, <A HREF="#148">148</A>, <A HREF="#189">189</A>, <A HREF="#196">196</A>, <A HREF="#198">198</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#209">209</A>, <A HREF="#214">214</A>, <A HREF="#216">216</A> and <A HREF="#220">220</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -2020,7 +2024,7 @@ class&nbsp;Schema&nbsp;extends&nbsp;NamedModelElement&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -2032,7 +2036,7 @@ Schema,<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#106">106</A>, <A HREF="#109">109</A>, <A HREF="#114">114</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#127">127</A>, <A HREF="#148">148</A>, <A HREF="#189">189</A>, <A HREF="#196">196</A>, <A HREF="#198">198</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#209">209</A>, <A HREF="#214">214</A>, <A HREF="#216">216</A> and <A HREF="#220">220</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -2065,7 +2069,7 @@ like other object members.
 toJSON()&nbsp;{<BR>
 &nbsp;&nbsp;const&nbsp;json&nbsp;=&nbsp;{&nbsp;...this,&nbsp;...this.children&nbsp;};<BR>
 &nbsp;&nbsp;</TT>
-<A HREF="#138">Serialize annotations of annotations</A>(</FONT>"</FONT><TT>this</TT>
+<A HREF="#140">Serialize annotations of annotations</A>(</FONT>"</FONT><TT>this</TT>
 "</FONT>,</FONT>"</FONT><TT>json</TT>
 "</FONT>,</FONT>"</FONT><TT>""</TT>
 "</FONT>)</FONT><TT><BR>
@@ -2074,7 +2078,7 @@ toJSON()&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#130">130</A>, <A HREF="#131">131</A>, <A HREF="#137">137</A>, <A HREF="#139">139</A>, <A HREF="#151">151</A>, <A HREF="#164">164</A>, <A HREF="#169">169</A>, <A HREF="#170">170</A>, <A HREF="#183">183</A>, <A HREF="#188">188</A> and <A HREF="#191">191</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#132">132</A>, <A HREF="#133">133</A>, <A HREF="#139">139</A>, <A HREF="#141">141</A>, <A HREF="#153">153</A>, <A HREF="#166">166</A>, <A HREF="#171">171</A>, <A HREF="#172">172</A>, <A HREF="#185">185</A>, <A HREF="#190">190</A> and <A HREF="#193">193</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#1">1</A>.</FONT><BR>
 
 </P>
@@ -2095,7 +2099,7 @@ function&nbsp;YAMLResolver(key)&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -2107,7 +2111,7 @@ YAMLResolver,<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#106">106</A>, <A HREF="#109">109</A>, <A HREF="#114">114</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#127">127</A>, <A HREF="#148">148</A>, <A HREF="#189">189</A>, <A HREF="#196">196</A>, <A HREF="#198">198</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#209">209</A>, <A HREF="#214">214</A>, <A HREF="#216">216</A> and <A HREF="#220">220</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -2125,7 +2129,7 @@ toYAML(key)&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#130">130</A>, <A HREF="#131">131</A>, <A HREF="#137">137</A>, <A HREF="#139">139</A>, <A HREF="#151">151</A>, <A HREF="#164">164</A>, <A HREF="#169">169</A>, <A HREF="#170">170</A>, <A HREF="#183">183</A>, <A HREF="#188">188</A> and <A HREF="#191">191</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#132">132</A>, <A HREF="#133">133</A>, <A HREF="#139">139</A>, <A HREF="#141">141</A>, <A HREF="#153">153</A>, <A HREF="#166">166</A>, <A HREF="#171">171</A>, <A HREF="#172">172</A>, <A HREF="#185">185</A>, <A HREF="#190">190</A> and <A HREF="#193">193</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#1">1</A>.</FONT><BR>
 
 </P>
@@ -2140,26 +2144,26 @@ of evaluating a path consisting of one segment that starts with a namespace or a
 <P><A NAME="44"></A>44. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
 class&nbsp;AbstractPath&nbsp;extends&nbsp;ModelElement&nbsp;{<BR>
 &nbsp;&nbsp;</TT>
-<A HREF="#142">AbstractPath</A><TT><BR>
+<A HREF="#144">AbstractPath</A><TT><BR>
 }<BR>
 class&nbsp;QualifiedNamePath&nbsp;extends&nbsp;AbstractPath&nbsp;{<BR>
 &nbsp;&nbsp;constructor(host,&nbsp;qname,&nbsp;attribute)&nbsp;{<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;super(host,&nbsp;attribute);<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;this.segments&nbsp;=&nbsp;[new&nbsp;QualifiedNameSegment(this,&nbsp;qname)];<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;</TT>
-<A HREF="#181">Housekeeping for paths</A><TT><BR>
+<A HREF="#183">Housekeeping for paths</A><TT><BR>
 &nbsp;&nbsp;}<BR>
 &nbsp;&nbsp;evaluate()&nbsp;{<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;const&nbsp;target&nbsp;=&nbsp;this.segments[0].evaluateRelativeTo();<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;</TT>
-<A HREF="#185">Housekeeping during path evaluation</A><TT><BR>
+<A HREF="#187">Housekeeping during path evaluation</A><TT><BR>
 &nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;target;<BR>
 &nbsp;&nbsp;}<BR>
 }<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -2171,7 +2175,7 @@ QualifiedNamePath,<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#106">106</A>, <A HREF="#109">109</A>, <A HREF="#114">114</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#127">127</A>, <A HREF="#148">148</A>, <A HREF="#189">189</A>, <A HREF="#196">196</A>, <A HREF="#198">198</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#209">209</A>, <A HREF="#214">214</A>, <A HREF="#216">216</A> and <A HREF="#220">220</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -2186,7 +2190,7 @@ that is set if the segment represents a type cast.
 <P><A NAME="46"></A>46. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
 class&nbsp;Segment&nbsp;{<BR>
 &nbsp;&nbsp;</TT>
-<A HREF="#143">Segment</A><TT><BR>
+<A HREF="#145">Segment</A><TT><BR>
 }<BR>
 class&nbsp;QualifiedNameSegment&nbsp;extends&nbsp;Segment&nbsp;{<BR>
 &nbsp;&nbsp;#namespace;<BR>
@@ -2194,7 +2198,7 @@ class&nbsp;QualifiedNameSegment&nbsp;extends&nbsp;Segment&nbsp;{<BR>
 &nbsp;&nbsp;constructor(path,&nbsp;segment)&nbsp;{<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;super(path,&nbsp;segment);<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;</TT>
-<A HREF="#221">Determine namespace and name of segment</A><TT><BR>
+<A HREF="#223">Determine namespace and name of segment</A><TT><BR>
 &nbsp;&nbsp;&nbsp;&nbsp;</TT>
 <A HREF="#48">The namespace is used by this path</A><TT><BR>
 &nbsp;&nbsp;}<BR>
@@ -2214,7 +2218,7 @@ class&nbsp;QualifiedNameSegment&nbsp;extends&nbsp;Segment&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -2232,7 +2236,7 @@ When a namespace is used, its [`Reference`](#Reference) is needed.
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#23">23</A>, <A HREF="#47">47</A> and <A HREF="#179">179</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#23">23</A>, <A HREF="#47">47</A> and <A HREF="#181">181</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#21">21</A>.</FONT><BR>
 
 </P>
@@ -2251,12 +2255,12 @@ if&nbsp;(reference)&nbsp;reference.needed&nbsp;=&nbsp;true;<BR>
 :::
 
 ::: funnelweb
-<P><A NAME="49"></A>49. <A HREF="#174">If the reference is needed in this CSDL document</A>={<TT><BR>
+<P><A NAME="49"></A>49. <A HREF="#176">If the reference is needed in this CSDL document</A>={<TT><BR>
 if&nbsp;(this.$Reference[uri].needed)<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is invoked in definition <A HREF="#174">174</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#176">176</A>.</FONT><BR>
 
 </P>
 :::
@@ -2333,7 +2337,7 @@ class&nbsp;NamedSubElement&nbsp;extends&nbsp;ModelElement&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -2358,7 +2362,7 @@ toString()&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#51">51</A> and <A HREF="#132">132</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#51">51</A> and <A HREF="#134">134</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#50">50</A>.</FONT><BR>
 
 </P>
@@ -2374,7 +2378,7 @@ class&nbsp;Annotations&nbsp;extends&nbsp;NamedSubElement&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -2386,7 +2390,7 @@ Annotations,<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#106">106</A>, <A HREF="#109">109</A>, <A HREF="#114">114</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#127">127</A>, <A HREF="#148">148</A>, <A HREF="#189">189</A>, <A HREF="#196">196</A>, <A HREF="#198">198</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#209">209</A>, <A HREF="#214">214</A>, <A HREF="#216">216</A> and <A HREF="#220">220</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -2407,7 +2411,7 @@ annotationTarget(prefix)&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#54">54</A> and <A HREF="#133">133</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#54">54</A> and <A HREF="#135">135</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#52">52</A>.</FONT><BR>
 
 </P>
@@ -2501,7 +2505,7 @@ class&nbsp;ComplexType&nbsp;extends&nbsp;NamedModelElement&nbsp;{<BR>
 &nbsp;&nbsp;</TT>
 <A HREF="#58">Common parts of complex and entity type</A><TT><BR>
 &nbsp;&nbsp;</TT>
-<A HREF="#109">ComplexType</A><TT><BR>
+<A HREF="#111">ComplexType</A><TT><BR>
 }<BR>
 class&nbsp;EntityType&nbsp;extends&nbsp;ComplexType&nbsp;{<BR>
 &nbsp;&nbsp;</TT>
@@ -2510,7 +2514,7 @@ class&nbsp;EntityType&nbsp;extends&nbsp;ComplexType&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -2523,7 +2527,7 @@ EntityType,<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#106">106</A>, <A HREF="#109">109</A>, <A HREF="#114">114</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#127">127</A>, <A HREF="#148">148</A>, <A HREF="#189">189</A>, <A HREF="#196">196</A>, <A HREF="#198">198</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#209">209</A>, <A HREF="#214">214</A>, <A HREF="#216">216</A> and <A HREF="#220">220</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -2613,7 +2617,7 @@ fromJSON(json)&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#58">58</A> and <A HREF="#165">165</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#58">58</A> and <A HREF="#167">167</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#56">56</A>.</FONT><BR>
 
 </P>
@@ -2708,7 +2712,7 @@ also a media entity type.
 
 Media entity types MAY specify a list of acceptable media types using an
 annotation with term
-[`Core.AcceptableMediaTypes`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AcceptableMediaTypes),
+[Core.AcceptableMediaTypes]{.term},
 see [OData-VocCore](#ODataVocCore).
 
 ::: {.varjson .rep}
@@ -2731,7 +2735,7 @@ property](#ContainmentNavigationProperty), the entity type MUST either
 specify a key or inherit its key from its [base
 type](#DerivedEntityType).
 
-In OData 4.01 responses entity types used for [singletons](#Singleton)
+In OData 4.01 and greater responses, entity types used for [singletons](#Singleton)
 or single-valued [navigation properties](#NavigationProperty) do not
 require a key. In OData 4.0 responses entity types used for
 [singletons](#Singleton) or single-valued [navigation
@@ -2768,7 +2772,7 @@ A key property MUST be a non-nullable primitive property of the entity
 type itself, including non-nullable primitive properties of non-nullable
 single-valued complex properties, recursively.
 
-In OData 4.01 the key properties of a directly related entity type MAY
+In OData 4.01 and greater, the key properties of a directly related entity type MAY
 also be part of the key if the navigation property is single-valued and
 not nullable. This includes navigation properties of non-nullable
 single-valued complex properties (recursively) of the entity type. If a
@@ -2819,7 +2823,7 @@ class&nbsp;PropertyRef&nbsp;extends&nbsp;ListedModelElement&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -2831,7 +2835,7 @@ PropertyRef,<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#106">106</A>, <A HREF="#109">109</A>, <A HREF="#114">114</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#127">127</A>, <A HREF="#148">148</A>, <A HREF="#189">189</A>, <A HREF="#196">196</A>, <A HREF="#198">198</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#209">209</A>, <A HREF="#214">214</A>, <A HREF="#216">216</A> and <A HREF="#220">220</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -2853,13 +2857,13 @@ get&nbsp;target()&nbsp;{<BR>
 }<BR>
 fromJSON(json)&nbsp;{<BR>
 &nbsp;&nbsp;if&nbsp;(typeof&nbsp;json&nbsp;===&nbsp;"string")&nbsp;</TT>
-<A HREF="#148">Path to key property</A>(</FONT>"</FONT><TT>json</TT>
+<A HREF="#150">Path to key property</A>(</FONT>"</FONT><TT>json</TT>
 "</FONT>)</FONT><TT><BR>
 &nbsp;&nbsp;else<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;(const&nbsp;name&nbsp;in&nbsp;json)&nbsp;{<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.#alias&nbsp;=&nbsp;name;<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>
-<A HREF="#148">Path to key property</A>(</FONT>"</FONT><TT>json[name]</TT>
+<A HREF="#150">Path to key property</A>(</FONT>"</FONT><TT>json[name]</TT>
 "</FONT>)</FONT><TT><BR>
 &nbsp;&nbsp;&nbsp;&nbsp;}<BR>
 }<BR>
@@ -2906,7 +2910,7 @@ fromJSON(json)&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#62">62</A> and <A HREF="#108">108</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#62">62</A> and <A HREF="#110">110</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#56">56</A>.</FONT><BR>
 
 </P>
@@ -3073,7 +3077,7 @@ class&nbsp;TypedModelElement&nbsp;extends&nbsp;NamedModelElement&nbsp;{<BR>
 }<BR>
 class&nbsp;AbstractProperty&nbsp;extends&nbsp;TypedModelElement&nbsp;{<BR>
 &nbsp;&nbsp;</TT>
-<A HREF="#172">AbstractProperty</A><TT><BR>
+<A HREF="#174">AbstractProperty</A><TT><BR>
 }<BR>
 class&nbsp;Property&nbsp;extends&nbsp;AbstractProperty&nbsp;{<BR>
 &nbsp;&nbsp;</TT>
@@ -3084,7 +3088,7 @@ class&nbsp;Property&nbsp;extends&nbsp;AbstractProperty&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -3096,7 +3100,7 @@ Property,<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#106">106</A>, <A HREF="#109">109</A>, <A HREF="#114">114</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#127">127</A>, <A HREF="#148">148</A>, <A HREF="#189">189</A>, <A HREF="#196">196</A>, <A HREF="#198">198</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#209">209</A>, <A HREF="#214">214</A>, <A HREF="#216">216</A> and <A HREF="#220">220</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -3111,7 +3115,7 @@ constructor(parent,&nbsp;name)&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is invoked in definitions <A HREF="#64">64</A>, <A HREF="#106">106</A> and <A HREF="#115">115</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definitions <A HREF="#64">64</A>, <A HREF="#108">108</A> and <A HREF="#117">117</A>.</FONT><BR>
 
 </P>
 :::
@@ -3127,7 +3131,7 @@ fromJSON(json)&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#67">67</A> and <A HREF="#161">161</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#67">67</A> and <A HREF="#163">163</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#64">64</A>.</FONT><BR>
 
 </P>
@@ -3166,13 +3170,13 @@ leading back to the property's declaring type, the finiteness condition for
 in this chain MUST be nullable or collection-valued.
 
 A collection-valued property MAY be annotated with the
-[`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered)
+[Core.Ordered]{.term}
 term, defined in
 [OData-VocCore](#ODataVocCore), to specify that it supports a
 stable ordering.
 
 A collection-valued property MAY be annotated with the
-[`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
+[Core.PositionalInsert]{.term}
 term, defined in [OData-VocCore](#ODataVocCore), to specify that it
 supports inserting items into a specific ordinal position.
 
@@ -3342,7 +3346,7 @@ class&nbsp;NavigationProperty&nbsp;extends&nbsp;AbstractProperty&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -3354,7 +3358,7 @@ NavigationProperty,<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#106">106</A>, <A HREF="#109">109</A>, <A HREF="#114">114</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#127">127</A>, <A HREF="#148">148</A>, <A HREF="#189">189</A>, <A HREF="#196">196</A>, <A HREF="#198">198</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#209">209</A>, <A HREF="#214">214</A>, <A HREF="#216">216</A> and <A HREF="#220">220</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -3435,14 +3439,19 @@ For a collection-valued containment navigation property the specified
 entity type MUST have a [key](#Key) defined.
 
 A collection-valued navigation property MAY be annotated with the
-[`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered)
+[Core.Ordered]{.term}
 term, defined in [OData-VocCore](#ODataVocCore), to specify that it
 supports a stable ordering.
 
 A collection-valued navigation property MAY be annotated with the
-[`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
+[Core.PositionalInsert]{.term}
 term, defined in [OData-VocCore](#ODataVocCore), to specify that it
 supports inserting items into a specific ordinal position.
+
+A navigation property MAY be annotated with the
+[Core.Subsets]{.term}
+term, defined in [OData-VocCore](#ODataVocCore), to specify that each entity
+related by the annotated navigation property is also related by the navigation property specified in the annotation.
 
 ::: {.varjson .rep}
 ### <a id="Type.7.1" href="#Type.7.1">`$Type`</a> and <a id="Collection.7.2" href="#Collection.7.2">`$Collection`</a>
@@ -3551,7 +3560,7 @@ MUST have a [key](#Key) defined.
 
 For items of an ordered collection of complex types (those annotated
 with the
-[`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered)
+[Core.Ordered]{.term}
 term defined in [OData-VocCore](#ODataVocCore) the canonical URL
 of the item is the canonical URL of the collection appended with a
 segment containing the zero-based ordinal of the item. Items within in
@@ -3684,7 +3693,7 @@ class&nbsp;ReferentialConstraint&nbsp;extends&nbsp;NamedSubElement&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -3696,7 +3705,7 @@ ReferentialConstraint,<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#106">106</A>, <A HREF="#109">109</A>, <A HREF="#114">114</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#127">127</A>, <A HREF="#148">148</A>, <A HREF="#189">189</A>, <A HREF="#196">196</A>, <A HREF="#198">198</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#209">209</A>, <A HREF="#214">214</A>, <A HREF="#216">216</A> and <A HREF="#220">220</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -3736,7 +3745,7 @@ toJSONWithAnnotations(sub,&nbsp;json)&nbsp;{<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;json[sub]&nbsp;||=&nbsp;{};<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;json[sub][member&nbsp;+&nbsp;anno]&nbsp;=&nbsp;this[sub][member][anno];<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>
-<A HREF="#138">Serialize annotations of annotations</A>(</FONT>"</FONT><TT>this[sub][member][anno]</TT>
+<A HREF="#140">Serialize annotations of annotations</A>(</FONT>"</FONT><TT>this[sub][member][anno]</TT>
 "</FONT>,</FONT>"</FONT><TT><BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;json[sub]</TT>
 "</FONT>,</FONT>"</FONT><TT>member&nbsp;+&nbsp;anno</TT>
@@ -3747,7 +3756,7 @@ toJSONWithAnnotations(sub,&nbsp;json)&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#130">130</A>, <A HREF="#131">131</A>, <A HREF="#137">137</A>, <A HREF="#139">139</A>, <A HREF="#151">151</A>, <A HREF="#164">164</A>, <A HREF="#169">169</A>, <A HREF="#170">170</A>, <A HREF="#183">183</A>, <A HREF="#188">188</A> and <A HREF="#191">191</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#132">132</A>, <A HREF="#133">133</A>, <A HREF="#139">139</A>, <A HREF="#141">141</A>, <A HREF="#153">153</A>, <A HREF="#166">166</A>, <A HREF="#171">171</A>, <A HREF="#172">172</A>, <A HREF="#185">185</A>, <A HREF="#190">190</A> and <A HREF="#193">193</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#1">1</A>.</FONT><BR>
 
 </P>
@@ -4048,7 +4057,7 @@ class&nbsp;EnumType&nbsp;extends&nbsp;NamedModelElement&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -4060,7 +4069,7 @@ EnumType,<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#106">106</A>, <A HREF="#109">109</A>, <A HREF="#114">114</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#127">127</A>, <A HREF="#148">148</A>, <A HREF="#189">189</A>, <A HREF="#196">196</A>, <A HREF="#198">198</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#209">209</A>, <A HREF="#214">214</A>, <A HREF="#216">216</A> and <A HREF="#220">220</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -4204,7 +4213,7 @@ class&nbsp;Member&nbsp;extends&nbsp;NamedValue&nbsp;{}<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -4216,7 +4225,7 @@ Member,<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#106">106</A>, <A HREF="#109">109</A>, <A HREF="#114">114</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#127">127</A>, <A HREF="#148">148</A>, <A HREF="#189">189</A>, <A HREF="#196">196</A>, <A HREF="#198">198</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#209">209</A>, <A HREF="#214">214</A>, <A HREF="#216">216</A> and <A HREF="#220">220</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -4347,7 +4356,7 @@ class&nbsp;TypeDefinition&nbsp;extends&nbsp;NamedModelElement&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -4359,7 +4368,7 @@ TypeDefinition,<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#106">106</A>, <A HREF="#109">109</A>, <A HREF="#114">114</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#127">127</A>, <A HREF="#148">148</A>, <A HREF="#189">189</A>, <A HREF="#196">196</A>, <A HREF="#198">198</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#209">209</A>, <A HREF="#214">214</A>, <A HREF="#216">216</A> and <A HREF="#220">220</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -4440,7 +4449,10 @@ any type.
 The action's name is a [simple identifier](#SimpleIdentifier) that MUST
 be unique within its schema.
 
-Actions cannot be composed with additional path segments.
+Actions cannot be composed with additional path segments nor indexed by key,
+and SHOULD be annotated with the appropriate Capabilities vocabulary annotations
+[OData-VocCap](#ODataVocCap) to denote any supported query options.
+Absent such annotations, actions SHOULD NOT be assumed to support any query options.
 
 An action MAY specify a [return type](#ReturnType) that MUST be a
 primitive, entity or complex type, or a collection of primitive, entity
@@ -4517,12 +4529,12 @@ class&nbsp;Operation&nbsp;extends&nbsp;ModelElement&nbsp;{<BR>
 }<BR>
 class&nbsp;Action&nbsp;extends&nbsp;Operation&nbsp;{<BR>
 &nbsp;&nbsp;</TT>
-<A HREF="#117">Action</A><TT><BR>
+<A HREF="#119">Action</A><TT><BR>
 }<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -4534,7 +4546,7 @@ Action,<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#106">106</A>, <A HREF="#109">109</A>, <A HREF="#114">114</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#127">127</A>, <A HREF="#148">148</A>, <A HREF="#189">189</A>, <A HREF="#196">196</A>, <A HREF="#198">198</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#209">209</A>, <A HREF="#214">214</A>, <A HREF="#216">216</A> and <A HREF="#220">220</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -4567,7 +4579,7 @@ toString()&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#93">93</A> and <A HREF="#171">171</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#93">93</A> and <A HREF="#173">173</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#91">91</A>.</FONT><BR>
 
 </P>
@@ -4653,12 +4665,12 @@ and it MAY contain [annotations](#Annotation).
 <P><A NAME="95"></A>95. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
 class&nbsp;Function&nbsp;extends&nbsp;Operation&nbsp;{<BR>
 &nbsp;&nbsp;</TT>
-<A HREF="#120">Function</A><TT><BR>
+<A HREF="#122">Function</A><TT><BR>
 }<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -4670,7 +4682,7 @@ Function,<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#106">106</A>, <A HREF="#109">109</A>, <A HREF="#114">114</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#127">127</A>, <A HREF="#148">148</A>, <A HREF="#189">189</A>, <A HREF="#196">196</A>, <A HREF="#198">198</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#209">209</A>, <A HREF="#214">214</A>, <A HREF="#216">216</A> and <A HREF="#220">220</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -4768,8 +4780,14 @@ indicated, it is not composable.
 
 A composable function can be invoked with additional path segments or
 key predicates appended to the resource path that identifies the
-composable function, and with system query options as appropriate for
-the type returned by the composable function.
+composable function. Non-composable functions do not support additional
+path segments, nor indexing by key.
+
+Functions SHOULD be annotated with the appropriate Capabilities vocabulary
+annotations [OData-VocCap](#ODataVocCap) to denote any supported
+query options. Absent such annotations, composable functions SHOULD support
+the same default query options as an entity set of that type would support,
+while non-composable functions SHOULD NOT be assumed to support any query options.
 
 ::: {.varjson .rep}
 ### <a id="IsComposable.13.3" href="#IsComposable.13.3">`$IsComposable`</a>
@@ -4851,12 +4869,12 @@ class&nbsp;ReturnType&nbsp;extends&nbsp;ModelElement&nbsp;{<BR>
 "</FONT>)</FONT><TT><BR>
 &nbsp;&nbsp;}<BR>
 &nbsp;&nbsp;</TT>
-<A HREF="#162">Parameter and ReturnType inherit from TypedModelElement</A><TT><BR>
+<A HREF="#164">Parameter and ReturnType inherit from TypedModelElement</A><TT><BR>
 }<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -4868,7 +4886,7 @@ ReturnType,<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#106">106</A>, <A HREF="#109">109</A>, <A HREF="#114">114</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#127">127</A>, <A HREF="#148">148</A>, <A HREF="#189">189</A>, <A HREF="#196">196</A>, <A HREF="#198">198</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#209">209</A>, <A HREF="#214">214</A>, <A HREF="#216">216</A> and <A HREF="#220">220</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -4893,7 +4911,7 @@ if&nbsp;(json.$ReturnType)&nbsp;{<BR>
 ### <a id="AnnotationCoreIsDelta.13.8" href="#AnnotationCoreIsDelta.13.8">Annotation `Core.IsDelta`</a>
 
 An action or function that returns a single entity or a collection of entities MAY return results as a delta payload.
-This is indicated by annotating the return type with the term [`Core.IsDelta`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsDelta).
+This is indicated by annotating the return type with the term [Core.IsDelta]{.term}.
 
 Delta payloads represent changes between two versions of data and, in addition
 to current values, MAY include deleted entities as well as changes to related entities and relationships, according to the format-specific delta representation.
@@ -4994,12 +5012,12 @@ class&nbsp;Parameter&nbsp;extends&nbsp;ListedModelElement&nbsp;{<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;this.$Name;<BR>
 &nbsp;&nbsp;}<BR>
 &nbsp;&nbsp;</TT>
-<A HREF="#162">Parameter and ReturnType inherit from TypedModelElement</A><TT><BR>
+<A HREF="#164">Parameter and ReturnType inherit from TypedModelElement</A><TT><BR>
 }<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -5011,7 +5029,7 @@ Parameter,<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#106">106</A>, <A HREF="#109">109</A>, <A HREF="#114">114</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#127">127</A>, <A HREF="#148">148</A>, <A HREF="#189">189</A>, <A HREF="#196">196</A>, <A HREF="#198">198</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#209">209</A>, <A HREF="#214">214</A>, <A HREF="#216">216</A> and <A HREF="#220">220</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -5034,7 +5052,7 @@ if&nbsp;(json.$Parameter)&nbsp;{<BR>
 
 ### <a id="AnnotationCoreOptionalParameter.14.5" href="#AnnotationCoreOptionalParameter.14.5">Annotation `Core.OptionalParameter`</a>
 
-A parameter that is annotated with the term [`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter) MAY be omitted when invoking the function or action.
+A parameter that is annotated with the term [Core.OptionalParameter]{.term} MAY be omitted when invoking the function or action.
 
 All parameters marked as optional MUST come after any parameters not marked as optional. 
 The binding parameter MUST NOT be marked as optional.
@@ -5068,7 +5086,7 @@ function with the `$Parameter` member.
 ### <a id="AnnotationCoreIsDelta.14.6" href="#AnnotationCoreIsDelta.14.6">Annotation `Core.IsDelta`</a>
 
 A parameter that accepts a single entity or a collection of entities MAY accept a delta representation.
-This is indicated by annotating the parameter with the term [`Core.IsDelta`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsDelta).
+This is indicated by annotating the parameter with the term [Core.IsDelta]{.term}.
 
 Deltas represent changes between two versions of data and, in addition
 to current values, MAY include deleted entities as well as changes to related entities and relationships, according to the format-specific delta representation.
@@ -5172,16 +5190,39 @@ well as [annotations](#Annotation).
 :::
 
 ::: funnelweb
+<P><A NAME="103"></A>103. Metamodel.yaml[<B>Z</B>]={<TT><BR>
+EntityContainer:&nbsp;*EntityContainer<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is NEVER invoked.</FONT>
+
+</P>
+:::
+
+::: funnelweb
+<P><A NAME="104"></A>104. EntityContainer.yaml[<B>Z</B>]={<TT><BR>
+$Extends:<BR>
+&nbsp;&nbsp;path:&nbsp;*EntityContainer<BR>
+</TT>
+</FONT>}<BR>
+</FONT>
+<FONT SIZE=1>This macro is NEVER invoked.</FONT>
+
+</P>
+:::
+
+::: funnelweb
 The children of an `EntityContainer` have no `$Kind` property, instead their
 kind is determined according to which other properties they have.
 :::
 
 ::: funnelweb
-<P><A NAME="103"></A>103. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+<P><A NAME="105"></A>105. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
 class&nbsp;EntityContainer&nbsp;extends&nbsp;NamedModelElement&nbsp;{<BR>
 &nbsp;&nbsp;fromJSON(json)&nbsp;{<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;</TT>
-<A HREF="#105">Deserialize members of EntityContainer</A><TT><BR>
+<A HREF="#107">Deserialize members of EntityContainer</A><TT><BR>
 &nbsp;&nbsp;&nbsp;&nbsp;super.fromJSON(json,&nbsp;function&nbsp;(json)&nbsp;{<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(json.$Type)&nbsp;return&nbsp;"EntitySetOrSingleton";<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(json.$Function)&nbsp;return&nbsp;"FunctionImport";<BR>
@@ -5192,19 +5233,19 @@ class&nbsp;EntityContainer&nbsp;extends&nbsp;NamedModelElement&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="104"></A>104. <A HREF="#7">Exports</A>+={<TT><BR>
+<P><A NAME="106"></A>106. <A HREF="#7">Exports</A>+={<TT><BR>
 EntityContainer,<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#106">106</A>, <A HREF="#109">109</A>, <A HREF="#114">114</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#127">127</A>, <A HREF="#148">148</A>, <A HREF="#189">189</A>, <A HREF="#196">196</A>, <A HREF="#198">198</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#209">209</A>, <A HREF="#214">214</A>, <A HREF="#216">216</A> and <A HREF="#220">220</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -5295,14 +5336,14 @@ entity container located in `SomeOtherSchema`
 :::
 
 ::: funnelweb
-<P><A NAME="105"></A>105. <A HREF="#103">Deserialize members of EntityContainer</A>={<TT><BR>
+<P><A NAME="107"></A>107. <A HREF="#105">Deserialize members of EntityContainer</A>={<TT><BR>
 </TT>
 <A HREF="#18">Deserialize optional qualified name</A>(</FONT>"</FONT><TT>$Extends</TT>
 "</FONT>)</FONT><TT><BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is invoked in definition <A HREF="#103">103</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#105">105</A>.</FONT><BR>
 
 </P>
 :::
@@ -5362,39 +5403,39 @@ only in their `$Collection` value. They are represented by the same class.
 :::
 
 ::: funnelweb
-<P><A NAME="106"></A>106. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+<P><A NAME="108"></A>108. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
 class&nbsp;EntitySetOrSingleton&nbsp;extends&nbsp;TypedModelElement&nbsp;{<BR>
 &nbsp;&nbsp;</TT>
 <A HREF="#66">Construct without $Kind</A><TT><BR>
 &nbsp;&nbsp;fromJSON(json)&nbsp;{<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;</TT>
-<A HREF="#110">Deserialize members of EntitySetOrSingleton</A><TT><BR>
+<A HREF="#112">Deserialize members of EntitySetOrSingleton</A><TT><BR>
 &nbsp;&nbsp;&nbsp;&nbsp;super.fromJSON(json);<BR>
 &nbsp;&nbsp;}<BR>
 }<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="107"></A>107. <A HREF="#7">Exports</A>+={<TT><BR>
+<P><A NAME="109"></A>109. <A HREF="#7">Exports</A>+={<TT><BR>
 EntitySetOrSingleton,<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#106">106</A>, <A HREF="#109">109</A>, <A HREF="#114">114</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#127">127</A>, <A HREF="#148">148</A>, <A HREF="#189">189</A>, <A HREF="#196">196</A>, <A HREF="#198">198</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#209">209</A>, <A HREF="#214">214</A>, <A HREF="#216">216</A> and <A HREF="#220">220</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="108"></A>108. <A HREF="#56">EntityType</A>+={<TT><BR>
+<P><A NAME="110"></A>110. <A HREF="#56">EntityType</A>+={<TT><BR>
 resourcePaths(suffix&nbsp;=&nbsp;[])&nbsp;{<BR>
 &nbsp;&nbsp;const&nbsp;paths&nbsp;=&nbsp;[];<BR>
 &nbsp;&nbsp;for&nbsp;(const&nbsp;p&nbsp;of&nbsp;this.targetingPaths)<BR>
@@ -5412,14 +5453,14 @@ resourcePaths(suffix&nbsp;=&nbsp;[])&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#62">62</A> and <A HREF="#108">108</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#62">62</A> and <A HREF="#110">110</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#56">56</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="109"></A>109. <A HREF="#56">ComplexType</A>={<TT><BR>
+<P><A NAME="111"></A>111. <A HREF="#56">ComplexType</A>={<TT><BR>
 resourcePaths(suffix&nbsp;=&nbsp;[])&nbsp;{<BR>
 &nbsp;&nbsp;const&nbsp;paths&nbsp;=&nbsp;[];<BR>
 &nbsp;&nbsp;for&nbsp;(const&nbsp;p&nbsp;of&nbsp;this.targetingPaths)<BR>
@@ -5510,7 +5551,7 @@ the last navigation property segment MUST be a non-containment
 navigation property and there MUST NOT be any non-containment navigation
 properties prior to the final navigation property segment.
 
-OData 4.01 services MAY have a type-cast segment as the last path
+OData 4.01 and greater services MAY have a type-cast segment as the last path
 segment, allowing to bind instances of different sub-types to different
 targets.
 
@@ -5564,7 +5605,7 @@ The `$NavigationPropertyBinding` is a `NamedSubElement`, like the
 :::
 
 ::: funnelweb
-<P><A NAME="110"></A>110. <A HREF="#106">Deserialize members of EntitySetOrSingleton</A>={<TT><BR>
+<P><A NAME="112"></A>112. <A HREF="#108">Deserialize members of EntitySetOrSingleton</A>={<TT><BR>
 for&nbsp;(const&nbsp;prop&nbsp;in&nbsp;json.$NavigationPropertyBinding)<BR>
 &nbsp;&nbsp;if&nbsp;(!prop.includes("@"))<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;new&nbsp;NavigationPropertyBinding(this,&nbsp;prop).fromJSON(<BR>
@@ -5573,13 +5614,13 @@ for&nbsp;(const&nbsp;prop&nbsp;in&nbsp;json.$NavigationPropertyBinding)<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is invoked in definition <A HREF="#106">106</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#108">108</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="111"></A>111. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+<P><A NAME="113"></A>113. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
 class&nbsp;NavigationPropertyBinding&nbsp;extends&nbsp;NamedSubElement&nbsp;{<BR>
 &nbsp;&nbsp;</TT>
 <A HREF="#30">Internal property with setter</A>(</FONT>"</FONT><TT>navigationProperty</TT>
@@ -5595,14 +5636,14 @@ class&nbsp;NavigationPropertyBinding&nbsp;extends&nbsp;NamedSubElement&nbsp;{<BR
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this,<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.name,<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>
-<A HREF="#113">Relative to entity set or singleton</A><TT>,<BR>
+<A HREF="#115">Relative to entity set or singleton</A><TT>,<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"$NavigationPropertyBinding.NavigationProperty"<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;);<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;this.target&nbsp;=&nbsp;new&nbsp;RelativePath(<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this,<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;json[this.name],<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>
-<A HREF="#114">Absolute or relative to this entity container</A><TT>,<BR>
+<A HREF="#116">Absolute or relative to this entity container</A><TT>,<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.parent.parent,<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"$NavigationPropertyBinding.Target"<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;);<BR>
@@ -5622,31 +5663,31 @@ class&nbsp;NavigationPropertyBinding&nbsp;extends&nbsp;NamedSubElement&nbsp;{<BR
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="112"></A>112. <A HREF="#7">Exports</A>+={<TT><BR>
+<P><A NAME="114"></A>114. <A HREF="#7">Exports</A>+={<TT><BR>
 NavigationPropertyBinding,<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#106">106</A>, <A HREF="#109">109</A>, <A HREF="#114">114</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#127">127</A>, <A HREF="#148">148</A>, <A HREF="#189">189</A>, <A HREF="#196">196</A>, <A HREF="#198">198</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#209">209</A>, <A HREF="#214">214</A>, <A HREF="#216">216</A> and <A HREF="#220">220</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="113"></A>113. <A HREF="#111">Relative to entity set or singleton</A>={<TT><BR>
+<P><A NAME="115"></A>115. <A HREF="#113">Relative to entity set or singleton</A>={<TT><BR>
 this.parent<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is invoked in definition <A HREF="#111">111</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#113">113</A>.</FONT><BR>
 
 </P>
 :::
@@ -5659,14 +5700,14 @@ the entity container (the grandparent of the current `NavigationPropertyBinding`
 :::
 
 ::: funnelweb
-<P><A NAME="114"></A>114. <A HREF="#111">Absolute or relative to this entity container</A>={<TT><BR>
+<P><A NAME="116"></A>116. <A HREF="#113">Absolute or relative to this entity container</A>={<TT><BR>
 json[this.name].includes(".")<BR>
 ?&nbsp;this.csdlDocument<BR>
 :&nbsp;this.parent.parent<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is invoked in definition <A HREF="#111">111</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#113">113</A>.</FONT><BR>
 
 </P>
 :::
@@ -5766,7 +5807,7 @@ Action and function imports are derived from a common superclass.
 :::
 
 ::: funnelweb
-<P><A NAME="115"></A>115. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+<P><A NAME="117"></A>117. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
 class&nbsp;OperationImport&nbsp;extends&nbsp;NamedModelElement&nbsp;{<BR>
 &nbsp;&nbsp;</TT>
 <A HREF="#66">Construct without $Kind</A><TT><BR>
@@ -5792,26 +5833,26 @@ class&nbsp;ActionImport&nbsp;extends&nbsp;OperationImport&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="116"></A>116. <A HREF="#7">Exports</A>+={<TT><BR>
+<P><A NAME="118"></A>118. <A HREF="#7">Exports</A>+={<TT><BR>
 ActionImport,<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#106">106</A>, <A HREF="#109">109</A>, <A HREF="#114">114</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#127">127</A>, <A HREF="#148">148</A>, <A HREF="#189">189</A>, <A HREF="#196">196</A>, <A HREF="#198">198</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#209">209</A>, <A HREF="#214">214</A>, <A HREF="#216">216</A> and <A HREF="#220">220</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="117"></A>117. <A HREF="#91">Action</A>={<TT><BR>
+<P><A NAME="119"></A>119. <A HREF="#91">Action</A>={<TT><BR>
 resourcePaths(suffix&nbsp;=&nbsp;[])&nbsp;{<BR>
 &nbsp;&nbsp;if&nbsp;(this.$IsBound)<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;this.$Parameters[0].$Type.target.resourcePaths([this,&nbsp;...suffix]);<BR>
@@ -5885,7 +5926,7 @@ The value of `$IncludeInServiceDocument` is one of the Boolean literals
 :::
 
 ::: funnelweb
-<P><A NAME="118"></A>118. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+<P><A NAME="120"></A>120. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
 class&nbsp;FunctionImport&nbsp;extends&nbsp;OperationImport&nbsp;{<BR>
 &nbsp;&nbsp;fromJSON(json)&nbsp;{<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;</TT>
@@ -5897,26 +5938,26 @@ class&nbsp;FunctionImport&nbsp;extends&nbsp;OperationImport&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="119"></A>119. <A HREF="#7">Exports</A>+={<TT><BR>
+<P><A NAME="121"></A>121. <A HREF="#7">Exports</A>+={<TT><BR>
 FunctionImport,<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#106">106</A>, <A HREF="#109">109</A>, <A HREF="#114">114</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#127">127</A>, <A HREF="#148">148</A>, <A HREF="#189">189</A>, <A HREF="#196">196</A>, <A HREF="#198">198</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#209">209</A>, <A HREF="#214">214</A>, <A HREF="#216">216</A> and <A HREF="#220">220</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="120"></A>120. <A HREF="#95">Function</A>={<TT><BR>
+<P><A NAME="122"></A>122. <A HREF="#95">Function</A>={<TT><BR>
 resourcePaths(suffix&nbsp;=&nbsp;[])&nbsp;{<BR>
 &nbsp;&nbsp;if&nbsp;(this.$IsBound)<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;this.$Parameters[0].$Type.target.resourcePaths([this,&nbsp;...suffix]);<BR>
@@ -6109,30 +6150,30 @@ CSDL JSON documents MUST always specify an explicit value.
 :::
 
 ::: funnelweb
-<P><A NAME="121"></A>121. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+<P><A NAME="123"></A>123. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
 class&nbsp;Term&nbsp;extends&nbsp;TypedModelElement&nbsp;{<BR>
 &nbsp;&nbsp;fromJSON(json)&nbsp;{<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;</TT>
-<A HREF="#123">Deserialize members of Term</A><TT><BR>
+<A HREF="#125">Deserialize members of Term</A><TT><BR>
 &nbsp;&nbsp;&nbsp;&nbsp;Property.prototype.fromJSON.call(this,&nbsp;json);<BR>
 &nbsp;&nbsp;}<BR>
 }<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="122"></A>122. <A HREF="#7">Exports</A>+={<TT><BR>
+<P><A NAME="124"></A>124. <A HREF="#7">Exports</A>+={<TT><BR>
 Term,<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#106">106</A>, <A HREF="#109">109</A>, <A HREF="#114">114</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#127">127</A>, <A HREF="#148">148</A>, <A HREF="#189">189</A>, <A HREF="#196">196</A>, <A HREF="#198">198</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#209">209</A>, <A HREF="#214">214</A>, <A HREF="#216">216</A> and <A HREF="#220">220</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -6155,14 +6196,14 @@ The value of `$BaseTerm` is the qualified name of the base term.
 :::
 
 ::: funnelweb
-<P><A NAME="123"></A>123. <A HREF="#121">Deserialize members of Term</A>={<TT><BR>
+<P><A NAME="125"></A>125. <A HREF="#123">Deserialize members of Term</A>={<TT><BR>
 </TT>
 <A HREF="#18">Deserialize optional qualified name</A>(</FONT>"</FONT><TT>$BaseTerm</TT>
 "</FONT>)</FONT><TT><BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is invoked in definition <A HREF="#121">121</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#123">123</A>.</FONT><BR>
 
 </P>
 :::
@@ -6281,27 +6322,27 @@ followed by the qualified name of a term, optionally followed by a hash
 :::
 
 ::: funnelweb
-<P><A NAME="124"></A>124. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+<P><A NAME="126"></A>126. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
 class&nbsp;Annotation&nbsp;extends&nbsp;ModelElement&nbsp;{<BR>
 &nbsp;&nbsp;</TT>
-<A HREF="#126">Annotation</A><TT><BR>
+<A HREF="#128">Annotation</A><TT><BR>
 }<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="125"></A>125. <A HREF="#7">Exports</A>+={<TT><BR>
+<P><A NAME="127"></A>127. <A HREF="#7">Exports</A>+={<TT><BR>
 Annotation,<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#106">106</A>, <A HREF="#109">109</A>, <A HREF="#114">114</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#127">127</A>, <A HREF="#148">148</A>, <A HREF="#189">189</A>, <A HREF="#196">196</A>, <A HREF="#198">198</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#209">209</A>, <A HREF="#214">214</A>, <A HREF="#216">216</A> and <A HREF="#220">220</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -6312,7 +6353,7 @@ The `target` of an annotation is given as a path, whose target is then the annot
 :::
 
 ::: funnelweb
-<P><A NAME="126"></A>126. <A HREF="#124">Annotation</A>+={<TT><BR>
+<P><A NAME="128"></A>128. <A HREF="#126">Annotation</A>+={<TT><BR>
 </TT>
 <A HREF="#2">Internal property</A>(</FONT>"</FONT><TT>target</TT>
 "</FONT>,</FONT>"</FONT>"</FONT>)</FONT><TT><BR>
@@ -6323,7 +6364,7 @@ The `target` of an annotation is given as a path, whose target is then the annot
 <A HREF="#2">Internal property</A>(</FONT>"</FONT><TT>qualifier</TT>
 "</FONT>,</FONT>"</FONT>"</FONT>)</FONT><TT><BR>
 </TT>
-<A HREF="#127">Internal value property</A><TT><BR>
+<A HREF="#129">Internal value property</A><TT><BR>
 constructor(host,&nbsp;target,&nbsp;term,&nbsp;qualifier)&nbsp;{<BR>
 &nbsp;&nbsp;super(host);<BR>
 &nbsp;&nbsp;this.#target&nbsp;=&nbsp;target;<BR>
@@ -6346,8 +6387,8 @@ toString()&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#126">126</A>, <A HREF="#140">140</A>, <A HREF="#166">166</A>, <A HREF="#168">168</A> and <A HREF="#197">197</A>.</FONT><BR>
-<FONT SIZE=1>This macro is invoked in definition <A HREF="#124">124</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#128">128</A>, <A HREF="#142">142</A>, <A HREF="#168">168</A>, <A HREF="#170">170</A> and <A HREF="#199">199</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#126">126</A>.</FONT><BR>
 
 </P>
 :::
@@ -6357,7 +6398,7 @@ The `value` property has the standard setter, but a special getter that will be 
 :::
 
 ::: funnelweb
-<P><A NAME="127"></A>127. <A HREF="#126">Internal value property</A>[<B>M</B>]={<TT><BR>
+<P><A NAME="129"></A>129. <A HREF="#128">Internal value property</A>[<B>M</B>]={<TT><BR>
 #value;<BR>
 set&nbsp;value(value)&nbsp;{<BR>
 &nbsp;&nbsp;this.#value&nbsp;=&nbsp;value;<BR>
@@ -6365,13 +6406,13 @@ set&nbsp;value(value)&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is invoked in definitions <A HREF="#126">126</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definitions <A HREF="#128">128</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="128"></A>128. <A HREF="#189">DynamicExpression</A>+={<TT><BR>
+<P><A NAME="130"></A>130. <A HREF="#191">DynamicExpression</A>+={<TT><BR>
 dynamicExprFromJSON(json)&nbsp;{<BR>
 &nbsp;&nbsp;if&nbsp;(typeof&nbsp;json&nbsp;===&nbsp;"object")&nbsp;{<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;value;<BR>
@@ -6379,11 +6420,11 @@ dynamicExprFromJSON(json)&nbsp;{<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;(const&nbsp;dynamicExpr&nbsp;in&nbsp;json)<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;switch&nbsp;(dynamicExpr)&nbsp;{<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>
-<A HREF="#208">Cases for dynamic expressions</A><TT><BR>
+<A HREF="#210">Cases for dynamic expressions</A><TT><BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;default:<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>
-<A HREF="#216">Cases for dynamic expressions without a $-member</A><TT><BR>
+<A HREF="#218">Cases for dynamic expressions without a $-member</A><TT><BR>
 &nbsp;&nbsp;&nbsp;&nbsp;}<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;value.fromJSON(json);<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;value;<BR>
@@ -6392,8 +6433,8 @@ dynamicExprFromJSON(json)&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#128">128</A> and <A HREF="#167">167</A>.</FONT><BR>
-<FONT SIZE=1>This macro is invoked in definition <A HREF="#189">189</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#130">130</A> and <A HREF="#169">169</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#191">191</A>.</FONT><BR>
 
 </P>
 :::
@@ -6407,7 +6448,7 @@ can even be further `termcast`s.
 :::
 
 ::: funnelweb
-<P><A NAME="129"></A>129. <A HREF="#6">If the member is an annotation, deserialize it</A>={<TT><BR>
+<P><A NAME="131"></A>131. <A HREF="#6">If the member is an annotation, deserialize it</A>={<TT><BR>
 if&nbsp;(this.annotationFromJSON(json,&nbsp;member,&nbsp;json[member]))&nbsp;hasAnnotations&nbsp;=&nbsp;true;<BR>
 </TT>
 </FONT>}<BR>
@@ -6418,7 +6459,7 @@ if&nbsp;(this.annotationFromJSON(json,&nbsp;member,&nbsp;json[member]))&nbsp;has
 :::
 
 ::: funnelweb
-<P><A NAME="130"></A>130. <A HREF="#1">ModelElement</A>+={<TT><BR>
+<P><A NAME="132"></A>132. <A HREF="#1">ModelElement</A>+={<TT><BR>
 </TT>
 <A HREF="#2">Internal property</A>(</FONT>"</FONT><TT>annotations</TT>
 "</FONT>,</FONT>"</FONT>"</FONT>)</FONT><TT><BR>
@@ -6449,7 +6490,7 @@ annotationFromJSON(json,&nbsp;member,&nbsp;value)&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#130">130</A>, <A HREF="#131">131</A>, <A HREF="#137">137</A>, <A HREF="#139">139</A>, <A HREF="#151">151</A>, <A HREF="#164">164</A>, <A HREF="#169">169</A>, <A HREF="#170">170</A>, <A HREF="#183">183</A>, <A HREF="#188">188</A> and <A HREF="#191">191</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#132">132</A>, <A HREF="#133">133</A>, <A HREF="#139">139</A>, <A HREF="#141">141</A>, <A HREF="#153">153</A>, <A HREF="#166">166</A>, <A HREF="#171">171</A>, <A HREF="#172">172</A>, <A HREF="#185">185</A>, <A HREF="#190">190</A> and <A HREF="#193">193</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#1">1</A>.</FONT><BR>
 
 </P>
@@ -6462,14 +6503,14 @@ in the `Annotations` object.
 :::
 
 ::: funnelweb
-<P><A NAME="131"></A>131. <A HREF="#1">ModelElement</A>+={<TT><BR>
+<P><A NAME="133"></A>133. <A HREF="#1">ModelElement</A>+={<TT><BR>
 annotationTarget(prefix)&nbsp;{<BR>
 &nbsp;&nbsp;return&nbsp;new&nbsp;RelativePath(this,&nbsp;prefix,&nbsp;this,&nbsp;"target");<BR>
 }<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#130">130</A>, <A HREF="#131">131</A>, <A HREF="#137">137</A>, <A HREF="#139">139</A>, <A HREF="#151">151</A>, <A HREF="#164">164</A>, <A HREF="#169">169</A>, <A HREF="#170">170</A>, <A HREF="#183">183</A>, <A HREF="#188">188</A> and <A HREF="#191">191</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#132">132</A>, <A HREF="#133">133</A>, <A HREF="#139">139</A>, <A HREF="#141">141</A>, <A HREF="#153">153</A>, <A HREF="#166">166</A>, <A HREF="#171">171</A>, <A HREF="#172">172</A>, <A HREF="#185">185</A>, <A HREF="#190">190</A> and <A HREF="#193">193</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#1">1</A>.</FONT><BR>
 
 </P>
@@ -6481,7 +6522,7 @@ prefixed with the target's name followed by `@`.
 :::
 
 ::: funnelweb
-<P><A NAME="132"></A>132. <A HREF="#50">NamedSubElement</A>+={<TT><BR>
+<P><A NAME="134"></A>134. <A HREF="#50">NamedSubElement</A>+={<TT><BR>
 get&nbsp;prefix()&nbsp;{<BR>
 &nbsp;&nbsp;return&nbsp;this.name;<BR>
 }<BR>
@@ -6498,12 +6539,12 @@ fromJSON(json)&nbsp;{<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hasAnnotations&nbsp;=&nbsp;true;<BR>
 &nbsp;&nbsp;</TT>
-<A HREF="#135">Housekeeping for annotations</A><TT><BR>
+<A HREF="#137">Housekeeping for annotations</A><TT><BR>
 }<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#51">51</A> and <A HREF="#132">132</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#51">51</A> and <A HREF="#134">134</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#50">50</A>.</FONT><BR>
 
 </P>
@@ -6515,14 +6556,14 @@ prefix.
 :::
 
 ::: funnelweb
-<P><A NAME="133"></A>133. <A HREF="#52">Annotations</A>+={<TT><BR>
+<P><A NAME="135"></A>135. <A HREF="#52">Annotations</A>+={<TT><BR>
 get&nbsp;prefix()&nbsp;{<BR>
 &nbsp;&nbsp;return&nbsp;"";<BR>
 }<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#54">54</A> and <A HREF="#133">133</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#54">54</A> and <A HREF="#135">135</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#52">52</A>.</FONT><BR>
 
 </P>
@@ -6538,7 +6579,7 @@ can we replace the `annotations` properties with nested model elements.
 :::
 
 ::: funnelweb
-<P><A NAME="134"></A>134. <A HREF="#8">CSDLDocument</A>+={<TT><BR>
+<P><A NAME="136"></A>136. <A HREF="#8">CSDLDocument</A>+={<TT><BR>
 </TT>
 <A HREF="#2">Internal property</A>(</FONT>"</FONT><TT>annotationTargets</TT>
 "</FONT>,</FONT>"</FONT><TT>=&nbsp;[]</TT>
@@ -6546,25 +6587,25 @@ can we replace the `annotations` properties with nested model elements.
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#12">12</A>, <A HREF="#15">15</A>, <A HREF="#19">19</A>, <A HREF="#25">25</A>, <A HREF="#31">31</A>, <A HREF="#134">134</A>, <A HREF="#154">154</A>, <A HREF="#174">174</A>, <A HREF="#180">180</A> and <A HREF="#222">222</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#12">12</A>, <A HREF="#15">15</A>, <A HREF="#19">19</A>, <A HREF="#25">25</A>, <A HREF="#31">31</A>, <A HREF="#136">136</A>, <A HREF="#156">156</A>, <A HREF="#176">176</A>, <A HREF="#182">182</A> and <A HREF="#224">224</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#8">8</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="135"></A>135. <A HREF="#6">Housekeeping for annotations</A>[<B>M</B>]={<TT><BR>
+<P><A NAME="137"></A>137. <A HREF="#6">Housekeeping for annotations</A>[<B>M</B>]={<TT><BR>
 if&nbsp;(hasAnnotations)&nbsp;this.csdlDocument.annotationTargets.push(this);<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is invoked in definitions <A HREF="#6">6</A> and <A HREF="#132">132</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definitions <A HREF="#6">6</A> and <A HREF="#134">134</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="136"></A>136. <A HREF="#174">Embed all annotations in their targets</A>={<TT><BR>
+<P><A NAME="138"></A>138. <A HREF="#176">Embed all annotations in their targets</A>={<TT><BR>
 for&nbsp;(const&nbsp;target&nbsp;of&nbsp;this.annotationTargets)&nbsp;{<BR>
 &nbsp;&nbsp;for&nbsp;(const&nbsp;path&nbsp;in&nbsp;target.annotations)&nbsp;{<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;const&nbsp;t&nbsp;=&nbsp;path&nbsp;?&nbsp;target.children[path]&nbsp;:&nbsp;target;<BR>
@@ -6582,7 +6623,7 @@ this.#annotationTargets&nbsp;=&nbsp;undefined;<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is invoked in definition <A HREF="#174">174</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#176">176</A>.</FONT><BR>
 
 </P>
 :::
@@ -6594,12 +6635,12 @@ annotation of an annotation (of an ...).
 :::
 
 ::: funnelweb
-<P><A NAME="137"></A>137. <A HREF="#1">ModelElement</A>+={<TT><BR>
+<P><A NAME="139"></A>139. <A HREF="#1">ModelElement</A>+={<TT><BR>
 nestAnnotations(annos,&nbsp;member,&nbsp;anno)&nbsp;{<BR>
 &nbsp;&nbsp;const&nbsp;termcast&nbsp;=&nbsp;member.replace(<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;/(?&lt;=@).*?(?=#|$)/,<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;</TT>
-<A HREF="#223">Unalias the qualified term name</A>(</FONT>"</FONT><TT>this</TT>
+<A HREF="#225">Unalias the qualified term name</A>(</FONT>"</FONT><TT>this</TT>
 "</FONT>)</FONT><TT><BR>
 &nbsp;&nbsp;);<BR>
 &nbsp;&nbsp;this[termcast]&nbsp;=&nbsp;anno;<BR>
@@ -6607,7 +6648,7 @@ nestAnnotations(annos,&nbsp;member,&nbsp;anno)&nbsp;{<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;const&nbsp;m&nbsp;=&nbsp;mem.replace(<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/(?&lt;=@).*?(?=#|@|$)/g,<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>
-<A HREF="#223">Unalias the qualified term name</A>(</FONT>"</FONT><TT>this</TT>
+<A HREF="#225">Unalias the qualified term name</A>(</FONT>"</FONT><TT>this</TT>
 "</FONT>)</FONT><TT><BR>
 &nbsp;&nbsp;&nbsp;&nbsp;);<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(m.startsWith(termcast&nbsp;+&nbsp;"@"))<BR>
@@ -6621,7 +6662,7 @@ nestAnnotations(annos,&nbsp;member,&nbsp;anno)&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#130">130</A>, <A HREF="#131">131</A>, <A HREF="#137">137</A>, <A HREF="#139">139</A>, <A HREF="#151">151</A>, <A HREF="#164">164</A>, <A HREF="#169">169</A>, <A HREF="#170">170</A>, <A HREF="#183">183</A>, <A HREF="#188">188</A> and <A HREF="#191">191</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#132">132</A>, <A HREF="#133">133</A>, <A HREF="#139">139</A>, <A HREF="#141">141</A>, <A HREF="#153">153</A>, <A HREF="#166">166</A>, <A HREF="#171">171</A>, <A HREF="#172">172</A>, <A HREF="#185">185</A>, <A HREF="#190">190</A> and <A HREF="#193">193</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#1">1</A>.</FONT><BR>
 
 </P>
@@ -6633,7 +6674,7 @@ becomes its sibling when they are serialized.
 :::
 
 ::: funnelweb
-<P><A NAME="138"></A>138. <A HREF="#40">Serialize annotations of annotations</A>(<B>3</B>)[<B>M</B>]={<TT><BR>
+<P><A NAME="140"></A>140. <A HREF="#40">Serialize annotations of annotations</A>(<B>3</B>)[<B>M</B>]={<TT><BR>
 </TT>
 <B>1</B></FONT><TT>.annotationsOfAnnotations(</TT>
 <B>2</B></FONT><TT>,&nbsp;</TT>
@@ -6647,7 +6688,7 @@ becomes its sibling when they are serialized.
 :::
 
 ::: funnelweb
-<P><A NAME="139"></A>139. <A HREF="#1">ModelElement</A>+={<TT><BR>
+<P><A NAME="141"></A>141. <A HREF="#1">ModelElement</A>+={<TT><BR>
 annotationsOfAnnotations(json,&nbsp;prefix)&nbsp;{<BR>
 &nbsp;&nbsp;for&nbsp;(const&nbsp;member&nbsp;in&nbsp;this)<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(member.startsWith("@"))&nbsp;{<BR>
@@ -6658,7 +6699,7 @@ annotationsOfAnnotations(json,&nbsp;prefix)&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#130">130</A>, <A HREF="#131">131</A>, <A HREF="#137">137</A>, <A HREF="#139">139</A>, <A HREF="#151">151</A>, <A HREF="#164">164</A>, <A HREF="#169">169</A>, <A HREF="#170">170</A>, <A HREF="#183">183</A>, <A HREF="#188">188</A> and <A HREF="#191">191</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#132">132</A>, <A HREF="#133">133</A>, <A HREF="#139">139</A>, <A HREF="#141">141</A>, <A HREF="#153">153</A>, <A HREF="#166">166</A>, <A HREF="#171">171</A>, <A HREF="#172">172</A>, <A HREF="#185">185</A>, <A HREF="#190">190</A> and <A HREF="#193">193</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#1">1</A>.</FONT><BR>
 
 </P>
@@ -6676,7 +6717,7 @@ contains an inner `@@` must be ignored.
 :::
 
 ::: funnelweb
-<P><A NAME="140"></A>140. <A HREF="#124">Annotation</A>+={<TT><BR>
+<P><A NAME="142"></A>142. <A HREF="#126">Annotation</A>+={<TT><BR>
 toYAML(key)&nbsp;{<BR>
 &nbsp;&nbsp;if&nbsp;(!/.@/.test(key))<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;{<BR>
@@ -6688,8 +6729,8 @@ toYAML(key)&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#126">126</A>, <A HREF="#140">140</A>, <A HREF="#166">166</A>, <A HREF="#168">168</A> and <A HREF="#197">197</A>.</FONT><BR>
-<FONT SIZE=1>This macro is invoked in definition <A HREF="#124">124</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#128">128</A>, <A HREF="#142">142</A>, <A HREF="#168">168</A>, <A HREF="#170">170</A> and <A HREF="#199">199</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#126">126</A>.</FONT><BR>
 
 </P>
 :::
@@ -6819,14 +6860,14 @@ annotations override annotations on the properties or navigation
 properties targeted via the declaring structured type.
 
 ::: funnelweb
-<P><A NAME="141"></A>141. <A HREF="#147">Types of path segment</A>+={<TT><BR>
+<P><A NAME="143"></A>143. <A HREF="#149">Types of path segment</A>+={<TT><BR>
 case&nbsp;segment.includes(".")&nbsp;&amp;&amp;&nbsp;segment.includes("("):<BR>
 &nbsp;&nbsp;return&nbsp;new&nbsp;OverloadSegment(this,&nbsp;segment);<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#141">141</A>, <A HREF="#156">156</A>, <A HREF="#157">157</A> and <A HREF="#159">159</A>.</FONT><BR>
-<FONT SIZE=1>This macro is invoked in definition <A HREF="#147">147</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#143">143</A>, <A HREF="#158">158</A>, <A HREF="#159">159</A> and <A HREF="#161">161</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#149">149</A>.</FONT><BR>
 
 </P>
 :::
@@ -6882,7 +6923,7 @@ Date expressions are represented as a string containing the date value.
 The value MUST conform to type `xs:date`, see
 [XML-Schema-2](#XML-Schema2), [section
 3.3.9](http://www.w3.org/TR/xmlschema11-2/#date). The value MUST also
-conform to rule `dateValue` in [OData-ABNF](#ODataABNF), i.e. it MUST
+conform to rule [dateValue]{.abnf} in [OData-ABNF](#ODataABNF), i.e. it MUST
 NOT contain a time-zone offset.
 :::
 
@@ -6902,7 +6943,7 @@ Datetimestamp expressions are represented as a string containing the
 timestamp value. The value MUST conform to type `xs:dateTimeStamp`, see
 [XML-Schema-2](#XML-Schema2), [section
 3.4.28](http://www.w3.org/TR/xmlschema11-2/#dateTimeStamp). The value
-MUST also conform to rule `dateTimeOffsetValue` in
+MUST also conform to rule [dateTimeOffsetValue]{.abnf} in
 [OData-ABNF](#ODataABNF), i.e. it MUST NOT contain an end-of-day
 fragment (24:00:00).
 :::
@@ -7018,7 +7059,7 @@ Example 52:
 
 ::: {.varjson .rep}
 Guid expressions are represented as a string containing the uuid value.
-The value MUST conform to the rule `guidValue` in
+The value MUST conform to the rule [guidValue]{.abnf} in
 [OData-ABNF](#ODataABNF).
 :::
 
@@ -7075,7 +7116,7 @@ Example 56:
 
 ::: {.varjson .rep}
 Time-of-day expressions are represented as a string containing the
-time-of-day value. The value MUST conform to the rule `timeOfDayValue`
+time-of-day value. The value MUST conform to the rule [timeOfDayValue]{.abnf}
 in [OData-ABNF](#ODataABNF).
 :::
 
@@ -7111,7 +7152,7 @@ Constant values of type `Edm.Stream` are represented according to [OData-JSON, s
 
 
 The annotation (property) being assigned a stream value MUST be annotated with term
-[`Core.MediaType`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#MediaType)
+[Core.MediaType]{.term}
 and the media type of the stream as its value.
 
 ::: {.varjson .example}
@@ -7174,7 +7215,7 @@ and `$Type` as `attribute`.
 :::
 
 ::: funnelweb
-<P><A NAME="142"></A>142. <A HREF="#44">AbstractPath</A>+={<TT><BR>
+<P><A NAME="144"></A>144. <A HREF="#44">AbstractPath</A>+={<TT><BR>
 </TT>
 <A HREF="#30">Internal property with setter</A>(</FONT>"</FONT><TT>segments</TT>
 "</FONT>)</FONT><TT><BR>
@@ -7197,7 +7238,7 @@ toJSON()&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#142">142</A>, <A HREF="#144">144</A>, <A HREF="#155">155</A> and <A HREF="#163">163</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#144">144</A>, <A HREF="#146">146</A>, <A HREF="#157">157</A> and <A HREF="#165">165</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#44">44</A>.</FONT><BR>
 
 </P>
@@ -7211,7 +7252,7 @@ An empty path has one empty segment.
 :::
 
 ::: funnelweb
-<P><A NAME="143"></A>143. <A HREF="#46">Segment</A>={<TT><BR>
+<P><A NAME="145"></A>145. <A HREF="#46">Segment</A>={<TT><BR>
 #target;<BR>
 </TT>
 <A HREF="#2">Internal property</A>(</FONT>"</FONT><TT>path</TT>
@@ -7226,7 +7267,7 @@ constructor(path,&nbsp;segment)&nbsp;{<BR>
 get&nbsp;target()&nbsp;{<BR>
 &nbsp;&nbsp;if&nbsp;(!this.#target)&nbsp;{<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;</TT>
-<A HREF="#176">Ready for path evaluation?</A><TT><BR>
+<A HREF="#178">Ready for path evaluation?</A><TT><BR>
 &nbsp;&nbsp;&nbsp;&nbsp;this.path.evaluate();<BR>
 &nbsp;&nbsp;}<BR>
 &nbsp;&nbsp;return&nbsp;this.#target;<BR>
@@ -7252,7 +7293,7 @@ the `target`s of its segments.
 :::
 
 ::: funnelweb
-<P><A NAME="144"></A>144. <A HREF="#44">AbstractPath</A>+={<TT><BR>
+<P><A NAME="146"></A>146. <A HREF="#44">AbstractPath</A>+={<TT><BR>
 toYAML(key)&nbsp;{<BR>
 &nbsp;&nbsp;const&nbsp;segments&nbsp;=&nbsp;this.segments.map((s)&nbsp;=&gt;&nbsp;s.target&nbsp;||&nbsp;s.segment);<BR>
 &nbsp;&nbsp;return&nbsp;segments.length&nbsp;===&nbsp;1&nbsp;?&nbsp;segments[0]&nbsp;:&nbsp;segments;<BR>
@@ -7260,34 +7301,34 @@ toYAML(key)&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#142">142</A>, <A HREF="#144">144</A>, <A HREF="#155">155</A> and <A HREF="#163">163</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#144">144</A>, <A HREF="#146">146</A>, <A HREF="#157">157</A> and <A HREF="#165">165</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#44">44</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="145"></A>145. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+<P><A NAME="147"></A>147. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
 class&nbsp;RelativePath&nbsp;extends&nbsp;AbstractPath&nbsp;{<BR>
 &nbsp;&nbsp;</TT>
-<A HREF="#147">RelativePath</A><TT><BR>
+<A HREF="#149">RelativePath</A><TT><BR>
 }<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="146"></A>146. <A HREF="#7">Exports</A>+={<TT><BR>
+<P><A NAME="148"></A>148. <A HREF="#7">Exports</A>+={<TT><BR>
 RelativePath,<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#106">106</A>, <A HREF="#109">109</A>, <A HREF="#114">114</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#127">127</A>, <A HREF="#148">148</A>, <A HREF="#189">189</A>, <A HREF="#196">196</A>, <A HREF="#198">198</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#209">209</A>, <A HREF="#214">214</A>, <A HREF="#216">216</A> and <A HREF="#220">220</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -7299,24 +7340,24 @@ with a special method that can be redefined (see `Value Path`).
 :::
 
 ::: funnelweb
-<P><A NAME="147"></A>147. <A HREF="#145">RelativePath</A>+={<TT><BR>
+<P><A NAME="149"></A>149. <A HREF="#147">RelativePath</A>+={<TT><BR>
 #relativeTo;<BR>
 #absolute&nbsp;=&nbsp;"";<BR>
 constructor(host,&nbsp;path,&nbsp;relativeTo,&nbsp;attribute)&nbsp;{<BR>
 &nbsp;&nbsp;super(host,&nbsp;attribute);<BR>
 &nbsp;&nbsp;</TT>
-<A HREF="#149">Treat absolute paths like relative paths</A><TT><BR>
+<A HREF="#151">Treat absolute paths like relative paths</A><TT><BR>
 &nbsp;&nbsp;this.#relativeTo&nbsp;=&nbsp;relativeTo;<BR>
 &nbsp;&nbsp;this.segments&nbsp;=&nbsp;path<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;.split("/")<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;.map(function(segment)&nbsp;{<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;switch&nbsp;(true)&nbsp;{<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>
-<A HREF="#141">Types of path segment</A><TT><BR>
+<A HREF="#143">Types of path segment</A><TT><BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;}.bind(this));<BR>
 &nbsp;&nbsp;</TT>
-<A HREF="#181">Housekeeping for paths</A><TT><BR>
+<A HREF="#183">Housekeeping for paths</A><TT><BR>
 }<BR>
 relativeTo()&nbsp;{<BR>
 &nbsp;&nbsp;return&nbsp;this.#relativeTo;<BR>
@@ -7327,8 +7368,8 @@ toJSON()&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#147">147</A>, <A HREF="#150">150</A> and <A HREF="#153">153</A>.</FONT><BR>
-<FONT SIZE=1>This macro is invoked in definition <A HREF="#145">145</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#149">149</A>, <A HREF="#152">152</A> and <A HREF="#155">155</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#147">147</A>.</FONT><BR>
 
 </P>
 :::
@@ -7339,7 +7380,7 @@ are relative to the entity type, which is the `PropertyRef`'s parent.
 :::
 
 ::: funnelweb
-<P><A NAME="148"></A>148. <A HREF="#61">Path to key property</A>(<B>1</B>)[<B>M</B>]={<TT><BR>
+<P><A NAME="150"></A>150. <A HREF="#61">Path to key property</A>(<B>1</B>)[<B>M</B>]={<TT><BR>
 this.#path&nbsp;=&nbsp;new&nbsp;RelativePath(this,&nbsp;</TT>
 <B>1</B></FONT><TT>,&nbsp;this.parent,&nbsp;"$Key");<BR>
 </TT>
@@ -7361,7 +7402,7 @@ does not matter, because the first segment is a [`QualifiedNameSegment`](#Schema
 :::
 
 ::: funnelweb
-<P><A NAME="149"></A>149. <A HREF="#147">Treat absolute paths like relative paths</A>={<TT><BR>
+<P><A NAME="151"></A>151. <A HREF="#149">Treat absolute paths like relative paths</A>={<TT><BR>
 if&nbsp;(path.startsWith("/"))&nbsp;{<BR>
 &nbsp;&nbsp;this.#absolute&nbsp;=&nbsp;"/";<BR>
 &nbsp;&nbsp;path&nbsp;=&nbsp;path.substring(1);<BR>
@@ -7370,7 +7411,7 @@ if&nbsp;(path.startsWith("/"))&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is invoked in definition <A HREF="#147">147</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#149">149</A>.</FONT><BR>
 
 </P>
 :::
@@ -7393,7 +7434,7 @@ The targets which the path visits are also collected into the path's `visits` pr
 :::
 
 ::: funnelweb
-<P><A NAME="150"></A>150. <A HREF="#145">RelativePath</A>+={<TT><BR>
+<P><A NAME="152"></A>152. <A HREF="#147">RelativePath</A>+={<TT><BR>
 #visits&nbsp;=&nbsp;[];<BR>
 evaluate()&nbsp;{<BR>
 &nbsp;&nbsp;let&nbsp;target&nbsp;=&nbsp;this.relativeTo();<BR>
@@ -7401,11 +7442,11 @@ evaluate()&nbsp;{<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;target&nbsp;=&nbsp;this.segments[i].target&nbsp;=<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.segments[i].evaluateRelativeTo(target);<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;</TT>
-<A HREF="#184">Housekeeping during segment evaluation</A><TT><BR>
+<A HREF="#186">Housekeeping during segment evaluation</A><TT><BR>
 &nbsp;&nbsp;&nbsp;&nbsp;this.#visits.push(target);<BR>
 &nbsp;&nbsp;}<BR>
 &nbsp;&nbsp;</TT>
-<A HREF="#185">Housekeeping during path evaluation</A><TT><BR>
+<A HREF="#187">Housekeeping during path evaluation</A><TT><BR>
 &nbsp;&nbsp;return&nbsp;target;<BR>
 }<BR>
 get&nbsp;visits()&nbsp;{<BR>
@@ -7418,8 +7459,8 @@ get&nbsp;visits()&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#147">147</A>, <A HREF="#150">150</A> and <A HREF="#153">153</A>.</FONT><BR>
-<FONT SIZE=1>This macro is invoked in definition <A HREF="#145">145</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#149">149</A>, <A HREF="#152">152</A> and <A HREF="#155">155</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#147">147</A>.</FONT><BR>
 
 </P>
 :::
@@ -7430,41 +7471,41 @@ path.
 :::
 
 ::: funnelweb
-<P><A NAME="151"></A>151. <A HREF="#1">ModelElement</A>+={<TT><BR>
+<P><A NAME="153"></A>153. <A HREF="#1">ModelElement</A>+={<TT><BR>
 </TT>
 <A HREF="#2">Internal property</A>(</FONT>"</FONT><TT>ID</TT>
 "</FONT>,</FONT>"</FONT>"</FONT>)</FONT><TT><BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#130">130</A>, <A HREF="#131">131</A>, <A HREF="#137">137</A>, <A HREF="#139">139</A>, <A HREF="#151">151</A>, <A HREF="#164">164</A>, <A HREF="#169">169</A>, <A HREF="#170">170</A>, <A HREF="#183">183</A>, <A HREF="#188">188</A> and <A HREF="#191">191</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#132">132</A>, <A HREF="#133">133</A>, <A HREF="#139">139</A>, <A HREF="#141">141</A>, <A HREF="#153">153</A>, <A HREF="#166">166</A>, <A HREF="#171">171</A>, <A HREF="#172">172</A>, <A HREF="#185">185</A>, <A HREF="#190">190</A> and <A HREF="#193">193</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#1">1</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="152"></A>152. <A HREF="#13">Collect all ModelElements in modelElements</A>+={<TT><BR>
+<P><A NAME="154"></A>154. <A HREF="#13">Collect all ModelElements in modelElements</A>+={<TT><BR>
 this.#ID&nbsp;=&nbsp;this.csdlDocument?.modelElements.length;<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#14">14</A> and <A HREF="#152">152</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#14">14</A> and <A HREF="#154">154</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#13">13</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="153"></A>153. <A HREF="#145">RelativePath</A>+={<TT><BR>
+<P><A NAME="155"></A>155. <A HREF="#147">RelativePath</A>+={<TT><BR>
 get&nbsp;pathID()&nbsp;{<BR>
 &nbsp;&nbsp;return&nbsp;this.#visits?.map((t)&nbsp;=&gt;&nbsp;t.ID)?.join("&nbsp;");<BR>
 }<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#147">147</A>, <A HREF="#150">150</A> and <A HREF="#153">153</A>.</FONT><BR>
-<FONT SIZE=1>This macro is invoked in definition <A HREF="#145">145</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#149">149</A>, <A HREF="#152">152</A> and <A HREF="#155">155</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#147">147</A>.</FONT><BR>
 
 </P>
 :::
@@ -7474,14 +7515,14 @@ The `evaluate` algorithm is used to address elements in a CSDL document by their
 :::
 
 ::: funnelweb
-<P><A NAME="154"></A>154. <A HREF="#8">CSDLDocument</A>+={<TT><BR>
+<P><A NAME="156"></A>156. <A HREF="#8">CSDLDocument</A>+={<TT><BR>
 get(path)&nbsp;{<BR>
 &nbsp;&nbsp;return&nbsp;new&nbsp;RelativePath(this,&nbsp;path,&nbsp;this).evaluate();<BR>
 }<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#12">12</A>, <A HREF="#15">15</A>, <A HREF="#19">19</A>, <A HREF="#25">25</A>, <A HREF="#31">31</A>, <A HREF="#134">134</A>, <A HREF="#154">154</A>, <A HREF="#174">174</A>, <A HREF="#180">180</A> and <A HREF="#222">222</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#12">12</A>, <A HREF="#15">15</A>, <A HREF="#19">19</A>, <A HREF="#25">25</A>, <A HREF="#31">31</A>, <A HREF="#136">136</A>, <A HREF="#156">156</A>, <A HREF="#176">176</A>, <A HREF="#182">182</A> and <A HREF="#224">224</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#8">8</A>.</FONT><BR>
 
 </P>
@@ -7494,14 +7535,14 @@ evaluate the path only once.
 :::
 
 ::: funnelweb
-<P><A NAME="155"></A>155. <A HREF="#44">AbstractPath</A>+={<TT><BR>
+<P><A NAME="157"></A>157. <A HREF="#44">AbstractPath</A>+={<TT><BR>
 get&nbsp;target()&nbsp;{<BR>
 &nbsp;&nbsp;return&nbsp;this.segments[this.segments.length&nbsp;-&nbsp;1].target;<BR>
 }<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#142">142</A>, <A HREF="#144">144</A>, <A HREF="#155">155</A> and <A HREF="#163">163</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#144">144</A>, <A HREF="#146">146</A>, <A HREF="#157">157</A> and <A HREF="#165">165</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#44">44</A>.</FONT><BR>
 
 </P>
@@ -7521,14 +7562,14 @@ cannot be cast to the specified type, the path expression evaluates to
 the null value.
 
 ::: funnelweb
-<P><A NAME="156"></A>156. <A HREF="#147">Types of path segment</A>+={<TT><BR>
+<P><A NAME="158"></A>158. <A HREF="#149">Types of path segment</A>+={<TT><BR>
 case&nbsp;!segment.startsWith("@")&nbsp;&amp;&amp;&nbsp;segment.includes("."):<BR>
 &nbsp;&nbsp;return&nbsp;new&nbsp;QualifiedNameSegment(this,&nbsp;segment);<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#141">141</A>, <A HREF="#156">156</A>, <A HREF="#157">157</A> and <A HREF="#159">159</A>.</FONT><BR>
-<FONT SIZE=1>This macro is invoked in definition <A HREF="#147">147</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#143">143</A>, <A HREF="#158">158</A>, <A HREF="#159">159</A> and <A HREF="#161">161</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#149">149</A>.</FONT><BR>
 
 </P>
 :::
@@ -7559,14 +7600,14 @@ properties:
 -   `odata.mediaEtag`
 
 ::: funnelweb
-<P><A NAME="157"></A>157. <A HREF="#147">Types of path segment</A>+={<TT><BR>
+<P><A NAME="159"></A>159. <A HREF="#149">Types of path segment</A>+={<TT><BR>
 case&nbsp;segment.startsWith("@"):<BR>
 &nbsp;&nbsp;return&nbsp;new&nbsp;TermCastSegment(this,&nbsp;segment);<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#141">141</A>, <A HREF="#156">156</A>, <A HREF="#157">157</A> and <A HREF="#159">159</A>.</FONT><BR>
-<FONT SIZE=1>This macro is invoked in definition <A HREF="#147">147</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#143">143</A>, <A HREF="#158">158</A>, <A HREF="#159">159</A> and <A HREF="#161">161</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#149">149</A>.</FONT><BR>
 
 </P>
 :::
@@ -7579,13 +7620,13 @@ targets it.
 :::
 
 ::: funnelweb
-<P><A NAME="158"></A>158. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+<P><A NAME="160"></A>160. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
 class&nbsp;TermCastSegment&nbsp;extends&nbsp;Segment&nbsp;{<BR>
 &nbsp;&nbsp;evaluateRelativeTo(modelElement)&nbsp;{<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;const&nbsp;termcast&nbsp;=&nbsp;this.segment.replace(<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/(?&lt;=@).*?(?=#|$)/,<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>
-<A HREF="#223">Unalias the qualified term name</A>(</FONT>"</FONT><TT>this.path</TT>
+<A HREF="#225">Unalias the qualified term name</A>(</FONT>"</FONT><TT>this.path</TT>
 "</FONT>)</FONT><TT><BR>
 &nbsp;&nbsp;&nbsp;&nbsp;);<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(!termcast)&nbsp;return;<BR>
@@ -7599,7 +7640,7 @@ class&nbsp;TermCastSegment&nbsp;extends&nbsp;Segment&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -7631,20 +7672,20 @@ An empty segment evaluated relative to a model element results in that model ele
 :::
 
 ::: funnelweb
-<P><A NAME="159"></A>159. <A HREF="#147">Types of path segment</A>+={<TT><BR>
+<P><A NAME="161"></A>161. <A HREF="#149">Types of path segment</A>+={<TT><BR>
 default:<BR>
 &nbsp;&nbsp;return&nbsp;new&nbsp;RelativeSegment(this,&nbsp;segment);<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#141">141</A>, <A HREF="#156">156</A>, <A HREF="#157">157</A> and <A HREF="#159">159</A>.</FONT><BR>
-<FONT SIZE=1>This macro is invoked in definition <A HREF="#147">147</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#143">143</A>, <A HREF="#158">158</A>, <A HREF="#159">159</A> and <A HREF="#161">161</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#149">149</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="160"></A>160. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+<P><A NAME="162"></A>162. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
 class&nbsp;RelativeSegment&nbsp;extends&nbsp;Segment&nbsp;{<BR>
 &nbsp;&nbsp;evaluateRelativeTo(modelElement)&nbsp;{<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;this.segment&nbsp;?&nbsp;modelElement.evaluateSegment(this)&nbsp;:&nbsp;modelElement;<BR>
@@ -7653,28 +7694,28 @@ class&nbsp;RelativeSegment&nbsp;extends&nbsp;Segment&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="161"></A>161. <A HREF="#64">TypedModelElement</A>+={<TT><BR>
+<P><A NAME="163"></A>163. <A HREF="#64">TypedModelElement</A>+={<TT><BR>
 evaluateSegment(segment)&nbsp;{<BR>
 &nbsp;&nbsp;return&nbsp;this.$Type.evaluateSegment(segment);<BR>
 }<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#67">67</A> and <A HREF="#161">161</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#67">67</A> and <A HREF="#163">163</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#64">64</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="162"></A>162. <A HREF="#97">Parameter and ReturnType inherit from TypedModelElement</A>[<B>M</B>]={<TT><BR>
+<P><A NAME="164"></A>164. <A HREF="#97">Parameter and ReturnType inherit from TypedModelElement</A>[<B>M</B>]={<TT><BR>
 evaluateSegment(segment)&nbsp;{<BR>
 &nbsp;&nbsp;return&nbsp;TypedModelElement.prototype.evaluateSegment.call(this,&nbsp;segment);<BR>
 }<BR>
@@ -7687,28 +7728,28 @@ evaluateSegment(segment)&nbsp;{<BR>
 :::
 
 ::: funnelweb
-<P><A NAME="163"></A>163. <A HREF="#44">AbstractPath</A>+={<TT><BR>
+<P><A NAME="165"></A>165. <A HREF="#44">AbstractPath</A>+={<TT><BR>
 evaluateSegment(segment)&nbsp;{<BR>
 &nbsp;&nbsp;return&nbsp;this.target.evaluateSegment(segment);<BR>
 }<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#142">142</A>, <A HREF="#144">144</A>, <A HREF="#155">155</A> and <A HREF="#163">163</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#144">144</A>, <A HREF="#146">146</A>, <A HREF="#157">157</A> and <A HREF="#165">165</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#44">44</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="164"></A>164. <A HREF="#1">ModelElement</A>+={<TT><BR>
+<P><A NAME="166"></A>166. <A HREF="#1">ModelElement</A>+={<TT><BR>
 evaluateSegment(segment)&nbsp;{<BR>
 &nbsp;&nbsp;return&nbsp;this.children[segment.segment];<BR>
 }<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#130">130</A>, <A HREF="#131">131</A>, <A HREF="#137">137</A>, <A HREF="#139">139</A>, <A HREF="#151">151</A>, <A HREF="#164">164</A>, <A HREF="#169">169</A>, <A HREF="#170">170</A>, <A HREF="#183">183</A>, <A HREF="#188">188</A> and <A HREF="#191">191</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#132">132</A>, <A HREF="#133">133</A>, <A HREF="#139">139</A>, <A HREF="#141">141</A>, <A HREF="#153">153</A>, <A HREF="#166">166</A>, <A HREF="#171">171</A>, <A HREF="#172">172</A>, <A HREF="#185">185</A>, <A HREF="#190">190</A> and <A HREF="#193">193</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#1">1</A>.</FONT><BR>
 
 </P>
@@ -7720,14 +7761,14 @@ looked up among the children of the `effectiveType`.
 :::
 
 ::: funnelweb
-<P><A NAME="165"></A>165. <A HREF="#56">Common parts of complex and entity type</A>+={<TT><BR>
+<P><A NAME="167"></A>167. <A HREF="#56">Common parts of complex and entity type</A>+={<TT><BR>
 evaluateSegment(segment)&nbsp;{<BR>
 &nbsp;&nbsp;return&nbsp;this.effectiveType.children[segment.segment];<BR>
 }<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#58">58</A> and <A HREF="#165">165</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#58">58</A> and <A HREF="#167">167</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#56">56</A>.</FONT><BR>
 
 </P>
@@ -7849,15 +7890,15 @@ target.
 :::
 
 ::: funnelweb
-<P><A NAME="166"></A>166. <A HREF="#124">Annotation</A>+={<TT><BR>
+<P><A NAME="168"></A>168. <A HREF="#126">Annotation</A>+={<TT><BR>
 get&nbsp;host()&nbsp;{<BR>
 &nbsp;&nbsp;return&nbsp;this.target.target.host;<BR>
 }<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#126">126</A>, <A HREF="#140">140</A>, <A HREF="#166">166</A>, <A HREF="#168">168</A> and <A HREF="#197">197</A>.</FONT><BR>
-<FONT SIZE=1>This macro is invoked in definition <A HREF="#124">124</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#128">128</A>, <A HREF="#142">142</A>, <A HREF="#168">168</A>, <A HREF="#170">170</A> and <A HREF="#199">199</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#126">126</A>.</FONT><BR>
 
 </P>
 :::
@@ -7869,42 +7910,42 @@ whose `host` is the `host` of the annotation that contains it. (The getter for
 :::
 
 ::: funnelweb
-<P><A NAME="167"></A>167. <A HREF="#189">DynamicExpression</A>+={<TT><BR>
+<P><A NAME="169"></A>169. <A HREF="#191">DynamicExpression</A>+={<TT><BR>
 get&nbsp;annotation()&nbsp;{<BR>
 &nbsp;&nbsp;return&nbsp;this.parent.annotation;<BR>
 }<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#128">128</A> and <A HREF="#167">167</A>.</FONT><BR>
-<FONT SIZE=1>This macro is invoked in definition <A HREF="#189">189</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#130">130</A> and <A HREF="#169">169</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#191">191</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="168"></A>168. <A HREF="#124">Annotation</A>+={<TT><BR>
+<P><A NAME="170"></A>170. <A HREF="#126">Annotation</A>+={<TT><BR>
 get&nbsp;annotation()&nbsp;{<BR>
 &nbsp;&nbsp;return&nbsp;this;<BR>
 }<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#126">126</A>, <A HREF="#140">140</A>, <A HREF="#166">166</A>, <A HREF="#168">168</A> and <A HREF="#197">197</A>.</FONT><BR>
-<FONT SIZE=1>This macro is invoked in definition <A HREF="#124">124</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#128">128</A>, <A HREF="#142">142</A>, <A HREF="#168">168</A>, <A HREF="#170">170</A> and <A HREF="#199">199</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#126">126</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="169"></A>169. <A HREF="#1">ModelElement</A>+={<TT><BR>
+<P><A NAME="171"></A>171. <A HREF="#1">ModelElement</A>+={<TT><BR>
 get&nbsp;host()&nbsp;{<BR>
 &nbsp;&nbsp;return&nbsp;this.annotation?.host&nbsp;||&nbsp;this;<BR>
 }<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#130">130</A>, <A HREF="#131">131</A>, <A HREF="#137">137</A>, <A HREF="#139">139</A>, <A HREF="#151">151</A>, <A HREF="#164">164</A>, <A HREF="#169">169</A>, <A HREF="#170">170</A>, <A HREF="#183">183</A>, <A HREF="#188">188</A> and <A HREF="#191">191</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#132">132</A>, <A HREF="#133">133</A>, <A HREF="#139">139</A>, <A HREF="#141">141</A>, <A HREF="#153">153</A>, <A HREF="#166">166</A>, <A HREF="#171">171</A>, <A HREF="#172">172</A>, <A HREF="#185">185</A>, <A HREF="#190">190</A> and <A HREF="#193">193</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#1">1</A>.</FONT><BR>
 
 </P>
@@ -7936,21 +7977,21 @@ import, parameter, or return type, the first segment of the path MUST be the
 name of a parameter of the action or function or `$ReturnType`.
 
 ::: funnelweb
-<P><A NAME="170"></A>170. <A HREF="#1">ModelElement</A>+={<TT><BR>
+<P><A NAME="172"></A>172. <A HREF="#1">ModelElement</A>+={<TT><BR>
 evaluationStart(anno)&nbsp;{<BR>
 &nbsp;&nbsp;return&nbsp;this;<BR>
 }<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#130">130</A>, <A HREF="#131">131</A>, <A HREF="#137">137</A>, <A HREF="#139">139</A>, <A HREF="#151">151</A>, <A HREF="#164">164</A>, <A HREF="#169">169</A>, <A HREF="#170">170</A>, <A HREF="#183">183</A>, <A HREF="#188">188</A> and <A HREF="#191">191</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#132">132</A>, <A HREF="#133">133</A>, <A HREF="#139">139</A>, <A HREF="#141">141</A>, <A HREF="#153">153</A>, <A HREF="#166">166</A>, <A HREF="#171">171</A>, <A HREF="#172">172</A>, <A HREF="#185">185</A>, <A HREF="#190">190</A> and <A HREF="#193">193</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#1">1</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="171"></A>171. <A HREF="#91">Operation</A>+={<TT><BR>
+<P><A NAME="173"></A>173. <A HREF="#91">Operation</A>+={<TT><BR>
 evaluateSegment(segment)&nbsp;{<BR>
 &nbsp;&nbsp;return&nbsp;segment.segment&nbsp;===&nbsp;"$ReturnType"<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;?&nbsp;this.$ReturnType<BR>
@@ -7959,7 +8000,7 @@ evaluateSegment(segment)&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#93">93</A> and <A HREF="#171">171</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#93">93</A> and <A HREF="#173">173</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#91">91</A>.</FONT><BR>
 
 </P>
@@ -7997,7 +8038,7 @@ specified, as follows:
    or a [term cast](#TermCast).
 
 ::: funnelweb
-<P><A NAME="172"></A>172. <A HREF="#64">AbstractProperty</A>={<TT><BR>
+<P><A NAME="174"></A>174. <A HREF="#64">AbstractProperty</A>={<TT><BR>
 evaluationStart(anno)&nbsp;{<BR>
 &nbsp;&nbsp;if&nbsp;(anno.descendantOf(this))&nbsp;return&nbsp;this.parent;<BR>
 &nbsp;&nbsp;if&nbsp;(anno.target.segments[0].target&nbsp;instanceof&nbsp;EntityContainer)<BR>
@@ -8110,19 +8151,19 @@ The `modelElements` property is likewise shared.
 :::
 
 ::: funnelweb
-<P><A NAME="173"></A>173. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+<P><A NAME="175"></A>175. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
 const&nbsp;csdlDocuments&nbsp;=&nbsp;new&nbsp;Map();<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="174"></A>174. <A HREF="#8">CSDLDocument</A>+={<TT><BR>
+<P><A NAME="176"></A>176. <A HREF="#8">CSDLDocument</A>+={<TT><BR>
 #uri;<BR>
 #finish;<BR>
 </TT>
@@ -8135,10 +8176,10 @@ constructor(uri,&nbsp;shared)&nbsp;{<BR>
 &nbsp;&nbsp;super();<BR>
 &nbsp;&nbsp;this.#uri&nbsp;=&nbsp;uri&nbsp;||&nbsp;"";<BR>
 &nbsp;&nbsp;</TT>
-<A HREF="#175">Share property between CSDL documents</A>(</FONT>"</FONT><TT>schemas</TT>
+<A HREF="#177">Share property between CSDL documents</A>(</FONT>"</FONT><TT>schemas</TT>
 "</FONT>)</FONT><TT><BR>
 &nbsp;&nbsp;</TT>
-<A HREF="#175">Share property between CSDL documents</A>(</FONT>"</FONT><TT>modelElements</TT>
+<A HREF="#177">Share property between CSDL documents</A>(</FONT>"</FONT><TT>modelElements</TT>
 "</FONT>)</FONT><TT><BR>
 }<BR>
 finish()&nbsp;{<BR>
@@ -8146,7 +8187,7 @@ finish()&nbsp;{<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;this.#schemas&nbsp;||=&nbsp;new&nbsp;CSDLDocument();<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;Object.assign(this.schemas.children,&nbsp;this.children);<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;</TT>
-<A HREF="#177">Make this.#finish a promise that resolves when all paths have been evaluated</A><TT><BR>
+<A HREF="#179">Make this.#finish a promise that resolves when all paths have been evaluated</A><TT><BR>
 &nbsp;&nbsp;&nbsp;&nbsp;const&nbsp;references&nbsp;=&nbsp;[];<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;(const&nbsp;uri&nbsp;in&nbsp;this.$Reference)&nbsp;{<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>
@@ -8156,11 +8197,11 @@ finish()&nbsp;{<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;Promise.all(references).then(<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;async&nbsp;function&nbsp;(uris)&nbsp;{<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>
-<A HREF="#136">Embed all annotations in their targets</A><TT><BR>
+<A HREF="#138">Embed all annotations in their targets</A><TT><BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>
-<A HREF="#182">Evaluate all paths that appear in this CSDL document</A><TT><BR>
+<A HREF="#184">Evaluate all paths that appear in this CSDL document</A><TT><BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>
-<A HREF="#178">Resolve this.#finish after all referenced CSDL documents are finished</A><TT><BR>
+<A HREF="#180">Resolve this.#finish after all referenced CSDL documents are finished</A><TT><BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}.bind(this)<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;);<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;this.#finished&nbsp;=&nbsp;true;<BR>
@@ -8170,14 +8211,14 @@ finish()&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#12">12</A>, <A HREF="#15">15</A>, <A HREF="#19">19</A>, <A HREF="#25">25</A>, <A HREF="#31">31</A>, <A HREF="#134">134</A>, <A HREF="#154">154</A>, <A HREF="#174">174</A>, <A HREF="#180">180</A> and <A HREF="#222">222</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#12">12</A>, <A HREF="#15">15</A>, <A HREF="#19">19</A>, <A HREF="#25">25</A>, <A HREF="#31">31</A>, <A HREF="#136">136</A>, <A HREF="#156">156</A>, <A HREF="#176">176</A>, <A HREF="#182">182</A> and <A HREF="#224">224</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#8">8</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="175"></A>175. <A HREF="#174">Share property between CSDL documents</A>(<B>1</B>)[<B>M</B>]={<TT><BR>
+<P><A NAME="177"></A>177. <A HREF="#176">Share property between CSDL documents</A>(<B>1</B>)[<B>M</B>]={<TT><BR>
 if&nbsp;(shared?.</TT>
 <B>1</B></FONT><TT>)&nbsp;this.#</TT>
 <B>1</B></FONT><TT>&nbsp;=&nbsp;shared.</TT>
@@ -8185,24 +8226,24 @@ if&nbsp;(shared?.</TT>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is invoked in definitions <A HREF="#174">174</A> and <A HREF="#174">174</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definitions <A HREF="#176">176</A> and <A HREF="#176">176</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="176"></A>176. <A HREF="#143">Ready for path evaluation?</A>={<TT><BR>
+<P><A NAME="178"></A>178. <A HREF="#145">Ready for path evaluation?</A>={<TT><BR>
 if&nbsp;(!this.path.csdlDocument.finished)&nbsp;return&nbsp;"CSDL&nbsp;document&nbsp;not&nbsp;finished";<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is invoked in definition <A HREF="#143">143</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#145">145</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="177"></A>177. <A HREF="#174">Make this.#finish a promise that resolves when all paths have been evaluated</A>={<TT><BR>
+<P><A NAME="179"></A>179. <A HREF="#176">Make this.#finish a promise that resolves when all paths have been evaluated</A>={<TT><BR>
 let&nbsp;finished;<BR>
 this.#finish&nbsp;=&nbsp;new&nbsp;Promise(function&nbsp;(resolve,&nbsp;reject)&nbsp;{<BR>
 &nbsp;&nbsp;finished&nbsp;=&nbsp;resolve;<BR>
@@ -8210,7 +8251,7 @@ this.#finish&nbsp;=&nbsp;new&nbsp;Promise(function&nbsp;(resolve,&nbsp;reject)&n
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is invoked in definition <A HREF="#174">174</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#176">176</A>.</FONT><BR>
 
 </P>
 :::
@@ -8226,7 +8267,7 @@ The main CSDL document has an empty URI, so its waits for all others to `finish(
 :::
 
 ::: funnelweb
-<P><A NAME="178"></A>178. <A HREF="#174">Resolve this.#finish after all referenced CSDL documents are finished</A>={<TT><BR>
+<P><A NAME="180"></A>180. <A HREF="#176">Resolve this.#finish after all referenced CSDL documents are finished</A>={<TT><BR>
 await&nbsp;Promise.all(<BR>
 &nbsp;&nbsp;uris<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;.filter((uri)&nbsp;=&gt;&nbsp;uri&nbsp;&gt;&nbsp;this.#uri)<BR>
@@ -8236,7 +8277,7 @@ finished();<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is invoked in definition <A HREF="#174">174</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#176">176</A>.</FONT><BR>
 
 </P>
 :::
@@ -8252,7 +8293,7 @@ code block says `csdl?.finish()`.
 :::
 
 ::: funnelweb
-<P><A NAME="179"></A>179. <A HREF="#21">Reference</A>+={<TT><BR>
+<P><A NAME="181"></A>181. <A HREF="#21">Reference</A>+={<TT><BR>
 async&nbsp;resolve()&nbsp;{<BR>
 &nbsp;&nbsp;let&nbsp;csdl&nbsp;=&nbsp;csdlDocuments.get(this.uri);<BR>
 &nbsp;&nbsp;if&nbsp;(!csdl)<BR>
@@ -8294,7 +8335,7 @@ async&nbsp;resolve()&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#23">23</A>, <A HREF="#47">47</A> and <A HREF="#179">179</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#23">23</A>, <A HREF="#47">47</A> and <A HREF="#181">181</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#21">21</A>.</FONT><BR>
 
 </P>
@@ -8306,7 +8347,7 @@ the parsing of the document. It is made undefined after all paths have been eval
 :::
 
 ::: funnelweb
-<P><A NAME="180"></A>180. <A HREF="#8">CSDLDocument</A>+={<TT><BR>
+<P><A NAME="182"></A>182. <A HREF="#8">CSDLDocument</A>+={<TT><BR>
 </TT>
 <A HREF="#2">Internal property</A>(</FONT>"</FONT><TT>paths</TT>
 "</FONT>,</FONT>"</FONT><TT>=&nbsp;[]</TT>
@@ -8314,19 +8355,19 @@ the parsing of the document. It is made undefined after all paths have been eval
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#12">12</A>, <A HREF="#15">15</A>, <A HREF="#19">19</A>, <A HREF="#25">25</A>, <A HREF="#31">31</A>, <A HREF="#134">134</A>, <A HREF="#154">154</A>, <A HREF="#174">174</A>, <A HREF="#180">180</A> and <A HREF="#222">222</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#12">12</A>, <A HREF="#15">15</A>, <A HREF="#19">19</A>, <A HREF="#25">25</A>, <A HREF="#31">31</A>, <A HREF="#136">136</A>, <A HREF="#156">156</A>, <A HREF="#176">176</A>, <A HREF="#182">182</A> and <A HREF="#224">224</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#8">8</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="181"></A>181. <A HREF="#44">Housekeeping for paths</A>[<B>M</B>]={<TT><BR>
+<P><A NAME="183"></A>183. <A HREF="#44">Housekeeping for paths</A>[<B>M</B>]={<TT><BR>
 this.csdlDocument.paths?.push(this);<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is invoked in definitions <A HREF="#44">44</A> and <A HREF="#147">147</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definitions <A HREF="#44">44</A> and <A HREF="#149">149</A>.</FONT><BR>
 
 </P>
 :::
@@ -8338,7 +8379,7 @@ paths, which cannot of course point to something in the vocabulary.
 :::
 
 ::: funnelweb
-<P><A NAME="182"></A>182. <A HREF="#174">Evaluate all paths that appear in this CSDL document</A>={<TT><BR>
+<P><A NAME="184"></A>184. <A HREF="#176">Evaluate all paths that appear in this CSDL document</A>={<TT><BR>
 for&nbsp;(const&nbsp;path&nbsp;of&nbsp;this.paths)&nbsp;{<BR>
 &nbsp;&nbsp;try&nbsp;{<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;path.evaluate();<BR>
@@ -8351,7 +8392,7 @@ this.#paths&nbsp;=&nbsp;undefined;<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is invoked in definition <A HREF="#174">174</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#176">176</A>.</FONT><BR>
 
 </P>
 :::
@@ -8367,7 +8408,7 @@ has been set to `undefined`.
 :::
 
 ::: funnelweb
-<P><A NAME="183"></A>183. <A HREF="#1">ModelElement</A>+={<TT><BR>
+<P><A NAME="185"></A>185. <A HREF="#1">ModelElement</A>+={<TT><BR>
 </TT>
 <A HREF="#2">Internal property</A>(</FONT>"</FONT><TT>targetingPaths</TT>
 "</FONT>,</FONT>"</FONT><TT>=&nbsp;new&nbsp;Set()</TT>
@@ -8379,21 +8420,21 @@ has been set to `undefined`.
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#130">130</A>, <A HREF="#131">131</A>, <A HREF="#137">137</A>, <A HREF="#139">139</A>, <A HREF="#151">151</A>, <A HREF="#164">164</A>, <A HREF="#169">169</A>, <A HREF="#170">170</A>, <A HREF="#183">183</A>, <A HREF="#188">188</A> and <A HREF="#191">191</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#132">132</A>, <A HREF="#133">133</A>, <A HREF="#139">139</A>, <A HREF="#141">141</A>, <A HREF="#153">153</A>, <A HREF="#166">166</A>, <A HREF="#171">171</A>, <A HREF="#172">172</A>, <A HREF="#185">185</A>, <A HREF="#190">190</A> and <A HREF="#193">193</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#1">1</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="184"></A>184. <A HREF="#150">Housekeeping during segment evaluation</A>={<TT><BR>
+<P><A NAME="186"></A>186. <A HREF="#152">Housekeeping during segment evaluation</A>={<TT><BR>
 if&nbsp;(!target)&nbsp;throw&nbsp;new&nbsp;InvalidPathError(this);<BR>
 if&nbsp;(this.csdlDocument.paths&nbsp;&amp;&amp;&nbsp;i&nbsp;&lt;&nbsp;this.segments.length&nbsp;-&nbsp;1)<BR>
 &nbsp;&nbsp;target.targetingSegments.add(this.segments[i]);<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is invoked in definition <A HREF="#150">150</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#152">152</A>.</FONT><BR>
 
 </P>
 :::
@@ -8404,18 +8445,18 @@ no `targetingPaths`.
 :::
 
 ::: funnelweb
-<P><A NAME="185"></A>185. <A HREF="#44">Housekeeping during path evaluation</A>[<B>M</B>]={<TT><BR>
+<P><A NAME="187"></A>187. <A HREF="#44">Housekeeping during path evaluation</A>[<B>M</B>]={<TT><BR>
 if&nbsp;(target&nbsp;&amp;&amp;&nbsp;this.csdlDocument.paths)&nbsp;target.targetingPaths?.add(this);<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is invoked in definitions <A HREF="#44">44</A> and <A HREF="#150">150</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definitions <A HREF="#44">44</A> and <A HREF="#152">152</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="186"></A>186. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+<P><A NAME="188"></A>188. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
 class&nbsp;InvalidPathError&nbsp;extends&nbsp;Error&nbsp;{<BR>
 &nbsp;&nbsp;constructor(path)&nbsp;{<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;super("Invalid&nbsp;path&nbsp;"&nbsp;+&nbsp;path.toJSON()&nbsp;+&nbsp;"&nbsp;at&nbsp;"&nbsp;+&nbsp;path.path());<BR>
@@ -8424,19 +8465,19 @@ class&nbsp;InvalidPathError&nbsp;extends&nbsp;Error&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="187"></A>187. <A HREF="#7">Exports</A>+={<TT><BR>
+<P><A NAME="189"></A>189. <A HREF="#7">Exports</A>+={<TT><BR>
 InvalidPathError,<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#106">106</A>, <A HREF="#109">109</A>, <A HREF="#114">114</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#127">127</A>, <A HREF="#148">148</A>, <A HREF="#189">189</A>, <A HREF="#196">196</A>, <A HREF="#198">198</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#209">209</A>, <A HREF="#214">214</A>, <A HREF="#216">216</A> and <A HREF="#220">220</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -8448,7 +8489,7 @@ in order to address an element in the metamodel.
 :::
 
 ::: funnelweb
-<P><A NAME="188"></A>188. <A HREF="#1">ModelElement</A>+={<TT><BR>
+<P><A NAME="190"></A>190. <A HREF="#1">ModelElement</A>+={<TT><BR>
 evalPath(path)&nbsp;{<BR>
 &nbsp;&nbsp;if&nbsp;(!this.csdlDocument.paths)<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;new&nbsp;RelativePath(this,&nbsp;path,&nbsp;this).evaluate();<BR>
@@ -8456,7 +8497,7 @@ evalPath(path)&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#130">130</A>, <A HREF="#131">131</A>, <A HREF="#137">137</A>, <A HREF="#139">139</A>, <A HREF="#151">151</A>, <A HREF="#164">164</A>, <A HREF="#169">169</A>, <A HREF="#170">170</A>, <A HREF="#183">183</A>, <A HREF="#188">188</A> and <A HREF="#191">191</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#132">132</A>, <A HREF="#133">133</A>, <A HREF="#139">139</A>, <A HREF="#141">141</A>, <A HREF="#153">153</A>, <A HREF="#166">166</A>, <A HREF="#171">171</A>, <A HREF="#172">172</A>, <A HREF="#185">185</A>, <A HREF="#190">190</A> and <A HREF="#193">193</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#1">1</A>.</FONT><BR>
 
 </P>
@@ -8472,7 +8513,7 @@ which cannot be done until all annotation targets can be resolved.
 :::
 
 ::: funnelweb
-<P><A NAME="189"></A>189. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+<P><A NAME="191"></A>191. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
 class&nbsp;ValuePath&nbsp;extends&nbsp;RelativePath&nbsp;{<BR>
 &nbsp;&nbsp;constructor(pathExpression,&nbsp;path)&nbsp;{<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;super(pathExpression,&nbsp;path,&nbsp;undefined,&nbsp;"$Path");<BR>
@@ -8484,23 +8525,23 @@ class&nbsp;ValuePath&nbsp;extends&nbsp;RelativePath&nbsp;{<BR>
 }<BR>
 class&nbsp;DynamicExpression&nbsp;extends&nbsp;ModelElement&nbsp;{<BR>
 &nbsp;&nbsp;</TT>
-<A HREF="#128">DynamicExpression</A><TT><BR>
+<A HREF="#130">DynamicExpression</A><TT><BR>
 }<BR>
 class&nbsp;PathExpression&nbsp;extends&nbsp;DynamicExpression&nbsp;{<BR>
 &nbsp;&nbsp;</TT>
-<A HREF="#190">PathExpression</A><TT><BR>
+<A HREF="#192">PathExpression</A><TT><BR>
 }<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="190"></A>190. <A HREF="#189">PathExpression</A>+={<TT><BR>
+<P><A NAME="192"></A>192. <A HREF="#191">PathExpression</A>+={<TT><BR>
 constructor(parent,&nbsp;path)&nbsp;{<BR>
 &nbsp;&nbsp;super(parent);<BR>
 &nbsp;&nbsp;this.$Path&nbsp;=&nbsp;new&nbsp;ValuePath(this,&nbsp;path);<BR>
@@ -8508,8 +8549,8 @@ constructor(parent,&nbsp;path)&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#190">190</A> and <A HREF="#192">192</A>.</FONT><BR>
-<FONT SIZE=1>This macro is invoked in definition <A HREF="#189">189</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#192">192</A> and <A HREF="#194">194</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#191">191</A>.</FONT><BR>
 
 </P>
 :::
@@ -8522,7 +8563,7 @@ returns true. This can be used to detect currency properties with an expression 
 :::
 
 ::: funnelweb
-<P><A NAME="191"></A>191. <A HREF="#1">ModelElement</A>+={<TT><BR>
+<P><A NAME="193"></A>193. <A HREF="#1">ModelElement</A>+={<TT><BR>
 isAnnotation(callback)&nbsp;{<BR>
 &nbsp;&nbsp;for&nbsp;(const&nbsp;p&nbsp;of&nbsp;this.targetingPaths)<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(p.attribute&nbsp;===&nbsp;"$Path")&nbsp;{<BR>
@@ -8533,7 +8574,7 @@ isAnnotation(callback)&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#130">130</A>, <A HREF="#131">131</A>, <A HREF="#137">137</A>, <A HREF="#139">139</A>, <A HREF="#151">151</A>, <A HREF="#164">164</A>, <A HREF="#169">169</A>, <A HREF="#170">170</A>, <A HREF="#183">183</A>, <A HREF="#188">188</A> and <A HREF="#191">191</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#3">3</A>, <A HREF="#4">4</A>, <A HREF="#5">5</A>, <A HREF="#6">6</A>, <A HREF="#11">11</A>, <A HREF="#40">40</A>, <A HREF="#43">43</A>, <A HREF="#78">78</A>, <A HREF="#132">132</A>, <A HREF="#133">133</A>, <A HREF="#139">139</A>, <A HREF="#141">141</A>, <A HREF="#153">153</A>, <A HREF="#166">166</A>, <A HREF="#171">171</A>, <A HREF="#172">172</A>, <A HREF="#185">185</A>, <A HREF="#190">190</A> and <A HREF="#193">193</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#1">1</A>.</FONT><BR>
 
 </P>
@@ -8547,40 +8588,40 @@ instance.
 :::
 
 ::: funnelweb
-<P><A NAME="192"></A>192. <A HREF="#189">PathExpression</A>+={<TT><BR>
+<P><A NAME="194"></A>194. <A HREF="#191">PathExpression</A>+={<TT><BR>
 evalExpr(callback)&nbsp;{<BR>
 &nbsp;&nbsp;return&nbsp;callback(this.$Path.toJSON());<BR>
 }<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#190">190</A> and <A HREF="#192">192</A>.</FONT><BR>
-<FONT SIZE=1>This macro is invoked in definition <A HREF="#189">189</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#192">192</A> and <A HREF="#194">194</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#191">191</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="193"></A>193. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+<P><A NAME="195"></A>195. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
 function&nbsp;PathCallback(path)&nbsp;{<BR>
 &nbsp;&nbsp;return&nbsp;this[path];<BR>
 }<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="194"></A>194. <A HREF="#7">Exports</A>+={<TT><BR>
+<P><A NAME="196"></A>196. <A HREF="#7">Exports</A>+={<TT><BR>
 PathCallback,<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#106">106</A>, <A HREF="#109">109</A>, <A HREF="#114">114</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#127">127</A>, <A HREF="#148">148</A>, <A HREF="#189">189</A>, <A HREF="#196">196</A>, <A HREF="#198">198</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#209">209</A>, <A HREF="#214">214</A>, <A HREF="#216">216</A> and <A HREF="#220">220</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -8588,12 +8629,11 @@ PathCallback,<BR>
 
 #### <a id="AnnotationPath" href="#AnnotationPath">14.4.1.3 Annotation Path</a>
 
-The annotation path expression provides a value for terms or term
+The annotation path expression provides a non-null value for terms or term
 properties that specify the [built-in
 types](#BuiltInTypesfordefiningVocabularyTerms)
 `Edm.AnnotationPath` or `Edm.ModelElementPath`. Its argument is a [model
-path](#PathExpressions) with the following restriction:
-- A non-null path MUST resolve to an [annotation](#Annotation).
+path](#PathExpressions) that resolves to an [annotation](#Annotation).
 
 The value of the annotation path expression is the _path_ to the annotation, not its instance value.
 This is useful for terms that reuse or refer to other terms.
@@ -8616,7 +8656,7 @@ During JSON serialization, they then become strings again.
 :::
 
 ::: funnelweb
-<P><A NAME="195"></A>195. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+<P><A NAME="197"></A>197. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
 class&nbsp;ModelElementPathExpression&nbsp;extends&nbsp;PathExpression&nbsp;{<BR>
 &nbsp;&nbsp;toJSON()&nbsp;{<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;this.$Path.toJSON();<BR>
@@ -8626,19 +8666,19 @@ class&nbsp;AnnotationPath&nbsp;extends&nbsp;ModelElementPathExpression&nbsp;{}<B
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="196"></A>196. <A HREF="#7">Exports</A>+={<TT><BR>
+<P><A NAME="198"></A>198. <A HREF="#7">Exports</A>+={<TT><BR>
 AnnotationPath,<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#106">106</A>, <A HREF="#109">109</A>, <A HREF="#114">114</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#127">127</A>, <A HREF="#148">148</A>, <A HREF="#189">189</A>, <A HREF="#196">196</A>, <A HREF="#198">198</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#209">209</A>, <A HREF="#214">214</A>, <A HREF="#216">216</A> and <A HREF="#220">220</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -8665,7 +8705,7 @@ therefore the target of the newly detected `path.$Path` must be evaluated in the
 :::
 
 ::: funnelweb
-<P><A NAME="197"></A>197. <A HREF="#124">Annotation</A>+={<TT><BR>
+<P><A NAME="199"></A>199. <A HREF="#126">Annotation</A>+={<TT><BR>
 get&nbsp;value()&nbsp;{<BR>
 &nbsp;&nbsp;return&nbsp;(this.#value&nbsp;=&nbsp;this.valueGetter(this.#value));<BR>
 }<BR>
@@ -8686,14 +8726,14 @@ valueGetter(value)&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#126">126</A>, <A HREF="#140">140</A>, <A HREF="#166">166</A>, <A HREF="#168">168</A> and <A HREF="#197">197</A>.</FONT><BR>
-<FONT SIZE=1>This macro is invoked in definition <A HREF="#124">124</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#128">128</A>, <A HREF="#142">142</A>, <A HREF="#168">168</A>, <A HREF="#170">170</A> and <A HREF="#199">199</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#126">126</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="198"></A>198. <A HREF="#217">PropertyValue</A>+={<TT><BR>
+<P><A NAME="200"></A>200. <A HREF="#219">PropertyValue</A>+={<TT><BR>
 get&nbsp;value()&nbsp;{<BR>
 &nbsp;&nbsp;return&nbsp;(this.#value&nbsp;=&nbsp;Annotation.prototype.valueGetter.call(<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;this,<BR>
@@ -8703,14 +8743,14 @@ get&nbsp;value()&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#198">198</A> and <A HREF="#220">220</A>.</FONT><BR>
-<FONT SIZE=1>This macro is invoked in definition <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#200">200</A> and <A HREF="#222">222</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#219">219</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="199"></A>199. <A HREF="#213">Collection</A>+={<TT><BR>
+<P><A NAME="201"></A>201. <A HREF="#215">Collection</A>+={<TT><BR>
 get&nbsp;value()&nbsp;{<BR>
 &nbsp;&nbsp;if&nbsp;(this.#value.every((item)&nbsp;=&gt;&nbsp;typeof&nbsp;item&nbsp;===&nbsp;"string"))&nbsp;{<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;const&nbsp;type&nbsp;=&nbsp;this.parent.type();<BR>
@@ -8731,8 +8771,8 @@ get&nbsp;value()&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#199">199</A> and <A HREF="#215">215</A>.</FONT><BR>
-<FONT SIZE=1>This macro is invoked in definition <A HREF="#213">213</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#201">201</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#215">215</A>.</FONT><BR>
 
 </P>
 :::
@@ -8741,7 +8781,7 @@ get&nbsp;value()&nbsp;{<BR>
 
 #### <a id="ModelElementPath" href="#ModelElementPath">14.4.1.4 Model Element Path</a>
 
-The model element path expression provides a value for terms or term
+The model element path expression provides a non-null value for terms or term
 properties that specify the [built-in
 type](#BuiltInTypesfordefiningVocabularyTerms) `Edm.ModelElementPath`. Its
 argument is a [model path](#PathExpressions).
@@ -8755,24 +8795,24 @@ path.
 :::
 
 ::: funnelweb
-<P><A NAME="200"></A>200. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+<P><A NAME="202"></A>202. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
 class&nbsp;ModelElementPath&nbsp;extends&nbsp;ModelElementPathExpression&nbsp;{}<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="201"></A>201. <A HREF="#7">Exports</A>+={<TT><BR>
+<P><A NAME="203"></A>203. <A HREF="#7">Exports</A>+={<TT><BR>
 ModelElementPath,<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#106">106</A>, <A HREF="#109">109</A>, <A HREF="#114">114</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#127">127</A>, <A HREF="#148">148</A>, <A HREF="#189">189</A>, <A HREF="#196">196</A>, <A HREF="#198">198</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#209">209</A>, <A HREF="#214">214</A>, <A HREF="#216">216</A> and <A HREF="#220">220</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -8789,15 +8829,12 @@ Example 71:
 
 #### <a id="NavigationPropertyPath" href="#NavigationPropertyPath">14.4.1.5 Navigation Property Path</a>
 
-The navigation property path expression provides a value for terms or
+The navigation property path expression provides a non-null value for terms or
 term properties that specify the [built-in
 types](#BuiltInTypesfordefiningVocabularyTerms)
 `Edm.NavigationPropertyPath`, `Edm.AnyPropertyPath`, or `Edm.ModelElementPath`.
-Its argument is a [model path](#PathExpressions) with the following
-restriction:
-- A non-null path MUST end with a [navigation property](#NavigationProperty)
+Its argument is a [model path](#PathExpressions) that ends with a [navigation property](#NavigationProperty)
 or a term cast to a term whose type is an entity type or a collection of entity types.
-
 
 The value of the navigation property path expression is the path itself,
 not the entity or collection of entities identified by the path.
@@ -8821,24 +8858,24 @@ Example 72:
 :::
 
 ::: funnelweb
-<P><A NAME="202"></A>202. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+<P><A NAME="204"></A>204. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
 class&nbsp;NavigationPropertyPath&nbsp;extends&nbsp;ModelElementPathExpression&nbsp;{}<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="203"></A>203. <A HREF="#7">Exports</A>+={<TT><BR>
+<P><A NAME="205"></A>205. <A HREF="#7">Exports</A>+={<TT><BR>
 NavigationPropertyPath,<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#106">106</A>, <A HREF="#109">109</A>, <A HREF="#114">114</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#127">127</A>, <A HREF="#148">148</A>, <A HREF="#189">189</A>, <A HREF="#196">196</A>, <A HREF="#198">198</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#209">209</A>, <A HREF="#214">214</A>, <A HREF="#216">216</A> and <A HREF="#220">220</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -8848,13 +8885,11 @@ NavigationPropertyPath,<BR>
 
 #### <a id="PropertyPath" href="#PropertyPath">14.4.1.6 Property Path</a>
 
-The property path expression provides a value for terms or term
+The property path expression provides a non-null value for terms or term
 properties that specify one of the [built-in
 types](#BuiltInTypesfordefiningVocabularyTerms)
 `Edm.PropertyPath`, `Edm.AnyPropertyPath`, or `Edm.ModelElementPath`. Its
-argument is a [model path](#PathExpressions) with the following
-restriction:
-- A non-null path MUST end with a [structural property](#StructuralProperty)
+argument is a [model path](#PathExpressions) that ends with a [structural property](#StructuralProperty)
 or a term cast to a term whose type is a primitive or complex type, an enumeration type,
 a type definition, or a collection of one of these types.
 
@@ -8867,24 +8902,24 @@ Property path expressions are represented as a string containing a path.
 :::
 
 ::: funnelweb
-<P><A NAME="204"></A>204. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+<P><A NAME="206"></A>206. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
 class&nbsp;PropertyPath&nbsp;extends&nbsp;ModelElementPathExpression&nbsp;{}<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="205"></A>205. <A HREF="#7">Exports</A>+={<TT><BR>
+<P><A NAME="207"></A>207. <A HREF="#7">Exports</A>+={<TT><BR>
 PropertyPath,<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#106">106</A>, <A HREF="#109">109</A>, <A HREF="#114">114</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#127">127</A>, <A HREF="#148">148</A>, <A HREF="#189">189</A>, <A HREF="#196">196</A>, <A HREF="#198">198</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#209">209</A>, <A HREF="#214">214</A>, <A HREF="#216">216</A> and <A HREF="#220">220</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -8924,39 +8959,39 @@ Path expressions are represented as an object with a single member
 :::
 
 ::: funnelweb
-<P><A NAME="206"></A>206. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+<P><A NAME="208"></A>208. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
 class&nbsp;Path&nbsp;extends&nbsp;PathExpression&nbsp;{}<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="207"></A>207. <A HREF="#7">Exports</A>+={<TT><BR>
+<P><A NAME="209"></A>209. <A HREF="#7">Exports</A>+={<TT><BR>
 Path,<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#106">106</A>, <A HREF="#109">109</A>, <A HREF="#114">114</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#127">127</A>, <A HREF="#148">148</A>, <A HREF="#189">189</A>, <A HREF="#196">196</A>, <A HREF="#198">198</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#209">209</A>, <A HREF="#214">214</A>, <A HREF="#216">216</A> and <A HREF="#220">220</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="208"></A>208. <A HREF="#128">Cases for dynamic expressions</A>+={<TT><BR>
+<P><A NAME="210"></A>210. <A HREF="#130">Cases for dynamic expressions</A>+={<TT><BR>
 case&nbsp;"$Path":<BR>
 &nbsp;&nbsp;value&nbsp;=&nbsp;new&nbsp;Path(this,&nbsp;json[dynamicExpr]);<BR>
 &nbsp;&nbsp;break&nbsp;dynamic;<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#208">208</A> and <A HREF="#210">210</A>.</FONT><BR>
-<FONT SIZE=1>This macro is invoked in definition <A HREF="#128">128</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#210">210</A> and <A HREF="#212">212</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#130">130</A>.</FONT><BR>
 
 </P>
 :::
@@ -9053,7 +9088,7 @@ They MAY contain [annotations](#Annotation).
 :::
 
 ::: funnelweb
-<P><A NAME="209"></A>209. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+<P><A NAME="211"></A>211. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
 class&nbsp;BinaryExpression&nbsp;extends&nbsp;DynamicExpression&nbsp;{<BR>
 &nbsp;&nbsp;</TT>
 <A HREF="#30">Internal property with setter</A>(</FONT>"</FONT><TT>left</TT>
@@ -9072,14 +9107,14 @@ class&nbsp;BinaryExpression&nbsp;extends&nbsp;DynamicExpression&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="210"></A>210. <A HREF="#128">Cases for dynamic expressions</A>+={<TT><BR>
+<P><A NAME="212"></A>212. <A HREF="#130">Cases for dynamic expressions</A>+={<TT><BR>
 case&nbsp;"$And":<BR>
 case&nbsp;"$Or":<BR>
 &nbsp;&nbsp;value&nbsp;=&nbsp;new&nbsp;closure[dynamicExpr.substring(1)](this).fromJSON(json[dynamicExpr]);<BR>
@@ -9087,14 +9122,14 @@ case&nbsp;"$Or":<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#208">208</A> and <A HREF="#210">210</A>.</FONT><BR>
-<FONT SIZE=1>This macro is invoked in definition <A HREF="#128">128</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#210">210</A> and <A HREF="#212">212</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#130">130</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="211"></A>211. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+<P><A NAME="213"></A>213. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
 class&nbsp;And&nbsp;extends&nbsp;BinaryExpression&nbsp;{<BR>
 &nbsp;&nbsp;evalExpr(callback)&nbsp;{<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;this.left.evalExpr(callback)&nbsp;&amp;&amp;&nbsp;this.right.evalExpr(callback);<BR>
@@ -9108,20 +9143,20 @@ class&nbsp;Or&nbsp;extends&nbsp;BinaryExpression&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="212"></A>212. <A HREF="#7">Exports</A>+={<TT><BR>
+<P><A NAME="214"></A>214. <A HREF="#7">Exports</A>+={<TT><BR>
 And,<BR>
 Or,<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#106">106</A>, <A HREF="#109">109</A>, <A HREF="#114">114</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#127">127</A>, <A HREF="#148">148</A>, <A HREF="#189">189</A>, <A HREF="#196">196</A>, <A HREF="#198">198</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#209">209</A>, <A HREF="#214">214</A>, <A HREF="#216">216</A> and <A HREF="#220">220</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
@@ -9382,8 +9417,8 @@ enumeration type. It returns a value of type `Edm.String` that is the
 concatenation of the literal representations of the results of the
 argument expressions. Values of primitive types other than `Edm.String`
 are represented according to the appropriate alternative in the
-`primitiveValue` rule of [OData-ABNF](#ODataABNF), i.e. `Edm.Binary` as
-`binaryValue`, `Edm.Boolean` as `booleanValue` etc.
+[primitiveValue]{.abnf} rule of [OData-ABNF](#ODataABNF), i.e. `Edm.Binary` as
+[binaryValue]{.abnf}, `Edm.Boolean` as [booleanValue]{.abnf} etc.
 
 ::: {.varjson .example}
 Example 78:
@@ -9611,36 +9646,36 @@ item expression within the collection expression.
 :::
 
 ::: funnelweb
-<P><A NAME="213"></A>213. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+<P><A NAME="215"></A>215. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
 class&nbsp;Collection&nbsp;extends&nbsp;DynamicExpression&nbsp;{<BR>
 &nbsp;&nbsp;</TT>
-<A HREF="#127">Internal value property</A><TT><BR>
+<A HREF="#129">Internal value property</A><TT><BR>
 &nbsp;&nbsp;</TT>
-<A HREF="#199">Collection</A><TT><BR>
+<A HREF="#201">Collection</A><TT><BR>
 }<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="214"></A>214. <A HREF="#7">Exports</A>+={<TT><BR>
+<P><A NAME="216"></A>216. <A HREF="#7">Exports</A>+={<TT><BR>
 Collection,<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#106">106</A>, <A HREF="#109">109</A>, <A HREF="#114">114</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#127">127</A>, <A HREF="#148">148</A>, <A HREF="#189">189</A>, <A HREF="#196">196</A>, <A HREF="#198">198</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#209">209</A>, <A HREF="#214">214</A>, <A HREF="#216">216</A> and <A HREF="#220">220</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="215"></A>215. <A HREF="#213">Collection</A>+={<TT><BR>
+<P><A NAME="217"></A>217. <A HREF="#215">Collection</A>+={<TT><BR>
 fromJSON(json)&nbsp;{<BR>
 &nbsp;&nbsp;this.value&nbsp;=&nbsp;json.map((item)&nbsp;=&gt;&nbsp;this.dynamicExprFromJSON(item));<BR>
 }<BR>
@@ -9650,8 +9685,8 @@ toJSON()&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#199">199</A> and <A HREF="#215">215</A>.</FONT><BR>
-<FONT SIZE=1>This macro is invoked in definition <A HREF="#213">213</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#201">201</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#215">215</A>.</FONT><BR>
 
 </P>
 :::
@@ -9663,12 +9698,12 @@ objects, respectively.
 :::
 
 ::: funnelweb
-<P><A NAME="216"></A>216. <A HREF="#128">Cases for dynamic expressions without a $-member</A>={<TT><BR>
+<P><A NAME="218"></A>218. <A HREF="#130">Cases for dynamic expressions without a $-member</A>={<TT><BR>
 value&nbsp;=&nbsp;new&nbsp;(json&nbsp;instanceof&nbsp;Array&nbsp;?&nbsp;Collection&nbsp;:&nbsp;Record)(this);<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is invoked in definition <A HREF="#128">128</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#130">130</A>.</FONT><BR>
 
 </P>
 :::
@@ -9972,41 +10007,41 @@ Annotations for record members are prefixed with the member name.
 :::
 
 ::: funnelweb
-<P><A NAME="217"></A>217. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
+<P><A NAME="219"></A>219. <A HREF="#7">Javascript CSDL metamodel</A>+={<TT><BR>
 class&nbsp;Record&nbsp;extends&nbsp;DynamicExpression&nbsp;{<BR>
 &nbsp;&nbsp;</TT>
-<A HREF="#219">Record</A><TT><BR>
+<A HREF="#221">Record</A><TT><BR>
 }<BR>
 class&nbsp;PropertyValue&nbsp;extends&nbsp;NamedModelElement&nbsp;{<BR>
 &nbsp;&nbsp;</TT>
-<A HREF="#127">Internal value property</A><TT><BR>
+<A HREF="#129">Internal value property</A><TT><BR>
 &nbsp;&nbsp;</TT>
-<A HREF="#198">PropertyValue</A><TT><BR>
+<A HREF="#200">PropertyValue</A><TT><BR>
 }<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#103">103</A>, <A HREF="#106">106</A>, <A HREF="#111">111</A>, <A HREF="#115">115</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#145">145</A>, <A HREF="#158">158</A>, <A HREF="#160">160</A>, <A HREF="#173">173</A>, <A HREF="#186">186</A>, <A HREF="#189">189</A>, <A HREF="#193">193</A>, <A HREF="#195">195</A>, <A HREF="#200">200</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#209">209</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A> and <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#1">1</A>, <A HREF="#8">8</A>, <A HREF="#9">9</A>, <A HREF="#21">21</A>, <A HREF="#27">27</A>, <A HREF="#35">35</A>, <A HREF="#37">37</A>, <A HREF="#41">41</A>, <A HREF="#44">44</A>, <A HREF="#46">46</A>, <A HREF="#50">50</A>, <A HREF="#52">52</A>, <A HREF="#56">56</A>, <A HREF="#59">59</A>, <A HREF="#64">64</A>, <A HREF="#71">71</A>, <A HREF="#75">75</A>, <A HREF="#80">80</A>, <A HREF="#83">83</A>, <A HREF="#88">88</A>, <A HREF="#91">91</A>, <A HREF="#95">95</A>, <A HREF="#97">97</A>, <A HREF="#100">100</A>, <A HREF="#105">105</A>, <A HREF="#108">108</A>, <A HREF="#113">113</A>, <A HREF="#117">117</A>, <A HREF="#120">120</A>, <A HREF="#123">123</A>, <A HREF="#126">126</A>, <A HREF="#147">147</A>, <A HREF="#160">160</A>, <A HREF="#162">162</A>, <A HREF="#175">175</A>, <A HREF="#188">188</A>, <A HREF="#191">191</A>, <A HREF="#195">195</A>, <A HREF="#197">197</A>, <A HREF="#202">202</A>, <A HREF="#204">204</A>, <A HREF="#206">206</A>, <A HREF="#208">208</A>, <A HREF="#211">211</A>, <A HREF="#213">213</A>, <A HREF="#215">215</A> and <A HREF="#219">219</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="218"></A>218. <A HREF="#7">Exports</A>+={<TT><BR>
+<P><A NAME="220"></A>220. <A HREF="#7">Exports</A>+={<TT><BR>
 Record,<BR>
 PropertyValue,<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#104">104</A>, <A HREF="#107">107</A>, <A HREF="#112">112</A>, <A HREF="#116">116</A>, <A HREF="#119">119</A>, <A HREF="#122">122</A>, <A HREF="#125">125</A>, <A HREF="#146">146</A>, <A HREF="#187">187</A>, <A HREF="#194">194</A>, <A HREF="#196">196</A>, <A HREF="#201">201</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#212">212</A>, <A HREF="#214">214</A> and <A HREF="#218">218</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#10">10</A>, <A HREF="#22">22</A>, <A HREF="#28">28</A>, <A HREF="#36">36</A>, <A HREF="#38">38</A>, <A HREF="#42">42</A>, <A HREF="#45">45</A>, <A HREF="#53">53</A>, <A HREF="#57">57</A>, <A HREF="#60">60</A>, <A HREF="#65">65</A>, <A HREF="#72">72</A>, <A HREF="#76">76</A>, <A HREF="#81">81</A>, <A HREF="#84">84</A>, <A HREF="#89">89</A>, <A HREF="#92">92</A>, <A HREF="#96">96</A>, <A HREF="#98">98</A>, <A HREF="#101">101</A>, <A HREF="#106">106</A>, <A HREF="#109">109</A>, <A HREF="#114">114</A>, <A HREF="#118">118</A>, <A HREF="#121">121</A>, <A HREF="#124">124</A>, <A HREF="#127">127</A>, <A HREF="#148">148</A>, <A HREF="#189">189</A>, <A HREF="#196">196</A>, <A HREF="#198">198</A>, <A HREF="#203">203</A>, <A HREF="#205">205</A>, <A HREF="#207">207</A>, <A HREF="#209">209</A>, <A HREF="#214">214</A>, <A HREF="#216">216</A> and <A HREF="#220">220</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#7">7</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="219"></A>219. <A HREF="#217">Record</A>={<TT><BR>
+<P><A NAME="221"></A>221. <A HREF="#219">Record</A>={<TT><BR>
 fromJSON(json)&nbsp;{<BR>
 &nbsp;&nbsp;super.fromJSON(json,&nbsp;"PropertyValue");<BR>
 &nbsp;&nbsp;const&nbsp;type&nbsp;=&nbsp;json["@odata.type"]&nbsp;||&nbsp;json["@type"];<BR>
@@ -10026,13 +10061,13 @@ type()&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is invoked in definition <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#219">219</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="220"></A>220. <A HREF="#217">PropertyValue</A>+={<TT><BR>
+<P><A NAME="222"></A>222. <A HREF="#219">PropertyValue</A>+={<TT><BR>
 get&nbsp;annotation()&nbsp;{<BR>
 &nbsp;&nbsp;return&nbsp;this.parent.annotation;<BR>
 }<BR>
@@ -10049,8 +10084,8 @@ type()&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#198">198</A> and <A HREF="#220">220</A>.</FONT><BR>
-<FONT SIZE=1>This macro is invoked in definition <A HREF="#217">217</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#200">200</A> and <A HREF="#222">222</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definition <A HREF="#219">219</A>.</FONT><BR>
 
 </P>
 :::
@@ -10194,11 +10229,11 @@ and match the pattern `^[_A-Za-z][_A-Za-z0-9]*$`.
 
 For model elements that are direct children of a schema: the namespace
 or alias of the schema that defines the model element, followed by a dot
-and the name of the model element, see rule `qualifiedTypeName` in
+and the name of the model element, see rule [qualifiedTypeName]{.abnf} in
 [OData‑ABNF](#ODataABNF).
 
 ::: funnelweb
-<P><A NAME="221"></A>221. <A HREF="#46">Determine namespace and name of segment</A>={<TT><BR>
+<P><A NAME="223"></A>223. <A HREF="#46">Determine namespace and name of segment</A>={<TT><BR>
 const&nbsp;i&nbsp;=&nbsp;segment.lastIndexOf(".");<BR>
 this.#namespace&nbsp;=&nbsp;segment.substring(0,&nbsp;i);<BR>
 this.#name&nbsp;=&nbsp;segment.substring(i&nbsp;+&nbsp;1);<BR>
@@ -10211,7 +10246,7 @@ this.#name&nbsp;=&nbsp;segment.substring(i&nbsp;+&nbsp;1);<BR>
 :::
 
 ::: funnelweb
-<P><A NAME="222"></A>222. <A HREF="#8">CSDLDocument</A>+={<TT><BR>
+<P><A NAME="224"></A>224. <A HREF="#8">CSDLDocument</A>+={<TT><BR>
 unalias(qname)&nbsp;{<BR>
 &nbsp;&nbsp;const&nbsp;i&nbsp;=&nbsp;qname.lastIndexOf(".");<BR>
 &nbsp;&nbsp;const&nbsp;namespace&nbsp;=&nbsp;qname.substring(0,&nbsp;i);<BR>
@@ -10221,14 +10256,14 @@ unalias(qname)&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is defined in definitions <A HREF="#12">12</A>, <A HREF="#15">15</A>, <A HREF="#19">19</A>, <A HREF="#25">25</A>, <A HREF="#31">31</A>, <A HREF="#134">134</A>, <A HREF="#154">154</A>, <A HREF="#174">174</A>, <A HREF="#180">180</A> and <A HREF="#222">222</A>.</FONT><BR>
+<FONT SIZE=1>This macro is defined in definitions <A HREF="#12">12</A>, <A HREF="#15">15</A>, <A HREF="#19">19</A>, <A HREF="#25">25</A>, <A HREF="#31">31</A>, <A HREF="#136">136</A>, <A HREF="#156">156</A>, <A HREF="#176">176</A>, <A HREF="#182">182</A> and <A HREF="#224">224</A>.</FONT><BR>
 <FONT SIZE=1>This macro is invoked in definition <A HREF="#8">8</A>.</FONT><BR>
 
 </P>
 :::
 
 ::: funnelweb
-<P><A NAME="223"></A>223. <A HREF="#137">Unalias the qualified term name</A>(<B>1</B>)[<B>M</B>]={<TT><BR>
+<P><A NAME="225"></A>225. <A HREF="#139">Unalias the qualified term name</A>(<B>1</B>)[<B>M</B>]={<TT><BR>
 function&nbsp;(m)&nbsp;{<BR>
 &nbsp;&nbsp;return&nbsp;</TT>
 <B>1</B></FONT><TT>.csdlDocument.unalias(m);<BR>
@@ -10236,7 +10271,7 @@ function&nbsp;(m)&nbsp;{<BR>
 </TT>
 </FONT>}<BR>
 </FONT>
-<FONT SIZE=1>This macro is invoked in definitions <A HREF="#137">137</A>, <A HREF="#137">137</A> and <A HREF="#158">158</A>.</FONT><BR>
+<FONT SIZE=1>This macro is invoked in definitions <A HREF="#139">139</A>, <A HREF="#139">139</A> and <A HREF="#160">160</A>.</FONT><BR>
 </P>
 :::
 
@@ -10579,9 +10614,11 @@ Conforming services MUST follow all rules of this specification document
 for the types, sets, functions, actions, containers and annotations they
 expose.
 
-In addition, conforming services MUST NOT return CSDL constructs defined in OData 4.01 or greater for requests made with `OData-MaxVersion: 4.0`.
+In addition, if the metadata request includes an `OData-MaxVersion` header,
+conforming services MUST NOT return CSDL constructs defined in later version
+of the OData specification.
 
-Specifically, they
+Specifically, an OData 4.0 metadata response
 1. MUST NOT include properties in derived types that overwrite a
 property defined in the base type
 2. MUST NOT include `Edm.Untyped`
@@ -10592,7 +10629,7 @@ to complex types and navigation properties
 6. MUST NOT include a non-abstract entity type with no inherited or
 defined [entity key](#Key)
 7. MUST NOT include the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace)
+[Core.DefaultNamespace]{.term}
 annotation on [included schemas](#IncludedSchema)
 8. MUST NOT return the Unicode facet for terms, parameters, and return
 types
@@ -10603,21 +10640,31 @@ types
 12. SHOULD NOT include constant [Geo](#GeoValues) or [Stream values](#StreamValues) in annotations
 13. MAY include new CSDL annotations
 
+In addition, an OData 4.01 or earlier metadata response
+
+14. MUST NOT include functions containing stream-valued non-binding parameters
+15. MUST NOT include actions or functions that take or return delta payloads
+16. SHOULD NOT include actions or functions that return entity collections that may contain NULL values
+
 In addition, OData 4.01 or greater services:
 
-14. SHOULD NOT have identifiers within a uniqueness scope (e.g. a
+17. SHOULD NOT have identifiers within a uniqueness scope (e.g. a
 schema, a structural type, or an entity container) that differ only by
 case
 
 In addition, OData 4.02 or greater services:
 
-15. SHOULD NOT include constant [Geo](#GeoValues) or [Stream values](#StreamValues) in annotations
-16. SHOULD use [simple identifiers](#SimpleIdentifier) matching the pattern `^[_A-Za-z][_A-Za-z0-9]*$`
+18. SHOULD NOT include constant [Geo](#GeoValues) or [Stream values](#StreamValues) in annotations
+19. SHOULD NOT specify an SRID value of 'variable'
+20. SHOULD use [simple identifiers](#SimpleIdentifier) matching the pattern `^[_A-Za-z][_A-Za-z0-9]*$`
 
 Conforming clients MUST be prepared to consume a model that uses any or
 all constructs defined in this specification, including custom
 annotations, and MUST ignore constructs not defined in this version of
 the specification.
+
+In addition, conforming OData 4.02 clients:
+1. MUST evaluate annotation target paths according to the clarified [Path Evaluation Rules](#PathEvaluation).
 
 
 -------
@@ -10642,7 +10689,7 @@ _European Petroleum Survey Group (EPSG)_. https://spatialreference.org/ref/epsg/
 
 ###### [OData-ABNF]{id=ODataABNF}
 _OData ABNF Construction Rules Version 4.02_.  
-See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
+See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### [OData-CSDL]{id=ODataCSDL}
 _OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02._
@@ -10670,6 +10717,10 @@ See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### [OData-VocCore]{id=ODataVocCore}
 _OData Vocabularies Version 4.0: Core Vocabulary_.  
+See link in "[Related work](#RelatedWork)" section on cover page.
+
+###### [OData-VocCap]{id=ODataVocCap}
+_OData Vocabularies Version 4.0: Capabilities Vocabulary_.  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### [OData-VocMeasures]{id=ODataVocMeasures}

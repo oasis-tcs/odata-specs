@@ -13,7 +13,7 @@ The following documents are referenced in such a way that some or all of their c
 
 ###### [OData-ABNF]{id=ODataABNF}
 _ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases._  
-See link in "[Related work](#RelatedWork)" section on cover page.
+See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
 
 ###### [OData-Aggregation]{id=ODataAggregation}
 _OData Extension for Data Aggregation Version 4.02._  

@@ -11,7 +11,7 @@ using the JavaScript Object Notation (JSON), see [RFC8259](#rfc8259).
 
 This format is based on the OpenUI5 OData V4 Metadata JSON Format, see
 [OpenUI5](#_OpenUI5), with some extensions and
-modifications made necessary to fully cover OData CSDL Version 4.01.
+modifications made necessary to fully cover OData CSDL Version 4.02.
 :
 
 : varxml
@@ -36,10 +36,10 @@ Allow stream-valued non-binding parameters|
 SRID value `variable` is deprecated| 
 [1935](https://github.com/oasis-tcs/odata-specs/issues/1935)
 : varjson
-[Section ##CSDLJSONDocument] | Additional `$Version` value `4.02` |
+[Section ##CSDLJSONDocument] | Additional `$Version` value `4.02` | [2222](https://github.com/oasis-tcs/odata-specs/issues/2222)
 :
 : varxml
-[Section ##CSDLXMLDocument] | Additional `Version` value `4.02` |
+[Section ##CSDLXMLDocument] | Additional `Version` value `4.02` | [2222](https://github.com/oasis-tcs/odata-specs/issues/2222)
 :
 : varxml
 [Section ##EntityContainer]| 
@@ -651,7 +651,7 @@ underlying type is `Edm.Stream`, cannot be used in collections.
 
 Some of these types allow facets, defined in [section ##TypeFacets].
 
-Representation of primitive type values within a URL is defined by the rule `primitiveLiteral` in [OData-ABNF](#ODataABNF).
+Representation of primitive type values within a URL is defined by the rule [primitiveLiteral]{.abnf} in [OData-ABNF](#ODataABNF).
 Representation within request and response bodies is format specific.
 
 ## ##subsec Type Facets

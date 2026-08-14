@@ -27,7 +27,7 @@ The names and values of these format parameters are case-insensitive.
 
 Services SHOULD advertise the supported media types by annotating the
 entity container with the term
-[`Capabilities.SupportedFormats`]($$$OData-VocCap$$$#SupportedFormats)
+[Capabilities.SupportedFormats]{.term}
 defined in [OData-VocCap](#ODataVocCap), listing all
 available formats and combinations of supported format parameters.
 

@@ -144,7 +144,7 @@ which case it MUST include those in any returned count of enumerated
 changes.
 
 The representation of deleted-entity objects differs between OData 4.0
-and OData 4.01.
+and OData 4.01 and greater.
 
 In OData 4.0 payloads the deleted-entity object MUST include the
 following properties, regardless of the specified
@@ -179,7 +179,7 @@ represented as a property of the deleted-entity object, not control information
 ```
 :::
 
-In OData 4.01 payloads the deleted-entity object MUST include the
+In OData 4.01 and greater payloads the deleted-entity object MUST include the
 following properties, regardless of the specified
 [`metadata`](#ControllingtheAmountofControlInformationinResponses) value.
 For ordered payloads, this control information MUST follow the 
@@ -247,9 +247,9 @@ single key field of `Customer`)
 ```
 :::
 ## ##subsec Related Entities
-Changes to related entities are represented differently in OData 4.0 and OData 4.01.
+Changes to related entities are represented differently in OData 4.0 and OData 4.01 and greater.
 
-In OData 4.01, changes to relationships and related entities are generally represented as
+In OData 4.01 and greater, changes to relationships and related entities are generally represented as
 [expanded navigation properties](#OData401ExpandedNavigationProperties).
 
 In OData 4.0, changes to relationships and related entities are represented as a 
@@ -257,7 +257,7 @@ In OData 4.0, changes to relationships and related entities are represented as a
 along with added or deleted links.
 
 ### ##subsubsec OData 4.01 Expanded Navigation Properties
-OData 4.01 delta payloads represent changes to relationships and related
+OData 4.01 and greater delta payloads represent changes to relationships and related
 entities as expanded navigation properties. 
 
 Related single entities are represented as either an [added/changed](#AddedChangedEntity)

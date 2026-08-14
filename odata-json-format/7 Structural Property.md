@@ -35,10 +35,10 @@ using the JSON string escaping rules.
 Values of type `Edm.Binary`, `Edm.Date`,
 `Edm.DateTimeOffset`, `Edm.Duration`,
 `Edm.Guid`, and `Edm.TimeOfDay` are represented as
-JSON strings whose content satisfies the rules `binaryValue`,
-`dateValue`, `dateTimeOffsetValue`,
-`durationValue`, `guidValue`, and
-`timeOfDayValue` respectively, in
+JSON strings whose content satisfies the rules [binaryValue]{.abnf},
+[dateValue]{.abnf}, [dateTimeOffsetValue]{.abnf},
+[durationValue]{.abnf}, [guidValue]{.abnf}, and
+[timeOfDayValue]{.abnf} respectively, in
 [OData-ABNF](#ODataABNF). The interpretation of a `timeOfDayValue` in which the `second` is omitted
 is not defined by this specification. For maximum interoperability, senders
 SHOULD always include the `second`.
@@ -51,11 +51,11 @@ string representation of the exact value in the `value`
 property of the annotation.
 
 Enumeration values are represented as JSON strings whose content
-satisfies the rule `enumValue` in
+satisfies the rule [enumValue]{.abnf} in
 [OData-ABNF](#ODataABNF). The preferred representation is the
-`enumerationMember`. If no `enumerationMember` (or
+[enumerationMember]{.abnf}. If no `enumerationMember` (or
 combination of named enumeration members) is
-available, the `enumMemberValue` representation may be used.
+available, the [enumMemberValue]{.abnf} representation may be used.
 
 Geography and geometry values are represented as geometry types as
 defined in [RFC7946](#rfc7946).
@@ -366,7 +366,7 @@ The values are the [ids](#ControlInformationidodataid) of the
 related entities. They MAY be absolute or [relative URLs](#RelativeURLs).
 
 For requests containing an `OData-Version` header with a value
-of `4.01`, a relationship is bound to an existing entity
+of `4.01` or greater, a relationship is bound to an existing entity
 using the same representation as for an [expanded entity
 reference](#EntityReference).
 
@@ -414,12 +414,12 @@ Content-Type: application/json
 ```
 :::
 
-OData 4.01 services MUST support both the OData 4.0 representation, for
+OData 4.01 and greater services MUST support both the OData 4.0 representation, for
 requests containing an `OData-Version` header with a value of
 `4.0`, and the OData 4.01 representation, for requests
-containing an `OData-Version` header with a value of `4.01`.
+containing an `OData-Version` header with a value of `4.01` or greater.
 Clients MUST NOT use `@odata.bind` in requests with an
-`OData-Version` header with a value of `4.01`.
+`OData-Version` header with a value of `4.01` or greater.
 
 For insert operations collection navigation property bind operations and
 deep insert operations can be combined. For OData 4.0 requests, the bind

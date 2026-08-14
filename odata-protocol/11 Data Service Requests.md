@@ -114,7 +114,7 @@ service is allowed to return the response in any format.
 
 OData defines a number of system query options that allow refining the
 request. System query options are prefixed with the dollar (`$`)
-character, which is optional in OData 4.01. 4.01 services MUST support
+character, which is optional in OData 4.01 or greater. 4.01 or greater services MUST support
 case-insensitive system query option names specified with or without the
 `$` prefix.
 Clients that want to work with 4.0 services MUST use lower case names
@@ -182,11 +182,11 @@ Clients MUST be prepared to receive additional properties in an entity
 or complex type instance that are not advertised in metadata, even for
 types not marked as open.
 
-Properties that are not available are not returned. If their unavailability
-is due to permissions, the
-[`Core.Permissions`]($$$OData-VocCore$$$#Permissions)
-annotation, defined in [OData-VocCore](#ODataVocCore) MUST be returned
-for the property with a value of `None`.
+Properties that are not available are not returned. Services return
+the [Core.Permissions]{.term} annotation, defined in [OData-VocCore](#ODataVocCore),
+with a value of `None` if the property can not be accessed due to permissions issues,
+or `Write` if the property can be written but not read
+(for example, a password or other sensitive write-only information).
 If the [`omit-values`](#Preferenceomitvalues) preference is
 applied, `Core.Permissions` or another specific annotation that explains the
 reason MUST be returned for every unavailable property.
@@ -269,26 +269,26 @@ header and the [`$format`](#SystemQueryOptionformat) system query
 option.
 
 The default format for `Edm.Binary` is the format specified by the
-[`Core.MediaType`]($$$OData-VocCore$$$#MediaType)
+[Core.MediaType]{.term}
 annotation (see [OData-VocCore](#ODataVocCore)) if this
 annotation is present. If not annotated, the format cannot be predicted
 by the client.
 
 The default format for `Edm.Geo` types is `text/plain` using the WKT
-(well-known text) format, see rules `fullCollectionLiteral`,
-`fullLineStringLiteral`, `fullMultiPointLiteral`,
-`fullMultiLineStringLiteral`, `fullMultiPolygonLiteral`,
-`fullPointLiteral`, and `fullPolygonLiteral` in
+(well-known text) format, see rules [fullCollectionLiteral]{.abnf},
+[fullLineStringLiteral]{.abnf}, [fullMultiPointLiteral]{.abnf},
+[fullMultiLineStringLiteral]{.abnf}, [fullMultiPolygonLiteral]{.abnf},
+[fullPointLiteral]{.abnf}, and [fullPolygonLiteral]{.abnf} in
 [OData-ABNF](#ODataABNF).
 
 The default format for single primitive values except `Edm.Binary` and
 the `Edm.Geo` types is `text/plain`. Responses of type
 `Edm.String` can use the `charset` format parameter to specify the
 character set used for representing the string value. Responses for the
-other primitive types follow the rules `booleanValue`, `byteValue`,
-`dateValue`, `dateTimeOffsetValue`, `decimalValue`, `doubleValue`,
-`durationValue`, `enumValue`, `guidValue`, `int16Value`, `int32Value`,
-`int64Value`, `sbyteValue`, `singleValue`, and `timeOfDayValue` in
+other primitive types follow the rules [booleanValue]{.abnf}, [byteValue]{.abnf},
+[dateValue]{.abnf}, [dateTimeOffsetValue]{.abnf}, [decimalValue]{.abnf}, [doubleValue]{.abnf},
+[durationValue]{.abnf}, [enumValue]{.abnf}, [guidValue]{.abnf}, [int16Value]{.abnf}, [int32Value]{.abnf},
+[int64Value]{.abnf}, [sbyteValue]{.abnf}, [singleValue]{.abnf}, and [timeOfDayValue]{.abnf} in
 [OData-ABNF](#ODataABNF).
 
 A raw value request for a property or operation result of type `Edm.Stream`
@@ -333,6 +333,9 @@ operator (`*`), or the star operator prefixed with the namespace or
 alias of the schema in order to specify all operations defined in the
 schema. Only aliases defined in the metadata document of the service can
 be used in URLs.
+
+OData 4.02 and greater services MAY support `$key` in the select list to indicate
+that all key properties be included in the response.
 
 ::: example
 Example ##ex: request only the `Rating` and `ReleaseDate` for the matching
@@ -404,13 +407,15 @@ GET http://host/service/Customers?$select=ID,Addresses/$count($filter=startswith
 :::
 
 If the `$select` query option is not specified, the service returns
-the full set of properties or a default set of properties. The default
-set of properties MUST include all key properties.
-Services may change the default set of properties returned. This
-includes returning new properties by default and omitting properties
-previously returned by default. Clients that rely on
-specific properties in the response MUST use
-`$select` with the required properties or with `*`.
+the full set of properties or a default set of properties. In either case
+it MUST include all key properties, expanding navigation properties as necessary
+to include key properties from related entities
+[#OData-CSDL#Key] irrespective of the system query option [`$expand`](#SystemQueryOptionexpand).
+
+Services may change the default set of properties returned.
+While, for backward compatibility, services SHOULD NOT omit properties
+previously returned by default, clients that rely on specific properties
+in the response MUST use `$select` with the required properties or with `*`.
 
 If the service returns less than the full set
 of properties, either because the client specified a select or because
@@ -444,6 +449,13 @@ the specified content, and MAY choose to return additional information.
 The value of `$expand` is a comma-separated list of expand items. Each
 expand item is evaluated relative to the retrieved resource being
 expanded.
+
+OData 4.02 and greater services MAY support an empty expand list to indicate
+that no navigation or stream properties are requested, including those marked
+with `AutoExpand` or `AutoExpandReferences`, or otherwise required by protocol
+to be returned in the absence of an explicit `$expand`. Selected or default
+structural properties are still returned, along with required metadata according
+to the requested format.
 
 For a full description of the syntax used when building requests, see
 [#OData-URL#SystemQueryOptionexpand].
@@ -555,7 +567,7 @@ an entity reference somewhere in the circular dependency.
 Clients using `$levels=max` MUST be prepared to handle entity references
 in cases were a circular reference would occur otherwise.
 
-4.01 services that support `max` SHOULD do so in a case-insensitive
+4.01 or greater services that support `max` SHOULD do so in a case-insensitive
 manner. Clients that want to work with 4.0 services MUST use lower case.
 
 ::: example
@@ -600,7 +612,7 @@ instances, and primitive values.
 The target collection is specified through a URL, and query operations
 such as filter, sort, paging, and projection are specified as
 [*system query options*](#SystemQueryOptions) optionally prefixed with a dollar
-(`$`) character. 4.01 Services MUST support case-insensitive system
+(`$`) character. 4.01 or greater services MUST support case-insensitive system
 query option names specified with or without the `$` prefix. Clients
 that want to work with 4.0 services MUST use lower case names and
 specify the `$` prefix.
@@ -636,14 +648,14 @@ GET http://host/service/Categories?$filter=Products/$count lt 10
 :::
 
 The value of the `$filter` option is a Boolean expression as defined in
-[OData-ABNF](#ODataABNF).
+[OData-ABNF](#ODataABNF) rule [filterExpr]{.abnf}.
 
 ##### ##subsubsubsubsec Built-in Filter Operations
 
 OData supports a set of built-in filter operations, as described in this
 section.
 
-4.01 services MUST support case-insensitive operation names. Clients
+4.01 or greater services MUST support case-insensitive operation names. Clients
 that want to work with 4.0 services MUST use lower case operation names.
 
 For a full description of the syntax used when building requests, see
@@ -680,7 +692,7 @@ For a full description of the syntax used when building requests, see
 OData supports a set of built-in functions that can be used within
 `$filter` operations. The following table lists the available functions.
 
-4.01 services MUST support case-insensitive built-in function names.
+4.01 or greater services MUST support case-insensitive built-in function names.
 Clients that want to work with 4.0 services MUST use lower case names.
 
 For a full description of the syntax used when building requests, see
@@ -805,7 +817,7 @@ service can be used in URLs.
 The expression can include the suffix `asc` for ascending or `desc` for
 descending, separated from the property name by one or more spaces. If
 `asc` or `desc` is not specified, the service MUST order by the
-specified property in ascending order. 4.01 services MUST support
+specified property in ascending order. 4.01 or greater services MUST support
 case-insensitive values for `asc` and `desc`. Clients that want to work
 with 4.0 services MUST use lower case values.
 
@@ -821,7 +833,7 @@ The Boolean value false comes before the value true in ascending order.
 Services SHOULD order language-dependent strings according to the
 [`Content-Language`](#HeaderContentLanguage) of the response, and SHOULD
 annotate string properties with language-dependent order with the term
-[`Core.IsLanguageDependent`]($$$OData-VocCore$$$#IsLanguageDependent),
+[Core.IsLanguageDependent]{.term},
 see [OData-VocCore](#ODataVocCore).
 
 Values of type `Edm.Stream` or any of the `Geo` types cannot be sorted.
@@ -960,8 +972,26 @@ count returned inline may not exactly equal the actual number of items
 returned, due to latency between calculating the count and enumerating
 the last value or due to inexact calculations on the service.
 
-How the count is encoded in the response body is dependent upon the
-selected format.
+Services MAY indicate the accuracy of the count as one of the following values:
+ - `counted` indicates that the count was exact at the time of calculation
+ - `estimated` indicates that the count was estimated
+ - `cached` indicates the count was based on cached values that may no longer be current
+ - `partial` indicates that the collection contained at least the returned number
+ of items at the time of calculation
+ - `unavailable` indicates that the count was unavailable and any count value returned (typically 0) should be ignored
+
+Note that future versions of this specification may add additional values
+to describe count accuracy. Clients should treat any unknown value as an
+inexact count.
+
+How the count is encoded in the response body, as well as the accuracy
+(if included), is dependent upon the selected format.
+
+Services MAY indicate a default count accuracy through the [Capabilities.CountRestrictions]{.term} or [Capabilities.DefaultCapabilities]{.term}
+annotation, defined in [OData-VocCap](#ODataVocCap).
+If a default count accuracy is defined, then the service MUST return the
+actual count accuracy applied for any responses with a non-exact accuracy
+different than the default.
 
 #### ##subsubsubsec System Query Option `$search`
 
@@ -1038,7 +1068,7 @@ specified in the same request, only those items satisfying both criteria
 are returned.
 
 The value of the `$search` option is a search expression as defined in
-[OData-ABNF](#ODataABNF).
+[OData-ABNF](#ODataABNF) rule [searchExpr]{.abnf}.
 
 #### ##subsubsubsec Server-Driven Paging
 
@@ -1214,7 +1244,7 @@ GET http://host/service/Products/$count
 ```
 :::
 
-With 4.01 services the `/$count` segment MAY be used in combination with
+With 4.01 or greater services the `/$count` segment MAY be used in combination with
 the `/$filter` path segment to count the items in the filtered
 collection.
 
@@ -1312,11 +1342,11 @@ the `$schemaversion` system query option addresses a specific schema
 version. For all other request types the value specifies the version of
 the schema against which the request is made. The syntax of the
 `$schemaversion` system query option is defined in
-[OData-ABNF](#ODataABNF).
+[OData-ABNF](#ODataABNF) rule [schemaversion]{.abnf}.
 
 The value of the `$schemaversion` system query option MUST be a version
 of the schema as returned in the
-[`Core.SchemaVersion`]($$$OData-VocCore$$$#SchemaVersion)
+[Core.SchemaVersion]{.term}
 annotation, defined in [OData-VocCore](#ODataVocCore), of a previous
 request to the [metadata document](#MetadataDocumentRequest), or `*` in
 order to specify the current version of the metadata.
@@ -1328,7 +1358,7 @@ Clients can retrieve the current version of the metadata by making a
 [metadata document request](#MetadataDocumentRequest) with a
 `$schemaversion` system query option value of `*`, and SHOULD include
 the value from the returned
-[`Core.SchemaVersion`]($$$OData-VocCore$$$#SchemaVersion)
+[Core.SchemaVersion]{.term}
 annotation in the `$schemaversion` system query option of subsequent
 requests.
 
@@ -1354,7 +1384,7 @@ body SHOULD provide additional information.
 
 Services advertise their change-tracking capabilities by annotating
 entity sets with the
-[`Capabilities.ChangeTracking`]($$$OData-VocCap$$$#ChangeTracking)
+[Capabilities.ChangeTracking]{.term}
 term defined in [OData-VocCap](#ODataVocCap).
 
 Any `GET` request to retrieve one or more entities MAY allow
