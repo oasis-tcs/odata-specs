@@ -17,6 +17,12 @@ itself be a batch request.
 A _request object_ MUST contain the name/value pairs `id`,
 `method` and `url`, and it MAY contain the
 name/value pairs `atomicityGroup`, `dependsOn`, `if`, `headers`, and `body`.
+The `id` SHOULD be the first name/value pair in the request object, and `body` (if
+present) SHOULD be the final name/value pair in the request object. If the
+JSON batch request specifies an `OData-Version` of `4.02` or greater, and the `content-type`
+header specifies that the batch request follows
+[payload ordering constraints](#PayloadOrderingConstraints), then these two ordering
+requirements MUST be true.
 
 The value of `id` is a string containing the request
 identifier of the individual request, see
@@ -54,7 +60,7 @@ URL (i.e. relative to the service root).
 
 The value of `atomicityGroup` is a string whose content MUST
 NOT be identical to any value of `id` within the batch
-request, and which MUST satisfy the rule `request-id` in
+request, and which MUST satisfy the rule [request-id]{.abnf} in
 [OData-ABNF](#ODataABNF). All request objects with the same value for
 `atomicityGroup` MUST be adjacent in the
 `requests` array. These requests are processed as an atomic
@@ -65,10 +71,15 @@ multipart batch format specified in [#OData-Protocol#MultipartBatchRequestBody].
 
 The value of `dependsOn` is an array of strings whose values
 MUST be values of either `id` or `atomicityGroup`
-of preceding request objects; forward references are not allowed. If a
-request depends on another request that is part of a different atomicity
-group, the atomicity group MUST be listed in `dependsOn`. In
-the absence of the optional `if` member a request that
+of preceding request objects; forward references are not allowed.
+When targeting a 4.01 service, if a request depends on another request that 
+is part of a different atomicity group, the atomicity group MUST be listed in `dependsOn`.
+OData 4.02 or greater services SHOULD NOT require the atomicity group to be listed
+if `dependsOn` already contains the `id` of a request within that atomicity group.
+For maximum interoperability with earlier services, clients SHOULD continue to
+specify the `atomicityGroup`.
+
+In the absence of the optional `if` member a request that
 depends on other requests or atomicity groups is only executed if those
 requests were executed successfully, i.e. with a `2xx`
 response code. If one of the requests it depends on has failed, the
@@ -90,7 +101,7 @@ The URL expression syntax is extended and additionally allows
 Services SHOULD advertise support of the `if` member by
 specifying the property
 `RequestDependencyConditionsSupported` in the
-[`Capabilities.BatchSupport`]($$$OData-VocCap$$$#BatchSupport)
+[Capabilities.BatchSupport]{.term}
 term applied to the entity container, see
 [OData-VocCap](#ODataVocCap). If a service does not
 support request dependencies, the dependent request MUST fail with
@@ -101,8 +112,10 @@ atomicity group, all requests in that group fail with
 The value of `headers` is an object whose name/value pairs
 represent request headers. The name of each pair MUST be the lower-case
 header name; the value is a string containing the header-encoded value
-of the header. The `headers` object MUST contain a name/value
-pair with the name `content-type` whose value is the media type.
+of the header.
+Services MAY support omitting the `content-type` in the `header` property of a request object.
+For such requests the `body`, if present, MUST be `application/json`
+and MUST conform to [payload ordering constraints](#PayloadOrderingConstraints).
 
 The value of `body` can be `null`, which is
 equivalent to not specifying the `body` name/value pair.
@@ -158,7 +171,7 @@ Content-Length: ###
       "method": "patch",
       "url": "/service/Customers('ALFKI')",
       "headers": {
-        "Prefer": "return=minimal"
+        "prefer": "return=minimal"
       },
       "body": <JSON representation of changes to Customer ALFKI>
     },
@@ -307,10 +320,8 @@ Content-Length: ###
 
 All requests in an atomicity group represent a single change unit. A
 service MUST successfully process and apply all the requests in the
-atomicity group or else apply none of them. It is up to the service
-implementation to define rollback semantics to undo any requests within
-an atomicity group that may have been applied before another request in
-that same atomicity group failed.
+atomicity group or else apply none of them.
+See [#OData-Protocol#Atomicity] for details on visibility of atomic changes.
 
 The service MAY process the individual requests and atomicity groups
 within a batch request, or individual requests within an atomicity
@@ -367,6 +378,10 @@ corresponding request object contains the `atomicityGroup`
 name/value pair, it MUST also be present in the response object with the
 same value.
 
+For 4.02 and greater [ordered payloads](#PayloadOrderingConstraints), the `id`
+MUST be the first name/value pair in the response object and `body`,
+if present, MUST be the final property in the response object.
+
 If any response within an atomicity group returns a failure code, all
 requests within that atomicity group are considered failed, regardless
 of their individual returned status code. The service MAY return
@@ -382,14 +397,12 @@ The response object MAY contain the name/value pair `headers`
 whose value is an object with name/value pairs representing response
 headers. The name of each pair MUST be the lower-case header name; the
 value is a string containing the header-encoded value of the header.
+If the response object does not name the `content-type`, then the content type
+of the `body`, if present, is assumed to be `application/json` and MUST follow
+[payload ordering constraints](#PayloadOrderingConstraints).
 
 The response object MAY contain the name/value pair `body`
 which follows the same rules as within [request objects](#BatchRequest).
-
-If the media type is not exactly equal to `application/json`
-(i.e. it is a subtype or has format parameters), the
-`headers` object MUST contain a name/value pair with the name
-`content-type` whose value is the media type.
 
 Relative URLs in a response object follow the rules for [relative
 URLs](#RelativeURLs) based on the request URL of the corresponding
@@ -404,14 +417,14 @@ response would be
 HTTP/1.1 200 OK
 OData-Version: 4.01
 Content-Length: ####
-Content-Type: application/json
+Content-Type: application/json;streaming=true
 
 {
   "responses": [
     {
       "id": "0",
       "status": 200,
-      "body": <JSON representation of the Customer entity with key ALFKI>
+      "body": <Ordered JSON representation of the Customer entity with key ALFKI>
     },
     {
       "id": "1",
@@ -423,7 +436,7 @@ Content-Type: application/json
       "headers": {
         "location": "http://host/service.svc/Customer('POIUY')"
       },
-      "body": <JSON representation of the new Customer entity>
+      "body": <Ordered JSON representation of the new Customer entity>
     },
     {
       "id": "3",
@@ -477,14 +490,14 @@ HTTP/1.1 200 OK
 AsyncResult: 200
 OData-Version: 4.01
 Content-Length: ###
-Content-Type: application/json
+Content-Type: application/json;streaming=true
 
 {
   "responses": [
     {
       "id": "0",
       "status": 200,
-      "body": <JSON representation of the Customer entity with key ALFKI>
+      "body": <Ordered JSON representation of the Customer entity with key ALFKI>
     }
   ],
   "@nextLink": "…?$skiptoken=YmF0Y2gx"
@@ -507,7 +520,7 @@ HTTP/1.1 200 OK
 AsyncResult: 200
 OData-Version: 4.01
 Content-Length: ###
-Content-Type: application/json
+Content-Type: application/json;streaming=true
 
 {
   "responses": [
@@ -521,7 +534,7 @@ Content-Type: application/json
       "headers": {
         "location": "http://host/service.svc/Customer('POIUY')"
       },
-      "body": <JSON representation of the new Customer entity>
+      "body": <Ordered JSON representation of the new Customer entity>
     },
     {
       "id": "3",
@@ -550,7 +563,7 @@ the second synchronously, the batch itself is processed synchronously
 HTTP/1.1 200 OK
 OData-Version: 4.01
 Content-Length: ###
-Content-Type: application/json
+Content-Type: application/json;streaming=true
 
 {
   "responses": [

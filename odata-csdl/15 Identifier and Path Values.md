@@ -36,8 +36,29 @@ and match the pattern `^[_A-Za-z][_A-Za-z0-9]*$`.
 
 For model elements that are direct children of a schema: the namespace
 or alias of the schema that defines the model element, followed by a dot
-and the name of the model element, see rule `qualifiedTypeName` in
+and the name of the model element, see rule [qualifiedTypeName]{.abnf} in
 [OData‑ABNF](#ODataABNF).
+
+@$@<Determine namespace and name of segment@>@{
+const i = segment.lastIndexOf(".");
+this.#namespace = segment.substring(0, i);
+this.#name = segment.substring(i + 1);
+@}
+
+@$@<CSDLDocument@>@{
+unalias(qname) {
+  const i = qname.lastIndexOf(".");
+  const namespace = qname.substring(0, i);
+  const name = qname.substring(i + 1);
+  return this.#findSchema(namespace, (schema) => schema.name) + "." + name;
+}
+@}
+
+@$@<Unalias the qualified term name@>@(@1@)@{
+function (m) {
+  return @1.csdlDocument.unalias(m);
+}.bind(this)
+@}
 
 For built-in [primitive types](#PrimitiveTypes): the name of the type,
 prefixed with `Edm` followed by a dot.
@@ -541,10 +562,11 @@ Conforming services MUST follow all rules of this specification document
 for the types, sets, functions, actions, containers and annotations they
 expose.
 
-In addition, conforming services MUST NOT return CSDL constructs defined in OData 4.01 or greater 
-for requests made with `OData-MaxVersion: 4.0`.
+In addition, if the metadata request includes an `OData-MaxVersion` header,
+conforming services MUST NOT return CSDL constructs defined in later version
+of the OData specification.
 
-Specifically, they
+Specifically, an OData 4.0 metadata response
 1. MUST NOT include properties in derived types that overwrite a
 property defined in the base type
 2. MUST NOT include `Edm.Untyped`
@@ -555,7 +577,7 @@ to complex types and navigation properties
 6. MUST NOT include a non-abstract entity type with no inherited or
 defined [entity key](#Key)
 7. MUST NOT include the
-[`Core.DefaultNamespace`]($$$OData-VocCore$$$#DefaultNamespace)
+[Core.DefaultNamespace]{.term}
 annotation on [included schemas](#IncludedSchema)
 8. MUST NOT return the Unicode facet for terms, parameters, and return
 types
@@ -572,18 +594,28 @@ types
 12. SHOULD NOT include constant [Geo](#GeoValues) or [Stream values](#StreamValues) in annotations
 13. MAY include new CSDL annotations
 
+In addition, an OData 4.01 or earlier metadata response
+
+14. MUST NOT include functions containing stream-valued non-binding parameters
+15. MUST NOT include actions or functions that take or return delta payloads
+16. SHOULD NOT include actions or functions that return entity collections that may contain NULL values
+
 In addition, OData 4.01 or greater services:
 
-14. SHOULD NOT have identifiers within a uniqueness scope (e.g. a
+17. SHOULD NOT have identifiers within a uniqueness scope (e.g. a
 schema, a structural type, or an entity container) that differ only by
 case
 
 In addition, OData 4.02 or greater services:
 
-15. SHOULD NOT include constant [Geo](#GeoValues) or [Stream values](#StreamValues) in annotations
-16. SHOULD use [simple identifiers](#SimpleIdentifier) matching the pattern `^[_A-Za-z][_A-Za-z0-9]*$`
+18. SHOULD NOT include constant [Geo](#GeoValues) or [Stream values](#StreamValues) in annotations
+19. SHOULD NOT specify an SRID value of 'variable'
+20. SHOULD use [simple identifiers](#SimpleIdentifier) matching the pattern `^[_A-Za-z][_A-Za-z0-9]*$`
 
 Conforming clients MUST be prepared to consume a model that uses any or
 all constructs defined in this specification, including custom
 annotations, and MUST ignore constructs not defined in this version of
 the specification.
+
+In addition, conforming OData 4.02 clients:
+1. MUST evaluate annotation target paths according to the clarified [Path Evaluation Rules](#PathEvaluation).

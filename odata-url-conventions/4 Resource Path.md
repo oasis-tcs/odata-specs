@@ -12,7 +12,7 @@ libraries.
 Services that do not follow the resource path conventions for entity
 container children are strongly encouraged to document their resource
 paths by annotating entity container children with the term
-[`Core.ResourcePath`]($$$OData-VocCore$$$#ResourcePath)
+[Core.ResourcePath]{.term}
 defined in [OData-VocCore](#ODataVocCore). The annotation value is the
 URL of the annotated resource and may be relative to `xml:base` (if
 present), otherwise the request URL.
@@ -71,7 +71,7 @@ http://host/service/$batch
 
 The basic rules for addressing a collection (of entities), a single
 entity within a collection, a singleton, as well as a property of an
-entity are covered in the `resourcePath` syntax rule in
+entity are covered in the [resourcePath]{.abnf} syntax rule in
 [OData-ABNF](#ODataABNF).
 
 Below is a (non-normative) snippet from [OData-ABNF](#ODataABNF):
@@ -94,7 +94,7 @@ resourcePath = entitySetName                  [collectionNavigation]
 Since OData has a uniform composable URL syntax and associated rules
 there are many ways to address a collection of entities, including, but
 not limited to:
-- Via an entity set (see rule `entitySetName` in [OData-ABNF](#ODataABNF))
+- Via an entity set (see rule [entitySetName]{.abnf} in [OData-ABNF](#ODataABNF))
 
 ::: example
 Example ##ex:
@@ -250,10 +250,11 @@ returns an entity or collections of entities.
 
 For OData services conformant with the addressing conventions in this
 section, the canonical form of an absolute URL identifying a
-non-contained entity is formed by adding a single path segment to the
-service root URL. The path segment is made up of the name of the entity
-set associated with the entity followed by the key predicate identifying
-the entity within the collection. No [type-cast segment](#AddressingDerivedTypes) is added to the
+non-contained entity from within an an entity set is formed by adding a
+single path segment to the service root URL. The path segment is made up
+of the name of the entity set associated with the entity followed by the
+key predicate identifying the entity within the collection. No 
+[type-cast segment](#AddressingDerivedTypes) is added to the
 canonical URL, even if the entity is an instance of a type derived from
 the declared entity type of its entity set.
 
@@ -275,6 +276,20 @@ Example ##ex: Canonical URL for previous example:
 http://host/service/Products(1)
 ```
 :::
+
+The canonical form of an absolute URL identifying singleton is formed by
+adding the name of the singleton to the service root URL.
+
+::: example
+Example ##ex: Canonical URL for a singleton `Company`:
+```
+http://host/service/Company
+```
+:::
+
+For composable functions that return a collection of computed entities, the URL that
+invokes the function, appended by the key predicate, serves as the Canonical URL
+for the computed entities.
 
 ### ##subsubsec Canonical URL for Contained Entities
 
@@ -347,7 +362,7 @@ The semantics of `$entity` are covered in [#OData-Protocol#ContextURL].
 
 In addition to the canonical (primary) key an entity set or entity type
 can specify one or more alternate keys with the
-[`Core.AlternateKeys`]($$$OData-VocCore$$$#AlternateKeys)
+[Core.AlternateKeys]{.term}
 term (see [OData-VocCore](#ODataVocCore)).
 
 Alternate keys can be used by the client to address entities anywhere the canonical key
@@ -496,7 +511,7 @@ http://host/service/Categories(1)/Products/$ref
 :::
 
 Resource paths addressing a single related entity reference can be used
-in `DELETE` requests to unrelate two entities. In OData 4.01, this
+in `DELETE` requests to unrelate two entities. In OData 4.01 and greater, this
 includes resource paths that identify an individual entity reference
 within a related collection by key. In OData 4.0, resource paths
 addressing a collection of references MUST be followed by the system
@@ -507,7 +522,7 @@ expressed absolute or relative to the request URL. For details see
 
 ::: example
 Example ##ex: three ways of unrelating `Categories(1)` and
-`Products(0)`; the second option is supported only in OData 4.01
+`Products(0)`; the second option is supported only in OData 4.01 and greater
 ```
 DELETE http://host/service/Categories(1)/Products/$ref?$id=../../Products(0)
 ```
@@ -529,7 +544,7 @@ defined in [#OData-Protocol#Operations].
 Services MAY additionally support the use of the unqualified name of an
 action or function in a URL by defining one or more default namespaces
 through the
-[`Core.DefaultNamespace`]($$$OData-VocCore$$$#DefaultNamespace) term
+[Core.DefaultNamespace]{.term} term
 defined in [OData-VocCore](#ODataVocCore). For more information on
 default namespaces, see [#OData-Protocol#DefaultNamespaces].
 
@@ -537,15 +552,15 @@ default namespaces, see [#OData-Protocol#DefaultNamespaces].
 
 The grammar for addressing and invoking actions is defined by the
 following syntax grammar rules in [OData-ABNF](#ODataABNF):
-- The `actionImportCall` syntax rule
-defines the grammar in the `resourcePath` for addressing and invoking an
+- The [actionImportCall]{.abnf} syntax rule
+defines the grammar in the [resourcePath]{.abnf} for addressing and invoking an
 action import directly from the service root.
-- The `boundActionCall` syntax rule
+- The [boundActionCall]{.abnf} syntax rule
 defines the grammar in the `resourcePath` for addressing and invoking an
 action that is appended to a `resourcePath` that identifies some
 resources that can be used as the binding parameter value when invoking
 the action.
-- The `boundOperation` syntax rule (which
+- The [boundOperation]{.abnf} syntax rule (which
 encompasses the `boundActionCall` syntax rule), when used by the
 `resourcePath` syntax rule, illustrates how a `boundActionCall` can be
 appended to a `resourcePath`.
@@ -555,28 +570,28 @@ appended to a `resourcePath`.
 The grammar for addressing and invoking functions is defined by
 syntax rules in [OData-ABNF](#ODataABNF), in particular:
 - The function import call syntax rules
-`complexFunctionImportCall`, `complexColFunctionImportCall`,
-`entityFunctionImportCall`, `entityColFunctionImportCall`,
-`primitiveFunctionImportCall`, and `primitiveColFunctionImportCall`
+[complexFunctionImportCall]{.abnf}, [complexColFunctionImportCall]{.abnf},
+[entityFunctionImportCall]{.abnf}, [entityColFunctionImportCall]{.abnf},
+[primitiveFunctionImportCall]{.abnf}, and [primitiveColFunctionImportCall]{.abnf}
 define the grammar in the `resourcePath` for addressing and providing
 parameters for a function import directly from the service root.
 - The bound function call syntax rules
-`boundComplexFunctionCall`, `boundComplexColFunctionCall`,
-`boundEntityFunctionCall`, `boundEntityColFunctionCall`,
-`boundPrimitiveFunctionCall` and `boundPrimitiveColFunctionCall` define
+[boundComplexFunctionCall]{.abnf}, [boundComplexColFunctionCall]{.abnf},
+[boundEntityFunctionCall]{.abnf}, [boundEntityColFunctionCall]{.abnf},
+[boundPrimitiveFunctionCall]{.abnf} and [boundPrimitiveColFunctionCall]{.abnf} define
 the grammar in the `resourcePath` for addressing and providing
 parameters for a function that is appended to a `resourcePath` that
 identifies some resources that can be used as the binding parameter
 value when invoking the function.
-- The `boundOperation` syntax rule (which
+- The [boundOperation]{.abnf} syntax rule (which
 encompasses the bound function call syntax rules), when used by the
 `resourcePath` syntax rule, illustrates how a bound function call can be
 appended to a `resourcePath`.
-- The `functionExpr` and
-`boundFunctionExpr` syntax rules as used by the `commonExpr`
+- The [functionExpr]{.abnf} and
+[boundFunctionExpr]{.abnf} syntax rules as used by the [commonExpr]{.abnf}
 syntax rule define the grammar for invoking functions, for example to help filter
 and order resources identified by the `resourcePath` of the URL.
-- The `aliasAndValue` syntax rule defines
+- The [aliasAndValue]{.abnf} syntax rule defines
 the grammar for providing function parameter values using Parameter
 Alias Syntax, see [#OData-Protocol#ParameterAliases].
 
@@ -692,8 +707,8 @@ http://host/service/Categories?$orderby=Products/$count
 Collections of entities are modeled as entity sets, collection-valued
 navigation properties, or operation results.
 
-For entity sets, results of operations associated with an entity set
-through an `EntitySet` or `EntitySetPath` declaration, or
+For entity sets, results of composable functions associated with an
+entity set through an `EntitySet` or `EntitySetPath` declaration, or
 collection-valued navigation properties with a
 `NavigationPropertyBinding` or `ContainsTarget=true` specification,
 members of the collection can be addressed by convention by appending
@@ -708,14 +723,14 @@ appended to the collection URL before appending the key segment.
 
 Note: entity sets or collection-valued navigation properties annotated
 with the term
-[`Capabilities.IndexableByKey`]($$$OData-VocCap$$$#IndexableByKey)
+[Capabilities.IndexableByKey]{.term}
 defined in [OData-VocCap](#ODataVocCap) and a value of `false` do not
 support addressing their members by key.
 
 ## ##subsec Addressing a Member of an Ordered Collection
 
 Collections can be annotated as ordered using the
-[`Core.Ordered`]($$$OData-VocCore$$$#Ordered)
+[Core.Ordered]{.term}
 term (see [OData-VocCore](#ODataVocCore)). Individual items within an
 ordered collection of primitive or complex types can be addressed by
 appending a segment containing the zero-based ordinal to the URL of the
@@ -753,7 +768,7 @@ the type cast will evaluate to `null`.
 Services MAY additionally support the use of the unqualified name of a
 derived type in a URL by defining one or more default namespaces through
 the
-[`Core.DefaultNamespace`]($$$OData-VocCore$$$#DefaultNamespace)
+[Core.DefaultNamespace]{.term}
 term defined in [OData-VocCore](#ODataVocCore). For more information on
 default namespaces, see [#OData-Protocol#DefaultNamespaces].
 
@@ -763,7 +778,7 @@ derived type. In this case, the set and values of properties of the
 addressed type may be different than the properties of the source type.
 The set of such possible target types outside of the type hierarchy
 SHOULD be called out using the
-[`Core.MayImplement`]($$$OData-VocCore$$$#MayImplement)
+[Core.MayImplement]{.term}
 annotation term, defined in [OData-VocCore](#ODataVocCore).
 
 ::: example
@@ -817,7 +832,7 @@ http://host/service/Orders?$expand=Customer/Model.VipCustomer
 Any resource path or path expression identifying a collection can be
 appended with a filter path segment consisting of `/$filter` followed by
 parentheses containing a [parameter alias](#ParameterAliases) or a
-filter expression following the `filter` syntax rule in
+filter expression following the [filter]{.abnf} syntax rule in
 [OData-ABNF](#ODataABNF). If the parentheses contain a parameter alias,
 a filter expression MUST be assigned to the parameter alias in the query
 part of the request URL. If the filter path segment appears in the
@@ -1014,9 +1029,10 @@ transmitting or processing the request. One way to avoid this is
 wrapping the request in a batch request, which has the penalty of
 needing to construct a well-formed batch request body.
 
-An easier alternative for `GET` requests is to append `/$query` to the
-resource path of the URL, use the `POST` verb instead of `GET`, and pass
-the query options part of the URL in the request body.
+Easier alternatives for `GET` requests are to pass
+the query options part of the URL in the request body and instead of `GET` either
+- use the `QUERY` verb (see [RFC10008](#rfc10008)), or
+- append `/$query` to the resource path of the URL and use the `POST` verb.
 
 Requests to paths ending in `/$query` MUST use the `POST` verb. Query
 options specified in the request body and query options specified in the
@@ -1033,6 +1049,13 @@ and MUST follow the syntax rules described in [chapter ##QueryOptions].
 Example ##ex_postquery: system query options in request body instead of URL
 ```
 POST http://host/service/People/$query
+Content-Type: text/plain
+
+$filter=LastName%20eq%20'P%26G'&$select=FirstName,LastName
+```
+or
+```
+QUERY http://host/service/People
 Content-Type: text/plain
 
 $filter=LastName%20eq%20'P%26G'&$select=FirstName,LastName
@@ -1070,6 +1093,14 @@ This POST request would result from submitting the HTML form
 ```
 which encodes spaces and ampersands (and more characters for which encoding is
 optional).
+
+Alternative using `QUERY`:
+```
+QUERY http://host/service/People
+Content-Type: application/x-www-form-urlencoded
+
+%24filter=LastName+eq+%27P%26G%27&%24select=FirstName%2CLastName
+```
 :::
 
 With `Content-Type: application/json` query options and function parameters are
@@ -1084,6 +1115,16 @@ Example ##ex: The same request as in [example ##postquery] can be sent with
 `application/json` encoding using the following payload:
 ```json
 POST http://host/service/People/$query
+Content-Type: application/json
+
+{
+  "$filter": "LastName eq 'P&G'",
+  "$select": "FirstName,LastName"
+}
+```
+or
+```json
+QUERY http://host/service/People
 Content-Type: application/json
 
 {
@@ -1112,8 +1153,20 @@ Content-Type: application/json
   "$top": 10
 }
 ```
+or
+```json
+QUERY http://host/service/Employees(23)/self.PendingLeaveRequests
+Content-Type: application/json
 
-The previous request looks analogous to a bound function invocation with expressions (like in [example ##funcexpr])
+{
+  "StartDate@expression": "now()",
+  "EndDate": "2024-12-31",
+  "Approver@expression": "Manager",
+  "$top": 10
+}
+```
+
+The previous requests look analogous to a bound function invocation with expressions (like in [example ##funcexpr])
 if it is written using implicit parameter aliases (see [#OData-Protocol#InlineParameterSyntax]).
 ```
 GET http://host/service/Employees(23)/self.PendingLeaveRequests

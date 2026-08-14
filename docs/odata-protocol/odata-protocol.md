@@ -40,7 +40,7 @@ Michael Pizzo (mikep@microsoft.com), [Microsoft](http://www.microsoft.com/) \
 Ralf Handl (ralf.handl@sap.com), [SAP SE](http://www.sap.com/) \
 Heiko Theißen (heiko.theissen@sap.com), [SAP SE](http://www.sap.com/)
 
-#### Additional artifacts:
+#### [Additional artifacts:]{id=AdditionalArtifacts}
 This prose specification is one component of a Work Product that also includes:
 * _OData Version 4.02 Part 1: Protocol_ (this document). https://docs.oasis-open.org/odata/odata/v4.02/csd02/part1-protocol/odata-v4.02-csd02-part1-protocol.html
 * _OData Version 4.02 Part 2: URL Conventions_. https://docs.oasis-open.org/odata/odata/v4.02/csd02/part2-url-conventions/odata-v4.02-csd02-part2-url-conventions.html
@@ -241,16 +241,18 @@ For complete copyright information please see the full Notices section in an App
     - [11.3.3 Delta Payloads](#DeltaPayloads)
   - [11.4 Data Modification](#DataModification)
     - [11.4.1 Common Data Modification Semantics](#CommonDataModificationSemantics)
-      - [11.4.1.1 Use of ETags for Avoiding Update Conflicts](#UseofETagsforAvoidingUpdateConflicts)
-      - [11.4.1.2 Handling of DateTimeOffset Values](#HandlingofDateTimeOffsetValues)
-      - [11.4.1.3 Handling of Properties Not Advertised in Metadata](#HandlingofPropertiesNotAdvertisedinMetadata)
-      - [11.4.1.4 Handling of Integrity Constraints](#HandlingofIntegrityConstraints)
-      - [11.4.1.5 Returning Results from Data Modification Requests](#ReturningResultsfromDataModificationRequests)
+      - [11.4.1.1 Atomicity](#Atomicity)
+      - [11.4.1.2 Use of ETags for Avoiding Update Conflicts](#UseofETagsforAvoidingUpdateConflicts)
+      - [11.4.1.3 Handling of DateTimeOffset Values](#HandlingofDateTimeOffsetValues)
+      - [11.4.1.4 Handling of Properties Not Advertised in Metadata](#HandlingofPropertiesNotAdvertisedinMetadata)
+      - [11.4.1.5 Handling of Integrity Constraints](#HandlingofIntegrityConstraints)
+      - [11.4.1.6 Returning Results from Data Modification Requests](#ReturningResultsfromDataModificationRequests)
     - [11.4.2 Create an Entity](#CreateanEntity)
       - [11.4.2.1 Link to Related Entities When Creating an Entity](#LinktoRelatedEntitiesWhenCreatinganEntity)
       - [11.4.2.2 Create Related Entities When Creating an Entity](#CreateRelatedEntitiesWhenCreatinganEntity)
     - [11.4.3 Update an Entity](#UpdateanEntity)
       - [11.4.3.1 Update Related Entities When Updating an Entity](#UpdateRelatedEntitiesWhenUpdatinganEntity)
+        - [11.4.3.1.1 Response Representation of Related Entities](#ResponseRepresentationofRelatedEntities)
       - [11.4.3.2 Upsert an Entity](#UpsertanEntity)
     - [11.4.4 Delete an Entity](#DeleteanEntity)
     - [11.4.5 Modifying Relationships between Entities](#ModifyingRelationshipsbetweenEntities)
@@ -282,13 +284,14 @@ For complete copyright information please see the full Notices section in an App
     - [11.5.1 Binding an Operation to a Resource](#BindinganOperationtoaResource)
     - [11.5.2 Applying an Operation to Members of a Collection](#ApplyinganOperationtoMembersofaCollection)
     - [11.5.3 Advertising Available Operations within a Payload](#AdvertisingAvailableOperationswithinaPayload)
-    - [11.5.4 Functions](#Functions)
-      - [11.5.4.1 Invoking a Function](#InvokingaFunction)
-        - [11.5.4.1.1 Inline Parameter Syntax](#InlineParameterSyntax)
-      - [11.5.4.2 Function overload resolution](#Functionoverloadresolution)
-    - [11.5.5 Actions](#Actions)
-      - [11.5.5.1 Invoking an Action](#InvokinganAction)
-      - [11.5.5.2 Action Overload Resolution](#ActionOverloadResolution)
+    - [11.5.4 Operations that return Entities](#OperationsthatreturnEntities)
+    - [11.5.5 Functions](#Functions)
+      - [11.5.5.1 Invoking a Function](#InvokingaFunction)
+        - [11.5.5.1.1 Inline Parameter Syntax](#InlineParameterSyntax)
+      - [11.5.5.2 Function overload resolution](#Functionoverloadresolution)
+    - [11.5.6 Actions](#Actions)
+      - [11.5.6.1 Invoking an Action](#InvokinganAction)
+      - [11.5.6.2 Action Overload Resolution](#ActionOverloadResolution)
   - [11.6 Asynchronous Requests](#AsynchronousRequests)
   - [11.7 Batch Requests](#BatchRequests)
     - [11.7.1 Batch Request Headers](#BatchRequestHeaders)
@@ -314,7 +317,11 @@ For complete copyright information please see the full Notices section in an App
     - [12.2.1 OData 4.01 Minimal Conformance Level](#OData401MinimalConformanceLevel)
     - [12.2.2 OData 4.01 Intermediate Conformance Level](#OData401IntermediateConformanceLevel)
     - [12.2.3 OData 4.01 Advanced Conformance Level](#OData401AdvancedConformanceLevel)
-  - [12.3 Interoperable OData Clients](#InteroperableODataClients)
+  - [12.3 OData 4.02 Service Conformance Levels](#OData402ServiceConformanceLevels)
+    - [12.3.1 OData 4.02 Minimal Conformance Level](#OData402MinimalConformanceLevel)
+    - [12.3.2 OData 4.02 Intermediate Conformance Level](#OData402IntermediateConformanceLevel)
+    - [12.3.3 OData 4.02 Advanced Conformance Level](#OData402AdvancedConformanceLevel)
+  - [12.4 Interoperable OData Clients](#InteroperableODataClients)
 - [A References](#References)
   - [A.1 Normative References](#NormativeReferences)
   - [A.2 Informative References](#InformativeReferences)
@@ -356,18 +363,23 @@ resource representations that are exchanged using OData.
 Section | Feature / Change | Issue
 --------|------------------|------
 [Section 8.2.8.3](#Preferencecontinueonerrorodatacontinueonerror) | Responses that include errors MUST include the `Preference-Applied` header with `continue-on-error` set to `true` | [1965](https://github.com/oasis-tcs/odata-specs/issues/1965)
+[Section 8.2.8.7](#Preferencereturnrepresentationandreturnminimal) | Added `delta` format parameter to `return=representation` preference | [309](https://github.com/oasis-tcs/odata-specs/issues/309)
 [Section 10.2](#CollectionofEntities)| Context URLs use parentheses-style keys without percent-encoding| [368](https://github.com/oasis-tcs/odata-specs/issues/368)
+[Section 11.2.1](#SystemQueryOptions) | Allow `$key` in `$select` list to include key properties | [2257](https://github.com/oasis-tcs/odata-specs/issues/2257)
+[Section 11.2.1](#SystemQueryOptions) | Allow empty `$expand` lists | [2243](https://github.com/oasis-tcs/odata-specs/issues/2243)
 [Section 11.4](#DataModification)| Response code `204 No Content` after successful data modification if requested response could not be constructed| [443](https://github.com/oasis-tcs/odata-specs/issues/443)
 [Section 11.4.2](#CreateanEntity)| Services can validate non-insertable property values in insert payloads| [356](https://github.com/oasis-tcs/odata-specs/issues/356)
+[Section 11.4.2.1](#LinktoRelatedEntitiesWhenCreatinganEntity)| Client can update properties of existing related entities when creating an entity| [352](https://github.com/oasis-tcs/odata-specs/issues/352)
 [Section 11.4.2.2](#CreateRelatedEntitiesWhenCreatinganEntity)| Deep-insert response includes at least the properties present in the request| [363](https://github.com/oasis-tcs/odata-specs/issues/363)
 [Section 11.4.3](#UpdateanEntity)| Services can validate non-updatable property values in update payloads| [356](https://github.com/oasis-tcs/odata-specs/issues/356)
 [Section 11.4.3.2](#UpsertanEntity)| Upserts to single-valued non-containment navigation properties| [455](https://github.com/oasis-tcs/odata-specs/issues/455)
+Sections [11.4.4](#DeleteanEntity), [11.4.5.2](#RemoveaReferencetoanEntity)| Idempotency of delete operation| [2103](https://github.com/oasis-tcs/odata-specs/issues/2103)
 [Section 11.4.8.3](#UpdateaComplexProperty)| Setting a complex property to a different type| [534](https://github.com/oasis-tcs/odata-specs/issues/534)
 [Section 11.4.11](#UpdateaCollectionofEntities)| Control information to prevent updates| [2021](https://github.com/oasis-tcs/odata-specs/issues/2021)
 [Section 11.4.12](#ReplaceaCollectionofEntities)| Semantics of `continue-on-error` when replacing a collection of entities | [358](https://github.com/oasis-tcs/odata-specs/issues/358)
-[Section 11.5.5.1](#InvokinganAction)| Omission of collection-valued action parameters| [2045](https://github.com/oasis-tcs/odata-specs/issues/2045)
+[Section 11.5.6.1](#InvokinganAction)| Omission of collection-valued action parameters| [2045](https://github.com/oasis-tcs/odata-specs/issues/2045)
 [Section 12](#Conformance) | Allow `400 Bad Request` in addition to `501 Not Implemented` for unsupported functionality| [391](https://github.com/oasis-tcs/odata-specs/issues/391)
-[Section 12.3](#InteroperableODataClients) | Encoding of plus character in URLs | [485](https://github.com/oasis-tcs/odata-specs/issues/485)
+[Section 12.4](#InteroperableODataClients) | Encoding of plus character in URLs | [485](https://github.com/oasis-tcs/odata-specs/issues/485)
 
 ## <a id="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -411,7 +423,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        odata-v4.02-csd02-part1-protocol.md
 ```
 
-This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
+This uses pandoc 3.8.3 from https://github.com/jgm/pandoc/releases/tag/3.8.3.
 -->
 
 -------
@@ -597,7 +609,7 @@ of an IRI in the [`EntityId`](#HeaderODataEntityId) header.
 Services are strongly encouraged to use the canonical URL for an entity
 as defined in [OData-URL, section 4.3.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalURL) as its entity-id, but clients cannot assume
 the entity-id can be used to locate the entity unless the
-[`Core.DereferenceableIDs`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DereferenceableIDs)
+[Core.DereferenceableIDs]{.term}
 term is applied to the entity container, nor can the client assume any
 semantics from the structure of the entity-id. The canonical resource
 `$entity` provides a general mechanism for
@@ -605,7 +617,7 @@ semantics from the structure of the entity-id. The canonical resource
 
 Services that use the standard URL conventions for entity-ids annotate
 their entity container with the term
-[`Core.ConventionalIDs`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ConventionalIDs),
+[Core.ConventionalIDs]{.term},
 see [OData-VocCore](#ODataVocCore).
 
 *Entity references* refer to an entity using the entity's entity-id.
@@ -648,7 +660,7 @@ or between properties and bound functions, actions, or types with the
 same name.
 
 Services MAY define one or more default namespaces through the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) term
+[Core.DefaultNamespace]{.term} term
 defined in [OData-VocCore](#ODataVocCore). Functions, actions and types
 in a default namespace can be referenced in URLs with or without
 namespace or alias qualification.
@@ -694,15 +706,15 @@ OData clients include the
 order to specify the maximum acceptable response version. Services
 respond with the maximum supported version that is less than or equal to
 the requested `OData-MaxVersion`, using decimal comparison. The syntax
-of the `OData-Version` and `OData-MaxVersion` header fields is defined
+of the [OData-Version]{.abnf} and [OData-MaxVersion]{.abnf} header fields is defined
 in [OData-ABNF](#ODataABNF).
 
 Services SHOULD advertise supported versions of OData through the
-[`Core.ODataVersions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ODataVersions)
+[Core.ODataVersions]{.term}
 term, defined in [OData-VocCore](#ODataVocCore).
 
-This version of the specification defines OData version values `4.0` and
-`4.01`. Content that applies only to one version or another is
+This version of the specification defines OData version values `4.0`, `4.01` and
+`4.02`. Content that applies only to one version or another is
 explicitly called out in the text.
 
 ## <a id="ModelVersioning" href="#ModelVersioning">5.2 Model Versioning</a>
@@ -715,12 +727,15 @@ type of existing properties, adding or removing key properties, or
 reordering action or function parameters, require that a new service
 version is provided at a different service root URL for the new model,
 or that the service version its metadata using the
-[`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
+[Core.SchemaVersion]{.term}
 annotation, defined in [OData-VocCore](#ODataVocCore).
 
-Services that version their metadata MUST support version-specific
-requests according to the
+Services that make breaking changes to the metadata exposed
+through a [metadata document URL](#MetadataDocumentRequest) MUST support
+version-specific requests according to the
 [`$schemaversion`](#SystemQueryOptionschemaversion) system query option.
+
+
 The following Data Model additions are considered safe and do not
 require services to version their entry point or schema.
 - Adding a property that is nullable or
@@ -741,7 +756,7 @@ import, or function import
 nullable after existing parameters
 - Adding an action or function parameter
 that is annotated with
-[`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter)
+[Core.OptionalParameter]{.term}
 after existing parameters
 - Adding a type definition or enumeration
 - Adding a new term
@@ -749,15 +764,30 @@ after existing parameters
 that does not need to be understood by the client in order to correctly
 interact with the service
 
-Clients SHOULD be prepared for services to make such incremental changes
-to their model. In particular, clients SHOULD be prepared to receive
+Clients should be prepared for services to make such incremental changes
+to their model at any time. In particular:
+- Clients should be prepared to receive
 properties and derived types not previously defined by the service.
+- Clients that cache metadata should be prepared to receive references
+to new schema elements in response payloads, including types, properties,
+entity sets, singletons, operations and terms, in existing or new namespaces, that may not have been
+part of the cached metadata.
+- Clients should be prepared to receive references to schema
+elements defined in new metadata documents, including metadata
+documents not referenced by the original schema.
+- Clients should use `$select` to select required properties, as the
+service may change the default set of properties returned in the
+absence of `$select`.
 
 Services SHOULD NOT change their data model depending on the
 authenticated user. If the data model is user or user-group dependent,
 all changes MUST be *safe changes* as defined in this section when
 comparing the full model to the model visible to users with restricted
 authorizations.
+
+Services MAY change the default set of properties returned in the
+absence of `$select` but, for backward compatibility, SHOULD NOT
+reduce the set of properties returned by default.
 
 -------
 
@@ -886,7 +916,7 @@ If the service does not support the requested format, it replies with a
 
 Services SHOULD advertise their supported formats in the metadata
 document by annotating their entity container with the term
-[`Capabilities.SupportedFormats`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#SupportedFormats),
+[Capabilities.SupportedFormats]{.term},
 as defined in [OData-VocCap](#ODataVocCap), listing all available
 formats and combinations of supported format parameters.
 
@@ -944,7 +974,7 @@ field is used as a modifier to the media-type (as indicated in the
 content codings have been applied to the entity-body.
 A service MAY specify a list of acceptable content codings using an
 annotation with term
-[`Capabilities.AcceptableEncodings`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#AcceptableEncodings),
+[Capabilities.AcceptableEncodings]{.term},
 see [OData-VocCap](#ODataVocCap).
 
 If the `Content-Encoding` header is specified on an individual request
@@ -961,7 +991,7 @@ the intended audience for the enclosed message body. OData does not add
 any additional requirements over HTTP for including `Content-Language`.
 OData services can annotate model elements whose content depends on the
 content language with the term
-[`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
+[Core.IsLanguageDependent]{.term},
 see [OData-VocCore](#ODataVocCore).
 
 If the `Content-Language` header is specified on an individual request
@@ -1073,10 +1103,10 @@ As defined in [RFC9110](#rfc9110), a client MAY include an
 value previously retrieved for the resource, or `*`.
 
 If an operation on an existing resource requires an ETag, (see term
-[`Core.OptimisticConcurrency`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptimisticConcurrency) in
+[Core.OptimisticConcurrency]{.term} in
 [OData-VocCore](#ODataVocCore) and property
 `OptimisticConcurrencyControl` of type
-[`Capabilities.NavigationPropertyRestriction`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#NavigationPropertyRestriction)
+[Capabilities.NavigationPropertyRestriction]{.term}
 in [OData-VocCap](#ODataVocCap)) and the client does not specify an
 `If-Match` request header in a [Data Modification
 Request](#DataModification) or in an [Action Request](#Actions) invoking
@@ -1168,12 +1198,12 @@ A service returns [`410 Gone`](#ResponseCode410Gone) or
 [`404 Not Found`](#ResponseCode404NotFound) if a consumer tries to
 follow a next link referring to a snapshot that is no longer available.
 
-The syntax of the `Isolation` header is defined in
+The syntax of the [Isolation]{.abnf} header is defined in
 [OData-ABNF](#ODataABNF).
 
 A service MAY specify the support for `Isolation:snapshot` using an
 annotation with term
-[`Capabilities.IsolationSupported`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#IsolationSupported),
+[Capabilities.IsolationSupported]{.term},
 see [OData-VocCap](#ODataVocCap).
 
 Note: The `Isolation` header was named `OData-Isolation` in OData
@@ -1189,7 +1219,7 @@ Clients SHOULD specify an `OData-MaxVersion` request header.
 
 If specified, the service MUST generate a response with the greatest
 supported [`OData-Version`](#HeaderODataVersion) less than or equal to
-the specified `OData-MaxVersion`.
+the specified `OData-MaxVersion` or fail the request with an appropriate error.
 
 If `OData-MaxVersion` is not specified, then the service SHOULD return
 responses with the same OData version over time and interpret the
@@ -1230,7 +1260,7 @@ many-to-many relationships). The service MUST NOT return entity
 references in place of requested entities if
 `allow-entityreferences` has not been specified in the request, unless
 explicitly defined by other rules in this document. The syntax of the
-`allow-entityreferences` preference is defined in
+[allow-entityreferences]{.abnf} preference is defined in
 [OData-ABNF](#ODataABNF).
 
 In the case the service applies the `allow-entityreferences` preference
@@ -1268,14 +1298,14 @@ The `callback` preference can be specified:
 The `callback` preference MUST include the parameter `url` whose value
 is the URL of a callback endpoint to be invoked by the OData service
 when data is available. The syntax of the `callback` preference is
-defined in [OData-ABNF](#ODataABNF).
+defined in the [OData-ABNF](#ODataABNF) rule [callbackPreference]{.abnf}.
 
 For HTTP based callbacks, the OData service executes an HTTP `GET`
 request against the specified URL.
 
 Services that support `callback` SHOULD support notifying the client
 through HTTP. Services can advertise callback support using the
-[`Capabilities.CallbackSupported`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#CallbackSupported)
+[Capabilities.CallbackSupported]{.term}
 annotation term defined in [OData-VocCap](#ODataVocCap).
 
 If the service applies the `callback` preference it MUST include the
@@ -1338,8 +1368,8 @@ that returns an error, the service return the error for that request and
 continue processing additional requests within the batch (if specified
 with an implicit or explicit value of `true`), or rather stop further
 processing (if specified with an explicit value of `false`). The syntax
-of the `continue-on-error` preference is defined in
-[OData-ABNF](#ODataABNF).
+of the `continue-on-error` preference is defined in the
+[OData-ABNF](#ODataABNF) rule [continueOnErrorPreference]{.abnf}.
 
 The `continue-on-error` preference can also be used on a
 [delta update](#UpdateaCollectionofEntities),
@@ -1351,7 +1381,7 @@ If the service encounters any errors processing the request and returns a succes
 
 A service MAY specify support for the `continue-on-error` preference
 using an annotation with term
-[`Capabilities.BatchContinueOnErrorSupported`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#BatchContinueOnErrorSupported),
+[Capabilities.BatchContinueOnErrorSupported]{.term},
 see [OData-VocCap](#ODataVocCap).
 
 The `continue-on-error` preference on a batch request refers to whether individual
@@ -1378,7 +1408,8 @@ list of namespace-qualified term names or term name patterns to include
 or exclude, with `*` as a wildcard for name segments. Term names and
 term name patterns can optionally be followed by a hash (`#`) character
 and an annotation qualifier. The full syntax of the
-`include-annotations` preference is defined in [OData-ABNF](#ODataABNF).
+`include-annotations` preference is defined in the [OData-ABNF](#ODataABNF)
+rule [includeAnnotationsPreference]{.abnf}.
 
 The most specific identifier always takes precedence, with an explicit
 name taking precedence over a name pattern, and a longer pattern taking
@@ -1460,7 +1491,8 @@ preferences are specified in the same request, the value of the
 The `maxpagesize` preference is used to request that each collection
 within the response contain no more than the number of items specified
 as the positive integer value of this preference. The syntax of the
-`maxpagesize` preference is defined in [OData-ABNF](#ODataABNF).
+`maxpagesize` preference is defined in the [OData-ABNF](#ODataABNF) rule
+[maxpagesizePreference]{.abnf}.
 
 ::: example
 Example 8: a request for customers and their orders would result in a
@@ -1569,6 +1601,14 @@ In this case the service MAY include a
 [`Preference-Applied`](#HeaderPreferenceApplied) response header
 containing the `return=representation` preference.
 
+For PATCH requests, the `return=representation` preference MAY be appended
+with the `delta` format parameter, as in `return=representation;delta`,
+in order to specify that the response be returned in delta format. A delta
+response MUST include at least the changes made to the data as a result
+of the request. If the `delta` format parameter is not specified, or is
+specified for a request that does not support delta responses, then
+the response follows the default format defined for the particular request.
+
 The `return` preference SHOULD NOT be applied to a batch request, but
 MAY be applied to individual requests within a batch.
 
@@ -1593,7 +1633,7 @@ containing the `respond-async` preference.
 
 A service MAY specify the support for the `respond-async` preference
 using an annotation with term
-[`Capabilities.AsynchronousRequestsSupported`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#AsynchronousRequestsSupported),
+[Capabilities.AsynchronousRequestsSupported]{.term},
 see [OData-VocCap](#ODataVocCap).
 
 ::: example
@@ -1614,8 +1654,8 @@ Prefer: respond-async, wait=10
 The `track-changes` preference is used to request that the service
 return a [delta link](#DeltaLinks) that can subsequently be used to
 obtain [changes](#RequestingChanges) (deltas) to this result. The syntax
-of the `track-changes` preference is defined in
-[OData-ABNF](#ODataABNF).
+of the `track-changes` preference is defined in the
+[OData-ABNF](#ODataABNF) rule [trackChangesPreference]{.abnf}.
 
 For [paged results](#ServerDrivenPaging), the preference MUST be
 specified on the initial request. Services MUST ignore the
@@ -1632,7 +1672,7 @@ to signal that changes are being tracked.
 
 A service MAY specify the support for the `track-changes` preference
 using an annotation with term
-[`Capabilities.ChangeTracking`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#ChangeTracking),
+[Capabilities.ChangeTracking]{.term},
 see [OData-VocCap](#ODataVocCap).
 
 The `track-changes` preference SHOULD NOT be applied to a batch request,
@@ -1671,12 +1711,13 @@ response headers have defined meaning in OData.
 
 ### <a id="HeaderAsyncResult" href="#HeaderAsyncResult">8.3.1 Header `AsyncResult`</a>
 
-A 4.01 service MUST include the `AsyncResult` header in
+A 4.01 or greater service MUST include the `AsyncResult` header in
 [`200 OK`](#ResponseCode200OK) responses from a status monitor resource in
 order to indicate the final [HTTP Response Status
 Code](#CommonResponseStatusCodes) of an [asynchronously executed
 request](#AsynchronousRequests).
-The header value is the three-digit HTTP response code, see [OData-ABNF](#ODataABNF).
+The header value is the three-digit HTTP response code, see [OData-ABNF](#ODataABNF)
+rule [asyncresult]{.abnf}.
 
 The `AsyncResult` header SHOULD NOT be applied to individual responses
 within a batch.
@@ -1734,7 +1775,7 @@ A response to a [create](#CreateanEntity) or [upsert](#UpsertanEntity)
 operation that returns [`204 No Content`](#ResponseCode204NoContent)
 MUST include an `OData-EntityId` response header. The value of the
 header is the [entity-id](#EntityIdsandEntityReferences) of the entity
-that was acted on by the request. The syntax of the `OData-EntityId`
+that was acted on by the request. The syntax of the [OData-EntityId]{.abnf}
 header is defined in [OData-ABNF](#ODataABNF).
 
 The `OData-EntityID` header SHOULD NOT be included for the overall batch
@@ -1914,8 +1955,9 @@ request methods for the requested resource as defined in
 request URL does not have a current representation that would be
 acceptable for the client according to the request
 headers [`Accept`](#HeaderAccept),
-[`Accept-Charset`](#HeaderAcceptCharset), and
-[`Accept-Language`](#HeaderAcceptLanguage), and that the service is
+[`Accept-Charset`](#HeaderAcceptCharset),
+[`Accept-Language`](#HeaderAcceptLanguage), and
+[`OData-MaxVersion`](#HeaderODataMaxVersion), and that the service is
 unwilling to supply a default representation.
 
 ### <a id="ResponseCode410Gone" href="#ResponseCode410Gone">9.2.4 Response Code `410 Gone`</a>
@@ -1980,8 +2022,9 @@ concerns around information disclosure.
 
 ## <a id="InStreamErrors" href="#InStreamErrors">9.5 In-Stream Errors</a>
 
-In the case that the service encounters an error after sending a success
-status to the client, the service MUST leave the response malformed
+Because the HTTP response status code is sent before the body of a response,
+services may encounter an error in generating the response body after having
+already returned a success status. In such a case the service MUST leave the response malformed
 according to its [`Content-Type`](#HeaderContentType) or abort the response by
 causing an error on transport protocol level. Clients MUST treat
 the entire response as being in error.
@@ -2040,10 +2083,18 @@ prefixed with a forward slash.
 Key values in `{canonical-collection}`, `{canonical-singleton}`, and `{canonical-member}` are represented in canonical form
 (parentheses-style) without percent-encoding.
 
-The full grammar for the context URL is defined in
-[OData-ABNF](#ODataABNF). Note that the syntax of the context URL is
+The full grammar for the context URL is defined in the
+[OData-ABNF](#ODataABNF) rule [context]{.abnf}. Note that the syntax of the context URL is
 independent of whatever URL conventions the service uses for addressing
 individual entities.
+
+If the context URL in a response payload contains a canonical URL,
+the client knows the canonical collection or canonical singleton
+after it has received the response,
+even in cases where this cannot be determined in advance from the service metadata.
+Examples of such cases are entities from a function or action with no entity set path, a function
+import or action import with no specified entity set, or a navigation
+property with no navigation property binding.
 
 ## <a id="ServiceDocument" href="#ServiceDocument">10.1 Service Document</a>
 
@@ -2091,10 +2142,10 @@ http://host/service/$metadata#Orders(4711)/Items
 :::
 
 If the entities are not members of a single
-canonical collection, such as entities from a function or action with no entity set path, a function
-import or action import with no specified entity set, or a navigation
-property with no navigation property binding, the context URL fragment specifies
-the type of the returned entity collection.
+canonical collection, the context URL fragment specifies
+the type of the returned entity collection. In this case
+each entity for which a canonical collection can be determined
+SHOULD have its own context URL with the template `{context-url}#{canonical-collection}/$entity`.
 
 ## <a id="Entity" href="#Entity">10.3 Entity</a>
 
@@ -2126,10 +2177,7 @@ http://host/service/$metadata#Orders(4711)/Items/$entity
 :::
 
 If the entity is within a collection, but a canonical collection
-cannot be determined, such as for an entity
-returned from a function or action with no entity set path, a function
-import or action import with no specified entity set, or a navigation
-property with no navigation property binding, the context URL fragment specifies
+cannot be determined, the context URL fragment specifies
 the `{type-name}` of the returned entity.
 
 ## <a id="Singleton" href="#Singleton">10.4 Singleton</a>
@@ -2225,7 +2273,7 @@ The shortcut `*` represents the list of all structural properties.
 Properties defined on types derived from the declared type of the entity
 set (or type specified in the type-cast segment if specified) are
 prefixed with the qualified name of the derived type as defined in
-[OData-ABNF](#ODataABNF).
+[OData-ABNF](#ODataABNF) rule [selectItem]{.abnf}.
 
 The list also contains explicitly selected or expanded instance
 annotations. It is possible to select or expand only instance
@@ -2240,7 +2288,7 @@ alias-qualified name. Function names suffixed with parentheses represent
 a specific overload, while function names without parentheses represent
 all overloads of the function.
 
-OData 4.01 responses MAY use the shortcut pattern `{namespace}.*` to
+OData 4.01 or greater responses MAY use the shortcut pattern `{namespace}.*` to
 represent the list of all bound actions or functions available for
 entities in the collection, see system query option
 [`$select`](#SystemQueryOptionselect).
@@ -2276,7 +2324,7 @@ The shortcut `*` represents the list of all structural properties.
 Properties defined on types derived from the type of the entity set (or
 type specified in the type-cast segment if specified) are prefixed with
 the qualified name of the derived type as defined in
-[OData-ABNF](#ODataABNF). Note that expanded properties are
+[OData-ABNF](#ODataABNF) rule [selectItem]{.abnf}. Note that expanded properties are
 automatically included in the response.
 
 The list also contains explicitly selected or expanded instance
@@ -2292,7 +2340,7 @@ alias-qualified name. Function names suffixed with parentheses represent
 a specific overload, while function names without parentheses represent
 all overloads of the function.
 
-OData 4.01 responses MAY use the shortcut pattern `{namespace}.*` to
+OData 4.01 or greater responses MAY use the shortcut pattern `{namespace}.*` to
 represent the list of all bound actions or functions available for the
 returned entity, see system query option
 [`$select`](#SystemQueryOptionselect).
@@ -2312,7 +2360,7 @@ Context URL template:
     {context-url}#{canonical-collection}{/type-name}{select-list}
     {context-url}#Collection({type-name}){select-list}
 
-For a 4.01 response, if a navigation property is explicitly expanded,
+For a 4.01 or greater response, if a navigation property is explicitly expanded,
 then in addition to any non-suffixed names of any selected properties,
 navigation properties, functions or actions, the comma-separated list of
 properties MUST include the name of the expanded property, suffixed with
@@ -2375,7 +2423,7 @@ Context URL template:
     {context-url}#{canonical-singleton}{/type-name}{select-list}
     {context-url}#{type-name}{select-list}
 
-For a 4.01 response, if a navigation property is explicitly expanded,
+For a 4.01 or greater response, if a navigation property is explicitly expanded,
 then in addition to the non-suffixed names of any selected properties,
 navigation properties, functions or actions, the comma-separated list of
 properties MUST include the name of the expanded property, suffixed with
@@ -2460,7 +2508,7 @@ cast segments for properties defined on types derived from the expected
 type of the previous segment.
 
 If the property value does not contain explicitly or implicitly selected
-navigation properties or operations, OData 4.01 responses MAY use the
+navigation properties or operations, OData 4.01 or greater responses MAY use the
 less specific second template.
 
 ::: example
@@ -2702,7 +2750,7 @@ service is allowed to return the response in any format.
 
 OData defines a number of system query options that allow refining the
 request. System query options are prefixed with the dollar (`$`)
-character, which is optional in OData 4.01. 4.01 services MUST support
+character, which is optional in OData 4.01 or greater. 4.01 or greater services MUST support
 case-insensitive system query option names specified with or without the
 `$` prefix.
 Clients that want to work with 4.0 services MUST use lower case names
@@ -2739,7 +2787,7 @@ URL that identifies the entity, e.g. its read URL.
 
 The read URL can be obtained from a response payload containing that
 instance, for example as a `readLink` or `editLink` in an
-[OData-JSON, section 4.6.9](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink) payload. In addition, services
+[OData-JSON, section 4.6.10](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink) payload. In addition, services
 MAY support conventions for constructing a read URL using the entity's
 key value(s), as described in [OData-URL, section 4.3.1](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#CanonicalURL).
 
@@ -2770,11 +2818,11 @@ Clients MUST be prepared to receive additional properties in an entity
 or complex type instance that are not advertised in metadata, even for
 types not marked as open.
 
-Properties that are not available are not returned. If their unavailability
-is due to permissions, the
-[`Core.Permissions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Permissions)
-annotation, defined in [OData-VocCore](#ODataVocCore) MUST be returned
-for the property with a value of `None`.
+Properties that are not available are not returned. Services return
+the [Core.Permissions]{.term} annotation, defined in [OData-VocCore](#ODataVocCore),
+with a value of `None` if the property can not be accessed due to permissions issues,
+or `Write` if the property can be written but not read
+(for example, a password or other sensitive write-only information).
 If the [`omit-values`](#Preferenceomitvalues) preference is
 applied, `Core.Permissions` or another specific annotation that explains the
 reason MUST be returned for every unavailable property.
@@ -2857,26 +2905,26 @@ header and the [`$format`](#SystemQueryOptionformat) system query
 option.
 
 The default format for `Edm.Binary` is the format specified by the
-[`Core.MediaType`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#MediaType)
+[Core.MediaType]{.term}
 annotation (see [OData-VocCore](#ODataVocCore)) if this
 annotation is present. If not annotated, the format cannot be predicted
 by the client.
 
 The default format for `Edm.Geo` types is `text/plain` using the WKT
-(well-known text) format, see rules `fullCollectionLiteral`,
-`fullLineStringLiteral`, `fullMultiPointLiteral`,
-`fullMultiLineStringLiteral`, `fullMultiPolygonLiteral`,
-`fullPointLiteral`, and `fullPolygonLiteral` in
+(well-known text) format, see rules [fullCollectionLiteral]{.abnf},
+[fullLineStringLiteral]{.abnf}, [fullMultiPointLiteral]{.abnf},
+[fullMultiLineStringLiteral]{.abnf}, [fullMultiPolygonLiteral]{.abnf},
+[fullPointLiteral]{.abnf}, and [fullPolygonLiteral]{.abnf} in
 [OData-ABNF](#ODataABNF).
 
 The default format for single primitive values except `Edm.Binary` and
 the `Edm.Geo` types is `text/plain`. Responses of type
 `Edm.String` can use the `charset` format parameter to specify the
 character set used for representing the string value. Responses for the
-other primitive types follow the rules `booleanValue`, `byteValue`,
-`dateValue`, `dateTimeOffsetValue`, `decimalValue`, `doubleValue`,
-`durationValue`, `enumValue`, `guidValue`, `int16Value`, `int32Value`,
-`int64Value`, `sbyteValue`, `singleValue`, and `timeOfDayValue` in
+other primitive types follow the rules [booleanValue]{.abnf}, [byteValue]{.abnf},
+[dateValue]{.abnf}, [dateTimeOffsetValue]{.abnf}, [decimalValue]{.abnf}, [doubleValue]{.abnf},
+[durationValue]{.abnf}, [enumValue]{.abnf}, [guidValue]{.abnf}, [int16Value]{.abnf}, [int32Value]{.abnf},
+[int64Value]{.abnf}, [sbyteValue]{.abnf}, [singleValue]{.abnf}, and [timeOfDayValue]{.abnf} in
 [OData-ABNF](#ODataABNF).
 
 A raw value request for a property or operation result of type `Edm.Stream`
@@ -2921,6 +2969,9 @@ operator (`*`), or the star operator prefixed with the namespace or
 alias of the schema in order to specify all operations defined in the
 schema. Only aliases defined in the metadata document of the service can
 be used in URLs.
+
+OData 4.02 and greater services MAY support `$key` in the select list to indicate
+that all key properties be included in the response.
 
 ::: example
 Example 36: request only the `Rating` and `ReleaseDate` for the matching
@@ -2987,13 +3038,15 @@ GET http://host/service/Customers?$select=ID,Addresses/$count($filter=startswith
 :::
 
 If the `$select` query option is not specified, the service returns
-the full set of properties or a default set of properties. The default
-set of properties MUST include all key properties.
-Services may change the default set of properties returned. This
-includes returning new properties by default and omitting properties
-previously returned by default. Clients that rely on
-specific properties in the response MUST use
-`$select` with the required properties or with `*`.
+the full set of properties or a default set of properties. In either case
+it MUST include all key properties, expanding navigation properties as necessary
+to include key properties from related entities
+[OData-CSDL, section 6.5](https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#Key) irrespective of the system query option [`$expand`](#SystemQueryOptionexpand).
+
+Services may change the default set of properties returned.
+While, for backward compatibility, services SHOULD NOT omit properties
+previously returned by default, clients that rely on specific properties
+in the response MUST use `$select` with the required properties or with `*`.
 
 If the service returns less than the full set
 of properties, either because the client specified a select or because
@@ -3027,6 +3080,13 @@ the specified content, and MAY choose to return additional information.
 The value of `$expand` is a comma-separated list of expand items. Each
 expand item is evaluated relative to the retrieved resource being
 expanded.
+
+OData 4.02 and greater services MAY support an empty expand list to indicate
+that no navigation or stream properties are requested, including those marked
+with `AutoExpand` or `AutoExpandReferences`, or otherwise required by protocol
+to be returned in the absence of an explicit `$expand`. Selected or default
+structural properties are still returned, along with required metadata according
+to the requested format.
 
 For a full description of the syntax used when building requests, see
 [OData-URL, section 5.1.3](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#SystemQueryOptionexpand).
@@ -3132,7 +3192,7 @@ an entity reference somewhere in the circular dependency.
 Clients using `$levels=max` MUST be prepared to handle entity references
 in cases were a circular reference would occur otherwise.
 
-4.01 services that support `max` SHOULD do so in a case-insensitive
+4.01 or greater services that support `max` SHOULD do so in a case-insensitive
 manner. Clients that want to work with 4.0 services MUST use lower case.
 
 ::: example
@@ -3177,7 +3237,7 @@ instances, and primitive values.
 The target collection is specified through a URL, and query operations
 such as filter, sort, paging, and projection are specified as
 [*system query options*](#SystemQueryOptions) optionally prefixed with a dollar
-(`$`) character. 4.01 Services MUST support case-insensitive system
+(`$`) character. 4.01 or greater services MUST support case-insensitive system
 query option names specified with or without the `$` prefix. Clients
 that want to work with 4.0 services MUST use lower case names and
 specify the `$` prefix.
@@ -3213,14 +3273,14 @@ GET http://host/service/Categories?$filter=Products/$count lt 10
 :::
 
 The value of the `$filter` option is a Boolean expression as defined in
-[OData-ABNF](#ODataABNF).
+[OData-ABNF](#ODataABNF) rule [filterExpr]{.abnf}.
 
 ##### <a id="BuiltinFilterOperations" href="#BuiltinFilterOperations">11.2.6.1.1 Built-in Filter Operations</a>
 
 OData supports a set of built-in filter operations, as described in this
 section.
 
-4.01 services MUST support case-insensitive operation names. Clients
+4.01 or greater services MUST support case-insensitive operation names. Clients
 that want to work with 4.0 services MUST use lower case operation names.
 
 For a full description of the syntax used when building requests, see
@@ -3257,7 +3317,7 @@ For a full description of the syntax used when building requests, see
 OData supports a set of built-in functions that can be used within
 `$filter` operations. The following table lists the available functions.
 
-4.01 services MUST support case-insensitive built-in function names.
+4.01 or greater services MUST support case-insensitive built-in function names.
 Clients that want to work with 4.0 services MUST use lower case names.
 
 For a full description of the syntax used when building requests, see
@@ -3382,7 +3442,7 @@ service can be used in URLs.
 The expression can include the suffix `asc` for ascending or `desc` for
 descending, separated from the property name by one or more spaces. If
 `asc` or `desc` is not specified, the service MUST order by the
-specified property in ascending order. 4.01 services MUST support
+specified property in ascending order. 4.01 or greater services MUST support
 case-insensitive values for `asc` and `desc`. Clients that want to work
 with 4.0 services MUST use lower case values.
 
@@ -3398,7 +3458,7 @@ The Boolean value false comes before the value true in ascending order.
 Services SHOULD order language-dependent strings according to the
 [`Content-Language`](#HeaderContentLanguage) of the response, and SHOULD
 annotate string properties with language-dependent order with the term
-[`Core.IsLanguageDependent`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#IsLanguageDependent),
+[Core.IsLanguageDependent]{.term},
 see [OData-VocCore](#ODataVocCore).
 
 Values of type `Edm.Stream` or any of the `Geo` types cannot be sorted.
@@ -3537,8 +3597,26 @@ count returned inline may not exactly equal the actual number of items
 returned, due to latency between calculating the count and enumerating
 the last value or due to inexact calculations on the service.
 
-How the count is encoded in the response body is dependent upon the
-selected format.
+Services MAY indicate the accuracy of the count as one of the following values:
+ - `counted` indicates that the count was exact at the time of calculation
+ - `estimated` indicates that the count was estimated
+ - `cached` indicates the count was based on cached values that may no longer be current
+ - `partial` indicates that the collection contained at least the returned number
+ of items at the time of calculation
+ - `unavailable` indicates that the count was unavailable and any count value returned (typically 0) should be ignored
+
+Note that future versions of this specification may add additional values
+to describe count accuracy. Clients should treat any unknown value as an
+inexact count.
+
+How the count is encoded in the response body, as well as the accuracy
+(if included), is dependent upon the selected format.
+
+Services MAY indicate a default count accuracy through the [Capabilities.CountRestrictions]{.term} or [Capabilities.DefaultCapabilities]{.term}
+annotation, defined in [OData-VocCap](#ODataVocCap).
+If a default count accuracy is defined, then the service MUST return the
+actual count accuracy applied for any responses with a non-exact accuracy
+different than the default.
 
 #### <a id="SystemQueryOptionsearch" href="#SystemQueryOptionsearch">11.2.6.6 System Query Option `$search`</a>
 
@@ -3615,7 +3693,7 @@ specified in the same request, only those items satisfying both criteria
 are returned.
 
 The value of the `$search` option is a search expression as defined in
-[OData-ABNF](#ODataABNF).
+[OData-ABNF](#ODataABNF) rule [searchExpr]{.abnf}.
 
 #### <a id="ServerDrivenPaging" href="#ServerDrivenPaging">11.2.6.7 Server-Driven Paging</a>
 
@@ -3791,7 +3869,7 @@ GET http://host/service/Products/$count
 ```
 :::
 
-With 4.01 services the `/$count` segment MAY be used in combination with
+With 4.01 or greater services the `/$count` segment MAY be used in combination with
 the `/$filter` path segment to count the items in the filtered
 collection.
 
@@ -3889,11 +3967,11 @@ the `$schemaversion` system query option addresses a specific schema
 version. For all other request types the value specifies the version of
 the schema against which the request is made. The syntax of the
 `$schemaversion` system query option is defined in
-[OData-ABNF](#ODataABNF).
+[OData-ABNF](#ODataABNF) rule [schemaversion]{.abnf}.
 
 The value of the `$schemaversion` system query option MUST be a version
 of the schema as returned in the
-[`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
+[Core.SchemaVersion]{.term}
 annotation, defined in [OData-VocCore](#ODataVocCore), of a previous
 request to the [metadata document](#MetadataDocumentRequest), or `*` in
 order to specify the current version of the metadata.
@@ -3905,7 +3983,7 @@ Clients can retrieve the current version of the metadata by making a
 [metadata document request](#MetadataDocumentRequest) with a
 `$schemaversion` system query option value of `*`, and SHOULD include
 the value from the returned
-[`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
+[Core.SchemaVersion]{.term}
 annotation in the `$schemaversion` system query option of subsequent
 requests.
 
@@ -3931,7 +4009,7 @@ body SHOULD provide additional information.
 
 Services advertise their change-tracking capabilities by annotating
 entity sets with the
-[`Capabilities.ChangeTracking`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#ChangeTracking)
+[Capabilities.ChangeTracking]{.term}
 term defined in [OData-VocCap](#ODataVocCap).
 
 Any `GET` request to retrieve one or more entities MAY allow
@@ -4033,10 +4111,10 @@ appended to the path of a delta link in order to get just the number of
 changes available. The count includes all added, changed, or deleted
 entities, as well as added or deleted links.
 
-The results of a request against the delta link may span one or more pages
-and MUST be ordered by the service across all pages in such a way as to
-guarantee consistency when applied in order to the response which
-contained the delta link.
+The results of a request against the delta link may span one or more pages.
+The service MUST order changes across all pages in such a way as to
+guarantee that each change can be applied in order to the response which
+contained the delta link, and that doing so across all changes results in a consistent state.
 
 Services SHOULD return only changed entities, but MAY return additional
 entities matching the defining query for which the client may not see a
@@ -4090,7 +4168,34 @@ regardless of whether the requested content could be returned.
 [Data Modification Requests](#DataModification) share the following
 semantics.
 
-#### <a id="UseofETagsforAvoidingUpdateConflicts" href="#UseofETagsforAvoidingUpdateConflicts">11.4.1.1 Use of ETags for Avoiding Update Conflicts</a>
+#### <a id="Atomicity" href="#Atomicity">11.4.1.1 Atomicity</a>
+
+Data modification requests guarantee _atomicity_ in the following sense:
+When the request completes, every subsequent request observes a state of the system
+in which either all or none of the changes have been carried out.
+The experience of concurrent clients observing the state of the system
+can be described through isolation levels as defined in [SQL92, section 4.28](#_SQL92),
+even for services that do not use a transactional database.
+
+When a service operates at isolation level "read uncommitted",
+concurrent clients MAY observe a state of the system where the changes have been carried out only partially
+while the data modification request is still being executed.
+In such a case, if an error is encountered while processing the request, the service MUST roll back any changes that
+have been applied (even though they may have been seen by clients).
+
+When a service operates at an isolation level of "read committed" or higher,
+it protects against seeing such partial changes.
+
+When data modification requests apply the
+[`continue-on-error`](#Preferencecontinueonerrorodatacontinueonerror) preference,
+they do not guarantee atomicity. See the [sections 11.4.11](#UpdateaCollectionofEntities),
+[11.4.13](#UpdateMembersofaCollection), and [11.4.14](#DeleteMembersofaCollection) below where this preference is mentioned.
+When processing data modification requests from one of these sections in an atomic manner
+(that is, not applying the `continue-on-error` preference),
+services MUST NOT send a status code in the response until all changes
+have been attempted and not use [in-stream errors](#InStreamErrors) to signal failure of a change.
+
+#### <a id="UseofETagsforAvoidingUpdateConflicts" href="#UseofETagsforAvoidingUpdateConflicts">11.4.1.2 Use of ETags for Avoiding Update Conflicts</a>
 
 Each entity has its own ETag value that MUST change when structural
 properties or links from that entity have changed. In addition,
@@ -4108,9 +4213,9 @@ A [Data Modification Request](#DataModification) on an existing resource
 or an [Action Request](#Actions) invoking an action bound to an existing
 resource MAY require optimistic concurrency control. Services SHOULD
 announce this via annotations with the terms
-[`Core.OptimisticConcurrency`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptimisticConcurrency) in
+[Core.OptimisticConcurrency]{.term} in
 [OData-VocCore](#ODataVocCore) and
-[`Capabilities.NavigationRestrictions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#NavigationRestrictions)
+[Capabilities.NavigationRestrictions]{.term}
 (nested property `OptimisticConcurrencyControl`) in
 [OData-VocCap](#ODataVocCap).
 
@@ -4118,7 +4223,7 @@ If optimistic concurrency control is required for a resource, the
 service MUST include an [`ETag`](#HeaderETag) header in a response to a
 `GET` request to the resource, and MAY include the ETag in a
 format-specific manner in responses containing that resource,
-see for example [OData-JSON, section 4.6.10](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformationetagodataetag).
+see for example [OData-JSON, section 4.6.11](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformationetagodataetag).
 
 The presence of an [`ETag`](#HeaderETag) header in a response does not
 imply in itself that the resource requires optimistic concurrency
@@ -4141,7 +4246,7 @@ specifying `If-Match` with a value of `*`. Services MAY reject such
 requests.
 
 For requests including an [`OData-Version`](#HeaderODataVersion) header
-value of `4.01`, any ETag values specified in the request body of a
+value of `4.01` or greater, any ETag values specified in the request body of a
 [request to modify an entity](#UpdateanEntity) MUST be `*` or match the current value
 for the record being updated.
 
@@ -4165,7 +4270,7 @@ If-Match: "<ETag>"
 ```
 :::
 
-#### <a id="HandlingofDateTimeOffsetValues" href="#HandlingofDateTimeOffsetValues">11.4.1.2 Handling of DateTimeOffset Values</a>
+#### <a id="HandlingofDateTimeOffsetValues" href="#HandlingofDateTimeOffsetValues">11.4.1.3 Handling of DateTimeOffset Values</a>
 
 Services SHOULD preserve the offset of `Edm.DateTimeOffset` values, if
 possible. However, where the underlying storage does not support offset
@@ -4176,7 +4281,7 @@ of the [query functions](#BuiltinQueryFunctions) `year`, `month`, `day`,
 `hour`, and `time` for literal values that are not stated in the time
 zone of the normalized values.
 
-#### <a id="HandlingofPropertiesNotAdvertisedinMetadata" href="#HandlingofPropertiesNotAdvertisedinMetadata">11.4.1.3 Handling of Properties Not Advertised in Metadata</a>
+#### <a id="HandlingofPropertiesNotAdvertisedinMetadata" href="#HandlingofPropertiesNotAdvertisedinMetadata">11.4.1.4 Handling of Properties Not Advertised in Metadata</a>
 
 Clients MUST be prepared to receive additional properties in an entity
 or complex type instance that are not advertised in metadata, even for
@@ -4184,7 +4289,7 @@ types not marked as open. By using `PATCH` when [updating
 entities](#UpdateanEntity), clients can ensure that such properties
 values are not lost if omitted from the request.
 
-#### <a id="HandlingofIntegrityConstraints" href="#HandlingofIntegrityConstraints">11.4.1.4 Handling of Integrity Constraints</a>
+#### <a id="HandlingofIntegrityConstraints" href="#HandlingofIntegrityConstraints">11.4.1.5 Handling of Integrity Constraints</a>
 
 Services may impose cross-entity integrity constraints. Certain
 referential constraints, such as requiring an entity to be created with
@@ -4194,7 +4299,7 @@ related entities can be satisfied through
 creating the entity. Other constraints might require multiple changes to
 be processed in an all-or-nothing fashion.
 
-#### <a id="ReturningResultsfromDataModificationRequests" href="#ReturningResultsfromDataModificationRequests">11.4.1.5 Returning Results from Data Modification Requests</a>
+#### <a id="ReturningResultsfromDataModificationRequests" href="#ReturningResultsfromDataModificationRequests">11.4.1.6 Returning Results from Data Modification Requests</a>
 
 Clients can request whether created or modified resources are returned
 from [create](#CreateanEntity), [update](#UpdateanEntity), and
@@ -4253,15 +4358,13 @@ Otherwise the entity is created in the determined collection and,
 if the resource path ends with a non-containment navigation property,
 also linked to the entity containing the navigation property.
 
-The entity representation MAY include [references to existing
-entities](#LinktoRelatedEntitiesWhenCreatinganEntity) as well as content for
-[new related entities](#CreateRelatedEntitiesWhenCreatinganEntity), but MUST
-NOT contain content for existing related entities. The result of the
-operation is the entity with relationships to all included references to
-existing entities as well as all related entities created inline. If the
-key properties for an entity include key properties of a directly
-related entity, those related entities MUST be included either as
-references to existing entities or as content for new related entities.
+The entity representation MAY reference existing
+entities as well as define content for new related entities. The result of the
+operation is the entity with relationships to all referenced existing
+entities as well as all related entities created inline.
+
+If the request includes a related entity type that supports user-specified key values, or server generated keys with user-specified alternate key values, and the request specifies the full set of primary or alternate key values that do not match an existing entity, then a [new entity is created](#CreateRelatedEntitiesWhenCreatinganEntity) with the provided values and associated with the target entity. If a related
+entity specifies the full set of (primary or alternate) key values of an existing entity, then [a relationship is established to that existing entity](#LinktoRelatedEntitiesWhenCreatinganEntity). If both primary and alternate key values are specified, they MUST identify the same entity.
 
 An entity may also be created as the result of a `PATCH` or `PUT` request
 that is [treated as an insert](#UpsertanEntity).
@@ -4288,10 +4391,10 @@ Non-insertable properties include (and are not limited to)
 
 - dependent properties that are tied to non-key properties of the principal entity through a referential constraint [OData-CSDL, section 8.5](https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#ReferentialConstraint) (informally: "denormalized" properties),
 - properties annotated with the term
-  [`Core.Computed`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Computed), see [OData-VocCore](#ODataVocCore),
-- properties listed as `NonInsertableProperties` of term [`Capabilities.InsertRestrictions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#InsertRestrictions), see [OData-VocCap](#ODataVocCap),
+  [Core.Computed]{.term}, see [OData-VocCore](#ODataVocCore),
+- properties listed as `NonInsertableProperties` of term [Capabilities.InsertRestrictions]{.term}, see [OData-VocCap](#ODataVocCap),
 - properties annotated with term
-  [`Core.Permissions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Permissions), see [OData-VocCore](#ODataVocCore), where the annotation value does not have the `Write` flag.
+  [Core.Permissions]{.term}, see [OData-VocCore](#ODataVocCore), where the annotation value does not have the `Write` flag.
 
 Services MUST return an error if the request body contains a value for a property that in principle can be specified on insert but the request cannot currently be executed respecting the specified value, for example, due to permissions or state of the object.
 Properties with a default value, nullable properties, and
@@ -4341,9 +4444,8 @@ annotation to the `Manager` and `DirectReports` navigation properties
 :::
 
 ::: example
-Example 83: using the JSON format, 4.01 clients can create a new manager
-entity with links to an existing manager (of managers) and to two existing employees by including the entity-ids
-within the `Manager` and `DirectReports` navigation properties
+Example 83: using the JSON format, 4.01 or greater clients can create a new manager
+entity with links to an existing manager (of managers) and to two existing employees by including either the entity-ids or full set of key properties within the `Manager` and `DirectReports` navigation properties
 
 ```json
 {
@@ -4351,8 +4453,8 @@ within the `Manager` and `DirectReports` navigation properties
   "ID": 1,
   "FirstName": "Pat",
   "LastName": "Griswold",
-  "Manager": { "@id": "Employees(0)" },
-  "DirectReports": [{ "@id": "Employees(5)" }, { "@id": "Employees(6)" }]
+  "Manager": { "id": 0 },
+  "DirectReports": [{ "@id": "Employees(5)" }, { "id": 6 }]
 }
 ```
 
@@ -4361,14 +4463,45 @@ within the `Manager` and `DirectReports` navigation properties
 Upon successful completion of the operation, the service creates the
 requested entity and relates it to the requested existing entities.
 
+Properties of related entities may be updated by supplying property
+values for the related entities. Upon successful completion of
+the operation, in addition to creating the entity and relating it to the
+requested entities, the properties of the existing entities are updated
+using `PATCH` semantics as described in [Update an Entity](#UpdateanEntity).
+
+::: example
+Example 84: using the JSON format, 4.01 or greater clients can update the
+`TeamName` property of existing direct reports when relating them
+to the new manager.
+
+```json
+{
+  "@type": "#Northwind.Manager",
+  "ID": 1,
+  "FirstName": "Pat",
+  "LastName": "Griswold",
+  "Manager": { "id": 0 },
+  "DirectReports": [
+    {       "@id": "Employees(5)",
+      "TeamName": "Pat's Team"
+    },
+    {       "id": 6,
+      "TeamName": "Pat's Team"
+    }
+  ]
+}
+```
+
+:::
+
 If the target URL for the collection the entity is created in and
 binding information provided in the `POST` body contradicts the implicit
 binding information provided by the request URL, the request MUST fail,
 and the service responds with `400 Bad Request`.
 
 Upon failure of the operation, the service MUST NOT create the new
-entity. In particular, the service MUST never create an entity in a
-partially valid state (with the navigation property unset).
+entity nor update any related entities. In particular, the service MUST never create an entity in a partially valid state
+(with the navigation property unset).
 
 #### <a id="CreateRelatedEntitiesWhenCreatinganEntity" href="#CreateRelatedEntitiesWhenCreatinganEntity">11.4.2.2 Create Related Entities When Creating an Entity</a>
 
@@ -4386,25 +4519,26 @@ original target URL extended with the navigation path to this related
 entity.
 
 On success, the service MUST create all entities and relate them. If the
-service responds with [`201 Created`](#ResponseCode201Created), the response MUST be expanded to include at least the entities and properties that were specified in the deep-insert request.
+service responds with [`201 Created`](#ResponseCode201Created) then, in the absence of
+an explicit `$expand`, the response MUST be expanded to include at least the entities and properties that were specified in the deep-insert request.
 
 Clients MAY associate an id with individual nested entities in the
 request by applying the
-[`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID)
+[Core.ContentID]{.term}
 term using the namespace or alias defined for the [OData-VocCore](#ODataVocCore) vocabulary in the service's `$metadata` document. Services that respond
 with [`201 Created`](#ResponseCode201Created) SHOULD annotate the entities in the response using
 the same
-[`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID)
+[Core.ContentID]{.term}
 value as specified in the request. Services SHOULD advertise support for
 deep inserts, including support for returning the
-[`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID),
+[Core.ContentID]{.term},
 through the
-[`Capabilities.DeepInsertSupport`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#DeepInsertSupport)
+[Capabilities.DeepInsertSupport]{.term}
 term, defined in [OData-VocCap](#ODataVocCap); services that advertise
 support through
-[`Capabilities.DeepInsertSupport`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#DeepInsertSupport)
+[Capabilities.DeepInsertSupport]{.term}
 MUST return the
-[`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID) for
+[Core.ContentID]{.term} for
 the inserted or updated entities.
 
 The `continue-on-error` preference is not supported for deep insert
@@ -4481,10 +4615,10 @@ Non-updatable properties include (and are not limited to)
 - key properties,
 - dependent properties that are tied to non-key properties of the principal entity through a referential constraint [OData-CSDL, section 8.5](https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#ReferentialConstraint) (informally: "denormalized" properties),
 - properties annotated with the terms
-  [`Core.Computed`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Computed) or [`Core.Immutable`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Immutable), see [OData-VocCore](#ODataVocCore),
-- properties listed as `NonUpdatableProperties` of term [`Capabilities.UpdateRestrictions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#UpdateRestrictions), see [OData-VocCap](#ODataVocCap),
+  [Core.Computed]{.term} or [Core.Immutable]{.term}, see [OData-VocCore](#ODataVocCore),
+- properties listed as `NonUpdatableProperties` of term [Capabilities.UpdateRestrictions]{.term}, see [OData-VocCap](#ODataVocCap),
 - properties annotated with term
-  [`Core.Permissions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Permissions), see [OData-VocCore](#ODataVocCore), where the annotation value does not have the `Write` flag.
+  [Core.Permissions]{.term}, see [OData-VocCore](#ODataVocCore), where the annotation value does not have the `Write` flag.
 
 Services MUST return an error if the request body contains a value for a
 property that in principle can be specified on update but the request cannot currently be executed respecting the specified value, for example, due to permissions or state of the object.
@@ -4557,7 +4691,7 @@ If a navigation property is absent from a `PUT` or `PATCH` request payload, the 
 or contained entity, or the collection thereof, remains unchanged by a successful update.
 
 ::: example
-Example 84: using the JSON format, a 4.01 `PATCH` request can update a
+Example 85: using the JSON format, a 4.01 or greater `PATCH` request can update a
 manager entity. Following the update, the manager has three direct
 reports; two existing employees and one new employee named
 `Suzanne Brown`. The `LastName` of employee 6 is updated to `Smith`.
@@ -4584,7 +4718,7 @@ reports; two existing employees and one new employee named
 
 :::
 
-If the nested collection is represented as a delta annotation on the
+If the nested collection is represented as delta control information on the
 navigation property, then the collection contains members to be added or
 changed and MAY include deleted entities for entities that are no longer
 part of the collection, using the [delta payload](#DeltaPayloads)
@@ -4605,7 +4739,7 @@ If any nested entities contain both id and key
 fields, they MUST identify the same entity, or the request is invalid.
 
 ::: example
-Example 85: using the JSON format, a 4.01 `PATCH` request can specify a
+Example 86: using the JSON format, a 4.01 or greater `PATCH` request can specify a
 nested delta representation to:
 
 - delete employee 3 and
@@ -4653,7 +4787,7 @@ nested delta representation to:
 :::
 
 ::: example
-Example 86: When updating an entity with a 4.01 `PUT` request, the target of a
+Example 87: When updating an entity with a 4.01 or greater `PUT` request, the target of a
 non-containment navigation property can be replaced if the targeted entity is specified
 by an entity reference (see [OData-JSON, section 14](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#EntityReference)), without specifying all
 its structural properties in `PUT` semantics.
@@ -4738,16 +4872,16 @@ Content-Type: application/json
 
 Clients MAY associate an id with individual nested entities in the
 request by using the
-[`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID)
+[Core.ContentID]{.term}
 term defined in [OData-VocCore](#ODataVocCore). Services that respond
 with [`200 OK`](#ResponseCode200OK) SHOULD annotate the entities in the response using the
 same
-[`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID)
+[Core.ContentID]{.term}
 value as specified in the request. Services SHOULD advertise support for
 deep updates, including support for returning the
-[`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID),
+[Core.ContentID]{.term},
 through the
-[`Capabilities.DeepUpdateSupport`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#DeepUpdateSupport)
+[Capabilities.DeepUpdateSupport]{.term}
 term, defined in [OData-VocCap](#ODataVocCap).
 
 The `continue-on-error` preference is not supported for deep update
@@ -4755,6 +4889,25 @@ operations.
 
 On failure, the service MUST NOT apply any of the changes specified in
 the request.
+
+##### <a id="ResponseRepresentationofRelatedEntities" href="#ResponseRepresentationofRelatedEntities">11.4.3.1.1 Response Representation of Related Entities</a>
+
+In the absence of [`$expand`](#SystemQueryOptionexpand), an update request
+that includes related entities SHOULD include those related entities in the response.
+
+If a collection representing the full set of related entities is included in
+the update request, then the full set of related entities for that collection
+SHOULD be included in the response unless the
+[`return=representation;delta`](#Preferencereturnrepresentationandreturnminimal)
+preference is applied, in which case the delta representation of the collection
+containing at least the applied changes SHOULD be included in the response.
+
+If changes to a related collection are included as a delta representation
+in the request payload, then a delta representation of the collection containing at least the applied changes SHOULD be included in the response.
+
+If the update request includes `$expand`, then the expanded collections
+are represented in the response as the full set of related entities,
+and no related collections are returned as delta representations.
 
 #### <a id="UpsertanEntity" href="#UpsertanEntity">11.4.3.2 Upsert an Entity</a>
 
@@ -4817,7 +4970,8 @@ annotating the singleton with the term `Capabilities.DeleteRestrictions`
 On successful completion of the delete, the response MUST either be
 [`204 No Content`](#ResponseCode204NoContent) and contain an empty body,
 or [`200 OK`](#ResponseCode200OK) and contain a representation of a
-deleted entity according to the specified format.
+deleted entity according to the specified format. Services MAY treat deletion of
+a non-existing entity as success, thus making the `DELETE` request idempotent.
 
 Services MUST implicitly remove relations to and from an entity when
 deleting it; clients need not delete the relations explicitly.
@@ -4861,7 +5015,7 @@ In OData 4.0, the entity reference to be removed within a
 collection-valued navigation property is the URL that represents the
 collection of related references, with the reference to be removed
 identified by the [`$id`](#ResolvinganEntityId) query option. OData 4.01
-services additionally support using the URL that represents the
+or greater services additionally support using the URL that represents the
 reference of the collection member to be removed, identified by key, as
 described in [OData-URL, section 4.4](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingReferencesbetweenEntities).
 
@@ -4873,6 +5027,8 @@ constraints](#HandlingofIntegrityConstraints) in the data model.
 
 On successful completion, the response MUST be
 [`204 No Content`](#ResponseCode204NoContent) and contain an empty body.
+ Services MAY treat removal of
+a non-existing reference as success, thus making the `DELETE` request idempotent.
 
 #### <a id="ChangetheReferenceinaSingleValuedNavigationProperty" href="#ChangetheReferenceinaSingleValuedNavigationProperty">11.4.5.3 Change the Reference in a Single-Valued Navigation Property</a>
 
@@ -4982,7 +5138,7 @@ payload unless explicitly requested with [`$expand`](#SystemQueryOptionexpand).
 Instead, the values are generally read or written through URLs.
 
 ::: example
-Example <a id="entityWithStreamProperty" href="#entityWithStreamProperty">87</a>: read an entity and select a stream property
+Example <a id="entityWithStreamProperty" href="#entityWithStreamProperty">88</a>: read an entity and select a stream property
 
 ```
 GET http://host/service/Products(1)?$select=Thumbnail
@@ -5013,7 +5169,7 @@ The response MAY be a redirect to the media read link of the stream property
 if the media read link is different from the canonical URL.
 
 ::: example
-Example 88: directly read a stream property of an entity
+Example 89: directly read a stream property of an entity
 
 ```
 GET http://host/service/Products(1)/Thumbnail
@@ -5041,7 +5197,7 @@ empty.
 
 Stream properties MAY specify a list of acceptable media types using an
 annotation with term
-[`Core.AcceptableMediaTypes`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#AcceptableMediaTypes),
+[Core.AcceptableMediaTypes]{.term},
 see [OData-VocCore](#ODataVocCore).
 
 On success, the service MUST respond with either
@@ -5064,7 +5220,7 @@ attempts to set the property to null and results in an error if the
 property is non-nullable.
 
 ::: example
-Example 89: delete the stream value using the media edit link retrieved in [example 87](#entityWithStreamProperty)
+Example 90: delete the stream value using the media edit link retrieved in [example 88](#entityWithStreamProperty)
 
 ```
 DELETE http://server/uploads/Thumbnail546.jpg
@@ -5192,7 +5348,7 @@ Services MUST return an error if the property is not updatable.
 ### <a id="ManagingMembersofanOrderedCollection" href="#ManagingMembersofanOrderedCollection">11.4.9 Managing Members of an Ordered Collection</a>
 
 Collections annotated with the
-[`Core.Ordered`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Ordered)
+[Core.Ordered]{.term}
 term (see [OData-VocCore](#ODataVocCore)) have a stable order. Members
 of an ordered collection of primitive and complex types can be
 individually updated or deleted by invoking an update operation against
@@ -5207,7 +5363,7 @@ using an index.
 ### <a id="PositionalInserts" href="#PositionalInserts">11.4.10 Positional Inserts</a>
 
 Collections of entity, complex, or primitive types annotated with the
-[`Core.PositionalInsert`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#PositionalInsert)
+[Core.PositionalInsert]{.term}
 term (see [OData-VocCore](#ODataVocCore)) support inserting items at a
 specific location via `POST` requests to the collection URL using the
 `$index` system query option. The value of the `$index` system query
@@ -5218,7 +5374,7 @@ ordinal number indexes from the end of the collection, with -1
 representing an insert as the last item in the collection.
 
 ::: example
-Example 90: Insert a new email address at the second position
+Example 91: Insert a new email address at the second position
 
 ```json
 POST /service/Customers('ALFKI')/EmailAddresses?$index=1
@@ -5241,27 +5397,28 @@ contain any system query options that affect the shape of the result.
 
 Added/changed entities are applied as [upserts](#UpsertanEntity), and
 deleted entities as [deletions](#DeleteanEntity). Non-key properties of
-deleted entities are ignored. The top-level collection may include added
+deleted entities are ignored. Deletions of valid, non-existing (for example, deleted)
+entities MUST be treated as success. The top-level collection may include added
 and deleted links, and related entities represented inline are updated
 according to the rules for [treating related entities when updating an
 entity](#UpdateRelatedEntitiesWhenUpdatinganEntity).
 
 Clients MAY associate an id with individual nested entities in the
 request by using the
-[`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID)
+[Core.ContentID]{.term}
 term defined in [OData-VocCore](#ODataVocCore). Services that respond
 with [`200 OK`](#ResponseCode200OK) SHOULD annotate the entities in the response using the
 same
-[`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID)
+[Core.ContentID]{.term}
 value as specified in the request.
 
 Services SHOULD advertise support for updating a collection using a
 delta payload through the `DeltaUpdateSupported` property of the
-[`Capabilities.UpdateRestrictions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#UpdateRestrictionsType)
+[Capabilities.UpdateRestrictions]{.term}
 term, and SHOULD advertise support for returning the
-[`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID)
+[Core.ContentID]{.term}
 through the `ContentIDSupported` property of the
-[`Capabilities.DeepUpdateSupport`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#DeepUpdateSupportType)
+[Capabilities.DeepUpdateSupport]{.term}
 term, both defined in [OData-VocCap](#ODataVocCap).
 
 For each entity being updated or removed, clients MAY specify an [ETag](#UseofETagsforAvoidingUpdateConflicts) value obtained from a previous request.
@@ -5272,7 +5429,7 @@ then services that support ETags MUST NOT apply the change and instead
 The special value `*` can be used to match any existing entity but fail if the entity does not already exist.
 
 Added/changed entities that specify format-specific control information
-equivalent to an `If-Match-None: *` header [OData-JSON, section 4.6.10](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformationetagodataetag)
+equivalent to an `If-Match-None: *` header [OData-JSON, section 4.6.11](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformationetagodataetag)
 MUST NOT be treated as an update.
 
 The response, if requested, is a delta payload, in the same structure
@@ -5283,7 +5440,7 @@ and order as the request payload, representing the applied changes.
 If the `continue-on-error` preference has not been applied, and the
 service is unable to apply all of the changes in the request, then it
 MUST return an error response and MUST NOT apply any of the changes
-specified in the request payload.
+specified in the request payload in order to guarantee [atomicity](#Atomicity).
 
 If the [`continue-on-error`](#Preferencecontinueonerrorodatacontinueonerror) preference
 has been applied and any errors occur in processing the changes, then a delta response MUST be returned
@@ -5314,7 +5471,7 @@ represents failed changes in the delta response as follows:
   according to the rules specified in [Replace a Collection of Entities](#ErrorHandlingwhenReplacingaCollectionofEntities).
 
 If an individual change fails due to a failed dependency, it MUST be
-annotated with the term [`Core.DataModificationException`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DataModificationException) and SHOULD specify
+annotated with the term [Core.DataModificationException]{.term} and SHOULD specify
 a `responseCode` of `424` ([Failed Dependency](#ResponseCode424FailedDependency)).
 
 ### <a id="ReplaceaCollectionofEntities" href="#ReplaceaCollectionofEntities">11.4.12 Replace a Collection of Entities</a>
@@ -5339,7 +5496,7 @@ but fail if the entity does not already exist.
 If the `continue-on-error` preference has not been applied, and the
 service is unable to apply all of the changes in the request, then it
 MUST return an error response and MUST NOT apply any of the changes
-specified in the request payload.
+specified in the request payload in order to guarantee [atomicity](#Atomicity).
 
 If the `continue-on-error` preference has been applied and any errors occur
 in processing the changes, then a response MUST be returned regardless of the
@@ -5385,7 +5542,7 @@ semantics described in [Update a Collection of
 Entities](#UpdateaCollectionofEntities) applies.
 
 ::: example
-Example 91: change the color of all beige-brown products
+Example 92: change the color of all beige-brown products
 
 ```json
 PATCH /service/Products/$filter(@bar)/$each?@bar=Color eq 'beige-brown'
@@ -5408,17 +5565,17 @@ Clients should note that requesting a response may be expensive for
 services that could otherwise efficiently apply updates to a (possibly
 filtered) collection.
 
-If the `continue-on-error` preference has been specified, the service
+If the `continue-on-error` preference has been applied, the service
 MAY continue processing updates after a failure. In this case, the
 service MUST return a response containing at least the members of the
 collection that failed to update, which MUST be annotated with the term
 `Core.DataModificationException` with a `failedOperation` value of
 `update`.
 
-If the `continue-on-error` preference has not been specified, and the
+If the `continue-on-error` preference has not been applied, and the
 service is unable to update all of the members identified by the
 request, then it MUST return an error response and MUST NOT apply any
-updates.
+updates in order to guarantee [atomicity](#Atomicity).
 
 ### <a id="DeleteMembersofaCollection" href="#DeleteMembersofaCollection">11.4.14 Delete Members of a Collection</a>
 
@@ -5431,7 +5588,7 @@ The request resource path of the collection MAY contain type-cast or
 filter segments to subset the collection.
 
 ::: example
-Example 92: delete all products older than 3
+Example 93: delete all products older than 3
 
 ```
 DELETE /service/Products/$filter(Age gt 3)/$each
@@ -5456,10 +5613,10 @@ Clients should note that requesting a response may be expensive for
 services that could otherwise efficiently apply deletes to a (possibly
 filtered) collection.
 
-If the `continue-on-error` preference has not been specified, and the
+If the `continue-on-error` preference has not been applied, and the
 service is unable to delete all of the entities identified by the
 request, then it MUST return an error response and MUST NOT apply any
-changes.
+changes in order to guarantee [atomicity](#Atomicity).
 
 ## <a id="Operations" href="#Operations">11.5 Operations</a>
 
@@ -5483,7 +5640,7 @@ by that URL is used as the *binding parameter value*. Only aliases
 defined in the metadata document of the service can be used in URLs.
 
 ::: example
-Example 93: the function `MostRecentOrder` can be bound to any URL that
+Example 94: the function `MostRecentOrder` can be bound to any URL that
 identifies a `SampleModel.Customer`
 ```xml
 <Function Name="MostRecentOrder" IsBound="true">
@@ -5494,7 +5651,7 @@ identifies a `SampleModel.Customer`
 :::
 
 ::: example
-Example 94: invoke the `MostRecentOrder` function with the value of the
+Example 95: invoke the `MostRecentOrder` function with the value of the
 binding parameter `customer` being the entity identified by
 `http://host/service/Customers(6)`
 ```
@@ -5503,7 +5660,7 @@ GET http://host/service/Customers(6)/SampleModel.MostRecentOrder()
 :::
 
 ::: example
-Example 95: the function `Comparison` can be bound to any URL that
+Example 96: the function `Comparison` can be bound to any URL that
 identifies a collection of entities
 ```xml
 <Function Name="Comparison" IsBound="true">
@@ -5514,7 +5671,7 @@ identifies a collection of entities
 :::
 
 ::: example
-Example 96: invoke the `Comparison` function on the set of red products
+Example 97: invoke the `Comparison` function on the set of red products
 ```
 GET http://host/service/Products/$filter(Color eq 'Red')/Diff.Comparison()
 ```
@@ -5537,7 +5694,7 @@ result type of the bound operation. If the bound operation returns a
 collection, the response is a collection of collections.
 
 ::: example
-Example 97: invoke the `MostRecentOrder` function on each entity in the
+Example 98: invoke the `MostRecentOrder` function on each entity in the
 entity set `Customers`
 ```
 GET http://host/service/Customers/$each/SampleModel.MostRecentOrder()
@@ -5564,8 +5721,14 @@ entity or entity collection as part of the representation of the entity
 or entity collection within the payload. The representation of an action
 or function depends on the [format](#Formats).
 
+Operations advertised MUST be defined in metadata for the service.
+Operation definitions annotated with the `Core.RequiresExplicitBinding` term
+are only available when explicitly advertised, or
+for model elements annotated with the `Core.ExplicitOperationBindings` term
+specifying the operation.
+
 ::: example
-Example 98: given a `GET` request to
+Example 99: given a `GET` request to
 `http://host/service/Customers('ALFKI')`, the service might respond with
 a Customer that includes the `SampleEntities.MostRecentOrder` function
 bound to the entity
@@ -5584,7 +5747,7 @@ bound to the entity
 :::
 
 An efficient format that assumes client knowledge of metadata may omit
-actions and functions from the payload  whose target URL can be computed
+actions and functions from the payload whose target URL can be computed
 via metadata following standard conventions defined in
 [OData-URL, section 4.5](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#AddressingOperations).
 
@@ -5592,7 +5755,7 @@ Services can advertise that a function or action is not available for a
 particular instance by setting its value to null.
 
 ::: example
-Example 99: the `SampleEntities.MostRecentOrder` function is not
+Example 100: the `SampleEntities.MostRecentOrder` function is not
 available for customer `ALFKI`
 ```json
 {
@@ -5604,13 +5767,32 @@ available for customer `ALFKI`
 }
 ```
 :::
+### <a id="OperationsthatreturnEntities" href="#OperationsthatreturnEntities">11.5.4 Operations that return Entities</a>
 
-### <a id="Functions" href="#Functions">11.5.4 Functions</a>
+Entities returned by an operation may be persisted in an entity set or
+containment path, or may be computed by the operation.
+
+Operation definitions returning persisted entities SHOULD specify an
+entity set path, if possible, and SHOULD return a context URL specifying
+the containment path where the entities are persisted. If the entities
+come from multiple containment paths, then the context URL for the result
+SHOULD specify the entity type and each instance SHOULD contain the context
+URL specifying the containment path for that instance.
+
+The context URL returned by an operation that computes non-persisted entities
+specifies the type of the computed entity. Such computed entities may have null
+or non-null entity key values. Entities with null key values are transient and
+cannot be referenced. Non-null key values of computed entities can be used to
+correlate results across operation invocations; an entity with key values matching
+an instance returned in a previous invocation of the same operation, with the same
+parameter values, is considered the same instance.
+
+### <a id="Functions" href="#Functions">11.5.5 Functions</a>
 
 Functions are operations exposed by an OData service that MUST return
 data and MUST have no observable side effects.
 
-#### <a id="InvokingaFunction" href="#InvokingaFunction">11.5.4.1 Invoking a Function</a>
+#### <a id="InvokingaFunction" href="#InvokingaFunction">11.5.5.1 Invoking a Function</a>
 
 To invoke a function bound to a resource, the client issues a `GET`
 request to a function URL. A function URL may be
@@ -5639,7 +5821,7 @@ ampersand (`&`) or a question mark (`?`).
 Services MAY additionally support invoking functions using the
 unqualified function name by defining one or more [default
 namespaces](#DefaultNamespaces) through the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) term
+[Core.DefaultNamespace]{.term} term
 defined in [OData-VocCore](#ODataVocCore).
 
 To request processing of the function only if the binding parameter value,
@@ -5676,7 +5858,7 @@ segment is a multi-valued navigation property, a `POST` request may be
 used to create a new entity in the identified collection.
 
 ::: example
-Example 100: add a new item to the list of items of the shopping cart
+Example 101: add a new item to the list of items of the shopping cart
 returned by the composable `MyShoppingCart` function import
 ```
 POST http://host/service/MyShoppingCart()/Items
@@ -5684,6 +5866,11 @@ POST http://host/service/MyShoppingCart()/Items
 …
 ```
 :::
+
+URLs that identify composable functions that return a collection of entities with
+non-null key values can be appended with key values to specify an instance within
+the result matching those key values. For entities computed by the function, this
+URL serves as the Canonical URL for such instances.
 
 If the function returns a value of type `Edm.Stream` and no additional path
 segments follow the function invocation, the response to the `GET` request
@@ -5715,7 +5902,7 @@ Function imports preceded by the `$root` literal MAY be used in the
 [`$orderby`](#SystemQueryOptionorderby) system query options, see
 [OData-URL, section 5.1.2](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#SystemQueryOptionfilter) and [OData-URL, section 5.1.5](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html#SystemQueryOptionorderby).
 
-##### <a id="InlineParameterSyntax" href="#InlineParameterSyntax">11.5.4.1.1 Inline Parameter Syntax</a>
+##### <a id="InlineParameterSyntax" href="#InlineParameterSyntax">11.5.5.1.1 Inline Parameter Syntax</a>
 
 Parameter values are specified inline by appending a comma-separated
 list of parameter values, enclosed by parenthesis to the function name.
@@ -5725,7 +5912,7 @@ Each parameter value is represented as a name/value pair in the format
 and `Value` is the parameter value.
 
 ::: example
-Example 101: invoke a `Sales.EmployeesByManager` function which takes a
+Example 102: invoke a `Sales.EmployeesByManager` function which takes a
 single `ManagerID` parameter via the function import
 `EmployeesByManager`
 ```
@@ -5734,7 +5921,7 @@ GET http://host/service/EmployeesByManager(ManagerID=3)
 :::
 
 ::: example
-Example 102: return all Customers whose `City` property returns
+Example 103: return all Customers whose `City` property returns
 `Western` when passed to the `Sales.SalesRegion` function
 ```
 GET http://host/service/Customers?
@@ -5747,7 +5934,7 @@ parameter value. The value for the alias is specified as a separate
 query option using the name of the parameter alias.
 
 ::: example
-Example 103: invoke a `Sales.EmployeesByManager` function via the
+Example 104: invoke a `Sales.EmployeesByManager` function via the
 function import `EmployeesByManager`, passing 3 for the `ManagerID`
 parameter
 ```
@@ -5767,7 +5954,7 @@ optional `$` prefix), the parameter name MUST be prefixed with an at
 (`@`) sign.
 
 ::: example
-Example 104: invoke a `Sales.EmployeesByManager` function via the
+Example 105: invoke a `Sales.EmployeesByManager` function via the
 function import `EmployeesByManager`, passing 3 for the `ManagerID`
 parameter using the implicit parameter alias
 ```
@@ -5776,14 +5963,14 @@ GET http://host/service/EmployeesByManager?ManagerID=3
 :::
 
 Non-binding parameters annotated with the term
-[`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter) defined
+[Core.OptionalParameter]{.term} defined
 in [OData-VocCore](#ODataVocCore) MAY be omitted. If it is annotated and
 the annotation specifies a `DefaultValue`, the omitted parameter is
 interpreted as having that default value. If omitted and the annotation
 does not specify a default value, the service is free on how to
 interpret the omitted parameter.
 
-#### <a id="Functionoverloadresolution" href="#Functionoverloadresolution">11.5.4.2 Function overload resolution</a>
+#### <a id="Functionoverloadresolution" href="#Functionoverloadresolution">11.5.5.2 Function overload resolution</a>
 
 The same function name may be used multiple times within a schema, each
 with a different set of parameters. For unbound overloads the
@@ -5805,7 +5992,7 @@ hierarchy, see [OData-URL, section 4.11](https://docs.oasis-open.org/odata/odata
 
 Non-binding parameters MAY be marked as optional by annotating them with
 the term
-[`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter) defined
+[Core.OptionalParameter]{.term} defined
 in [OData-VocCore](#ODataVocCore). All parameters marked as optional
 MUST come after any parameters not marked as optional.
 
@@ -5823,13 +6010,13 @@ particular function overload. If there is ambiguity, then services MAY
 return `400 Bad Request` with an error response body stating that the
 request was ambiguous.
 
-### <a id="Actions" href="#Actions">11.5.5 Actions</a>
+### <a id="Actions" href="#Actions">11.5.6 Actions</a>
 
 Actions are operations exposed by an OData service that MAY have side
 effects when invoked. Actions MAY return data but MUST NOT be further
 composed with additional path segments.
 
-#### <a id="InvokinganAction" href="#InvokinganAction">11.5.5.1 Invoking an Action</a>
+#### <a id="InvokinganAction" href="#InvokinganAction">11.5.6.1 Invoking an Action</a>
 
 To invoke an action bound to a resource, the client issues a `POST`
 request to an action URL. An action URL may be
@@ -5850,7 +6037,7 @@ respectively.
 Services MAY additionally support invoking actions using the unqualified
 action name by defining one or more [default
 namespaces](#DefaultNamespaces) through the
-[`Core.DefaultNamespace`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#DefaultNamespace) term
+[Core.DefaultNamespace]{.term} term
 defined in [OData-VocCore](#ODataVocCore).
 
 To invoke an action through an action import, the client issues a `POST`
@@ -5861,7 +6048,7 @@ values MUST be passed in the request body according to the particular
 format.
 
 Non-binding single-valued parameters that are nullable or annotated with the term
-[`Core.OptionalParameter`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#OptionalParameter) defined in
+[Core.OptionalParameter]{.term} defined in
 [OData-VocCore](#ODataVocCore) MAY be omitted from the request body.
 If an omitted single-valued parameter is not annotated (and thus nullable), it MUST be
 interpreted as having the `null` value. If it is annotated
@@ -5877,7 +6064,7 @@ is up to the service regardless of its nullability or optionality.
 Possible interpretations include assuming an empty collection or,
 for parameters not annotated as `Core.OptionalParameter`, reporting an error.
 
-4.01 services MUST support invoking actions with no non-binding
+4.01 and greater services MUST support invoking actions with no non-binding
 parameters and parameterless action imports both without a request body
 and with a request body representing no parameters, according to the
 particular format. Interoperable clients SHOULD always include a request
@@ -5895,7 +6082,7 @@ If the invocation of an action results in the creation and return of a single en
 that action invocation follows the rules for [entity creation](#CreateanEntity) and returns a
 [`Location`](#HeaderLocation) header that contains the edit URL or read URL of the
 created entity. Actions whose successful invocation always creates and returns a single entity MAY be annotated with the term
-[`Core.Constructor`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#Constructor)
+[Core.Constructor]{.term}
 defined in [OData-VocCore](#ODataVocCore).
 
 If the action returns a value of type `Edm.Stream`, the response to the `POST` request
@@ -5912,7 +6099,7 @@ collection as a whole is transported in the [`ETag`](#HeaderETag) header of a
 collection response.
 
 ::: example
-Example 105: invoke the `SampleEntities.CreateOrder` action using
+Example 106: invoke the `SampleEntities.CreateOrder` action using
 `Customers('ALFKI')` as the customer (or binding parameter). The values
 `2` for the `quantity` parameter and `BLACKFRIDAY` for the
 `discountCode` parameter are passed in the body of the request. Invoke
@@ -5932,7 +6119,7 @@ Content-Type: application/json
 ```
 :::
 
-#### <a id="ActionOverloadResolution" href="#ActionOverloadResolution">11.5.5.2 Action Overload Resolution</a>
+#### <a id="ActionOverloadResolution" href="#ActionOverloadResolution">11.5.6.2 Action Overload Resolution</a>
 
 The same action name may be used multiple times within a schema provided
 there is at most one unbound overload, and each bound overload specifies
@@ -6041,14 +6228,15 @@ A batch request is represented using either the [multipart batch
 format](#MultipartBatchFormat) defined in this document or the JSON
 batch format defined in [OData-JSON, section 19](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#BatchRequestsandResponses).
 
-If the set of request headers of a batch request are valid the service
-MUST return a [`200 OK`](#ResponseCode200OK) HTTP response code to
+Services MAY return a [`200 OK`](#ResponseCode200OK) HTTP response code to
 indicate that the batch request was accepted for processing, even if the
 processing is yet to be completed. The individual requests within the
 body of the batch request may be processed as soon as they are received,
 this enables clients to stream batch requests, and batch implementations to stream the results.
+This is handled as described in [section 9.5](#InStreamErrors).
 
-If the service receives a batch request with an invalid set of headers
+If the service receives a batch request with an invalid set of headers or detects an error
+before starting to send the response,
 it MUST return a [`4xx` response code](#ClientErrorResponses) and
 perform no further processing of the batch request.
 
@@ -6061,7 +6249,7 @@ format](#MultipartBatchFormat) MUST contain a
 [RFC2046](#rfc2046).
 
 ::: example
-Example 106: multipart batch request
+Example 107: multipart batch request
 ```
 POST /service/$batch HTTP/1.1
 Host: odata.org
@@ -6076,7 +6264,7 @@ A batch request using the JSON batch format MUST contain a
 `Content-Type` header specifying a content type of `application/json`.
 
 ::: example
-Example 107: JSON batch request
+Example 108: JSON batch request
 ```
 POST /service/$batch HTTP/1.1
 Host: odata.org
@@ -6116,7 +6304,7 @@ executed in any order.
 
 Each individual request within a batch request MAY have a request
 identifier assigned. The request identifier is case-sensitive, MUST be
-unique within the batch request, and MUST satisfy the rule `request-id`
+unique within the batch request, and MUST satisfy the rule [request-id]{.abnf}
 in [OData-ABNF](#ODataABNF).
 
 The representation of the request identifier is format-specific, as are
@@ -6131,7 +6319,7 @@ the request URL. Services MUST treat this segment like the URL in the
 [`Location`](#HeaderLocation) header of the response to the request identified by the segment.
 If the `Location` header in the response to the subsequent request contains a relative URL,
 clients MUST be able to resolve it relative to the request's URL even if
-that contains such a reference. See [example 112](#batchcontentid).
+that contains such a reference. See [example 113](#batchcontentid).
 
 If the `$`-prefixed request identifier is identical to the name of a
 top-level system resource (`$batch`, `$crossjoin`, `$all`, `$entity`,
@@ -6144,7 +6332,7 @@ identifiers.
 Services MAY also support referencing within request bodies, in which
 case they SHOULD advertise this support by specifying the
 `ReferencesInRequestBodiesSupported` property in the
-[`Capabilities.BatchSupport`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#BatchSupport)
+[Capabilities.BatchSupport]{.term}
 term applied to the entity container, see [OData-VocCap](#ODataVocCap).
 
 ### <a id="ReferencingtheETagofanEntity" href="#ReferencingtheETagofanEntity">11.7.5 Referencing the ETag of an Entity</a>
@@ -6154,7 +6342,7 @@ operation in an [`If-Match`](#HeaderIfMatch) or
 [`If-None-Match`](#HeaderIfNoneMatch) header of a subsequent statement.
 Services SHOULD advertise this support by specifying the
 `EtagReferencesSupported` property in the
-[`Capabilities.BatchSupport`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#BatchSupport)
+[Capabilities.BatchSupport]{.term}
 annotation term applied to the entity container, see
 [OData-VocCap](#ODataVocCap).
 
@@ -6170,7 +6358,7 @@ consist of a `$` character followed by the identifier of the preceding
 request, then the referenced value is the value
 represented by the response body of that preceding request. Alternatively, a value
 reference can consist of a `$` character followed by the value of an instance annotation with term
-[`Core.ContentID`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ContentID)
+[Core.ContentID]{.term}
 (see [OData-VocCore](#ODataVocCore)) that occurs in the payload of the preceding request
 as described in [section 11.4.2.2](#CreateRelatedEntitiesWhenCreatinganEntity) and
 [section 11.4.3.1](#UpdateRelatedEntitiesWhenUpdatinganEntity),
@@ -6178,7 +6366,7 @@ then the referenced value is the corresponding value in the response,
 which the service SHOULD annotate with the same `Core.ContentID` value.
 
 In both cases, if the referenced value is a collection, the value reference MAY be followed by a
-`collectionNavigationExpr`, as defined in [OData-ABNF](#ODataABNF),
+[collectionNavigationExpr]{.abnf}, as defined in [OData-ABNF](#ODataABNF),
 that is evaluated relative to the referenced value.
 Otherwise the value reference MAY be followed by a forward slash and a
 `memberExpr` that is evaluated relative to the referenced value.
@@ -6232,7 +6420,7 @@ set can use one of the following three formats:
 - Absolute URI with schema, host, port, and absolute resource path.
 
 ::: example
-Example 108:
+Example 109:
 ```
 GET https://host:1234/path/service/People(1) HTTP/1.1
 ```
@@ -6241,7 +6429,7 @@ GET https://host:1234/path/service/People(1) HTTP/1.1
 - Absolute resource path and separate `Host` header
 
 ::: example
-Example <a id="batchhost" href="#batchhost">109</a>:
+Example <a id="batchhost" href="#batchhost">110</a>:
 ```json
 PATCH /path/service/People(1) HTTP/1.1
 Host: myserver.mydomain.org:1234
@@ -6254,7 +6442,7 @@ Content-Type: application/json
 - Resource path relative to the batch request URI.
 
 ::: example
-Example 110:
+Example 111:
 ```
 DELETE People(1) HTTP/1.1
 ```
@@ -6279,7 +6467,7 @@ processor may choose to disallow chunked encoding to be used by such
 HTTP requests.
 
 ::: example
-Example <a id="batchRequest" href="#batchRequest">111</a>: a batch request that contains the following individual
+Example <a id="batchRequest" href="#batchRequest">112</a>: a batch request that contains the following individual
 requests in the order listed
 
   1. A query request
@@ -6354,11 +6542,11 @@ referenced in the request URL of subsequent requests within the same
 change set. Services MAY also support referencing across change sets, in
 which case they SHOULD advertise this support by specifying the
 `ReferencesAcrossChangeSetsSupported` property in the
-[`Capabilities.BatchSupport`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#BatchSupport)
+[Capabilities.BatchSupport]{.term}
 term applied to the entity container, see [OData-VocCap](#ODataVocCap).
 
 ::: example
-Example <a id="batchcontentid" href="#batchcontentid">112</a>: a batch request that contains the following operations in
+Example <a id="batchcontentid" href="#batchcontentid">113</a>: a batch request that contains the following operations in
 the order listed:
 
 A change set that contains the following requests:
@@ -6430,7 +6618,7 @@ request URL `$1/Orders`. To get an absolute base URI, the client must replace th
 resulting URL `Customers('ALFKI')/Orders(1)` relative to its base URI, which is
 `http://host/service/Customers` (determined from the
 first request URL `/service/Customers` and the `Host: host` header
-as in [example 109](#batchhost)). This gives the effective second request URL
+as in [example 110](#batchhost)). This gives the effective second request URL
 `http://host/service/Customers('ALFKI')/Orders` as base URI for the second `Location`
 URL, which therefore resolves to `http://host/service/Customers('ALFKI')/Orders(1)`.
 :::
@@ -6438,7 +6626,7 @@ URL, which therefore resolves to `http://host/service/Customers('ALFKI')/Orders(
 #### <a id="ReferencinganETag" href="#ReferencinganETag">11.7.7.3 Referencing an ETag</a>
 
 ::: example
-Example 113: a batch request that contains the following operations in
+Example 114: a batch request that contains the following operations in
 the order listed:
 
 - Get an employee (with `Content-ID = 1`)
@@ -6479,7 +6667,7 @@ If-Match: $1
 #### <a id="ReferencingResponseBodyValues" href="#ReferencingResponseBodyValues">11.7.7.4 Referencing Response Body Values</a>
 
 ::: example
-Example 114: a batch request that contains the following operations in
+Example 115: a batch request that contains the following operations in
 the order listed:
 
 - Get an employee (with `Content-ID = 1`)
@@ -6524,10 +6712,8 @@ is specified with an explicit or implicit value of `true`.
 
 All requests in a change set represent a single change unit so a service
 MUST successfully process and apply all the requests in the change set
-or else apply none of them. It is up to the service implementation to
-define rollback semantics to undo any requests within a change set that
-may have been applied before another request in that same change set
-failed and thereby apply this all-or-nothing requirement. The service
+or else apply none of them. See [section 11.4.1.1](#Atomicity) for details on visibility of atomic changes.
+The service
 MAY execute the requests within a change set in any order and MAY return
 the responses to the individual requests in any order. If a request
 specifies a request identifier, the service MUST include the
@@ -6572,11 +6758,11 @@ A response to an operation in a batch MUST be formatted exactly as it
 would have appeared outside of a batch as described in the corresponding
 subsections of chapter [Data Service Requests](#DataServiceRequests).
 Relative URLs in each individual response are relative to the request
-URL of the corresponding individual request (see [example 112](#batchcontentid)).
+URL of the corresponding individual request (see [example 113](#batchcontentid)).
 URLs in responses MUST NOT contain `$`-prefixed request identifiers.
 
 ::: example
-Example 115: referencing the batch request [example 111](#batchRequest) above, assume all
+Example 116: referencing the batch request [example 112](#batchRequest) above, assume all
 the requests except the final query request succeed. In this case the
 response would be
 ```
@@ -6652,7 +6838,7 @@ Since a change set is executed atomically,
 a change set.
 
 ::: example
-Example 116: referencing the [example 111](#batchRequest) above again, assume that
+Example 117: referencing the [example 112](#batchRequest) above again, assume that
 ```
 HTTP/1.1 202 Accepted
 Location: http://service-root/async-monitor-0
@@ -6770,7 +6956,7 @@ the most functionality against the broadest range of generic clients.
 
 Services can advertise their level of conformance by annotating their
 entity container with the term
-[`Capabilities.ConformanceLevel`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#ConformanceLevel)
+[Capabilities.ConformanceLevel]{.term}
 defined in [OData-VocCap](#ODataVocCap).
 
 Note: Services are encouraged to support as much additional
@@ -6826,9 +7012,9 @@ final response to an asynchronous request
 To be considered an *Updatable OData Service*, the service additionally:
 
 18. MUST include edit links (explicitly or implicitly) for all
-updatable or deletable resources according to [OData-JSON, section 4.6.9](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink)
+updatable or deletable resources according to [OData-JSON, section 4.6.10](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink)
 19. MUST support `POST` of new entities to insertable entity sets
-([section 11.4.1.5](#ReturningResultsfromDataModificationRequests))
+([section 11.4.1.6](#ReturningResultsfromDataModificationRequests))
 20. MUST support `POST` of new related entities to updatable navigation
 properties ([section 11.4.2](#CreateanEntity))
 21. MUST support `POST` to `$ref` to add an existing entity to an
@@ -6842,7 +7028,7 @@ related entity ([section 11.4.5.3](#ChangetheReferenceinaSingleValuedNavigationP
 25. MUST support `DELETE` to `$ref` to remove a reference to an entity
 from an updatable navigation property ([section 11.4.5.2](#RemoveaReferencetoanEntity))
 26. MUST support `If-Match` header in update/delete of any resources
-returned with an ETag ([section 11.4.1.1](#UseofETagsforAvoidingUpdateConflicts))
+returned with an ETag ([section 11.4.1.2](#UseofETagsforAvoidingUpdateConflicts))
 27. MUST return a `Location` header with the edit URL or read URL of a
 created resource ([section 11.4.2](#CreateanEntity))
 28. MUST include the `OData-EntityId` header in response to any create
@@ -6942,11 +7128,12 @@ according to the JSON Batch format defined in [OData-JSON, section 19](https://d
 
 OData services can report conformance to the OData 4.01 specification by
 including `4.01` in the list of supported protocol versions in the
-[`Core.ODataVersions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ODataVersions)
-annotation, as defined in [OData-VocCore](#ODataVocCore). As all OData
-4.01 compliant services must also be fully OData 4.0 compliant, OData
-4.01 services do not need to separately list `4.0` as a supported
-version.
+[Core.ODataVersions]{.term}
+annotation, as defined in [OData-VocCore](#ODataVocCore). As OData
+supports semantic versioning, clients can assume that services reporting
+`4.01` also support `4.0`. In order to interoperate with the greatest number
+of clients, OData 4.01 services SHOULD advertise both `4.0` and `4.01` as
+supported versions.
 
 ### <a id="OData401MinimalConformanceLevel" href="#OData401MinimalConformanceLevel">12.2.1 OData 4.01 Minimal Conformance Level</a>
 
@@ -6965,7 +7152,7 @@ headers and preference values
 5. MUST reject a request with an incompatible
 [`$schemaversion`](#SystemQueryOptionschemaversion) system query option
 if a
-[`Core.SchemaVersion`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#SchemaVersion)
+[Core.SchemaVersion]{.term}
 annotation is returned in `$metadata`
 6. MUST support specifying supported system query options with or
 without the `$` prefix
@@ -7005,9 +7192,7 @@ expression
 11. SHOULD NOT have identifiers within a uniqueness scope (e.g. a
 schema, a structural type, or an entity container) that differ only by
 case
-12. SHOULD return the
-[`Core.ODataVersions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ODataVersions)
-annotation
+12. SHOULD return the [Core.ODataVersions]{.term} annotation
 13. SHOULD report capabilities through the Capabilities vocabulary
 14. MAY support filtering on annotation values
 15. MAY support `$compute` system query option
@@ -7093,7 +7278,75 @@ request payloads if no exact match is found, using the same lookup
 sequence as for [default namespaces](#DefaultNamespaces) with a
 case-insensitive comparison
 
-## <a id="InteroperableODataClients" href="#InteroperableODataClients">12.3 Interoperable OData Clients</a>
+## <a id="OData402ServiceConformanceLevels" href="#OData402ServiceConformanceLevels">12.3 OData 4.02 Service Conformance Levels</a>
+
+OData services can report conformance to the OData 4.02 specification by
+including `4.02` in the list of supported protocol versions in the
+[Core.ODataVersions]{.term}
+annotation, as defined in [OData-VocCore](#ODataVocCore). As OData
+supports semantic versioning, clients can assume that services reporting
+`4.02` also support both `4.0` and `4.01`. In order to interoperate with
+the greatest number of clients, OData 4.02 services SHOULD advertise
+`4.0`, `4.01`, and `4.02` as supported versions.
+
+### <a id="OData402MinimalConformanceLevel" href="#OData402MinimalConformanceLevel">12.3.1 OData 4.02 Minimal Conformance Level</a>
+
+In order to conform to the OData 4.02 Minimal Conformance Level, a
+service:
+
+1. MUST conform to the [OData 4.01 Minimal Conformance
+Level](#OData401MinimalConformanceLevel)
+2. MUST be compliant with version 4.02 of the [OData-JSON](#ODataJSON)
+format
+3. MUST NOT percent-encode Context URLs
+4. SHOULD support Key-As-Segment URL convention in addition to canonical URL conventions
+5. SHOULD, if they support optimistic concurrency, return etag values for added/changed entities in a delta payload
+
+In addition, to be considered an *Updatable OData 4.02 Service*, the
+service:
+
+6. MUST conform to the *Updatable OData 4.01 Service* requirements
+7. MUST, if it supports Deep Inserts, by default include in the response at least the properties that were present in the Deep Insert request
+8. SHOULD support Upserts to single-valued non-containment navigation properties
+9. SHOULD, if they support optimistic concurrency, honor etags in delta update payloads
+
+### <a id="OData402IntermediateConformanceLevel" href="#OData402IntermediateConformanceLevel">12.3.2 OData 4.02 Intermediate Conformance Level</a>
+
+In order to conform to the OData 4.02 Intermediate Conformance Level, a
+service:
+
+1. MUST conform to the [OData 4.02 Minimal Conformance Level](#OData402MinimalConformanceLevel)
+2. MUST conform to the [OData 4.01 Intermediate Conformance
+Level](#OData401IntermediateConformanceLevel)
+3. MUST support `$key` in `$select`
+4. MUST, if they support optimistic concurrency, return etag values for added/changed entities in a delta payload
+5. SHOULD support Passing Query Options in the Request Body (See Url Conventions)
+   1. SHOULD support HTTP POST to GET resource path appended with /$query
+   2. SHOULD support the HTTP QUERY method
+   3. SHOULD support `Content-Type: text/plain`
+   4. SHOULD support `Content-Type: application/x-www-form-urlencoded`
+   5. SHOULD support `Content-Type: application/json`
+
+In addition, to be considered an *Updatable Intermediate OData 4.02 Service*, the
+service:
+
+6. MUST conform to *Updatable OData 4.02 Service* requirements
+7. MUST support Upserts to single-valued non-containment navigation properties
+8. MUST, if they support optimistic concurrency, honor etags in delta update payloads
+9. SHOULD support updating properties of related entities when updating an entity
+10. SHOULD support updating a complex property to a different type in the hierarchy
+
+### <a id="OData402AdvancedConformanceLevel" href="#OData402AdvancedConformanceLevel">12.3.3 OData 4.02 Advanced Conformance Level</a>
+
+In order to conform to the OData 4.02 Advanced Conformance Level, a
+service:
+
+1. MUST conform to the [OData 4.02 Intermediate Conformance Level](#OData402IntermediateConformanceLevel)
+2. MUST conform to the [OData 4.01 Advanced Conformance
+Level](#OData401AdvancedConformanceLevel)
+3. MUST support `$expand` with an empty expand list
+
+## <a id="InteroperableODataClients" href="#InteroperableODataClients">12.4 Interoperable OData Clients</a>
 
 Interoperable OData clients can expect to work with OData Services that
 comply with at least the [OData 4.0 Minimal Conformance
@@ -7134,7 +7387,7 @@ In addition, interoperable OData 4.01 clients
 
 17. MUST send OData 4.0-compliant payloads to services that don't
 advertise support for 4.01 or greater through the
-[`Core.ODataVersions`](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.md#ODataVersions)
+[Core.ODataVersions]{.term}
 metadata annotation (see [OData-VocCore](#ODataVocCore))
 18. MUST specify identifiers in payloads and URLs in the case they are
 specified in `$metadata`
@@ -7144,6 +7397,18 @@ the requested format
 21. SHOULD use capabilities (see [OData-VocCap](#ODataVocCap)) to
 determine if a 4.01 feature is supported but MAY attempt syntax and be
 prepared to handle `400 Bad Request` or [`501 Not Implemented`](#ResponseCode501NotImplemented)
+
+In addition, interoperable OData 4.02 clients
+
+22. MUST be prepared to receive any valid 4.02 CSDL
+23. MUST be prepared to receive any valid 4.02 response according to
+the requested format
+24. SHOULD use capabilities (see [OData-VocCap](#ODataVocCap)) to
+determine if a 4.02 feature is supported but MAY attempt syntax and be
+prepared to handle `400 Bad Request` or [`501 Not Implemented`](#ResponseCode501NotImplemented)
+25. SHOULD use Context URL to interpret payloads, rather than inferring from the request
+26. SHOULD NOT specify an empty `$expand` list to a 4.01 or earlier service
+27. SHOULD NOT specify `$key` in a `$select` list to a 4.01 or earlier service
 
 
 -------
@@ -7160,7 +7425,7 @@ The following documents are referenced in such a way that some or all of their c
 
 ###### [OData-ABNF]{id=ODataABNF}
 _ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases._  
-See link in "[Related work](#RelatedWork)" section on cover page.
+See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
 
 ###### [OData-Aggregation]{id=ODataAggregation}
 _OData Extension for Data Aggregation Version 4.02._  
@@ -7231,6 +7496,10 @@ https://www.rfc-editor.org/info/rfc9110.
 ###### [ECMAScript]{id=_ECMAScript}
 _ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262.
 https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
+
+###### [SQL92]{id=_SQL92}
+_ISO/IEC 9075:1992, Database Language SQL_, July 30, 1992. Digital Equipment Corporation, Maynard, Massachusetts.
+http://www.contrib.andrew.cmu.edu/~shadow/sql/sql1992.txt.
 
 ###### [Well-Known Text]{id=_WKT}
 _OpenGIS Implementation Specification for Geographic information – Simple feature access – Part 1: Common architecture_, May 2011. Open Geospatial Consortium.

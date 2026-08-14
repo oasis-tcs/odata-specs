@@ -41,9 +41,9 @@ The [`pandoc.js`](pandoc.js) module converts this single Markdown document to HT
 
 ```yaml
 - name: Setup pandoc
-  uses: nikeee/setup-pandoc@v1
+  uses: r-lib/actions/setup-pandoc@v2
   with:
-    pandoc-version: 3.1.x
+    pandoc-version: 3.x.y
 ```
 
 and effectively executes
@@ -63,10 +63,7 @@ import * as Number from './lib/number.js';
 import * as pandoc from './lib/pandoc.js';
 var proc = pandoc({"--metadata-file": "./odata-data-aggregation-ext/meta.yaml"});
 proc.stdout.pipe(«HTML file»);
-var meta = {
-  ...yaml.load(fs.readFileSync("./meta.yaml")),
-  ...yaml.load(fs.readFileSync("./odata-data-aggregation-ext/meta.yaml"))
-}
+var meta = yaml.load(fs.readFileSync("./odata-data-aggregation-ext/meta.yaml"));
 new Number("odata-data-aggregation-ext", "meta", meta).build(proc.stdin);
 ```
 
@@ -100,3 +97,7 @@ Mermaid has not been used, instead the diagrams in section 2 of [`odata-data-agg
 - in sections 2.2 and 2.3 with Markdown tables and CSS-positioned SVG.
 
 See the source Markdown [here](../odata-data-aggregation-ext/1%20Introduction.md).
+
+# OData TC meeting minutes
+
+Minutes of OData TC meetings are created as [discussions](https://github.com/oasis-tcs/odata-specs/discussions/categories/minutes). A PDF version can be created in the `minutes` folder with the command [`npm run minutes <number of discussion>`](minutes.mjs).
