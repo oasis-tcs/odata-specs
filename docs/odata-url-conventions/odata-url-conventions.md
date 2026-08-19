@@ -4412,7 +4412,9 @@ do we have considerations specific to URLs, for example length, encoding, privac
 | Hubert | Heijkers | IBM |
 | Ling | Jin | IBM |
 | Stefan | Hagen | Individual |
+| John | Gathogo | Microsoft |
 | Michael | Pizzo | Microsoft |
+| Olga | Podolyako | Microsoft |
 | Christof | Sprenger | Microsoft |
 | Ralf | Handl | SAP SE |
 | Gerald | Krause | SAP SE |

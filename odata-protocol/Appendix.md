@@ -147,6 +147,7 @@ The following individuals were members of the OASIS OData Technical Committee du
 - Colleen Evans (Microsoft)
 - Jason Fam (IBM)
 - Senaka Fernando (WSO2)
+- John Gathogo (Microsoft)
 - Josh Gavant (Microsoft)
 - Brent Gross (IBM)
 - Zhun Guo (Individual)
@@ -177,6 +178,7 @@ The following individuals were members of the OASIS OData Technical Committee du
 - Sanjay Patil (SAP SE)
 - Nuccio Piscopo (iFOSSF – International Free and Open Source Solutions Foundation)
 - Michael Pizzo (Microsoft)
+- Olga Podolyako (Microsoft)
 - Ramesh Reddy (Red Hat)
 - Robert Richards (Mashery)
 - Sumedha Rubasinghe (WSO2)
@@ -199,7 +201,9 @@ The following individuals were members of the OASIS OData Technical Committee du
 | Hubert | Heijkers | IBM |
 | Ling | Jin | IBM |
 | Stefan | Hagen | Individual |
+| John | Gathogo | Microsoft |
 | Michael | Pizzo | Microsoft |
+| Olga | Podolyako | Microsoft |
 | Christof | Sprenger | Microsoft |
 | Ralf | Handl | SAP SE |
 | Gerald | Krause | SAP SE |
