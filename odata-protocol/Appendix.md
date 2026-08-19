@@ -213,7 +213,7 @@ The following individuals were members of the OASIS OData Technical Committee du
 | :--- | :--- | :--- | :--- |
 |Committee Specification Draft 01|2024-02-28|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| 
 Import material from OData Version 4.01 Part 1: Protocol 
-<br>Changes listed in section 1.1|
+<br>Changes listed in [section ##ChangesfromEarlierVersions]|
 |$$$subtitle$$$|$$$pubdateISO$$$|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| 
 Changes listed in [section ##ChangesfromEarlierVersions]|
 

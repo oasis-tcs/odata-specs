@@ -546,6 +546,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <th>Section</th>
 <th>Feature / Change</th>
 <th>Issue</th>
+<th>Revision</th>
 </tr>
 </thead>
 <tbody>
@@ -553,91 +554,109 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td><a href="#Preferencecontinueonerrorodatacontinueonerror">Section 8.2.8.3</a></td>
 <td>Responses that include errors MUST include the <code>Preference-Applied</code> header with <code>continue-on-error</code> set to <code>true</code></td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/1965">1965</a></td>
+<td>CSD02</td>
 </tr>
 <tr>
 <td><a href="#Preferencereturnrepresentationandreturnminimal">Section 8.2.8.7</a></td>
 <td>Added <code>delta</code> format parameter to <code>return=representation</code> preference</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/309">309</a></td>
+<td>CSD02</td>
 </tr>
 <tr>
 <td><a href="#CollectionofEntities">Section 10.2</a></td>
 <td>Context URLs use parentheses-style keys without percent-encoding</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/368">368</a></td>
+<td>CSD02</td>
 </tr>
 <tr>
 <td><a href="#SystemQueryOptions">Section 11.2.1</a></td>
 <td>Allow <code>$key</code> in <code>$select</code> list to include key properties</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/2257">2257</a></td>
+<td>CSD02</td>
 </tr>
 <tr>
 <td><a href="#SystemQueryOptions">Section 11.2.1</a></td>
 <td>Allow empty <code>$expand</code> lists</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/2243">2243</a></td>
+<td>CSD02</td>
 </tr>
 <tr>
 <td><a href="#DataModification">Section 11.4</a></td>
 <td>Response code <code>204 No Content</code> after successful data modification if requested response could not be constructed</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/443">443</a></td>
+<td>CSD01</td>
 </tr>
 <tr>
 <td><a href="#CreateanEntity">Section 11.4.2</a></td>
 <td>Services can validate non-insertable property values in insert payloads</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/356">356</a></td>
+<td>CSD02</td>
 </tr>
 <tr>
 <td><a href="#LinktoRelatedEntitiesWhenCreatinganEntity">Section 11.4.2.1</a></td>
 <td>Client can update properties of existing related entities when creating an entity</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/352">352</a></td>
+<td>CSD02</td>
 </tr>
 <tr>
 <td><a href="#CreateRelatedEntitiesWhenCreatinganEntity">Section 11.4.2.2</a></td>
 <td>Deep-insert response includes at least the properties present in the request</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/363">363</a></td>
+<td>CSD02</td>
 </tr>
 <tr>
 <td><a href="#UpdateanEntity">Section 11.4.3</a></td>
 <td>Services can validate non-updatable property values in update payloads</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/356">356</a></td>
+<td>CSD02</td>
 </tr>
 <tr>
 <td><a href="#UpsertanEntity">Section 11.4.3.2</a></td>
 <td>Upserts to single-valued non-containment navigation properties</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/455">455</a></td>
+<td>CSD01</td>
 </tr>
 <tr>
 <td>Sections <a href="#DeleteanEntity">11.4.4</a>, <a href="#RemoveaReferencetoanEntity">11.4.5.2</a></td>
 <td>Idempotency of delete operation</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/2103">2103</a></td>
+<td>CSD02</td>
 </tr>
 <tr>
 <td><a href="#UpdateaComplexProperty">Section 11.4.8.3</a></td>
 <td>Setting a complex property to a different type</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/534">534</a></td>
+<td>CSD01</td>
 </tr>
 <tr>
 <td><a href="#UpdateaCollectionofEntities">Section 11.4.11</a></td>
 <td>Control information to prevent updates</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/2021">2021</a></td>
+<td>CSD02</td>
 </tr>
 <tr>
 <td><a href="#ReplaceaCollectionofEntities">Section 11.4.12</a></td>
 <td>Semantics of <code>continue-on-error</code> when replacing a collection of entities</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/358">358</a></td>
+<td>CSD02</td>
 </tr>
 <tr>
 <td><a href="#InvokinganAction">Section 11.5.6.1</a></td>
 <td>Omission of collection-valued action parameters</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/2045">2045</a></td>
+<td>CSD02</td>
 </tr>
 <tr>
 <td><a href="#Conformance">Section 12</a></td>
 <td>Allow <code>400 Bad Request</code> in addition to <code>501 Not Implemented</code> for unsupported functionality</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/391">391</a></td>
+<td>CSD02</td>
 </tr>
 <tr>
 <td><a href="#InteroperableODataClients">Section 12.4</a></td>
 <td>Encoding of plus character in URLs</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/485">485</a></td>
+<td>CSD01</td>
 </tr>
 </tbody>
 </table>
@@ -4187,7 +4206,7 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <td style="text-align: left;">Committee Specification Draft 01</td>
 <td style="text-align: left;">2024-02-28</td>
 <td style="text-align: left;">Michael Pizzo<br>Ralf Handl<br>Heiko Theißen</td>
-<td style="text-align: left;">Import material from OData Version 4.01 Part 1: Protocol <br>Changes listed in section 1.1</td>
+<td style="text-align: left;">Import material from OData Version 4.01 Part 1: Protocol <br>Changes listed in <a href="#ChangesfromEarlierVersions">section 1.1</a></td>
 </tr>
 <tr>
 <td style="text-align: left;">Committee Specification Draft 02</td>

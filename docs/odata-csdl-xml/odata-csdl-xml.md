@@ -262,20 +262,20 @@ Schema Definition Language (XSD) 1.1 as described in
 
 ## <a id="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a>
 
-Section | Feature / Change | Issue
---------|------------------|------
-[Section 3.3](#PrimitiveTypes)| Allow stream-valued non-binding parameters| [525](https://github.com/oasis-tcs/odata-specs/issues/525)
-[Section 3.4.5](#SRID)| SRID value `variable` is deprecated| [1935](https://github.com/oasis-tcs/odata-specs/issues/1935)
-[Section 4](#CSDLXMLDocument) | Additional `Version` value `4.02` | [2222](https://github.com/oasis-tcs/odata-specs/issues/2222)
-[Section 13](#EntityContainer)| All children of `edm:EntityContainer` are optional| [464](https://github.com/oasis-tcs/odata-specs/issues/464)
-[Section 12](#ActionandFunction) | Actions and functions can take, and return, delta payloads | [348](https://github.com/oasis-tcs/odata-specs/issues/348)
-[Section 12.8](#ReturnType) | Returned collections of entities may contain `null` values | [1983](https://github.com/oasis-tcs/odata-specs/issues/1983)
-[Section 14.3.13](#GeoValues) | Constant Geo values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
-[Section 14.3.14](#StreamValues) | Constant Stream values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
-[Section 14.4.1.2](#PathEvaluation)| New path evaluation rules for annotations targeting annotations and external targeting via container| [575](https://github.com/oasis-tcs/odata-specs/issues/575)
-[Section 14.4.7](#IfThenElse)| Nested `If` without else part in collections| [326](https://github.com/oasis-tcs/odata-specs/issues/326)
-[Section 15.2](#SimpleIdentifier) | Prefer identifiers consisting only of latin letters, the underscore, and decimal numbers | [375](https://github.com/oasis-tcs/odata-specs/issues/375)
-[Section 17](#Conformance) | Additional conformance clauses for version 4.02 |
+Section | Feature / Change | Issue | Revision
+--------|------------------|-------|---------
+[Section 3.3](#PrimitiveTypes)| Allow stream-valued non-binding parameters| [525](https://github.com/oasis-tcs/odata-specs/issues/525) | CSD01
+[Section 3.4.5](#SRID)| SRID value `variable` is deprecated| [1935](https://github.com/oasis-tcs/odata-specs/issues/1935) | CSD02
+[Section 4](#CSDLXMLDocument) | Additional `Version` value `4.02` | [2222](https://github.com/oasis-tcs/odata-specs/issues/2222) | CSD02
+[Section 13](#EntityContainer)| All children of `edm:EntityContainer` are optional| [464](https://github.com/oasis-tcs/odata-specs/issues/464) | CSD01
+[Section 12](#ActionandFunction) | Actions and functions can take, and return, delta payloads | [348](https://github.com/oasis-tcs/odata-specs/issues/348) | CSD02
+[Section 12.8](#ReturnType) | Returned collections of entities may contain `null` values | [1983](https://github.com/oasis-tcs/odata-specs/issues/1983) | CSD02
+[Section 14.3.13](#GeoValues) | Constant Geo values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654) | CSD02
+[Section 14.3.14](#StreamValues) | Constant Stream values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654) | CSD02
+[Section 14.4.1.2](#PathEvaluation)| New path evaluation rules for annotations targeting annotations and external targeting via container| [575](https://github.com/oasis-tcs/odata-specs/issues/575) | CSD01
+[Section 14.4.7](#IfThenElse)| Nested `If` without else part in collections| [326](https://github.com/oasis-tcs/odata-specs/issues/326) | CSD02
+[Section 15.2](#SimpleIdentifier) | Prefer identifiers consisting only of latin letters, the underscore, and decimal numbers | [375](https://github.com/oasis-tcs/odata-specs/issues/375) | CSD02
+[Section 17](#Conformance) | Additional conformance clauses for version 4.02 | | CSD02
 
 ## <a id="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -6192,7 +6192,7 @@ acknowledged.
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
-|Committee Specification Draft 01|2024-02-28|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| Import material from OData Common Schema Definition Language (CSDL) XML Representation Version 4.01 <br>Changes listed in section 1.1|
+|Committee Specification Draft 01|2024-02-28|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| Import material from OData Common Schema Definition Language (CSDL) XML Representation Version 4.01 <br>Changes listed in [section 1.1](#ChangesfromEarlierVersions)|
 |Committee Specification Draft 02|2026-08-19|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| Changes listed in [section 1.1](#ChangesfromEarlierVersions)|
 
 -------

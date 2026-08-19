@@ -19,38 +19,38 @@ An OData JSON payload may represent:
 
 ## ##subsec Changes from Earlier Versions
 
-Section | Feature / Change | Issue
---------|------------------|------
+Section | Feature / Change | Issue | Revision
+--------|------------------|-------|---------
 [Section ##ControlInformationcontextodatacontext]| 
 Fragment portion of Context URL is not percent-encoded| 
-[368](https://github.com/oasis-tcs/odata-specs/issues/368)
+[368](https://github.com/oasis-tcs/odata-specs/issues/368) | CSD02
 [Section ##ControlInformationidodataid]| 
 Transient entities can be identifiable| 
-[1928](https://github.com/oasis-tcs/odata-specs/issues/1928)
+[1928](https://github.com/oasis-tcs/odata-specs/issues/1928) | CSD02
 [Section ##ControlInformationetagodataetag]| 
 Control information `"@etag": ""` to prevent updates| 
-[2021](https://github.com/oasis-tcs/odata-specs/issues/2021)
+[2021](https://github.com/oasis-tcs/odata-specs/issues/2021) | CSD02
 [Section ##ControlInformationmediaodatamedia]| 
 `mediaContentType` can be `null`| 
-[536](https://github.com/oasis-tcs/odata-specs/issues/536)
+[536](https://github.com/oasis-tcs/odata-specs/issues/536) | CSD01
 [Section ##StructuralProperty], [Section ##InformativeReferences]| 
 Removed reference to obsolete version of GeoJSON| 
-[456](https://github.com/oasis-tcs/odata-specs/issues/456)
+[456](https://github.com/oasis-tcs/odata-specs/issues/456) | CSD02
 [Section ##EntityReference]| 
 Entities can be referenced by id or full set of key properties| 
-[352](https://github.com/oasis-tcs/odata-specs/issues/352)
+[352](https://github.com/oasis-tcs/odata-specs/issues/352) | CSD02
 [Section ##DeletedEntity]| 
 `type` control information, if present, must come immediately after `removed`| 
-[1985](https://github.com/oasis-tcs/odata-specs/issues/1985)
+[1985](https://github.com/oasis-tcs/odata-specs/issues/1985) | CSD02
 [Section ##ActionInvocation]| 
 Allow common expressions in action payloads| 
-[341](https://github.com/oasis-tcs/odata-specs/issues/341)
+[341](https://github.com/oasis-tcs/odata-specs/issues/341) | CSD02
 [Section ##BatchRequestsandResponses]| 
 Atomicity group of prerequisite requests optional in `dependsOn`| 
-[2150](https://github.com/oasis-tcs/odata-specs/issues/2150)
+[2150](https://github.com/oasis-tcs/odata-specs/issues/2150) | CSD02
 [Section ##BatchRequestsandResponses]| 
 Ordering of properties in JSON Batch Request/Response objects| 
-[351](https://github.com/oasis-tcs/odata-specs/issues/351)
+[351](https://github.com/oasis-tcs/odata-specs/issues/351) | CSD02
 
 ## ##subsec Glossary
 
