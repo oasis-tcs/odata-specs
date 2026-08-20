@@ -31,7 +31,7 @@ jobs:
           git diff-index --quiet HEAD || git commit --cleanup=verbatim -m "Auto-build
 
 
-          request-checks: true"
+          skip-checks: true"
           git push
         env:
           PUPPETEER_SKIP_DOWNLOAD: true
