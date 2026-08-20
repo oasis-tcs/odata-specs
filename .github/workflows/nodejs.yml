@@ -28,9 +28,9 @@ jobs:
           git config user.name ${GITHUB_ACTOR}
           git config user.email github-actions@github.com
           git add .
-          git diff-index --quiet HEAD || git commit -m "Auto-build
-          
-          
+          git diff-index --quiet HEAD || git commit -m "Auto-build \
+          \
+          \
           skip-checks: true"
           git push
         env:
