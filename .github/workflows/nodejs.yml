@@ -28,10 +28,10 @@ jobs:
           git config user.name ${GITHUB_ACTOR}
           git config user.email github-actions@github.com
           git add .
-          git diff-index --quiet HEAD || git commit --cleanup=verbatim -m "Auto-build
+          git diff-index --quiet HEAD || git commit -m "Auto-build
 
 
-          skip-checks: true"
+          request-checks: true" --cleanup=verbatim
           git push
         env:
           PUPPETEER_SKIP_DOWNLOAD: true
