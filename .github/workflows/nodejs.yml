@@ -1,6 +1,6 @@
 name: Node CI
 
-on: [push, workflow_dispatch]
+on: push
 
 jobs:
   build:
@@ -26,10 +26,9 @@ jobs:
           npm ci
           npm run build
           git config user.name ${GITHUB_ACTOR}
-          git config user.email ${PUSHER_EMAIL}
+          git config user.email github-actions@github.com
           git add .
           git diff-index --quiet HEAD || git commit -m "Auto-build (trigger nodejs.yml workflow)"
           git push
         env:
           PUPPETEER_SKIP_DOWNLOAD: true
-          PUSHER_EMAIL: ${{ github.event.pusher.email }}
