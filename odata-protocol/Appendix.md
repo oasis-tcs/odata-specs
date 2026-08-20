@@ -193,21 +193,7 @@ The following individuals were members of the OASIS OData Technical Committee du
 
 ## ##subasec Participants
 
-**OData TC Members:**
-
-| First Name | Last Name | Company |
-| :--- | :--- | :--- |
-| George | Ericson | Dell |
-| Hubert | Heijkers | IBM |
-| Ling | Jin | IBM |
-| Stefan | Hagen | Individual |
-| John | Gathogo | Microsoft |
-| Michael | Pizzo | Microsoft |
-| Olga | Podolyako | Microsoft |
-| Christof | Sprenger | Microsoft |
-| Ralf | Handl | SAP SE |
-| Gerald | Krause | SAP SE |
-| Heiko | Theißen | SAP SE |
+$$$include ../odatatc-members.md$$$
 
 -------
 
