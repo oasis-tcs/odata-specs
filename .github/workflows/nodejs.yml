@@ -23,7 +23,9 @@ jobs:
           pandoc-version: 3.8.3
       - name: Build docs
         run: |
-          export PUPPETEER_SKIP_DOWNLOAD='true'
           npm ci
           npm run build
-          git diff --exit-code docs
+          git add .
+          git commit -m "Auto-build" && git push
+        env:
+          PUPPETEER_SKIP_DOWNLOAD: true
