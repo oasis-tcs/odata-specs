@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="The Open Data Protocol (OData) for representing and interacting with structured content is comprised of a set of specifications. The core specification for the protocol is in OData Version 4.02 Part 1: Protocol. This document extends the core specification by defining representations for OData requests and responses using a compact JSON format." />
+  <title>OData Compact JSON Format Version 4.02</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #337f59; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #337f59; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #337f59; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="styles/markdown-styles-v1.7.3b.css" />
+  <link rel="stylesheet" href="styles/odata.css" />
+  <script type="text/javascript">
+    MathJax = {startup: {
+      ready() {
+        MathJax.startup.defaultReady();
+        MathJax.startup.document.outputJax.font.variant.monospace.chars
+          [0x2019] = [.611, -.287, .525, {f: "T", c: "′"}];
+      }
+    }};
+  </script>
+</head>
+<body>
+<aside id="darkmode">
+  <select aria-label="Switch light/dark mode">
+    <option value="off" title="Light mode">&#x263C;</option>
+    <option value="on" title="Dark mode">&#x263D;</option>
+    <option value="auto" title="Follow device mode">&#x25D1;</option>
+  </select>
+</aside>
+<p><img src="https://docs.oasis-open.org/templates/OASISLogo-v3.0.png" alt="OASIS Logo" /></p>
+<hr />
+<details open><summary>
+<h1 id="odata-compact-json-format-version-402">OData Compact JSON Format Version 4.02</h1>
+</summary>
+<h2>Committee Specification Draft 01</h2>
+<details open><summary>
+<h2 id="20-august-2026">20 August 2026</h2>
+</summary>
+<h4>This stage:</h4>
+<p><a href="https://docs.oasis-open.org/odata/odata-compact-json-format/v4.02/csd01/odata-compact-json-format-v4.02-csd01.md">https://docs.oasis-open.org/odata/odata-compact-json-format/v4.02/csd01/odata-compact-json-format-v4.02-csd01.md</a> (Authoritative)<br />
+<a href="https://docs.oasis-open.org/odata/odata-compact-json-format/v4.02/csd01/odata-compact-json-format-v4.02-csd01.html">https://docs.oasis-open.org/odata/odata-compact-json-format/v4.02/csd01/odata-compact-json-format-v4.02-csd01.html</a><br />
+<a href="https://docs.oasis-open.org/odata/odata-compact-json-format/v4.02/csd01/odata-compact-json-format-v4.02-csd01.pdf">https://docs.oasis-open.org/odata/odata-compact-json-format/v4.02/csd01/odata-compact-json-format-v4.02-csd01.pdf</a></p>
+<h4>Previous stage:</h4>
+<p>N/A</p>
+<h4>Latest stage:</h4>
+<p><a href="https://docs.oasis-open.org/odata/odata-compact-json-format/v4.02/odata-compact-json-format-v4.02.md">https://docs.oasis-open.org/odata/odata-compact-json-format/v4.02/odata-compact-json-format-v4.02.md</a> (Authoritative)<br />
+<a href="https://docs.oasis-open.org/odata/odata-compact-json-format/v4.02/odata-compact-json-format-v4.02.html">https://docs.oasis-open.org/odata/odata-compact-json-format/v4.02/odata-compact-json-format-v4.02.html</a><br />
+<a href="https://docs.oasis-open.org/odata/odata-compact-json-format/v4.02/odata-compact-json-format-v4.02.pdf">https://docs.oasis-open.org/odata/odata-compact-json-format/v4.02/odata-compact-json-format-v4.02.pdf</a></p>
+<h4>Technical Committee:</h4>
+<p><a href="https://www.oasis-open.org/committees/odata/">OASIS Open Data Protocol (OData) TC</a></p>
+<h4>Chairs:</h4>
+<p>Ralf Handl (<a href="mailto:ralf.handl@sap.com">ralf.handl@sap.com</a>), <a href="http://www.sap.com/">SAP SE</a><br />
+Michael Pizzo (<a href="mailto:mikep@microsoft.com">mikep@microsoft.com</a>), <a href="http://www.microsoft.com/">Microsoft</a></p>
+<h4>Editors:</h4>
+<p>Michael Pizzo (<a href="mailto:mikep@microsoft.com">mikep@microsoft.com</a>), <a href="http://www.microsoft.com/">Microsoft</a><br />
+Hubert Heijkers (<a href="mailto:hubert.heijkers@nl.ibm.com">hubert.heijkers@nl.ibm.com</a>), <a href="http://www.ibm.com/">IBM</a></p>
+<h4><span id="RelatedWork">Related work:</span></h4>
+<p>This specification is related to:</p>
+<ul>
+<li><em>OData Version 4.02</em>. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. A multi-part Work Product that includes:
+<ul>
+<li><em>OData Version 4.02 Part 1: Protocol</em>. Latest stage. <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html">https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html</a></li>
+<li><em>OData Version 4.02 Part 2: URL Conventions</em>. Latest stage. <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html">https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html</a></li>
+<li><em>ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases</em>. <a href="https://docs.oasis-open.org/odata/odata/v4.02/csd01/abnf/">https://docs.oasis-open.org/odata/odata/v4.02/csd01/abnf/</a></li>
+</ul></li>
+<li><em>OData Vocabularies Version 4.0</em>. Edited by Michael Pizzo, Ralf Handl, and Ram Jeyaraman. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/odata-vocabularies-v4.0.html">https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/odata-vocabularies-v4.0.html</a></li>
+<li><em>OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02</em>. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html">https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html</a></li>
+<li><em>OData Common Schema Definition Language (CSDL) XML Representation Version 4.02</em>. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/odata-csdl-xml-v4.02.html">https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/odata-csdl-xml-v4.02.html</a></li>
+<li><em>OData JSON Format Version 4.02</em>. Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html">https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html</a></li>
+<li><em>OData Data Aggregation Extension Version 4.0</em>. Edited by Ralf Handl, Hubert Heijkers, Gerald Krause, Michael Pizzo, Heiko Theißen, and Martin Zurmuehl. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.html">https://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/odata-data-aggregation-ext-v4.0.html</a></li>
+<li><em>OData Extension for Temporal Data Version 4.0</em>. Edited by Ralf Handl, Hubert Heijkers, Gerald Krause, Michael Pizzo, Heiko Theißen, and Martin Zurmuehl. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/odata-temporal-ext-v4.0.html">https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/odata-temporal-ext-v4.0.html</a></li>
+</ul>
+<h4>Abstract:</h4>
+<p>The Open Data Protocol (OData) for representing and interacting with structured content is comprised of a set of specifications. The core specification for the protocol is in OData Version 4.02 Part 1: Protocol. This document extends the core specification by defining representations for OData requests and responses using a compact JSON format.</p>
+<h4>Status:</h4>
+<p>This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the “Latest stage” location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at <a href="https://groups.oasis-open.org/communities/tc-community-home2?CommunityKey=e7cac2a9-2d18-4640-b94d-018dc7d3f0e2#technical">https://groups.oasis-open.org/communities/tc-community-home2?CommunityKey=e7cac2a9-2d18-4640-b94d-018dc7d3f0e2#technical</a>.</p>
+<p>TC members should send comments on this specification to the TC’s email list. Any individual may submit comments to the TC by sending email to <a href="mailto:Technical-Committee-Comments@oasis-open.org">Technical-Committee-Comments@oasis-open.org</a>. Please use a Subject line like “Comment on OData Protocol”.</p>
+<p>This specification is provided under the <a href="https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode">RF on RAND Terms Mode</a> of the <a href="https://www.oasis-open.org/policies-guidelines/ipr/">OASIS IPR Policy</a>, the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC’s web page (<a href="https://www.oasis-open.org/committees/odata/ipr.php">https://www.oasis-open.org/committees/odata/ipr.php</a>).</p>
+<p>Note that any machine-readable content (<a href="https://www.oasis-open.org/policies-guidelines/tc-process-2017-05-26/#wpComponentsCompLang">Computer Language Definitions</a>) declared Normative for this Work Product is provided in separate plain text files. In the event of a discrepancy between any such plain text file and display content in the Work Product’s prose narrative document(s), the content in the separate plain text file prevails.</p>
+<h4>Key words:</h4>
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in BCP 14 <a href="#rfc2119">RFC2119</a> and <a href="#rfc8174">RFC8174</a> when, and only when, they appear in all capitals, as shown here.</p>
+<h4>Citation format:</h4>
+<p>When referencing this specification the following citation format should be used:</p>
+<p><strong>[OData-Compact-JSON-Format-v4.02]</strong></p>
+<p><em>OData Compact JSON Format Version 4.02</em>. Edited by Michael Pizzo and Hubert Heijkers. 20 August 2026. OASIS Committee Specification Draft 01. <a href="https://docs.oasis-open.org/odata/odata-compact-json-format/v4.02/csd01/odata-compact-json-format-v4.02-csd01.html">https://docs.oasis-open.org/odata/odata-compact-json-format/v4.02/csd01/odata-compact-json-format-v4.02-csd01.html</a>. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-compact-json-format/v4.02/odata-compact-json-format-v4.02.html">https://docs.oasis-open.org/odata/odata-compact-json-format/v4.02/odata-compact-json-format-v4.02.html</a>.</p>
+<h4>Notices</h4>
+<p>Copyright © OASIS Open 2026. All Rights Reserved.</p>
+<p>Distributed under the terms of the OASIS <a href="https://www.oasis-open.org/policies-guidelines/ipr/">IPR Policy</a>.</p>
+<p>The name “OASIS” is a trademark of <a href="https://www.oasis-open.org/">OASIS</a>, the owner and developer of this specification, and should be used only to refer to the organization and its official outputs.</p>
+<p>For complete copyright information please see the full Notices section in an Appendix below.</p>
+</details>
+</details>
+<hr />
+<details open><summary>
+<h1 id="table-of-contents">Table of Contents</h1>
+</summary>
+<div class="toc">
+<ul>
+<li><a href="#Introduction">1 Introduction</a>
+<ul>
+<li><a href="#Glossary">1.1 Glossary</a>
+<ul>
+<li><a href="#DefinitionsofTerms">1.1.1 Definitions of Terms</a></li>
+<li><a href="#AcronymsandAbbreviations">1.1.2 Acronyms and Abbreviations</a></li>
+<li><a href="#DocumentConventions">1.1.3 Document Conventions</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#CompactJSONFormatDesign">2 Compact JSON Format Design</a>
+<ul>
+<li><a href="#DesignPrinciples">2.1 Design Principles</a></li>
+<li><a href="#RelationshiptotheODataJSONFormat">2.2 Relationship to the OData JSON Format</a></li>
+</ul></li>
+<li><a href="#RequestingtheCompactJSONFormat">3 Requesting the Compact JSON Format</a>
+<ul>
+<li><a href="#FormatParameters">3.1 Format Parameters</a></li>
+<li><a href="#AdvertisingSupport">3.2 Advertising Support</a></li>
+</ul></li>
+<li><a href="#CommonCharacteristics">4 Common Characteristics</a>
+<ul>
+<li><a href="#HeaderContentType">4.1 Header Content-Type</a></li>
+<li><a href="#MessageBody">4.2 Message Body</a></li>
+<li><a href="#PayloadOrderingConstraints">4.3 Payload Ordering Constraints</a></li>
+</ul></li>
+<li><a href="#PositionalRepresentation">5 Positional Representation</a>
+<ul>
+<li><a href="#PositionalPropertyList">5.1 Positional Property List</a></li>
+<li><a href="#DeterminingthePositionalPropertyList">5.2 Determining the Positional Property List</a></li>
+<li><a href="#GroupingofSelectItems">5.3 Grouping of Select Items</a></li>
+<li><a href="#PositionValues">5.4 Position Values</a></li>
+</ul></li>
+<li><a href="#StructuredInstances">6 Structured Instances</a>
+<ul>
+<li><a href="#Entity">6.1 Entity</a></li>
+<li><a href="#ComplexValue">6.2 Complex Value</a></li>
+<li><a href="#CollectionofEntities">6.3 Collection of Entities</a></li>
+<li><a href="#CollectionofComplexValues">6.4 Collection of Complex Values</a></li>
+<li><a href="#PrimitiveValues">6.5 Primitive Values</a></li>
+<li><a href="#NavigationProperties">6.6 Navigation Properties</a></li>
+<li><a href="#DerivedTypes">6.7 Derived Types</a></li>
+<li><a href="#OpenTypesandDynamicProperties">6.8 Open Types and Dynamic Properties</a></li>
+<li><a href="#EntityReferences">6.9 Entity References</a></li>
+<li><a href="#MediaEntitiesandStreamProperties">6.10 Media Entities and Stream Properties</a></li>
+</ul></li>
+<li><a href="#AnnotationsandControlInformation">7 Annotations and Control Information</a>
+<ul>
+<li><a href="#TheWrapperObject">7.1 The Wrapper Object</a></li>
+<li><a href="#InstanceAnnotations">7.2 Instance Annotations</a></li>
+<li><a href="#PropertyAnnotations">7.3 Property Annotations</a></li>
+<li><a href="#SelectedAnnotations">7.4 Selected Annotations</a></li>
+<li><a href="#ControlInformation">7.5 Control Information</a>
+<ul>
+<li><a href="#ControlInformationcontext">7.5.1 Control Information: <code>context</code></a></li>
+<li><a href="#ControlInformationcountandnextLink">7.5.2 Control Information: <code>count</code> and <code>nextLink</code></a></li>
+<li><a href="#ControlInformationtype">7.5.3 Control Information: <code>type</code></a></li>
+</ul></li>
+</ul></li>
+<li><a href="#RequestPayloads">8 Request Payloads</a>
+<ul>
+<li><a href="#DeterminingthePositionalPropertyListinRequests">8.1 Determining the Positional Property List in Requests</a></li>
+<li><a href="#MessageBodyofaRequest">8.2 Message Body of a Request</a></li>
+<li><a href="#CreatinganEntity">8.3 Creating an Entity</a></li>
+<li><a href="#UpdatinganEntity">8.4 Updating an Entity</a></li>
+<li><a href="#UpdatingaCollectionofEntities">8.5 Updating a Collection of Entities</a></li>
+<li><a href="#DeepInsert">8.6 Deep Insert</a></li>
+<li><a href="#BindOperations">8.7 Bind Operations</a></li>
+<li><a href="#ActionandFunctionParameters">8.8 Action and Function Parameters</a></li>
+</ul></li>
+<li><a href="#DeltaPayload">9 Delta Payload</a>
+<ul>
+<li><a href="#AddedorChangedEntity">9.1 Added or Changed Entity</a></li>
+<li><a href="#DeletedEntity">9.2 Deleted Entity</a></li>
+<li><a href="#AddedandDeletedLinks">9.3 Added and Deleted Links</a></li>
+<li><a href="#NestedDeltaPayloads">9.4 Nested Delta Payloads</a></li>
+</ul></li>
+<li><a href="#ServiceDocument">10 Service Document</a></li>
+<li><a href="#ErrorResponse">11 Error Response</a></li>
+<li><a href="#BatchRequestsandResponses">12 Batch Requests and Responses</a></li>
+<li><a href="#Conformance">13 Conformance</a></li>
+<li><a href="#OpenIssues">14 Open Issues</a>
+<ul>
+<li><a href="#CrossSpecificationDependencies">14.1 Cross-Specification Dependencies</a></li>
+<li><a href="#NamingandEncodingDecisions">14.2 Naming and Encoding Decisions</a></li>
+<li><a href="#ConstructsNotYetSpecified">14.3 Constructs Not Yet Specified</a></li>
+</ul></li>
+<li><a href="#References">A References</a>
+<ul>
+<li><a href="#NormativeReferences">A.1 Normative References</a></li>
+<li><a href="#InformativeReferences">A.2 Informative References</a></li>
+</ul></li>
+<li><a href="#SafetySecurityandPrivacyConsiderations">B Safety, Security and Privacy Considerations</a></li>
+<li><a href="#Acknowledgments">C Acknowledgments</a>
+<ul>
+<li><a href="#SpecialThanks">C.1 Special Thanks</a></li>
+<li><a href="#Participants">C.2 Participants</a></li>
+</ul></li>
+<li><a href="#RevisionHistory">D Revision History</a></li>
+<li><a href="#Notices">E Notices</a></li>
+</ul>
+</div>
+</details>
+<hr />
+<details open><summary>
+<h1 id="1-introduction"><a id="Introduction" href="#Introduction">1 Introduction</a></h1>
+</summary>
+<p>The OData protocol is comprised of a set of specifications for representing and interacting with structured content. The core specification for the protocol is in <a href="#ODataProtocol">OData-Protocol</a>; this document is an extension of the core protocol. Representations for OData requests and responses using the JavaScript Object Notation (JSON), see <a href="#rfc8259">RFC8259</a>, are defined in <a href="#ODataJSON">OData-JSON</a>.</p>
+<p>This document defines a <em>compact</em> JSON format: a lossless, alternative representation of the same information, whose prime aim is to minimize the uncompressed size of OData request and response payloads.</p>
+<p>Processing large volumes of JSON is expensive, largely due to its verbosity. Compression on the wire takes most of that inefficiency away during transport, but the sender producing and the receiver consuming the uncompressed payload still deal with the full volume of JSON text. The repetition of property names, once per property per instance, dominates that volume in exactly the payloads where it hurts most: large collections of entities and large collections of complex values.</p>
+<p>The approach taken in this format, inspired by traditional rowset interfaces, is to represent a structured instance as a JSON <em>array</em> rather than a JSON object, so that a property name is transmitted at most once per payload instead of once per instance. JSON arrays preserve the order of their items, whereas the order of the name/value pairs of a JSON object is not significant; this format uses that property of arrays to convey, by position, which value belongs to which property.</p>
+<p>The information needed to map a position back to a property is already present in every OData payload: the <a href="#ControlInformationcontext">context URL</a> describes what a payload contains, and has always been designed to allow a payload to be interpreted without knowledge of the request that produced it. This format gives the context URL the additional role of describing <em>at which position</em> each property appears.</p>
+<p>A compact JSON payload may represent anything an OData JSON payload may represent:</p>
+<ul>
+<li>a <a href="#PrimitiveValues">single primitive value</a></li>
+<li>a <a href="#PrimitiveValues">collection of primitive values</a></li>
+<li>a <a href="#ComplexValue">single complex value</a> or a <a href="#CollectionofComplexValues">collection of complex values</a></li>
+<li>a <a href="#Entity">single entity</a> or <a href="#EntityReferences">entity reference</a></li>
+<li>a <a href="#CollectionofEntities">collection of entities</a> or entity references</li>
+<li>a <a href="#DeltaPayload">collection of changes</a></li>
+<li>a <a href="#ServiceDocument">service document</a> describing the top-level resources exposed by the service</li>
+<li>an <a href="#ErrorResponse">error</a>.</li>
+</ul>
+<details open><summary>
+<h2 id="11-glossary"><a id="Glossary" href="#Glossary">1.1 Glossary</a></h2>
+</summary>
+<details open><summary>
+<h3 id="111-definitions-of-terms"><a id="DefinitionsofTerms" href="#DefinitionsofTerms">1.1.1 Definitions of Terms</a></h3>
+</summary>
+<p>The following terms are used throughout this document:</p>
+<ul>
+<li><span id="positionalrepresentation"><em>Positional representation</em></span>: the representation of a structured instance as a JSON array whose items are the values of the instance’s properties, identified by their position.</li>
+<li><span id="positionalpropertylist"><em>Positional property list</em></span>: the ordered list of properties that a positional representation conveys; item <em>n</em> of the array is the value of item <em>n</em> of this list. See <a href="#PositionalPropertyList">section 5.1</a>.</li>
+<li><span id="wrapperobject"><em>Wrapper object</em></span>: a JSON object that carries annotations and control information for a value, together with that value, in a place where the value alone would otherwise appear. See <a href="#TheWrapperObject">section 7.1</a>.</li>
+<li><span id="compactpayload"><em>Compact payload</em></span>: a request or response body labeled with the <a href="#RequestingtheCompactJSONFormat"><code>compact</code></a> format parameter.</li>
+</ul>
+</details>
+<details open><summary>
+<h3 id="112-acronyms-and-abbreviations"><a id="AcronymsandAbbreviations" href="#AcronymsandAbbreviations">1.1.2 Acronyms and Abbreviations</a></h3>
+</summary>
+<!-- TODO -->
+
+</details>
+<details open><summary>
+<h3 id="113-document-conventions"><a id="DocumentConventions" href="#DocumentConventions">1.1.3 Document Conventions</a></h3>
+</summary>
+<p>Keywords defined by this specification use <code>this monospaced font</code>.</p>
+<p>Some sections of this specification are illustrated with non-normative examples.</p>
+<div class="example">
+<p>Example 1: text describing an example uses this paragraph style</p>
+<pre><code>Non-normative examples use this paragraph style.</code></pre>
+</div>
+<p>All examples in this document are non-normative and informative only.</p>
+<p>Examples use the sample model of <a href="#ODataProtocol">OData-Protocol</a> with an entity type <code>Customer</code> having structural properties <code>ID</code>, <code>Name</code> and <code>Address</code> (of complex type <code>Address</code> with properties <code>Street</code>, <code>City</code> and <code>PostalCode</code>) and a navigation property <code>Orders</code>, unless stated otherwise.</p>
+<p>Examples in this document routinely show the same payload twice, once in the format defined by <a href="#ODataJSON">OData-JSON</a> and once in the format defined by this document, to make the correspondence between them apparent. Where an example shows only one of the two, the other is not relevant to the point being made.</p>
+<p>All other text is normative unless otherwise labeled.</p>
+</details>
+</details>
+</details>
+<hr />
+<details open><summary>
+<h1 id="2-compact-json-format-design"><a id="CompactJSONFormatDesign" href="#CompactJSONFormatDesign">2 Compact JSON Format Design</a></h1>
+</summary>
+<p><a href="#ODataJSON">OData-JSON</a> extends JSON by defining general conventions for name/value pairs that annotate a JSON object, property or array, and a set of canonical name/value pairs for control information such as ids, types and links.</p>
+<p>This format extends <a href="#ODataJSON">OData-JSON</a> further by allowing a structured instance – an entity or a complex value – to be represented as a JSON array instead of a JSON object. Everything else defined by <a href="#ODataJSON">OData-JSON</a> continues to apply.</p>
+<details open><summary>
+<h2 id="21-design-principles"><a id="DesignPrinciples" href="#DesignPrinciples">2.1 Design Principles</a></h2>
+</summary>
+<p>The following principles govern this format. They are stated here because they explain, and constrain, the rules in the remainder of this document.</p>
+<ol type="1">
+<li><p><span id="supersetprinciple"><em>Compact JSON is a superset of the OData JSON format.</em></span> Every payload that is valid according to <a href="#ODataJSON">OData-JSON</a> is also a valid compact JSON payload. A receiver that accepts compact JSON therefore accepts strictly more payloads than a receiver that accepts only <a href="#ODataJSON">OData-JSON</a>, and a sender is never forced to use a positional representation where it is inconvenient or impossible.</p></li>
+<li><p><em>The saving is in the repetition.</em> A positional representation removes property names from a payload; the mapping from positions to properties is transmitted once. Consequently the benefit grows with the number of instances that share a positional property list, and is negligible or negative for a payload containing a single instance. This format therefore never <em>requires</em> a positional representation.</p></li>
+<li><p><em>The context URL describes the payload.</em> A receiver that has the context URL, and the metadata it references, can interpret a compact payload without knowledge of the request that produced it. This format does not introduce a second, competing mechanism for describing payload shape.</p></li>
+<li><p><em>Requests and responses are treated alike.</em> Large collections occur in request bodies – of <code>POST</code>, <code>PUT</code> and <code>PATCH</code> requests – as well as in response bodies, and the saving is the same in both directions. Where requests and responses must differ, the difference is called out explicitly.</p></li>
+</ol>
+<div class="example">
+<p>Example <a id="superset" href="#superset">2</a>: because of the <a href="#supersetprinciple">superset principle</a>, a sender that cannot produce a positional representation for a particular instance may fall back to the representation defined by <a href="#ODataJSON">OData-JSON</a> for that instance alone, within an otherwise positional payload:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(ID,Name)&quot;</span><span class="fu">,</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;ALFKI&quot;</span><span class="ot">,</span> <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">],</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;ANATR&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Ana Trujillo Emparedados y helados&quot;</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;ANTON&quot;</span><span class="ot">,</span> <span class="st">&quot;Antonio Moreno Taquería&quot;</span><span class="ot">]</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
+</details>
+<details open><summary>
+<h2 id="22-relationship-to-the-odata-json-format"><a id="RelationshiptotheODataJSONFormat" href="#RelationshiptotheODataJSONFormat">2.2 Relationship to the OData JSON Format</a></h2>
+</summary>
+<p>This document specifies only where the compact JSON format deviates from <a href="#ODataJSON">OData-JSON</a>. It is not a self-contained format specification: for the representation of primitive values, for the definition and meaning of control information, for URL and relative URL handling, and for everything else it does not mention, the rules of <a href="#ODataJSON">OData-JSON</a> apply unchanged.</p>
+<p>In particular, this format changes only <em>how a structured instance is laid out</em>. It does not change which information may appear in a payload, what that information means, or which requests a service supports.</p>
+</details>
+</details>
+<hr />
+<details open><summary>
+<h1 id="3-requesting-the-compact-json-format"><a id="RequestingtheCompactJSONFormat" href="#RequestingtheCompactJSONFormat">3 Requesting the Compact JSON Format</a></h1>
+</summary>
+<p>The compact JSON format can be requested using the <code>$format</code> query option in the request URL with the media type <code>application/json</code> followed by the <code>compact=true</code> format parameter, optionally followed by other format parameters.</p>
+<p>Alternatively, this format can be requested using the <code>Accept</code> header with the media type <code>application/json</code> followed by the <code>compact=true</code> format parameter, optionally followed by other format parameters.</p>
+<p>If specified, <code>$format</code> overrides any value specified in the <code>Accept</code> header.</p>
+<p>The names and values of the format parameters are case-insensitive.</p>
+<p>A service that does not support the compact JSON format MUST NOT return a compact payload. Because the <code>compact</code> format parameter selects a payload shape that a receiver unaware of this specification will misinterpret, a service MUST NOT return a compact response unless the client requested it with <code>compact=true</code>, and MUST return <code>406 Not Acceptable</code> if the client requests <code>compact=true</code> and the service does not support it.</p>
+<p>A client MUST NOT send a compact request body unless it has established that the service supports the compact JSON format, either from the <a href="#AdvertisingSupport"><code>Capabilities.SupportedFormats</code></a> annotation or from out-of-band knowledge. A service that receives a request body labeled with <code>compact=true</code> that it does not support MUST reject the request with <code>415 Unsupported Media Type</code>.</p>
+<details open><summary>
+<h2 id="31-format-parameters"><a id="FormatParameters" href="#FormatParameters">3.1 Format Parameters</a></h2>
+</summary>
+<p>The format parameters defined in <a href="#ODataJSON">OData-JSON</a> apply to the compact JSON format with the meaning defined there, subject to the following.</p>
+<p>The <code>streaming</code> parameter is meaningful and MAY be specified. A positional representation is inherently ordered, and a compact payload that meets the <a href="#PayloadOrderingConstraints">payload ordering constraints</a> MUST include <code>streaming=true</code>.</p>
+<p>The <code>IEEE754Compatible</code> parameter is meaningful and MUST be included if <code>Edm.Int64</code> and <code>Edm.Decimal</code> numbers are represented as strings.</p>
+<p>The <code>metadata</code> parameter is meaningful and MAY be specified with the value <code>minimal</code> or <code>none</code>. Note that <code>metadata=none</code> does not remove the <a href="#ControlInformationcontext"><code>context</code></a> control information from a compact payload: the context URL determines the <a href="#positionalpropertylist">positional property list</a> and is therefore required for the payload to be interpretable at all. See <a href="#ControlInformationcontext">section 7.5.1</a>.</p>
+<p>The value <code>metadata=full</code> is NOT RECOMMENDED with <code>compact=true</code>. Full metadata requires control information to be present for every instance, which forces every instance into a <a href="#wrapperobject">wrapper object</a> and defeats the purpose of the format. Services MAY reject the combination with <code>406 Not Acceptable</code>.</p>
+</details>
+<details open><summary>
+<h2 id="32-advertising-support"><a id="AdvertisingSupport" href="#AdvertisingSupport">3.2 Advertising Support</a></h2>
+</summary>
+<p>Services SHOULD advertise the supported media types by annotating the entity container with the term <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/v4.02-release-candidate/vocabularies/Org.OData.Capabilities.V1.md#SupportedFormats"><code>Capabilities.SupportedFormats</code></a></span> defined in <a href="#ODataVocCap">OData-VocCap</a>, listing all available formats and combinations of supported format parameters, including the <code>compact=true</code> format parameter if the compact JSON format is supported by the service.</p>
+<div class="example">
+<p>Example 3: a service advertising support for both the format defined in <a href="#ODataJSON">OData-JSON</a> and the compact JSON format</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;@Capabilities.SupportedFormats&quot;</span><span class="er">:</span> <span class="ot">[</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;application/json;IEEE754Compatible=true&quot;</span><span class="ot">,</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;application/json;IEEE754Compatible=true;compact=true&quot;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ot">]</span></span></code></pre></div>
+</div>
+</details>
+</details>
+<hr />
+<details open><summary>
+<h1 id="4-common-characteristics"><a id="CommonCharacteristics" href="#CommonCharacteristics">4 Common Characteristics</a></h1>
+</summary>
+<details open><summary>
+<h2 id="41-header-content-type"><a id="HeaderContentType" href="#HeaderContentType">4.1 Header Content-Type</a></h2>
+</summary>
+<p>Requests and responses with a compact JSON message body MUST have a <code>Content-Type</code> header value of <code>application/json</code> and MUST include the <code>compact</code> parameter with a value of <code>true</code>.</p>
+<p>All other rules for the <code>Content-Type</code> header defined in <a href="#ODataJSON">OData-JSON</a> apply unchanged, including the <code>charset</code>, <code>metadata</code>, <code>IEEE754Compatible</code> and <code>streaming</code> parameters.</p>
+<div class="example">
+<p>Example 4: a compact response that follows the payload ordering constraints and represents <code>Edm.Int64</code> and <code>Edm.Decimal</code> values as strings</p>
+<pre><code>Content-Type: application/json;compact=true;metadata=minimal;
+              IEEE754Compatible=true;streaming=true</code></pre>
+</div>
+</details>
+<details open><summary>
+<h2 id="42-message-body"><a id="MessageBody" href="#MessageBody">4.2 Message Body</a></h2>
+</summary>
+<p>Each message body is represented as a single JSON object, as defined in <a href="#ODataJSON">OData-JSON</a>, with the single exception described in <a href="#MessageBodyofaRequest">section 8.2</a>. A response message body is always a JSON object: the positional representation applies to the instances <em>within</em> the payload, not to the payload as a whole.</p>
+<p>This object is either</p>
+<ul>
+<li>the representation of an <a href="#Entity">entity</a>, an <a href="#EntityReferences">entity reference</a> or a <a href="#ComplexValue">complex value</a> that is not represented positionally, or</li>
+<li>a <a href="#wrapperobject">wrapper object</a>, whose value is the correct representation for the payload’s content.</li>
+</ul>
+<p>The name of the value in a wrapper object is <code>value</code>, as defined in <a href="#ODataJSON">OData-JSON</a>, or the abbreviation <code>_</code> defined in <a href="#TheWrapperObject">section 7.1</a>.</p>
+<div class="example">
+<p>Example 5: a message body containing a collection of entities represented positionally</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(ID,Name)&quot;</span><span class="fu">,</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;ALFKI&quot;</span><span class="ot">,</span> <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">],</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;ANATR&quot;</span><span class="ot">,</span> <span class="st">&quot;Ana Trujillo Emparedados y helados&quot;</span><span class="ot">]</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
+<p>Receivers MUST retain the order of items within an array in a compact payload. In a positional representation the order of items is significant and carries the mapping from values to properties; a receiver that reorders array items loses information.</p>
+</details>
+<details open><summary>
+<h2 id="43-payload-ordering-constraints"><a id="PayloadOrderingConstraints" href="#PayloadOrderingConstraints">4.3 Payload Ordering Constraints</a></h2>
+</summary>
+<p>The ordering constraints defined in <a href="#ODataJSON">OData-JSON</a> apply to the JSON objects in a compact payload, and MUST only be assumed if explicitly indicated by the <code>streaming=true</code> format parameter in the <code>Content-Type</code> header.</p>
+<p>A positional representation is inherently ordered, and satisfies by construction the constraints that <a href="#ODataJSON">OData-JSON</a> imposes on the sequence of properties within an instance. The constraints that remain meaningful for a compact payload are those on the JSON objects it still contains, namely the message body and any <a href="#wrapperobject">wrapper object</a>:</p>
+<ul>
+<li>If present, the <a href="#ControlInformationcontext"><code>context</code></a> control information MUST be the first name/value pair in the JSON object.</li>
+<li>For deleted entities, the <code>removed</code> control information MUST appear after <code>context</code>, if present, and before any other name/value pair.</li>
+<li>The <code>type</code> control information, if present, MUST appear next in the JSON object.</li>
+<li>The <code>id</code> and <code>etag</code> control information MUST appear before the value.</li>
+<li>The value, named <code>value</code> or <code>_</code>, MUST appear last in a wrapper object, with the exception of the <code>nextLink</code> of a collection, which MAY appear after the collection it annotates.</li>
+</ul>
+<p>Producers of compact payloads are encouraged to follow the payload ordering constraints whenever possible and to include the <code>streaming=true</code> format parameter.</p>
+</details>
+</details>
+<hr />
+<details open><summary>
+<h1 id="5-positional-representation"><a id="PositionalRepresentation" href="#PositionalRepresentation">5 Positional Representation</a></h1>
+</summary>
+<p>A structured instance – an entity or a complex value – MAY be represented as a JSON array instead of a JSON object. Such an array is called the <em>positional representation</em> of the instance.</p>
+<p>The items of the array are the values of the instance’s properties. A property name is not transmitted with the value; the property a value belongs to is identified by the position of the value within the array.</p>
+<div class="example">
+<p>Example <a id="first" href="#first">6</a>: the same entity in the format defined by <a href="#ODataJSON">OData-JSON</a> and in its positional representation</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(ID,Name,City)/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;ALFKI&quot;</span><span class="fu">,</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="fu">,</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;City&quot;</span><span class="fu">:</span> <span class="st">&quot;Berlin&quot;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(ID,Name,City)/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;ALFKI&quot;</span><span class="ot">,</span> <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">,</span> <span class="st">&quot;Berlin&quot;</span><span class="ot">]</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
+<p>A sender MAY choose the positional representation for some instances in a payload and the representation defined in <a href="#ODataJSON">OData-JSON</a> for others; see the <a href="#supersetprinciple">superset principle</a>. A receiver distinguishes the two by the JSON type of the instance: a JSON array is a positional representation, a JSON object is not.</p>
+<details open><summary>
+<h2 id="51-positional-property-list"><a id="PositionalPropertyList" href="#PositionalPropertyList">5.1 Positional Property List</a></h2>
+</summary>
+<p>The <em>positional property list</em> of a structured instance is the ordered list of properties that its positional representation conveys.</p>
+<p>If an instance is represented positionally:</p>
+<ul>
+<li>the number of items in the array MUST equal the number of items in the positional property list, and</li>
+<li>item <em>n</em> of the array MUST be the value of item <em>n</em> of the positional property list, formatted as described in <a href="#PositionValues">section 5.4</a>.</li>
+</ul>
+<p>A sender MUST NOT omit an item, MUST NOT add an item, and MUST NOT reorder items. A property whose value is null is represented by the JSON value <code>null</code> in its position; a property that has no value is represented as described in <a href="#PositionValues">section 5.4</a>.</p>
+<p>Note that this is a stricter requirement than the one <a href="#ODataJSON">OData-JSON</a> places on a JSON object representation, where a sender may omit a property whose value it does not wish to transmit. In a positional representation there is no way to omit a value without shifting every subsequent value, so the positional property list must be transmitted in full. If a sender wishes to transmit fewer properties, it narrows the positional property list – by narrowing the select-list in the context URL – rather than shortening the array.</p>
+</details>
+<details open><summary>
+<h2 id="52-determining-the-positional-property-list"><a id="DeterminingthePositionalPropertyList" href="#DeterminingthePositionalPropertyList">5.2 Determining the Positional Property List</a></h2>
+</summary>
+<p>The positional property list of an instance is determined by the select-list, as defined in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ContextURL">OData-Protocol, section 10</a>, that applies to that instance, and by the metadata for the instance’s type.</p>
+<p>Let <em>T</em> be the type of the instance and <em>S</em> the sequence of select-list items, in the order in which they appear in the context URL, that applies to the instance. The positional property list is determined as follows:</p>
+<ol type="1">
+<li><p>If <a href="#ODataProtocol">OData-Protocol</a> specifies that all structural properties are implicitly selected – because there is no select-list, or because the select-list contains only expanded navigation properties – then the structural properties of <em>T</em>, in the order described below, are prepended to <em>S</em>.</p></li>
+<li><p>Each item <code>*</code> in <em>S</em> is replaced, in place, by the structural properties of <em>T</em> in the order described below.</p></li>
+<li><p>The items of <em>S</em> are grouped as described in <a href="#GroupingofSelectItems">section 5.3</a>. Each group occupies exactly one position, at the position of the first of its items.</p></li>
+<li><p>The positional property list is the resulting sequence of groups, in order.</p></li>
+</ol>
+<p>The <em>order described below</em>, wherever referred to above, is the order in which the structural properties are declared in the CSDL document defining <em>T</em>, with the properties declared by a base type of <em>T</em> preceding those declared by <em>T</em> itself, applied recursively along the inheritance chain.</p>
+<p>A service MUST NOT reorder the properties of a type in its metadata document between versions of that document without also changing the metadata document URL, since the positional property list, and therefore the meaning of every compact payload referencing that metadata, depends on the declaration order. Services SHOULD reference a versioned metadata document from the context URL when producing compact payloads. See <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#MetadataDocumentRequest">OData-Protocol, section 11.1.2</a>.</p>
+<div class="example">
+<p>Example 7: a select-list determines both the membership and the order of the positional property list; the two requests differ only in the order of the <code>$select</code> items and produce different positional representations of the same entity</p>
+<pre><code>GET ~/Customers(&#39;ALFKI&#39;)?$select=Name,ID
+{
+  &quot;@context&quot;: &quot;$metadata#Customers(Name,ID)/$entity&quot;,
+  &quot;_&quot;: [&quot;Alfreds Futterkiste&quot;, &quot;ALFKI&quot;]
+}</code></pre>
+<pre><code>GET ~/Customers(&#39;ALFKI&#39;)?$select=ID,Name
+{
+  &quot;@context&quot;: &quot;$metadata#Customers(ID,Name)/$entity&quot;,
+  &quot;_&quot;: [&quot;ALFKI&quot;, &quot;Alfreds Futterkiste&quot;]
+}</code></pre>
+</div>
+<div class="example">
+<p>Example 8: with no <code>$select</code>, the positional property list is the structural properties of the entity type in declaration order; the navigation property <code>Orders</code> is not part of it because it is not selected</p>
+<pre><code>GET ~/Customers
+{
+  &quot;@context&quot;: &quot;$metadata#Customers&quot;,
+  &quot;_&quot;: [
+    [&quot;ALFKI&quot;, &quot;Alfreds Futterkiste&quot;, [&quot;Obere Str. 57&quot;, &quot;Berlin&quot;, &quot;12209&quot;]],
+    [&quot;ANATR&quot;, &quot;Ana Trujillo&quot;, [&quot;Avda. de la Constitución 2222&quot;, &quot;México D.F.&quot;, &quot;05021&quot;]]
+  ]
+}</code></pre>
+</div>
+<div class="example">
+<p>Example 9: a context URL containing only an expanded navigation property implicitly selects all structural properties, which are placed before the expanded navigation property</p>
+<pre><code>GET ~/Customers?$expand=Orders($select=ID)
+{
+  &quot;@context&quot;: &quot;$metadata#Customers(Orders(ID))&quot;,
+  &quot;_&quot;: [
+    [
+      &quot;ALFKI&quot;, &quot;Alfreds Futterkiste&quot;, [&quot;Obere Str. 57&quot;, &quot;Berlin&quot;, &quot;12209&quot;],
+      [[10643], [10692]]
+    ]
+  ]
+}</code></pre>
+</div>
+</details>
+<details open><summary>
+<h2 id="53-grouping-of-select-items"><a id="GroupingofSelectItems" href="#GroupingofSelectItems">5.3 Grouping of Select Items</a></h2>
+</summary>
+<p>A select-list may contain several items that address the same property of <em>T</em>: <a href="#ODataProtocol">OData-Protocol</a> represents a selected sub-property of a complex property using path syntax, so selecting two sub-properties of the same complex property yields two items sharing a first path segment. The positional representation gives such a property a single position.</p>
+<p>The <em>first segment</em> of a select-item is the item with any <code>(...)</code> or <code>+(...)</code> suffix removed, truncated before the first forward slash (<code>/</code>). A leading type-cast prefix, that is a qualified type name followed by a forward slash, is part of the first segment.</p>
+<p>Two items of <em>S</em> belong to the same group if and only if their first segments are equal. The group occupies the position of the first of its items.</p>
+<p>If the property addressed by the first segment of a group is of a structured type, the <em>nested select-list</em> of that group is formed by concatenating, for each item of the group in order:</p>
+<ul>
+<li>for an item of the form <code>P/rest</code>, the item <code>rest</code>;</li>
+<li>for an item of the form <code>P(nested)</code> or <code>P+(nested)</code>, the items of <code>nested</code>;</li>
+<li>for an item of the form <code>P</code>, nothing.</li>
+</ul>
+<p>If the resulting nested select-list is empty, all structural properties of the property’s type are implicitly selected, as in step 1 of <a href="#DeterminingthePositionalPropertyList">section 5.2</a>.</p>
+<p>The nested select-list determines the positional property list of the instances of that property, applying this section recursively.</p>
+<div class="example">
+<p>Example <a id="grouping" href="#grouping">10</a>: two selected sub-properties of the complex property <code>Address</code> share one position, which holds the positional representation of the complex value</p>
+<pre><code>GET ~/Customers?$select=Name,Address/City,Address/PostalCode
+{
+  &quot;@context&quot;: &quot;$metadata#Customers(Name,Address/City,Address/PostalCode)&quot;,
+  &quot;_&quot;: [
+    [&quot;Alfreds Futterkiste&quot;, [&quot;Berlin&quot;, &quot;12209&quot;]],
+    [&quot;Ana Trujillo&quot;, [&quot;México D.F.&quot;, &quot;05021&quot;]]
+  ]
+}</code></pre>
+<p>The positional property list of each <code>Customer</code> is (<code>Name</code>, <code>Address</code>), and the positional property list of each <code>Address</code> is (<code>City</code>, <code>PostalCode</code>).</p>
+</div>
+<div class="example">
+<p>Example 11: a bare item and a suffixed item addressing the same navigation property form one group and therefore one position</p>
+<pre><code>$metadata#Employees/Sales.Manager(DirectReports,DirectReports+(FirstName,LastName))</code></pre>
+<p>The positional property list of each <code>Manager</code> is (<code>DirectReports</code>).</p>
+</div>
+</details>
+<details open><summary>
+<h2 id="54-position-values"><a id="PositionValues" href="#PositionValues">5.4 Position Values</a></h2>
+</summary>
+<p>The value at a position is one of the following:</p>
+<ul>
+<li>the representation, as defined in <a href="#ODataJSON">OData-JSON</a> or in this document, of the value of the property at that position in the positional property list;</li>
+<li>a <a href="#wrapperobject">wrapper object</a>, if annotations or control information apply to that value, or if the property has no value; or</li>
+<li><code>null</code>, if the property is null.</li>
+</ul>
+<p>The representation of a primitive value is unchanged from <a href="#ODataJSON">OData-JSON</a>.</p>
+<p>A single-valued structured property holds either the positional representation of its value, a JSON object as defined in <a href="#ODataJSON">OData-JSON</a>, or <code>null</code>.</p>
+<p>A collection-valued property holds a JSON array whose items are the representations of the members of the collection. An empty collection is represented as an empty JSON array.</p>
+<div class="example">
+<p>Example 12: a collection-valued complex property; the outer array is the collection, each inner array the positional representation of one <code>Address</code></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(Name,Addresses/City)/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">,</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[[</span><span class="st">&quot;Berlin&quot;</span><span class="ot">],</span> <span class="ot">[</span><span class="st">&quot;Hamburg&quot;</span><span class="ot">]]</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
+<p>Note the consequence of the two preceding rules: for a collection-valued structured property, the value at the position is an array of arrays. A receiver that knows the positional property list also knows, from the metadata, whether a property is collection-valued, and can therefore distinguish the two nestings without ambiguity.</p>
+<p>A property that has no value at all – as opposed to a property whose value is null – occurs when only annotations were requested for it, for example when a navigation property was expanded with <code>$count</code> only. Such a position holds a <a href="#wrapperobject">wrapper object</a> carrying the annotations and no value. See <a href="#PropertyAnnotations">section 7.3</a>.</p>
+</details>
+</details>
+<hr />
+<details open><summary>
+<h1 id="6-structured-instances"><a id="StructuredInstances" href="#StructuredInstances">6 Structured Instances</a></h1>
+</summary>
+<p>This section describes how each kind of OData value is represented in a compact payload. Only the deviations from <a href="#ODataJSON">OData-JSON</a> are described; everything else is unchanged.</p>
+<details open><summary>
+<h2 id="61-entity"><a id="Entity" href="#Entity">6.1 Entity</a></h2>
+</summary>
+<p>An entity MAY be represented as a JSON array, as described in <a href="#PositionalRepresentation">section 5</a>. Its positional property list is determined from the select-list applying to it, as described in <a href="#DeterminingthePositionalPropertyList">section 5.2</a>.</p>
+<p>Control information that applies to the entity – <code>id</code>, <code>etag</code>, <code>type</code>, <code>editLink</code>, <code>readLink</code> and others – cannot appear inside the array. An entity to which control information applies is represented either as a <a href="#wrapperobject">wrapper object</a> carrying that control information together with the positional representation, or as a JSON object as defined in <a href="#ODataJSON">OData-JSON</a>.</p>
+<div class="example">
+<p>Example 13: a single entity with an ETag</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(ID,Name)/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@etag&quot;</span><span class="fu">:</span> <span class="st">&quot;W/</span><span class="ch">\&quot;</span><span class="st">MjAyNC0wMi0yOA==</span><span class="ch">\&quot;</span><span class="st">&quot;</span><span class="fu">,</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;ALFKI&quot;</span><span class="ot">,</span> <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">]</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
+</details>
+<details open><summary>
+<h2 id="62-complex-value"><a id="ComplexValue" href="#ComplexValue">6.2 Complex Value</a></h2>
+</summary>
+<p>A complex value MAY be represented as a JSON array, as described in <a href="#PositionalRepresentation">section 5</a>. Its positional property list is determined from the nested select-list applying to it, as described in <a href="#GroupingofSelectItems">section 5.3</a>.</p>
+<p>A null complex value is represented as <code>null</code>, not as an empty array.</p>
+</details>
+<details open><summary>
+<h2 id="63-collection-of-entities"><a id="CollectionofEntities" href="#CollectionofEntities">6.3 Collection of Entities</a></h2>
+</summary>
+<p>A collection of entities is represented as a JSON array whose items are the representations of the entities in the collection, each of which MAY be a positional representation.</p>
+<p>All entities in a collection share the same positional property list, which is determined once from the select-list applying to the collection.</p>
+<div class="example">
+<p>Example <a id="collection" href="#collection">14</a>: a collection of entities, showing the format defined by <a href="#ODataJSON">OData-JSON</a> and the compact format side by side</p>
+<pre><code>GET ~/Customers?$select=ID,Name
+{
+  &quot;@context&quot;: &quot;$metadata#Customers(ID,Name)&quot;,
+  &quot;value&quot;: [
+    { &quot;ID&quot;: &quot;ALFKI&quot;, &quot;Name&quot;: &quot;Alfreds Futterkiste&quot; },
+    { &quot;ID&quot;: &quot;ANATR&quot;, &quot;Name&quot;: &quot;Ana Trujillo&quot; },
+    { &quot;ID&quot;: &quot;ANTON&quot;, &quot;Name&quot;: &quot;Antonio Moreno&quot; }
+  ]
+}</code></pre>
+<pre><code>GET ~/Customers?$select=ID,Name
+{
+  &quot;@context&quot;: &quot;$metadata#Customers(ID,Name)&quot;,
+  &quot;_&quot;: [
+    [&quot;ALFKI&quot;, &quot;Alfreds Futterkiste&quot;],
+    [&quot;ANATR&quot;, &quot;Ana Trujillo&quot;],
+    [&quot;ANTON&quot;, &quot;Antonio Moreno&quot;]
+  ]
+}</code></pre>
+</div>
+</details>
+<details open><summary>
+<h2 id="64-collection-of-complex-values"><a id="CollectionofComplexValues" href="#CollectionofComplexValues">6.4 Collection of Complex Values</a></h2>
+</summary>
+<p>A collection of complex values is represented as a JSON array whose items are the representations of the complex values in the collection, each of which MAY be a positional representation.</p>
+<p>All complex values in a collection share the same positional property list.</p>
+</details>
+<details open><summary>
+<h2 id="65-primitive-values"><a id="PrimitiveValues" href="#PrimitiveValues">6.5 Primitive Values</a></h2>
+</summary>
+<p>A primitive value is represented exactly as defined in <a href="#ODataJSON">OData-JSON</a>. A collection of primitive values is represented as a JSON array of such values.</p>
+<p>Primitive values are already represented without a repeated property name and this format does not change them.</p>
+</details>
+<details open><summary>
+<h2 id="66-navigation-properties"><a id="NavigationProperties" href="#NavigationProperties">6.6 Navigation Properties</a></h2>
+</summary>
+<p>A navigation property that is expanded occupies a position in the positional property list of the containing entity, and the value at that position is the representation of the related entity or collection of related entities.</p>
+<p>A navigation property that is not expanded and not selected does not occupy a position.</p>
+<p>The <code>navigationLink</code> and <code>associationLink</code> control information for a navigation property, when present, is carried in a <a href="#wrapperobject">wrapper object</a> at the navigation property’s position, as described in <a href="#PropertyAnnotations">section 7.3</a>.</p>
+<div class="example">
+<p>Example 15: an expanded collection-valued navigation property; the position of <code>Orders</code> holds the collection, whose items are the positional representations of the individual orders</p>
+<pre><code>GET ~/Customers?$select=ID&amp;$expand=Orders($select=ID,Amount)
+{
+  &quot;@context&quot;: &quot;$metadata#Customers(ID,Orders(ID,Amount))&quot;,
+  &quot;_&quot;: [
+    [&quot;ALFKI&quot;, [[10643, 29.46], [10692, 61.02]]],
+    [&quot;ANATR&quot;, []]
+  ]
+}</code></pre>
+</div>
+</details>
+<details open><summary>
+<h2 id="67-derived-types"><a id="DerivedTypes" href="#DerivedTypes">6.7 Derived Types</a></h2>
+</summary>
+<p>A collection may contain entities or complex values of types derived from the type of the collection.</p>
+<p>The positional property list of every instance in a collection is the same, and is determined from the select-list applying to the collection. An instance of a derived type therefore conveys, positionally, exactly the properties in that list – no more and no fewer – regardless of which additional properties its own type declares.</p>
+<p>Where the actual type of an instance must be conveyed, the <code>type</code> control information is carried in a <a href="#wrapperobject">wrapper object</a> around the positional representation.</p>
+<div class="example">
+<p>Example <a id="derived" href="#derived">16</a>: a heterogeneous collection; the type of the second entity differs from the type of the entity set</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(ID,Name)&quot;</span><span class="fu">,</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;ALFKI&quot;</span><span class="ot">,</span> <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">],</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;@type&quot;</span><span class="fu">:</span> <span class="st">&quot;#Model.VipCustomer&quot;</span><span class="fu">,</span> <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;ANATR&quot;</span><span class="ot">,</span> <span class="st">&quot;Ana Trujillo&quot;</span><span class="ot">]</span> <span class="fu">}</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
+<p>Properties declared by a derived type can be conveyed positionally by selecting them explicitly, in which case <a href="#ODataProtocol">OData-Protocol</a> prefixes them with the qualified name of the derived type in the select-list and they occupy a position in the positional property list of <em>every</em> instance in the collection.</p>
+<p>For an instance whose type does not declare such a property, the property is not applicable rather than null. The value at its position MUST be the empty JSON object <code>{}</code>, which is the <a href="#wrapperobject">wrapper object</a> carrying neither annotations nor a value, and which is therefore distinct both from <code>null</code> and from the positional representation of a value.</p>
+<div class="example">
+<p>Example 17: <code>PreferredContact</code> is declared by <code>Model.VipCustomer</code> only; the first entity is not a <code>VipCustomer</code> and its position for <code>PreferredContact</code> conveys “not applicable”</p>
+<pre><code>GET ~/Customers?$select=ID,Model.VipCustomer/PreferredContact
+{
+  &quot;@context&quot;: &quot;$metadata#Customers(ID,Model.VipCustomer/PreferredContact)&quot;,
+  &quot;_&quot;: [
+    [&quot;ALFKI&quot;, {}],
+    { &quot;@type&quot;: &quot;#Model.VipCustomer&quot;, &quot;_&quot;: [&quot;ANATR&quot;, &quot;email&quot;] }
+  ]
+}</code></pre>
+</div>
+</details>
+<details open><summary>
+<h2 id="68-open-types-and-dynamic-properties"><a id="OpenTypesandDynamicProperties" href="#OpenTypesandDynamicProperties">6.8 Open Types and Dynamic Properties</a></h2>
+</summary>
+<p>A dynamic property of an open type occupies a position in the positional property list if, and only if, it is explicitly selected and therefore appears in the select-list of the context URL.</p>
+<p>If a dynamic property is selected, the service MUST include a value at its position for every instance in the collection, using the empty JSON object <code>{}</code> for instances that do not have that dynamic property, as described in <a href="#DerivedTypes">section 6.7</a>.</p>
+<p>An instance carrying dynamic properties that are not selected MUST NOT be represented positionally; it is represented as a JSON object as defined in <a href="#ODataJSON">OData-JSON</a>. This is a direct consequence of the <a href="#supersetprinciple">superset principle</a> and requires no additional mechanism.</p>
+<div class="example">
+<p>Example 18: a payload in which one instance carries an unselected dynamic property and therefore falls back to the representation defined by <a href="#ODataJSON">OData-JSON</a></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(ID,Name)&quot;</span><span class="fu">,</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;ALFKI&quot;</span><span class="ot">,</span> <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">],</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;ANATR&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Ana Trujillo&quot;</span><span class="fu">,</span> <span class="dt">&quot;Nickname&quot;</span><span class="fu">:</span> <span class="st">&quot;Ana&quot;</span> <span class="fu">}</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
+</details>
+<details open><summary>
+<h2 id="69-entity-references"><a id="EntityReferences" href="#EntityReferences">6.9 Entity References</a></h2>
+</summary>
+<p>An entity reference is represented as defined in <a href="#ODataJSON">OData-JSON</a>: a JSON object containing the <code>id</code> control information. It has no positional representation, because it has no positional property list – the context URL <code>#$ref</code> and <code>#Collection($ref)</code> carry no select-list.</p>
+<p>A collection of entity references is a JSON array of such objects.</p>
+</details>
+<details open><summary>
+<h2 id="610-media-entities-and-stream-properties"><a id="MediaEntitiesandStreamProperties" href="#MediaEntitiesandStreamProperties">6.10 Media Entities and Stream Properties</a></h2>
+</summary>
+<p>The <code>mediaReadLink</code>, <code>mediaEditLink</code>, <code>mediaEtag</code> and <code>mediaContentType</code> control information of a media entity is carried in the <a href="#wrapperobject">wrapper object</a> around the entity’s positional representation.</p>
+<p>A stream property occupies a position in the positional property list if it is selected. The value at that position is a <a href="#wrapperobject">wrapper object</a> carrying the stream’s control information, or the value of the stream as defined in <a href="#ODataJSON">OData-JSON</a>.</p>
+</details>
+</details>
+<hr />
+<details open><summary>
+<h1 id="7-annotations-and-control-information"><a id="AnnotationsandControlInformation" href="#AnnotationsandControlInformation">7 Annotations and Control Information</a></h1>
+</summary>
+<p><a href="#ODataJSON">OData-JSON</a> attaches annotations and control information to a value by adding name/value pairs to the JSON object that represents the value, or to the object that contains it:</p>
+<ul>
+<li>an annotation on an instance is a name/value pair <code>@ns.term</code> on the object representing the instance;</li>
+<li>an annotation on a property is a name/value pair <code>Property@ns.term</code> on the object <em>containing</em> the property;</li>
+<li>control information follows the same two patterns, with a reserved term name, for example <code>@id</code> and <code>Orders@count</code>.</li>
+</ul>
+<p>Neither pattern is available in a positional representation: an array has no name/value pairs, and the containing instance may itself be an array. This format therefore introduces a single construct, the <em>wrapper object</em>, which is used uniformly wherever a value would otherwise appear.</p>
+<details open><summary>
+<h2 id="71-the-wrapper-object"><a id="TheWrapperObject" href="#TheWrapperObject">7.1 The Wrapper Object</a></h2>
+</summary>
+<p>A <em>wrapper object</em> is a JSON object whose name/value pairs are</p>
+<ul>
+<li>annotations and control information that apply to a value, and</li>
+<li>optionally, that value itself, under the reserved name <code>_</code>.</li>
+</ul>
+<p>A wrapper object MUST NOT contain any other name/value pairs. In particular it never carries the properties of a structured instance by name; an instance whose properties are carried by name is not a wrapper object but the representation defined by <a href="#ODataJSON">OData-JSON</a>.</p>
+<p>A wrapper object MAY appear wherever a value may appear:</p>
+<ul>
+<li>as the message body, in which case it carries the payload’s <a href="#ControlInformationcontext"><code>context</code></a> and the payload’s content;</li>
+<li>at a position in a positional representation, in which case it carries the annotations of the property at that position and the property’s value;</li>
+<li>as an item of a collection, in which case it carries the annotations of that member of the collection and the member itself.</li>
+</ul>
+<p>A wrapper object that carries no value denotes a property or instance that has no value, as distinct from one whose value is null. The empty wrapper object <code>{}</code> therefore denotes “no value and no annotations”; see <a href="#DerivedTypes">section 6.7</a>.</p>
+<p>The name of the value in a wrapper object is <code>_</code>.</p>
+<p>At the root of the message body the name <code>value</code> is also recognized, with the same meaning, for compatibility with <a href="#ODataJSON">OData-JSON</a> as required by the <a href="#supersetprinciple">superset principle</a>. Producers of compact payloads SHOULD use <code>_</code> in all positions, including the root.</p>
+<p>The name <code>value</code> is NOT RECOMMENDED anywhere other than the root of the message body, because a JSON object containing a name/value pair named <code>value</code> is indistinguishable from the representation, as defined by <a href="#ODataJSON">OData-JSON</a>, of a structured instance having a property named <code>value</code>.</p>
+<div class="example">
+<p>Example <a id="wrapper" href="#wrapper">19</a>: the same information three times — as defined by <a href="#ODataJSON">OData-JSON</a>, compact with <code>_</code> at every level, and compact using the recognized root name <code>value</code></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(Name,Orders(ID))&quot;</span><span class="fu">,</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="fu">,</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Orders@count&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Orders&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">10643</span> <span class="fu">}</span><span class="ot">,</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">10692</span> <span class="fu">}</span><span class="ot">]</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(Name,Orders(ID))&quot;</span><span class="fu">,</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">,</span> <span class="fu">{</span> <span class="dt">&quot;@count&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span> <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[[</span><span class="dv">10643</span><span class="ot">],</span> <span class="ot">[</span><span class="dv">10692</span><span class="ot">]]</span> <span class="fu">}</span><span class="ot">]</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(Name,Orders(ID))&quot;</span><span class="fu">,</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">,</span> <span class="fu">{</span> <span class="dt">&quot;@count&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span> <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[[</span><span class="dv">10643</span><span class="ot">],</span> <span class="ot">[</span><span class="dv">10692</span><span class="ot">]]</span> <span class="fu">}</span><span class="ot">]</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
+</details>
+<details open><summary>
+<h2 id="72-instance-annotations"><a id="InstanceAnnotations" href="#InstanceAnnotations">7.2 Instance Annotations</a></h2>
+</summary>
+<p>An annotation that applies to a structured instance is represented as a name/value pair <code>@ns.term</code> in the wrapper object around that instance’s positional representation.</p>
+<p>The name of an instance annotation is unchanged from <a href="#ODataJSON">OData-JSON</a>.</p>
+<div class="example">
+<p>Example 20: an instance annotation on one entity of a collection</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(ID,Name)&quot;</span><span class="fu">,</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;ALFKI&quot;</span><span class="ot">,</span> <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">],</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@Core.Messages&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="fu">{</span> <span class="dt">&quot;code&quot;</span><span class="fu">:</span> <span class="st">&quot;1&quot;</span><span class="fu">,</span> <span class="dt">&quot;message&quot;</span><span class="fu">:</span> <span class="st">&quot;Stale&quot;</span><span class="fu">,</span> <span class="dt">&quot;severity&quot;</span><span class="fu">:</span> <span class="st">&quot;info&quot;</span> <span class="fu">}</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;ANATR&quot;</span><span class="ot">,</span> <span class="st">&quot;Ana Trujillo&quot;</span><span class="ot">]</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
+</details>
+<details open><summary>
+<h2 id="73-property-annotations"><a id="PropertyAnnotations" href="#PropertyAnnotations">7.3 Property Annotations</a></h2>
+</summary>
+<p>An annotation that applies to a property is represented as a name/value pair in the wrapper object at that property’s position.</p>
+<p>The name of a property annotation in a compact payload is <code>@ns.term</code>. The property name prefix that <a href="#ODataJSON">OData-JSON</a> requires – as in <code>Property@ns.term</code> – is omitted, because the position already identifies the property.</p>
+<div class="example">
+<p>Example <a id="propannotation" href="#propannotation">21</a>: the <code>Core.ValueException</code> annotation of a property, in both formats</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(ID,Revenue)/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;ALFKI&quot;</span><span class="fu">,</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Revenue@Core.ValueException&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="st">&quot;1234567890123456789&quot;</span> <span class="fu">},</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Revenue&quot;</span><span class="fu">:</span> <span class="dv">1234567890123456800</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(ID,Revenue)/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;ALFKI&quot;</span><span class="ot">,</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@Core.ValueException&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="st">&quot;1234567890123456789&quot;</span> <span class="fu">},</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="dv">1234567890123456800</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
+<div class="example">
+<p>Example <a id="countonly" href="#countonly">22</a>: a collection-valued property for which only the count was requested; the position holds a wrapper object with an annotation and no value</p>
+<pre><code>GET ~/Customers?$select=Name,Addresses/$count
+{
+  &quot;@context&quot;: &quot;$metadata#Customers(Name,Addresses/$count)&quot;,
+  &quot;_&quot;: [
+    [&quot;Alfreds Futterkiste&quot;, { &quot;@count&quot;: 2 }],
+    [&quot;Ana Trujillo&quot;, { &quot;@count&quot;: 0 }]
+  ]
+}</code></pre>
+<p>Note that under <a href="#GroupingofSelectItems">section 5.3</a> the select-item <code>Addresses/$count</code> forms a group whose first segment is <code>Addresses</code>, so <code>Addresses</code> occupies a single position, and the count segment is what that position conveys. See also open issue 13.</p>
+</div>
+</details>
+<details open><summary>
+<h2 id="74-selected-annotations"><a id="SelectedAnnotations" href="#SelectedAnnotations">7.4 Selected Annotations</a></h2>
+</summary>
+<p>An instance annotation that is explicitly selected appears in the select-list of the context URL and therefore occupies a position in the positional property list, like any other select-item. The value at that position is the value of the annotation.</p>
+<p>This is the case where an annotation is requested as data. It is distinct from an annotation that merely accompanies a value, which is carried in a wrapper object as described in the preceding sections.</p>
+<div class="example">
+<p>Example 23: the annotation <code>@Model.Rating</code> is selected and occupies the second position</p>
+<pre><code>GET ~/Customers?$select=Name,@Model.Rating
+{
+  &quot;@context&quot;: &quot;$metadata#Customers(Name,@Model.Rating)&quot;,
+  &quot;_&quot;: [
+    [&quot;Alfreds Futterkiste&quot;, 5],
+    [&quot;Ana Trujillo&quot;, 3]
+  ]
+}</code></pre>
+</div>
+<p>Annotations requested through the <code>include-annotations</code> preference do not appear in the context URL, do not affect the positional property list, and are therefore carried in wrapper objects.</p>
+</details>
+<details open><summary>
+<h2 id="75-control-information"><a id="ControlInformation" href="#ControlInformation">7.5 Control Information</a></h2>
+</summary>
+<p>Control information is represented in a compact payload in the same way as annotations, following the rules of the preceding sections. The following subsections describe the control information whose treatment in a compact payload warrants specific mention.</p>
+<details open><summary>
+<h3 id="751-control-information-context"><a id="ControlInformationcontext" href="#ControlInformationcontext">7.5.1 Control Information: <code>context</code></a></h3>
+</summary>
+<p>The <code>context</code> control information is defined in <a href="#ODataJSON">OData-JSON</a> and its value is the context URL of the payload, as defined in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ContextURL">OData-Protocol, section 10</a>.</p>
+<p>In a compact payload the context URL additionally determines the <a href="#positionalpropertylist">positional property list</a> of the instances in the payload, as described in <a href="#DeterminingthePositionalPropertyList">section 5.2</a>. It is therefore required for a compact payload to be interpretable.</p>
+<p>A compact payload MUST include the <code>context</code> control information in the message body, and MUST include it in any nested wrapper object for which <a href="#ODataJSON">OData-JSON</a> requires a context URL, irrespective of the value of the <code>metadata</code> format parameter. In particular, a payload labeled <code>metadata=none</code> MUST still include the <code>context</code> control information.</p>
+</details>
+<details open><summary>
+<h3 id="752-control-information-count-and-nextlink"><a id="ControlInformationcountandnextLink" href="#ControlInformationcountandnextLink">7.5.2 Control Information: <code>count</code> and <code>nextLink</code></a></h3>
+</summary>
+<p>The <code>count</code> and <code>nextLink</code> control information of the collection in the message body is carried in the message body object, as in <a href="#ODataJSON">OData-JSON</a>.</p>
+<p>For a nested collection, both are carried in the wrapper object at the collection’s position.</p>
+<div class="example">
+<p>Example 24: <code>count</code> and <code>nextLink</code> for the collection in the message body and for a nested collection</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(Name,Orders(ID))&quot;</span><span class="fu">,</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@count&quot;</span><span class="fu">:</span> <span class="dv">137</span><span class="fu">,</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">,</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">{</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@count&quot;</span><span class="fu">:</span> <span class="dv">42</span><span class="fu">,</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@nextLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ALFKI&#39;)/Orders?$skiptoken=10&quot;</span><span class="fu">,</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[[</span><span class="dv">10643</span><span class="ot">],</span> <span class="ot">[</span><span class="dv">10692</span><span class="ot">]]</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@nextLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers?$skiptoken=10&quot;</span></span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
+</details>
+<details open><summary>
+<h3 id="753-control-information-type"><a id="ControlInformationtype" href="#ControlInformationtype">7.5.3 Control Information: <code>type</code></a></h3>
+</summary>
+<p>The <code>type</code> control information is carried in the wrapper object around the instance it applies to, as described in <a href="#DerivedTypes">section 6.7</a>.</p>
+<p>A receiver MUST NOT infer the type of an instance from the number of items in its positional representation. The number of items is determined by the positional property list, which is the same for every instance in a collection regardless of type.</p>
+</details>
+</details>
+</details>
+<hr />
+<details open><summary>
+<h1 id="8-request-payloads"><a id="RequestPayloads" href="#RequestPayloads">8 Request Payloads</a></h1>
+</summary>
+<p>Large collections of entities and complex values occur in request bodies as well as in response bodies, and the saving from a positional representation is the same in both directions. A request body MAY therefore use the positional representation wherever a response body may.</p>
+<p>A client MUST NOT send a compact request body unless it has established that the service supports the compact JSON format; see <a href="#RequestingtheCompactJSONFormat">section 3</a>.</p>
+<details open><summary>
+<h2 id="81-determining-the-positional-property-list-in-requests"><a id="DeterminingthePositionalPropertyListinRequests" href="#DeterminingthePositionalPropertyListinRequests">8.1 Determining the Positional Property List in Requests</a></h2>
+</summary>
+<p><a href="#ODataProtocol">OData-Protocol</a> notes that request payloads generally do not require context URLs, because the type of the payload can be determined from the request URL. A compact request body needs more than the type: it needs the positional property list.</p>
+<p>The positional property list of an instance in a request body is determined as follows:</p>
+<ol type="1">
+<li><p>If the request body contains the <a href="#ControlInformationcontext"><code>context</code></a> control information, the positional property list is determined from its select-list exactly as for a response, as described in <a href="#DeterminingthePositionalPropertyList">section 5.2</a>.</p></li>
+<li><p>Otherwise, the positional property list is the <em>default selection</em> of the type of the instance: all structural properties of that type, in the order in which they are declared, with the properties declared by a base type preceding those declared by the type itself.</p></li>
+</ol>
+<p>The type of the instance is determined from the request URL for the instance in the message body, and from the metadata of the containing type for nested instances, exactly as it is for the format defined in <a href="#ODataJSON">OData-JSON</a>.</p>
+<p>A request body that includes the <code>context</code> control information MUST use a context URL that is valid for the resource addressed by the request URL, as defined in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ContextURL">OData-Protocol, section 10</a>. The context URL in a request body describes the body; it does not modify the request.</p>
+<p>A service MUST reject with <code>400 Bad Request</code> a compact request body whose positional representation does not have the number of items required by the positional property list.</p>
+</details>
+<details open><summary>
+<h2 id="82-message-body-of-a-request"><a id="MessageBodyofaRequest" href="#MessageBodyofaRequest">8.2 Message Body of a Request</a></h2>
+</summary>
+<p>The message body of a compact request MAY be a JSON array, in which case it is the positional representation of the instance addressed by the request URL, or a collection of such representations, and the positional property list is the default selection of the type addressed by the request URL.</p>
+<p>This is the only case in which a message body is not a JSON object. It is available in requests only, because only in a request does the request URL identify the type of the payload.</p>
+<div class="example">
+<p>Example <a id="postbare" href="#postbare">25</a>: creating an entity with values for all its structural properties; the positional property list is the default selection of <code>Customer</code></p>
+<pre><code>POST ~/Customers
+Content-Type: application/json;compact=true
+
+[&quot;ALFKI&quot;, &quot;Alfreds Futterkiste&quot;, [&quot;Obere Str. 57&quot;, &quot;Berlin&quot;, &quot;12209&quot;]]</code></pre>
+</div>
+</details>
+<details open><summary>
+<h2 id="83-creating-an-entity"><a id="CreatinganEntity" href="#CreatinganEntity">8.3 Creating an Entity</a></h2>
+</summary>
+<p>An entity to be created MAY be represented positionally. Properties that the client does not wish to specify – leaving them to the service to default – MUST NOT be represented by <code>null</code>, which would request the value null. They are instead excluded from the positional property list, which requires the request body to carry a <code>context</code> control information whose select-list enumerates exactly the properties being specified.</p>
+<div class="example">
+<p>Example <a id="postselect" href="#postselect">26</a>: creating an entity specifying only two properties, leaving the remainder to the service</p>
+<pre><code>POST ~/Customers
+Content-Type: application/json;compact=true
+
+{
+  &quot;@context&quot;: &quot;$metadata#Customers(ID,Name)/$entity&quot;,
+  &quot;_&quot;: [&quot;ALFKI&quot;, &quot;Alfreds Futterkiste&quot;]
+}</code></pre>
+</div>
+</details>
+<details open><summary>
+<h2 id="84-updating-an-entity"><a id="UpdatinganEntity" href="#UpdatinganEntity">8.4 Updating an Entity</a></h2>
+</summary>
+<p>The semantics of <code>PATCH</code> defined in <a href="#ODataProtocol">OData-Protocol</a> rest on the distinction between a property that is present in the request body, whose value is applied, and a property that is absent, which is left unchanged. In a positional representation a value cannot be absent without shifting every subsequent value.</p>
+<p>The select-list of the <code>context</code> control information carries this distinction: the positional property list <em>is</em> the list of properties to be updated. A property that is not in the positional property list is absent from the request in the sense of <a href="#ODataProtocol">OData-Protocol</a> and is left unchanged. A property that is in the positional property list with the value <code>null</code> is set to null.</p>
+<p>A <code>PATCH</code> request body that does not contain the <code>context</code> control information therefore specifies a value for every structural property of the type, which is rarely the intent. Clients SHOULD include the <code>context</code> control information in compact <code>PATCH</code> request bodies.</p>
+<div class="example">
+<p>Example <a id="patch" href="#patch">27</a>: updating two properties of an entity and leaving all others unchanged; <code>Region</code> is set to null, <code>Name</code> is set to a new value, and every property not named in the context URL is unaffected</p>
+<pre><code>PATCH ~/Customers(&#39;ALFKI&#39;)
+Content-Type: application/json;compact=true
+
+{
+  &quot;@context&quot;: &quot;$metadata#Customers(Name,Region)/$entity&quot;,
+  &quot;_&quot;: [&quot;Alfred&#39;s Futterkiste&quot;, null]
+}</code></pre>
+</div>
+<p>For <code>PUT</code>, the semantics defined in <a href="#ODataProtocol">OData-Protocol</a> apply unchanged: properties not specified in the request body are reset to their default values. As for <code>PATCH</code>, the properties specified are those in the positional property list.</p>
+</details>
+<details open><summary>
+<h2 id="85-updating-a-collection-of-entities"><a id="UpdatingaCollectionofEntities" href="#UpdatingaCollectionofEntities">8.5 Updating a Collection of Entities</a></h2>
+</summary>
+<p>A request body that updates a collection of entities is a <a href="#DeltaPayload">delta payload</a> with the context URL fragment <code>#$delta</code>, as defined in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#DeltaPayload">OData-Protocol, section 10.17</a>. Its items MAY be represented positionally, as described in <a href="#DeltaPayload">section 9</a>.</p>
+</details>
+<details open><summary>
+<h2 id="86-deep-insert"><a id="DeepInsert" href="#DeepInsert">8.6 Deep Insert</a></h2>
+</summary>
+<p>A deep insert specifies related entities alongside the entity being created. Related entities occupy a position in the positional property list of the containing entity, exactly as an expanded navigation property does in a response, and the select-list of the <code>context</code> control information enumerates them using the same syntax.</p>
+<div class="example">
+<p>Example <a id="deepinsert" href="#deepinsert">28</a>: creating a customer together with two orders</p>
+<pre><code>POST ~/Customers
+Content-Type: application/json;compact=true
+
+{
+  &quot;@context&quot;: &quot;$metadata#Customers(ID,Name,Orders(ID,Amount))/$entity&quot;,
+  &quot;_&quot;: [
+    &quot;ALFKI&quot;,
+    &quot;Alfreds Futterkiste&quot;,
+    [[10643, 29.46], [10692, 61.02]]
+  ]
+}</code></pre>
+</div>
+</details>
+<details open><summary>
+<h2 id="87-bind-operations"><a id="BindOperations" href="#BindOperations">8.7 Bind Operations</a></h2>
+</summary>
+<p>A bind operation relates a new or updated entity to an existing entity. <a href="#ODataJSON">OData-JSON</a> represents it as a name/value pair <code>Property@bind</code> or <code>Property@id</code> on the containing object.</p>
+<p>In a compact request body the navigation property occupies a position in the positional property list, and the bind operation is carried in a <a href="#wrapperobject">wrapper object</a> at that position, as a property annotation, following <a href="#PropertyAnnotations">section 7.3</a>.</p>
+<div class="example">
+<p>Example <a id="bind" href="#bind">29</a>: creating an order bound to an existing customer</p>
+<pre><code>POST ~/Orders
+Content-Type: application/json;compact=true
+
+{
+  &quot;@context&quot;: &quot;$metadata#Orders(ID,Amount,Customer)/$entity&quot;,
+  &quot;_&quot;: [
+    10643,
+    29.46,
+    { &quot;@id&quot;: &quot;Customers(&#39;ALFKI&#39;)&quot; }
+  ]
+}</code></pre>
+</div>
+</details>
+<details open><summary>
+<h2 id="88-action-and-function-parameters"><a id="ActionandFunctionParameters" href="#ActionandFunctionParameters">8.8 Action and Function Parameters</a></h2>
+</summary>
+<p>The parameters of an action invoked with <code>POST</code>, or of a function invoked with parameter aliases, are represented as defined in <a href="#ODataJSON">OData-JSON</a>: a JSON object whose name/value pairs are the parameter names and values. The parameter <em>values</em> MAY use the positional representation, following the rules of this document, with the positional property list of each value being the default selection of the parameter’s declared type.</p>
+<div class="example">
+<p>Example <a id="action" href="#action">30</a>: an action taking a collection of complex values; the parameter object is unchanged, the collection is positional</p>
+<pre><code>POST ~/Customers(&#39;ALFKI&#39;)/Model.AddAddresses
+Content-Type: application/json;compact=true
+
+{
+  &quot;addresses&quot;: [
+    [&quot;Obere Str. 57&quot;, &quot;Berlin&quot;, &quot;12209&quot;],
+    [&quot;Neue Str. 1&quot;, &quot;Hamburg&quot;, &quot;20095&quot;]
+  ]
+}</code></pre>
+</div>
+</details>
+</details>
+<hr />
+<details open><summary>
+<h1 id="9-delta-payload"><a id="DeltaPayload" href="#DeltaPayload">9 Delta Payload</a></h1>
+</summary>
+<p>A delta payload is a collection whose items are added or changed entities, deleted entities, added links and deleted links, as defined in <a href="#ODataJSON">OData-JSON</a> and <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#DeltaPayload">OData-Protocol, section 10.17</a>.</p>
+<p>Delta payloads are among the payloads for which this format is most useful: a delta response repeats the same shape of entity many times, and, for a collection under active change tracking, may do so repeatedly over time.</p>
+<p>All items of a delta payload share one context URL, whose fragment ends in <code>/$delta</code>, and therefore one positional property list, determined as described in <a href="#DeterminingthePositionalPropertyList">section 5.2</a> from the select-list preceding <code>/$delta</code>.</p>
+<details open><summary>
+<h2 id="91-added-or-changed-entity"><a id="AddedorChangedEntity" href="#AddedorChangedEntity">9.1 Added or Changed Entity</a></h2>
+</summary>
+<p>An added or changed entity MAY be represented positionally. Its positional property list is the one determined for the delta payload.</p>
+<p>As for a <code>PATCH</code> request body, the positional property list is the list of properties conveyed: a property that is not in the positional property list is unchanged, and a property in the list whose value is <code>null</code> has been set to null.</p>
+<p>The <code>id</code> control information, where required, is carried in a <a href="#wrapperobject">wrapper object</a> around the positional representation.</p>
+<div class="example">
+<p>Example <a id="delta" href="#delta">31</a>: a delta payload containing one changed entity</p>
+<pre><code>GET ~/Customers?$deltatoken=1234
+{
+  &quot;@context&quot;: &quot;$metadata#Customers(ID,Name)/$delta&quot;,
+  &quot;_&quot;: [
+    [&quot;ALFKI&quot;, &quot;Alfred&#39;s Futterkiste&quot;]
+  ],
+  &quot;@deltaLink&quot;: &quot;Customers?$deltatoken=5678&quot;
+}</code></pre>
+</div>
+</details>
+<details open><summary>
+<h2 id="92-deleted-entity"><a id="DeletedEntity" href="#DeletedEntity">9.2 Deleted Entity</a></h2>
+</summary>
+<p>A deleted entity is identified by the <code>removed</code> control information and therefore requires a JSON object. It is represented as a <a href="#wrapperobject">wrapper object</a> carrying <code>removed</code>, <code>id</code> and, where required, <code>context</code>.</p>
+<p>A deleted entity in a compact payload carries no positional representation, because a deleted entity conveys no property values other than the key, which is conveyed by <code>id</code>.</p>
+<div class="example">
+<p>Example 32: a delta payload containing one changed and one deleted entity</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(ID,Name)/$delta&quot;</span><span class="fu">,</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;ALFKI&quot;</span><span class="ot">,</span> <span class="st">&quot;Alfred&#39;s Futterkiste&quot;</span><span class="ot">],</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;@removed&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;reason&quot;</span><span class="fu">:</span> <span class="st">&quot;deleted&quot;</span> <span class="fu">},</span> <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ANATR&#39;)&quot;</span> <span class="fu">}</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@deltaLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers?$deltatoken=5678&quot;</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
+<p>Note that this is exactly the representation defined by <a href="#ODataJSON">OData-JSON</a> for a deleted entity, as the <a href="#supersetprinciple">superset principle</a> permits.</p>
+</details>
+<details open><summary>
+<h2 id="93-added-and-deleted-links"><a id="AddedandDeletedLinks" href="#AddedandDeletedLinks">9.3 Added and Deleted Links</a></h2>
+</summary>
+<p>Added and deleted links are identified by the context URL fragments <code>/$link</code> and <code>/$deletedLink</code> and are represented as JSON objects containing <code>context</code>, <code>source</code>, <code>relationship</code> and <code>target</code>, exactly as defined in <a href="#ODataJSON">OData-JSON</a>.</p>
+<p>They have no positional representation. A link carries three values whose names are fixed by this specification rather than by the model, they do not appear in a select-list, and there is consequently no positional property list for them.</p>
+</details>
+<details open><summary>
+<h2 id="94-nested-delta-payloads"><a id="NestedDeltaPayloads" href="#NestedDeltaPayloads">9.4 Nested Delta Payloads</a></h2>
+</summary>
+<p>A nested delta payload, representing changes to a related collection, occupies the position of the navigation property in the positional property list of the containing entity, and is itself a collection whose items follow the rules of this section.</p>
+</details>
+</details>
+<hr />
+<details open><summary>
+<h1 id="10-service-document"><a id="ServiceDocument" href="#ServiceDocument">10 Service Document</a></h1>
+</summary>
+<p>The service document is represented exactly as defined in <a href="#ODataJSON">OData-JSON</a>.</p>
+<p>The entries of a service document have no positional property list: they are not instances of a type declared in the model, their members are fixed by <a href="#ODataJSON">OData-JSON</a> rather than by the model, and a service document is small and requested once. A compact representation would carry no benefit.</p>
+<p>A service MUST accept a request for the service document with the <code>compact=true</code> format parameter and MUST respond with the representation defined in <a href="#ODataJSON">OData-JSON</a>, labeled <code>compact=true</code>. This follows from the <a href="#supersetprinciple">superset principle</a> and replaces the behavior of returning an error.</p>
+</details>
+<hr />
+<details open><summary>
+<h1 id="11-error-response"><a id="ErrorResponse" href="#ErrorResponse">11 Error Response</a></h1>
+</summary>
+<p>An error response is represented exactly as defined in <a href="#ODataJSON">OData-JSON</a>.</p>
+<p>The members of an error object are fixed by <a href="#ODataJSON">OData-JSON</a> rather than by the model, no context URL and therefore no select-list applies to them, and an error response is not a large payload. A compact representation would carry no benefit.</p>
+<p>The <code>details</code> member of an error remains a JSON array of JSON objects.</p>
+<div class="example">
+<p>Example 33: an error returned in response to a request that specified <code>compact=true</code></p>
+<pre><code>Content-Type: application/json;compact=true
+
+{
+  &quot;error&quot;: {
+    &quot;code&quot;: &quot;501&quot;,
+    &quot;message&quot;: &quot;Unsupported functionality&quot;
+  }
+}</code></pre>
+</div>
+</details>
+<hr />
+<details open><summary>
+<h1 id="12-batch-requests-and-responses"><a id="BatchRequestsandResponses" href="#BatchRequestsandResponses">12 Batch Requests and Responses</a></h1>
+</summary>
+<p>The JSON batch format defined in <a href="#ODataJSON">OData-JSON</a> applies unchanged. The <code>requests</code> and <code>responses</code> members remain JSON arrays of JSON objects whose members are fixed by <a href="#ODataJSON">OData-JSON</a>.</p>
+<p>The <code>body</code> of an individual request or response within a batch MAY use the compact JSON format, in which case the individual request or response MUST carry a <code>Content-Type</code> header including the <code>compact=true</code> format parameter, and the rules of this document apply to that body.</p>
+<p>The <code>compact</code> format parameter of the batch request itself applies to the batch document, not to the bodies of the individual requests it contains. Because the batch document has no compact representation, a batch request labeled <code>compact=true</code> is identical to one that is not.</p>
+<div class="example">
+<p>Example 34: a batch request in which one individual request carries a compact body</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;requests&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;1&quot;</span><span class="fu">,</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;method&quot;</span><span class="fu">:</span> <span class="st">&quot;post&quot;</span><span class="fu">,</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;url&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers&quot;</span><span class="fu">,</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;headers&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;content-type&quot;</span><span class="fu">:</span> <span class="st">&quot;application/json;compact=true&quot;</span> <span class="fu">},</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;body&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(ID,Name)/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;ALFKI&quot;</span><span class="ot">,</span> <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">]</span></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+</div>
+</details>
+<hr />
+<details open><summary>
+<h1 id="13-conformance"><a id="Conformance" href="#Conformance">13 Conformance</a></h1>
+</summary>
+<p>Conformance to this specification presupposes conformance to <a href="#ODataJSON">OData-JSON</a>. The requirements below are additional to, and do not replace, the conformance requirements of that specification.</p>
+<p>In order to be a conforming consumer of the OData compact JSON format, a client or service:</p>
+<ol type="1">
+<li>MUST be a conforming consumer of the OData JSON format (<a href="#ODataJSON">OData-JSON</a>)</li>
+<li>MUST accept, wherever a structured instance may appear, either a JSON object or a positional representation (<a href="#PositionalRepresentation">section 5</a>)</li>
+<li>MUST determine the positional property list from the context URL and the referenced metadata (<a href="#DeterminingthePositionalPropertyList">section 5.2</a>)
+<ol type="1">
+<li>MUST apply the declaration order of structural properties, base type first, where properties are implicitly selected</li>
+<li>MUST group select-items that share a first segment into a single position (<a href="#GroupingofSelectItems">section 5.3</a>)</li>
+</ol></li>
+<li>MUST NOT infer the positional property list from the number of items in a positional representation</li>
+<li>MUST accept a <a href="#wrapperobject">wrapper object</a> wherever a value may appear (<a href="#TheWrapperObject">section 7.1</a>)
+<ol type="1">
+<li>MUST accept the value name <code>_</code></li>
+<li>MUST accept the value name <code>value</code> at the root of the message body</li>
+<li>MUST accept a wrapper object that carries no value</li>
+</ol></li>
+<li>MUST accept property annotations without the property name prefix (<a href="#PropertyAnnotations">section 7.3</a>)</li>
+<li>MUST accept the <code>context</code> control information in a payload labeled <code>metadata=none</code> (<a href="#ControlInformationcontext">section 7.5.1</a>)</li>
+<li>MUST be prepared to receive a payload in which some instances are represented positionally and others are not (<a href="#DesignPrinciples">section 2.1</a>)</li>
+<li>MUST be prepared to receive the service document, error responses and batch documents in the representation defined by <a href="#ODataJSON">OData-JSON</a> (<a href="#ServiceDocument">section 10</a>, <a href="#ErrorResponse">section 11</a>, <a href="#BatchRequestsandResponses">section 12</a>)</li>
+</ol>
+<p>In order to be a conforming producer of the OData compact JSON format, a client or service:</p>
+<ol start="10" type="1">
+<li>MUST be a conforming producer of the OData JSON format (<a href="#ODataJSON">OData-JSON</a>)</li>
+<li>MUST NOT produce a compact payload unless the receiver has indicated that it accepts one (<a href="#RequestingtheCompactJSONFormat">section 3</a>)
+<ol type="1">
+<li>a service MUST NOT return a compact response unless the request specified <code>compact=true</code></li>
+<li>a client MUST NOT send a compact request body unless the service has advertised support for <code>compact=true</code></li>
+</ol></li>
+<li>MUST include the <code>compact=true</code> format parameter in the <code>Content-Type</code> header of every compact payload (<a href="#HeaderContentType">section 4.1</a>)</li>
+<li>MUST include the <code>context</code> control information in every compact message body (<a href="#ControlInformationcontext">section 7.5.1</a>)</li>
+<li>MUST produce, for every positional representation, exactly as many items as the positional property list has entries, in that order (<a href="#PositionalPropertyList">section 5.1</a>)</li>
+<li>MUST NOT represent an instance positionally if it carries dynamic properties that are not in the positional property list (<a href="#OpenTypesandDynamicProperties">section 6.8</a>)</li>
+<li>MUST use the empty wrapper object <code>{}</code> for a position whose property is not applicable to the instance (<a href="#DerivedTypes">section 6.7</a>)</li>
+<li>SHOULD use the value name <code>_</code> in preference to <code>value</code> (<a href="#TheWrapperObject">section 7.1</a>)</li>
+<li>SHOULD reference a versioned metadata document from the context URL (<a href="#DeterminingthePositionalPropertyList">section 5.2</a>)</li>
+</ol>
+<p>In order to be a conforming service supporting the OData compact JSON format, a service:</p>
+<ol start="19" type="1">
+<li>SHOULD advertise support with the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/v4.02-release-candidate/vocabularies/Org.OData.Capabilities.V1.md#SupportedFormats"><code>Capabilities.SupportedFormats</code></a></span> term (<a href="#AdvertisingSupport">section 3.2</a>)</li>
+<li>MUST return <code>406 Not Acceptable</code> if the client requests <code>compact=true</code> and the service does not support it (<a href="#RequestingtheCompactJSONFormat">section 3</a>)</li>
+<li>MUST reject with <code>415 Unsupported Media Type</code> a request body labeled <code>compact=true</code> that it does not support (<a href="#RequestingtheCompactJSONFormat">section 3</a>)</li>
+<li>MUST reject with <code>400 Bad Request</code> a compact request body whose positional representation does not match the positional property list (<a href="#DeterminingthePositionalPropertyListinRequests">section 8.1</a>)</li>
+</ol>
+</details>
+<hr />
+<details open><summary>
+<h1 id="14-open-issues"><a id="OpenIssues" href="#OpenIssues">14 Open Issues</a></h1>
+</summary>
+<!-- Working draft only. This section is to be resolved and removed
+     before the document advances to Committee Specification. -->
+
+<p>This section is non-normative. It records the decisions that the drafting of this document forced, but that the Technical Committee has not yet taken. Each item states the position currently taken in the draft, so that the draft is internally consistent, together with the alternatives considered.</p>
+<details open><summary>
+<h2 id="141-cross-specification-dependencies"><a id="CrossSpecificationDependencies" href="#CrossSpecificationDependencies">14.1 Cross-Specification Dependencies</a></h2>
+</summary>
+<ol type="1">
+<li><p><strong>Context URLs in request bodies.</strong> <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ContextURL">OData-Protocol, section 10</a> states that request payloads generally do not require context URLs, and defines a context URL template for a request body only for the delta payload used to update a collection (<code>#$delta</code>). This document relies on the <code>context</code> control information in request bodies to convey the positional property list, and in particular to convey the set of properties affected by a <code>PATCH</code>. That use is not currently sanctioned by <a href="#ODataProtocol">OData-Protocol</a> and would require a corresponding change to Part 1. <em>Position taken:</em> the draft uses response context URL templates in request bodies unchanged. <em>Alternative:</em> define request-specific templates in Part 1, or define a separate control information for the positional property list, which would contradict design principle 3 in <a href="#DesignPrinciples">section 2.1</a>.</p></li>
+<li><p><strong>Losslessness.</strong> The stated goal is that every construct of <a href="#ODataJSON">OData-JSON</a> has a compact counterpart, and that every <a href="#ODataJSON">OData-JSON</a> payload is a valid compact payload. The second half holds by the <a href="#supersetprinciple">superset principle</a>. The first half has not been verified exhaustively against <a href="#ODataJSON">OData-JSON</a>; the constructs currently <em>without</em> a positional counterpart are entity references, links in delta payloads, the service document, errors and the batch document, each for the reason given in the respective section. The Technical Committee should decide whether that list is acceptable, and whether <a href="#ODataJSON">OData-JSON</a> should change where it is not.</p></li>
+<li><p><strong>Stability of property order.</strong> The positional property list of an implicitly selected type depends on the order in which properties are declared in the CSDL document. <a href="#ODataCSDL">OData-CSDL</a> does not currently make declaration order significant, so a service may reorder properties in its metadata without considering it a breaking change. <em>Position taken:</em> <a href="#DeterminingthePositionalPropertyList">section 5.2</a> requires the order to be stable for a given metadata document URL and recommends versioned metadata URLs. <em>Alternatives:</em> require an explicit <code>$select</code> – and therefore an explicit select-list in the context URL – for all compact payloads, removing the dependency on declaration order entirely; or introduce a Core vocabulary term that fixes the ordinal of each property.</p></li>
+</ol>
+</details>
+<details open><summary>
+<h2 id="142-naming-and-encoding-decisions"><a id="NamingandEncodingDecisions" href="#NamingandEncodingDecisions">14.2 Naming and Encoding Decisions</a></h2>
+</summary>
+<ol start="4" type="1">
+<li><p><strong>The value name.</strong> The draft uses <code>_</code> in wrapper objects and recognizes <code>value</code> at the root of the message body. <em>Alternatives considered:</em> <code>value</code> everywhere, which is consistent with <a href="#ODataJSON">OData-JSON</a> but costs four additional bytes per wrapper object and creates the ambiguity described in <a href="#TheWrapperObject">section 7.1</a>; or a name that cannot collide with a property name, such as <code>@value</code> or <code>$</code>, at the cost of readability.</p></li>
+<li><p><strong>“Not applicable” at a position.</strong> The draft uses the empty wrapper object <code>{}</code> for a position whose property does not apply to the instance, as happens for a property of a derived type, or a dynamic property that the instance does not have. <em>Alternatives:</em> <code>null</code>, which is shorter by two bytes but conflates “not applicable” with “null” and so is not lossless; or a reserved JSON value.</p></li>
+<li><p><strong>Wrapper objects carrying named properties.</strong> The draft forbids a wrapper object from carrying data properties by name. Allowing it would let an instance of an open type keep its positional representation and carry its unselected dynamic properties by name in the same object, which is attractive for open types and would remove the fallback in <a href="#OpenTypesandDynamicProperties">section 6.8</a>. It would, however, make a wrapper object indistinguishable from the representation defined by <a href="#ODataJSON">OData-JSON</a>, which the draft currently relies on.</p></li>
+<li><p><strong>The <code>compact</code> format parameter.</strong> The draft uses <code>compact=true</code>. Should the parameter instead take a value naming the compaction strategy, for example <code>compact=rows</code>, to leave room for a future column-oriented or dictionary-encoded variant without a new media type?</p></li>
+</ol>
+</details>
+<details open><summary>
+<h2 id="143-constructs-not-yet-specified"><a id="ConstructsNotYetSpecified" href="#ConstructsNotYetSpecified">14.3 Constructs Not Yet Specified</a></h2>
+</summary>
+<ol start="8" type="1">
+<li><p><strong>Recursive expansion.</strong> <a href="#ODataProtocol">OData-Protocol</a> represents an expansion with <code>$levels</code> using the <code>+</code> infix, as in <code>DirectReports+(FirstName,LastName)</code>. <a href="#GroupingofSelectItems">Section 5.3</a> folds such an item into the group of its navigation property but does not say how the nested select-list applies at the second and subsequent levels, where it may differ from the first.</p></li>
+<li><p><strong>Operations in the select-list.</strong> A select-list may contain actions and functions, and the shortcut <code>{namespace}.*</code>. Such an item occupies a position under the rules of <a href="#DeterminingthePositionalPropertyList">section 5.2</a>, and the value at that position would be the operation advertisement, or the empty wrapper object if the operation is not available. This is a consequence of the rules rather than a decision, and has not been examined.</p></li>
+<li><p><strong>Action and function parameters.</strong> <a href="#ActionandFunctionParameters">Section 8.8</a> keeps the parameter object as defined in <a href="#ODataJSON">OData-JSON</a> and allows only the parameter values to be positional. Parameters have a declared order in <a href="#ODataCSDL">OData-CSDL</a>, so the parameter object could itself be a positional array. The saving is small, and the interaction with optional parameters and with parameter aliases has not been examined.</p></li>
+<li><p><strong>Interaction with <code>$apply</code>.</strong> Aggregated results introduce dynamic properties that appear in the context URL, which suggests the rules of this document apply unchanged, but this has not been verified against <a href="#ODataAggregation">OData-Aggregation</a>. Transformations that produce a heterogeneous result, such as <code>concat</code>, need particular attention.</p></li>
+<li><p><strong>Consistency within a collection.</strong> The draft allows a sender to mix positional and object representations freely within one collection. A receiver optimized for the positional case may prefer a guarantee that a collection is homogeneous, at the cost of forcing an entire collection into the object representation whenever a single instance requires it.</p></li>
+<li><p><strong>The count segment in a select-list.</strong> <a href="#ODataURL">OData-URL</a> allows <code>$select=ID,Addresses/$count</code> and <code>$expand=Orders/$count</code>, but neither <a href="#ODataProtocol">OData-Protocol</a> nor <a href="#ODataJSON">OData-JSON</a> states explicitly how the count segment appears in the context URL. <a href="#countonly">Example 22</a> assumes it is retained as written, which makes the grouping rule of <a href="#GroupingofSelectItems">section 5.3</a> produce the intended single position. If it is not retained, the positional property list cannot distinguish “count only” from “the collection itself” and this document needs a rule of its own.</p></li>
+</ol>
+</details>
+</details>
+<hr />
+<details open><summary>
+<h1 id="appendix-a-references"><a id="References" href="#References">Appendix A. References</a></h1>
+</summary>
+<p>This appendix contains the normative and informative references that are used in this document.</p>
+<p>While any hyperlinks included in this appendix were valid at the time of publication, OASIS cannot guarantee their long-term validity.</p>
+<details open><summary>
+<h2 id="a1-normative-references"><a id="NormativeReferences" href="#NormativeReferences">A.1 Normative References</a></h2>
+</summary>
+<p>The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.</p>
+<h6><span id="ODataABNF">OData-ABNF</span></h6>
+<p><em>ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases.</em><br />
+See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
+<h6><span id="ODataCSDL">OData-CSDL</span></h6>
+<p><em>OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02.</em><br />
+See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
+<p><em>OData Common Schema Definition Language (CSDL) XML Representation Version 4.02.</em><br />
+See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
+<h6><span id="ODataJSON">OData-JSON</span></h6>
+<p><em>OData JSON Format Version 4.02.</em><br />
+See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
+<h6><span id="ODataProtocol">OData-Protocol</span></h6>
+<p><em>OData Version 4.02. Part 1: Protocol.</em><br />
+See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
+<h6><span id="ODataURL">OData-URL</span></h6>
+<p><em>OData Version 4.02. Part 2: URL Conventions.</em><br />
+See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
+<h6><span id="ODataVocCap">OData-VocCap</span></h6>
+<p><em>OData Vocabularies Version 4.0: Capabilities Vocabulary.</em><br />
+See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
+<h6><span id="ODataVocCore">OData-VocCore</span></h6>
+<p><em>OData Vocabularies Version 4.0: Core Vocabulary.</em><br />
+See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
+<h6><span id="rfc2119">RFC2119</span></h6>
+<p><em>Bradner, S., “Key words for use in RFCs to Indicate Requirement Levels”, BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997</em>. <a href="https://www.rfc-editor.org/info/rfc2119">https://www.rfc-editor.org/info/rfc2119</a>.</p>
+<h6><span id="rfc3986">RFC3986</span></h6>
+<p><em>Berners-Lee, T., Fielding, R., and L. Masinter, “Uniform Resource Identifier (URI): Generic Syntax”, STD 66, RFC 3986, DOI 10.17487/RFC3986, January 2005</em>. <a href="https://www.rfc-editor.org/info/rfc3986">https://www.rfc-editor.org/info/rfc3986</a>.</p>
+<h6><span id="rfc3987">RFC3987</span></h6>
+<p><em>Duerst, M. and M. Suignard, “Internationalized Resource Identifiers (IRIs)”, RFC 3987, DOI 10.17487/RFC3987, January 2005</em>. <a href="https://www.rfc-editor.org/info/rfc3987">https://www.rfc-editor.org/info/rfc3987</a>.</p>
+<h6><span id="rfc4648">RFC4648</span></h6>
+<p><em>Josefsson, S., “The Base16, Base32, and Base64 Data Encodings”, RFC 4648, DOI 10.17487/RFC4648, October 2006</em>. <a href="https://www.rfc-editor.org/info/rfc4648">https://www.rfc-editor.org/info/rfc4648</a>.</p>
+<h6><span id="rfc5646">RFC5646</span></h6>
+<p><em>Phillips, A., Ed., and M. Davis, Ed., “Tags for Identifying Languages”, BCP 47, RFC 5646, DOI 10.17487/RFC5646, September 2009</em>. <a href="https://www.rfc-editor.org/info/rfc5646">https://www.rfc-editor.org/info/rfc5646</a>.</p>
+<h6><span id="rfc7493">RFC7493</span></h6>
+<p><em>Bray, T., Ed., “The I-JSON Message Format”, RFC 7493, DOI 10.17487/RFC7493, March 2015</em>. <a href="https://www.rfc-editor.org/info/rfc7493">https://www.rfc-editor.org/info/rfc7493</a>.</p>
+<h6><span id="rfc7946">RFC7946</span></h6>
+<p><em>Butler, H., Daly, M., Doyle, A., Gillies, S., Hagen, S., and T. Schaub, “The GeoJSON Format”, RFC 7946, DOI 10.17487/RFC7946, August 2016</em>. <a href="https://www.rfc-editor.org/info/rfc7946">https://www.rfc-editor.org/info/rfc7946</a>.</p>
+<h6><span id="rfc8174">RFC8174</span></h6>
+<p><em>Leiba, B., “Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words”, BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017</em>. <a href="https://www.rfc-editor.org/info/rfc8174">https://www.rfc-editor.org/info/rfc8174</a>.</p>
+<h6><span id="rfc8259">RFC8259</span></h6>
+<p><em>Bray, T., Ed., “The JavaScript Object Notation (JSON) Data Interchange Format”, STD 90, RFC 8259, DOI 10.17487/RFC8259, December 2017</em>. <a href="https://www.rfc-editor.org/info/rfc8259">https://www.rfc-editor.org/info/rfc8259</a>.</p>
+</details>
+<details open><summary>
+<h2 id="a2-informative-references"><a id="InformativeReferences" href="#InformativeReferences">A.2 Informative References</a></h2>
+</summary>
+<h6><span id="ODataAggregation">OData-Aggregation</span></h6>
+<p><em>OData Extension for Data Aggregation Version 4.0.</em><br />
+See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
+<h6><span id="_ECMAScript">ECMAScript</span></h6>
+<p><em>ECMAScript 2023 Language Specification, 14th Edition</em>, June 2023. Standard ECMA-262. <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">https://www.ecma-international.org/publications-and-standards/standards/ecma-262/</a>.</p>
+</details>
+</details>
+<hr />
+<details open><summary>
+<h1 id="appendix-b-safety-security-and-privacy-considerations"><a id="SafetySecurityandPrivacyConsiderations" href="#SafetySecurityandPrivacyConsiderations">Appendix B. Safety, Security and Privacy Considerations</a></h1>
+</summary>
+<p>This specification raises no security issues.</p>
+<p>This section is provided as a service to the application developers, information providers, and users of OData version 4.0 giving some references to starting points for securing OData services as specified. OData is a REST-full multi-format service that depends on other services and thus inherits both sides of the coin, security enhancements and concerns alike from the latter.</p>
+<p>For JSON-relevant security implications please cf. at least the relevant subsections of <a href="#rfc8259">RFC8259</a> as starting point.</p>
+</details>
+<hr />
+<details open><summary>
+<h1 id="appendix-c-acknowledgments"><a id="Acknowledgments" href="#Acknowledgments">Appendix C. Acknowledgments</a></h1>
+</summary>
+<details open><summary>
+<h2 id="c1-special-thanks"><a id="SpecialThanks" href="#SpecialThanks">C.1 Special Thanks</a></h2>
+</summary>
+<p>The contributions of the OASIS OData Technical Committee members, enumerated in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#Participants">OData-Protocol, section C.2</a>, are gratefully acknowledged.</p>
+</details>
+<details open><summary>
+<h2 id="c2-participants"><a id="Participants" href="#Participants">C.2 Participants</a></h2>
+</summary>
+<p><strong>OData TC Members:</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">First Name</th>
+<th style="text-align: left;">Last Name</th>
+<th style="text-align: left;">Company</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">George</td>
+<td style="text-align: left;">Ericson</td>
+<td style="text-align: left;">Dell</td>
+</tr>
+<tr>
+<td style="text-align: left;">Hubert</td>
+<td style="text-align: left;">Heijkers</td>
+<td style="text-align: left;">IBM</td>
+</tr>
+<tr>
+<td style="text-align: left;">Ling</td>
+<td style="text-align: left;">Jin</td>
+<td style="text-align: left;">IBM</td>
+</tr>
+<tr>
+<td style="text-align: left;">Stefan</td>
+<td style="text-align: left;">Hagen</td>
+<td style="text-align: left;">Individual</td>
+</tr>
+<tr>
+<td style="text-align: left;">Michael</td>
+<td style="text-align: left;">Pizzo</td>
+<td style="text-align: left;">Microsoft</td>
+</tr>
+<tr>
+<td style="text-align: left;">Christof</td>
+<td style="text-align: left;">Sprenger</td>
+<td style="text-align: left;">Microsoft</td>
+</tr>
+<tr>
+<td style="text-align: left;">Ralf</td>
+<td style="text-align: left;">Handl</td>
+<td style="text-align: left;">SAP SE</td>
+</tr>
+<tr>
+<td style="text-align: left;">Gerald</td>
+<td style="text-align: left;">Krause</td>
+<td style="text-align: left;">SAP SE</td>
+</tr>
+<tr>
+<td style="text-align: left;">Heiko</td>
+<td style="text-align: left;">Theißen</td>
+<td style="text-align: left;">SAP SE</td>
+</tr>
+</tbody>
+</table>
+</details>
+</details>
+<hr />
+<details open><summary>
+<h1 id="appendix-d-revision-history"><a id="RevisionHistory" href="#RevisionHistory">Appendix D. Revision History</a></h1>
+</summary>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Revision</th>
+<th style="text-align: left;">Date</th>
+<th style="text-align: left;">Editor</th>
+<th style="text-align: left;">Changes Made</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Working Draft 01</td>
+<td style="text-align: left;">2018-01-29</td>
+<td style="text-align: left;">Hubert Heijkers</td>
+<td style="text-align: left;">Initial proposal for a compact JSON format for OData Version 4.0</td>
+</tr>
+<tr>
+<td style="text-align: left;">Working Draft 02</td>
+<td style="text-align: left;">2026-08-20</td>
+<td style="text-align: left;">Hubert Heijkers</td>
+<td style="text-align: left;">Restructured as a normative specification for Version 4.02; extended to request payloads and delta payloads; introduced the wrapper object and the superset principle</td>
+</tr>
+</tbody>
+</table>
+</details>
+<hr />
+<details open><summary>
+<h1 id="appendix-e-notices"><a id="Notices" href="#Notices">Appendix E. Notices</a></h1>
+</summary>
+<!-- Required section. Do not modify. -->
+
+<p>Copyright © OASIS Open 2026. All Rights Reserved.</p>
+<p>All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the “OASIS IPR Policy”). The full <a href="https://www.oasis-open.org/policies-guidelines/ipr/">Policy</a> may be found at the OASIS website.</p>
+<p>This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published, and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this section are included on all such copies and derivative works. However, this document itself may not be modified in any way, including by removing the copyright notice or references to OASIS, except as needed for the purpose of developing any document or deliverable produced by an OASIS Technical Committee (in which case the rules applicable to copyrights, as set forth in the OASIS IPR Policy, must be followed) or as required to translate it into languages other than English.</p>
+<p>The limited permissions granted above are perpetual and will not be revoked by OASIS or its successors or assigns.</p>
+<p>This document and the information contained herein is provided on an “AS IS” basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY OWNERSHIP RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.</p>
+<p>As stated in the OASIS IPR Policy, the following three paragraphs in brackets apply to OASIS Standards Final Deliverable documents (Committee Specification, Candidate OASIS Standard, OASIS Standard, or Approved Errata).</p>
+<p>[OASIS requests that any OASIS Party or any other party that believes it has patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable, to notify OASIS TC Administrator and provide an indication of its willingness to grant patent licenses to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this deliverable.]</p>
+<p>[OASIS invites any party to contact the OASIS TC Administrator if it is aware of a claim of ownership of any patent claims that would necessarily be infringed by implementations of this OASIS Standards Final Deliverable by a patent holder that is not willing to provide a license to such patent claims in a manner consistent with the IPR Mode of the OASIS Technical Committee that produced this OASIS Standards Final Deliverable. OASIS may include such claims on its website, but disclaims any obligation to do so.]</p>
+<p>[OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this OASIS Standards Final Deliverable or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS’ procedures with respect to rights in any document or deliverable produced by an OASIS Technical Committee can be found on the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this OASIS Standards Final Deliverable, can be obtained from the OASIS TC Administrator. OASIS makes no representation that any information or list of intellectual property rights will at any time be complete, or that any claims in such list are, in fact, Essential Claims.]</p>
+<p>The name “OASIS” is a trademark of <a href="https://www.oasis-open.org/">OASIS</a>, the owner and developer of this specification, and should be used only to refer to the organization and its official outputs. OASIS welcomes reference to, and implementation and use of, specifications, while reserving the right to enforce its marks against misleading uses. Please see <a href="https://www.oasis-open.org/policies-guidelines/trademark/">https://www.oasis-open.org/policies-guidelines/trademark/</a> for above guidance.</p>
+<script type="text/javascript">
+  function darkmode_auto() {
+    if (darkmode_switch.value === "auto") {
+      if (darkmode_query.matches)
+        document.documentElement.classList.add("darkmode");
+      else document.documentElement.classList.remove("darkmode");
+    }
+  }
+
+  function darkmode_manual() {
+    localStorage.setItem("odata-specs/darkmode", darkmode_switch.value);
+    switch (darkmode_switch.value) {
+      case "off":
+        document.documentElement.classList.remove("darkmode");
+        break;
+      case "on":
+        document.documentElement.classList.add("darkmode");
+        break;
+      case "auto":
+        darkmode_auto();
+        break;
+    }
+  }
+
+  const darkmode_query = matchMedia("(prefers-color-scheme: dark)");
+  darkmode_query.addEventListener("change", darkmode_auto);
+  const darkmode_switch = document.querySelector("#darkmode select");
+  darkmode_switch.value = localStorage.getItem("odata-specs/darkmode") || "off";
+  darkmode_switch.addEventListener("change", darkmode_manual);
+  darkmode_manual();
+</script>
+</body>
+</html>
