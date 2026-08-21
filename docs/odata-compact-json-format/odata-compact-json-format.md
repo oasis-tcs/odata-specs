@@ -28,11 +28,11 @@ https://docs.oasis-open.org/odata/odata-compact-json-format/v4.02/odata-compact-
 #### Chairs:
 
 Ralf Handl (ralf.handl@sap.com), [SAP SE](http://www.sap.com/) \
-Michael Pizzo (mikep@microsoft.com), [Microsoft](http://www.microsoft.com/)
+Michael Pizzo (b-mpizzo@microsoft.com), [Microsoft](http://www.microsoft.com/)
 
 #### Editors:
 
-Michael Pizzo (mikep@microsoft.com), [Microsoft](http://www.microsoft.com/) \
+Michael Pizzo (b-mpizzo@microsoft.com), [Microsoft](http://www.microsoft.com/) \
 Hubert Heijkers (hubert.heijkers@nl.ibm.com), [IBM](http://www.ibm.com/)
 
 #### [Related work:]{id=RelatedWork}
@@ -2045,7 +2045,9 @@ The contributions of the OASIS OData Technical Committee members, enumerated in 
 | Hubert | Heijkers | IBM |
 | Ling | Jin | IBM |
 | Stefan | Hagen | Individual |
+| John | Gathogo | Microsoft |
 | Michael | Pizzo | Microsoft |
+| Olga | Podolyako | Microsoft |
 | Christof | Sprenger | Microsoft |
 | Ralf | Handl | SAP SE |
 | Gerald | Krause | SAP SE |
