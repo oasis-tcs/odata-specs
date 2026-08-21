@@ -32,7 +32,7 @@ https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.pdf
 #### Chairs:
 
 Ralf Handl (ralf.handl@sap.com), [SAP SE](http://www.sap.com/) \
-Michael Pizzo (mikeq@microsoft.com), [Microsoft](http://www.microsoft.com/)
+Michael Pizzo (mikep@microsoft.com), [Microsoft](http://www.microsoft.com/)
 
 #### Editors:
 
