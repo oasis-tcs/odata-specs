@@ -30,8 +30,8 @@ jobs:
           git add .
           git diff-index --quiet HEAD || git commit -m "Auto-built
           
-          Trigger https://github.com/oasis-tcs/odata-specs/actions/workflows/nodejs.yml manually
-          to run the required build (24.x) check"
+          Trigger https://github.com/oasis-tcs/odata-specs/actions/workflows/nodejs.yml
+          manually on {{ github.push.ref }} to run the required build (24.x) check"
           git push
         env:
           PUPPETEER_SKIP_DOWNLOAD: true
