@@ -32,7 +32,7 @@ jobs:
           
           Go to https://github.com/oasis-tcs/odata-specs/actions/workflows/nodejs.yml
           and run the workflow manually on ${{ github.ref }}
-          in order to have the required build (24.x) check executed.
+          in order to have the required build (24.x) check executed."
           git push
         env:
           PUPPETEER_SKIP_DOWNLOAD: true
