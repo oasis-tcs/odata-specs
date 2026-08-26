@@ -54,20 +54,7 @@ The contributions of the OASIS OData Technical Committee members, enumerated in 
 
 ## ##subasec Participants
 
-**OData TC Members:**
-
-| First Name | Last Name | Company |
-| :--- | :--- | :--- |
-| George | Ericson | Dell |
-| Hubert | Heijkers | IBM |
-| Ling | Jin | IBM |
-| Stefan | Hagen | Individual |
-| Michael | Pizzo | Microsoft |
-| Christof | Sprenger | Microsoft |
-| Ralf | Handl | SAP SE |
-| Gerald | Krause | SAP SE |
-| Heiko | Theißen | SAP SE |
-| Martin | Zurmuehl | SAP SE |
+$$$include ../odatatc-members.md$$$
 
 -------
 
@@ -76,6 +63,8 @@ The contributions of the OASIS OData Technical Committee members, enumerated in 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
 |Committee Specification Draft 01|2016-12-08|Michael Pizzo<br>Ralf Handl<br>Ram Jeyaraman| 
+Documentation automatically extracted from XML source files|
+|Committee Specification Draft 02|2024-06-19|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| 
 Documentation automatically extracted from XML source files|
 |$$$subtitle$$$|$$$pubdateISO$$$|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| 
 Documentation automatically extracted from XML source files|

@@ -177,20 +177,7 @@ acknowledged.
 
 ## ##subasec Participants
 
-**OData TC Members:**
-
-| First Name | Last Name | Company |
-| :--- | :--- | :--- |
-| George | Ericson | Dell |
-| Hubert | Heijkers | IBM |
-| Ling | Jin | IBM |
-| Stefan | Hagen | Individual |
-| Michael | Pizzo | Microsoft |
-| Christof | Sprenger | Microsoft |
-| Ralf | Handl | SAP SE |
-| Gerald | Krause | SAP SE |
-| Heiko | Theißen | SAP SE |
-| Martin | Zurmuehl | SAP SE |
+$$$include ../odatatc-members.md$$$
 
 -------
 
@@ -208,6 +195,8 @@ Import material from OData Common Schema Definition Language (CSDL) JSON Represe
 Import material from OData Common Schema Definition Language (CSDL) XML Representation Version 4.01 
 :
 <br>Changes listed in [section ##ChangesfromEarlierVersions]|
+|$$$subtitle$$$|$$$pubdateISO$$$|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| 
+Changes listed in [section ##ChangesfromEarlierVersions]|
 
 -------
 
