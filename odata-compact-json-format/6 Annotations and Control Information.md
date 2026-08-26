@@ -46,23 +46,43 @@ that has no value, as distinct from one whose value is null. The empty
 wrapper object `{}` therefore denotes "no value and no annotations"; see
 [section ##DerivedTypes].
 
-The name of the value in a wrapper object is `_`.
+The name of the value in a wrapper object is `_`, in every position in
+which a wrapper object may appear.
 
-At the root of the message body the name `value` is also recognized, with
-the same meaning, for compatibility with [OData-JSON](#ODataJSON) as
-required by the [superset principle](#supersetprinciple). Producers of
-compact payloads SHOULD use `_` in all positions, including the root.
+Wherever [OData-JSON](#ODataJSON) specifies that the message body contains
+a name/value pair whose name is `value`, that name is also recognized as
+the name of the wrapper object's value and denotes the same thing. This
+follows from the [superset principle](#supersetprinciple) and grants
+nothing beyond what [OData-JSON](#ODataJSON) already requires: the message
+bodies in which it applies are exactly those enumerated there, and this
+document does not add to them.
 
-The name `value` is NOT RECOMMENDED anywhere other than the root of the
-message body, because a JSON object containing a name/value pair named
-`value` is indistinguishable from the representation, as defined by
-[OData-JSON](#ODataJSON), of a structured instance having a property
-named `value`.
+Everywhere else, `value` is not the name of a wrapper object's value. In
+particular, where [OData-JSON](#ODataJSON) represents the message body as
+the instance itself -- for a single entity, a single complex value, or a
+single entity reference -- a name/value pair named `value` in that message
+body is a *property* named `value`, and a receiver MUST NOT read it as the
+value of a wrapper object. A single entity or complex value represented
+positionally at the root of the message body therefore uses `_`.
+
+Producers of compact payloads SHOULD use `_` wherever this document
+permits a choice.
+
+This restriction is what keeps the two representations distinguishable.
+Were `value` also the wrapper's value name at the root of a message body
+representing a single entity, then
+`{"@context": "…#Customers/$entity", "value": […]}` would be at once the
+positional representation of an entity and the
+[OData-JSON](#ODataJSON) representation of an entity having a
+collection-valued property named `value`, with nothing to tell the two
+apart.
 
 ::: example
 Example ##ex_wrapper: the same information three times --- as defined by
 [OData-JSON](#ODataJSON), compact with `_` at every level, and compact
-using the recognized root name `value`
+with `value` at the root. The third form is permitted only because the
+message body is a collection, which is one of the cases in which
+[OData-JSON](#ODataJSON) itself uses `value`
 ```json
 {
   "@context": "$metadata#Customers(Name,Orders(ID))",

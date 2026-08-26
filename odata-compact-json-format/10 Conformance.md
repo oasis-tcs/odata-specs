@@ -27,7 +27,9 @@ client or service:
 5. MUST accept a [wrapper object](#wrapperobject) wherever a value may
    appear ([section ##TheWrapperObject])
    1. MUST accept the value name `_`
-   2. MUST accept the value name `value` at the root of the message body
+   2. MUST accept the value name `value` in those message bodies in which
+      [OData-JSON](#ODataJSON) uses it, and MUST NOT read `value` as a
+      wrapper object's value name elsewhere
    3. MUST accept a wrapper object that carries no value
 6. MUST accept property annotations without the property name prefix
    ([section ##PropertyAnnotations])
@@ -65,8 +67,9 @@ client or service:
     ##OpenTypesandDynamicProperties])
 16. MUST use the empty wrapper object `{}` for a position whose property
     is not applicable to the instance ([section ##DerivedTypes])
-17. SHOULD use the value name `_` in preference to `value` ([section
-    ##TheWrapperObject])
+17. MUST NOT use `value` as the name of a wrapper object's value except in
+    those message bodies in which [OData-JSON](#ODataJSON) uses it, and
+    SHOULD use `_` throughout ([section ##TheWrapperObject])
 18. SHOULD reference a versioned metadata document from the context URL
     ([section ##DeterminingthePositionalPropertyList])
 

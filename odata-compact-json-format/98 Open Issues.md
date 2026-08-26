@@ -56,13 +56,27 @@ considered.
 
 ## ##subsec Naming and Encoding Decisions
 
-4. **The value name.** The draft uses `_` in wrapper objects and
-   recognizes `value` at the root of the message body.
+4. **The value name.** The draft uses `_` as the name of a wrapper
+   object's value, and recognizes `value` only in those message bodies in
+   which [OData-JSON](#ODataJSON) itself uses it -- a single primitive
+   value and the collections enumerated there -- and not where
+   [OData-JSON](#ODataJSON) represents the message body as the instance
+   itself. An earlier draft recognized `value` at the root generally; that
+   was withdrawn on review, because it both extended
+   [OData-JSON](#ODataJSON) and made a single-entity message body
+   ambiguous. See [section ##TheWrapperObject].
    *Alternatives considered:* `value` everywhere, which is consistent with
    [OData-JSON](#ODataJSON) but costs four additional bytes per wrapper
-   object and creates the ambiguity described in [section
-   ##TheWrapperObject]; or a name that cannot collide with a property
-   name, such as `@value` or `$`, at the cost of readability.
+   object and reintroduces that ambiguity; or a name that cannot collide
+   with a property name, such as `@value` or `$`, at the cost of
+   readability.
+
+   *Not yet resolved:* `_` has the same collision in principle. A type
+   declaring, or an open type carrying, a property named `_` cannot be
+   told apart from a wrapper object by name alone. The draft does not
+   reserve `_` in the model, and should either do so, forbid a positional
+   representation for such a type, or adopt a name that cannot be a
+   property name at all.
 
 5. **"Not applicable" at a position.** The draft uses the empty wrapper
    object `{}` for a position whose property does not apply to the

@@ -38,9 +38,9 @@ This object is either
 - a [wrapper object](#wrapperobject), whose value is the correct
   representation for the payload's content.
 
-The name of the value in a wrapper object is `value`, as defined in
-[OData-JSON](#ODataJSON), or the abbreviation `_` defined in [section
-##TheWrapperObject].
+The name of the value in a wrapper object is `_`. The name `value` is also
+recognized, but only in those message bodies in which
+[OData-JSON](#ODataJSON) itself uses it; see [section ##TheWrapperObject].
 
 ::: example
 Example ##ex: a message body containing a collection of entities
