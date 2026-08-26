@@ -109,6 +109,8 @@ order of the `$select` items and produce different positional
 representations of the same entity
 ```
 GET ~/Customers('ALFKI')?$select=Name,ID
+```
+```json
 {
   "@context": "$metadata#Customers(Name,ID)/$entity",
   "_": ["Alfreds Futterkiste", "ALFKI"]
@@ -116,6 +118,8 @@ GET ~/Customers('ALFKI')?$select=Name,ID
 ```
 ```
 GET ~/Customers('ALFKI')?$select=ID,Name
+```
+```json
 {
   "@context": "$metadata#Customers(ID,Name)/$entity",
   "_": ["ALFKI", "Alfreds Futterkiste"]
@@ -129,6 +133,8 @@ structural properties of the entity type in declaration order; the
 navigation property `Orders` is not part of it because it is not selected
 ```
 GET ~/Customers
+```
+```json
 {
   "@context": "$metadata#Customers",
   "_": [
@@ -145,6 +151,8 @@ property implicitly selects all structural properties, which are placed
 before the expanded navigation property
 ```
 GET ~/Customers?$expand=Orders($select=ID)
+```
+```json
 {
   "@context": "$metadata#Customers(Orders(ID))",
   "_": [
@@ -197,6 +205,8 @@ property `Address` share one position, which holds the positional
 representation of the complex value
 ```
 GET ~/Customers?$select=Name,Address/City,Address/PostalCode
+```
+```json
 {
   "@context": "$metadata#Customers(Name,Address/City,Address/PostalCode)",
   "_": [

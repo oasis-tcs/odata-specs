@@ -34,6 +34,8 @@ object](#wrapperobject) around the positional representation.
 Example ##ex_delta: a delta payload containing one changed entity
 ```
 GET ~/Customers?$deltatoken=1234
+```
+```json
 {
   "@context": "$metadata#Customers(ID,Name)/$delta",
   "_": [

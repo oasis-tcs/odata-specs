@@ -65,7 +65,8 @@ selection of `Customer`
 ```
 POST ~/Customers
 Content-Type: application/json;compact=true
-
+```
+```json
 ["ALFKI", "Alfreds Futterkiste", ["Obere Str. 57", "Berlin", "12209"]]
 ```
 :::
@@ -85,7 +86,8 @@ properties, leaving the remainder to the service
 ```
 POST ~/Customers
 Content-Type: application/json;compact=true
-
+```
+```json
 {
   "@context": "$metadata#Customers(ID,Name)/$entity",
   "_": ["ALFKI", "Alfreds Futterkiste"]
@@ -120,7 +122,8 @@ and every property not named in the context URL is unaffected
 ```
 PATCH ~/Customers('ALFKI')
 Content-Type: application/json;compact=true
-
+```
+```json
 {
   "@context": "$metadata#Customers(Name,Region)/$entity",
   "_": ["Alfred's Futterkiste", null]
@@ -153,7 +156,8 @@ Example ##ex_deepinsert: creating a customer together with two orders
 ```
 POST ~/Customers
 Content-Type: application/json;compact=true
-
+```
+```json
 {
   "@context": "$metadata#Customers(ID,Name,Orders(ID,Amount))/$entity",
   "_": [
@@ -181,7 +185,8 @@ Example ##ex_bind: creating an order bound to an existing customer
 ```
 POST ~/Orders
 Content-Type: application/json;compact=true
-
+```
+```json
 {
   "@context": "$metadata#Orders(ID,Amount,Customer)/$entity",
   "_": [
@@ -209,7 +214,8 @@ parameter object is unchanged, the collection is positional
 ```
 POST ~/Customers('ALFKI')/Model.AddAddresses
 Content-Type: application/json;compact=true
-
+```
+```json
 {
   "addresses": [
     ["Obere Str. 57", "Berlin", "12209"],

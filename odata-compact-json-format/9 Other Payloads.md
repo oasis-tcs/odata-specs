@@ -37,7 +37,8 @@ Example ##ex: an error returned in response to a request that specified
 `compact=true`
 ```
 Content-Type: application/json;compact=true
-
+```
+```json
 {
   "error": {
     "code": "501",

@@ -55,6 +55,8 @@ Example ##ex_collection: a collection of entities, showing the format
 defined by [OData-JSON](#ODataJSON) and the compact format side by side
 ```
 GET ~/Customers?$select=ID,Name
+```
+```json
 {
   "@context": "$metadata#Customers(ID,Name)",
   "value": [
@@ -66,6 +68,8 @@ GET ~/Customers?$select=ID,Name
 ```
 ```
 GET ~/Customers?$select=ID,Name
+```
+```json
 {
   "@context": "$metadata#Customers(ID,Name)",
   "_": [
@@ -116,6 +120,8 @@ position of `Orders` holds the collection, whose items are the positional
 representations of the individual orders
 ```
 GET ~/Customers?$select=ID&$expand=Orders($select=ID,Amount)
+```
+```json
 {
   "@context": "$metadata#Customers(ID,Orders(ID,Amount))",
   "_": [
@@ -174,6 +180,8 @@ the first entity is not a `VipCustomer` and its position for
 `PreferredContact` conveys "not applicable"
 ```
 GET ~/Customers?$select=ID,Model.VipCustomer/PreferredContact
+```
+```json
 {
   "@context": "$metadata#Customers(ID,Model.VipCustomer/PreferredContact)",
   "_": [

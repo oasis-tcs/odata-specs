@@ -159,6 +159,8 @@ count was requested; the position holds a wrapper object with an
 annotation and no value
 ```
 GET ~/Customers?$select=Name,Addresses/$count
+```
+```json
 {
   "@context": "$metadata#Customers(Name,Addresses/$count)",
   "_": [
@@ -189,6 +191,8 @@ Example ##ex: the annotation `@Model.Rating` is selected and occupies the
 second position
 ```
 GET ~/Customers?$select=Name,@Model.Rating
+```
+```json
 {
   "@context": "$metadata#Customers(Name,@Model.Rating)",
   "_": [
