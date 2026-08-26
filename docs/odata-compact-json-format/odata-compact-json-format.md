@@ -464,9 +464,9 @@ This object is either
 - a [wrapper object](#wrapperobject), whose value is the correct
   representation for the payload's content.
 
-The name of the value in a wrapper object is `value`, as defined in
-[OData-JSON](#ODataJSON), or the abbreviation `_` defined in [section
-7.1](#TheWrapperObject).
+The name of the value in a wrapper object is `_`. The name `value` is also
+recognized, but only in those message bodies in which
+[OData-JSON](#ODataJSON) itself uses it; see [section 7.1](#TheWrapperObject).
 
 ::: example
 Example 5: a message body containing a collection of entities
@@ -627,6 +627,8 @@ order of the `$select` items and produce different positional
 representations of the same entity
 ```
 GET ~/Customers('ALFKI')?$select=Name,ID
+```
+```json
 {
   "@context": "$metadata#Customers(Name,ID)/$entity",
   "_": ["Alfreds Futterkiste", "ALFKI"]
@@ -634,6 +636,8 @@ GET ~/Customers('ALFKI')?$select=Name,ID
 ```
 ```
 GET ~/Customers('ALFKI')?$select=ID,Name
+```
+```json
 {
   "@context": "$metadata#Customers(ID,Name)/$entity",
   "_": ["ALFKI", "Alfreds Futterkiste"]
@@ -647,6 +651,8 @@ structural properties of the entity type in declaration order; the
 navigation property `Orders` is not part of it because it is not selected
 ```
 GET ~/Customers
+```
+```json
 {
   "@context": "$metadata#Customers",
   "_": [
@@ -663,6 +669,8 @@ property implicitly selects all structural properties, which are placed
 before the expanded navigation property
 ```
 GET ~/Customers?$expand=Orders($select=ID)
+```
+```json
 {
   "@context": "$metadata#Customers(Orders(ID))",
   "_": [
@@ -715,6 +723,8 @@ property `Address` share one position, which holds the positional
 representation of the complex value
 ```
 GET ~/Customers?$select=Name,Address/City,Address/PostalCode
+```
+```json
 {
   "@context": "$metadata#Customers(Name,Address/City,Address/PostalCode)",
   "_": [
@@ -843,6 +853,8 @@ Example <a id="collection" href="#collection">14</a>: a collection of entities, 
 defined by [OData-JSON](#ODataJSON) and the compact format side by side
 ```
 GET ~/Customers?$select=ID,Name
+```
+```json
 {
   "@context": "$metadata#Customers(ID,Name)",
   "value": [
@@ -854,6 +866,8 @@ GET ~/Customers?$select=ID,Name
 ```
 ```
 GET ~/Customers?$select=ID,Name
+```
+```json
 {
   "@context": "$metadata#Customers(ID,Name)",
   "_": [
@@ -904,6 +918,8 @@ position of `Orders` holds the collection, whose items are the positional
 representations of the individual orders
 ```
 GET ~/Customers?$select=ID&$expand=Orders($select=ID,Amount)
+```
+```json
 {
   "@context": "$metadata#Customers(ID,Orders(ID,Amount))",
   "_": [
@@ -962,6 +978,8 @@ the first entity is not a `VipCustomer` and its position for
 `PreferredContact` conveys "not applicable"
 ```
 GET ~/Customers?$select=ID,Model.VipCustomer/PreferredContact
+```
+```json
 {
   "@context": "$metadata#Customers(ID,Model.VipCustomer/PreferredContact)",
   "_": [
@@ -1073,23 +1091,43 @@ that has no value, as distinct from one whose value is null. The empty
 wrapper object `{}` therefore denotes "no value and no annotations"; see
 [section 6.7](#DerivedTypes).
 
-The name of the value in a wrapper object is `_`.
+The name of the value in a wrapper object is `_`, in every position in
+which a wrapper object may appear.
 
-At the root of the message body the name `value` is also recognized, with
-the same meaning, for compatibility with [OData-JSON](#ODataJSON) as
-required by the [superset principle](#supersetprinciple). Producers of
-compact payloads SHOULD use `_` in all positions, including the root.
+Wherever [OData-JSON](#ODataJSON) specifies that the message body contains
+a name/value pair whose name is `value`, that name is also recognized as
+the name of the wrapper object's value and denotes the same thing. This
+follows from the [superset principle](#supersetprinciple) and grants
+nothing beyond what [OData-JSON](#ODataJSON) already requires: the message
+bodies in which it applies are exactly those enumerated there, and this
+document does not add to them.
 
-The name `value` is NOT RECOMMENDED anywhere other than the root of the
-message body, because a JSON object containing a name/value pair named
-`value` is indistinguishable from the representation, as defined by
-[OData-JSON](#ODataJSON), of a structured instance having a property
-named `value`.
+Everywhere else, `value` is not the name of a wrapper object's value. In
+particular, where [OData-JSON](#ODataJSON) represents the message body as
+the instance itself -- for a single entity, a single complex value, or a
+single entity reference -- a name/value pair named `value` in that message
+body is a *property* named `value`, and a receiver MUST NOT read it as the
+value of a wrapper object. A single entity or complex value represented
+positionally at the root of the message body therefore uses `_`.
+
+Producers of compact payloads SHOULD use `_` wherever this document
+permits a choice.
+
+This restriction is what keeps the two representations distinguishable.
+Were `value` also the wrapper's value name at the root of a message body
+representing a single entity, then
+`{"@context": "…#Customers/$entity", "value": […]}` would be at once the
+positional representation of an entity and the
+[OData-JSON](#ODataJSON) representation of an entity having a
+collection-valued property named `value`, with nothing to tell the two
+apart.
 
 ::: example
 Example <a id="wrapper" href="#wrapper">19</a>: the same information three times --- as defined by
 [OData-JSON](#ODataJSON), compact with `_` at every level, and compact
-using the recognized root name `value`
+with `value` at the root. The third form is permitted only because the
+message body is a collection, which is one of the cases in which
+[OData-JSON](#ODataJSON) itself uses `value`
 ```json
 {
   "@context": "$metadata#Customers(Name,Orders(ID))",
@@ -1186,6 +1224,8 @@ count was requested; the position holds a wrapper object with an
 annotation and no value
 ```
 GET ~/Customers?$select=Name,Addresses/$count
+```
+```json
 {
   "@context": "$metadata#Customers(Name,Addresses/$count)",
   "_": [
@@ -1216,6 +1256,8 @@ Example 23: the annotation `@Model.Rating` is selected and occupies the
 second position
 ```
 GET ~/Customers?$select=Name,@Model.Rating
+```
+```json
 {
   "@context": "$metadata#Customers(Name,@Model.Rating)",
   "_": [
@@ -1364,7 +1406,8 @@ selection of `Customer`
 ```
 POST ~/Customers
 Content-Type: application/json;compact=true
-
+```
+```json
 ["ALFKI", "Alfreds Futterkiste", ["Obere Str. 57", "Berlin", "12209"]]
 ```
 :::
@@ -1384,7 +1427,8 @@ properties, leaving the remainder to the service
 ```
 POST ~/Customers
 Content-Type: application/json;compact=true
-
+```
+```json
 {
   "@context": "$metadata#Customers(ID,Name)/$entity",
   "_": ["ALFKI", "Alfreds Futterkiste"]
@@ -1419,7 +1463,8 @@ and every property not named in the context URL is unaffected
 ```
 PATCH ~/Customers('ALFKI')
 Content-Type: application/json;compact=true
-
+```
+```json
 {
   "@context": "$metadata#Customers(Name,Region)/$entity",
   "_": ["Alfred's Futterkiste", null]
@@ -1452,7 +1497,8 @@ Example <a id="deepinsert" href="#deepinsert">28</a>: creating a customer togeth
 ```
 POST ~/Customers
 Content-Type: application/json;compact=true
-
+```
+```json
 {
   "@context": "$metadata#Customers(ID,Name,Orders(ID,Amount))/$entity",
   "_": [
@@ -1480,7 +1526,8 @@ Example <a id="bind" href="#bind">29</a>: creating an order bound to an existing
 ```
 POST ~/Orders
 Content-Type: application/json;compact=true
-
+```
+```json
 {
   "@context": "$metadata#Orders(ID,Amount,Customer)/$entity",
   "_": [
@@ -1508,7 +1555,8 @@ parameter object is unchanged, the collection is positional
 ```
 POST ~/Customers('ALFKI')/Model.AddAddresses
 Content-Type: application/json;compact=true
-
+```
+```json
 {
   "addresses": [
     ["Obere Str. 57", "Berlin", "12209"],
@@ -1554,6 +1602,8 @@ object](#wrapperobject) around the positional representation.
 Example <a id="delta" href="#delta">31</a>: a delta payload containing one changed entity
 ```
 GET ~/Customers?$deltatoken=1234
+```
+```json
 {
   "@context": "$metadata#Customers(ID,Name)/$delta",
   "_": [
@@ -1652,7 +1702,8 @@ Example 33: an error returned in response to a request that specified
 `compact=true`
 ```
 Content-Type: application/json;compact=true
-
+```
+```json
 {
   "error": {
     "code": "501",
@@ -1730,7 +1781,9 @@ client or service:
 5. MUST accept a [wrapper object](#wrapperobject) wherever a value may
    appear ([section 7.1](#TheWrapperObject))
    1. MUST accept the value name `_`
-   2. MUST accept the value name `value` at the root of the message body
+   2. MUST accept the value name `value` in those message bodies in which
+      [OData-JSON](#ODataJSON) uses it, and MUST NOT read `value` as a
+      wrapper object's value name elsewhere
    3. MUST accept a wrapper object that carries no value
 6. MUST accept property annotations without the property name prefix
    ([section 7.3](#PropertyAnnotations))
@@ -1768,8 +1821,9 @@ client or service:
     6.8](#OpenTypesandDynamicProperties))
 16. MUST use the empty wrapper object `{}` for a position whose property
     is not applicable to the instance ([section 6.7](#DerivedTypes))
-17. SHOULD use the value name `_` in preference to `value` ([section
-    7.1](#TheWrapperObject))
+17. MUST NOT use `value` as the name of a wrapper object's value except in
+    those message bodies in which [OData-JSON](#ODataJSON) uses it, and
+    SHOULD use `_` throughout ([section 7.1](#TheWrapperObject))
 18. SHOULD reference a versioned metadata document from the context URL
     ([section 5.2](#DeterminingthePositionalPropertyList))
 
@@ -1847,13 +1901,27 @@ considered.
 
 ## <a id="NamingandEncodingDecisions" href="#NamingandEncodingDecisions">14.2 Naming and Encoding Decisions</a>
 
-4. **The value name.** The draft uses `_` in wrapper objects and
-   recognizes `value` at the root of the message body.
+4. **The value name.** The draft uses `_` as the name of a wrapper
+   object's value, and recognizes `value` only in those message bodies in
+   which [OData-JSON](#ODataJSON) itself uses it -- a single primitive
+   value and the collections enumerated there -- and not where
+   [OData-JSON](#ODataJSON) represents the message body as the instance
+   itself. An earlier draft recognized `value` at the root generally; that
+   was withdrawn on review, because it both extended
+   [OData-JSON](#ODataJSON) and made a single-entity message body
+   ambiguous. See [section 7.1](#TheWrapperObject).
    *Alternatives considered:* `value` everywhere, which is consistent with
    [OData-JSON](#ODataJSON) but costs four additional bytes per wrapper
-   object and creates the ambiguity described in [section
-   7.1](#TheWrapperObject); or a name that cannot collide with a property
-   name, such as `@value` or `$`, at the cost of readability.
+   object and reintroduces that ambiguity; or a name that cannot collide
+   with a property name, such as `@value` or `$`, at the cost of
+   readability.
+
+   *Not yet resolved:* `_` has the same collision in principle. A type
+   declaring, or an open type carrying, a property named `_` cannot be
+   told apart from a wrapper object by name alone. The draft does not
+   reserve `_` in the model, and should either do so, forbid a positional
+   representation for such a type, or adopt a name that cannot be a
+   property name at all.
 
 5. **"Not applicable" at a position.** The draft uses the empty wrapper
    object `{}` for a position whose property does not apply to the

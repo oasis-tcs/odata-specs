@@ -428,7 +428,7 @@ Hubert Heijkers (<a href="mailto:hubert.heijkers@nl.ibm.com">hubert.heijkers@nl.
 <li>the representation of an <a href="#Entity">entity</a>, an <a href="#EntityReferences">entity reference</a> or a <a href="#ComplexValue">complex value</a> that is not represented positionally, or</li>
 <li>a <a href="#wrapperobject">wrapper object</a>, whose value is the correct representation for the payload’s content.</li>
 </ul>
-<p>The name of the value in a wrapper object is <code>value</code>, as defined in <a href="#ODataJSON">OData-JSON</a>, or the abbreviation <code>_</code> defined in <a href="#TheWrapperObject">section 7.1</a>.</p>
+<p>The name of the value in a wrapper object is <code>_</code>. The name <code>value</code> is also recognized, but only in those message bodies in which <a href="#ODataJSON">OData-JSON</a> itself uses it; see <a href="#TheWrapperObject">section 7.1</a>.</p>
 <div class="example">
 <p>Example 5: a message body containing a collection of entities represented positionally</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
@@ -503,40 +503,40 @@ Hubert Heijkers (<a href="mailto:hubert.heijkers@nl.ibm.com">hubert.heijkers@nl.
 <p>A service MUST NOT reorder the properties of a type in its metadata document between versions of that document without also changing the metadata document URL, since the positional property list, and therefore the meaning of every compact payload referencing that metadata, depends on the declaration order. Services SHOULD reference a versioned metadata document from the context URL when producing compact payloads. See <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#MetadataDocumentRequest">OData-Protocol, section 11.1.2</a>.</p>
 <div class="example">
 <p>Example 7: a select-list determines both the membership and the order of the positional property list; the two requests differ only in the order of the <code>$select</code> items and produce different positional representations of the same entity</p>
-<pre><code>GET ~/Customers(&#39;ALFKI&#39;)?$select=Name,ID
-{
-  &quot;@context&quot;: &quot;$metadata#Customers(Name,ID)/$entity&quot;,
-  &quot;_&quot;: [&quot;Alfreds Futterkiste&quot;, &quot;ALFKI&quot;]
-}</code></pre>
-<pre><code>GET ~/Customers(&#39;ALFKI&#39;)?$select=ID,Name
-{
-  &quot;@context&quot;: &quot;$metadata#Customers(ID,Name)/$entity&quot;,
-  &quot;_&quot;: [&quot;ALFKI&quot;, &quot;Alfreds Futterkiste&quot;]
-}</code></pre>
+<pre><code>GET ~/Customers(&#39;ALFKI&#39;)?$select=Name,ID</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(Name,ID)/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">,</span> <span class="st">&quot;ALFKI&quot;</span><span class="ot">]</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<pre><code>GET ~/Customers(&#39;ALFKI&#39;)?$select=ID,Name</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(ID,Name)/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;ALFKI&quot;</span><span class="ot">,</span> <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">]</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
 <p>Example 8: with no <code>$select</code>, the positional property list is the structural properties of the entity type in declaration order; the navigation property <code>Orders</code> is not part of it because it is not selected</p>
-<pre><code>GET ~/Customers
-{
-  &quot;@context&quot;: &quot;$metadata#Customers&quot;,
-  &quot;_&quot;: [
-    [&quot;ALFKI&quot;, &quot;Alfreds Futterkiste&quot;, [&quot;Obere Str. 57&quot;, &quot;Berlin&quot;, &quot;12209&quot;]],
-    [&quot;ANATR&quot;, &quot;Ana Trujillo&quot;, [&quot;Avda. de la Constitución 2222&quot;, &quot;México D.F.&quot;, &quot;05021&quot;]]
-  ]
-}</code></pre>
+<pre><code>GET ~/Customers</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers&quot;</span><span class="fu">,</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;ALFKI&quot;</span><span class="ot">,</span> <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">,</span> <span class="ot">[</span><span class="st">&quot;Obere Str. 57&quot;</span><span class="ot">,</span> <span class="st">&quot;Berlin&quot;</span><span class="ot">,</span> <span class="st">&quot;12209&quot;</span><span class="ot">]],</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;ANATR&quot;</span><span class="ot">,</span> <span class="st">&quot;Ana Trujillo&quot;</span><span class="ot">,</span> <span class="ot">[</span><span class="st">&quot;Avda. de la Constitución 2222&quot;</span><span class="ot">,</span> <span class="st">&quot;México D.F.&quot;</span><span class="ot">,</span> <span class="st">&quot;05021&quot;</span><span class="ot">]]</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
 <p>Example 9: a context URL containing only an expanded navigation property implicitly selects all structural properties, which are placed before the expanded navigation property</p>
-<pre><code>GET ~/Customers?$expand=Orders($select=ID)
-{
-  &quot;@context&quot;: &quot;$metadata#Customers(Orders(ID))&quot;,
-  &quot;_&quot;: [
-    [
-      &quot;ALFKI&quot;, &quot;Alfreds Futterkiste&quot;, [&quot;Obere Str. 57&quot;, &quot;Berlin&quot;, &quot;12209&quot;],
-      [[10643], [10692]]
-    ]
-  ]
-}</code></pre>
+<pre><code>GET ~/Customers?$expand=Orders($select=ID)</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(Orders(ID))&quot;</span><span class="fu">,</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;ALFKI&quot;</span><span class="ot">,</span> <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">,</span> <span class="ot">[</span><span class="st">&quot;Obere Str. 57&quot;</span><span class="ot">,</span> <span class="st">&quot;Berlin&quot;</span><span class="ot">,</span> <span class="st">&quot;12209&quot;</span><span class="ot">],</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>      <span class="ot">[[</span><span class="dv">10643</span><span class="ot">],</span> <span class="ot">[</span><span class="dv">10692</span><span class="ot">]]</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 </details>
 <details open><summary>
@@ -555,14 +555,14 @@ Hubert Heijkers (<a href="mailto:hubert.heijkers@nl.ibm.com">hubert.heijkers@nl.
 <p>The nested select-list determines the positional property list of the instances of that property, applying this section recursively.</p>
 <div class="example">
 <p>Example <a id="grouping" href="#grouping">10</a>: two selected sub-properties of the complex property <code>Address</code> share one position, which holds the positional representation of the complex value</p>
-<pre><code>GET ~/Customers?$select=Name,Address/City,Address/PostalCode
-{
-  &quot;@context&quot;: &quot;$metadata#Customers(Name,Address/City,Address/PostalCode)&quot;,
-  &quot;_&quot;: [
-    [&quot;Alfreds Futterkiste&quot;, [&quot;Berlin&quot;, &quot;12209&quot;]],
-    [&quot;Ana Trujillo&quot;, [&quot;México D.F.&quot;, &quot;05021&quot;]]
-  ]
-}</code></pre>
+<pre><code>GET ~/Customers?$select=Name,Address/City,Address/PostalCode</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(Name,Address/City,Address/PostalCode)&quot;</span><span class="fu">,</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">,</span> <span class="ot">[</span><span class="st">&quot;Berlin&quot;</span><span class="ot">,</span> <span class="st">&quot;12209&quot;</span><span class="ot">]],</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;Ana Trujillo&quot;</span><span class="ot">,</span> <span class="ot">[</span><span class="st">&quot;México D.F.&quot;</span><span class="ot">,</span> <span class="st">&quot;05021&quot;</span><span class="ot">]]</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <p>The positional property list of each <code>Customer</code> is (<code>Name</code>, <code>Address</code>), and the positional property list of each <code>Address</code> is (<code>City</code>, <code>PostalCode</code>).</p>
 </div>
 <div class="example">
@@ -585,13 +585,13 @@ Hubert Heijkers (<a href="mailto:hubert.heijkers@nl.ibm.com">hubert.heijkers@nl.
 <p>A collection-valued property holds a JSON array whose items are the representations of the members of the collection. An empty collection is represented as an empty JSON array.</p>
 <div class="example">
 <p>Example 12: a collection-valued complex property; the outer array is the collection, each inner array the positional representation of one <code>Address</code></p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(Name,Addresses/City)/$entity&quot;</span><span class="fu">,</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">,</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[[</span><span class="st">&quot;Berlin&quot;</span><span class="ot">],</span> <span class="ot">[</span><span class="st">&quot;Hamburg&quot;</span><span class="ot">]]</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(Name,Addresses/City)/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">,</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[[</span><span class="st">&quot;Berlin&quot;</span><span class="ot">],</span> <span class="ot">[</span><span class="st">&quot;Hamburg&quot;</span><span class="ot">]]</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <p>Note the consequence of the two preceding rules: for a collection-valued structured property, the value at the position is an array of arrays. A receiver that knows the positional property list also knows, from the metadata, whether a property is collection-valued, and can therefore distinguish the two nestings without ambiguity.</p>
 <p>A property that has no value at all – as opposed to a property whose value is null – occurs when only annotations were requested for it, for example when a navigation property was expanded with <code>$count</code> only. Such a position holds a <a href="#wrapperobject">wrapper object</a> carrying the annotations and no value. See <a href="#PropertyAnnotations">section 7.3</a>.</p>
@@ -609,11 +609,11 @@ Hubert Heijkers (<a href="mailto:hubert.heijkers@nl.ibm.com">hubert.heijkers@nl.
 <p>Control information that applies to the entity – <code>id</code>, <code>etag</code>, <code>type</code>, <code>editLink</code>, <code>readLink</code> and others – cannot appear inside the array. An entity to which control information applies is represented either as a <a href="#wrapperobject">wrapper object</a> carrying that control information together with the positional representation, or as a JSON object as defined in <a href="#ODataJSON">OData-JSON</a>.</p>
 <div class="example">
 <p>Example 13: a single entity with an ETag</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(ID,Name)/$entity&quot;</span><span class="fu">,</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@etag&quot;</span><span class="fu">:</span> <span class="st">&quot;W/</span><span class="ch">\&quot;</span><span class="st">MjAyNC0wMi0yOA==</span><span class="ch">\&quot;</span><span class="st">&quot;</span><span class="fu">,</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;ALFKI&quot;</span><span class="ot">,</span> <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">]</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(ID,Name)/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@etag&quot;</span><span class="fu">:</span> <span class="st">&quot;W/</span><span class="ch">\&quot;</span><span class="st">MjAyNC0wMi0yOA==</span><span class="ch">\&quot;</span><span class="st">&quot;</span><span class="fu">,</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;ALFKI&quot;</span><span class="ot">,</span> <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">]</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 </details>
 <details open><summary>
@@ -629,24 +629,24 @@ Hubert Heijkers (<a href="mailto:hubert.heijkers@nl.ibm.com">hubert.heijkers@nl.
 <p>All entities in a collection share the same positional property list, which is determined once from the select-list applying to the collection.</p>
 <div class="example">
 <p>Example <a id="collection" href="#collection">14</a>: a collection of entities, showing the format defined by <a href="#ODataJSON">OData-JSON</a> and the compact format side by side</p>
-<pre><code>GET ~/Customers?$select=ID,Name
-{
-  &quot;@context&quot;: &quot;$metadata#Customers(ID,Name)&quot;,
-  &quot;value&quot;: [
-    { &quot;ID&quot;: &quot;ALFKI&quot;, &quot;Name&quot;: &quot;Alfreds Futterkiste&quot; },
-    { &quot;ID&quot;: &quot;ANATR&quot;, &quot;Name&quot;: &quot;Ana Trujillo&quot; },
-    { &quot;ID&quot;: &quot;ANTON&quot;, &quot;Name&quot;: &quot;Antonio Moreno&quot; }
-  ]
-}</code></pre>
-<pre><code>GET ~/Customers?$select=ID,Name
-{
-  &quot;@context&quot;: &quot;$metadata#Customers(ID,Name)&quot;,
-  &quot;_&quot;: [
-    [&quot;ALFKI&quot;, &quot;Alfreds Futterkiste&quot;],
-    [&quot;ANATR&quot;, &quot;Ana Trujillo&quot;],
-    [&quot;ANTON&quot;, &quot;Antonio Moreno&quot;]
-  ]
-}</code></pre>
+<pre><code>GET ~/Customers?$select=ID,Name</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(ID,Name)&quot;</span><span class="fu">,</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;ALFKI&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Alfreds Futterkiste&quot;</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;ANATR&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Ana Trujillo&quot;</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;ANTON&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Antonio Moreno&quot;</span> <span class="fu">}</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<pre><code>GET ~/Customers?$select=ID,Name</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(ID,Name)&quot;</span><span class="fu">,</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;ALFKI&quot;</span><span class="ot">,</span> <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">],</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;ANATR&quot;</span><span class="ot">,</span> <span class="st">&quot;Ana Trujillo&quot;</span><span class="ot">],</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;ANTON&quot;</span><span class="ot">,</span> <span class="st">&quot;Antonio Moreno&quot;</span><span class="ot">]</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 </details>
 <details open><summary>
@@ -669,14 +669,14 @@ Hubert Heijkers (<a href="mailto:hubert.heijkers@nl.ibm.com">hubert.heijkers@nl.
 <p>The <code>navigationLink</code> and <code>associationLink</code> control information for a navigation property, when present, is carried in a <a href="#wrapperobject">wrapper object</a> at the navigation property’s position, as described in <a href="#PropertyAnnotations">section 7.3</a>.</p>
 <div class="example">
 <p>Example 15: an expanded collection-valued navigation property; the position of <code>Orders</code> holds the collection, whose items are the positional representations of the individual orders</p>
-<pre><code>GET ~/Customers?$select=ID&amp;$expand=Orders($select=ID,Amount)
-{
-  &quot;@context&quot;: &quot;$metadata#Customers(ID,Orders(ID,Amount))&quot;,
-  &quot;_&quot;: [
-    [&quot;ALFKI&quot;, [[10643, 29.46], [10692, 61.02]]],
-    [&quot;ANATR&quot;, []]
-  ]
-}</code></pre>
+<pre><code>GET ~/Customers?$select=ID&amp;$expand=Orders($select=ID,Amount)</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(ID,Orders(ID,Amount))&quot;</span><span class="fu">,</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;ALFKI&quot;</span><span class="ot">,</span> <span class="ot">[[</span><span class="dv">10643</span><span class="ot">,</span> <span class="fl">29.46</span><span class="ot">],</span> <span class="ot">[</span><span class="dv">10692</span><span class="ot">,</span> <span class="fl">61.02</span><span class="ot">]]],</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;ANATR&quot;</span><span class="ot">,</span> <span class="ot">[]]</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 </details>
 <details open><summary>
@@ -687,26 +687,26 @@ Hubert Heijkers (<a href="mailto:hubert.heijkers@nl.ibm.com">hubert.heijkers@nl.
 <p>Where the actual type of an instance must be conveyed, the <code>type</code> control information is carried in a <a href="#wrapperobject">wrapper object</a> around the positional representation.</p>
 <div class="example">
 <p>Example <a id="derived" href="#derived">16</a>: a heterogeneous collection; the type of the second entity differs from the type of the entity set</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(ID,Name)&quot;</span><span class="fu">,</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;ALFKI&quot;</span><span class="ot">,</span> <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">],</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;@type&quot;</span><span class="fu">:</span> <span class="st">&quot;#Model.VipCustomer&quot;</span><span class="fu">,</span> <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;ANATR&quot;</span><span class="ot">,</span> <span class="st">&quot;Ana Trujillo&quot;</span><span class="ot">]</span> <span class="fu">}</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(ID,Name)&quot;</span><span class="fu">,</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;ALFKI&quot;</span><span class="ot">,</span> <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">],</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;@type&quot;</span><span class="fu">:</span> <span class="st">&quot;#Model.VipCustomer&quot;</span><span class="fu">,</span> <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;ANATR&quot;</span><span class="ot">,</span> <span class="st">&quot;Ana Trujillo&quot;</span><span class="ot">]</span> <span class="fu">}</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <p>Properties declared by a derived type can be conveyed positionally by selecting them explicitly, in which case <a href="#ODataProtocol">OData-Protocol</a> prefixes them with the qualified name of the derived type in the select-list and they occupy a position in the positional property list of <em>every</em> instance in the collection.</p>
 <p>For an instance whose type does not declare such a property, the property is not applicable rather than null. The value at its position MUST be the empty JSON object <code>{}</code>, which is the <a href="#wrapperobject">wrapper object</a> carrying neither annotations nor a value, and which is therefore distinct both from <code>null</code> and from the positional representation of a value.</p>
 <div class="example">
 <p>Example 17: <code>PreferredContact</code> is declared by <code>Model.VipCustomer</code> only; the first entity is not a <code>VipCustomer</code> and its position for <code>PreferredContact</code> conveys “not applicable”</p>
-<pre><code>GET ~/Customers?$select=ID,Model.VipCustomer/PreferredContact
-{
-  &quot;@context&quot;: &quot;$metadata#Customers(ID,Model.VipCustomer/PreferredContact)&quot;,
-  &quot;_&quot;: [
-    [&quot;ALFKI&quot;, {}],
-    { &quot;@type&quot;: &quot;#Model.VipCustomer&quot;, &quot;_&quot;: [&quot;ANATR&quot;, &quot;email&quot;] }
-  ]
-}</code></pre>
+<pre><code>GET ~/Customers?$select=ID,Model.VipCustomer/PreferredContact</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(ID,Model.VipCustomer/PreferredContact)&quot;</span><span class="fu">,</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;ALFKI&quot;</span><span class="ot">,</span> <span class="fu">{}</span><span class="ot">],</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;@type&quot;</span><span class="fu">:</span> <span class="st">&quot;#Model.VipCustomer&quot;</span><span class="fu">,</span> <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;ANATR&quot;</span><span class="ot">,</span> <span class="st">&quot;email&quot;</span><span class="ot">]</span> <span class="fu">}</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 </details>
 <details open><summary>
@@ -717,13 +717,13 @@ Hubert Heijkers (<a href="mailto:hubert.heijkers@nl.ibm.com">hubert.heijkers@nl.
 <p>An instance carrying dynamic properties that are not selected MUST NOT be represented positionally; it is represented as a JSON object as defined in <a href="#ODataJSON">OData-JSON</a>. This is a direct consequence of the <a href="#supersetprinciple">superset principle</a> and requires no additional mechanism.</p>
 <div class="example">
 <p>Example 18: a payload in which one instance carries an unselected dynamic property and therefore falls back to the representation defined by <a href="#ODataJSON">OData-JSON</a></p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(ID,Name)&quot;</span><span class="fu">,</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;ALFKI&quot;</span><span class="ot">,</span> <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">],</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;ANATR&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Ana Trujillo&quot;</span><span class="fu">,</span> <span class="dt">&quot;Nickname&quot;</span><span class="fu">:</span> <span class="st">&quot;Ana&quot;</span> <span class="fu">}</span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(ID,Name)&quot;</span><span class="fu">,</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;ALFKI&quot;</span><span class="ot">,</span> <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">],</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;ANATR&quot;</span><span class="fu">,</span> <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Ana Trujillo&quot;</span><span class="fu">,</span> <span class="dt">&quot;Nickname&quot;</span><span class="fu">:</span> <span class="st">&quot;Ana&quot;</span> <span class="fu">}</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 </details>
 <details open><summary>
@@ -766,33 +766,35 @@ Hubert Heijkers (<a href="mailto:hubert.heijkers@nl.ibm.com">hubert.heijkers@nl.
 <li>as an item of a collection, in which case it carries the annotations of that member of the collection and the member itself.</li>
 </ul>
 <p>A wrapper object that carries no value denotes a property or instance that has no value, as distinct from one whose value is null. The empty wrapper object <code>{}</code> therefore denotes “no value and no annotations”; see <a href="#DerivedTypes">section 6.7</a>.</p>
-<p>The name of the value in a wrapper object is <code>_</code>.</p>
-<p>At the root of the message body the name <code>value</code> is also recognized, with the same meaning, for compatibility with <a href="#ODataJSON">OData-JSON</a> as required by the <a href="#supersetprinciple">superset principle</a>. Producers of compact payloads SHOULD use <code>_</code> in all positions, including the root.</p>
-<p>The name <code>value</code> is NOT RECOMMENDED anywhere other than the root of the message body, because a JSON object containing a name/value pair named <code>value</code> is indistinguishable from the representation, as defined by <a href="#ODataJSON">OData-JSON</a>, of a structured instance having a property named <code>value</code>.</p>
+<p>The name of the value in a wrapper object is <code>_</code>, in every position in which a wrapper object may appear.</p>
+<p>Wherever <a href="#ODataJSON">OData-JSON</a> specifies that the message body contains a name/value pair whose name is <code>value</code>, that name is also recognized as the name of the wrapper object’s value and denotes the same thing. This follows from the <a href="#supersetprinciple">superset principle</a> and grants nothing beyond what <a href="#ODataJSON">OData-JSON</a> already requires: the message bodies in which it applies are exactly those enumerated there, and this document does not add to them.</p>
+<p>Everywhere else, <code>value</code> is not the name of a wrapper object’s value. In particular, where <a href="#ODataJSON">OData-JSON</a> represents the message body as the instance itself – for a single entity, a single complex value, or a single entity reference – a name/value pair named <code>value</code> in that message body is a <em>property</em> named <code>value</code>, and a receiver MUST NOT read it as the value of a wrapper object. A single entity or complex value represented positionally at the root of the message body therefore uses <code>_</code>.</p>
+<p>Producers of compact payloads SHOULD use <code>_</code> wherever this document permits a choice.</p>
+<p>This restriction is what keeps the two representations distinguishable. Were <code>value</code> also the wrapper’s value name at the root of a message body representing a single entity, then <code>{"@context": "…#Customers/$entity", "value": […]}</code> would be at once the positional representation of an entity and the <a href="#ODataJSON">OData-JSON</a> representation of an entity having a collection-valued property named <code>value</code>, with nothing to tell the two apart.</p>
 <div class="example">
-<p>Example <a id="wrapper" href="#wrapper">19</a>: the same information three times — as defined by <a href="#ODataJSON">OData-JSON</a>, compact with <code>_</code> at every level, and compact using the recognized root name <code>value</code></p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(Name,Orders(ID))&quot;</span><span class="fu">,</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="fu">,</span></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Orders@count&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Orders&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">10643</span> <span class="fu">}</span><span class="ot">,</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">10692</span> <span class="fu">}</span><span class="ot">]</span></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
-<div class="sourceCode" id="cb23"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(Name,Orders(ID))&quot;</span><span class="fu">,</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">,</span> <span class="fu">{</span> <span class="dt">&quot;@count&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span> <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[[</span><span class="dv">10643</span><span class="ot">],</span> <span class="ot">[</span><span class="dv">10692</span><span class="ot">]]</span> <span class="fu">}</span><span class="ot">]</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
-<div class="sourceCode" id="cb24"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(Name,Orders(ID))&quot;</span><span class="fu">,</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">,</span> <span class="fu">{</span> <span class="dt">&quot;@count&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span> <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[[</span><span class="dv">10643</span><span class="ot">],</span> <span class="ot">[</span><span class="dv">10692</span><span class="ot">]]</span> <span class="fu">}</span><span class="ot">]</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>Example <a id="wrapper" href="#wrapper">19</a>: the same information three times — as defined by <a href="#ODataJSON">OData-JSON</a>, compact with <code>_</code> at every level, and compact with <code>value</code> at the root. The third form is permitted only because the message body is a collection, which is one of the cases in which <a href="#ODataJSON">OData-JSON</a> itself uses <code>value</code></p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(Name,Orders(ID))&quot;</span><span class="fu">,</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Name&quot;</span><span class="fu">:</span> <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="fu">,</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Orders@count&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;Orders&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">10643</span> <span class="fu">}</span><span class="ot">,</span> <span class="fu">{</span> <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="dv">10692</span> <span class="fu">}</span><span class="ot">]</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(Name,Orders(ID))&quot;</span><span class="fu">,</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">,</span> <span class="fu">{</span> <span class="dt">&quot;@count&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span> <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[[</span><span class="dv">10643</span><span class="ot">],</span> <span class="ot">[</span><span class="dv">10692</span><span class="ot">]]</span> <span class="fu">}</span><span class="ot">]</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(Name,Orders(ID))&quot;</span><span class="fu">,</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">,</span> <span class="fu">{</span> <span class="dt">&quot;@count&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span> <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[[</span><span class="dv">10643</span><span class="ot">],</span> <span class="ot">[</span><span class="dv">10692</span><span class="ot">]]</span> <span class="fu">}</span><span class="ot">]</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 </details>
 <details open><summary>
@@ -802,16 +804,16 @@ Hubert Heijkers (<a href="mailto:hubert.heijkers@nl.ibm.com">hubert.heijkers@nl.
 <p>The name of an instance annotation is unchanged from <a href="#ODataJSON">OData-JSON</a>.</p>
 <div class="example">
 <p>Example 20: an instance annotation on one entity of a collection</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(ID,Name)&quot;</span><span class="fu">,</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;ALFKI&quot;</span><span class="ot">,</span> <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">],</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@Core.Messages&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="fu">{</span> <span class="dt">&quot;code&quot;</span><span class="fu">:</span> <span class="st">&quot;1&quot;</span><span class="fu">,</span> <span class="dt">&quot;message&quot;</span><span class="fu">:</span> <span class="st">&quot;Stale&quot;</span><span class="fu">,</span> <span class="dt">&quot;severity&quot;</span><span class="fu">:</span> <span class="st">&quot;info&quot;</span> <span class="fu">}</span><span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;ANATR&quot;</span><span class="ot">,</span> <span class="st">&quot;Ana Trujillo&quot;</span><span class="ot">]</span></span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(ID,Name)&quot;</span><span class="fu">,</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;ALFKI&quot;</span><span class="ot">,</span> <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">],</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@Core.Messages&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="fu">{</span> <span class="dt">&quot;code&quot;</span><span class="fu">:</span> <span class="st">&quot;1&quot;</span><span class="fu">,</span> <span class="dt">&quot;message&quot;</span><span class="fu">:</span> <span class="st">&quot;Stale&quot;</span><span class="fu">,</span> <span class="dt">&quot;severity&quot;</span><span class="fu">:</span> <span class="st">&quot;info&quot;</span> <span class="fu">}</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;ANATR&quot;</span><span class="ot">,</span> <span class="st">&quot;Ana Trujillo&quot;</span><span class="ot">]</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 </details>
 <details open><summary>
@@ -821,33 +823,33 @@ Hubert Heijkers (<a href="mailto:hubert.heijkers@nl.ibm.com">hubert.heijkers@nl.
 <p>The name of a property annotation in a compact payload is <code>@ns.term</code>. The property name prefix that <a href="#ODataJSON">OData-JSON</a> requires – as in <code>Property@ns.term</code> – is omitted, because the position already identifies the property.</p>
 <div class="example">
 <p>Example <a id="propannotation" href="#propannotation">21</a>: the <code>Core.ValueException</code> annotation of a property, in both formats</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(ID,Revenue)/$entity&quot;</span><span class="fu">,</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;ALFKI&quot;</span><span class="fu">,</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Revenue@Core.ValueException&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="st">&quot;1234567890123456789&quot;</span> <span class="fu">},</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Revenue&quot;</span><span class="fu">:</span> <span class="dv">1234567890123456800</span></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
-<div class="sourceCode" id="cb27"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(ID,Revenue)/$entity&quot;</span><span class="fu">,</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;ALFKI&quot;</span><span class="ot">,</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@Core.ValueException&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="st">&quot;1234567890123456789&quot;</span> <span class="fu">},</span></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="dv">1234567890123456800</span></span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(ID,Revenue)/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;ID&quot;</span><span class="fu">:</span> <span class="st">&quot;ALFKI&quot;</span><span class="fu">,</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Revenue@Core.ValueException&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;value&quot;</span><span class="fu">:</span> <span class="st">&quot;1234567890123456789&quot;</span> <span class="fu">},</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;Revenue&quot;</span><span class="fu">:</span> <span class="dv">1234567890123456800</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(ID,Revenue)/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;ALFKI&quot;</span><span class="ot">,</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@Core.ValueException&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="st">&quot;1234567890123456789&quot;</span> <span class="fu">},</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="dv">1234567890123456800</span></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div class="example">
 <p>Example <a id="countonly" href="#countonly">22</a>: a collection-valued property for which only the count was requested; the position holds a wrapper object with an annotation and no value</p>
-<pre><code>GET ~/Customers?$select=Name,Addresses/$count
-{
-  &quot;@context&quot;: &quot;$metadata#Customers(Name,Addresses/$count)&quot;,
-  &quot;_&quot;: [
-    [&quot;Alfreds Futterkiste&quot;, { &quot;@count&quot;: 2 }],
-    [&quot;Ana Trujillo&quot;, { &quot;@count&quot;: 0 }]
-  ]
-}</code></pre>
+<pre><code>GET ~/Customers?$select=Name,Addresses/$count</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(Name,Addresses/$count)&quot;</span><span class="fu">,</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">,</span> <span class="fu">{</span> <span class="dt">&quot;@count&quot;</span><span class="fu">:</span> <span class="dv">2</span> <span class="fu">}</span><span class="ot">],</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;Ana Trujillo&quot;</span><span class="ot">,</span> <span class="fu">{</span> <span class="dt">&quot;@count&quot;</span><span class="fu">:</span> <span class="dv">0</span> <span class="fu">}</span><span class="ot">]</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <p>Note that under <a href="#GroupingofSelectItems">section 5.3</a> the select-item <code>Addresses/$count</code> forms a group whose first segment is <code>Addresses</code>, so <code>Addresses</code> occupies a single position, and the count segment is what that position conveys. See also open issue 13.</p>
 </div>
 </details>
@@ -858,14 +860,14 @@ Hubert Heijkers (<a href="mailto:hubert.heijkers@nl.ibm.com">hubert.heijkers@nl.
 <p>This is the case where an annotation is requested as data. It is distinct from an annotation that merely accompanies a value, which is carried in a wrapper object as described in the preceding sections.</p>
 <div class="example">
 <p>Example 23: the annotation <code>@Model.Rating</code> is selected and occupies the second position</p>
-<pre><code>GET ~/Customers?$select=Name,@Model.Rating
-{
-  &quot;@context&quot;: &quot;$metadata#Customers(Name,@Model.Rating)&quot;,
-  &quot;_&quot;: [
-    [&quot;Alfreds Futterkiste&quot;, 5],
-    [&quot;Ana Trujillo&quot;, 3]
-  ]
-}</code></pre>
+<pre><code>GET ~/Customers?$select=Name,@Model.Rating</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(Name,@Model.Rating)&quot;</span><span class="fu">,</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">,</span> <span class="dv">5</span><span class="ot">],</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;Ana Trujillo&quot;</span><span class="ot">,</span> <span class="dv">3</span><span class="ot">]</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <p>Annotations requested through the <code>include-annotations</code> preference do not appear in the context URL, do not affect the positional property list, and are therefore carried in wrapper objects.</p>
 </details>
@@ -887,21 +889,21 @@ Hubert Heijkers (<a href="mailto:hubert.heijkers@nl.ibm.com">hubert.heijkers@nl.
 <p>For a nested collection, both are carried in the wrapper object at the collection’s position.</p>
 <div class="example">
 <p>Example 24: <code>count</code> and <code>nextLink</code> for the collection in the message body and for a nested collection</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(Name,Orders(ID))&quot;</span><span class="fu">,</span></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@count&quot;</span><span class="fu">:</span> <span class="dv">137</span><span class="fu">,</span></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span></span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">,</span></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">{</span></span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@count&quot;</span><span class="fu">:</span> <span class="dv">42</span><span class="fu">,</span></span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@nextLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ALFKI&#39;)/Orders?$skiptoken=10&quot;</span><span class="fu">,</span></span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[[</span><span class="dv">10643</span><span class="ot">],</span> <span class="ot">[</span><span class="dv">10692</span><span class="ot">]]</span></span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
-<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span></span>
-<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@nextLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers?$skiptoken=10&quot;</span></span>
-<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(Name,Orders(ID))&quot;</span><span class="fu">,</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@count&quot;</span><span class="fu">:</span> <span class="dv">137</span><span class="fu">,</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">,</span></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">{</span></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@count&quot;</span><span class="fu">:</span> <span class="dv">42</span><span class="fu">,</span></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@nextLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ALFKI&#39;)/Orders?$skiptoken=10&quot;</span><span class="fu">,</span></span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[[</span><span class="dv">10643</span><span class="ot">],</span> <span class="ot">[</span><span class="dv">10692</span><span class="ot">]]</span></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span></span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@nextLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers?$skiptoken=10&quot;</span></span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 </details>
 <details open><summary>
@@ -939,9 +941,8 @@ Hubert Heijkers (<a href="mailto:hubert.heijkers@nl.ibm.com">hubert.heijkers@nl.
 <div class="example">
 <p>Example <a id="postbare" href="#postbare">25</a>: creating an entity with values for all its structural properties; the positional property list is the default selection of <code>Customer</code></p>
 <pre><code>POST ~/Customers
-Content-Type: application/json;compact=true
-
-[&quot;ALFKI&quot;, &quot;Alfreds Futterkiste&quot;, [&quot;Obere Str. 57&quot;, &quot;Berlin&quot;, &quot;12209&quot;]]</code></pre>
+Content-Type: application/json;compact=true</code></pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="ot">[</span><span class="st">&quot;ALFKI&quot;</span><span class="ot">,</span> <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">,</span> <span class="ot">[</span><span class="st">&quot;Obere Str. 57&quot;</span><span class="ot">,</span> <span class="st">&quot;Berlin&quot;</span><span class="ot">,</span> <span class="st">&quot;12209&quot;</span><span class="ot">]]</span></span></code></pre></div>
 </div>
 </details>
 <details open><summary>
@@ -951,12 +952,11 @@ Content-Type: application/json;compact=true
 <div class="example">
 <p>Example <a id="postselect" href="#postselect">26</a>: creating an entity specifying only two properties, leaving the remainder to the service</p>
 <pre><code>POST ~/Customers
-Content-Type: application/json;compact=true
-
-{
-  &quot;@context&quot;: &quot;$metadata#Customers(ID,Name)/$entity&quot;,
-  &quot;_&quot;: [&quot;ALFKI&quot;, &quot;Alfreds Futterkiste&quot;]
-}</code></pre>
+Content-Type: application/json;compact=true</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(ID,Name)/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;ALFKI&quot;</span><span class="ot">,</span> <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">]</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 </details>
 <details open><summary>
@@ -968,12 +968,11 @@ Content-Type: application/json;compact=true
 <div class="example">
 <p>Example <a id="patch" href="#patch">27</a>: updating two properties of an entity and leaving all others unchanged; <code>Region</code> is set to null, <code>Name</code> is set to a new value, and every property not named in the context URL is unaffected</p>
 <pre><code>PATCH ~/Customers(&#39;ALFKI&#39;)
-Content-Type: application/json;compact=true
-
-{
-  &quot;@context&quot;: &quot;$metadata#Customers(Name,Region)/$entity&quot;,
-  &quot;_&quot;: [&quot;Alfred&#39;s Futterkiste&quot;, null]
-}</code></pre>
+Content-Type: application/json;compact=true</code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(Name,Region)/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;Alfred&#39;s Futterkiste&quot;</span><span class="ot">,</span> <span class="kw">null</span><span class="ot">]</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <p>For <code>PUT</code>, the semantics defined in <a href="#ODataProtocol">OData-Protocol</a> apply unchanged: properties not specified in the request body are reset to their default values. As for <code>PATCH</code>, the properties specified are those in the positional property list.</p>
 </details>
@@ -989,16 +988,15 @@ Content-Type: application/json;compact=true
 <div class="example">
 <p>Example <a id="deepinsert" href="#deepinsert">28</a>: creating a customer together with two orders</p>
 <pre><code>POST ~/Customers
-Content-Type: application/json;compact=true
-
-{
-  &quot;@context&quot;: &quot;$metadata#Customers(ID,Name,Orders(ID,Amount))/$entity&quot;,
-  &quot;_&quot;: [
-    &quot;ALFKI&quot;,
-    &quot;Alfreds Futterkiste&quot;,
-    [[10643, 29.46], [10692, 61.02]]
-  ]
-}</code></pre>
+Content-Type: application/json;compact=true</code></pre>
+<div class="sourceCode" id="cb49"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(ID,Name,Orders(ID,Amount))/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;ALFKI&quot;</span><span class="ot">,</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">,</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[[</span><span class="dv">10643</span><span class="ot">,</span> <span class="fl">29.46</span><span class="ot">],</span> <span class="ot">[</span><span class="dv">10692</span><span class="ot">,</span> <span class="fl">61.02</span><span class="ot">]]</span></span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 </details>
 <details open><summary>
@@ -1009,16 +1007,15 @@ Content-Type: application/json;compact=true
 <div class="example">
 <p>Example <a id="bind" href="#bind">29</a>: creating an order bound to an existing customer</p>
 <pre><code>POST ~/Orders
-Content-Type: application/json;compact=true
-
-{
-  &quot;@context&quot;: &quot;$metadata#Orders(ID,Amount,Customer)/$entity&quot;,
-  &quot;_&quot;: [
-    10643,
-    29.46,
-    { &quot;@id&quot;: &quot;Customers(&#39;ALFKI&#39;)&quot; }
-  ]
-}</code></pre>
+Content-Type: application/json;compact=true</code></pre>
+<div class="sourceCode" id="cb51"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Orders(ID,Amount,Customer)/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>    <span class="dv">10643</span><span class="ot">,</span></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>    <span class="fl">29.46</span><span class="ot">,</span></span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ALFKI&#39;)&quot;</span> <span class="fu">}</span></span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 </details>
 <details open><summary>
@@ -1028,14 +1025,13 @@ Content-Type: application/json;compact=true
 <div class="example">
 <p>Example <a id="action" href="#action">30</a>: an action taking a collection of complex values; the parameter object is unchanged, the collection is positional</p>
 <pre><code>POST ~/Customers(&#39;ALFKI&#39;)/Model.AddAddresses
-Content-Type: application/json;compact=true
-
-{
-  &quot;addresses&quot;: [
-    [&quot;Obere Str. 57&quot;, &quot;Berlin&quot;, &quot;12209&quot;],
-    [&quot;Neue Str. 1&quot;, &quot;Hamburg&quot;, &quot;20095&quot;]
-  ]
-}</code></pre>
+Content-Type: application/json;compact=true</code></pre>
+<div class="sourceCode" id="cb53"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;addresses&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;Obere Str. 57&quot;</span><span class="ot">,</span> <span class="st">&quot;Berlin&quot;</span><span class="ot">,</span> <span class="st">&quot;12209&quot;</span><span class="ot">],</span></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;Neue Str. 1&quot;</span><span class="ot">,</span> <span class="st">&quot;Hamburg&quot;</span><span class="ot">,</span> <span class="st">&quot;20095&quot;</span><span class="ot">]</span></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 </details>
 </details>
@@ -1054,14 +1050,14 @@ Content-Type: application/json;compact=true
 <p>The <code>id</code> control information, where required, is carried in a <a href="#wrapperobject">wrapper object</a> around the positional representation.</p>
 <div class="example">
 <p>Example <a id="delta" href="#delta">31</a>: a delta payload containing one changed entity</p>
-<pre><code>GET ~/Customers?$deltatoken=1234
-{
-  &quot;@context&quot;: &quot;$metadata#Customers(ID,Name)/$delta&quot;,
-  &quot;_&quot;: [
-    [&quot;ALFKI&quot;, &quot;Alfred&#39;s Futterkiste&quot;]
-  ],
-  &quot;@deltaLink&quot;: &quot;Customers?$deltatoken=5678&quot;
-}</code></pre>
+<pre><code>GET ~/Customers?$deltatoken=1234</code></pre>
+<div class="sourceCode" id="cb55"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(ID,Name)/$delta&quot;</span><span class="fu">,</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;ALFKI&quot;</span><span class="ot">,</span> <span class="st">&quot;Alfred&#39;s Futterkiste&quot;</span><span class="ot">]</span></span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@deltaLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers?$deltatoken=5678&quot;</span></span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 </details>
 <details open><summary>
@@ -1071,14 +1067,14 @@ Content-Type: application/json;compact=true
 <p>A deleted entity in a compact payload carries no positional representation, because a deleted entity conveys no property values other than the key, which is conveyed by <code>id</code>.</p>
 <div class="example">
 <p>Example 32: a delta payload containing one changed and one deleted entity</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(ID,Name)/$delta&quot;</span><span class="fu">,</span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;ALFKI&quot;</span><span class="ot">,</span> <span class="st">&quot;Alfred&#39;s Futterkiste&quot;</span><span class="ot">],</span></span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;@removed&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;reason&quot;</span><span class="fu">:</span> <span class="st">&quot;deleted&quot;</span> <span class="fu">},</span> <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ANATR&#39;)&quot;</span> <span class="fu">}</span></span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@deltaLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers?$deltatoken=5678&quot;</span></span>
-<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(ID,Name)/$delta&quot;</span><span class="fu">,</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>    <span class="ot">[</span><span class="st">&quot;ALFKI&quot;</span><span class="ot">,</span> <span class="st">&quot;Alfred&#39;s Futterkiste&quot;</span><span class="ot">],</span></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;@removed&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;reason&quot;</span><span class="fu">:</span> <span class="st">&quot;deleted&quot;</span> <span class="fu">},</span> <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers(&#39;ANATR&#39;)&quot;</span> <span class="fu">}</span></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;@deltaLink&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers?$deltatoken=5678&quot;</span></span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <p>Note that this is exactly the representation defined by <a href="#ODataJSON">OData-JSON</a> for a deleted entity, as the <a href="#supersetprinciple">superset principle</a> permits.</p>
 </details>
@@ -1111,14 +1107,13 @@ Content-Type: application/json;compact=true
 <p>The <code>details</code> member of an error remains a JSON array of JSON objects.</p>
 <div class="example">
 <p>Example 33: an error returned in response to a request that specified <code>compact=true</code></p>
-<pre><code>Content-Type: application/json;compact=true
-
-{
-  &quot;error&quot;: {
-    &quot;code&quot;: &quot;501&quot;,
-    &quot;message&quot;: &quot;Unsupported functionality&quot;
-  }
-}</code></pre>
+<pre><code>Content-Type: application/json;compact=true</code></pre>
+<div class="sourceCode" id="cb58"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;error&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;code&quot;</span><span class="fu">:</span> <span class="st">&quot;501&quot;</span><span class="fu">,</span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;message&quot;</span><span class="fu">:</span> <span class="st">&quot;Unsupported functionality&quot;</span></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 </details>
 <hr />
@@ -1130,20 +1125,20 @@ Content-Type: application/json;compact=true
 <p>The <code>compact</code> format parameter of the batch request itself applies to the batch document, not to the bodies of the individual requests it contains. Because the batch document has no compact representation, a batch request labeled <code>compact=true</code> is identical to one that is not.</p>
 <div class="example">
 <p>Example 34: a batch request in which one individual request carries a compact body</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;requests&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;1&quot;</span><span class="fu">,</span></span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;method&quot;</span><span class="fu">:</span> <span class="st">&quot;post&quot;</span><span class="fu">,</span></span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;url&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers&quot;</span><span class="fu">,</span></span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;headers&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;content-type&quot;</span><span class="fu">:</span> <span class="st">&quot;application/json;compact=true&quot;</span> <span class="fu">},</span></span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;body&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(ID,Name)/$entity&quot;</span><span class="fu">,</span></span>
-<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;ALFKI&quot;</span><span class="ot">,</span> <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">]</span></span>
-<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
-<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
-<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;requests&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;1&quot;</span><span class="fu">,</span></span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;method&quot;</span><span class="fu">:</span> <span class="st">&quot;post&quot;</span><span class="fu">,</span></span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;url&quot;</span><span class="fu">:</span> <span class="st">&quot;Customers&quot;</span><span class="fu">,</span></span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;headers&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;content-type&quot;</span><span class="fu">:</span> <span class="st">&quot;application/json;compact=true&quot;</span> <span class="fu">},</span></span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;body&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;@context&quot;</span><span class="fu">:</span> <span class="st">&quot;$metadata#Customers(ID,Name)/$entity&quot;</span><span class="fu">,</span></span>
+<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;_&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;ALFKI&quot;</span><span class="ot">,</span> <span class="st">&quot;Alfreds Futterkiste&quot;</span><span class="ot">]</span></span>
+<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb59-12"><a href="#cb59-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb59-13"><a href="#cb59-13" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb59-14"><a href="#cb59-14" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 </details>
 <hr />
@@ -1164,7 +1159,7 @@ Content-Type: application/json;compact=true
 <li>MUST accept a <a href="#wrapperobject">wrapper object</a> wherever a value may appear (<a href="#TheWrapperObject">section 7.1</a>)
 <ol type="1">
 <li>MUST accept the value name <code>_</code></li>
-<li>MUST accept the value name <code>value</code> at the root of the message body</li>
+<li>MUST accept the value name <code>value</code> in those message bodies in which <a href="#ODataJSON">OData-JSON</a> uses it, and MUST NOT read <code>value</code> as a wrapper object’s value name elsewhere</li>
 <li>MUST accept a wrapper object that carries no value</li>
 </ol></li>
 <li>MUST accept property annotations without the property name prefix (<a href="#PropertyAnnotations">section 7.3</a>)</li>
@@ -1185,7 +1180,7 @@ Content-Type: application/json;compact=true
 <li>MUST produce, for every positional representation, exactly as many items as the positional property list has entries, in that order (<a href="#PositionalPropertyList">section 5.1</a>)</li>
 <li>MUST NOT represent an instance positionally if it carries dynamic properties that are not in the positional property list (<a href="#OpenTypesandDynamicProperties">section 6.8</a>)</li>
 <li>MUST use the empty wrapper object <code>{}</code> for a position whose property is not applicable to the instance (<a href="#DerivedTypes">section 6.7</a>)</li>
-<li>SHOULD use the value name <code>_</code> in preference to <code>value</code> (<a href="#TheWrapperObject">section 7.1</a>)</li>
+<li>MUST NOT use <code>value</code> as the name of a wrapper object’s value except in those message bodies in which <a href="#ODataJSON">OData-JSON</a> uses it, and SHOULD use <code>_</code> throughout (<a href="#TheWrapperObject">section 7.1</a>)</li>
 <li>SHOULD reference a versioned metadata document from the context URL (<a href="#DeterminingthePositionalPropertyList">section 5.2</a>)</li>
 </ol>
 <p>In order to be a conforming service supporting the OData compact JSON format, a service:</p>
@@ -1217,7 +1212,8 @@ Content-Type: application/json;compact=true
 <h2 id="142-naming-and-encoding-decisions"><a id="NamingandEncodingDecisions" href="#NamingandEncodingDecisions">14.2 Naming and Encoding Decisions</a></h2>
 </summary>
 <ol start="4" type="1">
-<li><p><strong>The value name.</strong> The draft uses <code>_</code> in wrapper objects and recognizes <code>value</code> at the root of the message body. <em>Alternatives considered:</em> <code>value</code> everywhere, which is consistent with <a href="#ODataJSON">OData-JSON</a> but costs four additional bytes per wrapper object and creates the ambiguity described in <a href="#TheWrapperObject">section 7.1</a>; or a name that cannot collide with a property name, such as <code>@value</code> or <code>$</code>, at the cost of readability.</p></li>
+<li><p><strong>The value name.</strong> The draft uses <code>_</code> as the name of a wrapper object’s value, and recognizes <code>value</code> only in those message bodies in which <a href="#ODataJSON">OData-JSON</a> itself uses it – a single primitive value and the collections enumerated there – and not where <a href="#ODataJSON">OData-JSON</a> represents the message body as the instance itself. An earlier draft recognized <code>value</code> at the root generally; that was withdrawn on review, because it both extended <a href="#ODataJSON">OData-JSON</a> and made a single-entity message body ambiguous. See <a href="#TheWrapperObject">section 7.1</a>. <em>Alternatives considered:</em> <code>value</code> everywhere, which is consistent with <a href="#ODataJSON">OData-JSON</a> but costs four additional bytes per wrapper object and reintroduces that ambiguity; or a name that cannot collide with a property name, such as <code>@value</code> or <code>$</code>, at the cost of readability.</p>
+<p><em>Not yet resolved:</em> <code>_</code> has the same collision in principle. A type declaring, or an open type carrying, a property named <code>_</code> cannot be told apart from a wrapper object by name alone. The draft does not reserve <code>_</code> in the model, and should either do so, forbid a positional representation for such a type, or adopt a name that cannot be a property name at all.</p></li>
 <li><p><strong>“Not applicable” at a position.</strong> The draft uses the empty wrapper object <code>{}</code> for a position whose property does not apply to the instance, as happens for a property of a derived type, or a dynamic property that the instance does not have. <em>Alternatives:</em> <code>null</code>, which is shorter by two bytes but conflates “not applicable” with “null” and so is not lossless; or a reserved JSON value.</p></li>
 <li><p><strong>Wrapper objects carrying named properties.</strong> The draft forbids a wrapper object from carrying data properties by name. Allowing it would let an instance of an open type keep its positional representation and carry its unselected dynamic properties by name in the same object, which is attractive for open types and would remove the fallback in <a href="#OpenTypesandDynamicProperties">section 6.8</a>. It would, however, make a wrapper object indistinguishable from the representation defined by <a href="#ODataJSON">OData-JSON</a>, which the draft currently relies on.</p></li>
 <li><p><strong>The <code>compact</code> format parameter.</strong> The draft uses <code>compact=true</code>. Should the parameter instead take a value naming the compaction strategy, for example <code>compact=rows</code>, to leave room for a future column-oriented or dictionary-encoded variant without a new media type?</p></li>
