@@ -25,7 +25,7 @@ Example ##ex_first: the same entity in the format defined by
 ```json
 {
   "@context": "$metadata#Customers(ID,Name,City)/$entity",
-  "_": ["ALFKI", "Alfreds Futterkiste", "Berlin"]
+  "$": ["ALFKI", "Alfreds Futterkiste", "Berlin"]
 }
 ```
 :::
@@ -81,12 +81,22 @@ to the instance. The positional property list is determined as follows:
 2. Each item `*` in *S* is replaced, in place, by the structural
    properties of *T* in the order described below.
 
-3. The items of *S* are grouped as described in [section
+3. Each item of *S* that begins with a type-cast segment --- a qualified
+   type name followed by a forward slash --- is removed from *S* unless *T*
+   is that type or is derived from it. From each such item that remains,
+   the leading type-cast segment is removed.
+
+4. The items of *S* are grouped as described in [section
    ##GroupingofSelectItems]. Each group occupies exactly one position,
    at the position of the first of its items.
 
-4. The positional property list is the resulting sequence of groups, in
+5. The positional property list is the resulting sequence of groups, in
    order.
+
+Step 3 is what makes the positional property list depend on the instance
+and not only on the context URL: two instances of different types in one
+collection have different positional property lists. See [section
+##DerivedTypes].
 
 The *order described below*, wherever referred to above, is the order in
 which the structural properties are declared in the CSDL document
@@ -113,7 +123,7 @@ GET ~/Customers('ALFKI')?$select=Name,ID
 ```json
 {
   "@context": "$metadata#Customers(Name,ID)/$entity",
-  "_": ["Alfreds Futterkiste", "ALFKI"]
+  "$": ["Alfreds Futterkiste", "ALFKI"]
 }
 ```
 ```
@@ -122,7 +132,7 @@ GET ~/Customers('ALFKI')?$select=ID,Name
 ```json
 {
   "@context": "$metadata#Customers(ID,Name)/$entity",
-  "_": ["ALFKI", "Alfreds Futterkiste"]
+  "$": ["ALFKI", "Alfreds Futterkiste"]
 }
 ```
 :::
@@ -137,7 +147,7 @@ GET ~/Customers
 ```json
 {
   "@context": "$metadata#Customers",
-  "_": [
+  "$": [
     ["ALFKI", "Alfreds Futterkiste", ["Obere Str. 57", "Berlin", "12209"]],
     ["ANATR", "Ana Trujillo", ["Avda. de la Constitución 2222", "México D.F.", "05021"]]
   ]
@@ -155,7 +165,7 @@ GET ~/Customers?$expand=Orders($select=ID)
 ```json
 {
   "@context": "$metadata#Customers(Orders(ID))",
-  "_": [
+  "$": [
     [
       "ALFKI", "Alfreds Futterkiste", ["Obere Str. 57", "Berlin", "12209"],
       [[10643], [10692]]
@@ -176,8 +186,8 @@ position.
 
 The *first segment* of a select-item is the item with any `(...)` or
 `+(...)` suffix removed, truncated before the first forward slash (`/`).
-A leading type-cast prefix, that is a qualified type name followed by a
-forward slash, is part of the first segment.
+Leading type-cast segments have already been removed by step 3 of [section
+##DeterminingthePositionalPropertyList] and so do not occur here.
 
 Two items of *S* belong to the same group if and only if their first
 segments are equal. The group occupies the position of the first of its
@@ -209,7 +219,7 @@ GET ~/Customers?$select=Name,Address/City,Address/PostalCode
 ```json
 {
   "@context": "$metadata#Customers(Name,Address/City,Address/PostalCode)",
-  "_": [
+  "$": [
     ["Alfreds Futterkiste", ["Berlin", "12209"]],
     ["Ana Trujillo", ["México D.F.", "05021"]]
   ]
@@ -258,7 +268,7 @@ the collection, each inner array the positional representation of one
 ```json
 {
   "@context": "$metadata#Customers(Name,Addresses/City)/$entity",
-  "_": [
+  "$": [
     "Alfreds Futterkiste",
     [["Berlin"], ["Hamburg"]]
   ]

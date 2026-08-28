@@ -38,7 +38,7 @@ GET ~/Customers?$deltatoken=1234
 ```json
 {
   "@context": "$metadata#Customers(ID,Name)/$delta",
-  "_": [
+  "$": [
     ["ALFKI", "Alfred's Futterkiste"]
   ],
   "@deltaLink": "Customers?$deltatoken=5678"
@@ -63,7 +63,7 @@ entity
 ```json
 {
   "@context": "$metadata#Customers(ID,Name)/$delta",
-  "_": [
+  "$": [
     ["ALFKI", "Alfred's Futterkiste"],
     { "@removed": { "reason": "deleted" }, "@id": "Customers('ANATR')" }
   ],

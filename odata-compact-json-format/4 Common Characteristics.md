@@ -38,7 +38,7 @@ This object is either
 - a [wrapper object](#wrapperobject), whose value is the correct
   representation for the payload's content.
 
-The name of the value in a wrapper object is `_`. The name `value` is also
+The name of the value in a wrapper object is `$`. The name `value` is also
 recognized, but only in those message bodies in which
 [OData-JSON](#ODataJSON) itself uses it; see [section ##TheWrapperObject].
 
@@ -48,7 +48,7 @@ represented positionally
 ```json
 {
   "@context": "$metadata#Customers(ID,Name)",
-  "_": [
+  "$": [
     ["ALFKI", "Alfreds Futterkiste"],
     ["ANATR", "Ana Trujillo Emparedados y helados"]
   ]
@@ -82,9 +82,17 @@ object](#wrapperobject):
 - The `type` control information, if present, MUST appear next in the JSON
   object.
 - The `id` and `etag` control information MUST appear before the value.
-- The value, named `value` or `_`, MUST appear last in a wrapper object,
-  with the exception of the `nextLink` of a collection, which MAY appear
-  after the collection it annotates.
+- The value, named `$` or `value`, MUST appear after all annotations and
+  control information, and before any properties carried by name as
+  described in [section ##TheWrapperObject]. The one exception is the
+  `nextLink` of a collection, which MAY appear after the collection it
+  annotates.
+
+The requirement that `type` precede the value is load-bearing in a compact
+payload rather than merely conventional. The positional property list of an
+instance depends on the instance's type, so a receiver reading the payload
+as a stream must have the type before it reaches the positional
+representation. See [section ##DerivedTypes].
 
 Producers of compact payloads are encouraged to follow the payload
 ordering constraints whenever possible and to include the

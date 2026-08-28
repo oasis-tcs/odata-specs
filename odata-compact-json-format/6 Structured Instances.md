@@ -27,7 +27,7 @@ Example ##ex: a single entity with an ETag
 {
   "@context": "$metadata#Customers(ID,Name)/$entity",
   "@etag": "W/\"MjAyNC0wMi0yOA==\"",
-  "_": ["ALFKI", "Alfreds Futterkiste"]
+  "$": ["ALFKI", "Alfreds Futterkiste"]
 }
 ```
 :::
@@ -72,7 +72,7 @@ GET ~/Customers?$select=ID,Name
 ```json
 {
   "@context": "$metadata#Customers(ID,Name)",
-  "_": [
+  "$": [
     ["ALFKI", "Alfreds Futterkiste"],
     ["ANATR", "Ana Trujillo"],
     ["ANTON", "Antonio Moreno"]
@@ -124,7 +124,7 @@ GET ~/Customers?$select=ID&$expand=Orders($select=ID,Amount)
 ```json
 {
   "@context": "$metadata#Customers(ID,Orders(ID,Amount))",
-  "_": [
+  "$": [
     ["ALFKI", [[10643, 29.46], [10692, 61.02]]],
     ["ANATR", []]
   ]
@@ -137,56 +137,84 @@ GET ~/Customers?$select=ID&$expand=Orders($select=ID,Amount)
 A collection may contain entities or complex values of types derived from
 the type of the collection.
 
-The positional property list of every instance in a collection is the
-same, and is determined from the select-list applying to the collection.
-An instance of a derived type therefore conveys, positionally, exactly
-the properties in that list -- no more and no fewer -- regardless of which
-additional properties its own type declares.
+The positional property list of an instance is determined from the
+select-list *and from the type of that instance*, as described in [section
+##DeterminingthePositionalPropertyList]. Instances of different types
+within one collection therefore have different positional property lists: a
+select-item qualified with a type cast contributes a position to instances
+of that type, and to instances of types derived from it, and contributes
+nothing to any other instance.
 
-Where the actual type of an instance must be conveyed, the `type` control
-information is carried in a [wrapper object](#wrapperobject) around the
-positional representation.
+An instance of a derived type conveys the properties selected for its own
+type in addition to those selected for the type of the collection. It
+carries neither a position nor a placeholder for a property selected for a
+peer type.
+
+Because the positional property list depends on the instance's type, a
+receiver cannot decode a positional representation without knowing that
+type. Therefore:
+
+- A service MUST include the `type` control information for any instance
+  whose positional property list differs from the positional property list
+  of the type declared by the context URL. This applies irrespective of the
+  value of the `metadata` format parameter, for the same reason that the
+  `context` control information is always required; see [section
+  ##ControlInformationcontext].
+- The `type` control information is carried in the [wrapper
+  object](#wrapperobject) around the positional representation and MUST
+  precede it, as required by [section ##PayloadOrderingConstraints].
+
+A receiver MUST NOT infer the type of an instance from the number of items
+in its positional representation: two types may yield positional property
+lists of equal length.
 
 ::: example
-Example ##ex_derived: a heterogeneous collection; the type of the second
-entity differs from the type of the entity set
+Example ##ex_derived: a heterogeneous collection in which no property of a
+derived type is selected. The `type` control information distinguishes the
+instances, but both positional property lists are (`ID`, `Name`).
 ```json
 {
   "@context": "$metadata#Customers(ID,Name)",
-  "_": [
+  "$": [
     ["ALFKI", "Alfreds Futterkiste"],
-    { "@type": "#Model.VipCustomer", "_": ["ANATR", "Ana Trujillo"] }
+    { "@type": "#Model.VipCustomer", "$": ["ANATR", "Ana Trujillo"] }
   ]
 }
 ```
 :::
 
-Properties declared by a derived type can be conveyed positionally by
-selecting them explicitly, in which case
-[OData-Protocol](#ODataProtocol) prefixes them with the qualified name of
-the derived type in the select-list and they occupy a position in the
-positional property list of *every* instance in the collection.
-
-For an instance whose type does not declare such a property, the property
-is not applicable rather than null. The value at its position MUST be the
-empty JSON object `{}`, which is the [wrapper
-object](#wrapperobject) carrying neither annotations nor a value, and
-which is therefore distinct both from `null` and from the positional
-representation of a value.
-
 ::: example
-Example ##ex: `PreferredContact` is declared by `Model.VipCustomer` only;
-the first entity is not a `VipCustomer` and its position for
-`PreferredContact` conveys "not applicable"
+Example ##ex_derivedselect: `PreferredContact` and `Since` are declared by
+`Model.VipCustomer` only. The positional property list of a `Customer` is
+(`ID`); that of a `Model.VipCustomer` is (`ID`, `PreferredContact`,
+`Since`).
 ```
-GET ~/Customers?$select=ID,Model.VipCustomer/PreferredContact
+GET ~/Customers?$select=ID,Model.VipCustomer/PreferredContact,Model.VipCustomer/Since
 ```
 ```json
 {
-  "@context": "$metadata#Customers(ID,Model.VipCustomer/PreferredContact)",
-  "_": [
-    ["ALFKI", {}],
-    { "@type": "#Model.VipCustomer", "_": ["ANATR", "email"] }
+  "@context": "$metadata#Customers(ID,Model.VipCustomer/PreferredContact,Model.VipCustomer/Since)",
+  "$": [
+    ["ALFKI"],
+    { "@type": "#Model.VipCustomer", "$": ["ANATR", "email", 2019] }
+  ]
+}
+```
+:::
+
+::: example
+Example ##ex_peertypes: with two peer derived types selected, each instance
+carries only the properties of its own type, and nothing for the other
+```
+GET ~/Customers?$select=ID,Model.VipCustomer/PreferredContact,Model.WholesaleCustomer/Terms
+```
+```json
+{
+  "@context": "$metadata#Customers(ID,Model.VipCustomer/PreferredContact,Model.WholesaleCustomer/Terms)",
+  "$": [
+    ["ALFKI"],
+    { "@type": "#Model.VipCustomer",       "$": ["ANATR", "email"] },
+    { "@type": "#Model.WholesaleCustomer", "$": ["ANTON", "NET30"] }
   ]
 }
 ```
@@ -198,27 +226,52 @@ A dynamic property of an open type occupies a position in the positional
 property list if, and only if, it is explicitly selected and therefore
 appears in the select-list of the context URL.
 
-If a dynamic property is selected, the service MUST include a value at
-its position for every instance in the collection, using the empty JSON
-object `{}` for instances that do not have that dynamic property, as
-described in [section ##DerivedTypes].
+If a dynamic property is selected, the service MUST include a value at its
+position for every instance, using the empty JSON object `{}` for an
+instance that does not have that dynamic property.
 
-An instance carrying dynamic properties that are not selected MUST NOT be
-represented positionally; it is represented as a JSON object as defined
-in [OData-JSON](#ODataJSON). This is a direct consequence of the
-[superset principle](#supersetprinciple) and requires no additional
-mechanism.
+This differs from the treatment of a property of a derived type, and the
+difference is deliberate. A type cast in the select-list says which
+instances a property applies to, so an instance to which it does not apply
+simply has a shorter positional property list. A selected dynamic property
+says nothing about which instances have it, so it is part of the positional
+property list of every instance, and `{}` conveys that this instance has no
+such property --- as distinct from `null`, which conveys that it has one
+whose value is null.
+
+An instance MAY in addition carry dynamic properties that are *not* in its
+positional property list, by name, in the [wrapper object](#wrapperobject)
+holding its positional representation, as described in [section
+##TheWrapperObject]. A property that occupies a position MUST NOT also be
+carried by name.
 
 ::: example
-Example ##ex: a payload in which one instance carries an unselected
-dynamic property and therefore falls back to the representation defined
-by [OData-JSON](#ODataJSON)
+Example ##ex_openselected: `Nickname` is selected and therefore occupies a
+position; the first customer does not have it
+```
+GET ~/Customers?$select=ID,Nickname
+```
+```json
+{
+  "@context": "$metadata#Customers(ID,Nickname)",
+  "$": [
+    ["ALFKI", {}],
+    ["ANATR", "Ana"]
+  ]
+}
+```
+:::
+
+::: example
+Example ##ex_openunselected: `Nickname` and `Score` were not selected. The
+instance keeps its positional representation and carries them by name, so
+only the instance that has them pays for them.
 ```json
 {
   "@context": "$metadata#Customers(ID,Name)",
-  "_": [
+  "$": [
     ["ALFKI", "Alfreds Futterkiste"],
-    { "ID": "ANATR", "Name": "Ana Trujillo", "Nickname": "Ana" }
+    { "$": ["ANATR", "Ana Trujillo"], "Nickname": "Ana", "Score": 42 }
   ]
 }
 ```

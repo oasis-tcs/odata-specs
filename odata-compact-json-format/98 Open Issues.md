@@ -56,44 +56,78 @@ considered.
 
 ## ##subsec Naming and Encoding Decisions
 
-4. **The value name.** The draft uses `_` as the name of a wrapper
-   object's value, and recognizes `value` only in those message bodies in
-   which [OData-JSON](#ODataJSON) itself uses it -- a single primitive
-   value and the collections enumerated there -- and not where
-   [OData-JSON](#ODataJSON) represents the message body as the instance
-   itself. An earlier draft recognized `value` at the root generally; that
-   was withdrawn on review, because it both extended
-   [OData-JSON](#ODataJSON) and made a single-entity message body
+4. **The value name.** *Decided: `$`.* The name of a wrapper object's
+   value is `$`. `_`, used in earlier drafts, is a valid simple identifier
+   ([OData-CSDL](#ODataCSDL)) and therefore collides: a type declaring, or
+   an open type carrying, a property named `_` could not be told apart from
+   a wrapper object. A simple identifier is at least one character long and
+   begins with an underscore or a Unicode letter, so `$`, `@` and the empty
+   string are the collision-free candidates; the TC chose `$`.
+
+   The reasons, recorded because the choice determines how a receiver
+   recognizes a wrapper object at all:
+
+   - [OData-CSDL](#ODataCSDL) JSON already solves this exact problem the
+     same way --- "to avoid name collisions, all fixed member names are
+     prefixed with a dollar (`$`) sign" --- and it does so in objects that
+     mix all three kinds of member the compact format now needs in one
+     place: `$`-prefixed fixed names, `@`-prefixed annotations, and
+     model-defined names. Adopting `$` gives the two formats the same
+     three-way split.
+   - `@` was considered and rejected. Because [OData-JSON](#ODataJSON)
+     parsers conventionally separate annotations from properties by testing
+     whether a name begins with `@`, a value named `@` would fall into the
+     annotation branch of existing code, silently.
+   - The empty string was considered and rejected. It is legal JSON and
+     collision-free, but `""` and `" "` are indistinguishable in fonts,
+     diffs and pasted payloads, so a stray space yields valid JSON with the
+     wrong meaning and no diagnostic; it cannot be named in prose or found
+     by eye in an example; and it is the least-tested path in JSON tooling.
+     Its only advantage is one byte per wrapper object, and wrapper objects
+     occur only where annotations apply, so compactness does not decide the
+     question.
+
+   Separately, `value` is recognized as the name of the wrapper object's
+   value only in those message bodies in which [OData-JSON](#ODataJSON)
+   itself uses it --- a single primitive value and the collections
+   enumerated there --- and not where [OData-JSON](#ODataJSON) represents
+   the message body as the instance itself. An earlier draft recognized
+   `value` at every root; that was withdrawn on review because it both
+   extended [OData-JSON](#ODataJSON) and made a single-entity message body
    ambiguous. See [section ##TheWrapperObject].
-   *Alternatives considered:* `value` everywhere, which is consistent with
-   [OData-JSON](#ODataJSON) but costs four additional bytes per wrapper
-   object and reintroduces that ambiguity; or a name that cannot collide
-   with a property name, such as `@value` or `$`, at the cost of
-   readability.
 
-   *Not yet resolved:* `_` has the same collision in principle. A type
-   declaring, or an open type carrying, a property named `_` cannot be
-   told apart from a wrapper object by name alone. The draft does not
-   reserve `_` in the model, and should either do so, forbid a positional
-   representation for such a type, or adopt a name that cannot be a
-   property name at all.
+5. **"Not applicable" at a position.** *Resolved, narrowed in scope.* The
+   empty JSON object `{}` denotes "no value" at the position of a selected
+   dynamic property that an instance does not have ([section
+   ##OpenTypesandDynamicProperties]). It is no longer used for properties
+   of derived types, which under issue 6 simply do not occupy a position on
+   instances of other types.
+   *Accepted consequence:* now that a wrapper object is recognized by the
+   presence of `$`, `{}` is not a wrapper by that test. The TC accepted
+   that `{}` conveys "undefined" by convention rather than as a consequence
+   of the definition, and [section ##TheWrapperObject] says so.
+   *Alternative not taken:* `null`, which is shorter by two bytes but
+   conflates "no such property" with "property is null" and so is not
+   lossless.
 
-5. **"Not applicable" at a position.** The draft uses the empty wrapper
-   object `{}` for a position whose property does not apply to the
-   instance, as happens for a property of a derived type, or a dynamic
-   property that the instance does not have.
-   *Alternatives:* `null`, which is shorter by two bytes but conflates
-   "not applicable" with "null" and so is not lossless; or a reserved JSON
-   value.
+6. **Wrapper objects carrying named properties.** *Resolved and drafted.* A
+   wrapper object may carry, after the value, properties of the instance
+   that are not in its positional property list. An instance of an open
+   type therefore keeps its positional representation and conveys its
+   unselected dynamic properties by name, instead of falling back wholesale
+   to the representation defined by [OData-JSON](#ODataJSON). Only the
+   instances that have such properties pay for them.
 
-6. **Wrapper objects carrying named properties.** The draft forbids a
-   wrapper object from carrying data properties by name. Allowing it would
-   let an instance of an open type keep its positional representation and
-   carry its unselected dynamic properties by name in the same object,
-   which is attractive for open types and would remove the fallback in
-   [section ##OpenTypesandDynamicProperties]. It would, however, make a
-   wrapper object indistinguishable from the representation defined by
-   [OData-JSON](#ODataJSON), which the draft currently relies on.
+   The recognition rule in [section ##TheWrapperObject] is consequently
+   two-part: an object containing `$` is a wrapper; an object all of whose
+   members are annotations is a wrapper carrying no value; anything else is
+   the [OData-JSON](#ODataJSON) representation. This is what makes the
+   choice of `$` load-bearing rather than cosmetic.
+
+   *Still open:* a property that occupies a position MUST NOT also be
+   carried by name, but the draft gives a receiver no obligation to detect
+   a producer that breaks this. Whether that should be an error, and which
+   wins if it happens, is not settled.
 
 7. **The `compact` format parameter.** The draft uses `compact=true`.
    Should the parameter instead take a value naming the compaction

@@ -22,15 +22,20 @@ client or service:
       base type first, where properties are implicitly selected
    2. MUST group select-items that share a first segment into a single
       position ([section ##GroupingofSelectItems])
+   3. MUST determine the positional property list of an instance of a
+      derived type from that type, retaining only those type-cast
+      select-items that apply to it ([section ##DerivedTypes])
 4. MUST NOT infer the positional property list from the number of items
    in a positional representation
 5. MUST accept a [wrapper object](#wrapperobject) wherever a value may
    appear ([section ##TheWrapperObject])
-   1. MUST accept the value name `_`
+   1. MUST accept the value name `$`
    2. MUST accept the value name `value` in those message bodies in which
       [OData-JSON](#ODataJSON) uses it, and MUST NOT read `value` as a
       wrapper object's value name elsewhere
    3. MUST accept a wrapper object that carries no value
+   4. MUST accept a wrapper object that carries properties by name after
+      the value
 6. MUST accept property annotations without the property name prefix
    ([section ##PropertyAnnotations])
 7. MUST accept the `context` control information in a payload labeled
@@ -59,17 +64,23 @@ client or service:
     ##HeaderContentType])
 13. MUST include the `context` control information in every compact
     message body ([section ##ControlInformationcontext])
+    1. MUST include the `type` control information for any instance whose
+       positional property list differs from that of the type declared by
+       the context URL, irrespective of the `metadata` format parameter
+       ([section ##DerivedTypes])
 14. MUST produce, for every positional representation, exactly as many
     items as the positional property list has entries, in that order
     ([section ##PositionalPropertyList])
-15. MUST NOT represent an instance positionally if it carries dynamic
-    properties that are not in the positional property list ([section
+15. MUST carry a dynamic property that is not in the instance's positional
+    property list by name in the wrapper object holding the positional
+    representation, and MUST NOT carry any property both positionally and
+    by name ([section ##OpenTypesandDynamicProperties])
+16. MUST use the empty JSON object `{}` at the position of a selected
+    dynamic property that the instance does not have ([section
     ##OpenTypesandDynamicProperties])
-16. MUST use the empty wrapper object `{}` for a position whose property
-    is not applicable to the instance ([section ##DerivedTypes])
 17. MUST NOT use `value` as the name of a wrapper object's value except in
     those message bodies in which [OData-JSON](#ODataJSON) uses it, and
-    SHOULD use `_` throughout ([section ##TheWrapperObject])
+    SHOULD use `$` throughout ([section ##TheWrapperObject])
 18. SHOULD reference a versioned metadata document from the context URL
     ([section ##DeterminingthePositionalPropertyList])
 

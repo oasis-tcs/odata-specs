@@ -90,7 +90,7 @@ Content-Type: application/json;compact=true
 ```json
 {
   "@context": "$metadata#Customers(ID,Name)/$entity",
-  "_": ["ALFKI", "Alfreds Futterkiste"]
+  "$": ["ALFKI", "Alfreds Futterkiste"]
 }
 ```
 :::
@@ -126,7 +126,7 @@ Content-Type: application/json;compact=true
 ```json
 {
   "@context": "$metadata#Customers(Name,Region)/$entity",
-  "_": ["Alfred's Futterkiste", null]
+  "$": ["Alfred's Futterkiste", null]
 }
 ```
 :::
@@ -160,7 +160,7 @@ Content-Type: application/json;compact=true
 ```json
 {
   "@context": "$metadata#Customers(ID,Name,Orders(ID,Amount))/$entity",
-  "_": [
+  "$": [
     "ALFKI",
     "Alfreds Futterkiste",
     [[10643, 29.46], [10692, 61.02]]
@@ -189,7 +189,7 @@ Content-Type: application/json;compact=true
 ```json
 {
   "@context": "$metadata#Orders(ID,Amount,Customer)/$entity",
-  "_": [
+  "$": [
     10643,
     29.46,
     { "@id": "Customers('ALFKI')" }

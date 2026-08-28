@@ -23,13 +23,31 @@ object*, which is used uniformly wherever a value would otherwise appear.
 
 A *wrapper object* is a JSON object whose name/value pairs are
 
-- annotations and control information that apply to a value, and
-- optionally, that value itself, under the reserved name `_`.
+- annotations and control information that apply to a value,
+- optionally, that value itself, under the reserved name `$`, and
+- optionally, properties of the instance that are not in its positional
+  property list, by name.
 
-A wrapper object MUST NOT contain any other name/value pairs. In
-particular it never carries the properties of a structured instance by
-name; an instance whose properties are carried by name is not a wrapper
-object but the representation defined by [OData-JSON](#ODataJSON).
+The name `$` is not a simple identifier ([OData-CSDL](#ODataCSDL)) --- a
+simple identifier is at least one character long and begins with an
+underscore or a Unicode letter --- so it can never be the name of a declared
+or dynamic property, and [OData-JSON](#ODataJSON) never uses it. A receiver
+therefore distinguishes a wrapper object from the representation defined by
+[OData-JSON](#ODataJSON) as follows:
+
+- a JSON object containing a name/value pair named `$` is a wrapper object;
+- a JSON object all of whose name/value pairs are annotations or control
+  information is a wrapper object that carries no value;
+- any other JSON object is the representation defined by
+  [OData-JSON](#ODataJSON).
+
+Properties carried by name in a wrapper object MUST NOT include a property
+that occupies a position in the instance's positional property list, and
+MUST follow the value, as required by [section
+##PayloadOrderingConstraints]. Carrying properties by name is what allows
+an instance of an open type to keep its positional representation while
+conveying dynamic properties that could not be placed in the select-list;
+see [section ##OpenTypesandDynamicProperties].
 
 A wrapper object MAY appear wherever a value may appear:
 
@@ -41,12 +59,16 @@ A wrapper object MAY appear wherever a value may appear:
 - as an item of a collection, in which case it carries the annotations of
   that member of the collection and the member itself.
 
-A wrapper object that carries no value denotes a property or instance
-that has no value, as distinct from one whose value is null. The empty
-wrapper object `{}` therefore denotes "no value and no annotations"; see
-[section ##DerivedTypes].
+A wrapper object that carries no value denotes a property or instance that
+has no value, as distinct from one whose value is null. The empty JSON
+object `{}` carries neither annotations nor a value and therefore denotes
+"no value"; it is used at the position of a selected dynamic property that
+an instance does not have, see [section ##OpenTypesandDynamicProperties].
+Note that `{}` satisfies the second bullet above vacuously rather than by
+construction: it is treated as a wrapper carrying no value by convention,
+being the only reading that is useful.
 
-The name of the value in a wrapper object is `_`, in every position in
+The name of the value in a wrapper object is `$`, in every position in
 which a wrapper object may appear.
 
 Wherever [OData-JSON](#ODataJSON) specifies that the message body contains
@@ -63,9 +85,9 @@ the instance itself -- for a single entity, a single complex value, or a
 single entity reference -- a name/value pair named `value` in that message
 body is a *property* named `value`, and a receiver MUST NOT read it as the
 value of a wrapper object. A single entity or complex value represented
-positionally at the root of the message body therefore uses `_`.
+positionally at the root of the message body therefore uses `$`.
 
-Producers of compact payloads SHOULD use `_` wherever this document
+Producers of compact payloads SHOULD use `$` wherever this document
 permits a choice.
 
 This restriction is what keeps the two representations distinguishable.
@@ -79,7 +101,7 @@ apart.
 
 ::: example
 Example ##ex_wrapper: the same information three times --- as defined by
-[OData-JSON](#ODataJSON), compact with `_` at every level, and compact
+[OData-JSON](#ODataJSON), compact with `$` at every level, and compact
 with `value` at the root. The third form is permitted only because the
 message body is a collection, which is one of the cases in which
 [OData-JSON](#ODataJSON) itself uses `value`
@@ -98,8 +120,8 @@ message body is a collection, which is one of the cases in which
 ```json
 {
   "@context": "$metadata#Customers(Name,Orders(ID))",
-  "_": [
-    ["Alfreds Futterkiste", { "@count": 2, "_": [[10643], [10692]] }]
+  "$": [
+    ["Alfreds Futterkiste", { "@count": 2, "$": [[10643], [10692]] }]
   ]
 }
 ```
@@ -107,7 +129,7 @@ message body is a collection, which is one of the cases in which
 {
   "@context": "$metadata#Customers(Name,Orders(ID))",
   "value": [
-    ["Alfreds Futterkiste", { "@count": 2, "_": [[10643], [10692]] }]
+    ["Alfreds Futterkiste", { "@count": 2, "$": [[10643], [10692]] }]
   ]
 }
 ```
@@ -127,11 +149,11 @@ Example ##ex: an instance annotation on one entity of a collection
 ```json
 {
   "@context": "$metadata#Customers(ID,Name)",
-  "_": [
+  "$": [
     ["ALFKI", "Alfreds Futterkiste"],
     {
       "@Core.Messages": [{ "code": "1", "message": "Stale", "severity": "info" }],
-      "_": ["ANATR", "Ana Trujillo"]
+      "$": ["ANATR", "Ana Trujillo"]
     }
   ]
 }
@@ -162,11 +184,11 @@ property, in both formats
 ```json
 {
   "@context": "$metadata#Customers(ID,Revenue)/$entity",
-  "_": [
+  "$": [
     "ALFKI",
     {
-      "@Core.ValueException": { "_": "1234567890123456789" },
-      "_": 1234567890123456800
+      "@Core.ValueException": { "$": "1234567890123456789" },
+      "$": 1234567890123456800
     }
   ]
 }
@@ -183,7 +205,7 @@ GET ~/Customers?$select=Name,Addresses/$count
 ```json
 {
   "@context": "$metadata#Customers(Name,Addresses/$count)",
-  "_": [
+  "$": [
     ["Alfreds Futterkiste", { "@count": 2 }],
     ["Ana Trujillo", { "@count": 0 }]
   ]
@@ -215,7 +237,7 @@ GET ~/Customers?$select=Name,@Model.Rating
 ```json
 {
   "@context": "$metadata#Customers(Name,@Model.Rating)",
-  "_": [
+  "$": [
     ["Alfreds Futterkiste", 5],
     ["Ana Trujillo", 3]
   ]
@@ -269,13 +291,13 @@ body and for a nested collection
 {
   "@context": "$metadata#Customers(Name,Orders(ID))",
   "@count": 137,
-  "_": [
+  "$": [
     [
       "Alfreds Futterkiste",
       {
         "@count": 42,
         "@nextLink": "Customers('ALFKI')/Orders?$skiptoken=10",
-        "_": [[10643], [10692]]
+        "$": [[10643], [10692]]
       }
     ]
   ],
@@ -286,10 +308,16 @@ body and for a nested collection
 
 ### ##subsubsec Control Information: `type`
 
-The `type` control information is carried in the wrapper object around
-the instance it applies to, as described in [section ##DerivedTypes].
+The `type` control information is carried in the [wrapper
+object](#wrapperobject) around the instance it applies to and MUST precede
+that instance's positional representation.
 
-A receiver MUST NOT infer the type of an instance from the number of
-items in its positional representation. The number of items is determined
-by the positional property list, which is the same for every instance in
-a collection regardless of type.
+In a compact payload `type` is not merely informative. The positional
+property list of an instance depends on the instance's type, so a receiver
+cannot decode a positional representation without it. A service MUST
+include `type` for any instance whose positional property list differs from
+that of the type declared by the context URL, irrespective of the value of
+the `metadata` format parameter. See [section ##DerivedTypes].
+
+A receiver MUST NOT infer the type of an instance from the number of items
+in its positional representation.

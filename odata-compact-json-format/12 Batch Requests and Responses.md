@@ -30,7 +30,7 @@ compact body
       "headers": { "content-type": "application/json;compact=true" },
       "body": {
         "@context": "$metadata#Customers(ID,Name)/$entity",
-        "_": ["ALFKI", "Alfreds Futterkiste"]
+        "$": ["ALFKI", "Alfreds Futterkiste"]
       }
     }
   ]
