@@ -65,10 +65,11 @@ The following terms are used throughout this document:
   list of properties that a positional representation conveys; item *n* of
   the array is the value of item *n* of this list. See [section
   ##PositionalPropertyList].
-- [*Wrapper object*]{id=wrapperobject}: a JSON object that carries
-  annotations and control information for a value, together with that
-  value, in a place where the value alone would otherwise appear. See
-  [section ##TheWrapperObject].
+- [*Wrapper object*]{id=wrapperobject}: a JSON object that appears where a
+  value would otherwise appear, carrying whatever must be conveyed by name
+  alongside that value --- annotations, control information, and properties
+  that are not in the positional property list --- together with the value
+  itself. See [section ##TheWrapperObject].
 - [*Compact payload*]{id=compactpayload}: a request or response body
   labeled with the [`compact`](#RequestingtheCompactJSONFormat) format
   parameter.
