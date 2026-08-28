@@ -25,10 +25,10 @@ of entities and large collections of complex values.
 The approach taken in this format, inspired by traditional rowset
 interfaces, is to represent a structured instance as a JSON *array* rather
 than a JSON object, so that a property name is transmitted at most once
-per payload instead of once per instance. JSON arrays preserve the order
-of their items, whereas the order of the name/value pairs of a JSON object
-is not significant; this format uses that property of arrays to convey,
-by position, which value belongs to which property.
+per payload instead of once per instance. The items of a JSON array are
+ordered, whereas the name/value pairs of a JSON object are not; this
+format relies on that ordering to convey, by position, which value belongs
+to which property.
 
 The information needed to map a position back to a property is already
 present in every OData payload: the [context
