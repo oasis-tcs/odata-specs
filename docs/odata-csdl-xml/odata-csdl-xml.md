@@ -17,9 +17,9 @@ https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/csd02/odata-csdl-xml-v4.0
 https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/csd02/odata-csdl-xml-v4.02-csd02.pdf
 
 #### Previous stage:
-https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd01/odata-csdl-xml-v4.02-csd01.md (Authoritative) \
-https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd01/odata-csdl-xml-v4.02-csd01.html \
-https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/csd01/odata-csdl-xml-v4.02-csd01.pdf
+https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/csd01/odata-csdl-xml-v4.02-csd01.md (Authoritative) \
+https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/csd01/odata-csdl-xml-v4.02-csd01.html \
+https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/csd01/odata-csdl-xml-v4.02-csd01.pdf
 
 #### Latest stage:
 https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/odata-csdl-xml-v4.02.md (Authoritative) \

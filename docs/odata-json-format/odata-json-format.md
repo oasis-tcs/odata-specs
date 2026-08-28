@@ -938,7 +938,7 @@ value specifying the accuracy of the count, see [OData-Protocol, section 11.2.6.
 ### <a id="ControlInformationnextLinkodatanextLink" href="#ControlInformationnextLinkodatanextLink">4.6.6 Control Information: `nextLink` (`odata.nextLink`)</a>
 
 The `nextLink` control information indicates that a response
-is only a subset of the requested collection. It contains a [URL](URLsinMessageBodies) that
+is only a subset of the requested collection. It contains a [URL](#URLsinMessageBodies) that
 allows retrieving the next subset of the requested collection.
 
 This control information can also be applied to [expanded to-many
@@ -955,7 +955,7 @@ in membership or value of nested entities.
 
 ### <a id="ControlInformationdeltaLinkodatadeltaLink" href="#ControlInformationdeltaLinkodatadeltaLink">4.6.8 Control Information: `deltaLink` (`odata.deltaLink`)</a>
 
-The `deltaLink` control information contains a [URL](URLsinMessageBodies) that can
+The `deltaLink` control information contains a [URL](#URLsinMessageBodies) that can
 be used to retrieve changes to the current set of results. The
 `deltaLink` control information MUST only appear on the last
 page of results. A page of results MUST NOT have both a
@@ -1007,7 +1007,7 @@ of this specification.
 ### <a id="ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink" href="#ControlInformationeditLinkandreadLinkodataeditLinkandodatareadLink">4.6.10 Control Information: `editLink` and `readLink` (`odata.editLink` and `odata.readLink`)</a>
 
 The `editLink` control information contains
-the edit [URL](URLsinMessageBodies) of the entity; see [OData-Protocol, section 4.2](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ReadURLsandEditURLs).
+the edit [URL](#URLsinMessageBodies) of the entity; see [OData-Protocol, section 4.2](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ReadURLsandEditURLs).
 
 The `readLink` control information contains the read URL of
 the entity or collection; see [OData-Protocol, section 4.2](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ReadURLsandEditURLs).
@@ -1076,7 +1076,7 @@ single entities and not written in responses if
 ### <a id="ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink" href="#ControlInformationnavigationLinkandassociationLinkodatanavigationLinkandodataassociationLink">4.6.12 Control Information: `navigationLink` and `associationLink` (`odata.navigationLink` and `odata.associationLink`)</a>
 
 The `navigationLink` control information in a
-response contains a _navigation [URL](URLsinMessageBodies)_ that can be used to retrieve an
+response contains a _navigation [URL](#URLsinMessageBodies)_ that can be used to retrieve an
 entity or collection of entities related to the current entity via a
 [navigation property](#NavigationProperty).
 
@@ -1113,7 +1113,7 @@ and [OData-URL, section 4.14](https://docs.oasis-open.org/odata/odata/v4.02/odat
 [`metadata=full`](#metadatafullodatametadatafull)
 is requested.
 
-The `mediaEditLink` control information contains a [URL](URLsinMessageBodies) that
+The `mediaEditLink` control information contains a [URL](#URLsinMessageBodies) that
 can be used to update the binary stream associated with the media entity
 or stream property. It MUST be included for updatable streams if it
 differs from standard URL conventions relative to the edit link of the
@@ -4098,7 +4098,7 @@ In order to be a conforming producer of the OData JSON format, a client or servi
     1. MUST NOT percent-encode the fragment portion of a Context URL
     2. MUST order `@type` control information, if specified, immediately following `@removed` in a deleted entity for ordered payloads
     3. MUST return the `requestId` as the first property in a JSON Batch Request or Response Object and `body`, if specified, as the last property for ordered payloads
-    4. SHOULD always follow [JSON Payload Ordering Constraints](PayloadOrderingConstraints), regardless the presence of the `odata.streaming` format parameter
+    4. SHOULD always follow [JSON Payload Ordering Constraints](#PayloadOrderingConstraints), regardless the presence of the `odata.streaming` format parameter
     5. SHOULD represent identifiable transient entities using the pattern `odata:transient:{unique-identifier}`, and with an explicit `null` value for the `readlink` if the transient entity cannot be re-read
     6. SHOULD include the atomicity group in `dependsOn` for prerequisite requests that are in an atomicity group
 
