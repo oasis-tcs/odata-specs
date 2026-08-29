@@ -20,6 +20,16 @@ section describes where each annotation and each piece of control
 information appears, and how its name differs from the name
 [OData-JSON](#ODataJSON) gives it.
 
+The *value* of an annotation, or of control information, is represented
+exactly as defined in [OData-JSON](#ODataJSON). It is never conveyed
+positionally: a positional representation requires a select-list, as
+[section ##DeterminingthePositionalPropertyList] requires, and no
+select-list applies to the value of an annotation. A complex-valued
+annotation is therefore a JSON object whose names are the properties
+declared by the term's type --- including where one of those properties
+happens to be named `value`, which is a property name like any other and is
+not the reserved name of a wrapper object's value.
+
 ## ##subsec Instance Annotations
 
 An annotation that applies to a structured instance is represented as a
@@ -57,7 +67,11 @@ the property.
 
 ::: example
 Example ##ex_propannotation: the `Core.ValueException` annotation of a
-property, in both formats
+property, in both formats. Note that the annotation's own value is
+unchanged between them: `value` there is a property declared by the term's
+type, not the name of a wrapper object's value, and it is not renamed to
+`$`. Note also that the `$` of the wrapper holds a number here, because the
+property it annotates is a primitive one.
 ```json
 {
   "@context": "$metadata#Customers(ID,Revenue)/$entity",
@@ -72,7 +86,7 @@ property, in both formats
   "$": [
     "ALFKI",
     {
-      "@Core.ValueException": { "$": "1234567890123456789" },
+      "@Core.ValueException": { "value": "1234567890123456789" },
       "$": 1234567890123456800
     }
   ]

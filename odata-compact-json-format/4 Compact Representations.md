@@ -292,6 +292,13 @@ therefore distinguishes a wrapper object from the representation defined by
 - any other JSON object is the representation defined by
   [OData-JSON](#ODataJSON).
 
+The value under `$` is whatever representation applies to that value: the
+positional representation of a structured instance, a JSON object as
+defined in [OData-JSON](#ODataJSON), a JSON array for a collection, or a
+JSON primitive where the wrapper stands at the position of a primitive
+property. It is not restricted to arrays --- a wrapper carrying an
+annotation on a primitive property holds that primitive under `$`.
+
 Properties carried by name in a wrapper object MUST NOT include a property
 that occupies a position in the instance's positional property list, and
 MUST follow the value, as required by [section
