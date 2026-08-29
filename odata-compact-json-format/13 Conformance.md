@@ -18,8 +18,8 @@ client or service:
 3. MUST determine the positional property list from the context URL and
    the referenced metadata ([section
    ##DeterminingthePositionalPropertyList])
-   1. MUST apply the declaration order of structural properties,
-      base type first, where properties are implicitly selected
+   1. MUST reject a compact payload whose context URL carries no
+      select-list, an empty select-list, or the shortcut `*`
    2. MUST group select-items that share a first segment into a single
       position ([section ##GroupingofSelectItems])
    3. MUST determine the positional property list of an instance of a
@@ -63,7 +63,9 @@ client or service:
     `Content-Type` header of every compact payload ([section
     ##HeaderContentType])
 13. MUST include the `context` control information in every compact
-    message body ([section ##ControlInformationcontext])
+    message body, requests included, and MUST enumerate in its select-list
+    every property conveyed positionally, at every level of nesting
+    ([section ##DeterminingthePositionalPropertyList])
     1. MUST include the `type` control information for any instance whose
        positional property list differs from that of the type declared by
        the context URL, irrespective of the `metadata` format parameter
@@ -81,8 +83,10 @@ client or service:
 17. MUST NOT use `value` as the name of a wrapper object's value except in
     those message bodies in which [OData-JSON](#ODataJSON) uses it, and
     SHOULD use `$` throughout ([section ##TheWrapperObject])
-18. SHOULD reference a versioned metadata document from the context URL
-    ([section ##DeterminingthePositionalPropertyList])
+18. MUST NOT use the shortcuts `*` or `{namespace}.*` in the context URL of
+    a compact payload, and MUST NOT rely on the implicit selection of all
+    structural properties ([section
+    ##DeterminingthePositionalPropertyList])
 
 In order to be a conforming service supporting the OData compact JSON
 format, a service:
@@ -97,5 +101,6 @@ format, a service:
     `compact=true` that it does not support ([section
     ##RequestingtheCompactJSONFormat])
 22. MUST reject with `400 Bad Request` a compact request body whose
-    positional representation does not match the positional property list
-    ([section ##DeterminingthePositionalPropertyListinRequests])
+    positional representation does not match the positional property list,
+    or which omits the `context` control information or a conforming
+    select-list ([section ##DeterminingthePositionalPropertyListinRequests])

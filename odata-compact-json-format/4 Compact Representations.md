@@ -75,51 +75,59 @@ context URL -- rather than shortening the array.
 
 The positional property list of an instance is determined by the
 select-list, as defined in [#OData-Protocol#ContextURL], that applies to
-that instance, and by the metadata for the instance's type.
+that instance.
+
+The context URL of a compact payload MUST contain a select-list, and that
+select-list MUST enumerate every property conveyed positionally, at every
+level of nesting. In particular:
+
+- the select-list MUST NOT be omitted, and MUST NOT be empty;
+- the select-list MUST NOT contain the shortcut `*`, nor the shortcut
+  `{namespace}.*` for the bound operations of a type;
+- a select-item for a structured property whose value is conveyed
+  positionally MUST carry a nested select-list, rather than the empty
+  parentheses that [OData-Protocol](#ODataProtocol) permits;
+- the rule of [OData-Protocol](#ODataProtocol) whereby a select-list
+  containing only expanded navigation properties implicitly selects all
+  structural properties does not apply to a compact payload.
+
+This is a requirement on the *context URL*, not on the request. A client
+may use `$select=*`, or omit `$select` altogether, or use `$expand=*`; the
+service resolves the request as it normally would and then enumerates, in
+the context URL, the properties it has actually placed in the positional
+representation. A service may still convey further properties, such as
+dynamic properties of an open type, by name in a [wrapper
+object](#wrapperobject); see [section ##OpenTypesandDynamicProperties].
+
+The reason for this requirement is that no other route to the positional
+property list is well defined. Deriving it from the CSDL document would
+require the receiver to know which version of that document the sender
+used, and to rely on the order in which properties are declared there,
+which [OData-CSDL](#ODataCSDL) does not make significant. A service always
+knows which metadata it used; a client composing a request payload may not,
+and cannot determine it from the payload alone. Enumerating the
+select-list places the information with the party that reliably has it.
 
 Let *T* be the type of the instance and *S* the sequence of select-list
 items, in the order in which they appear in the context URL, that applies
 to the instance. The positional property list is determined as follows:
 
-1. If [OData-Protocol](#ODataProtocol) specifies that all structural
-   properties are implicitly selected -- because there is no select-list,
-   or because the select-list contains only expanded navigation
-   properties -- then the structural properties of *T*, in the order
-   described below, are prepended to *S*.
-
-2. Each item `*` in *S* is replaced, in place, by the structural
-   properties of *T* in the order described below.
-
-3. Each item of *S* that begins with a type-cast segment --- a qualified
+1. Each item of *S* that begins with a type-cast segment --- a qualified
    type name followed by a forward slash --- is removed from *S* unless *T*
    is that type or is derived from it. From each such item that remains,
    the leading type-cast segment is removed.
 
-4. The items of *S* are grouped as described in [section
+2. The items of *S* are grouped as described in [section
    ##GroupingofSelectItems]. Each group occupies exactly one position,
    at the position of the first of its items.
 
-5. The positional property list is the resulting sequence of groups, in
+3. The positional property list is the resulting sequence of groups, in
    order.
 
-Step 3 is what makes the positional property list depend on the instance
+Step 1 is what makes the positional property list depend on the instance
 and not only on the context URL: two instances of different types in one
 collection have different positional property lists. See [section
 ##DerivedTypes].
-
-The *order described below*, wherever referred to above, is the order in
-which the structural properties are declared in the CSDL document
-defining *T*, with the properties declared by a base type of *T*
-preceding those declared by *T* itself, applied recursively along the
-inheritance chain.
-
-A service MUST NOT reorder the properties of a type in its metadata
-document between versions of that document without also changing the
-metadata document URL, since the positional property list, and therefore
-the meaning of every compact payload referencing that metadata, depends
-on the declaration order. Services SHOULD reference a versioned metadata
-document from the context URL when producing compact payloads. See
-[#OData-Protocol#MetadataDocumentRequest].
 
 ::: example
 Example ##ex: a select-list determines both the membership and the order
@@ -147,15 +155,16 @@ GET ~/Customers('ALFKI')?$select=ID,Name
 :::
 
 ::: example
-Example ##ex: with no `$select`, the positional property list is the
-structural properties of the entity type in declaration order; the
-navigation property `Orders` is not part of it because it is not selected
+Example ##ex_noselect: the request specifies no `$select`, so the service
+resolves it to the properties it chooses to return and enumerates those in
+the context URL. The client need not have asked for them by name; the
+context URL still says exactly what each position holds.
 ```
 GET ~/Customers
 ```
 ```json
 {
-  "@context": "$metadata#Customers",
+  "@context": "$metadata#Customers(ID,Name,Address(Street,City,PostalCode))",
   "$": [
     ["ALFKI", "Alfreds Futterkiste", ["Obere Str. 57", "Berlin", "12209"]],
     ["ANATR", "Ana Trujillo", ["Avda. de la Constitución 2222", "México D.F.", "05021"]]
@@ -165,15 +174,17 @@ GET ~/Customers
 :::
 
 ::: example
-Example ##ex: a context URL containing only an expanded navigation
-property implicitly selects all structural properties, which are placed
-before the expanded navigation property
+Example ##ex_expandonly: a request that expands a navigation property
+without selecting anything. In the format defined by
+[OData-JSON](#ODataJSON) the context URL would be
+`$metadata#Customers(Orders(ID))`, leaving the structural properties
+implicit; a compact payload enumerates them.
 ```
 GET ~/Customers?$expand=Orders($select=ID)
 ```
 ```json
 {
-  "@context": "$metadata#Customers(Orders(ID))",
+  "@context": "$metadata#Customers(ID,Name,Address(Street,City,PostalCode),Orders(ID))",
   "$": [
     [
       "ALFKI", "Alfreds Futterkiste", ["Obere Str. 57", "Berlin", "12209"],
@@ -211,9 +222,9 @@ concatenating, for each item of the group in order:
   `nested`;
 - for an item of the form `P`, nothing.
 
-If the resulting nested select-list is empty, all structural properties
-of the property's type are implicitly selected, as in step 1 of [section
-##DeterminingthePositionalPropertyList].
+The nested select-list MUST NOT be empty, for the reason given in [section
+##DeterminingthePositionalPropertyList]: there is no well-defined default
+to fall back on.
 
 The nested select-list determines the positional property list of the
 instances of that property, applying this section recursively.

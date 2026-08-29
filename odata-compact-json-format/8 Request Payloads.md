@@ -19,28 +19,25 @@ not require context URLs, because the type of the payload can be
 determined from the request URL. A compact request body needs more than
 the type: it needs the positional property list.
 
-The positional property list of an instance in a request body is
-determined as follows:
+A compact request body MUST contain the
+[`context`](#ControlInformationcontext) control information, and its
+context URL MUST carry a select-list meeting the requirements of [section
+##DeterminingthePositionalPropertyList]. The positional property list is
+then determined from that select-list exactly as it is for a response.
 
-1. If the request body contains the [`context`](#ControlInformationcontext)
-   control information, the positional property list is determined from
-   its select-list exactly as for a response, as described in [section
-   ##DeterminingthePositionalPropertyList].
+This requirement is more pointed for requests than for responses. A service
+producing a response knows which version of the CSDL document it used; a
+client composing a request body may not know, and nothing in the request
+conveys it. Without an enumerated select-list there is no well-defined way
+for the service to learn what the client placed at each position.
 
-2. Otherwise, the positional property list is the *default selection* of
-   the type of the instance: all structural properties of that type, in
-   the order in which they are declared, with the properties declared by
-   a base type preceding those declared by the type itself.
+The context URL of a request body MUST be valid for the resource addressed
+by the request URL, as defined in [#OData-Protocol#ContextURL]. It
+describes the body; it does not modify the request.
 
-The type of the instance is determined from the request URL for the
-instance in the message body, and from the metadata of the containing
-type for nested instances, exactly as it is for the format defined in
-[OData-JSON](#ODataJSON).
-
-A request body that includes the `context` control information MUST use a
-context URL that is valid for the resource addressed by the request URL,
-as defined in [#OData-Protocol#ContextURL]. The context URL in a request
-body describes the body; it does not modify the request.
+A service MUST reject with `400 Bad Request` a compact request body that
+omits the `context` control information, or whose context URL does not
+carry a conforming select-list.
 
 A service MUST reject with `400 Bad Request` a compact request body whose
 positional representation does not have the number of items required by
@@ -48,28 +45,16 @@ the positional property list.
 
 ## ##subsec Message Body of a Request
 
-The message body of a compact request MAY be a JSON array, in which case
-it is the positional representation of the instance addressed by the
-request URL, or a collection of such representations, and the positional
-property list is the default selection of the type addressed by the
-request URL.
+The message body of a compact request is a single JSON object, as it is for
+a response and as [OData-JSON](#ODataJSON) requires. It is never a bare
+JSON array.
 
-This is the only case in which a message body is not a JSON object. It is
-available in requests only, because only in a request does the request URL
-identify the type of the payload.
-
-::: example
-Example ##ex_postbare: creating an entity with values for all its
-structural properties; the positional property list is the default
-selection of `Customer`
-```
-POST ~/Customers
-Content-Type: application/json;compact=true
-```
-```json
-["ALFKI", "Alfreds Futterkiste", ["Obere Str. 57", "Berlin", "12209"]]
-```
-:::
+[OData-JSON](#ODataJSON) wraps a request body in an object deliberately, so
+that there is always somewhere to put control information and annotations,
+and so that the shape of the body does not depend on whether any such
+information happens to be present. A compact request body has the further
+need to carry its [`context`](#ControlInformationcontext), which a bare
+array could not do.
 
 ## ##subsec Creating an Entity
 
@@ -203,14 +188,25 @@ Content-Type: application/json;compact=true
 The parameters of an action invoked with `POST`, or of a function invoked
 with parameter aliases, are represented as defined in
 [OData-JSON](#ODataJSON): a JSON object whose name/value pairs are the
-parameter names and values. The parameter *values* MAY use the positional
-representation, following the rules of this document, with the positional
-property list of each value being the default selection of the
-parameter's declared type.
+parameter names and values.
+
+A parameter value MUST NOT use the positional representation. A parameter
+payload carries no context URL, and [OData-Protocol](#ODataProtocol)
+defines no context URL template for one, so there is no way to convey the
+select-list that [section ##DeterminingthePositionalPropertyList]
+requires.
+
+This is a real limitation rather than a considered exclusion: an action
+taking a large collection of entities or complex values is exactly the kind
+of payload this format exists to compact. That no context URL template has
+been needed for a parameter payload so far --- the case arises only in
+requests --- is not a reason not to define one. The Technical Committee
+intends to develop proposals; see open issue 1(b).
 
 ::: example
-Example ##ex_action: an action taking a collection of complex values; the
-parameter object is unchanged, the collection is positional
+Example ##ex_action: an action taking a collection of complex values. Each
+address is represented as defined in [OData-JSON](#ODataJSON), because no
+select-list is available for the parameter's declared type.
 ```
 POST ~/Customers('ALFKI')/Model.AddAddresses
 Content-Type: application/json;compact=true
@@ -218,8 +214,8 @@ Content-Type: application/json;compact=true
 ```json
 {
   "addresses": [
-    ["Obere Str. 57", "Berlin", "12209"],
-    ["Neue Str. 1", "Hamburg", "20095"]
+    { "Street": "Obere Str. 57", "City": "Berlin",  "PostalCode": "12209" },
+    { "Street": "Neue Str. 1",   "City": "Hamburg", "PostalCode": "20095" }
   ]
 }
 ```
