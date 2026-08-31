@@ -2894,7 +2894,7 @@ Edm.Decimal totalseconds(Edm.Duration)
 ```
 
 The `totalseconds` function returns the duration of the value in total
-seconds, including fractional seconds. The [totalSecondsMethodCallExpr]{.abnf}
+seconds, including fractional seconds. The [totalsecondsMethodCallExpr]{.abnf}
 syntax rule defines how the `totalseconds` function is invoked.
 
 ##### <a id="year" href="#year">5.1.1.8.14 `year`</a>
@@ -3004,7 +3004,7 @@ type cast(expression,type)
 The single parameter `cast` function returns the current instance cast
 to the type specified. The two-parameter `cast` function returns the
 object referred to by the expression cast to the type specified.
-The [castMethodCallExpr]{.abnf}
+The [castExpr]{.abnf}
 syntax rule defines how the `cast` function is invoked.
 
 The `cast` function follows these assignment rules:

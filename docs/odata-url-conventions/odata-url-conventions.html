@@ -1782,7 +1782,7 @@ Edm.Int32 second(Edm.TimeOfDay)</code></pre>
 </summary>
 <p>The <code>totalseconds</code> function has the following signature:</p>
 <pre><code>Edm.Decimal totalseconds(Edm.Duration)</code></pre>
-<p>The <code>totalseconds</code> function returns the duration of the value in total seconds, including fractional seconds. The <span class="abnf"><a href="https://docs.oasis-open.org/odata/odata/v4.02/csd02/abnf/syntax-diagram/odata-abnf-diagrams.html#totalSecondsMethodCallExpr"><code>totalSecondsMethodCallExpr</code></a></span> syntax rule defines how the <code>totalseconds</code> function is invoked.</p>
+<p>The <code>totalseconds</code> function returns the duration of the value in total seconds, including fractional seconds. The <span class="abnf"><a href="https://docs.oasis-open.org/odata/odata/v4.02/csd02/abnf/syntax-diagram/odata-abnf-diagrams.html#totalsecondsMethodCallExpr"><code>totalsecondsMethodCallExpr</code></a></span> syntax rule defines how the <code>totalseconds</code> function is invoked.</p>
 </details>
 <details open><summary>
 <h5 id="511814-year"><a id="year" href="#year">5.1.1.8.14 <code>year</code></a></h5>
@@ -1847,7 +1847,7 @@ Edm.Decimal round(Edm.Decimal)</code></pre>
 <p>The <code>cast</code> function has the following signatures:</p>
 <pre><code>type cast(type)
 type cast(expression,type)</code></pre>
-<p>The single parameter <code>cast</code> function returns the current instance cast to the type specified. The two-parameter <code>cast</code> function returns the object referred to by the expression cast to the type specified. The <span class="abnf"><a href="https://docs.oasis-open.org/odata/odata/v4.02/csd02/abnf/syntax-diagram/odata-abnf-diagrams.html#castMethodCallExpr"><code>castMethodCallExpr</code></a></span> syntax rule defines how the <code>cast</code> function is invoked.</p>
+<p>The single parameter <code>cast</code> function returns the current instance cast to the type specified. The two-parameter <code>cast</code> function returns the object referred to by the expression cast to the type specified. The <span class="abnf"><a href="https://docs.oasis-open.org/odata/odata/v4.02/csd02/abnf/syntax-diagram/odata-abnf-diagrams.html#castExpr"><code>castExpr</code></a></span> syntax rule defines how the <code>cast</code> function is invoked.</p>
 <p>The <code>cast</code> function follows these assignment rules:</p>
 <ol type="1">
 <li>The <code>null</code> value can be cast to any type.</li>
