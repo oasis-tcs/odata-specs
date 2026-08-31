@@ -89,7 +89,7 @@ The following scripts can be executed manually or as part of a GitHub Action:
   ```
   and stale links with
   ```sh
-  npm run select a "@href" link
+  npm run select a "@href"
   ```
 - [`npm test`](../test) runs a test suite.
 
