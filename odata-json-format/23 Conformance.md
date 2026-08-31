@@ -59,9 +59,9 @@ In order to be a conforming producer of the OData JSON format, a client or servi
 12. MAY support generating OData 4.02 JSON compliant payloads for requests with an `OData-Version` header value of `4.02`.
     1. MUST NOT percent-encode the fragment portion of a Context URL
     2. MUST order `@type` control information, if specified, immediately following `@removed` in a deleted entity for ordered payloads
-    3. MUST return the `requestId` as the first property in a JSON Batch Request or Response Object and `body`, if specified, as the last property for ordered payloads
+    3. MUST return the `id` as the first property in a JSON Batch Request or Response Object and `body`, if specified, as the last property for ordered payloads
     4. SHOULD always follow [JSON Payload Ordering Constraints](#PayloadOrderingConstraints), regardless the presence of the `odata.streaming` format parameter
-    5. SHOULD represent identifiable transient entities using the pattern `odata:transient:{unique-identifier}`, and with an explicit `null` value for the `readlink` if the transient entity cannot be re-read
+    5. SHOULD represent identifiable transient entities using the pattern `odata:transient:{unique-identifier}`, and with an explicit `null` value for the `readLink` if the transient entity cannot be re-read
     6. SHOULD include the atomicity group in `dependsOn` for prerequisite requests that are in an atomicity group
 
 In addition, in order to conform to the OData JSON format, a service:

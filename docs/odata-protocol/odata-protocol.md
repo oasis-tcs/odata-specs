@@ -5429,7 +5429,7 @@ then services that support ETags MUST NOT apply the change and instead
 The special value `*` can be used to match any existing entity but fail if the entity does not already exist.
 
 Added/changed entities that specify format-specific control information
-equivalent to an `If-Match-None: *` header [OData-JSON, section 4.6.11](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformationetagodataetag)
+equivalent to an `If-None-Match: *` header [OData-JSON, section 4.6.11](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformationetagodataetag)
 MUST NOT be treated as an update.
 
 The response, if requested, is a delta payload, in the same structure
