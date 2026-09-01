@@ -17,12 +17,12 @@ https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/csd03/odata-vocabulari
 https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/csd03/odata-vocabularies-v4.0-csd03.pdf
 
 #### Previous stage:
-https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/csd02/odata-vocabularies-v4.0-csd02.docx (Authoritative) \
+https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/csd02/odata-vocabularies-v4.0-csd02.md (Authoritative) \
 https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/csd02/odata-vocabularies-v4.0-csd02.html \
 https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/csd02/odata-vocabularies-v4.0-csd02.pdf
 
 #### Latest stage:
-https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/odata-vocabularies-v4.0.docx (Authoritative) \
+https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/odata-vocabularies-v4.0.md (Authoritative) \
 https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/odata-vocabularies-v4.0.html \
 https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/odata-vocabularies-v4.0.pdf
 
