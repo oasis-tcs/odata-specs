@@ -398,7 +398,7 @@ OData clients include the
 order to specify the maximum acceptable response version. Services
 respond with the maximum supported version that is less than or equal to
 the requested `OData-MaxVersion`, using decimal comparison. The syntax
-of the [OData-Version]{.abnf} and [OData-MaxVersion]{.abnf} header fields is defined
+of the [OData-Version]{.abnf-h} and [OData-MaxVersion]{.abnf-h} header fields is defined
 in [OData-ABNF](#ODataABNF).
 
 Services SHOULD advertise supported versions of OData through the

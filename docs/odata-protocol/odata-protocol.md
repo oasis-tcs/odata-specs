@@ -68,7 +68,7 @@ This document was last revised or approved by the OASIS Open Data Protocol (ODat
 
 TC members should send comments on this specification to the TC's email list. Any individual may submit comments to the TC by sending email to Technical-Committee-Comments@oasis-open.org. Please use a Subject line like "Comment on OData Protocol".
 
-This specification is provided under the [RF on RAND Terms Mode](https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode) of the [OASIS IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/), the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC's web page (https://www.oasis-open.org/committees/odata/ipr.php).
+This specification is provided under the [RF on RAND Terms Mode](https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode) of the [OASIS IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/), the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC's web page (https://www.oasis-open.org/committees/ipr.php?wg_abbrev=odata).
 
 Note that any machine-readable content ([Computer Language Definitions](https://www.oasis-open.org/policies-guidelines/tc-process-2017-05-26/#wpComponentsCompLang)) declared Normative for this Work Product is provided in separate plain text files. In the event of a discrepancy between any such plain text file and display content in the Work Product's prose narrative document(s), the content in the separate plain text file prevails.
 
@@ -706,7 +706,7 @@ OData clients include the
 order to specify the maximum acceptable response version. Services
 respond with the maximum supported version that is less than or equal to
 the requested `OData-MaxVersion`, using decimal comparison. The syntax
-of the [OData-Version]{.abnf} and [OData-MaxVersion]{.abnf} header fields is defined
+of the [OData-Version]{.abnf-h} and [OData-MaxVersion]{.abnf-h} header fields is defined
 in [OData-ABNF](#ODataABNF).
 
 Services SHOULD advertise supported versions of OData through the
@@ -1182,7 +1182,7 @@ the same batch) are visible. The effect is as if the request generates a
 "snapshot" of the committed data as it existed at the start of the
 request.
 
-The` Isolation` header may be specified on a single or batch request. If
+The `Isolation` header may be specified on a single or batch request. If
 it is specified on a batch then the value is applied to all statements
 within the batch.
 
@@ -1198,7 +1198,7 @@ A service returns [`410 Gone`](#ResponseCode410Gone) or
 [`404 Not Found`](#ResponseCode404NotFound) if a consumer tries to
 follow a next link referring to a snapshot that is no longer available.
 
-The syntax of the [Isolation]{.abnf} header is defined in
+The syntax of the [Isolation]{.abnf-h} header is defined in
 [OData-ABNF](#ODataABNF).
 
 A service MAY specify the support for `Isolation:snapshot` using an
@@ -1260,8 +1260,8 @@ many-to-many relationships). The service MUST NOT return entity
 references in place of requested entities if
 `allow-entityreferences` has not been specified in the request, unless
 explicitly defined by other rules in this document. The syntax of the
-[allow-entityreferences]{.abnf} preference is defined in
-[OData-ABNF](#ODataABNF).
+`allow-entityreferences` preference is defined in
+the [OData-ABNF](#ODataABNF) rule [allowEntityReferencesPreference]{.abnf}.
 
 In the case the service applies the `allow-entityreferences` preference
 it MUST include a [`Preference-Applied`](#HeaderPreferenceApplied)
@@ -1775,7 +1775,7 @@ A response to a [create](#CreateanEntity) or [upsert](#UpsertanEntity)
 operation that returns [`204 No Content`](#ResponseCode204NoContent)
 MUST include an `OData-EntityId` response header. The value of the
 header is the [entity-id](#EntityIdsandEntityReferences) of the entity
-that was acted on by the request. The syntax of the [OData-EntityId]{.abnf}
+that was acted on by the request. The syntax of the [OData-EntityId]{.abnf-h}
 header is defined in [OData-ABNF](#ODataABNF).
 
 The `OData-EntityID` header SHOULD NOT be included for the overall batch
@@ -5429,7 +5429,7 @@ then services that support ETags MUST NOT apply the change and instead
 The special value `*` can be used to match any existing entity but fail if the entity does not already exist.
 
 Added/changed entities that specify format-specific control information
-equivalent to an `If-Match-None: *` header [OData-JSON, section 4.6.11](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformationetagodataetag)
+equivalent to an `If-None-Match: *` header [OData-JSON, section 4.6.11](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformationetagodataetag)
 MUST NOT be treated as an update.
 
 The response, if requested, is a delta payload, in the same structure

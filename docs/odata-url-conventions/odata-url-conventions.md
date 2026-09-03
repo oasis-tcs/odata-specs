@@ -67,7 +67,7 @@ This document was last revised or approved by the OASIS Open Data Protocol (ODat
 
 TC members should send comments on this specification to the TC's email list. Any individual may submit comments to the TC by sending email to Technical-Committee-Comments@oasis-open.org. Please use a Subject line like "Comment on OData URL Conventions".
 
-This specification is provided under the [RF on RAND Terms Mode](https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode) of the [OASIS IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/), the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC's web page (https://www.oasis-open.org/committees/odata/ipr.php).
+This specification is provided under the [RF on RAND Terms Mode](https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode) of the [OASIS IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/), the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC's web page (https://www.oasis-open.org/committees/ipr.php?wg_abbrev=odata).
 
 Note that any machine-readable content ([Computer Language Definitions](https://www.oasis-open.org/policies-guidelines/tc-process-2017-05-26/#wpComponentsCompLang)) declared Normative for this Work Product is provided in separate plain text files. In the event of a discrepancy between any such plain text file and display content in the Work Product's prose narrative document(s), the content in the separate plain text file prevails.
 
@@ -2894,7 +2894,7 @@ Edm.Decimal totalseconds(Edm.Duration)
 ```
 
 The `totalseconds` function returns the duration of the value in total
-seconds, including fractional seconds. The [totalSecondsMethodCallExpr]{.abnf}
+seconds, including fractional seconds. The [totalsecondsMethodCallExpr]{.abnf}
 syntax rule defines how the `totalseconds` function is invoked.
 
 ##### <a id="year" href="#year">5.1.1.8.14 `year`</a>
@@ -3004,7 +3004,7 @@ type cast(expression,type)
 The single parameter `cast` function returns the current instance cast
 to the type specified. The two-parameter `cast` function returns the
 object referred to by the expression cast to the type specified.
-The [castMethodCallExpr]{.abnf}
+The [castExpr]{.abnf}
 syntax rule defines how the `cast` function is invoked.
 
 The `cast` function follows these assignment rules:

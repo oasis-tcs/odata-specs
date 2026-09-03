@@ -229,7 +229,7 @@ Example ##ex: collection of entity references
   "@context": "http://host/service/$metadata#Collection($ref)",
   "value": [
     { "@id": "Orders(10643)" },
-    { "id": 10759" }
+    { "id": 10759 }
   ]
 }
 ```

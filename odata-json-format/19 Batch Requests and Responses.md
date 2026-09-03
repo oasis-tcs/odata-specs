@@ -223,7 +223,7 @@ Content-Length: ###
     },
     {
       "id": "2",
-      "dependsOn": [ "1" ]
+      "dependsOn": [ "1" ],
       "method": "post",
       "url": "$1/Orders",
       "body": <JSON representation of a new Order>

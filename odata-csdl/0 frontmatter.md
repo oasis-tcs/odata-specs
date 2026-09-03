@@ -17,9 +17,9 @@ https://docs.oasis-open.org/odata/$$$dirname$$$/v4.02/$$$stage$$$/$$$filename$$$
 https://docs.oasis-open.org/odata/$$$dirname$$$/v4.02/$$$stage$$$/$$$filename$$$.pdf
 
 #### Previous stage:
-https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/$$$previousStage$$$/$$$dirname$$$-v4.02-$$$previousStage$$$.md (Authoritative) \
-https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/$$$previousStage$$$/$$$dirname$$$-v4.02-$$$previousStage$$$.html \
-https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/$$$previousStage$$$/$$$dirname$$$-v4.02-$$$previousStage$$$.pdf
+https://docs.oasis-open.org/odata/$$$dirname$$$/v4.02/$$$previousStage$$$/$$$dirname$$$-v4.02-$$$previousStage$$$.md (Authoritative) \
+https://docs.oasis-open.org/odata/$$$dirname$$$/v4.02/$$$previousStage$$$/$$$dirname$$$-v4.02-$$$previousStage$$$.html \
+https://docs.oasis-open.org/odata/$$$dirname$$$/v4.02/$$$previousStage$$$/$$$dirname$$$-v4.02-$$$previousStage$$$.pdf
 
 #### Latest stage:
 https://docs.oasis-open.org/odata/$$$dirname$$$/v4.02/$$$dirname$$$-v4.02.md (Authoritative) \
@@ -86,7 +86,7 @@ This document was last revised or approved by the OASIS Open Data Protocol (ODat
 
 TC members should send comments on this specification to the TC's email list. Any individual may submit comments to the TC by sending email to Technical-Committee-Comments@oasis-open.org. Please use a Subject line like "Comment on OData CSDL".
 
-This specification is provided under the [RF on RAND Terms Mode](https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode) of the [OASIS IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/), the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC's web page (https://www.oasis-open.org/committees/odata/ipr.php).
+This specification is provided under the [RF on RAND Terms Mode](https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode) of the [OASIS IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/), the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC's web page (https://www.oasis-open.org/committees/ipr.php?wg_abbrev=odata).
 
 Note that any machine-readable content ([Computer Language Definitions](https://www.oasis-open.org/policies-guidelines/tc-process-2017-05-26/#wpComponentsCompLang)) declared Normative for this Work Product is provided in separate plain text files. In the event of a discrepancy between any such plain text file and display content in the Work Product's prose narrative document(s), the content in the separate plain text file prevails.
 
