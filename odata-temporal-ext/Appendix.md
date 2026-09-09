@@ -84,21 +84,7 @@ Special thanks to Andrew Eisenberg, whose contributions in the early stages of t
 
 ## ##subasec Participants
 
-**OData TC Members:**
-
-| First Name | Last Name | Company |
-| :--- | :--- | :--- |
-| George | Ericson | Dell |
-| Hubert | Heijkers | IBM |
-| Ling | Jin | IBM |
-| Stefan | Hagen | Individual |
-| Michael | Pizzo | Microsoft |
-| Christof | Sprenger | Microsoft |
-| Ralf | Handl | SAP SE |
-| Gerald | Krause | SAP SE |
-| Heiko | Theißen | SAP SE |
-| Mark | Biamonte | Progress Software |
-| Martin | Zurmuehl | SAP SE |
+$$$include ../odatatc-members.md$$$
 
 -------
 

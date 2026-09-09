@@ -32,11 +32,11 @@ https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.
 #### Chairs:
 
 Ralf Handl (ralf.handl@sap.com), [SAP SE](http://www.sap.com/) \
-Michael Pizzo (mikep@microsoft.com), [Microsoft](http://www.microsoft.com/)
+Michael Pizzo (b-mpizzo@microsoft.com), [Microsoft](http://www.microsoft.com/)
 
 #### Editors:
 
-Michael Pizzo (mikep@microsoft.com), [Microsoft](http://www.microsoft.com/) \
+Michael Pizzo (b-mpizzo@microsoft.com), [Microsoft](http://www.microsoft.com/) \
 Ralf Handl (ralf.handl@sap.com), [SAP SE](http://www.sap.com/) \
 Heiko Theißen (heiko.theissen@sap.com), [SAP SE](http://www.sap.com/)
 

@@ -32,12 +32,12 @@ https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/odata-vocabularies-v4.
 #### Chairs:
 
 Ralf Handl (ralf.handl@sap.com), [SAP SE](http://www.sap.com/) \
-Michael Pizzo (mikep@microsoft.com), [Microsoft](http://www.microsoft.com/)
+Michael Pizzo (b-mpizzo@microsoft.com), [Microsoft](http://www.microsoft.com/)
 
 #### Editors:
 
 Ralf Handl (ralf.handl@sap.com), [SAP SE](http://www.sap.com/) \
-Michael Pizzo (mikep@microsoft.com), [Microsoft](http://www.microsoft.com/) \
+Michael Pizzo (b-mpizzo@microsoft.com), [Microsoft](http://www.microsoft.com/) \
 Heiko Theißen (heiko.theissen@sap.com), [SAP SE](http://www.sap.com/)
 
 #### [Related work:]{id=RelatedWork}
