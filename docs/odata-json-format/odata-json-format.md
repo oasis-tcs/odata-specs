@@ -1431,7 +1431,7 @@ satisfies the rule [enumValue]{.abnf} in
 [OData-ABNF](#ODataABNF). The preferred representation is the
 [enumerationMember]{.abnf}. If no `enumerationMember` (or
 combination of named enumeration members) is
-available, the [enumMemberValue]{.abnf} representation may be used.
+available, the numeric representation may be used.
 
 Geography and geometry values are represented as geometry types as
 defined in [RFC7946](#rfc7946).

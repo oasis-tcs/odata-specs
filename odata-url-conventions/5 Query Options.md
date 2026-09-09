@@ -1954,7 +1954,7 @@ Operators in the same category have equal precedence:
 
 Group|Operator|Description|ABNF Expression
 -----|--------|-----------|---------------
-Grouping        | `( )`           | Precedence grouping      | [parenExpr]{.abnf}<br>[boolParenExpr]{.abnf}
+Grouping        | `( )`           | Precedence grouping      | [parenExpr]{.abnf}
 Primary         | `/`             | Navigation      | [firstMemberExpr]{.abnf}<br>[memberExpr]{.abnf}
                 | `has`           | Enumeration Flags     | [hasExpr]{.abnf}
                 | `in`            | Is a member of  | [inExpr]{.abnf}
