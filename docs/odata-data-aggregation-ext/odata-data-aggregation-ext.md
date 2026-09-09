@@ -1042,9 +1042,9 @@ The _structure_ of an instance that occurs in an input or output set is defined 
 - Single- or collection-valued primitive properties addressed by a property path starting at a non-transient entity MUST keep their values from the addressed resource path collection throughout the transformation sequence. Likewise, single- or collection-valued navigation property paths starting at a non-transient entity MUST keep addressing the same non-transient entities as in the addressed resource path collection.
 - Instances in an output set need not have all declared or dynamic properties that occurred in the input set.
 - Instances in an output set can have dynamic properties that did not occur in the input set. The name for such a dynamic property is called an _alias_, it is a simple identifier (see [OData-CSDL, section 15.2](https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/odata-csdl-json-v4.02.html#SimpleIdentifier)). Aliases MUST differ from names of declared properties in the input type, from names of properties in the first input set, and from names of properties in the current input set. Aliases in one collection MUST also differ from each other.
-- Instances in an output set that are unaggregated entities have the metadata associated with that entity, such as entity-id, read and edit URL (defined in [OData-Protocol, section 4](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ServiceModel)) and ETag (defined in [OData-Protocol, section 11.4.1.2](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UseofETagsforAvoidingUpdateConflicts)) as well as relations to other entities [OData-Protocol, section 11.2.7](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#RequestingRelatedEntities). Such instances are
-  - copied from the input set by a non-aggregating transformation (as defined in subsections [3.3](#TransformationsProducingaSubset), [3.4](#OnetoOneTransformations), and [3.5](#TransformationsChangingtheInputSetStructure)) or
-  - copied from the input set during grouping by a navigation property $q$ (through the operation $u[q]=s[q]$ in step 2, second bullet point, of the definition of $a_G(u,s,p)$ in [section 3.2.3.1](#SimpleGrouping)).
+- Unaggregated entities in an output set that are copied from the input set have the metadata associated with them, such as entity-id, read and edit URL (defined in [OData-Protocol, section 4](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#ServiceModel)) and ETag (defined in [OData-Protocol, section 11.4.1.2](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#UseofETagsforAvoidingUpdateConflicts)) as well as relations to other entities [OData-Protocol, section 11.2.7](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#RequestingRelatedEntities). Such instances are copied from the input set
+  - by a non-aggregating transformation listed in section [3.3](#TransformationsProducingaSubset), [3.4](#OnetoOneTransformations), or [3.5](#TransformationsChangingtheInputSetStructure) or
+  - by a transformation ${\tt groupby}((q),…)$ for a navigation property $q$ as defined in [section 3.2.3.1](#SimpleGrouping).
 
 Here is an overview of the structural changes made by different transformations:
 - During [aggregation](#BasicAggregation) or [nest](#Transformationnest), many instances are replaced by one instance, properties that represent the aggregation level are retained, and others are replaced by dynamic properties holding the aggregate value of the many instances or a transformed copy of them.
@@ -1481,7 +1481,7 @@ The output set of the transformation $\Pi_G(s)$ is in one-to-one correspondence 
 1. If necessary, cast $u$ to a subtype so that its type contains all structural and navigation properties of $s$.
 2. For each structural or navigation property $q$ of $s$:
    - If $s$ has a subtype of the type addressed by $p$ and $q$ is only declared on that subtype, let $p'=p/p''/q$ where $p''$ is a type-cast to the subtype, otherwise let $p'=p/q$.
-   - If $q$ is a single-valued primitive structural property or $p'$ occurs in $G$, let $u[q]=s[q]$. (In the case where $p'$ occurs in $G$ we also call $q$ a _final segment from $G$_.)
+   - If $q$ is a single-valued primitive structural property or $p'$ occurs in $G$, let $u[q]=s[q]$. (In the case where $p'$ occurs in $G$ we also call $q$ a _final segment from $G$_. A navigation property as final segment leads to an unaggregated entity in the output set, as defined in the fifth bullet point in [section 3.1.1](#TypeStructureandContextURL).)
    - Otherwise, if $q$ is single-valued, let $u[q]=a_G(u[q],s[q],p')$.
    - Otherwise, the behavior is undefined. (Such cases never occur when $\Pi_G(s)$ is used in this document.)
 3. Return $u$.
@@ -2728,7 +2728,7 @@ The `descendants` transformation works analogously, but with descendants.
 
 $H$, $Q$ and $p$ are the first three parameters defined [above](#CommonParametersforHierarchicalTransformations).
 
-The fourth parameter is a transformation sequence $T$ composed of transformations listed [section 3.3](#TransformationsProducingaSubset) or [section 6.2.1](#Transformationsancestorsanddescendants) and of service-defined bound functions whose output set is a subset of their input set. $A$ is the output set of this sequence applied to the input set.
+The fourth parameter is a transformation sequence $T$ composed of transformations listed in [section 3.3](#TransformationsProducingaSubset) or [section 6.2.1](#Transformationsancestorsanddescendants) and of service-defined bound functions whose output set is a subset of their input set. $A$ is the output set of this sequence applied to the input set.
 
 The fifth parameter $d$ is optional and takes an integer greater than or equal to 1 that specifies the maximum distance between start nodes and ancestors or descendants to be considered. An optional final `keep start` parameter drives the optional inclusion of the subset or start nodes.
 
