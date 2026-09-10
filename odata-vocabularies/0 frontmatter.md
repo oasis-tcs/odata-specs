@@ -17,12 +17,12 @@ https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/$$$stage$$$/$$$filenam
 https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/$$$stage$$$/$$$filename$$$.pdf
 
 #### Previous stage:
-https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/$$$previousStage$$$/odata-vocabularies-v4.0-$$$previousStage$$$.docx (Authoritative) \
+https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/$$$previousStage$$$/odata-vocabularies-v4.0-$$$previousStage$$$.md (Authoritative) \
 https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/$$$previousStage$$$/odata-vocabularies-v4.0-$$$previousStage$$$.html \
 https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/$$$previousStage$$$/odata-vocabularies-v4.0-$$$previousStage$$$.pdf
 
 #### Latest stage:
-https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/odata-vocabularies-v4.0.docx (Authoritative) \
+https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/odata-vocabularies-v4.0.md (Authoritative) \
 https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/odata-vocabularies-v4.0.html \
 https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/odata-vocabularies-v4.0.pdf
 
