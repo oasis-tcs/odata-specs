@@ -1,0 +1,106 @@
+
+-------
+
+# ##sec Conformance
+
+Conformance to this specification presupposes conformance to
+[OData-JSON](#ODataJSON). The requirements below are additional to, and
+do not replace, the conformance requirements of that specification.
+
+In order to be a conforming consumer of the OData compact JSON format, a
+client or service:
+
+1. MUST be a conforming consumer of the OData JSON format
+   ([OData-JSON](#ODataJSON))
+2. MUST accept, wherever a structured instance may appear, either a JSON
+   object or a positional representation ([section
+   ##PositionalRepresentation])
+3. MUST determine the positional property list from the context URL and
+   the referenced metadata ([section
+   ##DeterminingthePositionalPropertyList])
+   1. MUST reject a compact payload whose context URL carries no
+      select-list, an empty select-list, or the shortcut `*`
+   2. MUST group select-items that share a first segment into a single
+      position ([section ##GroupingofSelectItems])
+   3. MUST determine the positional property list of an instance of a
+      derived type from that type, retaining only those type-cast
+      select-items that apply to it ([section ##DerivedTypes])
+4. MUST NOT infer the positional property list from the number of items
+   in a positional representation
+5. MUST accept a [wrapper object](#wrapperobject) wherever a value may
+   appear ([section ##TheWrapperObject])
+   1. MUST accept the value name `$`
+   2. MUST accept the value name `value` in those message bodies in which
+      [OData-JSON](#ODataJSON) uses it, and MUST NOT read `value` as a
+      wrapper object's value name elsewhere
+   3. MUST accept a wrapper object that carries no value
+   4. MUST accept a wrapper object that carries properties by name after
+      the value
+6. MUST accept property annotations without the property name prefix
+   ([section ##PropertyAnnotations])
+7. MUST accept the `context` control information in a payload labeled
+   `metadata=none` ([section ##ControlInformationcontext])
+8. MUST be prepared to receive a payload in which some instances are
+   represented positionally and others are not ([section
+   ##DesignPrinciples])
+9. MUST be prepared to receive the service document, error responses and
+   batch documents in the representation defined by
+   [OData-JSON](#ODataJSON) ([section ##ServiceDocument], [section
+   ##ErrorResponse], [section ##BatchRequestsandResponses])
+
+In order to be a conforming producer of the OData compact JSON format, a
+client or service:
+
+10. MUST be a conforming producer of the OData JSON format
+    ([OData-JSON](#ODataJSON))
+11. MUST NOT produce a compact payload unless the receiver has indicated
+    that it accepts one ([section ##RequestingtheCompactJSONFormat])
+    1. a service MUST NOT return a compact response unless the request
+       specified `compact=true`
+    2. a client MUST NOT send a compact request body unless the service
+       has advertised support for `compact=true`
+12. MUST include the `compact=true` format parameter in the
+    `Content-Type` header of every compact payload ([section
+    ##HeaderContentType])
+13. MUST include the `context` control information in every compact
+    message body, requests included, and MUST enumerate in its select-list
+    every property conveyed positionally, at every level of nesting
+    ([section ##DeterminingthePositionalPropertyList])
+    1. MUST include the `type` control information for any instance whose
+       positional property list differs from that of the type declared by
+       the context URL, irrespective of the `metadata` format parameter
+       ([section ##DerivedTypes])
+14. MUST produce, for every positional representation, exactly as many
+    items as the positional property list has entries, in that order
+    ([section ##PositionalPropertyList])
+15. MUST carry a dynamic property that is not in the instance's positional
+    property list by name in the wrapper object holding the positional
+    representation, and MUST NOT carry any property both positionally and
+    by name ([section ##OpenTypesandDynamicProperties])
+16. MUST use the empty JSON object `{}` at the position of a selected
+    dynamic property that the instance does not have ([section
+    ##OpenTypesandDynamicProperties])
+17. MUST NOT use `value` as the name of a wrapper object's value except in
+    those message bodies in which [OData-JSON](#ODataJSON) uses it, and
+    SHOULD use `$` throughout ([section ##TheWrapperObject])
+18. MUST NOT use the shortcuts `*` or `{namespace}.*` in the context URL of
+    a compact payload, and MUST NOT rely on the implicit selection of all
+    structural properties ([section
+    ##DeterminingthePositionalPropertyList])
+
+In order to be a conforming service supporting the OData compact JSON
+format, a service:
+
+19. SHOULD advertise support with the
+    [Capabilities.SupportedFormats]{.term} term ([section
+    ##AdvertisingSupport])
+20. MUST return `406 Not Acceptable` if the client requests
+    `compact=true` and the service does not support it ([section
+    ##RequestingtheCompactJSONFormat])
+21. MUST reject with `415 Unsupported Media Type` a request body labeled
+    `compact=true` that it does not support ([section
+    ##RequestingtheCompactJSONFormat])
+22. MUST reject with `400 Bad Request` a compact request body whose
+    positional representation does not match the positional property list,
+    or which omits the `context` control information or a conforming
+    select-list ([section ##DeterminingthePositionalPropertyListinRequests])
