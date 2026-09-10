@@ -1,6 +1,13 @@
 
 -------
 
+# ##sec Conformance
+
+Conforming services that expose annotations using terms defined in this document MUST adhere to
+the syntax and semantics laid out in the term definition.
+
+-------
+
 # Appendix ##asec References
 
 This appendix contains the normative and informative references that are used in this document.
@@ -36,13 +43,11 @@ https://www.rfc-editor.org/info/rfc8174.
 _odata-vocabularies OASIS TC GitHub repository_.
 https://github.com/oasis-tcs/odata-vocabularies.
 
-<!-- TODO:
 -------
 
-# Appendix Safety, Security and Privacy Considerations
+# Appendix ##asec Safety, Security and Privacy Considerations
 
-do we have considerations specific to URLs, for example length, encoding, privacy (use $batch if in doubt), ...?
--->
+No security issues have been identified.
 
 -------
 

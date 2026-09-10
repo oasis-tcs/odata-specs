@@ -1257,7 +1257,7 @@ Edm.Decimal totalseconds(Edm.Duration)
 ```
 
 The `totalseconds` function returns the duration of the value in total
-seconds, including fractional seconds. The [totalSecondsMethodCallExpr]{.abnf}
+seconds, including fractional seconds. The [totalsecondsMethodCallExpr]{.abnf}
 syntax rule defines how the `totalseconds` function is invoked.
 
 ##### ##subsubsubsubsec `year`
@@ -1367,7 +1367,7 @@ type cast(expression,type)
 The single parameter `cast` function returns the current instance cast
 to the type specified. The two-parameter `cast` function returns the
 object referred to by the expression cast to the type specified.
-The [castMethodCallExpr]{.abnf}
+The [castExpr]{.abnf}
 syntax rule defines how the `cast` function is invoked.
 
 The `cast` function follows these assignment rules:
@@ -1954,7 +1954,7 @@ Operators in the same category have equal precedence:
 
 Group|Operator|Description|ABNF Expression
 -----|--------|-----------|---------------
-Grouping        | `( )`           | Precedence grouping      | [parenExpr]{.abnf}<br>[boolParenExpr]{.abnf}
+Grouping        | `( )`           | Precedence grouping      | [parenExpr]{.abnf}
 Primary         | `/`             | Navigation      | [firstMemberExpr]{.abnf}<br>[memberExpr]{.abnf}
                 | `has`           | Enumeration Flags     | [hasExpr]{.abnf}
                 | `in`            | Is a member of  | [inExpr]{.abnf}

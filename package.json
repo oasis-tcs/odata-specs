@@ -22,7 +22,7 @@
     "js-yaml": "^4.3.0",
     "mocha": "^11.3.0",
     "pandoc-filter": "^2.2.0",
-    "puppeteer": "^25.4.0"
+    "puppeteer": "^25.9.0"
   },
   "overrides": {
     "diff": "^8.0.3",
@@ -34,6 +34,6 @@
     "livereload": "^0.10.3"
   },
   "allowScripts": {
-    "puppeteer@25.4.0": true
+    "puppeteer@25.9.0": true
   }
 }

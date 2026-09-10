@@ -162,7 +162,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <h4>Status:</h4>
 <p>This document was last revised or approved by the OASIS Open Data Protocol (OData) TC on the above date. The level of approval is also listed above. Check the “Latest stage” location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Technical Committee (TC) are listed at <a href="https://groups.oasis-open.org/communities/tc-community-home2?CommunityKey=e7cac2a9-2d18-4640-b94d-018dc7d3f0e2#technical">https://groups.oasis-open.org/communities/tc-community-home2?CommunityKey=e7cac2a9-2d18-4640-b94d-018dc7d3f0e2#technical</a>.</p>
 <p>TC members should send comments on this specification to the TC’s email list. Any individual may submit comments to the TC by sending email to <a href="mailto:Technical-Committee-Comments@oasis-open.org">Technical-Committee-Comments@oasis-open.org</a>. Please use a Subject line like “Comment on OData Vocabularies”.</p>
-<p>This specification is provided under the <a href="https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode">RF on RAND Terms Mode</a> of the <a href="https://www.oasis-open.org/policies-guidelines/ipr/">OASIS IPR Policy</a>, the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC’s web page (<a href="https://www.oasis-open.org/committees/odata/ipr.php">https://www.oasis-open.org/committees/odata/ipr.php</a>).</p>
+<p>This specification is provided under the <a href="https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode">RF on RAND Terms Mode</a> of the <a href="https://www.oasis-open.org/policies-guidelines/ipr/">OASIS IPR Policy</a>, the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC’s web page (<a href="https://www.oasis-open.org/committees/ipr.php?wg_abbrev=odata">https://www.oasis-open.org/committees/ipr.php?wg_abbrev=odata</a>).</p>
 <p>Note that any machine-readable content (<a href="https://www.oasis-open.org/policies-guidelines/tc-process-2017-05-26/#wpComponentsCompLang">Computer Language Definitions</a>) declared Normative for this Work Product is provided in separate plain text files. In the event of a discrepancy between any such plain text file and display content in the Work Product’s prose narrative document(s), the content in the separate plain text file prevails.</p>
 <h4>Key words:</h4>
 <p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “NOT RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in BCP 14 <a href="#rfc2119">RFC2119</a> and <a href="#rfc8174">RFC8174</a> when, and only when, they appear in all capitals, as shown here.</p>
@@ -193,18 +193,20 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <li><a href="#JSONVocabulary">8 JSON Vocabulary</a></li>
 <li><a href="#RepeatabilityVocabulary">9 Repeatability Vocabulary</a></li>
 <li><a href="#TemporalVocabulary">10 Temporal Vocabulary</a></li>
+<li><a href="#Conformance">11 Conformance</a></li>
 <li><a href="#References">A References</a>
 <ul>
 <li><a href="#NormativeReferences">A.1 Normative References</a></li>
 <li><a href="#NonNormativeReferences">A.2 Non-Normative References</a></li>
 </ul></li>
-<li><a href="#Acknowledgments">B Acknowledgments</a>
+<li><a href="#SafetySecurityandPrivacyConsiderations">B Safety, Security and Privacy Considerations</a></li>
+<li><a href="#Acknowledgments">C Acknowledgments</a>
 <ul>
-<li><a href="#SpecialThanks">B.1 Special Thanks</a></li>
-<li><a href="#Participants">B.2 Participants</a></li>
+<li><a href="#SpecialThanks">C.1 Special Thanks</a></li>
+<li><a href="#Participants">C.2 Participants</a></li>
 </ul></li>
-<li><a href="#RevisionHistory">C Revision History</a></li>
-<li><a href="#Notices">D Notices</a></li>
+<li><a href="#RevisionHistory">D Revision History</a></li>
+<li><a href="#Notices">E Notices</a></li>
 </ul>
 </div>
 </details>
@@ -5376,6 +5378,12 @@ Section | Feature / Change | Issue
 </details>
 <hr />
 <details open><summary>
+<h1 id="11-conformance"><a id="Conformance" href="#Conformance">11 Conformance</a></h1>
+</summary>
+<p>Conforming services that expose annotations using terms defined in this document MUST adhere to the syntax and semantics laid out in the term definition.</p>
+</details>
+<hr />
+<details open><summary>
 <h1 id="appendix-a-references"><a id="References" href="#References">Appendix A. References</a></h1>
 </summary>
 <p>This appendix contains the normative and informative references that are used in this document.</p>
@@ -5402,27 +5410,25 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 </summary>
 <h6><span id="ODataVocabs">OData-Vocabs</span></h6>
 <p><em>odata-vocabularies OASIS TC GitHub repository</em>. <a href="https://github.com/oasis-tcs/odata-vocabularies">https://github.com/oasis-tcs/odata-vocabularies</a>.</p>
-<!-- TODO:
--------
-
-# Appendix Safety, Security and Privacy Considerations
-
-do we have considerations specific to URLs, for example length, encoding, privacy (use $batch if in doubt), ...?
--->
-
 </details>
 </details>
 <hr />
 <details open><summary>
-<h1 id="appendix-b-acknowledgments"><a id="Acknowledgments" href="#Acknowledgments">Appendix B. Acknowledgments</a></h1>
+<h1 id="appendix-b-safety-security-and-privacy-considerations"><a id="SafetySecurityandPrivacyConsiderations" href="#SafetySecurityandPrivacyConsiderations">Appendix B. Safety, Security and Privacy Considerations</a></h1>
+</summary>
+<p>No security issues have been identified.</p>
+</details>
+<hr />
+<details open><summary>
+<h1 id="appendix-c-acknowledgments"><a id="Acknowledgments" href="#Acknowledgments">Appendix C. Acknowledgments</a></h1>
 </summary>
 <details open><summary>
-<h2 id="b1-special-thanks"><a id="SpecialThanks" href="#SpecialThanks">B.1 Special Thanks</a></h2>
+<h2 id="c1-special-thanks"><a id="SpecialThanks" href="#SpecialThanks">C.1 Special Thanks</a></h2>
 </summary>
 <p>The contributions of the OASIS OData Technical Committee members, enumerated in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#Participants">OData-Protocol, section C.2</a>, are gratefully acknowledged.</p>
 </details>
 <details open><summary>
-<h2 id="b2-participants"><a id="Participants" href="#Participants">B.2 Participants</a></h2>
+<h2 id="c2-participants"><a id="Participants" href="#Participants">C.2 Participants</a></h2>
 </summary>
 <p><strong>OData TC Members:</strong></p>
 <table>
@@ -5495,7 +5501,7 @@ do we have considerations specific to URLs, for example length, encoding, privac
 </details>
 <hr />
 <details open><summary>
-<h1 id="appendix-c-revision-history"><a id="RevisionHistory" href="#RevisionHistory">Appendix C. Revision History</a></h1>
+<h1 id="appendix-d-revision-history"><a id="RevisionHistory" href="#RevisionHistory">Appendix D. Revision History</a></h1>
 </summary>
 <table>
 <thead>
@@ -5530,7 +5536,7 @@ do we have considerations specific to URLs, for example length, encoding, privac
 </details>
 <hr />
 <details open><summary>
-<h1 id="appendix-d-notices"><a id="Notices" href="#Notices">Appendix D. Notices</a></h1>
+<h1 id="appendix-e-notices"><a id="Notices" href="#Notices">Appendix E. Notices</a></h1>
 </summary>
 <!-- Required section. Do not modify. -->
 
