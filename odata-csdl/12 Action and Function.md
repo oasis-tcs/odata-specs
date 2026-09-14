@@ -54,6 +54,68 @@ It MAY contain the members
 [annotations](#Annotation).
 :::
 
+::: funnelweb
+Actions and functions are the only example of a named array that contains several instances
+of metamodel classes.
+:::
+
+@$@<Deserialize an array-valued member@>@{
+{
+  this.children[member] = [];
+  for (const item of json[member]) {
+    if (item.$Kind) {
+      const memberItem = new closure[item.$Kind](this, member);
+      memberItem.fromJSON(item);
+      this.children[member].push(memberItem);
+    } else this.children[member].push(item);
+  }
+}
+@}
+
+::: funnelweb
+Since actions and functions are so similar, their classes are derived from a
+common superclass `Operation`.
+:::
+
+@$@<Javascript CSDL metamodel@>@{
+class Operation extends ModelElement {
+  @<Operation@>
+}
+class Action extends Operation {
+  @<Action@>
+}
+@}
+
+@$@<Exports@>@{
+Action,
+@}
+
+::: funnelweb
+Operation is not a `NamedModelElement`, because the named member in its parent is not
+the operation, but an array of operations. It cannot therefore inherit its `name`
+property from `NamedModelElement`.
+:::
+
+@$@<Operation@>@{
+@<Internal property@>@(name@,@)
+constructor(parent, name) {
+  super(parent);
+  this.#name = name;
+  this.$Kind = this.constructor.name;
+}
+fromJSON(json) {
+  @<Deserialize members of Operation@>
+  super.fromJSON(json);
+}
+toString() {
+  return this.name;
+}
+@}
+
+@$@<Special treatment if target is an operation@>@{
+if (target instanceof Array) target = target[0];
+@}
+
 ::: {.varxml .rep}
 ### ##isec Element `edm:Action`
 
@@ -134,6 +196,16 @@ contain the members [`$IsBound`](#BoundorUnboundActionorFunctionOverloads),
 [`$EntitySetPath`](#EntitySetPath), and [`$Parameter`](#Parameter),
 and it MAY contain [annotations](#Annotation).
 :::
+
+@$@<Javascript CSDL metamodel@>@{
+class Function extends Operation {
+  @<Function@>
+}
+@}
+
+@$@<Exports@>@{
+Function,
+@}
 
 ::: {.varxml .rep}
 ### ##isec Element `edm:Function`
@@ -236,6 +308,11 @@ The value of `$EntitySetPath` is a string containing the entity set
 path.
 :::
 
+::: funnelweb
+`$EntitySetPath` cannot be modeled as a `RelativePath`, because its `relativeTo`
+element is known only when the operation is invoked.
+:::
+
 ::: {.varxml .rep}
 ### ##subisec Attribute `EntitySetPath`
 
@@ -323,6 +400,35 @@ function MAY return a single `null` value. The value `false` means that
 the action or function will never return a `null` value and instead will
 fail with an error response if it cannot compute a result.
 :::
+
+::: funnelweb
+`ReturnType` is like a [`TypedModelElement`](#StructuralProperty), except that it is not named.
+:::
+
+@$@<Javascript CSDL metamodel@>@{
+class ReturnType extends ModelElement {
+  fromJSON(json) {
+    @<Absence of $Type means Edm.String@>
+    @<Deserialize qualified name@>@($Type@)
+    super.fromJSON(json);
+  }
+  toJSON() {
+    @<Omit $Type if it is Edm.String@>@(this@)
+  }
+  @<Parameter and ReturnType inherit from TypedModelElement@>
+}
+@}
+
+@$@<Exports@>@{
+ReturnType,
+@}
+
+@$@<Deserialize members of Operation@>@{
+if (json.$ReturnType) {
+  this.$ReturnType = new ReturnType(this);
+  this.$ReturnType.fromJSON(json.$ReturnType);
+}
+@}
 
 ::: {.varxml .rep}
 ### ##isec Element `edm:ReturnType`
@@ -436,6 +542,41 @@ collection that MAY be empty. In this case `$Nullable` applies to items
 of the collection and specifies whether the collection MAY contain
 `null` values.
 :::
+
+::: funnelweb
+`Parameter` is like a [`TypedModelElement`](#StructuralProperty),
+except that it is listed instead of named.
+:::
+
+@$@<Javascript CSDL metamodel@>@{
+class Parameter extends ListedModelElement {
+  constructor(operation) {
+    super(operation, "$Parameter");
+  }
+  fromJSON(json) {
+    @<Absence of $Type means Edm.String@>
+    @<Deserialize qualified name@>@($Type@)
+    super.fromJSON(json);
+  }
+  toJSON() {
+    @<Omit $Type if it is Edm.String@>@(this@)
+  }
+  toString() {
+    return this.$Name;
+  }
+  @<Parameter and ReturnType inherit from TypedModelElement@>
+}
+@}
+
+@$@<Exports@>@{
+Parameter,
+@}
+
+@$@<Deserialize members of Operation@>@{
+if (json.$Parameter) {
+  for (const param of json.$Parameter) new Parameter(this).fromJSON(param);
+}
+@}
 
 ::: {.varxml .rep}
 ### ##isec Element `edm:Parameter`

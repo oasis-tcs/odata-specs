@@ -233,6 +233,22 @@ enumeration type members](#EnumerationTypeMember).
 The enumeration type object MAY contain [annotations](#Annotation).
 :::
 
+@$@<Javascript CSDL metamodel@>@{
+class EnumType extends NamedModelElement {
+  @<EnumType@>
+}
+@}
+
+@$@<Exports@>@{
+EnumType,
+@}
+
+@$@<EnumType@>@{
+fromJSON(json) {
+  super.fromJSON(json, "Member");
+}
+@}
+
 ::: {.varjson .example}
 Example ##ex: a simple flags-enabled enumeration
 ```json
@@ -402,6 +418,53 @@ Annotations for enumeration members are prefixed with the enumeration
 member name.
 :::
 
+::: funnelweb
+Enumeration type members are named model elements that "wrap" a primitive JSON value.
+:::
+
+@$@<Javascript CSDL metamodel@>@{
+class NamedValue extends NamedModelElement {
+  @<NamedValue@>
+}
+class Member extends NamedValue {}
+@}
+
+@$@<Exports@>@{
+Member,
+@}
+
+@$@<NamedValue@>@{
+@<Internal property@>@(value@,@)
+fromJSON(json) {
+  this.#value = json;
+}
+toJSON() {
+  return this.value;
+}
+@}
+
+::: funnelweb
+The following function runs during JSON serialization of the enumeration type
+and produces a name-prefixed annotation next to the targeted enumeration member.
+(Compare this to the JSON serialization of annotations of [referential constraints](#ReferentialConstraint).)
+:::
+
+@$@<NamedValue@>@{
+static toJSONWithAnnotations(modelElement, json) {
+  for (const member in modelElement.children)
+    for (const anno in modelElement.children[member])
+      if (anno.startsWith("@@"))
+        json[member + anno] = modelElement.children[member][anno];
+  return json;
+}
+@}
+
+@$@<EnumType@>@{
+toJSON() {
+  return NamedValue.toJSONWithAnnotations(this, super.toJSON());
+}
+@}
+
 ::: {.varjson .example}
 Example ##ex: `FirstClass` has a value of 0, `TwoDay` a value of 1, and
 `Overnight` a value of 2.
@@ -502,6 +565,19 @@ members [`$MaxLength`](#MaxLength), [`$Unicode`](#Unicode),
 [`$Precision`](#Precision), [`$Scale`](#Scale), and [`$SRID`](#SRID),
 and it MAY contain [annotations](#Annotation).
 :::
+
+@$@<Javascript CSDL metamodel@>@{
+class TypeDefinition extends NamedModelElement {
+  fromJSON(json) {
+    @<Deserialize qualified name@>@($UnderlyingType@)
+    super.fromJSON(json);
+  }
+}
+@}
+
+@$@<Exports@>@{
+TypeDefinition,
+@}
 
 ::: {.varjson .example}
 Example ##ex:
