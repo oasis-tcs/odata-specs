@@ -11,7 +11,7 @@ service, see [OData-CSDL](#ODataCSDL). A
 specific function overload can be advertised by appending the
 parentheses-enclosed, comma-separated list of non-binding parameter
 names to the qualified function name, see rule
-`qualifiedFunctionName` in [OData-ABNF](#ODataABNF).
+[qualifiedFunctionName]{.abnf} in [OData-ABNF](#ODataABNF).
 
 A function that is bound to a single structured type MAY be advertised
 within the JSON object representing that structured type.
@@ -21,7 +21,7 @@ JSON object containing the collection. If the collection is the
 top-level response, the function advertisement name/value pair is placed
 next to the `value` name/value pair representing the
 collection. If the collection is nested within an instance of a
-structured type, then in 4.01 payloads the name of the function
+structured type, then in 4.01 and greater payloads the name of the function
 advertisement is prepended with the name of the collection-valued
 property and is placed next to the collection-valued property, [expanded
 navigation property](#ExpandedNavigationProperty), or
@@ -30,7 +30,7 @@ control information, if present. 4.0 payloads MUST NOT advertise
 functions prefixed with property names.
 
 If the function is available, the value of the advertisement is an
-object. OData 4.01 services MAY advertise the non-availability of the
+object. OData 4.01 and greater services MAY advertise the non-availability of the
 function with the value `null`.
 
 If
@@ -42,8 +42,8 @@ pairs MUST be considered insignificant.
 
 The `target` name/value pair contains a URL. Clients MUST be
 able to invoke the function or the specific function overload by passing
-the parameter values via query options for [parameter
-aliases](https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_ParameterAliases) that are identical to
+the parameter values via query options for parameter
+aliases [#OData-Protocol#ParameterAliases] that are identical to
 the parameter name preceded by an at
 (`@`) sign. Clients MUST check if the obtained
 URL already contains a query part and appropriately precede the
@@ -134,7 +134,7 @@ object containing the collection. If the collection is the top-level
 response, the action advertisement name/value pair is placed next to the
 `value` name/value pair representing the collection. If the
 collection is nested within an instance of a structured type, then in
-4.01 payloads the name of the action advertisement is prepended with the
+4.01 and greater payloads the name of the action advertisement is prepended with the
 name of the collection-valued property and is placed next to the
 name/value pair representing the collection-valued property, [expanded
 navigation property](#ExpandedNavigationProperty), or
@@ -143,7 +143,7 @@ control information, if present. 4.0 payloads MUST NOT advertise actions
 prefixed with property names.
 
 If the action is available, the value of the advertisement is an object.
-OData 4.01 services MAY advertise the non-availability of the action
+OData 4.01 and greater services MAY advertise the non-availability of the action
 with the value `null`.
 
 If [`metadata=full`](#metadatafullodatametadatafull)
@@ -229,7 +229,26 @@ pair in this JSON object. The name is the name of the parameter. The
 value is the parameter value in the JSON representation appropriate for
 its type. Entity typed parameter values MAY include a subset of the
 properties, or just the [entity reference](#EntityReference), as
-appropriate to the action.
+appropriate to the action. For transient entities or complex typed parameters,
+properties with a defined default value, nullable properties, and collection-valued properties
+that are omitted from the request are interpreted as the default value, null, or an empty collection,
+respectively.
+
+::: example
+Example ##ex:
+```json
+{
+  "param1": 42,
+  "param2": {
+    "Street": "One Microsoft Way",
+    "Zip": 98052
+  },
+  "param3": [ 1, 42, 99 ],
+  "param4": null
+}
+```
+
+:::
 Stream typed parameter values are represented following the same rules as inlined [stream properties](#StreamProperty).
 
 Entities as parameter values are represented as explained in [section ##Entity].
@@ -325,22 +344,6 @@ Content-Type: application/json
 Inside a batch request the common expressions can also be value references
 starting with `$`, as introduced in [#OData-Protocol#ReferencingValuesfromResponseBodies].
 
-::: example
-Example ##ex:
-```json
-{
-  "param1": 42,
-  "param2": {
-    "Street": "One Microsoft Way",
-    "Zip": 98052
-  },
-  "param3": [ 1, 42, 99 ],
-  "param4": null
-}
-```
-:::
-
-
 In order to invoke an action with no non-binding parameters, the client
-passes an empty JSON object in the body of the request. 4.01 Services
+passes an empty JSON object in the body of the request. 4.01 and greater Services
 MUST also support clients passing an empty request body for this case.

@@ -262,7 +262,7 @@ expression.
 Default values of type `Edm.String` MUST be represented according to the
 XML escaping rules for character data in attribute values. Values of
 other primitive types MUST be represented according to the appropriate
-alternative in the `primitiveValue` rule defined in
+alternative in the [primitiveValue]{.abnf} rule defined in
 [OData-ABNF](#ODataABNF), i.e. `Edm.Binary` as `binaryValue`,
 `Edm.Boolean` as `booleanValue` etc.
 
@@ -717,7 +717,7 @@ Example ##ex: base64url-encoded binary value (OData)
 
 The `edm:Binary` expression evaluates to a primitive binary value. A
 binary expression MUST be assigned a value conforming to the rule
-`binaryValue` in [OData-ABNF](#ODataABNF).
+[binaryValue]{.abnf} in [OData-ABNF](#ODataABNF).
 
 The binary expression MAY be provided using element notation or
 attribute notation.
@@ -775,7 +775,7 @@ Date expressions are represented as a string containing the date value.
 The value MUST conform to type `xs:date`, see
 [XML-Schema-2](#XML-Schema2), [section
 3.3.9](http://www.w3.org/TR/xmlschema11-2/#date). The value MUST also
-conform to rule `dateValue` in [OData-ABNF](#ODataABNF), i.e. it MUST
+conform to rule [dateValue]{.abnf} in [OData-ABNF](#ODataABNF), i.e. it MUST
 NOT contain a time-zone offset.
 :::
 
@@ -793,7 +793,7 @@ The `edm:Date` expression evaluates to a primitive date value. A date
 expression MUST be assigned a value of type `xs:date`, see
 [XML-Schema-2](#XML-Schema2), [section
 3.3.9](http://www.w3.org/TR/xmlschema11-2/#date). The value MUST also
-conform to rule `dateValue` in [OData-ABNF](#ODataABNF), i.e. it MUST
+conform to rule [dateValue]{.abnf} in [OData-ABNF](#ODataABNF), i.e. it MUST
 NOT contain a time-zone offset.
 
 The date expression MAY be provided using element notation or attribute
@@ -818,7 +818,7 @@ Datetimestamp expressions are represented as a string containing the
 timestamp value. The value MUST conform to type `xs:dateTimeStamp`, see
 [XML-Schema-2](#XML-Schema2), [section
 3.4.28](http://www.w3.org/TR/xmlschema11-2/#dateTimeStamp). The value
-MUST also conform to rule `dateTimeOffsetValue` in
+MUST also conform to rule [dateTimeOffsetValue]{.abnf} in
 [OData-ABNF](#ODataABNF), i.e. it MUST NOT contain an end-of-day
 fragment (24:00:00).
 :::
@@ -838,7 +838,7 @@ datetimestamp value with a time-zone offset. A datetimestamp expression
 MUST be assigned a value of type `xs:dateTimeStamp`, see
 [XML-Schema-2](#XML-Schema2), [section
 3.4.28](http://www.w3.org/TR/xmlschema11-2/#dateTimeStamp). The value
-MUST also conform to rule `dateTimeOffsetValue` in
+MUST also conform to rule [dateTimeOffsetValue]{.abnf} in
 [OData-ABNF](#ODataABNF), i.e. it MUST NOT contain an end-of-day
 fragment (24:00:00).
 
@@ -888,7 +888,7 @@ Example ##ex: "safe" representation as a string
 
 The `edm:Decimal` expression evaluates to a primitive decimal value. A
 decimal expression MUST be assigned a value conforming to the rule
-`decimalValue` in [OData-ABNF](#ODataABNF).
+[decimalValue]{.abnf} in [OData-ABNF](#ODataABNF).
 
 The decimal expression MAY be provided using element notation or
 attribute notation.
@@ -1043,7 +1043,7 @@ Example ##ex:
 
 The `edm:Float` expression evaluates to a primitive floating point (or
 double) value. A float expression MUST be assigned a value conforming to
-the rule `doubleValue` in [OData-ABNF](#ODataABNF).
+the rule [doubleValue]{.abnf} in [OData-ABNF](#ODataABNF).
 
 The float expression MAY be provided using element notation or attribute
 notation.
@@ -1064,7 +1064,7 @@ Example ##ex:
 
 ::: {.varjson .rep}
 Guid expressions are represented as a string containing the uuid value.
-The value MUST conform to the rule `guidValue` in
+The value MUST conform to the rule [guidValue]{.abnf} in
 [OData-ABNF](#ODataABNF).
 :::
 
@@ -1079,7 +1079,7 @@ Example ##ex:
 ### ##isec Expression `edm:Guid`
 
 The `edm:Guid` expression evaluates to a primitive guid value. A guid
-expression MUST be assigned a value conforming to the rule `guidValue`
+expression MUST be assigned a value conforming to the rule [guidValue]{.abnf}
 in [OData-ABNF](#ODataABNF).
 
 The guid expression MAY be provided using element notation or attribute
@@ -1124,7 +1124,7 @@ Example ##ex: "safe" representation as a string
 ### ##isec Expression `edm:Int`
 
 The `edm:Int` expression evaluates to a primitive integer value. An
-integer MUST be assigned a value conforming to the rule `int64Value` in
+integer MUST be assigned a value conforming to the rule [int64Value]{.abnf} in
 [OData-ABNF](#ODataABNF).
 
 The integer expression MAY be provided using element notation or
@@ -1187,7 +1187,7 @@ Example ##ex:
 
 ::: {.varjson .rep}
 Time-of-day expressions are represented as a string containing the
-time-of-day value. The value MUST conform to the rule `timeOfDayValue`
+time-of-day value. The value MUST conform to the rule [timeOfDayValue]{.abnf}
 in [OData-ABNF](#ODataABNF).
 :::
 
@@ -1235,10 +1235,10 @@ Example ##ex:
 
 ::: {.varxml .rep}
 Values are represented as [string expressions](#String) using the WKT (well-known text) format for `Geo` types, see rules
-`fullCollectionLiteral`, `fullLineStringLiteral`,
-`fullMultiPointLiteral`, `fullMultiLineStringLiteral`,
-`fullMultiPolygonLiteral`, `fullPointLiteral`, and
-`fullPolygonLiteral` in
+[fullCollectionLiteral]{.abnf}, [fullLineStringLiteral]{.abnf},
+[fullMultiPointLiteral]{.abnf}, [fullMultiLineStringLiteral]{.abnf},
+[fullMultiPolygonLiteral]{.abnf}, [fullPointLiteral]{.abnf}, and
+[fullPolygonLiteral]{.abnf} in
 [OData-ABNF](#ODataABNF).
 :::
 
@@ -1267,7 +1267,7 @@ Constant values of type `Edm.Stream` with other media types are represented as [
 :::
 
 The annotation (property) being assigned a stream value MUST be annotated with term
-[`Core.MediaType`]($$$OData-VocCore$$$#MediaType)
+[Core.MediaType]{.term}
 and the media type of the stream as its value.
 
 ::: {.varjson .example}
@@ -1710,12 +1710,11 @@ type `self.A` named in the target expression.
 
 #### ##subsubsubsec Annotation Path
 
-The annotation path expression provides a value for terms or term
+The annotation path expression provides a non-null value for terms or term
 properties that specify the [built-in
 types](#BuiltInTypesfordefiningVocabularyTerms)
 `Edm.AnnotationPath` or `Edm.ModelElementPath`. Its argument is a [model
-path](#PathExpressions) with the following restriction:
-- A non-null path MUST resolve to an [annotation](#Annotation).
+path](#PathExpressions) that resolves to an [annotation](#Annotation).
 
 The value of the annotation path expression is the _path_ to the annotation, not its instance value.
 This is useful for terms that reuse or refer to other terms.
@@ -1765,7 +1764,7 @@ Example ##ex:
 
 #### ##subsubsubsec Model Element Path
 
-The model element path expression provides a value for terms or term
+The model element path expression provides a non-null value for terms or term
 properties that specify the [built-in
 type](#BuiltInTypesfordefiningVocabularyTerms) `Edm.ModelElementPath`. Its
 argument is a [model path](#PathExpressions).
@@ -1806,15 +1805,12 @@ Example ##ex:
 
 #### ##subsubsubsec Navigation Property Path
 
-The navigation property path expression provides a value for terms or
+The navigation property path expression provides a non-null value for terms or
 term properties that specify the [built-in
 types](#BuiltInTypesfordefiningVocabularyTerms)
 `Edm.NavigationPropertyPath`, `Edm.AnyPropertyPath`, or `Edm.ModelElementPath`.
-Its argument is a [model path](#PathExpressions) with the following
-restriction:
-- A non-null path MUST end with a [navigation property](#NavigationProperty)
+Its argument is a [model path](#PathExpressions) that ends with a [navigation property](#NavigationProperty)
 or a term cast to a term whose type is an entity type or a collection of entity types.
-
 
 The value of the navigation property path expression is the path itself,
 not the entity or collection of entities identified by the path.
@@ -1864,13 +1860,11 @@ Example ##ex:
 
 #### ##subsubsubsec Property Path
 
-The property path expression provides a value for terms or term
+The property path expression provides a non-null value for terms or term
 properties that specify one of the [built-in
 types](#BuiltInTypesfordefiningVocabularyTerms)
 `Edm.PropertyPath`, `Edm.AnyPropertyPath`, or `Edm.ModelElementPath`. Its
-argument is a [model path](#PathExpressions) with the following
-restriction:
-- A non-null path MUST end with a [structural property](#StructuralProperty)
+argument is a [model path](#PathExpressions) that ends with a [structural property](#StructuralProperty)
 or a term cast to a term whose type is a primitive or complex type, an enumeration type,
 a type definition, or a collection of one of these types.
 
@@ -2468,8 +2462,8 @@ enumeration type. It returns a value of type `Edm.String` that is the
 concatenation of the literal representations of the results of the
 argument expressions. Values of primitive types other than `Edm.String`
 are represented according to the appropriate alternative in the
-`primitiveValue` rule of [OData-ABNF](#ODataABNF), i.e. `Edm.Binary` as
-`binaryValue`, `Edm.Boolean` as `booleanValue` etc.
+[primitiveValue]{.abnf} rule of [OData-ABNF](#ODataABNF), i.e. `Edm.Binary` as
+[binaryValue]{.abnf}, `Edm.Boolean` as [booleanValue]{.abnf} etc.
 
 ::: {.varjson .example}
 Example ##ex:

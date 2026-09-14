@@ -33,14 +33,14 @@ https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/odata-temporal-ext-v4.
 #### Chairs:
 
 Ralf Handl (ralf.handl@sap.com), [SAP SE](http://www.sap.com/) \
-Michael Pizzo (mikep@microsoft.com), [Microsoft](http://www.microsoft.com/)
+Michael Pizzo (b-mpizzo@microsoft.com), [Microsoft](http://www.microsoft.com/)
 
 #### Editors:
 
 Ralf Handl (ralf.handl@sap.com), [SAP SE](https://www.sap.com/) \
 Hubert Heijkers (hubert.heijkers@nl.ibm.com), [IBM](https://www.ibm.com/) \
 Gerald Krause (gerald.krause@sap.com), [SAP SE](https://www.sap.com/) \
-Michael Pizzo (mikep@microsoft.com), [Microsoft](https://www.microsoft.com/) \
+Michael Pizzo (b-mpizzo@microsoft.com), [Microsoft](https://www.microsoft.com/) \
 Heiko Theißen (heiko.theissen@sap.com), [SAP SE](https://www.sap.com/) \
 Martin Zurmuehl (martin.zurmuehl@sap.com), [SAP SE](https://www.sap.com/)
 
@@ -309,7 +309,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        odata-temporal-ext-v4.0-csd04.md
 ```
 
-This uses pandoc 3.1.13 from https://github.com/jgm/pandoc/releases/tag/3.1.13.
+This uses pandoc 3.8.3 from https://github.com/jgm/pandoc/releases/tag/3.8.3.
 -->
 
 
@@ -1412,8 +1412,8 @@ temporal objects, the temporal objects identified by combination of
 
 A temporal expression is
 
-- A date in the form `dateValue`, see   [OData-ABNF](#ODataABNF)
-- A timestamp in the form `dateTimeOffsetValueInUrl`, see   [OData-ABNF](#ODataABNF)
+- A date in the form [dateValue]{.abnf}, see [OData-ABNF](#ODataABNF)
+- A timestamp in the form [dateTimeOffsetValueInUrl]{.abnf}, see [OData-ABNF](#ODataABNF)
 - One of the literals `min` or `max`
 - An expression resulting in a date or timestamp value
 
@@ -2533,13 +2533,13 @@ Special thanks to Andrew Eisenberg, whose contributions in the early stages of t
 | Hubert | Heijkers | IBM |
 | Ling | Jin | IBM |
 | Stefan | Hagen | Individual |
+| John | Gathogo | Microsoft |
 | Michael | Pizzo | Microsoft |
+| Olga | Podolyako | Microsoft |
 | Christof | Sprenger | Microsoft |
 | Ralf | Handl | SAP SE |
 | Gerald | Krause | SAP SE |
 | Heiko | Theißen | SAP SE |
-| Mark | Biamonte | Progress Software |
-| Martin | Zurmuehl | SAP SE |
 
 -------
 

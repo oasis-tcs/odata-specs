@@ -11,7 +11,7 @@ using the JavaScript Object Notation (JSON), see [RFC8259](#rfc8259).
 
 This format is based on the OpenUI5 OData V4 Metadata JSON Format, see
 [OpenUI5](#_OpenUI5), with some extensions and
-modifications made necessary to fully cover OData CSDL Version 4.01.
+modifications made necessary to fully cover OData CSDL Version 4.02.
 :
 
 : varxml
@@ -27,37 +27,37 @@ Schema Definition Language (XSD) 1.1 as described in
 
 ## ##subsec Changes from Earlier Versions
 
-Section | Feature / Change | Issue
---------|------------------|------
+Section | Feature / Change | Issue | Revision
+--------|------------------|-------|---------
 [Section ##PrimitiveTypes]| 
 Allow stream-valued non-binding parameters| 
-[525](https://github.com/oasis-tcs/odata-specs/issues/525)
+[525](https://github.com/oasis-tcs/odata-specs/issues/525) | CSD01
 [Section ##SRID]| 
 SRID value `variable` is deprecated| 
-[1935](https://github.com/oasis-tcs/odata-specs/issues/1935)
+[1935](https://github.com/oasis-tcs/odata-specs/issues/1935) | CSD02
 : varjson
-[Section ##CSDLJSONDocument] | Additional `$Version` value `4.02` |
+[Section ##CSDLJSONDocument] | Additional `$Version` value `4.02` | [2222](https://github.com/oasis-tcs/odata-specs/issues/2222) | CSD02
 :
 : varxml
-[Section ##CSDLXMLDocument] | Additional `Version` value `4.02` |
+[Section ##CSDLXMLDocument] | Additional `Version` value `4.02` | [2222](https://github.com/oasis-tcs/odata-specs/issues/2222) | CSD02
 :
 : varxml
 [Section ##EntityContainer]| 
 All children of `edm:EntityContainer` are optional| 
-[464](https://github.com/oasis-tcs/odata-specs/issues/464)
+[464](https://github.com/oasis-tcs/odata-specs/issues/464) | CSD01
 :
-[Section ##ActionandFunction] | Actions and functions can take, and return, delta payloads | [348](https://github.com/oasis-tcs/odata-specs/issues/348)
-[Section ##ReturnType] | Returned collections of entities may contain `null` values | [1983](https://github.com/oasis-tcs/odata-specs/issues/1983)
-[Section ##GeoValues] | Constant Geo values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
-[Section ##StreamValues] | Constant Stream values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
+[Section ##ActionandFunction] | Actions and functions can take, and return, delta payloads | [348](https://github.com/oasis-tcs/odata-specs/issues/348) | CSD02
+[Section ##ReturnType] | Returned collections of entities may contain `null` values | [1983](https://github.com/oasis-tcs/odata-specs/issues/1983) | CSD02
+[Section ##GeoValues] | Constant Geo values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654) | CSD02
+[Section ##StreamValues] | Constant Stream values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654) | CSD02
 [Section ##PathEvaluation]| 
 New path evaluation rules for annotations targeting annotations and external targeting via container| 
-[575](https://github.com/oasis-tcs/odata-specs/issues/575)
+[575](https://github.com/oasis-tcs/odata-specs/issues/575) | CSD01
 [Section ##IfThenElse]| 
 Nested `If` without else part in collections| 
-[326](https://github.com/oasis-tcs/odata-specs/issues/326)
-[Section ##SimpleIdentifier] | Prefer identifiers consisting only of latin letters, the underscore, and decimal numbers | [375](https://github.com/oasis-tcs/odata-specs/issues/375)
-[Section ##Conformance] | Additional conformance clauses for version 4.02 |
+[326](https://github.com/oasis-tcs/odata-specs/issues/326) | CSD02
+[Section ##SimpleIdentifier] | Prefer identifiers consisting only of latin letters, the underscore, and decimal numbers | [375](https://github.com/oasis-tcs/odata-specs/issues/375) | CSD02
+[Section ##Conformance] | Additional conformance clauses for version 4.02 | | CSD02
 
 ## ##subsec Glossary
 
@@ -530,7 +530,7 @@ underlying type is `Edm.Stream`, cannot be used in collections.
 
 Some of these types allow facets, defined in [section ##TypeFacets].
 
-Representation of primitive type values within a URL is defined by the rule `primitiveLiteral` in [OData-ABNF](#ODataABNF).
+Representation of primitive type values within a URL is defined by the rule [primitiveLiteral]{.abnf} in [OData-ABNF](#ODataABNF).
 Representation within request and response bodies is format specific.
 
 ## ##subsec Type Facets
@@ -652,9 +652,17 @@ allowed to the right of the decimal point, or one of the symbolic values
 `floating` or `variable`.
 
 The value `floating` means that the decimal value represents a
-decimal floating-point number whose number of significant digits is the
-value of the [`Precision`](#Precision) facet. OData 4.0 responses MUST
-NOT specify the value `floating`.
+decimal floating-point number $m\cdot 10^e$
+where the number of significant digits in $m$ is the
+value of the [`Precision`](#Precision) facet. Supported formats are:
+
+IEEE 754 format|Precision|Allowed exponents
+---------------|--------:|:---------------:
+[decimal32](https://en.wikipedia.org/wiki/Decimal32_floating-point_format) (rarely implemented) |        7|$-101\le e\le 96$
+[decimal64](https://en.wikipedia.org/wiki/Decimal64_floating-point_format)                      |       16|$-398\le e\le 384$
+[decimal128](https://en.wikipedia.org/wiki/Decimal128_floating-point_format)                    |       34|$-6143\le e\le 6144$
+
+OData 4.0 responses MUST NOT specify the value `floating`.
 
 The value `variable` means that the number of digits to the right of the
 decimal point can vary from zero to the value of the
@@ -726,7 +734,7 @@ values: 12.34, 1234 and 123.4 due to the limited precision.
 ::: {.varjson .example}
 Example ##ex: `Precision=7` and a floating `Scale`.  
 Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values:
-1e-102 and 1e97 due to the limited precision.
+1e-102 and 1e97 because exponents are out of range.
 ```json
 "Amount7f": {
   "$Type": "Edm.Decimal",
@@ -777,7 +785,7 @@ values: 12.34, 1234 and 123.4 due to the limited precision.
 ::: {.varxml .example}
 Example ##ex: `Precision=7` and a floating `Scale`.  
 Allowed values: -1.234567e3, 1e-101, 9.999999e96, not allowed values:
-1e-102 and 1e97 due to the limited precision.
+1e-102 and 1e97 because exponents are out of range.
 ```xml
 <Property Name="Amount7f" Type="Edm.Decimal" Nullable="false" Precision="7" Scale="floating" />
 ```

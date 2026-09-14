@@ -32,7 +32,7 @@ the most functionality against the broadest range of generic clients.
 
 Services can advertise their level of conformance by annotating their
 entity container with the term
-[`Capabilities.ConformanceLevel`]($$$OData-VocCap$$$#ConformanceLevel)
+[Capabilities.ConformanceLevel]{.term}
 defined in [OData-VocCap](#ODataVocCap).
 
 Note: Services are encouraged to support as much additional
@@ -204,11 +204,12 @@ according to the JSON Batch format defined in [#OData-JSON#BatchRequestsandRespo
 
 OData services can report conformance to the OData 4.01 specification by
 including `4.01` in the list of supported protocol versions in the
-[`Core.ODataVersions`]($$$OData-VocCore$$$#ODataVersions)
-annotation, as defined in [OData-VocCore](#ODataVocCore). As all OData
-4.01 compliant services must also be fully OData 4.0 compliant, OData
-4.01 services do not need to separately list `4.0` as a supported
-version.
+[Core.ODataVersions]{.term}
+annotation, as defined in [OData-VocCore](#ODataVocCore). As OData
+supports semantic versioning, clients can assume that services reporting
+`4.01` also support `4.0`. In order to interoperate with the greatest number
+of clients, OData 4.01 services SHOULD advertise both `4.0` and `4.01` as
+supported versions.
 
 ### ##subsubsec OData 4.01 Minimal Conformance Level
 
@@ -227,7 +228,7 @@ headers and preference values
 5. MUST reject a request with an incompatible
 [`$schemaversion`](#SystemQueryOptionschemaversion) system query option
 if a
-[`Core.SchemaVersion`]($$$OData-VocCore$$$#SchemaVersion)
+[Core.SchemaVersion]{.term}
 annotation is returned in `$metadata`
 6. MUST support specifying supported system query options with or
 without the `$` prefix
@@ -267,9 +268,7 @@ expression
 11. SHOULD NOT have identifiers within a uniqueness scope (e.g. a
 schema, a structural type, or an entity container) that differ only by
 case
-12. SHOULD return the
-[`Core.ODataVersions`]($$$OData-VocCore$$$#ODataVersions)
-annotation
+12. SHOULD return the [Core.ODataVersions]{.term} annotation
 13. SHOULD report capabilities through the Capabilities vocabulary
 14. MAY support filtering on annotation values
 15. MAY support `$compute` system query option
@@ -355,6 +354,74 @@ request payloads if no exact match is found, using the same lookup
 sequence as for [default namespaces](#DefaultNamespaces) with a
 case-insensitive comparison
 
+## ##subsec OData 4.02 Service Conformance Levels
+
+OData services can report conformance to the OData 4.02 specification by
+including `4.02` in the list of supported protocol versions in the
+[Core.ODataVersions]{.term}
+annotation, as defined in [OData-VocCore](#ODataVocCore). As OData
+supports semantic versioning, clients can assume that services reporting
+`4.02` also support both `4.0` and `4.01`. In order to interoperate with
+the greatest number of clients, OData 4.02 services SHOULD advertise
+`4.0`, `4.01`, and `4.02` as supported versions.
+
+### ##subsubsec OData 4.02 Minimal Conformance Level
+
+In order to conform to the OData 4.02 Minimal Conformance Level, a
+service:
+
+1. MUST conform to the [OData 4.01 Minimal Conformance
+Level](#OData401MinimalConformanceLevel)
+2. MUST be compliant with version 4.02 of the [OData-JSON](#ODataJSON)
+format
+3. MUST NOT percent-encode Context URLs
+4. SHOULD support Key-As-Segment URL convention in addition to canonical URL conventions
+5. SHOULD, if they support optimistic concurrency, return etag values for added/changed entities in a delta payload
+
+In addition, to be considered an *Updatable OData 4.02 Service*, the
+service:
+
+6. MUST conform to the *Updatable OData 4.01 Service* requirements
+7. MUST, if it supports Deep Inserts, by default include in the response at least the properties that were present in the Deep Insert request
+8. SHOULD support Upserts to single-valued non-containment navigation properties
+9. SHOULD, if they support optimistic concurrency, honor etags in delta update payloads
+
+### ##subsubsec OData 4.02 Intermediate Conformance Level
+
+In order to conform to the OData 4.02 Intermediate Conformance Level, a
+service:
+
+1. MUST conform to the [OData 4.02 Minimal Conformance Level](#OData402MinimalConformanceLevel)
+2. MUST conform to the [OData 4.01 Intermediate Conformance
+Level](#OData401IntermediateConformanceLevel)
+3. MUST support `$key` in `$select`
+4. MUST, if they support optimistic concurrency, return etag values for added/changed entities in a delta payload
+5. SHOULD support Passing Query Options in the Request Body (See Url Conventions)
+   1. SHOULD support HTTP POST to GET resource path appended with /$query
+   2. SHOULD support the HTTP QUERY method
+   3. SHOULD support `Content-Type: text/plain`
+   4. SHOULD support `Content-Type: application/x-www-form-urlencoded`
+   5. SHOULD support `Content-Type: application/json`
+
+In addition, to be considered an *Updatable Intermediate OData 4.02 Service*, the
+service:
+
+6. MUST conform to *Updatable OData 4.02 Service* requirements
+7. MUST support Upserts to single-valued non-containment navigation properties
+8. MUST, if they support optimistic concurrency, honor etags in delta update payloads
+9. SHOULD support updating properties of related entities when updating an entity
+10. SHOULD support updating a complex property to a different type in the hierarchy
+
+### ##subsubsec OData 4.02 Advanced Conformance Level
+
+In order to conform to the OData 4.02 Advanced Conformance Level, a
+service:
+
+1. MUST conform to the [OData 4.02 Intermediate Conformance Level](#OData402IntermediateConformanceLevel)
+2. MUST conform to the [OData 4.01 Advanced Conformance
+Level](#OData401AdvancedConformanceLevel)
+3. MUST support `$expand` with an empty expand list
+
 ## ##subsec Interoperable OData Clients
 
 Interoperable OData clients can expect to work with OData Services that
@@ -396,7 +463,7 @@ In addition, interoperable OData 4.01 clients
 
 17. MUST send OData 4.0-compliant payloads to services that don't
 advertise support for 4.01 or greater through the
-[`Core.ODataVersions`]($$$OData-VocCore$$$#ODataVersions)
+[Core.ODataVersions]{.term}
 metadata annotation (see [OData-VocCore](#ODataVocCore))
 18. MUST specify identifiers in payloads and URLs in the case they are
 specified in `$metadata`
@@ -406,3 +473,15 @@ the requested format
 21. SHOULD use capabilities (see [OData-VocCap](#ODataVocCap)) to
 determine if a 4.01 feature is supported but MAY attempt syntax and be
 prepared to handle `400 Bad Request` or [`501 Not Implemented`](#ResponseCode501NotImplemented)
+
+In addition, interoperable OData 4.02 clients
+
+22. MUST be prepared to receive any valid 4.02 CSDL
+23. MUST be prepared to receive any valid 4.02 response according to
+the requested format
+24. SHOULD use capabilities (see [OData-VocCap](#ODataVocCap)) to
+determine if a 4.02 feature is supported but MAY attempt syntax and be
+prepared to handle `400 Bad Request` or [`501 Not Implemented`](#ResponseCode501NotImplemented)
+25. SHOULD use Context URL to interpret payloads, rather than inferring from the request
+26. SHOULD NOT specify an empty `$expand` list to a 4.01 or earlier service
+27. SHOULD NOT specify `$key` in a `$select` list to a 4.01 or earlier service

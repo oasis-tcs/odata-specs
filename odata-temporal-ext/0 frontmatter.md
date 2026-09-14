@@ -33,14 +33,14 @@ https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/odata-temporal-ext-v4.
 #### Chairs:
 
 Ralf Handl (ralf.handl@sap.com), [SAP SE](http://www.sap.com/) \
-Michael Pizzo (mikep@microsoft.com), [Microsoft](http://www.microsoft.com/)
+Michael Pizzo (b-mpizzo@microsoft.com), [Microsoft](http://www.microsoft.com/)
 
 #### Editors:
 
 Ralf Handl (ralf.handl@sap.com), [SAP SE](https://www.sap.com/) \
 Hubert Heijkers (hubert.heijkers@nl.ibm.com), [IBM](https://www.ibm.com/) \
 Gerald Krause (gerald.krause@sap.com), [SAP SE](https://www.sap.com/) \
-Michael Pizzo (mikep@microsoft.com), [Microsoft](https://www.microsoft.com/) \
+Michael Pizzo (b-mpizzo@microsoft.com), [Microsoft](https://www.microsoft.com/) \
 Heiko Theißen (heiko.theissen@sap.com), [SAP SE](https://www.sap.com/) \
 Martin Zurmuehl (martin.zurmuehl@sap.com), [SAP SE](https://www.sap.com/)
 

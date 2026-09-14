@@ -92,7 +92,7 @@ G(n)={\tt filter}(\hfill\\
 \hskip1pc )\hfill\\
 )\hfill
 }$$
-where $y_1,…,y_k$ denote `lambdaVariableExpr`s as defined in [OData-ABNF](#ODataABNF) and ${}/r$ may be absent.
+where $y_1,…,y_k$ denote [lambdaVariableExpr]{.abnf}s as defined in [OData-ABNF](#ODataABNF) and ${}/r$ may be absent.
 
 If parameter $d$ is absent, the parameter ${\tt MaxDistance}=d$ is omitted. If `keep start` is absent, the parameter ${\tt IncludeSelf}={\tt true}$ is omitted.
 

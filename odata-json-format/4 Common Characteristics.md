@@ -164,7 +164,7 @@ constraints have to be met:
 
 - If present, the `context` control information MUST be the first
   property in the JSON object.
-- For 4.01 deleted entities, the `removed` control information MUST appear 
+- For 4.01 and greater deleted entities, the `removed` control information MUST appear 
   after `context`, if present, and before any other property or control information.
 - The
   `type` control information, if present, MUST appear next in
@@ -181,8 +181,16 @@ constraints have to be met:
   appear anywhere in the payload as long as it does not violate any of the
   above rules.
 - For 4.0 payloads, annotations and control information for navigation
-  properties MUST appear after all structural properties. 4.01 clients
+  properties MUST appear after all structural properties. 4.01 and greater clients
   MUST NOT assume this ordering.
+- For 4.02 batch payloads, the `streaming` format parameter of the overall
+  batch request or response applies to the properties of the batch request
+  or response itself; specifically, for ordered batch requests and
+  responses, the `id` property MUST be the first property in each request or
+  response object and `body`, if present, MUST be last. Ordering constraints
+  for the body of an individual request or response within
+  the batch MAY be specified through the `headers` property of the individual request
+  or response object.
 
 Note that in OData 4.0 the `streaming` format parameter was prefixed with
 `odata.`. Payloads with an `OData-Version` header equal to
@@ -281,10 +289,10 @@ using the `$schemaversion` system query option
 defined in [#OData-Protocol#SystemQueryOptionschemaversion].
 
 For non-built in primitive types, the URI contains the
-namespace-qualified or alias-qualified type, specified as a URI
-fragment. For properties that represent a collection of values, the
-fragment is the namespace-qualified or alias-qualified element type
-enclosed in parentheses and prefixed with `Collection`. The
+namespace-qualified or alias-qualified type, specified in the URI
+fragment (after the `#`). For properties that represent a collection of values, the
+fragment is `#Collection` followed by the namespace-qualified or alias-qualified element type name
+enclosed in parentheses. The
 namespace or alias MUST be defined or the namespace referenced in the
 metadata document of the service, see
 [OData-CSDL](#ODataCSDL).
@@ -368,6 +376,12 @@ can annotate any collection, see [#OData-Protocol#SystemQueryOptioncount].
 Its value is an
 `Edm.Int64` value corresponding to
 the total count of members in the collection represented by the request.
+
+### ##subsubsec Control Information: `countAccuracy` (`odata.countAccuracy`)
+
+The `countAccuracy` control information occurs only for collections that include
+the [`count`](#ControlInformationcountodatacount) of values. Its value is an `Edm.String`
+value specifying the accuracy of the count, see [#OData-Protocol#SystemQueryOptioncount].
 
 ### ##subsubsec Control Information: `nextLink` (`odata.nextLink`)
 

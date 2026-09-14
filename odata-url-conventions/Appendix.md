@@ -13,7 +13,7 @@ The following documents are referenced in such a way that some or all of their c
 
 ###### [OData-ABNF]{id=ODataABNF}
 _ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases._  
-See link in "[Related work](#RelatedWork)" section on cover page.
+See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
 
 ###### [OData-CSDL]{id=ODataCSDL}
 _OData Common Schema Definition Language (CSDL) JSON Representation Version 4.02._  
@@ -50,6 +50,10 @@ https://www.rfc-editor.org/info/rfc3986.
 _Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_.
 https://www.rfc-editor.org/info/rfc8174.
 
+###### [RFC10008]{id=rfc10008}
+_Reschke, J., Snell, J., and M. Bishop, "The HTTP QUERY Method", RFC 10008, DOI 10.17487/RFC10008, June 2026_.
+https://www.rfc-editor.org/info/rfc10008.
+
 ###### [URL]{id=_url}
 _URL Living Standard._  
 https://url.spec.whatwg.org/.
@@ -82,19 +86,7 @@ do we have considerations specific to URLs, for example length, encoding, privac
 
 ## ##subasec Participants
 
-**OData TC Members:**
-
-| First Name | Last Name | Company |
-| :--- | :--- | :--- |
-| George | Ericson | Dell |
-| Hubert | Heijkers | IBM |
-| Ling | Jin | IBM |
-| Stefan | Hagen | Individual |
-| Michael | Pizzo | Microsoft |
-| Christof | Sprenger | Microsoft |
-| Ralf | Handl | SAP SE |
-| Gerald | Krause | SAP SE |
-| Heiko | Theißen | SAP SE |
+$$$include ../odatatc-members.md$$$
 
 -------
 
@@ -105,6 +97,8 @@ do we have considerations specific to URLs, for example length, encoding, privac
 |Committee Specification Draft 01|2024-02-28|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| 
 Import material from OData Version 4.01 Part 2: URL Conventions 
 <br>Changes listed in [section ##ChangesfromEarlierVersions]|
+|$$$subtitle$$$|$$$pubdateISO$$$|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| 
+Changes listed in [section ##ChangesfromEarlierVersions]|
 
 -------
 

@@ -13,7 +13,7 @@ The following documents are referenced in such a way that some or all of their c
 
 ###### [OData-ABNF]{id=ODataABNF}
 _ABNF components: OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases._  
-See link in "[Related work](#RelatedWork)" section on cover page.
+See link in "[Additional artifacts](#AdditionalArtifacts)" section on cover page.
 
 ###### [OData-Aggregation]{id=ODataAggregation}
 _OData Extension for Data Aggregation Version 4.02._  
@@ -85,6 +85,10 @@ https://www.rfc-editor.org/info/rfc9110.
 _ECMAScript 2023 Language Specification, 14th Edition_, June 2023. Standard ECMA-262.
 https://www.ecma-international.org/publications-and-standards/standards/ecma-262/.
 
+###### [SQL92]{id=_SQL92}
+_ISO/IEC 9075:1992, Database Language SQL_, July 30, 1992. Digital Equipment Corporation, Maynard, Massachusetts.
+http://www.contrib.andrew.cmu.edu/~shadow/sql/sql1992.txt.
+
 ###### [Well-Known Text]{id=_WKT}
 _OpenGIS Implementation Specification for Geographic information – Simple feature access – Part 1: Common architecture_, May 2011. Open Geospatial Consortium.
 https://www.ogc.org/standard/sfa/.
@@ -143,6 +147,7 @@ The following individuals were members of the OASIS OData Technical Committee du
 - Colleen Evans (Microsoft)
 - Jason Fam (IBM)
 - Senaka Fernando (WSO2)
+- John Gathogo (Microsoft)
 - Josh Gavant (Microsoft)
 - Brent Gross (IBM)
 - Zhun Guo (Individual)
@@ -173,6 +178,7 @@ The following individuals were members of the OASIS OData Technical Committee du
 - Sanjay Patil (SAP SE)
 - Nuccio Piscopo (iFOSSF – International Free and Open Source Solutions Foundation)
 - Michael Pizzo (Microsoft)
+- Olga Podolyako (Microsoft)
 - Ramesh Reddy (Red Hat)
 - Robert Richards (Mashery)
 - Sumedha Rubasinghe (WSO2)
@@ -187,19 +193,7 @@ The following individuals were members of the OASIS OData Technical Committee du
 
 ## ##subasec Participants
 
-**OData TC Members:**
-
-| First Name | Last Name | Company |
-| :--- | :--- | :--- |
-| George | Ericson | Dell |
-| Hubert | Heijkers | IBM |
-| Ling | Jin | IBM |
-| Stefan | Hagen | Individual |
-| Michael | Pizzo | Microsoft |
-| Christof | Sprenger | Microsoft |
-| Ralf | Handl | SAP SE |
-| Gerald | Krause | SAP SE |
-| Heiko | Theißen | SAP SE |
+$$$include ../odatatc-members.md$$$
 
 -------
 
@@ -210,6 +204,8 @@ The following individuals were members of the OASIS OData Technical Committee du
 |Committee Specification Draft 01|2024-02-28|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| 
 Import material from OData Version 4.01 Part 1: Protocol 
 <br>Changes listed in [section ##ChangesfromEarlierVersions]|
+|$$$subtitle$$$|$$$pubdateISO$$$|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| 
+Changes listed in [section ##ChangesfromEarlierVersions]|
 
 -------
 
