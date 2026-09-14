@@ -7,7 +7,7 @@
 
 ## Committee Specification Draft 02
 
-## 28 February 2024
+## 19 August 2026
 
 $\hbox{}$
 
@@ -32,11 +32,11 @@ https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.
 #### Chairs:
 
 Ralf Handl (ralf.handl@sap.com), [SAP SE](http://www.sap.com/) \
-Michael Pizzo (mikep@microsoft.com), [Microsoft](http://www.microsoft.com/)
+Michael Pizzo (b-mpizzo@microsoft.com), [Microsoft](http://www.microsoft.com/)
 
 #### Editors:
 
-Michael Pizzo (mikep@microsoft.com), [Microsoft](http://www.microsoft.com/) \
+Michael Pizzo (b-mpizzo@microsoft.com), [Microsoft](http://www.microsoft.com/) \
 Ralf Handl (ralf.handl@sap.com), [SAP SE](http://www.sap.com/) \
 Heiko Theißen (heiko.theissen@sap.com), [SAP SE](http://www.sap.com/)
 
@@ -80,12 +80,12 @@ When referencing this specification the following citation format should be used
 **[OData-v4.02-Part2]**
 
 _OData Version 4.02. Part 2: URL Conventions_.
-Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. 28 February 2024. OASIS Committee Specification Draft 02.
+Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. 19 August 2026. OASIS Committee Specification Draft 02.
 https://docs.oasis-open.org/odata/odata/v4.02/csd02/odata-v4.02-csd02-part2-url-conventions.html.
 Latest stage: https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html.
 
 #### Notices
-Copyright © OASIS Open 2024. All Rights Reserved.
+Copyright © OASIS Open 2026. All Rights Reserved.
 
 Distributed under the terms of the OASIS [IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/).
 
@@ -270,15 +270,15 @@ ecosystem of reusable client components and libraries.
 
 ## <a id="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a>
 
-Section | Feature / Change | Issue
---------|------------------|------
-[Section 4.17](#PassingQueryOptionsintheRequestBody)| `POST <uri>/$query` with `Content-Type: application/x-www-form-urlencoded` or `application/json`| [320](https://github.com/oasis-tcs/odata-specs/issues/320), [371](https://github.com/oasis-tcs/odata-specs/issues/371)
-[Section 4.17](#PassingQueryOptionsintheRequestBody)| `QUERY <uri>` as alternative to `POST <uri>/$query`| [355](https://github.com/oasis-tcs/odata-specs/issues/355)
-[Section 5.1.1.7.1](#matchespattern)| New overload for function `matchespattern` with flags| [441](https://github.com/oasis-tcs/odata-specs/issues/441)
-[Section 5.1.3](#SystemQueryOptionexpand)| Nested query options can only appear once per expand item| [2004](https://github.com/oasis-tcs/odata-specs/issues/2004)
-[Section 5.1.3](#SystemQueryOptionexpand)| Allow empty `$expand` lists| [2243](https://github.com/oasis-tcs/odata-specs/issues/2243)
-[Section 5.1.4](#SystemQueryOptionselect)| Allow `$key` in `$select` list to include key properties| [2257](https://github.com/oasis-tcs/odata-specs/issues/2257)
-[Section 5.1.8](#SystemQueryOptionsearch)| Allow alternative `$search` syntax| [293](https://github.com/oasis-tcs/odata-specs/issues/293)
+Section | Feature / Change | Issue | Revision
+--------|------------------|-------|---------
+[Section 4.17](#PassingQueryOptionsintheRequestBody)| `POST <uri>/$query` with `Content-Type: application/x-www-form-urlencoded` or `application/json`| [320](https://github.com/oasis-tcs/odata-specs/issues/320), [371](https://github.com/oasis-tcs/odata-specs/issues/371) | CSD02
+[Section 4.17](#PassingQueryOptionsintheRequestBody)| `QUERY <uri>` as alternative to `POST <uri>/$query`| [355](https://github.com/oasis-tcs/odata-specs/issues/355) | CSD02
+[Section 5.1.1.7.1](#matchespattern)| New overload for function `matchespattern` with flags| [441](https://github.com/oasis-tcs/odata-specs/issues/441) | CSD01
+[Section 5.1.3](#SystemQueryOptionexpand)| Nested query options can only appear once per expand item| [2004](https://github.com/oasis-tcs/odata-specs/issues/2004) | CSD02
+[Section 5.1.3](#SystemQueryOptionexpand)| Allow empty `$expand` lists| [2243](https://github.com/oasis-tcs/odata-specs/issues/2243) | CSD02
+[Section 5.1.4](#SystemQueryOptionselect)| Allow `$key` in `$select` list to include key properties| [2257](https://github.com/oasis-tcs/odata-specs/issues/2257) | CSD02
+[Section 5.1.8](#SystemQueryOptionsearch)| Allow alternative `$search` syntax| [293](https://github.com/oasis-tcs/odata-specs/issues/293) | CSD02
 
 ## <a id="Glossary" href="#Glossary">1.2 Glossary</a>
 
@@ -4412,7 +4412,9 @@ do we have considerations specific to URLs, for example length, encoding, privac
 | Hubert | Heijkers | IBM |
 | Ling | Jin | IBM |
 | Stefan | Hagen | Individual |
+| John | Gathogo | Microsoft |
 | Michael | Pizzo | Microsoft |
+| Olga | Podolyako | Microsoft |
 | Christof | Sprenger | Microsoft |
 | Ralf | Handl | SAP SE |
 | Gerald | Krause | SAP SE |
@@ -4425,6 +4427,7 @@ do we have considerations specific to URLs, for example length, encoding, privac
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
 |Committee Specification Draft 01|2024-02-28|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| Import material from OData Version 4.01 Part 2: URL Conventions <br>Changes listed in [section 1.1](#ChangesfromEarlierVersions)|
+|Committee Specification Draft 02|2026-08-19|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| Changes listed in [section 1.1](#ChangesfromEarlierVersions)|
 
 -------
 
@@ -4432,7 +4435,7 @@ do we have considerations specific to URLs, for example length, encoding, privac
 
 <!-- Required section. Do not modify. -->
 
-Copyright © OASIS Open 2024. All Rights Reserved.
+Copyright © OASIS Open 2026. All Rights Reserved.
 
 All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the "OASIS IPR Policy"). The full [Policy](https://www.oasis-open.org/policies-guidelines/ipr/) may be found at the OASIS website.
 

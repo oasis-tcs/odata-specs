@@ -86,19 +86,7 @@ do we have considerations specific to URLs, for example length, encoding, privac
 
 ## ##subasec Participants
 
-**OData TC Members:**
-
-| First Name | Last Name | Company |
-| :--- | :--- | :--- |
-| George | Ericson | Dell |
-| Hubert | Heijkers | IBM |
-| Ling | Jin | IBM |
-| Stefan | Hagen | Individual |
-| Michael | Pizzo | Microsoft |
-| Christof | Sprenger | Microsoft |
-| Ralf | Handl | SAP SE |
-| Gerald | Krause | SAP SE |
-| Heiko | Theißen | SAP SE |
+$$$include ../odatatc-members.md$$$
 
 -------
 
@@ -109,6 +97,8 @@ do we have considerations specific to URLs, for example length, encoding, privac
 |Committee Specification Draft 01|2024-02-28|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| 
 Import material from OData Version 4.01 Part 2: URL Conventions 
 <br>Changes listed in [section ##ChangesfromEarlierVersions]|
+|$$$subtitle$$$|$$$pubdateISO$$$|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| 
+Changes listed in [section ##ChangesfromEarlierVersions]|
 
 -------
 

@@ -118,7 +118,7 @@
 </summary>
 <h2>Committee Specification Draft 02</h2>
 <details open><summary>
-<h2 id="28-february-2024">28 February 2024</h2>
+<h2 id="19-august-2026">19 August 2026</h2>
 </summary>
 <p><span class="math inline">\(\hbox{}\)</span></p>
 <h4>This stage:</h4>
@@ -137,10 +137,10 @@
 <p><a href="https://www.oasis-open.org/committees/odata/">OASIS Open Data Protocol (OData) TC</a></p>
 <h4>Chairs:</h4>
 <p>Ralf Handl (<a href="mailto:ralf.handl@sap.com">ralf.handl@sap.com</a>), <a href="http://www.sap.com/">SAP SE</a><br />
-Michael Pizzo (<a href="mailto:mikep@microsoft.com">mikep@microsoft.com</a>), <a href="http://www.microsoft.com/">Microsoft</a></p>
+Michael Pizzo (<a href="mailto:b-mpizzo@microsoft.com">b-mpizzo@microsoft.com</a>), <a href="http://www.microsoft.com/">Microsoft</a></p>
 <h4>Editors:</h4>
 <p>Ralf Handl (<a href="mailto:ralf.handl@sap.com">ralf.handl@sap.com</a>), <a href="http://www.sap.com/">SAP SE</a><br />
-Michael Pizzo (<a href="mailto:mikep@microsoft.com">mikep@microsoft.com</a>), <a href="http://www.microsoft.com/">Microsoft</a><br />
+Michael Pizzo (<a href="mailto:b-mpizzo@microsoft.com">b-mpizzo@microsoft.com</a>), <a href="http://www.microsoft.com/">Microsoft</a><br />
 Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</a>), <a href="http://www.sap.com/">SAP SE</a></p>
 <h4><span id="RelatedWork">Related work:</span></h4>
 <p>This specification replaces or supersedes:</p>
@@ -172,9 +172,9 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <h4>Citation format:</h4>
 <p>When referencing this specification the following citation format should be used:</p>
 <p><strong>[OData-JSON-Format-v4.02]</strong></p>
-<p><em>OData JSON Format Version 4.02</em>. Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. 28 February 2024. OASIS Committee Specification Draft 02. <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/csd02/odata-json-format-v4.02-csd02.html">https://docs.oasis-open.org/odata/odata-json-format/v4.02/csd02/odata-json-format-v4.02-csd02.html</a>. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html">https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html</a>.</p>
+<p><em>OData JSON Format Version 4.02</em>. Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. 19 August 2026. OASIS Committee Specification Draft 02. <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/csd02/odata-json-format-v4.02-csd02.html">https://docs.oasis-open.org/odata/odata-json-format/v4.02/csd02/odata-json-format-v4.02-csd02.html</a>. Latest stage: <a href="https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html">https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html</a>.</p>
 <h4>Notices</h4>
-<p>Copyright © OASIS Open 2024. All Rights Reserved.</p>
+<p>Copyright © OASIS Open 2026. All Rights Reserved.</p>
 <p>Distributed under the terms of the OASIS <a href="https://www.oasis-open.org/policies-guidelines/ipr/">IPR Policy</a>.</p>
 <p>The name “OASIS” is a trademark of <a href="https://www.oasis-open.org/">OASIS</a>, the owner and developer of this specification, and should be used only to refer to the organization and its official outputs.</p>
 <p>For complete copyright information please see the full Notices section in an Appendix <a href="#Notices">below</a>.</p>
@@ -348,6 +348,7 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <th>Section</th>
 <th>Feature / Change</th>
 <th>Issue</th>
+<th>Revision</th>
 </tr>
 </thead>
 <tbody>
@@ -355,51 +356,61 @@ Heiko Theißen (<a href="mailto:heiko.theissen@sap.com">heiko.theissen@sap.com</
 <td><a href="#ControlInformationcontextodatacontext">Section 4.6.1</a></td>
 <td>Fragment portion of Context URL is not percent-encoded</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/368">368</a></td>
+<td>CSD02</td>
 </tr>
 <tr>
 <td><a href="#ControlInformationidodataid">Section 4.6.9</a></td>
 <td>Transient entities can be identifiable</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/1928">1928</a></td>
+<td>CSD02</td>
 </tr>
 <tr>
 <td><a href="#ControlInformationetagodataetag">Section 4.6.11</a></td>
 <td>Control information <code>"@etag": ""</code> to prevent updates</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/2021">2021</a></td>
+<td>CSD02</td>
 </tr>
 <tr>
 <td><a href="#ControlInformationmediaodatamedia">Section 4.6.13</a></td>
 <td><code>mediaContentType</code> can be <code>null</code></td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/536">536</a></td>
+<td>CSD01</td>
 </tr>
 <tr>
 <td><a href="#StructuralProperty">Section 7</a>, <a href="#InformativeReferences">Section A.2</a></td>
 <td>Removed reference to obsolete version of GeoJSON</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/456">456</a></td>
+<td>CSD02</td>
 </tr>
 <tr>
 <td><a href="#EntityReference">Section 14</a></td>
 <td>Entities can be referenced by id or full set of key properties</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/352">352</a></td>
+<td>CSD02</td>
 </tr>
 <tr>
 <td><a href="#DeletedEntity">Section 15.3</a></td>
 <td><code>type</code> control information, if present, must come immediately after <code>removed</code></td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/1985">1985</a></td>
+<td>CSD02</td>
 </tr>
 <tr>
 <td><a href="#ActionInvocation">Section 18</a></td>
 <td>Allow common expressions in action payloads</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/341">341</a></td>
+<td>CSD02</td>
 </tr>
 <tr>
 <td><a href="#BatchRequestsandResponses">Section 19</a></td>
 <td>Atomicity group of prerequisite requests optional in <code>dependsOn</code></td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/2150">2150</a></td>
+<td>CSD02</td>
 </tr>
 <tr>
 <td><a href="#BatchRequestsandResponses">Section 19</a></td>
 <td>Ordering of properties in JSON Batch Request/Response objects</td>
 <td><a href="https://github.com/oasis-tcs/odata-specs/issues/351">351</a></td>
+<td>CSD02</td>
 </tr>
 </tbody>
 </table>
@@ -477,7 +488,7 @@ This uses pandoc 3.8.3 from https://github.com/jgm/pandoc/releases/tag/3.8.3.
 <li><a href="#PayloadOrderingConstraints"><code>streaming</code></a></li>
 </ul>
 <p>The names and values of these format parameters are case-insensitive.</p>
-<p>Services SHOULD advertise the supported media types by annotating the entity container with the term <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#SupportedFormats"><code>Capabilities.SupportedFormats</code></a></span> defined in <a href="#ODataVocCap">OData-VocCap</a>, listing all available formats and combinations of supported format parameters.</p>
+<p>Services SHOULD advertise the supported media types by annotating the entity container with the term <span class="term"><a href="https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/csd03/odata-vocabularies-v4.0-csd03.html#Capabilities-SupportedFormats"><code>Capabilities.SupportedFormats</code></a></span> defined in <a href="#ODataVocCap">OData-VocCap</a>, listing all available formats and combinations of supported format parameters.</p>
 <details open><summary>
 <h2 id="31-controlling-the-amount-of-control-information-in-responses"><a id="ControllingtheAmountofControlInformationinResponses" href="#ControllingtheAmountofControlInformationinResponses">3.1 Controlling the Amount of Control Information in Responses</a></h2>
 </summary>
@@ -964,9 +975,9 @@ http://host/service/Customers(&#39;ALFKI&#39;)/Orders</code></pre>
 <p>Values of type <code>Edm.Boolean</code> are represented as the JSON literals <code>true</code> and <code>false</code></p>
 <p>Values of types <code>Edm.Byte</code>, <code>Edm.SByte</code>, <code>Edm.Int16</code>, <code>Edm.Int32</code>, <code>Edm.Int64</code>, <code>Edm.Single</code>, <code>Edm.Double</code>, and <code>Edm.Decimal</code> are represented as JSON numbers, except for <code>-INF</code>, <code>INF</code>, and <code>NaN</code> which are represented as strings, and except when the <a href="#ControllingtheRepresentationofNumbers"><code>IEEE754Compatible</code></a> format parameter demands representation of <code>Edm.Int64</code> and <code>Edm.Decimal</code> as strings.</p>
 <p>Values of type <code>Edm.String</code> are represented as JSON strings, using the JSON string escaping rules.</p>
-<p>Values of type <code>Edm.Binary</code>, <code>Edm.Date</code>, <code>Edm.DateTimeOffset</code>, <code>Edm.Duration</code>, <code>Edm.Guid</code>, and <code>Edm.TimeOfDay</code> are represented as JSON strings whose content satisfies the rules <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#binaryValue"><code>binaryValue</code></a></span>, <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#dateValue"><code>dateValue</code></a></span>, <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#dateTimeOffsetValue"><code>dateTimeOffsetValue</code></a></span>, <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#durationValue"><code>durationValue</code></a></span>, <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#guidValue"><code>guidValue</code></a></span>, and <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#timeOfDayValue"><code>timeOfDayValue</code></a></span> respectively, in <a href="#ODataABNF">OData-ABNF</a>. The interpretation of a <code>timeOfDayValue</code> in which the <code>second</code> is omitted is not defined by this specification. For maximum interoperability, senders SHOULD always include the <code>second</code>.</p>
+<p>Values of type <code>Edm.Binary</code>, <code>Edm.Date</code>, <code>Edm.DateTimeOffset</code>, <code>Edm.Duration</code>, <code>Edm.Guid</code>, and <code>Edm.TimeOfDay</code> are represented as JSON strings whose content satisfies the rules <span class="abnf"><a href="https://docs.oasis-open.org/odata/odata/v4.02/csd02/abnf/syntax-diagram/odata-abnf-diagrams.html#binaryValue"><code>binaryValue</code></a></span>, <span class="abnf"><a href="https://docs.oasis-open.org/odata/odata/v4.02/csd02/abnf/syntax-diagram/odata-abnf-diagrams.html#dateValue"><code>dateValue</code></a></span>, <span class="abnf"><a href="https://docs.oasis-open.org/odata/odata/v4.02/csd02/abnf/syntax-diagram/odata-abnf-diagrams.html#dateTimeOffsetValue"><code>dateTimeOffsetValue</code></a></span>, <span class="abnf"><a href="https://docs.oasis-open.org/odata/odata/v4.02/csd02/abnf/syntax-diagram/odata-abnf-diagrams.html#durationValue"><code>durationValue</code></a></span>, <span class="abnf"><a href="https://docs.oasis-open.org/odata/odata/v4.02/csd02/abnf/syntax-diagram/odata-abnf-diagrams.html#guidValue"><code>guidValue</code></a></span>, and <span class="abnf"><a href="https://docs.oasis-open.org/odata/odata/v4.02/csd02/abnf/syntax-diagram/odata-abnf-diagrams.html#timeOfDayValue"><code>timeOfDayValue</code></a></span> respectively, in <a href="#ODataABNF">OData-ABNF</a>. The interpretation of a <code>timeOfDayValue</code> in which the <code>second</code> is omitted is not defined by this specification. For maximum interoperability, senders SHOULD always include the <code>second</code>.</p>
 <p>Primitive values that cannot be represented, for example due to server conversion issues or IEEE754 limitations on the size of an <code>Edm.Int64</code> or <code>Edm.Decimal</code> value, are annotated with the <code>Core.ValueException</code> term. In this case, the payload MAY include an approximation of the value and MAY specify a string representation of the exact value in the <code>value</code> property of the annotation.</p>
-<p>Enumeration values are represented as JSON strings whose content satisfies the rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#enumValue"><code>enumValue</code></a></span> in <a href="#ODataABNF">OData-ABNF</a>. The preferred representation is the <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#enumerationMember"><code>enumerationMember</code></a></span>. If no <code>enumerationMember</code> (or combination of named enumeration members) is available, the <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#enumMemberValue"><code>enumMemberValue</code></a></span> representation may be used.</p>
+<p>Enumeration values are represented as JSON strings whose content satisfies the rule <span class="abnf"><a href="https://docs.oasis-open.org/odata/odata/v4.02/csd02/abnf/syntax-diagram/odata-abnf-diagrams.html#enumValue"><code>enumValue</code></a></span> in <a href="#ODataABNF">OData-ABNF</a>. The preferred representation is the <span class="abnf"><a href="https://docs.oasis-open.org/odata/odata/v4.02/csd02/abnf/syntax-diagram/odata-abnf-diagrams.html#enumerationMember"><code>enumerationMember</code></a></span>. If no <code>enumerationMember</code> (or combination of named enumeration members) is available, the <span class="abnf"><a href="https://docs.oasis-open.org/odata/odata/v4.02/csd02/abnf/syntax-diagram/odata-abnf-diagrams.html#enumMemberValue"><code>enumMemberValue</code></a></span> representation may be used.</p>
 <p>Geography and geometry values are represented as geometry types as defined in <a href="#rfc7946">RFC7946</a>.</p>
 <p>Geography and geometry types have the same representation in a JSON payload. Whether the value represents a geography type or geometry type is inferred from its usage or specified using the <a href="#ControlInformationtypeodatatype"><code>type</code></a> control information. <a href="#rfc7946">RFC7946</a> does not define means for expressing instance-specific <a href="https://datatracker.ietf.org/doc/html/rfc7946#section-4">Coordinate Reference Systems</a>.</p>
 <div class="example">
@@ -1915,7 +1926,7 @@ Preference-Applied: return=minimal, continue-on-error
 <details open><summary>
 <h1 id="16-bound-function"><a id="BoundFunction" href="#BoundFunction">16 Bound Function</a></h1>
 </summary>
-<p>A bound function is advertised via a name/value pair where the name is a hash (<code>#</code>) character followed by the namespace- or alias-qualified name of the function. The namespace or alias MUST be defined or the namespace referenced in the metadata document of the service, see <a href="#ODataCSDL">OData-CSDL</a>. A specific function overload can be advertised by appending the parentheses-enclosed, comma-separated list of non-binding parameter names to the qualified function name, see rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#qualifiedFunctionName"><code>qualifiedFunctionName</code></a></span> in <a href="#ODataABNF">OData-ABNF</a>.</p>
+<p>A bound function is advertised via a name/value pair where the name is a hash (<code>#</code>) character followed by the namespace- or alias-qualified name of the function. The namespace or alias MUST be defined or the namespace referenced in the metadata document of the service, see <a href="#ODataCSDL">OData-CSDL</a>. A specific function overload can be advertised by appending the parentheses-enclosed, comma-separated list of non-binding parameter names to the qualified function name, see rule <span class="abnf"><a href="https://docs.oasis-open.org/odata/odata/v4.02/csd02/abnf/syntax-diagram/odata-abnf-diagrams.html#qualifiedFunctionName"><code>qualifiedFunctionName</code></a></span> in <a href="#ODataABNF">OData-ABNF</a>.</p>
 <p>A function that is bound to a single structured type MAY be advertised within the JSON object representing that structured type.</p>
 <p>Functions that are bound to a collection MAY be advertised within the JSON object containing the collection. If the collection is the top-level response, the function advertisement name/value pair is placed next to the <code>value</code> name/value pair representing the collection. If the collection is nested within an instance of a structured type, then in 4.01 and greater payloads the name of the function advertisement is prepended with the name of the collection-valued property and is placed next to the collection-valued property, <a href="#ExpandedNavigationProperty">expanded navigation property</a>, or <a href="#NavigationLink"><code>navigationLink</code></a> control information, if present. 4.0 payloads MUST NOT advertise functions prefixed with property names.</p>
 <p>If the function is available, the value of the advertisement is an object. OData 4.01 and greater services MAY advertise the non-availability of the function with the value <code>null</code>.</p>
@@ -2123,7 +2134,7 @@ Preference-Applied: return=minimal, continue-on-error
 <p>The value of <code>url</code> is a string containing the individual request URL. The URL MAY be an absolute path (starting with a forward slash <code>/</code>) which is appended to scheme, host, and port of the batch request URL, or a relative path (not starting with a forward slash <code>/</code>).</p>
 <p>If the first segment of a relative path starts with a <code>$</code> character and is not identical to the name of a top-level system resource (<code>$batch</code>, <code>$crossjoin</code>, <code>$all</code>, <code>$entity</code>, <code>$root</code>, <code>$id</code>, <code>$metadata</code>, or other system resources defined according to the <code>OData-Version</code> of the protocol specified in the request), then this first segment is replaced with the URL of the entity created by or returned from a preceding request whose <code>id</code> value is identical to the value of the first segment with the leading <code>$</code> character removed. The <code>id</code> of this request MUST be specified in the <code>dependsOn</code> name/value pair.</p>
 <p>Otherwise, the relative path is resolved relative to the batch request URL (i.e. relative to the service root).</p>
-<p>The value of <code>atomicityGroup</code> is a string whose content MUST NOT be identical to any value of <code>id</code> within the batch request, and which MUST satisfy the rule <span class="abnf"><a href="https://oasis-tcs.github.io/odata-abnf/odata-abnf-diagrams.html#request-id"><code>request-id</code></a></span> in <a href="#ODataABNF">OData-ABNF</a>. All request objects with the same value for <code>atomicityGroup</code> MUST be adjacent in the <code>requests</code> array. These requests are processed as an atomic operation and MUST either all succeed, or all fail.</p>
+<p>The value of <code>atomicityGroup</code> is a string whose content MUST NOT be identical to any value of <code>id</code> within the batch request, and which MUST satisfy the rule <span class="abnf"><a href="https://docs.oasis-open.org/odata/odata/v4.02/csd02/abnf/syntax-diagram/odata-abnf-diagrams.html#request-id"><code>request-id</code></a></span> in <a href="#ODataABNF">OData-ABNF</a>. All request objects with the same value for <code>atomicityGroup</code> MUST be adjacent in the <code>requests</code> array. These requests are processed as an atomic operation and MUST either all succeed, or all fail.</p>
 <p>Note: the atomicity group is a generalization of the change set in the multipart batch format specified in <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#MultipartBatchRequestBody">OData-Protocol, section 11.7.7.1</a>.</p>
 <p>The value of <code>dependsOn</code> is an array of strings whose values MUST be values of either <code>id</code> or <code>atomicityGroup</code> of preceding request objects; forward references are not allowed. When targeting a 4.01 service, if a request depends on another request that is part of a different atomicity group, the atomicity group MUST be listed in <code>dependsOn</code>. OData 4.02 or greater services SHOULD NOT require the atomicity group to be listed if <code>dependsOn</code> already contains the <code>id</code> of a request within that atomicity group. For maximum interoperability with earlier services, clients SHOULD continue to specify the <code>atomicityGroup</code>.</p>
 <p>In the absence of the optional <code>if</code> member a request that depends on other requests or atomicity groups is only executed if those requests were executed successfully, i.e. with a <code>2xx</code> response code. If one of the requests it depends on has failed, the dependent request is not executed and a response with status code of <code>424 Failed Dependency</code> is returned for it as part of the batch response.</p>
@@ -2133,7 +2144,7 @@ Preference-Applied: return=minimal, continue-on-error
 <li><code>$&lt;content-id&gt;</code> to reference the response body of the referenced request</li>
 <li><code>$&lt;content-id&gt;/&lt;path&gt;</code> to reference a part of the response body</li>
 </ul>
-<p>Services SHOULD advertise support of the <code>if</code> member by specifying the property <code>RequestDependencyConditionsSupported</code> in the <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#BatchSupport"><code>Capabilities.BatchSupport</code></a></span> term applied to the entity container, see <a href="#ODataVocCap">OData-VocCap</a>. If a service does not support request dependencies, the dependent request MUST fail with <code>424 Failed Dependency</code>, and if the dependent request is part of an atomicity group, all requests in that group fail with <code>424 Failed Dependency</code> with no changes applied.</p>
+<p>Services SHOULD advertise support of the <code>if</code> member by specifying the property <code>RequestDependencyConditionsSupported</code> in the <span class="term"><a href="https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/csd03/odata-vocabularies-v4.0-csd03.html#Capabilities-BatchSupport"><code>Capabilities.BatchSupport</code></a></span> term applied to the entity container, see <a href="#ODataVocCap">OData-VocCap</a>. If a service does not support request dependencies, the dependent request MUST fail with <code>424 Failed Dependency</code>, and if the dependent request is part of an atomicity group, all requests in that group fail with <code>424 Failed Dependency</code> with no changes applied.</p>
 <p>The value of <code>headers</code> is an object whose name/value pairs represent request headers. The name of each pair MUST be the lower-case header name; the value is a string containing the header-encoded value of the header. Services MAY support omitting the <code>content-type</code> in the <code>header</code> property of a request object. For such requests the <code>body</code>, if present, MUST be <code>application/json</code> and MUST conform to <a href="#PayloadOrderingConstraints">payload ordering constraints</a>.</p>
 <p>The value of <code>body</code> can be <code>null</code>, which is equivalent to not specifying the <code>body</code> name/value pair.</p>
 <p>For media type <code>application/json</code> or one of its subtypes, optionally with format parameters, the value of <code>body</code> is JSON.</p>
@@ -2801,8 +2812,18 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <td style="text-align: left;">Individual</td>
 </tr>
 <tr>
+<td style="text-align: left;">John</td>
+<td style="text-align: left;">Gathogo</td>
+<td style="text-align: left;">Microsoft</td>
+</tr>
+<tr>
 <td style="text-align: left;">Michael</td>
 <td style="text-align: left;">Pizzo</td>
+<td style="text-align: left;">Microsoft</td>
+</tr>
+<tr>
+<td style="text-align: left;">Olga</td>
+<td style="text-align: left;">Podolyako</td>
 <td style="text-align: left;">Microsoft</td>
 </tr>
 <tr>
@@ -2823,16 +2844,6 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <tr>
 <td style="text-align: left;">Heiko</td>
 <td style="text-align: left;">Theißen</td>
-<td style="text-align: left;">SAP SE</td>
-</tr>
-<tr>
-<td style="text-align: left;">Mark</td>
-<td style="text-align: left;">Biamonte</td>
-<td style="text-align: left;">Progress Software</td>
-</tr>
-<tr>
-<td style="text-align: left;">Martin</td>
-<td style="text-align: left;">Zurmuehl</td>
 <td style="text-align: left;">SAP SE</td>
 </tr>
 </tbody>
@@ -2859,6 +2870,12 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <td style="text-align: left;">Michael Pizzo<br>Ralf Handl<br>Heiko Theißen</td>
 <td style="text-align: left;">Import material from OData JSON Format Version 4.01 <br>Changes listed in <a href="#ChangesfromEarlierVersions">section 1.1</a></td>
 </tr>
+<tr>
+<td style="text-align: left;">Committee Specification Draft 02</td>
+<td style="text-align: left;">2026-08-19</td>
+<td style="text-align: left;">Michael Pizzo<br>Ralf Handl<br>Heiko Theißen</td>
+<td style="text-align: left;">Changes listed in <a href="#ChangesfromEarlierVersions">section 1.1</a></td>
+</tr>
 </tbody>
 </table>
 </details>
@@ -2868,7 +2885,7 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 </summary>
 <!-- Required section. Do not modify. -->
 
-<p>Copyright © OASIS Open 2024. All Rights Reserved.</p>
+<p>Copyright © OASIS Open 2026. All Rights Reserved.</p>
 <p>All capitalized terms in the following text have the meanings assigned to them in the OASIS Intellectual Property Rights Policy (the “OASIS IPR Policy”). The full <a href="https://www.oasis-open.org/policies-guidelines/ipr/">Policy</a> may be found at the OASIS website.</p>
 <p>This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published, and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this section are included on all such copies and derivative works. However, this document itself may not be modified in any way, including by removing the copyright notice or references to OASIS, except as needed for the purpose of developing any document or deliverable produced by an OASIS Technical Committee (in which case the rules applicable to copyrights, as set forth in the OASIS IPR Policy, must be followed) or as required to translate it into languages other than English.</p>
 <p>The limited permissions granted above are perpetual and will not be revoked by OASIS or its successors or assigns.</p>

@@ -24,29 +24,29 @@ ecosystem of reusable client components and libraries.
 
 ## ##subsec Changes from Earlier Versions
 
-Section | Feature / Change | Issue
---------|------------------|------
+Section | Feature / Change | Issue | Revision
+--------|------------------|-------|---------
 [Section ##PassingQueryOptionsintheRequestBody]| 
 `POST <uri>/$query` with `Content-Type: application/x-www-form-urlencoded` or `application/json`| 
-[320](https://github.com/oasis-tcs/odata-specs/issues/320), [371](https://github.com/oasis-tcs/odata-specs/issues/371)
+[320](https://github.com/oasis-tcs/odata-specs/issues/320), [371](https://github.com/oasis-tcs/odata-specs/issues/371) | CSD02
 [Section ##PassingQueryOptionsintheRequestBody]| 
 `QUERY <uri>` as alternative to `POST <uri>/$query`| 
-[355](https://github.com/oasis-tcs/odata-specs/issues/355)
+[355](https://github.com/oasis-tcs/odata-specs/issues/355) | CSD02
 [Section ##matchespattern]| 
 New overload for function `matchespattern` with flags| 
-[441](https://github.com/oasis-tcs/odata-specs/issues/441)
+[441](https://github.com/oasis-tcs/odata-specs/issues/441) | CSD01
 [Section ##SystemQueryOptionexpand]| 
 Nested query options can only appear once per expand item| 
-[2004](https://github.com/oasis-tcs/odata-specs/issues/2004)
+[2004](https://github.com/oasis-tcs/odata-specs/issues/2004) | CSD02
 [Section ##SystemQueryOptionexpand]| 
 Allow empty `$expand` lists| 
-[2243](https://github.com/oasis-tcs/odata-specs/issues/2243)
+[2243](https://github.com/oasis-tcs/odata-specs/issues/2243) | CSD02
 [Section ##SystemQueryOptionselect]| 
 Allow `$key` in `$select` list to include key properties| 
-[2257](https://github.com/oasis-tcs/odata-specs/issues/2257)
+[2257](https://github.com/oasis-tcs/odata-specs/issues/2257) | CSD02
 [Section ##SystemQueryOptionsearch]| 
 Allow alternative `$search` syntax| 
-[293](https://github.com/oasis-tcs/odata-specs/issues/293)
+[293](https://github.com/oasis-tcs/odata-specs/issues/293) | CSD02
 
 ## ##subsec Glossary
 

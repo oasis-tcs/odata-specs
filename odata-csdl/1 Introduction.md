@@ -27,37 +27,37 @@ Schema Definition Language (XSD) 1.1 as described in
 
 ## ##subsec Changes from Earlier Versions
 
-Section | Feature / Change | Issue
---------|------------------|------
+Section | Feature / Change | Issue | Revision
+--------|------------------|-------|---------
 [Section ##PrimitiveTypes]| 
 Allow stream-valued non-binding parameters| 
-[525](https://github.com/oasis-tcs/odata-specs/issues/525)
+[525](https://github.com/oasis-tcs/odata-specs/issues/525) | CSD01
 [Section ##SRID]| 
 SRID value `variable` is deprecated| 
-[1935](https://github.com/oasis-tcs/odata-specs/issues/1935)
+[1935](https://github.com/oasis-tcs/odata-specs/issues/1935) | CSD02
 : varjson
-[Section ##CSDLJSONDocument] | Additional `$Version` value `4.02` | [2222](https://github.com/oasis-tcs/odata-specs/issues/2222)
+[Section ##CSDLJSONDocument] | Additional `$Version` value `4.02` | [2222](https://github.com/oasis-tcs/odata-specs/issues/2222) | CSD02
 :
 : varxml
-[Section ##CSDLXMLDocument] | Additional `Version` value `4.02` | [2222](https://github.com/oasis-tcs/odata-specs/issues/2222)
+[Section ##CSDLXMLDocument] | Additional `Version` value `4.02` | [2222](https://github.com/oasis-tcs/odata-specs/issues/2222) | CSD02
 :
 : varxml
 [Section ##EntityContainer]| 
 All children of `edm:EntityContainer` are optional| 
-[464](https://github.com/oasis-tcs/odata-specs/issues/464)
+[464](https://github.com/oasis-tcs/odata-specs/issues/464) | CSD01
 :
-[Section ##ActionandFunction] | Actions and functions can take, and return, delta payloads | [348](https://github.com/oasis-tcs/odata-specs/issues/348)
-[Section ##ReturnType] | Returned collections of entities may contain `null` values | [1983](https://github.com/oasis-tcs/odata-specs/issues/1983)
-[Section ##GeoValues] | Constant Geo values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
-[Section ##StreamValues] | Constant Stream values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654)
+[Section ##ActionandFunction] | Actions and functions can take, and return, delta payloads | [348](https://github.com/oasis-tcs/odata-specs/issues/348) | CSD02
+[Section ##ReturnType] | Returned collections of entities may contain `null` values | [1983](https://github.com/oasis-tcs/odata-specs/issues/1983) | CSD02
+[Section ##GeoValues] | Constant Geo values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654) | CSD02
+[Section ##StreamValues] | Constant Stream values in annotations | [654](https://github.com/oasis-tcs/odata-specs/issues/654) | CSD02
 [Section ##PathEvaluation]| 
 New path evaluation rules for annotations targeting annotations and external targeting via container| 
-[575](https://github.com/oasis-tcs/odata-specs/issues/575)
+[575](https://github.com/oasis-tcs/odata-specs/issues/575) | CSD01
 [Section ##IfThenElse]| 
 Nested `If` without else part in collections| 
-[326](https://github.com/oasis-tcs/odata-specs/issues/326)
-[Section ##SimpleIdentifier] | Prefer identifiers consisting only of latin letters, the underscore, and decimal numbers | [375](https://github.com/oasis-tcs/odata-specs/issues/375)
-[Section ##Conformance] | Additional conformance clauses for version 4.02 |
+[326](https://github.com/oasis-tcs/odata-specs/issues/326) | CSD02
+[Section ##SimpleIdentifier] | Prefer identifiers consisting only of latin letters, the underscore, and decimal numbers | [375](https://github.com/oasis-tcs/odata-specs/issues/375) | CSD02
+[Section ##Conformance] | Additional conformance clauses for version 4.02 | | CSD02
 
 ## ##subsec Glossary
 
