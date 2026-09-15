@@ -494,7 +494,7 @@ This control information MUST continue to be included, as applicable,
 even in the `metadata=none` case.
 
 It is not valid to specify `metadata=none` on a [delta
-request](#DeltaPayload).
+payload](#DeltaPayload).
 
 ## <a id="ControllingtheRepresentationofNumbers" href="#ControllingtheRepresentationofNumbers">3.2 Controlling the Representation of Numbers</a>
 
