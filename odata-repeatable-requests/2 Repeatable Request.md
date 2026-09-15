@@ -38,9 +38,9 @@ request is repeatable. The value of the `Repeatability-Request-ID` is an
 opaque string representing a client-generated, globally unique for all
 time, identifier for the request. Servers MUST accommodate the
 36-character hexadecimal case-insensitive encoding of a UUID (GUID), as
-defined in [**\[RFC4122\]**](#RFC4122). It is recommended for security
+defined in [RFC4122](#rfc4122). It is recommended for security
 purposes to use version 4 (random) UUIDs as defined in
-[**\[RFC4122\]**](#RFC4122) section 4.1.3. Support for other forms of
+[RFC4122](#rfc4122) section 4.1.3. Support for other forms of
 unique identifiers is optional.
 
 If specified, the client directs that the request MUST be repeatable.
@@ -54,7 +54,7 @@ Not Implemented.
 request is repeatable. `Repeatability-First-Sent` is used to specify the
 date and time at which the request was first created.
 `Repeatability-First-Sent` value MUST be expressed using the IMF-fixdate
-form of HTTP-date as defined in [**\[RFC7231\]**](#RFC7231).
+form of HTTP-date as defined in [RFC7231](#rfc7231).
 
 `Repeatability-First-Sent` allows the server to determine if the request
 is within its currently tracked window of time for repeatability. If
@@ -76,8 +76,8 @@ client-generated, globally unique for all time, identifier for the
 instance of the client application that issued the request. Servers, if
 they do not ignore this header, MUST accommodate the 36-character
 hexadecimal case-insensitive encoding of a UUID (GUID), as defined in
-[**\[RFC4122\]**](#RFC4122). It is recommended for security purposes to
-use version 4 (random) UUIDs as defined in [**\[RFC4122\]**](#RFC4122)
+[RFC4122](#rfc4122). It is recommended for security purposes to
+use version 4 (random) UUIDs as defined in [RFC4122](#rfc4122)
 section 4.1.3. Support for other forms of unique identifiers is
 optional.
 
@@ -191,7 +191,7 @@ Request with a `Repeatability-Result` of rejected.
 
 If the server receives the `Repeatability-First-Sent` header but the value
 is not a valid IMF-fixdate form of HTTP-date as defined in
-[**\[RFC7231\]**](#RFC7231), it MUST return 400 Bad Request with a
+[RFC7231](#rfc7231), it MUST return 400 Bad Request with a
 `Repeatability-Result` of rejected.
 
 If the server receives a request with valid, non-null,
@@ -420,7 +420,7 @@ the storage table used to track repeatable requests.
 
 This specification is valid outside the context of OData but this
 section details the specifics of using it with OData, see
-[**\[OData-Protocol\]**](#odataProtocol).
+[OData-Protocol](#ODataProtocol).
 
 ## ##subsec Support
 
@@ -432,18 +432,18 @@ server supports repeatability.
 
 Services supporting repeatability SHOULD annotate the entity container,
 entity sets, singletons, action imports, or actions in the service
-metadata with the term Repeatability.Supported defined in the
-Repeatability vocabulary, see [**\[OData-VocRep\]**](#odataVocRep).
+metadata with the term [Repeatability.Supported]{.term} defined in the
+Repeatability vocabulary, see [OData-VocRep](#ODataVocRep).
 
 Services supporting repeatable requests cleanup by
 `Repeatability-Request-ID` and/or `Repeatability-Client-ID` SHOULD annotate
 the entity container with the terms
-Repeatability.DeleteWithRequestIDSupported and/or
-Repeatability.DeleteWithClientIDSupported.
+[Repeatability.DeleteWithRequestIDSupported]{.term} and/or
+[Repeatability.DeleteWithClientIDSupported]{.term}.
 
 If lower-level elements such as individual entity sets do not support
 repeatability, then they can opt out of repeatability using a
-lower-level override of the Repeatability.Supported term.
+lower-level override of the `Repeatability.Supported` term.
 
 Services MAY support repeatability without the use of annotations in the
 service metadata.
@@ -481,7 +481,7 @@ request.
 Repeatable request headers MUST NOT be applied to change sets or
 atomicity groups directly because there is no way to specify headers for
 an atomicity group in JSON batch requests, see
-[**\[OData-JSON\]**](#odataJson). To make a change set or atomicity
+[OData-JSON](#ODataJSON). To make a change set or atomicity
 group repeatable, a client MUST specify the same
 `Repeatability-Request-ID` and `Repeatability-First-Sent` values for all
 requests in the change set or atomicity group. The client MUST retry the
@@ -507,54 +507,43 @@ NOT execute any requests within the batch and MUST respond with 4xx or
 # ##sec Security Considerations
 
 For HTTP relevant security implications please cf. the relevant sections
-of [**\[RFC7231\]**](#RFC7231) (9. Security Considerations) and for the
-HTTP PATCH method [**\[RFC5789\]**](#RFC5789) (5. Security
+of [RFC7231](#rfc7231) (9. Security Considerations) and for the
+HTTP PATCH method [RFC5789](#rfc5789) (5. Security
 Considerations) as starting points.
 
 Servers SHOULD authenticate the client before further evaluating the
 repeatability of any requests.
 
-As mentioned in [section 3.1.1](#_`Repeatability-Request-ID`), it is
+As mentioned in [section 3.1.1](#RepeatabilityRequestID), it is
 recommended for security purposes that clients use randomly generated
 `Repeatability-Request-ID` values such as version 4 UUIDs as defined in
-[**\[RFC4122\]**](#RFC4122) section 4.1.3.
+[RFC4122](#rfc4122) section 4.1.3.
 
 # ##sec Conformance
 
 ## ##subsec Service Conformance
 
 In order to conform to this specification, a service:
-
 1.  MUST conform to the semantics of the following headers, or fail the
     request:
-
-    1.  [`Repeatability-Request-ID`](#_`Repeatability-Request-ID`) (section
-        [3.1.1](#_`Repeatability-Request-ID`))
-
-    2.  [`Repeatability-First-Sent`](#_`Repeatability-First-Sent`) (section
-        [3.1.2](#_`Repeatability-First-Sent`))
-
-2.  MUST return the [`Repeatability-Result`](#_`Repeatability-Result`)
-    response header in response to repeatable requests (section
-    [2](#_Repeatable_Request)) with one of the values
-    [accepted](#_Accepted) (section [3.2.1.1](#_Accepted)) or
-    [rejected](#_Rejected) (section [3.2.1.2](#_Rejected))
-
-3.  MUST follow the guidelines in [Server Behavior](#_Server_Behavior)
-    (section [5](#_Server_Behavior))
+    1.  [`Repeatability-Request-ID`](#RepeatabilityRequestID) ([section ##RepeatabilityRequestID])
+    2.  [`Repeatability-First-Sent`](#RepeatabilityFirstSent) ([section ##RepeatabilityFirstSent])
+2.  MUST return the [`Repeatability-Result`](#RepeatabilityResult)
+    response header in response to repeatable requests ([section ##RepeatableRequest]) with one of the values
+    [accepted](#Accepted) ([section ##Accepted]) or
+    [rejected](#Rejected) ([section ##Rejected])
+3.  MUST follow the guidelines in [Server Behavior](#ServerBehavior)
+    ([section ##ServerBehavior])
 
 ## ##subsec Client Conformance
 
 If a client wants to safely repeat a request, a client:
-
 1.  MUST specify the
-    [`Repeatability-Request-ID`](#_`Repeatability-Request-ID`) header in an
-    unsafe request (section [3.1.1](#_`Repeatability-Request-ID`))
-
+    [`Repeatability-Request-ID`](#RepeatabilityRequestID) header in an
+    unsafe request (section [3.1.1](#RepeatabilityRequestID))
 2.  MUST specify the
-    [`Repeatability-First-Sent`](#_`Repeatability-First-Sent`) header in a
-    unsafe request (section [3.1.2](#_`Repeatability-First-Sent`))
-
+    [`Repeatability-First-Sent`](#RepeatabilityFirstSent) header in a
+    unsafe request (section [3.1.2](#RepeatabilityFirstSent))
 3.  MUST only repeat a request if it has previously determined (through
     whatever means) that the server supports repeatability and MUST
-    specify the repeatability headers (section [4](#_Client_Behavior)).
+    specify the repeatability headers ([section ##ClientBehavior]).

@@ -21,6 +21,10 @@ See link in "[Related work](#RelatedWork)" section on cover page.
 _OData Vocabularies Version 4.0: Repeatability Vocabulary._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
+###### [RFC2119]{id=rfc2119}
+_Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_.
+https://www.rfc-editor.org/info/rfc2119.
+
 ###### [RFC4122]{id=rfc4122}
 _Leach, P., Mealling, M., and R. Salz, "A Universally Unique Identifier (UUID) URN Namespace", RFC 4122, DOI 10.17487/RFC4122, July 2005._  
 https://www.rfc-editor.org/info/rfc4122.
@@ -32,6 +36,10 @@ http://tools.ietf.org/html/rfc5789.
 ###### [RFC7231]{id=rfc7231}
 _Fielding, R., Ed., and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content", RFC 7231, DOI 10.17487/RFC7231, June 2014._  
 https://www.rfc-editor.org/info/rfc7231.
+
+###### [RFC8174]{id=rfc8174}
+_Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_.
+https://www.rfc-editor.org/info/rfc8174.
 
 -------
 

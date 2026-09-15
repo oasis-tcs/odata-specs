@@ -3,6 +3,11 @@
 
 # ##sec Introduction
 
+## ##subsec Changes from Earlier Versions
+
+Section | Feature / Change | Issue | Revision
+--------|------------------|-------|---------
+
 ## ##subsec Glossary
 
 ### ##subsubsec Definitions of Terms

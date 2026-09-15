@@ -6,6 +6,7 @@ previousStage: csprd01
 pubdate: 19 August 2026
 pubdateISO: '2026-08-19'
 copyright: © OASIS Open 2026
+OData-VocRep: https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Repeatability.V1.md
 description:
   This document describes a method to provide the ability to retry unsafe
   (i.e. POST, PUT, PATCH, DELETE) requests without incurring unintended

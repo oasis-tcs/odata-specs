@@ -181,13 +181,14 @@ Michael Pizzo (<a href="mailto:b-mpizzo@microsoft.com">b-mpizzo@microsoft.com</a
 <ul>
 <li><a href="#Introduction">1 Introduction</a>
 <ul>
-<li><a href="#Glossary">1.1 Glossary</a>
+<li><a href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a></li>
+<li><a href="#Glossary">1.2 Glossary</a>
 <ul>
-<li><a href="#DefinitionsofTerms">1.1.1 Definitions of Terms</a></li>
-<li><a href="#AcronymsandAbbreviations">1.1.2 Acronyms and Abbreviations</a></li>
-<li><a href="#DocumentConventions">1.1.3 Document Conventions</a></li>
+<li><a href="#DefinitionsofTerms">1.2.1 Definitions of Terms</a></li>
+<li><a href="#AcronymsandAbbreviations">1.2.2 Acronyms and Abbreviations</a></li>
+<li><a href="#DocumentConventions">1.2.3 Document Conventions</a></li>
 </ul></li>
-<li><a href="#Overview">1.2 Overview</a></li>
+<li><a href="#Overview">1.3 Overview</a></li>
 </ul></li>
 <li><a href="#RepeatableRequest">2 Repeatable Request</a></li>
 <li><a href="#HeaderFields">3 Header Fields</a>
@@ -244,20 +245,36 @@ Michael Pizzo (<a href="mailto:b-mpizzo@microsoft.com">b-mpizzo@microsoft.com</a
 <h1 id="1-introduction"><a id="Introduction" href="#Introduction">1 Introduction</a></h1>
 </summary>
 <details open><summary>
-<h2 id="11-glossary"><a id="Glossary" href="#Glossary">1.1 Glossary</a></h2>
+<h2 id="11-changes-from-earlier-versions"><a id="ChangesfromEarlierVersions" href="#ChangesfromEarlierVersions">1.1 Changes from Earlier Versions</a></h2>
+</summary>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Feature / Change</th>
+<th>Issue</th>
+<th>Revision</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+</details>
+<details open><summary>
+<h2 id="12-glossary"><a id="Glossary" href="#Glossary">1.2 Glossary</a></h2>
 </summary>
 <details open><summary>
-<h3 id="111-definitions-of-terms"><a id="DefinitionsofTerms" href="#DefinitionsofTerms">1.1.1 Definitions of Terms</a></h3>
+<h3 id="121-definitions-of-terms"><a id="DefinitionsofTerms" href="#DefinitionsofTerms">1.2.1 Definitions of Terms</a></h3>
 </summary>
 </details>
 <details open><summary>
-<h3 id="112-acronyms-and-abbreviations"><a id="AcronymsandAbbreviations" href="#AcronymsandAbbreviations">1.1.2 Acronyms and Abbreviations</a></h3>
+<h3 id="122-acronyms-and-abbreviations"><a id="AcronymsandAbbreviations" href="#AcronymsandAbbreviations">1.2.2 Acronyms and Abbreviations</a></h3>
 </summary>
 <!-- TODO -->
 
 </details>
 <details open><summary>
-<h3 id="113-document-conventions"><a id="DocumentConventions" href="#DocumentConventions">1.1.3 Document Conventions</a></h3>
+<h3 id="123-document-conventions"><a id="DocumentConventions" href="#DocumentConventions">1.2.3 Document Conventions</a></h3>
 </summary>
 <p>Keywords defined by this specification use <code>this monospaced font</code>.</p>
 <p>Some sections of this specification are illustrated with non-normative examples.</p>
@@ -270,7 +287,7 @@ Michael Pizzo (<a href="mailto:b-mpizzo@microsoft.com">b-mpizzo@microsoft.com</a
 </details>
 </details>
 <details open><summary>
-<h2 id="12-overview"><a id="Overview" href="#Overview">1.2 Overview</a></h2>
+<h2 id="13-overview"><a id="Overview" href="#Overview">1.3 Overview</a></h2>
 </summary>
 <p>HTTP is an inherently unreliable protocol. If connection or other issues prevent the client from receiving a response, the client is left in doubt as to whether the request was processed by the server. For safe HTTP requests as defined in <a href="#rfc7231">RFC7231</a> section 4.2 (for example, GET) the client can simply re-try the request, but for operations that change state (for example, inserting a new resource or invoking a side-effecting service operation such as PlaceOrder or TransferFunds) re-issuing the request may result in an undesired state (for example, two orders placed, or double the amount of funds transferred).</p>
 <div class="figure">
@@ -335,19 +352,19 @@ end</code></pre>
 <details open><summary>
 <h3 id="311-repeatability-request-id"><a id="RepeatabilityRequestID" href="#RepeatabilityRequestID">3.1.1 <code>Repeatability-Request-ID</code></a></h3>
 </summary>
-<p><code>Repeatability-Request-ID</code> MUST be sent by clients to specify that a request is repeatable. The value of the <code>Repeatability-Request-ID</code> is an opaque string representing a client-generated, globally unique for all time, identifier for the request. Servers MUST accommodate the 36-character hexadecimal case-insensitive encoding of a UUID (GUID), as defined in <a href="#RFC4122"><strong>[RFC4122]</strong></a>. It is recommended for security purposes to use version 4 (random) UUIDs as defined in <a href="#RFC4122"><strong>[RFC4122]</strong></a> section 4.1.3. Support for other forms of unique identifiers is optional.</p>
+<p><code>Repeatability-Request-ID</code> MUST be sent by clients to specify that a request is repeatable. The value of the <code>Repeatability-Request-ID</code> is an opaque string representing a client-generated, globally unique for all time, identifier for the request. Servers MUST accommodate the 36-character hexadecimal case-insensitive encoding of a UUID (GUID), as defined in <a href="#rfc4122">RFC4122</a>. It is recommended for security purposes to use version 4 (random) UUIDs as defined in <a href="#rfc4122">RFC4122</a> section 4.1.3. Support for other forms of unique identifiers is optional.</p>
 <p>If specified, the client directs that the request MUST be repeatable. Servers aware of repeatability but unable to fulfill this direction for this request type MUST not execute the request and instead return 501 Not Implemented.</p>
 </details>
 <details open><summary>
 <h3 id="312-repeatability-first-sent"><a id="RepeatabilityFirstSent" href="#RepeatabilityFirstSent">3.1.2 <code>Repeatability-First-Sent</code></a></h3>
 </summary>
-<p><code>Repeatability-First-Sent</code> MUST be sent by clients to specify that a request is repeatable. <code>Repeatability-First-Sent</code> is used to specify the date and time at which the request was first created. <code>Repeatability-First-Sent</code> value MUST be expressed using the IMF-fixdate form of HTTP-date as defined in <a href="#RFC7231"><strong>[RFC7231]</strong></a>.</p>
+<p><code>Repeatability-First-Sent</code> MUST be sent by clients to specify that a request is repeatable. <code>Repeatability-First-Sent</code> is used to specify the date and time at which the request was first created. <code>Repeatability-First-Sent</code> value MUST be expressed using the IMF-fixdate form of HTTP-date as defined in <a href="#rfc7231">RFC7231</a>.</p>
 <p><code>Repeatability-First-Sent</code> allows the server to determine if the request is within its currently tracked window of time for repeatability. If <code>Repeatability-First-Sent</code> is within the server’s window and the request has not been seen previously, the server can safely execute it. If it is not in the window of currently tracked requests, the server cannot guarantee the request was not already executed and so MUST return an error. Without using <code>Repeatability-First-Sent</code>, if/when the server cleans up tracking information, the server could receive a <code>Repeatability-Request-ID</code> that it has already executed but no longer has any tracking data for and so the server would incorrectly execute the request again.</p>
 </details>
 <details open><summary>
 <h3 id="313-repeatability-client-id"><a id="RepeatabilityClientID" href="#RepeatabilityClientID">3.1.3 <code>Repeatability-Client-ID</code></a></h3>
 </summary>
-<p><code>Repeatability-Client-ID</code> is an optional header that MAY be provided by the client. <code>Repeatability-Client-ID</code> is an opaque string representing a client-generated, globally unique for all time, identifier for the instance of the client application that issued the request. Servers, if they do not ignore this header, MUST accommodate the 36-character hexadecimal case-insensitive encoding of a UUID (GUID), as defined in <a href="#RFC4122"><strong>[RFC4122]</strong></a>. It is recommended for security purposes to use version 4 (random) UUIDs as defined in <a href="#RFC4122"><strong>[RFC4122]</strong></a> section 4.1.3. Support for other forms of unique identifiers is optional.</p>
+<p><code>Repeatability-Client-ID</code> is an optional header that MAY be provided by the client. <code>Repeatability-Client-ID</code> is an opaque string representing a client-generated, globally unique for all time, identifier for the instance of the client application that issued the request. Servers, if they do not ignore this header, MUST accommodate the 36-character hexadecimal case-insensitive encoding of a UUID (GUID), as defined in <a href="#rfc4122">RFC4122</a>. It is recommended for security purposes to use version 4 (random) UUIDs as defined in <a href="#rfc4122">RFC4122</a> section 4.1.3. Support for other forms of unique identifiers is optional.</p>
 <p><code>Repeatability-Client-ID</code>, if provided by the client, MAY be used by the server to support bulk Repeatability Deletion.</p>
 </details>
 </details>
@@ -395,7 +412,7 @@ end</code></pre>
 <p>This section applies to servers that are aware of this specification.</p>
 <p>If the server receives the <code>Repeatability-Request-ID</code> header but the <code>Repeatability-First-Sent</code> value is missing, it MUST return 400 Bad Request with a <code>Repeatability-Result</code> of rejected.</p>
 <p>If the server receives the <code>Repeatability-First-Sent</code> header but the <code>Repeatability-Request-ID</code> value is missing, it MUST return 400 Bad Request with a <code>Repeatability-Result</code> of rejected.</p>
-<p>If the server receives the <code>Repeatability-First-Sent</code> header but the value is not a valid IMF-fixdate form of HTTP-date as defined in <a href="#RFC7231"><strong>[RFC7231]</strong></a>, it MUST return 400 Bad Request with a <code>Repeatability-Result</code> of rejected.</p>
+<p>If the server receives the <code>Repeatability-First-Sent</code> header but the value is not a valid IMF-fixdate form of HTTP-date as defined in <a href="#rfc7231">RFC7231</a>, it MUST return 400 Bad Request with a <code>Repeatability-Result</code> of rejected.</p>
 <p>If the server receives a request with valid, non-null, <code>Repeatability-Request-ID</code> and <code>Repeatability-First-Sent</code> values and</p>
 <ul>
 <li><p>does not support repeatable execution of the request it MUST return 501 Not Implemented with a <code>Repeatability-Result</code> of rejected, or</p></li>
@@ -516,7 +533,7 @@ Repeatability-Result: accepted</code></pre>
 <details open><summary>
 <h1 id="8-incorporation-into-odata"><a id="IncorporationintoOData" href="#IncorporationintoOData">8 Incorporation into OData</a></h1>
 </summary>
-<p>This specification is valid outside the context of OData but this section details the specifics of using it with OData, see <a href="#odataProtocol"><strong>[OData-Protocol]</strong></a>.</p>
+<p>This specification is valid outside the context of OData but this section details the specifics of using it with OData, see <a href="#ODataProtocol">OData-Protocol</a>.</p>
 <details open><summary>
 <h2 id="81-support"><a id="Support" href="#Support">8.1 Support</a></h2>
 </summary>
@@ -525,9 +542,9 @@ Repeatability-Result: accepted</code></pre>
 <details open><summary>
 <h2 id="82-discovery"><a id="Discovery" href="#Discovery">8.2 Discovery</a></h2>
 </summary>
-<p>Services supporting repeatability SHOULD annotate the entity container, entity sets, singletons, action imports, or actions in the service metadata with the term Repeatability.Supported defined in the Repeatability vocabulary, see <a href="#odataVocRep"><strong>[OData-VocRep]</strong></a>.</p>
-<p>Services supporting repeatable requests cleanup by <code>Repeatability-Request-ID</code> and/or <code>Repeatability-Client-ID</code> SHOULD annotate the entity container with the terms Repeatability.DeleteWithRequestIDSupported and/or Repeatability.DeleteWithClientIDSupported.</p>
-<p>If lower-level elements such as individual entity sets do not support repeatability, then they can opt out of repeatability using a lower-level override of the Repeatability.Supported term.</p>
+<p>Services supporting repeatability SHOULD annotate the entity container, entity sets, singletons, action imports, or actions in the service metadata with the term <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Repeatability.V1.md#Supported"><code>Repeatability.Supported</code></a></span> defined in the Repeatability vocabulary, see <a href="#ODataVocRep">OData-VocRep</a>.</p>
+<p>Services supporting repeatable requests cleanup by <code>Repeatability-Request-ID</code> and/or <code>Repeatability-Client-ID</code> SHOULD annotate the entity container with the terms <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Repeatability.V1.md#DeleteWithRequestIDSupported"><code>Repeatability.DeleteWithRequestIDSupported</code></a></span> and/or <span class="term"><a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Repeatability.V1.md#DeleteWithClientIDSupported"><code>Repeatability.DeleteWithClientIDSupported</code></a></span>.</p>
+<p>If lower-level elements such as individual entity sets do not support repeatability, then they can opt out of repeatability using a lower-level override of the <code>Repeatability.Supported</code> term.</p>
 <p>Services MAY support repeatability without the use of annotations in the service metadata.</p>
 </details>
 <details open><summary>
@@ -542,7 +559,7 @@ Repeatability-Result: accepted</code></pre>
 </summary>
 <p>Services MAY support repeatability for individual requests within a batch request, as well as for individual requests within a change set or atomicity group within a batch request.</p>
 <p>Individual requests within a batch MAY have a mix of <code>Repeatability-Request-ID</code> and <code>Repeatability-First-Sent</code> values. In this case, each individual response within the batch response has the appropriate <code>Repeatability-Result</code> (or not) according to the corresponding request.</p>
-<p>Repeatable request headers MUST NOT be applied to change sets or atomicity groups directly because there is no way to specify headers for an atomicity group in JSON batch requests, see <a href="#odataJson"><strong>[OData-JSON]</strong></a>. To make a change set or atomicity group repeatable, a client MUST specify the same <code>Repeatability-Request-ID</code> and <code>Repeatability-First-Sent</code> values for all requests in the change set or atomicity group. The client MUST retry the entire change set or atomicity group as a unit if it is repeatable; individual operations within the change set or atomicity group MUST NOT be retried.</p>
+<p>Repeatable request headers MUST NOT be applied to change sets or atomicity groups directly because there is no way to specify headers for an atomicity group in JSON batch requests, see <a href="#ODataJSON">OData-JSON</a>. To make a change set or atomicity group repeatable, a client MUST specify the same <code>Repeatability-Request-ID</code> and <code>Repeatability-First-Sent</code> values for all requests in the change set or atomicity group. The client MUST retry the entire change set or atomicity group as a unit if it is repeatable; individual operations within the change set or atomicity group MUST NOT be retried.</p>
 <p>There is no correlation between the repeatability of a request and the repeatability of any of its dependent requests. That is, a repeatable request may be retried without retrying any of its dependent requests.</p>
 <p>Repeatability cannot be applied to batch requests themselves because a single <code>Repeatability-Request-ID</code> on the batch request is not sufficient for uniquely identifying the individual requests within the batch request, and because repeatability implies transactional atomicity which cannot be guaranteed for a batch request containing multiple change sets, some of which may succeed (commit) and some of which may fail (rollback). Therefore, if a server receives a batch request with either a <code>Repeatability-Request-ID</code> or a <code>Repeatability-First-Sent</code> value, it MUST NOT execute any requests within the batch and MUST respond with 4xx or 5xx response and with a <code>Repeatability-Result</code> value of rejected.</p>
 </details>
@@ -550,9 +567,9 @@ Repeatability-Result: accepted</code></pre>
 <details open><summary>
 <h1 id="9-security-considerations"><a id="SecurityConsiderations" href="#SecurityConsiderations">9 Security Considerations</a></h1>
 </summary>
-<p>For HTTP relevant security implications please cf. the relevant sections of <a href="#RFC7231"><strong>[RFC7231]</strong></a> (9. Security Considerations) and for the HTTP PATCH method <a href="#RFC5789"><strong>[RFC5789]</strong></a> (5. Security Considerations) as starting points.</p>
+<p>For HTTP relevant security implications please cf. the relevant sections of <a href="#rfc7231">RFC7231</a> (9. Security Considerations) and for the HTTP PATCH method <a href="#rfc5789">RFC5789</a> (5. Security Considerations) as starting points.</p>
 <p>Servers SHOULD authenticate the client before further evaluating the repeatability of any requests.</p>
-<p>As mentioned in <a href="#_`Repeatability-Request-ID`">section 3.1.1</a>, it is recommended for security purposes that clients use randomly generated <code>Repeatability-Request-ID</code> values such as version 4 UUIDs as defined in <a href="#RFC4122"><strong>[RFC4122]</strong></a> section 4.1.3.</p>
+<p>As mentioned in <a href="#RepeatabilityRequestID">section 3.1.1</a>, it is recommended for security purposes that clients use randomly generated <code>Repeatability-Request-ID</code> values such as version 4 UUIDs as defined in <a href="#rfc4122">RFC4122</a> section 4.1.3.</p>
 </details>
 <details open><summary>
 <h1 id="10-conformance"><a id="Conformance" href="#Conformance">10 Conformance</a></h1>
@@ -562,13 +579,13 @@ Repeatability-Result: accepted</code></pre>
 </summary>
 <p>In order to conform to this specification, a service:</p>
 <ol type="1">
-<li><p>MUST conform to the semantics of the following headers, or fail the request:</p>
+<li>MUST conform to the semantics of the following headers, or fail the request:
 <ol type="1">
-<li><p><a href="#_`Repeatability-Request-ID`"><code>Repeatability-Request-ID</code></a> (section <a href="#_`Repeatability-Request-ID`">3.1.1</a>)</p></li>
-<li><p><a href="#_`Repeatability-First-Sent`"><code>Repeatability-First-Sent</code></a> (section <a href="#_`Repeatability-First-Sent`">3.1.2</a>)</p></li>
+<li><a href="#RepeatabilityRequestID"><code>Repeatability-Request-ID</code></a> (<a href="#RepeatabilityRequestID">section 3.1.1</a>)</li>
+<li><a href="#RepeatabilityFirstSent"><code>Repeatability-First-Sent</code></a> (<a href="#RepeatabilityFirstSent">section 3.1.2</a>)</li>
 </ol></li>
-<li><p>MUST return the <a href="#_`Repeatability-Result`"><code>Repeatability-Result</code></a> response header in response to repeatable requests (section <a href="#_Repeatable_Request">2</a>) with one of the values <a href="#_Accepted">accepted</a> (section <a href="#_Accepted">3.2.1.1</a>) or <a href="#_Rejected">rejected</a> (section <a href="#_Rejected">3.2.1.2</a>)</p></li>
-<li><p>MUST follow the guidelines in <a href="#_Server_Behavior">Server Behavior</a> (section <a href="#_Server_Behavior">5</a>)</p></li>
+<li>MUST return the <a href="#RepeatabilityResult"><code>Repeatability-Result</code></a> response header in response to repeatable requests (<a href="#RepeatableRequest">section 2</a>) with one of the values <a href="#Accepted">accepted</a> (<a href="#Accepted">section 3.2.1.1</a>) or <a href="#Rejected">rejected</a> (<a href="#Rejected">section 3.2.1.2</a>)</li>
+<li>MUST follow the guidelines in <a href="#ServerBehavior">Server Behavior</a> (<a href="#ServerBehavior">section 5</a>)</li>
 </ol>
 </details>
 <details open><summary>
@@ -576,9 +593,9 @@ Repeatability-Result: accepted</code></pre>
 </summary>
 <p>If a client wants to safely repeat a request, a client:</p>
 <ol type="1">
-<li><p>MUST specify the <a href="#_`Repeatability-Request-ID`"><code>Repeatability-Request-ID</code></a> header in an unsafe request (section <a href="#_`Repeatability-Request-ID`">3.1.1</a>)</p></li>
-<li><p>MUST specify the <a href="#_`Repeatability-First-Sent`"><code>Repeatability-First-Sent</code></a> header in a unsafe request (section <a href="#_`Repeatability-First-Sent`">3.1.2</a>)</p></li>
-<li><p>MUST only repeat a request if it has previously determined (through whatever means) that the server supports repeatability and MUST specify the repeatability headers (section <a href="#_Client_Behavior">4</a>).</p></li>
+<li>MUST specify the <a href="#RepeatabilityRequestID"><code>Repeatability-Request-ID</code></a> header in an unsafe request (section <a href="#RepeatabilityRequestID">3.1.1</a>)</li>
+<li>MUST specify the <a href="#RepeatabilityFirstSent"><code>Repeatability-First-Sent</code></a> header in a unsafe request (section <a href="#RepeatabilityFirstSent">3.1.2</a>)</li>
+<li>MUST only repeat a request if it has previously determined (through whatever means) that the server supports repeatability and MUST specify the repeatability headers (<a href="#ClientBehavior">section 4</a>).</li>
 </ol>
 </details>
 </details>
@@ -600,6 +617,8 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <h6><span id="ODataVocRep">OData-VocRep</span></h6>
 <p><em>OData Vocabularies Version 4.0: Repeatability Vocabulary.</em><br />
 See link in “<a href="#RelatedWork">Related work</a>” section on cover page.</p>
+<h6><span id="rfc2119">RFC2119</span></h6>
+<p><em>Bradner, S., “Key words for use in RFCs to Indicate Requirement Levels”, BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997</em>. <a href="https://www.rfc-editor.org/info/rfc2119">https://www.rfc-editor.org/info/rfc2119</a>.</p>
 <h6><span id="rfc4122">RFC4122</span></h6>
 <p><em>Leach, P., Mealling, M., and R. Salz, “A Universally Unique Identifier (UUID) URN Namespace”, RFC 4122, DOI 10.17487/RFC4122, July 2005.</em><br />
 <a href="https://www.rfc-editor.org/info/rfc4122">https://www.rfc-editor.org/info/rfc4122</a>.</p>
@@ -609,6 +628,8 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <h6><span id="rfc7231">RFC7231</span></h6>
 <p><em>Fielding, R., Ed., and J. Reschke, Ed., “Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content”, RFC 7231, DOI 10.17487/RFC7231, June 2014.</em><br />
 <a href="https://www.rfc-editor.org/info/rfc7231">https://www.rfc-editor.org/info/rfc7231</a>.</p>
+<h6><span id="rfc8174">RFC8174</span></h6>
+<p><em>Leiba, B., “Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words”, BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017</em>. <a href="https://www.rfc-editor.org/info/rfc8174">https://www.rfc-editor.org/info/rfc8174</a>.</p>
 </details>
 </details>
 <hr />
@@ -790,7 +811,7 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <td style="text-align: left;">Committee Specification Draft 02</td>
 <td style="text-align: left;">2026-08-19</td>
 <td style="text-align: left;">Michael Pizzo<br>Ralf Handl<br>Heiko Theißen</td>
-<td style="text-align: left;">Changes listed in [section <del>#ChangesfromEarlierVersions</del>]</td>
+<td style="text-align: left;">Changes listed in <a href="#ChangesfromEarlierVersions">section 1.1</a></td>
 </tr>
 </tbody>
 </table>
