@@ -1,0 +1,15 @@
+pagetitle: Repeatable Requests Version 1.0
+subtitle: Committee Specification Draft 02
+filename: repeatable-requests-v1.0
+stage: csd02
+previousStage: csprd01
+pubdate: 19 August 2026
+pubdateISO: '2026-08-19'
+copyright: © OASIS Open 2026
+description:
+  This document describes a method to provide the ability to retry unsafe
+  (i.e. POST, PUT, PATCH, DELETE) requests without incurring unintended
+  side-effects. This specification can be applied to any HTTP based
+  protocol.
+pandocOptions:
+  -H: scripts/mermaid.html
