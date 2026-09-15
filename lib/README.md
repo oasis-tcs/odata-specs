@@ -87,6 +87,10 @@ The following scripts can be executed manually or as part of a GitHub Action:
   ```sh
   npm run select ".json .er" "self::*[.!='…']/text()"
   ```
+  and stale links with
+  ```sh
+  npm run select a @href
+  ```
 - [`npm test`](../test) runs a test suite.
 
 ## A note on diagrams
