@@ -15,9 +15,9 @@ https://docs.oasis-open.org/odata/repeatable-requests/v1.0/csd02/repeatable-requ
 https://docs.oasis-open.org/odata/repeatable-requests/v1.0/csd02/repeatable-requests-v1.0.pdf
 
 #### Previous stage:
-https://docs.oasis-open.org/odata/repeatable-requests/v1.0/csprd01/repeatable-requests-v1.0-csprd01.docx (Authoritative) \
-https://docs.oasis-open.org/odata/repeatable-requests/v1.0/csprd01/repeatable-requests-v1.0-csprd01.html \
-https://docs.oasis-open.org/odata/repeatable-requests/v1.0/csprd01/repeatable-requests-v1.0-csprd01.pdf
+https://docs.oasis-open.org/odata/repeatable-requests/v1.0/cs01/repeatable-requests-v1.0-cs01.docx (Authoritative) \
+https://docs.oasis-open.org/odata/repeatable-requests/v1.0/cs01/repeatable-requests-v1.0-cs01.html \
+https://docs.oasis-open.org/odata/repeatable-requests/v1.0/cs01/repeatable-requests-v1.0-cs01.pdf
 
 #### Latest stage:
 https://docs.oasis-open.org/odata/repeatable-requests/v1.0/repeatable-requests-v1.0.md (Authoritative) \
@@ -794,7 +794,7 @@ _OData Vocabularies Version 4.0: Repeatability Vocabulary._
 See link in "[Related work](#RelatedWork)" section on cover page.
 
 ###### [RFC2119]{id=rfc2119}
-_Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_.
+_Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997._  
 https://www.rfc-editor.org/info/rfc2119.
 
 ###### [RFC4122]{id=rfc4122}
@@ -810,7 +810,7 @@ _Fielding, R., Ed., and J. Reschke, Ed., "Hypertext Transfer Protocol (HTTP/1.1)
 https://www.rfc-editor.org/info/rfc7231.
 
 ###### [RFC8174]{id=rfc8174}
-_Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_.
+_Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017_.  
 https://www.rfc-editor.org/info/rfc8174.
 
 -------
@@ -904,10 +904,11 @@ The following individuals were members of the OASIS OData Technical Committee du
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
-| Initial Draft 01 | 2013-06-25 | Mike Pizzo<br>Ralf Handl  | Initial version |
+| Initial Draft 01 | 2013-06-25 | Mike Pizzo<br>Ralf Handl | Initial version |
 | Committee Note Draft 01 | 2019-10-17 | Matt Borges<br>Evan Ireland | Aligned header names<br> Added Repeatability Deletion<br> Clarified client and server behavior with regard to errors<br> Clarified what servers are required to store and return for repeated requests and how the client and server can negotiate this for OData |
 | Committee Specification Draft 01 | 2020-04-07 | Matt Borges<br>Evan Ireland | Changed the committee note draft into a committee specification draft |
-|Committee Specification Draft 02|2026-08-19|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| Changes listed in [section 1.1](#ChangesfromEarlierVersions)|
+| Committee Specification 01 | 2020-07-07 | Matt Borges<br>Evan Ireland | Changed the committee specification draft into a committee specification |
+|Committee Specification Draft 02|2026-08-19|Sebastian Dobrzynski| Changes listed in [section 1.1](#ChangesfromEarlierVersions)|
 
 -------
 
