@@ -1,0 +1,9 @@
+<script type="module">
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+  mermaid.initialize({
+    startOnLoad: false,
+    fontFamily: "Liberation Sans",
+    fontSize: 13.33
+  });
+  mermaid.run({ nodes: document.querySelectorAll(".mermaid code") });
+</script>

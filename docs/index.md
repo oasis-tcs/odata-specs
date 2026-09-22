@@ -10,3 +10,4 @@ This repository contains working drafts for OData specifications:
 * [OData Version 4.02. Part 1: Protocol - Committee Specification Draft 02](odata-protocol/odata-protocol.html)
 * [OData Version 4.02. Part 2: URL Conventions - Committee Specification Draft 02](odata-url-conventions/odata-url-conventions.html)
 * [OData Vocabularies Version 4.0 - Committee Specification Draft 03](odata-vocabularies/odata-vocabularies.html)
+* [Repeatable Requests Version 1.0 - Committee Specification Draft 02](odata-repeatable-requests/odata-repeatable-requests.html)
