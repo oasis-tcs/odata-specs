@@ -64,9 +64,9 @@ properties are represented positionally
 ```
 :::
 
-Receivers MUST retain the order of items within an array in a compact
+Consumers MUST retain the order of items within an array in a compact
 payload. In a positional representation the order of items is significant
-and carries the mapping from values to properties; a receiver that
+and carries the mapping from values to properties; a consumer that
 reorders array items loses information.
 
 ## ##subsec Payload Ordering Constraints
@@ -98,7 +98,7 @@ object](#wrapperobject):
 
 The requirement that `type` precede the value is load-bearing in a compact
 payload rather than merely conventional. The positional property list of an
-instance depends on the instance's type, so a receiver reading the payload
+instance depends on the instance's type, so a consumer reading the payload
 as a stream must have the type before it reaches the positional
 representation. See [section ##DerivedTypes].
 

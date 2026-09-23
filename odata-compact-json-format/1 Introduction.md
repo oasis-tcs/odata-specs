@@ -16,8 +16,8 @@ the uncompressed size of OData request and response payloads.
 
 Processing large volumes of JSON is expensive, largely due to its
 verbosity. Compression on the wire takes most of that inefficiency away
-during transport, but the sender producing and the receiver consuming the
-uncompressed payload still deal with the full volume of JSON text. The
+during transport, but the producer and the consumer of the uncompressed
+payload still deal with the full volume of JSON text. The
 repetition of property names, once per property per instance, dominates
 that volume in exactly the payloads where it hurts most: large collections
 of entities and large collections of complex values.

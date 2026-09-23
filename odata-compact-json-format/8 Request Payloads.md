@@ -162,8 +162,8 @@ A bind operation relates a new or updated entity to an existing entity.
 
 In a compact request body the navigation property occupies a position in
 the positional property list, and the bind operation is carried in a
-[wrapper object](#wrapperobject) at that position, as a property
-annotation, following [section ##PropertyAnnotations].
+[wrapper object](#wrapperobject) at that position, as control information,
+following [section ##PropertyAnnotations].
 
 ::: example
 Example ##ex_bind: creating an order bound to an existing customer

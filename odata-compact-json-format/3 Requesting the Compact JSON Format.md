@@ -16,7 +16,7 @@ If specified, `$format` overrides any value specified in the `Accept`
 header.
 
 Because the `compact=true` format parameter selects a payload shape that a
-receiver unaware of this specification will misinterpret, a service MUST
+consumer unaware of this specification will misinterpret, a service MUST
 NOT return a compact response unless the client requested it with
 `compact=true`.
 
@@ -26,7 +26,7 @@ parameter whose name it does not recognize, and responds in the format
 defined by [OData-JSON](#ODataJSON). Either response is safe to consume:
 a response that is not compact is an [OData-JSON](#ODataJSON) payload,
 which the [superset principle](#supersetprinciple) makes acceptable to a
-receiver of compact payloads.
+consumer of compact payloads.
 
 A client MUST NOT send a compact request body unless it has established
 that the service supports the compact JSON format, either from the

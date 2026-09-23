@@ -52,15 +52,15 @@ Example ##ex_first: the same entity in the format defined by
 ```
 :::
 
-A sender MAY choose one of these representations for one instance in a
+A producer MAY choose one of these representations for one instance in a
 payload and another for the next; see the [superset
-principle](#supersetprinciple). A receiver distinguishes them by the JSON
+principle](#supersetprinciple). A consumer distinguishes them by the JSON
 type of the instance: a JSON array is a positional representation, and a
 JSON object is either a wrapper object or the representation defined by
 [OData-JSON](#ODataJSON), told apart as described in [section
 ##TheWrapperObject].
 
-A positional representation is not self-describing. A receiver needs the
+A positional representation is not self-describing. A consumer needs the
 context URL to know which property each position holds, and the metadata
 document that context URL references to know what the value at a position
 means --- in particular whether a property is collection-valued, since a
@@ -111,17 +111,17 @@ If an instance is represented positionally:
 - item *n* of the array MUST be the value of item *n* of the positional
   property list, formatted as described in [section ##PositionValues].
 
-A sender MUST NOT omit an item, MUST NOT add an item, and MUST NOT
+A producer MUST NOT omit an item, MUST NOT add an item, and MUST NOT
 reorder items. A property whose value is null is represented by the JSON
 value `null` in its position; a property that has no value is represented
 as described in [section ##PositionValues].
 
 Note that this is a stricter requirement than the one
 [OData-JSON](#ODataJSON) places on a JSON object representation, where a
-sender may omit a property whose value it does not wish to transmit. In a
+producer may omit a property whose value it does not wish to transmit. In a
 positional representation there is no way to omit a value without
 shifting every subsequent value, so the positional property list must be
-transmitted in full. If a sender wishes to transmit fewer properties, it
+transmitted in full. If a producer wishes to transmit fewer properties, it
 narrows the select-list in the context URL.
 
 ## ##subsec Determining the Positional Property List
@@ -157,7 +157,7 @@ object](#wrapperobject); see [section ##OpenTypesandDynamicProperties].
 
 The reason for this requirement is that no other route to the positional
 property list is well defined. Deriving it from the CSDL document would
-require the receiver to know which version of that document the sender
+require the consumer to know which version of that document the producer
 used, and to rely on the order in which properties are declared there,
 which [OData-CSDL](#ODataCSDL) does not make significant. A service always
 knows which metadata it used; a client composing a request payload may not,
@@ -165,8 +165,8 @@ and cannot determine it from the payload alone. Enumerating the
 select-list places the information with the party that reliably has it.
 
 The same reasoning excludes both shortcuts. `*` and `{namespace}.*` name a
-rule for finding a set rather than the set itself, so the sender and the
-receiver would each have to resolve it, from a metadata document whose
+rule for finding a set rather than the set itself, so the producer and the
+consumer would each have to resolve it, from a metadata document whose
 version they need not agree on and whose declaration order
 [OData-CSDL](#ODataCSDL) does not make significant. Neither shortcut says
 how many positions it occupies or in what order. The party writing the
@@ -393,7 +393,7 @@ the wrapper object is what holds the two together.
 The name `$` is not a simple identifier ([OData-CSDL](#ODataCSDL)) --- a
 simple identifier is at least one character long and begins with an
 underscore or a Unicode letter --- so it can never be the name of a declared
-or dynamic property, and [OData-JSON](#ODataJSON) never uses it. A receiver
+or dynamic property, and [OData-JSON](#ODataJSON) never uses it. A consumer
 therefore distinguishes a wrapper object from the representation defined by
 [OData-JSON](#ODataJSON) as follows:
 
@@ -427,7 +427,7 @@ carried by name takes its annotations and control information with it,
 under the prefixed names that [OData-JSON](#ODataJSON) gives them.
 
 Everything that concerns one property is therefore in one place. A
-receiver that has read the value at a position never has to look elsewhere
+consumer that has read the value at a position never has to look elsewhere
 for something that qualifies it, and one that reads a name/value pair
 never has to check whether that property also occupies a position. This is
 what [OData-JSON](#ODataJSON) does too, where the annotations of a
@@ -435,7 +435,7 @@ property immediately precede that property's value.
 
 Properties carried by name MUST appear after the wrapper object's value
 --- the `$` name/value pair --- as required by [section
-##PayloadOrderingConstraints]. A receiver reading the payload as a stream
+##PayloadOrderingConstraints]. A consumer reading the payload as a stream
 therefore has the whole positional representation in hand before it meets
 any property that is not part of it.
 
@@ -472,7 +472,7 @@ Everywhere else, `value` is not the name of a wrapper object's value. In
 particular, where [OData-JSON](#ODataJSON) represents the message body as
 the instance itself -- for a single entity, a single complex value, or a
 single entity reference -- a name/value pair named `value` in that message
-body is a *property* named `value`, and a receiver MUST NOT read it as the
+body is a *property* named `value`, and a consumer MUST NOT read it as the
 value of a wrapper object. A single entity or complex value represented
 positionally at the root of the message body therefore uses `$`.
 
@@ -486,7 +486,7 @@ it.
 
 This restriction is what keeps the two representations distinguishable.
 Were `value` also the wrapper's value name at the root of a message body
-representing a single entity, a receiver meeting `value` there would have
+representing a single entity, a consumer meeting `value` there would have
 to consult the metadata to decide which of two readings applies, and for
 an entity type declaring a collection-valued property named `value` the
 metadata need not settle it either:
@@ -582,12 +582,12 @@ the collection, each inner array the positional representation of one
 Note the consequence of the two preceding rules: for a
 collection-valued structured property, the value at the position is an
 array of arrays --- the outer array the collection, each inner array one
-member. A receiver distinguishes the two nestings from the metadata, as
+member. A consumer distinguishes the two nestings from the metadata, as
 [section ##PositionalRepresentation] describes; nothing in the payload
 itself does so.
 
 A property that has no value at all -- as opposed to a property whose value
-is null -- occurs when only annotations were requested for it, for example
-when a navigation property was expanded with `$count` only. Such a
-position holds a [wrapper object](#wrapperobject) carrying the
-annotations and no value. See [section ##PropertyAnnotations].
+is null -- occurs when only annotations or control information were
+requested for it, for example when a navigation property was expanded with
+`$count` only. Such a position holds a [wrapper object](#wrapperobject)
+carrying them and no value. See [section ##PropertyAnnotations].

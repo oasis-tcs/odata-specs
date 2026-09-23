@@ -58,12 +58,15 @@ Example ##ex: an instance annotation on one entity of a collection
 ## ##subsec Property Annotations
 
 An annotation that applies to a property is represented as a name/value
-pair in the wrapper object at that property's position.
+pair in the wrapper object at that property's position. So is control
+information that applies to a property, such as the `count` or
+`nextLink` of a collection-valued one.
 
-The name of a property annotation in a compact payload is `@ns.term`. The
-property name prefix that [OData-JSON](#ODataJSON) requires -- as in
-`Property@ns.term` -- is omitted, because the position already identifies
-the property.
+The name of a property annotation in a compact payload is `@ns.term`, and
+that of property-level control information is `@name`. The property name
+prefix that [OData-JSON](#ODataJSON) requires -- as in `Property@ns.term`
+or `Property@count` -- is omitted in both cases, because the position
+already identifies the property.
 
 ::: example
 Example ##ex_propannotation: the `Core.ValueException` annotation of a
@@ -291,11 +294,11 @@ object](#wrapperobject) around the instance it applies to and MUST precede
 that instance's positional representation.
 
 In a compact payload `type` is not merely informative. The positional
-property list of an instance depends on the instance's type, so a receiver
+property list of an instance depends on the instance's type, so a consumer
 cannot decode a positional representation without it. A service MUST
 include `type` for any instance whose positional property list differs from
 that of the type declared by the context URL, irrespective of the value of
 the `metadata` format parameter. See [section ##DerivedTypes].
 
-A receiver MUST NOT infer the type of an instance from the number of items
+A consumer MUST NOT infer the type of an instance from the number of items
 in its positional representation.

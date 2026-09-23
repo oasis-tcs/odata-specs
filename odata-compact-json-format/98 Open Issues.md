@@ -86,7 +86,7 @@ considered.
    begins with an underscore or a Unicode letter, so `$`, `@` and the empty
    string are the collision-free candidates; the TC chose `$`.
 
-   The reasons, recorded because the choice determines how a receiver
+   The reasons, recorded because the choice determines how a consumer
    recognizes a wrapper object at all:
 
    - [OData-CSDL](#ODataCSDL) JSON already solves this exact problem the
@@ -147,7 +147,7 @@ considered.
    choice of `$` load-bearing rather than cosmetic.
 
    *Still open:* a property that occupies a position MUST NOT also be
-   carried by name, but the draft gives a receiver no obligation to detect
+   carried by name, but the draft gives a consumer no obligation to detect
    a producer that breaks this. Whether that should be an error, and which
    wins if it happens, is not settled.
 
@@ -174,7 +174,7 @@ considered.
    [OData-JSON](#ODataJSON) already defines for that. Both shortcuts, `*`
    and `{namespace}.*`, are excluded: the service writes the select-list of
    a context URL and by then knows what it has placed at each position, so
-   it enumerates rather than naming a rule for the receiver to resolve. See
+   it enumerates rather than naming a rule for the consumer to resolve. See
    [section ##BoundOperations].
 
    *What remains:* [section ##BoundOperations] says that an operation
@@ -199,9 +199,9 @@ considered.
     [OData-Aggregation](#ODataAggregation). Transformations that produce a heterogeneous
     result, such as `concat`, need particular attention.
 
-12. **Consistency within a collection.** The draft allows a sender to mix
+12. **Consistency within a collection.** The draft allows a producer to mix
     positional and object representations freely within one collection.
-    A receiver optimized for the positional case may prefer a guarantee
+    A consumer optimized for the positional case may prefer a guarantee
     that a collection is homogeneous, at the cost of forcing an entire
     collection into the object representation whenever a single instance
     requires it.

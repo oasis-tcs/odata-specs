@@ -22,9 +22,9 @@ they explain, and constrain, the rules in the remainder of this document.
 1. [*Compact JSON is a superset of the OData JSON format.*]{id=supersetprinciple}
    Every payload that is valid according
    to [OData-JSON](#ODataJSON) is also a valid compact JSON payload. A
-   receiver that accepts compact JSON therefore accepts strictly more
-   payloads than a receiver that accepts only [OData-JSON](#ODataJSON),
-   and a sender is never forced to use a positional representation where
+   consumer that accepts compact JSON therefore accepts strictly more
+   payloads than a consumer that accepts only [OData-JSON](#ODataJSON),
+   and a producer is never forced to use a positional representation where
    it is inconvenient or impossible.
 
 2. *The saving is in the repetition.* A positional representation removes
@@ -34,7 +34,7 @@ they explain, and constrain, the rules in the remainder of this document.
    negative for a payload containing a single instance. This format
    therefore never *requires* a positional representation.
 
-3. *The context URL describes the payload.* A receiver that has the
+3. *The context URL describes the payload.* A consumer that has the
    context URL, and the metadata it references, can interpret a compact
    payload without knowledge of the request that produced it. This format
    does not introduce a second, competing mechanism for describing payload
@@ -48,10 +48,10 @@ they explain, and constrain, the rules in the remainder of this document.
 
 ::: example
 Example ##ex_superset: because of the [superset
-principle](#supersetprinciple), a sender that cannot produce a positional
-representation for a particular instance may fall back to the
-representation defined by [OData-JSON](#ODataJSON) for that instance
-alone, within an otherwise positional payload:
+principle](#supersetprinciple), a producer that cannot, or chooses not to,
+represent a particular instance positionally may fall back to the
+representation defined by [OData-JSON](#ODataJSON) for that instance,
+within an otherwise positional payload:
 ```json
 {
   "@context": "$metadata#Customers(ID,Name)",

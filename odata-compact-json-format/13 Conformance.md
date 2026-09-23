@@ -36,8 +36,9 @@ client or service:
    3. MUST accept a wrapper object that carries no value
    4. MUST accept a wrapper object that carries properties by name after
       the value
-6. MUST accept property annotations without the property name prefix
-   ([section ##PropertyAnnotations])
+6. MUST accept property annotations and property-level control
+   information without the property name prefix ([section
+   ##PropertyAnnotations])
 7. MUST accept the `context` control information in a payload labeled
    `metadata=none` ([section ##ControlInformationcontext])
 8. MUST be prepared to receive a payload in which some instances are
@@ -53,7 +54,7 @@ client or service:
 
 10. MUST be a conforming producer of the OData JSON format
     ([OData-JSON](#ODataJSON))
-11. MUST NOT produce a compact payload unless the receiver has indicated
+11. MUST NOT produce a compact payload unless the consumer has indicated
     that it accepts one ([section ##RequestingtheCompactJSONFormat])
     1. a service MUST NOT return a compact response unless the request
        specified `compact=true`

@@ -151,7 +151,7 @@ carries neither a position nor a placeholder for a property selected for a
 peer type.
 
 Because the positional property list depends on the instance's type, a
-receiver cannot decode a positional representation without knowing that
+consumer cannot decode a positional representation without knowing that
 type. Therefore:
 
 - A service MUST include the `type` control information for any instance
@@ -164,7 +164,7 @@ type. Therefore:
   object](#wrapperobject) around the positional representation and MUST
   precede it, as required by [section ##PayloadOrderingConstraints].
 
-A receiver MUST NOT infer the type of an instance from the number of items
+A consumer MUST NOT infer the type of an instance from the number of items
 in its positional representation: two types may yield positional property
 lists of equal length.
 
