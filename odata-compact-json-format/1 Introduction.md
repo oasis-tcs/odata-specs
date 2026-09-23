@@ -8,11 +8,12 @@ representing and interacting with structured content. The core
 specification for the protocol is in [OData-Protocol](#ODataProtocol);
 this document is an extension of the core protocol. Representations for
 OData requests and responses using the JavaScript Object Notation (JSON),
-see [RFC8259](#rfc8259), are defined in [OData-JSON](#ODataJSON).
+see [RFC8259](#rfc8259), are defined in [OData-JSON](#ODataJSON), of which
+this document is an extension.
 
 This document defines a *compact* JSON format: a lossless, alternative
 representation of the same information, whose prime aim is to minimize
-the uncompressed size of OData request and response payloads.
+the uncompressed size of OData JSON request and response payloads.
 
 Processing large volumes of JSON is expensive, largely due to its
 verbosity. Compression on the wire takes most of that inefficiency away
@@ -22,11 +23,10 @@ repetition of property names, once per property per instance, dominates
 that volume in exactly the payloads where it hurts most: large collections
 of entities and large collections of complex values.
 
-The approach taken in this format, inspired by traditional rowset
-interfaces, is to represent the properties of a structured instance as the
-items of a JSON *array* rather than as the name/value pairs of a JSON
-object, so that a property name is transmitted at most once per payload
-instead of once per instance. The items of a JSON array are
+The approach taken in this format is to represent the properties of a
+structured instance as the items of a JSON *array* rather than as the
+name/value pairs of a JSON object, so that a property name is transmitted
+at most once per payload instead of once per instance. The items of a JSON array are
 ordered, whereas the name/value pairs of a JSON object are not; this
 format relies on that ordering to convey, by position, which value belongs
 to which property.

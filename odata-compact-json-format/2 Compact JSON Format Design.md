@@ -22,17 +22,18 @@ they explain, and constrain, the rules in the remainder of this document.
 1. [*Compact JSON is a superset of the OData JSON format.*]{id=supersetprinciple}
    Every payload that is valid according
    to [OData-JSON](#ODataJSON) is also a valid compact JSON payload. A
-   consumer that accepts compact JSON therefore accepts strictly more
-   payloads than a consumer that accepts only [OData-JSON](#ODataJSON),
-   and a producer is never forced to use a positional representation where
-   it is inconvenient or impossible.
+   consumer that accepts compact JSON therefore accepts
+   [OData-JSON](#ODataJSON) as well, and a producer is never forced to use
+   a positional representation where it is inconvenient or impossible.
 
-2. *The saving is in the repetition.* A positional representation removes
-   property names from a payload; the mapping from positions to properties
-   is transmitted once. Consequently the benefit grows with the number of
-   instances that share a positional property list, and is negligible or
-   negative for a payload containing a single instance. This format
-   therefore never *requires* a positional representation.
+2. *The saving is in avoiding the repetition.* A positional
+   representation removes the *repetition* of property names from a
+   payload; the names themselves are transmitted once, in the context
+   URL. The benefit therefore grows with the number of instances that
+   share a positional property list, and is negligible or negative for a
+   payload containing a single instance. This format never *requires* a
+   positional representation, so a producer can use whichever
+   representation suits the payload it is sending.
 
 3. *The context URL describes the payload.* A consumer that has the
    context URL, and the metadata it references, can interpret a compact

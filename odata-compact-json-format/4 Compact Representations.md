@@ -173,26 +173,28 @@ how many positions it occupies or in what order. The party writing the
 select-list is the service, which by then knows exactly what it has placed
 at each position, so it enumerates.
 
-Let *T* be the type of the instance and *S* the sequence of select-list
-items, in the order in which they appear in the context URL, that applies
-to the instance. The positional property list is determined as follows:
+The positional property list of an instance is the ordered list of the
+properties that the select-list names and that apply to the instance's
+type, each occupying the place where the select-list first names it. It
+therefore depends on the instance and not only on the context URL: two
+instances of different types in one collection have different positional
+property lists. See [section ##DerivedTypes].
 
-1. Each item of *S* that begins with a type-cast segment --- a qualified
-   type name followed by a forward slash --- is removed from *S* unless *T*
-   is that type or is derived from it. From each such item that remains,
-   the leading type-cast segment is removed.
+Two things make that precise.
 
-2. The items of *S* are grouped as described in [section
-   ##GroupingofSelectItems]. Each group occupies exactly one position,
-   at the position of the first of its items.
+*A select-item prefixed with a type cast names a property only for some
+instances.* Such an item --- a qualified type name, a forward slash, then a
+path --- names a property of an instance of that type or of a type derived
+from it, and names nothing for any other instance, which therefore has a
+shorter positional property list. See [section ##DerivedTypes].
 
-3. The positional property list is the resulting sequence of groups, in
-   order.
-
-Step 1 is what makes the positional property list depend on the instance
-and not only on the context URL: two instances of different types in one
-collection have different positional property lists. See [section
-##DerivedTypes].
+*Several select-items may name the same property.*
+[OData-Protocol](#ODataProtocol) writes a selected sub-property of a
+structured property using path syntax, so selecting two sub-properties of
+one complex property produces two select-items that both begin with that
+property. Between them they occupy one position, and what they select
+below the property becomes that property's nested select-list. See
+[section ##GroupingofSelectItems].
 
 ::: example
 Example ##ex: a select-list determines both the membership and the order
@@ -262,66 +264,63 @@ GET ~/Customers?$expand=Orders($select=ID)
 
 ## ##subsec Grouping of Select Items
 
-A select-list may contain several items that address the same property of
-*T*: [OData-Protocol](#ODataProtocol) represents a selected sub-property
-of a complex property using path syntax, so selecting two sub-properties
-of the same complex property yields two items sharing a first path
-segment. The positional representation gives such a property a single
-position.
+Select-items that name the same property occupy one position between
+them, at the place the first of them takes, and what they select below
+that property becomes its nested select-list.
 
-The *first segment* of a select-item is the item with any `(...)` or
-`+(...)` suffix removed, truncated before the first forward slash (`/`).
-Leading type-cast segments have already been removed by step 3 of [section
-##DeterminingthePositionalPropertyList] and so do not occur here.
+Let *P* be the property a select-item names first: the item with any
+`(...)` or `+(...)` suffix removed and truncated before the first forward
+slash (`/`). A type cast does not appear here, [section
+##DeterminingthePositionalPropertyList] having already settled whether the
+item names anything for this instance.
 
-Two items of *S* belong to the same group if and only if their first
-segments are equal. The group occupies the position of the first of its
-items.
-
-If the property addressed by the first segment of a group is of a
-structured type, the *nested select-list* of that group is formed by
-concatenating, for each item of the group in order:
+Select-items with the same *P* form one group, occupying the position of
+the first of them. Where *P* is of a structured type, the group's *nested
+select-list* is what its items select below *P*, taken in their order:
 
 - for an item of the form `P/rest`, the item `rest`;
 - for an item of the form `P(nested)` or `P+(nested)`, the items of
   `nested`;
-- for an item of the form `P`, nothing.
+- for an item of the form `P` alone, nothing.
 
 The nested select-list MUST NOT be empty, for the reason given in [section
 ##DeterminingthePositionalPropertyList]: there is no well-defined default
-to fall back on.
-
-The nested select-list determines the positional property list of the
-instances of that property, applying this section recursively.
+to fall back on. It determines the positional property list of the
+instances of *P*, applying this section recursively.
 
 ::: example
 Example ##ex_grouping: two selected sub-properties of the complex
 property `Address` share one position, which holds the positional
-representation of the complex value
+representation of the complex value. `Name` is selected between them, and
+takes the position after `Address`, not between its two sub-properties
 ```
-GET ~/Customers?$select=Name,Address/City,Address/PostalCode
+GET ~/Customers?$select=ID,Address/City,Name,Address/PostalCode
 ```
 ```json
 {
-  "@context": "$metadata#Customers(Name,Address/City,Address/PostalCode)",
+  "@context": "$metadata#Customers(ID,Address/City,Name,Address/PostalCode)",
   "$": [
-    ["Alfreds Futterkiste", ["Berlin", "12209"]],
-    ["Ana Trujillo", ["México D.F.", "05021"]]
+    ["ALFKI", ["Berlin", "12209"], "Alfreds Futterkiste"],
+    ["ANATR", ["México D.F.", "05021"], "Ana Trujillo"]
   ]
 }
 ```
-The positional property list of each `Customer` is (`Name`, `Address`),
-and the positional property list of each `Address` is (`City`,
+The positional property list of each `Customer` is (`ID`, `Address`,
+`Name`), and the positional property list of each `Address` is (`City`,
 `PostalCode`).
 :::
 
 ::: example
-Example ##ex: a bare item and a suffixed item addressing the same
-navigation property form one group and therefore one position
+Example ##ex: a bare item and a suffixed item naming the same navigation
+property form one group and therefore one position
 ```
 $metadata#Employees/Sales.Manager(DirectReports,DirectReports+(FirstName,LastName))
 ```
-The positional property list of each `Manager` is (`DirectReports`).
+The positional property list of each `Manager` is (`DirectReports`). The
+two items are not alternatives and nothing selected by either is lost: the
+group's nested select-list is what they select below `DirectReports`
+between them, so the positional property list of each direct report is
+(`FirstName`, `LastName`).
 :::
 
 ## ##subsec Nested Context URLs

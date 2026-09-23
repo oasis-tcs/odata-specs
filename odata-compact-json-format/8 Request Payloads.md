@@ -95,10 +95,11 @@ absent from the request in the sense of
 [OData-Protocol](#ODataProtocol) and is left unchanged. A property that
 is in the positional property list with the value `null` is set to null.
 
-A `PATCH` request body that does not contain the `context` control
-information therefore specifies a value for every structural property of
-the type, which is rarely the intent. Clients SHOULD include the `context`
-control information in compact `PATCH` request bodies.
+The `context` control information is therefore what makes `PATCH`
+expressible in this format, and is one reason [section
+##DeterminingthePositionalPropertyListinRequests] requires it of every
+compact request body: without it there would be no way to say which
+properties a `PATCH` leaves alone.
 
 ::: example
 Example ##ex_patch: updating two properties of an entity and leaving all
