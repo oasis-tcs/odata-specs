@@ -25,26 +25,34 @@ Content-Type: application/json;compact=true;metadata=minimal;
 ## ##subsec Message Body
 
 Each message body is represented as a single JSON object, as defined in
-[OData-JSON](#ODataJSON), with the single exception described in [section
-##MessageBodyofaRequest]. A response message body is always a JSON
-object: the positional representation applies to the instances *within*
-the payload, not to the payload as a whole.
+[OData-JSON](#ODataJSON); for a request body see [section
+##MessageBodyofaRequest]. A positional representation conveys the
+properties of an instance *within* the payload, and is never the message
+body itself.
 
 This object is either
 
-- the representation of an [entity](#Entity), an [entity
-  reference](#EntityReferences) or a [complex value](#ComplexValue) that
-  is not represented positionally, or
-- a [wrapper object](#wrapperobject), whose value is the correct
-  representation for the payload's content.
+- the representation defined by [OData-JSON](#ODataJSON) of an
+  [entity](#Entity), an [entity reference](#EntityReferences) or a
+  [complex value](#ComplexValue), or
+- a [wrapper object](#wrapperobject), whose value, under the name `$`, is
+  the representation of the payload's content --- for a single entity or
+  complex value, its positional representation; for a collection, the
+  array of its members.
+
+These are the first and the third of the representations of [section
+##PositionalRepresentation]. The second, a bare positional representation,
+is a JSON array and therefore cannot be a message body on its own, since
+the body must carry the [`context`](#ControlInformationcontext) control
+information.
 
 The name of the value in a wrapper object is `$`. The name `value` is also
 recognized, but only in those message bodies in which
 [OData-JSON](#ODataJSON) itself uses it; see [section ##TheWrapperObject].
 
 ::: example
-Example ##ex: a message body containing a collection of entities
-represented positionally
+Example ##ex: a message body containing a collection of entities whose
+properties are represented positionally
 ```json
 {
   "@context": "$metadata#Customers(ID,Name)",

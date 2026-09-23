@@ -8,9 +8,10 @@ name/value pairs that annotate a JSON object, property or array, and a set
 of canonical name/value pairs for control information such as ids, types
 and links.
 
-This format extends [OData-JSON](#ODataJSON) further by allowing a
-structured instance -- an entity or a complex value -- to be represented as
-a JSON array instead of a JSON object. Everything else defined by
+This format extends [OData-JSON](#ODataJSON) further by allowing the
+properties of a structured instance -- an entity or a complex value -- to
+be represented as the items of a JSON array instead of as the name/value
+pairs of a JSON object. Everything else defined by
 [OData-JSON](#ODataJSON) continues to apply.
 
 ## ##subsec Design Principles
@@ -72,6 +73,7 @@ definition and meaning of control information, for URL and relative URL
 handling, and for everything else it does not mention, the rules of
 [OData-JSON](#ODataJSON) apply unchanged.
 
-In particular, this format changes only *how a structured instance is
-laid out*. It does not change which information may appear in a payload,
-what that information means, or which requests a service supports.
+In particular, this format changes only *how the values of an instance's
+properties are laid out*. It does not change which information may appear
+in a payload, what that information means, or which requests a service
+supports.

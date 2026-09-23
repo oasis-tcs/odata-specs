@@ -23,9 +23,10 @@ that volume in exactly the payloads where it hurts most: large collections
 of entities and large collections of complex values.
 
 The approach taken in this format, inspired by traditional rowset
-interfaces, is to represent a structured instance as a JSON *array* rather
-than a JSON object, so that a property name is transmitted at most once
-per payload instead of once per instance. The items of a JSON array are
+interfaces, is to represent the properties of a structured instance as the
+items of a JSON *array* rather than as the name/value pairs of a JSON
+object, so that a property name is transmitted at most once per payload
+instead of once per instance. The items of a JSON array are
 ordered, whereas the name/value pairs of a JSON object are not; this
 format relies on that ordering to convey, by position, which value belongs
 to which property.
@@ -59,17 +60,18 @@ represent:
 The following terms are used throughout this document:
 
 - [*Positional representation*]{id=positionalrepresentation}: the
-  representation of a structured instance as a JSON array whose items are
-  the values of the instance's properties, identified by their position.
+  representation of the properties of a structured instance as a JSON
+  array whose items are the values of those properties, identified by
+  their position.
 - [*Positional property list*]{id=positionalpropertylist}: the ordered
   list of properties that a positional representation conveys; item *n* of
   the array is the value of item *n* of this list. See [section
   ##PositionalPropertyList].
 - [*Wrapper object*]{id=wrapperobject}: a JSON object that appears where a
-  value would otherwise appear, carrying whatever must be conveyed by name
-  alongside that value --- annotations, control information, and properties
-  that are not in the positional property list --- together with the value
-  itself. See [section ##TheWrapperObject].
+  value may appear, carrying whatever must be conveyed by name alongside
+  that value --- annotations, control information, and properties that are
+  not in the positional property list --- together with the value itself,
+  under the reserved name `$`. See [section ##TheWrapperObject].
 - [*Compact payload*]{id=compactpayload}: a request or response body
   labeled with the [`compact`](#RequestingtheCompactJSONFormat) format
   parameter.

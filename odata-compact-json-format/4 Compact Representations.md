@@ -4,21 +4,34 @@
 # ##sec Compact Representations
 
 This section defines the two representations that this format adds to
-[OData-JSON](#ODataJSON): the *positional representation*, which conveys a
-structured instance as a JSON array, and the *wrapper object*, which
-conveys whatever needs a name in a place where a positional representation
-has no room for one. Everything else in this document is expressed in
-terms of these two.
+[OData-JSON](#ODataJSON): the *positional representation*, which conveys
+the values of an instance's properties as the items of a JSON array, and
+the *wrapper object*, which conveys whatever needs a name in a place where
+a positional representation has no room for one. Everything else in this
+document is expressed in terms of these two.
 
 ## ##subsec Positional Representation
 
-A structured instance -- an entity or a complex value -- MAY be represented
-as a JSON array instead of a JSON object. Such an array is called the
-*positional representation* of the instance.
+A structured instance -- an entity or a complex value -- is represented as
+one of the following:
 
-The items of the array are the values of the instance's properties. A
-property name is not transmitted with the value; the property a value
-belongs to is identified by the position of the value within the array.
+- a JSON object, as defined in [OData-JSON](#ODataJSON), whose name/value
+  pairs are the instance's properties together with the annotations and
+  control information that apply to the instance and to those properties;
+- a JSON array, the *positional representation*, whose items are the
+  values of the properties in the instance's [positional property
+  list](#positionalpropertylist); or
+- a [wrapper object](#wrapperobject), which carries the positional
+  representation under the reserved name `$`, together with the
+  annotations and control information that apply to the instance and any
+  of its properties that are not in the positional property list, by name.
+
+The first is defined by [OData-JSON](#ODataJSON) and is unchanged; the
+second and the third are what this format adds.
+
+In a positional representation a property name is not transmitted with the
+value; the property a value belongs to is identified by the position of
+the value within the array.
 
 ::: example
 Example ##ex_first: the same entity in the format defined by
@@ -39,11 +52,13 @@ Example ##ex_first: the same entity in the format defined by
 ```
 :::
 
-A sender MAY choose the positional representation for some instances in a
-payload and the representation defined in [OData-JSON](#ODataJSON) for
-others; see the [superset principle](#supersetprinciple). A receiver
-distinguishes the two by the JSON type of the instance: a JSON array is a
-positional representation, a JSON object is not.
+A sender MAY choose one of these representations for one instance in a
+payload and another for the next; see the [superset
+principle](#supersetprinciple). A receiver distinguishes them by the JSON
+type of the instance: a JSON array is a positional representation, and a
+JSON object is either a wrapper object or the representation defined by
+[OData-JSON](#ODataJSON), told apart as described in [section
+##TheWrapperObject].
 
 ## ##subsec Positional Property List
 
@@ -269,15 +284,20 @@ instance, or to the object containing a property; and any property that
 cannot be placed in the positional property list at all. The containing
 instance is no help, since it may itself be an array.
 
-This format introduces a single construct for all of them, used uniformly
-wherever a value would otherwise appear.
+A *wrapper object* is a JSON object that appears where a value may appear.
+Its name/value pairs are
 
-A *wrapper object* is a JSON object whose name/value pairs are
-
-- annotations and control information that apply to a value,
-- optionally, that value itself, under the reserved name `$`, and
+- annotations and control information that apply to that value,
+- optionally, the value itself, under the reserved name `$`, and
 - optionally, properties of the instance that are not in its positional
   property list, by name.
+
+Where the value is a structured instance, a wrapper object is the JSON
+object representation of that instance as defined by
+[OData-JSON](#ODataJSON), with the properties in the instance's positional
+property list replaced by the single name/value pair `$`. An instance may
+thus convey some of its properties by name and the rest by position, and
+the wrapper object is what holds the two together.
 
 The name `$` is not a simple identifier ([OData-CSDL](#ODataCSDL)) --- a
 simple identifier is at least one character long and begins with an
@@ -307,24 +327,23 @@ an instance of an open type to keep its positional representation while
 conveying dynamic properties that could not be placed in the select-list;
 see [section ##OpenTypesandDynamicProperties].
 
-A wrapper object MAY appear wherever a value may appear:
+A wrapper object MAY appear in each of the places in which a value may
+appear:
 
 - as the message body, in which case it carries the payload's
   [`context`](#ControlInformationcontext) and the payload's content;
 - at a position in a positional representation, in which case it carries
-  the annotations of the property at that position and the property's
-  value;
-- as an item of a collection, in which case it carries the annotations of
-  that member of the collection and the member itself.
+  the annotations and control information of the property at that
+  position, and that property's value;
+- as an item of a collection, in which case it carries the annotations and
+  control information of that member of the collection, the member itself,
+  and any of the member's properties conveyed by name.
 
 A wrapper object that carries no value denotes a property or instance that
 has no value, as distinct from one whose value is null. The empty JSON
-object `{}` carries neither annotations nor a value and therefore denotes
-"no value"; it is used at the position of a selected dynamic property that
-an instance does not have, see [section ##OpenTypesandDynamicProperties].
-Note that `{}` satisfies the second bullet above vacuously rather than by
-construction: it is treated as a wrapper carrying no value by convention,
-being the only reading that is useful.
+object `{}` is such a wrapper object: it carries neither annotations nor a
+value, and is used at the position of a selected dynamic property that an
+instance does not have, see [section ##OpenTypesandDynamicProperties].
 
 The name of the value in a wrapper object is `$`, in every position in
 which a wrapper object may appear.

@@ -9,9 +9,9 @@ described; everything else is unchanged.
 
 ## ##subsec Entity
 
-An entity MAY be represented as a JSON array, as described in [section
-##PositionalRepresentation]. Its positional property list is determined
-from the select-list applying to it, as described in [section
+An entity MAY have its properties represented positionally, as described
+in [section ##PositionalRepresentation]. Its positional property list is
+determined from the select-list applying to it, as described in [section
 ##DeterminingthePositionalPropertyList].
 
 Control information that applies to the entity -- `id`, `etag`, `type`,
@@ -34,10 +34,10 @@ Example ##ex: a single entity with an ETag
 
 ## ##subsec Complex Value
 
-A complex value MAY be represented as a JSON array, as described in
-[section ##PositionalRepresentation]. Its positional property list is
-determined from the nested select-list applying to it, as described in
-[section ##GroupingofSelectItems].
+A complex value MAY have its properties represented positionally, as
+described in [section ##PositionalRepresentation]. Its positional property
+list is determined from the nested select-list applying to it, as
+described in [section ##GroupingofSelectItems].
 
 A null complex value is represented as `null`, not as an empty array.
 

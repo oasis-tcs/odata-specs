@@ -32,8 +32,8 @@ Michael Pizzo (b-mpizzo@microsoft.com), [Microsoft](http://www.microsoft.com/)
 
 #### Editors:
 
-Michael Pizzo (b-mpizzo@microsoft.com), [Microsoft](http://www.microsoft.com/) \
-Hubert Heijkers (hubert.heijkers@nl.ibm.com), [IBM](http://www.ibm.com/)
+Hubert Heijkers (hubert.heijkers@nl.ibm.com), [IBM](http://www.ibm.com/) \
+Michael Pizzo (b-mpizzo@microsoft.com), [Microsoft](http://www.microsoft.com/)
 
 #### [Related work:]{id=RelatedWork}
 This specification is related to:
