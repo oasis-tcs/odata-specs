@@ -36,6 +36,10 @@ client or service:
    3. MUST accept a wrapper object that carries no value
    4. MUST accept a wrapper object that carries properties by name after
       the value
+   5. MUST accept a wrapper object as the value of a primitive-valued or
+      collection-valued property in a JSON object representing a
+      structured instance ([section
+      ##WrapperObjectsinanObjectRepresentation])
 6. MUST accept property annotations and property-level control
    information without the property name prefix ([section
    ##PropertyAnnotations])

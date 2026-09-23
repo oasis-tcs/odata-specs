@@ -423,7 +423,9 @@ carried in the [wrapper object](#wrapperobject) at its position, as
 [section ##PropertyAnnotations] describes, and MUST NOT appear under a
 prefixed name in the wrapper object around the instance. A property
 carried by name takes its annotations and control information with it,
-under the prefixed names that [OData-JSON](#ODataJSON) gives them.
+under the prefixed names that [OData-JSON](#ODataJSON) gives them or
+grouped in a wrapper object of its own, as [section
+##WrapperObjectsinanObjectRepresentation] permits.
 
 Everything that concerns one property is therefore in one place. A
 consumer that has read the value at a position never has to look elsewhere
@@ -448,7 +450,12 @@ appear:
   position, and that property's value;
 - as an item of a collection, in which case it carries the annotations and
   control information of that member of the collection, the member itself,
-  and any of the member's properties conveyed by name.
+  and any of the member's properties conveyed by name;
+- as the value of a primitive-valued or collection-valued property in a
+  JSON object representing a structured instance, in which case it carries
+  the annotations and control information of that property and the
+  property's value; see [section
+  ##WrapperObjectsinanObjectRepresentation].
 
 A wrapper object that carries no value denotes a property or instance that
 has no value, as distinct from one whose value is null. The empty JSON
@@ -540,6 +547,98 @@ message body is a collection, which is one of the cases in which
 }
 ```
 :::
+
+## ##subsec Wrapper Objects in an Object Representation
+
+[OData-JSON](#ODataJSON) places the annotations of a property inside the
+object representing that property's value where it can. Where it cannot,
+because the value is a primitive or a collection and so has nowhere to
+hold them, it places them in a separate name/value pair whose name carries
+the property name before the `@`. The annotations and the value then sit
+apart, and the property name is written once for each of them.
+
+In a compact payload the value of such a property, in a JSON object
+representing a structured instance, MAY be a [wrapper
+object](#wrapperobject) carrying that property's annotations and control
+information together with its value under `$`. This is the construct of
+[section ##TheWrapperObject], recognized by the same rule, used where the
+instance itself is not represented positionally.
+
+This applies to a property whose value [OData-JSON](#ODataJSON) does not
+represent as a JSON object: a primitive-valued property, and a
+collection-valued property of any type.
+
+It does not apply to a single-valued property of a structured type. The
+object representing such a value carries the annotations and control
+information that apply to it within itself, which is where
+[OData-JSON](#ODataJSON) puts them and where no property name is repeated;
+there is nothing for a wrapper object to improve. A JSON object at the
+value of a single-valued structured property is therefore that value, and
+never a wrapper object.
+
+Where the value of a property is a wrapper object, all of that property's
+annotations and control information MUST be carried in it, and none MUST
+appear in a name/value pair prefixed with the property name. This is the
+rule of [section ##TheWrapperObject] --- everything that applies to one
+property is in one place --- applied to the object representation. The two
+forms convey the same thing, and a consumer MUST read them as equivalent.
+
+::: example
+Example ##ex_grouped: the annotated property of [example
+##ex_propannotation], in an instance that is not represented positionally:
+as defined by [OData-JSON](#ODataJSON), and with the property's control
+information, annotation and value grouped under one name
+```json
+{
+  "@context": "$metadata#Customers(ID,Revenue)/$entity",
+  "ID": "ALFKI",
+  "Revenue@type": "Decimal",
+  "Revenue@Core.ValueException": { "value": "1234567890123456789" },
+  "Revenue": 1234567890123456800
+}
+```
+```json
+{
+  "@context": "$metadata#Customers(ID,Revenue)/$entity",
+  "ID": "ALFKI",
+  "Revenue": {
+    "@type": "Decimal",
+    "@Core.ValueException": { "value": "1234567890123456789" },
+    "$": 1234567890123456800
+  }
+}
+```
+:::
+
+::: example
+Example ##ex_groupedcollection: a collection-valued property with control
+information, in both forms. The property name is written three times in
+the first and once in the second
+```json
+{
+  "@context": "$metadata#Customers(ID,Orders(ID))/$entity",
+  "ID": "ALFKI",
+  "Orders@count": 42,
+  "Orders@nextLink": "Customers('ALFKI')/Orders?$skiptoken=2",
+  "Orders": [{ "ID": 10643 }, { "ID": 10692 }]
+}
+```
+```json
+{
+  "@context": "$metadata#Customers(ID,Orders(ID))/$entity",
+  "ID": "ALFKI",
+  "Orders": {
+    "@count": 42,
+    "@nextLink": "Customers('ALFKI')/Orders?$skiptoken=2",
+    "$": [{ "ID": 10643 }, { "ID": 10692 }]
+  }
+}
+```
+:::
+
+Nothing in this section depends on a positional representation. A compact
+payload MAY group a property's annotations with its value in this way and
+represent no instance positionally at all.
 
 ## ##subsec Position Values
 
