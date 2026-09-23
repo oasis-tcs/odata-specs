@@ -94,13 +94,10 @@ format, a service:
 19. SHOULD advertise support with the
     [Capabilities.SupportedFormats]{.term} term ([section
     ##AdvertisingSupport])
-20. MUST return `406 Not Acceptable` if the client requests
-    `compact=true` and the service does not support it ([section
+20. SHOULD reject with `415 Unsupported Media Type` a request body labeled
+    `compact=true` that it cannot accept ([section
     ##RequestingtheCompactJSONFormat])
-21. MUST reject with `415 Unsupported Media Type` a request body labeled
-    `compact=true` that it does not support ([section
-    ##RequestingtheCompactJSONFormat])
-22. MUST reject with `400 Bad Request` a compact request body whose
+21. MUST reject with `400 Bad Request` a compact request body whose
     positional representation does not match the positional property list,
     or which omits the `context` control information or a conforming
     select-list ([section ##DeterminingthePositionalPropertyListinRequests])

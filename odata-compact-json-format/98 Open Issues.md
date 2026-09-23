@@ -211,10 +211,10 @@ considered.
 
 15. **Control information in the positional representation.** Selected
     instance annotations already occupy positions; the proposal is to allow
-    control information --- `@id`, `@etag`, `@type` --- to do so as well. This
-    would repair the inversion recorded under D‑20, whereby `metadata=full`
-    currently forces every instance into a wrapper object and so defeats the
-    format.
+    control information --- `@id`, `@etag`, `@type` --- to do so as well. Under
+    D‑35 `metadata=full` is permitted and every instance then takes a wrapper
+    object carrying its control information; positions for control
+    information would remove that wrapper and recover the remaining saving.
 
     *The select-list here is written by the service, not by the client.* The
     context URL describes what the payload contains; `$select` is what the

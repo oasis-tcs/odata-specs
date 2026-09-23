@@ -3,60 +3,71 @@
 
 # ##sec Requesting the Compact JSON Format
 
-The compact JSON format can be requested using the `$format` query option
-in the request URL with the media type `application/json` followed by the
-`compact=true` format parameter, optionally followed by other format
-parameters.
+The compact JSON format can be requested using the `Accept` header with
+the media type `application/json` and the `compact=true` format parameter,
+together with any other format parameters.
 
-Alternatively, this format can be requested using the `Accept` header with
-the media type `application/json` followed by the `compact=true` format
-parameter, optionally followed by other format parameters.
+Alternatively, this format can be requested using the `$format` query
+option in the request URL with the media type `application/json` and the
+`compact=true` format parameter, together with any other format
+parameters.
 
 If specified, `$format` overrides any value specified in the `Accept`
 header.
 
-The names and values of the format parameters are case-insensitive.
+Because the `compact=true` format parameter selects a payload shape that a
+receiver unaware of this specification will misinterpret, a service MUST
+NOT return a compact response unless the client requested it with
+`compact=true`.
 
-A service that does not support the compact JSON format MUST NOT return a
-compact payload. Because the `compact` format parameter selects a payload
-shape that a receiver unaware of this specification will misinterpret, a
-service MUST NOT return a compact response unless the client requested it
-with `compact=true`, and MUST return `406 Not Acceptable` if the client
-requests `compact=true` and the service does not support it.
+A service unaware of this specification ignores the `compact` format
+parameter, as [RFC2045](#rfc2045) requires of a MIME implementation for a
+parameter whose name it does not recognize, and responds in the format
+defined by [OData-JSON](#ODataJSON). Either response is safe to consume:
+a response that is not compact is an [OData-JSON](#ODataJSON) payload,
+which the [superset principle](#supersetprinciple) makes acceptable to a
+receiver of compact payloads.
 
 A client MUST NOT send a compact request body unless it has established
 that the service supports the compact JSON format, either from the
 [`Capabilities.SupportedFormats`](#AdvertisingSupport) annotation or from
-out-of-band knowledge. A service that receives a request body labeled with
-`compact=true` that it does not support MUST reject the request with
-`415 Unsupported Media Type`.
+out-of-band knowledge. A service that supports this format and receives a
+request body labeled with `compact=true` that it cannot accept SHOULD
+reject the request with `415 Unsupported Media Type`. A service unaware of
+this specification reads such a body as an [OData-JSON](#ODataJSON)
+payload and will in most cases reject it with `400 Bad Request`.
 
 ## ##subsec Format Parameters
+
+The `compact` format parameter is defined by this document. Its name and
+its value are case-insensitive, as are those of the format parameters
+defined in [OData-JSON](#ODataJSON).
 
 The format parameters defined in [OData-JSON](#ODataJSON) apply to the
 compact JSON format with the meaning defined there, subject to the
 following.
 
-The `streaming` parameter is meaningful and MAY be specified. A positional
-representation is inherently ordered, and a compact payload that meets the
-[payload ordering constraints](#PayloadOrderingConstraints) MUST include
+The `streaming` parameter is meaningful and MAY be specified. A compact
+payload that meets the [payload ordering
+constraints](#PayloadOrderingConstraints) SHOULD include
 `streaming=true`.
 
 The `IEEE754Compatible` parameter is meaningful and MUST be included if
 `Edm.Int64` and `Edm.Decimal` numbers are represented as strings.
 
-The `metadata` parameter is meaningful and MAY be specified with the value
-`minimal` or `none`. Note that `metadata=none` does not remove the
-[`context`](#ControlInformationcontext) control information from a compact
-payload: the context URL determines the [positional property
-list](#positionalpropertylist) and is therefore required for the payload
-to be interpretable at all. See [section ##ControlInformationcontext].
+The `metadata` parameter is meaningful and MAY be specified with any of
+the values defined in [OData-JSON](#ODataJSON). Note that `metadata=none`
+does not remove the [`context`](#ControlInformationcontext) control
+information from a compact payload: the context URL determines the
+[positional property list](#positionalpropertylist) and is therefore
+required for the payload to be interpretable at all. See [section
+##ControlInformationcontext].
 
-The value `metadata=full` is NOT RECOMMENDED with `compact=true`. Full
-metadata requires control information to be present for every instance,
-which forces every instance into a [wrapper object](#wrapperobject) and
-defeats the purpose of the format. Services MAY reject the combination
-with `406 Not Acceptable`.
+With `metadata=full`, control information is present for every instance,
+so every instance takes a [wrapper object](#wrapperobject) carrying that
+control information alongside its positional representation under `$`. The
+saving on property names is retained; the saving overall is
+correspondingly smaller.
 
 ## ##subsec Advertising Support
 
@@ -71,8 +82,10 @@ Example ##ex: a service advertising support for both the format defined in
 [OData-JSON](#ODataJSON) and the compact JSON format
 ```json
 "@Capabilities.SupportedFormats": [
-  "application/json;IEEE754Compatible=true",
-  "application/json;IEEE754Compatible=true;compact=true"
+  "application/json",
+  "application/json;streaming=true",
+  "application/json;compact=true",
+  "application/json;streaming=true;compact=true"
 ]
 ```
 :::

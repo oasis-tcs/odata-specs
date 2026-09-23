@@ -42,6 +42,10 @@ See link in "[Related work](#RelatedWork)" section on cover page.
 _OData Vocabularies Version 4.0: Core Vocabulary._  
 See link in "[Related work](#RelatedWork)" section on cover page.
 
+###### [RFC2045]{id=rfc2045}
+_Freed, N. and N. Borenstein, "Multipurpose Internet Mail Extensions (MIME) Part One: Format of Internet Message Bodies", RFC 2045, DOI 10.17487/RFC2045, November 1996_.
+https://www.rfc-editor.org/info/rfc2045.
+
 ###### [RFC2119]{id=rfc2119}
 _Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_.
 https://www.rfc-editor.org/info/rfc2119.
