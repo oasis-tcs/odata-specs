@@ -77,6 +77,10 @@ client or service:
     property list by name in the wrapper object holding the positional
     representation, and MUST NOT carry any property both positionally and
     by name ([section ##OpenTypesandDynamicProperties])
+    1. MUST carry the annotations and control information of a property
+       that occupies a position in the wrapper object at that position,
+       and MUST NOT carry them under a prefixed name in the wrapper object
+       around the instance ([section ##TheWrapperObject])
 16. MUST use the empty JSON object `{}` at the position of a selected
     dynamic property that the instance does not have ([section
     ##OpenTypesandDynamicProperties])

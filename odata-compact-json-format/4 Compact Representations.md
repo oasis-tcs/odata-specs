@@ -410,13 +410,34 @@ JSON primitive where the wrapper stands at the position of a primitive
 property. It is not restricted to arrays --- a wrapper carrying an
 annotation on a primitive property holds that primitive under `$`.
 
-Properties carried by name in a wrapper object MUST NOT include a property
-that occupies a position in the instance's positional property list, and
-MUST follow the value, as required by [section
-##PayloadOrderingConstraints]. Carrying properties by name is what allows
-an instance of an open type to keep its positional representation while
-conveying dynamic properties that could not be placed in the select-list;
-see [section ##OpenTypesandDynamicProperties].
+A property is *carried by name* when it appears as an ordinary name/value
+pair of the wrapper object, as [OData-JSON](#ODataJSON) represents it,
+instead of occupying a position. This is what allows an instance of an
+open type to keep its positional representation while conveying dynamic
+properties that could not be placed in the select-list; see [section
+##OpenTypesandDynamicProperties].
+
+A property that occupies a position in the instance's positional property
+list MUST NOT also be carried by name. Neither MUST anything that applies
+to it: the annotations and control information of such a property are
+carried in the [wrapper object](#wrapperobject) at its position, as
+[section ##PropertyAnnotations] describes, and MUST NOT appear under a
+prefixed name in the wrapper object around the instance. A property
+carried by name takes its annotations and control information with it,
+under the prefixed names that [OData-JSON](#ODataJSON) gives them.
+
+Everything that concerns one property is therefore in one place. A
+receiver that has read the value at a position never has to look elsewhere
+for something that qualifies it, and one that reads a name/value pair
+never has to check whether that property also occupies a position. This is
+what [OData-JSON](#ODataJSON) does too, where the annotations of a
+property immediately precede that property's value.
+
+Properties carried by name MUST appear after the wrapper object's value
+--- the `$` name/value pair --- as required by [section
+##PayloadOrderingConstraints]. A receiver reading the payload as a stream
+therefore has the whole positional representation in hand before it meets
+any property that is not part of it.
 
 A wrapper object MAY appear in each of the places in which a value may
 appear:
@@ -456,16 +477,34 @@ value of a wrapper object. A single entity or complex value represented
 positionally at the root of the message body therefore uses `$`.
 
 Producers of compact payloads SHOULD use `$` wherever this document
-permits a choice.
+permits a choice. Nothing is saved by `value`, which is the longer of the
+two names. What it offers is that a client written for
+[OData-JSON](#ODataJSON), which looks for `value` in the message body of a
+collection, finds the collection where it expects it --- the [superset
+principle](#supersetprinciple) at work, and the only reason to prefer
+it.
 
 This restriction is what keeps the two representations distinguishable.
 Were `value` also the wrapper's value name at the root of a message body
-representing a single entity, then
-`{"@context": "…#Customers/$entity", "value": […]}` would be at once the
-positional representation of an entity and the
-[OData-JSON](#ODataJSON) representation of an entity having a
-collection-valued property named `value`, with nothing to tell the two
-apart.
+representing a single entity, a receiver meeting `value` there would have
+to consult the metadata to decide which of two readings applies, and for
+an entity type declaring a collection-valued property named `value` the
+metadata need not settle it either:
+
+```json
+{
+  "@context": "$metadata#Customers(ID,value)/$entity",
+  "value": ["ALFKI", ["red", "green"]]
+}
+```
+
+Read as a wrapper object, this is the positional representation of a
+customer whose `ID` is `ALFKI` and whose `value` property is the
+collection `["red", "green"]`. Read as defined by
+[OData-JSON](#ODataJSON), it is a customer whose `value` property is the
+collection `["ALFKI", ["red", "green"]]`, with `ID` not transmitted. Where
+`value` is of type `Collection(Edm.Untyped)` both readings are valid and
+nothing in the payload tells them apart.
 
 ::: example
 Example ##ex_wrapper: the same information three times --- as defined by

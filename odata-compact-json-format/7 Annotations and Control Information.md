@@ -94,6 +94,31 @@ property it annotates is a primitive one.
 ```
 :::
 
+An annotation of a property that occupies a position MUST NOT be carried
+under its prefixed name in the wrapper object around the instance. The
+position is where that property is, and everything that applies to it is
+carried there; see [section ##TheWrapperObject].
+
+::: example
+Example ##ex_annotationplacement: `Name` occupies the second position, so
+its annotation is carried in the wrapper object at that position. The
+second form, which carries the annotation by name alongside the instance's
+own value, is not permitted
+```json
+{
+  "@context": "$metadata#Customers(ID,Name)/$entity",
+  "$": ["ALFKI", { "@Core.Permissions": "Read", "$": "Alfreds Futterkiste" }]
+}
+```
+```json
+{
+  "@context": "$metadata#Customers(ID,Name)/$entity",
+  "Name@Core.Permissions": "Read",
+  "$": ["ALFKI", "Alfreds Futterkiste"]
+}
+```
+:::
+
 ::: example
 Example ##ex_countonly: a collection-valued property for which only the
 count was requested; the position holds a wrapper object with an

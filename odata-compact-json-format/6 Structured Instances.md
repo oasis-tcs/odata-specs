@@ -243,7 +243,8 @@ An instance MAY in addition carry dynamic properties that are *not* in its
 positional property list, by name, in the [wrapper object](#wrapperobject)
 holding its positional representation, as described in [section
 ##TheWrapperObject]. A property that occupies a position MUST NOT also be
-carried by name.
+carried by name, and neither MUST its annotations or control information,
+which belong in the wrapper object at that position.
 
 ::: example
 Example ##ex_openselected: `Nickname` is selected and therefore occupies a
