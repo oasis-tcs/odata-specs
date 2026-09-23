@@ -32,8 +32,8 @@ Michael Pizzo (b-mpizzo@microsoft.com), [Microsoft](http://www.microsoft.com/)
 
 #### Editors:
 
-Michael Pizzo (b-mpizzo@microsoft.com), [Microsoft](http://www.microsoft.com/) \
-Hubert Heijkers (hubert.heijkers@nl.ibm.com), [IBM](http://www.ibm.com/)
+Hubert Heijkers (hubert.heijkers@nl.ibm.com), [IBM](http://www.ibm.com/) \
+Michael Pizzo (b-mpizzo@microsoft.com), [Microsoft](http://www.microsoft.com/)
 
 #### [Related work:]{id=RelatedWork}
 This specification is related to:
@@ -103,8 +103,10 @@ For complete copyright information please see the full Notices section in an App
   - [4.2 Positional Property List](#PositionalPropertyList)
   - [4.3 Determining the Positional Property List](#DeterminingthePositionalPropertyList)
   - [4.4 Grouping of Select Items](#GroupingofSelectItems)
-  - [4.5 The Wrapper Object](#TheWrapperObject)
-  - [4.6 Position Values](#PositionValues)
+  - [4.5 Nested Context URLs](#NestedContextURLs)
+  - [4.6 The Wrapper Object](#TheWrapperObject)
+  - [4.7 Wrapper Objects in an Object Representation](#WrapperObjectsinanObjectRepresentation)
+  - [4.8 Position Values](#PositionValues)
 - [5 Common Characteristics](#CommonCharacteristics)
   - [5.1 Header Content-Type](#HeaderContentType)
   - [5.2 Message Body](#MessageBody)
@@ -124,10 +126,11 @@ For complete copyright information please see the full Notices section in an App
   - [7.1 Instance Annotations](#InstanceAnnotations)
   - [7.2 Property Annotations](#PropertyAnnotations)
   - [7.3 Selected Annotations](#SelectedAnnotations)
-  - [7.4 Control Information](#ControlInformation)
-    - [7.4.1 Control Information: `context`](#ControlInformationcontext)
-    - [7.4.2 Control Information: `count` and `nextLink`](#ControlInformationcountandnextLink)
-    - [7.4.3 Control Information: `type`](#ControlInformationtype)
+  - [7.4 Bound Operations](#BoundOperations)
+  - [7.5 Control Information](#ControlInformation)
+    - [7.5.1 Control Information: `context`](#ControlInformationcontext)
+    - [7.5.2 Control Information: `count` and `nextLink`](#ControlInformationcountandnextLink)
+    - [7.5.3 Control Information: `type`](#ControlInformationtype)
 - [8 Request Payloads](#RequestPayloads)
   - [8.1 Determining the Positional Property List in Requests](#DeterminingthePositionalPropertyListinRequests)
   - [8.2 Message Body of a Request](#MessageBodyofaRequest)
@@ -171,24 +174,25 @@ representing and interacting with structured content. The core
 specification for the protocol is in [OData-Protocol](#ODataProtocol);
 this document is an extension of the core protocol. Representations for
 OData requests and responses using the JavaScript Object Notation (JSON),
-see [RFC8259](#rfc8259), are defined in [OData-JSON](#ODataJSON).
+see [RFC8259](#rfc8259), are defined in [OData-JSON](#ODataJSON), of which
+this document is an extension.
 
 This document defines a *compact* JSON format: a lossless, alternative
 representation of the same information, whose prime aim is to minimize
-the uncompressed size of OData request and response payloads.
+the uncompressed size of OData JSON request and response payloads.
 
 Processing large volumes of JSON is expensive, largely due to its
 verbosity. Compression on the wire takes most of that inefficiency away
-during transport, but the sender producing and the receiver consuming the
-uncompressed payload still deal with the full volume of JSON text. The
+during transport, but the producer and the consumer of the uncompressed
+payload still deal with the full volume of JSON text. The
 repetition of property names, once per property per instance, dominates
 that volume in exactly the payloads where it hurts most: large collections
 of entities and large collections of complex values.
 
-The approach taken in this format, inspired by traditional rowset
-interfaces, is to represent a structured instance as a JSON *array* rather
-than a JSON object, so that a property name is transmitted at most once
-per payload instead of once per instance. The items of a JSON array are
+The approach taken in this format is to represent the properties of a
+structured instance as the items of a JSON *array* rather than as the
+name/value pairs of a JSON object, so that a property name is transmitted
+at most once per payload instead of once per instance. The items of a JSON array are
 ordered, whereas the name/value pairs of a JSON object are not; this
 format relies on that ordering to convey, by position, which value belongs
 to which property.
@@ -222,17 +226,18 @@ represent:
 The following terms are used throughout this document:
 
 - [*Positional representation*]{id=positionalrepresentation}: the
-  representation of a structured instance as a JSON array whose items are
-  the values of the instance's properties, identified by their position.
+  representation of the properties of a structured instance as a JSON
+  array whose items are identified by their position rather than by name.
 - [*Positional property list*]{id=positionalpropertylist}: the ordered
-  list of properties that a positional representation conveys; item *n* of
-  the array is the value of item *n* of this list. See [section
-  4.2](#PositionalPropertyList).
+  list of what a positional representation conveys --- the instance's
+  properties, and any explicitly selected instance annotations and bound
+  operations; item *n* of the array is the value of item *n* of this list.
+  See [section 4.2](#PositionalPropertyList).
 - [*Wrapper object*]{id=wrapperobject}: a JSON object that appears where a
-  value would otherwise appear, carrying whatever must be conveyed by name
-  alongside that value --- annotations, control information, and properties
-  that are not in the positional property list --- together with the value
-  itself. See [section 4.5](#TheWrapperObject).
+  value may appear, carrying whatever must be conveyed by name alongside
+  that value --- annotations, control information, and properties that are
+  not in the positional property list --- together with the value itself,
+  under the reserved name `$`. See [section 4.6](#TheWrapperObject).
 - [*Compact payload*]{id=compactpayload}: a request or response body
   labeled with the [`compact`](#RequestingtheCompactJSONFormat) format
   parameter.
@@ -280,9 +285,10 @@ name/value pairs that annotate a JSON object, property or array, and a set
 of canonical name/value pairs for control information such as ids, types
 and links.
 
-This format extends [OData-JSON](#ODataJSON) further by allowing a
-structured instance -- an entity or a complex value -- to be represented as
-a JSON array instead of a JSON object. Everything else defined by
+This format extends [OData-JSON](#ODataJSON) further by allowing the
+properties of a structured instance -- an entity or a complex value -- to
+be represented as the items of a JSON array instead of as the name/value
+pairs of a JSON object. Everything else defined by
 [OData-JSON](#ODataJSON) continues to apply.
 
 ## <a id="DesignPrinciples" href="#DesignPrinciples">2.1 Design Principles</a>
@@ -293,19 +299,20 @@ they explain, and constrain, the rules in the remainder of this document.
 1. [*Compact JSON is a superset of the OData JSON format.*]{id=supersetprinciple}
    Every payload that is valid according
    to [OData-JSON](#ODataJSON) is also a valid compact JSON payload. A
-   receiver that accepts compact JSON therefore accepts strictly more
-   payloads than a receiver that accepts only [OData-JSON](#ODataJSON),
-   and a sender is never forced to use a positional representation where
-   it is inconvenient or impossible.
+   consumer that accepts compact JSON therefore accepts
+   [OData-JSON](#ODataJSON) as well, and a producer is never forced to use
+   a positional representation where it is inconvenient or impossible.
 
-2. *The saving is in the repetition.* A positional representation removes
-   property names from a payload; the mapping from positions to properties
-   is transmitted once. Consequently the benefit grows with the number of
-   instances that share a positional property list, and is negligible or
-   negative for a payload containing a single instance. This format
-   therefore never *requires* a positional representation.
+2. *The saving is in avoiding the repetition.* A positional
+   representation removes the *repetition* of property names from a
+   payload; the names themselves are transmitted once, in the context
+   URL. The benefit therefore grows with the number of instances that
+   share a positional property list, and is negligible or negative for a
+   payload containing a single instance. This format never *requires* a
+   positional representation, so a producer can use whichever
+   representation suits the payload it is sending.
 
-3. *The context URL describes the payload.* A receiver that has the
+3. *The context URL describes the payload.* A consumer that has the
    context URL, and the metadata it references, can interpret a compact
    payload without knowledge of the request that produced it. This format
    does not introduce a second, competing mechanism for describing payload
@@ -319,10 +326,10 @@ they explain, and constrain, the rules in the remainder of this document.
 
 ::: example
 Example <a id="superset" href="#superset">2</a>: because of the [superset
-principle](#supersetprinciple), a sender that cannot produce a positional
-representation for a particular instance may fall back to the
-representation defined by [OData-JSON](#ODataJSON) for that instance
-alone, within an otherwise positional payload:
+principle](#supersetprinciple), a producer that cannot, or chooses not to,
+represent a particular instance positionally may fall back to the
+representation defined by [OData-JSON](#ODataJSON) for that instance,
+within an otherwise positional payload:
 ```json
 {
   "@context": "$metadata#Customers(ID,Name)",
@@ -344,69 +351,81 @@ definition and meaning of control information, for URL and relative URL
 handling, and for everything else it does not mention, the rules of
 [OData-JSON](#ODataJSON) apply unchanged.
 
-In particular, this format changes only *how a structured instance is
-laid out*. It does not change which information may appear in a payload,
-what that information means, or which requests a service supports.
+In particular, this format changes only *how the values of an instance's
+properties are laid out*. It does not change which information may appear
+in a payload, what that information means, or which requests a service
+supports.
 
 
 -------
 
 # <a id="RequestingtheCompactJSONFormat" href="#RequestingtheCompactJSONFormat">3 Requesting the Compact JSON Format</a>
 
-The compact JSON format can be requested using the `$format` query option
-in the request URL with the media type `application/json` followed by the
-`compact=true` format parameter, optionally followed by other format
-parameters.
+The compact JSON format can be requested using the `Accept` header with
+the media type `application/json` and the `compact=true` format parameter,
+together with any other format parameters.
 
-Alternatively, this format can be requested using the `Accept` header with
-the media type `application/json` followed by the `compact=true` format
-parameter, optionally followed by other format parameters.
+Alternatively, this format can be requested using the `$format` query
+option in the request URL with the media type `application/json` and the
+`compact=true` format parameter, together with any other format
+parameters.
 
 If specified, `$format` overrides any value specified in the `Accept`
 header.
 
-The names and values of the format parameters are case-insensitive.
+Because the `compact=true` format parameter selects a payload shape that a
+consumer unaware of this specification will misinterpret, a service MUST
+NOT return a compact response unless the client requested it with
+`compact=true`.
 
-A service that does not support the compact JSON format MUST NOT return a
-compact payload. Because the `compact` format parameter selects a payload
-shape that a receiver unaware of this specification will misinterpret, a
-service MUST NOT return a compact response unless the client requested it
-with `compact=true`, and MUST return `406 Not Acceptable` if the client
-requests `compact=true` and the service does not support it.
+A service unaware of this specification ignores the `compact` format
+parameter, as [RFC2045](#rfc2045) requires of a MIME implementation for a
+parameter whose name it does not recognize, and responds in the format
+defined by [OData-JSON](#ODataJSON). Either response is safe to consume:
+a response that is not compact is an [OData-JSON](#ODataJSON) payload,
+which the [superset principle](#supersetprinciple) makes acceptable to a
+consumer of compact payloads.
 
 A client MUST NOT send a compact request body unless it has established
 that the service supports the compact JSON format, either from the
 [`Capabilities.SupportedFormats`](#AdvertisingSupport) annotation or from
-out-of-band knowledge. A service that receives a request body labeled with
-`compact=true` that it does not support MUST reject the request with
-`415 Unsupported Media Type`.
+out-of-band knowledge. A service that supports this format and receives a
+request body labeled with `compact=true` that it cannot accept SHOULD
+reject the request with `415 Unsupported Media Type`. A service unaware of
+this specification reads such a body as an [OData-JSON](#ODataJSON)
+payload and will in most cases reject it with `400 Bad Request`.
 
 ## <a id="FormatParameters" href="#FormatParameters">3.1 Format Parameters</a>
+
+The `compact` format parameter is defined by this document. Its name and
+its value are case-insensitive, as are those of the format parameters
+defined in [OData-JSON](#ODataJSON).
 
 The format parameters defined in [OData-JSON](#ODataJSON) apply to the
 compact JSON format with the meaning defined there, subject to the
 following.
 
-The `streaming` parameter is meaningful and MAY be specified. A positional
-representation is inherently ordered, and a compact payload that meets the
-[payload ordering constraints](#PayloadOrderingConstraints) MUST include
+The `streaming` parameter is meaningful and MAY be specified. A compact
+payload that meets the [payload ordering
+constraints](#PayloadOrderingConstraints) SHOULD include
 `streaming=true`.
 
 The `IEEE754Compatible` parameter is meaningful and MUST be included if
 `Edm.Int64` and `Edm.Decimal` numbers are represented as strings.
 
-The `metadata` parameter is meaningful and MAY be specified with the value
-`minimal` or `none`. Note that `metadata=none` does not remove the
-[`context`](#ControlInformationcontext) control information from a compact
-payload: the context URL determines the [positional property
-list](#positionalpropertylist) and is therefore required for the payload
-to be interpretable at all. See [section 7.4.1](#ControlInformationcontext).
+The `metadata` parameter is meaningful and MAY be specified with any of
+the values defined in [OData-JSON](#ODataJSON). Note that `metadata=none`
+does not remove the [`context`](#ControlInformationcontext) control
+information from a compact payload: the context URL determines the
+[positional property list](#positionalpropertylist) and is therefore
+required for the payload to be interpretable at all. See [section
+7.5.1](#ControlInformationcontext).
 
-The value `metadata=full` is NOT RECOMMENDED with `compact=true`. Full
-metadata requires control information to be present for every instance,
-which forces every instance into a [wrapper object](#wrapperobject) and
-defeats the purpose of the format. Services MAY reject the combination
-with `406 Not Acceptable`.
+With `metadata=full`, control information is present for every instance,
+so every instance takes a [wrapper object](#wrapperobject) carrying that
+control information alongside its positional representation under `$`. The
+saving on property names is retained; the saving overall is
+correspondingly smaller.
 
 ## <a id="AdvertisingSupport" href="#AdvertisingSupport">3.2 Advertising Support</a>
 
@@ -421,8 +440,10 @@ Example 3: a service advertising support for both the format defined in
 [OData-JSON](#ODataJSON) and the compact JSON format
 ```json
 "@Capabilities.SupportedFormats": [
-  "application/json;IEEE754Compatible=true",
-  "application/json;IEEE754Compatible=true;compact=true"
+  "application/json",
+  "application/json;streaming=true",
+  "application/json;compact=true",
+  "application/json;streaming=true;compact=true"
 ]
 ```
 :::
@@ -433,21 +454,34 @@ Example 3: a service advertising support for both the format defined in
 # <a id="CompactRepresentations" href="#CompactRepresentations">4 Compact Representations</a>
 
 This section defines the two representations that this format adds to
-[OData-JSON](#ODataJSON): the *positional representation*, which conveys a
-structured instance as a JSON array, and the *wrapper object*, which
-conveys whatever needs a name in a place where a positional representation
-has no room for one. Everything else in this document is expressed in
-terms of these two.
+[OData-JSON](#ODataJSON): the *positional representation*, which conveys
+the values of an instance's properties as the items of a JSON array, and
+the *wrapper object*, which conveys whatever needs a name in a place where
+a positional representation has no room for one. Everything else in this
+document is expressed in terms of these two.
 
 ## <a id="PositionalRepresentation" href="#PositionalRepresentation">4.1 Positional Representation</a>
 
-A structured instance -- an entity or a complex value -- MAY be represented
-as a JSON array instead of a JSON object. Such an array is called the
-*positional representation* of the instance.
+A structured instance -- an entity or a complex value -- is represented as
+one of the following:
 
-The items of the array are the values of the instance's properties. A
-property name is not transmitted with the value; the property a value
-belongs to is identified by the position of the value within the array.
+- a JSON object, as defined in [OData-JSON](#ODataJSON), whose name/value
+  pairs are the instance's properties together with the annotations and
+  control information that apply to the instance and to those properties;
+- a JSON array, the *positional representation*, whose items are the
+  values at the positions of the instance's [positional property
+  list](#positionalpropertylist); or
+- a [wrapper object](#wrapperobject), which carries the positional
+  representation under the reserved name `$`, together with the
+  annotations and control information that apply to the instance and any
+  of its properties that are not in the positional property list, by name.
+
+The first is defined by [OData-JSON](#ODataJSON) and is unchanged; the
+second and the third are what this format adds.
+
+In a positional representation a property name is not transmitted with the
+value; the property a value belongs to is identified by the position of
+the value within the array.
 
 ::: example
 Example <a id="first" href="#first">4</a>: the same entity in the format defined by
@@ -468,37 +502,77 @@ Example <a id="first" href="#first">4</a>: the same entity in the format defined
 ```
 :::
 
-A sender MAY choose the positional representation for some instances in a
-payload and the representation defined in [OData-JSON](#ODataJSON) for
-others; see the [superset principle](#supersetprinciple). A receiver
-distinguishes the two by the JSON type of the instance: a JSON array is a
-positional representation, a JSON object is not.
+A producer MAY choose one of these representations for one instance in a
+payload and another for the next; see the [superset
+principle](#supersetprinciple). A consumer distinguishes them by the JSON
+type of the instance: a JSON array is a positional representation, and a
+JSON object is either a wrapper object or the representation defined by
+[OData-JSON](#ODataJSON), told apart as described in [section
+4.6](#TheWrapperObject).
+
+A positional representation is not self-describing. A consumer needs the
+context URL to know which property each position holds, and the metadata
+document that context URL references to know what the value at a position
+means --- in particular whether a property is collection-valued, since a
+JSON array at a position is the positional representation of a single
+structured value where the property is single-valued, and the collection
+of its values where it is not. This is a stronger dependency on the
+metadata document than [OData-JSON](#ODataJSON) creates, where the name of
+a property accompanies its value.
+
+::: example
+Example <a id="cardinality" href="#cardinality">5</a>: two payloads whose positional representations
+are identical in shape and differ only in what the metadata says. In the
+first, `Address` is single-valued, so the array at its position is one
+complex value; in the second, `Addresses` is collection-valued, so the
+array at its position is a collection with one member, which is itself a
+positional representation
+```json
+{
+  "@context": "$metadata#Customers(Name,Address(City,PostalCode))",
+  "$": [
+    ["Alfreds Futterkiste", ["Berlin", "12209"]]
+  ]
+}
+```
+```json
+{
+  "@context": "$metadata#Customers(Name,Addresses(City,PostalCode))",
+  "$": [
+    ["Alfreds Futterkiste", [["Berlin", "12209"]]]
+  ]
+}
+```
+:::
 
 ## <a id="PositionalPropertyList" href="#PositionalPropertyList">4.2 Positional Property List</a>
 
 The *positional property list* of a structured instance is the ordered
-list of properties that its positional representation conveys.
+list of what its positional representation conveys: the instance's
+properties, and --- where the select-list names them --- explicitly selected
+instance annotations, as described in [section 7.3](#SelectedAnnotations), and
+bound operations, as described in [section 7.4](#BoundOperations). Properties
+are the ordinary case, and the list is named for them.
 
 If an instance is represented positionally:
 
 - the number of items in the array MUST equal the number of items in the
   positional property list, and
 - item *n* of the array MUST be the value of item *n* of the positional
-  property list, formatted as described in [section 4.6](#PositionValues).
+  property list, formatted as described in [section 4.8](#PositionValues).
 
-A sender MUST NOT omit an item, MUST NOT add an item, and MUST NOT
+A producer MUST NOT omit an item, MUST NOT add an item, and MUST NOT
 reorder items. A property whose value is null is represented by the JSON
 value `null` in its position; a property that has no value is represented
-as described in [section 4.6](#PositionValues).
+as described in [section 4.8](#PositionValues).
 
 Note that this is a stricter requirement than the one
 [OData-JSON](#ODataJSON) places on a JSON object representation, where a
-sender may omit a property whose value it does not wish to transmit. In a
+producer may omit a property whose value it does not wish to transmit. In a
 positional representation there is no way to omit a value without
 shifting every subsequent value, so the positional property list must be
-transmitted in full. If a sender wishes to transmit fewer properties, it
-narrows the positional property list -- by narrowing the select-list in the
-context URL -- rather than shortening the array.
+transmitted in full. If a producer wishes to transmit fewer properties, it
+narrows the select-list in the context URL.
 
 ## <a id="DeterminingthePositionalPropertyList" href="#DeterminingthePositionalPropertyList">4.3 Determining the Positional Property List</a>
 
@@ -511,14 +585,17 @@ select-list MUST enumerate every property conveyed positionally, at every
 level of nesting. In particular:
 
 - the select-list MUST NOT be omitted, and MUST NOT be empty;
+- the select-list MUST enumerate every structural property and every
+  expanded navigation property conveyed positionally, by name, including
+  where [OData-Protocol](#ODataProtocol) would allow a select-list
+  containing only expanded navigation properties to select the structural
+  properties implicitly;
 - the select-list MUST NOT contain the shortcut `*`, nor the shortcut
-  `{namespace}.*` for the bound operations of a type;
-- a select-item for a structured property whose value is conveyed
-  positionally MUST carry a nested select-list, rather than the empty
-  parentheses that [OData-Protocol](#ODataProtocol) permits;
-- the rule of [OData-Protocol](#ODataProtocol) whereby a select-list
-  containing only expanded navigation properties implicitly selects all
-  structural properties does not apply to a compact payload.
+  `{namespace}.*` for the bound operations of a schema;
+- a select-item for a structural or navigation property of a structured
+  type whose value is conveyed positionally MUST carry a nested
+  select-list, rather than the empty parentheses that
+  [OData-Protocol](#ODataProtocol) permits.
 
 This is a requirement on the *context URL*, not on the request. A client
 may use `$select=*`, or omit `$select` altogether, or use `$expand=*`; the
@@ -530,36 +607,47 @@ object](#wrapperobject); see [section 6.8](#OpenTypesandDynamicProperties).
 
 The reason for this requirement is that no other route to the positional
 property list is well defined. Deriving it from the CSDL document would
-require the receiver to know which version of that document the sender
+require the consumer to know which version of that document the producer
 used, and to rely on the order in which properties are declared there,
 which [OData-CSDL](#ODataCSDL) does not make significant. A service always
 knows which metadata it used; a client composing a request payload may not,
 and cannot determine it from the payload alone. Enumerating the
 select-list places the information with the party that reliably has it.
 
-Let *T* be the type of the instance and *S* the sequence of select-list
-items, in the order in which they appear in the context URL, that applies
-to the instance. The positional property list is determined as follows:
+The same reasoning excludes both shortcuts. `*` and `{namespace}.*` name a
+rule for finding a set rather than the set itself, so the producer and the
+consumer would each have to resolve it, from a metadata document whose
+version they need not agree on and whose declaration order
+[OData-CSDL](#ODataCSDL) does not make significant. Neither shortcut says
+how many positions it occupies or in what order. The party writing the
+select-list is the service, which by then knows exactly what it has placed
+at each position, so it enumerates.
 
-1. Each item of *S* that begins with a type-cast segment --- a qualified
-   type name followed by a forward slash --- is removed from *S* unless *T*
-   is that type or is derived from it. From each such item that remains,
-   the leading type-cast segment is removed.
+The positional property list of an instance is the ordered list of the
+properties that the select-list names and that apply to the instance's
+type, each occupying the place where the select-list first names it. It
+therefore depends on the instance and not only on the context URL: two
+instances of different types in one collection have different positional
+property lists. See [section 6.7](#DerivedTypes).
 
-2. The items of *S* are grouped as described in [section
-   4.4](#GroupingofSelectItems). Each group occupies exactly one position,
-   at the position of the first of its items.
+Two things make that precise.
 
-3. The positional property list is the resulting sequence of groups, in
-   order.
+*A select-item prefixed with a type cast names a property only for some
+instances.* Such an item --- a qualified type name, a forward slash, then a
+path --- names a property of an instance of that type or of a type derived
+from it, and names nothing for any other instance, which therefore has a
+shorter positional property list. See [section 6.7](#DerivedTypes).
 
-Step 1 is what makes the positional property list depend on the instance
-and not only on the context URL: two instances of different types in one
-collection have different positional property lists. See [section
-6.7](#DerivedTypes).
+*Several select-items may name the same property.*
+[OData-Protocol](#ODataProtocol) writes a selected sub-property of a
+structured property using path syntax, so selecting two sub-properties of
+one complex property produces two select-items that both begin with that
+property. Between them they occupy one position, and what they select
+below the property becomes that property's nested select-list. See
+[section 4.4](#GroupingofSelectItems).
 
 ::: example
-Example 5: a select-list determines both the membership and the order
+Example 6: a select-list determines both the membership and the order
 of the positional property list; the two requests differ only in the
 order of the `$select` items and produce different positional
 representations of the same entity
@@ -584,7 +672,7 @@ GET ~/Customers('ALFKI')?$select=ID,Name
 :::
 
 ::: example
-Example <a id="noselect" href="#noselect">6</a>: the request specifies no `$select`, so the service
+Example <a id="noselect" href="#noselect">7</a>: the request specifies no `$select`, so the service
 resolves it to the properties it chooses to return and enumerates those in
 the context URL. The client need not have asked for them by name; the
 context URL still says exactly what each position holds.
@@ -603,7 +691,7 @@ GET ~/Customers
 :::
 
 ::: example
-Example <a id="expandonly" href="#expandonly">7</a>: a request that expands a navigation property
+Example <a id="expandonly" href="#expandonly">8</a>: a request that expands a navigation property
 without selecting anything. In the format defined by
 [OData-JSON](#ODataJSON) the context URL would be
 `$metadata#Customers(Orders(ID))`, leaving the structural properties
@@ -626,69 +714,107 @@ GET ~/Customers?$expand=Orders($select=ID)
 
 ## <a id="GroupingofSelectItems" href="#GroupingofSelectItems">4.4 Grouping of Select Items</a>
 
-A select-list may contain several items that address the same property of
-*T*: [OData-Protocol](#ODataProtocol) represents a selected sub-property
-of a complex property using path syntax, so selecting two sub-properties
-of the same complex property yields two items sharing a first path
-segment. The positional representation gives such a property a single
-position.
+Select-items that name the same property occupy one position between
+them, at the place the first of them takes, and what they select below
+that property becomes its nested select-list.
 
-The *first segment* of a select-item is the item with any `(...)` or
-`+(...)` suffix removed, truncated before the first forward slash (`/`).
-Leading type-cast segments have already been removed by step 3 of [section
-4.3](#DeterminingthePositionalPropertyList) and so do not occur here.
+Let *P* be the property a select-item names first: the item with any
+`(...)` or `+(...)` suffix removed and truncated before the first forward
+slash (`/`). A type cast does not appear here, [section
+4.3](#DeterminingthePositionalPropertyList) having already settled whether the
+item names anything for this instance.
 
-Two items of *S* belong to the same group if and only if their first
-segments are equal. The group occupies the position of the first of its
-items.
-
-If the property addressed by the first segment of a group is of a
-structured type, the *nested select-list* of that group is formed by
-concatenating, for each item of the group in order:
+Select-items with the same *P* form one group, occupying the position of
+the first of them. Where *P* is of a structured type, the group's *nested
+select-list* is what its items select below *P*, taken in their order:
 
 - for an item of the form `P/rest`, the item `rest`;
 - for an item of the form `P(nested)` or `P+(nested)`, the items of
   `nested`;
-- for an item of the form `P`, nothing.
+- for an item of the form `P` alone, nothing.
 
 The nested select-list MUST NOT be empty, for the reason given in [section
 4.3](#DeterminingthePositionalPropertyList): there is no well-defined default
-to fall back on.
-
-The nested select-list determines the positional property list of the
-instances of that property, applying this section recursively.
+to fall back on. It determines the positional property list of the
+instances of *P*, applying this section recursively.
 
 ::: example
-Example <a id="grouping" href="#grouping">8</a>: two selected sub-properties of the complex
+Example <a id="grouping" href="#grouping">9</a>: two selected sub-properties of the complex
 property `Address` share one position, which holds the positional
-representation of the complex value
+representation of the complex value. `Name` is selected between them, and
+takes the position after `Address`, not between its two sub-properties
 ```
-GET ~/Customers?$select=Name,Address/City,Address/PostalCode
+GET ~/Customers?$select=ID,Address/City,Name,Address/PostalCode
 ```
 ```json
 {
-  "@context": "$metadata#Customers(Name,Address/City,Address/PostalCode)",
+  "@context": "$metadata#Customers(ID,Address/City,Name,Address/PostalCode)",
   "$": [
-    ["Alfreds Futterkiste", ["Berlin", "12209"]],
-    ["Ana Trujillo", ["México D.F.", "05021"]]
+    ["ALFKI", ["Berlin", "12209"], "Alfreds Futterkiste"],
+    ["ANATR", ["México D.F.", "05021"], "Ana Trujillo"]
   ]
 }
 ```
-The positional property list of each `Customer` is (`Name`, `Address`),
-and the positional property list of each `Address` is (`City`,
+The positional property list of each `Customer` is (`ID`, `Address`,
+`Name`), and the positional property list of each `Address` is (`City`,
 `PostalCode`).
 :::
 
 ::: example
-Example 9: a bare item and a suffixed item addressing the same
-navigation property form one group and therefore one position
+Example 10: a bare item and a suffixed item naming the same navigation
+property form one group and therefore one position
 ```
 $metadata#Employees/Sales.Manager(DirectReports,DirectReports+(FirstName,LastName))
 ```
-The positional property list of each `Manager` is (`DirectReports`).
+The positional property list of each `Manager` is (`DirectReports`). The
+two items are not alternatives and nothing selected by either is lost: the
+group's nested select-list is what they select below `DirectReports`
+between them, so the positional property list of each direct report is
+(`FirstName`, `LastName`).
 :::
 
-## <a id="TheWrapperObject" href="#TheWrapperObject">4.5 The Wrapper Object</a>
+## <a id="NestedContextURLs" href="#NestedContextURLs">4.5 Nested Context URLs</a>
+
+A [wrapper object](#wrapperobject) MAY carry its own
+[`context`](#ControlInformationcontext) control information, and
+[OData-JSON](#ODataJSON) requires one where the entity set of a nested
+collection cannot be determined from the containing context URL.
+
+Where a nested context URL is present, its select-list determines the
+positional property list of the instances it describes, in place of the
+nested select-list that [section 4.4](#GroupingofSelectItems) would otherwise
+derive from the containing context URL. A nested context URL in a compact
+payload MUST carry a select-list meeting the requirements of [section
+4.3](#DeterminingthePositionalPropertyList).
+
+This allows a service to convey positionally a property that the
+containing select-list does not describe --- a property carried by name in
+a wrapper object, for instance, which occupies no position and therefore
+has no nested select-list of its own.
+
+::: example
+Example <a id="nestedcontext" href="#nestedcontext">11</a>: `Addresses` occupies no position, being absent
+from the containing select-list, and is carried by name in the wrapper
+object. Its own context URL supplies the positional property list of the
+addresses
+```json
+{
+  "@context": "$metadata#Customers(ID,Name)",
+  "$": [
+    {
+      "$": ["ALFKI", "Alfreds Futterkiste"],
+      "Addresses@context": "#Addresses(Street,City)",
+      "Addresses": [
+        ["Obere Str. 57", "Berlin"],
+        ["Bahnhofstraße 8", "Walldorf"]
+      ]
+    }
+  ]
+}
+```
+:::
+
+## <a id="TheWrapperObject" href="#TheWrapperObject">4.6 The Wrapper Object</a>
 
 A positional representation is a JSON array, and a JSON array has no
 name/value pairs. Anything that has to be conveyed *by name* alongside a
@@ -698,20 +824,25 @@ instance, or to the object containing a property; and any property that
 cannot be placed in the positional property list at all. The containing
 instance is no help, since it may itself be an array.
 
-This format introduces a single construct for all of them, used uniformly
-wherever a value would otherwise appear.
+A *wrapper object* is a JSON object that appears where a value may appear.
+Its name/value pairs are
 
-A *wrapper object* is a JSON object whose name/value pairs are
-
-- annotations and control information that apply to a value,
-- optionally, that value itself, under the reserved name `$`, and
+- annotations and control information that apply to that value,
+- optionally, the value itself, under the reserved name `$`, and
 - optionally, properties of the instance that are not in its positional
   property list, by name.
+
+Where the value is a structured instance, a wrapper object is the JSON
+object representation of that instance as defined by
+[OData-JSON](#ODataJSON), with the properties in the instance's positional
+property list replaced by the single name/value pair `$`. An instance may
+thus convey some of its properties by name and the rest by position, and
+the wrapper object is what holds the two together.
 
 The name `$` is not a simple identifier ([OData-CSDL](#ODataCSDL)) --- a
 simple identifier is at least one character long and begins with an
 underscore or a Unicode letter --- so it can never be the name of a declared
-or dynamic property, and [OData-JSON](#ODataJSON) never uses it. A receiver
+or dynamic property, and [OData-JSON](#ODataJSON) never uses it. A consumer
 therefore distinguishes a wrapper object from the representation defined by
 [OData-JSON](#ODataJSON) as follows:
 
@@ -728,32 +859,59 @@ JSON primitive where the wrapper stands at the position of a primitive
 property. It is not restricted to arrays --- a wrapper carrying an
 annotation on a primitive property holds that primitive under `$`.
 
-Properties carried by name in a wrapper object MUST NOT include a property
-that occupies a position in the instance's positional property list, and
-MUST follow the value, as required by [section
-5.3](#PayloadOrderingConstraints). Carrying properties by name is what allows
-an instance of an open type to keep its positional representation while
-conveying dynamic properties that could not be placed in the select-list;
-see [section 6.8](#OpenTypesandDynamicProperties).
+A property is *carried by name* when it appears as an ordinary name/value
+pair of the wrapper object, as [OData-JSON](#ODataJSON) represents it,
+instead of occupying a position. This is what allows an instance of an
+open type to keep its positional representation while conveying dynamic
+properties that could not be placed in the select-list; see [section
+6.8](#OpenTypesandDynamicProperties).
 
-A wrapper object MAY appear wherever a value may appear:
+A property that occupies a position in the instance's positional property
+list MUST NOT also be carried by name. Neither MUST anything that applies
+to it: the annotations and control information of such a property are
+carried in the [wrapper object](#wrapperobject) at its position, as
+[section 7.2](#PropertyAnnotations) describes, and MUST NOT appear under a
+prefixed name in the wrapper object around the instance. A property
+carried by name takes its annotations and control information with it,
+under the prefixed names that [OData-JSON](#ODataJSON) gives them or
+grouped in a wrapper object of its own, as [section
+4.7](#WrapperObjectsinanObjectRepresentation) permits.
+
+Everything that concerns one property is therefore in one place. A
+consumer that has read the value at a position never has to look elsewhere
+for something that qualifies it, and one that reads a name/value pair
+never has to check whether that property also occupies a position. This is
+what [OData-JSON](#ODataJSON) does too, where the annotations of a
+property immediately precede that property's value.
+
+Properties carried by name MUST appear after the wrapper object's value
+--- the `$` name/value pair --- as required by [section
+5.3](#PayloadOrderingConstraints). A consumer reading the payload as a stream
+therefore has the whole positional representation in hand before it meets
+any property that is not part of it.
+
+A wrapper object MAY appear in each of the places in which a value may
+appear:
 
 - as the message body, in which case it carries the payload's
   [`context`](#ControlInformationcontext) and the payload's content;
 - at a position in a positional representation, in which case it carries
-  the annotations of the property at that position and the property's
-  value;
-- as an item of a collection, in which case it carries the annotations of
-  that member of the collection and the member itself.
+  the annotations and control information of the property at that
+  position, and that property's value;
+- as an item of a collection, in which case it carries the annotations and
+  control information of that member of the collection, the member itself,
+  and any of the member's properties conveyed by name;
+- as the value of a primitive-valued or collection-valued property in a
+  JSON object representing a structured instance, in which case it carries
+  the annotations and control information of that property and the
+  property's value; see [section
+  4.7](#WrapperObjectsinanObjectRepresentation).
 
 A wrapper object that carries no value denotes a property or instance that
 has no value, as distinct from one whose value is null. The empty JSON
-object `{}` carries neither annotations nor a value and therefore denotes
-"no value"; it is used at the position of a selected dynamic property that
-an instance does not have, see [section 6.8](#OpenTypesandDynamicProperties).
-Note that `{}` satisfies the second bullet above vacuously rather than by
-construction: it is treated as a wrapper carrying no value by convention,
-being the only reading that is useful.
+object `{}` is such a wrapper object: it carries neither annotations nor a
+value, and is used at the position of a selected dynamic property that an
+instance does not have, see [section 6.8](#OpenTypesandDynamicProperties).
 
 The name of the value in a wrapper object is `$`, in every position in
 which a wrapper object may appear.
@@ -770,24 +928,42 @@ Everywhere else, `value` is not the name of a wrapper object's value. In
 particular, where [OData-JSON](#ODataJSON) represents the message body as
 the instance itself -- for a single entity, a single complex value, or a
 single entity reference -- a name/value pair named `value` in that message
-body is a *property* named `value`, and a receiver MUST NOT read it as the
+body is a *property* named `value`, and a consumer MUST NOT read it as the
 value of a wrapper object. A single entity or complex value represented
 positionally at the root of the message body therefore uses `$`.
 
 Producers of compact payloads SHOULD use `$` wherever this document
-permits a choice.
+permits a choice. Nothing is saved by `value`, which is the longer of the
+two names. What it offers is that a client written for
+[OData-JSON](#ODataJSON), which looks for `value` in the message body of a
+collection, finds the collection where it expects it --- the [superset
+principle](#supersetprinciple) at work, and the only reason to prefer
+it.
 
 This restriction is what keeps the two representations distinguishable.
 Were `value` also the wrapper's value name at the root of a message body
-representing a single entity, then
-`{"@context": "…#Customers/$entity", "value": […]}` would be at once the
-positional representation of an entity and the
-[OData-JSON](#ODataJSON) representation of an entity having a
-collection-valued property named `value`, with nothing to tell the two
-apart.
+representing a single entity, a consumer meeting `value` there would have
+to consult the metadata to decide which of two readings applies, and for
+an entity type declaring a collection-valued property named `value` the
+metadata need not settle it either:
+
+```json
+{
+  "@context": "$metadata#Customers(ID,value)/$entity",
+  "value": ["ALFKI", ["red", "green"]]
+}
+```
+
+Read as a wrapper object, this is the positional representation of a
+customer whose `ID` is `ALFKI` and whose `value` property is the
+collection `["red", "green"]`. Read as defined by
+[OData-JSON](#ODataJSON), it is a customer whose `value` property is the
+collection `["ALFKI", ["red", "green"]]`, with `ID` not transmitted. Where
+`value` is of type `Collection(Edm.Untyped)` both readings are valid and
+nothing in the payload tells them apart.
 
 ::: example
-Example <a id="wrapper" href="#wrapper">10</a>: the same information three times --- as defined by
+Example <a id="wrapper" href="#wrapper">12</a>: the same information three times --- as defined by
 [OData-JSON](#ODataJSON), compact with `$` at every level, and compact
 with `value` at the root. The third form is permitted only because the
 message body is a collection, which is one of the cases in which
@@ -822,7 +998,99 @@ message body is a collection, which is one of the cases in which
 ```
 :::
 
-## <a id="PositionValues" href="#PositionValues">4.6 Position Values</a>
+## <a id="WrapperObjectsinanObjectRepresentation" href="#WrapperObjectsinanObjectRepresentation">4.7 Wrapper Objects in an Object Representation</a>
+
+[OData-JSON](#ODataJSON) places the annotations of a property inside the
+object representing that property's value where it can. Where it cannot,
+because the value is a primitive or a collection and so has nowhere to
+hold them, it places them in a separate name/value pair whose name carries
+the property name before the `@`. The annotations and the value then sit
+apart, and the property name is written once for each of them.
+
+In a compact payload the value of such a property, in a JSON object
+representing a structured instance, MAY be a [wrapper
+object](#wrapperobject) carrying that property's annotations and control
+information together with its value under `$`. This is the construct of
+[section 4.6](#TheWrapperObject), recognized by the same rule, used where the
+instance itself is not represented positionally.
+
+This applies to a property whose value [OData-JSON](#ODataJSON) does not
+represent as a JSON object: a primitive-valued property, and a
+collection-valued property of any type.
+
+It does not apply to a single-valued property of a structured type. The
+object representing such a value carries the annotations and control
+information that apply to it within itself, which is where
+[OData-JSON](#ODataJSON) puts them and where no property name is repeated;
+there is nothing for a wrapper object to improve. A JSON object at the
+value of a single-valued structured property is therefore that value, and
+never a wrapper object.
+
+Where the value of a property is a wrapper object, all of that property's
+annotations and control information MUST be carried in it, and none MUST
+appear in a name/value pair prefixed with the property name. This is the
+rule of [section 4.6](#TheWrapperObject) --- everything that applies to one
+property is in one place --- applied to the object representation. The two
+forms convey the same thing, and a consumer MUST read them as equivalent.
+
+::: example
+Example <a id="grouped" href="#grouped">13</a>: the annotated property of [example
+##ex_propannotation], in an instance that is not represented positionally:
+as defined by [OData-JSON](#ODataJSON), and with the property's control
+information, annotation and value grouped under one name
+```json
+{
+  "@context": "$metadata#Customers(ID,Revenue)/$entity",
+  "ID": "ALFKI",
+  "Revenue@type": "Decimal",
+  "Revenue@Core.ValueException": { "value": "1234567890123456789" },
+  "Revenue": 1234567890123456800
+}
+```
+```json
+{
+  "@context": "$metadata#Customers(ID,Revenue)/$entity",
+  "ID": "ALFKI",
+  "Revenue": {
+    "@type": "Decimal",
+    "@Core.ValueException": { "value": "1234567890123456789" },
+    "$": 1234567890123456800
+  }
+}
+```
+:::
+
+::: example
+Example <a id="groupedcollection" href="#groupedcollection">14</a>: a collection-valued property with control
+information, in both forms. The property name is written three times in
+the first and once in the second
+```json
+{
+  "@context": "$metadata#Customers(ID,Orders(ID))/$entity",
+  "ID": "ALFKI",
+  "Orders@count": 42,
+  "Orders@nextLink": "Customers('ALFKI')/Orders?$skiptoken=2",
+  "Orders": [{ "ID": 10643 }, { "ID": 10692 }]
+}
+```
+```json
+{
+  "@context": "$metadata#Customers(ID,Orders(ID))/$entity",
+  "ID": "ALFKI",
+  "Orders": {
+    "@count": 42,
+    "@nextLink": "Customers('ALFKI')/Orders?$skiptoken=2",
+    "$": [{ "ID": 10643 }, { "ID": 10692 }]
+  }
+}
+```
+:::
+
+Nothing in this section depends on a positional representation. A compact
+payload MAY group a property's annotations with its value in this way and
+represent no instance positionally at all.
+
+## <a id="PositionValues" href="#PositionValues">4.8 Position Values</a>
 
 The value at a position is one of the following:
 
@@ -845,7 +1113,7 @@ representations of the members of the collection. An empty collection is
 represented as an empty JSON array.
 
 ::: example
-Example 11: a collection-valued complex property; the outer array is
+Example 15: a collection-valued complex property; the outer array is
 the collection, each inner array the positional representation of one
 `Address`
 ```json
@@ -861,15 +1129,16 @@ the collection, each inner array the positional representation of one
 
 Note the consequence of the two preceding rules: for a
 collection-valued structured property, the value at the position is an
-array of arrays. A receiver that knows the positional property list also
-knows, from the metadata, whether a property is collection-valued, and can
-therefore distinguish the two nestings without ambiguity.
+array of arrays --- the outer array the collection, each inner array one
+member. A consumer distinguishes the two nestings from the metadata, as
+[section 4.1](#PositionalRepresentation) describes; nothing in the payload
+itself does so.
 
 A property that has no value at all -- as opposed to a property whose value
-is null -- occurs when only annotations were requested for it, for example
-when a navigation property was expanded with `$count` only. Such a
-position holds a [wrapper object](#wrapperobject) carrying the
-annotations and no value. See [section 7.2](#PropertyAnnotations).
+is null -- occurs when only annotations or control information were
+requested for it, for example when a navigation property was expanded with
+`$count` only. Such a position holds a [wrapper object](#wrapperobject)
+carrying them and no value. See [section 7.2](#PropertyAnnotations).
 
 
 -------
@@ -887,7 +1156,7 @@ All other rules for the `Content-Type` header defined in
 `metadata`, `IEEE754Compatible` and `streaming` parameters.
 
 ::: example
-Example 12: a compact response that follows the payload ordering
+Example 16: a compact response that follows the payload ordering
 constraints and represents `Edm.Int64` and `Edm.Decimal` values as strings
 ```
 Content-Type: application/json;compact=true;metadata=minimal;
@@ -898,26 +1167,34 @@ Content-Type: application/json;compact=true;metadata=minimal;
 ## <a id="MessageBody" href="#MessageBody">5.2 Message Body</a>
 
 Each message body is represented as a single JSON object, as defined in
-[OData-JSON](#ODataJSON), with the single exception described in [section
-8.2](#MessageBodyofaRequest). A response message body is always a JSON
-object: the positional representation applies to the instances *within*
-the payload, not to the payload as a whole.
+[OData-JSON](#ODataJSON); for a request body see [section
+8.2](#MessageBodyofaRequest). A positional representation conveys the
+properties of an instance *within* the payload, and is never the message
+body itself.
 
 This object is either
 
-- the representation of an [entity](#Entity), an [entity
-  reference](#EntityReferences) or a [complex value](#ComplexValue) that
-  is not represented positionally, or
-- a [wrapper object](#wrapperobject), whose value is the correct
-  representation for the payload's content.
+- the representation defined by [OData-JSON](#ODataJSON) of an
+  [entity](#Entity), an [entity reference](#EntityReferences) or a
+  [complex value](#ComplexValue), or
+- a [wrapper object](#wrapperobject), whose value, under the name `$`, is
+  the representation of the payload's content --- for a single entity or
+  complex value, its positional representation; for a collection, the
+  array of its members.
+
+These are the first and the third of the representations of [section
+4.1](#PositionalRepresentation). The second, a bare positional representation,
+is a JSON array and therefore cannot be a message body on its own, since
+the body must carry the [`context`](#ControlInformationcontext) control
+information.
 
 The name of the value in a wrapper object is `$`. The name `value` is also
 recognized, but only in those message bodies in which
-[OData-JSON](#ODataJSON) itself uses it; see [section 4.5](#TheWrapperObject).
+[OData-JSON](#ODataJSON) itself uses it; see [section 4.6](#TheWrapperObject).
 
 ::: example
-Example 13: a message body containing a collection of entities
-represented positionally
+Example 17: a message body containing a collection of entities whose
+properties are represented positionally
 ```json
 {
   "@context": "$metadata#Customers(ID,Name)",
@@ -929,9 +1206,9 @@ represented positionally
 ```
 :::
 
-Receivers MUST retain the order of items within an array in a compact
+Consumers MUST retain the order of items within an array in a compact
 payload. In a positional representation the order of items is significant
-and carries the mapping from values to properties; a receiver that
+and carries the mapping from values to properties; a consumer that
 reorders array items loses information.
 
 ## <a id="PayloadOrderingConstraints" href="#PayloadOrderingConstraints">5.3 Payload Ordering Constraints</a>
@@ -957,13 +1234,13 @@ object](#wrapperobject):
 - The `id` and `etag` control information MUST appear before the value.
 - The value, named `$` or `value`, MUST appear after all annotations and
   control information, and before any properties carried by name as
-  described in [section 4.5](#TheWrapperObject). The one exception is the
+  described in [section 4.6](#TheWrapperObject). The one exception is the
   `nextLink` of a collection, which MAY appear after the collection it
   annotates.
 
 The requirement that `type` precede the value is load-bearing in a compact
 payload rather than merely conventional. The positional property list of an
-instance depends on the instance's type, so a receiver reading the payload
+instance depends on the instance's type, so a consumer reading the payload
 as a stream must have the type before it reaches the positional
 representation. See [section 6.7](#DerivedTypes).
 
@@ -982,9 +1259,9 @@ described; everything else is unchanged.
 
 ## <a id="Entity" href="#Entity">6.1 Entity</a>
 
-An entity MAY be represented as a JSON array, as described in [section
-4.1](#PositionalRepresentation). Its positional property list is determined
-from the select-list applying to it, as described in [section
+An entity MAY have its properties represented positionally, as described
+in [section 4.1](#PositionalRepresentation). Its positional property list is
+determined from the select-list applying to it, as described in [section
 4.3](#DeterminingthePositionalPropertyList).
 
 Control information that applies to the entity -- `id`, `etag`, `type`,
@@ -995,7 +1272,7 @@ together with the positional representation, or as a JSON object as
 defined in [OData-JSON](#ODataJSON).
 
 ::: example
-Example 14: a single entity with an ETag
+Example 18: a single entity with an ETag
 ```json
 {
   "@context": "$metadata#Customers(ID,Name)/$entity",
@@ -1007,10 +1284,10 @@ Example 14: a single entity with an ETag
 
 ## <a id="ComplexValue" href="#ComplexValue">6.2 Complex Value</a>
 
-A complex value MAY be represented as a JSON array, as described in
-[section 4.1](#PositionalRepresentation). Its positional property list is
-determined from the nested select-list applying to it, as described in
-[section 4.4](#GroupingofSelectItems).
+A complex value MAY have its properties represented positionally, as
+described in [section 4.1](#PositionalRepresentation). Its positional property
+list is determined from the nested select-list applying to it, as
+described in [section 4.4](#GroupingofSelectItems).
 
 A null complex value is represented as `null`, not as an empty array.
 
@@ -1024,7 +1301,7 @@ All entities in a collection share the same positional property list,
 which is determined once from the select-list applying to the collection.
 
 ::: example
-Example <a id="collection" href="#collection">15</a>: a collection of entities, showing the format
+Example <a id="collection" href="#collection">19</a>: a collection of entities, showing the format
 defined by [OData-JSON](#ODataJSON) and the compact format side by side
 ```
 GET ~/Customers?$select=ID,Name
@@ -1088,7 +1365,7 @@ object](#wrapperobject) at the navigation property's position, as
 described in [section 7.2](#PropertyAnnotations).
 
 ::: example
-Example 16: an expanded collection-valued navigation property; the
+Example 20: an expanded collection-valued navigation property; the
 position of `Orders` holds the collection, whose items are the positional
 representations of the individual orders
 ```
@@ -1124,7 +1401,7 @@ carries neither a position nor a placeholder for a property selected for a
 peer type.
 
 Because the positional property list depends on the instance's type, a
-receiver cannot decode a positional representation without knowing that
+consumer cannot decode a positional representation without knowing that
 type. Therefore:
 
 - A service MUST include the `type` control information for any instance
@@ -1132,17 +1409,17 @@ type. Therefore:
   of the type declared by the context URL. This applies irrespective of the
   value of the `metadata` format parameter, for the same reason that the
   `context` control information is always required; see [section
-  7.4.1](#ControlInformationcontext).
+  7.5.1](#ControlInformationcontext).
 - The `type` control information is carried in the [wrapper
   object](#wrapperobject) around the positional representation and MUST
   precede it, as required by [section 5.3](#PayloadOrderingConstraints).
 
-A receiver MUST NOT infer the type of an instance from the number of items
+A consumer MUST NOT infer the type of an instance from the number of items
 in its positional representation: two types may yield positional property
 lists of equal length.
 
 ::: example
-Example <a id="derived" href="#derived">17</a>: a heterogeneous collection in which no property of a
+Example <a id="derived" href="#derived">21</a>: a heterogeneous collection in which no property of a
 derived type is selected. The `type` control information distinguishes the
 instances, but both positional property lists are (`ID`, `Name`).
 ```json
@@ -1157,7 +1434,7 @@ instances, but both positional property lists are (`ID`, `Name`).
 :::
 
 ::: example
-Example <a id="derivedselect" href="#derivedselect">18</a>: `PreferredContact` and `Since` are declared by
+Example <a id="derivedselect" href="#derivedselect">22</a>: `PreferredContact` and `Since` are declared by
 `Model.VipCustomer` only. The positional property list of a `Customer` is
 (`ID`); that of a `Model.VipCustomer` is (`ID`, `PreferredContact`,
 `Since`).
@@ -1176,7 +1453,7 @@ GET ~/Customers?$select=ID,Model.VipCustomer/PreferredContact,Model.VipCustomer/
 :::
 
 ::: example
-Example <a id="peertypes" href="#peertypes">19</a>: with two peer derived types selected, each instance
+Example <a id="peertypes" href="#peertypes">23</a>: with two peer derived types selected, each instance
 carries only the properties of its own type, and nothing for the other
 ```
 GET ~/Customers?$select=ID,Model.VipCustomer/PreferredContact,Model.WholesaleCustomer/Terms
@@ -1215,11 +1492,12 @@ whose value is null.
 An instance MAY in addition carry dynamic properties that are *not* in its
 positional property list, by name, in the [wrapper object](#wrapperobject)
 holding its positional representation, as described in [section
-4.5](#TheWrapperObject). A property that occupies a position MUST NOT also be
-carried by name.
+4.6](#TheWrapperObject). A property that occupies a position MUST NOT also be
+carried by name, and neither MUST its annotations or control information,
+which belong in the wrapper object at that position.
 
 ::: example
-Example <a id="openselected" href="#openselected">20</a>: `Nickname` is selected and therefore occupies a
+Example <a id="openselected" href="#openselected">24</a>: `Nickname` is selected and therefore occupies a
 position; the first customer does not have it
 ```
 GET ~/Customers?$select=ID,Nickname
@@ -1236,7 +1514,7 @@ GET ~/Customers?$select=ID,Nickname
 :::
 
 ::: example
-Example <a id="openunselected" href="#openunselected">21</a>: `Nickname` and `Score` were not selected. The
+Example <a id="openunselected" href="#openunselected">25</a>: `Nickname` and `Score` were not selected. The
 instance keeps its positional representation and carries them by name, so
 only the instance that has them pays for them.
 ```json
@@ -1288,7 +1566,7 @@ value, or to the object that contains it:
   name, for example `@id` and `Orders@count`.
 
 In a compact payload both patterns are carried by the [wrapper
-object](#wrapperobject) defined in [section 4.5](#TheWrapperObject). This
+object](#wrapperobject) defined in [section 4.6](#TheWrapperObject). This
 section describes where each annotation and each piece of control
 information appears, and how its name differs from the name
 [OData-JSON](#ODataJSON) gives it.
@@ -1313,7 +1591,7 @@ The name of an instance annotation is unchanged from
 [OData-JSON](#ODataJSON).
 
 ::: example
-Example 22: an instance annotation on one entity of a collection
+Example 26: an instance annotation on one entity of a collection
 ```json
 {
   "@context": "$metadata#Customers(ID,Name)",
@@ -1331,15 +1609,18 @@ Example 22: an instance annotation on one entity of a collection
 ## <a id="PropertyAnnotations" href="#PropertyAnnotations">7.2 Property Annotations</a>
 
 An annotation that applies to a property is represented as a name/value
-pair in the wrapper object at that property's position.
+pair in the wrapper object at that property's position. So is control
+information that applies to a property, such as the `count` or
+`nextLink` of a collection-valued one.
 
-The name of a property annotation in a compact payload is `@ns.term`. The
-property name prefix that [OData-JSON](#ODataJSON) requires -- as in
-`Property@ns.term` -- is omitted, because the position already identifies
-the property.
+The name of a property annotation in a compact payload is `@ns.term`, and
+that of property-level control information is `@name`. The property name
+prefix that [OData-JSON](#ODataJSON) requires -- as in `Property@ns.term`
+or `Property@count` -- is omitted in both cases, because the position
+already identifies the property.
 
 ::: example
-Example <a id="propannotation" href="#propannotation">23</a>: the `Core.ValueException` annotation of a
+Example <a id="propannotation" href="#propannotation">27</a>: the `Core.ValueException` annotation of a
 property, in both formats. Note that the annotation's own value is
 unchanged between them: `value` there is a property declared by the term's
 type, not the name of a wrapper object's value, and it is not renamed to
@@ -1367,8 +1648,33 @@ property it annotates is a primitive one.
 ```
 :::
 
+An annotation of a property that occupies a position MUST NOT be carried
+under its prefixed name in the wrapper object around the instance. The
+position is where that property is, and everything that applies to it is
+carried there; see [section 4.6](#TheWrapperObject).
+
 ::: example
-Example <a id="countonly" href="#countonly">24</a>: a collection-valued property for which only the
+Example <a id="annotationplacement" href="#annotationplacement">28</a>: `Name` occupies the second position, so
+its annotation is carried in the wrapper object at that position. The
+second form, which carries the annotation by name alongside the instance's
+own value, is not permitted
+```json
+{
+  "@context": "$metadata#Customers(ID,Name)/$entity",
+  "$": ["ALFKI", { "@Core.Permissions": "Read", "$": "Alfreds Futterkiste" }]
+}
+```
+```json
+{
+  "@context": "$metadata#Customers(ID,Name)/$entity",
+  "Name@Core.Permissions": "Read",
+  "$": ["ALFKI", "Alfreds Futterkiste"]
+}
+```
+:::
+
+::: example
+Example <a id="countonly" href="#countonly">29</a>: a collection-valued property for which only the
 count was requested; the position holds a wrapper object with an
 annotation and no value
 ```
@@ -1401,7 +1707,7 @@ from an annotation that merely accompanies a value, which is carried in a
 wrapper object as described in the preceding sections.
 
 ::: example
-Example 25: the annotation `@Model.Rating` is selected and occupies the
+Example 30: the annotation `@Model.Rating` is selected and occupies the
 second position
 ```
 GET ~/Customers?$select=Name,@Model.Rating
@@ -1421,14 +1727,65 @@ Annotations requested through the `include-annotations` preference do not
 appear in the context URL, do not affect the positional property list,
 and are therefore carried in wrapper objects.
 
-## <a id="ControlInformation" href="#ControlInformation">7.4 Control Information</a>
+## <a id="BoundOperations" href="#BoundOperations">7.4 Bound Operations</a>
+
+A select-item that names a bound action or function occupies a position in
+the positional property list, like any other select-item. The value at
+that position is the advertisement of that operation as defined in
+[OData-JSON](#ODataJSON): an object, or `null` where the service advertises
+the non-availability of the operation.
+
+The `#`-prefixed qualified name that [OData-JSON](#ODataJSON) gives an
+advertisement is not transmitted. The position identifies the operation,
+as it identifies a property, and the select-list of the context URL gives
+the name.
+
+[OData-JSON](#ODataJSON) leaves a service free to advertise a bound
+operation or not. In a compact payload the service exercises that freedom
+when it writes the context URL: an operation it does not advertise is not
+named in the select-list and occupies no position. An operation that *is*
+named has a value at its position in every instance the select-list
+applies to, as [section 4.2](#PositionalPropertyList) requires --- `null` where
+the operation is not available for that instance.
+
+Where an operation is advertised for some instances of a collection and
+not others because they are of different types, it is named with a
+type-cast segment and occupies a position only for the instances that
+segment applies to, as described in [section 6.7](#DerivedTypes). Where the
+instances are not distinguished by type, the service advertises the
+operation by name in a [wrapper object](#wrapperobject) instead of giving
+it a position.
+
+An operation bound to a collection is advertised in the wrapper object at
+that collection's position, and its name loses the collection's property
+name prefix for the same reason a property annotation does; see [section
+7.2](#PropertyAnnotations).
+
+::: example
+Example <a id="operation" href="#operation">31</a>: the action `Model.Approve` is selected and
+occupies the third position; it is not available for the second customer
+```
+GET ~/Customers?$select=ID,Name,Model.Approve
+```
+```json
+{
+  "@context": "$metadata#Customers(ID,Name,Model.Approve)",
+  "$": [
+    ["ALFKI", "Alfreds Futterkiste", { "title": "Approve", "target": "Customers('ALFKI')/Model.Approve" }],
+    ["ANATR", "Ana Trujillo", null]
+  ]
+}
+```
+:::
+
+## <a id="ControlInformation" href="#ControlInformation">7.5 Control Information</a>
 
 Control information is represented in a compact payload in the same way
 as annotations, following the rules of the preceding sections. The
 following subsections describe the control information whose treatment in
 a compact payload warrants specific mention.
 
-### <a id="ControlInformationcontext" href="#ControlInformationcontext">7.4.1 Control Information: `context`</a>
+### <a id="ControlInformationcontext" href="#ControlInformationcontext">7.5.1 Control Information: `context`</a>
 
 The `context` control information is defined in
 [OData-JSON](#ODataJSON) and its value is the context URL of the payload,
@@ -1447,7 +1804,10 @@ value of the `metadata` format parameter. In particular, a payload
 labeled `metadata=none` MUST still include the `context` control
 information.
 
-### <a id="ControlInformationcountandnextLink" href="#ControlInformationcountandnextLink">7.4.2 Control Information: `count` and `nextLink`</a>
+A nested context URL determines the positional property list of the
+instances it describes; see [section 4.5](#NestedContextURLs).
+
+### <a id="ControlInformationcountandnextLink" href="#ControlInformationcountandnextLink">7.5.2 Control Information: `count` and `nextLink`</a>
 
 The `count` and `nextLink` control information of the collection in the
 message body is carried in the message body object, as in
@@ -1457,7 +1817,7 @@ For a nested collection, both are carried in the wrapper object at the
 collection's position.
 
 ::: example
-Example 26: `count` and `nextLink` for the collection in the message
+Example 32: `count` and `nextLink` for the collection in the message
 body and for a nested collection
 ```json
 {
@@ -1478,20 +1838,20 @@ body and for a nested collection
 ```
 :::
 
-### <a id="ControlInformationtype" href="#ControlInformationtype">7.4.3 Control Information: `type`</a>
+### <a id="ControlInformationtype" href="#ControlInformationtype">7.5.3 Control Information: `type`</a>
 
 The `type` control information is carried in the [wrapper
 object](#wrapperobject) around the instance it applies to and MUST precede
 that instance's positional representation.
 
 In a compact payload `type` is not merely informative. The positional
-property list of an instance depends on the instance's type, so a receiver
+property list of an instance depends on the instance's type, so a consumer
 cannot decode a positional representation without it. A service MUST
 include `type` for any instance whose positional property list differs from
 that of the type declared by the context URL, irrespective of the value of
 the `metadata` format parameter. See [section 6.7](#DerivedTypes).
 
-A receiver MUST NOT infer the type of an instance from the number of items
+A consumer MUST NOT infer the type of an instance from the number of items
 in its positional representation.
 
 
@@ -1562,7 +1922,7 @@ requires the request body to carry a `context` control information whose
 select-list enumerates exactly the properties being specified.
 
 ::: example
-Example <a id="postselect" href="#postselect">27</a>: creating an entity specifying only two
+Example <a id="postselect" href="#postselect">33</a>: creating an entity specifying only two
 properties, leaving the remainder to the service
 ```
 POST ~/Customers
@@ -1591,13 +1951,14 @@ absent from the request in the sense of
 [OData-Protocol](#ODataProtocol) and is left unchanged. A property that
 is in the positional property list with the value `null` is set to null.
 
-A `PATCH` request body that does not contain the `context` control
-information therefore specifies a value for every structural property of
-the type, which is rarely the intent. Clients SHOULD include the `context`
-control information in compact `PATCH` request bodies.
+The `context` control information is therefore what makes `PATCH`
+expressible in this format, and is one reason [section
+8.1](#DeterminingthePositionalPropertyListinRequests) requires it of every
+compact request body: without it there would be no way to say which
+properties a `PATCH` leaves alone.
 
 ::: example
-Example <a id="patch" href="#patch">28</a>: updating two properties of an entity and leaving all
+Example <a id="patch" href="#patch">34</a>: updating two properties of an entity and leaving all
 others unchanged; `Region` is set to null, `Name` is set to a new value,
 and every property not named in the context URL is unaffected
 ```
@@ -1633,7 +1994,7 @@ does in a response, and the select-list of the `context` control
 information enumerates them using the same syntax.
 
 ::: example
-Example <a id="deepinsert" href="#deepinsert">29</a>: creating a customer together with two orders
+Example <a id="deepinsert" href="#deepinsert">35</a>: creating a customer together with two orders
 ```
 POST ~/Customers
 Content-Type: application/json;compact=true
@@ -1658,11 +2019,11 @@ A bind operation relates a new or updated entity to an existing entity.
 
 In a compact request body the navigation property occupies a position in
 the positional property list, and the bind operation is carried in a
-[wrapper object](#wrapperobject) at that position, as a property
-annotation, following [section 7.2](#PropertyAnnotations).
+[wrapper object](#wrapperobject) at that position, as control information,
+following [section 7.2](#PropertyAnnotations).
 
 ::: example
-Example <a id="bind" href="#bind">30</a>: creating an order bound to an existing customer
+Example <a id="bind" href="#bind">36</a>: creating an order bound to an existing customer
 ```
 POST ~/Orders
 Content-Type: application/json;compact=true
@@ -1700,7 +2061,7 @@ requests --- is not a reason not to define one. The Technical Committee
 intends to develop proposals; see open issue 1(b).
 
 ::: example
-Example <a id="action" href="#action">31</a>: an action taking a collection of complex values. Each
+Example <a id="action" href="#action">37</a>: an action taking a collection of complex values. Each
 address is represented as defined in [OData-JSON](#ODataJSON), because no
 select-list is available for the parameter's declared type.
 ```
@@ -1750,7 +2111,7 @@ The `id` control information, where required, is carried in a [wrapper
 object](#wrapperobject) around the positional representation.
 
 ::: example
-Example <a id="delta" href="#delta">32</a>: a delta payload containing one changed entity
+Example <a id="delta" href="#delta">38</a>: a delta payload containing one changed entity
 ```
 GET ~/Customers?$deltatoken=1234
 ```
@@ -1777,7 +2138,7 @@ representation, because a deleted entity conveys no property values other
 than the key, which is conveyed by `id`.
 
 ::: example
-Example 33: a delta payload containing one changed and one deleted
+Example 39: a delta payload containing one changed and one deleted
 entity
 ```json
 {
@@ -1850,7 +2211,7 @@ representation would carry no benefit.
 The `details` member of an error remains a JSON array of JSON objects.
 
 ::: example
-Example 34: an error returned in response to a request that specified
+Example 40: an error returned in response to a request that specified
 `compact=true`
 ```
 Content-Type: application/json;compact=true
@@ -1885,7 +2246,7 @@ Because the batch document has no compact representation, a batch request
 labeled `compact=true` is identical to one that is not.
 
 ::: example
-Example 35: a batch request in which one individual request carries a
+Example 41: a batch request in which one individual request carries a
 compact body
 ```json
 {
@@ -1935,7 +2296,7 @@ client or service:
 4. MUST NOT infer the positional property list from the number of items
    in a positional representation
 5. MUST accept a [wrapper object](#wrapperobject) wherever a value may
-   appear ([section 4.5](#TheWrapperObject))
+   appear ([section 4.6](#TheWrapperObject))
    1. MUST accept the value name `$`
    2. MUST accept the value name `value` in those message bodies in which
       [OData-JSON](#ODataJSON) uses it, and MUST NOT read `value` as a
@@ -1943,10 +2304,15 @@ client or service:
    3. MUST accept a wrapper object that carries no value
    4. MUST accept a wrapper object that carries properties by name after
       the value
-6. MUST accept property annotations without the property name prefix
-   ([section 7.2](#PropertyAnnotations))
+   5. MUST accept a wrapper object as the value of a primitive-valued or
+      collection-valued property in a JSON object representing a
+      structured instance ([section
+      4.7](#WrapperObjectsinanObjectRepresentation))
+6. MUST accept property annotations and property-level control
+   information without the property name prefix ([section
+   7.2](#PropertyAnnotations))
 7. MUST accept the `context` control information in a payload labeled
-   `metadata=none` ([section 7.4.1](#ControlInformationcontext))
+   `metadata=none` ([section 7.5.1](#ControlInformationcontext))
 8. MUST be prepared to receive a payload in which some instances are
    represented positionally and others are not ([section
    2.1](#DesignPrinciples))
@@ -1960,7 +2326,7 @@ client or service:
 
 10. MUST be a conforming producer of the OData JSON format
     ([OData-JSON](#ODataJSON))
-11. MUST NOT produce a compact payload unless the receiver has indicated
+11. MUST NOT produce a compact payload unless the consumer has indicated
     that it accepts one ([section 3](#RequestingtheCompactJSONFormat))
     1. a service MUST NOT return a compact response unless the request
        specified `compact=true`
@@ -1984,28 +2350,32 @@ client or service:
     property list by name in the wrapper object holding the positional
     representation, and MUST NOT carry any property both positionally and
     by name ([section 6.8](#OpenTypesandDynamicProperties))
+    1. MUST carry the annotations and control information of a property
+       that occupies a position in the wrapper object at that position,
+       and MUST NOT carry them under a prefixed name in the wrapper object
+       around the instance ([section 4.6](#TheWrapperObject))
 16. MUST use the empty JSON object `{}` at the position of a selected
     dynamic property that the instance does not have ([section
     6.8](#OpenTypesandDynamicProperties))
 17. MUST NOT use `value` as the name of a wrapper object's value except in
     those message bodies in which [OData-JSON](#ODataJSON) uses it, and
-    SHOULD use `$` throughout ([section 4.5](#TheWrapperObject))
-18. MUST NOT use the shortcuts `*` or `{namespace}.*` in the context URL of
-    a compact payload, and MUST NOT rely on the implicit selection of all
-    structural properties ([section
+    SHOULD use `$` throughout ([section 4.6](#TheWrapperObject))
+18. MUST enumerate in the context URL, by name, every structural property
+    and every expanded navigation property conveyed positionally, and MUST
+    NOT use the shortcuts `*` or `{namespace}.*` ([section
     4.3](#DeterminingthePositionalPropertyList))
+19. MUST carry a select-list meeting the same requirements in any nested
+    context URL, which then determines the positional property list of the
+    instances it describes ([section 4.5](#NestedContextURLs))
 
 In order to be a conforming service supporting the OData compact JSON
 format, a service:
 
-19. SHOULD advertise support with the
+20. SHOULD advertise support with the
     [Capabilities.SupportedFormats]{.term} term ([section
     3.2](#AdvertisingSupport))
-20. MUST return `406 Not Acceptable` if the client requests
-    `compact=true` and the service does not support it ([section
-    3](#RequestingtheCompactJSONFormat))
-21. MUST reject with `415 Unsupported Media Type` a request body labeled
-    `compact=true` that it does not support ([section
+21. SHOULD reject with `415 Unsupported Media Type` a request body labeled
+    `compact=true` that it cannot accept ([section
     3](#RequestingtheCompactJSONFormat))
 22. MUST reject with `400 Bad Request` a compact request body whose
     positional representation does not match the positional property list,
@@ -2100,7 +2470,7 @@ considered.
    begins with an underscore or a Unicode letter, so `$`, `@` and the empty
    string are the collision-free candidates; the TC chose `$`.
 
-   The reasons, recorded because the choice determines how a receiver
+   The reasons, recorded because the choice determines how a consumer
    recognizes a wrapper object at all:
 
    - [OData-CSDL](#ODataCSDL) JSON already solves this exact problem the
@@ -2130,7 +2500,7 @@ considered.
    the message body as the instance itself. An earlier draft recognized
    `value` at every root; that was withdrawn on review because it both
    extended [OData-JSON](#ODataJSON) and made a single-entity message body
-   ambiguous. See [section 4.5](#TheWrapperObject).
+   ambiguous. See [section 4.6](#TheWrapperObject).
 
 5. **"Not applicable" at a position.** *Resolved, narrowed in scope.* The
    empty JSON object `{}` denotes "no value" at the position of a selected
@@ -2141,7 +2511,7 @@ considered.
    *Accepted consequence:* now that a wrapper object is recognized by the
    presence of `$`, `{}` is not a wrapper by that test. The TC accepted
    that `{}` conveys "undefined" by convention rather than as a consequence
-   of the definition, and [section 4.5](#TheWrapperObject) says so.
+   of the definition, and [section 4.6](#TheWrapperObject) says so.
    *Alternative not taken:* `null`, which is shorter by two bytes but
    conflates "no such property" with "property is null" and so is not
    lossless.
@@ -2154,14 +2524,14 @@ considered.
    to the representation defined by [OData-JSON](#ODataJSON). Only the
    instances that have such properties pay for them.
 
-   The recognition rule in [section 4.5](#TheWrapperObject) is consequently
+   The recognition rule in [section 4.6](#TheWrapperObject) is consequently
    two-part: an object containing `$` is a wrapper; an object all of whose
    members are annotations is a wrapper carrying no value; anything else is
    the [OData-JSON](#ODataJSON) representation. This is what makes the
    choice of `$` load-bearing rather than cosmetic.
 
    *Still open:* a property that occupies a position MUST NOT also be
-   carried by name, but the draft gives a receiver no obligation to detect
+   carried by name, but the draft gives a consumer no obligation to detect
    a producer that breaks this. Whether that should be an error, and which
    wins if it happens, is not settled.
 
@@ -2181,13 +2551,23 @@ considered.
    at the second and subsequent levels, where it may differ from the
    first.
 
-9. **Operations in the select-list.** A select-list may contain actions
-   and functions, and the shortcut `{namespace}.*`. Such an item occupies
-   a position under the rules of [section
-   4.3](#DeterminingthePositionalPropertyList), and the value at that position
-   would be the operation advertisement, or the empty wrapper object if
-   the operation is not available. This is a consequence of the rules
-   rather than a decision, and has not been examined.
+9. **Operations in the select-list.** *Largely settled; one question
+   remains for the TC.* A select-item naming a bound action or function
+   occupies a position, and the value there is the advertisement, or `null`
+   where the service advertises non-availability --- the value
+   [OData-JSON](#ODataJSON) already defines for that. Both shortcuts, `*`
+   and `{namespace}.*`, are excluded: the service writes the select-list of
+   a context URL and by then knows what it has placed at each position, so
+   it enumerates rather than naming a rule for the consumer to resolve. See
+   [section 7.4](#BoundOperations).
+
+   *What remains:* [section 7.4](#BoundOperations) says that an operation
+   advertised only for instances of a derived type is named with a
+   type-cast segment, on the model of [section 6.7](#DerivedTypes). Whether the
+   [OData-ABNF](#ODataABNF) rule [selectItem]{.abnf} admits a type-cast
+   segment before a qualified operation name, as it does before a property
+   name, needs checking; if it does not, the fallback is already stated ---
+   the service advertises the operation by name in a wrapper object.
 
 10. **Action and function parameters.** [Section
     8.8](#ActionandFunctionParameters) keeps the parameter object as defined
@@ -2203,9 +2583,9 @@ considered.
     [OData-Aggregation](#ODataAggregation). Transformations that produce a heterogeneous
     result, such as `concat`, need particular attention.
 
-12. **Consistency within a collection.** The draft allows a sender to mix
+12. **Consistency within a collection.** The draft allows a producer to mix
     positional and object representations freely within one collection.
-    A receiver optimized for the positional case may prefer a guarantee
+    A consumer optimized for the positional case may prefer a guarantee
     that a collection is homogeneous, at the cost of forcing an entire
     collection into the object representation whenever a single instance
     requires it.
@@ -2214,7 +2594,7 @@ considered.
     `$select=ID,Addresses/$count` and `$expand=Orders/$count`, but neither
     [OData-Protocol](#ODataProtocol) nor [OData-JSON](#ODataJSON) states
     explicitly how the count segment appears in the context URL. [Example
-    24](#countonly) assumes it is retained as written, which makes the
+    29](#countonly) assumes it is retained as written, which makes the
     grouping rule of [section 4.4](#GroupingofSelectItems) produce the
     intended single position. If it is not retained, the positional
     property list cannot distinguish "count only" from "the collection
@@ -2225,10 +2605,10 @@ considered.
 
 15. **Control information in the positional representation.** Selected
     instance annotations already occupy positions; the proposal is to allow
-    control information --- `@id`, `@etag`, `@type` --- to do so as well. This
-    would repair the inversion recorded under D‑20, whereby `metadata=full`
-    currently forces every instance into a wrapper object and so defeats the
-    format.
+    control information --- `@id`, `@etag`, `@type` --- to do so as well. Under
+    D‑35 `metadata=full` is permitted and every instance then takes a wrapper
+    object carrying its control information; positions for control
+    information would remove that wrapper and recover the remaining saving.
 
     *The select-list here is written by the service, not by the client.* The
     context URL describes what the payload contains; `$select` is what the
@@ -2322,6 +2702,10 @@ See link in "[Related work](#RelatedWork)" section on cover page.
 ###### [OData-VocCore]{id=ODataVocCore}
 _OData Vocabularies Version 4.0: Core Vocabulary._  
 See link in "[Related work](#RelatedWork)" section on cover page.
+
+###### [RFC2045]{id=rfc2045}
+_Freed, N. and N. Borenstein, "Multipurpose Internet Mail Extensions (MIME) Part One: Format of Internet Message Bodies", RFC 2045, DOI 10.17487/RFC2045, November 1996_.
+https://www.rfc-editor.org/info/rfc2045.
 
 ###### [RFC2119]{id=rfc2119}
 _Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997_.
