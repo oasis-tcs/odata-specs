@@ -61,12 +61,12 @@ The following terms are used throughout this document:
 
 - [*Positional representation*]{id=positionalrepresentation}: the
   representation of the properties of a structured instance as a JSON
-  array whose items are the values of those properties, identified by
-  their position.
+  array whose items are identified by their position rather than by name.
 - [*Positional property list*]{id=positionalpropertylist}: the ordered
-  list of properties that a positional representation conveys; item *n* of
-  the array is the value of item *n* of this list. See [section
-  ##PositionalPropertyList].
+  list of what a positional representation conveys --- the instance's
+  properties, and any explicitly selected instance annotations and bound
+  operations; item *n* of the array is the value of item *n* of this list.
+  See [section ##PositionalPropertyList].
 - [*Wrapper object*]{id=wrapperobject}: a JSON object that appears where a
   value may appear, carrying whatever must be conveyed by name alongside
   that value --- annotations, control information, and properties that are

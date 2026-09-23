@@ -83,21 +83,24 @@ client or service:
 17. MUST NOT use `value` as the name of a wrapper object's value except in
     those message bodies in which [OData-JSON](#ODataJSON) uses it, and
     SHOULD use `$` throughout ([section ##TheWrapperObject])
-18. MUST NOT use the shortcuts `*` or `{namespace}.*` in the context URL of
-    a compact payload, and MUST NOT rely on the implicit selection of all
-    structural properties ([section
+18. MUST enumerate in the context URL, by name, every structural property
+    and every expanded navigation property conveyed positionally, and MUST
+    NOT use the shortcuts `*` or `{namespace}.*` ([section
     ##DeterminingthePositionalPropertyList])
+19. MUST carry a select-list meeting the same requirements in any nested
+    context URL, which then determines the positional property list of the
+    instances it describes ([section ##NestedContextURLs])
 
 In order to be a conforming service supporting the OData compact JSON
 format, a service:
 
-19. SHOULD advertise support with the
+20. SHOULD advertise support with the
     [Capabilities.SupportedFormats]{.term} term ([section
     ##AdvertisingSupport])
-20. SHOULD reject with `415 Unsupported Media Type` a request body labeled
+21. SHOULD reject with `415 Unsupported Media Type` a request body labeled
     `compact=true` that it cannot accept ([section
     ##RequestingtheCompactJSONFormat])
-21. MUST reject with `400 Bad Request` a compact request body whose
+22. MUST reject with `400 Bad Request` a compact request body whose
     positional representation does not match the positional property list,
     or which omits the `context` control information or a conforming
     select-list ([section ##DeterminingthePositionalPropertyListinRequests])

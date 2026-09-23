@@ -148,6 +148,57 @@ Annotations requested through the `include-annotations` preference do not
 appear in the context URL, do not affect the positional property list,
 and are therefore carried in wrapper objects.
 
+## ##subsec Bound Operations
+
+A select-item that names a bound action or function occupies a position in
+the positional property list, like any other select-item. The value at
+that position is the advertisement of that operation as defined in
+[OData-JSON](#ODataJSON): an object, or `null` where the service advertises
+the non-availability of the operation.
+
+The `#`-prefixed qualified name that [OData-JSON](#ODataJSON) gives an
+advertisement is not transmitted. The position identifies the operation,
+as it identifies a property, and the select-list of the context URL gives
+the name.
+
+[OData-JSON](#ODataJSON) leaves a service free to advertise a bound
+operation or not. In a compact payload the service exercises that freedom
+when it writes the context URL: an operation it does not advertise is not
+named in the select-list and occupies no position. An operation that *is*
+named has a value at its position in every instance the select-list
+applies to, as [section ##PositionalPropertyList] requires --- `null` where
+the operation is not available for that instance.
+
+Where an operation is advertised for some instances of a collection and
+not others because they are of different types, it is named with a
+type-cast segment and occupies a position only for the instances that
+segment applies to, as described in [section ##DerivedTypes]. Where the
+instances are not distinguished by type, the service advertises the
+operation by name in a [wrapper object](#wrapperobject) instead of giving
+it a position.
+
+An operation bound to a collection is advertised in the wrapper object at
+that collection's position, and its name loses the collection's property
+name prefix for the same reason a property annotation does; see [section
+##PropertyAnnotations].
+
+::: example
+Example ##ex_operation: the action `Model.Approve` is selected and
+occupies the third position; it is not available for the second customer
+```
+GET ~/Customers?$select=ID,Name,Model.Approve
+```
+```json
+{
+  "@context": "$metadata#Customers(ID,Name,Model.Approve)",
+  "$": [
+    ["ALFKI", "Alfreds Futterkiste", { "title": "Approve", "target": "Customers('ALFKI')/Model.Approve" }],
+    ["ANATR", "Ana Trujillo", null]
+  ]
+}
+```
+:::
+
 ## ##subsec Control Information
 
 Control information is represented in a compact payload in the same way
@@ -173,6 +224,9 @@ message body, and MUST include it in any nested wrapper object for which
 value of the `metadata` format parameter. In particular, a payload
 labeled `metadata=none` MUST still include the `context` control
 information.
+
+A nested context URL determines the positional property list of the
+instances it describes; see [section ##NestedContextURLs].
 
 ### ##subsubsec Control Information: `count` and `nextLink`
 

@@ -167,13 +167,23 @@ considered.
    at the second and subsequent levels, where it may differ from the
    first.
 
-9. **Operations in the select-list.** A select-list may contain actions
-   and functions, and the shortcut `{namespace}.*`. Such an item occupies
-   a position under the rules of [section
-   ##DeterminingthePositionalPropertyList], and the value at that position
-   would be the operation advertisement, or the empty wrapper object if
-   the operation is not available. This is a consequence of the rules
-   rather than a decision, and has not been examined.
+9. **Operations in the select-list.** *Largely settled; one question
+   remains for the TC.* A select-item naming a bound action or function
+   occupies a position, and the value there is the advertisement, or `null`
+   where the service advertises non-availability --- the value
+   [OData-JSON](#ODataJSON) already defines for that. Both shortcuts, `*`
+   and `{namespace}.*`, are excluded: the service writes the select-list of
+   a context URL and by then knows what it has placed at each position, so
+   it enumerates rather than naming a rule for the receiver to resolve. See
+   [section ##BoundOperations].
+
+   *What remains:* [section ##BoundOperations] says that an operation
+   advertised only for instances of a derived type is named with a
+   type-cast segment, on the model of [section ##DerivedTypes]. Whether the
+   [OData-ABNF](#ODataABNF) rule [selectItem]{.abnf} admits a type-cast
+   segment before a qualified operation name, as it does before a property
+   name, needs checking; if it does not, the fallback is already stated ---
+   the service advertises the operation by name in a wrapper object.
 
 10. **Action and function parameters.** [Section
     ##ActionandFunctionParameters] keeps the parameter object as defined

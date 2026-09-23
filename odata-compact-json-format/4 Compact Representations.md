@@ -19,7 +19,7 @@ one of the following:
   pairs are the instance's properties together with the annotations and
   control information that apply to the instance and to those properties;
 - a JSON array, the *positional representation*, whose items are the
-  values of the properties in the instance's [positional property
+  values at the positions of the instance's [positional property
   list](#positionalpropertylist); or
 - a [wrapper object](#wrapperobject), which carries the positional
   representation under the reserved name `$`, together with the
@@ -60,10 +60,49 @@ JSON object is either a wrapper object or the representation defined by
 [OData-JSON](#ODataJSON), told apart as described in [section
 ##TheWrapperObject].
 
+A positional representation is not self-describing. A receiver needs the
+context URL to know which property each position holds, and the metadata
+document that context URL references to know what the value at a position
+means --- in particular whether a property is collection-valued, since a
+JSON array at a position is the positional representation of a single
+structured value where the property is single-valued, and the collection
+of its values where it is not. This is a stronger dependency on the
+metadata document than [OData-JSON](#ODataJSON) creates, where the name of
+a property accompanies its value.
+
+::: example
+Example ##ex_cardinality: two payloads whose positional representations
+are identical in shape and differ only in what the metadata says. In the
+first, `Address` is single-valued, so the array at its position is one
+complex value; in the second, `Addresses` is collection-valued, so the
+array at its position is a collection with one member, which is itself a
+positional representation
+```json
+{
+  "@context": "$metadata#Customers(Name,Address(City,PostalCode))",
+  "$": [
+    ["Alfreds Futterkiste", ["Berlin", "12209"]]
+  ]
+}
+```
+```json
+{
+  "@context": "$metadata#Customers(Name,Addresses(City,PostalCode))",
+  "$": [
+    ["Alfreds Futterkiste", [["Berlin", "12209"]]]
+  ]
+}
+```
+:::
+
 ## ##subsec Positional Property List
 
 The *positional property list* of a structured instance is the ordered
-list of properties that its positional representation conveys.
+list of what its positional representation conveys: the instance's
+properties, and --- where the select-list names them --- explicitly selected
+instance annotations, as described in [section ##SelectedAnnotations], and
+bound operations, as described in [section ##BoundOperations]. Properties
+are the ordinary case, and the list is named for them.
 
 If an instance is represented positionally:
 
@@ -83,8 +122,7 @@ sender may omit a property whose value it does not wish to transmit. In a
 positional representation there is no way to omit a value without
 shifting every subsequent value, so the positional property list must be
 transmitted in full. If a sender wishes to transmit fewer properties, it
-narrows the positional property list -- by narrowing the select-list in the
-context URL -- rather than shortening the array.
+narrows the select-list in the context URL.
 
 ## ##subsec Determining the Positional Property List
 
@@ -97,14 +135,17 @@ select-list MUST enumerate every property conveyed positionally, at every
 level of nesting. In particular:
 
 - the select-list MUST NOT be omitted, and MUST NOT be empty;
+- the select-list MUST enumerate every structural property and every
+  expanded navigation property conveyed positionally, by name, including
+  where [OData-Protocol](#ODataProtocol) would allow a select-list
+  containing only expanded navigation properties to select the structural
+  properties implicitly;
 - the select-list MUST NOT contain the shortcut `*`, nor the shortcut
-  `{namespace}.*` for the bound operations of a type;
-- a select-item for a structured property whose value is conveyed
-  positionally MUST carry a nested select-list, rather than the empty
-  parentheses that [OData-Protocol](#ODataProtocol) permits;
-- the rule of [OData-Protocol](#ODataProtocol) whereby a select-list
-  containing only expanded navigation properties implicitly selects all
-  structural properties does not apply to a compact payload.
+  `{namespace}.*` for the bound operations of a schema;
+- a select-item for a structural or navigation property of a structured
+  type whose value is conveyed positionally MUST carry a nested
+  select-list, rather than the empty parentheses that
+  [OData-Protocol](#ODataProtocol) permits.
 
 This is a requirement on the *context URL*, not on the request. A client
 may use `$select=*`, or omit `$select` altogether, or use `$expand=*`; the
@@ -122,6 +163,15 @@ which [OData-CSDL](#ODataCSDL) does not make significant. A service always
 knows which metadata it used; a client composing a request payload may not,
 and cannot determine it from the payload alone. Enumerating the
 select-list places the information with the party that reliably has it.
+
+The same reasoning excludes both shortcuts. `*` and `{namespace}.*` name a
+rule for finding a set rather than the set itself, so the sender and the
+receiver would each have to resolve it, from a metadata document whose
+version they need not agree on and whose declaration order
+[OData-CSDL](#ODataCSDL) does not make significant. Neither shortcut says
+how many positions it occupies or in what order. The party writing the
+select-list is the service, which by then knows exactly what it has placed
+at each position, so it enumerates.
 
 Let *T* be the type of the instance and *S* the sequence of select-list
 items, in the order in which they appear in the context URL, that applies
@@ -272,6 +322,47 @@ navigation property form one group and therefore one position
 $metadata#Employees/Sales.Manager(DirectReports,DirectReports+(FirstName,LastName))
 ```
 The positional property list of each `Manager` is (`DirectReports`).
+:::
+
+## ##subsec Nested Context URLs
+
+A [wrapper object](#wrapperobject) MAY carry its own
+[`context`](#ControlInformationcontext) control information, and
+[OData-JSON](#ODataJSON) requires one where the entity set of a nested
+collection cannot be determined from the containing context URL.
+
+Where a nested context URL is present, its select-list determines the
+positional property list of the instances it describes, in place of the
+nested select-list that [section ##GroupingofSelectItems] would otherwise
+derive from the containing context URL. A nested context URL in a compact
+payload MUST carry a select-list meeting the requirements of [section
+##DeterminingthePositionalPropertyList].
+
+This allows a service to convey positionally a property that the
+containing select-list does not describe --- a property carried by name in
+a wrapper object, for instance, which occupies no position and therefore
+has no nested select-list of its own.
+
+::: example
+Example ##ex_nestedcontext: `Addresses` occupies no position, being absent
+from the containing select-list, and is carried by name in the wrapper
+object. Its own context URL supplies the positional property list of the
+addresses
+```json
+{
+  "@context": "$metadata#Customers(ID,Name)",
+  "$": [
+    {
+      "$": ["ALFKI", "Alfreds Futterkiste"],
+      "Addresses@context": "#Addresses(Street,City)",
+      "Addresses": [
+        ["Obere Str. 57", "Berlin"],
+        ["Bahnhofstraße 8", "Walldorf"]
+      ]
+    }
+  ]
+}
+```
 :::
 
 ## ##subsec The Wrapper Object
@@ -451,9 +542,10 @@ the collection, each inner array the positional representation of one
 
 Note the consequence of the two preceding rules: for a
 collection-valued structured property, the value at the position is an
-array of arrays. A receiver that knows the positional property list also
-knows, from the metadata, whether a property is collection-valued, and can
-therefore distinguish the two nestings without ambiguity.
+array of arrays --- the outer array the collection, each inner array one
+member. A receiver distinguishes the two nestings from the metadata, as
+[section ##PositionalRepresentation] describes; nothing in the payload
+itself does so.
 
 A property that has no value at all -- as opposed to a property whose value
 is null -- occurs when only annotations were requested for it, for example
