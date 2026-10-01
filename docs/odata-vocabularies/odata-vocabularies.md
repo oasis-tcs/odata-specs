@@ -5,21 +5,21 @@
 
 # OData Vocabularies Version 4.0
 
-## Committee Specification Draft 03
+## Committee Specification 01
 
-## 19 August 2026
+## 7 October 2026
 
 $\hbox{}$
 
 #### This stage:
+https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/cs01/odata-vocabularies-v4.0-cs01.md (Authoritative) \
+https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/cs01/odata-vocabularies-v4.0-cs01.html \
+https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/cs01/odata-vocabularies-v4.0-cs01.pdf
+
+#### Previous stage:
 https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/csd03/odata-vocabularies-v4.0-csd03.md (Authoritative) \
 https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/csd03/odata-vocabularies-v4.0-csd03.html \
 https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/csd03/odata-vocabularies-v4.0-csd03.pdf
-
-#### Previous stage:
-https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/csd02/odata-vocabularies-v4.0-csd02.md (Authoritative) \
-https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/csd02/odata-vocabularies-v4.0-csd02.html \
-https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/csd02/odata-vocabularies-v4.0-csd02.pdf
 
 #### Latest stage:
 https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/odata-vocabularies-v4.0.md (Authoritative) \
@@ -73,8 +73,8 @@ When referencing this specification the following citation format should be used
 **[OData-Vocabularies-v4.0]**
 
 _OData Vocabularies Version 4.0_.
-Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. 19 August 2026. OASIS Committee Specification Draft 03.
-https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/csd03/odata-vocabularies-v4.0-csd03.html.
+Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. 7 October 2026. OASIS Committee Specification 01.
+https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/cs01/odata-vocabularies-v4.0-cs01.html.
 Latest stage: https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/odata-vocabularies-v4.0.html.
 
 #### Notices
@@ -2262,7 +2262,7 @@ The contributions of the OASIS OData Technical Committee members, enumerated in 
 | :--- | :--- | :--- | :--- |
 |Committee Specification Draft 01|2016-12-08|Michael Pizzo<br>Ralf Handl<br>Ram Jeyaraman| Documentation automatically extracted from XML source files|
 |Committee Specification Draft 02|2024-06-19|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| Documentation automatically extracted from XML source files|
-|Committee Specification Draft 03|2026-08-19|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| Documentation automatically extracted from XML source files|
+|Committee Specification 01|2026-10-07|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| Documentation automatically extracted from XML source files|
 
 -------
 
