@@ -71,8 +71,10 @@ $$$include ../odatatc-members.md$$$
 Documentation automatically extracted from XML source files|
 |Committee Specification Draft 02|2024-06-19|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| 
 Documentation automatically extracted from XML source files|
-|$$$subtitle$$$|$$$pubdateISO$$$|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| 
+|Committee Specification Draft 03|2026-08-19|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| 
 Documentation automatically extracted from XML source files|
+|$$$subtitle$$$|$$$pubdateISO$$$|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| 
+Non-material changes from public review feedback|
 
 -------
 

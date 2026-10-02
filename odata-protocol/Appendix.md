@@ -204,8 +204,10 @@ $$$include ../odatatc-members.md$$$
 |Committee Specification Draft 01|2024-02-28|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| 
 Import material from OData Version 4.01 Part 1: Protocol 
 <br>Changes listed in [section ##ChangesfromEarlierVersions]|
-|$$$subtitle$$$|$$$pubdateISO$$$|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| 
+|Committee Specification Draft 02|2026-08-19|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| 
 Changes listed in [section ##ChangesfromEarlierVersions]|
+|$$$subtitle$$$|$$$pubdateISO$$$|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| 
+Non-material changes from public review feedback|
 
 -------
 
