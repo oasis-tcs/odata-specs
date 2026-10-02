@@ -5,21 +5,21 @@
 
 # OData Version 4.02. Part 1: Protocol
 
-## Committee Specification Draft 02
+## Committee Specification 01
 
-## 19 August 2026
+## 7 October 2026
 
 $\hbox{}$
 
 #### This stage:
+https://docs.oasis-open.org/odata/odata/v4.02/cs01/part1-protocol/odata-v4.02-cs01-part1-protocol.md (Authoritative) \
+https://docs.oasis-open.org/odata/odata/v4.02/cs01/part1-protocol/odata-v4.02-cs01-part1-protocol.html \
+https://docs.oasis-open.org/odata/odata/v4.02/cs01/part1-protocol/odata-v4.02-cs01-part1-protocol.pdf
+
+#### Previous stage:
 https://docs.oasis-open.org/odata/odata/v4.02/csd02/part1-protocol/odata-v4.02-csd02-part1-protocol.md (Authoritative) \
 https://docs.oasis-open.org/odata/odata/v4.02/csd02/part1-protocol/odata-v4.02-csd02-part1-protocol.html \
 https://docs.oasis-open.org/odata/odata/v4.02/csd02/part1-protocol/odata-v4.02-csd02-part1-protocol.pdf
-
-#### Previous stage:
-https://docs.oasis-open.org/odata/odata/v4.02/csd01/part1-protocol/odata-v4.02-csd01-part1-protocol.md (Authoritative) \
-https://docs.oasis-open.org/odata/odata/v4.02/csd01/part1-protocol/odata-v4.02-csd01-part1-protocol.html \
-https://docs.oasis-open.org/odata/odata/v4.02/csd01/part1-protocol/odata-v4.02-csd01-part1-protocol.pdf
 
 #### Latest stage:
 https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.md (Authoritative) \
@@ -42,9 +42,9 @@ Heiko Theißen (heiko.theissen@sap.com), [SAP SE](http://www.sap.com/)
 
 #### [Additional artifacts:]{id=AdditionalArtifacts}
 This prose specification is one component of a Work Product that also includes:
-* _OData Version 4.02 Part 1: Protocol_ (this document). https://docs.oasis-open.org/odata/odata/v4.02/csd02/part1-protocol/odata-v4.02-csd02-part1-protocol.html
-* _OData Version 4.02 Part 2: URL Conventions_. https://docs.oasis-open.org/odata/odata/v4.02/csd02/part2-url-conventions/odata-v4.02-csd02-part2-url-conventions.html
-* ABNF components: _OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases Version 4.02_. https://docs.oasis-open.org/odata/odata/v4.02/csd02/abnf/.
+* _OData Version 4.02 Part 1: Protocol_ (this document). https://docs.oasis-open.org/odata/odata/v4.02/cs01/part1-protocol/odata-v4.02-cs01-part1-protocol.html
+* _OData Version 4.02 Part 2: URL Conventions_. https://docs.oasis-open.org/odata/odata/v4.02/cs01/part2-url-conventions/odata-v4.02-cs01-part2-url-conventions.html
+* ABNF components: _OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases Version 4.02_. https://docs.oasis-open.org/odata/odata/v4.02/cs01/abnf/.
 
 
 #### [Related work:]{id=RelatedWork}
@@ -68,7 +68,7 @@ This document was last revised or approved by the OASIS Open Data Protocol (ODat
 
 TC members should send comments on this specification to the TC's email list. Any individual may submit comments to the TC by sending email to Technical-Committee-Comments@oasis-open.org. Please use a Subject line like "Comment on OData Protocol".
 
-This specification is provided under the [RF on RAND Terms Mode](https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode) of the [OASIS IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/), the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC's web page (https://www.oasis-open.org/committees/odata/ipr.php).
+This specification is provided under the [RF on RAND Terms Mode](https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode) of the [OASIS IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/), the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC's web page (https://www.oasis-open.org/committees/ipr.php?wg_abbrev=odata).
 
 Note that any machine-readable content ([Computer Language Definitions](https://www.oasis-open.org/policies-guidelines/tc-process-2017-05-26/#wpComponentsCompLang)) declared Normative for this Work Product is provided in separate plain text files. In the event of a discrepancy between any such plain text file and display content in the Work Product's prose narrative document(s), the content in the separate plain text file prevails.
 
@@ -81,8 +81,8 @@ When referencing this specification the following citation format should be used
 **[OData-v4.02-Part1]**
 
 _OData Version 4.02. Part 1: Protocol_.
-Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. 19 August 2026. OASIS Committee Specification Draft 02.
-https://docs.oasis-open.org/odata/odata/v4.02/csd02/odata-v4.02-csd02-part1-protocol.html.
+Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. 7 October 2026. OASIS Committee Specification 01.
+https://docs.oasis-open.org/odata/odata/v4.02/cs01/odata-v4.02-cs01-part1-protocol.html.
 Latest stage: https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html.
 
 #### Notices
@@ -407,12 +407,12 @@ All examples in this document are non-normative and informative only.
 All other text is normative unless otherwise labeled.
 
 <!--
-Here is a customized command line which will generate HTML from the markdown file (named `odata-v4.02-csd02-part1-protocol.md`). Line breaks are added for readability only:
+Here is a customized command line which will generate HTML from the markdown file (named `odata-v4.02-cs01-part1-protocol.md`). Line breaks are added for readability only:
 
 ```
 pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        -t html
-       -o odata-v4.02-csd02-part1-protocol.html
+       -o odata-v4.02-cs01-part1-protocol.html
        -c styles/markdown-styles-v1.7.3b.css
        -c styles/odata.css
        -s
@@ -420,7 +420,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        --eol=lf
        --wrap=none
        --metadata pagetitle="OData Version 4.02. Part 1: Protocol"
-       odata-v4.02-csd02-part1-protocol.md
+       odata-v4.02-cs01-part1-protocol.md
 ```
 
 This uses pandoc 3.8.3 from https://github.com/jgm/pandoc/releases/tag/3.8.3.
@@ -706,7 +706,7 @@ OData clients include the
 order to specify the maximum acceptable response version. Services
 respond with the maximum supported version that is less than or equal to
 the requested `OData-MaxVersion`, using decimal comparison. The syntax
-of the [OData-Version]{.abnf} and [OData-MaxVersion]{.abnf} header fields is defined
+of the [OData-Version]{.abnf-h} and [OData-MaxVersion]{.abnf-h} header fields is defined
 in [OData-ABNF](#ODataABNF).
 
 Services SHOULD advertise supported versions of OData through the
@@ -1182,7 +1182,7 @@ the same batch) are visible. The effect is as if the request generates a
 "snapshot" of the committed data as it existed at the start of the
 request.
 
-The` Isolation` header may be specified on a single or batch request. If
+The `Isolation` header may be specified on a single or batch request. If
 it is specified on a batch then the value is applied to all statements
 within the batch.
 
@@ -1198,7 +1198,7 @@ A service returns [`410 Gone`](#ResponseCode410Gone) or
 [`404 Not Found`](#ResponseCode404NotFound) if a consumer tries to
 follow a next link referring to a snapshot that is no longer available.
 
-The syntax of the [Isolation]{.abnf} header is defined in
+The syntax of the [Isolation]{.abnf-h} header is defined in
 [OData-ABNF](#ODataABNF).
 
 A service MAY specify the support for `Isolation:snapshot` using an
@@ -1260,8 +1260,8 @@ many-to-many relationships). The service MUST NOT return entity
 references in place of requested entities if
 `allow-entityreferences` has not been specified in the request, unless
 explicitly defined by other rules in this document. The syntax of the
-[allow-entityreferences]{.abnf} preference is defined in
-[OData-ABNF](#ODataABNF).
+`allow-entityreferences` preference is defined in
+the [OData-ABNF](#ODataABNF) rule [allowEntityReferencesPreference]{.abnf}.
 
 In the case the service applies the `allow-entityreferences` preference
 it MUST include a [`Preference-Applied`](#HeaderPreferenceApplied)
@@ -1775,7 +1775,7 @@ A response to a [create](#CreateanEntity) or [upsert](#UpsertanEntity)
 operation that returns [`204 No Content`](#ResponseCode204NoContent)
 MUST include an `OData-EntityId` response header. The value of the
 header is the [entity-id](#EntityIdsandEntityReferences) of the entity
-that was acted on by the request. The syntax of the [OData-EntityId]{.abnf}
+that was acted on by the request. The syntax of the [OData-EntityId]{.abnf-h}
 header is defined in [OData-ABNF](#ODataABNF).
 
 The `OData-EntityID` header SHOULD NOT be included for the overall batch
@@ -5429,7 +5429,7 @@ then services that support ETags MUST NOT apply the change and instead
 The special value `*` can be used to match any existing entity but fail if the entity does not already exist.
 
 Added/changed entities that specify format-specific control information
-equivalent to an `If-Match-None: *` header [OData-JSON, section 4.6.11](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformationetagodataetag)
+equivalent to an `If-None-Match: *` header [OData-JSON, section 4.6.11](https://docs.oasis-open.org/odata/odata-json-format/v4.02/odata-json-format-v4.02.html#ControlInformationetagodataetag)
 MUST NOT be treated as an update.
 
 The response, if requested, is a delta payload, in the same structure
@@ -7629,6 +7629,7 @@ The following individuals were members of the OASIS OData Technical Committee du
 | :--- | :--- | :--- | :--- |
 |Committee Specification Draft 01|2024-02-28|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| Import material from OData Version 4.01 Part 1: Protocol <br>Changes listed in [section 1.1](#ChangesfromEarlierVersions)|
 |Committee Specification Draft 02|2026-08-19|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| Changes listed in [section 1.1](#ChangesfromEarlierVersions)|
+|Committee Specification 01|2026-10-07|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| Non-material changes from public review feedback|
 
 -------
 

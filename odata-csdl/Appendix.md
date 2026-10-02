@@ -195,8 +195,10 @@ Import material from OData Common Schema Definition Language (CSDL) JSON Represe
 Import material from OData Common Schema Definition Language (CSDL) XML Representation Version 4.01 
 :
 <br>Changes listed in [section ##ChangesfromEarlierVersions]|
-|$$$subtitle$$$|$$$pubdateISO$$$|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| 
+|Committee Specification Draft 02|2026-08-19|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| 
 Changes listed in [section ##ChangesfromEarlierVersions]|
+|$$$subtitle$$$|$$$pubdateISO$$$|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| 
+Non-material changes from public review feedback|
 
 -------
 

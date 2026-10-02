@@ -83,7 +83,7 @@ occurrence
   "value": [
     {
       "@odata.id": "Customers('BOTTM')",
-      "ContactName": "Susan Halvenstern",
+      "ContactName": "Susan Halvenstern"
     },
     {
       "@odata.context": "#Customers/$deletedEntity",
@@ -530,7 +530,7 @@ Prefer: return=minimal, continue-on-error
     {
       "@Org.OData.Core.V1.ContentID": "2",
       "CustomerID": "AROUT",
-      "ContactName": "Thomas Hardy",
+      "ContactName": "Thomas Hardy"
     },
     {
       "@Org.OData.Core.V1.ContentID": "3",

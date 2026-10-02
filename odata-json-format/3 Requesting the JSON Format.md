@@ -177,7 +177,7 @@ This control information MUST continue to be included, as applicable,
 even in the `metadata=none` case.
 
 It is not valid to specify `metadata=none` on a [delta
-request](#DeltaPayload).
+payload](#DeltaPayload).
 
 ## ##subsec Controlling the Representation of Numbers
 
