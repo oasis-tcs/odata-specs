@@ -1,10 +1,10 @@
 pagetitle: OData Vocabularies Version 4.0
-subtitle: Committee Specification Draft 03
-filename: odata-vocabularies-v4.0-csd03
-stage: csd03
-previousStage: csd02
-pubdate: 19 August 2026
-pubdateISO: '2026-08-19'
+subtitle: Committee Specification 01
+filename: odata-vocabularies-v4.0-cs01
+stage: cs01
+previousStage: csd03
+pubdate: 7 October 2026
+pubdateISO: '2026-10-07'
 copyright: © OASIS Open 2026
 description: >
   This prose specification describes a set of OData vocabularies maintained

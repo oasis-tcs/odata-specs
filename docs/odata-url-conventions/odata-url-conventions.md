@@ -5,21 +5,21 @@
 
 # OData Version 4.02. Part 2: URL Conventions
 
-## Committee Specification Draft 02
+## Committee Specification 01
 
-## 19 August 2026
+## 7 October 2026
 
 $\hbox{}$
 
 #### This stage:
+https://docs.oasis-open.org/odata/odata/v4.02/cs01/part2-url-conventions/odata-v4.02-cs01-part2-url-conventions.md (Authoritative) \
+https://docs.oasis-open.org/odata/odata/v4.02/cs01/part2-url-conventions/odata-v4.02-cs01-part2-url-conventions.html \
+https://docs.oasis-open.org/odata/odata/v4.02/cs01/part2-url-conventions/odata-v4.02-cs01-part2-url-conventions.pdf
+
+#### Previous stage:
 https://docs.oasis-open.org/odata/odata/v4.02/csd02/part2-url-conventions/odata-v4.02-csd02-part2-url-conventions.md (Authoritative) \
 https://docs.oasis-open.org/odata/odata/v4.02/csd02/part2-url-conventions/odata-v4.02-csd02-part2-url-conventions.html \
 https://docs.oasis-open.org/odata/odata/v4.02/csd02/part2-url-conventions/odata-v4.02-csd02-part2-url-conventions.pdf
-
-#### Previous stage:
-https://docs.oasis-open.org/odata/odata/v4.02/csd01/part2-url-conventions/odata-v4.02-csd01-part2-url-conventions.md (Authoritative) \
-https://docs.oasis-open.org/odata/odata/v4.02/csd01/part2-url-conventions/odata-v4.02-csd01-part2-url-conventions.html \
-https://docs.oasis-open.org/odata/odata/v4.02/csd01/part2-url-conventions/odata-v4.02-csd01-part2-url-conventions.pdf
 
 #### Latest stage:
 https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.md (Authoritative) \
@@ -42,9 +42,9 @@ Heiko Theißen (heiko.theissen@sap.com), [SAP SE](http://www.sap.com/)
 
 #### [Additional artifacts:]{id=AdditionalArtifacts}
 This prose specification is one component of a Work Product that also includes:
-* _OData Version 4.02 Part 1: Protocol_. https://docs.oasis-open.org/odata/odata/v4.02/csd02/part1-protocol/odata-v4.02-csd02-part1-protocol.html
-* _OData Version 4.02 Part 2: URL Conventions_ (this document). https://docs.oasis-open.org/odata/odata/v4.02/csd02/part2-url-conventions/odata-v4.02-csd02-part2-url-conventions.html
-* ABNF components: _OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases Version 4.02_. https://docs.oasis-open.org/odata/odata/v4.02/csd02/abnf/.
+* _OData Version 4.02 Part 1: Protocol_. https://docs.oasis-open.org/odata/odata/v4.02/cs01/part1-protocol/odata-v4.02-cs01-part1-protocol.html
+* _OData Version 4.02 Part 2: URL Conventions_ (this document). https://docs.oasis-open.org/odata/odata/v4.02/cs01/part2-url-conventions/odata-v4.02-cs01-part2-url-conventions.html
+* ABNF components: _OData ABNF Construction Rules Version 4.02 and OData ABNF Test Cases Version 4.02_. https://docs.oasis-open.org/odata/odata/v4.02/cs01/abnf/.
 
 #### [Related work:]{id=RelatedWork}
 This specification replaces or supersedes:
@@ -67,7 +67,7 @@ This document was last revised or approved by the OASIS Open Data Protocol (ODat
 
 TC members should send comments on this specification to the TC's email list. Any individual may submit comments to the TC by sending email to Technical-Committee-Comments@oasis-open.org. Please use a Subject line like "Comment on OData URL Conventions".
 
-This specification is provided under the [RF on RAND Terms Mode](https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode) of the [OASIS IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/), the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC's web page (https://www.oasis-open.org/committees/odata/ipr.php).
+This specification is provided under the [RF on RAND Terms Mode](https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode) of the [OASIS IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/), the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC's web page (https://www.oasis-open.org/committees/ipr.php?wg_abbrev=odata).
 
 Note that any machine-readable content ([Computer Language Definitions](https://www.oasis-open.org/policies-guidelines/tc-process-2017-05-26/#wpComponentsCompLang)) declared Normative for this Work Product is provided in separate plain text files. In the event of a discrepancy between any such plain text file and display content in the Work Product's prose narrative document(s), the content in the separate plain text file prevails.
 
@@ -80,8 +80,8 @@ When referencing this specification the following citation format should be used
 **[OData-v4.02-Part2]**
 
 _OData Version 4.02. Part 2: URL Conventions_.
-Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. 19 August 2026. OASIS Committee Specification Draft 02.
-https://docs.oasis-open.org/odata/odata/v4.02/csd02/odata-v4.02-csd02-part2-url-conventions.html.
+Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. 7 October 2026. OASIS Committee Specification 01.
+https://docs.oasis-open.org/odata/odata/v4.02/cs01/odata-v4.02-cs01-part2-url-conventions.html.
 Latest stage: https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html.
 
 #### Notices
@@ -311,12 +311,12 @@ All examples in this document are non-normative and informative only.
 All other text is normative unless otherwise labeled.
 
 <!--
-Here is a customized command line which will generate HTML from the markdown file (named `odata-v4.02-csd02-part2-url-conventions.md`). Line breaks are added for readability only:
+Here is a customized command line which will generate HTML from the markdown file (named `odata-v4.02-cs01-part2-url-conventions.md`). Line breaks are added for readability only:
 
 ```
 pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        -t html
-       -o odata-v4.02-csd02-part2-url-conventions.html
+       -o odata-v4.02-cs01-part2-url-conventions.html
        -c styles/markdown-styles-v1.7.3b.css
        -c styles/odata.css
        -s
@@ -324,7 +324,7 @@ pandoc -f gfm+tex_math_dollars+fenced_divs+smart
        --eol=lf
        --wrap=none
        --metadata pagetitle="OData Version 4.02. Part 2: URL Conventions"
-       odata-v4.02-csd02-part2-url-conventions.md
+       odata-v4.02-cs01-part2-url-conventions.md
 ```
 
 This uses pandoc 3.8.3 from https://github.com/jgm/pandoc/releases/tag/3.8.3.
@@ -2894,7 +2894,7 @@ Edm.Decimal totalseconds(Edm.Duration)
 ```
 
 The `totalseconds` function returns the duration of the value in total
-seconds, including fractional seconds. The [totalSecondsMethodCallExpr]{.abnf}
+seconds, including fractional seconds. The [totalsecondsMethodCallExpr]{.abnf}
 syntax rule defines how the `totalseconds` function is invoked.
 
 ##### <a id="year" href="#year">5.1.1.8.14 `year`</a>
@@ -3004,7 +3004,7 @@ type cast(expression,type)
 The single parameter `cast` function returns the current instance cast
 to the type specified. The two-parameter `cast` function returns the
 object referred to by the expression cast to the type specified.
-The [castMethodCallExpr]{.abnf}
+The [castExpr]{.abnf}
 syntax rule defines how the `cast` function is invoked.
 
 The `cast` function follows these assignment rules:
@@ -3591,7 +3591,7 @@ Operators in the same category have equal precedence:
 
 Group|Operator|Description|ABNF Expression
 -----|--------|-----------|---------------
-Grouping        | `( )`           | Precedence grouping      | [parenExpr]{.abnf}<br>[boolParenExpr]{.abnf}
+Grouping        | `( )`           | Precedence grouping      | [parenExpr]{.abnf}
 Primary         | `/`             | Navigation      | [firstMemberExpr]{.abnf}<br>[memberExpr]{.abnf}
                 | `has`           | Enumeration Flags     | [hasExpr]{.abnf}
                 | `in`            | Is a member of  | [inExpr]{.abnf}
@@ -4428,6 +4428,7 @@ do we have considerations specific to URLs, for example length, encoding, privac
 | :--- | :--- | :--- | :--- |
 |Committee Specification Draft 01|2024-02-28|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| Import material from OData Version 4.01 Part 2: URL Conventions <br>Changes listed in [section 1.1](#ChangesfromEarlierVersions)|
 |Committee Specification Draft 02|2026-08-19|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| Changes listed in [section 1.1](#ChangesfromEarlierVersions)|
+|Committee Specification 01|2026-10-07|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| Non-material changes from public review feedback|
 
 -------
 

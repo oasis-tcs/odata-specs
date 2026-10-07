@@ -5,21 +5,21 @@
 
 # OData Vocabularies Version 4.0
 
-## Committee Specification Draft 03
+## Committee Specification 01
 
-## 19 August 2026
+## 7 October 2026
 
 $\hbox{}$
 
 #### This stage:
+https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/cs01/odata-vocabularies-v4.0-cs01.md (Authoritative) \
+https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/cs01/odata-vocabularies-v4.0-cs01.html \
+https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/cs01/odata-vocabularies-v4.0-cs01.pdf
+
+#### Previous stage:
 https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/csd03/odata-vocabularies-v4.0-csd03.md (Authoritative) \
 https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/csd03/odata-vocabularies-v4.0-csd03.html \
 https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/csd03/odata-vocabularies-v4.0-csd03.pdf
-
-#### Previous stage:
-https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/csd02/odata-vocabularies-v4.0-csd02.md (Authoritative) \
-https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/csd02/odata-vocabularies-v4.0-csd02.html \
-https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/csd02/odata-vocabularies-v4.0-csd02.pdf
 
 #### Latest stage:
 https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/odata-vocabularies-v4.0.md (Authoritative) \
@@ -60,7 +60,7 @@ This document was last revised or approved by the OASIS Open Data Protocol (ODat
 
 TC members should send comments on this specification to the TC's email list. Any individual may submit comments to the TC by sending email to Technical-Committee-Comments@oasis-open.org. Please use a Subject line like "Comment on OData Vocabularies".
 
-This specification is provided under the [RF on RAND Terms Mode](https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode) of the [OASIS IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/), the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC's web page (https://www.oasis-open.org/committees/odata/ipr.php).
+This specification is provided under the [RF on RAND Terms Mode](https://www.oasis-open.org/policies-guidelines/ipr/#RF-on-RAND-Mode) of the [OASIS IPR Policy](https://www.oasis-open.org/policies-guidelines/ipr/), the mode chosen when the Technical Committee was established. For information on whether any patents have been disclosed that may be essential to implementing this specification, and any offers of patent licensing terms, please refer to the Intellectual Property Rights section of the TC's web page (https://www.oasis-open.org/committees/ipr.php?wg_abbrev=odata).
 
 Note that any machine-readable content ([Computer Language Definitions](https://www.oasis-open.org/policies-guidelines/tc-process-2017-05-26/#wpComponentsCompLang)) declared Normative for this Work Product is provided in separate plain text files. In the event of a discrepancy between any such plain text file and display content in the Work Product's prose narrative document(s), the content in the separate plain text file prevails.
 
@@ -73,8 +73,8 @@ When referencing this specification the following citation format should be used
 **[OData-Vocabularies-v4.0]**
 
 _OData Vocabularies Version 4.0_.
-Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. 19 August 2026. OASIS Committee Specification Draft 03.
-https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/csd03/odata-vocabularies-v4.0-csd03.html.
+Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. 7 October 2026. OASIS Committee Specification 01.
+https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/cs01/odata-vocabularies-v4.0-cs01.html.
 Latest stage: https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/odata-vocabularies-v4.0.html.
 
 #### Notices
@@ -101,14 +101,16 @@ For complete copyright information please see the full Notices section in an App
 - [8 JSON Vocabulary](#JSONVocabulary)
 - [9 Repeatability Vocabulary](#RepeatabilityVocabulary)
 - [10 Temporal Vocabulary](#TemporalVocabulary)
+- [11 Conformance](#Conformance)
 - [A References](#References)
   - [A.1 Normative References](#NormativeReferences)
   - [A.2 Non-Normative References](#NonNormativeReferences)
-- [B Acknowledgments](#Acknowledgments)
-  - [B.1 Special Thanks](#SpecialThanks)
-  - [B.2 Participants](#Participants)
-- [C Revision History](#RevisionHistory)
-- [D Notices](#Notices)
+- [B Safety, Security and Privacy Considerations](#SafetySecurityandPrivacyConsiderations)
+- [C Acknowledgments](#Acknowledgments)
+  - [C.1 Special Thanks](#SpecialThanks)
+  - [C.2 Participants](#Participants)
+- [D Revision History](#RevisionHistory)
+- [E Notices](#Notices)
 :::
 
 
@@ -2178,6 +2180,13 @@ Property|Type|Description
 
 -------
 
+# <a id="Conformance" href="#Conformance">11 Conformance</a>
+
+Conforming services that expose annotations using terms defined in this document MUST adhere to
+the syntax and semantics laid out in the term definition.
+
+-------
+
 # <a id="References" href="#References">Appendix A. References</a>
 
 This appendix contains the normative and informative references that are used in this document.
@@ -2213,23 +2222,21 @@ https://www.rfc-editor.org/info/rfc8174.
 _odata-vocabularies OASIS TC GitHub repository_.
 https://github.com/oasis-tcs/odata-vocabularies.
 
-<!-- TODO:
 -------
 
-# Appendix Safety, Security and Privacy Considerations
+# <a id="SafetySecurityandPrivacyConsiderations" href="#SafetySecurityandPrivacyConsiderations">Appendix B. Safety, Security and Privacy Considerations</a>
 
-do we have considerations specific to URLs, for example length, encoding, privacy (use $batch if in doubt), ...?
--->
+No security issues have been identified.
 
 -------
 
-# <a id="Acknowledgments" href="#Acknowledgments">Appendix B. Acknowledgments</a>
+# <a id="Acknowledgments" href="#Acknowledgments">Appendix C. Acknowledgments</a>
 
-## <a id="SpecialThanks" href="#SpecialThanks">B.1 Special Thanks</a>
+## <a id="SpecialThanks" href="#SpecialThanks">C.1 Special Thanks</a>
 
 The contributions of the OASIS OData Technical Committee members, enumerated in [OData-Protocol, section C.2](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#Participants), are gratefully acknowledged.
 
-## <a id="Participants" href="#Participants">B.2 Participants</a>
+## <a id="Participants" href="#Participants">C.2 Participants</a>
 
 **OData TC Members:**
 
@@ -2249,17 +2256,18 @@ The contributions of the OASIS OData Technical Committee members, enumerated in 
 
 -------
 
-# <a id="RevisionHistory" href="#RevisionHistory">Appendix C. Revision History</a>
+# <a id="RevisionHistory" href="#RevisionHistory">Appendix D. Revision History</a>
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
 |Committee Specification Draft 01|2016-12-08|Michael Pizzo<br>Ralf Handl<br>Ram Jeyaraman| Documentation automatically extracted from XML source files|
 |Committee Specification Draft 02|2024-06-19|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| Documentation automatically extracted from XML source files|
 |Committee Specification Draft 03|2026-08-19|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| Documentation automatically extracted from XML source files|
+|Committee Specification 01|2026-10-07|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| Non-material changes from public review feedback|
 
 -------
 
-# <a id="Notices" href="#Notices">Appendix D. Notices</a>
+# <a id="Notices" href="#Notices">Appendix E. Notices</a>
 
 <!-- Required section. Do not modify. -->
 
