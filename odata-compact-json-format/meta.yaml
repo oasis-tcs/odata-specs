@@ -1,0 +1,20 @@
+name: OData-Compact-JSON
+url: https://docs.oasis-open.org/odata/odata-compact-json-format/v4.02/odata-compact-json-format-v4.02.html
+pagetitle: OData Compact JSON Format Version 4.02
+subtitle: Committee Specification Draft 01
+filename: odata-compact-json-format-v4.02-csd01
+stage: csd01
+pubdate: 20 August 2026
+pubdateISO: '2026-08-20'
+copyright: © OASIS Open 2026
+OData-ABNF: https://docs.oasis-open.org/odata/odata/v4.02/csd02/abnf/syntax-diagram/odata-abnf-diagrams.html
+# OData-Voc: https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/csd03/odata-vocabularies-v4.0-csd03.html
+OData-VocCore: https://github.com/oasis-tcs/odata-vocabularies/blob/v4.02-release-candidate/vocabularies/Org.OData.Core.V1.md
+OData-VocCap: https://github.com/oasis-tcs/odata-vocabularies/blob/v4.02-release-candidate/vocabularies/Org.OData.Capabilities.V1.md
+OData-VocAggr: https://github.com/oasis-tcs/odata-vocabularies/blob/v4.02-release-candidate/vocabularies/Org.OData.Aggregation.V1.md
+description: >
+  The Open Data Protocol (OData) for representing and interacting with structured
+  content is comprised of a set of specifications. The core specification for the
+  protocol is in OData Version 4.02 Part 1: Protocol.
+  This document extends the core specification by defining representations for
+  OData requests and responses using a compact JSON format.
