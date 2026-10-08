@@ -1,6 +1,6 @@
 name: Node CI
 
-on: push
+on: [push, workflow_dispatch]
 
 jobs:
   build:
@@ -23,7 +23,16 @@ jobs:
           pandoc-version: 3.8.3
       - name: Build docs
         run: |
-          export PUPPETEER_SKIP_DOWNLOAD='true'
           npm ci
           npm run build
-          git diff --exit-code docs
+          git config user.name ${GITHUB_ACTOR}
+          git config user.email github-actions@github.com
+          git add .
+          git diff-index --quiet HEAD || git commit -m "Auto-built
+          
+          Go to https://github.com/oasis-tcs/odata-specs/actions/workflows/nodejs.yml
+          and run the workflow manually on ${{ github.ref }}
+          in order to have the required build (24.x) check executed."
+          git push
+        env:
+          PUPPETEER_SKIP_DOWNLOAD: true
