@@ -2,6 +2,9 @@
   "name": "odata-specs",
   "version": "1.0.0",
   "description": "",
+  "exports": {
+    "./weave": "./lib/weave.js"
+  },
   "main": "lib/server.js",
   "scripts": {
     "build": "node lib/build.js",
