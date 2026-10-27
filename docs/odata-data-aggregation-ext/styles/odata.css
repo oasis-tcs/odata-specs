@@ -164,7 +164,7 @@ table {
   color: white;
 }
 
-.example-data svg>path {
+.example-data svg > path {
   fill: none;
   stroke: black;
   stroke-width: 2;
@@ -176,8 +176,8 @@ pre {
 
 p code,
 li code,
-td>code,
-td>span code {
+td > code,
+td > span code {
   font-size: 1em;
   font-weight: bold;
 }
@@ -207,7 +207,7 @@ td>span code {
   clear: both;
 }
 
-.side-by-side>div {
+.side-by-side > div {
   width: 50%;
   float: left;
 }
@@ -260,11 +260,11 @@ hr:first-of-type {
     filter: invert(100%);
   }
 
-  details:not([open])>summary {
+  details:not([open]) > summary {
     list-style: disclosure-closed;
   }
 
-  details[open]>summary {
+  details[open] > summary {
     list-style: disclosure-open;
   }
 }
@@ -274,7 +274,7 @@ hr:first-of-type {
     display: none;
   }
 
-  details>summary {
+  details > summary {
     list-style: none;
   }
 }
