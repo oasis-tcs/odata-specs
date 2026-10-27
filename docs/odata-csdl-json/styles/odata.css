@@ -8,7 +8,7 @@ span:target {
 }
 
 h6 span[id],
-a[href^="https://docs.oasis-open.org"][href*="#"]:not([href^="https://docs.oasis-open.org/odata/odata-vocabularies/"]),
+a[href^="https://docs.oasis-open.org"][href*="#"],
 a[href^="#_"],
 a[href^="#OData"]:not(a[href^="#OData4"]),
 a[href^="#rfc"],
@@ -17,7 +17,7 @@ a[href^="#XML-"] {
 }
 
 h6 span[id]::before,
-a[href^="https://docs.oasis-open.org"][href*="#"]:not([href^="https://docs.oasis-open.org/odata/odata-vocabularies/"])::before,
+a[href^="https://docs.oasis-open.org"][href*="#"]::before,
 a[href^="#_"]::before,
 a[href^="#OData"]:not(a[href^="#OData4"])::before,
 a[href^="#rfc"]::before,
@@ -27,13 +27,25 @@ a[href^="#XML-"]::before {
 }
 
 h6 span[id]::after,
-a[href^="https://docs.oasis-open.org"][href*="#"]:not([href^="https://docs.oasis-open.org/odata/odata-vocabularies/"])::after,
+a[href^="https://docs.oasis-open.org"][href*="#"]::after,
 a[href^="#_"]::after,
 a[href^="#OData"]:not(a[href^="#OData4"])::after,
 a[href^="#rfc"]::after,
 a[href^="#XML-"]::after {
   content: "]";
   font-weight: bold;
+}
+
+.term a::before,
+.abnf a::before,
+.abnf-h a::before {
+  content: "" !important;
+}
+
+.term a::after,
+.abnf a::after,
+.abnf-h a::after {
+  content: "" !important;
 }
 
 .toc li {
@@ -152,7 +164,7 @@ table {
   color: white;
 }
 
-.example-data svg > path {
+.example-data svg>path {
   fill: none;
   stroke: black;
   stroke-width: 2;
@@ -164,8 +176,8 @@ pre {
 
 p code,
 li code,
-td > code,
-td > span code {
+td>code,
+td>span code {
   font-size: 1em;
   font-weight: bold;
 }
@@ -195,7 +207,7 @@ td > span code {
   clear: both;
 }
 
-.side-by-side > div {
+.side-by-side>div {
   width: 50%;
   float: left;
 }
@@ -248,11 +260,11 @@ hr:first-of-type {
     filter: invert(100%);
   }
 
-  details:not([open]) > summary {
+  details:not([open])>summary {
     list-style: disclosure-closed;
   }
 
-  details[open] > summary {
+  details[open]>summary {
     list-style: disclosure-open;
   }
 }
@@ -262,7 +274,7 @@ hr:first-of-type {
     display: none;
   }
 
-  details > summary {
+  details>summary {
     list-style: none;
   }
 }
