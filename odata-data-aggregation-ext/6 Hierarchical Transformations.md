@@ -37,7 +37,7 @@ The `descendants` transformation works analogously, but with descendants.
 
 $H$, $Q$ and $p$ are the first three parameters defined [above](#CommonParametersforHierarchicalTransformations).
 
-The fourth parameter is a transformation sequence $T$ composed of transformations listed [section ##TransformationsProducingaSubset] or [section ##Transformationsancestorsanddescendants] and of service-defined bound functions whose output set is a subset of their input set. $A$ is the output set of this sequence applied to the input set.
+The fourth parameter is a transformation sequence $T$ composed of transformations listed in [section ##TransformationsProducingaSubset] or [section ##Transformationsancestorsanddescendants] and of service-defined bound functions whose output set is a subset of their input set. $A$ is the output set of this sequence applied to the input set.
 
 The fifth parameter $d$ is optional and takes an integer greater than or equal to 1 that specifies the maximum distance between start nodes and ancestors or descendants to be considered. An optional final `keep start` parameter drives the optional inclusion of the subset or start nodes.
 
