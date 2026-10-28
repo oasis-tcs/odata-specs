@@ -38,14 +38,11 @@ a[href^="#XML-"]::after {
 
 .term a::before,
 .abnf a::before,
-.abnf-h a::before {
-  content: "" !important;
-}
-
+.abnf-h a::before,
 .term a::after,
 .abnf a::after,
 .abnf-h a::after {
-  content: "" !important;
+  content: none !important;
 }
 
 .toc li {
