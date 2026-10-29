@@ -34,6 +34,6 @@
     "livereload": "^0.10.3"
   },
   "allowScripts": {
-    "puppeteer@25.9.0": true
+    "puppeteer@25.16.0": true
   }
 }
