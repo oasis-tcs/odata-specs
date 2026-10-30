@@ -7,7 +7,7 @@
 
 ## Committee Specification 01
 
-## 7 October 2026
+## 20 October 2026
 
 $\hbox{}$
 
@@ -81,8 +81,8 @@ When referencing this specification the following citation format should be used
 **[OData-v4.02-Part1]**
 
 _OData Version 4.02. Part 1: Protocol_.
-Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. 7 October 2026. OASIS Committee Specification 01.
-https://docs.oasis-open.org/odata/odata/v4.02/cs01/odata-v4.02-cs01-part1-protocol.html.
+Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. 20 October 2026. OASIS Committee Specification 01.
+https://docs.oasis-open.org/odata/odata/v4.02/cs01/part1-protocol/odata-v4.02-cs01-part1-protocol.html.
 Latest stage: https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html.
 
 #### Notices
@@ -7629,7 +7629,7 @@ The following individuals were members of the OASIS OData Technical Committee du
 | :--- | :--- | :--- | :--- |
 |Committee Specification Draft 01|2024-02-28|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| Import material from OData Version 4.01 Part 1: Protocol <br>Changes listed in [section 1.1](#ChangesfromEarlierVersions)|
 |Committee Specification Draft 02|2026-08-19|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| Changes listed in [section 1.1](#ChangesfromEarlierVersions)|
-|Committee Specification 01|2026-10-07|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| Non-material changes from public review feedback|
+|Committee Specification 01|2026-10-20|Michael Pizzo<br>Ralf Handl<br>Heiko Theißen| Non-material changes from public review feedback|
 
 -------
 
