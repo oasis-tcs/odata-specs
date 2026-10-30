@@ -9,7 +9,7 @@
 
 ## 20 October 2026
 
-$\hbox{}$
+&nbsp;
 
 #### This stage:
 https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/cs01/odata-csdl-json-v4.02-cs01.md (Authoritative) \
@@ -42,7 +42,7 @@ Heiko Theißen (heiko.theissen@sap.com), [SAP SE](http://www.sap.com/)
 
 #### [Additional artifacts:]{id=AdditionalArtifacts}
 This prose specification is one component of a Work Product that also includes:
-* JSON schemas: _OData CSDL JSON schema_. https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/cs01/schemas/.
+* JSON schemas: _OData CSDL JSON schema_. https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/cs01/schemas/csdl.schema.json.
 
 #### [Related work:]{id=RelatedWork}
 This specification replaces or supersedes:
@@ -6448,14 +6448,12 @@ acknowledged.
 
 | First Name | Last Name | Company |
 | :--- | :--- | :--- |
-| George | Ericson | Dell |
+| Sebastian | Dobrzynski | SAP SE |
 | Hubert | Heijkers | IBM |
 | Ling | Jin | IBM |
-| Stefan | Hagen | Individual |
 | John | Gathogo | Microsoft |
 | Michael | Pizzo | Microsoft |
 | Olga | Podolyako | Microsoft |
-| Christof | Sprenger | Microsoft |
 | Ralf | Handl | SAP SE |
 | Gerald | Krause | SAP SE |
 | Heiko | Theißen | SAP SE |

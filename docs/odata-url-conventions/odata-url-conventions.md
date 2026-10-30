@@ -9,7 +9,7 @@
 
 ## 20 October 2026
 
-$\hbox{}$
+&nbsp;
 
 #### This stage:
 https://docs.oasis-open.org/odata/odata/v4.02/cs01/part2-url-conventions/odata-v4.02-cs01-part2-url-conventions.md (Authoritative) \
@@ -4408,14 +4408,12 @@ do we have considerations specific to URLs, for example length, encoding, privac
 
 | First Name | Last Name | Company |
 | :--- | :--- | :--- |
-| George | Ericson | Dell |
+| Sebastian | Dobrzynski | SAP SE |
 | Hubert | Heijkers | IBM |
 | Ling | Jin | IBM |
-| Stefan | Hagen | Individual |
 | John | Gathogo | Microsoft |
 | Michael | Pizzo | Microsoft |
 | Olga | Podolyako | Microsoft |
-| Christof | Sprenger | Microsoft |
 | Ralf | Handl | SAP SE |
 | Gerald | Krause | SAP SE |
 | Heiko | Theißen | SAP SE |

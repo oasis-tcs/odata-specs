@@ -9,7 +9,7 @@
 
 ## $$$pubdate$$$
 
-$\hbox{}$
+&nbsp;
 
 #### This stage:
 https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/$$$stage$$$/$$$filename$$$.md (Authoritative) \
