@@ -8,7 +8,7 @@
 
 ## 20 October 2026
 
-$`\hbox{}`$
+ 
 
 #### This stage:
 
@@ -263,7 +263,7 @@ Core terms needed to write vocabularies
 | [OptimisticConcurrency](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L440) | \[PropertyPath\] | <a name="Core-OptimisticConcurrency"></a>Data modification requires the use of ETags. A non-empty collection contains the set of properties that are used to compute the ETag. An empty collection means that the service won’t tell how it computes the ETag |
 | [AdditionalProperties](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L444) | [Tag](#Core-Tag) | <a name="Core-AdditionalProperties"></a>Instances of this type may contain properties in addition to those declared in \$metadata<br>If specified as false clients can assume that instances will not contain dynamic properties, irrespective of the value of the OpenType attribute. |
 | [AutoExpand](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L449) | [Tag](#Core-Tag) | <a name="Core-AutoExpand"></a>The service will automatically expand this stream property, navigation property, or the media stream of this media entity type even if not requested with \$expand |
-| [AutoExpandReferences](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L453) | [Tag](#Core-Tag) | <a name="Core-AutoExpandReferences"></a>The service will automatically expand this navigation property as entity references even if not requested with $`expand=.../`$ref |
+| [AutoExpandReferences](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L453) | [Tag](#Core-Tag) | <a name="Core-AutoExpandReferences"></a>The service will automatically expand this navigation property as entity references even if not requested with $expand=.../$ref |
 | [MayImplement](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L457) | \[[QualifiedTypeName](#Core-QualifiedTypeName)\] | <a name="Core-MayImplement"></a>A collection of qualified type names outside of the type hierarchy that instances of this type might be addressable as by using a type-cast segment. |
 | [Ordered](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L484) | [Tag](#Core-Tag) | <a name="Core-Ordered"></a>Collection has a stable order. Ordered collections of primitive or complex types can be indexed by ordinal. |
 | [PositionalInsert](https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Core.V1.xml#L488) | [Tag](#Core-Tag) | <a name="Core-PositionalInsert"></a>Items can be inserted at a given ordinal index. |

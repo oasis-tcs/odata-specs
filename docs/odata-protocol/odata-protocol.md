@@ -9,7 +9,7 @@
 
 ## 20 October 2026
 
-$\hbox{}$
+&nbsp;
 
 #### This stage:
 https://docs.oasis-open.org/odata/odata/v4.02/cs01/part1-protocol/odata-v4.02-cs01-part1-protocol.md (Authoritative) \

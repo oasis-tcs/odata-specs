@@ -9,7 +9,7 @@
 
 ## 20 October 2026
 
-$\hbox{}$
+&nbsp;
 
 #### This stage:
 https://docs.oasis-open.org/odata/odata-json-format/v4.02/cs01/odata-json-format-v4.02-cs01.md (Authoritative) \

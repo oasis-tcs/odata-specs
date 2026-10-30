@@ -9,7 +9,7 @@
 
 ## 20 October 2026
 
-$\hbox{}$
+&nbsp;
 
 #### This stage:
 https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/cs01/odata-csdl-json-v4.02-cs01.md (Authoritative) \

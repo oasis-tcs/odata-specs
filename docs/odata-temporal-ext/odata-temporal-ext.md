@@ -9,7 +9,7 @@
 
 ## 25 January 2022
 
-$\hbox{}$
+&nbsp;
 
 #### This stage:
 https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/csd04/odata-temporal-ext-v4.0-csd04.md (Authoritative) \

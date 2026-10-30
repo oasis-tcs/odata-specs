@@ -9,7 +9,7 @@
 
 ## $$$pubdate$$$
 
-$\hbox{}$
+&nbsp;
 
 #### This stage:
 https://docs.oasis-open.org/odata/odata-json-format/v4.02/$$$stage$$$/$$$filename$$$.md (Authoritative) \
