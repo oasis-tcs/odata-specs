@@ -82,7 +82,7 @@ When referencing this specification the following citation format should be used
 
 _$$$pagetitle$$$_.
 Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. $$$pubdate$$$. OASIS $$$subtitle$$$.
-https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/$$$filename$$$.html.
+https://docs.oasis-open.org/odata/odata/v4.02/$$$stage$$$/$$$partname$$$/$$$filename$$$.html.
 Latest stage: https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html.
 
 #### Notices

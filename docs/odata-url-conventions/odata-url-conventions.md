@@ -81,7 +81,7 @@ When referencing this specification the following citation format should be used
 
 _OData Version 4.02. Part 2: URL Conventions_.
 Edited by Michael Pizzo, Ralf Handl, and Heiko Theißen. 20 October 2026. OASIS Committee Specification 01.
-https://docs.oasis-open.org/odata/odata/v4.02/cs01/odata-v4.02-cs01-part2-url-conventions.html.
+https://docs.oasis-open.org/odata/odata/v4.02/cs01/part2-url-conventions/odata-v4.02-cs01-part2-url-conventions.html.
 Latest stage: https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part2-url-conventions.html.
 
 #### Notices
