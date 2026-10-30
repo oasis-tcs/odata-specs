@@ -5,8 +5,8 @@ subtitle: Committee Specification 01
 filename: odata-json-format-v4.02-cs01
 stage: cs01
 previousStage: csd02
-pubdate: 7 October 2026
-pubdateISO: '2026-10-07'
+pubdate: 20 October 2026
+pubdateISO: '2026-10-20'
 copyright: © OASIS Open 2026
 OData-ABNF: https://docs.oasis-open.org/odata/odata/v4.02/cs01/abnf/syntax-diagram/odata-abnf-diagrams.html
 OData-Voc: https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/cs01/odata-vocabularies-v4.0-cs01.html
