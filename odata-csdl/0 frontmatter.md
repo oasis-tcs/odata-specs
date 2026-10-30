@@ -43,10 +43,10 @@ Heiko Theißen (heiko.theissen@sap.com), [SAP SE](http://www.sap.com/)
 #### [Additional artifacts:]{id=AdditionalArtifacts}
 This prose specification is one component of a Work Product that also includes:
 : varjson
-* JSON schemas: _OData CSDL JSON schema_. https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/$$$stage$$$/schemas/.
+* JSON schemas: _OData CSDL JSON schema_. https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/$$$stage$$$/schemas/csdl.schema.json.
 :
 : varxml
-* XML schemas: _OData EDMX XML Schema and OData EDM XML Schema_. https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/$$$stage$$$/schemas/.
+* XML schemas: _OData EDMX XML Schema and OData EDM XML Schema_. https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/$$$stage$$$/schemas/edmx.xsd and https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/$$$stage$$$/schemas/edm.xsd.
 :
 
 #### [Related work:]{id=RelatedWork}

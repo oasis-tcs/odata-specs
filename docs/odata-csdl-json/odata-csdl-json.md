@@ -42,7 +42,7 @@ Heiko Theißen (heiko.theissen@sap.com), [SAP SE](http://www.sap.com/)
 
 #### [Additional artifacts:]{id=AdditionalArtifacts}
 This prose specification is one component of a Work Product that also includes:
-* JSON schemas: _OData CSDL JSON schema_. https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/cs01/schemas/.
+* JSON schemas: _OData CSDL JSON schema_. https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/cs01/schemas/csdl.schema.json.
 
 #### [Related work:]{id=RelatedWork}
 This specification replaces or supersedes:
