@@ -1,34 +1,27 @@
 @media print {
   @page {
+    --pagedjs_margin-font-size: 10px;
     size: letter;
     margin: 50px 0.25in 60px 0;
     @top-center {
       content: "Standards Track Work Product";
-      font-family:
-        LiberationSans, "Liberation Sans", Arial, Helvetica, sans-serif;
-      font-size: 10px;
+      font-size: var(--pagedjs_margin-font-size);
       text-align: center;
     }
     @bottom-left {
       content: var(--meta-filename);
-      font-family:
-        LiberationSans, "Liberation Sans", Arial, Helvetica, sans-serif;
-      font-size: 10px;
+      font-size: var(--pagedjs_margin-font-size);
       text-align: left;
     }
     @bottom-center {
       content: "Copyright " var(--meta-copyright) ". All Rights Reserved.";
-      font-family:
-        LiberationSans, "Liberation Sans", Arial, Helvetica, sans-serif;
-      font-size: 10px;
+      font-size: var(--pagedjs_margin-font-size);
       text-align: center;
     }
     @bottom-right {
       content: var(--meta-pubdate) " - Page " counter(page) " of "
         counter(pages);
-      font-family:
-        LiberationSans, "Liberation Sans", Arial, Helvetica, sans-serif;
-      font-size: 10px;
+      font-size: var(--pagedjs_margin-font-size);
       text-align: right;
     }
   }
