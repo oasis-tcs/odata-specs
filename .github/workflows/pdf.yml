@@ -21,3 +21,5 @@ jobs:
           git add docs/*/*.pdf
           git diff-index --quiet HEAD docs/*/*.pdf || git commit -m "PDF generation"
           git push
+        env:
+          CHROME_DEVEL_SANDBOX: /opt/google/chrome/chrome-sandbox
