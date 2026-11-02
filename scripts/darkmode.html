@@ -1,6 +1,4 @@
 <script type="text/javascript">
-  let darkmode_query, darkmode_switch;
-
   function darkmode_auto() {
     if (darkmode_switch.value === "auto") {
       if (darkmode_query.matches)
@@ -24,13 +22,10 @@
     }
   }
 
-  if (!matchMedia("print").matches) {
-    darkmode_query = matchMedia("(prefers-color-scheme: dark)");
-    darkmode_query.addEventListener("change", darkmode_auto);
-    darkmode_switch = document.querySelector("#darkmode select");
-    darkmode_switch.value =
-      localStorage.getItem("odata-specs/darkmode") || "off";
-    darkmode_switch.addEventListener("change", darkmode_manual);
-    darkmode_manual();
-  }
+  const darkmode_query = matchMedia("(prefers-color-scheme: dark)");
+  darkmode_query.addEventListener("change", darkmode_auto);
+  const darkmode_switch = document.querySelector("#darkmode select");
+  darkmode_switch.value = localStorage.getItem("odata-specs/darkmode") || "off";
+  darkmode_switch.addEventListener("change", darkmode_manual);
+  darkmode_manual();
 </script>
