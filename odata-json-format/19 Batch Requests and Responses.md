@@ -129,7 +129,7 @@ containing the value of the request body.
 
 For all other media types the value of `body` is a string
 containing the base64url-encoded value of the request body. In this case
-the body content can be compressed if this is correctly
+the value can be compressed if this is correctly
 reflected in the `Content-Encoding` header.
 
 A `body` MUST NOT be specified if the `method` is `get` or `delete`.
