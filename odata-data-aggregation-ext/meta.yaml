@@ -33,3 +33,4 @@ description:
   to the Open Data Protocol (OData) without changing any of the base principles of OData.
 pandocOptions:
   -c: styles/style.css
+  -H: scripts/mathjax.html

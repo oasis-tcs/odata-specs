@@ -75,7 +75,7 @@ When referencing this specification the following citation format should be used
 _$$$pagetitle$$$_.
 Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. $$$pubdate$$$. OASIS $$$subtitle$$$.
 https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/$$$stage$$$/$$$filename$$$.html.
-Latest stage: https://docs.oasis-open.org/odata/odata-vocabularies/v4.0/odata-vocabularies-v4.0.html.
+Latest stage: $$$url$$$.
 
 #### Notices
 Copyright $$$copyright$$$. All Rights Reserved.
