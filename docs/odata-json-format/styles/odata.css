@@ -110,52 +110,6 @@ table {
   bottom: 0;
 }
 
-.cross tbody tr:first-of-type,
-.cross tbody tr:nth-of-type(2),
-.cross td:first-of-type,
-.cross td:nth-of-type(2) {
-  font-weight: bold;
-  color: white;
-  background-color: #446caa;
-}
-
-.cross tbody tr:first-of-type td:first-of-type,
-.cross tbody tr:nth-of-type(2) td:first-of-type,
-.cross tbody tr:first-of-type td:nth-of-type(2),
-.cross tbody tr:nth-of-type(2) td:nth-of-type(2) {
-  border: none;
-  background-color: white;
-}
-
-.example-data th:first-of-type:not(:last-of-type),
-.legend tbody tr:first-of-type {
-  background-color: green;
-}
-
-.nav-2 th:nth-of-type(2),
-.nav-3 th:nth-of-type(3),
-.nav-4 th:nth-of-type(4),
-.nav-5 th:nth-of-type(5),
-.nav-6 th:nth-of-type(6),
-.legend tbody tr:last-of-type {
-  background-color: rgb(255, 128, 0);
-}
-
-.key-1 th:first-of-type {
-  background-color: olive;
-}
-
-.obj-1 th:first-of-type,
-.obj-2 th:nth-of-type(2),
-.obj-3 th:nth-of-type(3) {
-  background-color: green;
-}
-
-.temp-2 th:nth-of-type(2),
-.temp-4 th:nth-of-type(4) {
-  background-color: mediumseagreen;
-}
-
 .legend td {
   font-weight: bold;
   color: white;
@@ -288,8 +242,4 @@ h6 {
 .side-by-side,
 td {
   page-break-inside: avoid;
-}
-
-h2[id="22-example-data"] {
-  page-break-before: always;
 }

@@ -9,7 +9,7 @@
 
 ## $$$pubdate$$$
 
-$\hbox{}$
+&nbsp;
 
 #### This stage:
 https://docs.oasis-open.org/odata/$$$dirname$$$/v4.02/$$$stage$$$/$$$filename$$$.md (Authoritative) \
@@ -43,10 +43,10 @@ Heiko Theißen (heiko.theissen@sap.com), [SAP SE](http://www.sap.com/)
 #### [Additional artifacts:]{id=AdditionalArtifacts}
 This prose specification is one component of a Work Product that also includes:
 : varjson
-* JSON schemas: _OData CSDL JSON schema_. https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/$$$stage$$$/schemas/.
+* JSON schemas: _OData CSDL JSON schema_. https://docs.oasis-open.org/odata/odata-csdl-json/v4.02/$$$stage$$$/schemas/csdl.schema.json.
 :
 : varxml
-* XML schemas: _OData EDMX XML Schema and OData EDM XML Schema_. https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/$$$stage$$$/schemas/.
+* XML schemas: _OData EDMX XML Schema and OData EDM XML Schema_. https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/$$$stage$$$/schemas/edmx.xsd and https://docs.oasis-open.org/odata/odata-csdl-xml/v4.02/$$$stage$$$/schemas/edm.xsd.
 :
 
 #### [Related work:]{id=RelatedWork}
@@ -106,7 +106,7 @@ When referencing this specification the following citation format should be used
 _$$$pagetitle$$$_.
 Edited by Ralf Handl, Michael Pizzo, and Heiko Theißen. $$$pubdate$$$. OASIS $$$subtitle$$$.
 https://docs.oasis-open.org/odata/$$$dirname$$$/v4.02/$$$stage$$$/$$$filename$$$.html.
-Latest stage: https://docs.oasis-open.org/odata/$$$dirname$$$/v4.02/$$$dirname$$$-v4.02.html.
+Latest stage: $$$url$$$.
 
 #### Notices
 Copyright $$$copyright$$$. All Rights Reserved.
