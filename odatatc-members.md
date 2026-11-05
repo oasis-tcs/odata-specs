@@ -3,11 +3,11 @@
 | First Name | Last Name | Company |
 | :--- | :--- | :--- |
 | Sebastian | Dobrzynski | SAP SE |
+| John | Gathogo | Microsoft |
+| Ralf | Handl | SAP SE |
 | Hubert | Heijkers | IBM |
 | Ling | Jin | IBM |
-| John | Gathogo | Microsoft |
+| Gerald | Krause | SAP SE |
 | Michael | Pizzo | Microsoft |
 | Olga | Podolyako | Microsoft |
-| Ralf | Handl | SAP SE |
-| Gerald | Krause | SAP SE |
 | Heiko | Theißen | SAP SE |
