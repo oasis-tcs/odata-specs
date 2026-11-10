@@ -144,7 +144,7 @@ if the response did not return a `Repeatability-Result` header, then the
 client MUST assume that the request did not reach a server that knows
 about repeatable requests.
 
-If the client does not have out-of-band knowledge that that the server
+If the client does not have out-of-band knowledge that the server
 supports repeatability and the client has not previously sent a
 repeatable request for which it received a `Repeatability-Result` header,
 it MUST NOT assume the server supports repeatability and therefore
@@ -514,7 +514,7 @@ Considerations) as starting points.
 Servers SHOULD authenticate the client before further evaluating the
 repeatability of any requests.
 
-As mentioned in [section 3.1.1](#RepeatabilityRequestID), it is
+As mentioned in [section ##RepeatabilityRequestID], it is
 recommended for security purposes that clients use randomly generated
 `Repeatability-Request-ID` values such as version 4 UUIDs as defined in
 [RFC4122](#rfc4122) section 4.1.3.
@@ -526,24 +526,23 @@ recommended for security purposes that clients use randomly generated
 In order to conform to this specification, a service:
 1.  MUST conform to the semantics of the following headers, or fail the
     request:
-    1.  [`Repeatability-Request-ID`](#RepeatabilityRequestID) ([section ##RepeatabilityRequestID])
-    2.  [`Repeatability-First-Sent`](#RepeatabilityFirstSent) ([section ##RepeatabilityFirstSent])
+    1.  `Repeatability-Request-ID` ([section ##RepeatabilityRequestID])
+    2.  `Repeatability-First-Sent` ([section ##RepeatabilityFirstSent])
 2.  MUST return the [`Repeatability-Result`](#RepeatabilityResult)
     response header in response to repeatable requests ([section ##RepeatableRequest]) with one of the values
-    [accepted](#Accepted) ([section ##Accepted]) or
-    [rejected](#Rejected) ([section ##Rejected])
-3.  MUST follow the guidelines in [Server Behavior](#ServerBehavior)
-    ([section ##ServerBehavior])
+    accepted ([section ##Accepted]) or
+    rejected ([section ##Rejected])
+3.  MUST follow the guidelines in Server Behavior ([section ##ServerBehavior]).
 
 ## ##subsec Client Conformance
 
 If a client wants to safely repeat a request, a client:
 1.  MUST specify the
-    [`Repeatability-Request-ID`](#RepeatabilityRequestID) header in an
-    unsafe request (section [3.1.1](#RepeatabilityRequestID))
+    `Repeatability-Request-ID` header in an
+    unsafe request ([section ##RepeatabilityRequestID])
 2.  MUST specify the
-    [`Repeatability-First-Sent`](#RepeatabilityFirstSent) header in a
-    unsafe request (section [3.1.2](#RepeatabilityFirstSent))
+    `Repeatability-First-Sent` header in an
+    unsafe request ([section ##RepeatabilityFirstSent])
 3.  MUST only repeat a request if it has previously determined (through
     whatever means) that the server supports repeatability and MUST
     specify the repeatability headers ([section ##ClientBehavior]).

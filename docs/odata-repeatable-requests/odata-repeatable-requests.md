@@ -366,7 +366,7 @@ if the response did not return a `Repeatability-Result` header, then the
 client MUST assume that the request did not reach a server that knows
 about repeatable requests.
 
-If the client does not have out-of-band knowledge that that the server
+If the client does not have out-of-band knowledge that the server
 supports repeatability and the client has not previously sent a
 repeatable request for which it received a `Repeatability-Result` header,
 it MUST NOT assume the server supports repeatability and therefore
@@ -748,24 +748,23 @@ recommended for security purposes that clients use randomly generated
 In order to conform to this specification, a service:
 1.  MUST conform to the semantics of the following headers, or fail the
     request:
-    1.  [`Repeatability-Request-ID`](#RepeatabilityRequestID) ([section 3.1.1](#RepeatabilityRequestID))
-    2.  [`Repeatability-First-Sent`](#RepeatabilityFirstSent) ([section 3.1.2](#RepeatabilityFirstSent))
+    1.  `Repeatability-Request-ID` ([section 3.1.1](#RepeatabilityRequestID))
+    2.  `Repeatability-First-Sent` ([section 3.1.2](#RepeatabilityFirstSent))
 2.  MUST return the [`Repeatability-Result`](#RepeatabilityResult)
     response header in response to repeatable requests ([section 2](#RepeatableRequest)) with one of the values
-    [accepted](#Accepted) ([section 3.2.1.1](#Accepted)) or
-    [rejected](#Rejected) ([section 3.2.1.2](#Rejected))
-3.  MUST follow the guidelines in [Server Behavior](#ServerBehavior)
-    ([section 5](#ServerBehavior))
+    accepted ([section 3.2.1.1](#Accepted)) or
+    rejected ([section 3.2.1.2](#Rejected))
+3.  MUST follow the guidelines in Server Behavior ([section 5](#ServerBehavior)).
 
 ## <a id="ClientConformance" href="#ClientConformance">10.2 Client Conformance</a>
 
 If a client wants to safely repeat a request, a client:
 1.  MUST specify the
-    [`Repeatability-Request-ID`](#RepeatabilityRequestID) header in an
-    unsafe request (section [3.1.1](#RepeatabilityRequestID))
+    `Repeatability-Request-ID` header in an
+    unsafe request ([section 3.1.1](#RepeatabilityRequestID))
 2.  MUST specify the
-    [`Repeatability-First-Sent`](#RepeatabilityFirstSent) header in a
-    unsafe request (section [3.1.2](#RepeatabilityFirstSent))
+    `Repeatability-First-Sent` header in an
+    unsafe request ([section 3.1.2](#RepeatabilityFirstSent))
 3.  MUST only repeat a request if it has previously determined (through
     whatever means) that the server supports repeatability and MUST
     specify the repeatability headers ([section 4](#ClientBehavior)).
@@ -832,6 +831,7 @@ The following individuals were members of the OASIS OData Technical Committee du
 - Pablo Castro (Microsoft)
 - Renze de Vries (SDL)
 - Yi Ding (Microsoft)
+- Sebastian Dobrzynski (SAP SE)
 - Rob Dolin (Microsoft)
 - Chet Ensign (OASIS)
 - George Ericson (Dell)
@@ -873,6 +873,7 @@ The following individuals were members of the OASIS OData Technical Committee du
 - Christof Sprenger (Microsoft)
 - Divyansh Srivastava (Microsoft)
 - Congyong Su (Microsoft)
+- Heiko Theißen (SAP SE)
 - Wojciech Trocki (Red Hat)
 - Mathias Uhlmann (SAP SE)
 - Steve Veum (Progress Software)

@@ -106,7 +106,8 @@
     mermaid.initialize({
       startOnLoad: false,
       fontFamily: "Liberation Sans",
-      fontSize: 13.33
+      fontSize: 13.33,
+      mirrorActors: false
     });
     mermaid.run({ nodes: document.querySelectorAll(".mermaid code") });
   </script>
@@ -399,7 +400,7 @@ end</code></pre>
 <p>If the request fails to return, for example, due to connection issues, what the client can do will depend on what it already knows about the server.</p>
 <p>If the client has out-of-band knowledge that the server supports repeatability, then the client can safely re-execute the request.</p>
 <p>If the client had previously executed a repeatable request for which it got a response, it can also determine whether the server supports repeatability based on whether or not the server responded with a <code>Repeatability-Result</code> header. If the server responded with a <code>Repeatability-Result</code> header the client knows that the server supports repeatability; re-executing the request in this case is safe. However, if the response did not return a <code>Repeatability-Result</code> header, then the client MUST assume that the request did not reach a server that knows about repeatable requests.</p>
-<p>If the client does not have out-of-band knowledge that that the server supports repeatability and the client has not previously sent a repeatable request for which it received a <code>Repeatability-Result</code> header, it MUST NOT assume the server supports repeatability and therefore cannot safely re-execute the request. In this case, re-issuing the request MAY result in multiple executions.</p>
+<p>If the client does not have out-of-band knowledge that the server supports repeatability and the client has not previously sent a repeatable request for which it received a <code>Repeatability-Result</code> header, it MUST NOT assume the server supports repeatability and therefore cannot safely re-execute the request. In this case, re-issuing the request MAY result in multiple executions.</p>
 <p>If the client has determined that the server supports repeatability, it can re-execute a request for which it did not receive a response by sending the request again with the same <code>Repeatability-Request-ID</code> and <code>Repeatability-First-Sent</code> headers (and <code>Repeatability-Client-ID</code>, if it was specified previously).</p>
 <p>If the request returns with a <code>Repeatability-Result</code> header with a value of accepted then the client knows that the request has been executed in a repeatable manner and consumes the results.</p>
 <p>If the request returns with a <code>Repeatability-Result</code> header with a value of rejected then the client knows that the creation time is beyond the window of requests that the server has stored and it cannot safely retry the operation, or some other error has occurred (for example, the <code>Repeatability-Request-ID</code> and <code>Repeatability-First-Sent</code> values were inconsistent with each other or with a previous request).</p>
@@ -581,11 +582,11 @@ Repeatability-Result: accepted</code></pre>
 <ol type="1">
 <li>MUST conform to the semantics of the following headers, or fail the request:
 <ol type="1">
-<li><a href="#RepeatabilityRequestID"><code>Repeatability-Request-ID</code></a> (<a href="#RepeatabilityRequestID">section 3.1.1</a>)</li>
-<li><a href="#RepeatabilityFirstSent"><code>Repeatability-First-Sent</code></a> (<a href="#RepeatabilityFirstSent">section 3.1.2</a>)</li>
+<li><code>Repeatability-Request-ID</code> (<a href="#RepeatabilityRequestID">section 3.1.1</a>)</li>
+<li><code>Repeatability-First-Sent</code> (<a href="#RepeatabilityFirstSent">section 3.1.2</a>)</li>
 </ol></li>
-<li>MUST return the <a href="#RepeatabilityResult"><code>Repeatability-Result</code></a> response header in response to repeatable requests (<a href="#RepeatableRequest">section 2</a>) with one of the values <a href="#Accepted">accepted</a> (<a href="#Accepted">section 3.2.1.1</a>) or <a href="#Rejected">rejected</a> (<a href="#Rejected">section 3.2.1.2</a>)</li>
-<li>MUST follow the guidelines in <a href="#ServerBehavior">Server Behavior</a> (<a href="#ServerBehavior">section 5</a>)</li>
+<li>MUST return the <a href="#RepeatabilityResult"><code>Repeatability-Result</code></a> response header in response to repeatable requests (<a href="#RepeatableRequest">section 2</a>) with one of the values accepted (<a href="#Accepted">section 3.2.1.1</a>) or rejected (<a href="#Rejected">section 3.2.1.2</a>)</li>
+<li>MUST follow the guidelines in Server Behavior (<a href="#ServerBehavior">section 5</a>).</li>
 </ol>
 </details>
 <details open><summary>
@@ -593,8 +594,8 @@ Repeatability-Result: accepted</code></pre>
 </summary>
 <p>If a client wants to safely repeat a request, a client:</p>
 <ol type="1">
-<li>MUST specify the <a href="#RepeatabilityRequestID"><code>Repeatability-Request-ID</code></a> header in an unsafe request (section <a href="#RepeatabilityRequestID">3.1.1</a>)</li>
-<li>MUST specify the <a href="#RepeatabilityFirstSent"><code>Repeatability-First-Sent</code></a> header in a unsafe request (section <a href="#RepeatabilityFirstSent">3.1.2</a>)</li>
+<li>MUST specify the <code>Repeatability-Request-ID</code> header in an unsafe request (<a href="#RepeatabilityRequestID">section 3.1.1</a>)</li>
+<li>MUST specify the <code>Repeatability-First-Sent</code> header in an unsafe request (<a href="#RepeatabilityFirstSent">section 3.1.2</a>)</li>
 <li>MUST only repeat a request if it has previously determined (through whatever means) that the server supports repeatability and MUST specify the repeatability headers (<a href="#ClientBehavior">section 4</a>).</li>
 </ol>
 </details>
@@ -656,6 +657,7 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <li>Pablo Castro (Microsoft)</li>
 <li>Renze de Vries (SDL)</li>
 <li>Yi Ding (Microsoft)</li>
+<li>Sebastian Dobrzynski (SAP SE)</li>
 <li>Rob Dolin (Microsoft)</li>
 <li>Chet Ensign (OASIS)</li>
 <li>George Ericson (Dell)</li>
@@ -697,6 +699,7 @@ See link in “<a href="#RelatedWork">Related work</a>” section on cover page.
 <li>Christof Sprenger (Microsoft)</li>
 <li>Divyansh Srivastava (Microsoft)</li>
 <li>Congyong Su (Microsoft)</li>
+<li>Heiko Theißen (SAP SE)</li>
 <li>Wojciech Trocki (Red Hat)</li>
 <li>Mathias Uhlmann (SAP SE)</li>
 <li>Steve Veum (Progress Software)</li>
