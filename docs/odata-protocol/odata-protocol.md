@@ -9,7 +9,7 @@
 
 ## 20 October 2026
 
-$\hbox{}$
+&nbsp;
 
 #### This stage:
 https://docs.oasis-open.org/odata/odata/v4.02/cs01/part1-protocol/odata-v4.02-cs01-part1-protocol.md (Authoritative) \
@@ -7609,16 +7609,14 @@ The following individuals were members of the OASIS OData Technical Committee du
 
 | First Name | Last Name | Company |
 | :--- | :--- | :--- |
-| George | Ericson | Dell |
+| Sebastian | Dobrzynski | SAP SE |
+| John | Gathogo | Microsoft |
+| Ralf | Handl | SAP SE |
 | Hubert | Heijkers | IBM |
 | Ling | Jin | IBM |
-| Stefan | Hagen | Individual |
-| John | Gathogo | Microsoft |
+| Gerald | Krause | SAP SE |
 | Michael | Pizzo | Microsoft |
 | Olga | Podolyako | Microsoft |
-| Christof | Sprenger | Microsoft |
-| Ralf | Handl | SAP SE |
-| Gerald | Krause | SAP SE |
 | Heiko | Theißen | SAP SE |
 
 -------

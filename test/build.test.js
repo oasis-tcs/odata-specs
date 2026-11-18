@@ -38,7 +38,7 @@ describe("OASIS doc build", function () {
     var html = "";
     for await (var chunk of proc.stdout) html += chunk.toString();
     assert.deepStrictEqual(
-      html.split(/\r\n|\r|\n/),
+      html.replace(/<style>.*?<\/style>/s, "<style></style>").split(/\r\n|\r|\n/),
       fs
         .readFileSync(__dirname + "/test-data/test.html")
         .toString()

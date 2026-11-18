@@ -95,7 +95,7 @@ The following scripts can be executed manually or as part of a GitHub Action:
 
 ## A note on diagrams
 
-Mermaid has not been used, instead the diagrams in section 2 of [`odata-data-aggregation-ext`](../odata-data-aggregation-ext) have been produced
+Instead of using Mermaid, the diagrams in section 2 of [`odata-data-aggregation-ext`](../odata-data-aggregation-ext) have been produced
 
 - in section 2.1 with Visio and exported as SVG (as described [here](../odata-data-aggregation-ext/diagrams))
 - in sections 2.2 and 2.3 with Markdown tables and CSS-positioned SVG.

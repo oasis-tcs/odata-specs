@@ -72,13 +72,11 @@ https://www.ecma-international.org/publications-and-standards/standards/ecma-262
 _OpenGIS Implementation Specification for Geographic information – Simple feature access – Part 1: Common architecture_, May 2011. Open Geospatial Consortium.
 https://www.ogc.org/standard/sfa/.
 
-<!-- TODO:
 -------
 
-# Appendix Safety, Security and Privacy Considerations
+# Appendix ##asec Safety, Security and Privacy Considerations
 
-do we have considerations specific to URLs, for example length, encoding, privacy (use $batch if in doubt), ...?
--->
+The considerations expressed in [OData-Protocol, appendix #OData-Protocol#SafetySecurityandPrivacyConsiderations] apply.
 
 -------
 
