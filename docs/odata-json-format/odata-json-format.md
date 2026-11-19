@@ -3375,7 +3375,7 @@ Content-Length: ###
       "method": "patch",
       "url": "/service/Customers('ALFKI')/Image",
       "headers": {
-        "content-type": "image/jpg",
+        "content-type": "image/jpeg",
         "content-encoding": "gzip"
       },
       "body": <gzipped JPEG image in base64url encoding>
