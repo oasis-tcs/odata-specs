@@ -71,7 +71,7 @@ A monospaced font (Courier New) is used for keywords, OData requests and their J
 
 [`npm start`](server.js) starts a web server that serves such HTML files and the static `.css` files without writing intermediate files. This allows authors to see the effects of every change to the source folder in the working tree after saving the source files which triggers a browser auto-refresh.
 
-The [`pdf.js`](pdf.js) module uses a headless browser ([`puppeteer`](https://github.com/puppeteer/puppeteer#puppeteer)) to convert the HTML file into a PDF file with OASIS headers and footers.
+`npm start pdf:<odata-*>` uses [PagedJs](https://pagedjs.org) to produce a paged HTML file with OASIS headers and footers and a headless browser ([`puppeteer`](https://github.com/puppeteer/puppeteer#puppeteer)) to convert it into a PDF file.
 
 The following scripts can be executed manually or as part of a GitHub Action:
 
@@ -81,7 +81,7 @@ The following scripts can be executed manually or as part of a GitHub Action:
   - a copy of the common [`styles`](../styles) folder
   - a copy of the document-specific `*/images` folder, if this exists.
 - `npm run build repo:odata-vocabularies` additionally produces [`docs/odata-vocabularies`](../docs/odata-vocabularies) based on the contents of the `oasis-tcs/odata-vocabularies` repository.
-- [`npm run pdf`](build-pdf.mjs) runs the PDF conversion and writes the PDF document into the [`docs/*`](../docs) folder.
+- `npm run pdf` runs the PDF conversion for all HTML files and writes the PDF documents into the [`docs/*`](../docs) folder.
 - [`npm run zip <yyyy-MM-dd>`](zip.js) creates ZIP files for OASIS public review of documents with the given publication date. The ZIP files are written into the [`zip`](../zip) folder.
 - [`npm run select <CSS selector> [<XPath expression>]`](selector.mjs) selects parts of the generated HTML documents by executing a CSS selector and optionally an XPath expression relative to each match. For example, syntax errors in JSON code snippets can be detected with
   ```sh

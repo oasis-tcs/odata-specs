@@ -8,6 +8,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
+      - name: Setup pandoc
+        uses: r-lib/actions/setup-pandoc@v2
+        with:
+          pandoc-version: 3.8.3
       - name: Generate PDF
         run: |
           npm ci

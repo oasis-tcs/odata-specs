@@ -5,7 +5,7 @@
   "main": "lib/server.js",
   "scripts": {
     "build": "node lib/build.js",
-    "pdf": "node lib/build-pdf.js",
+    "pdf": "node lib/server pdf",
     "zip": "node lib/zip.js",
     "start": "node lib/server",
     "minutes": "node lib/minutes.mjs",
