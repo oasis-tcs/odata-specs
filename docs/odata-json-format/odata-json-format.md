@@ -3319,9 +3319,7 @@ For media types of top-level type `text`, for example
 containing the value of the request body.
 
 For all other media types the value of `body` is a string
-containing the base64url-encoded value of the request body. In this case
-the value can be compressed if this is correctly
-reflected in the `Content-Encoding` header.
+containing the base64url-encoded value of the request body.
 
 A `body` MUST NOT be specified if the `method` is `get` or `delete`.
 
@@ -3341,6 +3339,10 @@ the following individual requests in the order listed
 Note: For brevity, in the example, request bodies are excluded in favor
 of English descriptions inside `<>` brackets and
 `OData-Version` headers are omitted.
+
+Request 2 shows how content-encoding of HTTP payloads can be applied
+to the value of a request or response body before base64url encoding for content types
+other than `application/json`.
 ```json
 POST /service/$batch HTTP/1.1
 Host: host
@@ -3369,12 +3371,24 @@ Content-Length: ###
     {
       "id": "2",
       "atomicityGroup": "group1",
+      "dependsOn": [ "0" ],
+      "method": "patch",
+      "url": "/service/Customers('ALFKI')/Image",
+      "headers": {
+        "content-type": "image/jpg",
+        "content-encoding": "gzip"
+      },
+      "body": <gzipped JPEG image in base64url encoding>
+    },
+    {
+      "id": "3",
+      "atomicityGroup": "group1",
       "method": "post",
       "url": "/service/Customers",
       "body": <JSON representation of a new Customer entity>
     },
     {
-      "id": "3",
+      "id": "4",
       "dependsOn": [ "group1" ],
       "method": "get",
       "url": "/service/Products"

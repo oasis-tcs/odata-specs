@@ -6484,6 +6484,9 @@ Note also that the two empty lines after the `Host` header of the `GET`
 request are necessary: the first is part of the `GET` request header;
 the second is the empty body of the `GET` request, followed by a `CRLF`
 according to [RFC2046](#rfc2046).
+
+Request 3 shows how content-encoding of HTTP payloads can be applied
+to the value of a request or response body.
 ```
 POST /service/$batch HTTP/1.1
 Host: host
@@ -6523,6 +6526,17 @@ Prefer: return=minimal
 Content-Length: ###
 
 <JSON representation of changes to Customer ALFKI>
+--changeset_77162fcd-b8da-41ac-a9f8-9357efbbd
+Content-Type: application/http
+Content-ID: 3
+
+PATCH /service/Customers('ALFKI')/Image HTTP/1.1
+Host: host
+Content-Type: image/jpeg
+Content-Encoding: gzip
+Content-Length: ###
+
+<gzipped JPEG image in base64url encoding>
 --changeset_77162fcd-b8da-41ac-a9f8-9357efbbd--
 --batch_36522ad7-fc75-4b56-8c71-56071383e77b
 Content-Type: application/http
