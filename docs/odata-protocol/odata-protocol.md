@@ -6474,6 +6474,7 @@ requests in the order listed
   2. A change set that contains the following requests:
      - Insert entity (with `Content-ID = 1`)
      - Update entity (with `Content-ID = 2`)
+     - Update stream property of entity (with `Content-ID = 3`)
   3. A second query request
 
 Note: For brevity, in the example, request bodies are excluded in favor
@@ -6485,8 +6486,8 @@ request are necessary: the first is part of the `GET` request header;
 the second is the empty body of the `GET` request, followed by a `CRLF`
 according to [RFC2046](#rfc2046).
 
-Request 3 shows how content-encoding of HTTP payloads can be applied
-to the value of a request or response body.
+The update stream property request shows how content-encoding of HTTP payloads
+[RFC9110, section 8.4](#rfc9110) can be applied to the value of a request or response body.
 ```
 POST /service/$batch HTTP/1.1
 Host: host

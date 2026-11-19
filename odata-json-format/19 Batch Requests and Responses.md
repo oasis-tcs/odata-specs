@@ -143,15 +143,16 @@ the following individual requests in the order listed
   2. An atomicity group that contains the following requests:
      - Insert entity
      - Update entity
+     - Update stream property of entity
   3. A second query request
 
 Note: For brevity, in the example, request bodies are excluded in favor
 of English descriptions inside `<>` brackets and
 `OData-Version` headers are omitted.
 
-Request 2 shows how content-encoding of HTTP payloads can be applied
+The update stream property request shows how content-encoding of HTTP payloads can be applied
 to the value of a request or response body before base64url encoding for content types
-other than `application/json` and `text`.
+other than `application/json` and `text`. Compare this with [OData-Protocol, example #OData-Protocol#batchRequest].
 ```json
 POST /service/$batch HTTP/1.1
 Host: host
