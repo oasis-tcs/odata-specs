@@ -86,7 +86,7 @@ When referencing this specification the following citation format should be used
 _$$$pagetitle$$$_.
 Edited by Ralf Handl, Hubert Heijkers, Gerald Krause, Michael Pizzo, Heiko Theißen, and Martin Zurmuehl. $$$pubdate$$$. OASIS $$$subtitle$$$.
 https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/$$$stage$$$/$$$filename$$$.html.
-Latest stage: https://docs.oasis-open.org/odata/odata-temporal-ext/v4.0/odata-temporal-ext-v4.0.html.
+Latest stage: $$$url$$$.
 
 #### Notices
 Copyright $$$copyright$$$. All Rights Reserved.

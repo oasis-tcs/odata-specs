@@ -238,10 +238,11 @@ For complete copyright information please see the full Notices section in an App
 - [A References](#References)
   - [A.1 Normative References](#NormativeReferences)
   - [A.2 Informative References](#InformativeReferences)
-- [B Acknowledgments](#Acknowledgments)
-  - [B.1 Participants](#Participants)
-- [C Revision History](#RevisionHistory)
-- [D Notices](#Notices)
+- [B Safety, Security and Privacy Considerations](#SafetySecurityandPrivacyConsiderations)
+- [C Acknowledgments](#Acknowledgments)
+  - [C.1 Participants](#Participants)
+- [D Revision History](#RevisionHistory)
+- [E Notices](#Notices)
 :::
 
 
@@ -4390,37 +4391,35 @@ https://www.ecma-international.org/publications-and-standards/standards/ecma-262
 _OpenGIS Implementation Specification for Geographic information – Simple feature access – Part 1: Common architecture_, May 2011. Open Geospatial Consortium.
 https://www.ogc.org/standard/sfa/.
 
-<!-- TODO:
 -------
 
-# Appendix Safety, Security and Privacy Considerations
+# <a id="SafetySecurityandPrivacyConsiderations" href="#SafetySecurityandPrivacyConsiderations">Appendix B. Safety, Security and Privacy Considerations</a>
 
-do we have considerations specific to URLs, for example length, encoding, privacy (use $batch if in doubt), ...?
--->
+The considerations expressed in [OData-Protocol, appendix B](https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#SafetySecurityandPrivacyConsiderations) apply.
 
 -------
 
-# <a id="Acknowledgments" href="#Acknowledgments">Appendix B. Acknowledgments</a>
+# <a id="Acknowledgments" href="#Acknowledgments">Appendix C. Acknowledgments</a>
 
-## <a id="Participants" href="#Participants">B.1 Participants</a>
+## <a id="Participants" href="#Participants">C.1 Participants</a>
 
 **OData TC Members:**
 
 | First Name | Last Name | Company |
 | :--- | :--- | :--- |
 | Sebastian | Dobrzynski | SAP SE |
+| John | Gathogo | Microsoft |
+| Ralf | Handl | SAP SE |
 | Hubert | Heijkers | IBM |
 | Ling | Jin | IBM |
-| John | Gathogo | Microsoft |
+| Gerald | Krause | SAP SE |
 | Michael | Pizzo | Microsoft |
 | Olga | Podolyako | Microsoft |
-| Ralf | Handl | SAP SE |
-| Gerald | Krause | SAP SE |
 | Heiko | Theißen | SAP SE |
 
 -------
 
-# <a id="RevisionHistory" href="#RevisionHistory">Appendix C. Revision History</a>
+# <a id="RevisionHistory" href="#RevisionHistory">Appendix D. Revision History</a>
 
 | Revision | Date | Editor | Changes Made |
 | :--- | :--- | :--- | :--- |
@@ -4430,7 +4429,7 @@ do we have considerations specific to URLs, for example length, encoding, privac
 
 -------
 
-# <a id="Notices" href="#Notices">Appendix D. Notices</a>
+# <a id="Notices" href="#Notices">Appendix E. Notices</a>
 
 <!-- Required section. Do not modify. -->
 
