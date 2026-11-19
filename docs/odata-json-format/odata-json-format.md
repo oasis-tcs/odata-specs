@@ -3372,7 +3372,7 @@ Content-Length: ###
       "id": "2",
       "atomicityGroup": "group1",
       "dependsOn": [ "0" ],
-      "method": "patch",
+      "method": "put",
       "url": "/service/Customers('ALFKI')/Image",
       "headers": {
         "content-type": "image/jpeg",
