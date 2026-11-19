@@ -2164,7 +2164,7 @@ Preference-Applied: return=minimal, continue-on-error
 <li>A second query request</li>
 </ol>
 <p>Note: For brevity, in the example, request bodies are excluded in favor of English descriptions inside <code>&lt;&gt;</code> brackets and <code>OData-Version</code> headers are omitted.</p>
-<p>Request 2 shows how content-encoding of HTTP payloads can be applied to the value of a request or response body before base64url encoding for content types other than <code>application/json</code>.</p>
+<p>Request 2 shows how content-encoding of HTTP payloads can be applied to the value of a request or response body before base64url encoding for content types other than <code>application/json</code> and <code>text</code>.</p>
 <div class="sourceCode" id="cb62"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/service/$batch</span> <span class="er">HTTP/</span><span class="fl">1.1</span></span>
 <span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="er">Host:</span> <span class="er">host</span></span>
 <span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="fl">4.01</span></span>

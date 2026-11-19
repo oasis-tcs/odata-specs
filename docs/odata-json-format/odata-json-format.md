@@ -3342,7 +3342,7 @@ of English descriptions inside `<>` brackets and
 
 Request 2 shows how content-encoding of HTTP payloads can be applied
 to the value of a request or response body before base64url encoding for content types
-other than `application/json`.
+other than `application/json` and `text`.
 ```json
 POST /service/$batch HTTP/1.1
 Host: host
