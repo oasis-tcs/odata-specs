@@ -3285,11 +3285,13 @@ Content-Type: application/json
 <ul>
 <li>Insert entity (with <code>Content-ID = 1</code>)</li>
 <li>Update entity (with <code>Content-ID = 2</code>)</li>
+<li>Update stream property of entity (with <code>Content-ID = 3</code>)</li>
 </ul></li>
 <li>A second query request</li>
 </ol>
 <p>Note: For brevity, in the example, request bodies are excluded in favor of English descriptions inside <code>&lt;&gt;</code> brackets and <code>OData-Version</code> headers are omitted.</p>
 <p>Note also that the two empty lines after the <code>Host</code> header of the <code>GET</code> request are necessary: the first is part of the <code>GET</code> request header; the second is the empty body of the <code>GET</code> request, followed by a <code>CRLF</code> according to <a href="#rfc2046">RFC2046</a>.</p>
+<p>The update stream property request shows how content-encoding of HTTP payloads <a href="#rfc9110">RFC9110, section 8.4</a> can be applied to the value of a request or response body.</p>
 <pre><code>POST /service/$batch HTTP/1.1
 Host: host
 OData-Version: 4.0
@@ -3328,6 +3330,17 @@ Prefer: return=minimal
 Content-Length: ###
 
 &lt;JSON representation of changes to Customer ALFKI&gt;
+--changeset_77162fcd-b8da-41ac-a9f8-9357efbbd
+Content-Type: application/http
+Content-ID: 3
+
+PUT /service/Customers(&#39;ALFKI&#39;)/Image HTTP/1.1
+Host: host
+Content-Type: image/jpeg
+Content-Encoding: gzip
+Content-Length: ###
+
+&lt;gzipped JPEG image&gt;
 --changeset_77162fcd-b8da-41ac-a9f8-9357efbbd--
 --batch_36522ad7-fc75-4b56-8c71-56071383e77b
 Content-Type: application/http

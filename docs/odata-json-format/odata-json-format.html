@@ -2139,7 +2139,7 @@ Preference-Applied: return=minimal, continue-on-error
 <p>The value of <code>body</code> can be <code>null</code>, which is equivalent to not specifying the <code>body</code> name/value pair.</p>
 <p>For media type <code>application/json</code> or one of its subtypes, optionally with format parameters, the value of <code>body</code> is JSON.</p>
 <p>For media types of top-level type <code>text</code>, for example <code>text/plain</code>, the value of <code>body</code> is a string containing the value of the request body.</p>
-<p>For all other media types the value of <code>body</code> is a string containing the base64url-encoded value of the request body. In this case the body content can be compressed or chunked if this is correctly reflected in the <code>Transfer-Encoding</code> header.</p>
+<p>For all other media types the value of <code>body</code> is a string containing the base64url-encoded value of the request body.</p>
 <p>A <code>body</code> MUST NOT be specified if the <code>method</code> is <code>get</code> or <code>delete</code>.</p>
 <p>The request object and the <code>headers</code> object MUST NOT contain name/value pairs with duplicate names. This is in conformance with <a href="#rfc7493">RFC7493</a>.</p>
 <div class="example">
@@ -2150,10 +2150,12 @@ Preference-Applied: return=minimal, continue-on-error
 <ul>
 <li>Insert entity</li>
 <li>Update entity</li>
+<li>Update stream property of entity</li>
 </ul></li>
 <li>A second query request</li>
 </ol>
 <p>Note: For brevity, in the example, request bodies are excluded in favor of English descriptions inside <code>&lt;&gt;</code> brackets and <code>OData-Version</code> headers are omitted.</p>
+<p>The update stream property request shows how content-encoding of HTTP payloads can be applied to the value of a request or response body before base64url encoding for content types other than <code>application/json</code> and <code>text</code>. Compare this with <a href="https://docs.oasis-open.org/odata/odata/v4.02/odata-v4.02-part1-protocol.html#batchRequest">OData-Protocol, example 112</a>.</p>
 <div class="sourceCode" id="cb62"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="er">POST</span> <span class="er">/service/$batch</span> <span class="er">HTTP/</span><span class="fl">1.1</span></span>
 <span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="er">Host:</span> <span class="er">host</span></span>
 <span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="er">OData-Version:</span> <span class="fl">4.01</span></span>
@@ -2181,18 +2183,30 @@ Preference-Applied: return=minimal, continue-on-error
 <span id="cb62-25"><a href="#cb62-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
 <span id="cb62-26"><a href="#cb62-26" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;2&quot;</span><span class="fu">,</span></span>
 <span id="cb62-27"><a href="#cb62-27" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;atomicityGroup&quot;</span><span class="fu">:</span> <span class="st">&quot;group1&quot;</span><span class="fu">,</span></span>
-<span id="cb62-28"><a href="#cb62-28" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;method&quot;</span><span class="fu">:</span> <span class="st">&quot;post&quot;</span><span class="fu">,</span></span>
-<span id="cb62-29"><a href="#cb62-29" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;url&quot;</span><span class="fu">:</span> <span class="st">&quot;/service/Customers&quot;</span><span class="fu">,</span></span>
-<span id="cb62-30"><a href="#cb62-30" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;body&quot;</span><span class="fu">:</span> <span class="er">&lt;JSON</span> <span class="er">representation</span> <span class="er">of</span> <span class="er">a</span> <span class="er">new</span> <span class="er">Customer</span> <span class="er">entity&gt;</span></span>
-<span id="cb62-31"><a href="#cb62-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb62-32"><a href="#cb62-32" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb62-33"><a href="#cb62-33" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;3&quot;</span><span class="fu">,</span></span>
-<span id="cb62-34"><a href="#cb62-34" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;dependsOn&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="st">&quot;group1&quot;</span> <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb62-35"><a href="#cb62-35" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;method&quot;</span><span class="fu">:</span> <span class="st">&quot;get&quot;</span><span class="fu">,</span></span>
-<span id="cb62-36"><a href="#cb62-36" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;url&quot;</span><span class="fu">:</span> <span class="st">&quot;/service/Products&quot;</span></span>
-<span id="cb62-37"><a href="#cb62-37" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="cb62-38"><a href="#cb62-38" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
-<span id="cb62-39"><a href="#cb62-39" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<span id="cb62-28"><a href="#cb62-28" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;dependsOn&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="st">&quot;0&quot;</span> <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb62-29"><a href="#cb62-29" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;method&quot;</span><span class="fu">:</span> <span class="st">&quot;put&quot;</span><span class="fu">,</span></span>
+<span id="cb62-30"><a href="#cb62-30" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;url&quot;</span><span class="fu">:</span> <span class="st">&quot;/service/Customers(&#39;ALFKI&#39;)/Image&quot;</span><span class="fu">,</span></span>
+<span id="cb62-31"><a href="#cb62-31" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;headers&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb62-32"><a href="#cb62-32" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;content-type&quot;</span><span class="fu">:</span> <span class="st">&quot;image/jpeg&quot;</span><span class="fu">,</span></span>
+<span id="cb62-33"><a href="#cb62-33" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;content-encoding&quot;</span><span class="fu">:</span> <span class="st">&quot;gzip&quot;</span></span>
+<span id="cb62-34"><a href="#cb62-34" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
+<span id="cb62-35"><a href="#cb62-35" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;body&quot;</span><span class="fu">:</span> <span class="er">&lt;gzipped</span> <span class="er">JPEG</span> <span class="er">image</span> <span class="er">in</span> <span class="er">base64url</span> <span class="er">encoding&gt;</span></span>
+<span id="cb62-36"><a href="#cb62-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb62-37"><a href="#cb62-37" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb62-38"><a href="#cb62-38" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;3&quot;</span><span class="fu">,</span></span>
+<span id="cb62-39"><a href="#cb62-39" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;atomicityGroup&quot;</span><span class="fu">:</span> <span class="st">&quot;group1&quot;</span><span class="fu">,</span></span>
+<span id="cb62-40"><a href="#cb62-40" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;method&quot;</span><span class="fu">:</span> <span class="st">&quot;post&quot;</span><span class="fu">,</span></span>
+<span id="cb62-41"><a href="#cb62-41" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;url&quot;</span><span class="fu">:</span> <span class="st">&quot;/service/Customers&quot;</span><span class="fu">,</span></span>
+<span id="cb62-42"><a href="#cb62-42" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;body&quot;</span><span class="fu">:</span> <span class="er">&lt;JSON</span> <span class="er">representation</span> <span class="er">of</span> <span class="er">a</span> <span class="er">new</span> <span class="er">Customer</span> <span class="er">entity&gt;</span></span>
+<span id="cb62-43"><a href="#cb62-43" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb62-44"><a href="#cb62-44" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb62-45"><a href="#cb62-45" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;4&quot;</span><span class="fu">,</span></span>
+<span id="cb62-46"><a href="#cb62-46" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;dependsOn&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="st">&quot;group1&quot;</span> <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb62-47"><a href="#cb62-47" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;method&quot;</span><span class="fu">:</span> <span class="st">&quot;get&quot;</span><span class="fu">,</span></span>
+<span id="cb62-48"><a href="#cb62-48" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;url&quot;</span><span class="fu">:</span> <span class="st">&quot;/service/Products&quot;</span></span>
+<span id="cb62-49"><a href="#cb62-49" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb62-50"><a href="#cb62-50" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb62-51"><a href="#cb62-51" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 </details>
 <details open><summary>
