@@ -38,8 +38,6 @@ Documents are generated from Markdown sources using Node.js modules described [h
 
 - `npm run build` builds HTML and Markdown files for publication on <https://oasis-tcs.github.io/odata-specs/>
 
-  - Do this before pushing to GitHub to avoid build errors
-
 - `npm run pdf` converts the HTML files to PDF
   - This is only necessary for publication to the [OASIS Library](https://www.oasis-open.org/standards/)
 
