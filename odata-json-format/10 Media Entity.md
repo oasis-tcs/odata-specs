@@ -37,15 +37,15 @@ A single-valued property or operation response that has the
 [#OData-Protocol#ResponseCode204NoContent].
 
 A property or operation response that is of a primitive type is
-represented as an object with a single name/value pair, whose name is
+represented as an object with a name/value pair whose name is
 `value` and whose value is a [primitive
-value](#PrimitiveValue).
+value](#PrimitiveValue) or `null`.
 
 A property or operation response that is of complex type is represented
 as a [complex value](#ComplexValue).
 
 A property or operation response that is of a collection type is
-represented as an object with a single name/value pair whose name is
+represented as an object with a name/value pair whose name is
 `value`. Its value is the JSON representation of a
 [collection of complex type values](#CollectionofComplexValues) or
 [collection of primitive values](#CollectionofPrimitiveValues).
