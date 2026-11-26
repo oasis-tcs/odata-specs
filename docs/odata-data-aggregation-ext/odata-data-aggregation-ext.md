@@ -1450,7 +1450,7 @@ Note that two Sales entities with the second highest amount 4 exist in the input
 
 ### <a id="Transformationgroupby" href="#Transformationgroupby">3.2.3 Transformation `groupby`</a>
 
-The `groupby` transformation takes one or two parameters where the second is a list of set transformations, separated by forward slashes to express that they are consecutively applied. If the second parameter is not specified, it defaults to a single transformation whose output set consists of a single instance of the [input type](#TypeStructureandContextURL) without properties and without entity-id.
+The `groupby` transformation takes one or two parameters where the second is a list of set transformations, separated by forward slashes to express that they are consecutively applied. If the second parameter is not specified, it defaults to a single transformation whose output set consists of a single instance of the [input type](#TypeStructureandContextURL) without properties and without entity-id. (But the `groupby` transformation works such that its output set can still contain properties in this case, see the explanation before [example 21](#distinct).)
 
 #### <a id="SimpleGrouping" href="#SimpleGrouping">3.2.3.1 Simple Grouping</a>
 
@@ -1515,10 +1515,13 @@ results in
 ```
 :::
 
-If the second parameter is omitted, steps 2 and 3 above produce one instance containing only the grouping properties per distinct value combination.
+If the second parameter of a `groupby` transformation is omitted, the five steps work as follows:
+- After step 3, each resulting set consists of a single instance without properties (`{}`) and is associated with a common projection $s$ containing the grouping properties.
+- The transformation $\Pi_G(s)$ in step 4 brings the grouping properties back into this instance.
+- The result of step 5 consists of one instance containing only the grouping properties per distinct value combination.
 
 ::: example
-⚠ Example 21:
+⚠ Example <a id="distinct" href="#distinct">21</a>:
 ```
 GET /service/Sales?$apply=groupby((Product/Name,Amount))
 ```
