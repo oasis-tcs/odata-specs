@@ -1941,7 +1941,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <details open><summary>
 <h3 id="323-transformation-groupby"><a id="Transformationgroupby" href="#Transformationgroupby">3.2.3 Transformation <code>groupby</code></a></h3>
 </summary>
-<p>The <code>groupby</code> transformation takes one or two parameters where the second is a list of set transformations, separated by forward slashes to express that they are consecutively applied. If the second parameter is not specified, it defaults to a single transformation whose output set consists of a single instance of the <a href="#TypeStructureandContextURL">input type</a> without properties and without entity-id.</p>
+<p>The <code>groupby</code> transformation takes one or two parameters where the second is a list of set transformations, separated by forward slashes to express that they are consecutively applied. If the second parameter is not specified, it defaults to a single transformation whose output set consists of a single instance of the <a href="#TypeStructureandContextURL">input type</a> without properties and without entity-id. (But the <code>groupby</code> transformation works such that its output set can still contain properties in this case, see the explanation before <a href="#distinct">example 21</a>.)</p>
 <details open><summary>
 <h4 id="3231-simple-grouping"><a id="SimpleGrouping" href="#SimpleGrouping">3.2.3.1 Simple Grouping</a></h4>
 </summary>
@@ -2012,7 +2012,7 @@ Let <span class="math inline">\(f(A)=c(A)\)</span>. If computation of the custom
 <li>The result of step 5 consists of one instance containing only the grouping properties per distinct value combination.</li>
 </ul>
 <div class="example">
-<p>⚠ Example 21:</p>
+<p>⚠ Example <a id="distinct" href="#distinct">21</a>:</p>
 <pre><code>GET /service/Sales?$apply=groupby((Product/Name,Amount))</code></pre>
 <p>results in</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
